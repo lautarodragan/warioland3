@@ -28,7 +28,7 @@ DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
 DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
-DebugMenuStrInstr:  db " A:CYCLE  B:EXIT" ; 16 bytes (row 15)
+DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
 
 SETCHARMAP main
 
@@ -520,11 +520,11 @@ UpdateDebugMenu:
 
 	; B button → exit
 	bit B_PAD_B, a
-	jr nz, .exit
+	jp nz, .exit
 
 	; Check for any actionable input
 	ld a, b
-	and PAD_UP | PAD_DOWN | PAD_A
+	and PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT
 	ret z                  ; nothing pressed, done
 
 	; Determine if anything changed (used to trigger redraw)
@@ -554,45 +554,93 @@ UpdateDebugMenu:
 	ld c, 1
 .not_down:
 
-	; A: cycle value of selected item
+	; RIGHT: cycle value forward
 	ld a, b
-	bit B_PAD_A, a
-	jr z, .check_redraw
+	bit B_PAD_RIGHT, a
+	jr z, .not_right
 
 	ld a, [wDebugMenuCursor]
 	and a
-	jr z, .change_power
+	jr z, .change_power_fwd
 	cp 1
-	jr z, .change_form
+	jr z, .change_form_fwd
 	; else: toggle invincible
 	ld a, [wInvincibleCounter]
 	and a
 	ld a, $FF
-	jr z, .set_invnbl
+	jr z, .set_invnbl_r
 	xor a
-.set_invnbl:
+.set_invnbl_r:
+	ld [wInvincibleCounter], a
+	ld c, 1
+	jr .not_right
+
+.change_power_fwd:
+	ld a, [wPowerUpLevel]
+	inc a
+	cp NUM_DEBUG_POWERS
+	jr c, .power_fwd_ok
+	xor a
+.power_fwd_ok:
+	ld [wPowerUpLevel], a
+	ld c, 1
+	jr .not_right
+
+.change_form_fwd:
+	ld a, [wDebugMenuFormIdx]
+	inc a
+	cp NUM_DEBUG_FORMS
+	jr c, .form_fwd_ok
+	xor a
+.form_fwd_ok:
+	ld [wDebugMenuFormIdx], a
+	call DebugMenu_ApplyForm
+	ld c, 1
+.not_right:
+
+	; LEFT: cycle value backward
+	ld a, b
+	bit B_PAD_LEFT, a
+	jr z, .check_redraw
+
+	ld a, [wDebugMenuCursor]
+	and a
+	jr z, .change_power_bwd
+	cp 1
+	jr z, .change_form_bwd
+	; else: toggle invincible (same as right)
+	ld a, [wInvincibleCounter]
+	and a
+	ld a, $FF
+	jr z, .set_invnbl_l
+	xor a
+.set_invnbl_l:
 	ld [wInvincibleCounter], a
 	ld c, 1
 	jr .check_redraw
 
-.change_power:
+.change_power_bwd:
 	ld a, [wPowerUpLevel]
-	inc a
-	cp NUM_DEBUG_POWERS
-	jr c, .power_ok
-	xor a
-.power_ok:
+	and a
+	jr z, .power_bwd_wrap
+	dec a
+	jr .power_bwd_ok
+.power_bwd_wrap:
+	ld a, NUM_DEBUG_POWERS - 1
+.power_bwd_ok:
 	ld [wPowerUpLevel], a
 	ld c, 1
 	jr .check_redraw
 
-.change_form:
+.change_form_bwd:
 	ld a, [wDebugMenuFormIdx]
-	inc a
-	cp NUM_DEBUG_FORMS
-	jr c, .form_ok
-	xor a
-.form_ok:
+	and a
+	jr z, .form_bwd_wrap
+	dec a
+	jr .form_bwd_ok
+.form_bwd_wrap:
+	ld a, NUM_DEBUG_FORMS - 1
+.form_bwd_ok:
 	ld [wDebugMenuFormIdx], a
 	call DebugMenu_ApplyForm
 	ld c, 1
