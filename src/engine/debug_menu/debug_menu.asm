@@ -1,19 +1,23 @@
 SETCHARMAP temple
 
-; Form table: 1 byte transformation value + 5-char name per entry
+; Form table: 8 bytes per entry
+;   [0]   transformation byte
+;   [1]   initial wWarioState
+;   [2]   initial wWarioTransformationProgress
+;   [3-7] 5-char display name
 DebugFormTable:
-	db TRANSFORMATION_NONE,                "NONE "
-	db TRANSFORMATION_HOT_WARIO,           "HOT  "
-	db TRANSFORMATION_FLAT_WARIO,          "FLAT "
-	db TRANSFORMATION_BALL_O_STRING_WARIO, "STRNG"
-	db TRANSFORMATION_FAT_WARIO,           "FAT  "
-	db TRANSFORMATION_ELECTRIC,            "ELEC "
-	db TRANSFORMATION_PUFFY_WARIO,         "PUFFY"
-	db TRANSFORMATION_ZOMBIE_WARIO,        "ZOMBI"
-	db TRANSFORMATION_BOUNCY_WARIO,        "BUNCY"
-	db TRANSFORMATION_CRAZY_WARIO,         "CRAZY"
-	db TRANSFORMATION_VAMPIRE_WARIO,       "VAMPI"
-	db TRANSFORMATION_SNOWMAN_WARIO,       "SNWMN"
+	db TRANSFORMATION_NONE,                WST_IDLING,            0, "NONE "
+	db TRANSFORMATION_HOT_WARIO,           WST_ON_FIRE,           1, "HOT  "
+	db TRANSFORMATION_FLAT_WARIO,          WST_FLAT_IDLING,       0, "FLAT "
+	db TRANSFORMATION_BALL_O_STRING_WARIO, WST_BALL_O_STRING,     0, "STRNG"
+	db TRANSFORMATION_FAT_WARIO,           WST_FAT_IDLING,        0, "FAT  "
+	db TRANSFORMATION_ELECTRIC,            WST_ELECTRIC,          0, "ELEC "
+	db TRANSFORMATION_PUFFY_WARIO,         WST_PUFFY_TURNING,     0, "PUFFY"
+	db TRANSFORMATION_ZOMBIE_WARIO,        WST_ZOMBIE_IDLING,     0, "ZOMBI"
+	db TRANSFORMATION_BOUNCY_WARIO,        WST_BOUNCY_FLOOR,      0, "BUNCY"
+	db TRANSFORMATION_CRAZY_WARIO,         WST_CRAZY,             0, "CRAZY"
+	db TRANSFORMATION_VAMPIRE_WARIO,       WST_VAMPIRE_IDLING,    0, "VAMPI"
+	db TRANSFORMATION_SNOWMAN_WARIO,       WST_SNOWMAN_IDLE,      0, "SNWMN"
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
@@ -49,22 +53,26 @@ DebugMenu_DrawString:
 	ret
 
 ; -----------------------------------------------------------------------
-; Apply the currently selected form to wTransformation/wTransformationDuration
+; Apply the currently selected form:
+;   sets wTransformation, wTransformationDuration,
+;   wWarioState, wWarioTransformationProgress
 ; Clobbers: A, B, C, HL
 ; -----------------------------------------------------------------------
 DebugMenu_ApplyForm:
 	ld a, [wDebugMenuFormIdx]
-	ld b, a     ; B = idx
 	add a       ; 2*idx
 	add a       ; 4*idx
-	add b       ; 5*idx
-	add b       ; 6*idx  (each entry = 6 bytes)
+	add a       ; 8*idx  (each entry = 8 bytes)
 	ld c, a
 	ld b, 0
 	ld hl, DebugFormTable
 	add hl, bc
-	ld a, [hl]
+	ld a, [hli]             ; [0] transformation byte
 	ld [wTransformation], a
+	ld a, [hli]             ; [1] wWarioState
+	ld [wWarioState], a
+	ld a, [hli]             ; [2] wWarioTransformationProgress
+	ld [wWarioTransformationProgress], a
 	; Set maximum duration for timed transforms (big-endian)
 	ld a, $FF
 	ld [wTransformationDuration], a
@@ -110,16 +118,14 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrForm
 	ld b, 9
 	call DebugMenu_DrawString
-	; Compute DE = &DebugFormTable[formIdx].name (skip transform byte)
+	; Compute DE = &DebugFormTable[formIdx].name  (entries are 8 bytes, name at +3)
 	ld a, [wDebugMenuFormIdx]
-	ld b, a
 	add a       ; 2*idx
 	add a       ; 4*idx
-	add b       ; 5*idx
-	add b       ; 6*idx
+	add a       ; 8*idx
 	ld c, a
 	ld b, 0
-	ld hl, DebugFormTable + 1  ; +1: skip transformation byte of entry 0
+	ld hl, DebugFormTable + 3  ; +3: skip transform, state, progress bytes
 	add hl, bc
 	ld d, h
 	ld e, l
@@ -186,10 +192,12 @@ InitDebugMenu:
 	ld hl, DebugFormTable
 	ld c, NUM_DEBUG_FORMS
 .find_form:
-	ld a, [hli]            ; load transform byte from table
+	ld a, [hli]            ; load transform byte from table entry [0]
 	cp b
 	jr z, .form_found
-	; skip 5-byte name
+	; skip remaining 7 bytes of this entry (state, progress, 5-char name)
+	inc hl
+	inc hl
 	inc hl
 	inc hl
 	inc hl
@@ -199,8 +207,7 @@ InitDebugMenu:
 	jr nz, .find_form
 	jr .form_init_done
 .form_found:
-	; HL points one past the matching transform byte
-	; index = (NUM_DEBUG_FORMS - C)
+	; index = NUM_DEBUG_FORMS - C
 	ld a, NUM_DEBUG_FORMS
 	sub c
 	ld [wDebugMenuFormIdx], a
