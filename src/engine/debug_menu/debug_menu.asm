@@ -346,6 +346,10 @@ DebugMenu_ApplyForm:
 	ld [wCollisionBoxLeft], a
 	ld a, 9
 	ld [wCollisionBoxRight], a
+	; SetState_VampireIdling sets wOAMPtr but not wOAMBank; set it here since
+	; we bypass the normal VampireTransforming → VampireIdling path.
+	ld a, BANK("Wario OAM 2")
+	ld [wOAMBank], a
 	farcall SetState_VampireIdling
 	ret
 
@@ -679,6 +683,24 @@ DebugMenu_Exit:
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
+	; LoadBackupVRAM restores wTempPals2 from pre-menu backup, discarding any
+	; palette set by form changes. Re-apply the current Wario palette so that
+	; ApplyTempPals2ToOBPals below sends the right colors to CGRAM.
+	ld a, [wROMBank]
+	push af
+	ld a, BANK("Wario Palettes")
+	bankswitch
+	ld a, [wWarioPalsPtr + 0]
+	ld h, a
+	ld a, [wWarioPalsPtr + 1]
+	ld l, a
+	ld de, wTempPals2
+	ld b, 2 palettes
+	ld a, BANK("Wario Palettes")
+	ldh [hCallFuncBank], a
+	hcall CopyHLToDE_Short
+	pop af
+	bankswitch
 
 	xor a
 	ld [wUnused_IsPaused], a
