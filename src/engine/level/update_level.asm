@@ -255,12 +255,9 @@ UpdateLevel:
 	and a
 	ret nz
 
-	; Debug menu trigger: SELECT held + B pressed
-	ld a, [wJoypadDown]
-	and PAD_SELECT
-	jr z, .no_debug_trigger
+	; Debug menu trigger: SELECT pressed
 	ld a, [wJoypadPressed]
-	and PAD_B
+	and PAD_SELECT
 	jr z, .no_debug_trigger
 	stop_music
 	xor a
@@ -277,7 +274,7 @@ UpdateLevel:
 .no_debug_trigger:
 
 	ld a, [wJoypadPressed]
-	and PAD_SELECT | PAD_START
+	and PAD_START
 	ret z
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND
