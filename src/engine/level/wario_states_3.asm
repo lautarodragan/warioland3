@@ -617,7 +617,7 @@ UpdateState_GettingFlat:
 	jp nz, SetState_FlatSquished
 ;	fallthrough
 
-SetState_FlatIdling:
+SetState_FlatIdling::
 	ld a, WST_FLAT_IDLING
 	ld [wWarioState], a
 
@@ -1166,7 +1166,7 @@ UpdateState_GettingWrappedInString:
 	jp z, Func_28c15
 ;	fallthrough
 
-SetState_BallOString:
+SetState_BallOString::
 	ld a, WST_BALL_O_STRING
 	ld [wWarioState], a
 	ld a, 1
@@ -1565,7 +1565,7 @@ UpdateState_FatEating:
 	ld [wCollisionBoxRight], a
 ;	fallthrough
 
-SetState_FatIdling:
+SetState_FatIdling::
 	ld a, WST_FAT_IDLING
 	ld [wWarioState], a
 	ld a, TOUCH_ATTACK
@@ -2486,7 +2486,7 @@ UpdateState_TurningInvisible:
 	farcall SetState_Idling
 	ret
 
-SetState_PuffyInflating:
+SetState_PuffyInflating::
 	ld a, TRANSFORMATION_PUFFY_WARIO
 	ld [wTransformation], a
 
@@ -2759,7 +2759,7 @@ UpdateState_PuffyDeflating:
 	ret z
 	jp RecoverFromTransformation
 
-SetState_ZombieIdling:
+SetState_ZombieIdling::
 	ld a, WST_ZOMBIE_IDLING
 	ld [wWarioState], a
 
@@ -3375,7 +3375,7 @@ UpdateState_ZombieWrithing:
 	jp nz, SetState_ZombieIdling
 	ret
 
-SetState_BouncyStart:
+SetState_BouncyStart::
 	ld a, WST_BOUNCY_START
 	ld [wWarioState], a
 	ld a, FALLING_JUMP_VEL_INDEX
@@ -3864,7 +3864,7 @@ UpdateState_BouncyLastBounce:
 	ret nz ; done if not in last bouncy any more
 	jp RecoverFromTransformation
 
-SetState_CrazySpinning:
+SetState_CrazySpinning::
 	play_sfx SFX_042
 	ld a, WST_CRAZY_SPINNING
 	ld [wWarioState], a
@@ -4212,7 +4212,7 @@ UpdateState_CrazyAirborne:
 	call TriggerFloorTransition
 	jp SetState_Crazy
 
-SetState_VampireIdling:
+SetState_VampireIdling::
 	ld a, WST_VAMPIRE_IDLING
 	ld [wWarioState], a
 

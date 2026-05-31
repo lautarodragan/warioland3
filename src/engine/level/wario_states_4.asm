@@ -767,7 +767,7 @@ UpdateState_HangingRail:
 	jp z, Func_1ede69
 	ret
 
-SetState_TurningIntoSnowman:
+SetState_TurningIntoSnowman::
 	play_sfx SFX_047
 
 	ld a, WST_SNOWMAN_START

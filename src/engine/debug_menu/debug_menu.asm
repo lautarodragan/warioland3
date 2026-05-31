@@ -1,23 +1,21 @@
 SETCHARMAP temple
 
-; Form table: 8 bytes per entry
-;   [0]   transformation byte
-;   [1]   initial wWarioState
-;   [2]   initial wWarioTransformationProgress
-;   [3-7] 5-char display name
+; Form table: 6 bytes per entry
+;   [0]     transformation byte
+;   [1-5]   5-char display name
 DebugFormTable:
-	db TRANSFORMATION_NONE,                WST_IDLING,            0, "NONE "
-	db TRANSFORMATION_HOT_WARIO,           WST_ON_FIRE,           1, "HOT  "
-	db TRANSFORMATION_FLAT_WARIO,          WST_FLAT_IDLING,       0, "FLAT "
-	db TRANSFORMATION_BALL_O_STRING_WARIO, WST_BALL_O_STRING,     0, "STRNG"
-	db TRANSFORMATION_FAT_WARIO,           WST_FAT_IDLING,        0, "FAT  "
-	db TRANSFORMATION_ELECTRIC,            WST_ELECTRIC,          0, "ELEC "
-	db TRANSFORMATION_PUFFY_WARIO,         WST_PUFFY_TURNING,     0, "PUFFY"
-	db TRANSFORMATION_ZOMBIE_WARIO,        WST_ZOMBIE_IDLING,     0, "ZOMBI"
-	db TRANSFORMATION_BOUNCY_WARIO,        WST_BOUNCY_FLOOR,      0, "BUNCY"
-	db TRANSFORMATION_CRAZY_WARIO,         WST_CRAZY,             0, "CRAZY"
-	db TRANSFORMATION_VAMPIRE_WARIO,       WST_VAMPIRE_IDLING,    0, "VAMPI"
-	db TRANSFORMATION_SNOWMAN_WARIO,       WST_SNOWMAN_IDLE,      0, "SNWMN"
+	db TRANSFORMATION_NONE,                "NONE "
+	db TRANSFORMATION_HOT_WARIO,           "HOT  "
+	db TRANSFORMATION_FLAT_WARIO,          "FLAT "
+	db TRANSFORMATION_BALL_O_STRING_WARIO, "STRNG"
+	db TRANSFORMATION_FAT_WARIO,           "FAT  "
+	db TRANSFORMATION_ELECTRIC,            "ELEC "
+	db TRANSFORMATION_PUFFY_WARIO,         "PUFFY"
+	db TRANSFORMATION_ZOMBIE_WARIO,        "ZOMBI"
+	db TRANSFORMATION_BOUNCY_WARIO,        "BUNCY"
+	db TRANSFORMATION_CRAZY_WARIO,         "CRAZY"
+	db TRANSFORMATION_VAMPIRE_WARIO,       "VAMPI"
+	db TRANSFORMATION_SNOWMAN_WARIO,       "SNWMN"
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
@@ -53,30 +51,309 @@ DebugMenu_DrawString:
 	ret
 
 ; -----------------------------------------------------------------------
-; Apply the currently selected form:
-;   sets wTransformation, wTransformationDuration,
-;   wWarioState, wWarioTransformationProgress
-; Clobbers: A, B, C, HL
+; Apply the currently selected form.
+; Calls the appropriate game SetState_* function after setting up all
+; required wario state vars (transformation, touch states, GFX, OAM).
+; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_ApplyForm:
 	ld a, [wDebugMenuFormIdx]
-	add a       ; 2*idx
-	add a       ; 4*idx
-	add a       ; 8*idx  (each entry = 8 bytes)
-	ld c, a
-	ld b, 0
-	ld hl, DebugFormTable
-	add hl, bc
-	ld a, [hli]             ; [0] transformation byte
+	jumptable
+	dw .form_none
+	dw .form_hot
+	dw .form_flat
+	dw .form_string
+	dw .form_fat
+	dw .form_electric
+	dw .form_puffy
+	dw .form_zombie
+	dw .form_bouncy
+	dw .form_crazy
+	dw .form_vampire
+	dw .form_snowman
+
+; NONE: revert to normal wario using the standard recovery path
+.form_none:
+	call RecoverFromTransformation
+	ret
+
+; HOT: bump-type transformation (kills with touch)
+.form_hot:
+	ld a, TRANSFORMATION_HOT_WARIO
 	ld [wTransformation], a
-	ld a, [hli]             ; [1] wWarioState
-	ld [wWarioState], a
-	ld a, [hli]             ; [2] wWarioTransformationProgress
+	ld a, 1
 	ld [wWarioTransformationProgress], a
-	; Set maximum duration for timed transforms (big-endian)
+	ld a, TOUCH_BUMP
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $02
+	ld [wca94], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
+	call UpdateLevelMusic
+	; SetState_OnFire_ResetStateCounter loads WarioHotGfx, OAM_1673c,
+	; sets WarioOnFirePal, WST_ON_FIRE, collision box, clears state vars
+	farcall SetState_OnFire_ResetStateCounter
+	ret
+
+; FLAT: slide GFX, different collision box
+.form_flat:
+	ld a, TRANSFORMATION_FLAT_WARIO
+	ld [wTransformation], a
+	ld a, TOUCH_BUMP
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $02
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	; Flat wario uses slide GFX + OAM_16e9d (SetState_FlatIdling doesn't load GFX)
+	ld a, BANK(WarioSlideGfx)
+	ld [wDMASourceBank], a
+	ld a, HIGH(WarioSlideGfx)
+	ld [wDMASourcePtr + 0], a
+	ld a, LOW(WarioSlideGfx)
+	ld [wDMASourcePtr + 1], a
+	call LoadWarioGfx
+	ld a, BANK(OAM_16e9d)
+	ld [wOAMBank], a
+	ld a, HIGH(OAM_16e9d)
+	ld [wOAMPtr + 0], a
+	ld a, LOW(OAM_16e9d)
+	ld [wOAMPtr + 1], a
+	farcall SetState_FlatIdling
+	ret
+
+; BALL-O-STRING: attack-type, rolls fast
+.form_string:
+	ld a, TRANSFORMATION_BALL_O_STRING_WARIO
+	ld [wTransformation], a
+	ld a, TOUCH_ATTACK
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $01
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	call UpdateLevelMusic
+	ld hl, WarioStringPal
+	call SetWarioPal
+	; SetState_BallOString doesn't load GFX, so load here
+	ld a, BANK(WarioStringGfx)
+	ld [wDMASourceBank], a
+	ld a, HIGH(WarioStringGfx)
+	ld [wDMASourcePtr + 0], a
+	ld a, LOW(WarioStringGfx)
+	ld [wDMASourcePtr + 1], a
+	call LoadWarioGfx
+	ld a, BANK(OAM_171c0)
+	ld [wOAMBank], a
+	ld a, HIGH(OAM_171c0)
+	ld [wOAMPtr + 0], a
+	ld a, LOW(OAM_171c0)
+	ld [wOAMPtr + 1], a
+	farcall SetState_BallOString
+	ret
+
+; FAT: bump-type, SetState_FatIdling sets wTouchState/wca94 itself
+.form_fat:
+	ld a, TRANSFORMATION_FAT_WARIO
+	ld [wTransformation], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	; SetState_FatIdling doesn't load GFX, so load here
+	ld a, BANK(WarioFatGfx)
+	ld [wDMASourceBank], a
+	ld a, HIGH(WarioFatGfx)
+	ld [wDMASourcePtr + 0], a
+	ld a, LOW(WarioFatGfx)
+	ld [wDMASourcePtr + 1], a
+	call LoadWarioGfx
+	ld a, BANK(OAM_1742d)
+	ld [wOAMBank], a
+	ld a, HIGH(OAM_1742d)
+	ld [wOAMPtr + 0], a
+	ld a, LOW(OAM_1742d)
+	ld [wOAMPtr + 1], a
+	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wca94=$01,
+	; and standard collision box
+	farcall SetState_FatIdling
+	ret
+
+; ELECTRIC: vanish-type (touches make enemies disappear), inline full setup
+.form_electric:
+	ld a, TRANSFORMATION_ELECTRIC
+	ld [wTransformation], a
+	ld a, TOUCH_VANISH
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $01
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	xor a
+	ld [wWarioStateCounter], a
+	ld [wWarioStateCycles], a
+	ld [wGrabState], a
+	ld [wAttackCounter], a
+	ld [wJumpVelIndex], a
+	ld [wJumpVelTable], a
+	ld [wIsCrouching], a
+	ld [wIsRolling], a
+	ld [wIsSmashAttacking], a
+	ld [wInvisibleFrame], a
+	ld a, WST_ELECTRIC_START
+	ld [wWarioState], a
+	ld a, -1
+	ld [wCollisionBoxBottom], a
+	ld a, -27
+	ld [wCollisionBoxTop], a
+	ld a, -9
+	ld [wCollisionBoxLeft], a
+	ld a, 9
+	ld [wCollisionBoxRight], a
+	call UpdateLevelMusic
+	xor a
+	ld [wFrameDuration], a
+	ld [wAnimationFrame], a
+	ld hl, WarioElectricPal
+	call SetWarioPal
+	ld a, BANK(WarioElectricGfx)
+	ld [wDMASourceBank], a
+	ld a, HIGH(WarioElectricGfx)
+	ld [wDMASourcePtr + 0], a
+	ld a, LOW(WarioElectricGfx)
+	ld [wDMASourcePtr + 1], a
+	call LoadWarioGfx
+	ld a, BANK(OAM_1790e)
+	ld [wOAMBank], a
+	ld a, HIGH(OAM_1790e)
+	ld [wOAMPtr + 0], a
+	ld a, LOW(OAM_1790e)
+	ld [wOAMPtr + 1], a
+	ld a, [wDirection]
+	and a
+	jr nz, .elec_right
+	ld a, HIGH(Frameset_17b79)
+	ld [wFramesetPtr + 0], a
+	ld a, LOW(Frameset_17b79)
+	ld [wFramesetPtr + 1], a
+	jr .elec_anim
+.elec_right:
+	ld a, HIGH(Frameset_17b76)
+	ld [wFramesetPtr + 0], a
+	ld a, LOW(Frameset_17b76)
+	ld [wFramesetPtr + 1], a
+.elec_anim:
+	ld a, BANK("Wario OAM 1")
+	ldh [hCallFuncBank], a
+	hcall UpdateAnimation
+	ret
+
+; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wca94/GFX itself
+.form_puffy:
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	farcall SetState_PuffyInflating
+	ret
+
+; ZOMBIE: SetState_ZombieIdling sets wTouchState/wca94/GFX/OAM itself
+.form_zombie:
+	ld a, TRANSFORMATION_ZOMBIE_WARIO
+	ld [wTransformation], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	farcall SetState_ZombieIdling
+	ret
+
+; BOUNCY: SetState_BouncyStart loads GFX/OAM/palette itself
+.form_bouncy:
+	ld a, TRANSFORMATION_BOUNCY_WARIO
+	ld [wTransformation], a
+	ld a, TOUCH_BUMP
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $01
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	farcall SetState_BouncyStart
+	ret
+
+; CRAZY: SetState_CrazySpinning loads GFX/OAM itself; mirror wDirection to wObjDirection
+.form_crazy:
+	ld a, TRANSFORMATION_CRAZY_WARIO
+	ld [wTransformation], a
+	ld a, TOUCH_ATTACK
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $01
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	; SetState_CrazySpinning copies wObjDirection → wDirection; mirror current direction
+	ld a, [wDirection]
+	ld [wObjDirection], a
+	farcall SetState_CrazySpinning
+	ret
+
+; VAMPIRE: set state, wTouchState, palette; SetState_VampireIdling loads GFX/OAM
+.form_vampire:
+	ld a, TRANSFORMATION_VAMPIRE_WARIO
+	ld [wTransformation], a
+	ld a, TOUCH_VANISH
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $02
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	call UpdateLevelMusic
+	ld hl, WarioVampirePal
+	call SetWarioPal
+	; Reset collision box (SetState_VampireIdling doesn't set it)
+	ld a, -1
+	ld [wCollisionBoxBottom], a
+	ld a, -27
+	ld [wCollisionBoxTop], a
+	ld a, -9
+	ld [wCollisionBoxLeft], a
+	ld a, 9
+	ld [wCollisionBoxRight], a
+	farcall SetState_VampireIdling
+	ret
+
+; SNOWMAN: SetState_TurningIntoSnowman does full GFX/OAM/palette setup
+.form_snowman:
+	ld a, TRANSFORMATION_SNOWMAN_WARIO
+	ld [wTransformation], a
+	xor a
+	ld [wWarioTransformationProgress], a
+	ld a, TOUCH_ATTACK
+	ld [wTouchState], a
+	ld [wStingTouchState], a
+	ld a, $02
+	ld [wca94], a
+	ld a, $FF
+	ld [wTransformationDuration], a
+	ld [wTransformationDuration + 1], a
+	farcall SetState_TurningIntoSnowman
 	ret
 
 ; -----------------------------------------------------------------------
@@ -118,14 +395,15 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrForm
 	ld b, 9
 	call DebugMenu_DrawString
-	; Compute DE = &DebugFormTable[formIdx].name  (entries are 8 bytes, name at +3)
+	; Compute DE = &DebugFormTable[formIdx].name  (entries are 6 bytes, name at +1)
 	ld a, [wDebugMenuFormIdx]
 	add a       ; 2*idx
+	ld c, a    ; save 2*idx
 	add a       ; 4*idx
-	add a       ; 8*idx
+	add c       ; 6*idx
 	ld c, a
 	ld b, 0
-	ld hl, DebugFormTable + 3  ; +3: skip transform, state, progress bytes
+	ld hl, DebugFormTable + 1  ; +1: skip transform byte
 	add hl, bc
 	ld d, h
 	ld e, l
@@ -195,9 +473,7 @@ InitDebugMenu:
 	ld a, [hli]            ; load transform byte from table entry [0]
 	cp b
 	jr z, .form_found
-	; skip remaining 7 bytes of this entry (state, progress, 5-char name)
-	inc hl
-	inc hl
+	; skip remaining 5 bytes of this entry (5-char name)
 	inc hl
 	inc hl
 	inc hl

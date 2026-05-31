@@ -1832,7 +1832,7 @@ ObjInteraction_Fire:
 	call UpdateLevelMusic
 ;	fallthrough
 
-SetState_OnFire_ResetStateCounter:
+SetState_OnFire_ResetStateCounter::
 	xor a
 	ld [wWarioStateCounter], a
 ;	fallthrough
