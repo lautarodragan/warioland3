@@ -72,9 +72,19 @@ DebugMenu_ApplyForm:
 	dw .form_vampire
 	dw .form_snowman
 
-; NONE: revert to normal wario using the standard recovery path
+; NONE: restore normal Wario state without playing the in-game recovery SFX
 .form_none:
-	call RecoverFromTransformation
+	call ClearTransformationValues
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	ld a, [wJumpVelTable]
+	and a
+	jr nz, .form_none_fall
+	farcall SetState_Idling
+	ret
+.form_none_fall:
+	farcall StartFall
 	ret
 
 ; HOT: bump-type transformation (kills with touch)
@@ -599,7 +609,8 @@ UpdateDebugMenu:
 .not_right:
 
 	; LEFT: cycle value backward
-	ld a, b
+	; Reload joypad in case DebugMenu_ApplyForm clobbered b
+	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
 	jr z, .check_redraw
 
