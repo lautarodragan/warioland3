@@ -17,7 +17,7 @@ MainStateTable::
 	dw GameOverStateTable          ; ST_GAME_OVER
 	dw PerfectStateTable           ; ST_PERFECT
 	dw LanguageSelectionStateTable ; ST_LANGUAGE_SELECTION
-	dw InvalidState                ; ST_UNUSED_0F
+	dw DebugMenuStateTable         ; ST_DEBUG_MENU
 	dw InvalidState                ; ST_UNUSED_10
 	dw InvalidState                ; ST_UNUSED_11
 

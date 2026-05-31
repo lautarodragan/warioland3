@@ -2528,6 +2528,9 @@ wMenuObj9::  menu_obj_struct wMenuObj9
 wMenuObj10:: menu_obj_struct wMenuObj10
 wMenuObj11:: menu_obj_struct wMenuObj11
 
+wDebugMenuCursor::  db
+wDebugMenuFormIdx:: db
+
 SECTION "WRAM4", WRAMX
 
 w4d000::

@@ -255,6 +255,27 @@ UpdateLevel:
 	and a
 	ret nz
 
+	; Debug menu trigger: SELECT held + B pressed
+	ld a, [wJoypadDown]
+	and PAD_SELECT
+	jr z, .no_debug_trigger
+	ld a, [wJoypadPressed]
+	and PAD_B
+	jr z, .no_debug_trigger
+	stop_music
+	xor a
+	ld [wRoomAnimatedPalsEnabled], a
+	ld a, TRUE
+	ld [wUnused_IsPaused], a
+	ld a, [wSubState]
+	ld [wPendingSubState], a
+	ld a, ST_DEBUG_MENU
+	ld [wState], a
+	xor a
+	ld [wSubState], a
+	ret
+.no_debug_trigger:
+
 	ld a, [wJoypadPressed]
 	and PAD_SELECT | PAD_START
 	ret z

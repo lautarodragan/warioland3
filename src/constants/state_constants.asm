@@ -15,7 +15,7 @@
 	const ST_GAME_OVER          ; $0c
 	const ST_PERFECT            ; $0d
 	const ST_LANGUAGE_SELECTION ; $0e
-	const ST_UNUSED_0F          ; $0f
+	const ST_DEBUG_MENU         ; $0f
 	const ST_UNUSED_10          ; $10
 	const ST_UNUSED_11          ; $11
 
