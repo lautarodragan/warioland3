@@ -99,8 +99,9 @@ DebugMenu_ApplyForm:
 	ld [wStingTouchState], a
 	ld a, $02
 	ld [wca94], a
-	ld a, $FF
+	ld a, HIGH(HOT_WARIO_DURATION)
 	ld [wTransformationDuration], a
+	ld a, LOW(HOT_WARIO_DURATION)
 	ld [wTransformationDuration + 1], a
 	call UpdateLevelMusic
 	; SetState_OnFire_ResetStateCounter loads WarioHotGfx, OAM_1673c,
