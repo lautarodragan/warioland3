@@ -19,13 +19,14 @@ DebugFormTable:
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
-DEF DEBUG_MENU_ITEMS EQU 3
+DEF DEBUG_MENU_ITEMS EQU 4
 
 ; Strings for menu labels (temple charmap)
 DebugMenuStrHeader: db "DEBUG MENU"       ; 10 bytes, drawn at row 1 col 3
 DebugMenuStrPower:  db "POWER   :"        ; 9 bytes  (cols 1-9, row 3)
 DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
 DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
+DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 9)
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
@@ -451,6 +452,31 @@ DebugMenu_DrawAll:
 	hlbgcoord 10, 7
 	call DebugMenu_DrawString
 
+	; GOLF row (row 9)
+	ld a, [wDebugMenuCursor]
+	cp 3
+	ld a, $5d              ; ▼
+	jr z, .cursor_golf
+	ld a, $7e              ; space
+.cursor_golf:
+	ldcoord_a 0, 9
+	hlbgcoord 1, 9
+	ld de, DebugMenuStrGolf
+	ld b, 9
+	call DebugMenu_DrawString
+	ld a, [wIsMinigameCleared]
+	and a
+	jr z, .golf_off
+	ld de, DebugMenuStrOn
+	ld b, 3
+	jr .draw_golf_val
+.golf_off:
+	ld de, DebugMenuStrOff
+	ld b, 3
+.draw_golf_val:
+	hlbgcoord 10, 9
+	call DebugMenu_DrawString
+
 	; Instructions row (row 15)
 	hlbgcoord 1, 15
 	ld de, DebugMenuStrInstr
@@ -579,7 +605,17 @@ UpdateDebugMenu:
 	jr z, .change_power_fwd
 	cp 1
 	jr z, .change_form_fwd
-	; else: toggle invincible
+	cp 2
+	jr z, .toggle_invnbl_r
+	; else cursor 3: toggle golf win
+	ld a, [wIsMinigameCleared]
+	xor TRUE
+	ld [wIsMinigameCleared], a
+	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld [wRoomTransitionParam], a
+	ld c, 1
+	jr .not_right
+.toggle_invnbl_r:
 	ld a, [wInvincibleCounter]
 	and a
 	ld a, $FF
@@ -624,7 +660,17 @@ UpdateDebugMenu:
 	jr z, .change_power_bwd
 	cp 1
 	jr z, .change_form_bwd
-	; else: toggle invincible (same as right)
+	cp 2
+	jr z, .toggle_invnbl_l
+	; else cursor 3: toggle golf win (same as right)
+	ld a, [wIsMinigameCleared]
+	xor TRUE
+	ld [wIsMinigameCleared], a
+	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld [wRoomTransitionParam], a
+	ld c, 1
+	jr .check_redraw
+.toggle_invnbl_l:
 	ld a, [wInvincibleCounter]
 	and a
 	ld a, $FF
