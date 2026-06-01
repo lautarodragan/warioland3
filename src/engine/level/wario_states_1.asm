@@ -5466,7 +5466,7 @@ Func_1f1a9:
 	ld a, [wPowerUpLevel]
 	cp SWIMMING_FLIPPERS
 	jr c, .asm_1f1f5
-	ld a, [wJoypadPressed]
+	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jp nz, StartUnderwaterThrusting
 	bit B_PAD_A, a
