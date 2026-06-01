@@ -175,8 +175,9 @@ DebugMenu_ApplyForm:
 .form_fat:
 	ld a, TRANSFORMATION_FAT_WARIO
 	ld [wTransformation], a
-	ld a, $FF
+	ld a, HIGH(FAT_WARIO_DURATION)
 	ld [wTransformationDuration], a
+	ld a, LOW(FAT_WARIO_DURATION)
 	ld [wTransformationDuration + 1], a
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal
