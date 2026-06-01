@@ -684,24 +684,20 @@ DebugMenu_Exit:
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
 
-	; wTempPals2 now holds the pre-menu OBJ palette state (from SaveBackupVRAM).
-	; InitDebugMenu also called LoadFontPals which had overwritten wTempPals2 with
-	; grayscale font palettes. Restore the current Wario palette via wWarioPalsPtr,
-	; which survives both LoadFontPals and LoadBackupVRAM unchanged, so that
-	; ApplyTempPals2ToOBPals below sends the right transformation color to CGRAM.
-	ld a, [wROMBank]
-	push af
-	ld a, BANK("Wario Palettes")
-	bankswitch
+	; wTempPals2 is now back to the pre-menu snapshot. InitDebugMenu also called
+	; LoadFontPals which had previously overwritten wTempPals2 with font palettes.
+	; Re-apply the current Wario palette from wWarioPalsPtr (unaffected by both).
+	; hcall handles the ROM bank switch safely from ROMX: it saves/restores the
+	; Debug Menu bank internally and reads [hl] with Wario Palettes bank active.
 	ld a, [wWarioPalsPtr + 0]
 	ld h, a
 	ld a, [wWarioPalsPtr + 1]
 	ld l, a
 	ld de, wTempPals2
 	ld b, 2 palettes
-	call CopyHLToDE_Short       ; HOME bank fn, callable from any ROM bank
-	pop af
-	bankswitch
+	ld a, BANK("Wario Palettes")
+	ldh [hCallFuncBank], a
+	hcall CopyHLToDE_Short
 
 	xor a
 	ld [wUnused_IsPaused], a
