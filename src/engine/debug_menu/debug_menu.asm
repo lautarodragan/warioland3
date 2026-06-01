@@ -489,20 +489,21 @@ ENDR
     ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY
     ld [hl], a
 
-    ; OBJ_Y_POS ($03-$04)
+    ; OBJ_Y_POS ($03-$04): wWarioYPos is big-endian (Hi at [0], Lo at [1])
+    ; but OBJ_Y_POS is little-endian (Lo at [0], Hi at [1])
     ld a, l
     add OBJ_Y_POS
     ld l, a
-    ld a, [wWarioYPos]
+    ld a, [wWarioYPos + 1]   ; YLo
     ld [hli], a
-    ld a, [wWarioYPos + 1]
+    ld a, [wWarioYPos]       ; YHi
     ld [hli], a
 
-    ; OBJ_X_POS ($05-$06): Wario X + 24 pixels (16-bit carry)
-    ld a, [wWarioXPos]
+    ; OBJ_X_POS ($05-$06): same byte-order swap; add 24 to XLo
+    ld a, [wWarioXPos + 1]   ; XLo
     add 24
     ld [hli], a
-    ld a, [wWarioXPos + 1]
+    ld a, [wWarioXPos]       ; XHi
     adc 0
     ld [hli], a
 
