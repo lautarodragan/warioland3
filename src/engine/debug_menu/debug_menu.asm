@@ -374,35 +374,42 @@ DebugMenu_ApplyForm:
 	ret
 
 ; -----------------------------------------------------------------------
-; Toggle TRANSFORMATION_BLIND on/off.
+; Toggle TRANSFORMATION_INVISIBLE_WARIO on/off.
+; Mirrors what UpdateState_TurningInvisible does when the potion animation ends.
 ; Clobbers: A, H, L
 ; -----------------------------------------------------------------------
-DebugMenu_ToggleBlind:
+DebugMenu_ToggleInvisible:
 	ld a, [wTransformation]
-	cp TRANSFORMATION_BLIND
-	jr z, .clear_blind
-	; Apply blind transformation
-	ld a, TRANSFORMATION_BLIND
+	cp TRANSFORMATION_INVISIBLE_WARIO
+	jr z, .clear_invisible
+	; Apply invisible transformation (skip the turning animation)
+	ld a, TRANSFORMATION_INVISIBLE_WARIO
 	ld [wTransformation], a
-	ld a, TOUCH_BUMP
+	xor a
 	ld [wTouchState], a
-	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
-	ld a, $01
 	ld [wca94], a
-	farcall SetState_BlindIdling
+	ld [wIsIntangible], a
+	call UpdateLevelMusic
+	ld a, [wJumpVelTable]
+	and a
+	jr nz, .apply_fall
+	farcall SetState_Idling
 	ret
-.clear_blind:
+.apply_fall:
+	farcall StartFall
+	ret
+.clear_invisible:
 	call ClearTransformationValues
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal
 	call SetWarioPal
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .fall
+	jr nz, .clear_fall
 	farcall SetState_Idling
 	ret
-.fall:
+.clear_fall:
 	farcall StartFall
 	ret
 
@@ -474,7 +481,7 @@ DebugMenu_DrawAll:
 	ld b, 9
 	call DebugMenu_DrawString
 	ld a, [wTransformation]
-	cp TRANSFORMATION_BLIND
+	cp TRANSFORMATION_INVISIBLE_WARIO
 	jr nz, .invnbl_off
 	ld de, DebugMenuStrOn
 	ld b, 3
@@ -650,7 +657,7 @@ UpdateDebugMenu:
 	ld c, 1
 	jr .not_right
 .toggle_invnbl_r:
-	call DebugMenu_ToggleBlind
+	call DebugMenu_ToggleInvisible
 	ld c, 1
 	jr .not_right
 
@@ -699,7 +706,7 @@ UpdateDebugMenu:
 	ld c, 1
 	jr .check_redraw
 .toggle_invnbl_l:
-	call DebugMenu_ToggleBlind
+	call DebugMenu_ToggleInvisible
 	ld c, 1
 	jr .check_redraw
 
@@ -786,31 +793,6 @@ DebugMenu_Exit:
 
 	call ApplyTempPals1ToBGPals
 	call ApplyTempPals2ToOBPals
-
-	; If Wario is blind, re-zero BG/OBJ palettes (LCD is off; ApplyTempPals* just restored them)
-	ld a, [wTransformation]
-	cp TRANSFORMATION_BLIND
-	jr nz, .not_blind_exit
-	ld a, BGPI_AUTOINC | palette 0
-	ldh [rBGPI], a
-	ld b, 8 palettes
-	ld c, LOW(rBGPD)
-.zero_blind_bg:
-	xor a
-	ld [$ff00+c], a
-	dec b
-	jr nz, .zero_blind_bg
-	ld a, OBPI_AUTOINC | palette 3
-	ldh [rOBPI], a
-	ld b, 4 palettes
-	ld c, LOW(rOBPD)
-.zero_blind_ob:
-	xor a
-	ld [$ff00+c], a
-	dec b
-	jr nz, .zero_blind_ob
-.not_blind_exit:
-
 	call UpdateLevelMusic
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
