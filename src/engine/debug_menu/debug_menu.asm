@@ -486,7 +486,7 @@ ENDR
     pop hl                    ; HL = slot base
 
     ; OBJ_FLAGS ($00)
-    ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY
+    ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY | OBJFLAG_NO_COLLISION
     ld [hl], a
 
     ; OBJ_Y_POS ($03-$04): wWarioYPos is big-endian (Hi at [0], Lo at [1])
@@ -511,8 +511,8 @@ ENDR
     ld a, OWL
     ld [hli], a
 
-    ; OBJ_INTERACTION_TYPE ($08)
-    ld a, OBJ_INTERACTION_0A
+    ; OBJ_INTERACTION_TYPE ($08): 0 = no interaction (struct already zeroed, but be explicit)
+    xor a
     ld [hli], a
 
     ; OBJ_COLLBOX_TOP ($09)
