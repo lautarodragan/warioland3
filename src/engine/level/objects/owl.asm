@@ -1,4 +1,4 @@
-OwlFunc:
+OwlFunc::
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]

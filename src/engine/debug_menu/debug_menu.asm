@@ -19,14 +19,15 @@ DebugFormTable:
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
-DEF DEBUG_MENU_ITEMS EQU 4
+DEF DEBUG_MENU_ITEMS EQU 5
 
 ; Strings for menu labels (temple charmap)
 DebugMenuStrHeader: db "DEBUG MENU"       ; 10 bytes, drawn at row 1 col 3
 DebugMenuStrPower:  db "POWER   :"        ; 9 bytes  (cols 1-9, row 3)
 DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
 DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
-DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 9)
+DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 11)
+DebugMenuStrOwl:    db "OWL     :"        ; 9 bytes  (cols 1-9, row 13)
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
@@ -379,8 +380,8 @@ DebugMenu_ApplyForm:
 ; Palette 0 (teal bg) is already the default from FillBGMap0_With7f.
 ; Layout:
 ;   Rows  2-3 : pal 6 (bright yellow)  — header band
-;   Rows 5,7,9,11 : pal 5 (white)      — item rows
-;   Rows 13-14 : pal 6 (bright yellow) — footer band
+;   Rows 5,7,9,11,13 : pal 5 (white)   — item rows
+;   Rows 15-16 : pal 6 (bright yellow) — footer band
 ; -----------------------------------------------------------------------
 DebugMenu_SetAttrMap:
 	ld a, BANK("VRAM1")
@@ -406,9 +407,12 @@ DebugMenu_SetAttrMap:
 	ld hl, v1BGMap0 + 11 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
-
-	; Rows 13-14: bright yellow footer band
 	ld hl, v1BGMap0 + 13 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+
+	; Rows 15-16: bright yellow footer band
+	ld hl, v1BGMap0 + 15 * TILEMAP_WIDTH
 	ld bc, 2 * TILEMAP_WIDTH
 	ld a, 6
 	call WriteAToHL_BCTimes
@@ -456,6 +460,94 @@ DebugMenu_ToggleInvisible:
 .clear_fall:
 	farcall StartFall
 	ret
+
+; -----------------------------------------------------------------------
+; Spawn an owl object in the first free wObjects slot, at Wario's position
+; offset 24 pixels to the right. Silent no-op if all 8 slots are occupied.
+; Clobbers: A, B, C, H, L
+; -----------------------------------------------------------------------
+DebugMenu_SpawnOwl:
+    ld h, HIGH(wObj1)
+FOR n, 1, NUM_OBJECTS + 1
+    ld l, LOW(wObj{u:n})
+    ld a, [hl]
+    rra                       ; OBJFLAG_ACTIVE → carry
+    jr nc, .found_slot
+ENDR
+    ret                       ; all 8 slots occupied
+
+.found_slot
+    push hl                   ; save slot base (OBJ_FLAGS byte)
+    ld bc, OBJ_STRUCT_LENGTH
+    xor a
+    call WriteAToHL_BCTimes   ; zero the entire struct; A preserved = 0
+    pop hl                    ; HL = slot base
+
+    ; OBJ_FLAGS ($00)
+    ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY
+    ld [hl], a
+
+    ; OBJ_Y_POS ($03-$04)
+    ld a, l
+    add OBJ_Y_POS
+    ld l, a
+    ld a, [wWarioYPos]
+    ld [hli], a
+    ld a, [wWarioYPos + 1]
+    ld [hli], a
+
+    ; OBJ_X_POS ($05-$06): Wario X + 24 pixels (16-bit carry)
+    ld a, [wWarioXPos]
+    add 24
+    ld [hli], a
+    ld a, [wWarioXPos + 1]
+    adc 0
+    ld [hli], a
+
+    ; OBJ_ID ($07)
+    ld a, OWL
+    ld [hli], a
+
+    ; OBJ_INTERACTION_TYPE ($08)
+    ld a, OBJ_INTERACTION_0A
+    ld [hli], a
+
+    ; OBJ_COLLBOX_TOP ($09)
+    ld a, -20
+    ld [hli], a
+
+    ; advance to OBJ_OAM_PTR ($10), skipping $0a-$0f
+    ld a, l
+    add OBJ_OAM_PTR - (OBJ_COLLBOX_TOP + 1)
+    ld l, a
+
+    ; OBJ_OAM_PTR ($10-$11): little-endian
+    ld a, LOW(OAM_188e16)
+    ld [hli], a
+    ld a, HIGH(OAM_188e16)
+    ld [hli], a
+
+    ; advance to OBJ_SUBSTATE ($1a), skipping frameset/frame/state vars
+    ld a, l
+    add OBJ_SUBSTATE - (OBJ_OAM_PTR + 2)
+    ld l, a
+
+    ; OBJ_SUBSTATE ($1a): mark uninitialised so OwlFunc runs its init path
+    ld a, OBJSUBFLAG_UNINITIALISED
+    ld [hl], a
+
+    ; advance to OBJ_UPDATE_FUNCTION ($1e)
+    ld a, l
+    add OBJ_UPDATE_FUNCTION - OBJ_SUBSTATE
+    ld l, a
+
+    ; OBJ_UPDATE_FUNCTION ($1e-$1f): little-endian
+    ld a, LOW(OwlFunc)
+    ld [hli], a
+    ld a, HIGH(OwlFunc)
+    ld [hl], a
+
+    ret
 
 ; -----------------------------------------------------------------------
 ; Draw the full debug menu to v0BGMap0 (LCD must be off or in VBlank)
@@ -562,8 +654,21 @@ DebugMenu_DrawAll:
 	hlbgcoord 10, 11
 	call DebugMenu_DrawString
 
-	; Instructions row (row 13), centred
-	hlbgcoord 2, 13
+	; OWL row (row 13)
+	ld a, [wDebugMenuCursor]
+	cp 4
+	ld a, $5d              ; ▼
+	jr z, .cursor_owl
+	ld a, $7e              ; space
+.cursor_owl:
+	ldcoord_a 0, 13
+	hlbgcoord 1, 13
+	ld de, DebugMenuStrOwl
+	ld b, 9
+	call DebugMenu_DrawString
+
+	; Instructions row (row 15), centred
+	hlbgcoord 2, 15
 	ld de, DebugMenuStrInstr
 	ld b, 16
 	call DebugMenu_DrawString
@@ -693,7 +798,13 @@ UpdateDebugMenu:
 	jr z, .change_power_fwd
 	cp 2
 	jr z, .toggle_invnbl_r
-	; else cursor 3: toggle golf win
+	cp 3
+	jr z, .toggle_golf_r
+	; cursor 4: spawn owl
+	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .not_right
+.toggle_golf_r:
 	ld a, [wIsMinigameCleared]
 	xor TRUE
 	ld [wIsMinigameCleared], a
@@ -742,7 +853,13 @@ UpdateDebugMenu:
 	jr z, .change_power_bwd
 	cp 2
 	jr z, .toggle_invnbl_l
-	; else cursor 3: toggle golf win (same as right)
+	cp 3
+	jr z, .toggle_golf_l
+	; cursor 4: spawn owl
+	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .check_redraw
+.toggle_golf_l:
 	ld a, [wIsMinigameCleared]
 	xor TRUE
 	ld [wIsMinigameCleared], a
