@@ -5466,7 +5466,7 @@ Func_1f1a9:
 	ld a, [wPowerUpLevel]
 	cp SWIMMING_FLIPPERS
 	jr c, .asm_1f1f5
-	ld a, [wJoypadDown]
+	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jp nz, StartUnderwaterThrusting
 	bit B_PAD_A, a
@@ -5753,7 +5753,13 @@ HandleUnderwaterThrustingInput:
 	jr c, .continue
 	xor a
 	ld [hl], a
-	jp SetState_Submerged
+	; If B or A still held, restart the cycle without surfacing
+	ld a, [wJoypadDown]
+	and PAD_A | PAD_B
+	jp z, SetState_Submerged
+	ld a, [wJoypadDown]
+	and PAD_CTRL_PAD
+	ld [wSwimmingDirectionInput], a
 .continue
 	ld a, [wJoypadDown]
 	and PAD_A | PAD_B
