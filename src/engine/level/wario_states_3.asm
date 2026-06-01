@@ -4538,6 +4538,7 @@ UpdateState_BatIdling:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jr nz, .asm_2aa55
+	ld a, [wJoypadDown]
 	bit B_PAD_A, a
 	jp nz, SetState_BatFlying
 	ret
