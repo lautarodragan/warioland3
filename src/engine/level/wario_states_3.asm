@@ -5835,7 +5835,7 @@ Func_2b63b:
 	ld a, [hl]
 	cp MAX_JUMP_VEL_INDEX + 1
 	jr c, .asm_2b651
-	jp SetState_BatFalling
+	jp SetState_BatFlying
 
 	xor a
 	ld [hl], a
