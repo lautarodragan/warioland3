@@ -764,4 +764,18 @@ DebugMenu_Exit:
 	call UpdateLevelMusic
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
+
+	; If a room reload is pending (e.g. golf win toggled), skip directly to
+	; FastFadeToWhite (substate 5) so StartRoom_FromTransition fires immediately.
+	; UpdateState_Idling doesn't check wRoomTransitionParam, so returning to
+	; UpdateLevel (substate 3) would leave the transition param unprocessed.
+	ld a, [wRoomTransitionParam]
+	and a
+	jr z, .no_pending_reload
+	ld a, ST_LEVEL
+	ld [wState], a
+	ld a, 5    ; FastFadeToWhite → StartRoom_FromTransition
+	ld [wSubState], a
+	ret
+.no_pending_reload:
 	jp ReturnToPendingLevelState
