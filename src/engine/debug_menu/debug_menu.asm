@@ -374,6 +374,39 @@ DebugMenu_ApplyForm:
 	ret
 
 ; -----------------------------------------------------------------------
+; Toggle TRANSFORMATION_BLIND on/off.
+; Clobbers: A, H, L
+; -----------------------------------------------------------------------
+DebugMenu_ToggleBlind:
+	ld a, [wTransformation]
+	cp TRANSFORMATION_BLIND
+	jr z, .clear_blind
+	; Apply blind transformation
+	ld a, TRANSFORMATION_BLIND
+	ld [wTransformation], a
+	ld a, TOUCH_BUMP
+	ld [wTouchState], a
+	ld a, TOUCH_VULNERABLE
+	ld [wStingTouchState], a
+	ld a, $01
+	ld [wca94], a
+	farcall SetState_BlindIdling
+	ret
+.clear_blind:
+	call ClearTransformationValues
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	ld a, [wJumpVelTable]
+	and a
+	jr nz, .fall
+	farcall SetState_Idling
+	ret
+.fall:
+	farcall StartFall
+	ret
+
+; -----------------------------------------------------------------------
 ; Draw the full debug menu to v0BGMap0 (LCD must be off or in VBlank)
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
@@ -440,9 +473,9 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrInvnbl
 	ld b, 9
 	call DebugMenu_DrawString
-	ld a, [wInvincibleCounter]
-	and a
-	jr z, .invnbl_off
+	ld a, [wTransformation]
+	cp TRANSFORMATION_BLIND
+	jr nz, .invnbl_off
 	ld de, DebugMenuStrOn
 	ld b, 3
 	jr .draw_invnbl_val
@@ -617,13 +650,7 @@ UpdateDebugMenu:
 	ld c, 1
 	jr .not_right
 .toggle_invnbl_r:
-	ld a, [wInvincibleCounter]
-	and a
-	ld a, $FF
-	jr z, .set_invnbl_r
-	xor a
-.set_invnbl_r:
-	ld [wInvincibleCounter], a
+	call DebugMenu_ToggleBlind
 	ld c, 1
 	jr .not_right
 
@@ -672,13 +699,7 @@ UpdateDebugMenu:
 	ld c, 1
 	jr .check_redraw
 .toggle_invnbl_l:
-	ld a, [wInvincibleCounter]
-	and a
-	ld a, $FF
-	jr z, .set_invnbl_l
-	xor a
-.set_invnbl_l:
-	ld [wInvincibleCounter], a
+	call DebugMenu_ToggleBlind
 	ld c, 1
 	jr .check_redraw
 
@@ -765,6 +786,31 @@ DebugMenu_Exit:
 
 	call ApplyTempPals1ToBGPals
 	call ApplyTempPals2ToOBPals
+
+	; If Wario is blind, re-zero BG/OBJ palettes (LCD is off; ApplyTempPals* just restored them)
+	ld a, [wTransformation]
+	cp TRANSFORMATION_BLIND
+	jr nz, .not_blind_exit
+	ld a, BGPI_AUTOINC | palette 0
+	ldh [rBGPI], a
+	ld b, 8 palettes
+	ld c, LOW(rBGPD)
+.zero_blind_bg:
+	xor a
+	ld [$ff00+c], a
+	dec b
+	jr nz, .zero_blind_bg
+	ld a, OBPI_AUTOINC | palette 3
+	ldh [rOBPI], a
+	ld b, 4 palettes
+	ld c, LOW(rOBPD)
+.zero_blind_ob:
+	xor a
+	ld [$ff00+c], a
+	dec b
+	jr nz, .zero_blind_ob
+.not_blind_exit:
+
 	call UpdateLevelMusic
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a

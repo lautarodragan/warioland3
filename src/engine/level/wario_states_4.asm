@@ -1968,7 +1968,7 @@ UpdateStart_FanRecovering:
 	ret z
 	jp RecoverFromTransformation_WithoutInvincibility
 
-SetState_BlindIdling:
+SetState_BlindIdling::
 	ld a, WST_BLIND_IDLING
 	ld [wWarioState], a
 
