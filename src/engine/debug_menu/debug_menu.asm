@@ -511,8 +511,8 @@ ENDR
     ld a, OWL
     ld [hli], a
 
-    ; OBJ_INTERACTION_TYPE ($08): bump interaction (safe — no carry mechanic)
-    ld a, OBJ_INTERACTION_0B
+    ; OBJ_INTERACTION_TYPE ($08): owl carry interaction
+    ld a, OBJ_INTERACTION_OWL
     ld [hli], a
 
     ; OBJ_COLLBOX_TOP ($09): daytime sleep values
@@ -553,11 +553,15 @@ ENDR
     add OBJ_UPDATE_FUNCTION - (OBJ_FRAMESET_PTR + 2)
     ld l, a
 
-    ; OBJ_UPDATE_FUNCTION ($1e-$1f): sleeping update (skips init, no carry mechanic)
+    ; OBJ_UPDATE_FUNCTION ($1e-$1f): sleeping update — stationary owl, Wario can grab it
     ld a, LOW(OwlFunc.Sleep)
     ld [hli], a
     ld a, HIGH(OwlFunc.Sleep)
     ld [hl], a
+
+    ; flag so ObjInteraction_Owl skips the VRAM tile DMA on next grab
+    ld a, TRUE
+    ld [wDebugOwlActive], a
 
     pop_wram
     ret
