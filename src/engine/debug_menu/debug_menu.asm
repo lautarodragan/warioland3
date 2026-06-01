@@ -467,6 +467,7 @@ DebugMenu_ToggleInvisible:
 ; Clobbers: A, B, C, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_SpawnOwl:
+    push_wram BANK("Level Objects WRAM")
     ld h, HIGH(wObj1)
 FOR n, 1, NUM_OBJECTS + 1
     ld l, LOW(wObj{u:n})
@@ -474,10 +475,11 @@ FOR n, 1, NUM_OBJECTS + 1
     rra                       ; OBJFLAG_ACTIVE → carry
     jr nc, .found_slot
 ENDR
+    pop_wram
     ret                       ; all 8 slots occupied
 
 .found_slot
-    push hl                   ; save slot base (OBJ_FLAGS byte)
+    push hl                   ; save slot base (below push_wram's AF)
     ld bc, OBJ_STRUCT_LENGTH
     xor a
     call WriteAToHL_BCTimes   ; zero the entire struct; A preserved = 0
@@ -547,6 +549,7 @@ ENDR
     ld a, HIGH(OwlFunc)
     ld [hl], a
 
+    pop_wram
     ret
 
 ; -----------------------------------------------------------------------
