@@ -32,7 +32,7 @@ OwlFunc::
 	ld [hld], a
 	jr .set_fly_upwards
 
-.Sleep:
+.Sleep::
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a

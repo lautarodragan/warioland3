@@ -486,7 +486,7 @@ ENDR
     pop hl                    ; HL = slot base
 
     ; OBJ_FLAGS ($00)
-    ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY | OBJFLAG_NO_COLLISION
+    ld a, OBJFLAG_ACTIVE | OBJFLAG_PRIORITY
     ld [hl], a
 
     ; OBJ_Y_POS ($03-$04): wWarioYPos is big-endian (Hi at [0], Lo at [1])
@@ -511,17 +511,29 @@ ENDR
     ld a, OWL
     ld [hli], a
 
-    ; OBJ_INTERACTION_TYPE ($08): 0 = no interaction (struct already zeroed, but be explicit)
+    ; OBJ_INTERACTION_TYPE ($08): bump interaction (safe — no carry mechanic)
+    ld a, OBJ_INTERACTION_0B
+    ld [hli], a
+
+    ; OBJ_COLLBOX_TOP ($09): daytime sleep values
     xor a
     ld [hli], a
 
-    ; OBJ_COLLBOX_TOP ($09)
-    ld a, -20
+    ; OBJ_COLLBOX_BOTTOM ($0a)
+    ld a, $fe
     ld [hli], a
 
-    ; advance to OBJ_OAM_PTR ($10), skipping $0a-$0f
+    ; OBJ_COLLBOX_LEFT ($0b)
+    ld a, $f9
+    ld [hli], a
+
+    ; OBJ_COLLBOX_RIGHT ($0c)
+    ld a, $06
+    ld [hli], a
+
+    ; advance to OBJ_OAM_PTR ($10), skipping $0d-$0f
     ld a, l
-    add OBJ_OAM_PTR - (OBJ_COLLBOX_TOP + 1)
+    add OBJ_OAM_PTR - (OBJ_COLLBOX_RIGHT + 1)
     ld l, a
 
     ; OBJ_OAM_PTR ($10-$11): little-endian
@@ -530,24 +542,21 @@ ENDR
     ld a, HIGH(OAM_188e16)
     ld [hli], a
 
-    ; advance to OBJ_SUBSTATE ($1a), skipping frameset/frame/state vars
-    ld a, l
-    add OBJ_SUBSTATE - (OBJ_OAM_PTR + 2)
-    ld l, a
-
-    ; OBJ_SUBSTATE ($1a): mark uninitialised so OwlFunc runs its init path
-    ld a, OBJSUBFLAG_UNINITIALISED
-    ld [hl], a
-
-    ; advance to OBJ_UPDATE_FUNCTION ($1e)
-    ld a, l
-    add OBJ_UPDATE_FUNCTION - OBJ_SUBSTATE
-    ld l, a
-
-    ; OBJ_UPDATE_FUNCTION ($1e-$1f): little-endian
-    ld a, LOW(OwlFunc)
+    ; OBJ_FRAMESET_PTR ($12-$13): sleeping animation
+    ld a, LOW(Frameset_692e7)
     ld [hli], a
-    ld a, HIGH(OwlFunc)
+    ld a, HIGH(Frameset_692e7)
+    ld [hli], a
+
+    ; advance to OBJ_UPDATE_FUNCTION ($1e), skipping frame/state vars
+    ld a, l
+    add OBJ_UPDATE_FUNCTION - (OBJ_FRAMESET_PTR + 2)
+    ld l, a
+
+    ; OBJ_UPDATE_FUNCTION ($1e-$1f): sleeping update (skips init, no carry mechanic)
+    ld a, LOW(OwlFunc.Sleep)
+    ld [hli], a
+    ld a, HIGH(OwlFunc.Sleep)
     ld [hl], a
 
     pop_wram
