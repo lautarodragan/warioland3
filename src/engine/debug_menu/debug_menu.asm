@@ -682,25 +682,27 @@ DebugMenu_Exit:
 	call DisableLCD
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
-	call LoadBackupVRAM
-	; LoadBackupVRAM restores wTempPals2 from pre-menu backup, discarding any
-	; palette set by form changes. Re-apply the current Wario palette so that
-	; ApplyTempPals2ToOBPals below sends the right colors to CGRAM.
-	ld a, [wROMBank]
-	push af
-	ld a, BANK("Wario Palettes")
-	bankswitch
-	ld a, [wWarioPalsPtr + 0]
-	ld h, a
-	ld a, [wWarioPalsPtr + 1]
-	ld l, a
-	ld de, wTempPals2
+	; Save wTempPals2[0..1] (Wario OBJ palettes) before LoadBackupVRAM
+	; overwrites them with the pre-menu backup values.
+	ld hl, wTempPals2 + 2 palettes - 1
 	ld b, 2 palettes
-	ld a, BANK("Wario Palettes")
-	ldh [hCallFuncBank], a
-	hcall CopyHLToDE_Short
+.save_wario_pal:
+	ld a, [hld]
+	push af
+	dec b
+	jr nz, .save_wario_pal
+
+	call LoadBackupVRAM
+
+	; Restore saved Wario palettes into wTempPals2[0..1] so
+	; ApplyTempPals2ToOBPals below applies the correct form color.
+	ld hl, wTempPals2
+	ld b, 2 palettes
+.restore_wario_pal:
 	pop af
-	bankswitch
+	ld [hli], a
+	dec b
+	jr nz, .restore_wario_pal
 
 	xor a
 	ld [wUnused_IsPaused], a
