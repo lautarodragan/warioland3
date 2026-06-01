@@ -384,31 +384,15 @@ DebugMenu_DrawAll:
 	ld b, 10
 	call DebugMenu_DrawString
 
-	; POWER row (row 3)
+	; FORM row (row 3)
 	ld a, [wDebugMenuCursor]
 	and a                  ; cursor == 0?
-	ld a, $5d              ; ▼
-	jr z, .cursor_power
-	ld a, $7e              ; space
-.cursor_power:
-	ldcoord_a 0, 3
-	hlbgcoord 1, 3
-	ld de, DebugMenuStrPower
-	ld b, 9
-	call DebugMenu_DrawString
-	ld a, [wPowerUpLevel]
-	add $30                ; digit in temple charmap ($30-$39)
-	ldcoord_a 10, 3
-
-	; FORM row (row 5)
-	ld a, [wDebugMenuCursor]
-	cp 1
 	ld a, $5d              ; ▼
 	jr z, .cursor_form
 	ld a, $7e              ; space
 .cursor_form:
-	ldcoord_a 0, 5
-	hlbgcoord 1, 5
+	ldcoord_a 0, 3
+	hlbgcoord 1, 3
 	ld de, DebugMenuStrForm
 	ld b, 9
 	call DebugMenu_DrawString
@@ -424,9 +408,25 @@ DebugMenu_DrawAll:
 	add hl, bc
 	ld d, h
 	ld e, l
-	hlbgcoord 10, 5
+	hlbgcoord 10, 3
 	ld b, 5
 	call DebugMenu_DrawString
+
+	; POWER row (row 5)
+	ld a, [wDebugMenuCursor]
+	cp 1
+	ld a, $5d              ; ▼
+	jr z, .cursor_power
+	ld a, $7e              ; space
+.cursor_power:
+	ldcoord_a 0, 5
+	hlbgcoord 1, 5
+	ld de, DebugMenuStrPower
+	ld b, 9
+	call DebugMenu_DrawString
+	ld a, [wPowerUpLevel]
+	add $30                ; digit in temple charmap ($30-$39)
+	ldcoord_a 10, 5
 
 	; INVNBL row (row 7)
 	ld a, [wDebugMenuCursor]
@@ -603,9 +603,9 @@ UpdateDebugMenu:
 
 	ld a, [wDebugMenuCursor]
 	and a
-	jr z, .change_power_fwd
-	cp 1
 	jr z, .change_form_fwd
+	cp 1
+	jr z, .change_power_fwd
 	cp 2
 	jr z, .toggle_invnbl_r
 	; else cursor 3: toggle golf win
@@ -658,9 +658,9 @@ UpdateDebugMenu:
 
 	ld a, [wDebugMenuCursor]
 	and a
-	jr z, .change_power_bwd
-	cp 1
 	jr z, .change_form_bwd
+	cp 1
+	jr z, .change_power_bwd
 	cp 2
 	jr z, .toggle_invnbl_l
 	; else cursor 3: toggle golf win (same as right)
