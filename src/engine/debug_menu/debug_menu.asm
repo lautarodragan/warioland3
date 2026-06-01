@@ -713,11 +713,14 @@ UpdateDebugMenu:
 	and a
 	ret z                  ; nothing changed
 
-	; Redraw with LCD off
-	call DisableLCD
+	; Redraw during VBlank (LCD stays on, no flash)
+	di
+.wait_vblank:
+	ldh a, [rLY]
+	cp LY_VBLANK
+	jr c, .wait_vblank
 	call DebugMenu_DrawAll
-	ld a, LCDC_DEFAULT
-	ldh [rLCDC], a
+	ei
 	ret
 
 .exit:
