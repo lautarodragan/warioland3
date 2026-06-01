@@ -374,6 +374,50 @@ DebugMenu_ApplyForm:
 	ret
 
 ; -----------------------------------------------------------------------
+; Write BG attribute map (VRAM bank 1) to colour the debug menu regions.
+; Called during InitDebugMenu with LCD off. Clobbers: A, B, C, H, L
+; Palette 0 (teal bg) is already the default from FillBGMap0_With7f.
+; Layout:
+;   Rows  2-3 : pal 6 (bright yellow)  — header band
+;   Rows 5,7,9,11 : pal 5 (white)      — item rows
+;   Rows 13-14 : pal 6 (bright yellow) — footer band
+; -----------------------------------------------------------------------
+DebugMenu_SetAttrMap:
+	ld a, BANK("VRAM1")
+	ldh [rVBK], a
+
+	; Rows 2-3: bright yellow header band
+	ld hl, v1BGMap0 + 2 * TILEMAP_WIDTH
+	ld bc, 2 * TILEMAP_WIDTH
+	ld a, 6
+	call WriteAToHL_BCTimes
+
+	; Item rows: white background
+	ld a, 5
+	ld hl, v1BGMap0 + 5 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes    ; A preserved by WriteAToHL_BCTimes, BC not
+	ld hl, v1BGMap0 + 7 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+	ld hl, v1BGMap0 + 9 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+	ld hl, v1BGMap0 + 11 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+
+	; Rows 13-14: bright yellow footer band
+	ld hl, v1BGMap0 + 13 * TILEMAP_WIDTH
+	ld bc, 2 * TILEMAP_WIDTH
+	ld a, 6
+	call WriteAToHL_BCTimes
+
+	xor a
+	ldh [rVBK], a
+	ret
+
+; -----------------------------------------------------------------------
 ; Toggle TRANSFORMATION_INVISIBLE_WARIO on/off.
 ; Mirrors what UpdateState_TurningInvisible does when the potion animation ends.
 ; Clobbers: A, H, L
@@ -418,21 +462,21 @@ DebugMenu_ToggleInvisible:
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawAll:
-	; Header "DEBUG MENU" at row 1, col 3
-	hlbgcoord 3, 1
+	; Header "DEBUG MENU" centred at row 3
+	hlbgcoord 5, 3
 	ld de, DebugMenuStrHeader
 	ld b, 10
 	call DebugMenu_DrawString
 
-	; FORM row (row 3)
+	; FORM row (row 5)
 	ld a, [wDebugMenuCursor]
 	and a                  ; cursor == 0?
 	ld a, $5d              ; ▼
 	jr z, .cursor_form
 	ld a, $7e              ; space
 .cursor_form:
-	ldcoord_a 0, 3
-	hlbgcoord 1, 3
+	ldcoord_a 0, 5
+	hlbgcoord 1, 5
 	ld de, DebugMenuStrForm
 	ld b, 9
 	call DebugMenu_DrawString
@@ -448,35 +492,35 @@ DebugMenu_DrawAll:
 	add hl, bc
 	ld d, h
 	ld e, l
-	hlbgcoord 10, 3
+	hlbgcoord 10, 5
 	ld b, 5
 	call DebugMenu_DrawString
 
-	; POWER row (row 5)
+	; POWER row (row 7)
 	ld a, [wDebugMenuCursor]
 	cp 1
 	ld a, $5d              ; ▼
 	jr z, .cursor_power
 	ld a, $7e              ; space
 .cursor_power:
-	ldcoord_a 0, 5
-	hlbgcoord 1, 5
+	ldcoord_a 0, 7
+	hlbgcoord 1, 7
 	ld de, DebugMenuStrPower
 	ld b, 9
 	call DebugMenu_DrawString
 	ld a, [wPowerUpLevel]
 	add $30                ; digit in temple charmap ($30-$39)
-	ldcoord_a 10, 5
+	ldcoord_a 10, 7
 
-	; INVNBL row (row 7)
+	; INVNBL row (row 9)
 	ld a, [wDebugMenuCursor]
 	cp 2
 	ld a, $5d              ; ▼
 	jr z, .cursor_invnbl
 	ld a, $7e              ; space
 .cursor_invnbl:
-	ldcoord_a 0, 7
-	hlbgcoord 1, 7
+	ldcoord_a 0, 9
+	hlbgcoord 1, 9
 	ld de, DebugMenuStrInvnbl
 	ld b, 9
 	call DebugMenu_DrawString
@@ -490,18 +534,18 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrOff
 	ld b, 3
 .draw_invnbl_val:
-	hlbgcoord 10, 7
+	hlbgcoord 10, 9
 	call DebugMenu_DrawString
 
-	; GOLF row (row 9)
+	; GOLF row (row 11)
 	ld a, [wDebugMenuCursor]
 	cp 3
 	ld a, $5d              ; ▼
 	jr z, .cursor_golf
 	ld a, $7e              ; space
 .cursor_golf:
-	ldcoord_a 0, 9
-	hlbgcoord 1, 9
+	ldcoord_a 0, 11
+	hlbgcoord 1, 11
 	ld de, DebugMenuStrGolf
 	ld b, 9
 	call DebugMenu_DrawString
@@ -515,11 +559,11 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrOff
 	ld b, 3
 .draw_golf_val:
-	hlbgcoord 10, 9
+	hlbgcoord 10, 11
 	call DebugMenu_DrawString
 
-	; Instructions row (row 15)
-	hlbgcoord 1, 15
+	; Instructions row (row 13), centred
+	hlbgcoord 2, 13
 	ld de, DebugMenuStrInstr
 	ld b, 16
 	call DebugMenu_DrawString
@@ -572,6 +616,7 @@ InitDebugMenu:
 .form_init_done:
 
 	call FillBGMap0_With7f
+	call DebugMenu_SetAttrMap
 	call ClearVirtualOAM
 	farcall LoadFontTiles
 	farcall LoadFontPals
