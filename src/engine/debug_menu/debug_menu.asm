@@ -461,6 +461,13 @@ DebugMenu_ToggleInvisible:
 	farcall StartFall
 	ret
 
+; Update function for the debug owl: truly inert, ignores all state changes.
+; OwlFunc.Sleep cannot be used here because DoObjectAction (OBJACTION_07) sets
+; OBJ_STATE = OBJSTATE_18, which .Sleep interprets as a wake-up signal,
+; starting the full fly sequence and corrupting tile/collision state.
+DebugOwlFunc:
+	ret
+
 ; -----------------------------------------------------------------------
 ; Spawn an owl object in the first free wObjects slot, at Wario's position
 ; offset 24 pixels to the right. Silent no-op if all 8 slots are occupied.
@@ -553,10 +560,10 @@ ENDR
     add OBJ_UPDATE_FUNCTION - (OBJ_FRAMESET_PTR + 2)
     ld l, a
 
-    ; OBJ_UPDATE_FUNCTION ($1e-$1f): sleeping update — stationary owl, Wario can grab it
-    ld a, LOW(OwlFunc.Sleep)
+    ; OBJ_UPDATE_FUNCTION ($1e-$1f): inert update — ignores state, owl never wakes
+    ld a, LOW(DebugOwlFunc)
     ld [hli], a
-    ld a, HIGH(OwlFunc.Sleep)
+    ld a, HIGH(DebugOwlFunc)
     ld [hl], a
 
     pop_wram
