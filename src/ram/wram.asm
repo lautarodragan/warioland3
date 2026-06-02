@@ -2530,7 +2530,6 @@ wMenuObj11:: menu_obj_struct wMenuObj11
 
 wDebugMenuCursor::  db
 wDebugMenuFormIdx:: db
-wDebugOwlActive::   db
 
 SECTION "WRAM4", WRAMX
 

@@ -2978,6 +2978,11 @@ ObjInteraction_Owl:
 	ld a, TRANSFORMATION_OWL_WARIO
 	ld [wTransformation], a
 
+	ld a, [wCameraConfigFlags]
+	and ~CAM_SCROLLING_MASK
+	or CAM_FREE
+	ld [wCameraConfigFlags], a
+
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
 	ld a, TOUCH_VULNERABLE
@@ -3018,15 +3023,7 @@ ObjInteraction_Owl:
 	ld [wDMASourcePtr + 0], a
 	ld a, LOW(WarioHangGfx)
 	ld [wDMASourcePtr + 1], a
-	ld a, [wDebugOwlActive]
-	ld b, a
-	xor a
-	ld [wDebugOwlActive], a
-	ld a, b
-	and a
-	jr nz, .skip_gfx_load
 	call LoadWarioGfx
-.skip_gfx_load
 	ld a, BANK(OAM_1fddb4)
 	ld [wOAMBank], a
 	ld a, HIGH(OAM_1fddb4)

@@ -559,10 +559,6 @@ ENDR
     ld a, HIGH(OwlFunc.Sleep)
     ld [hl], a
 
-    ; flag so ObjInteraction_Owl skips the VRAM tile DMA on next grab
-    ld a, TRUE
-    ld [wDebugOwlActive], a
-
     pop_wram
     ret
 
