@@ -1296,7 +1296,7 @@ Func_209ca:
 .done
 	jp ProcessInteractions.next_obj
 
-Func_20a63:
+TriggerObjInteraction:
 	ld b, OBJACTION_07
 	call SetObjAction
 	ret
@@ -1980,7 +1980,7 @@ ObjInteraction_BlueKey:
 
 CollectKey:
 	play_sfx SFX_KEY
-	call Func_20a63
+	call TriggerObjInteraction
 	ld a, ST_COLLECT_KEY
 	ld [wState], a
 	xor a
@@ -2049,7 +2049,7 @@ ObjInteraction_BlueTreasure:
 
 GetTreasure:
 	stop_music
-	call Func_20a63
+	call TriggerObjInteraction
 	call TreasureClearObjects
 
 	ld hl, wLevelEndScreen
@@ -2378,7 +2378,7 @@ ObjInteraction_Food:
 	jp Func_20a69
 
 .set_fat_wario
-	call Func_20a63
+	call TriggerObjInteraction
 	ld a, TRANSFORMATION_FAT_WARIO
 	ld [wTransformation], a
 	ld a, TOUCH_BUMP
@@ -2479,7 +2479,7 @@ ObjInteraction_RegularCoin:
 	ld [hl], a
 .no_cap
 	play_sfx SFX_REGULAR_COIN
-	jp Func_20a63
+	jp TriggerObjInteraction
 
 ObjInteraction_Electric:
 	ld a, [wWarioScreenXPos]
@@ -2597,7 +2597,7 @@ ObjInteraction_Electric:
 	ret
 
 ObjInteraction_InvisibilityPotion:
-	call Func_20a63
+	call TriggerObjInteraction
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
@@ -2748,7 +2748,7 @@ Func_2168b:
 .asm_216ab
 	ld b, a
 	call MoveWarioDown
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wWaterInteraction]
 	and a
 	jr z, .asm_216d4
@@ -2894,7 +2894,7 @@ ObjInteraction_Vampire:
 
 	ld a, TRANSFORMATION_VAMPIRE_WARIO
 	ld [wTransformation], a
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wTransformation]
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	ret nz
@@ -2972,7 +2972,7 @@ ObjInteraction_Owl:
 	cp TRANSFORMATION_OWL_WARIO
 	ret z
 
-	call Func_20a63
+	call TriggerObjInteraction
 
 	play_sfx SFX_HANG_GRAB
 	ld a, TRANSFORMATION_OWL_WARIO
@@ -3130,7 +3130,7 @@ ObjInteraction_Snow:
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, Func_20a69
-	call Func_20a63
+	call TriggerObjInteraction
 
 	ld a, TRANSFORMATION_SNOWMAN_WARIO
 	ld [wTransformation], a
@@ -3553,7 +3553,7 @@ CollectMusicalCoin:
 	ld a, LOW(MAX_NUM_COINS)
 	ld [hl], a
 .no_cap
-	call Func_20a63
+	call TriggerObjInteraction
 	jp ProcessInteractions.next_obj
 
 ObjInteraction_MagicalSpiral:

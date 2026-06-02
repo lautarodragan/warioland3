@@ -179,7 +179,7 @@ SetState_IceSkatin:
 	ret
 
 UpdateState_IceSkatin:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -245,7 +245,7 @@ Func_1ec215:
 	jp SetState_IceSkatinCrash
 
 UpdateState_IceSkatinAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -402,7 +402,7 @@ UpdateState_OwlSlow:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jp nz, Func_1ec64d
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -569,7 +569,7 @@ UpdateState_OwlFast:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jp nz, Func_1ec64d
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -708,7 +708,7 @@ UpdateState_ReleasingOwl:
 	ret
 
 UpdateState_FallingFromOwl:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -841,7 +841,7 @@ SetState_TurningIntoSnowman::
 	ret
 
 UpdateState_SnowmanStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -900,7 +900,7 @@ SetState_SnowmanIdle:
 	ret
 
 UpdateState_SnowmanIdle:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -954,7 +954,7 @@ SetState_SnowmanWalking:
 	ret
 
 UpdateState_SnowmanWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1015,7 +1015,7 @@ SetState_SnowmanTurning:
 	ret
 
 UpdateState_SnowmanTurning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1091,7 +1091,7 @@ SetState_SnowmanAirborne:
 	ret
 
 UpdateState_SnowmanAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1297,7 +1297,7 @@ SetState_SnowballRolling:
 	ret
 
 UpdateState_SnowballRolling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1421,7 +1421,7 @@ UpdateState_SnowballRolling:
 	ret
 
 UpdateState_SnowballAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1616,7 +1616,7 @@ UpdateState_SplitHit:
 	ret
 
 UpdateState_SplitKnockedBack:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1690,7 +1690,7 @@ UpdateState_Splitting:
 	ret
 
 UpdateState_SplittingAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1778,7 +1778,7 @@ SetState_FanStart:
 	ret
 
 UpdateState_FanStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wSFXLoopCounter]
 	sub 1
 	ld [wSFXLoopCounter], a
@@ -1823,7 +1823,7 @@ SetState_FanLifting:
 	ret
 
 UpdateStart_FanLifting:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInAirCurrent]
 	and a
 	jp z, SetState_FanRecovering
@@ -1916,7 +1916,7 @@ SetState_FanSpinning:
 	ret
 
 UpdateState_FanSpinning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInAirCurrent]
 	and a
 	jr z, SetState_FanRecovering
@@ -2105,7 +2105,7 @@ SetState_BlindWalking:
 	ret
 
 UpdateState_BlindWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2260,7 +2260,7 @@ SetState_BlindAirborne:
 	ret
 
 UpdateState_BlindAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2478,7 +2478,7 @@ SetState_Launched:
 	ret
 
 UpdateState_Launched:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2635,7 +2635,7 @@ SetState_MagicRising:
 	ret
 
 UpdateState_MagicRising:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	farcall CheckUpCollision
 	ld a, b
 	and a

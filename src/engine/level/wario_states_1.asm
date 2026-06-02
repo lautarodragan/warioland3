@@ -114,7 +114,7 @@ UpdateState_Idling:
 	ldh [hCallFuncBank], a
 	hcall UpdateAnimation
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -190,7 +190,7 @@ UpdateState_Walking:
 	cp WST_WALKING
 	ret nz ; return if not walking anymore
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -351,7 +351,7 @@ SetState_Airborne:
 	ret
 
 UpdateState_Airborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -822,7 +822,7 @@ SetState_CrouchSliding:
 	jr .asm_1c7a7
 
 UpdateState_CrouchSliding:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -978,7 +978,7 @@ UpdateState_Attacking:
 	ld a, [wWarioState]
 	cp WST_ATTACKING
 	ret nz ; not attacking anymore
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1264,7 +1264,7 @@ SetState_AttackingAirborne:
 	ret
 
 UpdateState_AttackingAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1362,7 +1362,7 @@ UpdateState_AttackingAirborne:
 	jp DoBumpWithSmallBackOffset
 
 UpdateState_Bumping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1644,7 +1644,7 @@ SetState_Submerged:
 UpdateState_Submerged:
 	xor a
 	ld [wc0e1], a
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1722,7 +1722,7 @@ SetState_WaterSurfaceIdling:
 UpdateState_WaterSurfaceIdling:
 	xor a
 	ld [wc0e1], a
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wWarioState]
 	cp WST_WATER_SURFACE_IDLING
 	ret nz ; not water idling anymore
@@ -1795,7 +1795,7 @@ SetState_WaterSurfaceMoving:
 UpdateState_WaterSurfaceMoving:
 	xor a
 	ld [wc0e1], a
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2018,7 +2018,7 @@ SetState_UnderwaterThrusting:
 UpdateState_UnderwaterThrusting:
 	xor a
 	ld [wc0e1], a
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2216,7 +2216,7 @@ UpdateState_TryingSubmerge:
 	ret
 
 UpdateState_Crouching:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wWarioState]
 	cp WST_CROUCHING
 	ret nz ; not crouching anymore
@@ -2248,7 +2248,7 @@ UpdateState_CrouchWalking:
 	ldh [hCallFuncBank], a
 	hcall UpdateAnimation
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2277,7 +2277,7 @@ UpdateState_CrouchWalking:
 	jp SetState_Sliding
 
 UpdateState_CrouchAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2380,7 +2380,7 @@ UpdateState_CrouchAirborne:
 	jp CrouchOrSlide
 
 UpdateState_Stung:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2628,7 +2628,7 @@ UpdateState_PipeGoingUp:
 	ret
 
 UpdateState_EnemyBumping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2715,7 +2715,7 @@ UpdateState_PickingUp:
 	jp SetState_GrabIdling
 
 UpdateState_GrabIdling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2743,7 +2743,7 @@ UpdateState_GrabIdling:
 	ret
 
 UpdateState_GrabWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2812,7 +2812,7 @@ SetState_ThrowingAirborne:
 	jr .asm_1da33
 
 UpdateState_GrabAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3513,7 +3513,7 @@ SetState_Rolling:
 	ret
 
 UpdateState_Rolling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3642,7 +3642,7 @@ Func_1e1e3:
 	jr SetState_RollingAirborne
 
 UpdateState_RollingAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
