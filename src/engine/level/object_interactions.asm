@@ -2978,11 +2978,6 @@ ObjInteraction_Owl:
 	ld a, TRANSFORMATION_OWL_WARIO
 	ld [wTransformation], a
 
-	ld a, [wCameraConfigFlags]
-	and ~CAM_SCROLLING_MASK
-	or CAM_FREE
-	ld [wCameraConfigFlags], a
-
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
 	ld a, TOUCH_VULNERABLE

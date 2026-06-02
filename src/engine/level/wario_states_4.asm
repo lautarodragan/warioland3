@@ -726,12 +726,7 @@ UpdateState_FallingFromOwl:
 	farcall CheckAirborneCollision
 	ld a, b
 	and a
-	jr nz, .floor_found
-	farcall CheckCentreCollision
-	ld a, b
-	and a
 	ret z
-.floor_found
 	ld hl, hYPosHi
 	ld de, wWarioPos
 	ld a, [hli]

@@ -1,4 +1,4 @@
-OwlFunc::
+OwlFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -32,7 +32,7 @@ OwlFunc::
 	ld [hld], a
 	jr .set_fly_upwards
 
-.Sleep::
+.Sleep:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
