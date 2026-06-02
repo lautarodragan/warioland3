@@ -4514,6 +4514,13 @@ SetState_BatIdling:
 	ret
 
 UpdateState_BatIdling:
+	farcall Func_19b25
+	ld a, [wWarioState]
+	cp WST_BAT_IDLING
+	ret nz
+	ld a, [wRoomTransitionParam]
+	and a
+	jp nz, TriggerRoomTransition
 	farcall CheckCentreCollision
 	ld a, [wWarioState]
 	cp WST_BAT_IDLING
