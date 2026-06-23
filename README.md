@@ -1,5 +1,7 @@
 # Wario Land 3 + Debug/Cheat Menu
 
+<img src="wario-debug-menu.png" />
+
 ## What
 
 A "Debug Menu" (more like a "Cheat Menu", really), inspired by Metroid Fusion's debug menu.
@@ -22,6 +24,10 @@ Other features:
 New state ST_DEBUG_MENU ($0f) replaces the unused ST_UNUSED_0F slot.
 All debug menu code auto-linked into bank $01 (646 bytes).
 
+## Why
+
+For fun! This is more a cheating menu than a debug menu, really. I played Wario Land 3 probably over 20 times, through and through. I still don't get tired of it. This is just another way to play it.
+
 ## How to Play
 
 To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extract it to /usr/local/bin. Run `make` in your shell. The build output will be "warioland3.gbc".
@@ -30,16 +36,12 @@ To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extrac
 
 Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-and-through on a real Gameboy Color with an EverDrive. The game can be played completely, without issues.
 
-## Why?
-
-For fun! This is more a cheating menu than a debug menu, really. I played Wario Land 3 probably over 20 times, through and through. I still don't get tired of it. This is just another way to play it.
-
-## Known Bugs
+### Known Bugs
 
 - Vampire mode, while flying, doesn't properly execute screen transitions. The "camera" stays in the current screen, even though Wario correctly moves to the proper screen. Collision occurs correctly. To "fix" this, turn into non-flying Vampire mode, or normal mode, and jump. This will cause the screen to transition. Alternatively, only use fly-mode in areas that don't have screen transitions, and use "Puffy" in areas that do.
 - I tried to implement an Owl-spawning option. It spawns an owl right next to you, no matter where you are. This was completely broken in many different ways. I tried fixing it (well... Claude did), and eventually gave up. Main issues were: broken graphics in levels that don't normally have an owl (makes sense), sometimes impossible to grab the owl, and, when grabbing it and flying, completely breaking the level and sometimes crashing the game. I eventually gave up, reverted the changes, and asked Claude to write a summary of everything it tried. It's in `owl.md`. 
 
-## AI
+## How
 
 This was entire vibe-coded. I do have 23 years of experience writing code, but I don't know ASM, and learning it to implement such features in a GB game isn't a priority of mine. I did read parts of the implementation out of curiosity, ask Claude questions about it, made small changes to see what would happen, and read the first part of https://gbdev.io/gb-asm-tutorial/index.html (highly recommended resource! extremely friendly — way friendlier than the usual learning resources for programming, in general).
 
