@@ -32,7 +32,7 @@ For fun! This is more a cheating menu than a debug menu, really. I played Wario 
 
 To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extract it to /usr/local/bin. Run `make` in your shell. The build output will be "warioland3.gbc".
 
-## Status
+## Where
 
 Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-and-through on a real Gameboy Color with an EverDrive. The game can be played completely, without issues.
 
