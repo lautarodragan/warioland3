@@ -3,6 +3,7 @@ rom := warioland3.gbc
 rom_obj := \
 src/action_help.o \
 src/audio.o \
+src/debug_menu.o \
 src/clear.o \
 src/credits.o \
 src/game_over.o \

@@ -98,7 +98,7 @@ SetState_Slipping:
 	ret
 
 UpdateState_Slipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -326,7 +326,7 @@ Func_19e89:
 	ret
 
 UpdateState_CrouchSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -625,7 +625,7 @@ SetState_SandJumping:
 	jp Func_1a12a
 
 UpdateState_SandJumping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInSand]
 	and a
 	jr nz, .in_sand
@@ -757,7 +757,7 @@ UpdateState_SandWalking:
 	cp WST_SAND_WALKING
 	ret nz ; done if not walking in sand any more
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -877,7 +877,7 @@ SetState_LadderClimbing:
 	ret
 
 UpdateState_LadderClimbing:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -960,7 +960,7 @@ SetState_LadderIdling:
 	jr .asm_1a501
 
 UpdateState_LadderIdling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -977,7 +977,7 @@ UpdateState_LadderIdling:
 	ret
 
 UpdateState_LadderShakeSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1064,7 +1064,7 @@ UpdateState_GettingOffLadder:
 	call MoveWarioRight
 
 .asm_1a640
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
@@ -1105,7 +1105,7 @@ SetState_LadderSliding:
 	ret
 
 UpdateState_LadderSliding:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1204,7 +1204,7 @@ SetState_GrabSlipping:
 	ret
 
 UpdateState_GrabSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2125,7 +2125,7 @@ SetState_FenceSliding:
 	ret
 
 UpdateState_FenceSliding:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition

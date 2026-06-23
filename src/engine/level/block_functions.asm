@@ -784,6 +784,12 @@ BlockFunc_Door:
 	cp WST_SLIPPING
 	jr z, .enter_door
 	cp WST_GRAB_IDLING
+	jr z, .enter_door
+	cp WST_BAT_IDLING
+	jr z, .enter_door
+	cp WST_BAT_FLYING
+	jr z, .enter_door
+	cp WST_BAT_FALLING
 	jp nz, BlockFunc_Free
 .enter_door
 	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS | ROOMTRANSITIONF_DELAY

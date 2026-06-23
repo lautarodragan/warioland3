@@ -569,7 +569,7 @@ Func_19a77:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19b3a
+	call UpdateEnvState
 	and a
 	jr z, .asm_19aa2
 	ld a, [wc1ca]
@@ -597,7 +597,7 @@ Func_19a77:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19b3a
+	call UpdateEnvState
 	and a
 	jr z, .asm_19ac7
 	ret
@@ -622,7 +622,7 @@ Func_19acd:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	jr Func_19b3a
+	jr UpdateEnvState
 
 Func_19ae4:
 	ld hl, wWarioXPos + 1
@@ -640,7 +640,7 @@ Func_19ae4:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	jr Func_19b3a
+	jr UpdateEnvState
 
 Func_19afb:
 	ld hl, wWarioXPos + 1
@@ -658,15 +658,15 @@ Func_19afb:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	jr Func_19b3a
+	jr UpdateEnvState
 
 ; collision on centre
 Func_19b12:
 	get_pos
-	jr Func_19b3a
+	jr UpdateEnvState
 
 ; collision on top
-Func_19b25:
+CheckTopBlockInteraction:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -684,7 +684,7 @@ Func_19b25:
 	ld [de], a
 ;	fallthrough
 
-Func_19b3a:
+UpdateEnvState:
 	xor a
 	ld [wWaterInteraction], a
 	ld [wLadderInteraction], a
@@ -692,7 +692,7 @@ Func_19b3a:
 	ld [wIsInSand], a
 	ld [wIsNearFence], a
 	ld [wIsInAirCurrent], a
-	call Func_19c0b
+	call ProcessBlock_UNK7
 	ret
 
 Func_19b51::
@@ -826,7 +826,7 @@ Func_19bfb:
 	ld b, a
 	ret
 
-Func_19c0b:
+ProcessBlock_UNK7:
 	ld hl, hPos
 	call GetBlockPtr
 	ld a, COLLISION_UNK7

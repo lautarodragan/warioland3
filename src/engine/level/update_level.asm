@@ -255,8 +255,45 @@ UpdateLevel:
 	and a
 	ret nz
 
+	; Debug menu trigger: SELECT pressed
 	ld a, [wJoypadPressed]
-	and PAD_SELECT | PAD_START
+	and PAD_SELECT
+	jr z, .no_debug_trigger
+
+	; If currently transformed, cancel form instead of opening the menu
+	ld a, [wTransformation]
+	and a
+	jr z, .open_debug_menu
+	call ClearTransformationValues
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	ld a, [wJumpVelTable]
+	and a
+	jr nz, .cancel_form_falling
+	farcall SetState_Idling
+	ret
+.cancel_form_falling:
+	farcall StartFall
+	ret
+
+.open_debug_menu:
+	stop_music
+	xor a
+	ld [wRoomAnimatedPalsEnabled], a
+	ld a, TRUE
+	ld [wUnused_IsPaused], a
+	ld a, [wSubState]
+	ld [wPendingSubState], a
+	ld a, ST_DEBUG_MENU
+	ld [wState], a
+	xor a
+	ld [wSubState], a
+	ret
+.no_debug_trigger:
+
+	ld a, [wJoypadPressed]
+	and PAD_START
 	ret z
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND

@@ -85,7 +85,7 @@ UpdateWarioStates_Group3:
 	dw InvalidWarioStateReset                 ; WST_UNUSED_AF
 
 UpdateState_OnFire:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -208,7 +208,7 @@ SetState_Hot:
 	jr .asm_281a5
 
 UpdateState_OnFireAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -279,7 +279,7 @@ UpdateState_OnFireAirborne:
 	ret
 
 UpdateState_Hot:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -401,7 +401,7 @@ Func_2838a:
 	ret
 
 UpdateState_HotAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -552,7 +552,7 @@ SetState_FlatAirborne:
 	ret
 
 UpdateState_GettingFlatAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -617,7 +617,7 @@ UpdateState_GettingFlat:
 	jp nz, SetState_FlatSquished
 ;	fallthrough
 
-SetState_FlatIdling:
+SetState_FlatIdling::
 	ld a, WST_FLAT_IDLING
 	ld [wWarioState], a
 
@@ -693,7 +693,7 @@ SetState_FlatWalking:
 	ret
 
 UpdateState_FlatWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -756,7 +756,7 @@ SetState_FlatJumping:
 ;	fallthrough
 
 UpdateState_FlatJumping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -807,7 +807,7 @@ SetState_FlatFalling:
 	jr .asm_28786
 
 UpdateState_FlatFalling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 
 	ld a, [wRoomTransitionParam]
 	and a
@@ -1003,7 +1003,7 @@ UpdateState_FlatSinking:
 	ldh [hCallFuncBank], a
 	hcall UpdateAnimation
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 
 	ld a, [wRoomTransitionParam]
 	and a
@@ -1166,7 +1166,7 @@ UpdateState_GettingWrappedInString:
 	jp z, Func_28c15
 ;	fallthrough
 
-SetState_BallOString:
+SetState_BallOString::
 	ld a, WST_BALL_O_STRING
 	ld [wWarioState], a
 	ld a, 1
@@ -1209,7 +1209,7 @@ SetState_BallOString:
 	jr .asm_28b1a
 
 UpdateState_BallOString:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1304,7 +1304,7 @@ Func_28c15:
 	ret
 
 UpdateState_BallOStringAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1371,7 +1371,7 @@ SetState_BallOStringKnockBack:
 	ret
 
 UpdateState_BallOStringKnockBack:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1530,7 +1530,7 @@ UpdateState_FatBumping:
 	jp SetState_FatIdling
 
 UpdateState_FatEating:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1565,7 +1565,7 @@ UpdateState_FatEating:
 	ld [wCollisionBoxRight], a
 ;	fallthrough
 
-SetState_FatIdling:
+SetState_FatIdling::
 	ld a, WST_FAT_IDLING
 	ld [wWarioState], a
 	ld a, TOUCH_ATTACK
@@ -1603,7 +1603,7 @@ SetState_FatIdling:
 	jr .asm_28f1d
 
 UpdateState_FatIdling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1659,7 +1659,7 @@ SetState_FatWalking:
 	jr .asm_28fa4
 
 UpdateState_FatWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1721,7 +1721,7 @@ SetState_FatTurning:
 	jr .asm_29051
 
 UpdateState_FatTurning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1798,7 +1798,7 @@ SetState_FatAirborne:
 	ret
 
 UpdateState_FatAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2080,7 +2080,7 @@ UpdateState_FatRecovering:
 	jp RecoverFromTransformation
 
 UpdateState_ElectricStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2183,7 +2183,7 @@ UpdateState_ElectricStart:
 	ret
 
 UpdateState_Electric:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2486,7 +2486,7 @@ UpdateState_TurningInvisible:
 	farcall SetState_Idling
 	ret
 
-SetState_PuffyInflating:
+SetState_PuffyInflating::
 	ld a, TRANSFORMATION_PUFFY_WARIO
 	ld [wTransformation], a
 
@@ -2610,7 +2610,7 @@ SetState_PuffyRising:
 	ret
 
 UpdateState_PuffyRising:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2759,7 +2759,7 @@ UpdateState_PuffyDeflating:
 	ret z
 	jp RecoverFromTransformation
 
-SetState_ZombieIdling:
+SetState_ZombieIdling::
 	ld a, WST_ZOMBIE_IDLING
 	ld [wWarioState], a
 
@@ -2833,7 +2833,7 @@ SetState_ZombieIdling:
 	ret
 
 UpdateState_ZombieIdling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wWarioState]
 	cp WST_ZOMBIE_IDLING
 	ret nz ; done if not zombie idling anymore
@@ -2886,7 +2886,7 @@ SetState_ZombieWalking:
 	ret
 
 UpdateState_ZombieWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3011,7 +3011,7 @@ SetState_ZombieAirborne:
 	ret
 
 UpdateState_ZombieAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3194,7 +3194,7 @@ UpdateState_ZombieLanding:
 	ret
 
 UpdateState_ZombieSlippingThroughFloor:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3375,7 +3375,7 @@ UpdateState_ZombieWrithing:
 	jp nz, SetState_ZombieIdling
 	ret
 
-SetState_BouncyStart:
+SetState_BouncyStart::
 	ld a, WST_BOUNCY_START
 	ld [wWarioState], a
 	ld a, FALLING_JUMP_VEL_INDEX
@@ -3442,7 +3442,7 @@ SetState_BouncyStart:
 	ret
 
 UpdateState_BouncyStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3558,7 +3558,7 @@ SetState_BouncyAirborne:
 	ret
 
 UpdateState_BouncyAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3704,7 +3704,7 @@ SetState_BouncyUpsideDown:
 	ret
 
 UpdateState_BouncyUpsideDown:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3812,7 +3812,7 @@ SetState_BouncyLastBounce:
 	ret
 
 UpdateState_BouncyLastBounce:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -3864,7 +3864,7 @@ UpdateState_BouncyLastBounce:
 	ret nz ; done if not in last bouncy any more
 	jp RecoverFromTransformation
 
-SetState_CrazySpinning:
+SetState_CrazySpinning::
 	play_sfx SFX_042
 	ld a, WST_CRAZY_SPINNING
 	ld [wWarioState], a
@@ -3934,7 +3934,7 @@ SetState_CrazySpinning:
 	ret
 
 UpdateState_CrazySpinning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4071,7 +4071,7 @@ SetState_Crazy:
 	ret
 
 UpdateState_Crazy:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4171,7 +4171,7 @@ SetState_CrazyAirborne:
 	ret
 
 UpdateState_CrazyAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4212,7 +4212,7 @@ UpdateState_CrazyAirborne:
 	call TriggerFloorTransition
 	jp SetState_Crazy
 
-SetState_VampireIdling:
+SetState_VampireIdling::
 	ld a, WST_VAMPIRE_IDLING
 	ld [wWarioState], a
 
@@ -4298,7 +4298,7 @@ SetState_VampireWalking:
 	ret
 
 UpdateState_VampireWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4387,7 +4387,7 @@ SetState_VampireAirborne:
 	ret
 
 UpdateState_VampireAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4514,6 +4514,13 @@ SetState_BatIdling:
 	ret
 
 UpdateState_BatIdling:
+	farcall CheckTopBlockInteraction
+	ld a, [wWarioState]
+	cp WST_BAT_IDLING
+	ret nz
+	ld a, [wRoomTransitionParam]
+	and a
+	jp nz, TriggerRoomTransition
 	farcall CheckCentreCollision
 	ld a, [wWarioState]
 	cp WST_BAT_IDLING
@@ -4538,6 +4545,7 @@ UpdateState_BatIdling:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jr nz, .asm_2aa55
+	ld a, [wJoypadDown]
 	bit B_PAD_A, a
 	jp nz, SetState_BatFlying
 	ret
@@ -4638,7 +4646,7 @@ SetState_BatFlying:
 	jp Func_2abc1
 
 UpdateState_BatFlying:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4720,7 +4728,7 @@ SetState_BatFalling:
 	ret
 
 UpdateState_BatFalling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -4819,7 +4827,7 @@ Func_2ac7d:
 	ret
 
 UpdateState_InBubble:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wWaterInteraction]
 	and a
 	jr z, .asm_2ad45
@@ -5834,7 +5842,7 @@ Func_2b63b:
 	ld a, [hl]
 	cp MAX_JUMP_VEL_INDEX + 1
 	jr c, .asm_2b651
-	jp SetState_BatFalling
+	jp SetState_BatFlying
 
 	xor a
 	ld [hl], a
