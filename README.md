@@ -43,14 +43,20 @@ Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-a
 
 ## How
 
-This was entire vibe-coded. I do have 23 years of experience writing code, but I don't know ASM, and learning it to implement such features in a GB game isn't a priority of mine. I did read parts of the implementation out of curiosity, ask Claude questions about it, made small changes to see what would happen, and read the first part of https://gbdev.io/gb-asm-tutorial/index.html (highly recommended resource! extremely friendly — way friendlier than the usual learning resources for programming, in general).
+This was entire vibe-coded. I do have 23 years of experience writing code, but I don't know ASM, and learning it to implement such features in a GB game isn't a top priority of mine. I did read parts of the implementation out of curiosity, ask Claude questions about it, made small changes to see what would happen, and read the first part of [gb-asm-tutorial](https://gbdev.io/gb-asm-tutorial/index.html) (highly recommended resource! extremely friendly — way friendlier than the usual learning resources for programming, in general).
 
 I also did some debugging with Gearboy's debugging options.
 
-My role as more QA than programming. 
+My role as more QA than programmer. 
 
-Here's the whole conversation with Claude that I did to make these  changes: https://claude.ai/code/session_01F8cyT2Vr9JeFoMFFZrHiwx. I think there's value in it, which is why I'm sharing it publicly. Seeing what the AI did was a way of learning, to me, and might be, too, to GB development newbies.
+Here's the whole conversation with Claude that I had to make these changes: https://claude.ai/code/session_01F8cyT2Vr9JeFoMFFZrHiwx. I think there's value in it, which is why I'm sharing it publicly. Seeing what the AI did was a way of learning, to me, and might be, too, to GB development newbies.
 
 ## Origin
 
 This is a fork of [ElectroDeoxys/warioland3](https://github.com/ElectroDeoxys/warioland3).
+
+## Links
+
+- [gbdev.io/gb-asm-tutorial](https://gbdev.io/gb-asm-tutorial/index.html)
+- [rgbds.gbdev.io/docs](https://rgbds.gbdev.io/docs/v1.0.1)
+
