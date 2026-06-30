@@ -39,5 +39,9 @@ src/data/golf/holes/*.attrmap
 # *disasm.py output file
 *output.asm
 
+# generated IPS patch + its reconstruction worktree
+*.ips
+/.basebuild
+
 # vscode
 *.vscode/*

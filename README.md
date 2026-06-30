@@ -32,6 +32,20 @@ For fun! This is more a cheating menu than a debug menu, really. I played Wario 
 
 To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extract it to /usr/local/bin. Run `make` in your shell. The build output will be "warioland3.gbc".
 
+## Patching
+
+To generate the patch yourself:
+
+```sh
+make patch
+```
+
+This builds the modified ROM, reconstructs the *original* ROM from the pre-debug-menu commit (verifying it against `rom.sha1`), diffs the two, and writes `warioland3-debug-menu.ips`. No extra dependencies beyond RGBDS and Python 3 — the IPS is produced by `tools/make_ips.py`.
+
+To **play the patch**, apply `warioland3-debug-menu.ips` to a Wario Land 3 ROM whose SHA1 is `bb7877309834441fd03adb7fa65738e5d5b2d7ba`, using any IPS patcher ([Floating IPS / flips](https://github.com/Alcaro/Flips), or a web tool like [rompatcher.js](https://www.marcrobledo.com/RomPatcher.js/)).
+
+Pre-built patches are published on the [Releases](../../releases) page. Pushing a `v*` tag triggers the `release` workflow, which builds the patch and uploads it to a new release automatically.
+
 ## Where
 
 Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-and-through on a real Gameboy Color with an EverDrive. The game can be played completely, without issues.

@@ -42,7 +42,7 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all warioland3 clean tidy compare tools
+.PHONY: all warioland3 clean tidy compare tools patch
 
 all: $(rom) compare
 warioland3: $(rom) compare
@@ -64,6 +64,30 @@ compare: $(rom)
 
 tools:
 	$(MAKE) -C tools/
+
+### IPS patch
+# `make patch` produces an IPS patch holding only this fork's changes, which is
+# safe to distribute (it contains none of the original ROM's data on its own).
+#
+# The original ROM is reconstructed from source: base_ref is the last commit
+# whose build matches the unmodified game (rom.sha1). We build it in a throwaway
+# git worktree, verify it against rom.sha1, then diff it against our rom.
+patch_name := warioland3-debug-menu.ips
+base_ref ?= bbe75a7
+basebuild := .basebuild
+
+patch: $(patch_name)
+
+$(patch_name): $(rom)
+	-git worktree remove --force $(basebuild) 2>/dev/null
+	rm -rf $(basebuild)
+	git worktree prune
+	git worktree add -f --detach $(basebuild) $(base_ref)
+	$(MAKE) -C $(basebuild) -j compare
+	python3 tools/make_ips.py $(basebuild)/$(rom) $(rom) $@
+	-git worktree remove --force $(basebuild)
+	git worktree prune
+	@echo "Patch written to $@"
 
 
 RGBASMFLAGS = -P includes.asm -I src/ -Weverything

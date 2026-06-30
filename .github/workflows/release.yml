@@ -1,0 +1,67 @@
+name: release
+
+# Push a tag like `v1.0` (or run this manually) to build the ROM, generate the
+# IPS patch, and publish a GitHub Release with the patch attached.
+#
+# Only the .ips patch is uploaded -- never the assembled ROM -- so no copyrighted
+# game data is distributed.
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to create (e.g. v1.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history is required: `make patch` reconstructs the original ROM
+          # from an earlier commit (base_ref) in a git worktree.
+          fetch-depth: 0
+
+      - name: Checkout rgbds
+        uses: actions/checkout@v4
+        with:
+          path: rgbds
+          ref: v1.0.0
+          repository: gbdev/rgbds
+
+      - name: Install rgbds
+        working-directory: rgbds
+        run: |
+          sudo apt-get update
+          sudo apt-get install -yq libpng-dev
+          sudo make -j$(nproc) install
+
+      - name: Remove rgbds
+        run: rm -rf rgbds
+
+      - name: Build patch
+        run: make -j$(nproc) patch
+
+      - name: Resolve release tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create release and upload patch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.tag.outputs.name }}" \
+            warioland3-debug-menu.ips \
+            --title "${{ steps.tag.outputs.name }}" \
+            --notes "Apply \`warioland3-debug-menu.ips\` to a Wario Land 3 (USA/Europe) ROM whose SHA1 is \`bb7877309834441fd03adb7fa65738e5d5b2d7ba\`, using any IPS patcher (e.g. Floating IPS / flips, or rompatcher.js)."
