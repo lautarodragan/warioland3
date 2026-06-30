@@ -12,23 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Checkout rgbds
-        uses: actions/checkout@master
-        with:
-          path: rgbds
-          ref: v1.0.0
-          repository: gbdev/rgbds
-
       - name: Install rgbds
-        working-directory: rgbds
+        # Use the official prebuilt binary instead of building from source.
         run: |
-          sudo apt-get update
-          sudo apt-get install -yq libpng-dev
-          sudo make -j$(nproc) install
-
-      - name: Remove rgbds
-        run: |
-          rm -rf rgbds
+          mkdir -p "$HOME/rgbds"
+          curl -fsSL https://github.com/gbdev/rgbds/releases/download/v1.0.0/rgbds-linux-x86_64.tar.xz \
+            | tar -xJ -C "$HOME/rgbds"
+          echo "$HOME/rgbds" >> "$GITHUB_PATH"
+          # rgbgfx links libpng at runtime; install it in case the runner lacks it.
+          sudo apt-get update && sudo apt-get install -yq libpng16-16
 
       - name: Compare
         run: |

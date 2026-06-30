@@ -24,26 +24,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Full history is required: `make patch` reconstructs the original ROM
-          # from an earlier commit (base_ref) in a git worktree.
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Checkout rgbds
-        uses: actions/checkout@v4
-        with:
-          path: rgbds
-          ref: v1.0.0
-          repository: gbdev/rgbds
+      - name: Deepen history for base ROM reconstruction
+        # `make patch` rebuilds the original ROM from an earlier commit (base_ref)
+        # in a git worktree, so that commit must be present. Fetch just enough
+        # history rather than the whole repo.
+        run: git fetch --shallow-since=2026-01-29 origin
 
       - name: Install rgbds
-        working-directory: rgbds
+        # Use the official prebuilt binary instead of building from source.
         run: |
-          sudo apt-get update
-          sudo apt-get install -yq libpng-dev
-          sudo make -j$(nproc) install
-
-      - name: Remove rgbds
-        run: rm -rf rgbds
+          mkdir -p "$HOME/rgbds"
+          curl -fsSL https://github.com/gbdev/rgbds/releases/download/v1.0.0/rgbds-linux-x86_64.tar.xz \
+            | tar -xJ -C "$HOME/rgbds"
+          echo "$HOME/rgbds" >> "$GITHUB_PATH"
+          # rgbgfx links libpng at runtime; install it in case the runner lacks it.
+          sudo apt-get update && sudo apt-get install -yq libpng16-16
 
       - name: Build patch
         run: make -j$(nproc) patch
