@@ -42,7 +42,7 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all warioland3 clean tidy compare tools
+.PHONY: all warioland3 clean tidy compare tools test
 
 all: $(rom) compare
 warioland3: $(rom) compare
@@ -61,6 +61,9 @@ tidy:
 
 compare: $(rom)
 	@$(SHA1) -c rom.sha1
+
+test: $(rom)
+	python3 -m pytest tests
 
 tools:
 	$(MAKE) -C tools/

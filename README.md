@@ -32,6 +32,19 @@ For fun! This is more a cheating menu than a debug menu, really. I played Wario 
 
 To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extract it to /usr/local/bin. Run `make` in your shell. The build output will be "warioland3.gbc".
 
+## Tests
+
+`tests/` drives the built ROM in [PyBoy](https://github.com/Baekalfen/PyBoy) and compares screenshots against goldens in `tests/goldens/`.
+
+```nu
+pip install -r tests/requirements.txt
+make test
+# after checking tests/output/*.png by eye, accept them as the new goldens:
+python3 -m pytest tests --update-goldens
+```
+
+Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/output/`.
+
 ## Where
 
 Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-and-through on a real Gameboy Color with an EverDrive. The game can be played completely, without issues.
