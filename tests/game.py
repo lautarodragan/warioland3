@@ -4,6 +4,7 @@ Addresses are resolved through the symbol file produced by `make`
 (warioland3.sym), so the helpers keep working when code moves around.
 """
 
+import io
 from pathlib import Path
 
 from pyboy import PyBoy
@@ -17,6 +18,7 @@ ST_TITLE = 0x00
 ST_OVERWORLD = 0x01
 ST_LEVEL = 0x02
 ST_CLEAR = 0x03
+ST_PAUSE_MENU = 0x04
 ST_LANGUAGE_SELECTION = 0x0e
 ST_DEBUG_MENU = 0x0f
 
@@ -34,6 +36,13 @@ OWL = 0x29
 OUT_OF_THE_WOODS_DAY_1 = 0x00
 THE_STEEP_CANYON_DAY_1 = 0x78
 THE_COLOSSAL_HOLE_DAY_1 = 0xa8
+# Map levels (wOWLevel): LEVEL_* constants, (first variant / 8) + 1
+LEVEL_OUT_OF_THE_WOODS = 1
+LEVEL_THE_STEEP_CANYON = 16
+LEVEL_THE_COLOSSAL_HOLE = 22
+
+# src/constants/menu_constants.asm
+PAUSEMENU_TO_MAP = 3
 
 
 class TimeoutError(AssertionError):
@@ -148,6 +157,15 @@ class Game:
         y, x = self.wario_pos()
         return y // 16, x // 16
 
+    def snapshot(self):
+        """The whole emulator state, to restore() and try something else."""
+        f = io.BytesIO()
+        self.pb.save_state(f)
+        return f.getvalue()
+
+    def restore(self, snapshot):
+        self.pb.load_state(io.BytesIO(snapshot))
+
     def screenshot(self):
         return self.pb.screen.image.convert("RGB")
 
@@ -209,6 +227,47 @@ class Game:
         # Let the fade-in finish.
         self.tick(120)
 
+    def enter_level_from_map(self, map_level):
+        """Enter a level from the map, choosing it as the map level.
+
+        Unlike enter_level, SelectLevel still runs on it, so the level's
+        variant follows the treasures collected, as in normal play.
+        """
+
+        def override_map_level(_context):
+            self.write("wOWLevel", map_level)
+
+        self.pb.hook_register(None, "SelectLevel", override_map_level, None)
+        try:
+            # Right after returning to the map, the first A doesn't enter.
+            self.press_until(
+                "a", lambda: self.read("wState") == ST_LEVEL, interval=60, what="level"
+            )
+            self.wait_until(
+                lambda: self.state == (ST_LEVEL, SST_LEVEL_UPDATE),
+                what="level to finish loading",
+            )
+        finally:
+            self.pb.hook_deregister(None, "SelectLevel")
+        self.tick(120)
+
+    def return_to_map(self):
+        """Leave the level from the pause menu's TO MAP option."""
+        self.press("start")
+        self.wait_until(lambda: self.state[0] == ST_PAUSE_MENU, what="pause menu")
+        self.tick(60)
+        self.press_until(
+            "right",
+            lambda: self.read("wPauseMenuSelection") & 0x0F == PAUSEMENU_TO_MAP,
+            what="TO MAP",
+        )
+        self.press_until(
+            "a",
+            lambda: self.state == (ST_OVERWORLD, SST_OVERWORLD_0B),
+            what="map after leaving the level",
+        )
+        self.tick(60)
+
     def open_debug_menu(self):
         self.press("select")
         self.wait_until(
@@ -229,6 +288,17 @@ class Game:
         """Tap a button in a menu, giving each tap time to register."""
         for _ in range(times):
             self.press(button, wait=10)
+
+    def treasure_collected(self, treasure):
+        bank, addr = self.pb.symbol_lookup("wTreasuresCollected")
+        return bool(self.pb.memory[bank, addr + treasure // 8] & (1 << (treasure % 8)))
+
+    def num_collected_treasures(self):
+        # BCD: byte 1 lo nybble = hundreds, byte 2 = tens and ones
+        addr = self.addr("wNumCollectedTreasures")
+        hundreds = self.pb.memory[addr] & 0x0F
+        tens_ones = self.pb.memory[addr + 1]
+        return hundreds * 100 + (tens_ones >> 4) * 10 + (tens_ones & 0x0F)
 
     def objects(self):
         """Active level objects, as (slot, flags, id) tuples."""

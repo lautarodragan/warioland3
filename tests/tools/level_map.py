@@ -82,16 +82,37 @@ class Level:
                 room_data[name] = [x.strip() for x in rest.split(",")]
         self.rooms = []
         sector_room = {}
+        sector_group = {}
         for entry in entries:
             if entry == "NULL" or entry not in room_data:
                 self.rooms.append(None)
                 continue
             x, y, ylo, yhi, xlo, xhi = map(int, room_data[entry][:6])
             room_id = room_data[entry][-1]
-            self.rooms.append(dict(dest=(x, y), rows=(ylo, yhi), cols=(xlo, xhi), room_id=room_id))
+            group = room_data[entry][7]
+            self.rooms.append(
+                dict(dest=(x, y), rows=(ylo, yhi), cols=(xlo, xhi), room_id=room_id, object_group=group)
+            )
             for sy in range(ylo, yhi):
                 for sx in range(xlo, xhi):
                     sector_room.setdefault((sx, sy), room_id)
+                    sector_group.setdefault((sx, sy), group)
+        self.sector_group = sector_group
+
+        # OBJECT_GROUP_xxx -> ObjectGroupN -> object data names, in order:
+        # object map value v is the group's (v - 4)th object.
+        group_labels = dict(
+            (const, label)
+            for label, const in re.findall(
+                r"dw CommonObjects_\w+,\s+(ObjectGroup\w+)\s+; (OBJECT_GROUP_\w+)",
+                read("engine/level/load_objects.asm"),
+            )
+        )
+        group_objects = {
+            label: [m for line in lines for m in re.findall(r"dw (\w+Data)\b", line)]
+            for label, lines in labelled_blocks(read("data/object_groups.asm"), r"ObjectGroup\w+").items()
+        }
+        self.group_objects = {const: group_objects.get(label, []) for const, label in group_labels.items()}
 
         # ROOM_xxx -> BLOCK_FUNCTION_TABLE_xx -> BlockFunctionTablexx
         room_defs = dict(
@@ -132,6 +153,14 @@ class Level:
                 objects_row.append(byte >> 4 if n % 2 == 0 else byte & 0x0F)
             self.funcs.append(funcs_row)
             self.objects.append(objects_row)
+
+    def object_name(self, r, c):
+        """The object data at a cell (e.g. "TogebaData"), or None."""
+        v = self.objects[r][c]
+        if v < 4 or v == 0xF:
+            return None
+        objects = self.group_objects.get(self.sector_group.get((c // 16, r // 16)), [])
+        return objects[v - 4] if v - 4 < len(objects) else None
 
     def char(self, r, c):
         func = self.funcs[r][c]

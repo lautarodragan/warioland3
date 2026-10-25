@@ -19,20 +19,29 @@ DebugFormTable:
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
-DEF DEBUG_MENU_ITEMS EQU 5
+DEF DEBUG_MENU_ITEMS EQU 6
 
 ; Strings for menu labels (temple charmap)
-DebugMenuStrHeader: db "DEBUG MENU"       ; 10 bytes, drawn at row 1 col 3
-DebugMenuStrPower:  db "POWER   :"        ; 9 bytes  (cols 1-9, row 3)
-DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
-DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
-DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 9)
-DebugMenuStrOwl:    db "OWL     :"        ; 9 bytes  (cols 1-9, row 13)
+DebugMenuStrHeader:   db "DEBUG MENU"       ; 10 bytes, row 2
+DebugMenuStrForm:     db "FORM    :"        ; 9 bytes  (cols 1-9, row 4)
+DebugMenuStrPower:    db "POWER   :"        ; 9 bytes  (cols 1-9, row 6)
+DebugMenuStrInvnbl:   db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 8)
+DebugMenuStrGolf:     db "GOLF    :"        ; 9 bytes  (cols 1-9, row 10)
+DebugMenuStrOwl:      db "OWL     :"        ; 9 bytes  (cols 1-9, row 12)
+DebugMenuStrTreasure: db "TREASURE:"        ; 9 bytes  (cols 1-9, row 14)
+; level codes, 2 bytes per level, in level order
+DebugLevelCodes:
+	db "N1N2N3N4N5N6"
+	db "W1W2W3W4W5W6"
+	db "S1S2S3S4S5S6"
+	db "E1E2E3E4E5E6E7"
+; treasure colours, 3 bytes each, in LevelTreasureIDs order
+DebugTreasureColours: db "GRYREDGRNBLU"
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrOk:     db "OK "              ; 3 bytes
 DebugMenuStrNo:     db "NO "              ; 3 bytes
-DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
+DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 16)
 
 SETCHARMAP main
 
@@ -389,32 +398,35 @@ DebugMenu_SetAttrMap:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 
-	; Rows 2-3: bright yellow header band
-	ld hl, v1BGMap0 + 2 * TILEMAP_WIDTH
+	; Rows 1-2: bright yellow header band
+	ld hl, v1BGMap0 + 1 * TILEMAP_WIDTH
 	ld bc, 2 * TILEMAP_WIDTH
 	ld a, 6
 	call WriteAToHL_BCTimes
 
 	; Item rows: white background
 	ld a, 5
-	ld hl, v1BGMap0 + 5 * TILEMAP_WIDTH
+	ld hl, v1BGMap0 + 4 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes    ; A preserved by WriteAToHL_BCTimes, BC not
-	ld hl, v1BGMap0 + 7 * TILEMAP_WIDTH
+	ld hl, v1BGMap0 + 6 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
-	ld hl, v1BGMap0 + 9 * TILEMAP_WIDTH
+	ld hl, v1BGMap0 + 8 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
-	ld hl, v1BGMap0 + 11 * TILEMAP_WIDTH
+	ld hl, v1BGMap0 + 10 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
-	ld hl, v1BGMap0 + 13 * TILEMAP_WIDTH
+	ld hl, v1BGMap0 + 12 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+	ld hl, v1BGMap0 + 14 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
 
-	; Rows 15-16: bright yellow footer band
-	ld hl, v1BGMap0 + 15 * TILEMAP_WIDTH
+	; Rows 16-17: bright yellow footer band
+	ld hl, v1BGMap0 + 16 * TILEMAP_WIDTH
 	ld bc, 2 * TILEMAP_WIDTH
 	ld a, 6
 	call WriteAToHL_BCTimes
@@ -483,25 +495,86 @@ DebugMenu_SpawnOwl:
 	ret
 
 ; -----------------------------------------------------------------------
+; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
+; colour, the LevelTreasureIDs layout).
+; output: a = treasure ID
+; -----------------------------------------------------------------------
+DebugMenu_GetTreasureID:
+	ld a, [wDebugMenuTreasureIdx]
+	ld e, a
+	ld d, 0
+	ld hl, LevelTreasureIDs_WithoutTemple
+	add hl, de
+	ld a, [hl]
+	ret
+
+; output: carry set if the picked treasure is collected
+; Clobbers: A, B, D, E, H, L
+DebugMenu_IsTreasureCollected:
+	call DebugMenu_GetTreasureID
+	ld b, a
+	push_wram BANK(wTreasuresCollected)
+	ld a, b
+	call IsTreasureCollected
+	ld b, a ; TRUE if collected
+	pop_wram
+	ld a, b
+	and a ; clears carry
+	ret z
+	scf
+	ret
+
+; Gives or takes the picked treasure. Level variants that need it change
+; the next time a level is entered from the map.
+; Clobbers: A, B, D, E, H, L
+DebugMenu_ToggleTreasure:
+	call DebugMenu_GetTreasureID
+	ld b, a
+	push_wram BANK(wTreasuresCollected)
+	ld a, b
+	call IsTreasureCollected
+	; hl = byte in wTreasuresCollected, d = the treasure's bit
+	ld a, [hl]
+	xor d
+	ld [hl], a
+	pop_wram
+	farcall UpdateNumCollectedTreasures
+	ret
+
+; -----------------------------------------------------------------------
 ; Draw the full debug menu to v0BGMap0 (LCD must be off or in VBlank)
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawAll:
-	; Header "DEBUG MENU" centred at row 3
-	hlbgcoord 5, 3
+	; Header "DEBUG MENU" centred at row 2
+	hlbgcoord 5, 2
 	ld de, DebugMenuStrHeader
 	ld b, 10
 	call DebugMenu_DrawString
 
-	; FORM row (row 5)
+	; Instructions row (row 16), centred
+	hlbgcoord 2, 16
+	ld de, DebugMenuStrInstr
+	ld b, 16
+	call DebugMenu_DrawString
+
+	call DebugMenu_DrawItems1
+	jp DebugMenu_DrawItems2
+
+; -----------------------------------------------------------------------
+; The item rows, in two halves: redrawing all of them takes longer than one
+; V-Blank, and VRAM can't be written while the LCD draws.
+; -----------------------------------------------------------------------
+DebugMenu_DrawItems1:
+	; FORM row (row 4)
 	ld a, [wDebugMenuCursor]
 	and a                  ; cursor == 0?
 	ld a, $5d              ; ▼
 	jr z, .cursor_form
 	ld a, $7e              ; space
 .cursor_form:
-	ldcoord_a 0, 5
-	hlbgcoord 1, 5
+	ldcoord_a 0, 4
+	hlbgcoord 1, 4
 	ld de, DebugMenuStrForm
 	ld b, 9
 	call DebugMenu_DrawString
@@ -517,35 +590,35 @@ DebugMenu_DrawAll:
 	add hl, bc
 	ld d, h
 	ld e, l
-	hlbgcoord 10, 5
+	hlbgcoord 10, 4
 	ld b, 5
 	call DebugMenu_DrawString
 
-	; POWER row (row 7)
+	; POWER row (row 6)
 	ld a, [wDebugMenuCursor]
 	cp 1
 	ld a, $5d              ; ▼
 	jr z, .cursor_power
 	ld a, $7e              ; space
 .cursor_power:
-	ldcoord_a 0, 7
-	hlbgcoord 1, 7
+	ldcoord_a 0, 6
+	hlbgcoord 1, 6
 	ld de, DebugMenuStrPower
 	ld b, 9
 	call DebugMenu_DrawString
 	ld a, [wPowerUpLevel]
 	add $30                ; digit in temple charmap ($30-$39)
-	ldcoord_a 10, 7
+	ldcoord_a 10, 6
 
-	; INVNBL row (row 9)
+	; INVNBL row (row 8)
 	ld a, [wDebugMenuCursor]
 	cp 2
 	ld a, $5d              ; ▼
 	jr z, .cursor_invnbl
 	ld a, $7e              ; space
 .cursor_invnbl:
-	ldcoord_a 0, 9
-	hlbgcoord 1, 9
+	ldcoord_a 0, 8
+	hlbgcoord 1, 8
 	ld de, DebugMenuStrInvnbl
 	ld b, 9
 	call DebugMenu_DrawString
@@ -559,18 +632,21 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrOff
 	ld b, 3
 .draw_invnbl_val:
-	hlbgcoord 10, 9
+	hlbgcoord 10, 8
 	call DebugMenu_DrawString
 
-	; GOLF row (row 11)
+	ret
+
+DebugMenu_DrawItems2:
+	; GOLF row (row 10)
 	ld a, [wDebugMenuCursor]
 	cp 3
 	ld a, $5d              ; ▼
 	jr z, .cursor_golf
 	ld a, $7e              ; space
 .cursor_golf:
-	ldcoord_a 0, 11
-	hlbgcoord 1, 11
+	ldcoord_a 0, 10
+	hlbgcoord 1, 10
 	ld de, DebugMenuStrGolf
 	ld b, 9
 	call DebugMenu_DrawString
@@ -584,10 +660,10 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrOff
 	ld b, 3
 .draw_golf_val:
-	hlbgcoord 10, 11
+	hlbgcoord 10, 10
 	call DebugMenu_DrawString
 
-	; OWL row (row 13): LEFT/RIGHT spawns an owl, the value shows whether
+	; OWL row (row 12): LEFT/RIGHT spawns an owl, the value shows whether
 	; the last try worked
 	ld a, [wDebugMenuCursor]
 	cp 4
@@ -595,8 +671,8 @@ DebugMenu_DrawAll:
 	jr z, .cursor_owl
 	ld a, $7e              ; space
 .cursor_owl:
-	ldcoord_a 0, 13
-	hlbgcoord 1, 13
+	ldcoord_a 0, 12
+	hlbgcoord 1, 12
 	ld de, DebugMenuStrOwl
 	ld b, 9
 	call DebugMenu_DrawString
@@ -609,14 +685,63 @@ DebugMenu_DrawAll:
 	ld de, DebugMenuStrNo
 .draw_owl_status:
 	ld b, 3
-	hlbgcoord 10, 13
+	hlbgcoord 10, 12
 	call DebugMenu_DrawString
 .owl_status_done:
 
-	; Instructions row (row 15), centred
-	hlbgcoord 2, 15
-	ld de, DebugMenuStrInstr
-	ld b, 16
+	; TREASURE row (row 14): LEFT/RIGHT picks a level's treasure, A gives or
+	; takes it. Shows e.g. "N5 RED ON".
+	ld a, [wDebugMenuCursor]
+	cp 5
+	ld a, $5d              ; ▼
+	jr z, .cursor_treasure
+	ld a, $7e              ; space
+.cursor_treasure:
+	ldcoord_a 0, 14
+	hlbgcoord 1, 14
+	ld de, DebugMenuStrTreasure
+	ld b, 9
+	call DebugMenu_DrawString
+	ld a, [wDebugMenuTreasureIdx]
+	srl a
+	srl a                  ; level
+	add a                  ; 2 bytes per code
+	ld e, a
+	ld d, 0
+	ld hl, DebugLevelCodes
+	add hl, de
+	ld d, h
+	ld e, l
+	hlbgcoord 10, 14
+	ld b, 2
+	call DebugMenu_DrawString
+	ld a, $7e
+	ld [hli], a
+	ld a, [wDebugMenuTreasureIdx]
+	and %11                ; colour
+	ld c, a
+	add a
+	add c                  ; 3 bytes per colour
+	ld e, a
+	ld d, 0
+	push hl
+	ld hl, DebugTreasureColours
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+	ld b, 3
+	call DebugMenu_DrawString
+	ld a, $7e
+	ld [hli], a
+	push hl
+	call DebugMenu_IsTreasureCollected
+	pop hl
+	ld de, DebugMenuStrOn
+	jr c, .draw_treasure_status
+	ld de, DebugMenuStrOff
+.draw_treasure_status:
+	ld b, 3
 	call DebugMenu_DrawString
 
 	ret
@@ -639,6 +764,15 @@ InitDebugMenu:
 	xor a
 	ld [wDebugMenuCursor], a
 	ld [wDebugMenuOwlStatus], a
+	; Start the treasure row on this level's grey treasure
+	ld a, [wLevel]
+	srl a ; levels are 8 apart, treasures 4 apart
+	and %11111100
+	cp NUM_LEVELS * 4
+	jr c, .got_treasure_idx
+	xor a ; the temple and the golf building have none
+.got_treasure_idx
+	ld [wDebugMenuTreasureIdx], a
 
 	; Determine starting form index from current wTransformation
 	ld a, [wTransformation]
@@ -703,7 +837,7 @@ UpdateDebugMenu:
 
 	; Check for any actionable input
 	ld a, b
-	and PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT
+	and PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT | PAD_A
 	ret z                  ; nothing pressed, done
 
 	; Determine if anything changed (used to trigger redraw)
@@ -747,6 +881,8 @@ UpdateDebugMenu:
 	jr z, .toggle_invnbl_r
 	cp 4
 	jr z, .spawn_owl_r
+	cp 5
+	jr z, .treasure_fwd
 	; else cursor 3: toggle golf win
 	ld a, [wIsMinigameCleared]
 	xor TRUE
@@ -761,6 +897,16 @@ UpdateDebugMenu:
 	jr .not_right
 .spawn_owl_r:
 	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .not_right
+.treasure_fwd:
+	ld a, [wDebugMenuTreasureIdx]
+	inc a
+	cp NUM_LEVELS * 4
+	jr c, .treasure_fwd_ok
+	xor a
+.treasure_fwd_ok:
+	ld [wDebugMenuTreasureIdx], a
 	ld c, 1
 	jr .not_right
 
@@ -791,7 +937,7 @@ UpdateDebugMenu:
 	; Reload joypad in case DebugMenu_ApplyForm clobbered b
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
-	jr z, .check_redraw
+	jr z, .not_left
 
 	ld a, [wDebugMenuCursor]
 	and a
@@ -802,6 +948,8 @@ UpdateDebugMenu:
 	jr z, .toggle_invnbl_l
 	cp 4
 	jr z, .spawn_owl_l
+	cp 5
+	jr z, .treasure_bwd
 	; else cursor 3: toggle golf win (same as right)
 	ld a, [wIsMinigameCleared]
 	xor TRUE
@@ -816,6 +964,16 @@ UpdateDebugMenu:
 	jr .check_redraw
 .spawn_owl_l:
 	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .check_redraw
+.treasure_bwd:
+	ld a, [wDebugMenuTreasureIdx]
+	and a
+	jr nz, .treasure_bwd_ok
+	ld a, NUM_LEVELS * 4
+.treasure_bwd_ok:
+	dec a
+	ld [wDebugMenuTreasureIdx], a
 	ld c, 1
 	jr .check_redraw
 
@@ -844,24 +1002,46 @@ UpdateDebugMenu:
 	ld [wDebugMenuFormIdx], a
 	call DebugMenu_ApplyForm
 	ld c, 1
+	jr .check_redraw
+
+.not_left:
+	; A: give or take the selected treasure
+	ld a, [wJoypadPressed]
+	bit B_PAD_A, a
+	jr z, .check_redraw
+	ld a, [wDebugMenuCursor]
+	cp 5
+	jr nz, .check_redraw
+	call DebugMenu_ToggleTreasure
+	ld c, 1
 
 .check_redraw:
 	ld a, c
 	and a
 	ret z                  ; nothing changed
 
-	; Redraw during VBlank (LCD stays on, no flash)
+	; Redraw during V-Blank (LCD stays on, no flash), half the rows in each
+	; of two V-Blanks
 	di
-.wait_vblank:
+	call DebugMenu_WaitVBlank
+	call DebugMenu_DrawItems1
+.wait_vblank_end:
 	ldh a, [rLY]
 	cp LY_VBLANK
-	jr c, .wait_vblank
-	call DebugMenu_DrawAll
+	jr nc, .wait_vblank_end
+	call DebugMenu_WaitVBlank
+	call DebugMenu_DrawItems2
 	ei
 	ret
 
 .exit:
 	jp DebugMenu_Exit
+
+DebugMenu_WaitVBlank:
+	ldh a, [rLY]
+	cp LY_VBLANK
+	jr c, DebugMenu_WaitVBlank
+	ret
 
 ; -----------------------------------------------------------------------
 ; Exit: restore level state

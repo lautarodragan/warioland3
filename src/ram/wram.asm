@@ -2532,6 +2532,8 @@ wDebugMenuCursor::  db
 wDebugMenuFormIdx:: db
 ; 0 = no spawn tried, 1 = owl spawned, 2 = couldn't spawn
 wDebugMenuOwlStatus:: db
+; treasure on the TREASURE row: level * 4 + colour
+wDebugMenuTreasureIdx:: db
 
 SECTION "WRAM4", WRAMX
 

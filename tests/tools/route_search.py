@@ -27,6 +27,10 @@ from game import OUT_OF_THE_WOODS_DAY_1, ST_LEVEL, SST_LEVEL_UPDATE, Game  # noq
 
 MACROS = [
     [("a", 35), ("", 15)],
+    # UP + A: a high jump with the High Jump Boots (POWER 7+).
+    [("up+a", 35), ("", 15)],
+    [("right+up+a", 35), ("", 15)],
+    [("left+up+a", 35), ("", 15)],
     [("right+a", 35), ("", 15)],
     [("left+a", 35), ("", 15)],
     [("a", 12), ("", 20)],
@@ -49,6 +53,11 @@ MACROS = [
     [("up", 90)],
     [("left+up", 30)],
     [("right+up", 30)],
+    # Ground pound (jump, hold DOWN on the way down; needs the Super Jump
+    # Slam Overalls, POWER 6+): shakes the ground, which sends enemies like
+    # Togeba flying, and Togeba floating back down is a platform.
+    [("a", 20), ("down", 40)],
+    [("up+a", 25), ("down", 45)],
     # Waiting, e.g. for an enemy to move out of the way.
     [("", 30)],
     [("", 90)],
@@ -64,6 +73,10 @@ WST_STUNG_RECOVERY = 0x16
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--prefix", help="JSON steps to play before searching")
+    parser.add_argument(
+        "--state", help="start from this PyBoy save state instead of a new game"
+    )
+    parser.add_argument("--power", type=int, default=0, help="wPowerUpLevel, for --plan")
     parser.add_argument("--level", type=lambda s: int(s, 0), default=OUT_OF_THE_WOODS_DAY_1)
     parser.add_argument("--target", type=int, nargs=2, required=True, metavar=("ROW", "COL"))
     goal = parser.add_mutually_exclusive_group()
@@ -79,13 +92,21 @@ def main():
         help="score runs by path-finding cost to the target over this level's "
         "block graph (tools/pathfind.py) instead of straight-line distance",
     )
+    parser.add_argument(
+        "--allow-stung", action="store_true",
+        help="keep runs where an enemy stings Wario (for rooms full of them)",
+    )
     parser.add_argument("--depth", type=int, default=40)
     parser.add_argument("--beam", type=int, default=24)
     args = parser.parse_args()
 
     game = Game()
-    game.new_game_to_overworld()
-    game.enter_level(args.level)
+    if args.state:
+        with open(args.state, "rb") as f:
+            game.pb.load_state(f)
+    else:
+        game.new_game_to_overworld()
+        game.enter_level(args.level)
     if args.prefix:
         game.play(json.load(open(args.prefix)))
 
@@ -102,7 +123,7 @@ def main():
     if args.plan:
         from pathfind import Graph
 
-        graph = Graph(args.plan)
+        graph = Graph(args.plan, args.power)
         goal = graph.node_for(*args.target) or tuple(args.target)
         field = graph.distance_field(goal)
         print(f"planning to {goal}: {len(field)} nodes can reach it", file=sys.stderr)
@@ -173,7 +194,7 @@ def main():
                     key in seen
                     or not invariants_hold()
                     or game.read("wState") != ST_LEVEL
-                    or wario_state in (WST_STUNG, WST_STUNG_RECOVERY)
+                    or (not args.allow_stung and wario_state in (WST_STUNG, WST_STUNG_RECOVERY))
                 ):
                     continue
                 seen.add(key)
