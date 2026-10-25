@@ -749,6 +749,15 @@ wCameraRoomYScrollLimit::
 wIsOnSteppableObject::
 	db
 
+; where the owl's graphics are, as a tile offset from v1Tiles0: $00 for enemy
+; graphics slot 1 (and object palette 4), as in every owl object group,
+; $40/$80/$c0 for slots 2-4 (palettes 5-7) when the debug menu put them in a
+; slot the room doesn't use. The owl's sprites are drawn with slot 1's tiles
+; and palette 4, so when this isn't 0 they're moved to the slot as they're
+; drawn (RelocateOwlSprites).
+wOwlTileOffset::
+	db
+
 SECTION "Sprites WRAM", WRAM0
 
 wVirtualOAM::

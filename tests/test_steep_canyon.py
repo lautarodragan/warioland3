@@ -23,7 +23,8 @@ from test_owl import (
     TRANSFORMATION_OWL_WARIO,
     WST_OWL_SLOW,
     never_in_solid_blocks,
-    owl_tiles_in_slot_1,
+    owl_tiles_in_slot,
+    sprites_in_slot,
     spawn_owl,
     spawned_owls,
 )
@@ -131,20 +132,26 @@ def test_steep_canyon_debug_owl_to_next_room(game, golden):
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
+    # Like the first variant's, this start room leaves slot 2 unused.
+    assert game.read("wOwlTileOffset") == 0x40
     golden("steep_canyon_column_debug_owl", game.screenshot())
 
     in_bounds = never_in_solid_blocks(game, "THE_STEEP_CANYON_DAY_4")
     game.play(COLUMN_GRAB_DEBUG_OWL, on_frame=in_bounds)
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    assert sprites_in_slot(game, 2) == {0, 5}
     golden("steep_canyon_column_debug_owl_grabbed", game.screenshot())
 
     # The owl doesn't despawn: Wario holds it, as part of Owl Wario, into the
-    # next room. That room's group puts another enemy in slot 1, so Owl
+    # next room. That room's group (040) puts another enemy in slot 1, so Owl
     # Wario's owl used to draw with that enemy's tiles; now the owl's
-    # graphics are loaded there too.
+    # graphics are loaded too. The group uses all four enemy graphics slots,
+    # so they go into slot 1, where the owl's frames have them: the fallback.
     room = game.read("wLevelRoomID")
     game.play(COLUMN_FLY_TO_NEXT_ROOM, on_frame=in_bounds)
     assert game.read("wLevelRoomID") != room
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
-    assert owl_tiles_in_slot_1(game)
+    assert game.read("wOwlTileOffset") == 0
+    assert owl_tiles_in_slot(game, 1)
+    assert sprites_in_slot(game, 1) == {0, 4}
     golden("steep_canyon_debug_owl_next_room", game.screenshot())
