@@ -253,6 +253,7 @@ INCLUDE "engine/level/objects/coin.asm"
 SECTION "Object Loading", ROMX
 
 INCLUDE "engine/level/load_objects.asm"
+INCLUDE "engine/debug_menu/spawn_object.asm"
 
 
 SECTION "Level Headers", ROMX

@@ -25,6 +25,11 @@ SST_OVERWORLD_0B = 0x0b  # map is idle and accepts input
 SST_LEVEL_UPDATE = 0x03  # UpdateLevel, i.e. normal gameplay
 SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
 
+# src/constants/object_constants.asm
+OBJFLAG_ACTIVE = 1 << 0
+OBJFLAG_TRANSIENT = 1 << 6
+OWL = 0x29
+
 # src/constants/level_constants.asm
 OUT_OF_THE_WOODS_DAY_1 = 0x00
 THE_STEEP_CANYON_DAY_1 = 0x78
@@ -204,3 +209,12 @@ class Game:
         """Tap a button in a menu, giving each tap time to register."""
         for _ in range(times):
             self.press(button, wait=10)
+
+    def objects(self):
+        """Active level objects, as (slot, flags, id) tuples."""
+        out = []
+        for n in range(1, 9):
+            flags = self.read(f"wObj{n}Flags")
+            if flags & OBJFLAG_ACTIVE:
+                out.append((n, flags, self.read(f"wObj{n}Id")))
+        return out

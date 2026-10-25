@@ -207,6 +207,7 @@ ENDR
 	ld l, a
 	pop de
 
+.copy_data
 	ld a, [hli]
 	ld [de], a ; OBJ_ID
 	inc e

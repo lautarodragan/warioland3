@@ -19,7 +19,7 @@ DebugFormTable:
 
 DEF NUM_DEBUG_FORMS  EQU 12
 DEF NUM_DEBUG_POWERS EQU 10
-DEF DEBUG_MENU_ITEMS EQU 4
+DEF DEBUG_MENU_ITEMS EQU 5
 
 ; Strings for menu labels (temple charmap)
 DebugMenuStrHeader: db "DEBUG MENU"       ; 10 bytes, drawn at row 1 col 3
@@ -27,8 +27,11 @@ DebugMenuStrPower:  db "POWER   :"        ; 9 bytes  (cols 1-9, row 3)
 DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
 DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
 DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 9)
+DebugMenuStrOwl:    db "OWL     :"        ; 9 bytes  (cols 1-9, row 13)
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
+DebugMenuStrOk:     db "OK "              ; 3 bytes
+DebugMenuStrNo:     db "NO "              ; 3 bytes
 DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
 
 SETCHARMAP main
@@ -406,9 +409,12 @@ DebugMenu_SetAttrMap:
 	ld hl, v1BGMap0 + 11 * TILEMAP_WIDTH
 	ld bc, TILEMAP_WIDTH
 	call WriteAToHL_BCTimes
-
-	; Rows 13-14: bright yellow footer band
 	ld hl, v1BGMap0 + 13 * TILEMAP_WIDTH
+	ld bc, TILEMAP_WIDTH
+	call WriteAToHL_BCTimes
+
+	; Rows 15-16: bright yellow footer band
+	ld hl, v1BGMap0 + 15 * TILEMAP_WIDTH
 	ld bc, 2 * TILEMAP_WIDTH
 	ld a, 6
 	call WriteAToHL_BCTimes
@@ -455,6 +461,25 @@ DebugMenu_ToggleInvisible:
 	ret
 .clear_fall:
 	farcall StartFall
+	ret
+
+; -----------------------------------------------------------------------
+; Spawn an owl next to Wario, if the room's object group has one, and
+; record the outcome in wDebugMenuOwlStatus (1 = spawned, 2 = not).
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_SpawnOwl:
+	push_wram BANK("Level Objects WRAM")
+	ld c, OWL
+	farcall _DebugSpawnObject
+	pop_wram
+	ld a, b
+	and a
+	ld a, 1
+	jr nz, .got_status
+	inc a
+.got_status
+	ld [wDebugMenuOwlStatus], a
 	ret
 
 ; -----------------------------------------------------------------------
@@ -562,8 +587,34 @@ DebugMenu_DrawAll:
 	hlbgcoord 10, 11
 	call DebugMenu_DrawString
 
-	; Instructions row (row 13), centred
-	hlbgcoord 2, 13
+	; OWL row (row 13): LEFT/RIGHT spawns an owl, the value shows whether
+	; the last try worked
+	ld a, [wDebugMenuCursor]
+	cp 4
+	ld a, $5d              ; ▼
+	jr z, .cursor_owl
+	ld a, $7e              ; space
+.cursor_owl:
+	ldcoord_a 0, 13
+	hlbgcoord 1, 13
+	ld de, DebugMenuStrOwl
+	ld b, 9
+	call DebugMenu_DrawString
+	ld a, [wDebugMenuOwlStatus]
+	and a
+	jr z, .owl_status_done
+	dec a
+	ld de, DebugMenuStrOk
+	jr z, .draw_owl_status
+	ld de, DebugMenuStrNo
+.draw_owl_status:
+	ld b, 3
+	hlbgcoord 10, 13
+	call DebugMenu_DrawString
+.owl_status_done:
+
+	; Instructions row (row 15), centred
+	hlbgcoord 2, 15
 	ld de, DebugMenuStrInstr
 	ld b, 16
 	call DebugMenu_DrawString
@@ -587,6 +638,7 @@ InitDebugMenu:
 	; wTransformation so the display starts on the current form
 	xor a
 	ld [wDebugMenuCursor], a
+	ld [wDebugMenuOwlStatus], a
 
 	; Determine starting form index from current wTransformation
 	ld a, [wTransformation]
@@ -693,6 +745,8 @@ UpdateDebugMenu:
 	jr z, .change_power_fwd
 	cp 2
 	jr z, .toggle_invnbl_r
+	cp 4
+	jr z, .spawn_owl_r
 	; else cursor 3: toggle golf win
 	ld a, [wIsMinigameCleared]
 	xor TRUE
@@ -703,6 +757,10 @@ UpdateDebugMenu:
 	jr .not_right
 .toggle_invnbl_r:
 	call DebugMenu_ToggleInvisible
+	ld c, 1
+	jr .not_right
+.spawn_owl_r:
+	call DebugMenu_SpawnOwl
 	ld c, 1
 	jr .not_right
 
@@ -742,6 +800,8 @@ UpdateDebugMenu:
 	jr z, .change_power_bwd
 	cp 2
 	jr z, .toggle_invnbl_l
+	cp 4
+	jr z, .spawn_owl_l
 	; else cursor 3: toggle golf win (same as right)
 	ld a, [wIsMinigameCleared]
 	xor TRUE
@@ -752,6 +812,10 @@ UpdateDebugMenu:
 	jr .check_redraw
 .toggle_invnbl_l:
 	call DebugMenu_ToggleInvisible
+	ld c, 1
+	jr .check_redraw
+.spawn_owl_l:
+	call DebugMenu_SpawnOwl
 	ld c, 1
 	jr .check_redraw
 

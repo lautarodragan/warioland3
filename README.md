@@ -12,6 +12,7 @@ The menu allows cycling through:
 - FORM: 12 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN)
 - INVNBL: toggles invisibility on/off
 - GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
+- OWL: spawns a sleeping owl next to Wario. Only works in rooms whose enemy set includes owls (it shows NO otherwise); work in progress, see `owl.md`.
 
 Navigate with UP/DOWN, cycle value with LEFT/RIGHT, exit with B.
 The menu saves/restores level VRAM state via SaveBackupVRAM/LoadBackupVRAM, loads the font for display, and returns to the same level substate on exit.
