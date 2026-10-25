@@ -189,3 +189,49 @@ After flying into a room, it lasts until the room is reloaded. Hitting that
 enemy releases the owl as usual. A cleaner fix would pick a slot the room
 doesn't use, but the owl's OAM and Owl Wario's frames hardcode slot 1's
 tiles.
+
+### Any level
+
+`tests/test_owl_levels.py` came out of a survey of every level's start room,
+by day and by night (spawn, grab, a short flight, with Wario's position
+checked against the game's own blocks every frame), plus water, a boss,
+saving and full object slots. Spawning, the owl's graphics and grabbing
+worked everywhere; these didn't:
+
+- **Rooms without a free camera.** Real owls only fly in rooms whose camera
+  follows Wario freely. Most rooms instead move the camera a floor (128
+  pixels) at a time, when Wario's movement code calls for a floor transition;
+  Owl Wario's never did, so in Out of the Woods' start room he flew off the
+  top of the screen (his sprites wrapping round to the bottom) with the
+  camera left behind. Owl Wario's up and down movement now ends with
+  `HandleUpwardsFloorTransition` / `HandleDownwardsFloorTransition`, as
+  climbing a ladder does. They do nothing in free camera rooms. What's left:
+  near the top of a floor the owl he holds is above the screen, since the
+  camera moves a whole floor or nothing.
+- **Boss battles.** The Temple (and every boss room) keeps the boss's
+  graphics in the enemy slots; the owl's went over Rudy's face and hands.
+  The menu now says `NO` while `wIsBossBattle` is set.
+- **Saving.** Saving from the pause menu keeps the level's objects, so a
+  spawned owl comes back on CONTINUE, but the room's graphics are loaded
+  from its object group again, and the owl drew with the tiles of the
+  room's slot 1 enemy. `LoadOwlGfxForOwlWario` now also loads the owl's
+  graphics when an owl object is active (that only happens after a
+  CONTINUE: objects are cleared before every other room load). Saving as
+  Owl Wario already worked.
+
+And one in the tests: `never_in_solid_blocks` read the level data the way
+`tools/level_map.py` does, which gets some rooms wrong (Above the Clouds'
+start room: solid where the game has free space, so it flagged a normal
+jump). It now reads the block map in SRAM and the current room's block
+function table (`Game.block_func`).
+
+Water works like it should: spawned in water, the owl sits there until
+Wario swims into it; he can jump out of the water into it, and flying into
+water makes him let go. Deep underwater (with the flippers) he can even grab
+it, hangs on for a moment, and lets go.
+
+Not fixed: The Grasslands' start room is fine, but its Hebariis keep
+stinging Wario before he can grab the owl, so the test only fills its object
+slots. Also seen, not investigated: after opening and closing the debug menu
+in the Temple's boss battle (owl or not), the arena's floor isn't drawn and
+the view is shifted. That's the debug menu itself, not the owl.
