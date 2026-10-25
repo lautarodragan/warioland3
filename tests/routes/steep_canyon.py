@@ -32,3 +32,21 @@ UP_THE_SHAFT = [
     ("down+b", 60), ("left+b", 60), ("left+up+a", 35), ("", 15), ("up", 90),
     ("down+b", 60), ("right+b", 60), ("right+a", 12), ("", 20),
 ]
+
+# Ground-pound so the Togeba below leaps up, jump onto it while it floats
+# down, and from it onto the ladder up through the ceiling.
+TOGEBA_TO_LADDER = [
+    ("left", 20), ("a", 20), ("down", 40), ("left+up+a", 35), ("", 15),
+    ("left+up+a", 35), ("", 15), ("left+up+a", 35), ("", 15), ("up", 90),
+]
+
+# Into the pipe at the top of the shaft, out into the owl room.
+TO_OWL_ROOM = [
+    ("left+b", 12), ("", 10), ("left+up", 30), ("left+b", 12), ("", 10),
+    ("left+up+a", 35), ("", 15), ("right+b", 120), ("left+up+a", 35), ("", 15),
+]
+
+# Bump the sleeping owl awake and grab it as it takes off.
+GRAB_OWL = [
+    ("right+b", 120), ("left+up+a", 35), ("", 15),
+]

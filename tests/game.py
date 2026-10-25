@@ -4,6 +4,7 @@ Addresses are resolved through the symbol file produced by `make`
 (warioland3.sym), so the helpers keep working when code moves around.
 """
 
+import io
 from pathlib import Path
 
 from pyboy import PyBoy
@@ -155,6 +156,15 @@ class Game:
     def wario_block(self):
         y, x = self.wario_pos()
         return y // 16, x // 16
+
+    def snapshot(self):
+        """The whole emulator state, to restore() and try something else."""
+        f = io.BytesIO()
+        self.pb.save_state(f)
+        return f.getvalue()
+
+    def restore(self, snapshot):
+        self.pb.load_state(io.BytesIO(snapshot))
 
     def screenshot(self):
         return self.pb.screen.image.convert("RGB")
