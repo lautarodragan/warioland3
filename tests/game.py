@@ -28,6 +28,7 @@ SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
 # src/constants/level_constants.asm
 OUT_OF_THE_WOODS_DAY_1 = 0x00
 THE_STEEP_CANYON_DAY_1 = 0x78
+THE_COLOSSAL_HOLE_DAY_1 = 0xa8
 
 
 class TimeoutError(AssertionError):

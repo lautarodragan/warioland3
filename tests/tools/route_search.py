@@ -38,6 +38,12 @@ MACROS = [
     [("left", 8), ("", 10)],
     [("right+b", 12), ("", 10)],
     [("left+b", 12), ("", 10)],
+    # Swimming (this ROM auto-swims while B is held).
+    [("right+b", 60)],
+    [("right+b", 120)],
+    [("left+b", 60)],
+    [("up+b", 60)],
+    [("down+b", 60)],
     [("down", 30)],
     [("up", 30)],
     [("up", 90)],
@@ -60,6 +66,7 @@ def main():
     goal = parser.add_mutually_exclusive_group()
     goal.add_argument("--flag", type=lambda s: int(s, 0), help="stop once wKeyAndTreasureFlags & FLAG")
     goal.add_argument("--sector", type=int, help="stop once Wario is playable in this sector")
+    goal.add_argument("--ram", metavar="SYMBOL=VALUE", help="stop once a RAM symbol holds VALUE")
     parser.add_argument("--depth", type=int, default=40)
     parser.add_argument("--beam", type=int, default=24)
     args = parser.parse_args()
@@ -86,6 +93,9 @@ def main():
     def reached():
         if args.flag is not None:
             return game.read("wKeyAndTreasureFlags") & args.flag
+        if args.ram is not None:
+            symbol, value = args.ram.split("=")
+            return game.read(symbol) == int(value, 0)
         if args.sector is not None:
             y, x = position()
             return (
