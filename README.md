@@ -45,6 +45,12 @@ python3 -m pytest tests --update-goldens
 
 Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/output/`.
 
+- `test_out_of_the_woods.py` plays N1 from a new game: grabs the grey key, opens the grey chest, and checks the key/treasure flags, the clear screen and the treasure count.
+- `test_debug_menu.py` opens the debug menu and exercises FORM, POWER and INVNBL, checking the RAM each one changes.
+- `test_owl.py` jumps into The Steep Canyon (an owl level) as a base for the owl work.
+
+The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`.
+
 ## Where
 
 Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-and-through on a real Gameboy Color with an EverDrive. The game can be played completely, without issues.

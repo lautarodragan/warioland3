@@ -16,14 +16,17 @@ SYM = ROOT / "warioland3.sym"
 ST_TITLE = 0x00
 ST_OVERWORLD = 0x01
 ST_LEVEL = 0x02
+ST_CLEAR = 0x03
 ST_LANGUAGE_SELECTION = 0x0e
 ST_DEBUG_MENU = 0x0f
 
 SST_START_MENU = 0x07  # NEW GAME / CONTINUE on the title screen
 SST_OVERWORLD_0B = 0x0b  # map is idle and accepts input
 SST_LEVEL_UPDATE = 0x03  # UpdateLevel, i.e. normal gameplay
+SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
 
 # src/constants/level_constants.asm
+OUT_OF_THE_WOODS_DAY_1 = 0x00
 THE_STEEP_CANYON_DAY_1 = 0x78
 
 
@@ -52,11 +55,19 @@ class Game:
         _bank, addr = self.pb.symbol_lookup(symbol)
         return addr
 
+    def _location(self, symbol):
+        bank, addr = self.pb.symbol_lookup(symbol)
+        if 0xD000 <= addr < 0xE000:
+            # Switchable WRAM: go through the symbol's bank rather than
+            # whichever one happens to be mapped right now.
+            return bank, addr
+        return addr
+
     def read(self, symbol):
-        return self.pb.memory[self.addr(symbol)]
+        return self.pb.memory[self._location(symbol)]
 
     def write(self, symbol, value):
-        self.pb.memory[self.addr(symbol)] = value
+        self.pb.memory[self._location(symbol)] = value
 
     @property
     def state(self):
@@ -65,7 +76,10 @@ class Game:
     # Time and input
 
     def tick(self, frames=1):
-        self.pb.tick(frames, False)
+        # Rendering only draws the last frame, so it's cheap, and it keeps
+        # the screen current: screenshot() then never has to advance time,
+        # which would throw recorded routes off.
+        self.pb.tick(frames, True)
         self.frame += frames
 
     def press(self, button, frames=4, wait=0):
@@ -93,10 +107,22 @@ class Game:
                 if cond():
                     return
 
+    def play(self, steps):
+        """Replay (buttons, frames) steps, e.g. from tests/routes/.
+
+        Buttons are released and one idle frame runs after each step, so
+        every step starts from a clean joypad state.
+        """
+        for buttons, frames in steps:
+            buttons = buttons.split("+") if buttons else []
+            for button in buttons:
+                self.pb.button_press(button)
+            self.tick(frames)
+            for button in buttons:
+                self.pb.button_release(button)
+            self.tick()
+
     def screenshot(self):
-        # Render the current frame; ticks above skip rendering for speed.
-        self.pb.tick(1, True)
-        self.frame += 1
         return self.pb.screen.image.convert("RGB")
 
     # Game flow
@@ -126,17 +152,20 @@ class Game:
         )
         self.tick(60)
 
-    def enter_level(self, level):
-        """Walk to Out of the Woods and enter it, loading `level` instead.
+    def enter_level(self, level=OUT_OF_THE_WOODS_DAY_1):
+        """Walk to Out of the Woods and enter it.
 
-        Only Out of the Woods is unlocked on a new game, so the level index
-        is swapped right as InitLevel starts loading it.
+        Only Out of the Woods is unlocked on a new game, so for any other
+        `level` the level index is swapped right as InitLevel starts loading
+        it. Entering Out of the Woods itself writes no RAM.
         """
 
         def override_level(_context):
             self.write("wLevel", level)
 
-        self.pb.hook_register(None, "InitLevel", override_level, None)
+        override = level != OUT_OF_THE_WOODS_DAY_1
+        if override:
+            self.pb.hook_register(None, "InitLevel", override_level, None)
         try:
             self.press("left", wait=120)
             self.press("a")
@@ -149,6 +178,28 @@ class Game:
                 what="level to finish loading",
             )
         finally:
-            self.pb.hook_deregister(None, "InitLevel")
+            if override:
+                self.pb.hook_deregister(None, "InitLevel")
         # Let the fade-in finish.
         self.tick(120)
+
+    def open_debug_menu(self):
+        self.press("select")
+        self.wait_until(
+            lambda: self.state == (ST_DEBUG_MENU, SST_DEBUG_MENU_UPDATE),
+            what="debug menu",
+        )
+        self.tick(30)
+
+    def close_debug_menu(self):
+        self.press("b")
+        self.wait_until(
+            lambda: self.state == (ST_LEVEL, SST_LEVEL_UPDATE),
+            what="level after debug menu",
+        )
+        self.tick(60)
+
+    def menu_press(self, button, times=1):
+        """Tap a button in a menu, giving each tap time to register."""
+        for _ in range(times):
+            self.press(button, wait=10)
