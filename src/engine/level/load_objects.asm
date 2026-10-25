@@ -147,7 +147,8 @@ LoadObjectGroupData::
 	jr nz, .loop_2
 
 .copy_pals
-	jp LoadObjPals
+	call LoadObjPals
+	jp LoadOwlGfxForOwlWario
 
 ; input:
 ; - de = block

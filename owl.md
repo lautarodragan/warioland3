@@ -162,8 +162,30 @@ menu backs up all of VRAM and the palettes on entry and restores them on
 exit, so anything written earlier would be overwritten. The menu shows `NO`
 only when every object slot is taken.
 
-Trade-off: slot 1 and palette 4 belonged to one of the room's own enemies
-(Prince Froggy in The Steep Canyon's start room), which draws with the owl's
-tiles until the room reloads its graphics. Any room change does, and the
-spawned owl is transient, so it's gone by then. A cleaner fix would pick a
-slot the room doesn't use, but the owl's OAM hardcodes slot 1's tiles.
+### Flying into another room
+
+A spawned owl that isn't held is transient: like any object, it's despawned
+when Wario leaves the room, and it doesn't come back. A held owl is no
+object at all, but part of Owl Wario, so he keeps it through room
+transitions (`test_steep_canyon_debug_owl_to_next_room`: past The Steep
+Canyon's cracked column, down into the room below).
+
+Owl Wario draws the owl he holds from enemy graphics slot 1 too, though, and
+a room change loads the new room's object group into the slots. In a room
+whose group has no owl, he flew on holding the new slot-1 enemy's tiles,
+in its colours. Now `LoadObjectGroupData` ends with `LoadOwlGfxForOwlWario`,
+which loads the owl's graphics and palette (`LoadOwlGfx`, also used by the
+debug menu) when Wario is Owl Wario and the group has no owl. In rooms whose
+group has the owl (all the ones a real owl is grabbed in, at least), it does
+nothing.
+
+### Trade-off
+
+Slot 1 and palette 4 belong to one of the room's own enemies (Prince Froggy
+in The Steep Canyon's start room, a spear fish in the room below the cracked
+column), which draws with the owl's tiles while they're loaded. After a
+spawn, the next room change fixes it, and the spawned owl is gone by then.
+After flying into a room, it lasts until the room is reloaded. Hitting that
+enemy releases the owl as usual. A cleaner fix would pick a slot the room
+doesn't use, but the owl's OAM and Owl Wario's frames hardcode slot 1's
+tiles.

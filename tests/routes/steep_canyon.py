@@ -65,3 +65,27 @@ START_ROOM_GRAB_DEBUG_OWL = [("right+b", 120), ("a", 35), ("", 15)]
 # tests/tools/route_search.py --keep wTransformation=0x0e. (B during the grab
 # doesn't let go, and holding it after isn't a new press.)
 START_ROOM_OWL_FLIGHT = [("up+b", 60), ("", 30), ("left", 30), ("", 60)]
+
+
+# The fourth variant (THE_STEEP_CANYON_DAY_4, which N8's Rust Spray picks),
+# with POWER 9, from the frame the level becomes playable.
+
+# Swim right across the water hands' pool (diving under the pillar in the
+# middle), climb out at the far end, and dash through the cracked column.
+TO_CRACKED_COLUMN = [
+    ("right+b", 120), ("right+b", 120), ("right+b", 120), ("right+b", 100),
+    ("down", 30), ("right+b", 120), ("right+b", 120), ("right+b", 120),
+    ("right+b", 120), ("right+b", 120),
+    ("up+b", 60), ("right+b", 60), ("right+b", 12), ("", 10),
+    ("right+up+a", 35), ("", 15), ("right+b", 120), ("", 40),
+]
+
+# The debug owl, spawned right after the column: bump it awake, back off while
+# it takes off, then jump into it from below.
+COLUMN_GRAB_DEBUG_OWL = [
+    ("right+b", 20), ("", 40), ("right", 18), ("right+a", 35), ("", 15),
+]
+
+# Fly right, through the room transition past the column (down into the room
+# below), and on.
+COLUMN_FLY_TO_NEXT_ROOM = [("", 30), ("right", 150)]

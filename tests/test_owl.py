@@ -157,14 +157,15 @@ def test_debug_owl_grab_and_fly(game, golden):
 
 def never_in_solid_blocks(game, level_name):
     """on_frame check: Wario's body is never inside a solid block (one-way
-    floors, ladders and the like he can pass through)."""
+    floors, ladders and the like he can pass through). This reads the level
+    data, so cracked blocks count as free: they may have been broken."""
     level = Level(level_name)
 
     def check():
         y, x = game.wario_pos()
         row, col = (y - 8) // 16, x // 16  # middle of his body, not his feet
         func = level.funcs[row][col]
-        assert classify(func) != SOLID or func is None, (
+        assert classify(func) != SOLID or func is None or "Cracked" in func, (
             f"Wario at {(y, x)} is inside {func} at block {(row, col)}"
         )
 

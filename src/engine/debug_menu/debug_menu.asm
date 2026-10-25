@@ -506,30 +506,6 @@ DebugMenu_SpawnOwl:
 	ret
 
 ; -----------------------------------------------------------------------
-; Load the owl's graphics into enemy graphics slot 1 and its palette into
-; object palette 4, where its OAM expects them. Whatever enemy the room keeps
-; in slot 1 draws with them until the room is reloaded (any room change).
-; The LCD must be off.
-; -----------------------------------------------------------------------
-DebugMenu_LoadOwlGfx:
-	ld a, BANK("VRAM1")
-	ldh [rVBK], a
-	ld hl, OwlGfx
-	ld bc, v1Tiles0
-	ld a, BANK(OwlGfx)
-	ldh [hCallFuncBank], a
-	hcall Decompress
-	xor a ; VRAM0
-	ldh [rVBK], a
-	ld hl, DebugOwlPal
-	ld de, wTempPals2 palette 4
-	ld b, 1 palettes
-	jp CopyHLToDE_Short
-
-DebugOwlPal:
-INCLUDE "gfx/pals/owl.pal"
-
-; -----------------------------------------------------------------------
 ; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
 ; colour, the LevelTreasureIDs layout).
 ; output: a = treasure ID
@@ -1089,7 +1065,9 @@ DebugMenu_Exit:
 	call LoadBackupVRAM
 	ld a, [wDebugMenuOwlGfxPending]
 	and a
-	call nz, DebugMenu_LoadOwlGfx
+	jr z, .owl_gfx_done
+	farcall LoadOwlGfx
+.owl_gfx_done
 	xor a
 	ld [wDebugMenuOwlGfxPending], a
 
