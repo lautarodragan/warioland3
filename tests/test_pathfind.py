@@ -1,6 +1,6 @@
 """The block-graph path finder (tools/pathfind.py), on level data alone."""
 
-from tools.pathfind import Graph
+from tools.pathfind import Graph, level_variant
 
 
 def transitions(graph, start, goal):
@@ -44,8 +44,20 @@ def test_steep_canyon_foot_of_stone_variant():
     assert Graph("THE_STEEP_CANYON_DAY_2", power=1).astar(corridor, shaft)[0] is None
 
 
-def test_steep_canyon_first_variant_has_no_way_on():
+def test_treasures_pick_the_level_variant():
+    # As SelectLevel does, from LevelTreasureRequirements.
+    assert level_variant("THE_STEEP_CANYON") == "THE_STEEP_CANYON_DAY_1"
+    assert level_variant("THE_STEEP_CANYON", ["FOOT_OF_STONE"]) == "THE_STEEP_CANYON_DAY_2"
+    assert level_variant("THE_STEEP_CANYON", ["FOOT_OF_STONE", "RUST_SPRAY"]) == "THE_STEEP_CANYON_DAY_4"
+    # Out of the Woods' third variant needs two treasures.
+    assert level_variant("OUT_OF_THE_WOODS", ["POUCH"]) == "OUT_OF_THE_WOODS_DAY_1"
+    assert level_variant("OUT_OF_THE_WOODS", ["POUCH", "EYE_OF_THE_STORM"], night=True) == "OUT_OF_THE_WOODS_NIGHT_3"
+
+
+def test_steep_canyon_needs_the_foot_of_stone():
     # Without the treasure, the start room is closed: the corridor is
     # reached only through the second variant's secret door.
-    graph = Graph("THE_STEEP_CANYON_DAY_1", power=9)
-    assert graph.astar((26, 21), (36, 18))[0] is None
+    start, corridor = (26, 21), (36, 18)
+    assert Graph("THE_STEEP_CANYON", power=9).astar(start, corridor)[0] is None
+    with_foot = Graph("THE_STEEP_CANYON", power=9, treasures=["FOOT_OF_STONE"])
+    assert with_foot.astar(start, corridor)[0] is not None

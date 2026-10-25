@@ -87,6 +87,10 @@ def main():
         help="score runs by path-finding cost to the target over this level's "
         "block graph (tools/pathfind.py) instead of straight-line distance",
     )
+    parser.add_argument(
+        "--allow-stung", action="store_true",
+        help="keep runs where an enemy stings Wario (for rooms full of them)",
+    )
     parser.add_argument("--depth", type=int, default=40)
     parser.add_argument("--beam", type=int, default=24)
     args = parser.parse_args()
@@ -185,7 +189,7 @@ def main():
                     key in seen
                     or not invariants_hold()
                     or game.read("wState") != ST_LEVEL
-                    or wario_state in (WST_STUNG, WST_STUNG_RECOVERY)
+                    or (not args.allow_stung and wario_state in (WST_STUNG, WST_STUNG_RECOVERY))
                 ):
                     continue
                 seen.add(key)

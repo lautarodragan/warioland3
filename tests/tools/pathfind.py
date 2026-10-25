@@ -18,12 +18,13 @@ heuristic and lets the emulator decide what's actually possible.
 
 import argparse
 import heapq
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from level_map import LEVEL_HEIGHT, LEVEL_WIDTH, Level  # noqa: E402
+from level_map import LEVEL_HEIGHT, LEVEL_WIDTH, SRC, Level  # noqa: E402
 
 # Measured in the emulator: a jump rises 2.25 blocks, 3.25 with the High
 # Jump Boots (POWER 7+) and UP held. Peak after about 1.4 blocks walking,
@@ -74,10 +75,32 @@ def classify(func):
     return FREE  # unknown functions: assume passable, the emulator will tell
 
 
+def level_variant(level, treasures=(), night=False):
+    """The variant of `level` (e.g. "THE_STEEP_CANYON") that SelectLevel
+    loads with `treasures` collected (treasure constant names): the first of
+    variants 4, 3 and 2 whose two required treasures are both held, else 1.
+    """
+    text = (SRC / "data/levels/treasure_requirements.asm").read_text()
+    block = text[text.index(f"; LEVEL_{level}\n"):].split("\n\n")[0]
+    held = set(treasures) | {"TREASURE_NONE"}
+    variant = 1
+    for line in block.splitlines()[1:]:
+        m = re.match(r"\s*db (\w+),\s*(\w+) ; variant (\d)", line)
+        if m and m.group(1) in held and m.group(2) in held:
+            variant = int(m.group(3))
+            break
+    return f"{level}_{'NIGHT' if night else 'DAY'}_{variant}"
+
+
 class Graph:
-    def __init__(self, level_name, power=0):
-        """`power` is Wario's power-up level (wPowerUpLevel): it decides how
+    def __init__(self, level_name, power=0, treasures=()):
+        """`level_name` is a variant (THE_STEEP_CANYON_DAY_2) or a level
+        (THE_STEEP_CANYON), whose variant then follows `treasures`.
+        `power` is Wario's power-up level (wPowerUpLevel): it decides how
         high he jumps and whether he can swim."""
+        if not re.search(r"_(DAY|NIGHT)_\d$", level_name):
+            level_name = level_variant(level_name, treasures)
+        self.level_name = level_name
         self.level = Level(level_name)
         self.jump_height = JUMP_HEIGHT_HIGH_JUMP_BOOTS if power >= HIGH_JUMP_BOOTS else JUMP_HEIGHT
         self.can_swim = power >= SWIMMING_FLIPPERS
@@ -320,9 +343,14 @@ def main():
     parser.add_argument("start", type=parse_cell, help="ROW:COL of Wario's lower body")
     parser.add_argument("goal", type=parse_cell)
     parser.add_argument("--power", type=int, default=0, help="wPowerUpLevel, 0-9")
+    parser.add_argument(
+        "--treasures", nargs="*", default=[],
+        help="treasures held (e.g. FOOT_OF_STONE), to pick the level variant",
+    )
     args = parser.parse_args()
 
-    graph = Graph(args.level, args.power)
+    graph = Graph(args.level, args.power, args.treasures)
+    print(f"variant: {graph.level_name}")
     start = graph.node_for(*args.start) or args.start
     goal = graph.node_for(*args.goal) or args.goal
     path, moves = graph.astar(start, goal)
