@@ -395,7 +395,12 @@ wc1ca::
 wOwlTileOffset::
 	db
 
-	ds $34
+; TRUE while the camera isn't where the room's floor transitions put it,
+; after following Owl Wario (OwlWarioCamera). Not saved, like wOwlTileOffset.
+wOwlCameraDisplaced::
+	db
+
+	ds $33
 
 SECTION "wVBlankFunc", WRAM0
 

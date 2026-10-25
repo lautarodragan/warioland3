@@ -141,6 +141,8 @@ UpdateLevel:
 	ld a, [wCameraConfigFlags]
 	cp HIDDEN_FIGURE_CAMCONFIG
 	jr z, .asm_8227
+	call OwlWarioCamera
+	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_XSCROLL2 | CAM_TRANSITIONS
 	jr z, .asm_8229

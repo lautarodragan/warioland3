@@ -286,11 +286,31 @@ worked everywhere; these didn't:
   pixels) at a time, when Wario's movement code calls for a floor transition;
   Owl Wario's never did, so in Out of the Woods' start room he flew off the
   top of the screen (his sprites wrapping round to the bottom) with the
-  camera left behind. Owl Wario's up and down movement now ends with
-  `HandleUpwardsFloorTransition` / `HandleDownwardsFloorTransition`, as
-  climbing a ladder does. They do nothing in free camera rooms. What's left:
-  near the top of a floor the owl he holds is above the screen, since the
-  camera moves a whole floor or nothing.
+  camera left behind. Making him do floor transitions wasn't enough: the
+  camera rests 24 pixels above a floor's top, so the screen shows from there
+  to 120 pixels below it, and Owl Wario is 60 pixels tall with the owl. With
+  his feet in a floor's top 36 pixels the owl was above the screen, and
+  there's no floor position where he always fits.
+
+  So in those rooms the camera follows Owl Wario instead (`OwlWarioCamera`,
+  camera.asm, called from UpdateLevel when no floor transition is going on):
+  it scrolls up to 4 pixels a frame to keep him and the owl 8 pixels inside
+  the screen, and keeps `wFloor` on his feet. `wOwlCameraDisplaced` marks
+  that it moved; once he's let go, the camera scrolls back to where floor
+  transitions put it for his floor ($18 pixels above the floor's top,
+  stopping at the room's edges) and the flag clears, so the original
+  game, where it's never set, isn't affected. A new room clears it too.
+  The camera stops at the room's top edge, though, so that's now a ceiling
+  for the owl (`OwlWarioRoomTopCollision`, wario_states_4.asm): Owl Wario
+  can't fly up any further than where the owl still shows. Real owls never
+  get that high (their tests didn't change).
+
+  Vampire Wario's bat had the same problem (an old known bug of the debug
+  menu's FORM): bats only fly in free camera rooms in the original game, so
+  their states never did floor transitions. The bat is small, so the usual
+  ones are enough: up a floor while it flaps up
+  (`HandleUpwardsFloorTransition`), and, as for any fall, down a floor while
+  falling and to the landing floor when it lands (`test_vampire.py`).
 - **Boss battles.** The Temple (and every boss room) keeps the boss's
   graphics in the enemy slots; the owl's went over Rudy's face and hands.
   The menu now says `NO` while `wIsBossBattle` is set.
