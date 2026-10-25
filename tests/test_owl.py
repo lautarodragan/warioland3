@@ -8,7 +8,7 @@ deep in the level), which makes it the case to check spawning against later.
 """
 
 from game import OBJFLAG_TRANSIENT, OWL, THE_COLOSSAL_HOLE_DAY_1, THE_STEEP_CANYON_DAY_1
-from routes.colossal_hole import TO_SLEEPING_OWL, WAKE_AND_GRAB_OWL
+from routes.colossal_hole import TO_SLEEPING_OWL, WAKE_AND_GRAB_DEBUG_OWL, WAKE_AND_GRAB_OWL
 
 # src/constants/wario_constants.asm
 TRANSFORMATION_OWL_WARIO = 0x0E
@@ -86,3 +86,33 @@ def test_debug_owl_spawn_without_owl_graphics(game, golden):
 
     game.close_debug_menu()
     assert spawned_owls(game) == []
+
+
+def wario_block(game):
+    mem, addr = game.pb.memory, game.addr
+    y = mem[addr("wWarioYPos")] << 8 | mem[addr("wWarioYPos") + 1]
+    x = mem[addr("wWarioXPos")] << 8 | mem[addr("wWarioXPos") + 1]
+    return y // 16, x // 16
+
+
+def test_debug_owl_grab_and_fly(game, golden):
+    game.new_game_to_overworld()
+    game.enter_level(THE_COLOSSAL_HOLE_DAY_1)
+    spawn_owl(game)
+    game.close_debug_menu()
+
+    game.play(WAKE_AND_GRAB_DEBUG_OWL)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    assert game.read("wWarioState") == WST_GRABBING_OWL
+    golden("colossal_hole_debug_owl_grabbed", game.screenshot())
+
+    # Flying right, the wall at column 24 has to stop Wario, as it does with
+    # the real owl. Grabbing the spawned owl used to switch off cartridge
+    # RAM (where the level's blocks live), after which Wario flew through
+    # walls and the level's graphics broke.
+    game.tick(60)
+    game.play([("right", 240)])
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    row, col = wario_block(game)
+    assert row == 26 and col < 24
+    golden("colossal_hole_debug_owl_flight", game.screenshot())

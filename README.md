@@ -12,7 +12,7 @@ The menu allows cycling through:
 - FORM: 12 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN)
 - INVNBL: toggles invisibility on/off
 - GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
-- OWL: spawns a sleeping owl next to Wario. Only works in rooms whose enemy set includes owls (it shows NO otherwise); work in progress, see `owl.md`.
+- OWL: spawns a sleeping owl next to Wario. Only works in rooms whose enemy set includes owls (it shows NO otherwise). It can be woken, grabbed and flown like a real owl.
 
 Navigate with UP/DOWN, cycle value with LEFT/RIGHT, exit with B.
 The menu saves/restores level VRAM state via SaveBackupVRAM/LoadBackupVRAM, loads the font for display, and returns to the same level substate on exit.
@@ -59,7 +59,7 @@ Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-a
 ### Known Bugs
 
 - Vampire mode, while flying, doesn't properly execute screen transitions. The "camera" stays in the current screen, even though Wario correctly moves to the proper screen. Collision occurs correctly. To "fix" this, turn into non-flying Vampire mode, or normal mode, and jump. This will cause the screen to transition. Alternatively, only use fly-mode in areas that don't have screen transitions, and use "Puffy" in areas that do.
-- I tried to implement an Owl-spawning option. It spawns an owl right next to you, no matter where you are. This was completely broken in many different ways. I tried fixing it (well... Claude did), and eventually gave up. Main issues were: broken graphics in levels that don't normally have an owl (makes sense), sometimes impossible to grab the owl, and, when grabbing it and flying, completely breaking the level and sometimes crashing the game. I eventually gave up, reverted the changes, and asked Claude to write a summary of everything it tried. It's in `owl.md`. 
+- OWL only spawns in rooms whose enemy set includes owls (see `owl.md` for why, and for the bug that broke the first attempt).
 
 ## How
 

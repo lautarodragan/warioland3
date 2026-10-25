@@ -6,6 +6,10 @@ grabbing the spawned owl caused permanent, level-wide graphics/collision
 corruption that persisted across level exits. Root cause was never fully
 confirmed; notes below capture what was tried and what was learned.
 
+> **Update (second attempt): root cause found and fixed.** See
+> [Resolution](#resolution) at the end. The OWL entry is back, with
+> emulator tests in `tests/test_owl.py`.
+
 ---
 
 ## Files involved
@@ -113,3 +117,41 @@ root cause was confirmed.
   `push_wram` / `pop_wram` around access from debug menu code.
 - **`OwlFunc::`** needed to be exported (`::`) to be referenced from the
   debug menu bank. After the revert it is back to a local label (`:`).
+
+---
+
+## Resolution
+
+Found with the emulator tests (PyBoy, `tests/test_owl.py`), by comparing the
+spawned owl against a real one in The Colossal Hole.
+
+### The corruption: `DespawnObject` writing to `$0000`
+
+Once Wario grabs an owl, the owl object despawns (from then on it's drawn as
+part of Owl Wario): `OwlFunc`'s `.despawn` calls `DespawnObject`, which sets
+bit 7 of the object's entry in the level's object map, at the address in
+`OBJ_UNK_02:OBJ_UNK_01`. Objects spawned from the map have that pointer into
+SRAM; the debug owl had it zeroed, so `DespawnObject` wrote
+`[$0000] | $80` to `$0000`. On MBC5 that's the RAM enable register, and any
+value other than `$0A` switches cartridge RAM off. The level's block and
+object maps live in SRAM, so from then on every collision and tile read
+returned garbage: walking through walls, broken graphics, and since it's
+the cartridge state, it outlived the level.
+
+None of the earlier hypotheses (camera mode, `LoadWarioGfx`, the owl's wake
+up) were it; replacing the update function with a bare `ret` didn't help
+because the despawn happens on Wario's side of the grab.
+
+Fix: `DespawnObject` treats `OBJ_UNK_02 == 0` as "no map entry" and only
+clears the object, the same convention the offscreen-despawn path in
+`update_objects.asm` already follows.
+
+### Broken graphics in non-owl levels
+
+Every owl object group loads `OwlGfx` into enemy graphics slot 1, and the
+owl's OAM always points at slot 1. In a room whose group doesn't have the
+owl, slot 1 holds some other enemy, so a spawned owl drew garbage. The new
+spawn (`_DebugSpawnObject`, Object Loading bank) only spawns objects the
+current room's object group has, using that group's data, and the menu shows
+`NO` otherwise. Spawning anywhere would need loading the owl's graphics and
+palette into a free slot first.
