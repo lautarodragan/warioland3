@@ -476,11 +476,18 @@ DebugMenu_ToggleInvisible:
 	ret
 
 ; -----------------------------------------------------------------------
-; Spawn an owl next to Wario, if the room's object group has one, and
-; record the outcome in wDebugMenuOwlStatus (1 = spawned, 2 = not).
+; Spawn an owl next to Wario (from the room's object group if it has one,
+; otherwise from ROM), and record the outcome in wDebugMenuOwlStatus
+; (1 = spawned, 2 = not: no free object slot, or a boss battle).
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_SpawnOwl:
+	; Bosses keep their own graphics in the enemy slots, the owl's included
+	; (it would overwrite part of the boss): no owl in a boss battle.
+	ld a, [wIsBossBattle]
+	and a
+	ld a, 2
+	jr nz, .got_status
 	push_wram BANK("Level Objects WRAM")
 	ld c, OWL
 	farcall _DebugSpawnObject

@@ -476,7 +476,10 @@ UpdateState_OwlSlow:
 	jr nz, .asm_1ec4b0
 	ld b, 1
 	call MoveWarioUp
-	ret
+	; real owls only fly in free camera rooms, but the debug menu's can be
+	; anywhere: rooms with floor transitions need them for the camera to
+	; follow
+	jp HandleUpwardsFloorTransition
 
 .go_down
 	farcall CheckCentreCollision
@@ -488,7 +491,7 @@ UpdateState_OwlSlow:
 	jr nz, .asm_1ec4b8
 	ld b, 1
 	call MoveWarioDown
-	ret
+	jp HandleDownwardsFloorTransition
 
 .asm_1ec4b0
 	ld a, PAD_DOWN
@@ -644,7 +647,7 @@ UpdateState_OwlFast:
 	ret nz
 	ld b, 2
 	call MoveWarioUp
-	ret
+	jp HandleUpwardsFloorTransition
 
 .going_down
 	ld a, [wJoypadDown]
@@ -668,7 +671,7 @@ UpdateState_OwlFast:
 .asm_1ec647
 	ld b, 2
 	call MoveWarioDown
-	ret
+	jp HandleDownwardsFloorTransition
 
 Func_1ec64d:
 	ld a, WST_RELEASING_OWL

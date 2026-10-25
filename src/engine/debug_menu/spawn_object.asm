@@ -208,12 +208,37 @@ INCLUDE "gfx/pals/owl.pal"
 ; into has to have the owl's graphics, even if its object group has no owl
 ; (only the debug menu's owl gets him into such a room). They go into a slot
 ; the group doesn't use, if any.
+; The same goes for a debug menu owl in a level resumed from a save: saving
+; keeps the objects, and the room's graphics are loaded from its group again.
 ; Called by LoadObjectGroupData, after the group's graphics and palettes.
 ; Needs WRAM bank "Level Objects WRAM".
 LoadOwlGfxForOwlWario:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_OWL_WARIO
-	ret nz
+	jr z, .check_group
+	; Is there an owl object? (Only after resuming a save: objects are
+	; cleared before a room is loaded otherwise.)
+	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
+	ld hl, wObj1 + OBJ_ID
+.loop_objs
+	ld a, [hl]
+	cp OWL
+	jr nz, .next_obj
+	ld a, l
+	sub OBJ_ID
+	ld e, a
+	ld d, h
+	ld a, [de] ; OBJ_FLAGS
+	rra
+	jr c, .check_group ; OBJFLAG_ACTIVE set
+.next_obj
+	ld a, l
+	add OBJ_STRUCT_LENGTH
+	ld l, a
+	jr nc, .loop_objs
+	ret
+
+.check_group
 	ld hl, wObjDataPtr01
 .loop
 	ld a, l

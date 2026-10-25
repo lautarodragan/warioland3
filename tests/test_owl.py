@@ -22,7 +22,6 @@ from routes.steep_canyon import (
     START_ROOM_GRAB_DEBUG_OWL,
     START_ROOM_OWL_FLIGHT,
 )
-from tools.level_map import Level
 from tools.pathfind import SOLID, classify
 
 # src/constants/wario_constants.asm
@@ -103,6 +102,12 @@ def slot_tiles(game, slot):
 def owl_tiles_in_slot(game, slot):
     """Whether enemy graphics slot 1-4 holds the owl's tiles."""
     return slot_tiles(game, slot) == OWL_GFX
+
+
+def owl_tiles_where_expected(game):
+    """Whether the owl's tiles are in the slot wOwlTileOffset names (slot 1
+    when it's 0)."""
+    return owl_tiles_in_slot(game, game.read("wOwlTileOffset") // SLOT_TILES + 1)
 
 
 def vram1_sprites(game):
@@ -193,18 +198,19 @@ def test_debug_owl_grab_and_fly(game, golden):
     golden("colossal_hole_debug_owl_flight", game.screenshot())
 
 
-def never_in_solid_blocks(game, level_name):
+def never_in_solid_blocks(game, level_name=None):
     """on_frame check: Wario's body is never inside a solid block (one-way
-    floors, ladders and the like he can pass through). This reads the level
-    data, so cracked blocks count as free: they may have been broken."""
-    level = Level(level_name)
+    floors, ladders and the like he can pass through). The blocks are read
+    from the game's memory (Game.block_func), so broken blocks are free.
+    `level_name` is only used in the message."""
 
     def check():
         y, x = game.wario_pos()
         row, col = (y - 8) // 16, x // 16  # middle of his body, not his feet
-        func = level.funcs[row][col]
-        assert classify(func) != SOLID or func is None or "Cracked" in func, (
+        func = game.block_func(row, col)
+        assert classify(func) != SOLID, (
             f"Wario at {(y, x)} is inside {func} at block {(row, col)}"
+            f" of {level_name}"
         )
 
     return check
