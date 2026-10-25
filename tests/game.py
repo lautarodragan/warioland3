@@ -42,6 +42,7 @@ LEVEL_THE_STEEP_CANYON = 16
 LEVEL_THE_COLOSSAL_HOLE = 22
 
 # src/constants/menu_constants.asm
+PAUSEMENU_SAVE = 1
 PAUSEMENU_TO_MAP = 3
 
 
@@ -157,6 +158,29 @@ class Game:
         y, x = self.wario_pos()
         return y // 16, x // 16
 
+    def block_func(self, row, col):
+        """The block function (e.g. "BlockFunc_Solid") of a cell, read from
+        the game's memory: the level's block map in SRAM, decoded with the
+        current room's block function table. Only cells of the current room
+        are meaningful, but those are always right, unlike the disassembly's
+        level data read by tools/level_map.py, which gets some rooms wrong
+        (The Above the Clouds' start room, for one)."""
+        mem = self.pb.memory
+        bank, addr = self.pb.symbol_lookup("sLevelBlockObjectMap")
+        # Rows are 160 blocks, each in its own 256-byte page; 32 per bank.
+        block = mem[bank + row // 32, addr + (row % 32) * 256 + col] & 0x7F
+        table = self.addr("wBlockFunctionTable") + 2 * block
+        return self._block_func_names()[mem[table] | mem[table + 1] << 8]
+
+    def _block_func_names(self):
+        if not hasattr(self, "_block_funcs"):
+            self._block_funcs = {}
+            for line in SYM.read_text().splitlines():
+                addr, _, name = line.partition(" ")
+                if name.startswith("BlockFunc_"):
+                    self._block_funcs[int(addr.split(":")[1], 16)] = name
+        return self._block_funcs
+
     def snapshot(self):
         """The whole emulator state, to restore() and try something else."""
         f = io.BytesIO()
@@ -267,6 +291,32 @@ class Game:
             what="map after leaving the level",
         )
         self.tick(60)
+
+    def save_and_continue(self):
+        """Save from the pause menu (which resets the game), then CONTINUE
+        from the title screen, back into the level where it was saved."""
+        self.press("start")
+        self.wait_until(lambda: self.state[0] == ST_PAUSE_MENU, what="pause menu")
+        self.tick(60)
+        self.press_until(
+            "right",
+            lambda: self.read("wPauseMenuSelection") & 0x0F == PAUSEMENU_SAVE,
+            what="SAVE",
+        )
+        self.press("a")
+        self.wait_until(lambda: self.state[0] == ST_TITLE, timeout=60 * 30, what="reset")
+        self.press_until(
+            "start",
+            lambda: self.state == (ST_TITLE, SST_START_MENU),
+            what="title menu",
+        )
+        self.tick(30)
+        self.press_until("a", lambda: self.state[0] == ST_LEVEL, what="level")
+        self.wait_until(
+            lambda: self.state == (ST_LEVEL, SST_LEVEL_UPDATE),
+            what="level to finish loading",
+        )
+        self.tick(120)
 
     def open_debug_menu(self):
         self.press("select")
