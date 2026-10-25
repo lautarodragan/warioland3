@@ -1080,7 +1080,7 @@ Func_1f1246:
 
 .Func_1f13f2:
 	ld de, wSaveCounter
-	ld b, $ca
+	ld b, SIZEOF("Progress WRAM") + SIZEOF("Level WRAM")
 	call CopyHLToDE
 	push_wram BANK("WRAM2")
 	ld de, $d000

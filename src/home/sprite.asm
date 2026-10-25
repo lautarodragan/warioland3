@@ -38,10 +38,69 @@ DrawWario::
 	ld [wCurSpriteFrame], a
 	ld a, [wca66]
 	ld [wCurSpriteAttributes], a
+	ld a, [wOwlTileOffset]
+	and a
+	jr nz, .owl_elsewhere
 	call LoadSprite
 	pop af
 	bankswitch
 	ret
+
+.owl_elsewhere
+	; Owl Wario's frames draw the owl from slot 1's tiles
+	ld a, [wVirtualOAMByteSize]
+	push af
+	call LoadSprite
+	pop af
+	ld l, a
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	call z, RelocateOwlSprites
+	pop af
+	bankswitch
+	ret
+
+; Moves the owl's sprites from enemy graphics slot 1 to where its graphics
+; are (wOwlTileOffset): from virtual OAM byte offset l to the end, VRAM1
+; tiles move by the offset and object palette 4 becomes the slot's palette.
+; Every VRAM1 sprite in that range has to be the owl's (Wario's own sprites
+; are in VRAM0, so Owl Wario's frames qualify).
+RelocateOwlSprites::
+	ld h, HIGH(wVirtualOAM)
+	ld a, [wOwlTileOffset]
+	ld d, a
+	rlca
+	rlca
+	add 4
+	ld e, a ; slot 1-4 -> palette 4-7
+	ld a, [wVirtualOAMByteSize]
+	ld c, a
+.loop
+	ld a, l
+	cp c
+	ret nc
+	inc l
+	inc l
+	inc l
+	ld a, [hl] ; SPRITEOAMSTRUCT_ATTRIBUTES
+	bit B_OAM_BANK1, a
+	jr z, .next
+	ld b, a
+	and OAM_PALETTE
+	cp 4
+	ld a, b
+	jr nz, .tile
+	and ~OAM_PALETTE
+	or e
+	ld [hl], a
+.tile
+	dec l
+	ld a, [hl] ; SPRITEOAMSTRUCT_TILE_ID
+	add d
+	ld [hli], a
+.next
+	inc l
+	jr .loop
 
 ; hl = OAM data pointer
 ; given an OAM pointer and a frame index in wCurSpriteFrame

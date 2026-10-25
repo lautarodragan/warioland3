@@ -16,7 +16,7 @@ IncrementSaveCounter:
 
 Func_1f0b5b:
 	ld de, 0
-	ld b, $ca
+	ld b, SIZEOF("Progress WRAM") + SIZEOF("Level WRAM")
 	call CalculateChecksum
 	push_wram $02
 	ld b, $11

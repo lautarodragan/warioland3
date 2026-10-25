@@ -496,7 +496,8 @@ DebugMenu_SpawnOwl:
 	and a
 	jr nz, .spawned
 	; This room's object group has no owl: spawn one from ROM, and load its
-	; graphics into slot 1 when the menu closes (VRAM is restored then).
+	; graphics when the menu closes (VRAM is restored then), into an enemy
+	; graphics slot the group doesn't use (slot 1 if it uses all four).
 	push_wram BANK("Level Objects WRAM")
 	farcall _DebugSpawnOwlFromROM
 	pop_wram

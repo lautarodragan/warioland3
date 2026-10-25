@@ -25,7 +25,8 @@ from test_owl import (
     WST_GRABBING_OWL,
     WST_OWL_SLOW,
     never_in_solid_blocks,
-    owl_tiles_in_slot_1,
+    owl_tiles_in_slot,
+    owl_tiles_where_expected,
     spawn_owl,
     spawned_owls,
 )
@@ -55,7 +56,7 @@ def spawn_and_close(game):
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
-    assert owl_tiles_in_slot_1(game)
+    assert owl_tiles_where_expected(game)
 
 
 def wario_on_screen(game):
@@ -82,7 +83,7 @@ def test_debug_owl_in_level_without_owl(game, golden, name, level):
     game.new_game_to_overworld()
     game.enter_level(level)
     assert OWL not in [obj_id for _, _, obj_id in game.objects()]
-    assert not owl_tiles_in_slot_1(game)
+    assert not any(owl_tiles_in_slot(game, slot) for slot in range(1, 5))
 
     spawn_and_close(game)
     golden(f"any_level_{name}_spawned", game.screenshot())
@@ -95,7 +96,7 @@ def test_debug_owl_in_level_without_owl(game, golden, name, level):
     game.play(SHORT_FLIGHT, on_frame=in_bounds)
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     assert game.read("wWarioState") in (WST_OWL_SLOW, WST_OWL_FAST)
-    assert owl_tiles_in_slot_1(game)
+    assert owl_tiles_where_expected(game)
     assert wario_on_screen(game)
     golden(f"any_level_{name}_flight", game.screenshot())
 
@@ -189,8 +190,8 @@ def test_debug_owl_in_and_out_of_water(game, golden):
 def test_debug_owl_underwater(game, golden):
     # Deep underwater, a woken owl stays underwater, and Wario can swim up
     # into it and grab it. He hangs on for a moment, then lets go: Owl Wario
-    # can't be in water. (The fish next to him is the room's slot 1 enemy,
-    # drawn with the owl's tiles: the known trade-off of loading them there.)
+    # can't be in water. (The fish next to him keeps its own tiles: the
+    # owl's went into a graphics slot the room doesn't use.)
     game.new_game_to_overworld()
     game.enter_level(BENEATH_THE_WAVES_DAY_1)
     game.open_debug_menu()
@@ -231,7 +232,7 @@ def test_debug_owl_fills_slots_without_owl(game, golden):
 
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 2
-    assert owl_tiles_in_slot_1(game)
+    assert owl_tiles_where_expected(game)
     game.tick(60)
     assert len(spawned_owls(game)) == 2
     golden("any_level_slots_full", game.screenshot())
@@ -258,8 +259,8 @@ def test_debug_owl_refused_in_boss_battle(game, golden):
 def test_debug_owl_saved_and_continued(game, golden):
     # Saving keeps the level's objects, the spawned owl among them, and
     # continuing loads the room's graphics from its object group again:
-    # the owl's have to be loaded back too, or it draws with the tiles of
-    # whichever enemy the room keeps in slot 1.
+    # the owl's have to be loaded back too (into a free slot, if there's
+    # one), or it draws with the tiles of whichever enemy is in that slot.
     game.new_game_to_overworld()
     game.enter_level(OUT_OF_THE_WOODS_DAY_1)
     spawn_and_close(game)
@@ -267,7 +268,7 @@ def test_debug_owl_saved_and_continued(game, golden):
     game.save_and_continue()
     assert game.read("wLevel") == OUT_OF_THE_WOODS_DAY_1
     assert len(spawned_owls(game)) == 1
-    assert owl_tiles_in_slot_1(game)
+    assert owl_tiles_where_expected(game)
     golden("any_level_saved_owl", game.screenshot())
 
     game.play(GRAB_SPAWNED_OWL)
