@@ -23,12 +23,6 @@ warioland3_obj := $(rom_obj:.o=.o)
 
 ### Build tools
 
-ifeq (,$(shell which sha1sum))
-SHA1 := shasum
-else
-SHA1 := sha1sum
-endif
-
 RGBDS ?=
 RGBASM  ?= $(RGBDS)rgbasm
 RGBFIX  ?= $(RGBDS)rgbfix
@@ -42,10 +36,10 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all warioland3 clean tidy compare tools
+.PHONY: all warioland3 clean tidy tools test
 
-all: $(rom) compare
-warioland3: $(rom) compare
+all: $(rom)
+warioland3: $(rom)
 
 clean: tidy
 	find src/gfx \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.rle' \) -delete
@@ -59,8 +53,8 @@ tidy:
 	rm -f $(rom) $(rom_obj) $(rom:.gbc=.map) $(rom:.gbc=.sym) src/rgbdscheck.o
 	$(MAKE) clean -C tools/
 
-compare: $(rom)
-	@$(SHA1) -c rom.sha1
+test: $(rom)
+	python3 -m pytest tests
 
 tools:
 	$(MAKE) -C tools/
