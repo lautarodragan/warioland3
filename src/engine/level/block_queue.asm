@@ -87,6 +87,9 @@ Func_ba42:
 ; hl = obj unk02
 DespawnObject:
 	push_wram BANK("Level Objects WRAM")
+	ld a, [hl] ; OBJ_UNK_02
+	and a
+	jr z, .no_map_entry
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM1")
@@ -114,6 +117,16 @@ DespawnObject:
 	ld [de], a
 	pop af
 	sramswitch
+	pop_wram
+	ret
+
+.no_map_entry
+; objects spawned outside the object map (from the debug menu) have no
+; entry to mark as despawned; marking "$0000" would write to the MBC's
+; RAM enable register and switch off SRAM, where the level's blocks live
+	dec l
+	dec l
+	ld [hl], a ; OBJ_FLAGS
 	pop_wram
 	ret
 

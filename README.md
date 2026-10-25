@@ -12,6 +12,7 @@ The menu allows cycling through:
 - FORM: 12 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN)
 - INVNBL: toggles invisibility on/off
 - GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
+- OWL: spawns a sleeping owl next to Wario. Only works in rooms whose enemy set includes owls (it shows NO otherwise). It can be woken, grabbed and flown like a real owl.
 
 Navigate with UP/DOWN, cycle value with LEFT/RIGHT, exit with B.
 The menu saves/restores level VRAM state via SaveBackupVRAM/LoadBackupVRAM, loads the font for display, and returns to the same level substate on exit.
@@ -47,9 +48,9 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/outpu
 
 - `test_out_of_the_woods.py` plays N1 from a new game: grabs the grey key, opens the grey chest, and checks the key/treasure flags, the clear screen and the treasure count.
 - `test_debug_menu.py` opens the debug menu and exercises FORM, POWER and INVNBL, checking the RAM each one changes.
-- `test_owl.py` jumps into The Steep Canyon (an owl level) as a base for the owl work.
+- `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and checks The Steep Canyon start (no owl graphics loaded there).
 
-The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`.
+The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`. `tests/tools/level_map.py` prints a level as ASCII (solid blocks, ladders, doors, objects), and `tests/tools/pathfind.py` builds a movement graph from the same data and runs A* over it, through doors and pipes. `route_search.py --plan LEVEL` uses its distance field as the search heuristic, which is how the whole of Out of the Woods can be found from just "key, then chest".
 
 ## Where
 
@@ -58,7 +59,7 @@ Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-a
 ### Known Bugs
 
 - Vampire mode, while flying, doesn't properly execute screen transitions. The "camera" stays in the current screen, even though Wario correctly moves to the proper screen. Collision occurs correctly. To "fix" this, turn into non-flying Vampire mode, or normal mode, and jump. This will cause the screen to transition. Alternatively, only use fly-mode in areas that don't have screen transitions, and use "Puffy" in areas that do.
-- I tried to implement an Owl-spawning option. It spawns an owl right next to you, no matter where you are. This was completely broken in many different ways. I tried fixing it (well... Claude did), and eventually gave up. Main issues were: broken graphics in levels that don't normally have an owl (makes sense), sometimes impossible to grab the owl, and, when grabbing it and flying, completely breaking the level and sometimes crashing the game. I eventually gave up, reverted the changes, and asked Claude to write a summary of everything it tried. It's in `owl.md`. 
+- OWL only spawns in rooms whose enemy set includes owls (see `owl.md` for why, and for the bug that broke the first attempt).
 
 ## How
 

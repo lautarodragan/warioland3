@@ -2530,6 +2530,8 @@ wMenuObj11:: menu_obj_struct wMenuObj11
 
 wDebugMenuCursor::  db
 wDebugMenuFormIdx:: db
+; 0 = no spawn tried, 1 = owl spawned, 2 = couldn't spawn
+wDebugMenuOwlStatus:: db
 
 SECTION "WRAM4", WRAMX
 
