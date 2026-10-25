@@ -8,7 +8,14 @@ deep in the level), which makes it the case to check spawning against later.
 """
 
 from game import OBJFLAG_TRANSIENT, OWL, THE_COLOSSAL_HOLE_DAY_1, THE_STEEP_CANYON_DAY_1
-from routes.colossal_hole import TO_SLEEPING_OWL, WAKE_AND_GRAB_DEBUG_OWL, WAKE_AND_GRAB_OWL
+from routes.colossal_hole import (
+    DEBUG_MENU_SPAWN_OWL,
+    GRAB_DEBUG_OWL_PAST_ROBOT,
+    TO_SLEEPING_OWL,
+    WAKE_AND_GRAB_DEBUG_OWL,
+    WAKE_AND_GRAB_OWL,
+)
+from tools.level_map import Level
 
 # src/constants/wario_constants.asm
 TRANSFORMATION_OWL_WARIO = 0x0E
@@ -88,13 +95,6 @@ def test_debug_owl_spawn_without_owl_graphics(game, golden):
     assert spawned_owls(game) == []
 
 
-def wario_block(game):
-    mem, addr = game.pb.memory, game.addr
-    y = mem[addr("wWarioYPos")] << 8 | mem[addr("wWarioYPos") + 1]
-    x = mem[addr("wWarioXPos")] << 8 | mem[addr("wWarioXPos") + 1]
-    return y // 16, x // 16
-
-
 def test_debug_owl_grab_and_fly(game, golden):
     game.new_game_to_overworld()
     game.enter_level(THE_COLOSSAL_HOLE_DAY_1)
@@ -113,6 +113,71 @@ def test_debug_owl_grab_and_fly(game, golden):
     game.tick(60)
     game.play([("right", 240)])
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
-    row, col = wario_block(game)
+    row, col = game.wario_block()
     assert row == 26 and col < 24
     golden("colossal_hole_debug_owl_flight", game.screenshot())
+
+
+def never_in_solid_blocks(game, level_name):
+    """on_frame check: Wario's body is never inside a solid block."""
+    level = Level(level_name)
+
+    def check():
+        y, x = game.wario_pos()
+        row, col = (y - 8) // 16, x // 16  # middle of his body, not his feet
+        func = level.funcs[row][col]
+        assert func in ("BlockFunc_Free", None), (
+            f"Wario at {(y, x)} is inside {func} at block {(row, col)}"
+        )
+
+    return check
+
+
+def grab_debug_owl_past_robot(game):
+    game.new_game_to_overworld()
+    game.enter_level(THE_COLOSSAL_HOLE_DAY_1)
+    game.play(TO_SLEEPING_OWL + [("", 60)] + DEBUG_MENU_SPAWN_OWL)
+    assert len(spawned_owls(game)) == 1
+    game.play(GRAB_DEBUG_OWL_PAST_ROBOT + [("", 60)])
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    # It's the spawned owl that got grabbed, not the real one on the ledge.
+    assert spawned_owls(game) == []
+
+
+def test_debug_owl_stops_at_wall(game, golden):
+    grab_debug_owl_past_robot(game)
+    in_bounds = never_in_solid_blocks(game, "THE_COLOSSAL_HOLE_DAY_1")
+
+    game.play([("right", 90)], on_frame=in_bounds)
+    assert game.wario_block() == (26, 29)  # against the wall at column 30
+    y, x = game.wario_pos()
+
+    # Holding right longer doesn't push Wario into the wall.
+    game.play([("right", 120)], on_frame=in_bounds)
+    assert game.wario_pos() == (y, x)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    golden("colossal_hole_debug_owl_at_wall", game.screenshot())
+
+
+def test_debug_owl_flies_out_across_rooms(game, golden):
+    # The camera scrolling new parts of the level in, and room transitions,
+    # are where carrying a spawned owl used to crash or corrupt graphics.
+    grab_debug_owl_past_robot(game)
+    in_bounds = never_in_solid_blocks(game, "THE_COLOSSAL_HOLE_DAY_1")
+
+    # Down to the bottom of the start area, then right: under the wall and
+    # across the big shaft to the wall on its far side.
+    game.play([("right", 90), ("down", 40), ("right", 300)], on_frame=in_bounds)
+    assert game.wario_block() == (28, 47)
+    golden("colossal_hole_debug_owl_shaft", game.screenshot())
+
+    # Down the shaft, through the transition at its bottom, into the room
+    # in sector (5, 0) at the top of the level.
+    game.play([("down", 300)], on_frame=in_bounds)
+    assert game.wario_block() == (8, 88)
+    golden("colossal_hole_debug_owl_new_room", game.screenshot())
+
+    game.play([("right", 600)], on_frame=in_bounds)
+    assert game.wario_block() == (8, 95)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    golden("colossal_hole_debug_owl_far_right", game.screenshot())

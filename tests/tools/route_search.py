@@ -49,6 +49,9 @@ MACROS = [
     [("up", 90)],
     [("left+up", 30)],
     [("right+up", 30)],
+    # Waiting, e.g. for an enemy to move out of the way.
+    [("", 30)],
+    [("", 90)],
     # Doors only open for an idle Wario.
     [("", 30), ("up", 6), ("", 150)],
     [("", 60), ("up", 6), ("", 150)],
@@ -67,6 +70,10 @@ def main():
     goal.add_argument("--flag", type=lambda s: int(s, 0), help="stop once wKeyAndTreasureFlags & FLAG")
     goal.add_argument("--sector", type=int, help="stop once Wario is playable in this sector")
     goal.add_argument("--ram", metavar="SYMBOL=VALUE", help="stop once a RAM symbol holds VALUE")
+    parser.add_argument(
+        "--keep", metavar="SYMBOL=VALUE", action="append", default=[],
+        help="drop runs where a RAM symbol stops holding VALUE (repeatable)",
+    )
     parser.add_argument("--depth", type=int, default=40)
     parser.add_argument("--beam", type=int, default=24)
     args = parser.parse_args()
@@ -104,6 +111,19 @@ def main():
             )
         return distance() < 16
 
+    keep = [(symbol, int(value, 0)) for symbol, value in (k.split("=") for k in args.keep)]
+
+    def invariants_hold():
+        return all(game.read(symbol) == value for symbol, value in keep)
+
+    def object_positions():
+        mem, out = game.pb.memory, []
+        for n in range(1, 9):
+            if game.read(f"wObj{n}Flags") & 1:
+                bank, addr = game.pb.symbol_lookup(f"wObj{n}XPos")
+                out.append((mem[bank, addr + 1] << 8 | mem[bank, addr]) // 16)
+        return tuple(out)
+
     def save():
         f = io.BytesIO()
         game.pb.save_state(f)
@@ -124,9 +144,12 @@ def main():
                     return
                 y, x = position()
                 wario_state = game.read("wWarioState")
-                key = (y // 4, x // 4, wario_state)
+                # Enemies are part of the state: waiting for one to move
+                # is progress even if Wario stays put.
+                key = (y // 4, x // 4, wario_state, object_positions())
                 if (
                     key in seen
+                    or not invariants_hold()
                     or game.read("wState") != ST_LEVEL
                     or wario_state in (WST_STUNG, WST_STUNG_RECOVERY)
                 ):

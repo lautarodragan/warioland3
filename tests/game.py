@@ -113,20 +113,40 @@ class Game:
                 if cond():
                     return
 
-    def play(self, steps):
+    def play(self, steps, on_frame=None):
         """Replay (buttons, frames) steps, e.g. from tests/routes/.
 
         Buttons are released and one idle frame runs after each step, so
-        every step starts from a clean joypad state.
+        every step starts from a clean joypad state. `on_frame`, if given,
+        is called after every frame.
         """
         for buttons, frames in steps:
             buttons = buttons.split("+") if buttons else []
             for button in buttons:
                 self.pb.button_press(button)
-            self.tick(frames)
+            self._tick_watched(frames, on_frame)
             for button in buttons:
                 self.pb.button_release(button)
+            self._tick_watched(1, on_frame)
+
+    def _tick_watched(self, frames, on_frame):
+        if on_frame is None:
+            self.tick(frames)
+            return
+        for _ in range(frames):
             self.tick()
+            on_frame()
+
+    def wario_pos(self):
+        """Wario's (y, x) in level pixels; y is his feet."""
+        mem, addr = self.pb.memory, self.addr
+        y = mem[addr("wWarioYPos")] << 8 | mem[addr("wWarioYPos") + 1]
+        x = mem[addr("wWarioXPos")] << 8 | mem[addr("wWarioXPos") + 1]
+        return y, x
+
+    def wario_block(self):
+        y, x = self.wario_pos()
+        return y // 16, x // 16
 
     def screenshot(self):
         return self.pb.screen.image.convert("RGB")
