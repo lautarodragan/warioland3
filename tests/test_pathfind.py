@@ -61,3 +61,16 @@ def test_steep_canyon_needs_the_foot_of_stone():
     assert Graph("THE_STEEP_CANYON", power=9).astar(start, corridor)[0] is None
     with_foot = Graph("THE_STEEP_CANYON", power=9, treasures=["FOOT_OF_STONE"])
     assert with_foot.astar(start, corridor)[0] is not None
+
+
+def test_steep_canyon_owl_room():
+    # From the start to the owl: the secret door, the water corridor, the
+    # pipe up into the shaft, a Togeba to ride up to the ladder (after a
+    # ground pound), and the pipe at the top into the owl room.
+    start, owl = (26, 21), (46, 120)
+    graph = Graph("THE_STEEP_CANYON", power=9, treasures=["FOOT_OF_STONE"])
+    assert [move for move, _ in transitions(graph, start, owl)] == ["door", "up pipe", "up pipe"]
+    # The Togeba only jumps for a ground pound, which needs the Super Jump
+    # Slam Overalls (and the ladder's too high without the High Jump Boots).
+    weaker = Graph("THE_STEEP_CANYON", power=5, treasures=["FOOT_OF_STONE"])
+    assert weaker.astar(start, owl)[0] is None

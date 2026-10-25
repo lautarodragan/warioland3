@@ -36,6 +36,7 @@ JUMP_REACH = 5
 # src/constants/wario_constants.asm
 SWIMMING_FLIPPERS = 2
 GARLIC = 5
+SUPER_JUMP_SLAM_OVERALLS = 6
 HIGH_JUMP_BOOTS = 7
 
 SOLID, FLOOR, FREE, LADDER, WATER, HAZARD = range(6)
@@ -43,6 +44,10 @@ SOLID, FLOOR, FREE, LADDER, WATER, HAZARD = range(6)
 SLOPES = {"LeftSlope", "RightSlope", "1809f", "180b5", "18129", "1813f"}
 DOORS = {"Door"}  # TreasureDoor exits the level, it's no room transition
 WALK_INS = {"187b0", "187de"}
+
+# Measured: a ground pound sends Togeba 5 blocks up, and it's walkable for
+# about two seconds while it floats back down.
+TOGEBA_RISE = 5
 
 # Costs, roughly in frames-per-block-ish units.
 COST_WALK = 1
@@ -109,6 +114,17 @@ class Graph:
         self.name = [
             [(f or "").removeprefix("BlockFunc_") for f in row] for row in lv.funcs
         ]
+        # Cells a Togeba can carry Wario's feet in: after a ground pound
+        # (Super Jump Slam Overalls) it leaps up and is a platform on its
+        # way down.
+        self.platforms = set()
+        if power >= SUPER_JUMP_SLAM_OVERALLS:
+            for r in range(LEVEL_HEIGHT):
+                for c in range(LEVEL_WIDTH):
+                    if (lv.object_name(r, c) or "").startswith("Togeba"):
+                        for k in range(1, TOGEBA_RISE + 1):
+                            for dc in (-1, 0, 1):
+                                self.platforms.add((r - k, c + dc))
 
     # Cell predicates
 
@@ -126,7 +142,12 @@ class Graph:
 
     def supported(self, r, c):
         below = self.k(r + 1, c)
-        return below in (SOLID, FLOOR) or self.k(r, c) == LADDER or below == LADDER
+        return (
+            below in (SOLID, FLOOR)
+            or self.k(r, c) == LADDER
+            or below == LADDER
+            or (r + 1, c) in self.platforms
+        )
 
     def in_water(self, r, c):
         return self.k(r, c) == WATER and self.can_swim
