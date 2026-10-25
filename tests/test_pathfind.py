@@ -26,3 +26,26 @@ def test_spawn_markers_match_observed_arrivals():
     assert graph.sector_spawn(7, 1) == (29, 114)
     assert graph.sector_spawn(3, 2) == (43, 50)
     assert graph.sector_spawn(0, 1) == (30, 3)
+
+
+def test_steep_canyon_foot_of_stone_variant():
+    # With N5's Foot of Stone, The Steep Canyon loads its second variant,
+    # whose secret door in the start room leads to a long water corridor;
+    # swimming right through it reaches a pipe up into a vertical shaft.
+    graph = Graph("THE_STEEP_CANYON_DAY_2", power=9)
+    start, corridor, shaft = (26, 21), (36, 18), (45, 5)
+    assert transitions(graph, start, corridor) == [("door", corridor)]
+    assert transitions(graph, corridor, shaft) == [("up pipe", shaft)]
+    # The distance field reaches across the one-block underwater tunnel
+    # (swimming nodes are one block tall).
+    assert graph.distance_field(shaft).get(corridor) is not None
+
+    # Without the Swimming Flippers there's no getting through the water.
+    assert Graph("THE_STEEP_CANYON_DAY_2", power=1).astar(corridor, shaft)[0] is None
+
+
+def test_steep_canyon_first_variant_has_no_way_on():
+    # Without the treasure, the start room is closed: the corridor is
+    # reached only through the second variant's secret door.
+    graph = Graph("THE_STEEP_CANYON_DAY_1", power=9)
+    assert graph.astar((26, 21), (36, 18))[0] is None

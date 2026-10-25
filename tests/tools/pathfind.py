@@ -273,15 +273,22 @@ class Graph:
     def distance_field(self, goal):
         """Cost to reach `goal` from every node that can (reverse Dijkstra)."""
         reverse = {}
-        seen, todo = set(), []
-        # Explore every reachable node from every open cell to build edges.
-        for r in range(LEVEL_HEIGHT):
-            for c in range(LEVEL_WIDTH):
-                if self.fits(r, c):
-                    todo.append((r, c))
-        for node in todo:
+        # Every node any move can reach, starting from every cell Wario can
+        # stand or swim in, and the edges into each.
+        todo = [
+            (r, c)
+            for r in range(LEVEL_HEIGHT)
+            for c in range(LEVEL_WIDTH)
+            if self.fits(r, c) or self.in_water(r, c)
+        ]
+        seen = set(todo)
+        while todo:
+            node = todo.pop()
             for nxt, step, _ in self.neighbours(node):
                 reverse.setdefault(nxt, []).append((node, step))
+                if nxt not in seen:
+                    seen.add(nxt)
+                    todo.append(nxt)
         dist = {goal: 0}
         frontier = [(0, goal)]
         while frontier:
