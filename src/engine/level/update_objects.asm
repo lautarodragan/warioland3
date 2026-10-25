@@ -391,6 +391,10 @@ ENDR
 	ret
 
 DrawObjects_NoPriority::
+	ld a, [wOwlTileOffset]
+	and a
+	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN | OBJFLAG_PRIORITY
+	jp nz, DrawObjects_OwlElsewhere
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -406,6 +410,10 @@ ENDR
 	ret
 
 DrawObjects_WithPriority::
+	ld a, [wOwlTileOffset]
+	and a
+	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN
+	jp nz, DrawObjects_OwlElsewhere
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -418,6 +426,49 @@ FOR n, 1, NUM_OBJECTS + 1
 	call UpdateObjSprite
 :
 ENDR
+	ret
+
+; Like DrawObjects_NoPriority and DrawObjects_WithPriority, for when the
+; owl's graphics aren't in enemy graphics slot 1 (wOwlTileOffset != 0): the
+; owl's sprites are moved to their slot as they're drawn.
+; input:
+; - c = OBJ_FLAGS (masked like in those) of the objects to draw
+DrawObjects_OwlElsewhere:
+	ld hl, wObj1Flags
+.loop
+	ld a, [hl]
+	and OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN | OBJFLAG_INVISIBLE | OBJFLAG_PRIORITY
+	cp c
+	jr nz, .next
+	push hl
+	push bc
+	ld a, [wVirtualOAMByteSize]
+	ld b, a
+	ld a, l
+	add OBJ_ID
+	ld l, a
+	ld a, [hl]
+	cp OWL
+	push af
+	push bc
+	ld a, l
+	add OBJ_SCREEN_Y_POS - OBJ_ID
+	ld e, a
+	call UpdateObjSprite
+	pop bc
+	pop af
+	jr nz, .not_owl
+	ld l, b
+	call RelocateOwlSprites
+.not_owl
+	pop bc
+	pop hl
+.next
+	ld a, l
+	add OBJ_STRUCT_LENGTH
+	ld l, a
+	cp LOW(wObj1Flags + NUM_OBJECTS * OBJ_STRUCT_LENGTH)
+	jr nz, .loop
 	ret
 
 DoObjectAction:

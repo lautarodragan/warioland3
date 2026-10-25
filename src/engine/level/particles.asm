@@ -1110,7 +1110,16 @@ ParticleAnim_Owl:
 	xor a
 	ld [wCurParticleAttributes], a
 	ld hl, OAM_d763
-	jp LoadParticleSprite
+	ld a, [wOwlTileOffset]
+	and a
+	jp z, LoadParticleSprite
+	; the owl's graphics aren't in slot 1, where its frames expect them
+	ld a, [wVirtualOAMByteSize]
+	push af
+	call LoadParticleSprite
+	pop af
+	ld l, a
+	jp RelocateOwlSprites
 
 ParticleAnim_TreasureGlow:
 	ld h, b

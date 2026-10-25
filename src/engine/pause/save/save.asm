@@ -89,6 +89,8 @@ SaveLevel:
 	ld [de], a
 	inc e
 	ld hl, STARTOF("Progress WRAM")
+	; the save format: changing what's saved breaks existing saves
+	ASSERT SIZEOF("Progress WRAM") + SIZEOF("Level WRAM") == $ca
 	ld b, SIZEOF("Progress WRAM") + SIZEOF("Level WRAM")
 	call CopyHLToDE
 

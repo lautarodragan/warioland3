@@ -4,7 +4,9 @@ The Colossal Hole's start room loads the owl's object group (031) and has
 an owl sleeping a few blocks in, so it's both the reference for how a real
 owl looks and behaves and the place to spawn one where its graphics are
 loaded. The Steep Canyon start room doesn't load owl graphics (its owl is
-deep in the level), so there the debug menu loads them itself.
+deep in the level), so there the debug menu loads them itself, into enemy
+graphics slot 2, which the room doesn't use (test_owl_free_slot.py has more
+on that).
 """
 
 from game import ROOT, OBJFLAG_TRANSIENT, OWL, THE_COLOSSAL_HOLE_DAY_1, THE_STEEP_CANYON_DAY_1
@@ -87,19 +89,49 @@ def test_debug_owl_spawn_in_owl_room(game, golden):
     golden("colossal_hole_debug_owl", game.screenshot())
 
 
-def owl_tiles_in_slot_1(game):
-    """Whether enemy graphics slot 1 (VRAM1 $8000) holds the owl's tiles."""
-    owl = (ROOT / "src/gfx/enemies/owl.2bpp").read_bytes()
-    return bytes(game.pb.memory[1, 0x8000 : 0x8000 + len(owl)]) == owl
+OWL_GFX = (ROOT / "src/gfx/enemies/owl.2bpp").read_bytes()
+SLOT_TILES = 0x40  # tiles per enemy graphics slot
+
+
+def slot_tiles(game, slot):
+    """The bytes of enemy graphics slot 1-4 (VRAM1 from $8000, $40 tiles
+    each)."""
+    start = 0x8000 + (slot - 1) * SLOT_TILES * 16
+    return bytes(game.pb.memory[1, start : start + SLOT_TILES * 16])
+
+
+def owl_tiles_in_slot(game, slot):
+    """Whether enemy graphics slot 1-4 holds the owl's tiles."""
+    return slot_tiles(game, slot) == OWL_GFX
+
+
+def vram1_sprites(game):
+    """The visible sprites in OAM drawn from VRAM1 (the enemy graphics), as
+    (tile, palette) pairs."""
+    sprites = []
+    for n in range(40):
+        y, x, tile, attr = (game.pb.memory[0xFE00 + 4 * n + i] for i in range(4))
+        if 0 < y < 160 and 0 < x < 168 and attr & 0x08:
+            sprites.append((tile, attr & 0x07))
+    return sprites
+
+
+def sprites_in_slot(game, slot):
+    """The palettes of the visible sprites drawn from a slot's tiles."""
+    lo = (slot - 1) * SLOT_TILES
+    return {pal for tile, pal in vram1_sprites(game) if lo <= tile < lo + SLOT_TILES}
 
 
 def test_debug_owl_spawn_in_room_without_owl(game, golden):
     # The Steep Canyon has an owl, but its start room's object group (094)
     # has none: the owl is spawned from its ROM data instead, and its
-    # graphics and palette are loaded into slot 1 when the menu closes.
+    # graphics and palette are loaded when the menu closes. Slot 1 has Prince
+    # Froggy, but the group leaves slot 2 unused, so they go there (and its
+    # palette, 5), and the owl's sprites are moved there as they're drawn.
     game.new_game_to_overworld()
     game.enter_level(THE_STEEP_CANYON_DAY_1)
-    assert not owl_tiles_in_slot_1(game)
+    prince_froggy = slot_tiles(game, 1)
+    assert not any(owl_tiles_in_slot(game, slot) for slot in range(1, 5))
 
     spawn_owl(game)
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
@@ -107,7 +139,12 @@ def test_debug_owl_spawn_in_room_without_owl(game, golden):
 
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
-    assert owl_tiles_in_slot_1(game)
+    assert game.read("wOwlTileOffset") == 0x40
+    assert owl_tiles_in_slot(game, 2)
+    assert slot_tiles(game, 1) == prince_froggy
+    # Palette 2 is the owl's eyes and beak, as with the real owl.
+    assert sprites_in_slot(game, 2) == {2, 5}
+    assert sprites_in_slot(game, 1) == set()
     golden("steep_canyon_start_debug_owl", game.screenshot())
 
 
@@ -123,6 +160,7 @@ def test_debug_owl_grab_and_fly_in_room_without_owl(game, golden):
     game.play(START_ROOM_GRAB_DEBUG_OWL, on_frame=in_bounds)
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     assert spawned_owls(game) == []
+    assert sprites_in_slot(game, 2) == {0, 5}  # Owl Wario's owl, in slot 2
     golden("steep_canyon_start_debug_owl_grabbed", game.screenshot())
 
     game.play(START_ROOM_OWL_FLIGHT, on_frame=in_bounds)

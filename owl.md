@@ -179,13 +179,96 @@ debug menu) when Wario is Owl Wario and the group has no owl. In rooms whose
 group has the owl (all the ones a real owl is grabbed in, at least), it does
 nothing.
 
-### Trade-off
+### Trade-off (now only when every slot is taken)
 
-Slot 1 and palette 4 belong to one of the room's own enemies (Prince Froggy
-in The Steep Canyon's start room, a spear fish in the room below the cracked
-column), which draws with the owl's tiles while they're loaded. After a
+Slot 1 and palette 4 belong to one of the room's own enemies (a spearhead in
+the room below The Steep Canyon's cracked column), which draws with the
+owl's tiles while they're loaded. After a
 spawn, the next room change fixes it, and the spawned owl is gone by then.
 After flying into a room, it lasts until the room is reloaded. Hitting that
-enemy releases the owl as usual. A cleaner fix would pick a slot the room
-doesn't use, but the owl's OAM and Owl Wario's frames hardcode slot 1's
-tiles.
+enemy releases the owl as usual.
+
+That's now only the fallback, for rooms whose object group uses all four
+enemy graphics slots (like the room below the cracked column, or Out of the
+Woods' start room). Otherwise the owl goes into a slot the room doesn't use:
+
+### Using a free enemy graphics slot
+
+**How the owl's sprites get their tiles and palettes.** Nothing applies a
+per-object tile base or palette at draw time. Object OAM data
+(`frame_oam y, x, tile, attributes`) has the tile numbers, VRAM bank and
+palette baked in: `UpdateObjSprite` copies tile and attributes into virtual
+OAM as they are, and `LoadSprite` (Wario, particles) only XORs the
+attributes with `wCurSpriteAttributes` (for flipping). The owl's object OAM
+(`OAM_188e16`), Owl Wario's frames (`OAM_1fddb4`, "Wario OAM 2", Wario's own
+tiles in VRAM0 plus the owl's in VRAM1) and the released owl (`OAM_d763`,
+`PARTICLE_OWL`) all use VRAM1 tiles `$00`-`$3f` (slot 1) with palette 4,
+plus palettes 2 or 0 for a few parts (eyes and beak, feet), which aren't
+enemy slot palettes and stay as they are.
+
+**How to tell a slot is unused.** Every object group decompresses four
+graphics sets, unused slots included, and its object list is positional:
+entry n is the object whose graphics are in slot n (entries past the fourth
+are variants, like `NobiiruLeft`/`NobiiruRight`). Empty slots get
+`DummyObjectData` in the list, or the list ends (`NULL`) before them, and
+graphics from `ObjectGroup0`, the empty group: `SpearheadGfx`, `WebberGfx`,
+`FutamoguGfx`, `TorchGfx` for slots 1-4. The entry alone isn't enough:
+bosses and enemies made of several slots (`Sun1`/`Sun2`, `RoboMouse1`/`2`)
+have short lists with entries missing for slots they draw from. So
+`SetOwlTileOffset` (Object Loading bank, next to the debug spawn) takes the
+first slot whose entry is `DummyObjectData` or past the end **and** whose
+graphics are that slot's filler from `ObjectGroup0`; bosses (groups with a
+GFX bank offset) and The Temple's hidden figure always get slot 1.
+`test_free_slot_rule_matches_oam_data` checks that rule against every
+group: no object in a group has OAM drawing from a slot the rule calls
+unused (the clear gates' shared table, whose frames per slot
+`ClearGate1-3Func` choose, aside). 78 of the 118 groups leave at least one
+slot free.
+
+**Design.** `wOwlTileOffset` (WRAM0) says where the owl's graphics are, as a
+tile offset: `$00` for slot 1 / palette 4 (the default, and always the case
+in rooms whose group has the owl), `$40`/`$80`/`$c0` for slots 2-4 / palettes
+5-7. `LoadObjectGroupData` resets it to `$00` on every room load. It's set
+by `_DebugSpawnOwlFromROM` (after a spawn in a room without the owl) and by
+`LoadOwlGfxForOwlWario` (Owl Wario flying into such a room), and
+`LoadOwlGfx` loads the owl's graphics and palette at that offset.
+
+The owl's OAM data stays as it is; its sprites are moved to the slot after
+they're written to virtual OAM, by `RelocateOwlSprites` (home bank): for each
+VRAM1 sprite from a given virtual OAM offset to the end, add the offset to
+the tile, and turn palette 4 into the slot's. It's called only when
+`wOwlTileOffset` isn't 0, from the three places that draw the owl:
+
+1. the spawned owl object: `DrawObjects_NoPriority`/`_WithPriority` switch
+   to `DrawObjects_OwlElsewhere`, the same loop over the objects but
+   relocating the sprites `UpdateObjSprite` wrote for an `OWL` object;
+2. and 4. Owl Wario holding it, in this room or one he flew into:
+   `DrawWario` relocates his sprites when he's Owl Wario (his own sprites
+   use VRAM0 and are left alone; other forms' frames, like the bubble's, use
+   VRAM1 and aren't the owl, hence the check);
+3. the released owl: `ParticleAnim_Owl` relocates the particle's sprites.
+
+**Why this and not something else.** Copies of the OAM data for each slot
+would need no code at draw time, but Owl Wario's frames alone are almost 4 KB
+(times three slots), the object's 1.5 KB, and they'd have to be switched in
+wherever the game sets those OAM pointers. An offset applied in
+`UpdateObjSprite`/`LoadSprite` would cost every sprite of every object, every
+frame. Here the cost when nothing is relocated is one check in each of the
+two object draw loops and `DrawWario`, and one in `ParticleAnim_Owl` (owl
+particles only).
+
+Those few cycles still shift when the CPU reads `DIV`, which enemies use for
+randomness, so some enemies behave differently than before (in Out of the
+Woods' test playthrough Wario now ends with 3 coins instead of 1). The room
+load and the first draw of a room happen with the LCD off, so any cycle
+added there moves the LCD's frame timing against `DIV`; that can't be
+avoided without also skipping the relocation for that first frame.
+
+**Tests.** `tests/test_owl_free_slot.py` spawns the owl in Desert Ruins'
+start room (group 023: spearheads in slot 1, hands in slot 3, slots 2 and 4
+free) and checks that the owl's tiles land in slot 2 with slot 1 untouched,
+that the sprites on screen draw the owl from slot 2 in palette 5 and the
+spearhead from slot 1 in palette 4, through the spawn, the grab, the flight
+to a spearhead and letting go; plus the fallback in Out of the Woods. The
+Steep Canyon tests cover both cases: its start room leaves slot 2 free, the
+room below the cracked column uses all four slots.
