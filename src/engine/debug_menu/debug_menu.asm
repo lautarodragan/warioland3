@@ -487,12 +487,47 @@ DebugMenu_SpawnOwl:
 	pop_wram
 	ld a, b
 	and a
+	jr nz, .spawned
+	; This room's object group has no owl: spawn one from ROM, and load its
+	; graphics into slot 1 when the menu closes (VRAM is restored then).
+	push_wram BANK("Level Objects WRAM")
+	farcall _DebugSpawnOwlFromROM
+	pop_wram
+	ld a, b
+	and a
+	ld a, 2
+	jr z, .got_status
+	ld a, TRUE
+	ld [wDebugMenuOwlGfxPending], a
+.spawned
 	ld a, 1
-	jr nz, .got_status
-	inc a
 .got_status
 	ld [wDebugMenuOwlStatus], a
 	ret
+
+; -----------------------------------------------------------------------
+; Load the owl's graphics into enemy graphics slot 1 and its palette into
+; object palette 4, where its OAM expects them. Whatever enemy the room keeps
+; in slot 1 draws with them until the room is reloaded (any room change).
+; The LCD must be off.
+; -----------------------------------------------------------------------
+DebugMenu_LoadOwlGfx:
+	ld a, BANK("VRAM1")
+	ldh [rVBK], a
+	ld hl, OwlGfx
+	ld bc, v1Tiles0
+	ld a, BANK(OwlGfx)
+	ldh [hCallFuncBank], a
+	hcall Decompress
+	xor a ; VRAM0
+	ldh [rVBK], a
+	ld hl, DebugOwlPal
+	ld de, wTempPals2 palette 4
+	ld b, 1 palettes
+	jp CopyHLToDE_Short
+
+DebugOwlPal:
+INCLUDE "gfx/pals/owl.pal"
 
 ; -----------------------------------------------------------------------
 ; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
@@ -764,6 +799,7 @@ InitDebugMenu:
 	xor a
 	ld [wDebugMenuCursor], a
 	ld [wDebugMenuOwlStatus], a
+	ld [wDebugMenuOwlGfxPending], a
 	; Start the treasure row on this level's grey treasure
 	ld a, [wLevel]
 	srl a ; levels are 8 apart, treasures 4 apart
@@ -1051,6 +1087,11 @@ DebugMenu_Exit:
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
+	ld a, [wDebugMenuOwlGfxPending]
+	and a
+	call nz, DebugMenu_LoadOwlGfx
+	xor a
+	ld [wDebugMenuOwlGfxPending], a
 
 	; wTempPals2 is now back to the pre-menu snapshot. InitDebugMenu also called
 	; LoadFontPals which had previously overwritten wTempPals2 with font palettes.

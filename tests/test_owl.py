@@ -4,10 +4,10 @@ The Colossal Hole's start room loads the owl's object group (031) and has
 an owl sleeping a few blocks in, so it's both the reference for how a real
 owl looks and behaves and the place to spawn one where its graphics are
 loaded. The Steep Canyon start room doesn't load owl graphics (its owl is
-deep in the level), which makes it the case to check spawning against later.
+deep in the level), so there the debug menu loads them itself.
 """
 
-from game import OBJFLAG_TRANSIENT, OWL, THE_COLOSSAL_HOLE_DAY_1, THE_STEEP_CANYON_DAY_1
+from game import ROOT, OBJFLAG_TRANSIENT, OWL, THE_COLOSSAL_HOLE_DAY_1, THE_STEEP_CANYON_DAY_1
 from routes.colossal_hole import (
     DEBUG_MENU_SPAWN_OWL,
     GRAB_DEBUG_OWL_PAST_ROBOT,
@@ -15,7 +15,13 @@ from routes.colossal_hole import (
     WAKE_AND_GRAB_DEBUG_OWL,
     WAKE_AND_GRAB_OWL,
 )
+from routes.steep_canyon import (
+    START_ROOM_AWAY_FROM_FIRE_BOT,
+    START_ROOM_GRAB_DEBUG_OWL,
+    START_ROOM_OWL_FLIGHT,
+)
 from tools.level_map import Level
+from tools.pathfind import SOLID, classify
 
 # src/constants/wario_constants.asm
 TRANSFORMATION_OWL_WARIO = 0x0E
@@ -81,18 +87,49 @@ def test_debug_owl_spawn_in_owl_room(game, golden):
     golden("colossal_hole_debug_owl", game.screenshot())
 
 
-def test_debug_owl_spawn_without_owl_graphics(game, golden):
-    # The Steep Canyon start room doesn't load the owl object group, so
-    # there's no owl data (or graphics) to spawn from.
+def owl_tiles_in_slot_1(game):
+    """Whether enemy graphics slot 1 (VRAM1 $8000) holds the owl's tiles."""
+    owl = (ROOT / "src/gfx/enemies/owl.2bpp").read_bytes()
+    return bytes(game.pb.memory[1, 0x8000 : 0x8000 + len(owl)]) == owl
+
+
+def test_debug_owl_spawn_in_room_without_owl(game, golden):
+    # The Steep Canyon has an owl, but its start room's object group (094)
+    # has none: the owl is spawned from its ROM data instead, and its
+    # graphics and palette are loaded into slot 1 when the menu closes.
     game.new_game_to_overworld()
     game.enter_level(THE_STEEP_CANYON_DAY_1)
+    assert not owl_tiles_in_slot_1(game)
 
     spawn_owl(game)
-    assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_FAILED
-    golden("debug_menu_owl_failed", game.screenshot())
+    assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
+    golden("debug_menu_owl_spawned_no_owl_room", game.screenshot())
 
     game.close_debug_menu()
+    assert len(spawned_owls(game)) == 1
+    assert owl_tiles_in_slot_1(game)
+    golden("steep_canyon_start_debug_owl", game.screenshot())
+
+
+def test_debug_owl_grab_and_fly_in_room_without_owl(game, golden):
+    # Away from the fire bot first: it burns Wario if he lingers near it.
+    game.new_game_to_overworld()
+    game.enter_level(THE_STEEP_CANYON_DAY_1)
+    game.play(START_ROOM_AWAY_FROM_FIRE_BOT)
+    spawn_owl(game)
+    game.close_debug_menu()
+    in_bounds = never_in_solid_blocks(game, "THE_STEEP_CANYON_DAY_1")
+
+    game.play(START_ROOM_GRAB_DEBUG_OWL, on_frame=in_bounds)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     assert spawned_owls(game) == []
+    golden("steep_canyon_start_debug_owl_grabbed", game.screenshot())
+
+    game.play(START_ROOM_OWL_FLIGHT, on_frame=in_bounds)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    assert game.read("wWarioState") == WST_OWL_SLOW
+    assert game.wario_block() == (18, 20)
+    golden("steep_canyon_start_debug_owl_flight", game.screenshot())
 
 
 def test_debug_owl_grab_and_fly(game, golden):
@@ -119,14 +156,15 @@ def test_debug_owl_grab_and_fly(game, golden):
 
 
 def never_in_solid_blocks(game, level_name):
-    """on_frame check: Wario's body is never inside a solid block."""
+    """on_frame check: Wario's body is never inside a solid block (one-way
+    floors, ladders and the like he can pass through)."""
     level = Level(level_name)
 
     def check():
         y, x = game.wario_pos()
         row, col = (y - 8) // 16, x // 16  # middle of his body, not his feet
         func = level.funcs[row][col]
-        assert func in ("BlockFunc_Free", None), (
+        assert classify(func) != SOLID or func is None, (
             f"Wario at {(y, x)} is inside {func} at block {(row, col)}"
         )
 

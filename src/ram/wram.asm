@@ -2534,6 +2534,9 @@ wDebugMenuFormIdx:: db
 wDebugMenuOwlStatus:: db
 ; treasure on the TREASURE row: level * 4 + colour
 wDebugMenuTreasureIdx:: db
+; TRUE if an owl was spawned in a room without owl graphics, to load them
+; when the menu closes
+wDebugMenuOwlGfxPending:: db
 
 SECTION "WRAM4", WRAMX
 

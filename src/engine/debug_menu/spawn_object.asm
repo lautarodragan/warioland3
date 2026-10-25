@@ -29,7 +29,7 @@ _DebugSpawnObject::
 	ld a, [de] ; OBJ_ID
 	cp c
 	jr nz, .find_data
-
+.got_data
 	ld h, HIGH(wObj1)
 FOR n, 1, NUM_OBJECTS + 1
 	ld l, LOW(wObj{u:n})
@@ -65,3 +65,15 @@ ENDR
 	ld [de], a
 	ld b, TRUE
 	ret
+
+; Like _DebugSpawnObject, but spawns an owl from its ROM data, for rooms
+; whose object group has no owl. Its OAM always uses enemy graphics slot 1
+; and object palette 4, so the caller has to load the owl's graphics and
+; palette there (DebugMenu_LoadOwlGfx).
+; Needs WRAM bank "Level Objects WRAM".
+; output:
+; - b = TRUE if spawned, FALSE otherwise (no free object slot)
+_DebugSpawnOwlFromROM::
+	ld b, FALSE
+	ld de, OwlData
+	jr _DebugSpawnObject.got_data

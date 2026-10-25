@@ -152,6 +152,18 @@ Every owl object group loads `OwlGfx` into enemy graphics slot 1, and the
 owl's OAM always points at slot 1. In a room whose group doesn't have the
 owl, slot 1 holds some other enemy, so a spawned owl drew garbage. The new
 spawn (`_DebugSpawnObject`, Object Loading bank) only spawns objects the
-current room's object group has, using that group's data, and the menu shows
-`NO` otherwise. Spawning anywhere would need loading the owl's graphics and
-palette into a free slot first.
+current room's object group has, using that group's data.
+
+In rooms whose group has no owl, `_DebugSpawnOwlFromROM` spawns one from
+`OwlData` instead, and the menu loads `OwlGfx` into slot 1 (VRAM1 `$8000`)
+and the owl palette into object palette 4 when it closes. That has to happen
+in `DebugMenu_Exit` after `LoadBackupVRAM`, while the LCD is still off: the
+menu backs up all of VRAM and the palettes on entry and restores them on
+exit, so anything written earlier would be overwritten. The menu shows `NO`
+only when every object slot is taken.
+
+Trade-off: slot 1 and palette 4 belonged to one of the room's own enemies
+(Prince Froggy in The Steep Canyon's start room), which draws with the owl's
+tiles until the room reloads its graphics. Any room change does, and the
+spawned owl is transient, so it's gone by then. A cleaner fix would pick a
+slot the room doesn't use, but the owl's OAM hardcodes slot 1's tiles.
