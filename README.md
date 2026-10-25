@@ -50,7 +50,7 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/outpu
 - `test_debug_menu.py` opens the debug menu and exercises FORM, POWER and INVNBL, checking the RAM each one changes.
 - `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and checks The Steep Canyon start (no owl graphics loaded there).
 
-The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`. `tests/tools/level_map.py` prints a level as ASCII (solid blocks, ladders, doors, objects) to plan them.
+The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`. `tests/tools/level_map.py` prints a level as ASCII (solid blocks, ladders, doors, objects), and `tests/tools/pathfind.py` builds a movement graph from the same data and runs A* over it, through doors and pipes. `route_search.py --plan LEVEL` uses its distance field as the search heuristic, which is how the whole of Out of the Woods can be found from just "key, then chest".
 
 ## Where
 

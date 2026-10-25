@@ -74,6 +74,11 @@ def main():
         "--keep", metavar="SYMBOL=VALUE", action="append", default=[],
         help="drop runs where a RAM symbol stops holding VALUE (repeatable)",
     )
+    parser.add_argument(
+        "--plan", metavar="LEVEL_NAME",
+        help="score runs by path-finding cost to the target over this level's "
+        "block graph (tools/pathfind.py) instead of straight-line distance",
+    )
     parser.add_argument("--depth", type=int, default=40)
     parser.add_argument("--beam", type=int, default=24)
     args = parser.parse_args()
@@ -93,9 +98,26 @@ def main():
         x = mem[addr("wWarioXPos")] << 8 | mem[addr("wWarioXPos") + 1]
         return y, x
 
+    field = graph = None
+    if args.plan:
+        from pathfind import Graph
+
+        graph = Graph(args.plan)
+        goal = graph.node_for(*args.target) or tuple(args.target)
+        field = graph.distance_field(goal)
+        print(f"planning to {goal}: {len(field)} nodes can reach it", file=sys.stderr)
+
     def distance():
         y, x = position()
-        return abs(y - target_y) * 1.5 + abs(x - target_x)
+        straight = abs(y - target_y) * 1.5 + abs(x - target_x)
+        if field is None:
+            return straight
+        node = graph.node_for((y - 1) // 16, x // 16)
+        cost = field.get(node)
+        if cost is None:
+            return 1 << 20  # somewhere the plan says the target can't be reached from
+        # Path cost decides; straight-line distance only breaks ties.
+        return cost * 16 + straight * 0.1
 
     def reached():
         if args.flag is not None:
