@@ -53,6 +53,11 @@ MACROS = [
     [("up", 90)],
     [("left+up", 30)],
     [("right+up", 30)],
+    # Ground pound (jump, hold DOWN on the way down; needs the Super Jump
+    # Slam Overalls, POWER 6+): shakes the ground, which sends enemies like
+    # Togeba flying, and Togeba floating back down is a platform.
+    [("a", 20), ("down", 40)],
+    [("up+a", 25), ("down", 45)],
     # Waiting, e.g. for an enemy to move out of the way.
     [("", 30)],
     [("", 90)],
