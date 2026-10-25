@@ -487,9 +487,20 @@ DebugMenu_SpawnOwl:
 	pop_wram
 	ld a, b
 	and a
+	jr nz, .spawned
+	; This room's object group has no owl: spawn one from ROM, and load its
+	; graphics into slot 1 when the menu closes (VRAM is restored then).
+	push_wram BANK("Level Objects WRAM")
+	farcall _DebugSpawnOwlFromROM
+	pop_wram
+	ld a, b
+	and a
+	ld a, 2
+	jr z, .got_status
+	ld a, TRUE
+	ld [wDebugMenuOwlGfxPending], a
+.spawned
 	ld a, 1
-	jr nz, .got_status
-	inc a
 .got_status
 	ld [wDebugMenuOwlStatus], a
 	ret
@@ -764,6 +775,7 @@ InitDebugMenu:
 	xor a
 	ld [wDebugMenuCursor], a
 	ld [wDebugMenuOwlStatus], a
+	ld [wDebugMenuOwlGfxPending], a
 	; Start the treasure row on this level's grey treasure
 	ld a, [wLevel]
 	srl a ; levels are 8 apart, treasures 4 apart
@@ -1051,6 +1063,13 @@ DebugMenu_Exit:
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
+	ld a, [wDebugMenuOwlGfxPending]
+	and a
+	jr z, .owl_gfx_done
+	farcall LoadOwlGfx
+.owl_gfx_done
+	xor a
+	ld [wDebugMenuOwlGfxPending], a
 
 	; wTempPals2 is now back to the pre-menu snapshot. InitDebugMenu also called
 	; LoadFontPals which had previously overwritten wTempPals2 with font palettes.

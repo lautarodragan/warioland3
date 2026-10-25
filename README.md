@@ -12,7 +12,7 @@ The menu allows cycling through:
 - FORM: 12 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN)
 - INVNBL: toggles invisibility on/off
 - GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
-- OWL: spawns a sleeping owl next to Wario. Only works in rooms whose enemy set includes owls (it shows NO otherwise). It can be woken, grabbed and flown like a real owl.
+- OWL: spawns a sleeping owl next to Wario. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics replace the set's first enemy's while it's around. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot.
 - TREASURE: pick any level's treasure with LEFT/RIGHT (e.g. `N5 RED`) and press A to give it to Wario or take it back. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
 
 Navigate with UP/DOWN, cycle value with LEFT/RIGHT (A toggles the selected treasure), exit with B.
@@ -49,9 +49,9 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/outpu
 
 - `test_out_of_the_woods.py` plays N1 from a new game: grabs the grey key, opens the grey chest, and checks the key/treasure flags, the clear screen and the treasure count.
 - `test_debug_menu.py` opens the debug menu and exercises FORM, POWER and INVNBL, checking the RAM each one changes.
-- `test_steep_canyon.py` unlocks The Steep Canyon's secret door with the debug menu's TREASURE and plays to its owl room: a real owl to grab and a debug owl to spawn.
+- `test_steep_canyon.py` unlocks The Steep Canyon's secret door with the debug menu's TREASURE and plays to its owl room: a real owl to grab and a debug owl to spawn. With the Rust Spray, it also breaks the cracked column at the end of the start room and flies a debug owl into the room past it.
 - `test_owl_cases.py` covers the debug owl around a flight: letting go, going offscreen, leaving the level while holding it, night (it takes off right away, like real owls), spawning against a wall, and filling every object slot.
-- `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and checks The Steep Canyon start (no owl graphics loaded there).
+- `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and spawns, grabs and flies the debug owl both there and in The Steep Canyon start room, which loads no owl graphics.
 
 The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`. `tests/tools/level_map.py` prints a level as ASCII (solid blocks, ladders, doors, objects), and `tests/tools/pathfind.py` builds a movement graph from the same data and runs A* over it, through doors and pipes. The graph follows Wario's power-ups (jump height, swimming, ground pounds that turn Togebas into platforms) and the treasures held (which pick the level's variant, like the Foot of Stone opening The Steep Canyon's secret door). `route_search.py --plan LEVEL` uses its distance field as the search heuristic, which is how the whole of Out of the Woods can be found from just "key, then chest".
 

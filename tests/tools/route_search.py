@@ -181,7 +181,7 @@ def main():
             for macro in MACROS:
                 game.pb.load_state(io.BytesIO(state))
                 game.play(macro)
-                if reached():
+                if reached() and invariants_hold():
                     print(f"reached at depth {depth}, position {position()}", file=sys.stderr)
                     json.dump(steps + macro, sys.stdout)
                     return

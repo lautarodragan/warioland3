@@ -152,6 +152,40 @@ Every owl object group loads `OwlGfx` into enemy graphics slot 1, and the
 owl's OAM always points at slot 1. In a room whose group doesn't have the
 owl, slot 1 holds some other enemy, so a spawned owl drew garbage. The new
 spawn (`_DebugSpawnObject`, Object Loading bank) only spawns objects the
-current room's object group has, using that group's data, and the menu shows
-`NO` otherwise. Spawning anywhere would need loading the owl's graphics and
-palette into a free slot first.
+current room's object group has, using that group's data.
+
+In rooms whose group has no owl, `_DebugSpawnOwlFromROM` spawns one from
+`OwlData` instead, and the menu loads `OwlGfx` into slot 1 (VRAM1 `$8000`)
+and the owl palette into object palette 4 when it closes. That has to happen
+in `DebugMenu_Exit` after `LoadBackupVRAM`, while the LCD is still off: the
+menu backs up all of VRAM and the palettes on entry and restores them on
+exit, so anything written earlier would be overwritten. The menu shows `NO`
+only when every object slot is taken.
+
+### Flying into another room
+
+A spawned owl that isn't held is transient: like any object, it's despawned
+when Wario leaves the room, and it doesn't come back. A held owl is no
+object at all, but part of Owl Wario, so he keeps it through room
+transitions (`test_steep_canyon_debug_owl_to_next_room`: past The Steep
+Canyon's cracked column, down into the room below).
+
+Owl Wario draws the owl he holds from enemy graphics slot 1 too, though, and
+a room change loads the new room's object group into the slots. In a room
+whose group has no owl, he flew on holding the new slot-1 enemy's tiles,
+in its colours. Now `LoadObjectGroupData` ends with `LoadOwlGfxForOwlWario`,
+which loads the owl's graphics and palette (`LoadOwlGfx`, also used by the
+debug menu) when Wario is Owl Wario and the group has no owl. In rooms whose
+group has the owl (all the ones a real owl is grabbed in, at least), it does
+nothing.
+
+### Trade-off
+
+Slot 1 and palette 4 belong to one of the room's own enemies (Prince Froggy
+in The Steep Canyon's start room, a spear fish in the room below the cracked
+column), which draws with the owl's tiles while they're loaded. After a
+spawn, the next room change fixes it, and the spawned owl is gone by then.
+After flying into a room, it lasts until the room is reloaded. Hitting that
+enemy releases the owl as usual. A cleaner fix would pick a slot the room
+doesn't use, but the owl's OAM and Owl Wario's frames hardcode slot 1's
+tiles.
