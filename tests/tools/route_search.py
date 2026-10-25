@@ -27,6 +27,10 @@ from game import OUT_OF_THE_WOODS_DAY_1, ST_LEVEL, SST_LEVEL_UPDATE, Game  # noq
 
 MACROS = [
     [("a", 35), ("", 15)],
+    # UP + A: a high jump with the High Jump Boots (POWER 7+).
+    [("up+a", 35), ("", 15)],
+    [("right+up+a", 35), ("", 15)],
+    [("left+up+a", 35), ("", 15)],
     [("right+a", 35), ("", 15)],
     [("left+a", 35), ("", 15)],
     [("a", 12), ("", 20)],
@@ -64,6 +68,10 @@ WST_STUNG_RECOVERY = 0x16
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--prefix", help="JSON steps to play before searching")
+    parser.add_argument(
+        "--state", help="start from this PyBoy save state instead of a new game"
+    )
+    parser.add_argument("--power", type=int, default=0, help="wPowerUpLevel, for --plan")
     parser.add_argument("--level", type=lambda s: int(s, 0), default=OUT_OF_THE_WOODS_DAY_1)
     parser.add_argument("--target", type=int, nargs=2, required=True, metavar=("ROW", "COL"))
     goal = parser.add_mutually_exclusive_group()
@@ -84,8 +92,12 @@ def main():
     args = parser.parse_args()
 
     game = Game()
-    game.new_game_to_overworld()
-    game.enter_level(args.level)
+    if args.state:
+        with open(args.state, "rb") as f:
+            game.pb.load_state(f)
+    else:
+        game.new_game_to_overworld()
+        game.enter_level(args.level)
     if args.prefix:
         game.play(json.load(open(args.prefix)))
 
@@ -102,7 +114,7 @@ def main():
     if args.plan:
         from pathfind import Graph
 
-        graph = Graph(args.plan)
+        graph = Graph(args.plan, args.power)
         goal = graph.node_for(*args.target) or tuple(args.target)
         field = graph.distance_field(goal)
         print(f"planning to {goal}: {len(field)} nodes can reach it", file=sys.stderr)

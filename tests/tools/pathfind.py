@@ -25,13 +25,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from level_map import LEVEL_HEIGHT, LEVEL_WIDTH, Level  # noqa: E402
 
-JUMP_HEIGHT = 3
-JUMP_REACH = 4
+# Measured in the emulator: a jump rises 2.25 blocks, 3.25 with the High
+# Jump Boots (POWER 7+) and UP held. Peak after about 1.4 blocks walking,
+# 2.25-3.25 running.
+JUMP_HEIGHT = 2
+JUMP_HEIGHT_HIGH_JUMP_BOOTS = 3
+JUMP_REACH = 5
+
+# src/constants/wario_constants.asm
+SWIMMING_FLIPPERS = 2
+GARLIC = 5
+HIGH_JUMP_BOOTS = 7
 
 SOLID, FLOOR, FREE, LADDER, WATER, HAZARD = range(6)
 
 SLOPES = {"LeftSlope", "RightSlope", "1809f", "180b5", "18129", "1813f"}
-DOORS = {"Door", "TreasureDoor"}
+DOORS = {"Door"}  # TreasureDoor exits the level, it's no room transition
 WALK_INS = {"187b0", "187de"}
 
 # Costs, roughly in frames-per-block-ish units.
@@ -48,7 +57,7 @@ def classify(func):
     if func is None:
         return SOLID
     name = func.removeprefix("BlockFunc_")
-    if name in ("Free", "188ba") or name in DOORS or name in WALK_INS:
+    if name in ("Free", "188ba", "TreasureDoor") or name in DOORS or name in WALK_INS:
         return FREE
     if name in ("Floor", "SlipperyFloor", "LadderTop") or name in SLOPES or "Cloud" in name:
         return FLOOR
@@ -66,8 +75,12 @@ def classify(func):
 
 
 class Graph:
-    def __init__(self, level_name):
+    def __init__(self, level_name, power=0):
+        """`power` is Wario's power-up level (wPowerUpLevel): it decides how
+        high he jumps and whether he can swim."""
         self.level = Level(level_name)
+        self.jump_height = JUMP_HEIGHT_HIGH_JUMP_BOOTS if power >= HIGH_JUMP_BOOTS else JUMP_HEIGHT
+        self.can_swim = power >= SWIMMING_FLIPPERS
         lv = self.level
         self.kind = [[classify(lv.funcs[r][c]) for c in range(LEVEL_WIDTH)] for r in range(LEVEL_HEIGHT)]
         self.name = [
@@ -93,7 +106,7 @@ class Graph:
         return below in (SOLID, FLOOR) or self.k(r, c) == LADDER or below == LADDER
 
     def in_water(self, r, c):
-        return self.k(r, c) == WATER
+        return self.k(r, c) == WATER and self.can_swim
 
     def breakable(self, r, c):
         return "Cracked" in self.name[r][c] if 0 <= r < LEVEL_HEIGHT and 0 <= c < LEVEL_WIDTH else False
@@ -101,17 +114,33 @@ class Graph:
     def fall(self, r, c):
         """Where Wario lands falling from (r, c), or None (pit, hazard)."""
         while r < LEVEL_HEIGHT - 1:
+            if self.in_water(r, c):
+                return (r, c)
             if not self.fits(r, c) or self.k(r, c) == HAZARD:
                 return None
-            if self.supported(r, c) or self.in_water(r, c):
+            if self.supported(r, c):
                 return (r, c)
             r += 1
         return None
+
+    def fall_drifting(self, r, c, dc, steps):
+        """Fall from (r, c) moving one column per row, for up to `steps`
+        columns, then straight down."""
+        for _ in range(steps):
+            if self.supported(r, c) or self.in_water(r, c):
+                return (r, c)
+            if not (self.fits(r + 1, c + dc) and self.fits(r, c + dc)):
+                break
+            r, c = r + 1, c + dc
+        return self.fall(r, c)
 
     def sector_spawn(self, sx, sy):
         for r in range(sy * 16, sy * 16 + 16):
             for c in range(sx * 16, sx * 16 + 16):
                 if self.level.objects[r][c] == 0xF:
+                    # Pipe exits put the marker in the floor: Wario rises out.
+                    while r > 0 and not self.fits(r, c):
+                        r -= 1
                     return self.fall(r, c) or (r, c)
         return None
 
@@ -137,9 +166,15 @@ class Graph:
 
         # Walk / fall sideways, or bash through cracked blocks.
         for dc, move in ((-1, "left"), (1, "right")):
-            if standing or water:
+            if water and self.in_water(r, c + dc):
+                # Swimming Wario is horizontal: one free block is enough.
+                add((r, c + dc), COST_SWIM, f"swim {move}")
+            elif standing or water:
                 if self.fits(r, c + dc):
                     add(self.fall(r, c + dc), COST_WALK, move)
+                    # Walking off a ledge keeps some sideways momentum.
+                    if not self.supported(r, c + dc):
+                        add(self.fall_drifting(r, c + dc, dc, 2), COST_WALK + 1, f"{move} off ledge")
                 elif standing and self.breakable(r, c + dc) and self.open(r - 1, c + dc) or (
                     standing and self.breakable(r, c + dc) and self.breakable(r - 1, c + dc)
                 ):
@@ -151,7 +186,9 @@ class Graph:
 
         # Jumps: rise straight up, then move across at the peak, then fall.
         if standing or (water and not self.in_water(r - 1, c)):
-            for h in range(1, JUMP_HEIGHT + 1):
+            # h = 0 is a flat hop, e.g. under a ceiling too low to jump in:
+            # Wario is shorter than his two-block box.
+            for h in range(0, self.jump_height + 1):
                 top = r - h
                 # FLOOR blocks are one-way: they don't stop a jump.
                 if not self.fits(top, c):
@@ -163,6 +200,9 @@ class Graph:
                         if not self.fits(top, cc):
                             break
                         add(self.fall(top, cc), COST_JUMP + h + d, f"jump {move} {h}/{d}")
+                        # ...or keep drifting sideways on the way down.
+                        landing = self.fall_drifting(top, cc, dc_sign, JUMP_REACH - d)
+                        add(landing, COST_JUMP + h + d + 1, f"jump {move} {h}/{d}+")
 
         # Ladders.
         if self.k(r, c) == LADDER or self.k(r - 1, c) == LADDER:
@@ -174,7 +214,7 @@ class Graph:
         # Swimming.
         if water:
             for dr, move in ((-1, "swim up"), (1, "swim down")):
-                if self.fits(r + dr, c) and (self.in_water(r + dr, c) or dr < 0):
+                if self.in_water(r + dr, c):
                     add((r + dr, c), COST_SWIM, move)
 
         # Transitions: doors (UP while standing), walk-ins (just touch),
@@ -188,8 +228,16 @@ class Graph:
             ):
                 add(self.transition(r, cc), COST_TRANSITION, "walk-in")
                 break
-        if r >= 2 and self.name[r - 2][c].startswith("UpPipe"):
-            add(self.transition(r - 2, c), COST_TRANSITION, "up pipe")
+        # Up pipes can be in the ceiling a jump above Wario's head.
+        for k in range(2, 2 + self.jump_height + 1):
+            if r - k < 0:
+                break
+            if self.name[r - k][c].startswith("UpPipe"):
+                if standing or water or k == 2:
+                    add(self.transition(r - k, c), COST_TRANSITION + k, "up pipe")
+                break
+            if not self.open(r - k, c):
+                break
         if r + 1 < LEVEL_HEIGHT and self.name[r + 1][c].startswith("DownPipe"):
             add(self.transition(r + 1, c), COST_TRANSITION, "down pipe")
         return out
@@ -264,9 +312,10 @@ def main():
     parser.add_argument("level")
     parser.add_argument("start", type=parse_cell, help="ROW:COL of Wario's lower body")
     parser.add_argument("goal", type=parse_cell)
+    parser.add_argument("--power", type=int, default=0, help="wPowerUpLevel, 0-9")
     args = parser.parse_args()
 
-    graph = Graph(args.level)
+    graph = Graph(args.level, args.power)
     start = graph.node_for(*args.start) or args.start
     goal = graph.node_for(*args.goal) or args.goal
     path, moves = graph.astar(start, goal)

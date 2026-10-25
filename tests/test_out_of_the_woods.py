@@ -8,17 +8,9 @@ GREY_KEY = 1 << 0
 GREY_TREASURE = 1 << 4
 
 
-def num_collected_treasures(game):
-    # BCD: byte 1 lo nybble = hundreds, byte 2 = tens and ones
-    addr = game.addr("wNumCollectedTreasures")
-    hundreds = game.pb.memory[addr] & 0x0F
-    tens_ones = game.pb.memory[addr + 1]
-    return hundreds * 100 + (tens_ones >> 4) * 10 + (tens_ones & 0x0F)
-
-
 def test_out_of_the_woods(game, golden):
     game.new_game_to_overworld()
-    assert num_collected_treasures(game) == 0
+    assert game.num_collected_treasures() == 0
 
     game.enter_level()
     assert game.read("wKeyAndTreasureFlags") == 0
@@ -45,5 +37,5 @@ def test_out_of_the_woods(game, golden):
         what="idle overworld",
     )
     game.tick(60)
-    assert num_collected_treasures(game) == 1
+    assert game.num_collected_treasures() == 1
     golden("out_of_the_woods_overworld_after", game.screenshot())
