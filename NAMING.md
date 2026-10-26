@@ -10,12 +10,12 @@ or reject.
 - [x] Phase 1: WRAM / SRAM / HRAM unnamed variables (all 88 address-named labels; `wUnused_*` left as is)
 - [x] Phase 2: home bank (`src/home/`) `Func_` routines (all 72), incl. the bank $18 targets of the `homejp` trampolines, the block-probe family in collisions.asm, and the object Y-velocity tables
 - [x] Phase 3: fork focus areas: camera/floor transitions (incl. the swapped `FLOOR_TRANSITION_*` flags), level scrolling, room start, save code, pause tilemap, object interaction handlers `OBJ_INTERACTION_00`-`0B`. Debug menu and owl code have no unnamed labels left. Not done in this phase: interaction handlers `Func_21xxx` (`OBJ_INTERACTION_31` and up) and the remaining local `.asm_` labels of validate_save.asm.
-- [~] Phase 4: rest of the level engine: Wario state helpers done (wario_states_1..4.asm, ~95 routines); still to do: block_functions.asm (117 `Func_` + 58 `BlockFunc_`), the remaining update_objects.asm/object_interactions.asm `Func_` (`OBJ_INTERACTION_31`+)
+- [x] Phase 4: rest of the level engine: Wario state helpers (wario_states_1..4.asm, ~95 routines) and block_functions.asm (the multi-block families cover most of its 117 `Func_` + 58 `BlockFunc_`). Left over: the ~25 unnamed `ObjInteraction_*` handlers for `OBJ_INTERACTION_31`+ (`Func_21xxx` in object_interactions.asm).
 - [ ] Phase 5: `unk` fields in structs and constants
 - [ ] Phase 6: object-local `.Func_` states in `src/engine/level/objects/`
 - [ ] Phase 7+: overworld, action help, data/framesets/OAM/palettes, audio
 
-**Resume at:** Phase 4, block_functions.asm (`BlockFunc_*` first: name them from the block types that use them).
+**Resume at:** Phase 5 (`unk` struct fields; `OBJ_UNK_*`, `OBJSUBFLAG_UNK_4` and `COLLISION_UNK*` are already done in phases 1-2), then Phase 6 (object-local `.Func_` states).
 
 ## Inventory (master at f205aa3)
 
@@ -616,3 +616,57 @@ Also noticed: `UpdateStart_FanLifting`, `UpdateStart_FanTurning` and
 `UpdateStart_FanRecovering` (wario_states_4.asm:43-46, 1854, 1908, 1991) are
 entries of the `WST_FAN_*` update table: almost certainly typos for
 `UpdateState_*` (every other entry uses that prefix). High confidence.
+
+### Phase 4: level engine (block functions, src/engine/level/block_functions.asm)
+
+Breakable blocks come in families. Each family has a shared
+`<Family>Collision` body and one tiny entry per replacement block
+(`ld b, $78`..`$7f`: the block type the broken block turns into), named
+`BlockFunc_<Family>_<xx>` (existing: `CrackedBlock`, `NonCrackedBlock`,
+`CrackedBlockWithColourCoin`, `EnemyBlock`, `BonfireBlock`, `DoughnutBlock`,
+`YarnBlock`). The unnamed families are the *multi-block* ones: when one is
+broken they set `wMultiBlockParam` to a direction (1 = right, 2 = left,
+3 = down, 4 = up, as decoded in `ProcessMultiBlock.ProcessBlocks`) so the
+neighbouring block in that direction breaks next, which is how large
+(multi-block) blocks break as a whole. The existing `YarnBlockCollision` is
+the "up" member of one such family. Entries that the block tables don't
+reference are marked `; unreferenced` in the source; they still follow the
+scheme.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_18aa8` (+ entries `BlockFunc_18aa6` $78, `Func_18a9a` $79, `Func_18a9e` $7a, `Func_18aa2` $7b) | :1385 | `SnowballBlockRightCollision` (+ `BlockFunc_SnowballBlockRight_78/79/7a/7b`) | Breaks only for Snowman Wario rolling as a snowball (`wWarioTransformationProgress >= 1`, "; not in snowball"), chain direction 1 (right). | high |
+| `Func_18aec` (+ `BlockFunc_18aea` $78, `Func_18ade/18ae2/18ae6` $79-$7b) | :1421 | `SnowballBlockDownCollision` (+ entries) | Same, direction 3 (down). | high |
+| `Func_18b2d` (+ `BlockFunc_18b2b` $78, `Func_18b1f` $79, `BlockFunc_18b23` $7a, `Func_18b27` $7b) | :1462 | `SnowballBlockLeftCollision` (+ entries) | Direction 2 (left). | high |
+| `Func_18b71` (+ `BlockFunc_18b6f` $78, `Func_18b63` $79, `BlockFunc_18b67` $7a, `Func_18b6b` $7b) | :1504 | `SnowballBlockUpCollision` (+ entries) | Direction 4 (up). | high |
+| `Func_18bb5` (+ `BlockFunc_18bb3` $78, `Func_18ba7/18bab/18baf` $79-$7b) | :1547 | `BigSnowballBlockRightCollision` (+ entries) | Same as the snowball family but requires `wWarioTransformationProgress == 3` ("; not big snowball"); direction right. | high |
+| `Func_18bf9` (+ `BlockFunc_18bf7` $78, `Func_18beb/18bef/18bf3`) | :1590 | `BigSnowballBlockDownCollision` (+ entries) | Direction down. | high |
+| `Func_18c3a` (+ `BlockFunc_18c38` $78, `Func_18c2c` $79, `BlockFunc_18c30` $7a, `Func_18c34` $7b) | :1631 | `BigSnowballBlockLeftCollision` (+ entries) | Direction left. | high |
+| `Func_18c7e` (+ `BlockFunc_18c7c` $78, `Func_18c70` $79, `BlockFunc_18c74` $7a, `Func_18c78` $7b) | :1673 | `BigSnowballBlockUpCollision` (+ entries) | Direction up. | high |
+| `Func_18e2c` (+ `BlockFunc_18e2a` $78, `BlockFunc_18e0e` $79, `Func_18e12` $7a, `Func_18e16` $7b, `BlockFunc_18e1a` $7c, `Func_18e1e` $7d, `Func_18e22` $7e, `BlockFunc_18e26` $7f) | :1944 | `LargeCrackedBlockRightCollision` (+ `BlockFunc_LargeCrackedBlockRight_78`..`_7f`) | The `CrackedBlockCollision` rules (Robo-Mouse, attack/roll from the side, Head Smash Helmet from below) plus chain direction right. | high |
+| `Func_18ec0` (+ 8 entries `BlockFunc_18ebe`, `BlockFunc_18ea2`, `Func_18ea6`, `Func_18eaa`, `BlockFunc_18eae`, `Func_18eb2`, `Func_18eb6`, `Func_18eba`) | :2038 | `LargeCrackedBlockDownCollision` (+ entries) | Direction down. | high |
+| `Func_18f7d` (+ `BlockFunc_18f7b`, `BlockFunc_18f5f`, `Func_18f63`, `Func_18f67`, `BlockFunc_18f6b`, `Func_18f6f`, `Func_18f73`, `Func_18f77`) | :2159 | `LargeCrackedBlockLeftCollision` (+ entries) | Direction left; its comment "same as Func_19011 but outputs $02" confirms the family. | high |
+| `Func_19011` (+ `BlockFunc_1900f`, `BlockFunc_18ff3`, `Func_18ff7`, `Func_18ffb`, `BlockFunc_18fff`, `Func_19003`, `BlockFunc_19007`, `Func_1900b`) | :2253 | `LargeCrackedBlockUpCollision` (+ entries) | Direction up. | high |
+| `Func_190fe` (+ `BlockFunc_190fc`, `Func_190e0`, `BlockFunc_190e4`, `BlockFunc_190e8`, `Func_190ec`, `Func_190f0`, `Func_190f4`, `Func_190f8`) | :2392 | `LargeNonCrackedBlockRightCollision` (+ entries) | The `NonCrackedBlockCollision` rules (Fat Wario, or Garlic and better; Super Jump Slam Overalls for smash attacks) plus chain direction right. | high |
+| `Func_191b3` (+ 8 entries from `Func_19195` to `BlockFunc_191b1`) | :2501 | `LargeNonCrackedBlockDownCollision` (+ entries) | Direction down. | high |
+| `Func_19291` (+ 8 entries from `Func_19273` to `BlockFunc_1928f`) | :2636 | `LargeNonCrackedBlockLeftCollision` (+ entries) | Direction left. | high |
+| `Func_19346` (+ 8 entries from `Func_19328` to `BlockFunc_19344`) | block_functions.asm | `LargeNonCrackedBlockUpCollision` (+ entries) | Direction up. | high |
+| `Func_19522` (+ `BlockFunc_19520` $78, `Func_19514` $79, `BlockFunc_19518` $7a, `Func_1951c` $7b) | block_functions.asm | `YarnBlockRightCollision` (+ `BlockFunc_YarnBlockRight_*`) | Ball o' String Wario only, direction right. The existing `YarnBlockCollision` (direction up, entries `BlockFunc_YarnBlock_78/79`) would become `YarnBlockUpCollision`. | high |
+| `Func_19560` (+ `BlockFunc_1955e`, `BlockFunc_19552`, `BlockFunc_19556`, `Func_1955a`) | block_functions.asm | `YarnBlockDownCollision` (+ entries) | Direction down. | high |
+| `Func_1959b` (+ `BlockFunc_19599`, `BlockFunc_1958d`, `Func_19591`, `Func_19595`) | block_functions.asm | `YarnBlockLeftCollision` (+ entries) | Direction left. | high |
+| `Func_19502` (+ entries `Func_194e4`..`Func_19500`, $78-$7f) | :3055 | `SmallYarnBlockCollision` (+ `BlockFunc_SmallYarnBlock_*`) | Single (non-chaining) yarn block: solid unless Ball o' String Wario touches it (`Func_19481`). All 8 entries unreferenced. | medium |
+| `Func_195cf` / `Func_195d3` | block_functions.asm | `BlockFunc_YarnBlock_7a` / `BlockFunc_YarnBlock_7b` | Missing members of the existing `YarnBlock` entries ($7a/$7b). | high |
+| `Func_18a0f` / `Func_18a17` | :1291 / :1300 | `BlockFunc_CrackedBlockWithColourCoin_7d` / `_7f` | Missing members of the existing family. | high |
+| `Func_19467` | block_functions.asm | `BlockFunc_BonfireBlock_7f` | Missing member. | high |
+| `Func_194a7`..`Func_194b3` | block_functions.asm | `BlockFunc_DoughnutBlock_7c`..`_7f` | Missing members. | high |
+| `Func_18f32` | :2095 | `StartMultiBlockBreak` | Saves the origin (`wcedb/wcedc/wcedf`), turns the block into `b`, `Func_e31`, `BreakBlock`, returns free. Target of every chaining family (28 jumps). | high |
+| `Func_19086` | :2310 | `StartMultiBlockBreak_Wario` | Same start, but returns solid/free from Wario's state like the single cracked blocks (passes through when rolling or Fat). | medium |
+| `Func_19246` | :2573 | (duplicate of `Func_18f32`) | Same instructions as `Func_18f32`. | medium |
+| `Func_193dc` | :2817 | `StartMultiBlockBreak_SolidUnlessRolling` | Same start, ends in `Func_18df1`. | low |
+| `Func_18df1` | :1890 | `BreakBlock_SolidUnlessRolling` | Turns the block into `b`, `Func_e31`, `BreakBlock`; free if rolling, else solid. | medium |
+| `BlockFunc_182dc` | :448 | `BlockFunc_SolidLadderTop` | `BlockFunc_LadderTop` for Wario, but solid (not a one-way floor) for objects. | medium |
+| `Func_182ec` | :460 | `LadderTopCollision` | Env probe -> `LADDER_UNDERNEATH`, any other probe -> floor. | medium |
+| `BlockFunc_182fe` / `Func_1831a` | :470 / :483 | `BlockFunc_LadderExit_ReloadObjects` / `LadderExitCollision` | Env probe: `LADDER_COLLISION` plus `ROOMTRANSITION_5` (with/without `ROOMTRANSITIONF_RELOAD_OBJECTS`): a ladder that leads to another room. Name after `ROOMTRANSITION_5` once that is named. | low |
+| `Func_18064` / `Func_18078` / `Func_1808c` | :64 / :77 / :89 | `BlockFunc_Result10` / `BlockFunc_Result01` / `BlockFunc_Result00` | Like `BlockFunc_Free` but return `wUnused_c18d` = $10 / $01 / $00. Low value; listed for completeness. | low |
+| `BlockFunc_1809f` / `BlockFunc_180b5` | :99 / :111 | `BlockFunc_RightSlopeUpper` / `BlockFunc_RightSlopeLower` | Next to `BlockFunc_RightSlope` in the tables ($1b/$2b next to $23); run `RightSlopeCollision` with the probe moved one block down/up. Which half is which was inferred from the sign only. | low |
+| `BlockFunc_18129` / `BlockFunc_1813f` | :202 / :214 | `BlockFunc_LeftSlopeUpper` / `BlockFunc_LeftSlopeLower` | Same for `LeftSlopeCollision`. | low |
