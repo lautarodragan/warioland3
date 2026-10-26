@@ -75,19 +75,21 @@ SaveLevel:
 	ld [s0a790], a
 	ld [s0a7e0], a
 	ld [s0afa0], a
+
 	ld de, s0a000
-	ld a, $57
+	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
-	ld a, $41
+	ld a, CHECKVAL2_2
 	ld [de], a
 	inc e
-	ld a, $52
+	ld a, CHECKVAL2_3
 	ld [de], a
 	inc e
-	ld a, $33
+	ld a, CHECKVAL2_4
 	ld [de], a
 	inc e
+
 	ld hl, STARTOF("Progress WRAM")
 	; the save format: changing what's saved breaks existing saves
 	ASSERT SIZEOF("Progress WRAM") + SIZEOF("Level WRAM") == $ca
@@ -177,16 +179,16 @@ SaveLevel:
 	ld [s0a7e0], a
 	ld [s0afa0], a
 	ld de, s0a800
-	ld a, $57
+	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
-	ld a, $41
+	ld a, CHECKVAL2_2
 	ld [de], a
 	inc e
-	ld a, $52
+	ld a, CHECKVAL2_3
 	ld [de], a
 	inc e
-	ld a, $33
+	ld a, CHECKVAL2_4
 	ld [de], a
 	inc e
 	ld hl, STARTOF("Progress WRAM")
@@ -233,17 +235,18 @@ SaveLevel:
 	ld [s0a790], a
 	ld [s0a7e0], a
 	ld [s0afa0], a
+
 	ld de, s0a400
-	ld a, $57
+	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
-	ld a, $41
+	ld a, CHECKVAL2_2
 	ld [de], a
 	inc e
-	ld a, $52
+	ld a, CHECKVAL2_3
 	ld [de], a
 	inc e
-	ld a, $33
+	ld a, CHECKVAL2_4
 	ld [de], a
 	inc e
 	ld hl, STARTOF("Progress WRAM")
@@ -292,19 +295,21 @@ SaveLevel:
 	ld [s0a790], a
 	ld [s0a7e0], a
 	ld [s0afa0], a
+
 	ld de, s0ac00
-	ld a, $57
+	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
-	ld a, $41
+	ld a, CHECKVAL2_2
 	ld [de], a
 	inc e
-	ld a, $52
+	ld a, CHECKVAL2_3
 	ld [de], a
 	inc e
-	ld a, $33
+	ld a, CHECKVAL2_4
 	ld [de], a
 	inc e
+
 	ld hl, STARTOF("Progress WRAM")
 	ld b, SIZEOF("Progress WRAM") + SIZEOF("Level WRAM")
 	call CopyHLToDE

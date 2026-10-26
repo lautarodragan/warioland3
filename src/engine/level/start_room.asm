@@ -49,7 +49,7 @@ StartRoom_FromTransition:
 	swap b
 	ld a, [wWarioXPos + 0]
 	or b
-	ld [wca6c], a
+	ld [wUnused_ca6c], a
 
 	; get next room ID from Wario's position
 	ld hl, wWarioPos
@@ -112,12 +112,12 @@ StartRoom_FromTransition:
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
 	ld a, HIGH(Frameset_14d18)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_14d18)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
-	hcall UpdateAnimation
+	hcall UpdateWarioAnimation
 
 .not_entering_door
 	call UpdateLevelMusic
@@ -290,7 +290,7 @@ StartRoom_FromLevelStart:
 
 	xor a
 	ld [wLevelRoomID], a
-	ld [wca6c], a
+	ld [wUnused_ca6c], a
 	ld [wTempLevelRoomID], a
 	xor a ; unnecessary
 	ld [wLevelEndScreen], a
@@ -306,7 +306,7 @@ StartRoom_FromLevelStart:
 	ld [wIsMinigameCleared], a
 	ld [wIsRolling], a
 	ld [wIsGettingOffLadder], a
-	ld [wca66], a
+	ld [wWarioAttributes], a
 	ld [wSwitchStateUpdated], a
 	ld [wLevelTime + 0], a
 	ld [wLevelTime + 1], a
@@ -505,8 +505,8 @@ Func_896f:
 	ld a, c
 	ld [wccec], a
 	sramswitch
-	ld a, $01
-	ld [wUnused_ccef], a
+	ld a, 1
+	ld [wUnused_ObjectParity], a
 	ld b, a
 	ld d, $10
 .loop_search

@@ -4,6 +4,22 @@ Research notes for renaming unnamed labels in this disassembly. Nothing in the
 code has been changed; every entry below is a proposal for a human to accept
 or reject.
 
+## Upstream renames since the survey
+
+The survey was written against f205aa3. Merging the upstream disassembly's
+August 2026 commits renamed a few of the labels it covers:
+
+- `wca65` is now `wWarioFrame`, `wca66` is `wWarioAttributes` (the entries
+  below proposed `wWarioSpriteFrame` / `wWarioSpriteAttributes`), and `wca6c`
+  is `wUnused_ca6c`, as proposed.
+- The per-level room tables `LevelRooms_xxxxx` are now `LevelHeaders_xxxxx`
+  (same address suffixes), and their entries use the `room_header` macro;
+  the bulk names proposed for them still apply.
+- Also renamed upstream, not in the survey: `UpdateAnimation` ->
+  `UpdateWarioAnimation`, `wAnimationEnded`/`wOAMBank`/`wOAMPtr`/
+  `wFramesetPtr` -> `wWario*`, `wWarioTransformationProgress` ->
+  `wTransformationProgress`, `wUnused_ccef` -> `wUnused_ObjectParity`.
+
 ## Progress
 
 - [x] Inventory and plan (this section and the two below)

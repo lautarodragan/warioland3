@@ -76,20 +76,20 @@ class Level:
         table = re.search(rf"dw (\w+) ; {level}\n", rooms).group(1)
         body = rooms[rooms.index(f"{table}:"):]
         entries = re.findall(r"^\tdw (\.room_\d+|NULL)", body, re.M)[:30]
-        room_data = {}
-        for name, rest in re.findall(r"^(\.room_\d+)\n\troom_data\s+(.*)$", body, re.M):
-            if name not in room_data:
-                room_data[name] = [x.strip() for x in rest.split(",")]
+        room_headers = {}
+        for name, rest in re.findall(r"^(\.room_\d+)\n\troom_header\s+(.*)$", body, re.M):
+            if name not in room_headers:
+                room_headers[name] = [x.strip() for x in rest.split(",")]
         self.rooms = []
         sector_room = {}
         sector_group = {}
         for entry in entries:
-            if entry == "NULL" or entry not in room_data:
+            if entry == "NULL" or entry not in room_headers:
                 self.rooms.append(None)
                 continue
-            x, y, ylo, yhi, xlo, xhi = map(int, room_data[entry][:6])
-            room_id = room_data[entry][-1]
-            group = room_data[entry][7]
+            x, y, ylo, yhi, xlo, xhi = map(int, room_headers[entry][:6])
+            room_id = room_headers[entry][-1]
+            group = room_headers[entry][7]
             self.rooms.append(
                 dict(dest=(x, y), rows=(ylo, yhi), cols=(xlo, xhi), room_id=room_id, object_group=group)
             )
@@ -116,7 +116,7 @@ class Level:
 
         # ROOM_xxx -> BLOCK_FUNCTION_TABLE_xx -> BlockFunctionTablexx
         room_defs = dict(
-            re.findall(r"^\.room_(\d+)\n\troom (BLOCK_FUNCTION_TABLE_\w+),", read("data/levels/rooms1.asm"), re.M)
+            re.findall(r"^\.room_data_(\d+)\n\troom (BLOCK_FUNCTION_TABLE_\w+),", read("data/levels/rooms1.asm"), re.M)
         )
         func_tables = labelled_blocks(
             read("data/levels/function_tables1.asm", "data/levels/function_tables2.asm"),
@@ -127,7 +127,7 @@ class Level:
             for k, v in func_tables.items()
         }
 
-        headers = read("data/levels/level_headers.asm")
+        headers = read("data/levels/level_maps.asm")
         header = re.search(rf"dw (\.\w+) +; {level}\n", headers).group(1)
         block_map = re.search(rf"^{re.escape(header)}\n\tdab (\w+)BlockMap", headers, re.M).group(1)
         level_asm = read("level.asm")

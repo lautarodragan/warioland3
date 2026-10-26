@@ -118,7 +118,7 @@ DebugMenu_ApplyForm:
 	ld a, TRANSFORMATION_HOT_WARIO
 	ld [wTransformation], a
 	ld a, 1
-	ld [wWarioTransformationProgress], a
+	ld [wTransformationProgress], a
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
 	ld [wStingTouchState], a
@@ -158,11 +158,11 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_16e9d)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_16e9d)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_16e9d)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	farcall SetState_FlatIdling
 	ret
 
@@ -190,11 +190,11 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_171c0)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_171c0)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_171c0)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	farcall SetState_BallOString
 	ret
 
@@ -218,11 +218,11 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_1742d)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_1742d)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1742d)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wca94=$01,
 	; and standard collision box
 	farcall SetState_FatIdling
@@ -275,28 +275,28 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_1790e)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_1790e)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1790e)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
 	jr nz, .elec_right
 	ld a, HIGH(Frameset_17b79)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_17b79)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 	jr .elec_anim
 .elec_right:
 	ld a, HIGH(Frameset_17b76)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_17b76)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 .elec_anim:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
-	hcall UpdateAnimation
+	hcall UpdateWarioAnimation
 	ret
 
 ; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wca94/GFX itself
@@ -374,10 +374,10 @@ DebugMenu_ApplyForm:
 	ld [wCollisionBoxLeft], a
 	ld a, 9
 	ld [wCollisionBoxRight], a
-	; SetState_VampireIdling sets wOAMPtr but not wOAMBank; set it here since
+	; SetState_VampireIdling sets wWarioOAMPtr but not wWarioOAMBank; set it here since
 	; we bypass the normal VampireTransforming → VampireIdling path.
 	ld a, BANK("Wario OAM 2")
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	farcall SetState_VampireIdling
 	ret
 
@@ -386,7 +386,7 @@ DebugMenu_ApplyForm:
 	ld a, TRANSFORMATION_SNOWMAN_WARIO
 	ld [wTransformation], a
 	xor a
-	ld [wWarioTransformationProgress], a
+	ld [wTransformationProgress], a
 	ld a, TOUCH_ATTACK
 	ld [wTouchState], a
 	ld [wStingTouchState], a
