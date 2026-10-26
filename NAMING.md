@@ -1376,3 +1376,39 @@ anything below $b1 to `Func_3073f`.
 | `Func_30be3` | :2205 | `ReleaseTrack` | Sets `TRACKFLAGS_4 \| TRACKFLAGS_6`, clears `TRACKFLAGS_5` (starts the fade-out), or stops it if already releasing. | medium |
 | `Func_30bf2` / `Func_30bf6` | :2216 / :2221 | `StopTrack_FromChannelPtr` / `StopTrack` | Clear `TRACK_FLAGS` and `TurnSoundRegisterOff`; the first rewinds `hl` from the channel pointer field. | high |
 | `Func_30bfb` | :2226 | `ProcessTrack` | Every frame for every track: envelopes (fade in/out), frequency, volume; uses `w3d01a`. | medium |
+
+### Bulk data labels
+
+#### `Pals_cXXXX` (src/data/levels/palettes.asm, 146 labels)
+
+`RoomPals::` (src/data/levels/rooms1.asm) lists all 146 in label order, each
+commented with its `ROOM_PAL_*` constant (`dw Pals_cc000 ; ROOM_PAL_000` ..
+`dw Pals_ce440 ; ROOM_PAL_145`; checked by script: same order, no label used
+twice). Rule: `Pals_<addr>` -> `RoomPals<NNN>` with the constant's number
+(`Pals_cc000` -> `RoomPals000`, `Pals_ce440` -> `RoomPals145`), as
+`BlocksetTiles00` follows `BLOCKSET_00`. High.
+
+#### `LevelRooms_XXXXX` (src/data/levels/rooms1.asm, rooms2.asm, 119 labels)
+
+`LevelRooms::` has one entry per `<LEVEL>_DAY_n` / `<LEVEL>_NIGHT_n`
+constant; 54 labels are shared by several entries. Rule: the level in
+CamelCase, then `Day`/`Night` (omitted when day and night share the
+rooms), then the number or range, then `Rooms`. Generated for all 119
+(no collisions with `src/`), high confidence as a mechanical rule:
+
+`LevelRooms_c0d1f` OutOfTheWoodsDay1To2Rooms; `LevelRooms_c0e03` OutOfTheWoodsDay3Rooms; `LevelRooms_c0ee7` OutOfTheWoodsDay4Rooms; `LevelRooms_c0fcb` OutOfTheWoodsNight1To2Rooms; `LevelRooms_c10af` OutOfTheWoodsNight3Rooms; `LevelRooms_c1193` OutOfTheWoodsNight4Rooms; `LevelRooms_c1277` ThePeacefulVillageDay1Rooms; `LevelRooms_c135b` ThePeacefulVillageDay2To4Rooms; `LevelRooms_c143f` ThePeacefulVillageNight1Rooms; `LevelRooms_c1523` ThePeacefulVillageNight2To4Rooms; `LevelRooms_c1607` TheVastPlainDay1To3Rooms; `LevelRooms_c16c3` TheVastPlainDay4Rooms; `LevelRooms_c177f` TheVastPlainNight1To3Rooms; `LevelRooms_c183b` TheVastPlainNight4Rooms; `LevelRooms_c18f7` BankOfTheWildRiverDay1To3Rooms; `LevelRooms_c19d3` BankOfTheWildRiverDay4Rooms; `LevelRooms_c1aaf` BankOfTheWildRiverNight1To3Rooms; `LevelRooms_c1b8b` BankOfTheWildRiverNight4Rooms; `LevelRooms_c1c67` TheTidalCoastDay1To2Rooms; `LevelRooms_c1d2b` TheTidalCoastDay3Rooms; `LevelRooms_c1def` TheTidalCoastDay4Rooms; `LevelRooms_c1eb3` TheTidalCoastNight1To2Rooms; `LevelRooms_c1f77` TheTidalCoastNight3Rooms; `LevelRooms_c203b` TheTidalCoastNight4Rooms; `LevelRooms_c20ff` SeaTurtleRocksDay1Rooms; `LevelRooms_c21c3` SeaTurtleRocksDay2To3Rooms; `LevelRooms_c2287` SeaTurtleRocksDay4Rooms; `LevelRooms_c234b` SeaTurtleRocksNight1Rooms; `LevelRooms_c240f` SeaTurtleRocksNight2To3Rooms; `LevelRooms_c24d3` SeaTurtleRocksNight4Rooms; `LevelRooms_c2597` DesertRuinsDay1To4Rooms; `LevelRooms_c267b` DesertRuinsNight1To4Rooms; `LevelRooms_c275f` TheVolcanosBaseDay1To2Rooms; `LevelRooms_c283b` TheVolcanosBaseDay3To4Rooms; `LevelRooms_c2917` TheVolcanosBaseNight1To2Rooms; `LevelRooms_c29f3` TheVolcanosBaseNight3To4Rooms; `LevelRooms_c2acf` ThePoolOfRainDay1To3Rooms; `LevelRooms_c2b8b` ThePoolOfRainDay4Rooms; `LevelRooms_c2c47` ThePoolOfRainNight1To3Rooms; `LevelRooms_c2d03` ThePoolOfRainNight4Rooms; `LevelRooms_c2dbf` ATownInChaosDay1To3Rooms; `LevelRooms_c2eab` ATownInChaosDay4Rooms; `LevelRooms_c2f97` ATownInChaosNight1To3Rooms; `LevelRooms_c3083` ATownInChaosNight4Rooms; `LevelRooms_c316f` BeneathTheWavesDay1To2Rooms; `LevelRooms_c325b` BeneathTheWavesDay3Rooms; `LevelRooms_c3347` BeneathTheWavesDay4Rooms; `LevelRooms_c3433` BeneathTheWavesNight1To2Rooms; `LevelRooms_c351f` BeneathTheWavesNight3Rooms; `LevelRooms_c360b` BeneathTheWavesNight4Rooms; `LevelRooms_c36f7` TheWestCraterDay1To2Rooms; `LevelRooms_c3783` TheWestCraterDay3Rooms; `LevelRooms_c380f` TheWestCraterDay4Rooms; `LevelRooms_c389b` TheWestCraterNight1To2Rooms; `LevelRooms_c3927` TheWestCraterNight3Rooms; `LevelRooms_c39b3` TheWestCraterNight4Rooms; `LevelRooms_c3a3f` TheGrasslandsDay1Rooms; `LevelRooms_c3b2b` TheGrasslandsDay2Rooms; `LevelRooms_c3c17` TheGrasslandsDay3To4Rooms; `LevelRooms_c4000` TheGrasslandsNight1Rooms; `LevelRooms_c40ec` TheGrasslandsNight2Rooms; `LevelRooms_c41d8` TheGrasslandsNight3To4Rooms; `LevelRooms_c42c4` TheBigBridgeDay1To3Rooms; `LevelRooms_c4360` TheBigBridgeDay4Rooms; `LevelRooms_c43fc` TheBigBridgeNight1To3Rooms; `LevelRooms_c4498` TheBigBridgeNight4Rooms; `LevelRooms_c4534` TowerOfRevivalDay1Rooms; `LevelRooms_c45e8` TowerOfRevivalDay2Rooms; `LevelRooms_c469c` TowerOfRevivalDay3Rooms; `LevelRooms_c4750` TowerOfRevivalDay4Rooms; `LevelRooms_c4804` TowerOfRevivalNight1Rooms; `LevelRooms_c48b8` TowerOfRevivalNight2Rooms; `LevelRooms_c496c` TowerOfRevivalNight3Rooms; `LevelRooms_c4a20` TowerOfRevivalNight4Rooms; `LevelRooms_c4ad4` TheSteepCanyonDay1To3Rooms; `LevelRooms_c4b80` TheSteepCanyonDay4Rooms; `LevelRooms_c4c2c` TheSteepCanyonNight1To3Rooms; `LevelRooms_c4cd8` TheSteepCanyonNight4Rooms; `LevelRooms_c4d84` CaveOfFlames1To2Rooms; `LevelRooms_c4e58` CaveOfFlames3Rooms; `LevelRooms_c4f2c` CaveOfFlames4Rooms; `LevelRooms_c5000` AboveTheCloudsDay1To2Rooms; `LevelRooms_c50c4` AboveTheCloudsDay3To4Rooms; `LevelRooms_c5188` AboveTheCloudsNight1To2Rooms; `LevelRooms_c524c` AboveTheCloudsNight3To4Rooms; `LevelRooms_c5310` TheStagnantSwampDay1To3Rooms; `LevelRooms_c53c4` TheStagnantSwampDay4Rooms; `LevelRooms_c5478` TheStagnantSwampNight1To3Rooms; `LevelRooms_c552c` TheStagnantSwampNight4Rooms; `LevelRooms_c55e0` TheFrigidSeaDay1To2Rooms; `LevelRooms_c56ac` TheFrigidSeaDay3To4Rooms; `LevelRooms_c5778` TheFrigidSeaNight1To2Rooms; `LevelRooms_c5844` TheFrigidSeaNight3To4Rooms; `LevelRooms_c5910` CastleOfIllusionsDay1To3Rooms; `LevelRooms_c59f4` CastleOfIllusionsDay4Rooms; `LevelRooms_c5ad8` CastleOfIllusionsNight1To3Rooms; `LevelRooms_c5bbc` CastleOfIllusionsNight4Rooms; `LevelRooms_c5ca0` TheColossalHoleDay1To3Rooms; `LevelRooms_c5d5c` TheColossalHoleDay4Rooms; `LevelRooms_c5e18` TheColossalHoleNight1To3Rooms; `LevelRooms_c5ed4` TheColossalHoleNight4Rooms; `LevelRooms_c5f90` TheWarpedVoid1Rooms; `LevelRooms_c605c` TheWarpedVoid2To3Rooms; `LevelRooms_c6128` TheWarpedVoid4Rooms; `LevelRooms_c61f4` TheEastCraterDay1Rooms; `LevelRooms_c6298` TheEastCraterDay2Rooms; `LevelRooms_c633c` TheEastCraterDay3Rooms; `LevelRooms_c63e0` TheEastCraterDay4Rooms; `LevelRooms_c6484` TheEastCraterNight1Rooms; `LevelRooms_c6528` TheEastCraterNight2Rooms; `LevelRooms_c65cc` TheEastCraterNight3Rooms; `LevelRooms_c6670` TheEastCraterNight4Rooms; `LevelRooms_c6714` ForestOfFearDay1To2Rooms; `LevelRooms_c67a8` ForestOfFearDay3Rooms; `LevelRooms_c683c` ForestOfFearDay4Rooms; `LevelRooms_c68d0` ForestOfFearNight1To2Rooms; `LevelRooms_c6964` ForestOfFearNight3Rooms; `LevelRooms_c69f8` ForestOfFearNight4Rooms; `LevelRooms_c6a8c` TheTempleRooms
+
+#### Framesets, OAM, other palettes and `Data_`
+
+Counted by script: 1531 of the 1954 `Frameset_`, 130 of 197 `OAM_`, 284 of
+345 `Pals_` and 117 of 187 `Data_` are referenced from exactly one file
+other than the one defining them (the rest from several files, or only
+from their own data file, e.g. inside frameset tables). The biggest
+"owners" are overworld scene code (bank27: 149 framesets, 68 palettes, 40
+OAM; bank2d: 132 framesets; bank2b_1: 92), Wario's state code
+(wario_states_1..4: 221 framesets), `object_params.asm` (54) and the
+object files (anonster 35, shoot 35, pesce 34, ...). A safe first bulk step
+is an owner prefix that keeps the address (`Frameset_68a00` ->
+`ApplebyFrameset_68a00`, `Pals_4d07b` -> `HiddenFigurePals` where read),
+leaving descriptive names to the per-object passes (Hidden Figure's tables
+above are an example). Medium value; not generated here.
