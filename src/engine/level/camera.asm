@@ -585,3 +585,147 @@ LevelScroll_Horizontal:
 	jr c, .scroll_right
 	ret z
 	jp .scroll_left
+
+DEF OWL_CAMERA_SPEED EQU 4 ; pixels per frame, like floor transitions
+
+; In rooms with floor transitions the camera moves a floor (128 px) at a
+; time, and on a 144 px screen there's no floor position where Owl Wario,
+; 60 px tall with the owl, always fits. Real owls only fly in rooms with a
+; free camera; for the debug menu's, the camera follows Owl Wario vertically
+; instead, keeping wFloor on his feet, and once he's let go it scrolls back
+; to where floor transitions put it for his floor.
+; Called each frame of a room with floor transitions, when none is going on.
+OwlWarioCamera:
+	ld a, [wCameraConfigFlags]
+	and CAM_SCROLLING_MASK
+	cp CAM_TRANSITIONS
+	ret c ; no floor transitions
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	jr nz, .realign
+
+	call UpdateFloor
+	; wWarioScreenYPos is his feet, in OAM coordinates
+	ld a, [wWarioScreenYPos]
+	cp OAM_Y_OFS + SCREEN_HEIGHT_PX + 32
+	jr nc, .up_max ; far above the screen (wrapped around)
+	cp OAM_Y_OFS + OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN
+	jr c, .up
+	cp OAM_Y_OFS + SCREEN_HEIGHT_PX - OWL_CAMERA_MARGIN + 1
+	ret c ; he fits
+	sub OAM_Y_OFS + SCREEN_HEIGHT_PX - OWL_CAMERA_MARGIN
+	jr .down
+
+.up
+	ld b, a
+	ld a, OAM_Y_OFS + OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN
+	sub b
+	cp OWL_CAMERA_SPEED
+	jr c, .scroll_up
+.up_max
+	ld a, OWL_CAMERA_SPEED
+.scroll_up
+	ld b, a
+	ld a, TRUE
+	ld [wOwlCameraDisplaced], a
+	xor a
+	ld [wScrollUpEdge], a
+	call ScrollCameraUp
+	ld a, [wScrollUpEdge]
+	and a
+	ret nz
+	ld hl, wLevelEdgeUpdateFlags
+	set LEVEL_EDGE_UPDATE_UP_F, [hl]
+	ret
+
+.down
+	cp OWL_CAMERA_SPEED
+	jr c, .scroll_down
+	ld a, OWL_CAMERA_SPEED
+.scroll_down
+	ld b, a
+	ld a, TRUE
+	ld [wOwlCameraDisplaced], a
+	xor a
+	ld [wScrollDownEdge], a
+	call ScrollCameraDown
+	ld a, [wScrollDownEdge]
+	and a
+	ret nz
+	ld hl, wLevelEdgeUpdateFlags
+	set LEVEL_EDGE_UPDATE_DOWN_F, [hl]
+	ret
+
+.realign
+	ld a, [wOwlCameraDisplaced]
+	and a
+	ret z
+	; where floor transitions put the camera: $18 px above the floor's top
+	; (SetInitialCameraScroll), as far as the room's edges allow (which the
+	; scrolling stops at)
+	ld a, [wFloor]
+	ld c, a
+	ld a, 6
+	sub c
+	ld c, a ; floors from the top of the level
+	srl a
+	ld h, a
+	ld a, c
+	rrca
+	and $80
+	ld l, a ; hl = floor's top
+	ld de, -$18
+	add hl, de ; hl = target camera y
+	ld a, [wCameraSCY + 1]
+	ld e, a
+	ld a, [wCameraSCY + 0]
+	ld d, a
+	; hl = target - camera
+	ld a, l
+	sub e
+	ld l, a
+	ld a, h
+	sbc d
+	ld h, a
+	or l
+	jr z, .realigned
+	bit 7, h
+	jr nz, .realign_up
+	; camera above the target
+	ld a, h
+	and a
+	jr nz, .realign_down_max
+	ld a, l
+	cp OWL_CAMERA_SPEED
+	jr c, .realign_down
+.realign_down_max
+	ld a, OWL_CAMERA_SPEED
+.realign_down
+	call .scroll_down
+	ld a, [wScrollDownEdge]
+	and a
+	ret z
+	jr .realigned
+
+.realign_up
+	; hl = -(camera - target)
+	ld a, h
+	inc a
+	jr nz, .realign_up_max
+	ld a, l
+	cpl
+	inc a
+	jr z, .realign_up_max ; -256
+	cp OWL_CAMERA_SPEED
+	jr c, .realign_up_ok
+.realign_up_max
+	ld a, OWL_CAMERA_SPEED
+.realign_up_ok
+	call .scroll_up
+	ld a, [wScrollUpEdge]
+	and a
+	ret z
+.realigned
+	xor a
+	ld [wOwlCameraDisplaced], a
+	ret

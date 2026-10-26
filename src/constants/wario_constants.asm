@@ -392,3 +392,8 @@ DEF WARIO_STATES_GROUP_3 EQU const_value
 	const WST_UNUSED_F0                     ; $f0
 	const WST_UNUSED_F1                     ; $f1
 	const WST_UNUSED_F2                     ; $f2
+
+; Owl Wario, from his feet to the top of the owl he holds
+DEF OWL_WARIO_HEIGHT EQU 60
+; pixels the debug owl's camera keeps between Owl Wario and the screen edges
+DEF OWL_CAMERA_MARGIN EQU 8

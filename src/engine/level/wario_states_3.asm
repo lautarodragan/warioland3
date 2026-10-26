@@ -4681,6 +4681,10 @@ UpdateState_BatFlying:
 	ld a, [wWarioState]
 	cp WST_BAT_FLYING
 	ret nz ; done if not bat flying any more
+	; Bats only fly in rooms with a free camera in the original game, but the
+	; debug menu makes Vampire Wario anywhere: in rooms with floor
+	; transitions, the camera has to follow the bat up a floor.
+	call HandleUpwardsFloorTransition
 
 	call Func_2b17a
 	ld a, [wWalkVelIndex]
@@ -4762,10 +4766,11 @@ UpdateState_BatFalling:
 	cp WST_BAT_FALLING
 	ret nz ; done if not bat falling any more
 
+	; floor transitions as for any fall (see UpdateState_BatFlying)
 	ld a, b
 	and a
-	ret z
-	update_pos_y
+	jp z, TriggerDownwardsFloorTransition
+	call TriggerFloorTransition
 	jp SetState_BatIdling
 
 Func_2ac7d:

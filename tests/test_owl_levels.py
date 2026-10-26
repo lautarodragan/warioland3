@@ -49,6 +49,7 @@ WST_SWIMMING_STATES = range(0x0A, 0x12)  # WST_DIVING .. WST_TRYING_SUBMERGE
 CURSOR_POWER = 1
 SCREEN_HEIGHT = 144
 OAM_Y_OFS = 16  # wWarioScreenYPos is in OAM coordinates
+OWL_WARIO_HEIGHT = 60  # from his feet to the top of the owl
 
 
 def spawn_and_close(game):
@@ -122,12 +123,19 @@ def test_debug_owl_at_night_without_owl(game, golden):
     golden("any_level_night_flight", game.screenshot())
 
 
+def owl_wario_on_screen(game):
+    """Owl Wario and the owl he holds are all on screen."""
+    feet = game.read("wWarioScreenYPos") - OAM_Y_OFS
+    return OWL_WARIO_HEIGHT <= feet <= SCREEN_HEIGHT
+
+
 def test_debug_owl_floor_transitions(game, golden):
     # Out of the Woods' start room has no free camera: it moves a floor
     # (128 pixels) at a time, when Wario goes past one. Real owls only fly
-    # in free camera rooms, so Owl Wario never did floor transitions, and
-    # flew off the top of the screen here (his sprites wrapping round to the
-    # bottom), with the camera left behind.
+    # in free camera rooms. There's no floor position where Owl Wario, 60
+    # pixels tall with the owl, always fits on the 144 pixel screen, so the
+    # camera follows him instead, and goes back to his floor's position
+    # once he lets go.
     game.new_game_to_overworld()
     game.enter_level(OUT_OF_THE_WOODS_DAY_1)
     spawn_and_close(game)
@@ -135,26 +143,32 @@ def test_debug_owl_floor_transitions(game, golden):
     game.play(GRAB_SPAWNED_OWL, on_frame=in_bounds)
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     assert game.read("wFloor") == 1
+    floor_1_scy = 104  # where the camera rests on the first floor
 
     def visible():
         in_bounds()
-        if game.read("wFloorTransitionDir") == 0:
-            assert wario_on_screen(game), game.wario_pos()
+        assert owl_wario_on_screen(game), game.wario_pos()
 
-    # Up past the floor's top: the camera follows him up a floor.
+    # Up into the second floor: the camera follows him, owl and all, and
+    # wFloor follows his feet.
     game.play([("up", 120)], on_frame=visible)
     assert game.read("wFloor") == 2
     golden("any_level_floor_up", game.screenshot())
 
-    # Up to the top of the room, across and back, and down to the ground:
-    # back to the first floor. (Near the top of a floor the owl he holds is
-    # above the screen: the camera moves a whole floor or nothing.)
+    # As high as he goes: the room's top edge, where the camera stops, is a
+    # ceiling for the owl. Across and back, and down to the ground.
     game.play([("up", 120), ("right", 150), ("left", 150)], on_frame=visible)
-    assert game.wario_block() == (33, 3)
+    assert game.wario_block() == (36, 3)
     game.play([("down", 200)], on_frame=visible)
     assert game.read("wFloor") == 1
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     golden("any_level_floor_down", game.screenshot())
+
+    # Letting go, the camera goes back to where the floor has it.
+    game.play([("b", 4), ("", 60)], on_frame=in_bounds)
+    assert game.read("wTransformation") == TRANSFORMATION_NONE
+    assert game.read("wOwlCameraDisplaced") == 0
+    assert game.read("wSCY") == floor_1_scy
 
 
 def test_debug_owl_in_and_out_of_water(game, golden):

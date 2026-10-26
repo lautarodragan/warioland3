@@ -471,15 +471,13 @@ UpdateState_OwlSlow:
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
+	call OwlWarioRoomTopCollision
 	ld a, b
 	and a
 	jr nz, .asm_1ec4b0
 	ld b, 1
 	call MoveWarioUp
-	; real owls only fly in free camera rooms, but the debug menu's can be
-	; anywhere: rooms with floor transitions need them for the camera to
-	; follow
-	jp HandleUpwardsFloorTransition
+	ret
 
 .go_down
 	farcall CheckCentreCollision
@@ -491,7 +489,7 @@ UpdateState_OwlSlow:
 	jr nz, .asm_1ec4b8
 	ld b, 1
 	call MoveWarioDown
-	jp HandleDownwardsFloorTransition
+	ret
 
 .asm_1ec4b0
 	ld a, PAD_DOWN
@@ -642,12 +640,13 @@ UpdateState_OwlFast:
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
+	call OwlWarioRoomTopCollision
 	ld a, b
 	and a
 	ret nz
 	ld b, 2
 	call MoveWarioUp
-	jp HandleUpwardsFloorTransition
+	ret
 
 .going_down
 	ld a, [wJoypadDown]
@@ -671,7 +670,34 @@ UpdateState_OwlFast:
 .asm_1ec647
 	ld b, 2
 	call MoveWarioDown
-	jp HandleDownwardsFloorTransition
+	ret
+
+; The room's top edge is a ceiling for the owl Owl Wario holds: the camera
+; stops there (ScrollCameraUp), so any higher and the owl would leave the
+; screen. That never happens with real owls, whose rooms have lower
+; ceilings, but the debug menu's can be anywhere.
+; output:
+; - b = 1 if he can't go any higher, unchanged otherwise
+OwlWarioRoomTopCollision:
+	ld a, [wRoomUpperYLimit]
+	ld h, a
+	ld l, 0
+	ld a, [wCameraConfigFlags]
+	bit CAM_BORDER_UP_F, a
+	jr z, .got_top
+	ld l, CAMERA_BORDER_UPPER_H
+.got_top
+	; his feet can go up to OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN below the
+	; top, and he moves up to 2 pixels at a time
+	ld de, OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN + 2
+	add hl, de
+	ld a, [wWarioYPos + 1]
+	sub l
+	ld a, [wWarioYPos + 0]
+	sbc h
+	ret nc
+	ld b, 1
+	ret
 
 Func_1ec64d:
 	ld a, WST_RELEASING_OWL

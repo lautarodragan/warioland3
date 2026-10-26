@@ -691,6 +691,7 @@ SetWarioPositionToSpawn:
 SetInitialCameraScroll:
 	xor a
 	ld [wCameraRoomXScrollLimit], a
+	ld [wOwlCameraDisplaced], a
 	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_XSCROLL2 | CAM_TRANSITIONS
