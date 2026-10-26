@@ -19,7 +19,7 @@ or reject.
 
 - [x] 2a. `w1dXXX` RAM (36: Hidden Figure, boss union, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped; plus a scan for WRAMX labels used with the wrong WRAM bank (4 finds). Hidden Figure's object code read in full on the way (Phase 6 leftover).
 - [~] 2b. Phase 7 overworld routines by reference count: top-level OW states, step/fade/drawing helpers, the map-side object system (bank2d) done; next in /tmp-free order: the remaining `Func_` with 4-8 refs (`Func_b69a6`, `Func_ae915`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`9fb97`), then per-scene locals.
-- [ ] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3`; audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
+- [x] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3` (the macro's field names are off by position); audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
 - [ ] 2d. Phase 6 leftovers: `.Func_` locals of the object files without a full positional state table.
 - [ ] 2e. Audio engine `Func_` routines; action help demos (bulk rule if one is reliable).
 - [ ] 2f. Bulk `Data_`/`Pals_`/`Frameset_`/`OAM_` naming from the loader, where a mechanical rule holds.
@@ -1157,3 +1157,92 @@ and bank2b_2 (:2926) use fields of the `wPalFade*` structs
 `wPalFade2Colour2GreenUnk1`...) and `wTempleRock5Action` as scratch bytes of
 unrelated scenes, as `Func_9cdcd` does with the collection variables: the
 `UNION` in "WRAM2 2" would read better with a `NEXTU` of scene scratch names.
+
+### Small leftovers
+
+#### object_interactions.asm
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_2126a` | src/engine/level/object_interactions.asm:2262 | `TurnIntoBallOStringWario` | Used by `ObjInteraction_Silky` (front side), `ObjInteraction_AnonsterWave`/`AnonsterSilk` and :3124: if crouching without room to stand it only touches the object; otherwise `OBJACTION_06`, then (unless invincible / persistent transformation) faces away, `SFX_039`, `TRANSFORMATION_BALL_O_STRING_WARIO`, touch states, `wca94 = 1`, `WST_GETTING_WRAPPED_IN_STRING`. Same shape as `Func_2160a` (`TurnIntoBouncyWario`). | high |
+| `Func_2168b` | :2736 | `PushWarioBelowSolidObject` | Touching a solid object from below (`ObjInteraction_Solid`, `ObjInteraction_Stove`, `ObjInteraction_PrinceFroggy`): Flat Wario squished -> `SetState_FlatSquishedLifting`; otherwise moves Wario down by `wc1c2` (max 12 px), dives if that put him in water, and lands (`SetState_Idling`) or falls (`StartFall`) depending on `CheckCentreCollision`. | high |
+| `Func_20b41` | :1389 | `BumpOffObjectWithAction12` | Only `ObjInteraction_PrinceFroggy` (sides): `wTouchState` overrides (bump/vulnerable -> `Func_20a6f`, attack, vanish); otherwise `Func_20939` (bump off) and `OBJACTION_12`. | medium |
+
+#### validate_save.asm locals (src/engine/pause/save/validate_save.asm)
+
+Each saved block is checked the same way: compare the computed checksum
+with the best stored copy (`.GetMatchingChecksum`), then with the two
+alternates if there were mismatches, then set its bit in `wceee`, or clear
+its check values. The labels of each block follow one rule:
+`.<block>_mismatch` (computed != best copy), `.<block>_check_alt2` (try the
+third copy), `.<block>_ok` (set the bit), and `.clear_<block>_check_vals`.
+Blocks: `game_data`, `backup_game_data`, `level_map` (`s0a79d`), `level_save`
+(`s0a000`), `backup1` (`s0a800`), `backup_level_map` (`s0a79f`), `backup2`
+(`s0a400`), `backup3` (`s0ac00`).
+
+| Current | Line | Proposed | Conf. |
+|---|---|---|---|
+| `.asm_1f0d03` / `.asm_1f0d08` / `.asm_1f0d16` / `.asm_1f0d1b` | 41 / 45 / 58 / 62 | `.progress_all_equal` / `.progress_differs` / `.progress_echos_agree` / `.progress_orig_echo1_agree` (`ValidateSaveData`: which two of the three `s0a790` copies agree) | high |
+| `.asm_1f0d9b` / `.asm_1f0daf` | 148 / 162 | `.game_data_mismatch` / `.game_data_check_alt2` | high |
+| `.asm_1f0e20` / `.asm_1f0e34` | 227 / 241 | `.backup_game_data_mismatch` / `.backup_game_data_check_alt2` | high |
+| `.asm_1f0e6e` / `.asm_1f0e9a` / `.asm_1f0eae` / `.asm_1f0ec1` / `.asm_1f0efd` | 278 / 302 / 314 / 324 / 354 | `.check_level_map` / `.level_map_mismatch` / `.level_map_check_alt2` / `.level_map_ok` / `.level_map_bad` | high |
+| `.asm_1f0f00` / `.asm_1f0f14` / `.asm_1f0f27` / `.asm_1f0f2f` | 357 / 368 / 378 / 382 | `.level_save_mismatch` / `.level_save_check_alt2` / `.level_save_ok` / `.clear_level_save_check_vals` | high |
+| `.asm_1f0f83` / `.asm_1f0f97` / `.asm_1f0faa` / `.asm_1f0fb2` | 426 / 437 / 447 / 451 | `.backup1_mismatch` / `.backup1_check_alt2` / `.backup1_ok` / `.clear_level_save_and_backup1_check_vals` | high |
+| `.asm_1f0fe2` / `.asm_1f100e` / `.asm_1f1022` / `.asm_1f1035` / `.asm_1f1071` | 481 / 504 / 515 / 525 / 554 | `.check_backup_level_map` / `.backup_level_map_mismatch` / `.backup_level_map_check_alt2` / `.backup_level_map_ok` / `.backup_level_map_bad` | high |
+| `.asm_1f1074` / `.asm_1f1088` / `.asm_1f109b` / `.asm_1f10a1` | 556 / 567 / 577 / 582 | `.backup2_mismatch` / `.backup2_check_alt2` / `.backup2_ok` / `.clear_backup2_check_vals` | high |
+| `.asm_1f10f5` / `.asm_1f1109` / `.asm_1f111c` / `.asm_1f1122` | 626 / 637 / 647 / 652 | `.backup3_mismatch` / `.backup3_check_alt2` / `.backup3_ok` / `.clear_backup2_and_backup3_check_vals` | high |
+
+Behaviour worth knowing (read while naming): the level save and backup 1
+are only kept if the level map checksum is good, backups 2/3 only if the
+backup level map is good; and only the first valid save of each pair is
+validated: a good level save jumps past backup 1 (`jp .asm_1f0fe2`), and a
+good backup 2 returns before backup 3 is looked at, so bit 3 / bit 5 of
+`wceee` are only set when the first save of the pair is bad. Looks
+deliberate (one good copy per map is enough) rather than a bug.
+
+#### Palette fade struct (`colour_part_fade_struct`, src/macros/wram.asm)
+
+The field names of the macro don't match the offsets used by the code and
+by `COLOURFADESTRUCT_*` (src/constants/gfx_constants.asm). bank21.asm
+(`InitColourFadeStructs`, the day/night step, `ApplyPalFadeColours`) reads
+offset 0 as the base colour, 4 as the accumulator and 5 as the current
+value, with comments naming the constants; offsets 6/7 are never accessed.
+
+| Offset | Macro field now | `COLOURFADESTRUCT_*` | Proposed field | Conf. |
+|---|---|---|---|---|
+| 0 | `\1Current` | `BASE` | `\1Base` | high |
+| 1-3 | `\1Target`, `\1Sign`, `\1Diff` | same | (keep) | high |
+| 4 | `\1Unk1` | `ACCUMULATOR` | `\1Accumulator` | high |
+| 5 | `\1Unk2` | `CURRENT` | `\1Current` | high |
+| 6, 7 | `\1Unk3`, `\1Unk4` | `UNK_3`, `UNK_4` | padding to 8 bytes (`ds 2`; drop the two constants or call them `_UNUSED_6/7`) | high |
+
+Every current reference to these fields by name (`wPalFade6Colour2GreenCurrent`,
+`...Sign`, `wPalFade2Colour2GreenUnk1`, `wPalFade7Colour3RedUnk1`,
+`wPalFade1Colour1RedUnk1` in bank27.asm:5806, the `...Unk3` ones in bank20.asm)
+is a scene using the bytes as scratch, or the wrong-union case in
+`Func_81714` noted above; so the rename changes no real fade code, but those
+users need their own labels.
+
+#### Audio struct fields (src/constants/audio_constants.asm, src/audio/engine.asm)
+
+| Current | Proposed | Evidence | Conf. |
+|---|---|---|---|
+| `CHANNEL_UNK_0A` | `CHANNEL_NOTE_VOLUME` | Note command (`Func_30a1f`): an argument byte < $20 is stored as `x << 3 \| 7`; copied into the track as `TRACK_UNK06` (engine.asm:2070), which scales the track volume with `CHANNEL_UNK_2F` (`.Func_30dc6`). | medium |
+| `CHANNEL_UNK_0B` | `CHANNEL_NOTE_DURATION` | Set from the note command's duration (`b`), extended by arguments $20-$23; copied into `TRACK_DURATION` (engine.asm:2073). | high |
+| `CHANNEL_UNK_1D` | `CHANNEL_FREQUENCY_OFFSET` | Signed byte added to the pitch product when the frequency is recomputed (`Func_30651`); set by audiocmd_c9 (`AudioCmd_SetChannelUnk1d` -> `AudioCmd_SetChannelFrequencyOffset`). | high |
+| `CHANNEL_UNK_1E` | `CHANNEL_UNUSED_1E` | Only written, by audiocmd_ca (`AudioCmd_SetChannelUnk1e`); never read. The init code's comment calls it `CHANNEL_UNK_2E` (engine.asm:670, typo). | high |
+| `CHANNEL_UNK_VIBRATO_VALUE` | `CHANNEL_VIBRATO_PHASE` | Accumulates `CHANNEL_VIBRATO_SPEED` every tick ($40 while the delay runs); its folded value becomes `wVibratoValue` (engine.asm:1097-1112). | high |
+| `CHANNEL_UNK_24` (word) | `CHANNEL_VIBRATO_FREQ_OFFSET` | `(amplitude stuff) * 8`, compared/stored in `.calculate_vibrato` and added to the frequency unless `CHANNEL_VIBRATO_DISABLED` (engine.asm:1159, 1222). | high |
+| `CHANNEL_UNK_26` | `CHANNEL_CALL_DEPTH` | `AudioCmd_Call` adds 2 (max $0a) and stores the return address at `+ $0a + depth` from this field; `AudioCmd_Ret` takes it back. | high |
+| `CHANNEL_UNK_29` | `CHANNEL_LOOP_COUNTER` | `AudioCmd_Loop` increments it and jumps until it reaches the argument, then clears it. | high |
+| `CHANNEL_UNK_27` / `CHANNEL_UNK_28` | `CHANNEL_RELEASE_VOLUME` / `CHANNEL_RELEASE_LENGTH` | Set by audiocmd_d6/d7 (`AudioCmd_SetChannelUnk27/28`) or together by `Func_309b6`; when a note's envelope runs out (engine.asm:2452-2470) the track volume becomes `CHANNEL_UNK_2F * CHANNEL_UNK_27` and `CHANNEL_UNK_28` is loaded as the remaining count; 0 in any of the three ends the note. | low |
+| `CHANNEL_UNK_2F` | `CHANNEL_EFFECTIVE_VOLUME` | `CHANNEL_VOLUME * CHANNEL_VOLUME_MOD`, rounded, capped, `* 4` (engine.asm:1262-1276); multiplied into every track volume. | high |
+| `CHANNEL_UNK_30` | `CHANNEL_UNUSED_30` | Only set to $ff by the channel init. | high |
+| `CHANNEL_UNK_31` | `CHANNEL_UNUSED_31` | Never referenced. | high |
+| `CHANNEL_UNK_32`..`CHANNEL_UNK_3B` | `CHANNEL_CALL_STACK` (10 bytes) | Never referenced by name: the 5 return addresses of `AudioCmd_Call` live at `CHANNEL_UNK_26 + $0c`.. `+ $15`, i.e. $32-$3b. | high |
+| `TRACK_UNK02` (+ `wTempTrackUnk02`) | `TRACK_OWNER` (+ `wTempTrackOwner`) | `wNumAudioChannels` (the channel number) with bit 7 set for SFX (engine.asm:2003-2009); second priority key when tracks compete (:2038), bit 7 tested to tell SFX from music (:2170, :2183). | medium |
+| `TRACK_UNK03` | `TRACK_NOTE` | The note (pitch + semitone offset, `wSoundEngineParam3`); a channel reuses the track already playing the same note (:2140-2150). | medium |
+| `TRACK_UNK06` | `TRACK_NOTE_VOLUME` | Copy of `CHANNEL_UNK_0A`; volume scale. | medium |
+| `TRACK_UNK0D` | `TRACK_UNUSED_0D` | Only cleared. | high |
+| `TRACK_UNK0E` | `TRACK_FREQUENCY_HI_ADD` | From `wSoundEngineParam4` (the note, or byte 6 of a percussion entry), added to the frequency high byte in `SetFrequency`. Purpose unclear. | low |
+| `TRACK_UNK0F`, `TRACK_UNK14`..`TRACK_UNK17` | `TRACK_UNUSED_*` | Never referenced. | high |
