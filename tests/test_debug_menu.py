@@ -8,8 +8,7 @@ from game import ST_DEBUG_MENU, ST_LEVEL
 # Debug menu rows, top to bottom (wDebugMenuCursor)
 CURSOR_FORM = 0
 CURSOR_POWER = 1
-CURSOR_INVNBL = 2
-CURSOR_TREASURE = 5
+CURSOR_TREASURE = 4
 
 # src/constants/treasure_constants.asm
 FOOT_OF_STONE = 0x3F  # N5 The Tidal Coast, red chest
@@ -56,9 +55,10 @@ def test_debug_menu(game, golden):
     game.menu_press("left")
     assert game.read("wPowerUpLevel") == 2
 
-    game.menu_press("down")
-    assert game.read("wDebugMenuCursor") == CURSOR_INVNBL
-    game.menu_press("right")
+    # Invisibility is a form too, the last one: LEFT from NONE wraps to it.
+    game.menu_press("up")
+    assert game.read("wDebugMenuCursor") == CURSOR_FORM
+    game.menu_press("left")
     assert game.read("wTransformation") == TRANSFORMATION_INVISIBLE_WARIO
     golden("debug_menu_power_invisible", game.screenshot())
 
