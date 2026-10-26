@@ -17,7 +17,7 @@ or reject.
 
 **Second pass (branch `claude/naming-survey-2-dh93t5`), plan in this order:**
 
-- [ ] 2a. `w1dXXX` RAM (36: level boss union, WRAM1 transformation scratch, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped.
+- [x] 2a. `w1dXXX` RAM (36: Hidden Figure, boss union, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped; plus a scan for WRAMX labels used with the wrong WRAM bank (4 finds). Hidden Figure's object code read in full on the way (Phase 6 leftover).
 - [ ] 2b. Phase 7 overworld routines by reference count (the 9 listed under "Resume at", then down the list), plus the `w2d` RAM they use.
 - [ ] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3`; audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
 - [ ] 2d. Phase 6 leftovers: `.Func_` locals of the object files without a full positional state table.
@@ -791,3 +791,252 @@ object-specific behaviour of each handler wasn't read.
 | `Func_ad335` / `Func_ad33c` | src/engine/overworld/bank2b_1.asm:2855 / 2861 | `AdvanceSceneStep` / `ResetSceneStep` | Same pattern on `w2d890/w2d891` in bank2b_1's scenes (the reset jumps to `Func_ad016`). Which scene module this is wasn't checked. | low |
 | `Func_9ccf9` | src/engine/overworld/bank27.asm:1064 | `SetSceneObjPosAndState` | Header comment: "a = state, d = y coord, e = x coord"; stores the coords at `hl` and calls `SetSceneObjState`. 43 references. | high |
 | `Func_9f0d0` | bank27.asm:5899 | `SetSceneObjStateWhenAnimFinished` | Returns unless `wOWAnimationFinished == $ff`; then clears duration/frameset offset and sets the state to `b`. | medium |
+
+## Second pass
+
+Same conventions as above. New names were checked with a script against
+`src/` and against everything already in this file (no collisions).
+
+### Phase 1 (cont.): `w1dXXX` RAM
+
+#### Level WRAM1: boss union and the Hidden Figure fight
+
+`w1d14b`..`w1d162` are all Hidden Figure variables (only hidden_figure.asm
+touches them; `HiddenFigureFunc` zeroes `w1d14b`..`w1d151`, sets `w1d15a = 4`,
+zeroes `w1d15b`..`w1d161` and sets `w1d162 = 2`). The fight is driven by the
+body (`HiddenFigureFunc`), which writes an attack number to `w1d14b`; both
+hands dispatch on it every frame. Attack values seen: 0 none, 1 left-hand
+swipe, 2 right-hand swipe, 3/7/8 grab attacks with both hands (different
+movement tables), 4 right-hand slam, 5 left-hand slam, 6 defeat. These would
+deserve `HIDDEN_FIGURE_ATTACK_*` constants. "Swipe" and "grab" are chosen from
+the interaction types the hands get: a swiping hand is `OBJ_INTERACTION_48`/`52`
+(stings, but can be smashed from above), a grabbing hand switches to
+`OBJ_INTERACTION_50` (`ObjInteraction_FrontDragDown`, which drags Wario and
+puts the hand in `OBJSTATE_SPECIAL_3`).
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `w1d14b` | src/ram/wram.asm:1074 | `wHiddenFigureAttack` | Written only by the body states (`.Func_4cce2` 1, `.Func_4cd45` 2, `.Func_4cc3c` 3/7/8, `.Func_4ccf6` 4, `.Func_4cd59` 5, `.asm_4cda8` 6, 0 at the end of each); `HiddenFigureLeftHandFunc.Func_4d0c7` and `HiddenFigureRightHandFunc.Func_4d3c8` compare it with each value to pick their next update function. The face picks its frameset from it too. | high |
+| `w1d14c` | :1077 | `wHiddenFigureLeftHandStunned` | Set to 1 when the swiping left hand is smashed (`OBJSTATE_VANISH_TOUCH`, hidden_figure.asm:1147): the hand becomes grabbable (`OBJ_INTERACTION_00`) and runs the stunned-hand state table. Cleared by `.Func_4d750` once the hand is back at its rest position (`w1d152`). While set, the body skips to the other hand's slam (`.Func_4ccf6`) and waits (`.Func_4cd28`). | high |
+| `w1d14d` | :1080 | `wHiddenFigureRightHandStunned` | Same for the right hand (`w1d156`). | high |
+| `w1d14e` | :1083 | `wHiddenFigureBodyGrabResult` | Set together with `w1d14f`/`w1d150` by a hand during a grab attack: $80 when the hand caught Wario (`OBJSTATE_SPECIAL_3`, `SFX_0CD`), 10 when the hand was attacked (`OBJSTATE_ATTACKED_*_START`). Body: $80 -> wait $a0 frames then `wAutoMoveState = 0`, else counts down (pauses the attack). The face laughs on $80 (`Func_4ce39`). | medium |
+| `w1d14f` | :1086 | `wHiddenFigureLeftHandGrabResult` | Left hand's copy: $80 -> holds Wario at the hand (`.Func_4d379`, Wario's position set from the hand's), else counts down. | medium |
+| `w1d150` | :1089 | `wHiddenFigureRightHandGrabResult` | Right hand's copy (`.Func_4d622`). | medium |
+| `w1d151` | :1092 | `wHiddenFigureHandsFlinch` | Set to 1 when one hand starts a swipe and when the face is hit; an idle hand that sees it runs `.Func_4d19e`/`.Func_4d49f` (moves along `Data_4c500`, 24 px down and back) and clears it at the end. | medium |
+| `w1d152` | :1095 | `wHiddenFigureLeftHandRestPos` | 4 bytes: the left hand's initial `OBJ_Y_POS`/`OBJ_X_POS`, saved by `HiddenFigureLeftHandFunc`; the stunned hand's `.Func_4d750` moves back until its position equals it. | high |
+| `w1d156` | :1098 | `wHiddenFigureRightHandRestPos` | Same for the right hand. | high |
+| `w1d15a` | :1101 | `wHiddenFigureRemainingHits` | Initialised to 4; the face decrements it when hit (hidden_figure.asm:531), at 0 the fight ends (`.Func_4cf3f`, `stop_music2`, `wAutoMoveState = 2`), at 1 `MUSIC_HIDDEN_FIGURE_BATTLE_2` starts. Palettes switch below 2 (`Func_4cfe0`). Same idea as `wWolfenbossRemainingHits`. | high |
+| `w1d15b` | :1104 | `wHiddenFigureRightHandSlamming` | 1 while the right hand does its slam (attack 4, `.Func_4d465`, `Data_4c540`, `DoGroundShake`); the body's `.Func_4cc3c` waits while it is set. | high |
+| `w1d15c` | :1107 | `wHiddenFigureLeftHandSlamming` | Same for the left hand (attack 5). | high |
+| `w1d15d` | :1110 | `wHiddenFigureHandWasGrabbed` | Set when Wario picks up or grabs a stunned hand (`.Func_4d899`/`.Func_4d8b1`/`.Func_4d8c9`/`.Func_4d8e1`); on landing (`.Func_4d7e6`) the hand waits 1 frame instead of 70 before returning; cleared in `.Func_4d7fd`. | medium |
+| `w1d15e` | :1113 | `wHiddenFigureSwipeInterrupted` | Set when a swiping hand gets any state other than `OBJSTATE_VANISH_TOUCH` (bumped rather than smashed); the body then skips its wait and goes straight to a grab attack (`.Func_4cbf5`, `.Func_4cc05`). | medium |
+| `w1d15f` | :1116 | `wHiddenFigureDefeatStarted` | Set to 1 by the body when the defeat flashing ends (`.Func_4cdbc` -> `.Func_4ce01`, `SFX_0CF`); the hands in attack 6 wait for it (`.Func_4d37f`/`.Func_4d628`) and then move off. | medium |
+| `w1d160` | :1119 | `wHiddenFigureSwipeCount` | Incremented per swipe chosen by `.Func_4cc05`; at 2 it is cleared and a grab attack follows. | high |
+| `w1d161` | :1122 | `wHiddenFigureAttackCounter` | Incremented each time an attack is chosen; bit 0 decides between grab attack 8 and 3/7 in `.Func_4cc3c`. | medium |
+| `w1d162` | :1125 | `wHiddenFigureGrabsLeft` | Initialised to 2; with one hit left, each grab attack decrements it and repeats the grab until it reaches 0 (then reset to 2). | medium |
+| `w1d147` | :1050 | `wJamanoSkullsInPlace` (+ per-boss aliases, see note) | Second byte of the boss union (same address as `wDollBoyFallImmediatelyMiddleBarrel`, `wShootBallState`, `wWolfenbossIgaguriOrKuriActive`). Jamano: each skull increments it when it reaches the screen edge (jamano.asm:792) and decrements it when hit (:860); `Func_55407` darkens the BG palettes as it grows (step kept in `wDollBoyHammerRange`). Pesce uses it as a hit/phase counter (1-3 choose framesets, pesce.asm:75-610), Yellow Belly as an interrupt flag ($3a, yellow_belly.asm:959), Muddee's stinger as "was vanished" (muddee_stinger.asm:21). | medium |
+| `w1d149` | :1055 | `wJamanoSkullsInactive` | Jamano only: set to 1 when the skull spawner creates the skulls (jamano.asm:663), cleared when the fight starts (`BOSS_REGULAR`, :87); while set, skulls blink and do nothing (`.Func_553e8`, `.Func_55347`). | medium |
+| `w1d140` | :977 | (delete; fix the one user) | Same address as `wFlameBlockCleared`. Its only reference is bank2b_1.asm:1821 in an overworld scene, which runs with WRAM bank 2: that store (and the next one, `ld [wDollBoyNoFlashingBarrel], a`) are really `wSceneWarioYCoord` ($d140) and `wSceneWarioXCoord` ($d141). See "Wrong-bank labels" below. | high |
+
+Note on the boss union: Pesce, Yellow Belly and Jamano also use
+`wDollBoyActiveBarrels` / `wDollBoyHammerRange` (bytes 0 and 2 of the union)
+for their own purposes (e.g. Jamano's darkness step). Each boss should get
+its own `NEXTU` with names for bytes 0-3 instead of borrowing Doll Boy's.
+
+#### Golf RAM
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `w1d800` | src/ram/wram.asm:1134 | `wGolfMode` | 0 = not playing, 1 = Golf Building (building.asm:21), 2 = in-level golf lobby (lobby.asm:8); cleared on exit. `ShowGolfHoleFlagAndPar` lets strokes exceed par only in mode 2; game over on over-par only outside mode 1 (hole.asm:2152). `SaveBackupVRAM` is called only when entering from mode 0. Values would get `GOLF_MODE_*`. | high |
+| `w1db00` | :1180 | `wGolfPals` | 8 palettes: `Func_1c87db` copies the selected course's palettes here ("loads ... palettes to w1db00", building.asm:326); loaded with `LoadPalsToTempPals1` and by hole.asm:3202 with `Func_2c46`. | medium |
+| `w1db82` | :1186 | `wGolfHoleDataHoleXPos` | 2 bytes of `wGolfHoleData` (between `wGolfPar` and the water spawns); copied into `wGolfHoleHoleXPos` right after loading the hole (hole.asm:208). | high |
+| `w1db90` | :1193 | `wGolfStrokeNumberTiles` | 4 tiles: `PrintGolfStrokeNumber` copies the tens/ones digit tiles here; copied to `v1Tiles0 tile $f0` and HDMA'd from here in VBlank (hole.asm:3024). | high |
+| `w1dc00` | :1198 | `wGolfBuildingState` (alias) | Already aliased `wGolfLobbyState`/`wGolfHoleState`; in building.asm it is the state of the course menu (`Func_1c882b` jumptable: 0 input, 1 scrolling, 2 reached target SCX, 3 paid). | high |
+| `w1dc01` | :1203 | `wGolfNextHoleState` | The `GOLFHOLESTATE_*` to go to after the current bounce/landing: set to `_BOUNCE`, `_WALK`, `_BETWEEN_SHOTS`, `_CLEARED`, `_GAME_OVER`, copied into `wGolfHoleState` on landing (hole.asm:1715). | high |
+| `w1dc0b` | :1221 | `wGolfPinFlagAnimCounter` | `.UpdatePinFlagTiles` picks the flag frame from it (thresholds $10/$18) and increments it mod $20. | high |
+| `w1dc20` | :1257 | `wGolfOutOfStrokes` | Set TRUE by `SetGolfParaGoomRespawnYPosIfEnoughStrokes` when `wGolfStroke >= wGolfMaxStrokes`; `UpdateGolfParaGoom` returns while it is set. | medium |
+| `w1dc21` | :1260 | `wGolfPlaceWarioAtEdge` | Set when Wario starts walking to the ball (`GolfHoleState_Walk`, hole.asm:2249); `UpdateGolfWario` then, if Wario is off screen (`Func_1c8f56`), puts him just outside the left/right screen edge (scroll*4 - 40 / + 680) and clears it. | low |
+| `w1dc3e` | :1320 | `wGolfParaGoomBlockX` | 2 bytes: Para-Goom's X / 32, the index into `wGolfTerrainBlocks` (hole.asm:1605); used to snap Para-Goom to the block edge on edge terrain (:1795). | high |
+| `w1dc47` | :1346 | `wGolfParaGoomLeftTeeBox` | The existing comment says what it is for; it holds the last landing terrain when it was neither tee box (0) nor OB (hole.asm:1705), so non-zero = Para-Goom has left the tee box. Read for the tee-box ground level (:1625) and Wario's walk (:2253). | medium |
+| `w1dc53` | :1386 | `wGolfParaGoomLeftTeeBoxBackup` | Copy of `w1dc47` taken at each shot (hole.asm:915), restored when the shot goes OB (:1786). | medium |
+| `w1dc4f` | :1375 | (make `wShotYVel` a `dw`) | High byte of the 16-bit `wShotYVel`: the shot code stores 0 here (`; w1dc4f`), and `UpdateGolfParaGoomYPos` reads/writes `wShotYVel` as a 16-bit value (`dec de`, `Sub16Bit`). | high |
+| `w1dc51` | :1381 | `wGolfShotXDecelCounter` | `UpdateGolfParaGoomXPos` increments it and decrements `wShotXVel` every 8th frame; cleared on landing and before a new shot. | high |
+
+`wdc11` (golf) is the one label of the `w1d`/`wdXXX` set named in the first pass.
+
+#### Wrong-bank labels (found while checking `w1d140`)
+
+The overworld runs with WRAM bank 2 mapped, so a WRAMX label from another
+bank used in overworld code points at the bank-2 variable at the same
+address. A scan of every bank 1/3-7 WRAMX label referenced from
+src/engine/overworld found three such uses, and one inside bank 2 itself:
+
+| Where | Written as | Actually | Evidence | Conf. |
+|---|---|---|---|---|
+| src/engine/overworld/bank2b_1.asm:1821 | `ld [w1d140], a` ($60) | `wSceneWarioYCoord` | Both are $d140 (sym file); the code sets `wSceneWarioStateGroup` and calls `UpdateSceneWario` right after. | high |
+| bank2b_1.asm:1823 | `ld [wDollBoyNoFlashingBarrel], a` ($e8) | `wSceneWarioXCoord` | $d141. | high |
+| src/engine/overworld/bank56.asm:1215 (`_InitBestTimeList`) | `ld a, [wObj1SubState]` | `wCurMapSide` | Both are $d01a; `rra / and a` picks SCY 0 or $70 from it. | high |
+| src/engine/overworld/bank20.asm:1215-1221 (`Func_81714`) | `wDayNightTransistionSteps`, `wPalFade1Colour1BlueUnk3`, `wPalFade1Colour3RedUnk3`, `wPalFade1Colour4GreenUnk3` | byte 6 of `w2d800`/`w2d820`/`w2d840`/`w2d860` | Same `UNION` in "WRAM2 2": these are $d806/$d826/$d846/$d866, i.e. offset 6 (the state) of the four path-tracer structs (see `w2d800` below), and `Func_81714` passes them to the same animation helper as the other preview sprites. | high |
+
+(`w3d500` at overworld/init.asm:632 was already noted in the first pass as a
+deliberate reuse of that area.)
+
+### Phase 1 (cont.): `w2dXXX` overworld RAM
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `w2d011` | src/ram/wram.asm:1427 | `wOWIsNight` | 0 = day, 1 = night. Set from `wDayNight` bit 0 on OW init (init.asm:226-255), toggled by `.SwitchDayNight` (bank21.asm:175, 333); every day/night choice reads it: palettes (`_LoadPalsForOWScene`, `_LoadMapSidePals`, level-name palette at bank21.asm:1275), top-bar spell (`ld c, $05 ; night spell`, bank20.asm:3816), and many scene objects in bank2d.asm. | high |
+| `w2d013` | :1433 | `wOWStep` | Jumptable index of the overworld main loop (`Func_80e89`, bank20.asm:37) and of every cutscene (`.PlayCutscene` etc. in bank27.asm); `AdvanceCutsceneFunc` clears `w2d014` and increments it. | high |
+| `w2d014` | :1436 | `wOWStepCounter` | Frame counter of the current `w2d013` step: incremented every frame before the jumptable, compared by `WaitCutsceneFunc` (`cp c`), cleared on every step change. | high |
+| `w2d015` | :1439 | `wUnused_2d015` | Only saved into `w2d018` before `ClearOWWRAM` and restored from it (init.asm:179, 509) together with the OW scene parameters; never otherwise read or written. | medium |
+| `w2d018` | :1448 | `wUnused_2d018` (or `wTempUnused_2d015`) | The save slot for `w2d015` above. | medium |
+| `w2d02c` | :1495 | `wSavedTransitionParam` | Top bar fully opened: `wTransitionParam` is saved here (bank20.asm:3521) and restored on OW init before `PlayOverworldMusic` (init.asm:443). | medium |
+| `w2d031` | :1503 | `wOWCloudUpdateFlags` (write-only) | `UpdateCommonOWAnimations` clears it and sets bit 0 when cloud tiles were copied, bit 1 for sea/small-cloud tiles; nothing reads it (only bank76.asm and the clear in init.asm reference it). Could be `wUnused_2d031`. | high |
+| `w2d032`/`w2d033`/`w2d034`, `w2d035`.., `w2d038`.., `w2d03b`.. | :1506-1539 | `wOWBigCloud1Anim`..`wOWBigCloud4Anim` (3 bytes each: duration, counter, frame) | `UpdateCommonOWAnimations` calls `.UpdateBigClouds` with `hl` = each first byte: byte 0 = frame duration (0 = no animation), byte 1 = counter, byte 2 = frame (0-3). `Func_80b54` (init.asm:748) sets the durations ($1e, 4, $24, $24; $04 for cloud 4 in the south). A 3-byte struct macro would fit all six slots. | high |
+| `w2d03e`/`w2d03f`/`w2d040` | :1542-1548 | `wOWSeaAnim` | Same layout, `.UpdateSea` (6-frame cycle). Bank2d scenes stop it (`ld [w2d03e], a` = 0, bank2d.asm:895) or change its speed (:3533, :3562). | high |
+| `w2d041`/`w2d042`/`w2d043` | :1551-1557 | `wOWSmallCloudsAnim` | Same layout, `.UpdateSmallClouds`. | high |
+| `w2d044` | :1560 | `wOWCliffsGfxSrc` | 2 bytes, big-endian: the source of the current cliff frame (`HIGH(OverworldCliffs1Gfx) + frame`), HDMA'd to VRAM1 by `Func_1d8c2c` when non-zero; cleared every frame by `UpdateCommonOWAnimations`. | high |
+| `w2d046`/`w2d047`/`w2d048` | :1563-1569 | `wOWCliffsAnim` | Same 3-byte layout for the cliffs (frames 0-3); bank2d.asm:896 stops it. | high |
+| `w2d049` | :1572 | `wOWSeaGfxVariant` | High-byte offset added to `OverworldSeaGfx` by `.UpdateSea`/`.UpdateSmallClouds`; 0 normally, 1 during the freeze-sea scene (bank2d.asm:3531, reset at :3568, also :4026, :4183). | medium |
+| `w2d062` | :1622 | `wOWFuncStep` | Jumptable index of every `NOWFunc_*` / OW function (bank2d.asm:2446...), and of `UnlockLevel` (bank20.asm:4659); `AdvanceOWFunc` clears `wOWFuncCounter` and increments it. Pairs with the existing `wOWFuncCounter`. | high |
+| `w2d065` | :1628 | `wEventUnlockState` | Result of `CheckIfEventIsUnlocked` for the event being prepared (bank20.asm:2732), replaced with $80 when it's newly unlocked; `DrawUnlockedLevels` returns when it is 0 ("conditions not fulfilled"), `InitHighlightLevelScene` acts only on $80, `_InitOWObjects` passes it to the per-side object setup. | medium |
+| `w2d068` | :1634 | `wTargetMapSideLevelID` | The level point Wario is walking to: set from the path (bank20.asm:3204, 506), copied into `wMapSideLevelID` on arrival (:442); `HandleBottomBar`/`Func_82041` compare it with `wMapSideLevelID` to know whether he is moving. | medium |
+| `w2d069` / `w2d06a` | :1637 / :1640 | `wOWLevelYCoord` / `wOWLevelXCoord` | Coords of the current level point from `GetMapLevelCoords` (`Func_8212c`, bank20.asm:3235); restored into `wOWYCoord1`/`wOWXCoord1` and the Wario sprite. The comments at bank20.asm:3235/3238 say "level x"/"level y", but the first byte feeds `wOWYCoord1`: the comments are swapped. | high |
+| `w2d06f` / `w2d070` | :1651 / :1652 | `wOWPathTargetYCoord` / `wOWPathTargetXCoord` | End point of the current path segment; `Func_810fc` turns it into the next waypoint `wOWCoords2` by path shape (the source already documents "wOWYCoord2 = w2d06f", "wOWXCoord2 = w2d070"). | high |
+| `w2d072` | :1656 | `wLevelArrowIndex` | Loop index while drawing unlocked-level arrows (`DrawUnlockedLevels`, bank20.asm:2800-2812), compared with `w2d074`. | medium |
+| `w2d074` | :1659 | `wNumLevelArrows1` | Count read from the arrow data right after `wLevelArrowDirections1` (bank20.asm:2977). | medium |
+| `w2d076` | :1661 | `wNumLevelArrows2` (write-only) | Same for `wLevelArrowDirections2` (0 when that is $ff); never read. | medium |
+| `w2d078` | :1667 | `wUnused_2d078` | Write-only (bank20.asm:2729). | high |
+| `w2d07c` | :1679 | `wOWNextIsNight` | Day/night value the transition goes to: `wOWIsNight` on init, 1 in `.InitDayToNight`, 0 in `.InitNightToDay`; bank2d.asm `Func_b7cb3` moves scene object 14 (sun/moon) by it. | low |
+| `w2d07d` | :1682 | `wOWDayNightObjMoved` | Cleared with `w2d07c`; `Func_b7cb3` repositions scene object 14 once while it is 0, then increments it. | low |
+| `w2d07f` | :1687 | `wHighlightOWTile` | When non-zero, `Func_81feb` ORs palette 7 + `BG_BANK1` into `wAttrToPlaceInOW` (its header comment says so); used as a countdown by `Func_81f21`. Set around drawing newly unlocked arrows/points. | medium |
+| `w2d096` | :1725 | `wUnused_2d096` | Write-only (bank20.asm:4268). | high |
+| `w2d0a0` | :1730 | `wOWLineFlags` | `Func_821a1` (Bresenham line set-up from `wOWCoords1` to `wOWCoords2`): bit 1 = Y decreases, bit 2 = X decreases (`.CalculateDistance` ORs `c`), bit 0 = X is the major axis. | high |
+| `w2d0a1` | :1731 | `wOWLineStepsLeft` | Major-axis distance; `Func_82208` decrements it per step and does nothing at 0; callers wait for it to reach 0 (bank20.asm:428, 1166). | high |
+| `w2d0a2` | :1732 | `wOWLineMajorDist` | Major-axis distance, constant during the line. | high |
+| `w2d0a3` | :1733 | `wOWLineError` | Error accumulator: += minor distance each step, minus major when it reaches it (then a minor-axis step). | high |
+| `w2d0a4` | :1734 | `wOWLineMinorDist` | Minor-axis distance. | high |
+| `w2d0a5` / `w2d0a6` | :1735 / :1736 | `wOWLineYStep` / `wOWLineXStep` | +1 / -1 from the flags; added to `wOWYCoord1`/`wOWXCoord1`. The block `w2d0a0`..`w2d0a6` is copied as 7 bytes into/out of each path tracer (bank20.asm:975, 991). | high |
+| `w2d0b5` | :1744 | `wHDMAVRAM1` | Second `hdma_config_struct` after `wHDMA`: `Func_3c03` writes its 5 bytes to `rVDMA_*` with VRAM1 selected; checked by overworld/vblank.asm:96; cleared with `wHDMA` (bank20.asm:4363). | medium |
+| `w2d0c0` | :1749 | `wUnused_2d0c0` | 16 bytes only ever zeroed (by `Func_3c76`, called from the Temple hint, bank20.asm:260); never read. The first pass proposed `ClearW2d0c0` for `Func_3c76`; it could be `ClearUnused_2d0c0`. | medium |
+| `w2d0e0` | :1768 | `wLevelNameFadeState` | 0 idle, 2 fading in (`FadeInLevelName`), 1 faded in, 3 fade out requested: `Func_852e5` acts only on 3 and clears it when done (bank21.asm:1319-1357); the main loop waits for 0 before showing a new name (bank20.asm:159). | high |
+| `w2d0e2` / `w2d0e3` | :1774 / :1777 | `wPathPreviewCounter` / `wPathPreviewState` | Holding B on the map (`Func_81477`): `w2d0e3` is the jumptable index (save Wario's position, wait 10 frames, init tracers, run tracers), `w2d0e2` its frame counter (thresholds $14/$28/$2c/$40 spawn and clear the preview sprites); releasing B restores Wario from `w2d88e/f`. Also cleared by bank21.asm:297/337. | medium |
+| `w2d0e4` / `w2d0e5` | :1780 / :1783 | `wTempleHintState` / `wTempleHintCounter` | Pressing UP at the Temple (`Func_81077`) switches the main loop to step $0a, whose `Func_8137a` dispatches on `w2d0e4` (fade out name, load the level name of the next treasure via `GetMapSideAndLevelForNextTreasure`, fade in, wait for input) with `w2d0e5` as its timer. | medium |
+| `w2d0ee` / `w2d0ef` | :1788 / :1791 | `wBottomBarTimeAttackScore` (2 bytes) | bank26.asm:1314 copies the level's `wLevelTimeAttackScores` entry here; `Func_829a1` draws its four BCD digits in the bottom bar. | high |
+| `w2d100` / `w2d101` | :1816 / :1819 | `wOWWarioYCoord` / `wOWWarioXCoord` | Wario's map sprite position: copied from `wOWYCoord1`/`wOWXCoord1` every walking frame (bank20.asm:425, `Func_8115c`), moved directly when exiting the map side (`Func_811cf`), passed to the sprite routine after `w2d107` (bank20.asm:3141). | high |
+| `w2d104` | :1824 | `wOWWarioAnimDuration` (2 bytes: duration, frameset offset) | `hl` for `UpdateOWAnimation` in `Func_8208d`; both bytes cleared by `SetOWWarioOAM`. | high |
+| `w2d106` | :1827 | `wOWWarioSprite` | `SetOWWarioOAM` stores its `OWWARIO_*` input here; `Func_8208d` draws nothing while it is 0. | high |
+| `w2d107` | :1831 | `wOWWarioOAMPtr` | "some sprite pointer": set by `SetOWWarioOAM` (`OAM_aa329`...), read by `Func_8208d`. | high |
+| `w2d109` | :1835 | `wOWWarioFramesetPtr` | "some frameset pointer": from `SetOWWarioOAM`'s `.framesets` table. | high |
+| `w2d10c` | :1841 | `wOWWarioLastDir` | Last `wLevelArrowDirections1` used to choose Wario's facing sprite (`Func_82041`, bank20.asm:3106). | medium |
+| `w2d10d` | :1844 | `wOWWalkSFXCounter` | While walking: `PlaySFX_12A` when 0, incremented, reset at $24 ($12 when running). | medium |
+| `w2d10e` | :1847 | `wOWWarioRunCounter` | `Func_8115c`: counts frames with the D-pad held; at 6 sets bit 7, which makes Wario take two line steps per frame and halves the step-SFX period. Cleared when a walk starts. | medium |
+| `w2d121`..`w2d13f` | :1861-1945 | `wOWSceneTask1State`/`...Counter`, ... (pairs, see note) | Scratch for bank2d.asm scenes: (state, counter) byte pairs where state 0 = inactive. E.g. the leaf scene uses `w2d12c`/`w2d12d` (leaf 1), `w2d12e`/`w2d12f` (leaf 3), `w2d130`, `w2d132` (`.HandleLeaf1Movement`, bank2d.asm:2693-2990); another uses `w2d122`/`w2d123`, `w2d124`/`w2d125` (:6100-6250), another `w2d134`/`w2d135`, `w2d138`/`w2d139`, `w2d13a`/`w2d13b`, `w2d13c`/`w2d13d`, `w2d13e`/`w2d13f` (:7776-8020). `w2d133` has no direct reference (reached with `inc l`). `w2d121` is write-only (:7476). Meaning depends on the scene, so a neutral numbered pair name is proposed. | low |
+| `w2d14c` | :1955 | `wSceneWarioSFXCounter` | Part of the Scene Wario block: step-sound counter (`Func_ac4fa`: SFX_12A at 0, reset at $24) and a per-animation sound flag in the look/turn animations (bank2b_1.asm:1014-1130); cleared when the Scene Wario gfx group changes (:1420). | medium |
+| `w2d14e` | :1961 | `wSceneWarioAnimFinished` | `.Sleep` stores `wOWAnimationFinished` here; the prologue waits for $ff (bank2b_2.asm:958). | medium |
+| `w2d15e`, `w2d160`, `w2d166`, `w2d16e`, `w2d176`, `w2d17e` | :2000-2017 | define `wOWUIObj3`..`wOWUIObj8` (`scene_obj_struct`, $d150-$d17f) | The B-button path preview animates 8-byte sprites whose state bytes are `wOWUIObj1State`, `wOWUIObj2State`, `wd156`, `w2d15e`, `w2d166`, `w2d16e`, `w2d176`, `w2d17e` (`Func_81714`): i.e. byte 6 of objects at $d140, $d148, $d150, $d158, $d160, ... `.Func_815e5` copies 4 tracer sprites to `w2d160` (+8 each) and `.Func_81609` clears `w2d160 + 6` (+8 each). The current labels cut through those structs. (`w2d150`..`wd156` are also the generic scene vars from the first pass: a `UNION` would show both uses.) | medium |
+| `w2d800`, `w2d820`, `w2d840`, `w2d860` (`ow_unk_struct`) | :2051-2054 | `wOWPathTracer1`..`4`, struct `ow_path_tracer_struct` | Four $20-byte tracers for the B-button path preview: `.Func_815b6` indexes them by `a * 32`; `.Func_81576` copies 9 bytes to `w2d880`, 7 to `w2d0a0` (line state) and 8 to `wOWCoords1` and `.Func_81595` copies them back, so the struct is [9-byte tracer][7-byte line][8-byte coords]. Byte 7 = 5 means done (`ld hl, w2d800 + $7` loop). | medium |
+| `w2d880` | :2056 | `wCurOWPathTracer` (path preview) / `wPrologueFadeType` (prologue, temple) | Preview: working copy of the current tracer (+0/+1 coords, +6 sprite state, +7 tracer state, +8 counter). In the prologue and temple scenes the same byte is the fade type read by `_PrologueFade` (bank21.asm:750; set to 0/1/3/4 in bank2b_1.asm:2518, 2642, bank2b_2.asm:79, 2696). Needs a `UNION`. | medium |
+| `w2d889` | :2059 | `wPathPreviewPathsPtr` | Byte 9 of the tracer area: the pointer from `Func_82111` (`OWLevelPaths`/`OWExitPaths` entry of the current point), read through `w2d880 + $9`. | medium |
+| `w2d88b` | :2062 | `wCurOWPathTracerIndex` | Index passed to `.Func_81576`/`.Func_81595` (which tracer is in `w2d880`). | high |
+| `w2d88e` / `w2d88f` | :2067 / :2068 | `wOWWarioSavedYCoord` / `wOWWarioSavedXCoord` | `w2d100`/`w2d101` saved when the preview starts and restored when B is released (bank20.asm:817, 863). | high |
+| `w2d890` / `w2d891` | :2070 / :2073 | `wSceneStep` / `wSceneStepCounter` | Step and step timer of the bank2b_1/bank2b_2 scenes (temple, prologue): `Func_ae1ce`/`Func_ad335` clear the counter and increment the step (first pass: `AdvancePrologueStep`, `AdvanceSceneStep`). | high |
+| `w2d892` / `w2d893` / `w2d894` | :2076-2082 | `wSceneSubStep` / `wSceneSubStepCounter` / `wSceneSubActive` | A second (step, counter) pair for a Scene Wario sub-animation running alongside the main steps: panic running in the temple (`HandleTempleWarioPanic`, bank2b_1.asm:3630-3729), Wario's bounce in the prologue (bank2b_2.asm:1196-1330). `w2d894` = 1 while it runs; the step is set to $80 when finished. | medium |
+| `w2d896` / `w2d897` | :2087 / :2090 | `wTempleShakeState` / `wTempleShakeCounter` | `HandleTempleScreenShake` (bank56.asm:16) dispatches on `w2d896` (0 = off) with `w2d897` as its counter; the temple scene sets 1, 2 and $0b (`.StartBigShake`). | high |
+| `w2d8a0` / `w2d8a1` | :2095 / :2098 | `wSceneAuxStep` / `wSceneAuxStepCounter` | A third (step, counter) pair: the temple music boxes (`HandleTempleMusicBoxes`, bank2b_1.asm:3105), the plane parts in the prologue (bank2b_2.asm:1463), a bank56 scene (:397). | medium |
+| `w2d8b0` / `w2d8b1` | :2134 / :2137 | `wPrologueSubStep` / `wPrologueSubStepCounter` | Inside the `wPlaneParts` `NEXTU`: `Func_ae2dd` (bank2b_2.asm:533) dispatches on `w2d8b0` with `w2d8b1` as counter. | low |
+| `w2d8da` / `w2d8dc` | :2144 / :2149 | `wTempleLeftHandMoving` / `wTempleRightHandMoving` | `DoHiddenFigureLeftHandMovement`/`DoHiddenFigureRightHandMovement` return unless set; both set in the reveal scene (bank2b_1.asm:2639). | high |
+| `w2da04` | :2163 | `wTempleSceneStep` | Sub-step of the current `wTempleScene`; directly precedes `wTempleSceneCounter`, and `.NextState` does `ld [hld], a / inc [hl] ; w2da04`. | high |
+| `w2df00` | :2216 | `wBestTimeDigitTiles` | bank56.asm:1399 builds the tile numbers for a best time (minutes/seconds) here and :1426 writes them to the BG map. | high |
+| `w2dffc` | :2219 | `wCheckedEvent` | Loop variable over events in bank20.asm:1308 (`CheckIfEventIsUnlocked` clobbers `a`). | medium |
+| `w2dffd` / `w2dffe` / `w2dfff` | :2222-2232 | aliases `wEventTreasure1`/`2`/`3` (+ generic temp) | `LoadEventTreasures` writes the event's three treasures to `w2dfff`, `w2dffe`, `w2dffd` and `CheckIfEventIsUnlocked` checks them. The same bytes are reused as temporaries elsewhere (`ShowMissingTreasureIndicators`: saved `wOWLevel`, level index, level count; collection cells in bank26.asm:330-408; best times in bank56.asm:1378; `wOWExitUnlocked` is already an alias of `w2dfff`). | high (aliases) |
+| `w2d801` | :2240 | `wUnused_2d801` | Write-only (overworld/cutscene/init.asm:47). | high |
+| `w2d807` | :2248 | `wColourFadeLoopCounter` | Loop counter of `InitColourFadeStructs`, `CopyPalToColourFadeStructs`, `ApplyPalFadeColours` and the day/night step (8 palettes x 4 colours x 3 components). | high |
+| `w2d809` | :2254 | `wOWPalTransitionDelay` | `DayNightTransition` returns while `wOWPalTransitionCounter < w2d809` (bank21.asm:78); each step sets it (0, 2, 3). | medium |
+
+Routines met along the way (bank20/bank21/bank76):
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_821a1` | bank20.asm:3313 | `InitOWLineMovement` | Sets `w2d0a0`..`w2d0a6` from `wOWCoords1` -> `wOWCoords2` (see above). | high |
+| `Func_82208` | bank20.asm:3384 | `StepOWLineMovement` | One Bresenham step of `wOWCoords1`. | high |
+| `Func_82111` | bank20.asm:3213 | `GetCurLevelPathsPtr` | `hl` = `OWLevelPaths` (or `OWExitPaths` for an exit) entry for `wMapSideLevelID` on `wNextMapSide`. | high |
+| `Func_852e5` | bank21.asm:1318 | `FadeOutLevelName` | Acts when `w2d0e0 == 3`: blacks out palette 7 colours 1-3 through `wPalConfig1` and clears `w2d0e0` when done. | high |
+| `Func_1d8c2c` | bank76.asm:210 | `CopyCommonOWAnimTilesToVRAM` | HDMA from `wTilemap tile $24` (the cloud/sea tiles updated by `UpdateCommonOWAnimations`) to VRAM1, plus the cliff frame from `w2d044`; called from overworld/vblank.asm and bank21.asm. | high |
+| `Func_81077` | bank20.asm:244 | `HandleTempleHintInput` | At the Temple (`wMapSideLevelID == 0`, north), UP starts the next-treasure hint (`w2d013 = $0a`). | high |
+| `Func_8137a` | bank20.asm:707 | `UpdateTempleHint` | The `w2d0e4` jumptable described above. | medium |
+| `Func_81feb` | bank20.asm:3023 | `ApplyHighlightPalToOWTile` | Its header comment: applies palette 7 and bank 1 to `wAttrToPlaceInOW` if `w2d07f`. | high |
+| `Func_81714` | bank20.asm:1214 | `UpdatePathPreviewAnimations` | Animates the 12 path-preview sprites (see the wrong-bank table). | medium |
+| `Func_81477` | bank20.asm:842 | `HandlePathPreview` | B held: runs the `w2d0e3` jumptable; released: restores Wario. | medium |
+
+### Phase 6 (cont.): objects without a full state table
+
+#### Hidden Figure (src/engine/level/objects/hidden_figure.asm, tables in src/level.asm)
+
+Read in full together with its RAM (see `w1d14b`.. above).
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `HiddenFigureFunc.Func_4cb9e` | hidden_figure.asm:48 | `.Intro` | Waits 20 frames, then `BOSS_HIDDEN_FIGURE` and `UpdateLevelMusic`, and switches to `.Func_4cbc4`. | high |
+| `.Func_4cbc4` | :70 | `.Main` | Dispatches on `wCurObjVar1` (the body's attack phase). | high |
+| `.Func_4cbf5` (phase 0) | :100 | `.Idle` | Waits its duration (skipped if `w1d15e`), then phase 1. | high |
+| `.Func_4cc05` (1) | :113 | `.ChooseAttack` | After 2 swipes or an interrupted one: phase 6 (grab); otherwise phase 2 (left swipe) if Wario's screen X < $58, else 4. | high |
+| `.Func_4cce2` (2) / `.Func_4ccf6` (3) | :249 / :264 | `.StartLeftSwipe` / `.LeftSwipe` | Attack 1 for $80 frames; during it the screen shakes (`Func_4cf70` with `Data_4c000`, `Func_4cf87` with `Data_4c080`); if the left hand got stunned -> attack 4 (right slam), phase 9. | high |
+| `.Func_4cd45` (4) / `.Func_4cd59` (5) | :310 / :325 | `.StartRightSwipe` / `.RightSwipe` | Mirror (attack 2, `Data_4c100`, then attack 5 / phase $0a). | high |
+| `.Func_4cc3c` (6) | :148 | `.StartGrab` | Waits for both slams to end, then attack 3, 7 or 8 (8 when Wario is in the middle of the screen on odd `w1d161`, with $60 frames). | high |
+| `.Func_4cc87` (7) | :193 | `.Grab` | Shakes the screen along `Data_4c180`/`4c580`/`4c680`, reacts to `w1d14e`, repeats while `w1d162` allows. | high |
+| `.Func_4cbe8` (8) | :89 | `.ReleaseCaughtWario` | After Wario was caught: when the duration ends, `wAutoMoveState = 0`. | low |
+| `.Func_4cd28` (9) / `.Func_4cd8b` ($0a) | :292 / :353 | `.WaitLeftHandStunned` / `.WaitRightHandStunned` | Go to the defeat when `w1d15a == 0`; wait until the stunned hand has returned, then phase 6. | high |
+| `.asm_4cda8` | :371 | `.defeated` | Attack 6, update function `.Func_4cdbc`. | high |
+| `.Func_4cdbc` / `.Func_4ce01` | :383 / :418 | `.Defeated` / `.DefeatedSink` | Flash the palettes for $82 frames (`SFX_0CE` every 64), then `w1d15f = 1` and sink the screen (`wHiddenFigureSCYShake` decrements) until `LVLEND_EPILOGUE`. | high |
+| `Func_4ce39` | :446 | `HiddenFigureFace_StartLaugh` | Sets the face's update function to `.Func_4cf55` after 60 frames. | high |
+| `HiddenFigureFaceFunc.Func_4ce47` | :457 | `.Main` | Laughs on `w1d14e == $80`; on an attack (`OBJSTATE_28`/`29` = hit by a thrown hand) goes to `.Func_4cf13`; otherwise looks towards Wario (framesets by screen X; "angry" ones while a hand is stunned or at 1 hit left). | high |
+| `.Func_4cf13` / `.Func_4cf3f` / `.Func_4cf55` | :560 / :581 / :593 | `.Hit` / `.Defeated` / `.Laugh` | Flash 60 frames then back to `.Main`; last hit: do nothing but play `SFX_0CE`; `SFX_HIDDEN_FIGURE_LAUGH` + laugh frameset. | high |
+| `Func_4cf70` | :606 | `ApplyHiddenFigureSCYShakeTable` | Adds the next byte of table `bc` (index `wCurObjVar3`, stops at the `$80` terminator) to `wHiddenFigureSCYShake`. | high |
+| `Func_4cf87` | :626 | `ApplyHiddenFigureSCXTable` | Same with `wCurObjVar2` into `wc08b` (`wHiddenFigureSCX`). | high |
+| `Func_4cf9e` / `Func_4cfbf` | :646 / :676 | `ApplyCurObjYTable` / `ApplyCurObjXTable` | Same table walk, applied to `OBJ_Y_POS` / `OBJ_X_POS` (16-bit, signed). Used only by the hands. | high |
+| `Func_4cfe0` | :706 | `FlashHiddenFigurePals` | Every 16 frames alternates `Pals_4d04b` and the normal palettes. | high |
+| `Func_4d005` | :727 | `SetHiddenFigurePals` | `Pals_4d07b` while `w1d15a >= 2`, else `Pals_4d01b`. | high |
+| `Pals_4d07b` / `Pals_4d01b` / `Pals_4d04b` | :802 / :740 / :771 | `HiddenFigurePals` / `HiddenFigureLastHitPals` / `HiddenFigureFlashPals` | As selected above (the second has red where the first has grey). | medium |
+| `HiddenFigureLeftHandFunc.Func_4d0c7` | :850 | `.Idle` | Dispatches on `w1d14b`: 1 -> `.Func_4d2c8`, 3/7/8 -> `.Func_4d1b1`, 5 -> `.Func_4d164`, 6 -> `.Func_4d37f`, otherwise `.Func_4d19e` if `w1d151`. | high |
+| `.Func_4d164` | :937 | `.Slam` | Waits, then `Data_4c540` (falls 50 px), `SFX_063` + `DoGroundShake`, back up; clears `w1d15c`. | high |
+| `.Func_4d19e` | :967 | `.Flinch` | `Data_4c500`, clears `w1d151`. | medium |
+| `.Func_4d1b1` | :977 | `.Grab` | Grab attack: X/Y tables (`Data_4c380`+`4c400`/`4c600`, or `4c700`+`4c800` for attack 8), interaction 4F then 50 (drag down) at fixed table positions; on `OBJSTATE_SPECIAL_3` (caught Wario) or an attack sets `w1d14e/f/150`. | high |
+| `.Func_4d2c8` | :1115 | `.Swipe` | `Data_4c200`/`4c280`, interactions 48/52; smashed (`OBJSTATE_VANISH_TOUCH`) -> stunned (state `OBJSTATE_SPECIAL_2`, update `HiddenFigureRightHandFunc.Func_4d655`, `w1d14c = 1`); any other hit -> `w1d15e = 1`. | high |
+| `.asm_4d34c` | :1185 | `.return_to_idle` | Resets interaction, flags and frameset, back to `.Func_4d0c7`. | high |
+| `.Func_4d379` | :1212 | `.HoldWario` | No-op while Wario is held. | medium |
+| `.Func_4d37f` / `.Func_4d39b` | :1217 / :1234 | `.WaitDefeat` / `.DefeatRise` | Wait for `w1d15f`, then move up every other frame for 32 frames. | medium |
+| `HiddenFigureRightHandFunc.Func_4d3c8` .. `.Func_4d644` | :1263-1612 | same names as the left hand (`.Idle`, `.Slam`, `.Flinch`, `.Grab`, `.Swipe`, `.return_to_idle` for `.asm_4d5f5`, `.HoldWario` for `.Func_4d622`, `.WaitDefeat`, `.DefeatSink` for `.Func_4d644`, which moves down) | Mirror image with `w1d14d`, `w1d15b`, `w1d150`, `w1d156`. | high |
+| `.Func_4d655` | :1613 | `.Stunned` | Update function of a stunned hand (either hand jumps here): keeps `wSCY/wSCX` at the base values (`wc08a`/`wc08c`), buzzes `SFX_06A`, and runs a full positional state table with the shared `ObjState_*` handlers. | high |
+
+Correction to the Phase 6 table row for `HiddenFigureRightHandFunc`: the
+mechanical rule named `.Func_4d83a` and `.Func_4d844` `.Default` (they fill
+6 slots each), which would give three `.Default` labels in one routine.
+Their code sets `OBJSTATE_WOBBLE_LEFT` ($38) / `OBJSTATE_WOBBLE_RIGHT` ($39)
+with `no_actions_for 15`, so: `.Func_4d83a` -> `.WobbleLeftStart`,
+`.Func_4d844` -> `.WobbleRightStart`. Also from reading them:
+`.Func_4d750` (`.Special1`) -> `.ReturnToRestPos` (moves to `w1d152`/`w1d156`
+and clears the stunned flag), `.Func_4d73e` (`.Special2`) ->
+`.VanishThenFall` (`SFX_VANISH` while counting down, then `ObjState_Fall`;
+low), `.Func_4d7fd` (`.Walk`) -> `.WaitOnFloor` (waits, then
+`OBJSTATE_SPECIAL_1`). High except where noted.
+
+Movement tables in src/level.asm (all used only here; "swipe" = attacks 1/2,
+"grab" = attacks 3/7/8). Each is a list of signed per-frame deltas ending in `$80`:
+
+| Current | Proposed | Used by | Conf. |
+|---|---|---|---|
+| `Data_4c000` | `HiddenFigureSwipeSCYShake` | body, both swipes (`Func_4cf70`) | high |
+| `Data_4c080` / `Data_4c100` | `HiddenFigureLeftSwipeSCX` / `HiddenFigureRightSwipeSCX` | body (`Func_4cf87`) | high |
+| `Data_4c180` / `Data_4c580` / `Data_4c680` | `HiddenFigureGrab1SCYShake` / `HiddenFigureGrab2SCYShake` / `HiddenFigureGrab3SCYShake` | body, attacks 3 / 7 / 8 | high |
+| `Data_4c200` / `Data_4c300` | `HiddenFigureLeftHandSwipeX` / `HiddenFigureRightHandSwipeX` | hands | high |
+| `Data_4c280` | `HiddenFigureHandSwipeY` | both hands | high |
+| `Data_4c380` / `Data_4c480` | `HiddenFigureLeftHandGrabX` / `HiddenFigureRightHandGrabX` | attacks 3 and 7 | high |
+| `Data_4c400` / `Data_4c600` | `HiddenFigureHandGrab1Y` / `HiddenFigureHandGrab2Y` | attack 3 / attack 7 | high |
+| `Data_4c700` / `Data_4c760` / `Data_4c800` | `HiddenFigureLeftHandGrab3X` / `HiddenFigureRightHandGrab3X` / `HiddenFigureHandGrab3Y` | attack 8 | high |
+| `Data_4c500` | `HiddenFigureHandFlinchY` | `.Flinch` | high |
+| `Data_4c540` | `HiddenFigureHandSlamY` | `.Slam` | high |
+
+Also: `wHiddenFigureSCYShake` (already named) is used as the Hidden Figure
+equivalent of `wc08b`; with the first pass's `wc08b` -> `wHiddenFigureSCX`
+it could become `wHiddenFigureSCY`.
