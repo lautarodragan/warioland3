@@ -18,7 +18,7 @@ or reject.
 **Second pass (branch `claude/naming-survey-2-dh93t5`), plan in this order:**
 
 - [x] 2a. `w1dXXX` RAM (36: Hidden Figure, boss union, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped; plus a scan for WRAMX labels used with the wrong WRAM bank (4 finds). Hidden Figure's object code read in full on the way (Phase 6 leftover).
-- [ ] 2b. Phase 7 overworld routines by reference count (the 9 listed under "Resume at", then down the list), plus the `w2d` RAM they use.
+- [~] 2b. Phase 7 overworld routines by reference count: top-level OW states, step/fade/drawing helpers, the map-side object system (bank2d) done; next in /tmp-free order: the remaining `Func_` with 4-8 refs (`Func_b69a6`, `Func_ae915`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`9fb97`), then per-scene locals.
 - [ ] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3`; audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
 - [ ] 2d. Phase 6 leftovers: `.Func_` locals of the object files without a full positional state table.
 - [ ] 2e. Audio engine `Func_` routines; action help demos (bulk rule if one is reliable).
@@ -1040,3 +1040,120 @@ Movement tables in src/level.asm (all used only here; "swipe" = attacks 1/2,
 Also: `wHiddenFigureSCYShake` (already named) is used as the Hidden Figure
 equivalent of `wc08b`; with the first pass's `wc08b` -> `wHiddenFigureSCX`
 it could become `wHiddenFigureSCY`.
+
+### Phase 7 (cont.): overworld routines
+
+The overworld keeps re-implementing the same few helpers per bank. Where the
+code is identical the rows say so; merging them is a separate decision, but
+the names below are chosen so that the copies read alike.
+
+#### Top-level overworld states (src/engine/overworld/state_table.asm)
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_804ec` | overworld/init.asm:161 | `OverworldWaitAPress` | Sub-state 3 (after `InitOverworld` and the fade): advances `wSubState` when A is pressed. | medium |
+| `Func_80540` | init.asm:199 | `UpdateOWScene` | Sub-state 7, after `InitOWScene`: runs the scene, map-side objects (`Func_b4a37`), compass, OAM clean-up. | high |
+| `Func_805d7` | init.asm:268 | `UpdateMapSide` | Sub-state $0b, after `InitMapSide`: `Func_80e89`, compass, OAM clean-up. | high |
+| `Func_80e89` | bank20.asm:21 | `HandleMapSide` | The map-side main loop: D-pad repeat, map/common animations, top and bottom bar, then the `w2d013` jumptable (11 steps: idle input, walking, arriving, exits, Temple hint...). | high |
+| `Func_81055` | bank20.asm:238 | `UpdateOWObjsAndWario` | `Func_b4a3d` (map-side objects 1-4), `Func_82041` (Wario), `Func_b4aa9` (objects 5-15): 20 callers, all at the end of a map-side step. | high |
+| `Func_82041` | bank20.asm:3081 | `UpdateOWWario` | Walk SFX (`w2d10d`), facing sprite from `wLevelArrowDirections1` (`w2d10c`), then draws (`Func_8208d`). | high |
+| `Func_8208d` | bank20.asm:3126 | `DrawOWWario` | Animates `w2d104` with `w2d109` and draws `w2d107` at `w2d100`; nothing when `w2d106 == 0`. | high |
+| `Func_80db1` | overworld/cutscene/common.asm:29 | `ReturnFromCutscene` | `jp InitOverworld.after_cutscene`; last sub-state of `SST_OVERWORLD_CUTSCENE`. | high |
+| `Func_80e33` | overworld/temple/common.asm:9 | `ExitTempleScene` | Last temple sub-state: B held -> back to the map (`SST_OVERWORLD_08`), otherwise next sub-state (the fight; see `SetFightAgainstAHiddenFigure`). | medium |
+| `Func_80e55` / `Func_adbfe` | bank20.asm:5 / bank2b_1.asm:4084 | `UpdateGolfBuilding` / `_UpdateGolfBuilding` | Sub-state after `GolfBuilding` (`SST_OVERWORLD_GOLF_BUILDING`); the far routine updates the building scene and Scene Wario. | high |
+| `Func_80e75` / `Func_af13c` | bank20.asm:13 / bank2b_2.asm:2491 | `UpdateEpilogue` / `_UpdateEpilogue` | Sub-state after `InitEpilogue`: epilogue script, its scene objects (`Func_ac074`, `Func_ac080`) and Scene Wario. | high |
+| `Func_80e85` | bank20.asm:17 | `FinishEpilogue` | Last epilogue sub-state; only calls `Func_803e6`. | low |
+| `Func_803e6` | init.asm:1 | `SaveGameOnReturnFromLevel` | If coming back from a level (`wTransitionParam`, not an exit, bars closed): `SaveGameOrEnterPerfectScreen`. | medium |
+| `Func_af01f` | bank2b_2.asm:2390 | `UnreferencedInitEpilogue` | Marked unreferenced; loads the epilogue palettes, font and `EpilogueCrowdAttrmap` with `MUSIC_EPILOGUE`, like `_InitEpilogue`. | medium |
+
+#### Step helpers (`w2d013`/`w2d014`, `w2d062`, `w2d890`/`w2d891`)
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_ad011` / `Func_ad016` | bank2b_1.asm:2403 / 2407 | `WaitTempleOWStep` / `AdvanceTempleOWStep` | Same code as `WaitCutsceneFunc` / `AdvanceCutsceneFunc` (wait until `w2d014 >= c`; clear `w2d014`, increment `w2d013`), in the temple bank. | high |
+| `Func_aca6d` | bank2b_1.asm:1622 | (duplicate of `Func_ad016`) | Same 5 instructions in the same file. | high |
+| `Func_af130` / `Func_af135` | bank2b_2.asm:2478 / 2484 | `WaitEpilogueOWStep` / `AdvanceEpilogueOWStep` | Same code again, used by the epilogue script. | high |
+| `Func_82a8d` | bank20.asm:4744 | (duplicate of `AdvanceOWFunc`) | Clears `wOWFuncCounter`, increments `w2d062`; bank20's copy of bank2d's `AdvanceOWFunc` (14 jumps from `UnlockLevel`). | high |
+| `Func_81398` | bank20.asm:725 | `AdvanceTempleHint` | Clears `w2d0e5`, increments `w2d0e4`. | high |
+| `Func_ad335`, `Func_ad330`, `Func_ad329`, `Func_ad33c` | bank2b_1.asm:2855-2862 | `AdvanceTempleStep`, `WaitTempleStep`, `AdvanceTempleStepOnWarioState`, `ResetTempleStep` | Update to the first-pass row (`AdvanceSceneStep`/`ResetSceneStep`, "which scene module this is wasn't checked"): bank2b_1 holds the temple scenes (`TempleScene`, `HandleTempleWarioPanic`, `HiddenFigureRevealScene`), and these mirror the prologue's `Func_ae1c2`/`Func_ae1c9`/`Func_ae1ce`/`Func_ae1d5` exactly. | high |
+
+#### Palette fades (bank21) and their bank27 wrappers
+
+`FadePalConfig` fades from `wTempBGPals/wTempOBPals` to `wTempPals1/wTempPals2`
+(its header). Each routine below is called every frame until done, then
+advances the step. The bank27 wrappers are plain `farcall`s, so they take the
+name and the bank21 routine gets the `_` prefix, as for home/far pairs.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_84fff` / `Func_9cdbd` | bank21.asm:926 / bank27.asm:1176 | `_CutsceneFadePals` / `CutsceneFadePals` | Fades all 8 BG and 8 OB palettes from the current ones to `wTempPals1/2` (whatever the cutscene put there), then advances `w2d013`. | medium |
+| `Func_85046` / `Func_9cd8d` | bank21.asm:962 / bank27.asm:1164 | `_CutsceneFadeToWhite` / `CutsceneFadeToWhite` | Copies BG palettes 1-7 and all OB palettes to the start buffers, fills the targets with $ff, fades. | high |
+| `Func_850b9` / `Func_9cd9d` | bank21.asm:1015 / bank27.asm:1168 | `_CutsceneFadeOBToWhite` / `CutsceneFadeOBToWhite` | Same, OB palettes only. | high |
+| `Func_850ff` / `Func_9cdad` | bank21.asm:1049 / bank27.asm:1172 | `_CutsceneFadeBGToWhite` / `CutsceneFadeBGToWhite` | Same, BG palettes 1-7 only. | high |
+| `Func_85145` / `Func_b588d` | bank21.asm:1083 / bank2d.asm:3471 | `_OWFuncFadePals` / `OWFuncFadePals` | As `Func_84fff` but advances `w2d062` (OW functions). | medium |
+| `Func_8518c` / `Func_b587d` | bank21.asm:1118 / bank2d.asm:3467 | `_OWFuncFadeBGPals` / `OWFuncFadeBGPals` | BG only, advances `w2d062`. It writes `OBPI_AUTOINC \| palette 0` into the BG config's index, which is the same value as `BGPI_AUTOINC` ($80), so harmless. | medium |
+| `Func_851bc` / `Func_851d1` | bank21.asm:1144 / 1155 | `StepBGPalConfigFade` / `StepOBPalConfigFade` | One slow `FadePalConfig` step on `wPalConfig1` (rBGPI) / `wPalConfig2` (rOBPI); carry while not done. | high |
+| `Func_9cd40` / `Func_9cd5a` | bank27.asm:1125 / 1138 | `SetPalConfig1ToTempPals1` / `SetPalConfig2ToTempPals2` | Point the fade configs at all 8 `wTempPals1` BG / `wTempPals2` OB palettes. | high |
+| `Func_9cd74` | bank27.asm:1151 | `CopyTempPalsToBGOBPals` | `wTempPals1 -> wTempBGPals`, `wTempPals2 -> wTempOBPals`. | high |
+| `Func_9cc87` | bank27.asm:1001 | `ClearBGOBPals_Bank27` | Zeroes `wTempBGPals`/`wTempOBPals`; bank21's unreferenced `Func_84fd5` is the same code (`UnreferencedClearBGOBPals`), next to the existing `ClearTempPals_Bank21`. | high |
+| `Func_9cdcd` | bank27.asm:1180 | `CutsceneScreenShake` | Cutscene step: moves `wSCY` by -4, +4, -3, +3, -2, +2, -1, +1 every 6 frames, then `AdvanceCutsceneFunc`. Note it keeps its counters in `wCollectionLinkStateCounter`/`wCollectionScrollMode` (collection-screen union members, unused during cutscenes): they deserve cutscene aliases. | high |
+| `Func_9cd16` | bank27.asm:1090 | `ExitCutscene` | Increments `wSubState` and stops SFX; target of all `EndCutscene*`. | high |
+| `Func_9ce1f` | bank27.asm:1234 | `PlaySFX_112` | `play_sfx SFX_112 / ret`, as the existing `PlaySFX_12A`. | high |
+
+#### Scene object drawing helpers
+
+`UpdateOWAnimation`/`LoadOWSprite` take the frameset/OAM bank in `b`; each
+bank has small wrappers that fix `b`, named here after the bank's section.
+Three routines (`SetObjStateIfAnimationIsFinished` in bank2b_1, `Func_9f0d0`
+in bank27, `Func_b4a0d` in bank2d) are the same code (bank27/2d take the new
+state in `b`, bank2b_1 in `e`).
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_9f0a5` | bank27.asm:5858 | `GetCutsceneObjFrameset` | `a` = state (1-based), `hl` = frameset table, `bc` = state byte: returns `de` = frameset and `hl` = the object's duration field (`bc - 2`). 43 callers, always followed by `Func_9f0ae`. | high |
+| `Func_9f0ae` / `Func_9f0b5` | :5867 / :5873 | `UpdateCutsceneObjAnim_OWOAM2` / `UpdateCutsceneObjAnim_ObjFramesets` | `UpdateOWAnimation` with `b = $2f` ("Overworld OAM 2") / `$1a` ("Object Framesets"), returns the state in `a`. | high |
+| `Func_9f0bc` / `Func_9f0c1` / `Func_9f0c6` / `Func_9f0cb` | :5880-5895 | `LoadCutsceneObjSprite_OWOAM2` / `_ObjOAM3` / `_ObjOAM1` / `_ObjOAM4` | `LoadOWSprite` with `b = $2f`, `$62`, `$60`, `$63` ("Objects OAM 3/1/4": level object sprites reused in cutscenes). | high |
+| `Func_b4a0d` | bank2d.asm:1256 | `SetOWObjStateIfAnimFinished` | Copy of `Func_9f0d0`. | high |
+| `Func_ac000` (+ identical `Func_ac00b`, `Func_ac016`) | bank2b_1.asm:3 | `UpdateSceneObjAnim_CreditsOAM` | `hl` = `bc` with bit 1 cleared (state -> duration), `UpdateOWAnimation` with `BANK("Credits OAM")`. Three byte-identical copies. | high |
+| `Func_ac021` | :31 | `UnreferencedUpdateSceneObjAnim_ObjFramesets` | Same with "Object Framesets"; marked unreferenced. | high |
+| `Func_ac02c` / `Func_ac037` | :40 / :49 | `UpdateSceneObjAnim_TitleGfx` / `UpdateSceneObjAnim_OWOAM1` | Same with "Title Gfx" / "Overworld OAM 1". | high |
+| `Func_ac042` (+ identical `Func_ac047`, `Func_ac04c`) / `Func_ac051` | :58 / :70 | `LoadSceneObjSpriteWithScroll_CreditsOAM` / `LoadSceneObjSprite_CreditsOAM` | `LoadOWSprite(WithScroll)` with `BANK("Credits OAM")`. | high |
+| `Func_ac409` | bank2b_1.asm:646 | `UpdatePrologueSceneObj` | State dispatcher called for each object by the existing `UpdatePrologueSceneObjects` (and `Func_ac3fd` for objects 8/9). | high |
+| `Func_ac3fd` | :640 | `UpdatePrologueSceneObjs8And9` | Calls `Func_ac409` for `wSceneObj8`/`9`. | high |
+| `Func_ac0b6` | :123 | `UpdateEpilogueSceneObj` | Same kind of dispatcher, called by `Func_ac074`/`Func_ac080` from `Func_af13c` (the epilogue update). | high |
+| `Func_ac074` / `Func_ac080` | :97 / :103 | `UpdateEpilogueSceneObjs_Front` / `UpdateEpilogueSceneObjs_Back` | `wCurSceneObj` + object 1 before Scene Wario, objects 5-13 after him (`Func_af13c`): drawn in front of / behind him. | medium |
+
+#### Map-side object system (bank2d)
+
+Each map side has its own state table for scene objects. `Func_b4a3d`
+updates objects 1-4 before Wario, `Func_b4aa9` objects 5-15 after him. Per
+side there is the same set of helpers:
+
+| Current (North / East / South / West) | Proposed | Evidence | Conf. |
+|---|---|---|---|
+| `Func_b4fa2` / `Func_b4b99` / `Func_b4cc2` / `Func_b4dfb` | `UpdateNorthOWObj` / `UpdateEastOWObj` / `UpdateSouthOWObj` / `UpdateWestOWObj` | `bc` = state byte: stores the object pointer (`c & $f8`) in `wCurSceneObjPtr` and dispatches on the state. | high |
+| `Func_b4fab` / `Func_b4ba2` / `Func_b4ccb` / `Func_b4e04` | `RunNorthOWObjState` / `RunEastOWObjState` / `RunSouthOWObjState` / `RunWestOWObjState` | The jumptable itself (44 / 36 / 33 / 36 entries); re-entered with the new state after an animation ends. | high |
+| `Func_b507c` / `Func_b4c57` / `Func_b4da0` / `Func_b4e4d` | `AnimateNorthOWObj` / `AnimateEastOWObj` / `AnimateSouthOWObj` / `AnimateWestOWObj` | `UpdateCurOWObjAnimation` with `de`, then falls into the draw routine. 20/25/19/18 jumps. | high |
+| `Func_b507f` / `Func_b4c5a` / `Func_b4da3` / `Func_b4e50` | `DrawNorthOWObj` / `DrawEastOWObj` / `DrawSouthOWObj` / `DrawWestOWObj` | `LoadCurSceneObjSpriteWithScroll` with `OAM_a8000` / `OAM_a980c` / `OAM_a9161` / `OAM_a884a`. | high |
+| `Func_b5085` / `Func_b4c60` / `Func_b4da9` / `Func_b4e56` | `AnimateNorthOWObjOnce` / ... | Animate with `b = 0`, falls into the next row: the object stops (state 0) when its frameset ends. | high |
+| `Func_b508a` / `Func_b4c65` / `Func_b4dae` / `Func_b4e5b` | `AnimateNorthOWObjThenSetState` / ... | `Func_b4a0d`: when the animation ends, state `b` and re-dispatch; otherwise draw. | high |
+| West, second sprite set: `Func_b4e62`, `Func_b4e65`, `Func_b4e6b` (unreferenced), `Func_b4e70` | `AnimateWestOWObj2`, `DrawWestOWObj2`, `UnreferencedAnimateWestOWObj2Once`, `AnimateWestOWObj2ThenSetState` | Same with `OAM_a8f57`. | high |
+| `Func_b4a37` / `Func_b4a3d` / `Func_b4aa9` | `UpdateMapSideOWObjs` / `UpdateMapSideOWObjs_Front` / `UpdateMapSideOWObjs_Back` | See above; `Func_b4a37` calls both. | high |
+| `Func_b4000` | `OWObjState_None` | `ret`; state 0 of the four tables (8 slots). Same role as `Func_b791d` (`OWFunc_DoNothing`). | high |
+
+The ~150 one-line state entries of those tables (`ld de, Frameset_xxx / jr
+<helper>`, e.g. `Func_b5004`..`Func_b5136`, `Func_b4be9`..`Func_b4cbd`) are
+best named after their frameset once the framesets are named (bulk rule:
+`<Side>OWObjState_<FramesetName>`), or by slot (`NorthOWObjState_01`) until then.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_854ee` / `Func_b586d` | bank21.asm:1697 / bank2d.asm:3463 | `_ApplyOWTilemapPatches` / `ApplyOWTilemapPatches` | Walks a list of patches: big-endian `wTilemap` address, tiles until $70, attributes (written $300 lower, in `wAttrmap`) until $70; ends at a 0 address (example: `Data_8550b`). | high |
+| `Func_b5868` | bank2d.asm:3459 | `ApplyOWTilemapPatchesAndRedraw` | Sets `wOWPendingTileUpdate` then falls into `Func_b586d`. | high |
+
+Also noticed: bank2b_1 (golf building, `Func_adbfe`, :4092; map exits, :4299)
+and bank2b_2 (:2926) use fields of the `wPalFade*` structs
+(`wPalFade6Colour2GreenCurrent`, `wPalFade6Colour2GreenSign`,
+`wPalFade2Colour2GreenUnk1`...) and `wTempleRock5Action` as scratch bytes of
+unrelated scenes, as `Func_9cdcd` does with the collection variables: the
+`UNION` in "WRAM2 2" would read better with a `NEXTU` of scene scratch names.
