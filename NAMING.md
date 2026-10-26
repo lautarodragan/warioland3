@@ -9,13 +9,31 @@ or reject.
 - [x] Inventory and plan (this section and the two below)
 - [x] Phase 1: WRAM / SRAM / HRAM unnamed variables (all 88 address-named labels; `wUnused_*` left as is)
 - [x] Phase 2: home bank (`src/home/`) `Func_` routines (all 72), incl. the bank $18 targets of the `homejp` trampolines, the block-probe family in collisions.asm, and the object Y-velocity tables
-- [x] Phase 3: fork focus areas: camera/floor transitions (incl. the swapped `FLOOR_TRANSITION_*` flags), level scrolling, room start, save code, pause tilemap, object interaction handlers `OBJ_INTERACTION_00`-`0B`. Debug menu and owl code have no unnamed labels left. Not done in this phase: interaction handlers `Func_21xxx` (`OBJ_INTERACTION_31` and up) and the remaining local `.asm_` labels of validate_save.asm.
-- [x] Phase 4: rest of the level engine: Wario state helpers (wario_states_1..4.asm, ~95 routines) and block_functions.asm (the multi-block families cover most of its 117 `Func_` + 58 `BlockFunc_`). Left over: the ~25 unnamed `ObjInteraction_*` handlers for `OBJ_INTERACTION_31`+ (`Func_21xxx` in object_interactions.asm).
+- [x] Phase 3: fork focus areas: camera/floor transitions (incl. the swapped `FLOOR_TRANSITION_*` flags), level scrolling, room start, save code, pause tilemap, object interaction handlers `OBJ_INTERACTION_00`-`0B`. Debug menu and owl code have no unnamed labels left. Interaction handlers for `OBJ_INTERACTION_31`+ added afterwards. Not done: most local `.asm_` labels of validate_save.asm.
+- [x] Phase 4: rest of the level engine: Wario state helpers (wario_states_1..4.asm, ~95 routines) and block_functions.asm (the multi-block families cover most of its 117 `Func_` + 58 `BlockFunc_`). The `OBJ_INTERACTION_31`+ handlers are in the Phase 3 section; left over in object_interactions.asm: `Func_2126a`, `Func_2168b`, `Func_20b41`.
 - [x] Phase 5: `unk` fields in structs and constants (object struct, collision flags, scene objects, scene Wario gfx, grab state; audio `CHANNEL_UNK_*`/`TRACK_UNK*` and palette-fade `Unk1/3` not done)
 - [~] Phase 6: object-local `.Func_` states: the 16 objects with full positional state tables (475 labels, mechanical); the other object files' `.Func_` locals (~360) not done
-- [ ] Phase 7+: overworld, action help, data/framesets/OAM/palettes, audio
+- [~] Phase 7+: overworld started (the 8 most-referenced routines); action help, data/framesets/OAM/palettes, audio, `w1d`/`w2d` RAM not started
 
-**Resume at:** the leftovers listed under each phase, or Phase 7 (overworld `Func_`, starting with the most-referenced: `Func_b791d` (127 refs), `Func_ae1ce` (55), `Func_9ccf9`, `Func_9f0a5/ae/bc`).
+**Status:** about 430 table rows (roughly 270 high, 125 medium, 30 low
+confidence; many rows cover a home/far pair or a whole block family, so
+about 650 labels), plus 475 mechanically named object state handlers
+(Phase 6). Every proposed global name was grepped against `src/` and is
+unused.
+
+**Resume at** (in this order):
+1. Phase 7, overworld: the next most-referenced unnamed routines are
+   `Func_9f0a5`/`Func_9f0ae`/`Func_9f0bc` (bank27.asm, 40+ refs each, thin
+   wrappers around `UpdateOWAnimation`/`LoadOWSprite` with a fixed `b`),
+   `Func_b4c57`, `Func_9ce1f`, `Func_81055`, `Func_b507c`, `Func_b4da0`,
+   `Func_b4e4d`, then the `w2dXXX` RAM they use.
+2. Phase 6 leftovers: object files without a full state table (para_goom's
+   and silky's other tables, hidden_figure.asm, shoot.asm, owl.asm-style
+   `.Func_` locals).
+3. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41` in
+   object_interactions.asm; validate_save.asm locals; audio `CHANNEL_UNK_*`.
+4. Data: `Pals_`/`Frameset_`/`OAM_`/`Data_` named in bulk from the object or
+   scene that loads them; action help demo scripts.
 
 ## Inventory (master at f205aa3)
 
@@ -500,6 +518,32 @@ make the object data readable.
 | `Func_20e60` | :1774 | `ObjInteraction_BumpOff` | Slot `OBJ_INTERACTION_0A`: `jp Func_20939`. | medium |
 | `Func_20e6a` | :1783 | `ObjInteraction_BumpOffNoActions` | Slot `OBJ_INTERACTION_0B`: `Func_20939`, then `OBJACTION_0A` (no actions for 15 frames). | low |
 
+#### Object interactions, continued (`OBJ_INTERACTION_31` and up, src/engine/level/object_interactions.asm)
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_21aac` | :3168 | `StandOnOrSmashObject` | From above: with a smash attack (`wIsSmashAttacking == 1`) `Func_20602` + `OBJACTION_SMASH_ATTACK_WALKABLE`, else `Func_209ca`. Used by `ObjInteraction_Walkable` and `Func_21c56`. | high |
+| `Func_21abb` | :3177 | `AttackSolidObject` | `OBJACTION_ATTACK`, then `Func_20a6f` (push Wario out). | medium |
+| `Func_21af1` | :3208 | `ObjInteraction_SolidBumpable` | Slot `OBJ_INTERACTION_31`: stand on it from above, step on from below, sideways `DoJumpingBump` when attacking else push out. | low |
+| `Func_217a9` | :2837 | `DoJumpingBump_Far` | Just `farcall DoJumpingBump`. | medium |
+| `Func_2160a` | :2678 | `TurnIntoBouncyWario` | Sets `TRANSFORMATION_BOUNCY_WARIO`, touch states, `wca94 = 1`, `BOUNCY_WARIO_DURATION`, `SetState_BouncyStart` (unless a persistent transformation); used by `ObjInteraction_Bouncy` and `ObjInteraction_DollBoyHammer`. | high |
+| `Func_21b3a` | :3242 | `BumpOffObject_NoAction` | `Func_20939`, then clears the object's action (`OBJACTION_NONE`). | medium |
+| `Func_21b78` | :3270 | `ObjInteraction_SmashableTop` | Slot `OBJ_INTERACTION_36`: smash attack from above -> `Func_20602` (vanish + jump), otherwise `Func_20939`. | medium |
+| `Func_21c56` | :3362 | `ObjInteraction_GrabbableWalkable` | Slot `OBJ_INTERACTION_3B`: from above `Func_21aac`, otherwise `Func_20b6b` (grabbable). | medium |
+| `Func_21cc9` | :3416 | `SetObjAction_13` | `OBJACTION_13` (object goes to `OBJSTATE_SPECIAL_3`); after `ObjInteraction_Tadpole`'s drag-down and `Func_21e8a`. Name the action first. | low |
+| `Func_21d3b` | :3466 | `ObjInteraction_FrontStingBumpOff` | Slot `OBJ_INTERACTION_46`: front -> `Func_20670` (sting), everything else -> `Func_20e6a` (bump off). | medium |
+| `Func_21d64` | :3485 | `ObjInteraction_TopStingBumpOff` | Slot `OBJ_INTERACTION_47`: from above sting, otherwise bump off. | medium |
+| `Func_21d6f` | :3491 | `ObjInteraction_BottomStingSmashable` | Slot `OBJ_INTERACTION_48`: from below sting; from above smash -> vanish + jump, else bump off; sideways bump off. | low |
+| `Func_21d88` | :3504 | `ObjInteraction_WaterFrontLaunch` | Slot `OBJ_INTERACTION_49`: in water, front -> `Func_21dac`, back -> `Func_208f2`, vertical -> `Func_20899`. | medium |
+| `Func_21dac` | :3521 | `LaunchWario` | Faces Wario the object's way and `SetState_Launched` (unless a persistent transformation), `OBJACTION_06`. | high |
+| `Func_21e9c` | :3628 | `ObjInteraction_GKTortoise` | Slot `OBJ_INTERACTION_GK_TORTOISE` (the constant is already named): as `TRANSFORMATION_BALL` -> `Func_21e8a`, else `Func_20939`. | high |
+| `Func_21e8a` | :3624 | `ShootBallWario` | `SetState_BallShot`, then `Func_21cc9`. | medium |
+| `Func_21ea6` | :3634 | `ObjInteraction_FrontPushBumpOff` | Slot `OBJ_INTERACTION_4F`: front -> face away and `Func_20a6f`, otherwise `Func_21b3a`. | low |
+| `Func_21ecd` | :3656 | `ObjInteraction_FrontDragDown` | Slot `OBJ_INTERACTION_50`: front -> `SFX_FAT_WALK`, `SetState_DraggedDown` (as `ObjInteraction_Tadpole`), else bump off. | medium |
+| `Func_21f01` | :3674 | `ObjInteraction_WaterKnockBackFromAbove` | Slot `OBJ_INTERACTION_51`: from above `SetState_SwimKnockBack` facing right, otherwise `Func_20d8c`. | low |
+| `Func_21f28` | :3688 | `ObjInteraction_FrontStingSmashable` | Slot `OBJ_INTERACTION_52`: from above smashable (`Func_21d6f.asm_21d7e`), from below bump off, front sting, back bump off. | low |
+| `Func_20fe8` | :1957 | `SetObjAction_06` | `ld b, OBJACTION_06 / jp SetObjAction`. Name the action first (it's what stinging/bumping objects get). | low |
+
 ### Phase 4: level engine (Wario states)
 
 All `WST_*` update/set routines are named already; the unnamed ones are their
@@ -725,3 +769,16 @@ object-specific behaviour of each handler wasn't read.
 | src/engine/level/objects/silky.asm (`SilkyFunc`) | `.Func_42eca` -> `.Land`, `.Func_43126` -> `.BumpLeftStart`, `.Func_43130` -> `.BumpRightStart`, `.Func_431b4` -> `.AttackedLeftStart`, `.Func_431be` -> `.AttackedRightStart`, `.Func_431da` -> `.PickedUpLeftStart`, `.Func_431ed` -> `.PickedUpRightStart`, `.Func_42e7b` -> `.StandingFallStart`, `.Func_430d5` -> `.TurnAroundStart`, `.Func_42fe5` -> `.StunLeftStart`, `.Func_43018` -> `.StunRightStart`, `.Func_42e95` -> `.Special1`, `.Func_42ef8` -> `.Walk`, `.Func_430f6` -> `.TurnAround`, `.Func_4300a` -> `.StunLeft`, `.Func_4303d` -> `.StunRight`, `.Func_42dff` -> `.FullThrowLeftStart`, `.Func_42e1b` -> `.FullThrowRightStart` | `.Func_43162` -> `.State0b`, `.Func_43169` -> `.State0c`, `.Func_43083` -> `.State0f`, `.Func_430ba` -> `.State10`, `.Func_43263` -> `.State12`, `.Func_4304b` -> `.State14`, `.Func_43053` -> `.State15`, `.Func_43231` -> `.State18`, `.Func_43200` -> `.State19`, `.Func_431aa` -> `.State28`, `.Func_431a0` -> `.State29`, `.Func_4317a` -> `.State3b`, `.Func_4318d` -> `.State3c`, `.Func_430a0` -> `.State3f`, `.Func_430c8` -> `.State40`, `.Func_43252` -> `.State48`, `.Func_43221` -> `.State49` | medium |
 | src/engine/level/objects/spear_bot.asm (`SpearBotFunc`) | `.Func_45fbf` -> `.Default`, `.Func_461db` -> `.Land`, `.Func_462e3` -> `.BumpLeftStart`, `.Func_462eb` -> `.BumpRightStart`, `.Func_464e7` -> `.AttackedLeftStart`, `.Func_464f1` -> `.AttackedRightStart`, `.Func_46517` -> `.PickedUpLeftStart`, `.Func_4652a` -> `.PickedUpRightStart`, `.Func_46451` -> `.WobbleLeftStart`, `.Func_4645b` -> `.WobbleRightStart`, `.Func_45ffb` -> `.StandingFallStart`, `.Func_463f8` -> `.TurnAroundStart`, `.Func_46319` -> `.StunLeftStart`, `.Func_4634c` -> `.StunRightStart`, `.Func_4605f` -> `.Special1`, `.Func_460a6` -> `.Special2`, `.Func_461fb` -> `.Walk`, `.Func_46043` -> `.StandingFall`, `.Func_46421` -> `.TurnAround`, `.Func_4633e` -> `.StunLeft`, `.Func_46371` -> `.StunRight` | `.Func_4648d` -> `.State0b`, `.Func_46494` -> `.State0c`, `.Func_463b4` -> `.State0f`, `.Func_463dd` -> `.State10`, `.Func_465a0` -> `.State12`, `.Func_4637f` -> `.State14`, `.Func_46387` -> `.State15`, `.Func_4656e` -> `.State18`, `.Func_4653d` -> `.State19`, `.Func_464dd` -> `.State28`, `.Func_464d3` -> `.State29`, `.Func_464a5` -> `.State3b`, `.Func_464b7` -> `.State3c`, `.Func_463c3` -> `.State3f`, `.Func_463eb` -> `.State40`, `.Func_4658f` -> `.State48`, `.Func_4655e` -> `.State49`, `.Func_4618c` -> `.State5a`, `.Func_46170` -> `.State5b` | medium |
 | src/engine/level/objects/teruteru.asm (`TeruteruFunc`) | `.Func_44a72` -> `.Default`, `.Func_44a97` -> `.Land`, `.Func_44c3f` -> `.BumpLeftStart`, `.Func_44c49` -> `.BumpRightStart`, `.Func_44c84` -> `.AttackedLeftStart`, `.Func_44c8e` -> `.AttackedRightStart`, `.Func_44caa` -> `.PickedUpLeftStart`, `.Func_44cbd` -> `.PickedUpRightStart`, `.Func_44b61` -> `.StunLeftStart`, `.Func_44b8d` -> `.StunRightStart`, `.Func_44a09` -> `.Special1`, `.Func_44a25` -> `.Special2`, `.Func_44a5d` -> `.Special3`, `.Func_44ac1` -> `.Walk`, `.Func_44b7f` -> `.StunLeft`, `.Func_44bab` -> `.StunRight` | `.Func_449d1` -> `.State0e`, `.Func_44be1` -> `.State0f`, `.Func_44c12` -> `.State10`, `.Func_44d27` -> `.State12`, `.Func_44bb9` -> `.State14`, `.Func_44bc0` -> `.State15`, `.Func_44cff` -> `.State18`, `.Func_44cd0` -> `.State19`, `.Func_44c7a` -> `.State28`, `.Func_44c70` -> `.State29`, `.Func_44bf8` -> `.State3f`, `.Func_44c32` -> `.State40`, `.Func_44d16` -> `.State48`, `.Func_44cef` -> `.State49`, `.Func_44b2d` -> `.State5a`, `.Func_449d7` -> `.State5b` | medium |
+
+### Phase 7 (started): most-referenced overworld routines
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_b791d` | src/engine/overworld/bank2d.asm:8280 | `OWFunc_DoNothing` | Body is a single `ret`; it fills most entries of overworld jumptables (127 references, e.g. bank2d.asm:8334-8346). | high |
+| `Func_ae1ce` | src/engine/overworld/bank2b_2.asm:358 | `AdvancePrologueStep` | Clears the step timer `w2d891` and increments the step `w2d890`: the prologue's copy of `AdvanceCutsceneFunc` (bank27.asm:1073, same code on `w2d014`). 55 references. | high |
+| `Func_ae1c9` | bank2b_2.asm:352 | `WaitPrologueStep` | Returns until `w2d891 >= c`, then falls into `Func_ae1ce`: the copy of `WaitCutsceneFunc`. | high |
+| `Func_ae1c2` | bank2b_2.asm:346 | `AdvancePrologueStepOnWarioState` | Advances only when `wSceneWarioState == b`. | medium |
+| `Func_ae1d5` | bank2b_2.asm:363 | `ResetPrologueStepAndNext` | Clears `w2d890/w2d891` and `jp Prologue_Next`. | medium |
+| `Func_ad335` / `Func_ad33c` | src/engine/overworld/bank2b_1.asm:2855 / 2861 | `AdvanceSceneStep` / `ResetSceneStep` | Same pattern on `w2d890/w2d891` in bank2b_1's scenes (the reset jumps to `Func_ad016`). Which scene module this is wasn't checked. | low |
+| `Func_9ccf9` | src/engine/overworld/bank27.asm:1064 | `SetSceneObjPosAndState` | Header comment: "a = state, d = y coord, e = x coord"; stores the coords at `hl` and calls `SetSceneObjState`. 43 references. | high |
+| `Func_9f0d0` | bank27.asm:5899 | `SetSceneObjStateWhenAnimFinished` | Returns unless `wOWAnimationFinished == $ff`; then clears duration/frameset offset and sets the state to `b`. | medium |
