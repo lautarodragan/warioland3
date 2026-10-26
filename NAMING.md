@@ -1293,3 +1293,57 @@ tails in `.snake_case`.
 | nobiiru.asm | `.Func_4380e` -> `.Update`; `.Func_4382e` -> `.Wait`; `.Func_43876`, `.Func_438a0`, `.Func_438c5`, `.Func_438ea`, `.Func_43910` -> `.Extend1`..`.Extend5`; `.Func_43936` / `.Func_43956` -> `.Bite1` / `.Bite2`; `.Func_4396e`, `.Func_43994`, `.Func_439ba`, `.Func_439e0`, `.Func_43a06` -> `.Retract1`..`.Retract5`; `.Func_43a2c` -> `.RetractEnd` | `.Update` dispatches on `wCurObjVar1`. `.Wait` counts 60 frames then `SFX_079` and starts extending 12 px; each extend step moves 4 px towards its side with a longer frameset and collision box; the two bite frames switch to `OBJ_INTERACTION_0B`; the retract steps mirror the extend ones; the last returns to the start (`.asm_437f7`). | medium |
 | sun_moon.asm | `SunFunc`: `.Func_472a6` -> `.Update`, `.Func_4731e` -> `.Idle`, `.Func_47378` / `.Func_47388` -> `.StartTurnRight` / `.TurnRight`, `.Func_4739c` / `.Func_473ac` -> `.StartTurnLeft` / `.TurnLeft`, `.Func_472bb` -> `.Drop`; `MoonFunc`: `.Func_475c7`, `.Func_4763f`, `.Func_47699`/`.Func_476a9`, `.Func_476bd`/`.Func_476cd`, `.Func_475dc` -> the same names | `.Update` dispatches on `wCurObjVar1` (0-5). `.Idle`: when no button is pressed for 50 frames and Wario is within 64 px horizontally and 43 px below, it drops (`var1 = 5`, then `SunMoon_XMovement` + floor probe). The turn pairs end on the frameset `.CheckDirection` uses for facing right (`Frameset_68f6b` / moon `68fd0`) or left (`68f74` / `68fd9`). | medium |
 | pneumo.asm | `.Func_4570f` -> `.Float`; `.Func_458c7` -> `.Retreat`; `.Func_4592e` -> `.end_retreat`; `.Func_457bd` -> `.Descend`; `.Func_4585c` -> `.Rise`; `.Func_45893` -> `.Wait`; `.Func_45934` -> `.FollowWarioY`; `.Func_456fe` -> `.set_float`; `.Func_4589d` -> `.start_retreat` | Steps of the substate low nybble in `.Update`. `.Float` bobs along `Data_44000` and moves sideways with wall turns; `.start_retreat` (also on being touched, and when Wario is Puffy) faces away from Wario and moves along `Data_60600` for a while; `.Descend` sinks 2 px a frame until floor or Wario's height; `.Rise` goes up until a ceiling or its timer; `.FollowWarioY` moves towards Wario's Y unless he is Puffy. Roles inferred from movement only. | low |
+
+### Action help demos (src/engine/action_help/)
+
+Each power-up demo in `power_ups/*.asm` is a script: `.StateTable` of
+`<X>ActionHelp` dispatches on `wActionHelpState`; slot 0 is
+`ActionHelp_Init`/`ActionHelp2_Init` and a few slots are the shared
+`ActionHelp(2)_Flash*Input` helpers. Every file follows the same layout
+(checked with a script over all 13 files, 302 `Func_`):
+
+- **slot 1**: `ld hl, wTimer / dec [hl] / ret nz`, falling into the next,
+  unlisted `Func_` -> `<X>ActionHelp_WaitToStart`;
+- **the routine it falls into** (not in the table) sets up the demo scene
+  (Wario walking in, objects, D-pad prompt) -> `<X>ActionHelp_Start`;
+- **the first `Func_` of the file** (not in the table) is jumped to by the
+  last slot: if the demo was opened from a level clear or the title screen
+  it exits (`ACTION_HELP_LEVEL_CLEAR_F`: back to the caller,
+  `ACTION_HELP_TITLE_SCREEN_F`: `InitWithoutDemoPowerUpReset`), otherwise it
+  clears the inputs and restarts at slot 1 -> `<X>ActionHelp_End`;
+- **all other slots** are one scripted step each (move Wario/objects,
+  show an input, wait on `wTimer`) -> `<X>ActionHelp_Step<slot>` (two hex
+  digits) until someone reads them, as for the object states in Phase 6.
+
+`<X>` is the existing routine name: `NoPowerUp`, `GrabGlove`, `Garlic`,
+`HeadSmashHelmet`, `HighJumpBoots`, `LeadOveralls`, `PrinceFrogsGloves`,
+`SuperGrabGlove`, `SuperJumpSlamOveralls`, `SwimmingFlippers`, `Owl`,
+`Rail`, `Vampire`. Confidence: high for `_End`, `_WaitToStart`, `_Start`
+(the code is identical in shape in every file), medium for the slot names.
+
+| File | `_End` | `_WaitToStart` | `_Start` | Step slots (`_Step02`..) |
+|---|---|---|---|---|
+| none.asm | `Func_1f8362` | `Func_1f8395` | `Func_1f839a` | slots 02-20 (29 `Func_`) |
+| grab_gloves.asm | `Func_1f9569` | `Func_1f959c` | `Func_1f95a1` | slots 02-24 (33) |
+| garlic.asm | `Func_1f9ce7` | `Func_1f9d1a` | `Func_1f9d1f` | slots 02-23 (32) |
+| head_smash_helmet.asm | `Func_1f927a` | `Func_1f92ad` | `Func_1f92b2` | slots 02-0c (10) |
+| high_jump_boots.asm | `Func_1fa912` | `Func_1fa945` | `Func_1fa94a` | slots 02-18 (22) |
+| lead_overalls.asm | `Func_1f8988` | `Func_1f89bb` | `Func_1f89c0` | slots 02-1e (28) |
+| prince_frogs_gloves.asm | `Func_1fad42` | `Func_1fad75` | `Func_1fad7a` | slots 02-12 (16) |
+| super_grab_gloves.asm | `Func_1fb179` | `Func_1fb1ac` | `Func_1fb1b1` | slots 02-18 (23) |
+| super_jump_slam_overalls.asm | `Func_1fa4b2` | `Func_1fa4e5` | `Func_1fa4ea` | slots 02-13 (17) |
+| swimming_flippers.asm | `Func_1f8e31` | `Func_1f8e64` | `Func_1f8e69` | slots 02-14 (17) |
+| owl.asm | `Func_1e407e` | `Func_1e4095` | `Func_1e409a` | slots 02-0c (10) |
+| rail.asm | `Func_1e430d` | `Func_1e4324` | `Func_1e4329` | slots 02-11 (14) |
+| vampire.asm | `Func_1e45d7` | `Func_1e45ee` | `Func_1e45f3` | slots 02-10 (12, plus the mislabeled slot 07 below) |
+
+(The `ActionHelp2_*` files, owl/rail/vampire, have no level-clear case in
+`_End`: only the title-screen check.)
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `ApplyWaterCurrentMovementb` | src/engine/action_help/power_ups/vampire.asm:162 | `VampireActionHelp_Step07` | Mislabeled: slot 7 of the vampire demo's `.StateTable` (bat flapping, `SFX_FLAP` every 16 frames, moving Wario's sprite); nothing to do with `ApplyWaterCurrentMovement` (wario_states_1.asm:3911), whose name was apparently copied with a stray `b`. | high |
+| `Func_1fb6f7` | common1.asm:180 | `HandleActionHelpPowerUpSelection` | Called from `UpdateActionHelp` (core.asm:209) unless opened from a level clear/title screen: D-pad right/left changes `wActionHelpPowerUp` (bounded by `NUM_MAIN_POWER_UPS`), resets `wActionHelpState`, moves the cursor (`wMenuObj1XCoord` +/- $10) and blacks the screen out. | high |
+| `Func_1e48bc` | common2.asm:17 | `BlackOutActionHelpBGPals` | Sets `wActionHelpBlackedOut` and loads `Pals_1e4eef` to the BG palettes directly (`LoadActionHelpBGPals`); the next routine, `LoadActionHelpCommonPals`, does the same into `wTempPals1`. | medium |
+| `Func_1e4a47` | common2.asm:241 | `LoadActionHelpPowerUpIconPals` | OB palettes 4 and 7 for the power-up icons: black when `wActionHelpPowerUp` is above the obtained level, otherwise from `Pals_1e4f2f`; then draws `OAM_1e6bab`. | medium |
+| `Func_1e4b6d` | common2.asm:384 | `UnreferencedLoadActionHelpObjSprite` | No references; draws `OAM_1e6bab` at the object at `hl` (minus `wSCY`). | medium |
