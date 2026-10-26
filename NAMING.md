@@ -10,12 +10,12 @@ or reject.
 - [x] Phase 1: WRAM / SRAM / HRAM unnamed variables (all 88 address-named labels; `wUnused_*` left as is)
 - [x] Phase 2: home bank (`src/home/`) `Func_` routines (all 72), incl. the bank $18 targets of the `homejp` trampolines, the block-probe family in collisions.asm, and the object Y-velocity tables
 - [x] Phase 3: fork focus areas: camera/floor transitions (incl. the swapped `FLOOR_TRANSITION_*` flags), level scrolling, room start, save code, pause tilemap, object interaction handlers `OBJ_INTERACTION_00`-`0B`. Debug menu and owl code have no unnamed labels left. Not done in this phase: interaction handlers `Func_21xxx` (`OBJ_INTERACTION_31` and up) and the remaining local `.asm_` labels of validate_save.asm.
-- [ ] Phase 4: rest of the level engine (`src/engine/level/*.asm`, block functions)
+- [~] Phase 4: rest of the level engine: Wario state helpers done (wario_states_1..4.asm, ~95 routines); still to do: block_functions.asm (117 `Func_` + 58 `BlockFunc_`), the remaining update_objects.asm/object_interactions.asm `Func_` (`OBJ_INTERACTION_31`+)
 - [ ] Phase 5: `unk` fields in structs and constants
 - [ ] Phase 6: object-local `.Func_` states in `src/engine/level/objects/`
 - [ ] Phase 7+: overworld, action help, data/framesets/OAM/palettes, audio
 
-**Resume at:** Phase 4 (rest of the level engine: wario_states_*.asm, block_functions.asm).
+**Resume at:** Phase 4, block_functions.asm (`BlockFunc_*` first: name them from the block types that use them).
 
 ## Inventory (master at f205aa3)
 
@@ -486,8 +486,8 @@ make the object data readable.
 | `Func_20899` | :1094 | `PushObjectInWater` | In water: `OBJACTION_WOBBLE` on the object and `StartDive` unless touching it from above. | medium |
 | `Func_208f2` | :1134 | `BumpObjectInWater` | In water: `OBJACTION_BUMP` (local `.Bump`), then `StartDive`. | medium |
 | `Func_2092d` | :1166 | `VanishTouchedObject` | `ld b, OBJACTION_VANISH_TOUCH / jp SetObjAction`. | high |
-| `Func_20939` | :1170 | `BumpOffObject` | Unless `wTouchState` overrides: `OBJACTION_06` and `DoJumpingBump` away from the object (walk gfx, `Frameset_14a76/79`). | high |
-| `Func_20932` | :1166 | `AttackOrBumpOffObject` | `AttackObject` if `wAttackCounter`, else `Func_20939`. | high |
+| `Func_20939` | :1176 | `BumpOffObject` | Unless `wTouchState` overrides: `OBJACTION_06` and `DoJumpingBump` away from the object (walk gfx, `Frameset_14a76/79`). | high |
+| `Func_20932` | :1170 | `AttackOrBumpOffObject` | `AttackObject` if `wAttackCounter`, else `Func_20939`. | high |
 | `Func_209ca` | :1233 | `StandOnSolidObject` | Lifts Wario by up to 2 px of `wc1c1`, `OBJACTION_STEP_ON`, `wIsOnSteppableObject`, lands him (`SetState_Idling`/`CrouchOrSlide`/`SetState_GrabIdling`). Used by the treasure chests, `ObjInteraction_Solid`, `ObjInteraction_Omodon`. | high |
 | `Func_20a6f` | :1309 | `PushAgainstSolidObject` | Side contact with a solid object: pushes Wario out by `wc1c3`/`wc1c4` unless a wall is there, stops his walk, transformation-specific crashes (Ball o' String, Hot, Ice Skatin'), `DoJumpingBump` if rolling/attacking. | high |
 | `Func_20a69` | :1304 | `SetObjAction_0D` | Just `OBJACTION_0D` (which puts the object in `OBJSTATE_19`); used by Food, Zombie Head, Snow. Name the action first. | low |
@@ -499,3 +499,120 @@ make the object data readable.
 | `Func_20e39` | :1755 | `ObjInteraction_FrontBump` | Slot `OBJ_INTERACTION_09`: touching its front -> `Func_20939`, back -> `Func_2022c`, above/below -> step on. | medium |
 | `Func_20e60` | :1774 | `ObjInteraction_BumpOff` | Slot `OBJ_INTERACTION_0A`: `jp Func_20939`. | medium |
 | `Func_20e6a` | :1783 | `ObjInteraction_BumpOffNoActions` | Slot `OBJ_INTERACTION_0B`: `Func_20939`, then `OBJACTION_0A` (no actions for 15 frames). | low |
+
+### Phase 4: level engine (Wario states)
+
+All `WST_*` update/set routines are named already; the unnamed ones are their
+helpers. Three patterns cover most of them:
+
+1. **Jump/fall entry points.** `SetState_SnowmanAirborne_Jump` and
+   `SetState_SnowmanAirborne_Fall` already exist: a `_Jump` entry sets
+   `wJumpVelIndex = 0` (and usually plays `SFX_JUMP`), a `_Fall` entry sets
+   `FALLING_JUMP_VEL_INDEX`, and both fall through into `SetState_<X>Airborne`.
+   Every unnamed routine below that does that gets the same scheme.
+2. **Input handlers.** Called once from `UpdateState_<X>`, they start by
+   reading `wJoypadPressed/Down` and pick the next state: `Handle<X>Input`.
+3. **Airborne movement.** `ApplyJumpVelocity` + walk from input + cap
+   `wWalkVelIndex`: `Handle<X>AirborneMovement`.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_1e1e3` | wario_states_1.asm:3639 | `SetState_RollingAirborne_Jump` | `wJumpVelIndex = 0`, `jr SetState_RollingAirborne`. | high |
+| `Func_1e174` | wario_states_1.asm:3589 | `SetState_RollingAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, falls into `SetState_RollingAirborne`. | high |
+| `Func_1ede9` | wario_states_1.asm:5006 | `SetState_GrabAirborne_Jump` | `SFX_JUMP`, index 0, `JUMP_VEL_HIGH_JUMP` with the High Jump Boots and UP, falls into `SetState_GrabAirborne`. | high |
+| `Func_1edd3` | wario_states_1.asm:4994 | `SetState_GrabAirborne_Fall` | `GRAB_IDLE`, `FALLING_JUMP_VEL_INDEX`, `jr SetState_GrabAirborne`. | high |
+| `Func_2838a` | wario_states_3.asm:392 | `SetState_HotAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `JUMP_VEL_NORMAL`, `WST_HOT_AIRBORNE`. | high |
+| `Func_28380` | wario_states_3.asm:385 | `SetState_HotAirborne_FallAligned` | Centres `wWarioXPos` on the block (`and $f0 / add 8`), then falls into `Func_2838a`. | medium |
+| `Func_28c15` | wario_states_3.asm:1297 | `SetState_BallOStringAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `JUMP_VEL_HIGH_JUMP`, `WST_BALL_O_STRING_AIRBORNE`. | high |
+| `Func_290a1` | wario_states_3.asm:1739 | `SetState_FatAirborne_Jump` | `SFX_JUMP`, index 0, then `SetState_FatAirborne`. | high |
+| `Func_290d6` | wario_states_3.asm:1764 | `SetState_FatAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `wIsSmashAttacking = TRUE` (fat Wario lands with a ground pound). | high |
+| `Func_29be1` | wario_states_3.asm:2977 | `SetState_ZombieAirborne_Jump` | Sets the jump frameset and index, falls into `SetState_ZombieAirborne`; called on A from the Zombie input handlers. | medium |
+| `Func_29bb9` | wario_states_3.asm:2955 | `SetState_ZombieAirborne_Fall` | Called when there's no floor under Zombie Wario (`UpdateState_ZombieIdling/Walking/Airborne`). | medium |
+| `Func_2a675` | wario_states_3.asm:4133 | `SetState_CrazyAirborne_Jump` | Index 0, `jr SetState_CrazyAirborne`. | high |
+| `Func_2a67b` | wario_states_3.asm:4138 | `SetState_CrazyAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, falls into `SetState_CrazyAirborne`. | high |
+| `Func_2a8ae` | wario_states_3.asm:4371 | `SetState_VampireAirborne_Jump` | `SFX_01D`, index 0, falls into `SetState_VampireAirborne`. | high |
+| `Func_2a8a7` | wario_states_3.asm:4366 | `SetState_VampireAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `jr SetState_VampireAirborne`. | high |
+| `Func_2af81` | wario_states_3.asm:5085 | `SetState_OnFireAirborne_Jump` | `SFX_JUMP`, index 0, `JUMP_VEL_NORMAL`, falls into `SetState_OnFireAirborne`. | high |
+| `Func_2af75` | wario_states_3.asm:5078 | `SetState_OnFireAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `JUMP_VEL_HIGH_JUMP`, `jr SetState_OnFireAirborne`. | high |
+| `Func_1ed558` | wario_states_4.asm:2226 | `SetState_BlindAirborne_Jump` | `SFX_JUMP`, index 0, `wJumpingUpwards`, falls into `SetState_BlindAirborne`. | high |
+| `Func_1ed548` | wario_states_4.asm:2217 | `SetState_BlindAirborne_Fall` | `FALLING_JUMP_VEL_INDEX`, `JUMP_VEL_HIGH_JUMP`, `SetState_BlindAirborne`. | high |
+| `Func_2a0b2` | wario_states_3.asm:3522 | `StartBouncyJump` | A held -> `Func_2a0bb`, else `Func_2a0c2`; called from `StepOnObject` (bouncing off an object as Bouncy Wario). | medium |
+| `Func_2a0bb` / `Func_2a0c2` | wario_states_3.asm:3528 / 3533 | `StartBouncyJump_High` / `StartBouncyJump_Normal` | Set `JUMP_VEL_BOUNCY_HIGH_JUMP` / `JUMP_VEL_BOUNCY_JUMP`. | high |
+| `Func_1ec64d` | wario_states_4.asm:702 | `SetState_ReleasingOwl` | Sets `WST_RELEASING_OWL` and calls `ReleaseOwl`; reached from `UpdateState_OwlSlow/OwlFast` (relevant to the debug owl). | high |
+| `Func_2ac7d` | wario_states_3.asm:4776 | `SetState_InBubble` | Sets `WST_IN_BUBBLE`, collision box, gfx; called by `ObjInteraction_Bubble`. | high |
+| `Func_1edd24` | wario_states_4.asm:2849 | `SetState_BallBouncing` | Sets `WST_BALL_BOUNCING`; reached from `Func_1edaca`/`Func_1edaf8`. | high |
+| `Func_19e89` | wario_states_2.asm:283 | `SetState_CrouchSlipping_KeepCounter` | Second entry of `SetState_CrouchSlipping` that skips resetting `wWarioStateCounter/Cycles`; used from `UpdateState_Slipping` when DOWN is held. | medium |
+| `Func_1de3f` | wario_states_1.asm:3261 | `StartThrow` | `UpdateState_ThrowCharging` jumps here when B is released: throw frameset, `GRAB_THROW`, falls into `SetState_Throwing`. | high |
+| `Func_1dd78` | wario_states_1.asm:3169 | `DropObjectAndJump` | Clears `wGrabState` and `StartJump_FromInput`; A pressed while picking up / charging a throw. | high |
+| `Func_1ec19` | wario_states_1.asm:4799 | `CrouchJump` | Tries the standing collision box (top -27) and starts `StartCrouchJump`; A while crouching. | medium |
+| `Func_1ec4b` | wario_states_1.asm:4822 | `StandUpAndAttack` | B while crouching: `SetState_Attacking` if there's room to stand up. | medium |
+| `Func_1eb46` | wario_states_1.asm:4704 | `HandleCrouchingInput` | Only caller `UpdateState_Crouching`. | high |
+| `Func_1ec6c` | wario_states_1.asm:4835 | `HandleCrouchWalkingInput` | Only caller `UpdateState_CrouchWalking`. | high |
+| `Func_1ee88` | wario_states_1.asm:5076 | `HandleGrabIdlingInput` | Only caller `UpdateState_GrabIdling`. | high |
+| `Func_1eefc` | wario_states_1.asm:5128 | `HandleGrabWalkingInput` | Only caller `UpdateState_GrabWalking`. | high |
+| `Func_1f1a9` | wario_states_1.asm:5462 | `HandleSubmergedInput` | Only caller `UpdateState_Submerged`; B -> `StartUnderwaterThrusting`. | high |
+| `Func_1f24c` | wario_states_1.asm:5529 | `HandleSwimming` | D-pad swimming while submerged (dispatches to the four helpers below, loops `SFX_00E`). | medium |
+| `Func_1f310` | wario_states_1.asm:5609 | `SwimForward` | Front collision, then moves Wario left/right against `wCurWaterCurrent`. | medium |
+| `Func_1f357` | wario_states_1.asm:5649 | `SwimDownForward` | Centre (floor) collision then `Func_1f310`. | low |
+| `Func_1f3a7` | wario_states_1.asm:5676 | `SwimDown` | Floor collision, else `MoveWarioDown` (sets `wc0e1 = PAD_DOWN` when blocked). | medium |
+| `Func_1f3d9` | wario_states_1.asm:5696 | `SwimUp` | `CheckUpCollision`, `Func_19acd` (surface if out of water), `MoveWarioUp`. | medium |
+| `Func_1f825` | wario_states_1.asm:6185 | `HandleSlidingInput` | Only caller `UpdateState_Sliding`. | high |
+| `Func_1f6c2` | wario_states_1.asm:6005 | `BlinkWarioPal` | Alternates `WarioInvisiblePal`/default palette every 8 frames; used by `UpdateState_Stung/StungRecovery`. | high |
+| `Func_1f863` | wario_states_1.asm:6223 | `MoveWarioUpBySwimVel` | `MoveWarioUp` by `SwimStraightVelTable[de]`; used by the bat flying handler. | medium |
+| `Data_1f894` | wario_states_1.asm:6233 | `UnderwaterThrustVelTable` | Indexed in `HandleUnderwaterThrustingInput` like `SwimStraightVelTable`. | low |
+| `Func_1e6ea` | wario_states_1.asm:4220 | `SetWarioWalkAnimation` | Walk gfx (`WarioWalkGfx`, `OAM_1426c`) and `Frameset_149b4/149c5` by direction; used by `SetState_SandWalking` and `SetNextGetTreasureState`. | medium |
+| `Func_1a12a` / `Func_1a14b` | wario_states_2.asm:563 / 579 | `SetWarioSandJumpAnimation` / `SetWarioSandJumpFrameset` | Tail of `SetState_SandJumping`: airborne gfx/OAM, then `Frameset_15f94/97`; the frameset half is also used by `Func_1b2c0`. | low |
+| `Func_1b168` | wario_states_2.asm:2186 | `HandleFenceMovingVerticalInput` | Only caller `UpdateState_FenceMovingVertical`. | high |
+| `Func_1b21a` | wario_states_2.asm:2244 | `HandleFenceIdlingInput` | Only caller `UpdateState_FenceIdling`. | high |
+| `Func_1b24f` | wario_states_2.asm:2267 | `HandleFenceMovingHorizontalInput` | Only caller `UpdateState_FenceMovingHorizontal`. | high |
+| `Func_1b2c0` | wario_states_2.asm:2313 | `HandleSandFallingInput` | Only caller `UpdateState_SandFalling`. | high |
+| `Func_1b302` | wario_states_2.asm:2338 | `SinkInSand` | Floor check, else `MoveWarioDown` by 1. | medium |
+| `Func_1b322` | wario_states_2.asm:2353 | `HandleSandIdlingInput` | Only caller `UpdateState_SandIdling`. | high |
+| `Func_1b333` | wario_states_2.asm:2362 | `HandleSandWalkingInput` | Only caller `UpdateState_SandWalking`. | high |
+| `Func_1b480` | wario_states_2.asm:2495 | `HandleLadderIdlingInput` | Only caller `UpdateState_LadderIdling`. | high |
+| `Func_28f6d` | wario_states_3.asm:1621 | `HandleFatIdlingInput` | Only caller `UpdateState_FatIdling`. | high |
+| `Func_2b239` | wario_states_3.asm:5393 | `HandleFatWalkingInput` | Only caller `UpdateState_FatWalking`. | high |
+| `Func_2b10a` | wario_states_3.asm:5265 | `HandleFlatIdlingInput` | Only caller `UpdateState_FlatIdling`. | high |
+| `Func_2b11b` | wario_states_3.asm:5274 | `HandleFlatWalkingInput` | Only caller `UpdateState_FlatWalking`. | high |
+| `Func_2b34e` | wario_states_3.asm:5517 | `HandleZombieIdlingInput` | Only caller `UpdateState_ZombieIdling`. | high |
+| `Func_2b381` | wario_states_3.asm:5542 | `HandleZombieWalkingInput` | Only caller `UpdateState_ZombieWalking`. | high |
+| `Func_2b3f9` | wario_states_3.asm:5600 | `HandleCrazyInput` | Only caller `UpdateState_Crazy`. | high |
+| `Func_2b42b` | wario_states_3.asm:5630 | `HandleCrazyWalking` | Increments `wWalkVelIndex`, staggers left/right with wall checks and dust (`Func_2b4d0`). | low |
+| `Func_2b4d0` | wario_states_3.asm:5703 | `CreateDustParticleAtWario` | `get_pos` + `PARTICLE_DUST` + `CreateParticle`. | high |
+| `Func_2b4f3` | wario_states_3.asm:5709 | `HandleVampireIdlingInput` | Only caller `UpdateState_VampireIdling`; B -> `SetState_BatTransforming`. | high |
+| `Func_2b509` | wario_states_3.asm:5720 | `HandleVampireWalkingInput` | Only caller `UpdateState_VampireWalking`. | high |
+| `Func_2b63b` | wario_states_3.asm:5840 | `HandleBatFlyingInput` | Only caller `UpdateState_BatFlying`; A released -> `SetState_BatFalling`. | high |
+| `Func_2ae8a` | wario_states_3.asm:4986 | `HandleOnFireInput` | Only caller `UpdateState_OnFire`. | high |
+| `Func_1ede96` | wario_states_4.asm:3210 | `HandleSnowmanWalkingInput` | Only caller `UpdateState_SnowmanWalking`. | high |
+| `Func_1edf93` | wario_states_4.asm:3308 | `HandleBlindIdlingInput` | Only caller `UpdateState_BlindIdling`. | high |
+| `Func_1edfa4` | wario_states_4.asm:3317 | `HandleBlindWalkingInput` | Only caller `UpdateState_BlindWalking`. | high |
+| `Func_1edf47` | wario_states_4.asm:3278 | `HandleFanInput` | Fan lifting/spinning: turns with the D-pad (`SetState_FanTurning`), drifts sideways with wall checks. | medium |
+| `Func_1edf2b` | wario_states_4.asm:3269 | `RiseInAirCurrent` | `Func_19acd`; out of the air current -> `SetState_FanSpinning`, else `MoveWarioUp` 1. | medium |
+| `Func_1edaca` / `Func_1edaf8` | wario_states_4.asm:2805 / 2827 | `HandleBallInput` / `HandleBallAirborneInput` | D-pad against the facing direction -> `SetState_BallTurning`, else `SetState_BallBouncing`. | low |
+| `Func_2af9c` | wario_states_3.asm:5101 | `HandleOnFireAirborneMovement` | `ApplyJumpVelocity`, `HandleWalk`, cap `wWalkVelIndex`; only caller `UpdateState_OnFireAirborne`. | medium |
+| `Func_2b027` | wario_states_3.asm:5164 | `HandleHotAirborneMovement` | Same idea for `UpdateState_HotAirborne`. | medium |
+| `Func_2b2a4` | wario_states_3.asm:5439 | `HandleFatAirborneMovement` | `UpdateState_FatAirborne`. | medium |
+| `Func_2b3dd` | wario_states_3.asm:5581 | `HandleZombieAirborneMovement` | `UpdateState_ZombieAirborne`, `UpdateState_ZombieSlippingThroughFloor`. | medium |
+| `Func_2b55c` | wario_states_3.asm:5752 | `HandleVampireAirborneMovement` | `UpdateState_VampireAirborne`. | medium |
+| `Func_1edf01` | wario_states_4.asm:3253 | `HandleSnowmanAirborneMovement` | `UpdateState_SnowmanAirborne`. | medium |
+| `Func_1ee00f` | wario_states_4.asm:3364 | `HandleBlindAirborneMovement` | `UpdateState_BlindAirborne`. | medium |
+| `Func_1ee02e` | wario_states_4.asm:3375 | `HandleBallAirborneMovement` | `UpdateState_BallAirborne`. | medium |
+| `Func_2b17a` | wario_states_3.asm:5315 | `WalkFromInput` | `WalkRight`/`WalkLeft` from the D-pad; 13 callers. | high |
+| `Func_2b342` | wario_states_3.asm:5509 | `MoveWarioUpSlowly` | `MoveWarioUp` 1 every other frame. | high |
+| `Func_2b2c2` | wario_states_3.asm:5455 | `HandlePuffyRising` | Rises (`Func_2b342`), ceiling -> `SetState_PuffyDeflating`, D-pad turning, floor transitions upwards. | medium |
+| `Func_2b56f` | wario_states_3.asm:5763 | `HandleInBubble` | Rises every other frame, drifts, pops (`RecoverFromTransformation`) against walls/ceilings. | medium |
+| `Func_2ae5c` | wario_states_3.asm:4951 | `IsTransformationEnding` | Carry when `wTransformationDuration` is nearly over. | medium |
+| `Func_2ae3b` | wario_states_3.asm:4932 | `BlinkPalIfTransformationEnding` | Calls `Func_2ae5c` and toggles the palette when it returns carry. | medium |
+| `Func_2ad6a` | wario_states_3.asm:4860 | `RecoverFromTransformation_Underwater` | `ClearTransformationValues`, 16 invincible frames, `SetState_Submerged`. | medium |
+| `Func_2ade4` | wario_states_3.asm:4907 | `RecoverFromTransformation_InWater` | Same but splash + `DiveFromSurface_SkipSplash` (Hot/On Fire Wario falling into water). | medium |
+| `Func_1ed09b` | wario_states_4.asm:1742 | `TurnAndRecoverFromTransformation` | Flips `wDirection`, `jp RecoverFromTransformation`. | high |
+| `Func_1ede4d` | wario_states_4.asm:3185 | `LeaveRailAndJump` | Ends the rail transformation (`ClearTransformationValues`, default palette) and `StartJump_FromInput`. | medium |
+| `Func_1ede69` | wario_states_4.asm:3193 | `LeaveRailAndFall` | Same, then `Func_1e174` (rolling fall). | medium |
+| `Func_1ec215` | wario_states_4.asm:235 | `IceSkatinCrashIntoWall` | Steps 3 px back and `SetState_IceSkatinCrash`; also from `Func_20a6f`. | high |
+| `Func_28bd5` | wario_states_3.asm:1266 | `BallOStringBounceOffWall` | Flips direction, then `SetState_BallOStringKnockBack`; also from `Func_20a6f`. | medium |
+| `Func_2afc5` | wario_states_3.asm:5118 | `HotBounceOffWall` | Flips direction and steps back; from `Func_20a6f` while Hot. | low |
+
+Also noticed: `UpdateStart_FanLifting`, `UpdateStart_FanTurning` and
+`UpdateStart_FanRecovering` (wario_states_4.asm:43-46, 1854, 1908, 1991) are
+entries of the `WST_FAN_*` update table: almost certainly typos for
+`UpdateState_*` (every other entry uses that prefix). High confidence.
