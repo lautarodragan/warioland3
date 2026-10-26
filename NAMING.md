@@ -15,6 +15,15 @@ or reject.
 - [~] Phase 6: object-local `.Func_` states: the 16 objects with full positional state tables (475 labels, mechanical); the other object files' `.Func_` locals (~360) not done
 - [~] Phase 7+: overworld started (the 8 most-referenced routines); action help, data/framesets/OAM/palettes, audio, `w1d`/`w2d` RAM not started
 
+**Second pass (branch `claude/naming-survey-2-dh93t5`), plan in this order:**
+
+- [ ] 2a. `w1dXXX` RAM (36: level boss union, WRAM1 transformation scratch, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped.
+- [ ] 2b. Phase 7 overworld routines by reference count (the 9 listed under "Resume at", then down the list), plus the `w2d` RAM they use.
+- [ ] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3`; audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
+- [ ] 2d. Phase 6 leftovers: `.Func_` locals of the object files without a full positional state table.
+- [ ] 2e. Audio engine `Func_` routines; action help demos (bulk rule if one is reliable).
+- [ ] 2f. Bulk `Data_`/`Pals_`/`Frameset_`/`OAM_` naming from the loader, where a mechanical rule holds.
+
 **Status:** about 430 table rows (roughly 270 high, 125 medium, 30 low
 confidence; many rows cover a home/far pair or a whole block family, so
 about 650 labels), plus 475 mechanically named object state handlers
