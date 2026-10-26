@@ -12,37 +12,36 @@ or reject.
 - [x] Phase 3: fork focus areas: camera/floor transitions (incl. the swapped `FLOOR_TRANSITION_*` flags), level scrolling, room start, save code, pause tilemap, object interaction handlers `OBJ_INTERACTION_00`-`0B`. Debug menu and owl code have no unnamed labels left. Interaction handlers for `OBJ_INTERACTION_31`+ added afterwards. Not done: most local `.asm_` labels of validate_save.asm.
 - [x] Phase 4: rest of the level engine: Wario state helpers (wario_states_1..4.asm, ~95 routines) and block_functions.asm (the multi-block families cover most of its 117 `Func_` + 58 `BlockFunc_`). The `OBJ_INTERACTION_31`+ handlers are in the Phase 3 section; left over in object_interactions.asm: `Func_2126a`, `Func_2168b`, `Func_20b41`.
 - [x] Phase 5: `unk` fields in structs and constants (object struct, collision flags, scene objects, scene Wario gfx, grab state; audio `CHANNEL_UNK_*`/`TRACK_UNK*` and palette-fade `Unk1/3` not done)
-- [~] Phase 6: object-local `.Func_` states: the 16 objects with full positional state tables (475 labels, mechanical); the other object files' `.Func_` locals (~360) not done
-- [~] Phase 7+: overworld started (the 8 most-referenced routines); action help, data/framesets/OAM/palettes, audio, `w1d`/`w2d` RAM not started
+- [~] Phase 6: object-local `.Func_` states: the 16 objects with full positional state tables (475 labels, mechanical); the other object files' `.Func_` locals (~360) not done (continued in the second pass, 2d)
+- [~] Phase 7+: overworld started (the 8 most-referenced routines); action help, data/framesets/OAM/palettes, audio, `w1d`/`w2d` RAM not started (continued in the second pass, 2a-2f)
 
 **Second pass (branch `claude/naming-survey-2-dh93t5`), plan in this order:**
 
 - [x] 2a. `w1dXXX` RAM (36: Hidden Figure, boss union, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped; plus a scan for WRAMX labels used with the wrong WRAM bank (4 finds). Hidden Figure's object code read in full on the way (Phase 6 leftover).
-- [~] 2b. Phase 7 overworld routines by reference count: top-level OW states, step/fade/drawing helpers, the map-side object system (bank2d) done; next in /tmp-free order: the remaining `Func_` with 4-8 refs (`Func_b69a6`, `Func_ae915`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`9fb97`), then per-scene locals.
+- [~] 2b. Phase 7 overworld: top-level OW states, step/fade/sprite helpers, the map-side object system (bank2d, with a bulk rule for its ~150 state entries) done. Not done: `Func_` with 4-8 refs (`Func_b69a6`, `Func_ae915`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`), the rest of bank20/21/26/27/2b/2d/56 `Func_` (~450), and the scene-local `.Func_` (~1200).
 - [x] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3` (the macro's field names are off by position); audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
-- [ ] 2d. Phase 6 leftovers: `.Func_` locals of the object files without a full positional state table.
-- [ ] 2e. Audio engine `Func_` routines; action help demos (bulk rule if one is reliable).
-- [ ] 2f. Bulk `Data_`/`Pals_`/`Frameset_`/`OAM_` naming from the loader, where a mechanical rule holds.
+- [~] 2d. Phase 6 leftovers: done for Hidden Figure and 26 smaller objects (appleby .. zombie, hand, nobiiru, sun/moon, pneumo), plus 3 literal update-function pointers found on the way. Not done (~200 labels): the bosses and large objects anonster.asm (39), muddee.asm (29), omodonmeka.asm (23), jamano.asm (22), yellow_belly.asm (22), scowler.asm (21), pesce.asm (16), shoot.asm (11), and a few unclear locals noted in the table.
+- [x] 2e. Audio engine `Func_` routines; action help demos (bulk rule covering all 302 `Func_`, plus the 4 common ones).
+- [~] 2f. Bulk data: `RoomPals###` (146 `Pals_`) and `LevelRooms_` (119) generated; framesets/OAM/other palettes/`Data_` only counted, with an owner-prefix rule suggested.
 
-**Status:** about 430 table rows (roughly 270 high, 125 medium, 30 low
-confidence; many rows cover a home/far pair or a whole block family, so
-about 650 labels), plus 475 mechanically named object state handlers
-(Phase 6). Every proposed global name was grepped against `src/` and is
-unused.
+**Status:** first pass: about 430 table rows (~650 labels) plus 475
+mechanical object state names. Second pass (sections under "Second pass"
+below): about 320 table rows, roughly 205 high, 90 medium, 15 low
+confidence; with the rows that cover several labels and the three bulk
+rules (action help 302, room palettes 146, level room tables 119, map-side
+object states ~150) it covers roughly 1400 labels. Every proposed global
+name was checked with a script against `src/` and this file.
 
 **Resume at** (in this order):
-1. Phase 7, overworld: the next most-referenced unnamed routines are
-   `Func_9f0a5`/`Func_9f0ae`/`Func_9f0bc` (bank27.asm, 40+ refs each, thin
-   wrappers around `UpdateOWAnimation`/`LoadOWSprite` with a fixed `b`),
-   `Func_b4c57`, `Func_9ce1f`, `Func_81055`, `Func_b507c`, `Func_b4da0`,
-   `Func_b4e4d`, then the `w2dXXX` RAM they use.
-2. Phase 6 leftovers: object files without a full state table (para_goom's
-   and silky's other tables, hidden_figure.asm, shoot.asm, owl.asm-style
-   `.Func_` locals).
-3. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41` in
-   object_interactions.asm; validate_save.asm locals; audio `CHANNEL_UNK_*`.
-4. Data: `Pals_`/`Frameset_`/`OAM_`/`Data_` named in bulk from the object or
-   scene that loads them; action help demo scripts.
+1. Phase 6 bosses: anonster.asm, muddee.asm, omodonmeka.asm, jamano.asm,
+   yellow_belly.asm, scowler.asm, pesce.asm, shoot.asm (read each in full,
+   as done for hidden_figure.asm; their boss-union bytes need names too).
+2. Phase 7: the overworld `Func_` with 4-8 references listed in 2b, then
+   bank27's cutscene frameset tables (`Func_9f0e0`-style per-cutscene object
+   updaters, which all use `Func_9f0a5`/`Func_9f0ae`/`Func_9f0bc`), then
+   per-scene locals in bulk where a rule holds.
+3. Data: owner-prefix rule for framesets/OAM (script in the 2f section's
+   description), then descriptive names per object/scene.
 
 ## Inventory (master at f205aa3)
 
