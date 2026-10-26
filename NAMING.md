@@ -1246,3 +1246,46 @@ users need their own labels.
 | `TRACK_UNK0D` | `TRACK_UNUSED_0D` | Only cleared. | high |
 | `TRACK_UNK0E` | `TRACK_FREQUENCY_HI_ADD` | From `wSoundEngineParam4` (the note, or byte 6 of a percussion entry), added to the frequency high byte in `SetFrequency`. Purpose unclear. | low |
 | `TRACK_UNK0F`, `TRACK_UNK14`..`TRACK_UNK17` | `TRACK_UNUSED_*` | Never referenced. | high |
+
+#### Notable finding: update-function pointers written as numbers
+
+Three places set `OBJ_UPDATE_FUNCTION` from literal bytes instead of
+`HIGH()/LOW()` of a label, so they break as soon as code before them moves
+(relevant to this fork, which edits object code). A scan of `src/` for this
+pattern found exactly these:
+
+| Where | Literal | Target | Fix | Conf. |
+|---|---|---|---|---|
+| src/engine/level/objects/togeba.asm:60-63 | `$4e`, `$02` | `TogebaFunc.Func_48e02` (bank $12:$4e02) | `HIGH/LOW(.Func_48e02)`; the label is otherwise unreferenced | high |
+| togeba.asm:102-105 | `$4e`, `$3e` | `TogebaFunc.Func_48e3e` ($4e3e) | `HIGH/LOW(.Func_48e3e)`; also otherwise unreferenced | high |
+| src/engine/level/objects/seeing_eye_door.asm:94-97 | `$54`, `$f6` | bank $11:$54f6, the unlabeled code right after `jr .Default` (seeing_eye_door.asm:49) that waits until Wario is within $36 px vertically (unless invisible) and then jumps to `.CheckWarioDistance` | add a label there (`.WaitForWario`) and use it; the block looks unreachable in the source but isn't | high |
+
+#### Other objects' `.Func_` locals
+
+Names follow the existing ones in the same files (`.Init`, `.Update` for the
+per-frame dispatcher, `.ThrowHead`, ...): states in `.CamelCase`, shared
+tails in `.snake_case`.
+
+| File | Proposed (label -> name) | Evidence | Conf. |
+|---|---|---|---|
+| appleby.asm | `.Func_479e0` -> `.Hidden`; `.Func_47ab0` -> `.HandleHit`; `.Func_47bd3` / `.Func_47bd8` -> `.HopLeft` / `.HopRight` | State 0 of `.Update`: no collision, waits while on screen, then appears (state $5a, collision on). States $01-$29: vanish/attack/thrown reactions, otherwise back to hiding ($2d). The last two move one way while applying `Data_60040` (`DropYVel_Light`), chosen by Wario's side. | medium |
+| big_leaf.asm | `.Func_42d0e` -> `.WaitAndDespawn` | Set when the leaf lands in water/sand (splash frameset, `SFX_08F`): counts down, then clears `wCurObjFlags`. | high |
+| bird.asm | `.Func_432c2` -> `.Idle`; `.Func_43342` -> `.Special3`; `.Func_43353` -> `.FlyAway`; `.Func_4340b` / `.Func_43427` -> `.BlueBirdWait` / `.BlueBirdLand` | `.Idle` is state 0 (faces Wario when on screen); `.Special3` is state $2f (countdown, `SFX_070`); after being released a normal bird flies off fast (`MoveObjectLeft/Right_Fast`), the blue bird waits, changes frameset, then sets `OBJSTATE_LAND` facing its direction. | medium (low for the blue bird pair) |
+| bubble.asm | `.Func_47c88` -> `.Rise` | Moves up 1 px (every other frame on screen), bursts on a ceiling (`Func_358b`, `.set_burst`). `.Func_47d56` (side probes, then turns around) left unnamed: low confidence. | medium |
+| falling_snow.asm | spawner: `.Func_49544` -> `.WaitAndSpawn`, `.Func_49566` -> `.ShowWarning`, `.Func_4959d` -> `.HideWarning`; snow: `.Func_495ef` -> `.StartFall`, `.Func_49610` -> `.Fall`, `.Func_49675` -> `.FallBroken`, `.Func_496ae` -> `.WaitAndDespawn` | `FallingSnowSpawnerFunc` spawns `ObjParams_FallingSnow` (`CreateObjectFromCurObjPos`), then moves up 10 px and shows a frameset for $1d frames, then hides and loops. `FallingSnowFunc`: shakes ($20 frames, `SFX_080`), falls until `Func_352b` finds floor (landing frameset, `SFX_0A1`); in state $18 it uses another frameset; then despawns. | medium |
+| kushimushi.asm | `KushimushiVerticalFunc.Func_42acf` -> `.Update` | Per-frame state dispatcher, also used by `KushimushiHorizontalFunc`. | high |
+| muddee_stinger.asm | `.Func_4ca2a` -> `.Update` | Only update function of the stinger (see `w1d147` above). | high |
+| owl.asm | `.Func_492b4` -> `.FlyAway` | After rising: flies left/right with `SFX_FLAP` on a frame until the duration ends; despawns on state $18. | medium |
+| water_drop.asm | `.Func_49d83` -> `.Update` | Only update function: states 0, $5a, $5b. | high |
+| water_spark.asm | `.Func_4a482` / `.Func_4a49d` -> `.Idle` / `.Spark` | Idle until it gets a state, then 100 frames of the spark frameset with actions disabled, then back. | medium |
+| haridama.asm | `.Func_48f28` -> `.Patrol`; `.Func_48fae` -> `.Uncurl`; `.Func_490e8` -> `.UpdateRolling`; `.Func_49184` -> `.RollRight`; `.Func_49199` / `.Func_491b6` -> `.CheckWallLeft` / `.CheckWallRight` | State 0 walks left slowly (turns at walls) and curls (frameset 692c7) when Wario is within $40 px; state $5b restores `OBJ_INTERACTION_HARIDAMA` and state $32 when its timer ends. The two checks are `Func_3513` (side probe) at x-9 / x+8, 8 px up, each used 4 times. `.Func_49094` (head probe + water check) left unnamed. | medium (high for the two checks) |
+| octohon.asm | `SmallOctohonFunc`: `.Func_4a4d4` -> `.Start`, `.Func_4a50f` -> `.Update`; second object: `.Func_4a6b9` -> `.Start`, `.Func_4a729` -> `.Update` | Each `.Start` faces Wario, sets a $ac-frame timer and switches to its `.Update`. | medium |
+| pillar_platform.asm | `.Func_49cc2` / `.Func_49cce` -> `.Rise` / `.Lower`; `.Func_49ce5` -> `.Update`; `.Func_49d43` -> `.SetLinkedPlatformsState` | One-way platform (`SetOneWayPlatformAction` each frame). On `OBJSTATE_2B` it rises (`MoveObjectUp_Fast` for 9 frames, at most twice); `.Func_49d43` walks all objects with the same `OBJ_UNK_01` and state $20 and writes `c` into them. | medium (low for the last) |
+| prince_froggy.asm | `.Func_440c4` / `.Func_440ca` / `.Func_440d0` / `.Func_440d6` -> `.SetHitByObjLeft` / `.SetHitByObjRight` / `.SetAttackedLeft` / `.SetAttackedRight`; `.Func_441dc` -> `.StartTurnAround`; `.Func_44220` -> `.HopAndVanish` | The first four install `Func_33f8`/`Func_3407`/`Func_3326`/`Func_3317` (`ObjState_HitByObjLeft/Right`, `ObjState_AttackedLeft/Right`) as the update function. `.Func_441dc` sets state $43 (`OBJSTATE_TURN_AROUND`) and `OBJ_INTERACTION_PRINCE_FROGGY`. The last hops on `Data_60040`, then `VanishObject2`. | high (medium for the last two) |
+| robo_mouse.asm | `.Func_488f7` -> `.Init`; `.Func_4892a` -> `.Update`; `.Func_48cec` -> `.BreakBlocksInFront` | `.Update` is the positional state table of the first pass's row; `.Func_48cec` probes 14 px ahead at two heights with `COLLISION_ROBO_MOUSE_BREAK`. | high (medium for the last) |
+| spearhead.asm | `.Func_40478` -> `.set_fall` (tail of `.State14`/`.State15`); `.Func_4057d` -> `.set_wobble_state`; `.Func_405b6` -> `.reset_animation` | Shared tails inside the already-named state handlers. | high |
+| tadpole.asm | spawner: `.Func_49e4b` -> `.WaitForWario`, `.Func_49e7f` -> `.WaitAndDespawn`; tadpole: `.Func_49eb3` -> `.WaitOnScreen`, `.Func_49ece` -> `.Appear`, `.Func_49f34` -> `.Update`, `.Func_49fb5` -> `.WaitAndDespawn` | The spawner waits until Wario is to its left and $28-$50 px above, then despawns itself after a timer (`DespawnObject`). The tadpole appears once on screen (`SFX_07F`) and then runs its state dispatcher. | medium |
+| togeba.asm | `.Func_48d9b` -> `.SetUpright`; `.Func_48db7` -> `.Upright`; `.Func_48e02` -> `.FlipOver`; `.Func_48e46` -> `.Flipped`; `.Func_48ecc` -> `.FlippedBounce`; `.Func_48e2b` -> `.StartRecover`; `.Func_48e3e` -> `.Recover` | Upright it stings (`OBJ_INTERACTION_FULL_STING`); a ground shake ($10+) flips it (hop on `Data_60760`, then `OBJ_INTERACTION_WALKABLE`); when it can't stand (`Func_352b` at both sides) it starts recovering (16 frames) and becomes upright again. See the literal pointers above. | medium |
+| zip_line.asm | `.Func_49356` -> `.Reset`; `.Func_49369` -> `.Idle`; `.Func_493dc` -> `.CarryWario`; `.Func_49405` -> `.WaitThenReset`; `.Func_49412` -> `.DoNothing`; `.Func_49418` -> `.Move`; `.Func_494af` / `.Func_494cb` -> `.move_left` / `.move_right` | `.Move` moves the zip line by `OBJ_VAR_2` in its direction (wall probes with `Func_3513`) and Wario with it (`MoveWarioLeft` + `Func_19713`...); when Wario is no longer `TRANSFORMATION_RAIL`, wait 10 frames and reset. | medium |
+| zombie.asm | `.Func_45ce2` -> `.CheckWarioNear`; `.Func_45ddc` -> `.TurnAround` | Wario within 32 px vertically and 48 px horizontally; the other flips `OBJSUBFLAG_HDIR` at 20 frames left and otherwise walks (`Func_3308`). | medium (low for the second) |
+| snake.asm | `.Func_49943` -> `.Wait`; `.Func_49957` -> `.Rise`; `.Func_49984` -> `.TurnToLook`; `.Func_499b8` -> `.Look`; `.Func_499f8` -> `.ShootFire`; `.Func_49a57` -> `.EndShooting`; `.Func_49a7c` -> `.StartSinking`; `.Func_49a85` -> `.start_sinking`; `.Func_49aa1` -> `.Sink`; `.Func_49af0` -> `.UpdateFrameset` | Steps of the substate jumptable in `.Update`: wait ($3e frames, `SFX_11A`), rise carrying Wario (`MoveWarioUp` when stepped on), turn and look, spit fire (`ObjParams_SnakeFireLeft/Right`, `SFX_089`), then sink back to the start Y saved in `OBJ_VAR_2` (`SFX_08B`) and wait $78 frames. Being hit also goes to `.start_sinking`. `.Func_49b76` (sets state 0 or $48 from the screen Y) left unnamed. | low-medium |
