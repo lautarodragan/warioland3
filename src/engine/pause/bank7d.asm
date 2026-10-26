@@ -295,7 +295,7 @@ Pals_1f41c2:
 	rgb 31, 14,  0
 	rgb  0,  0,  0
 
-PauseMenuGfx:
+PauseMenuGfx::
 INCBIN "gfx/pause/pause_menu.2bpp.rle"
 
 ActionHelpOwlGfx::
