@@ -18,30 +18,32 @@ or reject.
 **Second pass (branch `claude/naming-survey-2-dh93t5`), plan in this order:**
 
 - [x] 2a. `w1dXXX` RAM (36: Hidden Figure, boss union, golf) and `w2dXXX` RAM (138: overworld), all accesses grepped; plus a scan for WRAMX labels used with the wrong WRAM bank (4 finds). Hidden Figure's object code read in full on the way (Phase 6 leftover).
-- [~] 2b. Phase 7 overworld: top-level OW states, step/fade/sprite helpers, the map-side object system (bank2d, with a bulk rule for its ~150 state entries) done. Not done: `Func_` with 4-8 refs (`Func_b69a6`, `Func_ae915`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`), the rest of bank20/21/26/27/2b/2d/56 `Func_` (~450), and the scene-local `.Func_` (~1200).
+- [~] 2b. Phase 7 overworld: top-level OW states, step/fade/sprite helpers, the map-side object system (bank2d, with a bulk rule for its ~150 state entries) and `Func_ae915` done. Not done: the other `Func_` with 4-8 refs (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`), the rest of bank20/21/26/27/2b/2d/56 `Func_` (~420), and the scene-local `.Func_` (~1200).
 - [x] 2c. Small leftovers: `Func_2126a`, `Func_2168b`, `Func_20b41`; validate_save.asm locals; palette-fade `Unk1/3` (the macro's field names are off by position); audio `CHANNEL_UNK_*`/`TRACK_UNK*`.
-- [~] 2d. Phase 6 leftovers: done for Hidden Figure and 26 smaller objects (appleby .. zombie, hand, nobiiru, sun/moon, pneumo), plus 3 literal update-function pointers found on the way. Not done (~200 labels): the bosses and large objects anonster.asm (39), muddee.asm (29), omodonmeka.asm (23), jamano.asm (22), yellow_belly.asm (22), scowler.asm (21), pesce.asm (16), shoot.asm (11), and a few unclear locals noted in the table.
+- [x] 2d. Phase 6 leftovers: every object file now has rows; 3 literal update-function pointers found on the way; `AnonsterSilkFunc`'s full state table (missed by the first pass) added. Left unnamed on purpose (listed as "not named" in the rows, ~75 labels): the middle fight phases of anonster.asm, muddee.asm, omodonmeka.asm, scowler.asm, yellow_belly.asm, plus a few unclear helpers in bubble/haridama/snake.
 - [x] 2e. Audio engine `Func_` routines; action help demos (bulk rule covering all 302 `Func_`, plus the 4 common ones).
 - [~] 2f. Bulk data: `RoomPals###` (146 `Pals_`) and `LevelRooms_` (119) generated; framesets/OAM/other palettes/`Data_` only counted, with an owner-prefix rule suggested.
 
 **Status:** first pass: about 430 table rows (~650 labels) plus 475
-mechanical object state names. Second pass (sections under "Second pass"
-below): about 320 table rows, roughly 205 high, 90 medium, 15 low
-confidence; with the rows that cover several labels and the three bulk
-rules (action help 302, room palettes 146, level room tables 119, map-side
-object states ~150) it covers roughly 1400 labels. Every proposed global
-name was checked with a script against `src/` and this file.
+mechanical object state names. Second pass (everything under "Second
+pass" below): about 330 table rows, roughly 205 high, 100 medium, 12 low
+confidence (plus a few "not named" notes); counting the rows that cover
+several labels and the bulk rules (action help 302, room palettes 146,
+level room tables 119, map-side object states ~150) it covers roughly
+1500 labels. Every proposed global name was checked with a script against
+`src/` and this file.
 
 **Resume at** (in this order):
-1. Phase 6 bosses: anonster.asm, muddee.asm, omodonmeka.asm, jamano.asm,
-   yellow_belly.asm, scowler.asm, pesce.asm, shoot.asm (read each in full,
-   as done for hidden_figure.asm; their boss-union bytes need names too).
-2. Phase 7: the overworld `Func_` with 4-8 references listed in 2b, then
-   bank27's cutscene frameset tables (`Func_9f0e0`-style per-cutscene object
-   updaters, which all use `Func_9f0a5`/`Func_9f0ae`/`Func_9f0bc`), then
-   per-scene locals in bulk where a rule holds.
-3. Data: owner-prefix rule for framesets/OAM (script in the 2f section's
-   description), then descriptive names per object/scene.
+1. Phase 7: the overworld `Func_` with 4-8 references listed in 2b, then
+   bank27's per-cutscene object updaters (`Func_9f0e0`, `Func_9f11e`,
+   `Func_9f146`...: each animates scene objects with `Func_9f0a5` +
+   `Func_9f0ae` + `Func_9f0bc` and a frameset table, a bulk rule should
+   work), then scene locals.
+2. The boss phases left unnamed in 2d (read each boss's phase jumptable in
+   full, as was done for hidden_figure.asm).
+3. Data: owner-prefix rule for framesets/OAM, then descriptive names per
+   object/scene. Also give the boss union bytes per-boss names (see the
+   note after `w1d147`).
 
 ## Inventory (master at f205aa3)
 
@@ -906,7 +908,7 @@ deliberate reuse of that area.)
 | `w2d074` | :1659 | `wNumLevelArrows1` | Count read from the arrow data right after `wLevelArrowDirections1` (bank20.asm:2977). | medium |
 | `w2d076` | :1661 | `wNumLevelArrows2` (write-only) | Same for `wLevelArrowDirections2` (0 when that is $ff); never read. | medium |
 | `w2d078` | :1667 | `wUnused_2d078` | Write-only (bank20.asm:2729). | high |
-| `w2d07c` | :1679 | `wOWNextIsNight` | Day/night value the transition goes to: `wOWIsNight` on init, 1 in `.InitDayToNight`, 0 in `.InitNightToDay`; bank2d.asm `Func_b7cb3` moves scene object 14 (sun/moon) by it. | low |
+| `w2d07c` | :1679 | `wOWNextIsNight` | Day/night value the transition goes to: `wOWIsNight` on init, 1 in `.InitDayToNight`, 0 in `.InitNightToDay`; bank2d.asm `Func_b7cb3` moves scene object 14 depending on it. | low |
 | `w2d07d` | :1682 | `wOWDayNightObjMoved` | Cleared with `w2d07c`; `Func_b7cb3` repositions scene object 14 once while it is 0, then increments it. | low |
 | `w2d07f` | :1687 | `wHighlightOWTile` | When non-zero, `Func_81feb` ORs palette 7 + `BG_BANK1` into `wAttrToPlaceInOW` (its header comment says so); used as a countdown by `Func_81f21`. Set around drawing newly unlocked arrows/points. | medium |
 | `w2d096` | :1725 | `wUnused_2d096` | Write-only (bank20.asm:4268). | high |
@@ -1422,3 +1424,18 @@ above are an example). Medium value; not generated here.
 | muddee.asm | `MuddeeFunc.Func_5564e` -> `.WaitForAmbush`; `.Func_55676` -> `.Appear`; `.Func_55696` -> `.WaitForWarioNear`; `.Func_556f0` -> `.Leap`; `.Func_55711` -> `.Main`; `.Func_55bd8` -> `.PlayBubbleSFX`; `.Func_55c11` -> `.SetFramesetAndDurations`; `.Func_55c1e` -> `.CompareYWithWario`; `.Func_55c2b` -> `.CompareYWithWarioRow`; `.Func_55c3a` -> `.Blink`; `Turtle1Func.Func_55c7d` / `.Func_55c91` / `.Func_55cdd` / `.Func_55cf9` / `.Func_55d18` / `.Func_55d4c` -> `.WaitForWario` / `.CarryWario` / `.StartAmbush` / `.Submerge` / `.WaitForMuddeeDefeat` / `.Resurface`; `TurtleCommonFunc.Func_55d90` / `.Func_55de0` -> `.CarryWario` / `.Idle`; `Func_55e33` -> `PlayTurtleSwimSFX` | Muddee blinks hidden until `wMuddeeAmbushState == 1`, which the first turtle sets when it has carried Wario across (one-way platform, `MoveWarioRight` + `Func_19706`), before submerging; the turtle resurfaces when Muddee's defeat sets the state to 2 (muddee.asm:302, after `Func_ba42` and `stop_music2`) and ends the fight (`BOSS_DEFEATED`). The other turtle carries Wario right until a wall and then stays. `.Main` sets the front interaction ($46/$47) from the animation frame and dispatches on `w1d147`/`wCurObjVar1`; `.SetFramesetAndDurations` writes `de` to the frameset pointer and `c`/`b` to the next two fields; the two compares return carry from the screen Y (the second in 8 px rows, 16 px above Wario). `Func_55e33` plays `SFX_084` on frame 4. Not named: the nine `wCurObjVar1` phases `.Func_55861`..`.Func_55ad9`, `.Func_55ba7`, `.Func_55be7`. | medium |
 | omodonmeka.asm | `OmodonmekaFunc.Func_42218` -> `.Update`; `.Func_42199` -> `.Activate`; `.Func_42432` -> `.ResetToIdle`; `.Func_42321` -> `.Hover`; `.Func_423e1` -> `.Fall`; `.Func_42420` -> `.ReturnToStartY` | `.Update` reacts to its state (`OBJSTATE_ACTIVATE` -> `.Activate`, attacked/hit-by-object states) and otherwise dispatches on the substate's low nybble (steps 0-8). Step 0/1 hovers (`Data_604c0`) and watches Wario; step 2 falls along `Data_60500` until `Func_352b` finds floor; step 3 moves up to the Y saved in `OBJ_VAR_1/2` at spawn, then `.ResetToIdle` (step 1, `Frameset_68f0b`). Steps 4-8 (`.Func_4244c`, `.Func_42291`, `.Func_422fc`, `.Func_42261`, `.Func_42369`), the `OmodonmekaWithOmodon*` locals and `Func_42725`..`Func_4279c` (they look for objects sharing `OBJ_UNK_01`, the object-map pointer, i.e. the Omodon that rides it) are not named. | medium |
 | anonster.asm | `AnonsterFunc.Func_50024` -> `.StartFight`; `AnonsterSilkFunc` state table (mechanical, Phase 6 rules): `.Func_509ab` -> `.State00`, `.Func_50898` -> `.Default`, `.Func_50a01` / `.Func_50a0b` -> `.AttackedLeftStart` / `.AttackedRightStart`, `.Func_50a1e` / `.Func_50a31` -> `.PickedUpLeftStart` / `.PickedUpRightStart`, `.Func_50a79` -> `.State12`, `.Func_50995` / `.Func_5099d` -> `.State14` / `.State15`, `.Func_50a5e` / `.Func_50a44` -> `.State18` / `.State19`, `.Func_509ef` / `.Func_509dd` -> `.State28` / `.State29`, `.Func_509bb` -> `.State3f`, `.Func_50a68` / `.Func_50a4e` -> `.State48` / `.State49` | `.StartFight` sets `BOSS_REGULAR` when its timer ends. `AnonsterSilkFunc` (anonster.asm:1244) has a 90-entry positional `OBJSTATE_*` table that the first pass's list of 16 objects missed; generated with the same rules. The 20-odd `AnonsterFunc` phases (`.Func_5005e`..`.Func_50705`) and `.Func_508be`/`.Func_508cd` are not named. | medium |
+
+### Addenda
+
+#### More union mislabels (same kind as the wrong-bank table above)
+
+| Where | Written as | Actually | Evidence | Conf. |
+|---|---|---|---|---|
+| src/engine/overworld/bank2b_2.asm:2423-2427 (`_InitEpilogue` area) | `ld hl, wOWUIObj1YCoord` ($60, then $5c), `ld [wOWUIObj2YCoord], a` ($ff) | `wSceneWarioYCoord` / `wSceneWarioXCoord` / `wSceneWarioStateGroup` = `SCENEWARIO_GROUP_NONE` | `wOWUIObj1/2` share a `UNION` with `wSceneWario` ($d140/$d148 in the sym file), the epilogue update calls `UpdateSceneWario`, and $ff is `SCENEWARIO_GROUP_NONE`. Exactly the bank2b_1.asm:1821 case. The other bank2b_2 reads of `wOWUIObj1YCoord`/`XCoord` (:2633, :2719, :3017, :3091, :3128, :3288) position scene objects relative to it, so they are Scene Wario's coordinates too. | high |
+| src/engine/overworld/bank2d.asm:3529-3559, 4016-4043, 4175-4228, 4388-4419 | `wOWUIObj1YCoord` | a scene step/flag byte | Map-side scenes store small step values (1, 4, 5, 0) in it and wait on them (`.Func_b5949`..`.Func_b598c` of the freeze-sea scene, `.Func_b5f50`); nothing there uses it as a coordinate. Needs a scene alias. | medium |
+
+#### Phase 7, one more helper
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_ae915` | src/engine/overworld/bank2b_2.asm:1511 | `AdvanceStepAtHL` | `xor a / ld [hld], a / inc [hl]`: clears the counter at `hl` and increments the step byte before it; used with `w2d8a1` and the `wPlanePart*Counter` fields (12 references). | high |
