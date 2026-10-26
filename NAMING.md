@@ -1347,3 +1347,32 @@ Each power-up demo in `power_ups/*.asm` is a script: `.StateTable` of
 | `Func_1e48bc` | common2.asm:17 | `BlackOutActionHelpBGPals` | Sets `wActionHelpBlackedOut` and loads `Pals_1e4eef` to the BG palettes directly (`LoadActionHelpBGPals`); the next routine, `LoadActionHelpCommonPals`, does the same into `wTempPals1`. | medium |
 | `Func_1e4a47` | common2.asm:241 | `LoadActionHelpPowerUpIconPals` | OB palettes 4 and 7 for the power-up icons: black when `wActionHelpPowerUp` is above the obtained level, otherwise from `Pals_1e4f2f`; then draws `OAM_1e6bab`. | medium |
 | `Func_1e4b6d` | common2.asm:384 | `UnreferencedLoadActionHelpObjSprite` | No references; draws `OAM_1e6bab` at the object at `hl` (minus `wSCY`). | medium |
+
+### Audio engine routines (src/audio/engine.asm)
+
+Read together with the struct fields above. Command bytes: `DoAudioCommand`
+sends $d0-$ff to `Func_30a14`, $b1-$cf through `PointerTable_306d1`, and
+anything below $b1 to `Func_3073f`.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `PointerTable_306d1` | engine.asm:1285 | `AudioCommandTable` | Indexed by command - $b1; its entries are commented with the `AUDIOCMD_*` constants. | high |
+| `PointerTable_3070f` | :1318 | `AudioSpecialCommandTable` | Second-level table, commented with `AUDIOCMDSPECIAL_*`. | high |
+| `Func_30727` | :1332 | `AudioCmd_Special` | Command $cd: reads a sub-command (< $0c, else end) and its argument and jumps through `PointerTable_3070f`. | high |
+| `Func_3073f` | :1345 | `AudioCmd_Wait` | Commands below $b1: duration from `Data_3102b` (index command - $80; $80 itself does nothing), stored in `CHANNEL_DURATION` with the command pointer, ending the channel's tick. | medium |
+| `Func_30a14` | :1872 | `AudioCmd_Note` | Commands $d0-$ff: duration from `Data_3102b` (index command - $cf), then the note body. | high |
+| `Func_30a10` | :1868 | `AudioCmd_NoteNoDuration` | Command $ce: the note body with duration 0. | medium |
+| `Func_30a1f` | :1882 | `PlayNote` | Reads the note's arguments (pitch, `CHANNEL_UNK_0A`, duration extension), picks a track by timbre (`SetTrack1..4`) and owner, fills the track from the channel. | high |
+| `Data_3102b` | :3009 | `AudioCmdDurations` | The duration table both use (comments "80 \| cf"). | high |
+| `Func_30b4d` | :2098 | `AudioCmd_ReleaseNote` | Command $cf: optional pitch argument; finds this channel's track playing that note with no duration left and starts its release (`Func_30be3`). | medium |
+| `Func_3098b` | :1765 | `SetChannelSignedProperty` | Stores `arg * 2 - $80` at the channel field `bc` (used for `CHANNEL_UNK_1D`). | high |
+| `Func_309ce` / `Func_309eb` | :1820 / :1841 | `SetChannelPropertyHighNybble` / `SetChannelPropertyLowNybble` | Replace the high/low nybble of the field `bc` with the argument. | high |
+| `Func_309e8` / `Func_30a03` | :1837 / :1857 | `AudioCmd_SetChannelFadeInEnvelopeLow` / `AudioCmd_SetChannelFadeOutEnvelopeHigh` | Special commands 3 and 4. With them the existing `AudioCmd_SetChannelFadeInEnvelope` (special 2) sets the high nybble and `AudioCmd_SetChannelFadeOutEnvelope` (special 5) the low one; renaming those two `...High`/`...Low` would make the four read as a set. | high |
+| `Func_309b6` | :1796 | `AudioMod_Release` | Sets `CHANNEL_UNK_27`/`28` together through `AudioModSetValue_Long`. Name depends on the low-confidence field names above. | low |
+| `Func_30547` | :985 | `RefreshChannel` | On frames without a tick, for every channel with `CHANFLAGS_6 \| CHANFLAGS_ACTIVE`: copy its flags and recompute frequency/output/volume (`Func_30651`). | medium |
+| `Func_30651` | :1188 | `ApplyChannelUpdates` | Per the `CHANFLAGS_UPDATE_*` bits: frequency = pitch product + `CHANNEL_UNK_1D` + pitch offset + vibrato, SO flags from the two pans, effective volume. | high |
+| `Func_30bb0` / `Func_30bc2` | :2161 / :2174 | `TickSFXTrack` / `TickMusicTrack` | Called for every track on SFX / music ticks; act only on active tracks owned by SFX (bit 7 of `TRACK_UNK02`) / music, then fall into `Func_30bd2`. | high |
+| `Func_30bd2` | :2187 | `TickTrackDuration` | Stops the track if its channel is gone, otherwise counts `TRACK_DURATION` down and releases the track at 0. | high |
+| `Func_30be3` | :2205 | `ReleaseTrack` | Sets `TRACKFLAGS_4 \| TRACKFLAGS_6`, clears `TRACKFLAGS_5` (starts the fade-out), or stops it if already releasing. | medium |
+| `Func_30bf2` / `Func_30bf6` | :2216 / :2221 | `StopTrack_FromChannelPtr` / `StopTrack` | Clear `TRACK_FLAGS` and `TurnSoundRegisterOff`; the first rewinds `hl` from the channel pointer field. | high |
+| `Func_30bfb` | :2226 | `ProcessTrack` | Every frame for every track: envelopes (fade in/out), frequency, volume; uses `w3d01a`. | medium |
