@@ -1269,7 +1269,8 @@ users need their own labels.
 Three places set `OBJ_UPDATE_FUNCTION` from literal bytes instead of
 `HIGH()/LOW()` of a label, so they break as soon as code before them moves
 (relevant to this fork, which edits object code). A scan of `src/` for this
-pattern found exactly these:
+pattern found exactly these. **Fixed** as proposed (the ROM stayed
+byte-identical, so the labels point exactly where the literals did):
 
 | Where | Literal | Target | Fix | Conf. |
 |---|---|---|---|---|

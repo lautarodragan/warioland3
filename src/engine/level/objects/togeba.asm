@@ -57,9 +57,9 @@ TogebaFunc:
 
 .asm_48de3
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, $4e
+	ld a, HIGH(.Func_48e02)
 	ld [hld], a
-	ld a, $02
+	ld a, LOW(.Func_48e02)
 	ld [hld], a
 	ld de, Frameset_69256
 	call SetObjectFramesetPtr
@@ -99,9 +99,9 @@ TogebaFunc:
 
 .Func_48e2b:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, $4e
+	ld a, HIGH(.Func_48e3e)
 	ld [hld], a
-	ld a, $3e
+	ld a, LOW(.Func_48e3e)
 	ld [hld], a
 	ld de, Frameset_69275
 	call SetObjectFramesetPtr
