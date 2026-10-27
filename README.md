@@ -11,7 +11,7 @@ The menu allows cycling through:
 - FORM: 13 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN/INVIS). Invisibility is one of them, as in the game.
 - POWER: power-up level 0-9
 - GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
-- OWL: spawns a sleeping owl next to Wario, in any level. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics go into a graphics slot the set doesn't use, or, if it uses all four, replace its first enemy's while it's around. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot, and in boss battles.
+- OWL: spawns a sleeping owl next to Wario, in any level. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics go into a graphics slot the set doesn't use, or, if it uses all four, into one the room lends while the owl is around: one no enemy on screen is using, whose enemies don't appear meanwhile, and which gets its graphics back once the owl is gone. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot, and in boss battles.
 - TREASURE: pick any level's treasure with LEFT/RIGHT (e.g. `N5 RED`) and press A to give it to Wario or take it back. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
 
 Navigate with UP/DOWN, cycle value with LEFT/RIGHT (A toggles the selected treasure), exit with B.
@@ -73,7 +73,7 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/outpu
 - `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and spawns, grabs and flies the debug owl both there and in The Steep Canyon start room, which loads no owl graphics.
 - `test_vampire.py` flies Vampire Wario's bat up and down a floor in a room whose camera moves a floor at a time: bats only fly in free camera rooms in the original game, so they never asked for floor transitions, and the camera stayed behind.
 - `test_owl_levels.py` takes the debug owl to levels without owls: a handful of start rooms (Castle of Illusions among them), night, floor-by-floor cameras (which follow Owl Wario), water and underwater, full object slots, a boss battle (where it's refused), and saving and continuing.
-- `test_owl_free_slot.py` checks where the debug owl's graphics go in rooms without an owl: an enemy graphics slot the room doesn't use (Desert Ruins' start room, next to its spearheads, which keep theirs), or slot 1 when it uses all four (Out of the Woods). It also checks the rule for an unused slot against every object group's OAM data.
+- `test_owl_free_slot.py` checks where the debug owl's graphics go in rooms without an owl: an enemy graphics slot the room doesn't use (Desert Ruins' start room, next to its spearheads, which keep theirs), or, when it uses all four (Out of the Woods), one the room lends: its enemies aren't spawned meanwhile, and its graphics, palette and object data are back once the owl is gone (also after SELECT, across the debug menu, and when a new owl takes it over). It also checks the rule for an unused slot against every object group's OAM data.
 
 The first two only press buttons; no RAM is written. Level routes live in `tests/routes/` as lists of `(buttons, frames)` steps, found with `tests/tools/route_search.py`. `tests/tools/level_map.py` prints a level as ASCII (solid blocks, ladders, doors, objects), and `tests/tools/pathfind.py` builds a movement graph from the same data and runs A* over it, through doors and pipes. The graph follows Wario's power-ups (jump height, swimming, ground pounds that turn Togebas into platforms) and the treasures held (which pick the level's variant, like the Foot of Stone opening The Steep Canyon's secret door). `route_search.py --plan LEVEL` uses its distance field as the search heuristic, which is how the whole of Out of the Woods can be found from just "key, then chest".
 
@@ -83,7 +83,7 @@ Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-a
 
 ### Known Bugs
 
-- OWL: in rooms whose enemy set has no owl and uses all four graphics slots, the debug owl's graphics replace the set's first enemy's until the room is reloaded. See `owl.md` for this, and the bug that broke the first attempt.
+- OWL: in rooms whose enemy set has no owl and uses all four graphics slots, one kind of enemy doesn't appear while the debug owl is around (it comes back once the owl is gone), and enemies of that kind already there when it's spawned draw with the owl's graphics until they go (the owl picks a kind none of the active enemies is, when there is one). See `owl.md` for this, and the bug that broke the first attempt.
 
 ## How
 
