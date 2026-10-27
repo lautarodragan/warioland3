@@ -513,7 +513,7 @@ _PlayNewMusic_SetNoise::
 	jp ReturnFromAudioJump
 
 ; loops through all music channels and
-; if either CHANFLAGS_5 or CHANFLAGS_6 are set
+; if either CHANFLAGS_LOADED or CHANFLAGS_INITIALISED are set
 ; then set it as active
 ReactivateMusicChannels::
 	xor a
@@ -525,7 +525,7 @@ ReactivateMusicChannels::
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
 	ld a, [hl]
-	and CHANFLAGS_5 | CHANFLAGS_6 ; CHANNEL_FLAGS
+	and CHANFLAGS_LOADED | CHANFLAGS_INITIALISED ; CHANNEL_FLAGS
 	jr z, .next_ch
 	set CHANFLAGS_ACTIVE_F, [hl]
 .next_ch
@@ -587,7 +587,7 @@ LoadChannelWithSound:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld a, CHANFLAGS_5 | CHANFLAGS_ACTIVE
+	ld a, CHANFLAGS_LOADED | CHANFLAGS_ACTIVE
 	ld [hli], a ; CHANNEL_FLAGS
 	inc hl
 	ld a, [wAudioCmdPtr + 0]
@@ -622,7 +622,7 @@ SkipLoadingChannel:
 	ret
 
 InitChannel:
-	ld a, CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	ld a, CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	ld [hli], a ; CHANNEL_FLAGS
 	xor a
 	ld [hli], a ; CHANNEL_DURATION
@@ -667,7 +667,7 @@ InitChannel:
 	ld [hli], a ; CHANNEL_PITCH_PRODUCT
 	ld [hli], a
 	ld [hli], a ; CHANNEL_FREQUENCY_OFFSET
-	ld [hli], a ; CHANNEL_UNK_2E
+	ld [hli], a ; CHANNEL_UNUSED_1E
 	ld a, $17
 	ld [hli], a ; CHANNEL_VIBRATO_SPEED
 	xor a
@@ -833,7 +833,7 @@ AudioModFunctionTable:
 	dw AudioMod_Pan              ; AUDIOMOD_PAN
 	dw AudioMod_VibratoAmplitude ; AUDIOMOD_VIBRATO_AMPLITUDE
 	dw AudioMod_VibratoSpeed     ; AUDIOMOD_VIBRATO_SPEED
-	dw AudioMod_Release                ; AUDIOMOD_UNK
+	dw AudioMod_Release          ; AUDIOMOD_RELEASE
 	assert_table_length NUM_AUDIOMOD_FUNCTIONS
 
 ; input:
@@ -988,7 +988,7 @@ RefreshChannel:
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
 	ld a, [hl] ; CHANNEL_FLAGS
-	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	ret c ; both flags not set
 	ld [wCurChannelFlags], a
 	jp ApplyChannelUpdates
@@ -1001,7 +1001,7 @@ UpdateChannel:
 	ld a, [hl]
 	bit CHANFLAGS_ACTIVE_F, a
 	ret z ; not active
-	bit CHANFLAGS_6_F, a
+	bit CHANFLAGS_INITIALISED_F, a
 	jr nz, .skip_init
 	push hl
 	call InitChannel
@@ -1307,8 +1307,8 @@ AudioCommandTable:
 	dw AudioCmd_SetChannelVibratoDisabled ; AUDIOCMD_VIBRATO_DISABLED
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C7
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C8
-	dw AudioCmd_SetChannelFrequencyOffset           ; AUDIOCMD_UNK_C9
-	dw AudioCmd_SetChannelUnused1e           ; AUDIOCMD_UNK_CA
+	dw AudioCmd_SetChannelFrequencyOffset ; AUDIOCMD_FREQUENCY_OFFSET
+	dw AudioCmd_SetChannelUnused1e        ; AUDIOCMD_SET_UNUSED_1E
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_CB
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_UNUSED_CC
 	dw AudioCmd_Special                         ; cd
@@ -1755,7 +1755,7 @@ AudioMod_VibratoAmplitude:
 	jp AudioModSetValue_Short
 
 AudioCmd_SetChannelFrequencyOffset:
-; audiocmd_c9
+; frequency_offset
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a
@@ -1776,7 +1776,7 @@ SetChannelSignedProperty:
 	jp DoAudioCommand
 
 AudioCmd_SetChannelUnused1e:
-; audiocmd_ca
+; set_unused_1e
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a
@@ -2025,7 +2025,7 @@ PlayNote:
 	ld a, [hli] ; TRACK_FLAGS
 	and a
 	jr z, .UpdateTrack
-	bit TRACKFLAGS_5_F, a
+	bit TRACKFLAGS_HELD_F, a
 	jr nz, .asm_30af7
 	jr .UpdateTrack
 
@@ -2049,7 +2049,7 @@ PlayNote:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 
-	ld a, TRACKFLAGS_4 | TRACKFLAGS_5 | TRACKFLAGS_6 | TRACKFLAGS_7
+	ld a, TRACKFLAGS_4 | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE | TRACKFLAGS_ACTIVE
 	ld [hli], a ; TRACK_FLAGS
 	ld a, [wTempTrackPriority]
 	ld [hli], a ; TRACK_PRIORITY
@@ -2090,7 +2090,7 @@ PlayNote:
 	xor a
 	ld [hli], a ; TRACK_UNUSED_0D
 	ld a, [wSoundEngineParam4]
-	ld [hl], a ; TRACK_UNK0E
+	ld [hl], a ; TRACK_FREQUENCY_NOTE
 .skip
 	pop de
 	jp DoAudioCommand
@@ -2134,7 +2134,7 @@ AudioCmd_ReleaseNote:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 	ld a, [hli] ; TRACK_FLAGS
-	bit TRACKFLAGS_5_F, a
+	bit TRACKFLAGS_HELD_F, a
 	jr z, .next_track
 	inc hl
 	ld a, [hli] ; TRACK_OWNER
@@ -2163,7 +2163,7 @@ TickSFXTrack:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	bit TRACKFLAGS_7_F, [hl] ; TRACK_FLAGS
+	bit TRACKFLAGS_ACTIVE_F, [hl] ; TRACK_FLAGS
 	ret z
 	inc hl
 	inc hl
@@ -2176,7 +2176,7 @@ TickMusicTrack:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	bit TRACKFLAGS_7_F, [hl] ; TRACK_FLAGS
+	bit TRACKFLAGS_ACTIVE_F, [hl] ; TRACK_FLAGS
 	ret z
 	inc hl
 	inc hl
@@ -2192,7 +2192,7 @@ TickTrackDuration:
 	ld a, [hli]
 	ld d, a
 	ld a, [de]
-	cp TRACKFLAGS_6 | TRACKFLAGS_7
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE ; channel's CHANNEL_FLAGS
 	jr c, StopTrack_FromChannelPtr
 	inc hl
 	ld a, [hl] ; TRACK_DURATION
@@ -2206,10 +2206,10 @@ ReleaseTrack:
 	ld bc, TRACK_FLAGS - TRACK_DURATION
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	bit TRACKFLAGS_6_F, a
+	bit TRACKFLAGS_START_ENVELOPE_F, a
 	jr nz, StopTrack
-	or TRACKFLAGS_4 | TRACKFLAGS_6
-	and $ff ^ TRACKFLAGS_5
+	or TRACKFLAGS_4 | TRACKFLAGS_START_ENVELOPE
+	and $ff ^ TRACKFLAGS_HELD
 	ld [hl], a
 	ret
 
@@ -2229,7 +2229,7 @@ ProcessTrack:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 	ld a, [hl] ; TRACK_FLAGS
-	bit TRACKFLAGS_7_F, a
+	bit TRACKFLAGS_ACTIVE_F, a
 	ret z
 
 	ld b, a
@@ -2243,14 +2243,14 @@ ProcessTrack:
 	ld [wCurChannelPtr + 1], a
 	ld d, a
 	ld a, [de]
-	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	jr nc, .asm_30c1f
 	pop hl
 	jr StopTrack
 
 .asm_30c1f
 	ld [wCurChannelFlags], a
-	bit CHANFLAGS_6_F, b
+	bit CHANFLAGS_INITIALISED_F, b
 	jr nz, .asm_30c46
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
@@ -2261,7 +2261,7 @@ ProcessTrack:
 .asm_30c31
 	inc [hl]
 	pop hl
-	bit TRACKFLAGS_5_F, b
+	bit TRACKFLAGS_HELD_F, b
 	jr z, .asm_30c3e
 	bit TRACKFLAGS_4_F, b
 	jr nz, .asm_30c95
@@ -2273,8 +2273,8 @@ ProcessTrack:
 
 .asm_30c46
 	pop hl
-	res TRACKFLAGS_6_F, [hl]
-	bit TRACKFLAGS_5_F, [hl]
+	res TRACKFLAGS_START_ENVELOPE_F, [hl]
+	bit TRACKFLAGS_HELD_F, [hl]
 	jr z, .fade_out
 
 	push hl
@@ -2480,7 +2480,7 @@ ProcessTrack:
 	ld bc, TRACK_FLAGS - TRACK_FREQUENCY
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	and $ff ^ (TRACKFLAGS_4 | TRACKFLAGS_5 | TRACKFLAGS_6)
+	and $ff ^ (TRACKFLAGS_4 | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE)
 	ld [hl], a
 	jr .asm_30d95
 
@@ -2728,7 +2728,7 @@ SetFrequency:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	ld de, TRACK_UNK0E
+	ld de, TRACK_FREQUENCY_NOTE
 	add hl, de
 	ld a, [hl]
 	add b
@@ -2781,7 +2781,7 @@ SetFrequency:
 	ld a, b
 .skip_length
 	pop hl
-	ld bc, TRACK_FREQUENCY + 1 - TRACK_UNK0E
+	ld bc, TRACK_FREQUENCY + 1 - TRACK_FREQUENCY_NOTE
 	add hl, bc
 	or AUD1HIGH_RESTART ; AUD2HIGH_RESTART/AUD3HIGH_RESTART/AUD4GO_RESTART
 	ld [hl], a

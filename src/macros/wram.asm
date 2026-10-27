@@ -146,73 +146,66 @@ MACRO particle_struct
 ENDM
 
 MACRO channel_struct
-\1Flags::            db
-\1Duration::         db
-\1CmdPtr::           dw
-\1SoundBank::        db
-\1Unused05::         db
-\1SoundID::          dw
-\1Priority::         db
-\1Pitch::            db
-\1Unk0a::            db
-\1Unk0b::            db
-\1Timbre::           db
-\1Length::           db
-\1Sweep::            db
-\1FadeInEnvelope::   db
-\1FadeOutEnvelope::  db
-\1ActiveCommand::    db
-\1SemitoneOffset::   db
-\1Unk13::            dw
-\1Volume::           db
-\1Unk16::            db
-\1SinglePan::        db
-\1GlobalPan::        db
-\1Unk19::            db
-\1Unk1a::            db
-\1Unk1b::            dw
-\1Unk1d::            db
-\1Unk1e::            db
-\1VibratoSpeed::     db
-\1VibratoValue::     db
-\1VibratoAmplitude:: db
-\1Unk22::            db
-\1VibratoDisabled::  db
-\1Unk24::            dw
-\1Unk26::            db
-\1Unk27::            db
-\1Unk28::            db
-\1Unk29::            db
-\1VibratoDelay::     db
-\1VibratoCounter::   db
-\1Frequency::        dw
-\1SOFlags::          db
+; see the CHANNEL_* constants
+\1Flags::               db
+\1Duration::            db
+\1CmdPtr::              dw
+\1SoundBank::           db
+\1Unused05::            db
+\1SoundID::             dw
+\1Priority::            db
+\1Pitch::               db
+\1NoteVolume::          db
+\1NoteDuration::        db
+\1Timbre::              db
+\1Length::              db
+\1Sweep::               db
+\1FadeInEnvelope::      db
+\1FadeOutEnvelope::     db
+\1ActiveCommand::       db
+\1SemitoneOffset::      db
+\1PitchOffsetMod::      dw
+\1Volume::              db
+\1VolumeMod::           db
+\1SinglePan::           db
+\1GlobalPan::           db
+\1PitchOffset::         db
+\1PitchOffsetMult::     db
+\1PitchProduct::        dw
+\1FrequencyOffset::     db
+\1Unused1e::            db
+\1VibratoSpeed::        db
+\1VibratoValue::        db
+\1VibratoAmplitude::    db
+\1VibratoAmplitudeMod:: db
+\1VibratoDisabled::     db
+\1VibratoFreqOffset::   dw
+\1CallDepth::           db
+\1ReleaseVolume::       db
+\1ReleaseLength::       db
+\1LoopCounter::         db
+\1VibratoDelay::        db
+\1VibratoCounter::      db
+\1Frequency::           dw
+\1SOFlags::             db
 ; bits 7 and 6 determine sound ouput
 ; %01 -> only SO1
 ; %10 -> only SO2
 ; otherwise, both SO used
-\1Unk2f::            db
-\1Unk30::            db
-\1Unk31::            db
-\1Unk32::            db
-\1Unk33::            db
-\1Unk34::            db
-\1Unk35::            db
-\1Unk36::            db
-\1Unk37::            db
-\1Unk38::            db
-\1Unk39::            db
-\1Unk3a::            db
-\1Unk3b::            db
+\1EffectiveVolume::     db
+\1Unused30::            db
+\1Unused31::            db
+\1CallStack::           ds 10
 ENDM
 
 MACRO track_struct
+; see the TRACK_* constants
 \1Flags::          db
 \1Priority::       db
-\1Unk02::          db
-\1Unk03::          db
+\1Owner::          db
+\1Note::           db
 \1ChannelPtr::     dw ; pointer to a channel_struct
-\1Unk06::          db
+\1NoteVolume::     db
 \1Duration::       db
 \1Timbre::         db
 ; in case of sound1 and sound2, duty cycle
@@ -222,16 +215,16 @@ MACRO track_struct
 \1Sweep::           db
 \1FadeInEnvelope::  db
 \1FadeOutEnvelope:: db
-\1Unk0d::           db
-\1Unk0e::           db
-\1Unk0f::           db
+\1Unused0d::        db
+\1FrequencyNote::   db
+\1Unused0f::        db
 \1Volume::          db
 \1VolumeEnvelope::  db
 \1Frequency::       dw
-\1Unk14::           db
-\1Unk15::           db
-\1Unk16::           db
-\1Unk17::           db
+\1Unused14::        db
+\1Unused15::        db
+\1Unused16::        db
+\1Unused17::        db
 ENDM
 
 MACRO temple_rock_struct
