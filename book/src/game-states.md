@@ -143,7 +143,7 @@ restores it.
 |---|---|---|
 | 0 | `SlowFadeToWhite` | fade out the map |
 | 1 | `InitLevel` | LCD off, load the level and its first room, LCD on |
-| 2 | `SlowFadeFromWhite` | fade in |
+| 2 | `SlowFadeFromWhite` (`SST_LEVEL_FADE_IN`) | fade in |
 | 3 | `UpdateLevel` | normal play, once per frame |
 | 4 | `DoorTransition` | the closing-square door effect |
 | 5 | `SlowFadeToWhite` | fade out the room |
@@ -203,6 +203,25 @@ switches to substate 7 for one frame. START opens the pause menu, except
 when Wario is blind (`TRANSFORMATION_BLIND`) or in a boss battle
 (`wIsBossBattle`); then it plays `SFX_0E5`. Pause and debug menu are only
 checked when no floor or room transition is pending.
+
+## Other named substates
+
+The other state tables have a few named entry points
+(`src/constants/state_constants.asm`); each names the first routine of a
+group in the table:
+
+| Constant | Value | Table entry |
+|---|---|---|
+| `SST_TITLE_INTRO_PHASE2` / `_PHASE3` | `$04` / `$05` | `IntroSequencePhase2` / `3`; `ScrollIntroClouds` checks for them |
+| `SST_OVERWORLD_FADE_TO_OW_SCENE` | `$04` | fade before `InitOWScene` (a scene on another map side) |
+| `SST_OVERWORLD_MAP_SIDE` | `$08` | fade, then `InitMapSide` (`SST_OVERWORLD_INIT_MAP_SIDE`, `$09`) |
+| `SST_OVERWORLD_UPDATE_MAP_SIDE` | `$0b` | `UpdateMapSide`: the map is idle and takes input |
+| `SST_OVERWORLD_TEMPLE` | `$1a` | fade, then `InitTempleScene` |
+| `SST_OVERWORLD_EXIT_TEMPLE` | `$1e` | `ExitTempleScene`: B held goes back to `SST_OVERWORLD_MAP_SIDE`, otherwise on to the next entry (fade, `GolfBuilding`); `MapSide_ChangeSide` also jumps here |
+| `SST_PAUSE_SAVE_AND_CONTINUE` | `$18` | save (`Save`), then `TransitionAfterSave` (map, epilogue or game over); set by `SaveGameOrEnterPerfectScreen` |
+| `SST_PAUSE_SAVE_AND_RESET` | `$28` | save, then `ResetAfterSave` (`jp Init`); set by the perfect screen |
+| `SST_GOLF_BUILDING_HOLE` / `_EXIT` | `$04` / `$08` | `InitGolfHole` / `ReturnToMap`; same values as `SST_GOLF_HOLE` / `SST_GOLF_EXIT`, so `HandleGolfHole` serves both states |
+| `SST_PERFECT_UPDATE` | `$03` | `UpdatePerfectScreen` |
 
 ## Leaving and re-entering a level
 

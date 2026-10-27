@@ -511,11 +511,11 @@ MapSide_ChangeSide:
 	bit 1, a
 	jr nz, .asm_8123a
 .asm_81234
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
 .asm_8123a
-	ld a, SST_OVERWORLD_1E
+	ld a, SST_OVERWORLD_EXIT_TEMPLE
 	ld [wSubState], a
 	ret
 
@@ -546,7 +546,7 @@ HandleEnterLevelInput:
 
 .temple
 	play_sfx SFX_SELECTION
-	ld a, SST_OVERWORLD_1A
+	ld a, SST_OVERWORLD_TEMPLE
 	ld [wSubState], a
 	scf
 	ret
@@ -1541,7 +1541,7 @@ RunOWScene_NextParams:
 	ret
 .asm_81923
 	stop_sfx
-	ld a, $04
+	ld a, SST_OVERWORLD_FADE_TO_OW_SCENE
 	ld [wSubState], a
 	ret
 
@@ -3650,7 +3650,7 @@ UpdateTopBar:
 	xor a
 	ld [wOWStep], a
 	ld [wOWStepCounter], a
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 
 .wait_next_map

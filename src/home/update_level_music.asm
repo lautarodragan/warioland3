@@ -20,7 +20,7 @@ SaveGameOrEnterPerfectScreen::
 	ld [wPendingSubState], a
 	ld a, ST_PAUSE_MENU
 	ld [wState], a
-	ld a, SST_PAUSE_18
+	ld a, SST_PAUSE_SAVE_AND_CONTINUE
 	ld [wSubState], a
 	ret
 

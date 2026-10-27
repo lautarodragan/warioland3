@@ -218,7 +218,7 @@ UpdateGolfCourseMenu:
 	call DrawGolfCourseMenuObjs
 	call ClearUnusedVirtualOAM
 	ld a, [wSubState]
-	cp $08
+	cp SST_GOLF_BUILDING_EXIT
 	jp nz, SetGolfCourseMenuVBlankFunc
 	xor a
 	ld [wGolfMode], a
@@ -419,7 +419,7 @@ GolfCourseMenu_Input:
 	ret
 
 .b_btn
-	ld a, $08
+	ld a, SST_GOLF_BUILDING_EXIT
 	ld [wSubState], a
 	ret
 
@@ -529,7 +529,7 @@ GolfCourseMenu_PayCoins:
 .done_subtracting
 	play_sfx SFX_SELECTION
 	call .SetGolfHole
-	ld a, $04
+	ld a, SST_GOLF_BUILDING_HOLE
 	ld [wSubState], a
 	ret
 

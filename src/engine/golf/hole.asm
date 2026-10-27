@@ -2521,7 +2521,7 @@ GolfHoleState_Cleared:
 	ld [wSubState], a
 	ret
 .asm_1c9abc
-	ld a, $08
+	ld a, SST_GOLF_EXIT
 	ld [wSubState], a
 	ret
 
@@ -2557,7 +2557,7 @@ GolfHoleState_Cleared:
 	inc [hl]
 	ld hl, wPredeterminedGolfHole
 	inc [hl]
-	ld a, $04
+	ld a, SST_GOLF_BUILDING_HOLE
 	ld [wSubState], a
 	ret
 

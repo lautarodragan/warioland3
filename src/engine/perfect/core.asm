@@ -62,9 +62,9 @@ UpdatePerfectScreen:
 	jr nz, .asm_dc0cf
 	call SlowFadeInScreen
 	ld a, [wSubState]
-	cp $03
+	cp SST_PERFECT_UPDATE
 	jr z, .asm_dc0cf
-	ld a, $03
+	ld a, SST_PERFECT_UPDATE
 	ld [wSubState], a
 	ld hl, wGameOverWarioVar
 	inc [hl]
@@ -109,7 +109,7 @@ UpdatePerfectScreen:
 	set MODE_TIME_ATTACK_F, [hl]
 	ld a, ST_PAUSE_MENU
 	ld [wState], a
-	ld a, SST_PAUSE_28
+	ld a, SST_PAUSE_SAVE_AND_RESET
 	ld [wSubState], a
 	ret
 

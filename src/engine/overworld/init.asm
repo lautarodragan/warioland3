@@ -94,7 +94,7 @@ InitOverworld:
 	; for player to navigate
 	xor a ; EVENT_00
 	ld [wCurEvent], a
-	ld a, SST_OVERWORLD_09
+	ld a, SST_OVERWORLD_INIT_MAP_SIDE
 	ld [wSubState], a
 	call SaveGameOnReturnFromLevel
 	ret

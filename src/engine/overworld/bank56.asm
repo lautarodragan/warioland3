@@ -1292,7 +1292,7 @@ _BestTimeList:
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_START
 	ret z
-	ld a, $08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
 .d_up
