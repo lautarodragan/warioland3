@@ -217,7 +217,7 @@ group in the table:
 | `SST_OVERWORLD_MAP_SIDE` | `$08` | fade, then `InitMapSide` (`SST_OVERWORLD_INIT_MAP_SIDE`, `$09`) |
 | `SST_OVERWORLD_UPDATE_MAP_SIDE` | `$0b` | `UpdateMapSide`: the map is idle and takes input |
 | `SST_OVERWORLD_TEMPLE` | `$1a` | fade, then `InitTempleScene` |
-| `SST_OVERWORLD_EXIT_TEMPLE` | `$1e` | `ExitTempleScene`: B held goes back to `SST_OVERWORLD_MAP_SIDE`, otherwise on to the next entry (fade, `GolfBuilding`); `MapSide_ChangeSide` also jumps here |
+| `SST_OVERWORLD_TO_GOLF_BUILDING` | `$1e` | `ExitTempleScene`: B held goes back to `SST_OVERWORLD_MAP_SIDE`, otherwise on to the next entries (fade, `GolfBuilding`). Only `MapSide_ChangeSide` sets it; the temple scene leaves by setting `SST_OVERWORLD_MAP_SIDE` or `ST_LEVEL` itself, so the routine's name is misleading |
 | `SST_PAUSE_SAVE_AND_CONTINUE` | `$18` | save (`Save`), then `TransitionAfterSave` (map, epilogue or game over); set by `SaveGameOrEnterPerfectScreen` |
 | `SST_PAUSE_SAVE_AND_RESET` | `$28` | save, then `ResetAfterSave` (`jp Init`); set by the perfect screen |
 | `SST_GOLF_BUILDING_HOLE` / `_EXIT` | `$04` / `$08` | `InitGolfHole` / `ReturnToMap`; same values as `SST_GOLF_HOLE` / `SST_GOLF_EXIT`, so `HandleGolfHole` serves both states |

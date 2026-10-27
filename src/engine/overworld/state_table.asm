@@ -38,7 +38,7 @@ OverworldStateTable::
 	dw InitTempleScene
 	dw DarkenBGToPal_Normal
 	dw UpdateTempleScene
-	dw ExitTempleScene      ; SST_OVERWORLD_EXIT_TEMPLE
+	dw ExitTempleScene      ; SST_OVERWORLD_TO_GOLF_BUILDING
 
 	dw FadeBGToWhite_Normal
 	dw GolfBuilding           ; SST_OVERWORLD_GOLF_BUILDING

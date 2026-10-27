@@ -515,7 +515,7 @@ MapSide_ChangeSide:
 	ld [wSubState], a
 	ret
 .asm_8123a
-	ld a, SST_OVERWORLD_EXIT_TEMPLE
+	ld a, SST_OVERWORLD_TO_GOLF_BUILDING
 	ld [wSubState], a
 	ret
 
