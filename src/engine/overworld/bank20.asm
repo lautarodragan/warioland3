@@ -919,36 +919,36 @@ PathPreview_InitTracers:
 
 PathPreview_RunTracers:
 	ld a, $00
-	call .Func_81576
+	call .load_tracer
 	call .Func_81615
-	call .Func_81595
+	call .save_tracer
 	ld a, $01
-	call .Func_81576
+	call .load_tracer
 	call .Func_81615
-	call .Func_81595
+	call .save_tracer
 	ld a, $02
-	call .Func_81576
+	call .load_tracer
 	call .Func_81615
-	call .Func_81595
+	call .save_tracer
 	ld a, $03
-	call .Func_81576
+	call .load_tracer
 	call .Func_81615
-	call .Func_81595
+	call .save_tracer
 
 	ld a, [wPathPreviewCounter]
 	cp $14
-	call z, .Func_815c1
+	call z, .copy_tracer_sprites_1
 	ld a, [wPathPreviewCounter]
 	cp $28
-	call z, .Func_815e5
+	call z, .copy_tracer_sprites_2
 	ld a, [wPathPreviewCounter]
 	cp $2c
 	ld hl, wOWUIObj1State
-	call z, .Func_81609
+	call z, .clear_tracer_sprites
 	ld a, [wPathPreviewCounter]
 	cp $40
 	ld hl, w2d160 + $6
-	call z, .Func_81609
+	call z, .clear_tracer_sprites
 	call UpdatePathPreviewAnimations
 
 	ld hl, w2d800 + $7
@@ -966,9 +966,9 @@ PathPreview_RunTracers:
 	dec [hl]
 	ret
 
-.Func_81576:
+.load_tracer:
 	ld [wCurOWPathTracerIndex], a
-	call .Func_815b6
+	call .get_tracer_ptr
 	ld de, wCurOWPathTracer
 	ld b, $9
 	call CopyHLToDE
@@ -980,9 +980,9 @@ PathPreview_RunTracers:
 	call CopyHLToDE
 	ret
 
-.Func_81595:
+.save_tracer:
 	ld a, [wCurOWPathTracerIndex]
-	call .Func_815b6
+	call .get_tracer_ptr
 	ld e, l
 	ld d, h
 	ld hl, wCurOWPathTracer
@@ -1000,7 +1000,7 @@ PathPreview_RunTracers:
 ; - a = index
 ; output:
 ; - hl = w2d800 struct
-.Func_815b6:
+.get_tracer_ptr:
 	rlca
 	swap a ; *32
 	ld e, a
@@ -1009,7 +1009,7 @@ PathPreview_RunTracers:
 	add hl, de
 	ret
 
-.Func_815c1:
+.copy_tracer_sprites_1:
 	ld hl, w2d800
 	ld de, wOWUIObj1
 	ld b, $08
@@ -1025,7 +1025,7 @@ PathPreview_RunTracers:
 	call CopyHLToDE
 	ret
 
-.Func_815e5:
+.copy_tracer_sprites_2:
 	ld hl, w2d800
 	ld de, w2d160
 	ld b, $08
@@ -1041,7 +1041,7 @@ PathPreview_RunTracers:
 	call CopyHLToDE
 	ret
 
-.Func_81609:
+.clear_tracer_sprites:
 	ld de, $8
 	xor a
 	ld [hl], a
@@ -1499,30 +1499,30 @@ RunOWScene:
 	inc [hl]
 	ld a, [wOWStep]
 	jumptable
-	dw Func_818e7
-	dw Func_818f6
-	dw Func_81900
+	dw RunOWScene_Wait
+	dw RunOWScene_DoAction
+	dw RunOWScene_NextParams
 
-Func_818e7:
+RunOWScene_Wait:
 	ld a, [wOWStepCounter]
 	cp $04
 	ret c
 
-Func_818ed:
+RunOWScene_Next:
 	xor a
 	ld [wOWStepCounter], a
 	ld hl, wOWStep
 	inc [hl]
 	ret
 
-Func_818f6:
+RunOWScene_DoAction:
 	call DoOWSceneAction
 	ld a, [wOWSceneActionParam]
 	and a
 	ret nz
-	jr Func_818ed
+	jr RunOWScene_Next
 
-Func_81900:
+RunOWScene_NextParams:
 	ld a, [wOWStepCounter]
 	cp $04
 	ret c

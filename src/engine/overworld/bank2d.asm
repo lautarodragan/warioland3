@@ -26,8 +26,8 @@ InitOWObjects_North:
 	dw InitNOWObjects_MagicSeed ; NOWFUNC_MAGIC_SEED
 	dw InitNOWObjects_SummonSnake ; NOWFUNC_SUMMON_SNAKE
 	dw InitNOWObjects_FallLeaves ; NOWFUNC_FALL_LEAVES
-	dw Func_b4140 ; NOWFUNC_BLUE_MUSIC_BOX
-	dw Func_b4140 ; NOWFUNC_GOLD_MUSIC_BOX
+	dw InitNOWObjects_MusicBox ; NOWFUNC_BLUE_MUSIC_BOX
+	dw InitNOWObjects_MusicBox ; NOWFUNC_GOLD_MUSIC_BOX
 	dw InitNOWObjects_CrayonRed ; NOWFUNC_CRAYON_RED
 	dw InitNOWObjects_CrayonBrown ; NOWFUNC_CRAYON_BROWN
 	dw InitNOWObjects_CrayonYellow ; NOWFUNC_CRAYON_YELLOW
@@ -194,7 +194,7 @@ InitNOWObjects_FallLeaves:
 .data_4
 	db $41, $19, $14
 
-Func_b4140:
+InitNOWObjects_MusicBox:
 	ret
 
 InitNOWObjects_CrayonRed:
@@ -879,7 +879,7 @@ InitOWObjects_East:
 	dw InitEOWObjects_BurnVines ; EOWFUNC_BURN_VINES
 	dw InitEOWObjects_ShowWarpedVoid ; EOWFUNC_SHOW_WARPED_VOID
 	dw InitEOWObjects_RaisePipe ; EOWFUNC_RAISE_PIPE
-	dw Func_b4873 ; EOWFUNC_DAYTIME
+	dw InitEOWObjects_Daytime ; EOWFUNC_DAYTIME
 
 InitEOWObjects_FreezeSea:
 	ld a, c
@@ -1134,7 +1134,7 @@ InitEOWObjects_RaisePipe:
 .data_2
 	db $40, $7c, $21
 
-Func_b4873:
+InitEOWObjects_Daytime:
 	ret
 
 Func_b4874:
@@ -2365,7 +2365,7 @@ NorthOWObjState26:
 	ld de, Frameset_aa0c1
 	call UpdateCurOWObjAnimation
 	ld b, $27
-	jr AnimateNorthOWObj2.asm_b5122
+	jr AnimateNorthOWObj2.set_state_when_finished
 
 NorthOWObjState27:
 	ld de, Frameset_aa09d
@@ -2375,20 +2375,20 @@ NorthOWObjState28:
 	ld de, Frameset_aa0bc
 	call UpdateCurOWObjAnimation
 	ld b, $25
-	jr AnimateNorthOWObj2.asm_b5122
+	jr AnimateNorthOWObj2.set_state_when_finished
 
 AnimateNorthOWObj2:
 	call UpdateCurOWObjAnimation
-.asm_b5117
+.draw
 	ld de, OAM_a9fe2
 	jp LoadCurSceneObjSpriteWithScroll
 
 	call UpdateCurOWObjAnimation
 	ld b, $00
-.asm_b5122
+.set_state_when_finished
 	call SetOWObjStateIfAnimFinished
 	jp z, RunNorthOWObjState
-	jr .asm_b5117
+	jr .draw
 
 NorthOWObjState29:
 	ld de, NorthOWObjFrameset_a87e8
@@ -2816,11 +2816,11 @@ ENDR
 	ret
 
 UpdateNorthLeaves:
-	call .Func_b5435
-	call .Func_b54ba
+	call .UpdateLeaf1
+	call .UpdateLeaf2
 	ret
 
-.Func_b5435:
+.UpdateLeaf1:
 	ld hl, w2d12c
 	ld a, [hli]
 	and a
@@ -2905,7 +2905,7 @@ UpdateNorthLeaves:
 	ld [hl], a
 	ret
 
-.Func_b54ba:
+.UpdateLeaf2:
 	ld hl, w2d12e
 	ld a, [hli]
 	and a
@@ -7168,7 +7168,7 @@ EOWFunc_Earthquake:
 	jp AdvanceOWFunc
 
 UpdateOWSceneScreenShake:
-	call .Func_b7273
+	call .RunShakeScript
 	ld hl, wOWUIObj1YCoord
 	ld a, [hli]
 	and a
@@ -7253,7 +7253,7 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b7273:
+.RunShakeScript:
 	ld hl, wOWUIObj1Frame
 	ld a, [hli]
 	and a
@@ -7304,7 +7304,7 @@ UpdateOWSceneScreenShake:
 	ld a, [wOWUIObj1Attributes]
 	cp $03
 	ret c
-	jr .asm_b7304
+	jr .next_step
 .Func_b72d0:
 	ld a, [wOWUIObj1Attributes]
 	cp $03
@@ -7312,12 +7312,12 @@ UpdateOWSceneScreenShake:
 	ld a, [wOWUIObj1Frame]
 	sub $04
 	ld [wOWUIObj1Frame], a
-	jr .asm_b7304
+	jr .next_step
 .Func_b72e0:
 	ld a, [wOWUIObj1Attributes]
 	cp $01
 	ret c
-	jr .asm_b7304
+	jr .next_step
 .Func_b72e8:
 	ld a, [wOWUIObj1Attributes]
 	cp $01
@@ -7325,13 +7325,13 @@ UpdateOWSceneScreenShake:
 	ld a, [wOWUIObj1Frame]
 	sub $10
 	ld [wOWUIObj1Frame], a
-	jr .asm_b7304
+	jr .next_step
 .Func_b72f8:
 	play_sfx SFX_01F
 .Func_b7300:
 	ld hl, wSCY
 	dec [hl]
-.asm_b7304
+.next_step
 	xor a
 	ld hl, wOWUIObj1Attributes
 	ld [hld], a
@@ -7341,7 +7341,7 @@ UpdateOWSceneScreenShake:
 .Func_b730b:
 	ld hl, wSCY
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b7311:
 	ld hl, wSCY
@@ -7350,7 +7350,7 @@ UpdateOWSceneScreenShake:
 	dec [hl]
 	dec [hl]
 	play_sfx SFX_01F
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b7322:
 	ld hl, wSCY
@@ -7358,7 +7358,7 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b732b:
 	ld hl, wSCX
@@ -7366,13 +7366,13 @@ UpdateOWSceneScreenShake:
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b7334:
 	ld hl, wSCX
 	dec [hl]
 	dec [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b733b:
 	play_sfx SFX_063
@@ -7382,7 +7382,7 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b734c:
 	call .Func_b7343
@@ -7395,20 +7395,20 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b735c:
 	ld hl, wSCX
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b7363:
 	play_sfx SFX_063
 .asm_b736b
 	ld hl, wSCX
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
 .Func_b7371:
 	call .asm_b736b
@@ -7426,7 +7426,7 @@ UpdateOWSceneScreenShake:
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	jp .asm_b7304
+	jp .next_step
 
 .Func_b7387:
 	ld hl, wSCX
@@ -7438,7 +7438,7 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jp .asm_b7304
+	jp .next_step
 
 EOWFunc_FormCastle:
 	call .Func_b74cb

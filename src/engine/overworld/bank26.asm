@@ -710,7 +710,7 @@ ProcessCollectionLinkState:
 	dw .WaitDelay
 	dw .GetLinkedCells
 	dw .Return
-	dw .Func_9a806
+	dw .PlaceLinkedCellMarkers
 	dw .Return
 
 .AdvanceState:
@@ -744,7 +744,7 @@ ProcessCollectionLinkState:
 .Return:
 	ret
 
-.Func_9a806:
+.PlaceLinkedCellMarkers:
 	ld a, [wCollectionLinkedCells + 0]
 	cp $80
 	jr z, .AdvanceState
@@ -754,7 +754,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a823
 	ld hl, wSceneObj2YCoord
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj2YCoord
 	call CollectionRowColToCoords
 .asm_9a823
@@ -767,7 +767,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a840
 	ld hl, wSceneObj3YCoord
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj3YCoord
 	call CollectionRowColToCoords
 .asm_9a840
@@ -780,7 +780,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a85d
 	ld hl, wSceneObj3End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj3End
 	call CollectionRowColToCoords
 .asm_9a85d
@@ -793,7 +793,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a87b
 	ld hl, wSceneObj4End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj4End
 	call CollectionRowColToCoords
 .asm_9a87b
@@ -806,7 +806,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a899
 	ld hl, wSceneObj5End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj5End
 	call CollectionRowColToCoords
 .asm_9a899
@@ -819,7 +819,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a8b7
 	ld hl, wSceneObj6End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj6End
 	call CollectionRowColToCoords
 .asm_9a8b7
@@ -832,13 +832,13 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a8d5
 	ld hl, wSceneObj7End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj7End
 	call CollectionRowColToCoords
 .asm_9a8d5
 	jp .AdvanceState
 
-.Func_9a8d8:
+.set_marker_state:
 	set 2, l
 	ld a, $02
 	call SetSceneObjState
@@ -1056,11 +1056,11 @@ AnimateTreasureCollection:
 	ld a, [bc]
 	jumptable
 
-	dw Func_9aa6c
-	dw Func_9aa6d
-	dw Func_9aa72
-	dw Func_9aa77
-	dw Func_9aa7c
+	dw TreasureCollectionObjState_None
+	dw TreasureCollectionObjState01
+	dw TreasureCollectionObjState02
+	dw TreasureCollectionObjState03
+	dw TreasureCollectionObjState04
 
 AnimateTreasureCollectionObj:
 	call UpdateSceneObjAnim_Bank26
@@ -1077,22 +1077,22 @@ UnreferencedAnimateTreasureCollectionObjThenSetState:
 	jr nz, DrawTreasureCollectionObj
 	jr AnimateTreasureCollection.Func_9aa4a
 
-Func_9aa6c:
+TreasureCollectionObjState_None:
 	ret
 
-Func_9aa6d:
+TreasureCollectionObjState01:
 	ld de, Frameset_9ace1
 	jr AnimateTreasureCollectionObj
 
-Func_9aa72:
+TreasureCollectionObjState02:
 	ld de, Frameset_9acea
 	jr AnimateTreasureCollectionObj
 
-Func_9aa77:
+TreasureCollectionObjState03:
 	ld de, Frameset_9acf3
 	jr AnimateTreasureCollectionObj
 
-Func_9aa7c:
+TreasureCollectionObjState04:
 	ld de, Frameset_9acfc
 	jr AnimateTreasureCollectionObj
 

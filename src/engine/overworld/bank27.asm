@@ -552,7 +552,7 @@ InitCutscene55:
 	call LoadLevelMainTiles29_Vram0
 	call LoadCutscenes7Gfx_Vram1
 	call LoadCutsceneBGMaps27
-	jp Func_9e91a
+	jp InitCutscene55Objs
 
 InitCutscene44:
 	ld a, LCDC_BG_MAP
@@ -1958,7 +1958,7 @@ Cutscene19Func:
 Cutscene0eFunc:
 Cutscene11Func:
 	call .PlayCutscene
-	jp Func_9f1f3
+	jp UpdateCutsceneObjs_FreezeSea
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -2108,7 +2108,7 @@ Cutscene11Func:
 Cutscene1bFunc:
 	call .PlayCutscene
 	call UpdateCutsceneObjs_SummonSun
-	jp Func_9f244
+	jp UpdateCutsceneLevelObj_SummonSun
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -2400,11 +2400,11 @@ InitCutscene27Objs:
 	ld a, $01
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jp Func_9f2f3
+	jp UpdateCutsceneObjs_PlaceCartWheels
 
 Cutscene27Func:
 	call .PlayCutscene
-	jp Func_9f2f3
+	jp UpdateCutsceneObjs_PlaceCartWheels
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -2493,10 +2493,10 @@ Cutscene25Func:
 ;	fallthrough
 
 MusicBoxCutsceneFunc:
-	call .Func_9d6f6
+	call .PlayCutscene
 	jp UpdateCutsceneObjs_MusicBox
 
-.Func_9d6f6:
+.PlayCutscene:
 	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
@@ -2706,7 +2706,7 @@ Cutscene0cFunc:
 
 Cutscene18Func:
 	call .PlayCutscene
-	jp Func_9f1f3
+	jp UpdateCutsceneObjs_FreezeSea
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -2965,12 +2965,12 @@ InitCutscene15Objs:
 	ld a, 96 ; y
 	ld [hli], a
 	ld [hl], 80 ; x
-	jp Func_9f38d
+	jp UpdateCutsceneObjs_OpenSnakeDoor
 
 Cutscene15Func:
 Cutscene49Func:
 	call .PlayCutscene
-	jp Func_9f38d
+	jp UpdateCutsceneObjs_OpenSnakeDoor
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -4276,7 +4276,7 @@ Cutscene54Func:
 
 Cutscene3dFunc:
 	call .PlayCutscene
-	call Func_9f7a2
+	call UpdateCutsceneLevelObj_OpenParaGoomCage
 	jp UpdateCutsceneObjs_OpenParaGoomCage
 
 .PlayCutscene:
@@ -4484,12 +4484,12 @@ InitCutscene4cObjs:
 	ld hl, wSceneObj3Attributes
 	set 1, [hl]
 	call UpdateCutsceneObjs_ExtinguishFire
-	jp Func_9f821
+	jp UpdateCutsceneLevelObj_ExtinguishFire
 
 Cutscene4cFunc:
 	call .PlayCutscene
 	call UpdateCutsceneObjs_ExtinguishFire
-	jp Func_9f821
+	jp UpdateCutsceneLevelObj_ExtinguishFire
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -5019,12 +5019,12 @@ InitCutscene58Objs:
 	ld a, $01
 	call SetSceneObjPosAndState
 	call UpdateCutsceneObjs_OpenCraterHole
-	jp Func_9f9f5
+	jp UpdateCutsceneLevelObj_OpenCraterHole
 
 Cutscene58Func:
 	call .PlayCutscene
 	call UpdateCutsceneObjs_OpenCraterHole
-	jp Func_9f9f5
+	jp UpdateCutsceneLevelObj_OpenCraterHole
 
 .PlayCutscene:
 	push bc
@@ -5109,7 +5109,7 @@ Cutscene58Func:
 	call SetSceneObjState
 	jr .asm_9e8dc
 
-Func_9e91a:
+InitCutscene55Objs:
 	ld hl, wSceneObj3
 	lb de, $58, $40
 	ld a, $01
@@ -5353,7 +5353,7 @@ MoveCutsceneObj11:
 Cutscene44Func:
 	call .PlayCutscene
 	call UpdateCutsceneObjs_FeedOctohon
-	jp Func_9faea
+	jp UpdateCutsceneLevelObj_FeedOctohon
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -5529,7 +5529,7 @@ Data_9ec41:
 
 Cutscene14Func:
 	call .PlayCutscene
-	call Func_9fba9
+	call UpdateCutsceneObjs_VolcanoEruption
 	ret
 
 .PlayCutscene:
@@ -5980,9 +5980,9 @@ UpdateCutsceneObjs_RaiseTower:
 	ld bc, wSceneObj3State
 	call .Func_9f15e
 	ld de, wSceneObj2
-	call Func_9fb97
+	call DrawCutsceneOverlayFrame5
 	ld de, wSceneObj3
-	jp Func_9fba0
+	jp DrawCutsceneOverlayFrame6
 
 .Func_9f15e:
 	ld a, [bc]
@@ -6069,15 +6069,15 @@ UpdateCutsceneObjs_RevealCastle:
 	dw RevealCastleCutsceneFrameset_bd793
 	dw RevealCastleCutsceneFrameset_bd79c
 
-Func_9f1f3:
+UpdateCutsceneObjs_FreezeSea:
 	ld de, wSceneObj2
-	call Func_9fb75
+	call DrawCutsceneOverlayFrame2
 	ld de, wSceneObj2
-	call Func_9fb97
+	call DrawCutsceneOverlayFrame5
 	ld bc, wSceneObj2State
 	call .Func_9f20b
 	ld de, wSceneObj2
-	jp Func_9fb7e
+	jp DrawCutsceneOverlayFrame3
 
 .Func_9f20b:
 	ld a, [bc]
@@ -6113,7 +6113,7 @@ UpdateCutsceneObjs_SummonSun:
 	dw SummonSunCutsceneFrameset_bd96b
 	dw SummonSunCutsceneFrameset_bd96e
 
-Func_9f244:
+UpdateCutsceneLevelObj_SummonSun:
 	ld bc, wSceneObj5State
 	ld a, [bc]
 	and a
@@ -6221,7 +6221,7 @@ UpdateCutsceneObjs_TreasureMap:
 	dw TreasureMapCutsceneFrameset_bdaa2
 	dw TreasureMapCutsceneFrameset_bdab9
 
-Func_9f2f3:
+UpdateCutsceneObjs_PlaceCartWheels:
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
@@ -6249,7 +6249,7 @@ Func_9f2f3:
 
 UpdateCutsceneObjs_BlowMist:
 	ld de, wSceneObj2
-	call Func_9fb97
+	call DrawCutsceneOverlayFrame5
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
@@ -6286,11 +6286,11 @@ UpdateCutsceneObjs_SummonSnakes:
 
 UpdateCutsceneObjs_FootStone:
 	ld de, wSceneObj3
-	call Func_9fb4c
+	call DrawCutsceneOverlayFrame0
 	ld bc, wSceneObj2State
 	call .Func_9f379
 	ld de, wSceneObj3
-	jp Func_9fb6c
+	jp DrawCutsceneOverlayFrame1
 
 .Func_9f379:
 	ld a, [bc]
@@ -6305,7 +6305,7 @@ UpdateCutsceneObjs_FootStone:
 .framesets
 	dw FootStoneCutsceneFrameset_bdce3
 
-Func_9f38d:
+UpdateCutsceneObjs_OpenSnakeDoor:
 	ld bc, wSceneObj2State
 	call .asm_9f3a2
 	ld bc, wSceneObj3State
@@ -6523,7 +6523,7 @@ UpdateCutsceneObjs_MakeWire:
 
 UpdateCutsceneObjs_TorchForest:
 	ld de, wSceneObj2
-	call Func_9fb97
+	call DrawCutsceneOverlayFrame5
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
@@ -6562,11 +6562,11 @@ UpdateCutsceneObjs_TorchForest:
 
 UpdateCutsceneObjs_RevealWarpedVoid:
 	ld de, wSceneObj2
-	call Func_9fb4c
+	call DrawCutsceneOverlayFrame0
 	ld bc, wSceneObj2State
 	call .asm_9f559
 	ld de, wSceneObj2
-	jp Func_9fb6c
+	jp DrawCutsceneOverlayFrame1
 
 .asm_9f559
 	ld a, [bc]
@@ -6909,7 +6909,7 @@ UpdateCutsceneObjs_OpenParaGoomCage:
 	dw OpenParaGoomCageCutsceneFrameset_bee60
 	dw OpenParaGoomCageCutsceneFrameset_bee6b
 
-Func_9f7a2:
+UpdateCutsceneLevelObj_OpenParaGoomCage:
 	ld bc, wSceneObj3State
 	ld a, [bc]
 	and a
@@ -6986,7 +6986,7 @@ UpdateCutsceneObjs_ExtinguishFire:
 	play_sfx SFX_076
 	ret
 
-Func_9f821:
+UpdateCutsceneLevelObj_ExtinguishFire:
 	ld bc, wSceneObj3State
 	ld a, [bc]
 	and a
@@ -7264,7 +7264,7 @@ UpdateCutsceneObjs_OpenCraterHole:
 	dw OpenCraterHoleCutsceneFrameset_bf6e2
 	dw OpenCraterHoleCutsceneFrameset_bf6ed
 
-Func_9f9f5:
+UpdateCutsceneLevelObj_OpenCraterHole:
 	ld bc, wSceneObj3State
 	ld a, [bc]
 	and a
@@ -7403,7 +7403,7 @@ UpdateCutsceneObjs_FeedOctohon:
 	play_sfx SFX_08E
 	ret
 
-Func_9faea:
+UpdateCutsceneLevelObj_FeedOctohon:
 	ld bc, wSceneObj3State
 .asm_9faed
 	ld a, [bc]
@@ -7464,7 +7464,7 @@ Func_9faea:
 	play_sfx SFX_083
 	ret
 
-Func_9fb4c:
+DrawCutsceneOverlayFrame0:
 	ld c, $00
 	ld hl, wCurSceneObj
 	ld b, $01
@@ -7495,25 +7495,25 @@ LoadCutsceneOverlaySprite:
 	call LoadCutsceneObjSprite_OWOAM2
 	ret
 
-Func_9fb6c:
+DrawCutsceneOverlayFrame1:
 	ld c, $01
 	ld hl, wCurSceneObjDuration
 	ld b, $01
 	jr DrawCutsceneOverlay
 
-Func_9fb75:
+DrawCutsceneOverlayFrame2:
 	ld c, 2
 	ld hl, wCurSceneObjDuration
 	ld b, $01
 	jr DrawCutsceneOverlay
 
-Func_9fb7e:
+DrawCutsceneOverlayFrame3:
 	ld c, 3
 	ld hl, wCurSceneObjDuration
 	ld b, $01
 	jr DrawCutsceneOverlay
 
-Func_9fb87:
+DrawCutsceneOverlayFrame4:
 	ld a, [wSceneObj1YCoord]
 	cp $02
 	ret nz
@@ -7525,21 +7525,21 @@ Func_9fb87:
 	jr LoadCutsceneOverlaySprite
 
 ; de = scene obj
-Func_9fb97:
+DrawCutsceneOverlayFrame5:
 	ld hl, wCurSceneObj
 	ld c, 5
 	ld b, $03
 	jr DrawCutsceneOverlay
 
 ; de = scene obj
-Func_9fba0:
+DrawCutsceneOverlayFrame6:
 	ld hl, wCurSceneObjDuration
 	ld c, 6
 	ld b, $03
 	jr DrawCutsceneOverlay
 
-Func_9fba9:
-	call Func_9fb87
+UpdateCutsceneObjs_VolcanoEruption:
+	call DrawCutsceneOverlayFrame4
 	ld bc, wSceneObj4State
 	call .Func_9fbc5
 	ld bc, wSceneObj2State
@@ -7582,10 +7582,10 @@ Func_9fba9:
 
 UpdateCutsceneObjs_PlantSeeds:
 	ld de, wSceneObj2
-	call Func_9fb4c
+	call DrawCutsceneOverlayFrame0
 	call .Func_9fc09
 	ld de, wSceneObj2
-	jp Func_9fb6c
+	jp DrawCutsceneOverlayFrame1
 
 .Func_9fc09:
 	ld a, [wSceneObj2State]
@@ -7599,10 +7599,10 @@ UpdateCutsceneObjs_PlantSeeds:
 
 UpdateCutsceneObjs_MusicBox:
 	ld de, wSceneObj2
-	call Func_9fb4c
+	call DrawCutsceneOverlayFrame0
 	call .Func_9fc2c
 	ld de, wSceneObj2
-	jp Func_9fb6c
+	jp DrawCutsceneOverlayFrame1
 
 .Func_9fc2c:
 	ld a, [wSceneObj2State]
@@ -7631,7 +7631,7 @@ UpdateCutsceneObjs_MusicBox:
 OWCutTree:
 .start
 	ld de, wSceneObj2
-	call Func_9fb97
+	call DrawCutsceneOverlayFrame5
 	ld hl, wSceneObj2State
 	ld a, [hld]
 	and a

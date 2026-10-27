@@ -901,7 +901,7 @@ _PrologueFade:
 	ret
 
 ; unreferenced
-Func_84fd5:
+UnreferencedClearBGOBPals:
 	xor a
 	ld hl, wTempBGPals
 	ld bc, 8 palettes

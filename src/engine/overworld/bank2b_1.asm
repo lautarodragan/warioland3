@@ -3219,7 +3219,7 @@ MoveMusicBoxUpLeft:
 	cp $2c
 	ret
 
-Func_ae915:
+AdvanceStepAtHL_Bank2b1:
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -3247,10 +3247,10 @@ HandleTempleMusicBox\1Hover:
 	call InitTempleSceneMusicBox
 .Next:
 	ld hl, wTempleMusicBox\1Counter
-IF (Func_ae915) - @ > 127 || (Func_ae915) - @ < -129
-	jp Func_ae915
+IF (AdvanceStepAtHL_Bank2b1) - @ > 127 || (AdvanceStepAtHL_Bank2b1) - @ < -129
+	jp AdvanceStepAtHL_Bank2b1
 ELSE
-	jr Func_ae915
+	jr AdvanceStepAtHL_Bank2b1
 ENDC
 
 .MoveUpLeft:

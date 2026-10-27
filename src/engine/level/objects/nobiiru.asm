@@ -39,18 +39,18 @@ NobiiruFunc:
 	jumptable
 
 	dw .Wait
-	dw .Func_43876
-	dw .Func_438a0
-	dw .Func_438c5
-	dw .Func_438ea
 	dw .Extend1
+	dw .Extend2
+	dw .Extend3
+	dw .Extend4
+	dw .Extend5
 	dw .Bite1
 	dw .Bite2
-	dw .Func_4396e
-	dw .Func_43994
-	dw .Func_439ba
-	dw .Func_439e0
 	dw .Retract1
+	dw .Retract2
+	dw .Retract3
+	dw .Retract4
+	dw .Retract5
 	dw .RetractEnd
 
 .Wait:
@@ -99,7 +99,7 @@ NobiiruFunc:
 	inc [hl]
 	ret
 
-.Func_43876:
+.Extend1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -123,7 +123,7 @@ NobiiruFunc:
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
-.Func_438a0:
+.Extend2:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -145,7 +145,7 @@ NobiiruFunc:
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
-.Func_438c5:
+.Extend3:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -167,7 +167,7 @@ NobiiruFunc:
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
-.Func_438ea:
+.Extend4:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -189,7 +189,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Extend1:
+.Extend5:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -236,7 +236,7 @@ NobiiruFunc:
 	ld b, $14
 	jp .SetFrameset
 
-.Func_4396e:
+.Retract1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -258,7 +258,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_43994:
+.Retract2:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -280,7 +280,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_439ba:
+.Retract3:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -302,7 +302,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_439e0:
+.Retract4:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -324,7 +324,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Retract1:
+.Retract5:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
