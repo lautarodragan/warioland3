@@ -81,9 +81,9 @@ confirmed not to be the root cause.
 ### Hypothesis 3 — `DoObjectAction` / `OwlFunc.Sleep` wake-up (implemented, still broken)
 
 Flow:
-1. `ObjInteraction_Owl` → `Func_20a63` → `SetObjAction(OBJACTION_07)` on the
+1. `ObjInteraction_Owl` → `Func_20a63` → `SetObjAction(OBJACTION_TRIGGER)` on the
    owl object.
-2. Next frame: `DoObjectAction` handles `.Action07` → sets
+2. Next frame: `DoObjectAction` handles `.Trigger` → sets
    `OBJ_STATE = OBJSTATE_TRIGGERED ($18)`.
 3. `OwlFunc.Sleep` checks `wCurObjState`: nonzero → wakes the owl, calls
    `MoveObjectUp`, changes interaction type, starts fly sequence.
@@ -101,9 +101,9 @@ root cause was confirmed.
 
 - **`ObjInteraction_Owl`** (`object_interactions.asm`) is called every
   frame Wario is in the carrying state. It calls `Func_20a63` which calls
-  `SetObjAction(OBJACTION_07)` on the held object — this sets
-  `OBJ_ACTION = OBJACTION_07`, `OBJ_STATE = 0`, then next frame
-  `DoObjectAction` runs `.Action07` which sets `OBJ_STATE = OBJSTATE_TRIGGERED`.
+  `SetObjAction(OBJACTION_TRIGGER)` on the held object — this sets
+  `OBJ_ACTION = OBJACTION_TRIGGER`, `OBJ_STATE = 0`, then next frame
+  `DoObjectAction` runs `.Trigger` which sets `OBJ_STATE = OBJSTATE_TRIGGERED`.
 - **`OwlFunc.Sleep`** (`objects/owl.asm:35`) returns early only when
   `wCurObjState == 0`. Any nonzero state triggers the wake-up and full
   fly sequence. If using `OwlFunc.Sleep` as the update function, the owl

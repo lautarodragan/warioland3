@@ -575,23 +575,23 @@ DoObjectAction:
 	dw .PickUp ; OBJACTION_PICK_UP
 	dw .Wobble ; OBJACTION_WOBBLE
 	dw .VanishTouch ; OBJACTION_VANISH_TOUCH
-	dw .Action06 ; OBJACTION_06
-	dw .Action07 ; OBJACTION_07
+	dw .HitWario ; OBJACTION_HIT_WARIO
+	dw .Trigger ; OBJACTION_TRIGGER
 	dw VanishObject_NoSFX ; OBJACTION_VANISH_TREASURE
 	dw .StepOn ; OBJACTION_STEP_ON
-	dw .Action0a ; OBJACTION_0A
+	dw .Pause ; OBJACTION_PAUSE
 	dw .Flatten ; OBJACTION_FLATTEN
-	dw .Action0c ; OBJACTION_0C
-	dw .Action0d ; OBJACTION_0D
-	dw .Action0e ; OBJACTION_0E
+	dw .PickUpWario ; OBJACTION_PICK_UP_WARIO
+	dw .NoEffect ; OBJACTION_NO_EFFECT
+	dw .LightTorch ; OBJACTION_LIGHT_TORCH
 	dw .SmashAttackWalkable ; OBJACTION_SMASH_ATTACK_WALKABLE
 	dw .Teleport ; OBJACTION_TELEPORT
-	dw .Action11 ; OBJACTION_11
-	dw .Action12 ; OBJACTION_12
-	dw .Action13 ; OBJACTION_13
+	dw .Swallow ; OBJACTION_SWALLOW
+	dw .HitWarioShort ; OBJACTION_HIT_WARIO_SHORT
+	dw .Special3 ; OBJACTION_SPECIAL_3
 	assert_table_length NUM_OBJ_ACTIONS
 
-.Action13:
+.Special3:
 	ld hl, wCurObjAction
 	ld a, 15 | (1 << 7)
 	ld [hld], a
@@ -683,10 +683,10 @@ DoObjectAction:
 	ld [hl], a
 	ret
 
-.Action12:
+.HitWarioShort:
 	ld b, 7 | (1 << 7)
 	jr .asm_6181f
-.Action06:
+.HitWario:
 	ld b, 15 | (1 << 7)
 .asm_6181f
 	ld hl, wCurObjActionSide
@@ -716,7 +716,7 @@ DoObjectAction:
 	ld [hl], a ; OBJ_STATE
 	ret
 
-.Action07:
+.Trigger:
 	ld hl, wCurObjAction
 	xor a
 	ld [hld], a
@@ -732,7 +732,7 @@ DoObjectAction:
 	set OBJFLAG_STEPPED_F, [hl]
 	ret
 
-.Action0a:
+.Pause:
 	ld a, no_actions_for 15
 	ld [wCurObjAction], a
 	ret
@@ -745,7 +745,7 @@ DoObjectAction:
 	ld [hl], a ; OBJ_STATE
 	ret
 
-.Action0c:
+.PickUpWario:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
@@ -753,7 +753,7 @@ DoObjectAction:
 	ld [hl], a
 	ret
 
-.Action0d:
+.NoEffect:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
@@ -761,7 +761,7 @@ DoObjectAction:
 	ld [hl], a
 	ret
 
-.Action0e:
+.LightTorch:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
@@ -785,7 +785,7 @@ DoObjectAction:
 	ld [hl], a
 	ret
 
-.Action11:
+.Swallow:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a

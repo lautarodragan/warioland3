@@ -519,6 +519,9 @@ DEF OBJSTATE_TRIGGERED  EQU OBJSTATE_GRABBED_LEFT_START  ; set by OBJACTION_TRIG
 DEF OBJSTATE_NO_EFFECT  EQU OBJSTATE_GRABBED_RIGHT_START ; set by OBJACTION_NO_EFFECT (Wario immune)
 DEF OBJSTATE_COIN_INIT  EQU OBJSTATE_GRABBED_RIGHT_START ; CoinFunc's .Init
 
+; OBJ_ACTION values: written by SetObjAction (object_interactions.asm)
+; and turned into an OBJ_STATE by DoObjectAction (update_objects.asm)
+; HIT_WARIO: the object stung, burned, bumped off or transformed Wario
 	const_def
 	const OBJACTION_NONE                  ; $00
 	const OBJACTION_BUMP                  ; $01
@@ -526,20 +529,20 @@ DEF OBJSTATE_COIN_INIT  EQU OBJSTATE_GRABBED_RIGHT_START ; CoinFunc's .Init
 	const OBJACTION_PICK_UP               ; $03
 	const OBJACTION_WOBBLE                ; $04
 	const OBJACTION_VANISH_TOUCH          ; $05
-	const OBJACTION_06                    ; $06
-	const OBJACTION_07                    ; $07
+	const OBJACTION_HIT_WARIO             ; $06
+	const OBJACTION_TRIGGER               ; $07
 	const OBJACTION_VANISH_TREASURE       ; $08
 	const OBJACTION_STEP_ON               ; $09
-	const OBJACTION_0A                    ; $0a
+	const OBJACTION_PAUSE                 ; $0a
 	const OBJACTION_FLATTEN               ; $0b
-	const OBJACTION_0C                    ; $0c
-	const OBJACTION_0D                    ; $0d
-	const OBJACTION_0E                    ; $0e
+	const OBJACTION_PICK_UP_WARIO         ; $0c
+	const OBJACTION_NO_EFFECT             ; $0d
+	const OBJACTION_LIGHT_TORCH           ; $0e
 	const OBJACTION_SMASH_ATTACK_WALKABLE ; $0f
 	const OBJACTION_TELEPORT              ; $10
-	const OBJACTION_11                    ; $11
-	const OBJACTION_12                    ; $12
-	const OBJACTION_13                    ; $13
+	const OBJACTION_SWALLOW               ; $11
+	const OBJACTION_HIT_WARIO_SHORT       ; $12
+	const OBJACTION_SPECIAL_3             ; $13
 DEF NUM_OBJ_ACTIONS EQU const_value
 
 DEF NO_ACTIONS_F EQU 7
