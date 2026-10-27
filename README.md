@@ -10,7 +10,7 @@ Accessible via SELECT during level play.
 The menu allows cycling through:
 - FORM: 13 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN/INVIS). Invisibility is one of them, as in the game.
 - POWER: power-up level 0-9
-- GOLF: auto-wins the current area's golf minigame. Must exit and re-enter area for it to take effect. This is currently done automatically, but it sometimes leads to soft-locking, so I'll remove it in the future, and we'll be back to having to manually exit and re-enter the area.
+- GOLF: auto-wins the current area's golf minigame (or takes the win back). All a golf win does in the level is raise the "MINI GAME CLEAR" gates, so the gates already in the room go up (or down) right away, and the ones further on spawn that way. Wario stays where he is: nothing is reloaded. (If you close a gate on Wario, jump out of it.) See [GOLF and the room reload](#golf-and-the-room-reload) for how it used to work and why it reset the game.
 - OWL: spawns a sleeping owl next to Wario, in any level. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics go into a graphics slot the set doesn't use, or, if it uses all four, replace its first enemy's while it's around. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot, and in boss battles.
 - TREASURE: pick any level's treasure with LEFT/RIGHT (e.g. `N5 RED`) and press A to give it to Wario or take it back. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
 
@@ -68,6 +68,7 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to `tests/outpu
 
 - `test_out_of_the_woods.py` plays N1 from a new game: grabs the grey key, opens the grey chest, and checks the key/treasure flags, the clear screen and the treasure count.
 - `test_debug_menu.py` opens the debug menu and exercises FORM, POWER and INVNBL, checking the RAM each one changes.
+- `test_debug_menu_golf.py` toggles GOLF in every level's start room (and The Temple), checking that play carries on in the same place, and raises and lowers The Vast Plain's clear gate next to Wario, checking it lands where the game's own room load puts it.
 - `test_steep_canyon.py` unlocks The Steep Canyon's secret door with the debug menu's TREASURE and plays to its owl room: a real owl to grab and a debug owl to spawn. With the Rust Spray, it also breaks the cracked column at the end of the start room and flies a debug owl into the room past it.
 - `test_owl_cases.py` covers the debug owl around a flight: letting go, going offscreen, leaving the level while holding it, night (it takes off right away, like real owls), spawning against a wall, and filling every object slot.
 - `test_owl.py` grabs the real owl in The Colossal Hole (the reference for the debug-menu owl), and spawns, grabs and flies the debug owl both there and in The Steep Canyon start room, which loads no owl graphics.
@@ -84,6 +85,17 @@ Tested with [gearboy](https://github.com/drhelius/Gearboy), and played through-a
 ### Known Bugs
 
 - OWL: in rooms whose enemy set has no owl and uses all four graphics slots, the debug owl's graphics replace the set's first enemy's until the room is reloaded. See `owl.md` for this, and the bug that broke the first attempt.
+
+### GOLF and the room reload
+
+GOLF used to set `wRoomTransitionParam = ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS` and leave the menu through the level's FastFadeToWhite substate, so `StartRoom_FromTransition` would reload the room. That's how the game comes back from the golf building, but it only works there:
+
+- `StartRoom_FromTransition` doesn't reload the room Wario is in. It treats his position as a door: `GetNextLevelRoomID` turns it into a sector (16×16 blocks, `y_hi * 10 + x_hi`), and the level's room table, indexed by sector, names the room *a door in that sector leads to*. `LoadRoom` then takes the camera, limits and object group from that room's header, and `SetWarioPositionToSpawn` moves Wario to the first spawn block from the header's spawn sector.
+- Coming back from golf, Wario is standing in the golf building's door, whose sector's room is the room he left, with a spawn block at the door. Anywhere else, the sector's entry is whatever door happens to be there, or none.
+- No door in the sector (most start rooms: the room table entry is `NULL`, `$ffff`): `LoadRoom`'s `debug_assert_not $ff` jumps to `Init`, and the game resets to the title screen. That was the "restart": 21 of the 25 day-1 start rooms, the same at night, and anywhere else whose sector has no door.
+- A door in the sector: Wario is sent to that door's room (The Volcano's Base start room: a room of water at the other end of the level; The Colossal Hole and The Warped Void: other rooms). A few steps into The Vast Plain, Sea Turtle Rocks, A Town in Chaos or Forest of Fear, the same. Only Above the Clouds' start room happened to load itself back, because its sector's door leads there. The soft-locks were most likely these: Wario dropped into a room he can't get out of the way he came, or with the wrong camera for where he stands (no hang showed up in these runs, only resets and teleports).
+
+What `wIsMinigameCleared` changes in a level is the clear gates (`ClearGateFunc` raises a gate 32 pixels when it's set up with it set) and nothing else; the golf building reads it too, to skip the CLEAR screen. So GOLF now moves the gates that are set up (`_DebugMoveClearGates`, in `src/engine/debug_menu/clear_gates.asm`), and gates that spawn later read the flag themselves. The menu closes the way it always does otherwise.
 
 ## How
 
