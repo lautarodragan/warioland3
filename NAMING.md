@@ -4,6 +4,44 @@ Research notes for renaming unnamed labels in this disassembly. Nothing in the
 code has been changed; every entry below is a proposal for a human to accept
 or reject.
 
+## Applied
+
+The high- and medium-confidence proposals of all three passes have been
+applied to the code, one commit per batch, each checked by building: every
+batch left the ROM byte-identical, and the emulator tests passed.
+
+| Batch | What | Renames |
+|---|---|---|
+| 1 | Phase 1 RAM: level, save, audio, SRAM/HRAM, `w1d`/`w2d` | 186 |
+| 2 | Phase 2 home routines and far targets, `COLLISION_*` (+ `_F`) | 183 |
+| 3 | Phase 3 camera, scrolling, rooms, save code, interactions | 123 |
+| 3b | `FLOOR_TRANSITION_UP`/`DOWN` swapped (with `.transition_down`) | 4 |
+| 4 | Phase 4 Wario states, block functions (multi-block families from each entry's `ld b, $NN`), `UpdateState_Fan*` | 242 |
+| 5 | Phase 5 `obj_struct`/`scene_obj_struct` fields, audio offsets, scene Wario gfx | 35 |
+| 6 | Phase 6 object state locals (repeats in one routine get an `_<addr>` suffix) | 756 |
+| 7 | Second pass: overworld, audio engine, action help (302), `RoomPalsNNN` (146), per-level `...RoomHeaders` (119) | 699 |
+| 8 | Third pass: overworld, cutscene rules, boss phases, map-side states, owner-prefix data (1406) | 1998 |
+
+Also fixed: the literal update-function pointers (togeba, seeing eye door)
+and data tables addressed by literal (bubble, coin).
+
+Deviations from the rows below: the per-level room tables are
+`<Level>...RoomHeaders` (upstream's "room header" term) instead of
+`...Rooms`; locals that would repeat within one routine got their address
+as a suffix (`.Default_4d7dc`).
+
+**Not applied** (still proposals):
+- low-confidence rows and "unclear"/"not named" entries;
+- structural changes: rows that merge several byte labels into one struct
+  or field (`w2d03e`/`3f`/`40` -> `wOWSeaAnim`, `w1dc4f` as the high byte of
+  `wShotYVel`, the path tracer structs, the boss union `NEXTU` blocks), the
+  palette fade struct fields, and the scene aliases for borrowed bytes;
+- the wrong-bank / wrong-union label uses (they need the right label first);
+- identical routines (`Func_19246`, `Func_82c1d`/`82c22`/`82c29`,
+  `Func_ac00b`/`ac016`...): merging them is a separate decision;
+- the map-side state entries' frameset-based names, and everything listed
+  as pending in Progress.
+
 ## Upstream renames since the survey
 
 The survey was written against f205aa3. Merging the upstream disassembly's
