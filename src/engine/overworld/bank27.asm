@@ -4536,14 +4536,15 @@ Cutscene4cFunc:
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jp AdvanceCutsceneFunc
+	jr .advance ; was jp AdvanceCutsceneFunc: frees a byte for the ret nz below
 
 .WaitObj2State03:
 	ld a, [wSceneObj2State]
 	cp $03
-	; bug, missing ret nz: meant to wait for object 2's state 3, it always
-	; advances. Harmless: state 2 is a 6-frame animation and the next step
-	; waits 100 frames, so the fire just goes out about 6 frames early
+	; fix: the original lacks this ret nz, so it always advanced and the fire
+	; went out about 6 frames early (state 2 is a 6-frame animation)
+	ret nz
+.advance
 	jp AdvanceCutsceneFunc
 
 .WaitThenSetObj3State02:
