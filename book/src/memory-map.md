@@ -46,7 +46,7 @@ V-Blank handler.
 |---|---|
 | BG 0-7 | `LoadRoomPalettes`: the room's `ROOM_PAL_*` from `RoomPals` (`Level Palettes`, bank `$33`). A palette cycle (`wRoomPalCycle`) rewrites all 8 from a sequence of `RoomPals` entries (`UpdateRoomAnimatedPals`) |
 | OBJ 0-1 | Wario (`wWarioPalsPtr`): `WarioDefaultPal` at level start, other palettes for some transformations (`SetWarioPal`) |
-| OBJ 2 | `Pals_d1fe`, set at level start |
+| OBJ 2 | `ParticlePals_d1fe` (particles), set at level start |
 | OBJ 3 | the chest, key and musical coin colour from the object group's common objects |
 | OBJ 4-7 | the four enemy slots, from the object group |
 
