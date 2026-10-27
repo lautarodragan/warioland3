@@ -50,7 +50,7 @@ proposals are being applied on another branch.
 - [x] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule. Also bulk rules for the cutscene step tables (`.PlayCutscene`), the wait steps in bank27/bank2d (109 `.WaitN`) and the per-OW-function object init routines in bank2d (45).
 - [x] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
 - [x] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
-- [ ] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous.
+- [x] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous (1406 labels; ~1150 shared ones left).
 - [ ] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value.
 
 **Status:** first pass: about 430 table rows (~650 labels) plus 475
@@ -1635,3 +1635,259 @@ other file touches the union). Proposed `NEXTU` blocks (byte 0, 1, 2, 3):
 
 With these, `w1d147`, `w1d149` and the `ds $1` between them go away, and
 the second-pass row for `w1d147` ("+ per-boss aliases") is covered.
+
+### 3e. Data labels: owner-prefix rule (generated)
+
+Rule (the 2f suggestion, made concrete): a `Frameset_`, `OAM_`, `Pals_` or
+`Data_` label whose owner is unambiguous becomes `<Owner><Prefix>_<addr>`,
+keeping the address so names stay unique and the change stays mechanical
+(`Frameset_68a12` -> `ApplebyFrameset_68a12`). Descriptive names can then
+replace them one by one. Labels already given a name in this file (Hidden
+Figure's tables and palettes, the room palettes, the object Y-velocity
+tables, ...) are left out, and a descriptive name proposed anywhere in this
+file wins over the generated one (e.g. `Data_40000` ->
+`OmodonHoverBobYOffsets` in 3c rather than `OmodonmekaData_40000`).
+
+Owner, decided by a script over every reference in `src/` (the defining
+file itself doesn't count; `src/data/object_params.asm` doesn't count
+against an object):
+
+- **object**: all other references are in one file of
+  src/engine/level/objects/ (or the label is defined and only used inside
+  one): the file name in CamelCase (`brrr_bear.asm` -> `BrrrBear`).
+- **cutscene**: all references are inside one bank27 cutscene routine
+  (`CutsceneXXFunc` or its updater from 3b): `<Event>Cutscene`
+  (`OpenNorthGateCutsceneFrameset_bd348`).
+- **mapside**: all references are inside one bank2d map-side state entry;
+  the side follows from the entry's address range (East $b4b99-, South
+  $b4cc2-, West $b4dfb-, North $b4fa2-$b5147): `<Side>OWObj`
+  (`NorthOWObjFrameset_a87e8`). These are the framesets the 2b bulk rule
+  `<Side>OWObjState_<FramesetName>` waits for.
+- **scene**: all references in one of `UpdateSceneWario`,
+  `UpdateTempleSceneObjAnimation`, `Func_ac409` (`UpdatePrologueSceneObj`)
+  or `Func_ac0b6` (`UpdateEpilogueSceneObj`) in bank2b_1: `SceneWario`,
+  `TempleSceneObj`, `PrologueSceneObj`, `EpilogueSceneObj`.
+- **wario**: all references in one named `SetState_X`/`UpdateState_X` of
+  wario_states_1..4.asm: `WarioX` (`WarioFatWalkingFrameset_xxxxx`).
+  References from still-unnamed `Func_` routines are left out.
+
+Result: 1406 labels (1242 framesets, 58 OAM, 32 palettes, 74 `Data_`); by
+owner kind: object 812, cutscene 202, mapside 132, wario 168, scene 92. All
+generated names checked against `src/` and this file: no collisions, no
+duplicates. Not covered (about 1150): labels referenced from several files
+or several routines (e.g. Wario framesets shared by several states, OAM
+tables shared through object_data.asm), labels referenced only from their
+own data file (inside frameset tables), and owners that are still `Func_`.
+High as a mechanical rule (the owner is the only user by construction);
+the list, grouped by owner (each label becomes `<Owner><Prefix>_<addr>`):
+
+**cutscene**
+
+- BlowMistCutscene: `Frameset_bdb03`, `OAM_bdabc`
+- CollectDemonsBloodCutscene: `Frameset_bebcc`, `Frameset_bebd3`, `Frameset_bebda`, `Frameset_bebdd`, `Frameset_bebe0`, `Frameset_bebe3`, `Frameset_bebec`, `OAM_beafc`
+- CutBaloonCutscene: `Frameset_bed39`, `Frameset_bed3c`, `Frameset_bed3f`, `OAM_becdc`, `Pals_b8740`
+- DrillHolesCutscene: `Frameset_bf826`, `Frameset_bf829`, `Frameset_bf832`, `Frameset_bf835`, `Frameset_bf83e`, `OAM_bf6f0`, `Pals_b8680`
+- ExpelTornadoCutscene: `Frameset_bde60`, `Frameset_bde63`, `Frameset_bde66`, `OAM_bddcf`
+- ExplodeBombsCutscene: `Frameset_bd9ec`, `Frameset_bd9f5`, `Frameset_bd9f8`, `Frameset_bd9fb`, `Frameset_bd9fe`, `OAM_bd971`
+- ExtinguishFireCutscene: `Frameset_69c13`, `Frameset_bf100`, `Frameset_bf103`, `Frameset_bf110`, `OAM_befd5`, `Pals_b86c0`
+- FeedOctohonCutscene: `Frameset_69ba0`, `Frameset_bf923`, `Frameset_bf92a`, `OAM_bf847`
+- FixElevatorCutscene: `Frameset_bd5c3`, `Frameset_bd5cc`, `Frameset_bd5d5`, `Frameset_bd5d8`, `Frameset_bd5dd`, `Frameset_bd5e6`, `Frameset_bd605`, `Frameset_bd608`, `Frameset_bd60f`, `Frameset_bd612`, `OAM_bd46f`
+- FootStoneCutscene: `Frameset_bdce3`, `OAM_bdc9c`
+- FreezeSeaCutscene: `Frameset_bd905`, `Frameset_bd908`, `Frameset_bd90b`, `Frameset_bd90e`, `OAM_bd7a1`
+- LeavesFallCutscene: `Frameset_be1b0`, `Frameset_be1c3`, `Frameset_be1fc`, `Frameset_be203`, `OAM_bdfa5`
+- MakeWireCutscene: `Frameset_be2b9`, `Frameset_be2c2`, `Frameset_be2d3`, `Frameset_be2d6`, `OAM_be206`
+- MixChemicalsCutscene: `Frameset_bf43b`, `Frameset_bf43e`, `Frameset_bf45d`, `OAM_bf2ab`
+- MusicBoxCutscene: `Frameset_bcf15`, `Frameset_bcf18`, `Frameset_bcf21`, `Frameset_bcf24`, `Frameset_bcf35`, `Frameset_bcf38`, `Frameset_bcf49`, `Frameset_bcf4c`, `Frameset_bcf6d`, `Frameset_bcf70`, `OAM_bc1f6`
+- OpenCraterHoleCutscene: `Frameset_bf6df`, `Frameset_bf6e2`, `Frameset_bf6ed`, `OAM_bf66d`, `Pals_b87c0`
+- OpenNorthGateCutscene: `Frameset_bd348`, `Frameset_bd34b`, `Frameset_bd34e`, `Frameset_bd351`, `Frameset_bd354`, `Frameset_bd363`, `Frameset_bd372`, `OAM_bd1fd`
+- OpenParaGoomCageCutscene: `Frameset_bee4d`, `Frameset_bee50`, `Frameset_bee55`, `Frameset_bee58`, `Frameset_bee5d`, `Frameset_bee60`, `Frameset_bee6b`, `OAM_bed42`
+- OpenSkyDoorCutscene: `Frameset_befbe`, `Frameset_befc1`, `Frameset_befc4`, `OAM_bee6e`
+- OpenSnakeDoorCutscene: `Frameset_bdda9`, `Frameset_bddc0`, `Frameset_bddc3`, `Frameset_bddc6`, `Frameset_bddc9`, `Frameset_bddcc`, `OAM_bdce6`
+- OpenTreeMouthCutscene: `Frameset_bdf92`, `Frameset_bdf95`, `Frameset_bdfa0`, `OAM_bde69`
+- PlaceBrickCutscene: `Frameset_bf154`, `OAM_bf131`, `Pals_b8640`
+- PlaceCartWheelsCutscene: `Frameset_691bc`
+- PlacePropellerCutscene: `Frameset_becc7`, `Frameset_becca`, `Frameset_becd3`, `OAM_bebef`
+- PlantSeedsCutscene: `Frameset_bd1b4`
+- RainstormCutscene: `Frameset_bd43a`, `Frameset_bd43d`, `Frameset_bd44a`, `OAM_bd377`
+- RaiseIceBlocksCutscene: `Frameset_be8de`, `Frameset_be8e1`, `Frameset_be8ea`, `Frameset_be8ed`, `OAM_be807`, `Pals_b8500`
+- RaisePipeCutscene: `Frameset_be9fa`, `Frameset_be9fd`, `OAM_be8fe`
+- RaiseTowerCutscene: `Frameset_bd469`, `Frameset_bd46c`, `OAM_bd453`
+- RemoveWarpsCutscene: `Frameset_beacc`, `Frameset_beacf`, `Frameset_beae4`, `Frameset_beaed`, `OAM_bea06`, `Pals_b8780`
+- RevealCastleCutscene: `Frameset_bd790`, `Frameset_bd793`, `Frameset_bd79c`, `OAM_bd615`
+- RevealDarkRoomCutscene: `Frameset_bf5e0`, `OAM_bf460`, `Pals_b8800`, `Pals_b8840`, `Pals_b8880`, `Pals_b9080`
+- RevealWarpedVoidCutscene: `Frameset_be7e6`, `Frameset_be7e9`, `Frameset_be802`, `OAM_be3ce`
+- SprayIronWallCutscene: `Frameset_bf28c`, `Frameset_bf28f`, `Frameset_bf298`, `Frameset_bf2a5`, `Frameset_bf2a8`, `OAM_bf157`
+- SummonMoonCutscene: `Frameset_bf65d`, `Frameset_bf660`, `Frameset_bf665`, `Frameset_bf668`, `OAM_bf611`, `Pals_b8540`, `Pals_b8580`, `Pals_b85c0`, `Pals_b8600`
+- SummonSnakesCutscene: `Frameset_bdc5f`, `Frameset_bdc62`, `Frameset_bdc7f`, `OAM_bdb06`
+- SummonSunCutscene: `Frameset_bd96b`, `Frameset_bd96e`, `OAM_bd911`, `Pals_b8340`
+- TorchForestCutscene: `Frameset_be3c5`, `OAM_be2d9`
+- TreasureMapCutscene: `Frameset_bdaa2`, `Frameset_bdab9`, `OAM_bda01`, `Pals_b8100`, `Pals_b8d00`
+- VolcanoEruptionCutscene: `Frameset_bd1b7`, `Frameset_bd1ba`, `Frameset_bd1bd`, `Frameset_bd1c0`, `Frameset_bd1c5`, `Frameset_bd1f8`
+
+**mapside**
+
+- EastOWObj: `Frameset_a9e61`, `Frameset_a9e72`, `Frameset_a9e75`, `Frameset_a9e7a`, `Frameset_a9e8c`, `Frameset_a9e91`, `Frameset_a9e94`, `Frameset_a9e99`, `Frameset_a9eaa`, `Frameset_a9eb3`, `Frameset_a9ebc`, `Frameset_a9ec5`, `Frameset_a9ec8`, `Frameset_a9ecd`, `Frameset_a9ed0`, `Frameset_a9ed3`, `Frameset_a9ee0`, `Frameset_a9ee3`, `Frameset_a9eea`, `Frameset_a9ef1`, `Frameset_a9ef6`, `Frameset_a9efd`, `Frameset_a9f02`, `Frameset_a9f0d`, `Frameset_a9f36`, `Frameset_a9f47`, `Frameset_a9f76`, `Frameset_a9fa7`, `Frameset_a9faa`, `Frameset_a9fbb`, `Frameset_a9fc2`, `Frameset_a9fc9`, `Frameset_a9fd0`, `Frameset_a9fdf`
+- NorthOWObj: `Frameset_a8590`, `Frameset_a85cd`, `Frameset_a85d0`, `Frameset_a85d3`, `Frameset_a862a`, `Frameset_a862d`, `Frameset_a8636`, `Frameset_a8639`, `Frameset_a8646`, `Frameset_a8653`, `Frameset_a866e`, `Frameset_a867f`, `Frameset_a86da`, `Frameset_a872f`, `Frameset_a8732`, `Frameset_a873d`, `Frameset_a8750`, `Frameset_a8761`, `Frameset_a8764`, `Frameset_a876f`, `Frameset_a877a`, `Frameset_a877d`, `Frameset_a8782`, `Frameset_a8793`, `Frameset_a879a`, `Frameset_a879f`, `Frameset_a87d2`, `Frameset_a87d9`, `Frameset_a87dc`, `Frameset_a87df`, `Frameset_a87e8`, `Frameset_a87f1`, `Frameset_a883b`, `Frameset_aa252`, `Frameset_aa5f5`, `Frameset_aa5f8`, `OAM_a87fa`
+- SouthOWObj: `Frameset_a9674`, `Frameset_a967d`, `Frameset_a968d`, `Frameset_a969a`, `Frameset_a96a3`, `Frameset_a96a6`, `Frameset_a96a9`, `Frameset_a96ac`, `Frameset_a96af`, `Frameset_a96b2`, `Frameset_a96bd`, `Frameset_a96c0`, `Frameset_a96d1`, `Frameset_a96d8`, `Frameset_a96e1`, `Frameset_a96ea`, `Frameset_a96ef`, `Frameset_a974a`, `Frameset_a979f`, `Frameset_a97a2`, `Frameset_a97ad`, `Frameset_a97b2`, `Frameset_a97c5`, `Frameset_a97d4`, `Frameset_a97e1`, `Frameset_a97ec`, `Frameset_a97ef`, `Frameset_a97fe`, `Frameset_a9803`
+- WestOWObj: `Frameset_a8dd1`, `Frameset_a8de2`, `Frameset_a8de9`, `Frameset_a8df8`, `Frameset_a8e01`, `Frameset_a8e04`, `Frameset_a8e11`, `Frameset_a8e1e`, `Frameset_a8e29`, `Frameset_a8e2c`, `Frameset_a8e5d`, `Frameset_a8e6c`, `Frameset_a8e9d`, `Frameset_a8eac`, `Frameset_a8eb7`, `Frameset_a8ec2`, `Frameset_a8ec7`, `Frameset_a8ed3`, `Frameset_a8eda`, `Frameset_a8ee1`, `Frameset_a8f17`, `Frameset_a8f28`, `Frameset_a8f31`, `Frameset_a8f3a`, `Frameset_a8f47`, `Frameset_a9090`, `Frameset_a90eb`, `Frameset_a9140`, `Frameset_a9143`, `Frameset_a914e`, `OAM_a884a`, `OAM_a8f57`
+
+**object**
+
+- Anonster: `Data_60790`, `Data_607e0`, `Data_607f0`, `Data_60800`, `Data_60830`, `Frameset_693c4`, `Frameset_693d5`, `Frameset_693e6`, `Frameset_693f9`, `Frameset_69402`, `Frameset_69411`, `Frameset_69424`, `Frameset_6942d`, `Frameset_6943c`, `Frameset_69441`, `Frameset_69446`, `Frameset_6944d`, `Frameset_69450`, `Frameset_69463`, `Frameset_69474`, `Frameset_69485`, `Frameset_69496`, `Frameset_694a7`, `Frameset_694b8`, `Frameset_694c9`, `Frameset_694d0`, `Frameset_694d7`, `Frameset_694dc`, `Frameset_694e1`, `Frameset_694f5`, `Frameset_69512`, `Frameset_69519`, `Frameset_6951e`, `Frameset_6953c`, `Frameset_69543`, `Frameset_6954d`, `Frameset_69554`, `Frameset_6955b`, `Frameset_69568`, `Frameset_69573`
+- Appleby: `Data_60670`, `Frameset_689e9`, `Frameset_68a09`, `Frameset_68a12`, `Frameset_68a1f`, `Frameset_68a3a`, `Frameset_68a63`
+- Barrel: `Data_60a50`, `Frameset_68a66`, `Frameset_68a6f`, `Frameset_68a78`, `Frameset_68a7b`, `Frameset_68a7e`, `Frameset_68a8b`
+- BeamBot: `Data_60610`, `Data_60630`, `Frameset_68e77`, `Frameset_68e80`, `Frameset_68e89`, `Frameset_68e96`, `Frameset_68ea3`, `Frameset_68eaa`, `Frameset_68eb1`, `Frameset_68eb4`, `Frameset_68eb7`, `Frameset_68ec0`, `Frameset_68ec9`, `Frameset_68ece`, `Frameset_68ed3`, `Frameset_68eda`, `Frameset_68ef3`, `Frameset_68ef8`
+- BigLeaf: `Frameset_68729`, `Frameset_68732`, `Frameset_6873b`
+- Bird: `Frameset_687c9`, `Frameset_687ce`, `Frameset_687d3`, `Frameset_687e4`, `Frameset_687f5`, `Frameset_687fa`, `Frameset_687ff`
+- BrrrBear: `Frameset_69115`, `Frameset_69126`, `Frameset_69137`, `Frameset_6913a`, `Frameset_6913d`, `Frameset_6914c`, `Frameset_6915b`, `Frameset_69164`, `Frameset_6916e`, `Frameset_69175`, `Frameset_6917c`, `Frameset_69183`, `Frameset_6918e`
+- Bubble: `Frameset_690f4`, `Frameset_6910c`
+- Cart: `Frameset_69199`, `Frameset_6919e`, `Frameset_691aa`, `Frameset_691b3`
+- Chests: `Frameset_68000`, `Frameset_68003`, `Frameset_68060`, `Frameset_681be`, `Frameset_681c3`, `Frameset_681c8`, `Frameset_681cd`
+- ClearGate: `Frameset_698a8`, `Frameset_698ab`, `Frameset_698ae`
+- CountRichtertoffen: `Data_604b0`, `Frameset_683bc`, `Frameset_683c1`, `Frameset_683c4`, `Frameset_683c7`, `Frameset_683ca`, `Frameset_683d4`, `Frameset_683d9`, `Frameset_683de`, `Frameset_683e1`
+- DollBoy: `Data_60860`, `Data_60880`, `Data_60890`, `Data_608a0`, `Data_60ae0`, `Data_60b00`, `Data_60b30`, `Data_60b60`, `Data_60b80`, `Data_60ba0`, `Data_60bd0`, `Data_60c00`, `Frameset_69632`, `Frameset_6963b`, `Frameset_69646`, `Frameset_6964d`, `Frameset_69656`, `Frameset_6965f`, `Frameset_6966a`, `Frameset_69675`, `Frameset_6967a`, `Frameset_6967f`, `Frameset_69695`, `Frameset_6969a`, `Frameset_6969f`, `Frameset_696a8`, `Frameset_696b6`, `Frameset_696b9`
+- Doughnuteer: `Frameset_6856b`, `Frameset_68574`, `Frameset_6857d`, `Frameset_68586`, `Frameset_68597`, `Frameset_685a8`, `Frameset_685ad`, `Frameset_685b2`, `Frameset_685bb`, `Frameset_685c4`, `Frameset_685d7`, `Frameset_685f0`, `Frameset_685f7`, `Frameset_685fe`, `Frameset_68605`
+- ElectricLamp: `Frameset_68ca0`, `Frameset_68cc4`, `Frameset_68ccd`
+- FallingSnow: `Frameset_6958f`, `Frameset_695a6`, `Frameset_695af`, `Frameset_695c0`, `Frameset_695cb`, `Frameset_695d6`, `Frameset_695d9`
+- FireBot: `Frameset_6893d`, `Frameset_68946`, `Frameset_6894f`, `Frameset_6895c`, `Frameset_68969`, `Frameset_68976`, `Frameset_68983`, `Frameset_68986`, `Frameset_68989`, `Frameset_68992`, `Frameset_6899b`, `Frameset_689a0`, `Frameset_689a5`, `Frameset_689ac`, `Frameset_689b3`, `Frameset_689be`, `Frameset_689c9`, `Frameset_689d2`, `Frameset_689db`, `Frameset_689e2`
+- FlameBlock: `Frameset_695de`, `Frameset_695e7`
+- Futamogu: `Frameset_68319`, `Frameset_68336`, `Frameset_68343`, `Frameset_68348`, `Frameset_68351`
+- HammerBot: `Frameset_68b17`, `Frameset_68b1c`, `Frameset_68b25`, `Frameset_68b2e`, `Frameset_68b37`, `Frameset_68b40`, `Frameset_68b45`, `Frameset_68b4a`, `Frameset_68b51`, `Frameset_68b58`, `Frameset_68b5b`, `Frameset_68b5e`, `Frameset_68b61`
+- Hand: `Frameset_690ab`, `Frameset_690b4`, `Frameset_690b7`, `Frameset_690ba`, `Frameset_690bd`, `Frameset_690c0`, `Frameset_690c3`, `Frameset_690c6`, `Frameset_690c9`, `Frameset_690dc`, `Frameset_690df`, `Frameset_690e2`, `Frameset_690e5`, `Frameset_690e8`, `Frameset_690eb`
+- Haridama: `Frameset_6927f`, `Frameset_69290`, `Frameset_692a1`, `Frameset_692aa`, `Frameset_692b3`, `Frameset_692b8`, `Frameset_692bd`, `Frameset_692c2`, `Frameset_692c7`, `Frameset_692ce`, `Frameset_692d5`, `Frameset_692de`
+- Hebarii: `Frameset_683e4`, `Frameset_683ed`, `Frameset_683f8`, `Frameset_683fb`, `Frameset_6840d`, `Frameset_68418`, `Frameset_68421`, `Frameset_6842a`, `Frameset_6842d`, `Frameset_68430`
+- HiddenFigure: `Frameset_6a06c`, `Frameset_6a071`, `Frameset_6a07a`, `Frameset_6a07f`, `Frameset_6a084`, `Frameset_6a08d`, `Frameset_6a092`, `Frameset_6a097`, `Frameset_6a0b2`, `Frameset_6a0b7`, `Frameset_6a0bc`, `Frameset_6a0c3`, `Frameset_6a0c8`, `Frameset_6a0cf`, `Frameset_6a0d4`, `Frameset_6a0ef`, `Frameset_6a0f2`, `Frameset_6a0fe`, `Frameset_6a119`, `Frameset_6a11c`, `Frameset_6a128`, `Frameset_6a131`, `Frameset_6a13a`, `Frameset_6a145`
+- Jamano: `Data_60c20`, `Data_60c80`, `Data_60ce0`, `Data_60d00`, `Data_60d20`, `Frameset_69c1c`, `Frameset_69c40`, `Frameset_69c45`, `Frameset_69c4a`, `Frameset_69c4f`, `Frameset_69c7a`, `Frameset_69c92`, `Frameset_69ca1`, `Frameset_69cd6`, `Frameset_69cdb`, `Frameset_69ce0`, `Frameset_69ce9`, `Frameset_69cec`, `Frameset_69cef`, `Pals_55511`, `Pals_55551`, `Pals_55591`, `Pals_555d1`
+- Key: `Frameset_6804f`
+- Kobatto: `Frameset_69041`
+- Kushimushi: `Frameset_6860c`, `Frameset_68611`, `Frameset_68616`, `Frameset_6861b`, `Frameset_68620`, `Frameset_68625`, `Frameset_6862a`, `Frameset_6862f`, `Frameset_68634`, `Frameset_6863f`, `Frameset_6864a`, `Frameset_68655`, `Frameset_68698`
+- MadScienstein: `Frameset_68bb5`, `Frameset_68bbe`, `Frameset_68bc7`, `Frameset_68bcc`, `Frameset_68bd1`, `Frameset_68bda`, `Frameset_68be3`, `Frameset_68be8`, `Frameset_68bed`, `Frameset_68bf6`, `Frameset_68bff`, `Frameset_68c08`, `Frameset_68c11`, `Frameset_68c14`, `Frameset_68c17`, `Frameset_68c1e`, `Frameset_68c25`, `Frameset_68c2c`
+- Mizuuo: `Data_60700`, `Data_60740`, `Frameset_686a4`, `Frameset_686b9`, `Frameset_686d8`, `Frameset_686db`, `Frameset_686de`, `Frameset_686e5`, `Frameset_686ea`, `Frameset_686ef`, `Frameset_686f8`, `Frameset_68701`, `Frameset_6870a`, `Frameset_68713`, `Frameset_6871e`
+- Muddee: `Data_60d30`, `Data_60d40`, `Frameset_69cf2`, `Frameset_69cfb`, `Frameset_69d04`, `Frameset_69d0d`, `Frameset_69d16`, `Frameset_69d2f`, `Frameset_69d48`, `Frameset_69d4d`, `Frameset_69d52`, `Frameset_69d57`, `Frameset_69d5c`, `Frameset_69d65`, `Frameset_69d6a`, `Frameset_69d73`, `Frameset_69d85`, `Frameset_69d8e`, `Frameset_69da7`, `Frameset_69dc0`, `Pals_55e46`
+- MuddeeStinger: `Data_4caed`, `Data_4cb0d`
+- MusicalCoin: `Frameset_68036`
+- Nobiiru: `Frameset_698b1`, `Frameset_698b4`, `Frameset_698b7`, `Frameset_698ba`, `Frameset_698bd`, `Frameset_698c0`, `Frameset_698c3`, `Frameset_698c6`, `Frameset_698c9`, `Frameset_698cc`, `Frameset_698cf`, `Frameset_698d2`, `Frameset_698d5`, `Frameset_698d8`, `Frameset_698db`, `Frameset_698de`, `Frameset_698e1`, `Frameset_698e4`, `Frameset_698e7`, `Frameset_698ea`, `Frameset_698ed`, `Frameset_698f0`, `Frameset_698f3`, `Frameset_698f6`, `Frameset_698f9`, `Frameset_698fc`, `Frameset_698ff`
+- Octohon: `Data_4a5a9`, `Data_60d50`, `Frameset_69b2f`, `Frameset_69b41`, `Frameset_69b4c`, `Frameset_69b57`, `Frameset_69b69`, `Frameset_69b74`, `Frameset_69b7f`, `Frameset_69b88`, `Frameset_69bc3`, `Frameset_69bce`
+- Omodonmeka: `Data_40000`, `Data_604e0`, `Data_60500`, `Frameset_68f0b`, `Frameset_68f14`, `Frameset_68f1d`, `Frameset_68f26`, `Frameset_68f2b`, `Frameset_68f34`, `Frameset_68f3d`, `Frameset_68f42`, `Frameset_68f45`, `Frameset_68f50`
+- Owl: `Frameset_69318`, `Frameset_6936c`, `Frameset_69377`
+- ParaGoom: `Data_60530`, `Frameset_68442`, `Frameset_6844b`, `Frameset_68454`, `Frameset_6845d`, `Frameset_6846e`, `Frameset_6847f`, `Frameset_68490`, `Frameset_684a1`, `Frameset_684aa`, `Frameset_684af`, `Frameset_684b4`, `Frameset_684b7`, `Frameset_684cb`, `Frameset_684d2`, `Frameset_684d9`, `Frameset_684e0`, `Frameset_684e7`, `Frameset_6850a`, `Frameset_6852d`, `Frameset_68546`, `Frameset_6855f`
+- Pesce: `Frameset_6990a`, `Frameset_69911`, `Frameset_69918`, `Frameset_6991f`, `Frameset_69926`, `Frameset_6992d`, `Frameset_69934`, `Frameset_6993b`, `Frameset_69942`, `Frameset_69949`, `Frameset_69950`, `Frameset_69957`, `Frameset_6995e`, `Frameset_69965`, `Frameset_6996c`, `Frameset_69973`, `Frameset_6997a`, `Frameset_69981`, `Frameset_69988`, `Frameset_6998f`, `Frameset_69996`, `Frameset_6999d`, `Frameset_699a4`, `Frameset_699ab`, `Frameset_699b2`, `Frameset_699b7`, `Frameset_699bc`, `Frameset_699c1`, `Frameset_699c6`, `Frameset_699cb`, `Frameset_699d0`, `Frameset_699d5`, `Frameset_699da`, `Frameset_699df`, `Frameset_69a15`
+- PillarPlatform: `Frameset_6975b`, `Frameset_6975e`
+- Pneumo: `Data_44000`, `Data_60600`, `Frameset_68c5c`, `Frameset_68c7f`, `Frameset_68c84`, `Frameset_68c89`, `Frameset_68c8e`
+- PrinceFroggy: `Frameset_68ac6`, `Frameset_68add`, `Frameset_68ae6`, `Frameset_68ae9`, `Frameset_68af2`, `Frameset_68b01`
+- RoboMouse: `Frameset_691de`, `Frameset_691e5`, `Frameset_691f2`, `Frameset_691fb`, `Frameset_69200`, `Frameset_69205`, `Frameset_6920c`, `Frameset_69213`, `Frameset_69220`, `Frameset_69227`
+- Rock: `Frameset_69bfe`, `Frameset_69c01`
+- Scowler: `Data_60a60`, `Data_60a70`, `Data_60a80`, `Data_60a90`, `Frameset_69a5f`, `Frameset_69a68`, `Frameset_69a71`, `Frameset_69a7a`, `Frameset_69a95`, `Frameset_69aa8`, `Frameset_69ab3`, `Frameset_69abc`, `Frameset_69ac3`, `Frameset_69af5`, `Frameset_69b03`, `Frameset_69b08`, `Pals_54c87`, `Pals_54c9f`, `Pals_54cb7`, `Pals_54cf7`
+- SeeingEyeDoor: `Frameset_68c36`, `Frameset_68c47`, `Frameset_68c4a`, `Frameset_68c50`, `Frameset_68c56`, `Frameset_68c59`
+- Shoot: `Data_54000`, `Data_54010`, `Data_60e20`, `Data_60e40`, `Data_60e70`, `Data_60e90`, `Data_60ea0`, `Frameset_69f35`, `Frameset_69f40`, `Frameset_69f54`, `Frameset_69f5d`, `Frameset_69f66`, `Frameset_69f6f`, `Frameset_69f7c`, `Frameset_69f8a`, `Frameset_69f93`, `Frameset_69f9a`, `Frameset_69f9f`, `Frameset_69fa4`, `Frameset_69fa9`, `Frameset_69fba`, `Frameset_69fcf`, `Frameset_69fdc`, `Frameset_69fed`, `Frameset_69ff2`, `Frameset_69ffd`, `Frameset_6a000`, `Frameset_6a00b`, `Frameset_6a00e`, `Frameset_6a017`, `Frameset_6a022`, `Frameset_6a02b`, `Frameset_6a02e`, `Frameset_6a031`, `Frameset_6a034`, `Frameset_6a037`, `Frameset_6a03a`, `Frameset_6a043`, `Frameset_6a046`, `Frameset_6a049`, `Frameset_6a04c`, `Frameset_6a04f`
+- Silky: `Frameset_68744`, `Frameset_6874d`, `Frameset_68756`, `Frameset_6875f`, `Frameset_68768`, `Frameset_68771`, `Frameset_6877a`, `Frameset_68783`, `Frameset_6878c`, `Frameset_68795`, `Frameset_6879e`, `Frameset_687a7`, `Frameset_687b0`, `Frameset_687bb`, `Frameset_687c6`
+- SmallLeaf: `Frameset_68a9f`, `Frameset_68aa8`, `Frameset_68abb`
+- Snake: `Frameset_68804`, `Frameset_6881d`, `Frameset_68836`, `Frameset_6883d`, `Frameset_68844`, `Frameset_6884b`, `Frameset_68852`, `Frameset_6886f`, `Frameset_6888c`, `Frameset_688a9`, `Frameset_688c6`, `Frameset_688e3`, `Frameset_68900`, `Frameset_6891d`
+- Spark: `Frameset_69bd9`
+- SpearBot: `Frameset_68ddf`, `Frameset_68de8`, `Frameset_68df1`, `Frameset_68df8`, `Frameset_68dff`, `Frameset_68e08`, `Frameset_68e11`, `Frameset_68e14`, `Frameset_68e17`, `Frameset_68e20`, `Frameset_68e29`, `Frameset_68e2e`, `Frameset_68e33`, `Frameset_68e3a`, `Frameset_68e41`, `Frameset_68e4c`, `Frameset_68e57`, `Frameset_68e60`, `Frameset_68e69`, `Frameset_68e70`
+- Spearhead: `Data_601c0`, `Data_601e0`, `Frameset_681db`, `Frameset_681e4`, `Frameset_681ed`, `Frameset_681f6`, `Frameset_681ff`, `Frameset_68208`, `Frameset_68213`, `Frameset_6821e`, `Frameset_68229`, `Frameset_68234`, `Frameset_6824f`, `Frameset_6825a`, `Frameset_68265`, `Frameset_6826e`, `Frameset_68277`, `Frameset_6827c`, `Frameset_68287`, `Frameset_68292`, `Frameset_6829b`
+- Stove: `Frameset_69615`, `Frameset_69618`, `Frameset_69625`
+- SunMoon: `Data_60690`, `Data_606e0`, `Data_606f0`, `Frameset_68f74`, `Frameset_68f8f`, `Frameset_68f9e`, `Frameset_68fb7`, `Frameset_68fc0`, `Frameset_68fc9`, `Frameset_68fd0`, `Frameset_68fd9`, `Frameset_68ff4`, `Frameset_69003`, `Frameset_69024`, `Frameset_6902b`, `Frameset_69036`
+- Tadpole: `Data_60a20`, `Data_60a40`, `Frameset_69a1a`, `Frameset_69a1d`, `Frameset_69a26`, `Frameset_69a30`, `Frameset_69a33`, `Frameset_69a3d`
+- Teruteru: `Frameset_68b64`, `Frameset_68b6d`, `Frameset_68b76`, `Frameset_68b7d`, `Frameset_68b84`, `Frameset_68b8b`, `Frameset_68b90`, `Frameset_68b99`, `Frameset_68ba2`, `Frameset_68ba5`, `Frameset_68bae`
+- Togeba: `Data_60760`, `Frameset_69230`, `Frameset_6924b`, `Frameset_69256`, `Frameset_69263`, `Frameset_6926c`, `Frameset_69275`, `Frameset_6927c`
+- Torch: `Frameset_68359`, `Frameset_68360`, `Frameset_68369`
+- UnusedFlower: `Frameset_6837a`, `Frameset_68389`, `Frameset_683ac`, `Frameset_683b1`
+- WaterDrop: `Frameset_69761`, `Frameset_69772`, `Frameset_69775`
+- WaterSpark: `Frameset_69b12`, `Frameset_69b1e`
+- Webber: `Data_604a0`, `Frameset_682a4`, `Frameset_682a9`, `Frameset_682b2`, `Frameset_682b7`, `Frameset_682c2`, `Frameset_682c5`, `Frameset_682d1`, `Frameset_682d6`, `Frameset_682db`, `Frameset_682e2`
+- Wolfenboss: `Data_60d60`, `Data_60d80`, `Data_60da0`, `Data_60e00`, `Frameset_69dcb`, `Frameset_69dd5`, `Frameset_69dde`, `Frameset_69de7`, `Frameset_69dec`, `Frameset_69df1`, `Frameset_69df6`, `Frameset_69dfb`, `Frameset_69e00`, `Frameset_69e05`, `Frameset_69e0e`, `Frameset_69e1f`, `Frameset_69e39`, `Frameset_69e42`, `Frameset_69e4b`, `Frameset_69e59`, `Frameset_69e60`, `Frameset_69e72`, `Frameset_69e80`, `Frameset_69e85`, `Frameset_69e8e`, `Frameset_69e97`, `Frameset_69ea0`, `Frameset_69ea9`, `Frameset_69eb2`
+- Wormwould: `Data_608b0`, `Data_60900`, `Data_60dd0`, `Frameset_696bc`, `Frameset_696c5`, `Frameset_696ce`, `Frameset_696d7`, `Frameset_696e0`, `Frameset_696e5`, `Frameset_696ea`, `Frameset_696f3`, `Frameset_69701`, `Frameset_6970a`, `Frameset_69713`, `Frameset_6971c`, `Frameset_69721`, `Frameset_69726`, `Frameset_6972f`, `Frameset_69734`
+- YellowBelly: `Data_60950`, `Data_609e0`, `Data_60a00`, `Data_60a10`, `Frameset_69780`, `Frameset_69789`, `Frameset_69792`, `Frameset_697a1`, `Frameset_697b0`, `Frameset_697bb`, `Frameset_697c6`, `Frameset_697d5`, `Frameset_697e6`, `Frameset_697eb`, `Frameset_69845`, `Frameset_6987f`, `Frameset_69882`, `Frameset_69893`, `Frameset_69896`, `OAM_191940`, `OAM_191f04`, `Pals_51c81`, `Pals_51c99`, `Pals_51cb1`, `Pals_51cc9`, `Pals_51ce1`
+- ZipLine: `Frameset_691c4`, `Frameset_691c9`, `Frameset_691d2`, `Frameset_691db`
+- Zombie: `Data_60560`, `Data_605a0`, `Frameset_68d1a`, `Frameset_68d1f`, `Frameset_68d24`, `Frameset_68d2b`, `Frameset_68d81`, `Frameset_68d8a`, `Frameset_68d93`, `Frameset_68d9c`, `Frameset_68da5`, `Frameset_68dac`, `Frameset_68dd5`, `Frameset_68dda`
+
+**scene**
+
+- EpilogueSceneObj: `Frameset_15ed91`, `Frameset_15ed94`, `Frameset_15ed97`, `Frameset_15ed9a`, `Frameset_15ed9d`, `Frameset_15eda6`, `Frameset_15edb3`, `Frameset_15edc0`, `Frameset_15edc3`, `Frameset_15edc6`, `Frameset_15ede9`, `Frameset_15edf2`, `Frameset_15ee0f`, `Frameset_15ee1e`, `Frameset_15ee3b`, `Frameset_15ee44`, `Frameset_15ee57`, `Frameset_15ee64`, `Frameset_15ee67`, `Frameset_15ee70`, `Frameset_15ee79`, `Frameset_15ee82`, `Frameset_15ee87`, `Frameset_15ee8a`, `OAM_15e97d`
+- PrologueSceneObj: `Frameset_15e741`, `Frameset_15e748`, `Frameset_15e74b`, `Frameset_15e774`, `Frameset_15e77d`, `Frameset_15e780`, `Frameset_15e783`, `Frameset_15e78a`, `Frameset_15e793`, `Frameset_15e7a3`, `Frameset_15e7a6`, `Frameset_15e7b7`, `Frameset_15e7c4`, `Frameset_15e7f0`, `Frameset_15e7f5`, `Frameset_15e7fa`, `Frameset_15e801`, `Frameset_15e80a`, `Frameset_aad0b`
+- SceneWario: `Frameset_16b5a`, `Frameset_16b63`, `Frameset_1fc316`, `Frameset_1fc485`, `Frameset_1fc488`, `Frameset_aa6a5`, `Frameset_aa6c2`, `Frameset_aa6c7`, `Frameset_aa6ca`, `Frameset_aa8ec`, `Frameset_aa8f5`, `Frameset_aa902`, `Frameset_aa90d`, `Frameset_aa913`, `Frameset_aa924`, `Frameset_aa931`, `Frameset_aab27`, `Frameset_aab32`, `Frameset_aab3f`, `Frameset_aab42`, `Frameset_aab45`, `Frameset_aacf7`, `Frameset_aacfa`, `Frameset_ab03c`, `Frameset_ab06b`, `Frameset_ab08c`, `Frameset_ab098`, `Frameset_ab09d`, `Frameset_ab0ac`, `Frameset_ab14d`, `Frameset_ab160`, `Frameset_ab163`, `Frameset_d4de4`
+- TempleSceneObj: `Frameset_15e88d`, `Frameset_15e890`, `Frameset_15e893`, `Frameset_15e896`, `Frameset_15e899`, `Frameset_15e89c`, `Frameset_15e89f`, `Frameset_15e8a2`, `Frameset_15e8a5`, `Frameset_15e8a8`, `Frameset_15e8ab`, `Frameset_15e8b0`, `Frameset_15e932`, `Frameset_15e95c`, `OAM_15e813`
+
+**wario**
+
+- WarioAirborne: `Frameset_15f8e`, `Frameset_1604e`
+- WarioAttacking: `Frameset_1521c`
+- WarioAttackingAirborne: `Frameset_1523e`, `Frameset_15249`
+- WarioBallAirborne: `Frameset_1dd2f3`, `Frameset_1dd2f6`
+- WarioBallOStringKnockBack: `Frameset_17409`, `Frameset_1742a`
+- WarioBallShot: `Frameset_1dd27a`, `Frameset_1dd2d1`
+- WarioBallStart: `Frameset_1dd313`, `OAM_1dcff1`
+- WarioBallTurning: `Frameset_1dd287`, `Frameset_1dd28e`
+- WarioBatIdling: `Frameset_1fd45f`
+- WarioBatTransforming: `Frameset_1fd40a`
+- WarioBouncyAirborne: `Frameset_1fcc75`
+- WarioBouncyFloor: `Frameset_1fcc5f`
+- WarioBouncyStart: `OAM_1fc95e`
+- WarioBouncyUpsideDown: `Frameset_1fcc82`, `Frameset_1fcc85`
+- WarioCrazy: `OAM_1fccd5`
+- WarioCrazySpinning: `Frameset_14ccc`, `Frameset_14ce1`
+- WarioCrazyTurning: `Frameset_1fcfd0`, `Frameset_1fcfd7`
+- WarioElectric: `Frameset_17b9e`, `Frameset_17bad`
+- WarioElectricStart: `Frameset_17b7c`, `Frameset_17b8d`
+- WarioFanLifting: `Frameset_1dc374`, `Frameset_1dc3b8`
+- WarioFanRecovering: `Frameset_1dc384`, `Frameset_1dc3c8`
+- WarioFanSpinning: `Frameset_1dc393`
+- WarioFanStart: `Frameset_1dc37f`, `Frameset_1dc3c3`, `OAM_1dc000`
+- WarioFanTurning: `Frameset_1dc389`, `Frameset_1dc38e`
+- WarioFatBumping: `Frameset_178fc`, `Frameset_17905`
+- WarioFatIdling: `Frameset_1781c`, `Frameset_1781f`
+- WarioFatRecovering: `Frameset_17844`, `Frameset_1785b`
+- WarioFatTurning: `Frameset_178ea`, `Frameset_178f3`
+- WarioFatWalking: `Frameset_17822`, `Frameset_1782b`
+- WarioFenceMovingHorizontal: `Frameset_158e7`, `Frameset_158f2`
+- WarioFlatAirborne: `Frameset_171bd`
+- WarioFlatIdling: `Frameset_1718b`
+- WarioFlatSinking: `Frameset_1719a`
+- WarioFlatSquishedLifting: `Frameset_1716c`
+- WarioFlatWalking: `Frameset_17175`
+- WarioGetTreasureLookFront: `Frameset_1fc30d`
+- WarioGetTreasureTurnBack: `Frameset_1fc2c4`
+- WarioGetTreasureTurnFront: `Frameset_1fc2ab`
+- WarioGettingFlatAirborne: `Frameset_1715f`
+- WarioGrabAirborne: `Frameset_15fd2`, `Frameset_15fdf`, `Frameset_15fec`, `Frameset_15fef`, `Frameset_16020`, `Frameset_16037`, `Frameset_1605c`, `Frameset_16063`
+- WarioHot: `Frameset_16e47`, `Frameset_16e72`, `OAM_16b6c`
+- WarioIceSkatin: `Frameset_1fdd94`, `Frameset_1fdd97`
+- WarioIceSkatinCrash: `Frameset_1fdd9a`, `Frameset_1fdda7`
+- WarioIceSkatinStart: `Frameset_1fdd82`, `Frameset_1fdd8b`, `OAM_1fdb6d`
+- WarioLadderScratching: `Frameset_15903`, `Frameset_15924`
+- WarioLadderShakeStunned: `Frameset_15948`
+- WarioLaunched: `Frameset_1dc8fb`, `Frameset_1dc904`, `Frameset_1dc90d`, `Frameset_1dc926`, `OAM_1dc449`
+- WarioMagicRising: `Frameset_1dcfb0`, `OAM_1dcd60`
+- WarioPuffyDeflating: `Frameset_1dccee`, `Frameset_1dcd01`, `Frameset_1dcd1e`, `Frameset_1dcd31`
+- WarioPuffyInflating: `Frameset_1dccc0`, `Frameset_1dccc9`, `OAM_1dc93f`
+- WarioPuffyRising: `Frameset_1dcd4e`, `Frameset_1dcd57`
+- WarioPuffyTurning: `Frameset_1dccd8`, `Frameset_1dcce3`
+- WarioSleeping: `Frameset_1421c`, `Frameset_14225`, `Frameset_1422e`, `Frameset_14237`, `Frameset_14240`, `Frameset_14249`
+- WarioSliding: `Frameset_16708`
+- WarioSnowballCrash: `Frameset_1ff981`
+- WarioSnowballRolling: `Frameset_1ff938`, `Frameset_1ff945`, `Frameset_1ff963`, `Frameset_1ff970`
+- WarioSnowmanBumped: `Frameset_1ff628`, `Frameset_1ff639`
+- WarioSnowmanIdle: `Frameset_1ff5f8`, `Frameset_1ff5fb`
+- WarioSnowmanTurning: `Frameset_1ff5fe`, `Frameset_1ff605`
+- WarioSnowmanWalking: `Frameset_1ff5e6`, `Frameset_1ff5ef`
+- WarioSplitHit: `Frameset_1ffd10`, `Frameset_1ffd13`, `Frameset_1ffd16`, `Frameset_1ffd19`, `OAM_1ffa12`
+- WarioSplitKnockedBack: `Frameset_1ffc8e`, `Frameset_1ffccf`
+- WarioSwallowed: `OAM_1dc3cd`
+- WarioThrowCharging: `Frameset_1642c`, `Frameset_16432`
+- WarioThrowFullyCharged: `Frameset_16403`, `Frameset_16438`
+- WarioThrowingAirborne: `Frameset_15fae`, `Frameset_15fb3`
+- WarioTryingSubmerge: `Frameset_155b0`, `Frameset_155b7`
+- WarioTurningIntoSnowman: `Frameset_1ff560`, `Frameset_1ff5a3`, `OAM_1feec7`
+- WarioTurningInvisible: `Frameset_17e1b`, `Frameset_17e3a`, `OAM_17cf7`
+- WarioUnderwaterThrusting: `Frameset_15562`, `Frameset_155be`
+- WarioVampireIdling: `Frameset_1fd81c`
+- WarioVampireTurning: `Frameset_1fd83a`, `Frameset_1fd841`
+- WarioVampireWalking: `Frameset_1fd825`
+- WarioZombieIdling: `Frameset_1fc8b6`, `Frameset_1fc8b9`, `OAM_1fc48b`
+- WarioZombieKnockBack: `Frameset_1fc92e`, `Frameset_1fc93b`
+- WarioZombieLanding: `Frameset_1fc8bc`, `Frameset_1fc8d5`, `Frameset_1fc928`, `Frameset_1fc92b`, `Frameset_1fc948`, `Frameset_1fc953`
+- WarioZombieSlippingThroughFloor: `Frameset_1fc8ee`, `Frameset_1fc90b`
+- WarioZombieTurning: `Frameset_1fc894`, `Frameset_1fc89d`
+- WarioZombieWalking: `Frameset_1fc870`, `Frameset_1fc879`
+- WarioZombieWrithing: `Frameset_1fc882`, `Frameset_1fc88b`
