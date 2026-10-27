@@ -48,8 +48,8 @@ proposals are being applied on another branch.
 
 - [x] 3a. Phase 7: the overworld `Func_` with 4-8 references from 2b (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`).
 - [x] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule. Also bulk rules for the cutscene step tables (`.PlayCutscene`), the wait steps in bank27/bank2d (109 `.WaitN`) and the per-OW-function object init routines in bank2d (45).
-- [ ] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
-- [ ] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
+- [x] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
+- [x] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
 - [ ] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous.
 - [ ] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value.
 
@@ -1560,3 +1560,78 @@ Generated for all 45 entries, high:
 
 Also `Func_b4001` (slot 0 of all four tables, `debug_nop`, i.e. an endless
 loop) -> `InvalidOWSceneAction`, as `InvalidMusicBoxAction` in bank2b_1. High.
+
+### 3c. Boss middle phases (left "not named" in 2d)
+
+Most of these bosses don't use a phase jumptable: each phase sets the next
+`OBJ_UPDATE_FUNCTION` itself, so the chains below were followed from
+the start of each file. After `SetObjectFramesetPtr`, `hl` points at
+`OBJ_STATE_DURATION`, so `ld [hli], a / ld [hl], b` right after it sets
+the duration and `OBJ_VAR_1`. Medium unless noted: the flow is certain,
+the words describing it are partly guessed from movement and SFX.
+
+| File | Proposed (label -> name) | Evidence | Conf. |
+|---|---|---|---|
+| anonster.asm (`AnonsterFunc`), ceiling phase | `.asm_50031` -> `.restart`; `.Func_5005e` -> `.Appear`; `.Func_5007f` -> `.Walk`; `.Func_5016f` -> `.Hover`; `.asm_5018e` -> `.set_shoot_frameset`; `.Func_501c4` / `.Func_50200` / `.Func_5023d` -> `.ShootSilk1` / `.ShootSilk2` / `.ShootSilk3`; `.asm_50266` -> `.end_shooting` | `.Appear` waits, turns visible and clears the state. `.Walk` bobs (`Data_60790`, loop index in `OBJ_VAR_3`) and walks with wall turns (`SFX_0B0`); after two bob cycles with no silk left (`_CountActiveTransientObjects`) it turns to Wario and goes to `.Hover`, which keeps bobbing until index $1f (then shoots) or $4f (then walks again). The shoot phases each create `ObjParams_AnonsterSilk1..3Left/Right` at frame $18 (`SFX_07E`); how many follow each other depends on the hits left in the substate's low nybble (4: one, 3: two, else three). `.restart` (also reached from `.ReturnToCeiling`) resets the walk. | medium |
+| anonster.asm, drop attack | `.Func_50282` -> `.StartRise`; `.Func_50293` -> `.RiseToCeiling`; `.Func_502d1` -> `.MoveAboveWario`; `.Func_5034c` -> `.DropOnWario`; `.Func_50397` -> `.Land`; `.Func_5041d` -> `.OnFloor` | Entered from `.Walk` on `OBJSTATE_28/29` (hit by a thrown object): `SFX_0B1`, rise to screen Y 8, wait $3c, run fast towards Wario's X (at most 3 wall turns, `OBJ_VAR_1`), then fall along `Data_607f0` with `OBJ_INTERACTION_48` until `Func_352b` finds floor; land with `SFX_061` + `DoGroundShake`. `.OnFloor` dispatches on the object state: 0 walks towards Wario, or turns and goes to $5b when he is behind; $5b counts down and spits `ObjParams_AnonsterWave*` at $2b (`OBJ_VAR_1` waves); $5c walks (`SFX_0AF`) or, when Wario is Ball o' String, returns to the ceiling; $5a waits after landing; `OBJSTATE_VANISH_TOUCH` from behind is a hit. Locals: `.asm_503e0` -> `.spit_waves`, `.asm_5043b` -> `.reset_to_walk`, `.asm_504b1` -> `.return_to_ceiling`, `.asm_504fe` -> `.walk_towards_wario`, `.asm_5054b` -> `.check_hit_from_behind`. | medium |
+| anonster.asm, hit and defeat | `.Func_505be` -> `.Hurt`; `.Func_505f4` / `.Func_50610` -> `.Recover1` / `.Recover2`; `.Func_50635` -> `.ReturnToCeiling`; `.Func_50650` / `.Func_5066c` -> `.StartReturnToCeiling` / `.JumpToCeiling`; `.Func_50689` -> `.Defeated`; `.Func_50705` -> `.DefeatedFall` | A hit (`DecrementRemainingBossHits`, `SFX_VANISH`, `UpdateAnonsterPal`) waits $56 frames (`SFX_0B1`), plays two framesets, then rises along `Data_607e0` (`SFX_0B2`) to screen Y $10 and restarts unless Wario is Ball o' String. The last hit waits $ac frames, marks the object map (`Func_ba42`), sets `BOSS_DEFEATED`, then falls off screen along `Data_60180` moving sideways (`SFX_0A3`). | medium (high for the defeat) |
+| anonster.asm (`AnonsterSilkFunc`) | `.Func_508cd` -> `.Update`; `.Func_508be` -> `.WaitAndDestroy`; correction: `.Func_50898` -> `.Dissolve` instead of the mechanical `.Default` (2d row) | `.Update` is the landed silk ball: positional state table (2d row). `.Func_50898` is not a do-nothing default: it plays `SFX_0A1`, switches to `Frameset_6955b` for $1d frames with collision off and then `.Func_508be` clears the flags; it is also used when the ball falls to screen Y $b0-$bf. | high |
+| muddee.asm (`MuddeeFunc`), `wCurObjVar1` phases | `.Func_55861` -> `.SwimUp`; `.Func_558d0` -> `.SwimDown`; `.Func_55942` / `.Func_5599c` -> `.SwimLeft` / `.SwimRight`; `.Func_559f6` -> `.WaitThenSink`; `.Func_55a0b` -> `.Sink`; `.Func_55a2b` -> `.MoveUnderWario`; `.Func_55a82` -> `.LeapFromFloor`; `.Func_55ad9` -> `.SwimZigZag` | Phases 0-3 swim up/down until the ceiling/floor or Wario's row (`.CompareYWithWarioRow`), left/right until a wall, then pick the next direction towards Wario (faster below 5 hits: `MoveObject*_Slow` only at 5). Phase 4 (after a hit, once back in the water) waits and sinks 8 px; 5 sinks to the floor; 6 moves along the floor under Wario, then spawns the two stingers (`.asm_556dc` -> `.spawn_stingers`, `SFX_0B2`) and leaps (7, `Data_60d30`, the same jump as `.Leap`); at 3 hits left it continues with 8, otherwise back to 0. Phase 8 moves diagonally, bouncing off walls, floor and ceiling (`SFX_0C1` bubbles), pausing $3c frames after every 3 frameset loops. | medium (low for 8) |
+| muddee.asm, the rest | `.Func_55ba7` -> `.DefeatedFall`; `.Func_55be7` -> `.PlaySwimSFX`; `.asm_55774` -> `.hit`; `.asm_557b1` -> `.hurt`; `.asm_55806` -> `.defeated` | `w1d147` = 1 (set by a stinger) is a hit: `SFX_VANISH`, frameset by facing, `DecrementRemainingBossHits`, `w1d147 = 2`; while 2, wait $3c (`SFX_0C0`) then fall (`Data_60d40`) until in water (`w1d147 = 0`, phase 4); at 2 hits left the hit is the last one: `.defeated` sets the frameset, `Func_ba42`, `stop_music2`, `wMuddeeAmbushState = 2` and `.DefeatedFall` (same fall as Anonster's, `SFX_0A3`). `.PlaySwimSFX`: `SFX_085` every 8/16/32 frames by hits left. | medium |
+| omodonmeka.asm (`OmodonmekaFunc`), steps 4-8 | `.Func_4244c` -> `.FlyAway`; `.Func_42291` -> `.CarryWarioUp`; `.Func_422fc` -> `.HoldWarioAtTop`; `.Func_42261` -> `.HoldFlatWario`; `.Func_42369` -> `.WatchWario`; `.asm_421dc` / `.asm_421e4` / `.asm_421ec` / `.asm_421f4` -> `.hit_by_obj_left` / `.hit_by_obj_right` / `.attacked_left` / `.attacked_right`; `.asm_42215` -> `.vanish_touch` | `OBJSTATE_ACTIVATE` (`.Activate`) grabs Wario: step 5 (or 7 for Flat Wario). 5 carries him up (`MoveWarioUp`, `HandleUpwardsFloorTransition`, `SFX_087`) to a ceiling or 64 px above the start, 6 holds him there (Wario Y = object + 26) and 7 holds Flat Wario for $18 frames; when `wAutoMoveState` drops to 0 the next frame's state change sends it to step 4, which flies off along `Data_604e0`/`Data_60650` (only Flat Wario lets it come back to its start Y). 8 is entered from `.Hover` when Wario is near and below: `SFX_08C`; directly below -> step 2 (`.Fall`, `SFX_088`), out of range -> step 1. The four `.asm_` set the shared `ObjState_*` trampolines (`Func_33f8`, `Func_3407`, `Func_3326`, `Func_3317`). | medium |
+| omodonmeka.asm (`OmodonmekaWithOmodonFunc`) | `.Func_42535` -> `.Idle`; `.Func_42554` -> `.WaitToLower`; `.Func_42559` -> `.StartLowering`; `.Func_4256c` -> `.LowerToOmodon`; `.Func_4261f` -> `.move_to_omodon`; `.Func_426ee` -> `.Rise`; `.Func_42714` -> `.FlyAway` | Steps of the substate low nybble: idle (straight to the bob routine when Wario is Flat), wait $3c, then look for the Omodon sharing its object-map pointer (`OBJ_UNK_01/02`, active+transient flags) in all 8 slots, move down until level with it, set it to state $2d (carried) and rise $32 frames carrying Wario if stepped on; hit states fly away like the plain Omodonmeka. | medium |
+| omodonmeka.asm, the Omodon | `Func_4279c` -> `OmodonFunc`; `Func_4279c.Func_427a9` -> `.Update`; `Func_42767` -> `Omodon_Idle`; `Func_42754` -> `Omodon_Landed`; `.asm_427cd` -> `.carried`; `.asm_427fe` -> `.fall`; `.Func_4284d` / `.Func_4286b` -> `.StartPressWario` / `.PressWario` | `Func_4279c` is the update function in `ObjParams_Omodon` and `ObjParams_Omodon1` (object_params.asm:1359, 1376), so it is the Omodon's main routine. State 0: idle (bobbing with Flat Wario, else falls: state $2e, `OBJ_INTERACTION_OMODON`); $2d carried up by the Omodonmeka; $2e falls (`Data_605e0`) until floor, `SFX_063` + `DoGroundShake`, solid, state $2f (`Omodon_Landed`, waits); `OBJSTATE_ACTIVATE` sits on Wario (Y = Wario - 24) while `wAutoMoveState`. `.Func_42894`/`.Func_42935` not named. | medium (high for `OmodonFunc`) |
+| omodonmeka.asm, data | `Func_42725` -> `ApplyOmodonHoverBob`; `Data_40000` (src/level.asm:69) -> `OmodonHoverBobYOffsets` | Adds the next byte of `Data_40000` (index `OBJ_VAR_3`, wraps at `$80`) to `OBJ_Y_POS`; the table's comment says so. Used while Wario is Flat. | medium |
+| scowler.asm (`ScowlerFunc`) | `.Func_546bd` -> `.MoveUp`; `.Func_546e0` -> `.Stunned`; `.Func_54770` -> `.Vulnerable`; `.Func_54806` -> `.Hit`; `.Func_54853` -> `.HitFloatUp`; `.Func_548c5` -> `.DefeatedRise`; `.asm_545ab` -> `.stun`; `.asm_545d3` -> `.shoot_ink`; `.asm_54737` -> `.check_hit_from_above`; `.asm_547e9` -> `.end_vulnerable`; `.asm_54895` -> `.reset_ink_timer` | `.Main`, state 0: swims sideways with wall turns and moves towards Wario's Y (`.Func_5469d` down, `.MoveUp` up to the water surface); `OBJ_VAR_3` counts down to an ink attack ($48 + 32 per hit left), state $2f spits `ObjParams_InkLeft/Right` at $20. `OBJSTATE_WOBBLE_*_START` stuns it (`SFX_0B3`, `OBJ_INTERACTION_07`): it sinks for $44 frames, then becomes vulnerable (`OBJ_INTERACTION_06`, darts around with `SFX_0AB` for 2 periods); hit again in that state while Wario is above it, it takes a hit (`SFX_0B4`, `DecrementRemainingBossHits`), floats up for $78 frames and recovers; the last hit stops the music, rises to the surface and goes to the existing `.DefeatedSink`. Correction to the 2d row: `.Func_5469d` (proposed `.Fall`) is the "move down until floor" half of the vertical movement, `.MoveDown` matches `.MoveUp`. | medium |
+| scowler.asm (`ScrowlerTentacleFunc`) | `.Func_54a97` -> `.FollowScowler`; `.asm_54a7f` -> `.activated` | Finds the active `SCOWLER` object and places itself next to it (offsets by tentacle side and Scowler's facing); Scowler's `OBJ_VAR_1` doubles as a signal: $fd -> `OBJ_INTERACTION_43`, $fe -> `OBJ_INTERACTION_WATER_TELEPORTING`, $ff -> despawn. | medium |
+| yellow_belly.asm (body) | `.Func_51652` -> `.Swim`; `.Func_515dd` -> `.GuardPump`; `.Func_51572` -> `.ReleasePump`; `.Func_5178c` -> `.Sink`; `.Func_5184a` -> `.Defeated`; `.asm_51442` -> `.start_shooting`; `.asm_514eb` -> `.end_shooting`; `.asm_5154e` -> `.release_pump` | `.Swim` bobs (`Data_60950`), moves sideways with wall turns and pauses (`OBJ_VAR_1`), freezes while byte 0 of the boss union is set (the head was hit), and starts shooting when Wario has been above it for a while. `OBJSTATE_VANISH_TOUCH` releases the pump: `stop_sfx`, union byte 2 = 1, $a6 frames of `SFX_VANISH`/`SFX_0A9`, `ObjParams_Pump` at $25, palette flashes, rising. While the pump is out it swims to 56 px from the pump (`.GuardPump`) and shoots; Puffy Wario clears the flag. The pump being stomped writes $3a to union byte 1, which every phase checks first (`.hit`). `.Sink`: moves down while its screen X is below $c8 (entered when Wario is above it at the end of a pause). `.Defeated`: flashes `Pals_51ce1`/`Pals_51cb1`, `SFX_0AA`, and at frameset offset $20 despawns and sets the platform's state to $2f (`Func_51c62`). | medium (low for `.Sink`) |
+| bubble.asm (`BubbleFunc`) | `.asm_47cf4` -> `.drift`; `.Func_47d56` -> `.drift_right` | Moving left/right (bit 7 of the substate): two wall probes ahead (`Func_3513`); a wall turns it around and sets a $30 pause; otherwise adds the next byte of a drift table to `OBJ_X_POS`. | high |
+| haridama.asm | `.Func_49094` -> `.RiseInWater` | State $38 (`OBJSTATE_WOBBLE_LEFT`): moves up slowly while both head probes are clear and it is in water, then switches to `.Func_490e8` (`.UpdateRolling`) with a $64 timer. | medium |
+| snake.asm | `.Func_49b76` -> `.SetStateFromScreenY` | Called every frame by `.Rise` and `.Sink`: state $48 while the snake's screen Y is below $10 or in $a0-$bf (at the screen edge), otherwise state 0. | medium |
+
+#### Notable finding: bubble drift tables addressed by literal
+
+`BubbleFunc` reads its drift tables as `ld b, $40 / add $20` and `ld b, $40
+/ add $50` (bubble.asm:203-204, 266-267), i.e. the fixed addresses $4020
+and $4050 of its bank. Those are `Data_44020` (all 0 / -1) and `Data_44050`
+(all 0 / +1) in src/level.asm:96-100, whose only "references" are these
+literals, so like the literal update-function pointers they would break as
+soon as anything before them in "Object Functions 2" moves. Fix:
+`ld b, HIGH(Data_44020) / add LOW(Data_44020)` (as omodonmeka.asm does for
+`Data_40000`), ROM unchanged. Names: `Data_44020` -> `BubbleDriftLeftX`,
+`Data_44050` -> `BubbleDriftRightX`. High.
+
+#### Possible bug: Scowler's stunned vertical direction
+
+`ScowlerFunc.Func_546e0` (scowler.asm:323-331) ends with
+
+    cp b
+    jr nc, .asm_54734
+    set 6, [hl]
+    .asm_54734
+    res 6, [hl]
+    ret
+
+so the `set` is always undone and `OBJSUBFLAG_VDIR` is always cleared
+when the vulnerable phase starts (`.Func_54770` then starts by moving up).
+Probably a missing `ret` after the `set`; harmless in practice. Medium.
+
+### 3d. Boss union: one `NEXTU` per boss
+
+The union after `wWarioGoals` (src/ram/wram.asm:997-1068) has named
+members for Doll Boy, Shoot, Wolfenboss, Jamano (byte 0 only) and Muddee
+(byte 0 only). Every other use borrows Doll Boy's names or `w1d147`/
+`w1d149`. All uses outside doll_boy.asm, shoot.asm and wolfenboss.asm were
+grepped (pesce, jamano, muddee, muddee_stinger, scowler, yellow_belly; no
+other file touches the union). Proposed `NEXTU` blocks (byte 0, 1, 2, 3):
+
+| Boss | Byte 0 | Byte 1 | Byte 2 | Byte 3 | Evidence | Conf. |
+|---|---|---|---|---|---|---|
+| Jamano | `wJamanoActiveSkulls` (exists) | `wJamanoSkullsInPlace` (2a) | `wJamanoDarkness` | `wJamanoSkullsInactive` (2a) | Byte 2 is the darkness step that `Func_55407` raises with the skulls in place and that `Func_554bc` reads (1, 2, ...) to pick the BG palettes; the skull spawner stops when bytes 2 and 3 are both 0 (jamano.asm:671-682). | medium |
+| Pesce | `wPesceFlyActive` | `wPesceHits` | `wPesceFightOver` | - | As in the 2d pesce row (names proposed there in passing). | medium |
+| Muddee | `wMuddeeAmbushState` (exists) | `wMuddeeHitState` | - | - | 0 normal, 1 hit (set by a stinger, muddee_stinger.asm:21), 2 hurt/falling back into the water (see 3c). | medium |
+| Scowler | `wScowlerBlackoutTimer` | `wScowlerInkTimer` | - | - | Byte 1: set to 1 when ink touches Wario (`InkFunc`, scowler.asm:1024), counted up by `Func_54c07` to $78 (flash at 2/$3d, blackout at $3c, restore at $78), cleared at the defeat. Byte 0: $ff at the blackout, decremented each frame while non-zero; while it is non-zero byte 1 doesn't advance. | high |
+| Yellow Belly | `wYellowBellyHeadHit` | `wYellowBellyHitRequest` | `wYellowBellyPumpOut` | - | Byte 0: the invisible head object sets 1 for $1e frames when it gets a state (also `stop_music2`, `wBossState = 0`), and the body freezes meanwhile. Byte 1: $3a from the pump when stomped (yellow_belly.asm:959); the body takes a hit and clears it. Byte 2: 1 while the pump is out (body phases, arrows fly slower while it is set: yellow_belly.asm:1045-1111). | medium |
+
+With these, `w1d147`, `w1d149` and the `ds $1` between them go away, and
+the second-pass row for `w1d147` ("+ per-boss aliases") is covered.
