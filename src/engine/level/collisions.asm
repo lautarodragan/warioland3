@@ -702,7 +702,7 @@ _ProcessBlock_Down::
 	ld [wCollisionPoints], a
 ;	fallthrough
 
-Func_19b5c:
+ProcessBlockToB:
 	call ProcessBlock
 	ld b, a
 	ret
@@ -712,14 +712,14 @@ _ProcessBlockOnLeft::
 	ld a, [hl]
 	inc a
 	ret z
-	jr Func_19b5c
+	jr ProcessBlockToB
 
 _ProcessBlockOnRight::
 	call IncrementBlockPtr
 	ld a, [hl]
 	and a
 	ret z
-	jr Func_19b5c
+	jr ProcessBlockToB
 
 DecrementBlockPtr:
 	ld hl, wBlockPtr + 1
@@ -785,10 +785,7 @@ _ProcessBlock_Side::
 	call GetBlockPtr
 	ld a, COLLISION_SIDE
 	ld [wCollisionPoints], a
-Func_19bce:
-	call ProcessBlock
-	ld b, a
-	ret
+	jr ProcessBlockToB
 
 ProcessBlockAbove:
 	ld hl, wBlockPtr
@@ -806,7 +803,7 @@ ProcessBlockAbove:
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a
-	jr Func_19bce
+	jp ProcessBlockToB
 
 ProcessBlock_Up:
 	ld hl, hPos

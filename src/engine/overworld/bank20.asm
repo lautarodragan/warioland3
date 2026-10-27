@@ -4686,14 +4686,14 @@ OWScene_FadeToGrey:
 	di
 	call VBlank_OWScene
 	ei
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 
 OWScene_Wait20:
 	ld a, 20
 	ld hl, wOWFuncCounter
 	cp [hl]
 	ret nc
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 OWScene_LoadLevelName:
 	ld a, [wOWSceneMapSide]
@@ -4705,7 +4705,7 @@ OWScene_LoadLevelName:
 	call LoadLevelName
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 .is_exit
 	; skip name fade in
@@ -4721,14 +4721,14 @@ OWScene_FadeInLevelName:
 	farcall FadeInLevelName
 	srl c
 	ret c
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 OWScene_LoadStarIndicatorPals:
 	ld a, [wOWFuncCounter]
 	cp 16
 	ret c
 	farcall LoadOWStarIndicatorPals
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 UnlockLevel_Init:
 	call GetUnlockedOWLevelData
@@ -4741,7 +4741,8 @@ UnlockLevel_Init:
 	call WriteAToHL_BCTimes
 ;	fallthrough
 
-Func_82a8d:
+; like AdvanceOWFunc_Bank20, for UnlockLevel's steps (in jr range of them)
+AdvanceOWFunc_UnlockLevel:
 	xor a
 	ld [wOWFuncCounter], a
 	ld hl, wOWFuncStep
@@ -4750,7 +4751,7 @@ Func_82a8d:
 
 UnlockLevel_GetArrows:
 	call GetUnlockedLevelArrows
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 UnlockLevel_WaitHighlight:
 	ld a, [wHighlightOWTile]
@@ -4763,11 +4764,11 @@ UnlockLevel_WaitHighlight:
 	ld a, [wOWFuncCounter]
 	cp 4
 	ret c
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 UnlockLevel_ShowArrow1:
 	call IsLeftExitOrJunction
-	jr z, Func_82a8d
+	jr z, AdvanceOWFunc_UnlockLevel
 	ld a, [wLevelArrowDirections1]
 	call GetConnectedLevel1ArrowCoord
 	call GetConnectedLevel1CoordsInTilemap
@@ -4780,7 +4781,7 @@ UnlockLevel_ShowArrow1:
 UnlockLevel_HighlightTileAndAdvance:
 	call ApplyHighlightPalToOWTile
 	call PlacePendingOWTiles
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 ; return z if 1st connected level is left exit
 ; or if it is North's map side junction
@@ -4799,7 +4800,7 @@ IsLeftExitOrJunction:
 UnlockLevel_ShowArrow2:
 	ld a, [wLevel2]
 	cp OW_EXIT_RIGHT
-	jr z, Func_82a8d
+	jr z, AdvanceOWFunc_UnlockLevel
 	ld a, [wOWXCoord2]
 	ld [wOWXCoord1], a
 	ld a, [wOWYCoord2]
@@ -4819,7 +4820,7 @@ UnlockLevel_ShowArrow2:
 UnlockLevel_ShowLevelPoint:
 	ld a, [wLevel2]
 	cp OW_EXIT_RIGHT
-	jp z, Func_82a8d
+	jp z, AdvanceOWFunc_UnlockLevel
 	ld hl, wOWCoords2
 	call GetOWCoordInTilemap
 	ld hl, wAttrToPlaceInOW
@@ -4875,7 +4876,7 @@ UnlockLevel_WaitHighlight30:
 	ld a, [wOWFuncCounter]
 	cp 30
 	ret c
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 
 UnlockLevel_ShowStar:
 	ld a, [wOWFuncCounter]
@@ -4883,11 +4884,11 @@ UnlockLevel_ShowStar:
 	jr z, .asm_82b88
 	cp $40
 	ret c
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 .asm_82b88
 	ld a, [wLevel2]
 	cp OW_EXITS
-	jp nc, Func_82a8d
+	jp nc, AdvanceOWFunc_UnlockLevel
 	ld a, [wOWYCoord2]
 	ld [wCurSceneObjYCoord], a
 	ld a, [wOWXCoord2]
@@ -4959,18 +4960,20 @@ InitHighlightLevelScene:
 	call CopyFarBytes
 	ret
 
-Func_82c1d:
+; WaitOWFunc, AdvanceOWFunc and EndOWFunc (bank2d) for bank $20's own
+; scenes: the same code, here so that jr and fallthroughs reach it
+WaitOWFunc_Bank20:
 	ld hl, wOWFuncCounter
 	cp [hl]
 	ret nc
-Func_82c22:
+AdvanceOWFunc_Bank20:
 	xor a
 	ld hl, wOWFuncCounter
 	ld [hli], a
 	inc [hl] ; wOWFuncStep
 	ret
 
-Func_82c29:
+EndOWFunc_Bank20:
 	xor a
 	ld [wOWSceneActionParam], a
 	ld hl, wOWFuncCounter
@@ -4993,11 +4996,11 @@ HighlightLevel:
 	dw .ShowStar
 	dw .WaitStarDone
 	dw .Wait30
-	dw Func_82c29
+	dw EndOWFunc_Bank20
 
 .Wait30:
 	ld a, 30
-	jr Func_82c1d
+	jr WaitOWFunc_Bank20
 
 .Init:
 	ld a, [wCurMapSide]
@@ -5013,7 +5016,7 @@ HighlightLevel:
 	cp EVENT_SUPER_GRAB_GLOVES
 	jr z, .asm_82c78
 .asm_82c6e
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20
 
 .asm_82c71
 	ld a, $07
@@ -5030,11 +5033,11 @@ HighlightLevel:
 	ld a, MYSTERY_HANDLE
 	call IsTreasureCollected
 	jr nz, .asm_82c6e
-	jr Func_82c29
+	jr EndOWFunc_Bank20
 
 .Wait12:
 	ld a, 12
-	jr Func_82c1d
+	jr WaitOWFunc_Bank20
 
 .ShowStar:
 	ld a, [wLevel2]
@@ -5045,10 +5048,10 @@ HighlightLevel:
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
 	play_sfx SFX_104
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20
 
 .WaitStarDone:
 	ld a, [wCurSceneObjState]
 	and a
 	ret nz
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20

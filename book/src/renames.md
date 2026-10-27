@@ -80,19 +80,20 @@ checked to change only what it meant to:
 
 ## Results
 
-17 batches: about 6,800 label renames, plus the RAM mislabel fixes (batch 14). The batches are listed in the survey's
+17 batches: about 6,800 label renames, plus the RAM mislabel fixes (batch 14). Then, as a change to the ROM, batch 18 merged the duplicate routines that could be merged. The batches are listed in the survey's
 [Applied](naming-survey.md#applied) section.
 
 Still named after their address, on purpose:
 
-- 14 duplicate routines, the only `Func_`/`Data_`/`Frameset_`/`OAM_`/`Pals_`
-  labels still named after their address (`Func_19246`, `Func_19b5c`/`19bce`,
-  bank `$20`'s `Func_82a8d`/`82c1d`/`82c22`/`82c29`, bank `$2b`'s
-  `Func_ac000`/`ac00b`/`ac016`, `Func_ac042`/`ac047`/`ac04c`, `Func_aca6d`),
-  plus duplicates that already have names (`SmallHopYVel`/`SmallHopYVel2`,
-  `GetBlockPtrBottomCentrePos`, close to `GetBlockPtrPos`). Merging them changes the ROM,
-  so it's a separate decision. The `.asm_` jump labels were never part of
-  the survey.
+- Nothing in `src/` is named `Func_`/`Data_`/`Frameset_`/`OAM_`/`Pals_` after
+  its address any more. The `.asm_` jump labels were never part of the
+  survey.
+- Duplicates that stay on purpose: bank `$20`'s copies of bank `$2d`'s
+  `WaitOWFunc`/`AdvanceOWFunc`/`EndOWFunc` (`*_Bank20`, plus
+  `AdvanceOWFunc_UnlockLevel`), which are in another bank and reached by `jr`
+  and fallthroughs; `SmallHopYVel`/`SmallHopYVel2`; `SwimDiagonalVelTable`,
+  which has the same bytes as `SwimStraightVelTable`;
+  `GetBlockPtrBottomCentrePos`, close to `GetBlockPtrPos`.
 - A few low-confidence RAM scene variables (`w2d150`.., the `w2d122`..`w2d13f`
   scene task pairs). The structural RAM changes and the labels used under the
   wrong union member were fixed in batch 14.

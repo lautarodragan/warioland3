@@ -2455,11 +2455,11 @@ LargeNonCrackedBlockRightCollision:
 .asm_19185
 	or $01
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 .asm_1918d
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 
 ; unreferenced
 BlockFunc_LargeNonCrackedBlockDown_79:
@@ -2564,37 +2564,11 @@ LargeNonCrackedBlockDownCollision:
 .asm_1923a
 	or $03
 	ld [wMultiBlockParam], a
-	jr Func_19246
+	jp StartMultiBlockBreak
 .asm_19241
 	ld a, $03
 	ld [wMultiBlockParam], a
-;	fallthrough
-
-Func_19246:
-	ld a, [wSRAMBank]
-	ld [wMultiBlockOriginBank], a
-	ld hl, wBlockPtr
-	ld a, [hli]
-	ld [wMultiBlockOriginPtr + 0], a
-	ld d, a
-	ld a, [hl]
-	ld [wMultiBlockOriginPtr + 1], a
-	ld e, a
-	ld a, [de]
-	ld [wUnused_cedf], a
-	ld hl, wBlockPtr
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a
-	ld a, [hl]
-	and $80
-	or b
-	ld [hl], a
-	push hl
-	call QueueBlockRedraw
-	pop hl
-	call BreakBlock
-	jp BlockFunc_Free
+	jp StartMultiBlockBreak
 
 ; unreferenced
 BlockFunc_LargeNonCrackedBlockLeft_79:
@@ -2699,11 +2673,11 @@ LargeNonCrackedBlockLeftCollision:
 .asm_19318
 	or $02
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 .asm_19320
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 
 ; unreferenced
 BlockFunc_LargeNonCrackedBlockUp_79:
@@ -2808,11 +2782,11 @@ LargeNonCrackedBlockUpCollision:
 .asm_193cc
 	or $04
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 .asm_193d4
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jp Func_19246
+	jp StartMultiBlockBreak
 
 StartMultiBlockBreak_SolidUnlessRolling:
 	ld a, [wSRAMBank]

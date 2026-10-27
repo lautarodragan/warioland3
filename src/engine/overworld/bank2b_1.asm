@@ -1,24 +1,6 @@
 	SETCHARMAP temple
 
-Func_ac000:
-	ld h, b
-	ld l, c
-	res 1, l
-	ld b, BANK("Credits OAM")
-	call UpdateOWAnimation
-	ld a, [bc]
-	ret
-
-Func_ac00b:
-	ld h, b
-	ld l, c
-	res 1, l
-	ld b, BANK("Credits OAM")
-	call UpdateOWAnimation
-	ld a, [bc]
-	ret
-
-Func_ac016:
+UpdateSceneObjAnim_CreditsOAM:
 	ld h, b
 	ld l, c
 	res 1, l
@@ -55,15 +37,7 @@ UpdateSceneObjAnim_OWOAM1:
 	ld a, [bc]
 	ret
 
-Func_ac042:
-	ld b, BANK("Credits OAM")
-	jp LoadOWSpriteWithScroll
-
-Func_ac047:
-	ld b, BANK("Credits OAM")
-	jp LoadOWSpriteWithScroll
-
-Func_ac04c:
+LoadSceneObjSpriteWithScroll_CreditsOAM:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSpriteWithScroll
 
@@ -154,13 +128,13 @@ UpdateEpilogueSceneObj:
 	dw .State1c
 
 .animate_and_draw
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 .draw
 	ld de, EpilogueSceneObjOAM_15e97d
-	jp Func_ac04c
+	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
 ; unreachable
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 .set_new_state_if_finished
 	call SetObjStateIfAnimationIsFinished
@@ -168,13 +142,13 @@ UpdateEpilogueSceneObj:
 	jr UpdateEpilogueSceneObj
 
 ; unreachable
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 .asm_ac10a
 	ld de, EpilogueSceneObjOAM_15e97d
 	jp LoadSceneObjSprite_CreditsOAM
 
 ; unreachable
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
 	jr nz, .asm_ac10a
@@ -201,7 +175,7 @@ UpdateEpilogueSceneObj:
 
 .State06:
 	ld de, EpilogueSceneObjFrameset_15ed9d
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0a
 	jp .set_new_state_if_finished
 
@@ -211,7 +185,7 @@ UpdateEpilogueSceneObj:
 
 .State08:
 	ld de, EpilogueSceneObjFrameset_15eda6
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	call .PlaySFXEvery30Frames
 	jp .draw
 .PlaySFXEvery30Frames:
@@ -236,37 +210,37 @@ UpdateEpilogueSceneObj:
 
 .State0b:
 	ld de, EpilogueSceneObjFrameset_15edc6
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0a
 	jp .set_new_state_if_finished
 
 .State0c:
 	ld de, EpilogueSceneObjFrameset_15ede9
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0b
 	jp .set_new_state_if_finished
 
 .State0d:
 	ld de, EpilogueSceneObjFrameset_15edf2
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0a
 	jp .set_new_state_if_finished
 
 .State0e:
 	ld de, EpilogueSceneObjFrameset_15ee0f
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0a
 	jp .set_new_state_if_finished
 
 .State0f:
 	ld de, EpilogueSceneObjFrameset_15ee1e
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $17
 	jp .set_new_state_if_finished
 
 .State10:
 	ld de, EpilogueSceneObjFrameset_15ee3b
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0a
 	jp .set_new_state_if_finished
 
@@ -280,7 +254,7 @@ UpdateEpilogueSceneObj:
 
 .State13:
 	ld de, EpilogueSceneObjFrameset_15ee64
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	call .follow_wario
 	jp .draw
 
@@ -302,7 +276,7 @@ UpdateEpilogueSceneObj:
 
 .State16:
 	ld de, EpilogueSceneObjFrameset_15ee79
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	call .PlaySFX08EEvery48Frames
 	jp .draw
 
@@ -320,7 +294,7 @@ UpdateEpilogueSceneObj:
 
 .State17:
 	ld de, EpilogueSceneObjFrameset_15ee82
-	call Func_ac016
+	call UpdateSceneObjAnim_CreditsOAM
 	call .PlaySFX11AEvery40Frames
 	jp .draw
 
@@ -500,28 +474,28 @@ UpdateTempleSceneObjAnimation:
 
 ; unreferenced
 .unreferenced_animate_and_draw_1:
-	call Func_ac000
+	call UpdateSceneObjAnim_CreditsOAM
 
 .draw_1:
 	ld de, PrologueSceneObjOAM_15e44a
-	jp Func_ac042
+	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
 .animate_once_1:
-	call Func_ac000
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
 	jr nz, .draw_1
 	jr UpdateTempleSceneObjAnimation
 
 .animate_and_draw_2:
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 .draw_2:
 	ld de, TempleSceneObjOAM_15e813
-	jp Func_ac047
+	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
 ; unreferenced
 .unreferenced_animate_once_2:
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
 	jr nz, .draw_2
@@ -574,7 +548,7 @@ UpdateTempleSceneObjAnimation:
 	ld de, TempleSceneObjFrameset_15e890
 
 .animate_and_draw_no_scroll:
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 	ld de, TempleSceneObjOAM_15e813
 	ld b, BANK(TempleSceneObjOAM_15e813)
 	jp LoadOWSprite
@@ -589,13 +563,13 @@ UpdateTempleSceneObjAnimation:
 
 .State0f:
 	ld de, TempleSceneObjFrameset_15e8b0
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0d
 	jr .set_state_if_finished_3
 
 .State10:
 	ld de, TempleSceneObjFrameset_15e8ab
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $0e
 	jr .set_state_if_finished_3
 
@@ -608,14 +582,14 @@ UpdateTempleSceneObjAnimation:
 	jr .animate_and_draw_3
 
 .animate_and_draw_3:
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 .asm_ac3c4
 	ld de, HiddenFigureOAM_18c88a
 	ld b, BANK(HiddenFigureOAM_18c88a)
 	jp LoadOWSpriteWithScroll
 
 ; unreferenced
-	call Func_ac00b
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 
 .set_state_if_finished_3:
@@ -672,13 +646,13 @@ UpdatePrologueSceneObj:
 	dw .State17
 
 .animate_and_draw:
-	call Func_ac000
+	call UpdateSceneObjAnim_CreditsOAM
 .draw:
 	ld de, PrologueSceneObjOAM_15e44a
-	jp Func_ac042
+	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
 .animate_once:
-	call Func_ac000
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 .set_new_state_if_finished
 	call SetObjStateIfAnimationIsFinished
@@ -782,7 +756,7 @@ UpdatePrologueSceneObj:
 
 .State15:
 	ld de, PrologueSceneObjFrameset_15e7fa
-	call Func_ac000
+	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $16
 	jp .set_new_state_if_finished
 
@@ -1619,13 +1593,6 @@ UnreferencedMoveSceneWarioRight:
 	inc [hl]
 	ret
 
-Func_aca6d:
-	ld hl, wOWStepCounter
-	xor a
-	ld [hld], a
-	inc [hl] ; wOWStep
-	ret
-
 InitTextPrinting:
 	call ClearText
 
@@ -1648,7 +1615,7 @@ InitTextPrinting:
 	xor a
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	jr Func_aca6d
+	jp AdvanceTempleOWStep
 
 PrintTextPageWithHeader:
 	call PrintTextWithHeader
@@ -1657,7 +1624,7 @@ PrintTextPageWithHeader:
 	ret nz
 	ld hl, wCurTextBufferPage
 	inc [hl]
-	jr Func_aca6d
+	jp AdvanceTempleOWStep
 
 LoadCurTextPageBufferPage:
 	ld a, [wCurTextBufferPage]
@@ -1675,7 +1642,7 @@ LoadCurTextPageBufferPage:
 	call CopyHLToDE
 	xor a
 	ld [wCurTextLine], a
-	jr Func_aca6d
+	jp AdvanceTempleOWStep
 
 WaitAButtonAndClearTextbox:
 	ld a, 1
@@ -1690,14 +1657,14 @@ WaitAButtonAndClearTextbox:
 	call SetSceneObjState
 .clear
 	call ClearTextboxExceptHeader
-	jr Func_aca6d
+	jp AdvanceTempleOWStep
 
 PrintTextPageWithoutHeader:
 	call PrintTextWithoutHeader
 	ld a, [wCurTextLine]
 	cp $80
 	ret nz
-	jp Func_aca6d
+	jp AdvanceTempleOWStep
 
 NextTextPageOrEnd:
 	ld hl, wCurTextBufferPage
@@ -1727,7 +1694,7 @@ NextTextPageOrEnd:
 	ret
 
 .asm_acb20
-	call Func_aca6d
+	call AdvanceTempleOWStep
 	scf
 	ret
 
@@ -2723,13 +2690,13 @@ HiddenFigureRevealScene:
 	call ClearTextboxExceptHeader
 	ld a, $10
 	ld [wSceneObj7State], a
-	jp Func_aca6d
+	jp AdvanceTempleOWStep
 
 .WaitMouthOpen:
 	ld a, [wSceneObj7State]
 	cp $0e
 	ret nz
-	jp Func_aca6d
+	jp AdvanceTempleOWStep
 
 .PrintTextMoveMouth:
 	call PrintTextWithoutHeader
