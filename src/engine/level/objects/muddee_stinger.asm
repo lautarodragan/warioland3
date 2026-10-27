@@ -18,9 +18,9 @@ MuddeeStingerFunc:
 	cp $0a
 	jr nz, .asm_4ca3b
 	ld a, $01
-	ld [wJamanoSkullsInPlace], a
+	ld [wMuddeeHitState], a
 .asm_4ca3b
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wMuddeeHitState]
 	and a
 	jr z, .asm_4ca46
 	xor a

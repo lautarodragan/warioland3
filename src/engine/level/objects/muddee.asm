@@ -103,7 +103,7 @@ MuddeeFunc:
 	ld [wBossState], a
 	call UpdateLevelMusic
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wMuddeeHitState], a
 .spawn_stingers
 	play_sfx SFX_0B2
 	ld bc, ObjParams_MuddeeStinger1
@@ -170,7 +170,7 @@ MuddeeFunc:
 	or b
 	ld [hl], a
 .asm_55752
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wMuddeeHitState]
 	and a
 	jr z, .asm_5575e
 	cp $02
@@ -192,7 +192,7 @@ MuddeeFunc:
 .hit
 	play_sfx SFX_VANISH
 	ld a, $02
-	ld [wJamanoSkullsInPlace], a
+	ld [wMuddeeHitState], a
 	ld a, [wCurObjInteractionType]
 	cp $48
 	jr z, .asm_5579c
@@ -251,7 +251,7 @@ MuddeeFunc:
 
 .in_water
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wMuddeeHitState], a
 	ld de, MuddeeFrameset_69dc0
 	call SetObjectFramesetPtr
 	ld a, $2c

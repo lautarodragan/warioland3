@@ -120,7 +120,7 @@ JamanoFunc:
 	ret
 .asm_54e1c
 	set 4, [hl]
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr nz, .asm_54e46
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -658,7 +658,7 @@ SkullSpawnerFunc:
 	ld [wJamanoActiveSkulls], a
 	xor a
 	ld [wJamanoSkullsInPlace], a
-	ld [wDollBoyHammerRange], a
+	ld [wJamanoDarkness], a
 	ld a, $01
 	ld [wJamanoSkullsInactive], a
 	ret
@@ -671,7 +671,7 @@ SkullSpawnerFunc:
 	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_5525b
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr nz, .asm_5525b
 	xor a
@@ -912,7 +912,7 @@ SkullFunc:
 	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_553f4
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr z, .asm_55403
 .asm_553f4
@@ -932,7 +932,7 @@ SkullFunc:
 Func_55407:
 	ld a, [wJamanoSkullsInPlace]
 	ld b, a
-	ld hl, wDollBoyHammerRange
+	ld hl, wJamanoDarkness
 	ld a, [hl]
 	and a
 	jr z, .asm_5542b
@@ -1050,7 +1050,7 @@ Func_55407:
 ;	fallthrough
 
 Func_554bc:
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	cp $01
 	jr z, .asm_554de
 	cp $02

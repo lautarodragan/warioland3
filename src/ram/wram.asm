@@ -1060,7 +1060,9 @@ wJamanoActiveSkulls::
 wJamanoSkullsInPlace::
 	db
 
-	ds $1
+; BG palette darkness step, raised as skulls get in place
+wJamanoDarkness::
+	db
 
 wJamanoSkullsInactive::
 	db
@@ -1068,6 +1070,47 @@ wJamanoSkullsInactive::
 NEXTU
 
 wMuddeeAmbushState::
+	db
+
+; 0 = normal, 1 = hit by a stinger, 2 = hurt
+wMuddeeHitState::
+	db
+
+NEXTU
+
+; TRUE while a fly is on screen
+wPesceFlyActive::
+	db
+
+wPesceHits::
+	db
+
+; set when Pesce is defeated
+wPesceFightOver::
+	db
+
+NEXTU
+
+; counts down from $ff once the ink blacks out the screen
+wScowlerBlackoutTimer::
+	db
+
+; counts up after ink touches Wario
+wScowlerInkTimer::
+	db
+
+NEXTU
+
+; TRUE for a while after the head is hit
+wYellowBellyHeadHit::
+	db
+
+; set to $3a by the pump when it is stomped
+wYellowBellyHitRequest::
+	db
+
+; TRUE while the pump is out
+wYellowBellyPumpOut::
 	db
 
 ENDU
@@ -1379,11 +1422,9 @@ wShotSpin::
 	db
 
 wGolfWarioYVel::
+; 16-bit, little-endian (UpdateGolfParaGoomYPos)
 wShotYVel::
-	db
-
-w1dc4f::
-	db
+	dw
 
 wShotXVel::
 	db
@@ -2048,7 +2089,13 @@ ENDU
 wCurSceneObj:: scene_obj_struct wCurSceneObj
 
 wSceneObjs::
+UNION
 wSceneObj1::  scene_obj_struct wSceneObj1
+NEXTU
+; cutscenes that leave scene object 1 unused:
+; which overlay DrawCutsceneOverlay draws (0 = none)
+wCutsceneOverlayType:: db
+ENDU
 wSceneObj2::  scene_obj_struct wSceneObj2
 wSceneObj3::  scene_obj_struct wSceneObj3
 wSceneObj4::  scene_obj_struct wSceneObj4

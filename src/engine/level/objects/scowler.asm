@@ -30,8 +30,8 @@ ScowlerFunc:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld [wDollBoyActiveBarrels], a
-	ld [wJamanoSkullsInPlace], a
+	ld [wScowlerBlackoutTimer], a
+	ld [wScowlerInkTimer], a
 	ret
 
 .StartFight:
@@ -160,7 +160,7 @@ ScowlerFunc:
 	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 .asm_54615
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wScowlerInkTimer]
 	and a
 	jr nz, .asm_54646
 	ld l, OBJ_VAR_3
@@ -628,7 +628,7 @@ ScowlerFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [wIsBossBattle], a
-	ld hl, wJamanoSkullsInPlace
+	ld hl, wScowlerInkTimer
 	ld a, [hl]
 	and a
 	jr z, .asm_54978
@@ -1021,7 +1021,7 @@ InkFunc:
 	jp MoveObjectUp
 .asm_54be1
 	ld a, $01
-	ld [wJamanoSkullsInPlace], a
+	ld [wScowlerInkTimer], a
 .asm_54be6
 	ld de, ScowlerFrameset_69af5
 	call SetObjectFramesetPtr
@@ -1045,12 +1045,12 @@ InkFunc:
 	ret
 
 UpdateScowlerInkBlackout:
-	ld hl, wJamanoSkullsInPlace
+	ld hl, wScowlerInkTimer
 	ld a, [hl]
 	and a
 	ret z
 	ld b, a
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wScowlerBlackoutTimer]
 	and a
 	jr nz, .asm_54c74
 	inc [hl]
@@ -1078,7 +1078,7 @@ UpdateScowlerInkBlackout:
 .asm_54c44
 	play_sfx SFX_0B6
 	ld a, $ff
-	ld [wDollBoyActiveBarrels], a
+	ld [wScowlerBlackoutTimer], a
 	ld c, 5
 	ld b, 3
 	call BlackOutOBPals
@@ -1095,7 +1095,7 @@ UpdateScowlerInkBlackout:
 	ld hl, ScowlerPals_54cb7
 	jr WriteScowlerBGPals
 .asm_54c74
-	ld hl, wDollBoyActiveBarrels
+	ld hl, wScowlerBlackoutTimer
 	dec [hl]
 	ret
 

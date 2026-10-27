@@ -24,9 +24,9 @@ YellowBellyBodyFunc:
 	ld a, $0a
 	ld [hl], a
 	xor a
-	ld [wDollBoyActiveBarrels], a
-	ld [wJamanoSkullsInPlace], a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyHeadHit], a
+	ld [wYellowBellyHitRequest], a
+	ld [wYellowBellyPumpOut], a
 	ld a, TRUE
 	ld [wIsBossBattle], a
 	stop_music2
@@ -133,7 +133,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.ShootArrows)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .asm_5145c
 	xor a
@@ -191,7 +191,7 @@ YellowBellyBodyFunc:
 	ret
 
 .ShootArrows:
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
 	ld hl, wCurObjVar1
@@ -229,7 +229,7 @@ YellowBellyBodyFunc:
 	ld bc, ObjParams_YellowBellyArrowRight
 	jp CreateObjectAtRelativePos
 .end_shooting
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr nz, .asm_51523
 	ld hl, wCurObjUpdateFunction + 1
@@ -287,7 +287,7 @@ YellowBellyBodyFunc:
 .release_pump
 	stop_sfx
 	ld a, $01
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.ReleasePump)
 	ld [hld], a
@@ -354,13 +354,13 @@ YellowBellyBodyFunc:
 	cp TRANSFORMATION_PUFFY_WARIO
 	jr nz, .asm_515eb
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	jp .end_shooting
 .asm_515eb
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, .end_shooting
 	ld a, LOW(wObj1)
@@ -431,7 +431,7 @@ YellowBellyBodyFunc:
 	jr .asm_5168e
 
 .Swim:
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wYellowBellyHeadHit]
 	and a
 	jr z, .asm_51662
 	ld a, no_actions_for 1
@@ -440,7 +440,7 @@ YellowBellyBodyFunc:
 	ld [wCurObjState], a
 	ret
 .asm_51662
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
 	ld hl, wCurObjVar1
@@ -515,7 +515,7 @@ YellowBellyBodyFunc:
 	dec [hl]
 .asm_516d4
 	ld l, OBJ_SUBSTATE
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	dec a
 	jr z, .asm_516ec
 	bit OBJSUBFLAG_VDIR_F, [hl]
@@ -618,7 +618,7 @@ YellowBellyBodyFunc:
 
 .hit
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wYellowBellyHitRequest], a
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.HitFlash)
 	ld [hld], a
@@ -956,9 +956,9 @@ PumpFunc:
 .asm_519e3
 	ld a, $3a
 	ld [hl], a
-	ld [wJamanoSkullsInPlace], a
+	ld [wYellowBellyHitRequest], a
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	ld de, YellowBellyFrameset_69882
 	call SetObjectFramesetPtr
 	ld a, $1d
@@ -985,7 +985,7 @@ PumpFunc:
 	ld a, $58
 	ld [hl], a
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 .asm_51a1d
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -1042,7 +1042,7 @@ YellowBellyArrowFunc:
 	ld [hld], a
 	ld a, LOW(.FlyLeft)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .FlyLeft
 	ld l, OBJ_FLAGS
@@ -1059,7 +1059,7 @@ YellowBellyArrowFunc:
 	and a
 	jr nz, .asm_51af7
 	call MoveObjectDownByVar2
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, MoveObjectLeftByVar2
 	jp MoveObjectLeft
@@ -1091,7 +1091,7 @@ YellowBellyArrowFunc:
 	ld [hld], a
 	ld a, LOW(.FlyRight)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .FlyRight
 	ld l, OBJ_FLAGS
@@ -1108,7 +1108,7 @@ YellowBellyArrowFunc:
 	and a
 	jr nz, .asm_51af7
 	call MoveObjectDownByVar2
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, MoveObjectRightByVar2
 	jp MoveObjectRight
@@ -1204,7 +1204,7 @@ YellowBellyHeadFunc:
 	ld a, $1e
 	ld [wCurObjStateDuration], a
 	ld a, $01
-	ld [wDollBoyActiveBarrels], a
+	ld [wYellowBellyHeadHit], a
 	stop_music2
 	xor a
 	ld [wBossState], a
@@ -1216,7 +1216,7 @@ YellowBellyHeadFunc:
 	dec [hl]
 	jr nz, .asm_51bb8
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wYellowBellyHeadHit], a
 .asm_51bb8
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)

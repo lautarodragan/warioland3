@@ -49,8 +49,8 @@ PesceFunc:
 	ld de, PesceFrameset_6990a
 	call SetObjectFramesetPtr
 	xor a
-	ld [wJamanoSkullsInPlace], a
-	ld [wDollBoyHammerRange], a
+	ld [wPesceHits], a
+	ld [wPesceFightOver], a
 	ld [hli], a
 	ld [hli], a
 	ld a, $0a
@@ -72,7 +72,7 @@ PesceFunc:
 	ld [hl], a
 	ld [wCurObjStateDuration], a
 	play_sfx SFX_0BB
-	ld hl, wJamanoSkullsInPlace
+	ld hl, wPesceHits
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -479,7 +479,7 @@ PesceFunc:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld b, a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .asm_52092
 	cp $02
@@ -487,7 +487,7 @@ PesceFunc:
 	cp $03
 	jr z, .asm_520b2
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wPesceHits], a
 	ld c, $17
 	sla b
 	jr c, .asm_5208d
@@ -528,13 +528,13 @@ PesceFunc:
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .asm_520eb
 	cp $02
 	jr z, .asm_520f9
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .asm_520e6
 	ld de, PesceFrameset_69911
@@ -560,13 +560,13 @@ PesceFunc:
 	play_sfx SFX_0AD
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .asm_52131
 	cp $02
 	jr z, .asm_5213f
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .asm_5212c
 	ld de, PesceFrameset_699b2
@@ -596,7 +596,7 @@ PesceFunc:
 .asm_52155
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .asm_5217a
 	cp $02
@@ -604,7 +604,7 @@ PesceFunc:
 	cp $03
 	jr z, .asm_52196
 	xor a
-	ld [wJamanoSkullsInPlace], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .asm_52175
 	ld de, PesceFrameset_6990a
@@ -713,7 +713,7 @@ PesceFunc:
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ld a, $01
-	ld [wDollBoyHammerRange], a
+	ld [wPesceFightOver], a
 	ret
 .asm_5222b
 	ld l, OBJ_STATE_DURATION
@@ -788,7 +788,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .asm_522cf
 	xor a
@@ -831,7 +831,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wPesceFightOver]
 	and a
 	ret z
 	xor a
@@ -892,7 +892,7 @@ Dragonfly1Func:
 	ld de, PesceFrameset_699d5
 	jp SetObjectFramesetPtr
 .asm_52359
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .asm_523a3
 	dec l
@@ -1076,7 +1076,7 @@ FlySpawnerFunc:
 	ld a, LOW(.SpawnFly)
 	ld [hld], a
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 
 .SpawnFly:
@@ -1084,10 +1084,10 @@ FlySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wJamanoSkullsInPlace]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .asm_524dc
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	ret nz
 	ld a, [wTransformation]
@@ -1140,7 +1140,7 @@ FlySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wPesceFightOver]
 	and a
 	ret z
 	ld hl, wCurObjMapPtrHi
@@ -1159,7 +1159,7 @@ FlyFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $03
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	play_sfx SFX_0BE
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
@@ -1185,12 +1185,12 @@ FlyFunc:
 	ld a, $5b
 	ld [wCurObjState], a
 	ld a, $01
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 .asm_5255e
 	ld bc, Data_604c0
 	call ApplyObjYMovement_Loop
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	jr z, .asm_5256f
 	ld a, [wGlobalCounter]
@@ -1212,7 +1212,7 @@ FlyFunc:
 	jp nz, MoveObjectUp
 	xor a
 	ld [wCurObjFlags], a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 .asm_52591
 	ld a, [wWarioScreenXPos]
@@ -1237,7 +1237,7 @@ FlyFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hl], a
-	ld hl, wDollBoyActiveBarrels
+	ld hl, wPesceFlyActive
 	ld a, [hl]
 	and a
 	ret z
@@ -1251,7 +1251,7 @@ CheeseFunc:
 	ld a, [wCurObjState]
 	and a
 	jr nz, .asm_52634
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	jr z, .asm_52638
 	cp $02
@@ -1319,7 +1319,7 @@ CheeseFunc:
 	jp nz, MoveObjectDown_Fast
 .asm_52634
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 .asm_52638
 	xor a
 	ld [wCurObjFlags], a

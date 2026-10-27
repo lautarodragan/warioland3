@@ -1626,7 +1626,7 @@ Cutscene06Func:
 
 InitCutscene0aObjs:
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	ld hl, wSceneObj2
 	ld a, 130 ; y
 	ld [hli], a
@@ -2001,7 +2001,7 @@ Cutscene11Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2026,7 +2026,7 @@ Cutscene11Func:
 	ld b, BANK(SharedCutsceneBGPals_b8040) ; aka BANK(Pals_b8200)
 	call CopyFarBytes
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	ld [wSceneObj2State], a
 	ld a, LCDC_BG_9C00
 	ld [wLCDCFlagsToFlip], a
@@ -2056,7 +2056,7 @@ Cutscene11Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseObj2Fast:
@@ -2459,7 +2459,7 @@ Cutscene09Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2518,7 +2518,7 @@ MusicBoxCutsceneFunc:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseMusicBox:
@@ -2610,7 +2610,7 @@ Cutscene02Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseAxe:
@@ -2645,7 +2645,7 @@ Cutscene02Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .Wait16:
@@ -2690,7 +2690,7 @@ Cutscene0cFunc:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2727,7 +2727,7 @@ Cutscene18Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2901,7 +2901,7 @@ Cutscene13Func:
 	ld a, [wSceneObj2XCoord]
 	ld [wSceneObj3XCoord], a
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -3542,7 +3542,7 @@ Cutscene37Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .Wait40:
@@ -3590,7 +3590,7 @@ Cutscene38Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	call PlaySFX_112
 	jp AdvanceCutsceneFunc
 
@@ -5585,7 +5585,7 @@ Cutscene14Func:
 	ld [hli], a
 	ld [hl], $50
 	ld a, $02
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	ld hl, wCutscene14Obj2WobblePtr
 	ld [hl], $99
 	inc l
@@ -5654,7 +5654,7 @@ Cutscene14Func:
 	cp $92
 	ret nz
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .WaitWobbleThenSwitchTable:
@@ -7474,10 +7474,10 @@ DrawCutsceneOverlayFrame0:
 	ld b, $01
 ;	fallthrough
 
-; b = y coord
+; b = wCutsceneOverlayType to draw for
 ; c = frame
 DrawCutsceneOverlay:
-	ld a, [wSceneObj1YCoord]
+	ld a, [wCutsceneOverlayType]
 	cp b
 	ret nz
 	ld a, [de]
@@ -7518,7 +7518,7 @@ DrawCutsceneOverlayFrame3:
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame4:
-	ld a, [wSceneObj1YCoord]
+	ld a, [wCutsceneOverlayType]
 	cp $02
 	ret nz
 	ld hl, wCurSceneObjFrame
