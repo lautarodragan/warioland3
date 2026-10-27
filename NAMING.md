@@ -126,6 +126,27 @@ and the earlier sections.
 4. Optional consistency renames noted in passing: `OWCutTree` ->
    `UpdateCutsceneObjs_CutTree`, bank2d's `.Wait1`..`.Wait4` -> frames.
 
+**Fourth pass (branch `claude/naming-survey-4-dh93t5`), plan in this order.**
+Rows go in a new "Fourth pass" section at the end; earlier rows are left
+untouched (corrections go in notes there). Labels are named by their
+current label in `src/` (the first three passes' high/medium proposals are
+applied, so this pass works from a fresh grep: at its start `src/` had 240
+`Func_`, 1131 `.Func_`, 712 `Frameset_`, 139 `OAM_`, 167 `Pals_`, 68
+`Data_` address-named definitions).
+
+- [ ] 4a. Overworld `Func_` still address-named: bank2b_2 (47), bank2d (24),
+  bank20 (19), bank27 (17), bank2b_1 (12), bank26 (7), init.asm (7),
+  bank56 (3).
+- [ ] 4b. Scene-local `.Func_` (~1070 in the overworld banks, ~60 in level
+  objects and elsewhere): mechanical rules first (`ret`-only locals,
+  set-state-then-advance steps, frameset-setter state entries, ...), then
+  per scene where the code is clear.
+- [ ] 4c. Data still address-named: rules (Wario framesets shared by the
+  states of one transformation, OAM tables reached through
+  object_data.asm, framesets only listed in one frameset table, ...), then
+  descriptive names where cheap.
+- [ ] 4d. The optional consistency renames of the third pass.
+
 ## Inventory (master at f205aa3)
 
 Counts are label *definitions* found by a scan of `src/**/*.asm|inc` for
