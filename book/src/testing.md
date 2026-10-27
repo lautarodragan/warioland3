@@ -41,7 +41,8 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to
 - `test_debug_menu_golf.py` toggles GOLF in every level's start room (and The
   Temple), checking that play carries on in the same place, and raises and
   lowers The Vast Plain's clear gate next to Wario, checking it lands where the
-  game's own room load puts it.
+  game's own room load puts it, and that a gate spawned after the toggle reads
+  the flag itself.
 - `test_steep_canyon.py` unlocks The Steep Canyon's secret door with TREASURE and
   plays to its owl room: a real owl to grab and a debug owl to spawn. With the
   Rust Spray, it also breaks the cracked column at the end of the start room and
