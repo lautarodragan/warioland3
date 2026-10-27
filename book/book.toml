@@ -1,0 +1,10 @@
+[book]
+title = "Wario Land 3 Disassembly: Fork Notes"
+description = "Technical notes on this Wario Land 3 disassembly fork: its debug menu, the debug owl, the naming work, tests and how to change the code safely."
+authors = ["Taro"]
+language = "en"
+src = "src"
+
+[output.html]
+git-repository-url = "https://github.com/lautarodragan/warioland3"
+edit-url-template = "https://github.com/lautarodragan/warioland3/edit/master/book/{path}"

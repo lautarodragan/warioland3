@@ -2,7 +2,7 @@
 level".
 
 A survey of every level's start room (day and night) found these cases
-worth keeping as tests; the rest behave like the ones here. See owl.md.
+worth keeping as tests; the rest behave like the ones here. See book/src/debug-owl.md.
 """
 
 import pytest

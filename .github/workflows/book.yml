@@ -1,0 +1,58 @@
+name: book
+
+# Builds the mdBook in book/ and publishes it to GitHub Pages, only when
+# something in the book (or this workflow) changed on master.
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'book/**'
+      - '.github/workflows/book.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MDBOOK_VERSION: 0.4.40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install mdBook
+        run: |
+          mkdir -p "$HOME/mdbook"
+          curl -fsSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C "$HOME/mdbook"
+          echo "$HOME/mdbook" >> "$GITHUB_PATH"
+
+      - name: Build
+        run: mdbook build book
+
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: book/book
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

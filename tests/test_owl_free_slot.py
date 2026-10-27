@@ -5,7 +5,7 @@ Owl object groups put the owl's graphics in slot 1, and the owl's sprites
 slot 1's tiles and palette 4. In a room without the owl, slot 1 belongs to
 one of the room's enemies, so the debug owl puts its graphics in a slot the
 room's group leaves unused, if any, and its sprites are moved there as
-they're drawn. See owl.md.
+they're drawn. See book/src/debug-owl.md.
 
 Desert Ruins' start room (object group 023) has spearheads in slot 1 and
 hands in slot 3, and leaves slots 2 and 4 unused: the owl goes into slot 2,
