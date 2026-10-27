@@ -40,6 +40,19 @@ August 2026 commits renamed a few of the labels it covers:
 - [x] 2e. Audio engine `Func_` routines; action help demos (bulk rule covering all 302 `Func_`, plus the 4 common ones).
 - [~] 2f. Bulk data: `RoomPals###` (146 `Pals_`) and `LevelRooms_` (119) generated; framesets/OAM/other palettes/`Data_` only counted, with an owner-prefix rule suggested.
 
+**Third pass (branch `claude/naming-survey-3-dh93t5`), plan in this order.**
+Rows go in a new "Third pass" section at the end; existing rows are left
+untouched (mistakes found in them go in a "Corrections" note there), and
+everything is named by its current master label, since the earlier
+proposals are being applied on another branch.
+
+- [ ] 3a. Phase 7: the overworld `Func_` with 4-8 references from 2b (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`).
+- [ ] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule.
+- [ ] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
+- [ ] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
+- [ ] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous.
+- [ ] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value.
+
 **Status:** first pass: about 430 table rows (~650 labels) plus 475
 mechanical object state names. Second pass (everything under "Second
 pass" below): about 330 table rows, roughly 205 high, 100 medium, 12 low
