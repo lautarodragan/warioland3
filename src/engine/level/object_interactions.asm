@@ -211,95 +211,95 @@ ProcessInteractions:
 
 .table
 	table_width 2
-	dw ObjInteraction_Grabbable                        ; OBJ_INTERACTION_00
-	dw ObjInteraction_Touch                        ; OBJ_INTERACTION_01
-	dw ObjInteraction_FrontSting         ; OBJ_INTERACTION_FRONT_STING
-	dw ObjInteraction_BackSting          ; OBJ_INTERACTION_BACK_STING
-	dw ObjInteraction_TopSting           ; OBJ_INTERACTION_TOP_STING
-	dw ObjInteraction_FullSting          ; OBJ_INTERACTION_FULL_STING
-	dw ObjInteraction_WaterBump                        ; OBJ_INTERACTION_06
-	dw ObjInteraction_WaterKnockBack                        ; OBJ_INTERACTION_07
-	dw ObjInteraction_WaterFrontSting                        ; OBJ_INTERACTION_08
-	dw ObjInteraction_FrontBump                        ; OBJ_INTERACTION_09
-	dw ObjInteraction_BumpOff                        ; OBJ_INTERACTION_0A
-	dw ObjInteraction_BumpOffAction0A                        ; OBJ_INTERACTION_0B
-	dw ObjInteraction_Walkable           ; OBJ_INTERACTION_WALKABLE
-	dw ObjInteraction_MusicalCoin        ; OBJ_INTERACTION_MUSICAL_COIN
-	dw ObjInteraction_Fire               ; OBJ_INTERACTION_FIRE
-	dw ObjInteraction_Richtertoffen      ; OBJ_INTERACTION_RICHTERTOFFEN
-	dw ObjInteraction_GreyKey            ; OBJ_INTERACTION_GREY_KEY
-	dw ObjInteraction_RedKey             ; OBJ_INTERACTION_RED_KEY
-	dw ObjInteraction_GreenKey           ; OBJ_INTERACTION_GREEN_KEY
-	dw ObjInteraction_BlueKey            ; OBJ_INTERACTION_BLUE_KEY
-	dw ObjInteraction_GreyTreasure       ; OBJ_INTERACTION_GREY_TREASURE
-	dw ObjInteraction_RedTreasure        ; OBJ_INTERACTION_RED_TREASURE
-	dw ObjInteraction_GreenTreasure      ; OBJ_INTERACTION_GREEN_TREASURE
-	dw ObjInteraction_BlueTreasure       ; OBJ_INTERACTION_BLUE_TREASURE
-	dw ObjInteraction_Omodonmeka         ; OBJ_INTERACTION_OMODONMEKA
-	dw ObjInteraction_Silky              ; OBJ_INTERACTION_SILKY
-	dw ObjInteraction_Food               ; OBJ_INTERACTION_FOOD
-	dw ObjInteraction_RegularCoin        ; OBJ_INTERACTION_REGULAR_COIN
-	dw ObjInteraction_Electric           ; OBJ_INTERACTION_ELECTRIC
-	dw ObjInteraction_InvisibilityPotion ; OBJ_INTERACTION_INVISIBILITY_POTION
-	dw ObjInteraction_Pneumo             ; OBJ_INTERACTION_PNEUMO
-	dw ObjInteraction_ZombieHead         ; OBJ_INTERACTION_ZOMBIE_HEAD
-	dw ObjInteraction_Bouncy             ; OBJ_INTERACTION_BOUNCY
-	dw ObjInteraction_FireBot            ; OBJ_INTERACTION_FIRE_BOT
-	dw ObjInteraction_Solid              ; OBJ_INTERACTION_SOLID
-	dw ObjInteraction_Omodon             ; OBJ_INTERACTION_OMODON
-	dw ObjInteraction_OrangeBird         ; OBJ_INTERACTION_ORANGE_BIRD
-	dw ObjInteraction_Vampire            ; OBJ_INTERACTION_VAMPIRE
-	dw ObjInteraction_Bubble             ; OBJ_INTERACTION_BUBBLE
-	dw ObjInteraction_Ice                ; OBJ_INTERACTION_ICE
-	dw ObjInteraction_Owl                ; OBJ_INTERACTION_OWL
-	dw ObjInteraction_Rail               ; OBJ_INTERACTION_RAIL
-	dw ObjInteraction_Haridama           ; OBJ_INTERACTION_HARIDAMA
-	dw ObjInteraction_AnonsterWave       ; OBJ_INTERACTION_ANONSTER_WAVE
-	dw ObjInteraction_AnonsterSilk       ; OBJ_INTERACTION_ANONSTER_SILK
-	dw ObjInteraction_Snow               ; OBJ_INTERACTION_SNOW
-	dw ObjInteraction_UnlitTorch         ; OBJ_INTERACTION_UNLIT_TORCH
-	dw ObjInteraction_Stove              ; OBJ_INTERACTION_STOVE
-	dw ObjInteraction_RoboMouse          ; OBJ_INTERACTION_ROBO_MOUSE
-	dw ObjInteraction_SolidPlatform                        ; OBJ_INTERACTION_31
-	dw ObjInteraction_DollBoyHammer      ; OBJ_INTERACTION_DOLL_BOY_HAMMER
-	dw ObjInteraction_RollingRock        ; OBJ_INTERACTION_ROLLING_ROCK
-	dw ObjInteraction_Wormwould          ; OBJ_INTERACTION_WORMWOULD
-	dw ObjInteraction_Beam               ; OBJ_INTERACTION_BEAM
-	dw ObjInteraction_SmashableTop                        ; OBJ_INTERACTION_36
-	dw ObjInteraction_YellowBellyArrow   ; OBJ_INTERACTION_YELLOW_BELLY_ARROW
-	dw ObjInteraction_Teruteru           ; OBJ_INTERACTION_TERUTERU
-	dw ObjInteraction_WaterDrop          ; OBJ_INTERACTION_WATER_DROP
-	dw ObjInteraction_Pesce              ; OBJ_INTERACTION_PESCE
-	dw ObjInteraction_GrabbableWalkable                        ; OBJ_INTERACTION_3B
-	dw ObjInteraction_Tadpole            ; OBJ_INTERACTION_TADPOLE
-	dw ObjInteraction_Hebarii            ; OBJ_INTERACTION_HEBARII
-	dw ObjInteraction_PrinceFroggy       ; OBJ_INTERACTION_PRINCE_FROGGY
-	dw ObjInteraction_Hand               ; OBJ_INTERACTION_HAND
-	dw ObjInteraction_WaterTeleporting   ; OBJ_INTERACTION_WATER_TELEPORTING
-	dw ObjInteraction_Scowler            ; OBJ_INTERACTION_SCOWLER
-	dw ObjInteraction_Ink                ; OBJ_INTERACTION_INK
-	dw GetStungByObjectInWater                        ; OBJ_INTERACTION_43
-	dw ObjInteraction_Jamano             ; OBJ_INTERACTION_JAMANO
-	dw ObjInteraction_Turtle             ; OBJ_INTERACTION_TURTLE
-	dw ObjInteraction_FrontStingBumpOff                        ; OBJ_INTERACTION_46
-	dw ObjInteraction_TopStingBumpOff                        ; OBJ_INTERACTION_47
-	dw ObjInteraction_BottomStingSmashableTop                        ; OBJ_INTERACTION_48
-	dw ObjInteraction_WaterFrontLaunch                        ; OBJ_INTERACTION_49
-	dw ObjInteraction_ColourCoin         ; OBJ_INTERACTION_COLOUR_COIN
-	dw ObjInteraction_MagicalSpiral      ; OBJ_INTERACTION_MAGICAL_SPIRAL
-	dw ObjInteraction_BottomSting        ; OBJ_INTERACTION_BOTTOM_STING
-	dw ObjInteraction_Shoot              ; OBJ_INTERACTION_SHOOT
-	dw ObjInteraction_GKTortoise                        ; OBJ_INTERACTION_GK_TORTOISE
-	dw ObjInteraction_FrontPushBumpOff                        ; OBJ_INTERACTION_4F
-	dw ObjInteraction_FrontDragDown                        ; OBJ_INTERACTION_50
-	dw ObjInteraction_WaterKnockBackTopRight                        ; OBJ_INTERACTION_51
-	dw ObjInteraction_FrontStingSmashableTop                        ; OBJ_INTERACTION_52
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_1
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_2
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_3
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_4
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_5
-	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_6
+	dw ObjInteraction_Grabbable               ; OBJ_INTERACTION_GRABBABLE
+	dw ObjInteraction_Touch                   ; OBJ_INTERACTION_TOUCH
+	dw ObjInteraction_FrontSting              ; OBJ_INTERACTION_FRONT_STING
+	dw ObjInteraction_BackSting               ; OBJ_INTERACTION_BACK_STING
+	dw ObjInteraction_TopSting                ; OBJ_INTERACTION_TOP_STING
+	dw ObjInteraction_FullSting               ; OBJ_INTERACTION_FULL_STING
+	dw ObjInteraction_WaterBump               ; OBJ_INTERACTION_WATER_BUMP
+	dw ObjInteraction_WaterKnockBack          ; OBJ_INTERACTION_WATER_KNOCK_BACK
+	dw ObjInteraction_WaterFrontSting         ; OBJ_INTERACTION_WATER_FRONT_STING
+	dw ObjInteraction_FrontBump               ; OBJ_INTERACTION_FRONT_BUMP
+	dw ObjInteraction_BumpOff                 ; OBJ_INTERACTION_BUMP_OFF
+	dw ObjInteraction_BumpOffPause            ; OBJ_INTERACTION_BUMP_OFF_PAUSE
+	dw ObjInteraction_Walkable                ; OBJ_INTERACTION_WALKABLE
+	dw ObjInteraction_MusicalCoin             ; OBJ_INTERACTION_MUSICAL_COIN
+	dw ObjInteraction_Fire                    ; OBJ_INTERACTION_FIRE
+	dw ObjInteraction_Richtertoffen           ; OBJ_INTERACTION_RICHTERTOFFEN
+	dw ObjInteraction_GreyKey                 ; OBJ_INTERACTION_GREY_KEY
+	dw ObjInteraction_RedKey                  ; OBJ_INTERACTION_RED_KEY
+	dw ObjInteraction_GreenKey                ; OBJ_INTERACTION_GREEN_KEY
+	dw ObjInteraction_BlueKey                 ; OBJ_INTERACTION_BLUE_KEY
+	dw ObjInteraction_GreyTreasure            ; OBJ_INTERACTION_GREY_TREASURE
+	dw ObjInteraction_RedTreasure             ; OBJ_INTERACTION_RED_TREASURE
+	dw ObjInteraction_GreenTreasure           ; OBJ_INTERACTION_GREEN_TREASURE
+	dw ObjInteraction_BlueTreasure            ; OBJ_INTERACTION_BLUE_TREASURE
+	dw ObjInteraction_Omodonmeka              ; OBJ_INTERACTION_OMODONMEKA
+	dw ObjInteraction_Silky                   ; OBJ_INTERACTION_SILKY
+	dw ObjInteraction_Food                    ; OBJ_INTERACTION_FOOD
+	dw ObjInteraction_RegularCoin             ; OBJ_INTERACTION_REGULAR_COIN
+	dw ObjInteraction_Electric                ; OBJ_INTERACTION_ELECTRIC
+	dw ObjInteraction_InvisibilityPotion      ; OBJ_INTERACTION_INVISIBILITY_POTION
+	dw ObjInteraction_Pneumo                  ; OBJ_INTERACTION_PNEUMO
+	dw ObjInteraction_ZombieHead              ; OBJ_INTERACTION_ZOMBIE_HEAD
+	dw ObjInteraction_Bouncy                  ; OBJ_INTERACTION_BOUNCY
+	dw ObjInteraction_FireBot                 ; OBJ_INTERACTION_FIRE_BOT
+	dw ObjInteraction_Solid                   ; OBJ_INTERACTION_SOLID
+	dw ObjInteraction_Omodon                  ; OBJ_INTERACTION_OMODON
+	dw ObjInteraction_OrangeBird              ; OBJ_INTERACTION_ORANGE_BIRD
+	dw ObjInteraction_Vampire                 ; OBJ_INTERACTION_VAMPIRE
+	dw ObjInteraction_Bubble                  ; OBJ_INTERACTION_BUBBLE
+	dw ObjInteraction_Ice                     ; OBJ_INTERACTION_ICE
+	dw ObjInteraction_Owl                     ; OBJ_INTERACTION_OWL
+	dw ObjInteraction_Rail                    ; OBJ_INTERACTION_RAIL
+	dw ObjInteraction_Haridama                ; OBJ_INTERACTION_HARIDAMA
+	dw ObjInteraction_AnonsterWave            ; OBJ_INTERACTION_ANONSTER_WAVE
+	dw ObjInteraction_AnonsterSilk            ; OBJ_INTERACTION_ANONSTER_SILK
+	dw ObjInteraction_Snow                    ; OBJ_INTERACTION_SNOW
+	dw ObjInteraction_UnlitTorch              ; OBJ_INTERACTION_UNLIT_TORCH
+	dw ObjInteraction_Stove                   ; OBJ_INTERACTION_STOVE
+	dw ObjInteraction_RoboMouse               ; OBJ_INTERACTION_ROBO_MOUSE
+	dw ObjInteraction_SolidPlatform           ; OBJ_INTERACTION_SOLID_PLATFORM
+	dw ObjInteraction_DollBoyHammer           ; OBJ_INTERACTION_DOLL_BOY_HAMMER
+	dw ObjInteraction_RollingRock             ; OBJ_INTERACTION_ROLLING_ROCK
+	dw ObjInteraction_Wormwould               ; OBJ_INTERACTION_WORMWOULD
+	dw ObjInteraction_Beam                    ; OBJ_INTERACTION_BEAM
+	dw ObjInteraction_SmashableTop            ; OBJ_INTERACTION_SMASHABLE_TOP
+	dw ObjInteraction_YellowBellyArrow        ; OBJ_INTERACTION_YELLOW_BELLY_ARROW
+	dw ObjInteraction_Teruteru                ; OBJ_INTERACTION_TERUTERU
+	dw ObjInteraction_WaterDrop               ; OBJ_INTERACTION_WATER_DROP
+	dw ObjInteraction_Pesce                   ; OBJ_INTERACTION_PESCE
+	dw ObjInteraction_GrabbableWalkable       ; OBJ_INTERACTION_GRABBABLE_WALKABLE
+	dw ObjInteraction_Tadpole                 ; OBJ_INTERACTION_TADPOLE
+	dw ObjInteraction_Hebarii                 ; OBJ_INTERACTION_HEBARII
+	dw ObjInteraction_PrinceFroggy            ; OBJ_INTERACTION_PRINCE_FROGGY
+	dw ObjInteraction_Hand                    ; OBJ_INTERACTION_HAND
+	dw ObjInteraction_WaterTeleporting        ; OBJ_INTERACTION_WATER_TELEPORTING
+	dw ObjInteraction_Scowler                 ; OBJ_INTERACTION_SCOWLER
+	dw ObjInteraction_Ink                     ; OBJ_INTERACTION_INK
+	dw GetStungByObjectInWater                ; OBJ_INTERACTION_WATER_FULL_STING
+	dw ObjInteraction_Jamano                  ; OBJ_INTERACTION_JAMANO
+	dw ObjInteraction_Turtle                  ; OBJ_INTERACTION_TURTLE
+	dw ObjInteraction_FrontStingBumpOff       ; OBJ_INTERACTION_FRONT_STING_BUMP_OFF
+	dw ObjInteraction_TopStingBumpOff         ; OBJ_INTERACTION_TOP_STING_BUMP_OFF
+	dw ObjInteraction_BottomStingSmashableTop ; OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
+	dw ObjInteraction_WaterFrontLaunch        ; OBJ_INTERACTION_WATER_FRONT_LAUNCH
+	dw ObjInteraction_ColourCoin              ; OBJ_INTERACTION_COLOUR_COIN
+	dw ObjInteraction_MagicalSpiral           ; OBJ_INTERACTION_MAGICAL_SPIRAL
+	dw ObjInteraction_BottomSting             ; OBJ_INTERACTION_BOTTOM_STING
+	dw ObjInteraction_Shoot                   ; OBJ_INTERACTION_SHOOT
+	dw ObjInteraction_GKTortoise              ; OBJ_INTERACTION_GK_TORTOISE
+	dw ObjInteraction_FrontPushBumpOff        ; OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
+	dw ObjInteraction_FrontDragDown           ; OBJ_INTERACTION_FRONT_DRAG_DOWN
+	dw ObjInteraction_WaterKnockBackTopRight  ; OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
+	dw ObjInteraction_FrontStingSmashableTop  ; OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_1
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_2
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_3
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_4
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_5
+	dw ObjInteraction_None                    ; OBJ_INTERACTION_UNUSED_6
 	assert_table_length NUM_OBJ_INTERACTIONS
 
 ObjInteraction_None:
@@ -882,7 +882,7 @@ GetStungByObject:
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 .asm_206d7
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wInvincibleCounter]
 	cp $01
@@ -1031,7 +1031,7 @@ GetStungByObjectInWater:
 	ret
 
 .asm_20808
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 ;	fallthrough
 
@@ -1177,7 +1177,7 @@ BumpOffObject:
 	ld a, [wTouchState]
 	and a
 	jp nz, BumpIntoObject
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wInvincibleCounter]
 	cp $01
@@ -1297,12 +1297,12 @@ StandOnSolidObject:
 	jp ProcessInteractions.next_obj
 
 TriggerObjInteraction:
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 	ret
 
-SetObjAction_0D:
-	ld b, OBJACTION_0D
+SetObjAction_NoEffect:
+	ld b, OBJACTION_NO_EFFECT
 	call SetObjAction
 	ret
 
@@ -1386,7 +1386,7 @@ PushAgainstSolidObject:
 	farcall IceSkatinCrashIntoWall
 	ret
 
-BumpOffObjectWithAction12:
+BumpOffObject_HitWarioShort:
 	ld a, [wTouchState]
 	and a
 	jr z, .asm_20b5e
@@ -1405,7 +1405,7 @@ BumpOffObjectWithAction12:
 	and a
 	ret nz
 	call BumpOffObject
-	ld b, OBJACTION_12
+	ld b, OBJACTION_HIT_WARIO_SHORT
 	jp SetObjAction
 
 ObjInteraction_Grabbable:
@@ -1780,12 +1780,12 @@ AttackOrBumpOffNoActions:
 	jp nz, AttackObject
 ;	fallthrough
 
-ObjInteraction_BumpOffAction0A:
+ObjInteraction_BumpOffPause:
 	call BumpOffObject
 	ld a, [wTouchState]
 	and a
 	ret nz
-	ld b, OBJACTION_0A
+	ld b, OBJACTION_PAUSE
 	jp SetObjAction
 
 ObjInteraction_Walkable:
@@ -1804,7 +1804,7 @@ ObjInteraction_MusicalCoin:
 	jp CollectMusicalCoin
 
 ObjInteraction_Fire:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -1954,8 +1954,8 @@ ObjInteraction_Richtertoffen:
 	jp StepOnObject
 
 ; unreferenced?
-UnreferencedSetObjAction_06:
-	ld b, OBJACTION_06
+UnreferencedSetObjAction_HitWario:
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_GreyKey:
@@ -2136,7 +2136,7 @@ ObjInteraction_Omodonmeka:
 	and a
 	jp nz, TouchObject
 
-	ld b, OBJACTION_0C
+	ld b, OBJACTION_PICK_UP_WARIO
 	call SetObjAction
 
 	ld a, [wTransformation]
@@ -2274,7 +2274,7 @@ TurnIntoBallOStringWario:
 	jp TouchObject
 
 .asm_21290
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -2366,16 +2366,16 @@ TurnIntoBallOStringWario:
 ObjInteraction_Food:
 	ld a, [wIsCrouching]
 	and a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 	cp TRANSFORMATION_FAT_WARIO
 	jr nz, .set_fat_wario
-	jp SetObjAction_0D
+	jp SetObjAction_NoEffect
 
 .set_fat_wario
 	call TriggerObjInteraction
@@ -2497,7 +2497,7 @@ ObjInteraction_Electric:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_21471
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -2627,7 +2627,7 @@ ObjInteraction_YellowBellyArrow:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_OWL_WARIO
 	call z, ReleaseOwl
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	farcall SetState_PuffyInflating
 	ret
@@ -2635,14 +2635,14 @@ ObjInteraction_YellowBellyArrow:
 ObjInteraction_ZombieHead:
 	ld a, [wInvincibleCounter]
 	and a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 	ld a, [wTransformation]
 	cp TRANSFORMATION_ZOMBIE_WARIO
 	jp z, VanishObjectAndKnockBackIfZombie
 	bit TRANSFORMATIONF_PERSISTENT_F, a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	play_sfx SFX_028
@@ -2679,7 +2679,7 @@ TurnIntoBouncyWario:
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
@@ -2867,7 +2867,7 @@ ObjInteraction_OrangeBird:
 	cp TRANSFORMATION_CRAZY_WARIO
 	jp z, TouchObject
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_CRAZY_WARIO
@@ -2889,7 +2889,7 @@ ObjInteraction_Vampire:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	ret nz
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_VAMPIRE_WARIO
@@ -2909,7 +2909,7 @@ ObjInteraction_Bubble:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	ret nz
 
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
 	ld a, TRANSFORMATION_BUBBLE
@@ -2944,7 +2944,7 @@ ObjInteraction_Ice:
 	ret
 
 .asm_218b6
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
 	play_sfx SFX_028
@@ -3043,7 +3043,7 @@ ObjInteraction_Rail:
 	cp TRANSFORMATION_RAIL
 	ret z
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	play_sfx SFX_HANG_GRAB
@@ -3126,10 +3126,10 @@ ObjInteraction_AnonsterWave:
 ObjInteraction_Snow:
 	ld a, [wInvincibleCounter]
 	and a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
-	jp nz, SetObjAction_0D
+	jp nz, SetObjAction_NoEffect
 	call TriggerObjInteraction
 
 	ld a, TRANSFORMATION_SNOWMAN_WARIO
@@ -3150,7 +3150,7 @@ ObjInteraction_UnlitTorch:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_HOT_WARIO
 	ret nz
-	ld b, OBJACTION_0E
+	ld b, OBJACTION_LIGHT_TORCH
 	jp SetObjAction
 
 ObjInteraction_Stove:
@@ -3190,18 +3190,18 @@ ObjInteraction_RoboMouse:
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jr nz, .asm_21aee
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21ada
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jr nz, .asm_21aee
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 .asm_21ae4
 	ld a, [wIsSmashAttacking]
 	and a
 	jp nz, JumpOffVanishingObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21aee
 	jp ObjInteraction_Jamano
 
@@ -3220,7 +3220,7 @@ ObjInteraction_DollBoyHammer:
 	jp TurnIntoBouncyWario
 
 ObjInteraction_RollingRock:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wIsRolling]
 	and a
@@ -3252,7 +3252,7 @@ ObjInteraction_Beam:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, TouchObject
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_SPLIT
@@ -3288,7 +3288,7 @@ ObjInteraction_Teruteru:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, TouchObject
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_BLIND
@@ -3333,7 +3333,7 @@ ENDR
 	ret
 
 ObjInteraction_WaterDrop:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wTransformation]
 	and a
@@ -3354,7 +3354,7 @@ ObjInteraction_Pesce:
 	jr nz, .asm_21c41
 	jp GetStungByObjectInWater
 .asm_21c41
-	ld b, OBJACTION_11
+	ld b, OBJACTION_SWALLOW
 	call SetObjAction
 	farcall SetState_Swallowed
 	ret
@@ -3375,23 +3375,23 @@ ObjInteraction_Tadpole:
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, ObjInteraction_RollingRock
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21c7a
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, ObjInteraction_RollingRock
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 	ret ; stray ret
 
 ObjInteraction_Hebarii:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jp nz, ObjInteraction_BumpOffAction0A
+	jp nz, ObjInteraction_BumpOffPause
 	ld a, [wAttackCounter]
 	and a
 	jp nz, AttackObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 ObjInteraction_PrinceFroggy:
 	ld a, [wInteractionSide]
@@ -3399,7 +3399,7 @@ ObjInteraction_PrinceFroggy:
 	jp nz, StandOnSolidObject
 	bit INTERACTION_DOWN_F, a
 	jp nz, PushWarioBelowSolidObject
-	jp BumpOffObjectWithAction12
+	jp BumpOffObject_HitWarioShort
 
 ObjInteraction_Hand:
 	ld a, [wInvincibleCounter]
@@ -3413,8 +3413,8 @@ ObjInteraction_Hand:
 	farcall SetState_DraggedDown
 ;	fallthrough
 
-SetObjAction_13:
-	ld b, OBJACTION_13
+SetObjAction_Special3:
+	ld b, OBJACTION_SPECIAL_3
 	call SetObjAction
 	ret
 
@@ -3437,7 +3437,7 @@ ObjInteraction_Scowler:
 	jp BumpObjectInWater
 
 ObjInteraction_Ink:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_Jamano:
@@ -3466,27 +3466,27 @@ ObjInteraction_Turtle:
 ObjInteraction_FrontStingBumpOff:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jp nz, ObjInteraction_BumpOffAction0A
+	jp nz, ObjInteraction_BumpOffPause
 	bit INTERACTION_DOWN_F, a
-	jp nz, ObjInteraction_BumpOffAction0A
+	jp nz, ObjInteraction_BumpOffPause
 	ld a, [wObjDirection]
 	and a
 	jr nz, .asm_21d59
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21d59
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 ObjInteraction_TopStingBumpOff:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 ObjInteraction_BottomStingSmashableTop:
 	ld a, [wInteractionSide]
@@ -3494,12 +3494,12 @@ ObjInteraction_BottomStingSmashableTop:
 	jr nz, .asm_21d7e
 	bit INTERACTION_DOWN_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21d7e
 	ld a, [wIsSmashAttacking]
 	and a
 	jp nz, JumpOffVanishingObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 
 ObjInteraction_WaterFrontLaunch:
 	ld a, [wInteractionSide]
@@ -3528,7 +3528,7 @@ LaunchWario:
 	ld a, [wObjDirection]
 	ld [wDirection], a
 	farcall SetState_Launched
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_ColourCoin:
@@ -3563,7 +3563,7 @@ ObjInteraction_MagicalSpiral:
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, TouchObject
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_MAGIC
@@ -3606,7 +3606,7 @@ ObjInteraction_Shoot:
 	jp nz, TouchObject
 
 	; turn Wario into ball form
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, TRANSFORMATION_BALL
 	ld [wTransformation], a
@@ -3623,7 +3623,7 @@ ObjInteraction_Shoot:
 
 ShootBallWario:
 	farcall SetState_BallShot
-	jp SetObjAction_13
+	jp SetObjAction_Special3
 
 ObjInteraction_GKTortoise:
 	ld a, [wTransformation]
@@ -3660,16 +3660,16 @@ ObjInteraction_FrontDragDown:
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jr nz, .asm_21ee7
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21edd
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jr nz, .asm_21ee7
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21ee7
 	play_sfx SFX_FAT_WALK
 	farcall SetState_DraggedDown
-	jp SetObjAction_13
+	jp SetObjAction_Special3
 
 ObjInteraction_WaterKnockBackTopRight:
 	ld a, [wInteractionSide]
@@ -3690,16 +3690,16 @@ ObjInteraction_FrontStingSmashableTop:
 	bit INTERACTION_UP_F, a
 	jp nz, ObjInteraction_BottomStingSmashableTop.asm_21d7e
 	bit INTERACTION_DOWN_F, a
-	jp nz, ObjInteraction_BumpOffAction0A
+	jp nz, ObjInteraction_BumpOffPause
 	ld a, [wObjDirection]
 	and a
 	jr nz, .asm_21f46
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause
 .asm_21f46
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
-	jp ObjInteraction_BumpOffAction0A
+	jp ObjInteraction_BumpOffPause

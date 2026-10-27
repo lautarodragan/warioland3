@@ -655,7 +655,7 @@ ShootFunc:
 	ld a, LOW(.BallForm)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
-	ld a, OBJ_INTERACTION_01
+	ld a, OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, -18
 	ld [hli], a ; OBJ_COLLBOX_TOP

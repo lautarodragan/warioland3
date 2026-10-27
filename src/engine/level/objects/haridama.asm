@@ -105,7 +105,7 @@ HaridamaFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ret
 
@@ -245,7 +245,7 @@ HaridamaFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ld l, OBJ_STATE
 	ld a, $38

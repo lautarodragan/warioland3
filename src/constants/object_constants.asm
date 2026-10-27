@@ -311,95 +311,95 @@ DEF INTERACTION_DOWN  EQU (1 << INTERACTION_DOWN_F)  ; $80
 
 ; object interaction types
 	const_def
-	const OBJ_INTERACTION_00                  ; $00
-	const OBJ_INTERACTION_01                  ; $01
-	const OBJ_INTERACTION_FRONT_STING         ; $02
-	const OBJ_INTERACTION_BACK_STING          ; $03
-	const OBJ_INTERACTION_TOP_STING           ; $04
-	const OBJ_INTERACTION_FULL_STING          ; $05
-	const OBJ_INTERACTION_06                  ; $06
-	const OBJ_INTERACTION_07                  ; $07
-	const OBJ_INTERACTION_08                  ; $08
-	const OBJ_INTERACTION_09                  ; $09
-	const OBJ_INTERACTION_0A                  ; $0a
-	const OBJ_INTERACTION_0B                  ; $0b
-	const OBJ_INTERACTION_WALKABLE            ; $0c
-	const OBJ_INTERACTION_MUSICAL_COIN        ; $0d
-	const OBJ_INTERACTION_FIRE                ; $0e
-	const OBJ_INTERACTION_RICHTERTOFFEN       ; $0f
-	const OBJ_INTERACTION_GREY_KEY            ; $10
-	const OBJ_INTERACTION_RED_KEY             ; $11
-	const OBJ_INTERACTION_GREEN_KEY           ; $12
-	const OBJ_INTERACTION_BLUE_KEY            ; $13
-	const OBJ_INTERACTION_GREY_TREASURE       ; $14
-	const OBJ_INTERACTION_RED_TREASURE        ; $15
-	const OBJ_INTERACTION_GREEN_TREASURE      ; $16
-	const OBJ_INTERACTION_BLUE_TREASURE       ; $17
-	const OBJ_INTERACTION_OMODONMEKA          ; $18
-	const OBJ_INTERACTION_SILKY               ; $19
-	const OBJ_INTERACTION_FOOD                ; $1a
-	const OBJ_INTERACTION_REGULAR_COIN        ; $1b
-	const OBJ_INTERACTION_ELECTRIC            ; $1c
-	const OBJ_INTERACTION_INVISIBILITY_POTION ; $1d
-	const OBJ_INTERACTION_PNEUMO              ; $1e
-	const OBJ_INTERACTION_ZOMBIE_HEAD         ; $1f
-	const OBJ_INTERACTION_BOUNCY              ; $20
-	const OBJ_INTERACTION_FIRE_BOT            ; $21
-	const OBJ_INTERACTION_SOLID               ; $22
-	const OBJ_INTERACTION_OMODON              ; $23
-	const OBJ_INTERACTION_ORANGE_BIRD         ; $24
-	const OBJ_INTERACTION_VAMPIRE             ; $25
-	const OBJ_INTERACTION_BUBBLE              ; $26
-	const OBJ_INTERACTION_ICE                 ; $27
-	const OBJ_INTERACTION_OWL                 ; $28
-	const OBJ_INTERACTION_RAIL                ; $29
-	const OBJ_INTERACTION_HARIDAMA            ; $2a
-	const OBJ_INTERACTION_ANONSTER_WAVE       ; $2b
-	const OBJ_INTERACTION_ANONSTER_SILK       ; $2c
-	const OBJ_INTERACTION_SNOW                ; $2d
-	const OBJ_INTERACTION_UNLIT_TORCH         ; $2e
-	const OBJ_INTERACTION_STOVE               ; $2f
-	const OBJ_INTERACTION_ROBO_MOUSE          ; $30
-	const OBJ_INTERACTION_31                  ; $31
-	const OBJ_INTERACTION_DOLL_BOY_HAMMER     ; $32
-	const OBJ_INTERACTION_ROLLING_ROCK        ; $33
-	const OBJ_INTERACTION_WORMWOULD           ; $34
-	const OBJ_INTERACTION_BEAM                ; $35
-	const OBJ_INTERACTION_36                  ; $36
-	const OBJ_INTERACTION_YELLOW_BELLY_ARROW  ; $37
-	const OBJ_INTERACTION_TERUTERU            ; $38
-	const OBJ_INTERACTION_WATER_DROP          ; $39
-	const OBJ_INTERACTION_PESCE               ; $3a
-	const OBJ_INTERACTION_3B                  ; $3b
-	const OBJ_INTERACTION_TADPOLE             ; $3c
-	const OBJ_INTERACTION_HEBARII             ; $3d
-	const OBJ_INTERACTION_PRINCE_FROGGY       ; $3e
-	const OBJ_INTERACTION_HAND                ; $3f
-	const OBJ_INTERACTION_WATER_TELEPORTING   ; $40
-	const OBJ_INTERACTION_SCOWLER             ; $41
-	const OBJ_INTERACTION_INK                 ; $42
-	const OBJ_INTERACTION_43                  ; $43
-	const OBJ_INTERACTION_JAMANO              ; $44
-	const OBJ_INTERACTION_TURTLE              ; $45
-	const OBJ_INTERACTION_46                  ; $46
-	const OBJ_INTERACTION_47                  ; $47
-	const OBJ_INTERACTION_48                  ; $48
-	const OBJ_INTERACTION_49                  ; $49
-	const OBJ_INTERACTION_COLOUR_COIN         ; $4a
-	const OBJ_INTERACTION_MAGICAL_SPIRAL      ; $4b
-	const OBJ_INTERACTION_BOTTOM_STING        ; $4c
-	const OBJ_INTERACTION_SHOOT               ; $4d
-	const OBJ_INTERACTION_GK_TORTOISE         ; $4e
-	const OBJ_INTERACTION_4F                  ; $4f
-	const OBJ_INTERACTION_50                  ; $50
-	const OBJ_INTERACTION_51                  ; $51
-	const OBJ_INTERACTION_52                  ; $52
-	const OBJ_INTERACTION_UNUSED_1            ; $53
-	const OBJ_INTERACTION_UNUSED_2            ; $54
-	const OBJ_INTERACTION_UNUSED_3            ; $55
-	const OBJ_INTERACTION_UNUSED_4            ; $56
-	const OBJ_INTERACTION_UNUSED_5            ; $57
-	const OBJ_INTERACTION_UNUSED_6            ; $58
+	const OBJ_INTERACTION_GRABBABLE                  ; $00
+	const OBJ_INTERACTION_TOUCH                      ; $01
+	const OBJ_INTERACTION_FRONT_STING                ; $02
+	const OBJ_INTERACTION_BACK_STING                 ; $03
+	const OBJ_INTERACTION_TOP_STING                  ; $04
+	const OBJ_INTERACTION_FULL_STING                 ; $05
+	const OBJ_INTERACTION_WATER_BUMP                 ; $06
+	const OBJ_INTERACTION_WATER_KNOCK_BACK           ; $07
+	const OBJ_INTERACTION_WATER_FRONT_STING          ; $08
+	const OBJ_INTERACTION_FRONT_BUMP                 ; $09
+	const OBJ_INTERACTION_BUMP_OFF                   ; $0a
+	const OBJ_INTERACTION_BUMP_OFF_PAUSE             ; $0b
+	const OBJ_INTERACTION_WALKABLE                   ; $0c
+	const OBJ_INTERACTION_MUSICAL_COIN               ; $0d
+	const OBJ_INTERACTION_FIRE                       ; $0e
+	const OBJ_INTERACTION_RICHTERTOFFEN              ; $0f
+	const OBJ_INTERACTION_GREY_KEY                   ; $10
+	const OBJ_INTERACTION_RED_KEY                    ; $11
+	const OBJ_INTERACTION_GREEN_KEY                  ; $12
+	const OBJ_INTERACTION_BLUE_KEY                   ; $13
+	const OBJ_INTERACTION_GREY_TREASURE              ; $14
+	const OBJ_INTERACTION_RED_TREASURE               ; $15
+	const OBJ_INTERACTION_GREEN_TREASURE             ; $16
+	const OBJ_INTERACTION_BLUE_TREASURE              ; $17
+	const OBJ_INTERACTION_OMODONMEKA                 ; $18
+	const OBJ_INTERACTION_SILKY                      ; $19
+	const OBJ_INTERACTION_FOOD                       ; $1a
+	const OBJ_INTERACTION_REGULAR_COIN               ; $1b
+	const OBJ_INTERACTION_ELECTRIC                   ; $1c
+	const OBJ_INTERACTION_INVISIBILITY_POTION        ; $1d
+	const OBJ_INTERACTION_PNEUMO                     ; $1e
+	const OBJ_INTERACTION_ZOMBIE_HEAD                ; $1f
+	const OBJ_INTERACTION_BOUNCY                     ; $20
+	const OBJ_INTERACTION_FIRE_BOT                   ; $21
+	const OBJ_INTERACTION_SOLID                      ; $22
+	const OBJ_INTERACTION_OMODON                     ; $23
+	const OBJ_INTERACTION_ORANGE_BIRD                ; $24
+	const OBJ_INTERACTION_VAMPIRE                    ; $25
+	const OBJ_INTERACTION_BUBBLE                     ; $26
+	const OBJ_INTERACTION_ICE                        ; $27
+	const OBJ_INTERACTION_OWL                        ; $28
+	const OBJ_INTERACTION_RAIL                       ; $29
+	const OBJ_INTERACTION_HARIDAMA                   ; $2a
+	const OBJ_INTERACTION_ANONSTER_WAVE              ; $2b
+	const OBJ_INTERACTION_ANONSTER_SILK              ; $2c
+	const OBJ_INTERACTION_SNOW                       ; $2d
+	const OBJ_INTERACTION_UNLIT_TORCH                ; $2e
+	const OBJ_INTERACTION_STOVE                      ; $2f
+	const OBJ_INTERACTION_ROBO_MOUSE                 ; $30
+	const OBJ_INTERACTION_SOLID_PLATFORM             ; $31
+	const OBJ_INTERACTION_DOLL_BOY_HAMMER            ; $32
+	const OBJ_INTERACTION_ROLLING_ROCK               ; $33
+	const OBJ_INTERACTION_WORMWOULD                  ; $34
+	const OBJ_INTERACTION_BEAM                       ; $35
+	const OBJ_INTERACTION_SMASHABLE_TOP              ; $36
+	const OBJ_INTERACTION_YELLOW_BELLY_ARROW         ; $37
+	const OBJ_INTERACTION_TERUTERU                   ; $38
+	const OBJ_INTERACTION_WATER_DROP                 ; $39
+	const OBJ_INTERACTION_PESCE                      ; $3a
+	const OBJ_INTERACTION_GRABBABLE_WALKABLE         ; $3b
+	const OBJ_INTERACTION_TADPOLE                    ; $3c
+	const OBJ_INTERACTION_HEBARII                    ; $3d
+	const OBJ_INTERACTION_PRINCE_FROGGY              ; $3e
+	const OBJ_INTERACTION_HAND                       ; $3f
+	const OBJ_INTERACTION_WATER_TELEPORTING          ; $40
+	const OBJ_INTERACTION_SCOWLER                    ; $41
+	const OBJ_INTERACTION_INK                        ; $42
+	const OBJ_INTERACTION_WATER_FULL_STING           ; $43
+	const OBJ_INTERACTION_JAMANO                     ; $44
+	const OBJ_INTERACTION_TURTLE                     ; $45
+	const OBJ_INTERACTION_FRONT_STING_BUMP_OFF       ; $46
+	const OBJ_INTERACTION_TOP_STING_BUMP_OFF         ; $47
+	const OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP ; $48
+	const OBJ_INTERACTION_WATER_FRONT_LAUNCH         ; $49
+	const OBJ_INTERACTION_COLOUR_COIN                ; $4a
+	const OBJ_INTERACTION_MAGICAL_SPIRAL             ; $4b
+	const OBJ_INTERACTION_BOTTOM_STING               ; $4c
+	const OBJ_INTERACTION_SHOOT                      ; $4d
+	const OBJ_INTERACTION_GK_TORTOISE                ; $4e
+	const OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF        ; $4f
+	const OBJ_INTERACTION_FRONT_DRAG_DOWN            ; $50
+	const OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT ; $51
+	const OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP  ; $52
+	const OBJ_INTERACTION_UNUSED_1                   ; $53
+	const OBJ_INTERACTION_UNUSED_2                   ; $54
+	const OBJ_INTERACTION_UNUSED_3                   ; $55
+	const OBJ_INTERACTION_UNUSED_4                   ; $56
+	const OBJ_INTERACTION_UNUSED_5                   ; $57
+	const OBJ_INTERACTION_UNUSED_6                   ; $58
 DEF NUM_OBJ_INTERACTIONS EQU const_value
 
 ; enemies with InteractionType with
@@ -408,8 +408,16 @@ DEF HEAVY_OBJ_F EQU 7
 DEF HEAVY_OBJ EQU (1 << HEAVY_OBJ_F)
 DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 
+; OBJ_STATE values: each object's update function jumps on its state
+; (see e.g. BrrrBearFunc.Update); the shared ObjState_* handlers live in
+; src/engine/level/update_objects.asm. A *_START state sets up and moves
+; on, usually to the same name without _START, $30 higher.
+; LEFT/RIGHT in HIT_WARIO_* is the INTERACTION_* side Wario touched.
+; States still numbered are either unused by every object
+; ($1d-$1f, $3d, $3e) or object-specific with differing meanings
+; ($2b, $2c, $5a-$5d).
 	const_def
-	const OBJSTATE_00 ; $00
+	const OBJSTATE_DEFAULT ; $00
 	const OBJSTATE_LAND ; $01
 	const OBJSTATE_BUMP_LEFT_START ; $02
 	const OBJSTATE_BUMP_RIGHT_START ; $03
@@ -420,37 +428,37 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_WOBBLE_LEFT_START ; $08
 	const OBJSTATE_WOBBLE_RIGHT_START ; $09
 	const OBJSTATE_VANISH_TOUCH ; $0a
-	const OBJSTATE_0B ; $0b
-	const OBJSTATE_0C ; $0c
-	const OBJSTATE_0D ; $0d
-	const OBJSTATE_0E ; $0e
-	const OBJSTATE_0F ; $0f
-	const OBJSTATE_10 ; $10
+	const OBJSTATE_HIT_WARIO_RIGHT_START ; $0b
+	const OBJSTATE_HIT_WARIO_LEFT_START ; $0c
+	const OBJSTATE_HIT_WARIO_UP_START ; $0d
+	const OBJSTATE_HIT_WARIO_DOWN_START ; $0e
+	const OBJSTATE_STUNNED_START ; $0f
+	const OBJSTATE_RECOVER_START ; $10
 	const OBJSTATE_STANDING_FALL_START ; $11
-	const OBJSTATE_12 ; $12
+	const OBJSTATE_DROP_START ; $12
 	const OBJSTATE_TURN_AROUND_START ; $13
-	const OBJSTATE_14 ; $14
-	const OBJSTATE_15 ; $15
+	const OBJSTATE_FALL_LEFT_START ; $14
+	const OBJSTATE_FALL_RIGHT_START ; $15
 	const OBJSTATE_STUN_LEFT_START ; $16
 	const OBJSTATE_STUN_RIGHT_START ; $17
-	const OBJSTATE_18 ; $18
-	const OBJSTATE_19 ; $19
-	const OBJSTATE_1A ; $1a
-	const OBJSTATE_1B ; $1b
-	const OBJSTATE_1C ; $1c
+	const OBJSTATE_GRABBED_LEFT_START ; $18
+	const OBJSTATE_GRABBED_RIGHT_START ; $19
+	const OBJSTATE_HOP_START ; $1a
+	const OBJSTATE_HOP ; $1b
+	const OBJSTATE_RANDOM_WOBBLE_START ; $1c
 	const OBJSTATE_1D ; $1d
 	const OBJSTATE_1E ; $1e
 	const OBJSTATE_1F ; $1f
-	const OBJSTATE_20 ; $20
-	const OBJSTATE_21 ; $21
-	const OBJSTATE_22 ; $22
-	const OBJSTATE_23 ; $23
-	const OBJSTATE_24 ; $24
-	const OBJSTATE_25 ; $25
-	const OBJSTATE_26 ; $26
-	const OBJSTATE_27 ; $27
-	const OBJSTATE_28 ; $28
-	const OBJSTATE_29 ; $29
+	const OBJSTATE_BOUNCE_1_LEFT_START ; $20
+	const OBJSTATE_BOUNCE_1_RIGHT_START ; $21
+	const OBJSTATE_BOUNCE_2_LEFT_START ; $22
+	const OBJSTATE_BOUNCE_2_RIGHT_START ; $23
+	const OBJSTATE_BOUNCE_3_LEFT_START ; $24
+	const OBJSTATE_BOUNCE_3_RIGHT_START ; $25
+	const OBJSTATE_BOUNCE_FALL_LEFT_START ; $26
+	const OBJSTATE_BOUNCE_FALL_RIGHT_START ; $27
+	const OBJSTATE_HIT_BY_OBJ_LEFT_START ; $28
+	const OBJSTATE_HIT_BY_OBJ_RIGHT_START ; $29
 	const OBJSTATE_ACTIVATE ; $2a
 	const OBJSTATE_2B ; $2b
 	const OBJSTATE_2C ; $2c
@@ -467,38 +475,38 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_PICKED_UP_RIGHT ; $37
 	const OBJSTATE_WOBBLE_LEFT ; $38
 	const OBJSTATE_WOBBLE_RIGHT ; $39
-	const OBJSTATE_3A ; $3a
-	const OBJSTATE_3B ; $3b
-	const OBJSTATE_3C ; $3c
+	const OBJSTATE_RESIST_VANISH ; $3a
+	const OBJSTATE_HIT_WARIO_RIGHT ; $3b
+	const OBJSTATE_HIT_WARIO_LEFT ; $3c
 	const OBJSTATE_3D ; $3d
 	const OBJSTATE_3E ; $3e
-	const OBJSTATE_3F ; $3f
-	const OBJSTATE_40 ; $40
+	const OBJSTATE_STUNNED ; $3f
+	const OBJSTATE_RECOVER ; $40
 	const OBJSTATE_STANDING_FALL ; $41
-	const OBJSTATE_42 ; $42
+	const OBJSTATE_DROP ; $42
 	const OBJSTATE_TURN_AROUND ; $43
-	const OBJSTATE_44 ; $44
-	const OBJSTATE_45 ; $45
+	const OBJSTATE_FALL_LEFT ; $44
+	const OBJSTATE_FALL_RIGHT ; $45
 	const OBJSTATE_STUN_LEFT ; $46
 	const OBJSTATE_STUN_RIGHT ; $47
-	const OBJSTATE_48 ; $48
-	const OBJSTATE_49 ; $49
-	const OBJSTATE_4A ; $4a
-	const OBJSTATE_4B ; $4b
+	const OBJSTATE_GRABBED_LEFT ; $48
+	const OBJSTATE_GRABBED_RIGHT ; $49
+	const OBJSTATE_GRABBED_CHARGE_LEFT ; $4a
+	const OBJSTATE_GRABBED_CHARGE_RIGHT ; $4b
 	const OBJSTATE_FULL_THROW_LEFT_START ; $4c
 	const OBJSTATE_FULL_THROW_RIGHT_START ; $4d
-	const OBJSTATE_4E ; $4e
-	const OBJSTATE_4F ; $4f
-	const OBJSTATE_50 ; $50
-	const OBJSTATE_51 ; $51
-	const OBJSTATE_52 ; $52
-	const OBJSTATE_53 ; $53
-	const OBJSTATE_54 ; $54
-	const OBJSTATE_55 ; $55
-	const OBJSTATE_56 ; $56
-	const OBJSTATE_57 ; $57
-	const OBJSTATE_58 ; $58
-	const OBJSTATE_59 ; $59
+	const OBJSTATE_THROW_LEFT ; $4e
+	const OBJSTATE_THROW_RIGHT ; $4f
+	const OBJSTATE_BOUNCE_1_LEFT ; $50
+	const OBJSTATE_BOUNCE_1_RIGHT ; $51
+	const OBJSTATE_BOUNCE_2_LEFT ; $52
+	const OBJSTATE_BOUNCE_2_RIGHT ; $53
+	const OBJSTATE_BOUNCE_3_LEFT ; $54
+	const OBJSTATE_BOUNCE_3_RIGHT ; $55
+	const OBJSTATE_BOUNCE_FALL_LEFT ; $56
+	const OBJSTATE_BOUNCE_FALL_RIGHT ; $57
+	const OBJSTATE_HIT_BY_OBJ_LEFT ; $58
+	const OBJSTATE_HIT_BY_OBJ_RIGHT ; $59
 	const OBJSTATE_5A ; $5a
 	const OBJSTATE_5B ; $5b
 	const OBJSTATE_5C ; $5c
@@ -506,27 +514,35 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_FULL_THROW_LEFT ; $5e
 	const OBJSTATE_FULL_THROW_RIGHT ; $5f
 
+; objects that cannot be grabbed reuse the grab states for other things
+DEF OBJSTATE_TRIGGERED  EQU OBJSTATE_GRABBED_LEFT_START  ; set by OBJACTION_TRIGGER (collected, eaten...)
+DEF OBJSTATE_NO_EFFECT  EQU OBJSTATE_GRABBED_RIGHT_START ; set by OBJACTION_NO_EFFECT (Wario immune)
+DEF OBJSTATE_COIN_INIT  EQU OBJSTATE_GRABBED_RIGHT_START ; CoinFunc's .Init
+
+; OBJ_ACTION values: written by SetObjAction (object_interactions.asm)
+; and turned into an OBJ_STATE by DoObjectAction (update_objects.asm)
+; HIT_WARIO: the object stung, burned, bumped off or transformed Wario
 	const_def
-	const OBJACTION_NONE                   ; $00
-	const OBJACTION_BUMP                   ; $01
-	const OBJACTION_ATTACK                 ; $02
-	const OBJACTION_PICK_UP                ; $03
-	const OBJACTION_WOBBLE                 ; $04
-	const OBJACTION_VANISH_TOUCH           ; $05
-	const OBJACTION_06                     ; $06
-	const OBJACTION_07                     ; $07
-	const OBJACTION_VANISH_TREASURE        ; $08
-	const OBJACTION_STEP_ON                ; $09
-	const OBJACTION_0A                     ; $0a
-	const OBJACTION_FLATTEN                ; $0b
-	const OBJACTION_0C                     ; $0c
-	const OBJACTION_0D                     ; $0d
-	const OBJACTION_0E                     ; $0e
-	const OBJACTION_SMASH_ATTACK_WALKABLE  ; $0f
-	const OBJACTION_TELEPORT               ; $10
-	const OBJACTION_11                     ; $11
-	const OBJACTION_12                     ; $12
-	const OBJACTION_13                     ; $13
+	const OBJACTION_NONE                  ; $00
+	const OBJACTION_BUMP                  ; $01
+	const OBJACTION_ATTACK                ; $02
+	const OBJACTION_PICK_UP               ; $03
+	const OBJACTION_WOBBLE                ; $04
+	const OBJACTION_VANISH_TOUCH          ; $05
+	const OBJACTION_HIT_WARIO             ; $06
+	const OBJACTION_TRIGGER               ; $07
+	const OBJACTION_VANISH_TREASURE       ; $08
+	const OBJACTION_STEP_ON               ; $09
+	const OBJACTION_PAUSE                 ; $0a
+	const OBJACTION_FLATTEN               ; $0b
+	const OBJACTION_PICK_UP_WARIO         ; $0c
+	const OBJACTION_NO_EFFECT             ; $0d
+	const OBJACTION_LIGHT_TORCH           ; $0e
+	const OBJACTION_SMASH_ATTACK_WALKABLE ; $0f
+	const OBJACTION_TELEPORT              ; $10
+	const OBJACTION_SWALLOW               ; $11
+	const OBJACTION_HIT_WARIO_SHORT       ; $12
+	const OBJACTION_SPECIAL_3             ; $13
 DEF NUM_OBJ_ACTIONS EQU const_value
 
 DEF NO_ACTIONS_F EQU 7

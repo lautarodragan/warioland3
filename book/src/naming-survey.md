@@ -32,6 +32,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 17 | Fifth pass 5c: unreferenced data as `Unreferenced<Owner><Kind>_<addr>`, with corrected owners | 131 |
 | 18 | Duplicates merged (changes the ROM): `Func_ac00b`/`ac016` into `UpdateSceneObjAnim_CreditsOAM`, `Func_ac047`/`ac04c` into `LoadSceneObjSpriteWithScroll_CreditsOAM`, `Func_aca6d` into `AdvanceTempleOWStep`, `Func_19246` into `StartMultiBlockBreak`, `Func_19bce` into `ProcessBlockToB` (was `Func_19b5c`). Bank `$20`'s `Func_82c1d`/`82c22`/`82c29`/`82a8d` kept (copies of bank `$2d` routines, reached by `jr` and fallthroughs) and named `WaitOWFunc_Bank20`, `AdvanceOWFunc_Bank20`, `EndOWFunc_Bank20`, `AdvanceOWFunc_UnlockLevel` | 7 merged, 4 named |
 | 19 | Sixth pass, RAM: the last address-named RAM labels (scene object scripts, VRAM backup buffers, golf, time attack, envelope, prologue particles) and the cutscene overlay sprites; see "Sixth pass: remaining RAM labels" | 44 |
+| 20 | Sixth pass, objects: 49 `OBJSTATE_*` (+3 aliases), 20 `OBJ_INTERACTION_*`, 9 `OBJACTION_*` and the labels named after their numbers; see "Sixth pass: object states and interactions" | 81 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3213,3 +3214,132 @@ Left as they are:
   ROM local label, left to the ROM naming work.
 - What the prologue particles and the south map's object 14 look like isn't
   known, so the names say what the code does with them, not what they are.
+
+## Sixth pass: object states and interactions
+
+The numbered `OBJSTATE_*`, `OBJ_INTERACTION_*` and `OBJACTION_*` values
+in `src/constants/object_constants.asm`. The 18 objects with a full
+state jumptable (`ld a, [wCurObjState] / jumptable`, 93-96 entries) were
+read side by side: for each slot, which handler the objects put there,
+and who writes the value (the shared `ObjState_*` code in
+`update_objects.asm`, `DoObjectAction`, the objects themselves). The
+pattern the named states already showed holds for the new ones: a state
+below $30 sets up and moves on, usually to the same state $30 higher.
+Interactions take the name of the `ObjInteraction_*` handler in the
+table at `object_interactions.asm:214`. Actions are named after what
+sets them and the state `DoObjectAction` gives the object. The build was
+byte-identical after each batch.
+
+`U` = `src/engine/level/update_objects.asm`, `I` =
+`src/engine/level/object_interactions.asm`, `obj/` =
+`src/engine/level/objects/`. Line numbers are in the renamed files.
+
+**Object states** (49 named, plus 3 aliases)
+
+| Old | New | Evidence |
+|-----|-----|----------|
+| `OBJSTATE_00` | `OBJSTATE_DEFAULT` | `.Default` in 15 of 18 tables; written at spawn (`load_objects.asm:251`) and after recovering (`obj/spearhead.asm:724`); `.Default` re-inits the interaction and goes to `OBJSTATE_FALL` (`obj/spearhead.asm:279`). |
+| `OBJSTATE_0B` / `0C` / `0D` / `0E` | `OBJSTATE_HIT_WARIO_RIGHT_START` / `_LEFT_START` / `_UP_START` / `_DOWN_START` | `DoObjectAction.HitWario` (`U:689`) picks one from the `INTERACTION_*` side bits stored with `OBJACTION_HIT_WARIO` (down/up/right/left, `U:699-715`). The objects slide away from Wario, then turn round (`obj/spearhead.asm:851-890`; the same in Fire Bot, Hammer Bot, Para-Goom, Silky and Spear Bot). |
+| `OBJSTATE_3B` / `3C` | `OBJSTATE_HIT_WARIO_RIGHT` / `_LEFT` | Set by `.State0b`/`.State0c` (`obj/spearhead.asm:851`); `ObjState_BumpSlideRight`/`Left`, then `OBJSTATE_TURN_AROUND_START` (`:867`). |
+| `OBJSTATE_0F` / `3F` | `OBJSTATE_STUNNED_START` / `OBJSTATE_STUNNED` | Lying stunned and grabbable (`OBJ_INTERACTION_GRABBABLE`) for 100 frames (`obj/spearhead.asm:689`). Entered when the stun slide stops (`:614`) and when a dropped object lands (`U:2725`). It is not `OBJSTATE_STUN_LEFT`, which is the slide before it. |
+| `OBJSTATE_10` / `40` | `OBJSTATE_RECOVER_START` / `OBJSTATE_RECOVER` | Comes after `OBJSTATE_STUNNED` times out: a 7-frame hop (`ApplyObjHopYVel`), then `OBJSTATE_DEFAULT` (`obj/spearhead.asm:711-726`). |
+| `OBJSTATE_12` / `42` | `OBJSTATE_DROP_START` / `OBJSTATE_DROP` | Set by `ObjCheckFloorOrDrop` (`U:2634`) and when a held object is released standing (`U:1582`). `.State12` sets `OBJSTATE_DROP` (`obj/spearhead.asm:1022`), which `ObjState_Drop` handles in all 17 tables; it lands in `OBJSTATE_STUNNED`. |
+| `OBJSTATE_14` / `15`, `44` / `45` | `OBJSTATE_FALL_LEFT_START` / `_RIGHT_START`, `OBJSTATE_FALL_LEFT` / `_RIGHT` | `.State14` sets the frameset, the x speed and `OBJSTATE_FALL_LEFT` (`obj/spearhead.asm:651`), which `ObjState_FallLeft` handles (17 tables). Set when a held object is put down while crouching (`U:1658`, `:1577`) or hits a wall (`U:1207`), when an object slides off a ledge (`U:3026`), and when a falling object hits a wall (`U:3283`, which reverses it). |
+| `OBJSTATE_26` / `27`, `56` / `57` | `OBJSTATE_BOUNCE_FALL_LEFT_START` / `_RIGHT_START`, `OBJSTATE_BOUNCE_FALL_LEFT` / `_RIGHT` | Only set when a bounce's rise ends or hits a wall (`ObjBounceLeft`, `U:3638`, `:3645`; the right side at `:3787` and `:3794`, which was a raw `$26`). The slot handler `ObjState_FallLeftStart` (15 tables) keeps the frameset, sets `OBJSTATE_BOUNCE_FALL_LEFT` (`U:3197`) and then runs the same `ObjState_FallLeft`. The routine names are kept. |
+| `OBJSTATE_18` / `19`, `48` / `49` | `OBJSTATE_GRABBED_LEFT_START` / `_RIGHT_START`, `OBJSTATE_GRABBED_LEFT` / `_RIGHT` | Set at the end of a pick-up (`U:1212`, `:1419`). `.State18` sets `OBJSTATE_GRABBED_LEFT` and the grabbed flag; `.State48` calls `ObjState_GrabbedLeft` while `wDirection` is `DIRECTION_LEFT` and otherwise switches to `.State19` (`obj/spearhead.asm:958-1020`). |
+| `OBJSTATE_4A` / `4B` | `OBJSTATE_GRABBED_CHARGE_LEFT` / `_RIGHT` | Set on `GRAB_CHARGE_THROW` in `ObjState_GrabbedLeft` (`U:1696`); slot handler `ObjState_GrabbedChargeLeft` (16 tables). |
+| `OBJSTATE_4E` / `4F` | `OBJSTATE_THROW_LEFT` / `_RIGHT` | Set by `ThrowObject_Left` (`U:1897`); slot handler `ObjState_ThrowLeft` (16 tables). |
+| `OBJSTATE_1A` / `1B` | `OBJSTATE_HOP_START` / `OBJSTATE_HOP` | Slot handlers `ObjState_HopStart` / `ObjState_Hop` (12 tables); `HopStart` sets `OBJSTATE_HOP` (`U:3800`). These two are $01 apart, not $30. |
+| `OBJSTATE_1C` | `OBJSTATE_RANDOM_WOBBLE_START` | Slot handler `ObjState_StartRandomWobble` (12 tables), where `rDIV` picks `OBJSTATE_WOBBLE_LEFT` or `RIGHT` (`U:3819`). Stunned objects set it when the ground shakes (`obj/spearhead.asm:700`). |
+| `OBJSTATE_20`-`25`, `50`-`55` | `OBJSTATE_BOUNCE_1_LEFT_START` ... `OBJSTATE_BOUNCE_3_RIGHT_START`, `OBJSTATE_BOUNCE_1_LEFT` ... `OBJSTATE_BOUNCE_3_RIGHT` | Slot handlers `ObjState_Bounce{1,2,3}{Left,Right}[Start]` (14-16 tables); `SetObjBounceFromYVel_Left` picks bounce 1, 2 or 3 from the landing speed (`U:3318-3340`). |
+| `OBJSTATE_28` / `29`, `58` / `59` | `OBJSTATE_HIT_BY_OBJ_LEFT_START` / `_RIGHT_START`, `OBJSTATE_HIT_BY_OBJ_LEFT` / `_RIGHT` | `HandleGrabbedObjectCollisions` (`U:914-955`) gives these to a thrown object and to the object it hits. `.State28` sets `OBJSTATE_HIT_BY_OBJ_LEFT` (`obj/spearhead.asm:900`), whose handler `ObjState_HitByObjLeft` knocks the object left (`U:2557`). |
+| `OBJSTATE_3A` | `OBJSTATE_RESIST_VANISH` | What Stove, Futamogu and Robo Mouse do on `OBJSTATE_VANISH_TOUCH` instead of vanishing (`obj/stove.asm:87-95`, `obj/futamogu.asm:173`, `obj/robo_mouse.asm:196-226`); it is $0a + $30. |
+| - | `OBJSTATE_TRIGGERED` (= `GRABBED_LEFT_START`) | Set by `DoObjectAction.Trigger` (`U:719`) for `OBJACTION_TRIGGER`. Keys, chests and musical coins wait for it (`obj/key.asm:25`, `obj/chests.asm:54`, `obj/musical_coin.asm:25`); the owl, Appleby and the doughnuts compare against a raw `$18`. |
+| - | `OBJSTATE_NO_EFFECT` (= `GRABBED_RIGHT_START`) | Set by `DoObjectAction.NoEffect` (`U:756`) for `OBJACTION_NO_EFFECT`; the doughnuts restart on `$19` (`obj/doughnuteer.asm:1042`). |
+| - | `OBJSTATE_COIN_INIT` (= `GRABBED_RIGHT_START`) | Coins spawn in `$19`, the slot of `CoinFunc`'s `.Init` (`obj/coin.asm:161`, `data/object_params.asm:1424`, `:1439`). |
+
+**Object interactions** (20 named)
+
+| Old | New | Handler (`I:`) |
+|-----|-----|----------------|
+| `OBJ_INTERACTION_00` | `OBJ_INTERACTION_GRABBABLE` | `ObjInteraction_Grabbable` :1411 |
+| `OBJ_INTERACTION_01` | `OBJ_INTERACTION_TOUCH` | `ObjInteraction_Touch` :1620 (`TouchObject`) |
+| `OBJ_INTERACTION_06` | `OBJ_INTERACTION_WATER_BUMP` | `ObjInteraction_WaterBump` :1672 |
+| `OBJ_INTERACTION_07` | `OBJ_INTERACTION_WATER_KNOCK_BACK` | `ObjInteraction_WaterKnockBack` :1678 |
+| `OBJ_INTERACTION_08` | `OBJ_INTERACTION_WATER_FRONT_STING` | `ObjInteraction_WaterFrontSting` :1718 |
+| `OBJ_INTERACTION_09` | `OBJ_INTERACTION_FRONT_BUMP` | `ObjInteraction_FrontBump` :1755 |
+| `OBJ_INTERACTION_0A` | `OBJ_INTERACTION_BUMP_OFF` | `ObjInteraction_BumpOff` :1774 |
+| `OBJ_INTERACTION_0B` | `OBJ_INTERACTION_BUMP_OFF_PAUSE` | `ObjInteraction_BumpOffPause` :1783 (bump off, then `OBJACTION_PAUSE`) |
+| `OBJ_INTERACTION_31` | `OBJ_INTERACTION_SOLID_PLATFORM` | `ObjInteraction_SolidPlatform` :3208 |
+| `OBJ_INTERACTION_36` | `OBJ_INTERACTION_SMASHABLE_TOP` | `ObjInteraction_SmashableTop` :3270 |
+| `OBJ_INTERACTION_3B` | `OBJ_INTERACTION_GRABBABLE_WALKABLE` | `ObjInteraction_GrabbableWalkable` :3362 |
+| `OBJ_INTERACTION_43` | `OBJ_INTERACTION_WATER_FULL_STING` | `GetStungByObjectInWater` :1017, the water version of the `GetStungByObject` that `FULL_STING` uses |
+| `OBJ_INTERACTION_46` | `OBJ_INTERACTION_FRONT_STING_BUMP_OFF` | `ObjInteraction_FrontStingBumpOff` :3466 |
+| `OBJ_INTERACTION_47` | `OBJ_INTERACTION_TOP_STING_BUMP_OFF` | `ObjInteraction_TopStingBumpOff` :3485 |
+| `OBJ_INTERACTION_48` | `OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP` | `ObjInteraction_BottomStingSmashableTop` :3491 |
+| `OBJ_INTERACTION_49` | `OBJ_INTERACTION_WATER_FRONT_LAUNCH` | `ObjInteraction_WaterFrontLaunch` :3504 |
+| `OBJ_INTERACTION_4F` | `OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF` | `ObjInteraction_FrontPushBumpOff` :3634 |
+| `OBJ_INTERACTION_50` | `OBJ_INTERACTION_FRONT_DRAG_DOWN` | `ObjInteraction_FrontDragDown` :3656 |
+| `OBJ_INTERACTION_51` | `OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT` | `ObjInteraction_WaterKnockBackTopRight` :3674 |
+| `OBJ_INTERACTION_52` | `OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP` | `ObjInteraction_FrontStingSmashableTop` :3688 |
+
+**Object actions** (9 named)
+
+| Old | New | Evidence |
+|-----|-----|----------|
+| `OBJACTION_06` | `OBJACTION_HIT_WARIO` | Set when the object stings Wario (`GetStungByObject`, `I:885`), bumps him off (`BumpOffObject`, `I:1180`), or burns, shocks or transforms him (Fire, Electric, Food, Zombie Head, Beam, Shoot...). Gives `OBJSTATE_HIT_WARIO_*` (`U:689`). |
+| `OBJACTION_07` | `OBJACTION_TRIGGER` | Set by `TriggerObjInteraction` (`I:1299`) for keys, treasure, coins, food, the potion, the owl, snow, bubbles and ice. Gives `OBJSTATE_TRIGGERED` (`U:719`). |
+| `OBJACTION_0A` | `OBJACTION_PAUSE` | `.Pause` (`U:735`) only blocks actions for 15 frames. |
+| `OBJACTION_0C` | `OBJACTION_PICK_UP_WARIO` | Set by `ObjInteraction_Omodonmeka` (`I:2134`), which then sets `WST_PICKED_UP`. |
+| `OBJACTION_0D` | `OBJACTION_NO_EFFECT` | Set by `SetObjAction_NoEffect` (`I:1304`) for Food, Zombie Head and Snow when Wario is crouching, invincible or already transformed. Gives `OBJSTATE_NO_EFFECT`. |
+| `OBJACTION_0E` | `OBJACTION_LIGHT_TORCH` | Only set by `ObjInteraction_UnlitTorch` (`I:3149`), and only for Hot Wario. |
+| `OBJACTION_11` | `OBJACTION_SWALLOW` | Only set by `ObjInteraction_Pesce` (`I:3343`), together with `SetState_Swallowed`. |
+| `OBJACTION_12` | `OBJACTION_HIT_WARIO_SHORT` | `.HitWarioShort` (`U:686`) is `.HitWario` with 7 frames of no actions instead of 15. Only Prince Froggy uses it (`BumpOffObject_HitWarioShort`, `I:1389`). |
+| `OBJACTION_13` | `OBJACTION_SPECIAL_3` | Gives `OBJSTATE_SPECIAL_3` (`U:594`). It is used both for dragging Wario down (Hand, `FRONT_DRAG_DOWN`) and for shooting ball Wario (`ShootBallWario`, `I:3624`), so it is named after the state. |
+
+Labels that carried those numbers were renamed too: `SetObjAction_0D` ->
+`SetObjAction_NoEffect`, `SetObjAction_13` -> `SetObjAction_Special3`,
+`BumpOffObjectWithAction12` -> `BumpOffObject_HitWarioShort`,
+`UnreferencedSetObjAction_06` -> `UnreferencedSetObjAction_HitWario`,
+`ObjInteraction_BumpOffAction0A` -> `ObjInteraction_BumpOffPause`, and
+`DoObjectAction`'s `.Action06` ... `.Action13` -> `.HitWario`, `.Trigger`,
+`.Pause`, `.PickUpWario`, `.NoEffect`, `.LightTorch`, `.Swallow`,
+`.HitWarioShort`, `.Special3`. `book/src/debug-owl.md` was updated to match.
+
+**Left numbered:**
+
+- `OBJSTATE_1D`, `1E`, `1F`, `3D`, `3E` are unused: every table has
+  `.Default`, `.Vanish` or `.Destroy` in their slots and nothing writes
+  them. (By the pattern, `3D`/`3E` would be `HIT_WARIO_UP`/`DOWN`, but no
+  object uses them.)
+- `OBJSTATE_2B`, `2C`, `5A`, `5B`, `5C`, `5D` are object-specific, with
+  different meanings in different objects:
+  - `2B`/`2C` lead to `5B`/`5C` only in Doughnuteer and Mad Scienstein
+    (`obj/doughnuteer.asm:169`, `:302`).
+  - `5B` is also Teruteru's follow-up to `HIT_WARIO_DOWN`
+    (`obj/teruteru.asm:136`) and Fire Bot's follow-up to `HIT_WARIO_RIGHT`.
+  - More than a dozen objects write a raw `5A`: Robo Mouse's `.Activate`,
+    Scowler's `.activated`, Omodonmeka's `.StartPressWario` and Count
+    Richtertoffen after `.Flatten`, but also Appleby, Jamano, the Seeing-Eye
+    Door and others. `5A` may mean "after `OBJSTATE_ACTIVATE`", but that is
+    not shown for all of them.
+- There are no `OBJSUBFLAG_UNK_*` constants. `GRAB_*` is left to the
+  substates work.
+
+**Oddities, not changed:**
+
+- The routine in slots `$26`/`$56` is called `ObjState_FallLeftStart`, but
+  the plain fall-left states are `$14`/`$44`. Both reach `ObjState_FallLeft`.
+- `_ObjState_PickedUpLeft` ends in `OBJSTATE_GRABBED_RIGHT_START` and
+  `PickedUpRight` ends in `GRABBED_LEFT_START` (`U:1212`, `:1419`);
+  `.State18`/`.State19` then switch to the right one using `wDirection`.
+- The `OBJSTATE_WOBBLE_LEFT`/`RIGHT` slots hold `ObjState_Bounce2Right`/`Left`,
+  and `ObjState_HitByObjRight` and `ObjState_AttackedLeft` move the object
+  right. In those older names, left/right is the side that was hit, not
+  the direction of motion.
+- `ObjInteraction_TopSting` stings on `INTERACTION_UP` and steps on
+  `INTERACTION_DOWN`, and `ObjInteraction_BottomSting` does the reverse,
+  while `Walkable` and `SolidPlatform` stand on `INTERACTION_UP`. One of
+  the two sting names may be the wrong way round.
+- Many objects still use raw state literals (`cp $18`, `ld a, $3b`,
+  `ld a, $5a`...). Only the one in `update_objects.asm` was converted.

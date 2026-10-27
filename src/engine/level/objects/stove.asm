@@ -80,7 +80,7 @@ StoveFunc:
 	jr z, .State05
 	cp OBJSTATE_VANISH_TOUCH
 	jr z, .VanishTouch
-	cp OBJSTATE_3A
+	cp OBJSTATE_RESIST_VANISH
 	jr z, .State3a
 	jp .set_fall
 
@@ -88,7 +88,7 @@ StoveFunc:
 	ld a, [wTransformation]
 	and a
 	jp nz, VanishAndDespawnObject
-	ld a, OBJSTATE_3A
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
 	ld de, StoveFrameset_69625
 	call SetObjectFramesetPtr
@@ -212,7 +212,7 @@ StoveFunc:
 	call ProcessBlock_DownSide
 	and a
 	ret nz
-	ld a, OBJSTATE_00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	inc a ; $1
 	ld [wCurObjVar1], a

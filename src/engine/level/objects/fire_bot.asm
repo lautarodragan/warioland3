@@ -120,7 +120,7 @@ FireBotFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -466,7 +466,7 @@ FireBotFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
 	ld a, $31
@@ -651,7 +651,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ret
 .StunLeftStart:
@@ -670,7 +670,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunLeft:
 	ld hl, wCurObjVar2
@@ -696,7 +696,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunRight:
 	ld hl, wCurObjVar2
@@ -734,7 +734,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 .State0f:
@@ -793,7 +793,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ret
 .TurnAround:
@@ -862,7 +862,7 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 .State0b:
@@ -1035,6 +1035,6 @@ FireBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret

@@ -440,7 +440,7 @@ AnonsterFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48 | HEAVY_OBJ
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP | HEAVY_OBJ
 	ld [hli], a
 	ld a, $e8
 	ld [hli], a
@@ -614,7 +614,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hli], a
 	call SetObjectFramesetPtr
 	xor a
@@ -771,7 +771,7 @@ AnonsterFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hld], a
 	play_sfx SFX_VANISH
 	call DecrementRemainingBossHits
@@ -1197,7 +1197,7 @@ AnonsterSilkFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 

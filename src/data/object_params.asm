@@ -291,7 +291,7 @@ ObjParams_StarsLeft:
 	db -20 ; y
 	db -12 ; x
 	db STARS_LEFT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -308,7 +308,7 @@ ObjParams_StarsRight:
 	db -20 ; y
 	db  11 ; x
 	db STARS_RIGHT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -461,7 +461,7 @@ ObjParams_BirdStars1:
 	db -10 ; y
 	db  -7 ; x
 	db BIRD_STARS1 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
@@ -478,7 +478,7 @@ ObjParams_BirdStars2:
 	db -10 ; y
 	db   6 ; x
 	db BIRD_STARS2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
@@ -563,7 +563,7 @@ ObjParams_GreyTreasure:
 	db -40 ; y
 	db   0 ; x
 	db GREY_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_680da ; frameset
@@ -580,7 +580,7 @@ ObjParams_RedTreasure:
 	db -40 ; y
 	db   0 ; x
 	db RED_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68113 ; frameset
@@ -597,7 +597,7 @@ ObjParams_GreenTreasure:
 	db -40 ; y
 	db   0 ; x
 	db GREEN_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_6814c ; frameset
@@ -614,7 +614,7 @@ ObjParams_BlueTreasure:
 	db -40 ; y
 	db   0 ; x
 	db BLUE_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68185 ; frameset
@@ -869,7 +869,7 @@ ObjParams_HammerPlatform:
 	db -60 ; y
 	db  64 ; x
 	db HAMMER_PLATFORM ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -10, -1, -5, 4 ; collision box
 	dw DollBoyOAM_19105c ; OAM
 	dw DollBoyFrameset_696b1 ; frameset
@@ -955,7 +955,7 @@ ObjParams_PalmTreeShort:
 	db 16 ; y
 	db 16 ; x
 	db PALM_TREE_SHORT ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -6, -2, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_69746 ; frameset
@@ -972,7 +972,7 @@ ObjParams_PalmTreeMedium:
 	db 28 ; y
 	db 72 ; x
 	db PALM_TREE_MEDIUM ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -14, -10, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_6974d ; frameset
@@ -989,7 +989,7 @@ ObjParams_PalmTreeTall:
 	db  39 ; y
 	db 127 ; x
 	db PALM_TREE_TALL ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -30, -26, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_69754 ; frameset
@@ -1057,7 +1057,7 @@ ObjParams_Fly:
 	db -48 ; y
 	db  48 ; x
 	db FLY ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 12, -6, 5 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_699e4 ; frameset
@@ -1125,7 +1125,7 @@ ObjParams_FloatingRing:
 	db 64 ; y
 	db  0 ; x
 	db FLOATING_RING ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -1, 4, -5, 4 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69b0d ; frameset
@@ -1210,7 +1210,7 @@ ObjParams_JamanoHat:
 	db -12 ; y
 	db   0 ; x
 	db JAMANO_HAT ; id
-	db OBJ_INTERACTION_0B ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -4, 0, -6, 5 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69cef ; frameset
@@ -1312,7 +1312,7 @@ ObjParams_HiddenFigureLeftHand:
 	db  18 ; y
 	db -40 ; x
 	db HIDDEN_FIGURE_LEFT_HAND ; id
-	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw HiddenFigureOAM_18c88a ; OAM
 	dw HiddenFigureFrameset_6a128 ; frameset
@@ -1329,7 +1329,7 @@ ObjParams_HiddenFigureRightHand:
 	db 18 ; y
 	db 56 ; x
 	db HIDDEN_FIGURE_RIGHT_HAND ; id
-	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw HiddenFigureOAM_18c88a ; OAM
 	dw HiddenFigureFrameset_6a131 ; frameset
@@ -1346,7 +1346,7 @@ ObjParams_Omodon2:
 	db 16 ; y
 	db  0 ; x
 	db OMODON2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -16, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
@@ -1363,7 +1363,7 @@ ObjParams_Omodon1:
 	db 16 ; y
 	db  0 ; x
 	db OMODON1 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -26, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
@@ -1380,7 +1380,7 @@ ObjParams_DollBoyHammerStarsLeft:
 	db -20 ; y
 	db -19 ; x
 	db DOLL_BOY_HAMMER_STARS_LEFT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -1397,7 +1397,7 @@ ObjParams_DollBoyHammerStarsRight:
 	db -20 ; y
 	db 18 ; x
 	db DOLL_BOY_HAMMER_STARS_RIGHT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -1421,7 +1421,7 @@ ObjParams_Coin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1436,7 +1436,7 @@ ObjParams_ColourCoin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc.ColourCoin
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1547,7 +1547,7 @@ ObjParams_FallingSnow:
 
 ObjParams_StarsAbove:
 	db STARS_ABOVE ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680c5 ; frameset
@@ -1577,7 +1577,7 @@ ObjParams_YellowBellyHead:
 
 ObjParams_Pump:
 	db PUMP ; id
-	db OBJ_INTERACTION_36 ; interaction type
+	db OBJ_INTERACTION_SMASHABLE_TOP ; interaction type
 	db -13, -1, -6, 5 ; collision box
 	dw YellowBellyOAM_1926dc ; OAM
 	dw YellowBellyFrameset_6987a ; frameset
@@ -1592,7 +1592,7 @@ ObjParams_Pump:
 
 ObjParams_Cheese:
 	db CHEESE ; id
-	db OBJ_INTERACTION_0B ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -12, -5, -6, 5 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_69a00 ; frameset
@@ -1652,7 +1652,7 @@ ObjParams_MuddeeStinger1:
 
 ObjParams_MuddeeStinger2:
 	db MUDDEE_STINGER2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 0, -4, 3 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw MuddeeStingerFrameset_68072 ; frameset
@@ -1667,7 +1667,7 @@ ObjParams_MuddeeStinger2:
 
 ObjParams_Kuri:
 	db KURI ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 0, -5, 4 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e50 ; frameset
@@ -1682,7 +1682,7 @@ ObjParams_Kuri:
 
 ObjParams_StarsCentre:
 	db STARS_CENTRE ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset

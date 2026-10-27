@@ -265,7 +265,7 @@ BigOctohonFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	play_sfx SFX_08D
 	ret
@@ -417,7 +417,7 @@ BigOctohonFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_49
+	or OBJ_INTERACTION_WATER_FRONT_LAUNCH
 	ld [hld], a
 	ret
 .asm_4a812
