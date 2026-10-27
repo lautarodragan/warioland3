@@ -87,10 +87,10 @@ StartMenu:
 	jr nz, .time_attack_enabled
 	ld a, $80
 	ld [wBGUpdateRequest], a
-	ld bc, Frameset_6ce9
+	ld bc, StartMenuFrameset_6ce9
 	jr .got_frameset
 .time_attack_enabled
-	ld bc, Frameset_6d1e
+	ld bc, StartMenuFrameset_6d1e
 .got_frameset
 	ld a, STARTMENU_CONTINUE
 	jr .asm_45c5
@@ -102,7 +102,7 @@ StartMenu:
 	ld [wMenuObj2YCoord], a
 	ld a, 120
 	ld [wMenuObj1YCoord], a
-	ld bc, Frameset_6cec
+	ld bc, StartMenuFrameset_6cec
 	ld a, STARTMENU_CLEAR_DATA_NO
 
 .asm_45c5

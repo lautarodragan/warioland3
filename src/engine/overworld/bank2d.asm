@@ -331,10 +331,10 @@ InitNOWObjects_DayNightSpell:
 	xor a
 	ldh [rVBK], a
 
-	ld hl, Pals_84a20
+	ld hl, TopBarOBPals
 	ld de, wTempPals2 palette 4
 	ld c, 4 palettes
-	ld b, BANK(Pals_84a20)
+	ld b, BANK(TopBarOBPals)
 	call CopyFarBytes
 
 	ld hl, wSceneObj5
@@ -1701,7 +1701,7 @@ SouthOWObjState03:
 	jp AnimateSouthOWObj
 
 SouthOWObjState04:
-	ld de, Frameset_a9680
+	ld de, SouthOWObjFrameset_a9680
 	jp AnimateSouthOWObj
 
 SouthOWObjState05:
@@ -1709,7 +1709,7 @@ SouthOWObjState05:
 	jp AnimateSouthOWObj
 
 SouthOWObjState06:
-	ld de, Frameset_a9680
+	ld de, SouthOWObjFrameset_a9680
 	call UpdateCurOWObjAnimation
 	ld b, $03
 	jp AnimateSouthOWObjThenSetState
@@ -2058,11 +2058,11 @@ WestOWObjState18:
 	jp AnimateWestOWObj
 
 WestOWObjState19:
-	ld de, Frameset_a8eca
+	ld de, WestOWObjFrameset_a8eca
 	jp AnimateWestOWObj
 
 WestOWObjState1a:
-	ld de, Frameset_a8eca
+	ld de, WestOWObjFrameset_a8eca
 	jp AnimateWestOWObjOnce
 
 WestOWObjState1b:
@@ -2078,7 +2078,7 @@ WestOWObjState1d:
 	jp AnimateWestOWObj
 
 WestOWObjState1e:
-	ld de, Frameset_a8ee8
+	ld de, WestOWObjFrameset_a8ee8
 	call AnimateWestOWObj
 ;	fallthrough
 
@@ -2107,7 +2107,7 @@ UpdateWestOWPal5FromObj11:
 	rgb 31,  0, 10
 
 WestOWObjState1f:
-	ld de, Frameset_a8ee8
+	ld de, WestOWObjFrameset_a8ee8
 	call AnimateWestOWObjOnce
 	jr UpdateWestOWPal5FromObj11
 
@@ -2358,21 +2358,21 @@ NorthOWObjState24:
 	jp LoadCurSceneObjSpriteWithScroll
 
 NorthOWObjState25:
-	ld de, Frameset_aa0a3
+	ld de, TopBarFrameset_aa0a3
 	jr AnimateNorthOWObj2
 
 NorthOWObjState26:
-	ld de, Frameset_aa0c1
+	ld de, TopBarFrameset_aa0c1
 	call UpdateCurOWObjAnimation
 	ld b, $27
 	jr AnimateNorthOWObj2.set_state_when_finished
 
 NorthOWObjState27:
-	ld de, Frameset_aa09d
+	ld de, TopBarFrameset_aa09d
 	jr AnimateNorthOWObj2
 
 NorthOWObjState28:
-	ld de, Frameset_aa0bc
+	ld de, TopBarFrameset_aa0bc
 	call UpdateCurOWObjAnimation
 	ld b, $25
 	jr AnimateNorthOWObj2.set_state_when_finished
@@ -3113,10 +3113,10 @@ NOWFunc_Crayon:
 	ld de, wTempBGPals
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_84500
+	ld hl, NorthOWCrayonsDayPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_84500)
+	ld b, BANK(NorthOWCrayonsDayPals)
 	call CopyFarBytes
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -3153,9 +3153,9 @@ NOWFunc_BottomBar:
 	jp WaitOWFunc
 
 .LoadBottomBarPal:
-	ld hl, Pals_84000 palette 7
+	ld hl, NorthOWDayPals palette 7
 	ld de, wTempPals1 palette 7
-	ld b, BANK(Pals_84000)
+	ld b, BANK(NorthOWDayPals)
 	ld c, 1 palettes
 	call CopyFarBytes
 	ld hl, wPalConfig1
@@ -3773,10 +3773,10 @@ WOWFunc_Rain:
 	ld hl, OWLightningFlashPals2
 	jr .apply_pals
 .pals_regular
-	ld hl, Pals_84140
+	ld hl, WestOWDayPals
 .apply_pals
 	ld de, wTempPals1
-	ld b, BANK(Pals_84140)
+	ld b, BANK(WestOWDayPals)
 	ld c, 8 palettes
 	call CopyFarBytes
 	ld hl, wPalConfig1
@@ -5704,14 +5704,14 @@ SOWFunc_CanyonThunder:
 	jp WaitOWFunc
 
 .LoadNormalPals:
-	ld hl, Pals_84280
+	ld hl, SouthOWDayPals
 	ld de, wTempPals1
-	ld b, BANK(Pals_84280)
+	ld b, BANK(SouthOWDayPals)
 	ld c, 8 palettes
 	call CopyFarBytes
-	ld hl, Pals_84980
+	ld hl, SouthOWOBPals
 	ld de, wTempPals2
-	ld b, BANK(Pals_84980)
+	ld b, BANK(SouthOWOBPals)
 	ld c, 8 palettes
 	call CopyFarBytes
 	jp AdvanceOWFunc
@@ -5750,10 +5750,10 @@ SOWFunc_CanyonThunder:
 	ld a, [wOWFuncStep]
 	cp $07
 	jr z, .flash1_pal
-	ld hl, Pals_84280
+	ld hl, SouthOWDayPals
 .got_pal
 	ld de, wTempBGPals
-	ld b, BANK(Pals_84280) ; aka BANK(OWLightningFlashPals2)
+	ld b, BANK(SouthOWDayPals) ; aka BANK(OWLightningFlashPals2)
 	ld c, 8 palettes
 	call CopyFarBytes
 .apply_pals
@@ -6812,10 +6812,10 @@ EOWFunc_FreezeSea:
 	jp AdvanceOWFunc
 
 .load_frozen_sea_pal:
-	ld hl, Pals_84480 palette 4
+	ld hl, EastOWNightPals palette 4
 	ld de, wTempPals1 palette 4
 	ld c, 1 palettes
-	ld b, BANK(Pals_84480)
+	ld b, BANK(EastOWNightPals)
 	call CopyFarBytes
 	jr .asm_b6f64
 	call LoadUnfrozenSeaPal
@@ -7652,10 +7652,10 @@ EOWFunc_FormCastle:
 	ld a, LOW(wTempPals1)
 	ld [hli], a
 
-	ld hl, Pals_84840
+	ld hl, EastOWGreyPals
 	ld de, wTempBGPals
 	ld c, 6 palettes
-	ld b, BANK(Pals_84840)
+	ld b, BANK(EastOWGreyPals)
 	call CopyFarBytes
 
 .asm_b750a

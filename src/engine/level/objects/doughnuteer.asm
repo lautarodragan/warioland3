@@ -381,7 +381,7 @@ DoughnuteerFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
@@ -403,7 +403,7 @@ DoughnuteerFunc:
 	jr c, .asm_41d2d
 	xor a
 	ld [hld], a
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
@@ -426,7 +426,7 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41d4f
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
@@ -1041,7 +1041,7 @@ DoughnutFunc_LeftRight:
 	jr z, DoughnutFunc_Destroy
 	cp $19
 	jr z, DoughnutFunc
-	ld bc, Data_60510
+	ld bc, SmallHopYVel2
 	jp ApplyObjYMovement
 DoughnutFunc_Up:
 	ld hl, wCurObjUpdateFunction + 1
@@ -1060,7 +1060,7 @@ DoughnutFunc_Up:
 	jr z, DoughnutFunc_Destroy
 	cp $19
 	jr z, DoughnutFunc
-	ld bc, Data_60540
+	ld bc, JumpArcYVel
 	jp ApplyObjYMovement
 DoughnutFunc_Destroy:
 	xor a

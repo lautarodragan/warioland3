@@ -287,7 +287,7 @@ def test_free_slot_rule_matches_oam_data():
                 oam_slots.setdefault(label, set()).add(int(m.group(1), 16) // 0x40 + 1)
     # The clear gates share one OAM table with frames for each of slots 2-4,
     # and ClearGate1-3Func pick the frames of their own slot.
-    oam_slots["OAM_181c47"] = set()
+    oam_slots["ClearGateOAM_181c47"] = set()
 
     groups = {}
     for block in re.split(r"\n(?=ObjectGroup\w+:)", (SRC / "data/object_groups.asm").read_text()):

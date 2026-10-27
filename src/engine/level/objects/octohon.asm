@@ -30,7 +30,7 @@ SmallOctohonFunc:
 	ld b, $00
 	jr .asm_4a4ee
 .asm_4a4e9
-	ld de, Frameset_69b38
+	ld de, OctohonFrameset_69b38
 	ld b, $01
 .asm_4a4ee
 	ld hl, wCurObjUpdateFunction + 1
@@ -82,7 +82,7 @@ SmallOctohonFunc:
 	ld a, [hl]
 	cp $ee
 	jr nz, .asm_4a55d
-	ld de, Frameset_69b38
+	ld de, OctohonFrameset_69b38
 	ld b, $01
 	jr .asm_4a4f7
 .asm_4a53f
@@ -231,7 +231,7 @@ BigOctohonFunc:
 	jr .asm_4a6d6
 .asm_4a6d1
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69b60
+	ld de, OctohonFrameset_69b60
 .asm_4a6d6
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Update)
@@ -319,7 +319,7 @@ BigOctohonFunc:
 	ld de, OctohonFrameset_69b57
 	jp .asm_4a6df
 .asm_4a766
-	ld de, Frameset_69b60
+	ld de, OctohonFrameset_69b60
 	jp .asm_4a6df
 .asm_4a76c
 	ld bc, OctohonData_60d50
@@ -474,7 +474,7 @@ BigOctohonFunc:
 	ld de, OctohonFrameset_69b57
 	jp .asm_4a6df
 .asm_4a86f
-	ld de, Frameset_69b60
+	ld de, OctohonFrameset_69b60
 	jp .asm_4a6df
 .asm_4a875
 	ld de, OctohonData_4a5a9

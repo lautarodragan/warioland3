@@ -161,12 +161,12 @@ Func_40c19:
 .asm_40c2c
 	call MoveObjectRight
 .asm_40c2f
-	ld bc, Data_60320
+	ld bc, SmallHopYVel
 	call ApplyObjYMovement
 	jr TorchEmberCommonFunc
 
 ; unreferenced?
-	ld de, Data_60ec9
+	ld de, KobattoSetMovement
 	call ApplyObjSetMovement
 	jr TorchEmberCommonFunc
 
@@ -187,7 +187,7 @@ TorchEmberRight2Func:
 ;	fallthrough
 
 TorchEmberCommonFunc:
-	ld bc, Data_60320
+	ld bc, SmallHopYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]

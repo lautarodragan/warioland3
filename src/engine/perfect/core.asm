@@ -24,9 +24,9 @@ InitPerfectScreen:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_dd848)
+	ld a, HIGH(PerfectFrameset_dd848)
 	ld [hli], a
-	ld a, LOW(Frameset_dd848)
+	ld a, LOW(PerfectFrameset_dd848)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -114,35 +114,35 @@ UpdatePerfectScreen:
 	ret
 
 LoadPerfectPals:
-	ld hl, Pals_dc173
+	ld hl, PerfectPals_dc173
 	call LoadPalsToTempPals1
-	ld hl, Pals_dc1fb
+	ld hl, PerfectOBPals
 	call LoadPalsToTempPals2
 	ret
 
 Func_dc101:
-	ld hl, Pals_dc173 palette 5
+	ld hl, PerfectPals_dc173 palette 5
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
 Func_dc10d:
-	ld hl, Pals_dc1b3
+	ld hl, PerfectPals_dc1b3
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
 Func_dc119:
-	ld hl, Pals_dc1cb
+	ld hl, PerfectPals_dc1cb
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
 Func_dc125:
-	ld hl, Pals_dc1e3
+	ld hl, PerfectPals_dc1e3
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
@@ -180,6 +180,6 @@ Func_dc158:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_dd710
+	ld hl, PerfectOAM_dd710
 	call LoadSprite
 	ret

@@ -1016,10 +1016,10 @@ ParticleAnim_Bubbles:
 	and a
 	jr nz, .right
 ; left
-	ld de, Frameset_d502
+	ld de, ParticleBubblesFrameset_d502
 	jr .got_frameset
 .right
-	ld de, Frameset_d50b
+	ld de, ParticleBubblesFrameset_d50b
 .got_frameset
 	call UpdateParticleAnimation
 	ld a, [hld]
@@ -1033,13 +1033,13 @@ ParticleAnim_Bubbles:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jp LoadParticleSprite
 
 ParticleAnim_Magic1:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d8e7
+	ld de, ParticleMagic1Frameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1052,13 +1052,13 @@ ParticleAnim_Magic1:
 	ld [wCurParticle], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d80d
+	ld hl, ParticleOAM_d80d
 	jp LoadParticleSprite
 
 ParticleAnim_Magic2:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d8f4
+	ld de, ParticleMagic2Frameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1071,13 +1071,13 @@ ParticleAnim_Magic2:
 	ld [wCurParticle], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d80d
+	ld hl, ParticleOAM_d80d
 	jp LoadParticleSprite
 
 ParticleAnim_MagicStop:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d901
+	ld de, ParticleMagicStopFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1090,13 +1090,13 @@ ParticleAnim_MagicStop:
 	ld [wCurParticle], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d80d
+	ld hl, ParticleOAM_d80d
 	jp LoadParticleSprite
 
 ParticleAnim_Owl:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d7b4
+	ld de, ParticleOwlFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1109,7 +1109,7 @@ ParticleAnim_Owl:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d763
+	ld hl, ParticleOwlOAM
 	ld a, [wOwlTileOffset]
 	and a
 	jp z, LoadParticleSprite
@@ -1124,7 +1124,7 @@ ParticleAnim_Owl:
 ParticleAnim_TreasureGlow:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d75a
+	ld de, ParticleTreasureGlowFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1137,13 +1137,13 @@ ParticleAnim_TreasureGlow:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d716
+	ld hl, ParticleTreasureGlowOAM
 	jp LoadParticleSprite
 
 ParticleAnim_BubbleBurst:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d622
+	ld de, ParticleBubbleBurstFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1156,13 +1156,13 @@ ParticleAnim_BubbleBurst:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d5ae
+	ld hl, ParticleBubbleBurstOAM
 	jp LoadParticleSprite
 
 ParticleAnim_BouncyJump:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d591
+	ld de, ParticleBouncyJumpFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1175,13 +1175,13 @@ ParticleAnim_BouncyJump:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d532
+	ld hl, ParticleBouncyJumpOAM
 	jp LoadParticleSprite
 
 ParticleAnim_Snow:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d806
+	ld de, ParticleSnowFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1194,7 +1194,7 @@ ParticleAnim_Snow:
 	ld [wCurParticle], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d7bd
+	ld hl, ParticleSnowOAM
 	jp LoadParticleSprite
 
 ParticleAnim_Ice:
@@ -1203,10 +1203,10 @@ ParticleAnim_Ice:
 	ld a, [wDirection]
 	and a
 	jr nz, .right
-	ld de, Frameset_d6fd
+	ld de, ParticleIceFrameset_d6fd
 	jr .left
 .right
-	ld de, Frameset_d6e4
+	ld de, ParticleIceFrameset_d6e4
 .left
 	call UpdateParticleAnimation
 	ld a, [hld]
@@ -1220,13 +1220,13 @@ ParticleAnim_Ice:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d62b
+	ld hl, ParticleIceOAM
 	jp LoadParticleSprite
 
 ParticleAnim_Dust:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d4c5
+	ld de, ParticleDustFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1239,13 +1239,13 @@ ParticleAnim_Dust:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jp LoadParticleSprite
 
 ParticleAnim_Debris:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d49a
+	ld de, ParticleDebrisFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1258,13 +1258,13 @@ ParticleAnim_Debris:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jr LoadParticleSprite
 
 ParticleAnim_Stars:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d525
+	ld de, ParticleStarsFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1277,13 +1277,13 @@ ParticleAnim_Stars:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jr LoadParticleSprite
 
 ParticleAnim_SmokeLarge:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d4f3
+	ld de, ParticleSmokeLargeFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1296,13 +1296,13 @@ ParticleAnim_SmokeLarge:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jr LoadParticleSprite
 
 ParticleAnim_SmokeSmall:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d4ea
+	ld de, ParticleSmokeSmallFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1315,13 +1315,13 @@ ParticleAnim_SmokeSmall:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 	jr LoadParticleSprite
 
 ParticleAnim_Splash:
 	ld h, b
 	ld l, c
-	ld de, Frameset_d4ba
+	ld de, ParticleSplashFrameset
 	call UpdateParticleAnimation
 	ld a, [hld]
 	ld [wCurParticleFrame], a
@@ -1334,7 +1334,7 @@ ParticleAnim_Splash:
 	ld [wCurParticleYCoord], a
 	xor a
 	ld [wCurParticleAttributes], a
-	ld hl, OAM_d20e
+	ld hl, ParticleOAM_d20e
 ;	fallthrough
 
 LoadParticleSprite:

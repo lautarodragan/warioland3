@@ -11,9 +11,9 @@ LoadGameOverSprite::
 	ld [wCurSpriteAttributes], a
 	ld a, [wROMBank]
 	push af
-	ld a, BANK(OAM_aab5c)
+	ld a, BANK(SceneWarioOAM_aab5c)
 	bankswitch
-	ld hl, OAM_aab5c
+	ld hl, SceneWarioOAM_aab5c
 	call LoadSprite
 	pop af
 	bankswitch

@@ -12,7 +12,7 @@ LoadClearScreenSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_d4e26
+	ld hl, ClearScreenOAM_d4e26
 	call LoadSprite
 	ret
 
@@ -30,6 +30,6 @@ LoadClearScreenWarioSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_d49cc
+	ld hl, GolfWarioOAM_d49cc
 	call LoadSprite
 	ret

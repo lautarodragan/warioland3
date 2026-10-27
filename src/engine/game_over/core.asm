@@ -27,11 +27,11 @@ InitGameOverScreen:
 	ld [hli], a
 	ld [wGameOverWarioVar], a
 	ld [wSFXTimer], a
-	ld a, HIGH(Frameset_aaccb)
+	ld a, HIGH(SceneWarioFrameset_aaccb)
 	ld [hli], a ; frameset pointer
-	ld a, LOW(Frameset_aaccb)
+	ld a, LOW(SceneWarioFrameset_aaccb)
 	ld [hl], a
-	farcall BANK(Frameset_aaccb), UpdateObjAnim
+	farcall BANK(SceneWarioFrameset_aaccb), UpdateObjAnim
 	ld hl, wGameOverWario
 	call LoadGameOverSprite
 
@@ -45,9 +45,9 @@ InitGameOverScreen:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_dbbf5)
+	ld a, HIGH(GameOverFrameset_dbbf5)
 	ld [hli], a ; frameset pointer
-	ld a, LOW(Frameset_dbbf5)
+	ld a, LOW(GameOverFrameset_dbbf5)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj1
@@ -126,15 +126,15 @@ UpdateGameOverScreen:
 	xor a
 	ld [hli], a
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_aace2)
+	ld a, HIGH(SceneWarioFrameset_aace2)
 	ld [hli], a ; frameset pointer
-	ld a, LOW(Frameset_aace2)
+	ld a, LOW(SceneWarioFrameset_aace2)
 	ld [hl], a
 	ld hl, wSubState
 	inc [hl]
 .asm_db3a9
 	ld hl, wGameOverWarioFramesetPtr + 1
-	farcall BANK(Frameset_aace2), UpdateObjAnim
+	farcall BANK(SceneWarioFrameset_aace2), UpdateObjAnim
 
 	ld a, [wObjAnimWasReset]
 	ld [wGameOverWarioAnimationEnded], a
@@ -155,7 +155,7 @@ UpdateGameOverScreen:
 
 Func_db3e4:
 	ld hl, wGameOverWarioFramesetPtr + 1
-	farcall BANK(Frameset_aaccb), UpdateObjAnim
+	farcall BANK(SceneWarioFrameset_aaccb), UpdateObjAnim
 
 	ld a, [wObjAnimWasReset]
 	ld [wGameOverWarioAnimationEnded], a

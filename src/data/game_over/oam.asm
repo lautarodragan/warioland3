@@ -1,4 +1,4 @@
-OAM_dbbd2:
+GameOverOAM_dbbd2:
 	dw .frame_0
 
 .frame_0

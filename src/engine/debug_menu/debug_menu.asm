@@ -138,7 +138,7 @@ DebugMenu_ApplyForm:
 	ld a, LOW(HOT_WARIO_DURATION)
 	ld [wTransformationDuration + 1], a
 	call UpdateLevelMusic
-	; SetState_OnFire_ResetStateCounter loads WarioHotGfx, OAM_1673c,
+	; SetState_OnFire_ResetStateCounter loads WarioHotGfx, WarioOnFireOAM_1673c,
 	; sets WarioOnFirePal, WST_ON_FIRE, collision box, clears state vars
 	farcall SetState_OnFire_ResetStateCounter
 	ret
@@ -158,7 +158,7 @@ DebugMenu_ApplyForm:
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal
 	call SetWarioPal
-	; Flat wario uses slide GFX + OAM_16e9d (SetState_FlatIdling doesn't load GFX)
+	; Flat wario uses slide GFX + WarioFlatOAM_16e9d (SetState_FlatIdling doesn't load GFX)
 	ld a, BANK(WarioSlideGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioSlideGfx)
@@ -166,11 +166,11 @@ DebugMenu_ApplyForm:
 	ld a, LOW(WarioSlideGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_16e9d)
+	ld a, BANK(WarioFlatOAM_16e9d)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_16e9d)
+	ld a, HIGH(WarioFlatOAM_16e9d)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_16e9d)
+	ld a, LOW(WarioFlatOAM_16e9d)
 	ld [wWarioOAMPtr + 1], a
 	farcall SetState_FlatIdling
 	ret
@@ -198,11 +198,11 @@ DebugMenu_ApplyForm:
 	ld a, LOW(WarioStringGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_171c0)
+	ld a, BANK(WarioBallOStringOAM_171c0)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_171c0)
+	ld a, HIGH(WarioBallOStringOAM_171c0)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_171c0)
+	ld a, LOW(WarioBallOStringOAM_171c0)
 	ld [wWarioOAMPtr + 1], a
 	farcall SetState_BallOString
 	ret
@@ -226,11 +226,11 @@ DebugMenu_ApplyForm:
 	ld a, LOW(WarioFatGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1742d)
+	ld a, BANK(WarioOAM_1742d)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1742d)
+	ld a, HIGH(WarioOAM_1742d)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1742d)
+	ld a, LOW(WarioOAM_1742d)
 	ld [wWarioOAMPtr + 1], a
 	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wSpikeTouchState=$01,
 	; and standard collision box
@@ -283,24 +283,24 @@ DebugMenu_ApplyForm:
 	ld a, LOW(WarioElectricGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1790e)
+	ld a, BANK(WarioElectricOAM_1790e)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1790e)
+	ld a, HIGH(WarioElectricOAM_1790e)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1790e)
+	ld a, LOW(WarioElectricOAM_1790e)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
 	jr nz, .elec_right
-	ld a, HIGH(Frameset_17b79)
+	ld a, HIGH(WarioElectricFrameset_17b79)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_17b79)
+	ld a, LOW(WarioElectricFrameset_17b79)
 	ld [wWarioFramesetPtr + 1], a
 	jr .elec_anim
 .elec_right:
-	ld a, HIGH(Frameset_17b76)
+	ld a, HIGH(WarioElectricFrameset_17b76)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_17b76)
+	ld a, LOW(WarioElectricFrameset_17b76)
 	ld [wWarioFramesetPtr + 1], a
 .elec_anim:
 	ld a, BANK("Wario OAM 1")
@@ -751,7 +751,7 @@ DebugMenuPals:
 	rgb 21, 21, 21
 	rgb 10, 10, 10
 	rgb  7,  2, 23
-	; 1-4: the pause menu's (Pals_1f4182), for its gems, the checkered
+	; 1-4: the pause menu's (PauseMenuBGPals), for its gems, the checkered
 	; band and the yellow frame
 	rgb 27, 31, 18
 	rgb 16, 26,  8

@@ -111,15 +111,15 @@ HighJumpBootsActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b99)
+	ld a, HIGH(ActionHelpFrameset_1e6b99)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b99)
+	ld a, LOW(ActionHelpFrameset_1e6b99)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	farcall LoadActionHelpPalsWithoutWater

@@ -19,9 +19,9 @@ InitGolfLobby:
 	or c
 	jr nz, .loop_clear
 
-	ld hl, Pals_1ca1cf
+	ld hl, GolfLobbyBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_1ca20f
+	ld hl, GolfLobbyOBPals
 	call LoadPalsToTempPals2
 
 	call .LoadGolfLobby
@@ -158,15 +158,15 @@ HandleGolfLobby:
 	jp GolfLobbyVBlank
 
 UpdateGolfLobbyAnimations:
-	ld a, HIGH(OAM_1cb2d3)
+	ld a, HIGH(GolfLobbyOAM_1cb2d3)
 	ld [wGolfOAMPtr + 0], a
-	ld a, LOW(OAM_1cb2d3)
+	ld a, LOW(GolfLobbyOAM_1cb2d3)
 	ld [wGolfOAMPtr + 1], a
 	ld a, $28
 	ld [wGolfObj1YCoord], a
 	ld a, $24
 	ld [wGolfObj1XCoord], a
-	ld de, Frameset_1cb3b3
+	ld de, GolfLobbyFrameset_1cb3b3
 	ld hl, wGolfObj1Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj1CurrentFrame]
@@ -178,7 +178,7 @@ UpdateGolfLobbyAnimations:
 	ld [wGolfObj3YCoord], a
 	ld a, $8c
 	ld [wGolfObj3XCoord], a
-	ld de, Frameset_1cb3c4
+	ld de, GolfLobbyFrameset_1cb3c4
 	ld hl, wGolfObj3Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj3CurrentFrame]
@@ -190,7 +190,7 @@ UpdateGolfLobbyAnimations:
 	ld [wGolfObj5YCoord], a
 	ld a, $28
 	ld [wGolfObj5XCoord], a
-	ld de, Frameset_1cb3d7
+	ld de, GolfLobbyFrameset_1cb3d7
 	ld hl, wGolfObj5Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj5CurrentFrame]
@@ -208,10 +208,10 @@ UpdateGolfLobbyAnimations:
 	ld a, [wLanguage]
 	and a
 	jr nz, .english
-	ld de, Frameset_1cb3d4
+	ld de, GolfLobbyFrameset_1cb3d4
 	jr .asm_1c81d4
 .english
-	ld de, Frameset_1cb3d1
+	ld de, GolfLobbyFrameset_1cb3d1
 .asm_1c81d4
 	ld hl, wGolfObj4Duration
 	call UpdateGolfObjectAnimation
@@ -581,9 +581,9 @@ InitGolfClearCutscene:
 	or c
 	jr nz, .loop
 
-	ld hl, Pals_1ca24f
+	ld hl, GolfBGPals_1ca24f
 	call LoadPalsToTempPals1
-	ld hl, Pals_1ca34f
+	ld hl, GolfOBPals_1ca34f
 	call LoadPalsToTempPals2
 
 	call .LoadCutsceneGfx
@@ -688,17 +688,17 @@ UpdateGolfClearCutscene:
 	ret
 
 UpdateGolfClearCutsceneAnimation:
-	ld a, HIGH(OAM_1cb3e0)
+	ld a, HIGH(GolfCourseMenuOAM_1cb3e0)
 	ld [wGolfOAMPtr + 0], a
-	ld a, LOW(OAM_1cb3e0)
+	ld a, LOW(GolfCourseMenuOAM_1cb3e0)
 	ld [wGolfOAMPtr + 1], a
 	ld a, [wGolfObj1State]
 	and a
 	jr nz, .asm_1c8553
-	ld de, Frameset_1cb5cf
+	ld de, GolfLobbyFrameset_1cb5cf
 	jr .asm_1c8556
 .asm_1c8553
-	ld de, Frameset_1cb5cc
+	ld de, GolfLobbyFrameset_1cb5cc
 .asm_1c8556
 	ld hl, wGolfObj1Duration
 	call UpdateGolfObjectAnimation

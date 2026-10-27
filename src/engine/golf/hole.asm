@@ -34,7 +34,7 @@ InitGolfHole:
 	ld h, [hl]
 	ld l, a
 	call LoadPalsToTempPals1
-	ld hl, Pals_1ca18f
+	ld hl, GolfHoleOBPals
 	call LoadPalsToTempPals2
 
 	ld a, BANK("Golf Gfx 1")
@@ -82,10 +82,10 @@ InitGolfHole:
 	ret
 
 .GolfCoursePals:
-	dw Pals_1ca08f
-	dw Pals_1ca0cf
-	dw Pals_1ca10f
-	dw Pals_1ca14f
+	dw GolfHolePals_1ca08f
+	dw GolfHolePals_1ca0cf
+	dw GolfHolePals_1ca10f
+	dw GolfHolePals_1ca14f
 
 .SetUpGolfHole:
 	call PickAndLoadGolfHole
@@ -319,9 +319,9 @@ ShowGolfHoleFlagAndPar:
 	ret
 
 SetUpGolfHoleObjects:
-	ld a, HIGH(OAM_1ca6cf)
+	ld a, HIGH(GolfHoleOAM_1ca6cf)
 	ld [wGolfOAMPtr + 0], a
-	ld a, LOW(OAM_1ca6cf)
+	ld a, LOW(GolfHoleOAM_1ca6cf)
 	ld [wGolfOAMPtr + 1], a
 	ld a, BASE_SHOT_POWER
 	ld [wShotPowerGaugeCursor], a
@@ -392,9 +392,9 @@ PrintGolfStrokeNumber:
 	jp CopyHLToDE
 
 HandleGolfHole:
-	ld a, HIGH(OAM_1ca6cf)
+	ld a, HIGH(GolfHoleOAM_1ca6cf)
 	ld [wGolfOAMPtr + 0], a
-	ld a, LOW(OAM_1ca6cf)
+	ld a, LOW(GolfHoleOAM_1ca6cf)
 	ld [wGolfOAMPtr + 1], a
 
 	call GolfHoleStateTable
@@ -410,7 +410,7 @@ UpdateGolfHoleUI:
 	ld [wGolfObj1YCoord], a
 	ld a, $0c
 	ld [wGolfObj1XCoord], a
-	ld de, Frameset_1caf6f
+	ld de, GolfHoleFrameset_1caf6f
 	ld hl, wGolfObj1Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj1CurrentFrame]
@@ -422,7 +422,7 @@ UpdateGolfHoleUI:
 	ld [wGolfObj2YCoord], a
 	ld a, $08
 	ld [wGolfObj2XCoord], a
-	ld de, Frameset_1caf81
+	ld de, GolfHoleFrameset_1caf81
 	ld hl, wGolfObj2Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj2CurrentFrame]
@@ -437,7 +437,7 @@ UpdateGolfHoleUI:
 	ld [wGolfObj3YCoord], a
 	ld a, $58
 	ld [wGolfObj3XCoord], a
-	ld de, Frameset_1caf8a
+	ld de, GolfHoleFrameset_1caf8a
 	ld hl, wGolfObj3Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj3CurrentFrame]
@@ -453,7 +453,7 @@ UpdateGolfHoleUI:
 	ld a, [wShotPowerGaugeCursor]
 	add $32
 	ld [wGolfObj4XCoord], a
-	ld de, Frameset_1caf84
+	ld de, GolfHoleFrameset_1caf84
 	ld hl, wGolfObj4Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj4CurrentFrame]
@@ -469,7 +469,7 @@ UpdateGolfHoleUI:
 	ld a, [wSelectedShotPowerGauge]
 	add $32
 	ld [wGolfObj5XCoord], a
-	ld de, Frameset_1caf87
+	ld de, GolfHoleFrameset_1caf87
 	ld hl, wGolfObj5Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj5CurrentFrame]
@@ -567,12 +567,12 @@ UpdateGolfParaGoom:
 	jp LoadGolfSprite
 
 .Framesets:
-	dw Frameset_1cafb1 ; GOLF_PARAGOOM_0
-	dw Frameset_1cafb6 ; GOLF_PARAGOOM_1
-	dw Frameset_1cafc7 ; GOLF_PARAGOOM_2
-	dw Frameset_1cafe8 ; GOLF_PARAGOOM_3
-	dw Frameset_1cb005 ; GOLF_PARAGOOM_4
-	dw Frameset_1cafb1 ; GOLF_PARAGOOM_5
+	dw GolfHoleFrameset_1cafb1 ; GOLF_PARAGOOM_0
+	dw GolfHoleFrameset_1cafb6 ; GOLF_PARAGOOM_1
+	dw GolfHoleFrameset_1cafc7 ; GOLF_PARAGOOM_2
+	dw GolfHoleFrameset_1cafe8 ; GOLF_PARAGOOM_3
+	dw GolfHoleFrameset_1cb005 ; GOLF_PARAGOOM_4
+	dw GolfHoleFrameset_1cafb1 ; GOLF_PARAGOOM_5
 
 ; unreferenced?
 Frameset_1c8e21:
@@ -1013,7 +1013,7 @@ GolfHoleState_Scroll:
 	ld a, $72
 	ld [wGolfParaGoomGhostYCoord], a
 	ld hl, wGolfParaGoomGhostDuration
-	ld de, Frameset_1cb0a4
+	ld de, GolfHoleFrameset_1cb0a4
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfParaGoomGhostCurrentFrame]
 	ld [wGolfParaGoomGhostFrame], a
@@ -1903,7 +1903,7 @@ GolfHoleState_SpecialTerrain:
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_4
 	jp z, .asm_1c9743
-	ld de, Frameset_1cb016
+	ld de, GolfHoleFrameset_1cb016
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
@@ -1940,7 +1940,7 @@ GolfHoleState_SpecialTerrain:
 	jp SetGolfParaGoomRespawnYPosIfEnoughStrokes
 
 .Rough:
-	ld de, Frameset_1cb035
+	ld de, GolfHoleFrameset_1cb035
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
@@ -1952,7 +1952,7 @@ GolfHoleState_SpecialTerrain:
 	jr .asm_1c9708
 
 .Bunker:
-	ld de, Frameset_1cb068
+	ld de, GolfHoleFrameset_1cb068
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
@@ -2052,7 +2052,7 @@ GolfHoleState_SpecialTerrain:
 	ld a, GOLF_PARAGOOM_3
 	ld [wGolfParaGoomState], a
 .asm_1c97b5
-	ld de, Frameset_1cb016
+	ld de, GolfHoleFrameset_1cb016
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
@@ -2488,7 +2488,7 @@ GolfHoleState_Cleared:
 	ld [wGolfOverlayTextYCoord], a
 	ld a, $58
 	ld [wGolfOverlayTextXCoord], a
-	ld de, Frameset_1caf8d
+	ld de, GolfHoleFrameset_1caf8d
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfOverlayTextCurrentFrame]
@@ -2623,17 +2623,17 @@ ShowGolfResultOverlayText:
 	jp LoadGolfSprite
 
 .Framesets:
-	dw Frameset_1cb0c2 ; GOLFRESULT_UNDER_PAR
-	dw Frameset_1cb089 ; GOLFRESULT_PAR
-	dw Frameset_1cb0a9 ; GOLFRESULT_OVER_PAR
-	dw Frameset_1c9b87 ; GOLFRESULT_COURSE_UNDER_PAR
-	dw Frameset_1c9b8a ; GOLFRESULT_COURSE_OVER_PAR
+	dw GolfHoleFrameset_1cb0c2 ; GOLFRESULT_UNDER_PAR
+	dw GolfHoleFrameset_1cb089 ; GOLFRESULT_PAR
+	dw GolfHoleFrameset_1cb0a9 ; GOLFRESULT_OVER_PAR
+	dw GolfHoleFrameset_1c9b87 ; GOLFRESULT_COURSE_UNDER_PAR
+	dw GolfHoleFrameset_1c9b8a ; GOLFRESULT_COURSE_OVER_PAR
 
-Frameset_1c9b87:
+GolfHoleFrameset_1c9b87:
 	db 115,  4
 	db $ff
 
-Frameset_1c9b8a:
+GolfHoleFrameset_1c9b8a:
 	db 106,  4
 	db $ff
 
@@ -2670,7 +2670,7 @@ GolfHoleState_GameOver:
 	ld [wGolfOverlayTextYCoord], a
 	ld a, $58
 	ld [wGolfOverlayTextXCoord], a
-	ld de, Frameset_1cafa0
+	ld de, GolfHoleFrameset_1cafa0
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfOverlayTextCurrentFrame]
@@ -2703,7 +2703,7 @@ GolfHoleState_Pause:
 	ld [wGolfObj3YCoord], a
 	ld a, $58
 	ld [wGolfObj3XCoord], a
-	ld de, Frameset_1cb0da
+	ld de, GolfHoleFrameset_1cb0da
 	ld hl, wGolfObj3Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj3CurrentFrame]
@@ -2745,7 +2745,7 @@ GolfHoleState_Result:
 	ld [wGolfParaGoomGhostYCoord], a
 	ld a, $50
 	ld [wGolfParaGoomGhostXCoord], a
-	ld de, Frameset_1cb0d7
+	ld de, GolfHoleFrameset_1cb0d7
 	ld hl, wGolfParaGoomGhostDuration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfParaGoomGhostCurrentFrame]

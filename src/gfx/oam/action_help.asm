@@ -1,4 +1,4 @@
-OAM_1e697c:
+ActionHelpOAM_1e697c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -200,98 +200,98 @@ OAM_1e697c:
 	frame_oam -16,   0, $ee, 7
 	db $80
 
-Frameset_1e6b64:
+ActionHelpFrameset_1e6b64:
 	db   0,  4
 	db $ff
 
-Frameset_1e6b67:
+ActionHelpFrameset_1e6b67:
 	db   1,  4
 	db $ff
 
-Frameset_1e6b6a:
+ActionHelpFrameset_1e6b6a:
 	db   2,  4
 	db $ff
 
-Frameset_1e6b6d:
+ActionHelpNoButtonInputFrameset:
 	db   3,  4
 	db $ff
 
-Frameset_1e6b70:
+ActionHelpAInputFrameset:
 	db   4,  4
 	db $ff
 
-Frameset_1e6b73:
+ActionHelpBInputFrameset:
 	db   5,  4
 	db $ff
 
-Frameset_1e6b76:
+ActionHelpNoDPadInputFrameset:
 	db   6,  4
 	db $ff
 
-Frameset_1e6b79:
+ActionHelpDUpInputFrameset:
 	db   7,  4
 	db $ff
 
-Frameset_1e6b7c:
+ActionHelpDRightInputFrameset:
 	db   8,  4
 	db $ff
 
-Frameset_1e6b7f:
+ActionHelpDDownInputFrameset:
 	db   9,  4
 	db $ff
 
-Frameset_1e6b82:
+ActionHelpDLeftInputFrameset:
 	db  10,  4
 	db $ff
 
-Frameset_1e6b85:
+ActionHelpFrameset_1e6b85:
 	db  11,  4
 	db $ff
 
-Frameset_1e6b88:
+ActionHelpSlideFrameset:
 	db  12,  4
 	db $ff
 
-Frameset_1e6b8b:
+ActionHelpFrameset_1e6b8b:
 	db  13,  4
 	db $ff
 
-Frameset_1e6b8e:
+ActionHelpFrameset_1e6b8e:
 	db  14, 10
 	db  15, 10
 	db $ff
 
-Frameset_1e6b93:
+ActionHelpVerticalBlockPairFrameset:
 	db  16,  4
 	db $ff
 
-Frameset_1e6b96:
+ActionHelpFrameset_1e6b96:
 	db  17,  4
 	db $ff
 
-Frameset_1e6b99:
+ActionHelpFrameset_1e6b99:
 	db  18,  4
 	db $ff
 
-Frameset_1e6b9c:
+ActionHelpFrameset_1e6b9c:
 	db  19,  4
 	db $ff
 
 ; unreferenced
 ; L shaped cracked blocks
-Frameset_1e6b9f:
+UnreferencedActionHelpFrameset_1e6b9f:
 	db  20,  4
 	db $ff
 
-Frameset_1e6ba2:
+ActionHelpFrameset_1e6ba2:
 	db  21,  4
 	db $ff
 
-Frameset_1e6ba5:
+ActionHelpFrameset_1e6ba5:
 	db  22,  4
 	db $ff
 
-Frameset_1e6ba8:
+ActionHelpDRightAndDDownInputFrameset:
 	db  23,  4
 	db $ff
 
@@ -631,60 +631,60 @@ OAM_1e6bab:
 	frame_oam   0, -24, $b8, 1 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-Frameset_1e6f36:
+ActionHelpParaGoomWalkFrameset:
 	db   0,  8
 	db   1, 12
 	db   2,  8
 	db   3, 12
 	db $ff
 
-Frameset_1e6f3f:
+ActionHelpParaGoomThrownFrameset:
 	db   4,  3
 	db   5,  3
 	db   6,  3
 	db   7,  3
 	db $ff
 
-Frameset_1e6f48:
+ActionHelpParaGoomStunFrameset:
 	db   8,  8
 	db   9,  8
 	db $ff
 
-Frameset_1e6f4d:
+ActionHelpFrameset_1e6f4d:
 	db  10, 10
 	db  11, 10
 	db $ff
 
 ; unreferenced
 ; Count Richtertoffen with eyes closed
-Frameset_1e6f52:
+UnreferencedActionHelpFrameset_1e6f52:
 	db  12,  4
 	db $ff
 
-Frameset_1e6f55:
+ActionHelpCountRichtertoffThrownFrameset:
 	db  13, 12
 	db  14, 12
 	db  15, 12
 	db  16, 12
 	db $ff
 
-Frameset_1e6f5e:
+ActionHelpCountRichtertoffStunFrameset:
 	db  17, 12
 	db  15, 12
 	db $ff
 
 ; unreferenced
 ; Count Richtertoffen with eyes open
-Frameset_1e6f63:
+UnreferencedActionHelpFrameset_1e6f63:
 	db  18,  4
 	db $ff
 
-Frameset_1e6f66:
+ActionHelpFrameset_1e6f66:
 	db  20, 24
 	db  19, 24
 	db $ff
 
-Frameset_1e6f6b:
+ActionHelpFrameset_1e6f6b:
 	db  21,  8
 	db  29,  4
 	db  30,  4
@@ -693,19 +693,19 @@ Frameset_1e6f6b:
 	db  32,  4
 	db $ff
 
-Frameset_1e6f78:
+ActionHelpFutamoguAngryFrameset:
 	db  23, 40
 	db  24, 40
 	db $ff
 
-Frameset_1e6f7d:
+ActionHelpFrameset_1e6f7d:
 	db  25,  6
 	db  26,  4
 	db  27,  4
 	db  28,  6
 	db $ff
 
-OAM_1e6f86:
+ActionHelpOAM_1e6f86:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -735,14 +735,14 @@ OAM_1e6f86:
 	frame_oam  -8,  -4, $8a, 5 | OAM_BANK1
 	db $80
 
-Frameset_1e6fc2:
+ActionHelpFrameset_1e6fc2:
 	db   0,  3
 	db   1,  3
 	db   2,  4
 	db   3,  3
 	db $ff
 
-Frameset_1e6fcb:
+ActionHelpRailRotateRightFrameset:
 	db   0,  3
 	db   3,  3
 	db   2,  4

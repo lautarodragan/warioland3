@@ -341,24 +341,24 @@ UpdateEpilogueSceneObj:
 	ret
 
 .State18:
-	ld de, Frameset_681d2
+	ld de, SpearheadFrameset_681d2
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
-	ld de, OAM_18007b
-	ld b, BANK(OAM_18007b)
+	ld de, SpearheadOAM_18007b
+	ld b, BANK(SpearheadOAM_18007b)
 	jp LoadOWSpriteWithScroll
 
 .State19:
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
-	ld de, OAM_18422f
-	ld b, BANK(OAM_18422f)
+	ld de, HammerBotOAM_18422f
+	ld b, BANK(HammerBotOAM_18422f)
 	jp LoadOWSpriteWithScroll
 
 .State1a:
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
-	ld de, OAM_180ea7
-	ld b, BANK(OAM_180ea7)
+	ld de, DoughnuteerOAM_180ea7
+	ld b, BANK(DoughnuteerOAM_180ea7)
 	jp LoadOWSpriteWithScroll
 
 .State1b:
@@ -503,7 +503,7 @@ UpdateTempleSceneObjAnimation:
 	call Func_ac000
 
 .draw_1:
-	ld de, OAM_1644a
+	ld de, WarioOAM_1644a
 	jp Func_ac042
 
 .animate_once_1:
@@ -610,8 +610,8 @@ UpdateTempleSceneObjAnimation:
 .animate_and_draw_3:
 	call Func_ac00b
 .asm_ac3c4
-	ld de, OAM_18c88a
-	ld b, BANK(OAM_18c88a)
+	ld de, HiddenFigureOAM_18c88a
+	ld b, BANK(HiddenFigureOAM_18c88a)
 	jp LoadOWSpriteWithScroll
 
 ; unreferenced
@@ -776,8 +776,8 @@ UpdatePrologueSceneObj:
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
 	jp z, UpdatePrologueSceneObj
-	ld de, OAM_aab5c
-	ld b, BANK(OAM_aab5c)
+	ld de, SceneWarioOAM_aab5c
+	ld b, BANK(SceneWarioOAM_aab5c)
 	jp LoadOWSpriteWithScroll
 
 .State15:
@@ -910,33 +910,33 @@ UpdateSceneWario:
 	ret
 
 .LookFront:
-	ld de, Frameset_14d18
+	ld de, WarioFrameset_14d18
 	jr .UpdateAnimation
 
 .LookBack:
-	ld de, Frameset_14d15
+	ld de, WarioFenceFrameset_14d15
 	jr .UpdateAnimation
 
 .TurnFrontLeft:
-	ld de, Frameset_14cbe
+	ld de, WarioFrameset_14cbe
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_LEFT
 	jr .SetStateIfFinished
 
 .TurnFrontRight:
-	ld de, Frameset_14cc5
+	ld de, WarioFrameset_14cc5
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_RIGHT
 	jr .SetStateIfFinished
 
 .TurnBackLeft:
-	ld de, Frameset_14d0b
+	ld de, WarioFenceFrameset_14d0b
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_BACK
 	jr .SetStateIfFinished
 
 .TurnBackRight:
-	ld de, Frameset_14d10
+	ld de, WarioFenceFrameset_14d10
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_BACK
 	jr .SetStateIfFinished
@@ -963,31 +963,31 @@ UpdateSceneWario:
 	jp PlaySceneWarioStepSFX
 
 .WalkRight:
-	ld de, Frameset_149c5
+	ld de, WarioFrameset_149c5
 	call .UpdateAnimation
 	jp PlaySceneWarioStepSFX
 
 .CarryWalk:
-	ld de, Frameset_149fe
+	ld de, WarioGrabFrameset_149fe
 	call .UpdateAnimation
 	jp PlaySceneWarioStepSFX
 
 .CarryIdle:
-	ld de, Frameset_14a20
+	ld de, WarioGrabFrameset_14a20
 	jr .UpdateAnimation
 
 .PickUp:
-	ld de, Frameset_163ec
+	ld de, WarioGrabFrameset_163ec
 	call .UpdateAnimation
 	ld b, SCENEWARIO_CARRY_IDLE
 	jp .SetStateIfFinished
 
 .IdleLeft:
-	ld de, Frameset_14252
+	ld de, WarioFrameset_14252
 	jr .UpdateAnimation
 
 .IdleRight:
-	ld de, Frameset_1425f
+	ld de, WarioFrameset_1425f
 	jr .UpdateAnimation
 
 .Nod:
@@ -1171,7 +1171,7 @@ UpdateSceneWario:
 	jp .SetStateIfFinished
 
 .Sleep:
-	ld de, Frameset_aaccb
+	ld de, SceneWarioFrameset_aaccb
 	call .UpdateAnimation
 	ld a, [wOWAnimationFinished]
 	ld [wSceneWarioAnimFinished], a
@@ -1181,7 +1181,7 @@ UpdateSceneWario:
 	ret
 
 .WakeUp:
-	ld de, Frameset_aace2
+	ld de, SceneWarioFrameset_aace2
 	call .UpdateAnimation
 	ld b, SCENEWARIO_SIT_IDLE
 	jp .SetStateIfFinished
@@ -1268,49 +1268,49 @@ UpdateSceneWario:
 	jp .SetStateIfFinished
 
 .TurnFrontToBackRight:
-	ld de, Frameset_1fc439
+	ld de, WarioGetTreasureFrameset_1fc439
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_BACK
 	jp .SetStateIfFinished
 
 .TurnFrontToBackLeft:
-	ld de, Frameset_1fc446
+	ld de, WarioGetTreasureFrameset_1fc446
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_BACK
 	jp .SetStateIfFinished
 
 .TurnBackToRight:
-	ld de, Frameset_1fc453
+	ld de, WarioGetTreasureFrameset_1fc453
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_RIGHT
 	jp .SetStateIfFinished
 
 .TurnBackToLeft:
-	ld de, Frameset_1fc45a
+	ld de, WarioGetTreasureFrameset_1fc45a
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_LEFT
 	jp .SetStateIfFinished
 
 .TurnRightToFront:
-	ld de, Frameset_1fc461
+	ld de, WarioGetTreasureFrameset_1fc461
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_FRONT
 	jp .SetStateIfFinished
 
 .TurnLeftToFront:
-	ld de, Frameset_1fc46a
+	ld de, WarioGetTreasureFrameset_1fc46a
 	call .UpdateAnimation
 	ld b, SCENEWARIO_LOOK_FRONT
 	jp .SetStateIfFinished
 
 .TurnFrontToLeft:
-	ld de, Frameset_1fc473
+	ld de, WarioFrameset_1fc473
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_LEFT
 	jp .SetStateIfFinished
 
 .TurnFrontToRight:
-	ld de, Frameset_1fc47c
+	ld de, WarioFrameset_1fc47c
 	call .UpdateAnimation
 	ld b, SCENEWARIO_IDLE_RIGHT
 	jp .SetStateIfFinished
@@ -1470,20 +1470,20 @@ MACRO scene_wario_gfx
 ENDM
 
 .WarioSpritePointers:
-	scene_wario_gfx OAM_14a82,  WarioIdleGfx  ; SCENEWARIO_GROUP_00
+	scene_wario_gfx WarioOAM_14a82,  WarioIdleGfx  ; SCENEWARIO_GROUP_00
 	scene_wario_gfx OAM_1426c,  WarioWalkGfx  ; SCENEWARIO_GROUP_01
-	scene_wario_gfx OAM_1606a,  WarioThrowGfx ; SCENEWARIO_GROUP_02
-	scene_wario_gfx OAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
-	scene_wario_gfx OAM_d49cc,  WarioClearGfx ; SCENEWARIO_GROUP_04
-	scene_wario_gfx OAM_aa5fe,  WarioClearGfx ; SCENEWARIO_GROUP_05
-	scene_wario_gfx OAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
-	scene_wario_gfx OAM_aa934,  WarioMusicBoxGfx  ; SCENEWARIO_GROUP_07
-	scene_wario_gfx OAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
-	scene_wario_gfx OAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_19
-	scene_wario_gfx OAM_ab0c5,  WarioShowMusicBoxesGfx  ; SCENEWARIO_GROUP_10
-	scene_wario_gfx OAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
-	scene_wario_gfx OAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12
-	scene_wario_gfx OAM_1fc000, WarioClearGfx ; SCENEWARIO_GROUP_13
+	scene_wario_gfx WarioOAM_1606a,  WarioThrowGfx ; SCENEWARIO_GROUP_02
+	scene_wario_gfx WarioOAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
+	scene_wario_gfx GolfWarioOAM_d49cc,  WarioClearGfx ; SCENEWARIO_GROUP_04
+	scene_wario_gfx SceneWarioOAM_aa5fe,  WarioClearGfx ; SCENEWARIO_GROUP_05
+	scene_wario_gfx SceneWarioOAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
+	scene_wario_gfx SceneWarioOAM_aa934,  WarioMusicBoxGfx  ; SCENEWARIO_GROUP_07
+	scene_wario_gfx SceneWarioOAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
+	scene_wario_gfx SceneWarioOAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_19
+	scene_wario_gfx SceneWarioOAM_ab0c5,  WarioShowMusicBoxesGfx  ; SCENEWARIO_GROUP_10
+	scene_wario_gfx WarioGetTreasureOAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
+	scene_wario_gfx WarioOnFireOAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12
+	scene_wario_gfx WarioGetTreasureOAM_1fc000, WarioClearGfx ; SCENEWARIO_GROUP_13
 
 	ret ; stray ret
 
@@ -3830,9 +3830,9 @@ _GolfBuilding:
 
 	call .FillBGPalettes
 
-	ld hl, Pals_84900
+	ld hl, NorthOWOBPals
 	ld de, wTempPals2
-	ld b, BANK(Pals_84900)
+	ld b, BANK(NorthOWOBPals)
 	ld c, 8 palettes
 	call CopyFarBytes
 	ld hl, PrologueBackgroundGfx

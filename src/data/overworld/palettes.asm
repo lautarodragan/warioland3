@@ -1,4 +1,4 @@
-Pals_84000:
+NorthOWDayPals:
 	rgb 31, 31, 31
 	rgb 12, 29,  0
 	rgb 15, 15, 15
@@ -39,7 +39,7 @@ Pals_84000:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84040:
+NorthOWDusk1Pals:
 	rgb 28, 29, 22
 	rgb 15, 14,  2
 	rgb 15, 14, 13
@@ -80,7 +80,7 @@ Pals_84040:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84080:
+NorthOWDusk2Pals:
 	rgb 20, 19, 22
 	rgb  0, 16, 17
 	rgb 12, 12, 12
@@ -121,7 +121,7 @@ Pals_84080:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_840c0:
+NorthOWNightPals:
 	rgb 16, 14, 23
 	rgb  6, 17, 17
 	rgb 12, 12, 12
@@ -162,7 +162,7 @@ Pals_840c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84100:
+NorthOWDawnPals:
 	rgb 31, 28, 21
 	rgb 20, 26, 15
 	rgb 15, 14, 13
@@ -203,7 +203,7 @@ Pals_84100:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84140:
+WestOWDayPals:
 	rgb  3, 23, 31
 	rgb 12, 29,  0
 	rgb 15, 15, 15
@@ -244,7 +244,7 @@ Pals_84140:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84180:
+WestOWDusk1Pals:
 	rgb 30, 14,  0
 	rgb 15, 14,  2
 	rgb 15, 14, 13
@@ -285,7 +285,7 @@ Pals_84180:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_841c0:
+WestOWDusk2Pals:
 	rgb 10,  8, 17
 	rgb  0, 18, 17
 	rgb 12, 12, 12
@@ -326,7 +326,7 @@ Pals_841c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84200:
+WestOWNightPals:
 	rgb  3,  0, 21
 	rgb  6, 17, 17
 	rgb  9, 12, 12
@@ -367,7 +367,7 @@ Pals_84200:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84240:
+WestOWDawnPals:
 	rgb 16, 17, 29
 	rgb 20, 26, 15
 	rgb 17, 16, 14
@@ -408,7 +408,7 @@ Pals_84240:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84280:
+SouthOWDayPals:
 	rgb  3, 23, 31
 	rgb 12, 29,  0
 	rgb 15, 12,  4
@@ -449,7 +449,7 @@ Pals_84280:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_842c0:
+SouthOWDusk1Pals:
 	rgb 30, 14,  0
 	rgb 15, 14,  2
 	rgb  9,  7,  2
@@ -490,7 +490,7 @@ Pals_842c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84300:
+SouthOWDusk2Pals:
 	rgb 10,  8, 17
 	rgb  0, 16, 17
 	rgb  0,  9,  8
@@ -531,7 +531,7 @@ Pals_84300:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84340:
+SouthOWNightPals:
 	rgb  3,  0, 21
 	rgb  6, 17, 17
 	rgb  3,  8, 11
@@ -572,7 +572,7 @@ Pals_84340:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84380:
+SouthOWDawnPals:
 	rgb 16, 17, 29
 	rgb 20, 26, 15
 	rgb 15, 14, 13
@@ -613,7 +613,7 @@ Pals_84380:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_843c0:
+EastOWDayPals:
 	rgb  3, 23, 31
 	rgb 12, 29,  0
 	rgb  3, 11, 16
@@ -654,7 +654,7 @@ Pals_843c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84400:
+EastOWDusk1Pals:
 	rgb 30, 14,  0
 	rgb 15, 14,  2
 	rgb 10,  9, 13
@@ -695,7 +695,7 @@ Pals_84400:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84440:
+EastOWDusk2Pals:
 	rgb 10,  8, 17
 	rgb  0, 16, 17
 	rgb  6, 10,  8
@@ -736,7 +736,7 @@ Pals_84440:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84480:
+EastOWNightPals:
 	rgb  3,  0, 21
 	rgb  6, 17, 17
 	rgb  9,  9, 10
@@ -777,7 +777,7 @@ Pals_84480:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_844c0:
+EastOWDawnPals:
 	rgb 16, 17, 29
 	rgb 20, 26, 15
 	rgb 12, 15, 16
@@ -818,7 +818,7 @@ Pals_844c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84500:
+NorthOWCrayonsDayPals:
 	rgb 31, 31, 31
 	rgb 12, 29,  0
 	rgb  4, 21,  5
@@ -859,7 +859,7 @@ Pals_84500:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84540:
+NorthOWCrayonsDusk1Pals:
 	rgb 28, 29, 22
 	rgb 15, 14,  2
 	rgb 10, 15,  1
@@ -900,7 +900,7 @@ Pals_84540:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84580:
+NorthOWCrayonsDusk2Pals:
 	rgb 20, 19, 22
 	rgb  0, 16, 17
 	rgb  6, 14, 11
@@ -941,7 +941,7 @@ Pals_84580:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_845c0:
+NorthOWCrayonsNightPals:
 	rgb 16, 14, 23
 	rgb  6, 17, 17
 	rgb  2, 12,  6
@@ -982,7 +982,7 @@ Pals_845c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84600:
+NorthOWCrayonsDawnPals:
 	rgb 31, 28, 21
 	rgb 20, 26, 15
 	rgb 16, 20, 18
@@ -1023,7 +1023,7 @@ Pals_84600:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84640:
+WestOWCrayonsDayPals:
 	rgb  3, 23, 31
 	rgb 12, 29,  0
 	rgb  4, 21,  5
@@ -1064,7 +1064,7 @@ Pals_84640:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84680:
+WestOWCrayonsDusk1Pals:
 	rgb 30, 14,  0
 	rgb 15, 14,  2
 	rgb 10, 15,  1
@@ -1105,7 +1105,7 @@ Pals_84680:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_846c0:
+WestOWCrayonsDusk2Pals:
 	rgb 10,  8, 17
 	rgb  0, 18, 17
 	rgb  6, 14, 11
@@ -1146,7 +1146,7 @@ Pals_846c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84700:
+WestOWCrayonsNightPals:
 	rgb  3,  0, 21
 	rgb  6, 17, 17
 	rgb  2, 12,  6
@@ -1187,7 +1187,7 @@ Pals_84700:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84740:
+WestOWCrayonsDawnPals:
 	rgb 16, 17, 29
 	rgb 20, 26, 15
 	rgb 16, 20, 18
@@ -1228,7 +1228,7 @@ Pals_84740:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84780:
+NorthOWGreyPals:
 	rgb 31, 31, 31
 	rgb 20, 20, 20
 	rgb 14, 14, 14
@@ -1269,7 +1269,7 @@ Pals_84780:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_847c0:
+WestOWGreyPals:
 	rgb 15, 15, 15
 	rgb 20, 20, 20
 	rgb 14, 14, 14
@@ -1310,7 +1310,7 @@ Pals_847c0:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84800:
+SouthOWGreyPals:
 	rgb 15, 15, 15
 	rgb 20, 20, 20
 	rgb 10, 10, 10
@@ -1351,7 +1351,7 @@ Pals_84800:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84840:
+EastOWGreyPals:
 	vc_patch FPA_83_BG_Flash_Palette
 	IF DEF(_VC)
         rgb 15, 15, 15
@@ -1426,7 +1426,7 @@ Pals_84840:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_84880:
+EastOWGreyNoIcePals:
 	rgb 15, 15, 15
 	rgb 20, 20, 20
 	rgb 11, 11, 11
@@ -1468,7 +1468,7 @@ Pals_84880:
 	rgb  0,  0,  0
 
 ; unreferenced
-Pals_848c0:
+UnreferencedOWPals_848c0:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 14,  0
@@ -1489,7 +1489,7 @@ Pals_848c0:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_848e0:
+OWStarIndicatorPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 27,  1
@@ -1510,7 +1510,7 @@ Pals_848e0:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_84900:
+NorthOWOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -1551,7 +1551,7 @@ Pals_84900:
 	rgb  0, 12, 31
 	rgb  0,  0,  7
 
-Pals_84940:
+WestOWOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -1592,7 +1592,7 @@ Pals_84940:
 	rgb  0, 12, 31
 	rgb  0,  0,  7
 
-Pals_84980:
+SouthOWOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -1633,7 +1633,7 @@ Pals_84980:
 	rgb  0, 12, 31
 	rgb  0,  0,  7
 
-Pals_849c0:
+EastOWOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -1675,7 +1675,7 @@ Pals_849c0:
 	rgb  0,  0,  7
 
 ; unreferenced
-Pals_84a00:
+UnreferencedOWPals_84a00:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -1696,7 +1696,7 @@ Pals_84a00:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_84a20:
+TopBarOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 19,  1

@@ -151,7 +151,7 @@ FallingSnowFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	ld bc, Data_603e0
+	ld bc, QuickFallYVel
 	jp z, ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -197,7 +197,7 @@ FallingSnowFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	ld bc, Data_603e0
+	ld bc, QuickFallYVel
 	jp z, ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]

@@ -1503,25 +1503,25 @@ UpdateAnonsterPal:
 	and $0f
 	cp $03
 	jr nz, .asm_50aa4
-	ld hl, .Pals_50ab4
+	ld hl, .green_pal
 	jr .got_pal
 .asm_50aa4
 	cp $02
 	ret nz
-	ld hl, .Pals_50abc
+	ld hl, .red_pal
 .got_pal
 	ld de, wTempPals2 palette 7
 	ld c, 7
 	ld b, 1
 	jp CopyAndApplyOBPals
 
-.Pals_50ab4:
+.green_pal:
 	rgb  0, 20, 12
 	rgb  0, 31,  5
 	rgb  0, 11,  0
 	rgb  1,  0,  0
 
-.Pals_50abc:
+.red_pal:
 	rgb  0, 20, 12
 	rgb 31,  0,  0
 	rgb 14,  0,  0

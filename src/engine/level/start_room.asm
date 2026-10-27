@@ -111,9 +111,9 @@ StartRoom_FromTransition:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
-	ld a, HIGH(Frameset_14d18)
+	ld a, HIGH(WarioFrameset_14d18)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14d18)
+	ld a, LOW(WarioFrameset_14d18)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a

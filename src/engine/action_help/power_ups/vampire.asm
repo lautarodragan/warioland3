@@ -90,17 +90,17 @@ VampireActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fd82e)
+	ld a, HIGH(WarioVampireFrameset_1fd82e)
 	ld [hli], a
-	ld a, LOW(Frameset_1fd82e)
+	ld a, LOW(WarioVampireFrameset_1fd82e)
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_1fd498)
+	ld a, HIGH(WarioVampireOAM_1fd498)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fd498)
+	ld a, LOW(WarioVampireOAM_1fd498)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_1fd498)
+	ld a, BANK(WarioVampireOAM_1fd498)
 	ld [wActionHelpWarioOAMBank], a
 
 	call LoadActionHelpPalsWithoutWater

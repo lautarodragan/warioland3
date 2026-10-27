@@ -116,15 +116,15 @@ Func_d434c:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_d438b
-	ld a, HIGH(Frameset_d4d1b)
+	ld a, HIGH(GolfWarioFrameset_d4d1b)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d1b)
+	ld a, LOW(GolfWarioFrameset_d4d1b)
 	ld [hl], a
 	jr .asm_d4391
 .asm_d438b
-	ld a, HIGH(Frameset_d4d5f)
+	ld a, HIGH(GolfWarioFrameset_d4d5f)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d5f)
+	ld a, LOW(GolfWarioFrameset_d4d5f)
 	ld [hl], a
 .asm_d4391
 	call UpdateObjAnim

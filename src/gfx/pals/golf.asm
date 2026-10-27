@@ -1,4 +1,4 @@
-Pals_1ca08f:
+GolfHolePals_1ca08f:
 	rgb 12, 27, 31
 	rgb 25, 25, 25
 	rgb 28,  0,  0
@@ -39,7 +39,7 @@ Pals_1ca08f:
 	rgb  1, 10,  1
 	rgb 18,  7,  2
 
-Pals_1ca0cf:
+GolfHolePals_1ca0cf:
 	rgb 31,  8, 23
 	rgb 25, 25, 25
 	rgb 28,  0,  0
@@ -80,7 +80,7 @@ Pals_1ca0cf:
 	rgb  8,  5,  0
 	rgb 22,  6,  0
 
-Pals_1ca10f:
+GolfHolePals_1ca10f:
 	rgb  3,  3, 31
 	rgb 22, 22, 30
 	rgb 25,  0,  5
@@ -121,7 +121,7 @@ Pals_1ca10f:
 	rgb  0,  0,  8
 	rgb  8,  8, 31
 
-Pals_1ca14f:
+GolfHolePals_1ca14f:
 	rgb 31, 24,  5
 	rgb 25, 25, 25
 	rgb 28,  0,  0
@@ -162,7 +162,7 @@ Pals_1ca14f:
 	rgb  6,  8,  0
 	rgb 18,  7,  2
 
-Pals_1ca18f:
+GolfHoleOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -203,7 +203,7 @@ Pals_1ca18f:
 	rgb 31, 14,  0
 	rgb  0,  0,  0
 
-Pals_1ca1cf:
+GolfLobbyBGPals:
 	rgb 31, 31, 31
 	rgb  0, 31, 31
 	rgb  0, 12, 26
@@ -244,7 +244,7 @@ Pals_1ca1cf:
 	rgb 31, 31, 31
 	rgb  0,  0,  0
 
-Pals_1ca20f:
+GolfLobbyOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -285,7 +285,7 @@ Pals_1ca20f:
 	rgb 30, 20,  0
 	rgb  5,  1,  0
 
-Pals_1ca24f:
+GolfBGPals_1ca24f:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -326,7 +326,7 @@ Pals_1ca24f:
 	rgb 30,  0,  0
 	rgb  0,  4,  0
 
-Pals_1ca28f:
+GolfCourseMenuPals_1ca28f:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -367,7 +367,7 @@ Pals_1ca28f:
 	rgb 30,  0,  0
 	rgb  0,  4,  0
 
-Pals_1ca2cf:
+GolfCourseMenuPals_1ca2cf:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -408,7 +408,7 @@ Pals_1ca2cf:
 	rgb 30,  0,  0
 	rgb  0,  4,  0
 
-Pals_1ca30f:
+GolfCourseMenuPals_1ca30f:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -449,7 +449,7 @@ Pals_1ca30f:
 	rgb 30,  0,  0
 	rgb  0,  4,  0
 
-Pals_1ca34f:
+GolfOBPals_1ca34f:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10

@@ -26,9 +26,9 @@ InitLanguageSelection:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_76b5)
+	ld a, HIGH(LanguageSelectionFrameset_76b5)
 	ld [hli], a
-	ld a, LOW(Frameset_76b5)
+	ld a, LOW(LanguageSelectionFrameset_76b5)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj1

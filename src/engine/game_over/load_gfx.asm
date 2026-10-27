@@ -5,9 +5,9 @@ LoadHiddenFigureGfx::
 	ret
 
 .LoadPals:
-	ld hl, Pals_db000
+	ld hl, HiddenFigureBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_db040
+	ld hl, HiddenFigureOBPals
 	ld de, wTempPals2 + palette 3
 	ld b, 5 palettes
 	call CopyHLToDE_Short
@@ -50,9 +50,9 @@ LoadHiddenFigureGfx::
 	ret
 
 LoadGameOverPals:
-	ld hl, Pals_db509
+	ld hl, GameOverBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_db549
+	ld hl, GameOverOBPals
 	call LoadPalsToTempPals2
 
 	ld hl, SceneWarioPal
@@ -100,6 +100,6 @@ Func_db4e9:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_dbbd2
+	ld hl, GameOverOAM_dbbd2
 	call LoadSprite
 	ret

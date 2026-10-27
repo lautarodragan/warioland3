@@ -97,15 +97,15 @@ HeadSmashHelmetActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b64)
+	ld a, HIGH(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b64)
+	ld a, LOW(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -174,15 +174,15 @@ HeadSmashHelmetActionHelp_Step05:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b67)
+	ld a, HIGH(ActionHelpFrameset_1e6b67)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b67)
+	ld a, LOW(ActionHelpFrameset_1e6b67)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -293,15 +293,15 @@ HeadSmashHelmetActionHelp_Step0A:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b6a)
+	ld a, HIGH(ActionHelpFrameset_1e6b6a)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b6a)
+	ld a, LOW(ActionHelpFrameset_1e6b6a)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a

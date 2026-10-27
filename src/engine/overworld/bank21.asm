@@ -625,88 +625,88 @@ VBlank_OWPalTransition:
 OWPals:
 ; North
 	; day
-	dw Pals_84000
-	dw Pals_84040
-	dw Pals_84080
-	dw Pals_840c0
+	dw NorthOWDayPals
+	dw NorthOWDusk1Pals
+	dw NorthOWDusk2Pals
+	dw NorthOWNightPals
 
 	; night
-	dw Pals_840c0
-	dw Pals_84100
-	dw Pals_84000
-	dw Pals_84000
+	dw NorthOWNightPals
+	dw NorthOWDawnPals
+	dw NorthOWDayPals
+	dw NorthOWDayPals
 
 ; West
 	; day
-	dw Pals_84140
-	dw Pals_84180
-	dw Pals_841c0
-	dw Pals_84200
+	dw WestOWDayPals
+	dw WestOWDusk1Pals
+	dw WestOWDusk2Pals
+	dw WestOWNightPals
 
 	; night
-	dw Pals_84200
-	dw Pals_84240
-	dw Pals_84140
-	dw Pals_84140
+	dw WestOWNightPals
+	dw WestOWDawnPals
+	dw WestOWDayPals
+	dw WestOWDayPals
 
 ; South
 	; day
-	dw Pals_84280
-	dw Pals_842c0
-	dw Pals_84300
-	dw Pals_84340
+	dw SouthOWDayPals
+	dw SouthOWDusk1Pals
+	dw SouthOWDusk2Pals
+	dw SouthOWNightPals
 
 	; night
-	dw Pals_84340
-	dw Pals_84380
-	dw Pals_84280
-	dw Pals_84280
+	dw SouthOWNightPals
+	dw SouthOWDawnPals
+	dw SouthOWDayPals
+	dw SouthOWDayPals
 
 ; East
 	; day
-	dw Pals_843c0
-	dw Pals_84400
-	dw Pals_84440
-	dw Pals_84480
+	dw EastOWDayPals
+	dw EastOWDusk1Pals
+	dw EastOWDusk2Pals
+	dw EastOWNightPals
 
 	; night
-	dw Pals_84480
-	dw Pals_844c0
-	dw Pals_843c0
-	dw Pals_843c0
+	dw EastOWNightPals
+	dw EastOWDawnPals
+	dw EastOWDayPals
+	dw EastOWDayPals
 
 ; North (all crayons)
 	; day
-	dw Pals_84500
-	dw Pals_84540
-	dw Pals_84580
-	dw Pals_845c0
+	dw NorthOWCrayonsDayPals
+	dw NorthOWCrayonsDusk1Pals
+	dw NorthOWCrayonsDusk2Pals
+	dw NorthOWCrayonsNightPals
 
 	; night
-	dw Pals_845c0
-	dw Pals_84600
-	dw Pals_84500
-	dw Pals_84500
+	dw NorthOWCrayonsNightPals
+	dw NorthOWCrayonsDawnPals
+	dw NorthOWCrayonsDayPals
+	dw NorthOWCrayonsDayPals
 
 ; West (all crayons)
 	; day
-	dw Pals_84640
-	dw Pals_84680
-	dw Pals_846c0
-	dw Pals_84700
+	dw WestOWCrayonsDayPals
+	dw WestOWCrayonsDusk1Pals
+	dw WestOWCrayonsDusk2Pals
+	dw WestOWCrayonsNightPals
 
 	; night
-	dw Pals_84700
-	dw Pals_84740
-	dw Pals_84640
-	dw Pals_84640
+	dw WestOWCrayonsNightPals
+	dw WestOWCrayonsDawnPals
+	dw WestOWCrayonsDayPals
+	dw WestOWCrayonsDayPals
 
 GreyOWPalsPointers:
-	dw Pals_84780 ; NORTH
-	dw Pals_847c0 ; WEST
-	dw Pals_84800 ; SOUTH
-	dw Pals_84840 ; EAST
-	dw Pals_84880 ; EAST (no Ice)
+	dw NorthOWGreyPals ; NORTH
+	dw WestOWGreyPals ; WEST
+	dw SouthOWGreyPals ; SOUTH
+	dw EastOWGreyPals ; EAST
+	dw EastOWGreyNoIcePals ; EAST (no Ice)
 
 FadeBGAndOBPals:
 	ld a, [wPalConfig1TotalSteps]
@@ -861,15 +861,15 @@ _PrologueFade:
 
 .four
 	call .CopyPalsToBGAndOBPals
-	ld hl, Pals_db000
+	ld hl, HiddenFigureBGPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_db000)
+	ld b, BANK(HiddenFigureBGPals)
 	call CopyFarBytes
-	ld hl, Pals_db040
+	ld hl, HiddenFigureOBPals
 	ld de, wTempPals2 palette 3
 	ld c, 5 palettes
-	ld b, BANK(Pals_db040)
+	ld b, BANK(HiddenFigureOBPals)
 	call CopyFarBytes
 	jp .set_pal_configs
 
@@ -1271,11 +1271,11 @@ FadeInLevelName:
 .load_day_night_pal
 ; level name pal during the day is white
 ; and during the night is yellow
-	ld hl, Pals_84000 palette 7 ; day
+	ld hl, NorthOWDayPals palette 7 ; day
 	ld a, [wOWIsNight]
 	and a
 	jr z, .got_pal
-	ld hl, Pals_840c0 palette 7 ; night
+	ld hl, NorthOWNightPals palette 7 ; night
 .got_pal
 	ld de, wTempPals1 palette 7
 	ld b, 1 palettes
@@ -1572,14 +1572,14 @@ _LoadPalsForOWScene:
 	cp CRAYON_PINK_T + 1
 	ret c
 .not_crayon
-	ld hl, Pals_84500
+	ld hl, NorthOWCrayonsDayPals
 	ret
 .west
-	ld hl, Pals_84640
+	ld hl, WestOWCrayonsDayPals
 	ret
 
 LoadOWStarIndicatorPals:
-	ld hl, Pals_848e0
+	ld hl, OWStarIndicatorPals
 	ld de, wTempPals2 palette 4
 	ld b, 2 palettes
 	call CopyHLToDE
@@ -1625,14 +1625,14 @@ _LoadMapSidePals:
 	jr z, .west
 	ret
 .north
-	ld hl, Pals_84500
+	ld hl, NorthOWCrayonsDayPals
 	ret
 .west
-	ld hl, Pals_84640
+	ld hl, WestOWCrayonsDayPals
 	ret
 
 GetMapSidePalGroup1:
-	ld hl, Pals_84000
+	ld hl, NorthOWDayPals
 	ld de, 40 palettes
 	ld a, [wCurMapSide]
 	inc a
@@ -1643,7 +1643,7 @@ GetMapSidePalGroup1:
 	jr .loop
 
 GetMapSidePalGroup2:
-	ld hl, Pals_84900
+	ld hl, NorthOWOBPals
 	ld de, 8 palettes
 	ld a, [wCurMapSide]
 	inc a

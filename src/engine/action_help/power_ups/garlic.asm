@@ -143,15 +143,15 @@ GarlicActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b9c)
+	ld a, HIGH(ActionHelpFrameset_1e6b9c)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b9c)
+	ld a, LOW(ActionHelpFrameset_1e6b9c)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -168,15 +168,15 @@ GarlicActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b9c)
+	ld a, HIGH(ActionHelpFrameset_1e6b9c)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b9c)
+	ld a, LOW(ActionHelpFrameset_1e6b9c)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	ld hl, wMenuObj7
@@ -246,15 +246,15 @@ GarlicActionHelp_Step04:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b96)
+	ld a, HIGH(ActionHelpFrameset_1e6b96)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b96)
+	ld a, LOW(ActionHelpFrameset_1e6b96)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	ld hl, wActionHelpState
@@ -293,15 +293,15 @@ GarlicActionHelp_Step05:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b96)
+	ld a, HIGH(ActionHelpFrameset_1e6b96)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b96)
+	ld a, LOW(ActionHelpFrameset_1e6b96)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	ld hl, wActionHelpState
@@ -390,15 +390,15 @@ GarlicActionHelp_Step08:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6ba2)
+	ld a, HIGH(ActionHelpFrameset_1e6ba2)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6ba2)
+	ld a, LOW(ActionHelpFrameset_1e6ba2)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	call ActionHelp_ClearDPadInput
@@ -900,15 +900,15 @@ GarlicActionHelp_Step1B:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b64)
+	ld a, HIGH(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b64)
+	ld a, LOW(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	ld a, $40
 	ld [wMenuObj6], a
@@ -989,9 +989,9 @@ GarlicActionHelp_Step1D:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b85)
+	ld a, HIGH(ActionHelpFrameset_1e6b85)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b85)
+	ld a, LOW(ActionHelpFrameset_1e6b85)
 	ld [hli], a
 
 	ld hl, wActionHelpState

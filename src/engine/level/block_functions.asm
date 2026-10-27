@@ -664,15 +664,15 @@ EnterPipeDown:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_14cf6)
+	ld a, HIGH(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14cf6)
+	ld a, LOW(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -753,15 +753,15 @@ EnterPipeUp:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_14cf6)
+	ld a, HIGH(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14cf6)
+	ld a, LOW(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -887,24 +887,24 @@ EnterDoor:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_186dd
-	ld a, HIGH(Frameset_14d0b)
+	ld a, HIGH(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14d0b)
+	ld a, LOW(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_186e7
 .asm_186dd
-	ld a, HIGH(Frameset_14d10)
+	ld a, HIGH(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14d10)
+	ld a, LOW(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 1], a
 .asm_186e7
 	ld a, BANK("Wario OAM 1")

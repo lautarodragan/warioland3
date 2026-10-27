@@ -1,4 +1,4 @@
-Pals_71b0:
+TimeAttackDescriptionBGPals:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10

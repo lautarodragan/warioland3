@@ -1,4 +1,4 @@
-Pals_b8000:
+FixElevatorCutscenePals_b8000:
 	rgb 31, 31, 27
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -39,7 +39,7 @@ Pals_b8000:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8040:
+SharedCutsceneBGPals_b8040:
 	rgb 31, 31, 27
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -80,7 +80,7 @@ Pals_b8040:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8080:
+RainstormCutscenePals_b8080:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -121,7 +121,7 @@ Pals_b8080:
 	rgb  4, 17,  0
 	rgb  0,  0,  0
 
-Pals_b80c0:
+ExplodeBombsCutscenePals_b80c0:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -203,7 +203,7 @@ TreasureMapCutscenePals_b8100:
 	rgb 10, 10, 10
 	rgb  0,  0,  0
 
-Pals_b8140:
+RevealCastleCutscenePals_b8140:
 	rgb 31, 31, 27
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -244,7 +244,7 @@ Pals_b8140:
 	rgb 21, 21, 21
 	rgb 31, 31, 31
 
-Pals_b8180:
+OpenGoldenSnakeDoorCutscenePals_b8180:
 	rgb 31, 31, 23
 	rgb 23, 25, 31
 	rgb 10, 18, 20
@@ -285,7 +285,7 @@ Pals_b8180:
 	rgb 10, 18, 20
 	rgb  0,  0,  0
 
-Pals_b81c0:
+OpenBlueSnakeDoorCutscenePals_b81c0:
 	rgb 31, 31, 23
 	rgb  0,  0,  0
 	rgb  0,  0,  0
@@ -367,7 +367,7 @@ Pals_b8200:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8240:
+SharedCutsceneBGPals_b8240:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -408,7 +408,7 @@ Pals_b8240:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_b8280:
+LeavesFallCutscenePals_b8280:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -449,7 +449,7 @@ Pals_b8280:
 	rgb  4,  3, 31
 	rgb  0,  0,  0
 
-Pals_b82c0:
+OpenTreeMouthCutscenePals_b82c0:
 	rgb 27, 31, 27
 	rgb  0, 19,  0
 	rgb  0, 11,  0
@@ -490,7 +490,7 @@ Pals_b82c0:
 	rgb 13,  2,  0
 	rgb  0,  0,  0
 
-Pals_b8300:
+MakeWireCutscenePals_b8300:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -572,7 +572,7 @@ SummonSunCutscenePals_b8340:
 	rgb  9,  3,  3
 	rgb  0,  0,  0
 
-Pals_b8380:
+RaisePipeCutscenePals_b8380:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -613,7 +613,7 @@ Pals_b8380:
 	rgb  4, 11, 12
 	rgb  0,  0,  0
 
-Pals_b83c0:
+OpenSkyDoorCutscenePals_b83c0:
 	rgb  0, 22, 16
 	rgb 25, 31, 29
 	rgb 10, 10, 10
@@ -654,7 +654,7 @@ Pals_b83c0:
 	rgb  1, 13, 12
 	rgb  0,  0,  0
 
-Pals_b8400:
+MixChemicalsCutscenePals_b8400:
 	rgb 10, 30, 19
 	rgb  2, 21, 13
 	rgb  1, 14,  8
@@ -695,7 +695,7 @@ Pals_b8400:
 	rgb  9,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8440:
+PlacePropellerCutscenePals_b8440:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -736,7 +736,7 @@ Pals_b8440:
 	rgb  9,  4,  7
 	rgb  0,  0,  0
 
-Pals_b8480:
+SprayIronWallCutscenePals_b8480:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -777,7 +777,7 @@ Pals_b8480:
 	rgb 10,  6,  0
 	rgb  0,  0,  0
 
-Pals_b84c0:
+CollectDemonsBloodCutscenePals_b84c0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1146,7 +1146,7 @@ ExtinguishFireCutscenePals_b86c0:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-Pals_b8700:
+OpenParaGoomCageCutscenePals_b8700:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1433,7 +1433,7 @@ RevealDarkRoomCutscenePals_b8880:
 	rgb  7,  0,  0
 	rgb  2,  0,  0
 
-Pals_b88c0:
+OpenNorthGateCutscenePals_b88c0:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb  6,  6, 31
@@ -1474,7 +1474,7 @@ Pals_b88c0:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_b8900:
+RainstormCutscenePals_b8900:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 21, 21, 21
@@ -1515,7 +1515,7 @@ Pals_b8900:
 	rgb  4, 13, 31
 	rgb  2,  3, 19
 
-Pals_b8940:
+RevealCastleCutscenePals_b8940:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1556,7 +1556,7 @@ Pals_b8940:
 	rgb  0,  3, 18
 	rgb  0,  0,  0
 
-Pals_b8980:
+FreezeSeaCutscenePals_b8980:
 	rgb  0, 14, 28
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -1597,7 +1597,7 @@ Pals_b8980:
 	rgb  8,  0,  3
 	rgb  0,  0,  0
 
-Pals_b89c0:
+FixElevatorCutscenePals_b89c0:
 	rgb  0, 14, 28
 	rgb 23, 29, 31
 	rgb  8, 19, 31
@@ -1638,7 +1638,7 @@ Pals_b89c0:
 	rgb 31,  9,  0
 	rgb 13,  3,  0
 
-Pals_b8a00:
+RaiseTowerCutscenePals_b8a00:
 	rgb  0, 14, 28
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -1679,7 +1679,7 @@ Pals_b8a00:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8a40:
+VolcanoEruptionCutscenePals_b8a40:
 	rgb  0, 14, 28
 	rgb 31, 31, 15
 	rgb 17, 17, 11
@@ -1720,7 +1720,7 @@ Pals_b8a40:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8a80:
+PlantSeedsCutscenePals_b8a80:
 	rgb  0, 14, 28
 	rgb 31, 31, 15
 	rgb 17, 17, 11
@@ -1761,7 +1761,7 @@ Pals_b8a80:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8ac0:
+MusicBoxCutscenePals_b8ac0:
 	rgb  0, 14, 28
 	rgb 31, 31, 15
 	rgb 17, 17, 11
@@ -1802,7 +1802,7 @@ Pals_b8ac0:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8b00:
+BlueMusicBoxCutscenePals_b8b00:
 	rgb  0, 22, 16
 	rgb 30, 31, 14
 	rgb 26,  7, 30
@@ -1843,7 +1843,7 @@ Pals_b8b00:
 	rgb  5, 14,  8
 	rgb  0,  0,  0
 
-Pals_b8b40:
+GreenMusicBoxCutscenePals_b8b40:
 	rgb  0, 22, 16
 	rgb 31, 11, 23
 	rgb 13,  2,  7
@@ -1884,7 +1884,7 @@ Pals_b8b40:
 	rgb  6, 17,  5
 	rgb  0,  0,  0
 
-Pals_b8b80:
+RedMusicBoxCutscenePals_b8b80:
 	rgb  0, 22, 16
 	rgb 31, 11, 23
 	rgb 13,  2,  7
@@ -1925,7 +1925,7 @@ Pals_b8b80:
 	rgb 31,  8,  5
 	rgb  0,  0,  0
 
-Pals_b8bc0:
+GoldMusicBoxCutscenePals_b8bc0:
 	rgb  0, 22, 16
 	rgb 31, 11, 23
 	rgb 13,  2,  7
@@ -1966,7 +1966,7 @@ Pals_b8bc0:
 	rgb 15, 18,  2
 	rgb  0,  0,  0
 
-Pals_b8c00:
+CutTreeCutscenePals_b8c00:
 	rgb  0, 14, 28
 	rgb 31, 31, 15
 	rgb 17, 17, 11
@@ -2007,7 +2007,7 @@ Pals_b8c00:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_b8c40:
+SummonLightningCutscenePals_b8c40:
 	rgb  0, 14, 28
 	rgb  0,  5, 19
 	rgb  6, 17, 31
@@ -2048,7 +2048,7 @@ Pals_b8c40:
 	rgb  6, 17, 31
 	rgb  0,  0,  0
 
-Pals_b8c80:
+SummonSunCutscenePals_b8c80:
 	rgb  0, 22, 16
 	rgb 31,  0,  0
 	rgb 10,  0,  1
@@ -2089,7 +2089,7 @@ Pals_b8c80:
 	rgb 10,  0,  1
 	rgb 31, 31, 31
 
-Pals_b8cc0:
+ExplodeBombsCutscenePals_b8cc0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2171,7 +2171,7 @@ TreasureMapCutscenePals_b8d00:
 	rgb 10, 10, 10
 	rgb  0,  0,  0
 
-Pals_b8d40:
+BlowMistCutscenePals_b8d40:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 26,  0,  0
@@ -2212,7 +2212,7 @@ Pals_b8d40:
 	rgb 14,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8d80:
+PurifyWaterCutscenePals_b8d80:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2253,7 +2253,7 @@ Pals_b8d80:
 	rgb 20, 13,  0
 	rgb  0,  0,  0
 
-Pals_b8dc0:
+SummonSnakesCutscenePals_b8dc0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2294,7 +2294,7 @@ Pals_b8dc0:
 	rgb 10, 10, 10
 	rgb  0,  0,  0
 
-Pals_b8e00:
+FootStoneCutscenePals_b8e00:
 	rgb  0, 22, 16
 	rgb 10, 10, 10
 	rgb 21, 21, 21
@@ -2335,7 +2335,7 @@ Pals_b8e00:
 	rgb  2,  1, 18
 	rgb  0,  0,  0
 
-Pals_b8e40:
+OpenGoldenSnakeDoorCutscenePals_b8e40:
 	rgb  0, 22, 16
 	rgb 10, 10, 10
 	rgb 21, 21, 21
@@ -2376,7 +2376,7 @@ Pals_b8e40:
 	rgb 18, 15,  0
 	rgb  0,  0,  0
 
-Pals_b8e80:
+OpenBlueSnakeDoorCutscenePals_b8e80:
 	rgb  0, 22, 16
 	rgb 10, 10, 10
 	rgb 21, 21, 21
@@ -2417,7 +2417,7 @@ Pals_b8e80:
 	rgb 11, 18, 24
 	rgb  0,  0,  0
 
-Pals_b8ec0:
+ExpelTornadoCutscenePals_b8ec0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2458,7 +2458,7 @@ Pals_b8ec0:
 	rgb 10, 10, 10
 	rgb  0,  0,  0
 
-Pals_b8f00:
+LeavesFallCutscenePals_b8f00:
 	rgb  0, 22, 16
 	rgb 10, 10, 10
 	rgb 21, 21, 21
@@ -2499,7 +2499,7 @@ Pals_b8f00:
 	rgb  4,  3, 31
 	rgb  0,  0,  0
 
-Pals_b8f40:
+TorchForestCutscenePals_b8f40:
 	rgb  0, 22, 16
 	rgb 31, 14,  0
 	rgb 27,  6,  0
@@ -2540,7 +2540,7 @@ Pals_b8f40:
 	rgb 17, 10,  3
 	rgb  0,  0,  0
 
-Pals_b8f80:
+RevealWarpedVoidCutscenePals_b8f80:
 	rgb  0, 22, 16
 	rgb  8, 21, 31
 	rgb  0, 15, 28
@@ -2581,7 +2581,7 @@ Pals_b8f80:
 	rgb 10, 10, 10
 	rgb 22, 22, 27
 
-Pals_b8fc0:
+RaisePipeCutscenePals_b8fc0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2622,7 +2622,7 @@ Pals_b8fc0:
 	rgb  6,  7,  0
 	rgb  0,  0,  0
 
-Pals_b9000:
+OpenParaGoomCageCutscenePals_b9000:
 	rgb  0, 22, 16
 	rgb 31, 31, 13
 	rgb 27,  0,  0
@@ -2663,7 +2663,7 @@ Pals_b9000:
 	rgb 21, 21, 21
 	rgb 31, 31, 31
 
-Pals_b9040:
+OpenSkyDoorCutscenePals_b9040:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2745,7 +2745,7 @@ RevealDarkRoomCutscenePals_b9080:
 	rgb 10, 10, 10
 	rgb  0,  0,  0
 
-Pals_b90c0:
+FeedOctohonCutscenePals_b90c0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
