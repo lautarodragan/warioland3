@@ -36,7 +36,7 @@ ElectricLampFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and %11
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 	dec [hl]
 	ret nz
 	ld de, ElectricLampFrameset_68cc4
@@ -46,7 +46,7 @@ ElectricLampFunc:
 	ld [hld], a
 	ld a, LOW(.Discharged)
 	ld [hld], a
-	play_sfx SFX_06B
+	play_sfx SFX_ELECTRIC_LAMP_DISCHARGE
 	ld bc, ObjParams_ElectricLampSpark
 	jp CreateObjectFromCurObjPos
 
@@ -98,7 +98,7 @@ ElectricLampSparkFunc:
 	ld a, d
 	ld [hld], a
 	ld [hl], e
-	play_sfx SFX_06C
+	play_sfx SFX_ELECTRIC_SPARK
 	ret
 
 .GoLeft:

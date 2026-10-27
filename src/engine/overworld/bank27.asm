@@ -1231,8 +1231,8 @@ CutsceneScreenShake:
 	ld [hl], a
 	jp AdvanceCutsceneFunc
 
-PlaySFX_112:
-	play_sfx SFX_112
+PlayItemRaiseSFX:
+	play_sfx SFX_ITEM_RAISE
 	ret
 
 DoCutsceneFunc:
@@ -1436,7 +1436,7 @@ Cutscene03Func:
 	ld a, $05
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 
 .WaitObj3Disappear:
@@ -1549,7 +1549,7 @@ Cutscene06Func:
 	ret c
 	jp AdvanceCutsceneFunc
 .asm_9d068
-	play_sfx SFX_102
+	play_sfx SFX_TREE_FALL
 	ret
 
 .Wait30:
@@ -1602,7 +1602,7 @@ Cutscene06Func:
 	jp WaitCutsceneFunc
 
 .RaiseObj2Slowly:
-	call .play_sfx_023_every_14_frames
+	call .play_sfx_bubble_float_every_14_frames
 	ld a, [bc]
 	and $03
 	ret nz
@@ -1613,7 +1613,7 @@ Cutscene06Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.play_sfx_023_every_14_frames:
+.play_sfx_bubble_float_every_14_frames:
 	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
@@ -1621,7 +1621,7 @@ Cutscene06Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_023
+	play_sfx SFX_BUBBLE_FLOAT
 	ret
 
 InitCutscene0aObjs:
@@ -1684,7 +1684,7 @@ Cutscene0aFunc:
 
 .MoveObjsOnceSFX:
 	call .move_objs_up_apart
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 .Wait30:
 	ld c, 30
@@ -1824,7 +1824,7 @@ Cutscene07Func:
 	ld a, $08
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_035
+	play_sfx SFX_CHEST_OPEN
 	jp AdvanceCutsceneFunc
 
 .WaitObj4Disappear:
@@ -1888,7 +1888,7 @@ Cutscene19Func:
 	dec [hl]
 	ld a, [hl]
 	cp $86
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -1901,7 +1901,7 @@ Cutscene19Func:
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_073
+	play_sfx SFX_FLAME
 	jp AdvanceCutsceneFunc
 
 .Wait30:
@@ -2009,7 +2009,7 @@ Cutscene11Func:
 	dec [hl]
 	ld a, [hl]
 	cp $92
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $6c
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2376,14 +2376,14 @@ Cutscene22Func:
 	ld a, $01
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 	jp AdvanceCutsceneFunc
 
 .WaitObj2Frame05SFX:
 	ld a, [wSceneObj2Frame]
 	cp $05
 	ret nz
-	play_sfx SFX_107
+	play_sfx SFX_HAMMER_BOT_WALK
 	jp AdvanceCutsceneFunc
 
 .WaitObj2State02:
@@ -2467,7 +2467,7 @@ Cutscene09Func:
 	dec [hl]
 	ld a, [hl]
 	cp $88
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $62
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2526,7 +2526,7 @@ MusicBoxCutsceneFunc:
 	dec [hl]
 	ld a, [hl]
 	cp $88
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $62
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2563,19 +2563,19 @@ MusicBoxCutsceneFunc:
 	jr z, .asm_9d789
 	ret
 .asm_9d765
-	play_sfx SFX_11E
+	play_sfx SFX_YELLOW_MUSIC_BOX
 	ret
 .asm_9d76e
-	play_sfx SFX_11F
+	play_sfx SFX_BLUE_MUSIC_BOX
 	ret
 .asm_9d777
-	play_sfx SFX_120
+	play_sfx SFX_GREEN_MUSIC_BOX
 	ret
 .asm_9d780
-	play_sfx SFX_121
+	play_sfx SFX_RED_MUSIC_BOX
 	ret
 .asm_9d789
-	play_sfx SFX_122
+	play_sfx SFX_GOLD_MUSIC_BOX
 	ret
 
 .Wait254:
@@ -2620,7 +2620,7 @@ Cutscene02Func:
 	inc l
 	dec [hl]
 	cp $86
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2699,7 +2699,7 @@ Cutscene0cFunc:
 	ld a, [hli]
 	dec [hl]
 	cp $8a
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $64
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2736,7 +2736,7 @@ Cutscene18Func:
 	ld a, [hli]
 	dec [hl]
 	cp $8a
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $64
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2786,7 +2786,7 @@ Cutscene0dFunc:
 	dec [hl]
 	ld a, [hl]
 	cp $7a
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $54
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2910,7 +2910,7 @@ Cutscene13Func:
 	ld a, [hl]
 	ld [wSceneObj3YCoord], a
 	cp $86
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2947,7 +2947,7 @@ Cutscene13Func:
 	ld a, [hl]
 	cp $b0
 	ret c
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	jp AdvanceCutsceneFunc
 
 InitCutscene15Objs:
@@ -3051,7 +3051,7 @@ Cutscene49Func:
 	jp WaitCutsceneFunc
 
 .SlideDoorsOpen:
-	call .play_sfx_01f_every_17_frames
+	call .play_sfx_rumble_every_17_frames
 	ld a, [bc]
 	and $07
 	ret nz
@@ -3073,7 +3073,7 @@ Cutscene49Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.play_sfx_01f_every_17_frames:
+.play_sfx_rumble_every_17_frames:
 	ld hl, wSceneObj4MovementStep
 	inc [hl]
 	ld a, [hl]
@@ -3081,7 +3081,7 @@ Cutscene49Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 	ret
 
 Cutscene04Func:
@@ -3116,7 +3116,7 @@ Cutscene04Func:
 	ld hl, wSceneObj2
 	call .move_up
 	cp $70
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $4a
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -3208,7 +3208,7 @@ Cutscene24Func:
 	ld [wSceneObj3State], a
 	jp AdvanceCutsceneFunc
 .asm_9dbdc
-	play_sfx SFX_128
+	play_sfx SFX_WARPED_VOID_APPEAR
 	ret
 
 .WaitThenSetObj2State03:
@@ -3310,7 +3310,7 @@ Cutscene1fFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 .asm_9dcc1
-	play_sfx SFX_11D
+	play_sfx SFX_TORNADO
 	ret
 
 .WaitThenHideObj2:
@@ -3554,7 +3554,7 @@ Cutscene37Func:
 	dec [hl]
 	ld a, [hl]
 	cp $8e
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $68
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -3591,7 +3591,7 @@ Cutscene38Func:
 	call SetSceneObjState
 	ld a, $01
 	ld [wCutsceneOverlayType], a
-	call PlaySFX_112
+	call PlayItemRaiseSFX
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -3619,7 +3619,7 @@ Cutscene38Func:
 	ld a, [wSceneObj2Frame]
 	cp $05
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 
 .WaitObj2State03:
@@ -3746,7 +3746,7 @@ Cutscene30Func:
 .asm_9df90
 	ld a, $04
 	ld [hl], a
-	play_sfx SFX_00F
+	play_sfx SFX_UNDERWATER_THRUST
 	ret
 
 .asm_9df9c
@@ -3857,7 +3857,7 @@ Cutscene3aFunc:
 	jp UpdateCutsceneObjs_RemoveWarps
 
 .PlayCutscene:
-	call .PlaySFX080WhileObj7State03
+	call .PlayFallingSnowDropSFXWhileObj7State03
 	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
@@ -4013,7 +4013,7 @@ Cutscene3aFunc:
 	ld hl, wSceneObj7State
 	jr .wait_disappear
 
-.PlaySFX080WhileObj7State03:
+.PlayFallingSnowDropSFXWhileObj7State03:
 	ld a, [wSceneObj7State]
 	cp $03
 	ret nz
@@ -4028,7 +4028,7 @@ Cutscene3aFunc:
 	ld [hl], a
 	ret
 .asm_9e168
-	play_sfx SFX_080
+	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
 Cutscene3cFunc:
@@ -4068,7 +4068,7 @@ Cutscene3cFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $27
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $3a
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4099,7 +4099,7 @@ Cutscene3cFunc:
 	ld a, $05
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	jp AdvanceCutsceneFunc
 
 .get_fall_speed:
@@ -4133,7 +4133,7 @@ Cutscene3cFunc:
 	lb de, $58, $50
 	ld a, $06
 	call SetSceneObjPosAndState
-	play_sfx SFX_074
+	play_sfx SFX_ZOMBIE_RISE
 	jp AdvanceCutsceneFunc
 
 .WaitObj4State07:
@@ -4244,7 +4244,7 @@ Cutscene54Func:
 	dec [hl]
 	ld a, [hl]
 	cp $6b
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4293,10 +4293,10 @@ Cutscene3dFunc:
 	dw .WaitObj2Disappear
 	dw .WaitThenFlipBGMapPlaceObjs3And4
 	dw .WaitThenSetObj4State06
-	dw .WaitThenPlaySFX07A
+	dw .WaitThenPlaySeeingEyeDoorLookSFX
 	dw .WaitObj4State07
 	dw .WaitThenSetObj3State02
-	dw .WaitThenPlaySFX0AC
+	dw .WaitThenPlayScowlerDefeatedSFX
 	dw .LowerObj3
 	dw EndCutsceneDelay_20Frames
 
@@ -4369,11 +4369,11 @@ Cutscene3dFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.WaitThenPlaySFX07A:
+.WaitThenPlaySeeingEyeDoorLookSFX:
 	ld a, [bc]
 	cp $04
 	ret c
-	play_sfx SFX_07A
+	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	jp AdvanceCutsceneFunc
 
 .WaitObj4State07:
@@ -4391,11 +4391,11 @@ Cutscene3dFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.WaitThenPlaySFX0AC:
+.WaitThenPlayScowlerDefeatedSFX:
 	ld a, [bc]
 	cp $14
 	ret c
-	play_sfx SFX_0AC
+	play_sfx SFX_SCOWLER_DEFEATED
 	jp AdvanceCutsceneFunc
 
 .LowerObj3:
@@ -4524,7 +4524,7 @@ Cutscene4cFunc:
 	dec [hl]
 	ld a, [hl]
 	cp $7e
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4652,7 +4652,7 @@ Cutscene4fFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $31
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $44
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4756,7 +4756,7 @@ Cutscene51Func:
 	inc [hl]
 	ld a, [hl]
 	cp $45
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4771,7 +4771,7 @@ Cutscene51Func:
 	ld a, [wSceneObj2Frame]
 	cp $04
 	ret nz
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	jp AdvanceCutsceneFunc
 
 .WaitObj2Disappear:
@@ -4785,7 +4785,7 @@ Cutscene51Func:
 	jp WaitCutsceneFunc
 
 .LowerObj3:
-	call .play_sfx_01f_every_16_frames
+	call .play_sfx_rumble_every_16_frames
 	ld a, [bc]
 	and $03
 	ret nz
@@ -4796,7 +4796,7 @@ Cutscene51Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.play_sfx_01f_every_16_frames:
+.play_sfx_rumble_every_16_frames:
 	ld hl, wSceneObj3MovementStep
 	inc [hl]
 	ld a, [hl]
@@ -4808,7 +4808,7 @@ Cutscene51Func:
 	ld [hl], a
 	ret
 .asm_9e6e6
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 	ret
 
 InitCutscene56Objs:
@@ -4958,7 +4958,7 @@ Cutscene57Func:
 	inc [hl]
 	ld a, [hl]
 	cp $2c
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $52
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4979,7 +4979,7 @@ Cutscene57Func:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_105
+	play_sfx SFX_GONG
 	jp AdvanceCutsceneFunc
 
 .WaitThenSetObj3State01:
@@ -5069,7 +5069,7 @@ Cutscene58Func:
 	dec [hl]
 	ld a, [hl]
 	cp $76
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $50
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -5458,7 +5458,7 @@ Cutscene44Func:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	jp AdvanceCutsceneFunc
 
 .WaitObj3State03:
@@ -5615,7 +5615,7 @@ Cutscene14Func:
 	dec [hl]
 	ld a, [hl]
 	cp $87
-	jp z, PlaySFX_112
+	jp z, PlayItemRaiseSFX
 	cp $74
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -6032,7 +6032,7 @@ UpdateCutsceneObjs_FixElevator:
 	cp $08
 	jr z, .asm_9f1ac
 	cp $05
-	call z, .PlaySFX10AAtAnimEnd
+	call z, .PlayFixElevatorSFXAtAnimEnd
 .asm_9f1a2
 	ld de, FixElevatorCutsceneOAM_bd46f
 	jp LoadCutsceneObjSprite_OWOAM2
@@ -6046,11 +6046,11 @@ UpdateCutsceneObjs_FixElevator:
 	jr z, .update_obj
 	jr .asm_9f1a2
 
-.PlaySFX10AAtAnimEnd:
+.PlayFixElevatorSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_10A
+	play_sfx SFX_FIX_ELEVATOR
 	ret
 
 .framesets
@@ -6242,16 +6242,16 @@ UpdateCutsceneObjs_PlaceCartWheels:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $03
-	call z, .PlaySFX06DAtAnimEnd
+	call z, .PlayCartRollSFXAtAnimEnd
 	ld de, CartOAM_188279
 	call _ObjOAM3
 	ret
 
-.PlaySFX06DAtAnimEnd:
+.PlayCartRollSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_06D
+	play_sfx SFX_CART_ROLL
 	ret
 
 .framesets
@@ -6382,7 +6382,7 @@ UpdateCutsceneObjs_OpenTreeMouth:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $03
-	call z, .PlaySFX131AtAnimEnd
+	call z, .PlayTreeMouthOpenSFXAtAnimEnd
 	ld de, OpenTreeMouthCutsceneOAM_bde69
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -6391,11 +6391,11 @@ UpdateCutsceneObjs_OpenTreeMouth:
 	dw OpenTreeMouthCutsceneFrameset_bdf95
 	dw OpenTreeMouthCutsceneFrameset_bdfa0
 
-.PlaySFX131AtAnimEnd:
+.PlayTreeMouthOpenSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_131
+	play_sfx SFX_TREE_MOUTH_OPEN
 	ret
 
 UpdateCutsceneObjs_LeavesFall:
@@ -6451,10 +6451,10 @@ UpdateCutsceneObjs_LeavesFall:
 	play_sfx SFX_FAT_WALK
 	ret
 .asm_9f47e
-	call .PlaySFX076Every26Frames
+	call .PlayThunderSFXEvery26Frames
 	jr .asm_9f440
 
-.PlaySFX076Every26Frames:
+.PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
@@ -6467,7 +6467,7 @@ UpdateCutsceneObjs_LeavesFall:
 	ld [de], a
 	ret
 .asm_9f493
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 UpdateCutsceneObjs_MakeWire:
@@ -6553,10 +6553,10 @@ UpdateCutsceneObjs_TorchForest:
 	dw TorchForestCutsceneFrameset_be3c5
 
 .asm_9f529
-	call .PlaySFX01EEvery14Frames
+	call .PlayFireSFXEvery14Frames
 	jr .asm_9f521
 
-.PlaySFX01EEvery14Frames:
+.PlayFireSFXEvery14Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -6569,7 +6569,7 @@ UpdateCutsceneObjs_TorchForest:
 	ld [de], a
 	ret
 .asm_9f53e
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 	ret
 
 UpdateCutsceneObjs_RevealWarpedVoid:
@@ -6607,10 +6607,10 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	dw RevealWarpedVoidCutsceneFrameset_be802
 
 .asm_9f582
-	call .PlaySFX040Every16Frames
+	call .PlayElectricShockSFXEvery16Frames
 	jr .asm_9f56d
 
-.PlaySFX040Every16Frames:
+.PlayElectricShockSFXEvery16Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -6623,7 +6623,7 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	ld [de], a
 	ret
 .asm_9f597
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	ret
 
 UpdateCutsceneObjs_RaiseIceBlocks:
@@ -6649,7 +6649,7 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 	ld de, RaiseIceBlocksCutsceneOAM_be807
 	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f5d1
-	call .PlaySFX0BAOnFrame03
+	call .PlayPumpSFXOnFrame03
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
 	jr z, .update_obj
@@ -6661,7 +6661,7 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 	dw RaiseIceBlocksCutsceneFrameset_be8ea
 	dw RaiseIceBlocksCutsceneFrameset_be8ed
 
-.PlaySFX0BAOnFrame03:
+.PlayPumpSFXOnFrame03:
 	ld a, [wSceneObj2Frame]
 	ld c, a
 	ld a, [wSceneObj2MovementStep]
@@ -6675,7 +6675,7 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 .asm_9f5f6
 	cp c
 	ret nz
-	play_sfx SFX_0BA
+	play_sfx SFX_PUMP
 .asm_9f600
 	ld a, b
 	xor $1
@@ -6701,14 +6701,14 @@ UpdateCutsceneObjs_RaisePipe:
 	dw RaisePipeCutsceneFrameset_be9fd
 
 .asm_9f624
-	call .PlaySFX085AtAnimEnd
+	call .PlayMuddeeSwimSFXAtAnimEnd
 	jr .asm_9f61a
 
-.PlaySFX085AtAnimEnd:
+.PlayMuddeeSwimSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_085
+	play_sfx SFX_MUDDEE_SWIM
 	ret
 
 UpdateCutsceneObjs_RemoveWarps:
@@ -6841,10 +6841,10 @@ UpdateCutsceneObjs_PlacePropeller:
 	dw PlacePropellerCutsceneFrameset_becd3
 
 .asm_9f71d
-	call .PlaySFX07DEvery12Frames
+	call .PlayFanSpinSFXEvery12Frames
 	jr .asm_9f711
 
-.PlaySFX07DEvery12Frames:
+.PlayFanSpinSFXEvery12Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -6857,7 +6857,7 @@ UpdateCutsceneObjs_PlacePropeller:
 	ld [de], a
 	ret
 .asm_9f732
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 	ret
 
 UpdateCutsceneObjs_CutBaloon:
@@ -6983,10 +6983,10 @@ UpdateCutsceneObjs_ExtinguishFire:
 	dw ExtinguishFireCutsceneFrameset_bf110
 
 .asm_9f808
-	call .PlaySFX076Every26Frames
+	call .PlayThunderSFXEvery26Frames
 	jr .asm_9f7f3
 
-.PlaySFX076Every26Frames:
+.PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -6995,7 +6995,7 @@ UpdateCutsceneObjs_ExtinguishFire:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 UpdateCutsceneLevelObj_ExtinguishFire:
@@ -7017,10 +7017,10 @@ UpdateCutsceneLevelObj_ExtinguishFire:
 	dw ExtinguishFireCutsceneFrameset_69c13
 
 .asm_9f83e
-	call .PlaySFX01EEvery14Frames
+	call .PlayFireSFXEvery14Frames
 	jr .asm_9f834
 
-.PlaySFX01EEvery14Frames:
+.PlayFireSFXEvery14Frames:
 	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
@@ -7029,7 +7029,7 @@ UpdateCutsceneLevelObj_ExtinguishFire:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 	ret
 
 UpdateCutsceneObjs_PlaceBrick:
@@ -7076,10 +7076,10 @@ UpdateCutsceneObjs_SprayIronWall:
 	dw SprayIronWallCutsceneFrameset_bf2a8
 
 .asm_9f8a3
-	call .PlaySFX076Every26Frames
+	call .PlayThunderSFXEvery26Frames
 	jr .asm_9f887
 
-.PlaySFX076Every26Frames:
+.PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -7092,7 +7092,7 @@ UpdateCutsceneObjs_SprayIronWall:
 	ld [de], a
 	ret
 .asm_9f8b8
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 .PlaySFX0C4Every10Frames:
@@ -7312,10 +7312,10 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	play_sfx SFX_135
 	ret
 .asm_9fa2f
-	call .PlaySFX080Every27Frames
+	call .PlayFallingSnowDropSFXEvery27Frames
 	jr .asm_9fa0c
 
-.PlaySFX080Every27Frames:
+.PlayFallingSnowDropSFXEvery27Frames:
 	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
@@ -7324,7 +7324,7 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_080
+	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
 UpdateCutsceneObjs_DrillHoles:
@@ -7400,10 +7400,10 @@ UpdateCutsceneObjs_FeedOctohon:
 	dw FeedOctohonCutsceneFrameset_bf92a
 
 .asm_9fad1
-	call .PlaySFX08EEvery48Frames
+	call .PlaySparkleSFXEvery48Frames
 	jr .asm_9fac7
 
-.PlaySFX08EEvery48Frames:
+.PlaySparkleSFXEvery48Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -7412,7 +7412,7 @@ UpdateCutsceneObjs_FeedOctohon:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 UpdateCutsceneLevelObj_FeedOctohon:
@@ -7461,10 +7461,10 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	ret
 
 .asm_9fb33
-	call .PlaySFX083Every40Frames
+	call .PlaySmallSplashSFXEvery40Frames
 	jr .asm_9fb05
 
-.PlaySFX083Every40Frames:
+.PlaySmallSplashSFXEvery40Frames:
 	ld de, wSceneObj4YCoord
 	ld a, [de]
 	inc a
@@ -7473,7 +7473,7 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_083
+	play_sfx SFX_SMALL_SPLASH
 	ret
 
 DrawCutsceneOverlayFrame0:

@@ -198,7 +198,7 @@ GrabGloveActionHelp_Step03:
 
 	call ActionHelp_ClearDPadInput
 	call ActionHelp_ClearButtonsInput
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, $0a
 	ld [wActionHelpWarioVar], a
 	call ActionHelp_ShowParaGoomStun

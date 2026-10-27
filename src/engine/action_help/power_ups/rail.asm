@@ -143,7 +143,7 @@ RailActionHelp_Start:
 	ret
 
 RailActionHelp_Step02:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -160,7 +160,7 @@ RailActionHelp_Step02:
 	ret
 
 RailActionHelp_Step03:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
@@ -273,7 +273,7 @@ RailActionHelp_Step09:
 	ret
 
 RailActionHelp_Step0A:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -290,7 +290,7 @@ RailActionHelp_Step0A:
 	ret
 
 RailActionHelp_Step0B:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]

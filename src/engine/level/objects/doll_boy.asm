@@ -344,7 +344,7 @@ DollBoyFunc:
 	ret
 
 .set_stunned
-	play_sfx SFX_0A4
+	play_sfx SFX_DOLL_BOY_STUNNED
 	ld a, $5c
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
@@ -704,7 +704,7 @@ DollBoyFunc:
 	and a
 	jr z, .asm_50f5e
 	dec [hl]
-	play_sfx SFX_049
+	play_sfx SFX_HAMMER_HIT
 .asm_50f5e
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -779,7 +779,7 @@ DollBoyFunc:
 	ld hl, wCurObjStateDuration
 .asm_50fe2
 	dec [hl]
-	play_sfx z, SFX_0A3
+	play_sfx z, SFX_BOSS_DEFEAT_FALL
 .defeated_fall_movement
 	ld bc, DollBoyData_60bd0
 	jp ApplyObjYMovement
@@ -976,7 +976,7 @@ DollBoyBarrelFunc:
 	jr z, .not_on_screen
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 .not_on_screen
 	ld l, OBJ_STATE
 	ld a, [hld]
@@ -1013,7 +1013,7 @@ DollBoyBarrelFunc:
 	ld [hld], a
 	ld a, LOW(ObjState_AttackedRight)
 	ld [hld], a
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld hl, wDollBoyActiveBarrels
 	ld a, [wCurObjId]
 	cp DOLL_BOY_BARREL1
@@ -1148,7 +1148,7 @@ DollBoyHammerFunc:
 	ld [hl], e
 	xor a
 	ld [wCurObjVar3], a
-	play_sfx SFX_049
+	play_sfx SFX_HAMMER_HIT
 	ld bc, ObjParams_StarsCentre
 	jp CreateObjectFromCurObjPos
 
@@ -1273,7 +1273,7 @@ HammerPlatformFunc:
 	ret
 
 DollBoyGroundShake:
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	ld b, 24
 	jp DoGroundShake
 

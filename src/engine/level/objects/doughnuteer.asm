@@ -154,7 +154,7 @@ DoughnuteerFunc:
 	dec [hl]
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	play_sfx nz, SFX_067
+	play_sfx nz, SFX_ENEMY_THROW
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_41ba8

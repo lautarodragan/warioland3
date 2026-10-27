@@ -406,13 +406,13 @@ HiddenFigureFunc:
 	ld [hld], a
 	ld a, $01
 	ld [wHiddenFigureDefeatStarted], a
-	play_sfx SFX_0CF
+	play_sfx SFX_HIDDEN_FIGURE_DEFEATED
 	ret
 .asm_4cdf4
 	ld a, [hl]
 	and $3f
 	ret nz
-	play_sfx SFX_0CE
+	play_sfx SFX_HIDDEN_FIGURE_HIT
 	ret
 
 .DefeatedSink:
@@ -423,7 +423,7 @@ HiddenFigureFunc:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and $07
-	play_sfx z, SFX_01F
+	play_sfx z, SFX_RUMBLE
 	inc [hl]
 	dec l
 	ld a, [hl]
@@ -563,7 +563,7 @@ HiddenFigureFaceFunc:
 	jr z, .asm_4cf29
 	ld a, [hl]
 	cp $2c
-	play_sfx z, SFX_0CE
+	play_sfx z, SFX_HIDDEN_FIGURE_HIT
 	jp FlashHiddenFigurePals
 .asm_4cf29
 	xor a
@@ -587,7 +587,7 @@ HiddenFigureFaceFunc:
 	ret z
 	dec [hl]
 	ret nz
-	play_sfx SFX_0CE
+	play_sfx SFX_HIDDEN_FIGURE_HIT
 	ret
 
 .Laugh:
@@ -987,7 +987,7 @@ HiddenFigureLeftHandFunc:
 	ld a, [wCurObjVar3]
 	cp $0a
 	jr nz, .asm_4d194
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, $18
 	jp DoGroundShake
 .asm_4d194
@@ -1049,7 +1049,7 @@ HiddenFigureLeftHandFunc:
 	jr z, .asm_4d225
 	cp $2f
 	jr nz, .asm_4d20f
-	play_sfx SFX_0CD
+	play_sfx SFX_HIDDEN_FIGURE_GRAB
 	ld a, $80
 	jr .asm_4d217
 .asm_4d20f
@@ -1400,7 +1400,7 @@ HiddenFigureRightHandFunc:
 	ld a, [wCurObjVar3]
 	cp $0a
 	jr nz, .asm_4d495
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, $18
 	jp DoGroundShake
 .asm_4d495
@@ -1657,7 +1657,7 @@ HiddenFigureRightHandFunc:
 	jr z, .asm_4d67c
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 .asm_4d67c
 	ld a, e
 	jumptable

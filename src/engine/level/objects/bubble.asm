@@ -33,7 +33,7 @@ BubbleHoleFunc:
 .create_bubble
 	ld a, 208
 	ld [wCurObjStateDuration], a
-	play_sfx SFX_069
+	play_sfx SFX_BUBBLE_SPAWN
 	ld bc, ObjParams_Bubble
 	jp CreateObjectFromCurObjPos
 
@@ -76,7 +76,7 @@ BubbleFunc:
 	ld [hld], a
 	ld a, LOW(.Burst)
 	ld [hld], a
-	play_sfx SFX_072
+	play_sfx SFX_BUBBLE_POP
 	ret
 
 .Burst:

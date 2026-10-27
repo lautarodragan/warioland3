@@ -186,7 +186,7 @@ SwimmingFlippersActionHelp_Step05:
 	ret
 
 SwimmingFlippersActionHelp_Step07:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld a, [wActionHelpCounter]
 	and %11
@@ -205,7 +205,7 @@ SwimmingFlippersActionHelp_Step07:
 	ret
 
 SwimmingFlippersActionHelp_Step08:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -232,7 +232,7 @@ SwimmingFlippersActionHelp_Step08:
 	ret
 
 SwimmingFlippersActionHelp_Step09:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -257,7 +257,7 @@ SwimmingFlippersActionHelp_Step09:
 	ret
 
 SwimmingFlippersActionHelp_Step0A:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -274,7 +274,7 @@ SwimmingFlippersActionHelp_Step0A:
 	ret
 
 SwimmingFlippersActionHelp_Step0B:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -301,7 +301,7 @@ SwimmingFlippersActionHelp_Step0B:
 	ret
 
 SwimmingFlippersActionHelp_Step0D:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
@@ -327,7 +327,7 @@ SwimmingFlippersActionHelp_Step0D:
 	ret
 
 SwimmingFlippersActionHelp_Step0E:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -353,7 +353,7 @@ SwimmingFlippersActionHelp_Step0E:
 	ret
 
 SwimmingFlippersActionHelp_Step0F:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -369,7 +369,7 @@ SwimmingFlippersActionHelp_Step0F:
 	ret
 
 SwimmingFlippersActionHelp_Step10:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wTimer
 	inc [hl]
@@ -386,7 +386,7 @@ SwimmingFlippersActionHelp_Step10:
 	ret
 
 SwimmingFlippersActionHelp_Step11:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -404,7 +404,7 @@ SwimmingFlippersActionHelp_Step11:
 	ret
 
 SwimmingFlippersActionHelp_Step12:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]

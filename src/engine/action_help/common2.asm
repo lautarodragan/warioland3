@@ -785,7 +785,7 @@ ActionHelp_ShowWarioBatLeft:
 	ret
 
 ActionHelp_ShowWarioVampireTransform:
-	play_sfx SFX_045
+	play_sfx SFX_VAMPIRE_TRANSFORM
 
 	ld hl, wActionHelpWarioFramesetOffset
 	xor a

@@ -83,7 +83,7 @@ ScowlerFunc:
 .asm_54572
 	ld a, $5a
 	ld [hl], a
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
 	ret
 
@@ -126,7 +126,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, LOW(.Stunned)
 	ld [hld], a
-	play_sfx SFX_0B3
+	play_sfx SFX_SCOWLER_STUNNED
 	ret
 .shoot_ink
 	ld hl, wCurObjStateDuration
@@ -135,7 +135,7 @@ ScowlerFunc:
 	ld a, [hl]
 	cp $20
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_545f2
@@ -336,7 +336,7 @@ ScowlerFunc:
 	ld a, [wCurObjScreenYPos]
 	cp b
 	jr nc, .asm_54765
-	play_sfx SFX_0B4
+	play_sfx SFX_SCOWLER_STOMPED
 	ld de, ScowlerFrameset_69abc
 	call SetObjectFramesetPtr
 	ld a, $1e
@@ -586,7 +586,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedSink)
 	ld [hld], a
-	play_sfx SFX_0AC
+	play_sfx SFX_SCOWLER_DEFEATED
 	ret
 
 .DefeatedSink:
@@ -797,7 +797,7 @@ ScrowlerTentacleFunc:
 .activated
 	ld a, $5a
 	ld [hl], a
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
 	ret
 
@@ -1076,7 +1076,7 @@ UpdateScowlerInkBlackout:
 	jr WriteScowlerBGPals
 
 .asm_54c44
-	play_sfx SFX_0B6
+	play_sfx SFX_SCOWLER_BLACKOUT
 	ld a, $ff
 	ld [wScowlerBlackoutTimer], a
 	ld c, 5

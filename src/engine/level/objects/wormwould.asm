@@ -138,7 +138,7 @@ WormwouldFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_WORMWOULD
 	ld [hli], a
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 .DoNothing:
@@ -356,7 +356,7 @@ WormwouldFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 30
-	play_sfx z, SFX_0A7
+	play_sfx z, SFX_WORMWOULD_HURT
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
@@ -433,7 +433,7 @@ WormwouldFunc:
 	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
-	play_sfx SFX_0A7
+	play_sfx SFX_WORMWOULD_HURT
 	ret
 
 .Underground:
@@ -523,7 +523,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedFall)
 	ld [hld], a
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 .DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -583,7 +583,7 @@ RollingRockFunc:
 	ld [hld], a
 	ld a, LOW(.Hit)
 	ld [hld], a
-	play_sfx SFX_016
+	play_sfx SFX_THROWN_OBJECT_HIT
 	ret
 
 .Hit:

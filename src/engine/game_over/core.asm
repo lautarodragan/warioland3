@@ -84,7 +84,7 @@ UpdateGameOverScreen:
 	dec [hl]
 	dec [hl]
 	jr nz, .asm_db3a9
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	play_music MUSIC_GOLF_GAME_OVER
 	ld a, 6
 	ld [wTimer], a

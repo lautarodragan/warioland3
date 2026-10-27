@@ -55,7 +55,7 @@ Barrel1Func:
 	jr z, .asm_434b4
 	dec [hl]
 	ret nz
-	play_sfx SFX_086
+	play_sfx SFX_BARREL_JUMP
 	ret
 
 .asm_434b4

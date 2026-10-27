@@ -73,7 +73,7 @@ ChestFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 73
-	play_sfx z, SFX_035
+	play_sfx z, SFX_CHEST_OPEN
 	dec [hl]
 	ret nz
 	ld de, ChestsFrameset_68060

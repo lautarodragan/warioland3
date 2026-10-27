@@ -128,7 +128,7 @@ CountRichtertoffenFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -292,7 +292,7 @@ CountRichtertoffenFunc:
 	ld l, OBJ_VAR_3
 	xor a
 	ld [hld], a
-	play_sfx SFX_066
+	play_sfx SFX_BALL_BOUNCE
 	ret
 
 .Bump:
@@ -422,7 +422,7 @@ CountRichtertoffenFunc:
 	call SetObjectFramesetPtr
 	ld a, 24
 	ld [hli], a ; OBJ_STATE_DURATION
-	play_sfx SFX_075
+	play_sfx SFX_HEAVY_STEP
 	ld b, 24
 	jp DoGroundShake
 

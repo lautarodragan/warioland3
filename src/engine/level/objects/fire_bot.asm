@@ -268,7 +268,7 @@ FireBotFunc:
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	ret z
-	play_sfx SFX_073
+	play_sfx SFX_FLAME
 	ret
 .Special2:
 	ld a, [wGroundShakeCounter]

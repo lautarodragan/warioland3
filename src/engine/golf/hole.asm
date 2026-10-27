@@ -556,10 +556,10 @@ UpdateGolfParaGoom:
 	jr z, .asm_1c8e01
 	cp $14
 	jr nz, .add_sprite
-	play_sfx SFX_00F
+	play_sfx SFX_UNDERWATER_THRUST
 	jr .add_sprite
 .asm_1c8e01
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 .add_sprite
 	ld a, [wGolfParaGoomCurrentFrame]
 	ld [wGolfParaGoomFrame], a
@@ -886,7 +886,7 @@ GolfHoleState_WaitInput:
 	ret
 
 .select_btn
-	play_sfx SFX_0E4
+	play_sfx SFX_PAUSE
 	xor a
 	ld [wGolfObj3Duration], a
 	ld [wGolfObj3FramesetOffset], a
@@ -895,7 +895,7 @@ GolfHoleState_WaitInput:
 	ret
 
 .a_btn
-	play_sfx SFX_0E9
+	play_sfx SFX_MENU_OPEN
 
 	; clear wGolfOverlayText
 	ld hl, wGolfOverlayText
@@ -1146,7 +1146,7 @@ GolfHoleState_SelectShotPower:
 	ld [wShotPowerGaugeCursor], a
 	cp MAX_SHOT_POWER
 	jr c, .check_a_btn
-	play_sfx SFX_0EA
+	play_sfx SFX_MENU_CLOSE
 	ld a, TRUE
 	ld [wIsPowerGaugeFalling], a
 	jr .check_a_btn
@@ -1315,7 +1315,7 @@ GolfHoleState_SelectShotSpin:
 	ld [wSelectedShotPowerGauge], a
 	cp MAX_SHOT_POWER
 	jr c, .check_a_btn
-	play_sfx SFX_0EA
+	play_sfx SFX_MENU_CLOSE
 	ld a, TRUE
 	ld [wIsPowerGaugeFalling], a
 	jr .check_a_btn
@@ -1388,7 +1388,7 @@ GolfHoleState_StartShot:
 
 .ChargeShot:
 	inc [hl]
-	play_sfx SFX_0ED
+	play_sfx SFX_GOLF_CHARGE_SHOT
 	xor a
 	ld [wGolfWarioDuration], a
 	ld [wGolfWarioFramesetOffset], a
@@ -1410,12 +1410,12 @@ GolfHoleState_StartShot:
 	and a
 	jr z, .missed_1 ; SHOT_MISS
 ; hit
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld a, GOLF_WARIO_ATTACKING_1
 	ld [wGolfWarioState], a
 	ret
 .missed_1
-	play_sfx SFX_0E8
+	play_sfx SFX_GOLF_MISS
 	ld a, GOLF_WARIO_MISSING
 	ld [wGolfWarioState], a
 	ld a, $02
@@ -1760,17 +1760,17 @@ UpdateGolfParaGoomYPos:
 	jr z, .bunker
 
 ; rough
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	ret
 
 .bunker
-	play_sfx SFX_065
+	play_sfx SFX_GOLF_BUNKER
 	ld a, GOLF_PARAGOOM_5
 	ld [wGolfParaGoomState], a
 	ret
 
 .hole
-	play_sfx SFX_0EF
+	play_sfx SFX_GOLF_HOLE_IN
 	jr .check_edges
 
 .tee_ob
@@ -1782,7 +1782,7 @@ UpdateGolfParaGoomYPos:
 	play_sfx SFX_SPLASH
 	jr .golf_stroke_penalty
 .ob
-	play_sfx SFX_073
+	play_sfx SFX_FLAME
 	ld a, [wGolfParaGoomLeftTeeBoxBackup]
 	ld [wGolfParaGoomLeftTeeBox], a
 .golf_stroke_penalty
@@ -1914,7 +1914,7 @@ GolfHoleState_SpecialTerrain:
 	jr nz, .asm_1c96ae
 	ld a, [wGolfOverlayTextDuration]
 	cp 1
-	play_sfx z, SFX_0E5
+	play_sfx z, SFX_ERROR
 .asm_1c96ae
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
@@ -2063,7 +2063,7 @@ GolfHoleState_SpecialTerrain:
 	jr nz, .asm_1c97d8
 	ld a, [wGolfOverlayTextDuration]
 	cp 1
-	play_sfx z, SFX_0E5
+	play_sfx z, SFX_ERROR
 .asm_1c97d8
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
@@ -2589,7 +2589,7 @@ GolfHoleState_Cleared:
 	ld a, [wGolfCourseScore]
 	cp [hl]
 	jr nc, .asm_1c9b48
-	play_sfx SFX_0FA
+	play_sfx SFX_SUCCESS
 	ld a, GOLF_WARIO_CLEARED
 	ld [wGolfWarioState], a
 	jr .asm_1c9b4d
@@ -2729,7 +2729,7 @@ GolfHoleState_Pause:
 	ld [wSubState], a
 	ret
 .asm_1c9c40
-	play_sfx SFX_0E7
+	play_sfx SFX_MENU_CANCEL
 	xor a
 	ld [wGolfObj3Duration], a
 	ld [wGolfObj3FramesetOffset], a

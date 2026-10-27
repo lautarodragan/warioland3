@@ -76,7 +76,7 @@ HandFunc:
 	ld a, 41
 	ld [hli], a
 	inc [hl]
-	play_sfx SFX_081
+	play_sfx SFX_HAND_APPEAR
 	ret
 .in_sand
 	ld a, 50

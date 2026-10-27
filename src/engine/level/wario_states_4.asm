@@ -292,7 +292,7 @@ UpdateState_IceSkatinAirborne:
 	jp SetState_IceSkatin
 
 SetState_IceSkatinCrash:
-	play_sfx SFX_02E
+	play_sfx SFX_ICE_SKATIN_CRASH
 
 	ld a, WST_ICE_SKATIN_CRASH
 	ld [wWarioState], a
@@ -798,7 +798,7 @@ UpdateState_HangingRail:
 	ret
 
 SetState_TurningIntoSnowman::
-	play_sfx SFX_047
+	play_sfx SFX_SNOWMAN_TRANSFORM
 
 	ld a, WST_SNOWMAN_START
 	ld [wWarioState], a
@@ -1199,7 +1199,7 @@ UpdateState_SnowmanAirborne:
 .asm_1ecb49
 	ld a, [wFloorTransitionDir]
 	and a
-	play_sfx z, SFX_024
+	play_sfx z, SFX_FAT_LAND
 	ld a, WST_SNOWMAN_LANDING
 	ld [wWarioState], a
 	xor a
@@ -1663,7 +1663,7 @@ UpdateState_SplitKnockedBack:
 	jp TriggerDownwardsFloorTransition
 
 .play_sfx
-	play_sfx SFX_044
+	play_sfx SFX_SPLIT_LAND
 
 	xor a
 	ld [wFrameDuration], a
@@ -1815,7 +1815,7 @@ UpdateState_FanStart:
 	jr nc, .asm_1ed15c
 	ld a, $0c
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .asm_1ed15c
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
@@ -1863,7 +1863,7 @@ UpdateState_FanLifting:
 	jr nc, .asm_1ed1dc
 	ld a, $0c
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .asm_1ed1dc
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
@@ -1917,7 +1917,7 @@ UpdateState_FanTurning:
 	jr nc, .asm_1ed25f
 	ld a, $0c
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .asm_1ed25f
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
@@ -1956,7 +1956,7 @@ UpdateState_FanSpinning:
 	jr nc, .asm_1ed2cf
 	ld a, $0c
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .asm_1ed2cf
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
@@ -2518,7 +2518,7 @@ UpdateState_Launched:
 	jr nc, .asm_1ed812
 	ld a, $86
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_04C
+	play_sfx SFX_LAUNCHED
 .asm_1ed812
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
@@ -2539,7 +2539,7 @@ UpdateState_Launched:
 	ret
 
 .asm_1ed846
-	play_sfx SFX_048
+	play_sfx SFX_LAUNCH_CRASH
 	ld a, WST_LAUCH_CRASH
 	ld [wWarioState], a
 	xor a
@@ -2677,7 +2677,7 @@ UpdateState_MagicRising:
 	jr nc, .skip_sfx
 	ld a, $0c
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .skip_sfx
 
 	ld a, $77
@@ -2872,7 +2872,7 @@ UpdateState_BallBouncing:
 ;	fallthrough
 
 SetState_BallAirborne:
-	play_sfx SFX_066
+	play_sfx SFX_BALL_BOUNCE
 	ld a, JUMP_VEL_KNOCK_BACK
 	ld [wJumpVelTable], a
 
@@ -3084,7 +3084,7 @@ UpdateState_BallThrown:
 
 	ld a, WST_BALL_SENT_UPWARDS
 	ld [wWarioState], a
-	play_sfx SFX_066
+	play_sfx SFX_BALL_BOUNCE
 
 	xor a
 	ld [wSFXLoopCounter], a

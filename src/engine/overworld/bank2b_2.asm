@@ -397,7 +397,7 @@ Prologue_MusicBoxSparkles:
 	ld a, $0e
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	jp AdvancePrologueStep
 
 .Wait10:
@@ -484,7 +484,7 @@ Prologue_WarioEnterCave:
 	ld a, $11
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvancePrologueStep
 
 .WaitEmoteAnimation:
@@ -1010,7 +1010,7 @@ PrologueWakeUp_StandUp:
 	ret c
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jp AdvancePrologueStep
 
 PrologueWakeUp_Wait60:
@@ -1116,7 +1116,7 @@ PrologueLeave_SnapSFX:
 	ld a, [wSceneWarioFrame]
 	cp $0f
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvancePrologueStep
 
 PrologueLeave_WaitLookBack:
@@ -1318,7 +1318,7 @@ Prologue_WarioFallFromPlane:
 	ret c
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
@@ -1423,7 +1423,7 @@ Prologue_WarioWalkToCaveEntrance:
 	ld a, $11
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvancePrologueStep
 
 .WaitEmoteAnimation:
@@ -1553,7 +1553,7 @@ UpdatePlanePart1:
 	dw .End
 
 .land_sfx_and_next:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 
 .next:
 	ld hl, wPlanePart1Counter
@@ -1563,7 +1563,7 @@ UpdatePlanePart1:
 	ld a, [wSceneObj3YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart1Action
 	inc [hl]
 	ret
@@ -1686,7 +1686,7 @@ UpdatePlanePart2:
 	dw .End
 
 .land_sfx_and_next:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .next:
 	ld hl, wPlanePart2Counter
 	jp AdvanceStepAtHL
@@ -1695,7 +1695,7 @@ UpdatePlanePart2:
 	ld a, [wSceneObj4YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart2Action
 	inc [hl]
 	ret
@@ -1769,7 +1769,7 @@ UpdatePlanePart2:
 	ld a, $10
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart2Action
 	inc [hl]
 	ret
@@ -1854,7 +1854,7 @@ UpdatePlanePart3:
 	dw .End
 
 .land_sfx_and_next:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .next:
 	ld hl, wPlanePart3Counter
 	jp AdvanceStepAtHL
@@ -1863,7 +1863,7 @@ UpdatePlanePart3:
 	ld a, [wSceneObj5YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart3Action
 	inc [hl]
 	ret
@@ -1900,7 +1900,7 @@ UpdatePlanePart3:
 	ld a, $10
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart3Action
 	inc [hl]
 	ret
@@ -2008,7 +2008,7 @@ UpdatePlanePart4:
 	dw .End
 
 .land_sfx_and_next:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .next:
 	ld hl, wPlanePart4Counter
 	jp AdvanceStepAtHL
@@ -2017,7 +2017,7 @@ UpdatePlanePart4:
 	ld a, [wSceneObj9YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart4Action
 	inc [hl]
 	ret
@@ -2084,7 +2084,7 @@ UpdatePlanePart4:
 	ld a, $10
 	ld hl, wSceneObj8State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart4Action
 	inc [hl]
 	ret
@@ -3043,7 +3043,7 @@ _UpdateEpilogue:
 	ld a, [wSceneWarioFrame]
 	cp $0b
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp .next_scene_step
 
 .WaitWarioCarryIdle2:
@@ -3155,7 +3155,7 @@ _UpdateEpilogue:
 	ret c
 	ld a, $0c
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jr .asm_af5bc
 
 .WarioFall_Done:

@@ -184,7 +184,7 @@ PrinceFrogsGlovesActionHelp_Step05:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step06:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld a, [wActionHelpCounter]
 	and %11
@@ -204,7 +204,7 @@ PrinceFrogsGlovesActionHelp_Step06:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step07:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -231,7 +231,7 @@ PrinceFrogsGlovesActionHelp_Step07:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step08:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -256,7 +256,7 @@ PrinceFrogsGlovesActionHelp_Step08:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step09:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -272,7 +272,7 @@ PrinceFrogsGlovesActionHelp_Step09:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step0B:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
@@ -295,7 +295,7 @@ PrinceFrogsGlovesActionHelp_Step0B:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step0C:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -312,7 +312,7 @@ PrinceFrogsGlovesActionHelp_Step0C:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step0D:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
@@ -336,7 +336,7 @@ PrinceFrogsGlovesActionHelp_Step0D:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step0E:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -368,7 +368,7 @@ PrinceFrogsGlovesActionHelp_Step0E:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step0F:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -386,7 +386,7 @@ PrinceFrogsGlovesActionHelp_Step0F:
 	ret
 
 PrinceFrogsGlovesActionHelp_Step10:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]

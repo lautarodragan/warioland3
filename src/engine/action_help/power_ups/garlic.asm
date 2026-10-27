@@ -609,7 +609,7 @@ GarlicActionHelp_Step10:
 	cp $50
 	ret nc
 
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	call ActionHelp_ShowCountRichtertoffStun
 	call ActionHelp_ClearDPadInput
 	call ActionHelp_ClearButtonsInput

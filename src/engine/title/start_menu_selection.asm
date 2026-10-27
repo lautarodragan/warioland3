@@ -58,7 +58,7 @@ HandleStartMenuSelection:
 	ld [wStartMenuSelection], a
 
 .play_scrolling_sfx
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	ret
 
 .d_left

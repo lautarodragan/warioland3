@@ -3074,8 +3074,8 @@ LoadCompassSprite:
 	call LoadOWSpriteWithScroll
 	ret
 
-PlaySFX_12A:
-	play_sfx SFX_12A
+PlayStepSFX:
+	play_sfx SFX_STEP
 	ret
 
 UpdateOWWario:
@@ -3087,7 +3087,7 @@ UpdateOWWario:
 	ld hl, wOWWalkSFXCounter
 	ld a, [hl]
 	and a
-	call z, PlaySFX_12A
+	call z, PlayStepSFX
 	inc [hl]
 	ld a, [wOWWarioRunCounter]
 	rlca
@@ -3466,7 +3466,7 @@ UpdateTopBar:
 	ret nz
 
 	; bottom bar was closed
-	play_sfx SFX_0E9
+	play_sfx SFX_MENU_OPEN
 
 	; init top bar flags
 	xor a
@@ -3533,7 +3533,7 @@ UpdateTopBar:
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_SELECT
 	jr z, .done_input
-	play_sfx SFX_0EA
+	play_sfx SFX_MENU_CLOSE
 	ld hl, wOWBarsState
 	inc [hl]
 .done_input
@@ -3749,7 +3749,7 @@ HandleTopBarDPad:
 	call ShowTopBarSelectedButton
 	call LoadTopBarButtonAttributes
 	call ApplyTopBarButtonAttributes
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	scf
 	ret
 
@@ -4777,7 +4777,7 @@ UnlockLevel_ShowArrow1:
 	call ShowLevelArrowInOW
 	ld a, TRUE
 	ld [wHighlightOWTile], a
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 UnlockLevel_HighlightTileAndAdvance:
 	call ApplyHighlightPalToOWTile
 	call PlacePendingOWTiles
@@ -4814,7 +4814,7 @@ UnlockLevel_ShowArrow2:
 	call ShowLevelArrowInOW
 	ld a, $01
 	ld [wHighlightOWTile], a
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 	jp UnlockLevel_HighlightTileAndAdvance
 
 UnlockLevel_ShowLevelPoint:
@@ -4895,7 +4895,7 @@ UnlockLevel_ShowStar:
 	ld [wCurSceneObjXCoord], a
 	ld a, $01
 	ld [wCurSceneObjState], a
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	ret
 
 UnlockLevel_End:
@@ -5047,7 +5047,7 @@ HighlightLevel:
 	ld a, $02
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	jp AdvanceOWFunc_Bank20
 
 .WaitStarDone:

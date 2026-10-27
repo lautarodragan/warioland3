@@ -57,7 +57,7 @@ StoveFunc:
 	ld a, [wCurObjVar1]
 	and a
 	ret z
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, 24
 	jp DoGroundShake
 
@@ -111,7 +111,7 @@ StoveFunc:
 	ld a, [wGlobalCounter]
 	and %111
 	jr nz, .asm_497e8
-	play_sfx SFX_078
+	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
 .asm_497e8
@@ -152,7 +152,7 @@ StoveFunc:
 	ld a, [wGlobalCounter]
 	and %111
 	jr nz, .asm_49833
-	play_sfx SFX_078
+	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
 .asm_49833

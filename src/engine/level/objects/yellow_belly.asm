@@ -45,7 +45,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.IntroFade2)
 	ld [hld], a
-	play_sfx SFX_0CA
+	play_sfx SFX_BOSS_APPEAR
 	ld hl, YellowBellyPals_51c81
 	jr .asm_513f1
 
@@ -219,7 +219,7 @@ YellowBellyBodyFunc:
 	ld a, [hl]
 	cp $2f
 	ret nz
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_514e5
@@ -311,12 +311,12 @@ YellowBellyBodyFunc:
 .asm_51588
 	cp $88
 	jr nz, .asm_51596
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	jr .asm_515a8
 .asm_51596
 	cp $25
 	jr nz, .asm_515ab
-	play_sfx SFX_0A5
+	play_sfx SFX_YELLOW_BELLY_SPAWN_PUMP
 	ld bc, ObjParams_Pump
 	call CreateObjectFromCurObjPos
 .asm_515a8
@@ -653,7 +653,7 @@ YellowBellyBodyFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_0B
 	ld [hli], a
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	stop_music2
 	ret
 
@@ -740,7 +740,7 @@ YellowBellyBodyFunc:
 	jr nz, .asm_51880
 	ld a, [hld]
 	and a
-	play_sfx z, SFX_0AA
+	play_sfx z, SFX_WOLFENBOSS_SMOKE
 .asm_51880
 	ld l, OBJ_FRAMESET_OFFSET
 	ld a, [hld]
@@ -965,7 +965,7 @@ PumpFunc:
 	ld [hli], a
 	xor a
 	ld [wCurObjVar3], a
-	play_sfx SFX_0BA
+	play_sfx SFX_PUMP
 	ret
 
 .asm_51a03

@@ -129,7 +129,7 @@ HammerBotFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -217,7 +217,7 @@ HammerBotFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $0f
-	play_sfx z, SFX_107
+	play_sfx z, SFX_HAMMER_BOT_WALK
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_443dc
@@ -339,7 +339,7 @@ HammerBotFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $1f
-	play_sfx z, SFX_107
+	play_sfx z, SFX_HAMMER_BOT_WALK
 .asm_444a3
 	ld a, [wGroundShakeCounter]
 	cp $10
@@ -781,7 +781,7 @@ HammerBotFunc:
 	ld [wCurObjVar2], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_PRIORITY_F, [hl]
-	play_sfx SFX_049
+	play_sfx SFX_HAMMER_HIT
 	jp CreateObjectAtRelativePos
 
 .State3b:

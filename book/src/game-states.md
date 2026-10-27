@@ -201,7 +201,7 @@ with a transition parameter; anything else goes to `ST_CLEAR`
 (`SST_CLEAR_TIME_ATTACK` in time attack). A non-zero `wMultiBlockParam`
 switches to substate 7 for one frame. START opens the pause menu, except
 when Wario is blind (`TRANSFORMATION_BLIND`) or in a boss battle
-(`wIsBossBattle`); then it plays `SFX_0E5`. Pause and debug menu are only
+(`wIsBossBattle`); then it plays `SFX_ERROR`. Pause and debug menu are only
 checked when no floor or room transition is pending.
 
 ## Leaving and re-entering a level

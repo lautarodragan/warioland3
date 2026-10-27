@@ -255,7 +255,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_501e7
@@ -284,7 +284,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50223
@@ -313,7 +313,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50260
@@ -537,7 +537,7 @@ AnonsterFunc:
 	ret
 
 .asm_503d3
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	ld b, $18
 	jp DoGroundShake
 
@@ -548,7 +548,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $2b
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_503fd
@@ -708,7 +708,7 @@ AnonsterFunc:
 .asm_504ef
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_0AF
+	play_sfx z, SFX_ANONSTER_WALK
 .walk_towards_wario
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -964,7 +964,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedFall)
 	ld [hld], a
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 .DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -1216,7 +1216,7 @@ AnonsterSilkFunc:
 	ld l, OBJ_FLAGS
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	ret
 
 .WaitAndDestroy:
