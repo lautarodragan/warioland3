@@ -10,6 +10,11 @@ Found with throwaway grid searches over these macros, then checked by eye.
 # Wario first.
 GRAB_SPAWNED_OWL = [("right", 12), ("left", 8), ("", 80), ("right+a", 35), ("", 15)]
 
+# The Vast Plain (night), from the start of the level holding the owl: up as
+# high as Wario goes, then right, through the musical coin at the top of the
+# start room.
+VAST_PLAIN_TO_TOP_COIN = [("up", 200), ("right", 100)]
+
 # Starts holding the owl: a short flight, one way and the other.
 SHORT_FLIGHT = [("up", 60), ("right", 60), ("left", 90), ("down", 30), ("", 30)]
 

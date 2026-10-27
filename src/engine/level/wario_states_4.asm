@@ -672,10 +672,11 @@ UpdateState_OwlFast:
 	call MoveWarioDown
 	ret
 
-; The room's top edge is a ceiling for the owl Owl Wario holds: the camera
-; stops there (ScrollCameraUp), so any higher and the owl would leave the
-; screen. That never happens with real owls, whose rooms have lower
-; ceilings, but the debug menu's can be anywhere.
+; The room's top edge is a ceiling for Owl Wario: real owls only fly in rooms
+; with ceilings of their own, but the debug menu's can be anywhere, and with
+; nothing above him he'd fly out of the top of the level. It stops Wario's
+; body, not the owl he holds: the owl can go above the screen (the camera
+; stops at the room's top), so he still reaches anything at the very top.
 ; output:
 ; - b = 1 if he can't go any higher, unchanged otherwise
 OwlWarioRoomTopCollision:
@@ -687,9 +688,9 @@ OwlWarioRoomTopCollision:
 	jr z, .got_top
 	ld l, CAMERA_BORDER_UPPER_H
 .got_top
-	; his feet can go up to OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN below the
-	; top, and he moves up to 2 pixels at a time
-	ld de, OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN + 2
+	; his feet can go up to OWL_WARIO_BODY_HEIGHT below the top, and he
+	; moves up to 2 pixels at a time
+	ld de, OWL_WARIO_BODY_HEIGHT + 2
 	add hl, de
 	ld a, [wWarioYPos + 1]
 	sub l

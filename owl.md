@@ -300,10 +300,15 @@ worked everywhere; these didn't:
   transitions put it for his floor ($18 pixels above the floor's top,
   stopping at the room's edges) and the flag clears, so the original
   game, where it's never set, isn't affected. A new room clears it too.
-  The camera stops at the room's top edge, though, so that's now a ceiling
-  for the owl (`OwlWarioRoomTopCollision`, wario_states_4.asm): Owl Wario
-  can't fly up any further than where the owl still shows. Real owls never
-  get that high (their tests didn't change).
+  The room's top edge is also a ceiling for Owl Wario
+  (`OwlWarioRoomTopCollision`, wario_states_4.asm): real owls only fly in
+  rooms with ceilings of their own, but in The Vast Plain's start room, with
+  nothing above him, he flew out of the top of the level. It stops Wario's
+  body (`OWL_WARIO_BODY_HEIGHT`), not the owl: the camera can't go above the
+  room, so near the top the owl he holds is above the screen. A first
+  version stopped him where the owl still showed, but then he couldn't
+  reach the musical coin in that room's top row
+  (`test_debug_owl_reaches_the_top_of_the_room`).
 
   Vampire Wario's bat had the same problem (an old known bug of the debug
   menu's FORM): bats only fly in free camera rooms in the original game, so

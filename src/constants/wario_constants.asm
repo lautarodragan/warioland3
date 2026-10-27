@@ -395,5 +395,7 @@ DEF WARIO_STATES_GROUP_3 EQU const_value
 
 ; Owl Wario, from his feet to the top of the owl he holds
 DEF OWL_WARIO_HEIGHT EQU 60
+; Owl Wario without the owl, from his feet to the top of his head
+DEF OWL_WARIO_BODY_HEIGHT EQU 32
 ; pixels the debug owl's camera keeps between Owl Wario and the screen edges
 DEF OWL_CAMERA_MARGIN EQU 8

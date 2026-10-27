@@ -16,6 +16,7 @@ from routes.debug_owl import (
     STEEP_CANYON_FLY_INTO_THE_WATER,
     STEEP_CANYON_GRAB_FROM_THE_WATER,
     STEEP_CANYON_INTO_THE_WATER,
+    VAST_PLAIN_TO_TOP_COIN,
 )
 from test_owl import (
     CURSOR_OWL,
@@ -35,6 +36,7 @@ from test_owl_cases import NUM_OBJECTS, TRANSFORMATION_NONE, WST_RELEASING_OWL, 
 # src/constants/level_constants.asm
 OUT_OF_THE_WOODS_DAY_1 = 0x00
 THE_POOL_OF_RAIN_DAY_1 = 0x40
+THE_VAST_PLAIN_NIGHT_1 = 0x14
 BENEATH_THE_WAVES_DAY_1 = 0x50
 THE_GRASSLANDS_DAY_1 = 0x60
 ABOVE_THE_CLOUDS_DAY_1 = 0x88
@@ -50,6 +52,7 @@ CURSOR_POWER = 1
 SCREEN_HEIGHT = 144
 OAM_Y_OFS = 16  # wWarioScreenYPos is in OAM coordinates
 OWL_WARIO_HEIGHT = 60  # from his feet to the top of the owl
+OWL_WARIO_BODY_HEIGHT = 32  # without the owl
 
 
 def spawn_and_close(game):
@@ -124,9 +127,16 @@ def test_debug_owl_at_night_without_owl(game, golden):
 
 
 def owl_wario_on_screen(game):
-    """Owl Wario and the owl he holds are all on screen."""
+    """Owl Wario is on screen, and the owl he holds too unless the camera is
+    at the room's top edge (it can't go higher, so the owl can be above it
+    while Wario reaches what's at the very top)."""
     feet = game.read("wWarioScreenYPos") - OAM_Y_OFS
-    return OWL_WARIO_HEIGHT <= feet <= SCREEN_HEIGHT
+    if not OWL_WARIO_BODY_HEIGHT <= feet <= SCREEN_HEIGHT:
+        return False
+    bank, addr = game.pb.symbol_lookup("wCameraSCY")
+    camera_y = game.pb.memory[addr] << 8 | game.pb.memory[addr + 1]
+    at_room_top = camera_y <= game.read("wRoomUpperYLimit") << 8
+    return at_room_top or feet >= OWL_WARIO_HEIGHT
 
 
 def test_debug_owl_floor_transitions(game, golden):
@@ -155,10 +165,10 @@ def test_debug_owl_floor_transitions(game, golden):
     assert game.read("wFloor") == 2
     golden("any_level_floor_up", game.screenshot())
 
-    # As high as he goes: the room's top edge, where the camera stops, is a
-    # ceiling for the owl. Across and back, and down to the ground.
+    # As high as he goes: the room's ceiling. Across and back, and down to
+    # the ground.
     game.play([("up", 120), ("right", 150), ("left", 150)], on_frame=visible)
-    assert game.wario_block() == (36, 3)
+    assert game.wario_block() == (34, 3)
     game.play([("down", 200)], on_frame=visible)
     assert game.read("wFloor") == 1
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
@@ -169,6 +179,30 @@ def test_debug_owl_floor_transitions(game, golden):
     assert game.read("wTransformation") == TRANSFORMATION_NONE
     assert game.read("wOwlCameraDisplaced") == 0
     assert game.read("wSCY") == floor_1_scy
+
+
+def test_debug_owl_reaches_the_top_of_the_room(game, golden):
+    # The Vast Plain's start room has a musical coin in its top row and no
+    # ceiling above it but the top of the level. Owl Wario has to reach it,
+    # and not fly out of the level: the room's top edge stops his body, while
+    # the owl he holds can go above the screen (the camera stops there).
+    game.new_game_to_overworld()
+    game.enter_level(THE_VAST_PLAIN_NIGHT_1)
+    spawn_and_close(game)
+    in_bounds = never_in_solid_blocks(game)
+    game.play(GRAB_SPAWNED_OWL, on_frame=in_bounds)
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    assert game.read("wNumMusicalCoins") == 0
+
+    def visible():
+        in_bounds()
+        assert owl_wario_on_screen(game), game.wario_pos()
+
+    game.play(VAST_PLAIN_TO_TOP_COIN, on_frame=visible)
+    assert game.read("wNumMusicalCoins") == 1
+    assert game.wario_block()[0] == 2  # feet two blocks below the top
+    assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
+    golden("any_level_top_of_room_coin", game.screenshot())
 
 
 def test_debug_owl_in_and_out_of_water(game, golden):
