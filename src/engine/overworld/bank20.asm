@@ -14,7 +14,7 @@ UpdateEpilogue:
 	farcall _UpdateEpilogue
 	ret
 
-Func_80e85:
+SaveGameAfterEpilogue:
 	call SaveGameOnReturnFromLevel
 	ret
 
@@ -50,7 +50,7 @@ HandleMapSide:
 	dw MapSide_TempleHint
 
 MapSide_Init:
-	call Func_8212c
+	call PlaceOWWarioAtCurLevel
 	call GetOWAllowedDPadInput
 	ld a, [wMapSideLevelID]
 	ld [wLevel2], a
@@ -90,7 +90,7 @@ MapSide_DayNightTransition:
 MapSide_ArriveAtLevel:
 	xor a
 	ld [wMagnifyingGlassCounter], a
-	call Func_8212c
+	call PlaceOWWarioAtCurLevel
 	call GetOWAllowedDPadInput
 	ld c, $00
 	ld b, $00
@@ -823,7 +823,7 @@ Func_8143d:
 	ld a, [wOWLevelXCoord]
 	ld [wOWXCoord1], a
 	ld [wOWWarioXCoord], a
-	call .Func_8146f
+	call .RunTracerStep
 	ld hl, wOWWarioSavedYCoord
 	ld a, [hli] ; wOWWarioSavedYCoord
 	ld [wOWYCoord1], a
@@ -833,7 +833,7 @@ Func_8143d:
 	ld [wOWWarioXCoord], a
 	ret
 
-.Func_8146f:
+.RunTracerStep:
 	ld a, [wPathPreviewState]
 	jumptable
 	dw PathPreview_InitTracers
@@ -920,19 +920,19 @@ PathPreview_InitTracers:
 PathPreview_RunTracers:
 	ld a, $00
 	call .load_tracer
-	call .Func_81615
+	call .UpdateTracer
 	call .save_tracer
 	ld a, $01
 	call .load_tracer
-	call .Func_81615
+	call .UpdateTracer
 	call .save_tracer
 	ld a, $02
 	call .load_tracer
-	call .Func_81615
+	call .UpdateTracer
 	call .save_tracer
 	ld a, $03
 	call .load_tracer
-	call .Func_81615
+	call .UpdateTracer
 	call .save_tracer
 
 	ld a, [wPathPreviewCounter]
@@ -1053,17 +1053,17 @@ PathPreview_RunTracers:
 	ld [hl], a
 	ret
 
-.Func_81615:
+.UpdateTracer:
 	ld a, [wCurOWPathTracer + $7]
 	jumptable
-	dw .Func_81625 ; $0
-	dw .Func_8167f ; $1
-	dw .Func_816b3 ; $2
-	dw .Func_816be ; $3
-	dw .Func_816ea ; $4
-	dw .Func_816f5 ; $5
+	dw .TracerInit ; $0
+	dw .TracerGetTarget ; $1
+	dw .TracerStartLine ; $2
+	dw .TracerWalk ; $3
+	dw .TracerWait8 ; $4
+	dw .TracerDone ; $5
 
-.Func_81625:
+.TracerInit:
 	ld a, [wOWWarioYCoord]
 	ld d, a
 	ld a, [wOWWarioXCoord]
@@ -1115,12 +1115,12 @@ PathPreview_RunTracers:
 	ld a, c
 .asm_81679
 	ld [hl], a
-.asm_8167a
+.next_tracer_state
 	ld hl, wCurOWPathTracer + $7
 	inc [hl]
 	ret
 
-.Func_8167f:
+.TracerGetTarget:
 	ld a, [wCurOWPathTracer + $6]
 	and a
 	jr z, .asm_816ad
@@ -1145,19 +1145,19 @@ PathPreview_RunTracers:
 	ld [wOWPathTargetYCoord], a
 	ld a, [hl]
 	ld [wOWPathTargetXCoord], a
-	jr .asm_8167a
+	jr .next_tracer_state
 .asm_816ad
 	ld a, $05
 	ld [wCurOWPathTracer + $7], a
 	ret
 
-.Func_816b3:
+.TracerStartLine:
 	ld bc, wOWPathShape
 	call SetNextPathWaypoint
 	call InitOWLineMovement
-	jr .asm_8167a
+	jr .next_tracer_state
 
-.Func_816be:
+.TracerWalk:
 	call StepOWLineMovement
 	ld a, [wOWYCoord1]
 	ld [wCurOWPathTracer + $0], a
@@ -1171,25 +1171,25 @@ PathPreview_RunTracers:
 	cp $ff
 	jr z, .asm_816e3
 	call InitOWLineMovement
-	call .Func_816f6
+	call .set_tracer_sprite
 	ret
 .asm_816e3
 	xor a
 	ld [wCurOWPathTracer + $8], a
-	jp .asm_8167a
+	jp .next_tracer_state
 
-.Func_816ea:
+.TracerWait8:
 	ld hl, wCurOWPathTracer + $8
 	inc [hl]
 	ld a, [hl]
 	cp $08
 	ret c
-	jp .asm_8167a
+	jp .next_tracer_state
 
-.Func_816f5:
+.TracerDone:
 	ret
 
-.Func_816f6:
+.set_tracer_sprite:
 	ld hl, wOWLineFlags
 	bit 0, [hl]
 	jr nz, .asm_81705
@@ -1213,32 +1213,32 @@ PathPreview_RunTracers:
 
 UpdatePathPreviewAnimations:
 	ld hl, wDayNightTransistionSteps
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wPalFade1Colour1BlueUnk3
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wPalFade1Colour3RedUnk3
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wPalFade1Colour4GreenUnk3
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wOWUIObj1State
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wOWUIObj2State
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, wd156
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, w2d15e
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, w2d166
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, w2d16e
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, w2d176
-	call .Func_8175d
+	call .animate_and_draw
 	ld hl, w2d17e
-	call .Func_8175d
+	call .animate_and_draw
 	ret
 
-.Func_8175d:
+.animate_and_draw:
 	ld a, [hld]
 	and a
 	ret z
@@ -1299,7 +1299,7 @@ SetCutsceneButtonSelectable_GotTransitionParam:
 	ret
 
 ; unreferenced
-Func_817b1:
+UnreferencedSetLastEventCutsceneSelectable:
 	ld a, [wGameModeFlags]
 	bit MODE_GAME_CLEARED_F, a
 	ret nz
@@ -1646,7 +1646,7 @@ CheckIfEventIsUnlocked:
 
 ; input:
 ; - a = EVENT_* constant
-Func_819c6:
+IsEventAlreadyUnlocked:
 	call CheckIfEventIsUnlocked
 	and c
 	ret
@@ -2801,7 +2801,7 @@ DrawUnlockedLevels:
 	call GetUnlockedOWLevelData
 	call GetUnlockedLevelArrows
 .loop
-	call .Func_81e88
+	call .draw_connection
 	ld hl, wLevelArrowIndex
 	inc [hl]
 	ld a, [wNumLevelArrows1]
@@ -2818,7 +2818,7 @@ DrawUnlockedLevels:
 	ld [wOWPathShape], a
 	ret
 
-.Func_81e88:
+.draw_connection:
 	call IsLeftExitOrJunction
 	jr z, .second_connection
 	ld a, [wLevelArrowDirections1]
@@ -2893,7 +2893,7 @@ DrawUnlockedLevels:
 	ld [wHighlightOWTile], a
 	ret
 
-Func_81f21:
+PlacePendingOWTiles:
 	ld a, [wHighlightOWTile]
 	and a
 	jr z, .skip
@@ -3227,7 +3227,7 @@ GetCurLevelPathsPtr:
 	call GetCthWordFromAthTable
 	ret
 
-Func_8212c:
+PlaceOWWarioAtCurLevel:
 	ld a, [wMapSideLevelID]
 	ld [wLevel1], a
 	call GetMapLevelCoords
@@ -3395,18 +3395,18 @@ StepOWLineMovement:
 	add [hl]
 	ld [hl], a
 	cp d
-	call nc, .Func_82224
-	call .Func_8222f
+	call nc, .step_minor_axis
+	call .step_major_axis
 	ret
 
-.Func_82224:
+.step_minor_axis:
 	sub d
 	ld [hl], a
 	ld a, [wOWLineFlags]
 	and $1
 	xor $1
 	jr .asm_82234
-.Func_8222f:
+.step_major_axis:
 	ld a, [wOWLineFlags]
 	and $1
 .asm_82234
@@ -3829,117 +3829,117 @@ ShowTopBarSelectedButton:
 	db $60, $05 ; Night Spell
 
 DrawTopBar:
-	call Func_824f1
-	call Func_8250a
+	call DrawTopBarSelectionSprite
+	call DrawTopBarNextMapSprite
 	ret
 
-Func_824f1:
+DrawTopBarSelectionSprite:
 	xor a
 	ld [wOWAnimationFinished], a
 	ld a, [wOWUIObj1State]
 	ld hl, wOWUIObj1Duration
-	call Func_82521
+	call AnimateTopBarSprite
 	ld b, BANK(OAM_a9fe2)
 	ld de, OAM_a9fe2
 	ld hl, wOWUIObj1
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_8250a:
+DrawTopBarNextMapSprite:
 	ld a, [wOWUIObj2State]
 	and a
 	ret z
 	ld hl, wOWUIObj2Duration
-	call Func_82521
+	call AnimateTopBarSprite
 	ld b, BANK(OAM_a9fe2)
 	ld de, OAM_a9fe2
 	ld hl, wOWUIObj2
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_82521:
+AnimateTopBarSprite:
 	push hl
 	jumptable
 
-	dw .Func_82541
-	dw .Func_82543
-	dw .Func_82548
-	dw .Func_8254d
-	dw .Func_82552
-	dw .Func_82557
-	dw .Func_8255c
-	dw .Func_82567
-	dw .Func_8256c
-	dw .Func_82577
-	dw .Func_8257c
-	dw .Func_82581
-	dw .Func_82586
-	dw .Func_8258b
-	dw .Func_82590
+	dw .None
+	dw .Collection
+	dw .CollectionPressed
+	dw .Cutscene
+	dw .CutscenePressed
+	dw .NightSpell
+	dw .NightSpellPressed
+	dw .DaySpell
+	dw .DaySpellPressed
+	dw .PrevMap
+	dw .PrevMapPressed
+	dw .NextMapIndicator
+	dw .NextMapIndicatorFlash
+	dw .NextMap
+	dw .NextMapPressed
 
-.Func_82541:
+.None:
 	pop hl
 	ret
 
-.Func_82543:
+.Collection:
 	ld de, Frameset_aa091
 	jr .UpdateAnimation_PopHL
 
-.Func_82548:
+.CollectionPressed:
 	ld de, Frameset_aa094
 	jr .UpdateAnimation_PopHL
 
-.Func_8254d:
+.Cutscene:
 	ld de, Frameset_aa097
 	jr .UpdateAnimation_PopHL
 
-.Func_82552:
+.CutscenePressed:
 	ld de, Frameset_aa09a
 	jr .UpdateAnimation_PopHL
 
-.Func_82557:
+.NightSpell:
 	ld de, Frameset_aa09d
 	jr .UpdateAnimation_PopHL
 
-.Func_8255c:
+.NightSpellPressed:
 	ld de, Frameset_aa0bc
 	pop hl
 	call .UpdateAnimation
 	ld b, $07
-	jr .Func_8259a
+	jr .set_state_if_finished
 
-.Func_82567:
+.DaySpell:
 	ld de, Frameset_aa0a3
 	jr .UpdateAnimation_PopHL
 
-.Func_8256c:
+.DaySpellPressed:
 	ld de, Frameset_aa0c1
 	pop hl
 	call .UpdateAnimation
 	ld b, $05
-	jr .Func_8259a
+	jr .set_state_if_finished
 
-.Func_82577:
+.PrevMap:
 	ld de, Frameset_aa0a9
 	jr .UpdateAnimation_PopHL
 
-.Func_8257c:
+.PrevMapPressed:
 	ld de, Frameset_aa0ae
 	jr .UpdateAnimation_PopHL
 
-.Func_82581:
+.NextMapIndicator:
 	ld de, Frameset_aa0b1
 	jr .UpdateAnimation_PopHL
 
-.Func_82586:
+.NextMapIndicatorFlash:
 	ld de, Frameset_aa0c6
 	jr .UpdateAnimation_PopHL
 
-.Func_8258b:
+.NextMap:
 	ld de, Frameset_aa0b4
 	jr .UpdateAnimation_PopHL
 
-.Func_82590:
+.NextMapPressed:
 	ld de, Frameset_aa0b9
 ;	fallthrough
 
@@ -3951,7 +3951,7 @@ Func_82521:
 	call UpdateOWAnimation
 	ret
 
-.Func_8259a:
+.set_state_if_finished:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
@@ -3965,7 +3965,7 @@ Func_82521:
 	inc e
 	ld a, b
 	ld [de], a
-	call Func_82521
+	call AnimateTopBarSprite
 	ret
 
 ; waits for A button, then executes
@@ -4061,8 +4061,8 @@ HandleTopBarSelection:
 	ret
 
 .ApplyPressedButtonAttrs:
-	ld hl, Data_826ee
-	call Func_8269f
+	ld hl, TopBarButton_Pressed
+	call WriteTopBarButton
 	call ApplyTopBarButtonAttributes
 	ret
 
@@ -4071,17 +4071,17 @@ LoadTopBarButtonAttributes:
 	ld b, a
 
 	; Day/Night Spell
-	ld hl, Data_826c6
+	ld hl, TopBarButton_DayNight
 	debgcoord 11, 19, wAttrmap
 	call .LoadSelectableAttrs
 
 	; Cutscene
-	ld hl, Data_826ce
+	ld hl, TopBarButton_Cutscene
 	debgcoord 9, 19, wAttrmap
 	call .LoadSelectableAttrs
 
 	; Collection
-	ld hl, Data_826d6
+	ld hl, TopBarButton_Collection
 	debgcoord 7, 19, wAttrmap
 	call .LoadSelectableAttrs
 
@@ -4089,17 +4089,17 @@ LoadTopBarButtonAttributes:
 	ld b, a
 
 	; Day/Night Spell
-	ld hl, Data_826de
+	ld hl, TopBarButton_Selected
 	debgcoord 11, 19, wAttrmap
 	call .LoadSelectedAttrs
 
 	; Cutscene
-	ld hl, Data_826de
+	ld hl, TopBarButton_Selected
 	debgcoord 9, 19, wAttrmap
 	call .LoadSelectedAttrs
 
 	; Collection
-	ld hl, Data_826e6
+	ld hl, TopBarButton_CollectionSelected
 	debgcoord 7, 19, wAttrmap
 	call .LoadSelectedAttrs ; can be fallthrough
 	ret
@@ -4107,15 +4107,15 @@ LoadTopBarButtonAttributes:
 .LoadSelectedAttrs:
 	srl b
 	ret nc
-	jr Func_8269f
+	jr WriteTopBarButton
 
 .LoadSelectableAttrs:
 	srl b
-	jr c, Func_8269f
-	ld hl, Data_826be ; non-selectable
+	jr c, WriteTopBarButton
+	ld hl, TopBarButton_Unselectable ; non-selectable
 ;	fallthrough
 
-Func_8269f:
+WriteTopBarButton:
 ; loops twice, once for de + (2 * TILEMAP_WIDTH)
 ; and then for the original de
 	push de
@@ -4146,31 +4146,31 @@ Func_8269f:
 	pop de
 	jr .loop
 
-Data_826be:
+TopBarButton_Unselectable:
 	db $3c, $3c, $3d, $3d
 	db $0f, $2f, $0f, $2f
 
-Data_826c6:
+TopBarButton_DayNight:
 	db $3e, $3e, $3f, $3f
 	db $0f, $2f, $0f, $2f
 
-Data_826ce:
+TopBarButton_Cutscene:
 	db $3a, $3a, $3b, $3b
 	db $0f, $2f, $0f, $2f
 
-Data_826d6:
+TopBarButton_Collection:
 	db $38, $38, $39, $39
 	db $0f, $2f, $0f, $2f
 
-Data_826de:
+TopBarButton_Selected:
 	db $34, $35, $36, $37
 	db $0f, $0f, $0f, $0f
 
-Data_826e6:
+TopBarButton_CollectionSelected:
 	db $30, $31, $32, $33
 	db $0f, $0f, $0f, $0f
 
-Data_826ee:
+TopBarButton_Pressed:
 	db $48, $49, $4a, $4b
 	db $0f, $0f, $0f, $0f
 
@@ -4779,7 +4779,7 @@ UnlockLevel_ShowArrow1:
 	play_sfx SFX_103
 UnlockLevel_HighlightTileAndAdvance:
 	call ApplyHighlightPalToOWTile
-	call Func_81f21
+	call PlacePendingOWTiles
 	jr Func_82a8d
 
 ; return z if 1st connected level is left exit
@@ -4983,23 +4983,23 @@ HighlightLevel:
 	inc [hl]
 	ld a, [wOWFuncStep]
 	jumptable
-	dw .Func_82c55
-	dw .Func_82c8f
+	dw .Init
+	dw .Wait12
 	dw OWScene_FadeToGrey
 	dw OWScene_Wait20
 	dw OWScene_LoadLevelName
 	dw OWScene_FadeInLevelName
 	dw OWScene_LoadStarIndicatorPals
-	dw .Func_82c93
-	dw .Func_82cb0
-	dw .Func_82c51
+	dw .ShowStar
+	dw .WaitStarDone
+	dw .Wait30
 	dw Func_82c29
 
-.Func_82c51:
+.Wait30:
 	ld a, 30
 	jr Func_82c1d
 
-.Func_82c55:
+.Init:
 	ld a, [wCurMapSide]
 	sub 1
 	ccf
@@ -5032,11 +5032,11 @@ HighlightLevel:
 	jr nz, .asm_82c6e
 	jr Func_82c29
 
-.Func_82c8f:
+.Wait12:
 	ld a, 12
 	jr Func_82c1d
 
-.Func_82c93:
+.ShowStar:
 	ld a, [wLevel2]
 	ld c, a
 	ld de, wCurSceneObj
@@ -5047,7 +5047,7 @@ HighlightLevel:
 	play_sfx SFX_104
 	jp Func_82c22
 
-.Func_82cb0:
+.WaitStarDone:
 	ld a, [wCurSceneObjState]
 	and a
 	ret nz

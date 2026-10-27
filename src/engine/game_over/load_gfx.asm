@@ -55,10 +55,10 @@ LoadGameOverPals:
 	ld hl, Pals_db549
 	call LoadPalsToTempPals2
 
-	ld hl, Pals_86ad5
+	ld hl, SceneWarioPal
 	ld de, wTempPals2 palette 0
 	ld b, 1 palettes
-	farcall BANK(Pals_86ad5), CopyHLToDE_Short
+	farcall BANK(SceneWarioPal), CopyHLToDE_Short
 	ret
 
 LoadGameOverGfx:

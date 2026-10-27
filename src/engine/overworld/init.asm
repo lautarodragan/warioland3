@@ -281,27 +281,27 @@ InitNorthMapSide:
 	ld hl, OverworldNorthAttrmap
 	ld e, BANK(OverworldNorthAttrmap)
 	call LoadBGMapsToWRAM
-	jp Func_8065e
+	jp InitMapSideCommon
 
 InitWestMapSide:
 	call LoadMapSidePals
 	call LoadOverworld2Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldArrowsGfx
-	call Func_80ae7
-	jp Func_8065e
+	call LoadWestOWBGMaps
+	jp InitMapSideCommon
 
 InitSouthMapSide:
 	call LoadMapSidePals
 	call LoadOverworld5Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldArrowsGfx
-	call Func_80af5
-	jp Func_8065e
+	call LoadSouthOWBGMaps
+	jp InitMapSideCommon
 
 InitEastMapSide:
 	ld a, EVENT_SUMMON_SUN
-	call Func_819c6
+	call IsEventAlreadyUnlocked
 	ld [wGotSunMedallion], a
 	ld a, [wGotSunMedallion] ; unnecessary
 	and a
@@ -314,21 +314,21 @@ InitEastMapSide:
 .got_medallion
 	ld a, [wTransitionParam]
 	cp KEY_CARD_BLUE
-	call z, .Func_80655
+	call z, .check_red_key_card
 	call LoadMapSidePals
 	call LoadOverworld6Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldArrowsGfx
-	call Func_80b1b
-	jp Func_8065e
+	call LoadEastOWBGMaps
+	jp InitMapSideCommon
 
-.Func_80655:
+.check_red_key_card:
 	ld a, KEY_CARD_RED
 	call IsTreasureCollected
 	jp z, SetStoredTransitionParamAsReturnToMap
 	ret
 
-Func_8065e:
+InitMapSideCommon:
 	ld a, [wGameModeFlags]
 	ld c, a
 	and MODE_GAME_CLEARED
@@ -337,7 +337,7 @@ Func_8065e:
 	xor a
 .asm_80669
 	ld [wMissingTreasureIndicatorsEnabled], a
-	call Func_80b54
+	call InitOWAnimations
 
 	decompress_tilemap OverworldTopBarTilemap, v0BGMap0, 29
 	decompress_attrmap OverworldTopBarAttrmap, v1BGMap0, 29
@@ -359,10 +359,10 @@ Func_8065e:
 	ld a, [wCurMapSide] ; a gets overwritten
 	call InitOWScenesForMapSide
 	call ShowMissingTreasureIndicators
-	call Func_80bd9
+	call ClearBGPriorityBottomLeft
 	call WriteBGMapFromWRAM
 
-	call Func_8212c
+	call PlaceOWWarioAtCurLevel
 	ld a, [wMapSideLevelID]
 	ld [wLevel2], a
 	ld [wTargetMapSideLevelID], a
@@ -492,8 +492,8 @@ InitMapSideForScene_North:
 	call LoadBGMapsToWRAM
 ;	fallthrough
 
-Func_8086f:
-	call Func_80b54
+InitMapSideForSceneCommon:
+	call InitOWAnimations
 
 	ld a, [wCurMapSide] ; a gets overwritten
 	call InitOWScenesForMapSide
@@ -577,8 +577,8 @@ InitMapSideForScene_West:
 	call LoadOverworld2Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldGlowGfx
-	call Func_80ae7
-	jp Func_8086f
+	call LoadWestOWBGMaps
+	jp InitMapSideForSceneCommon
 
 InitMapSideForScene_South:
 	ld a, [wCurEvent]
@@ -591,12 +591,12 @@ InitMapSideForScene_South:
 	call LoadOverworld5Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldGlowGfx
-	call Func_80af5
-	jp Func_8086f
+	call LoadSouthOWBGMaps
+	jp InitMapSideForSceneCommon
 
 InitMapSideForScene_East:
 	ld a, EVENT_SUMMON_SUN
-	call Func_819c6
+	call IsEventAlreadyUnlocked
 	ld [wGotSunMedallion], a
 	ld a, [wGotSunMedallion] ; unnecessary
 	and a
@@ -608,8 +608,8 @@ InitMapSideForScene_East:
 	call LoadOverworld6Gfx
 	call LoadOverworldCommonGfx
 	call LoadOverworldGlowGfx
-	call Func_80b1b
-	jp Func_8086f
+	call LoadEastOWBGMaps
+	jp InitMapSideForSceneCommon
 
 LoadBGMapsToWRAM:
 	push bc
@@ -692,7 +692,7 @@ LoadPalsForOWScene:
 	ld [wOWExitUnlocked], a
 	ret
 
-Func_80ae7:
+LoadWestOWBGMaps:
 	ld bc, OverworldWestTilemap
 	ld d, BANK(OverworldWestTilemap)
 	ld hl, OverworldWestAttrmap
@@ -700,20 +700,20 @@ Func_80ae7:
 	call LoadBGMapsToWRAM
 	ret
 
-Func_80af5:
+LoadSouthOWBGMaps:
 	ld bc, OverworldSouthTilemap
 	ld d, BANK(OverworldSouthTilemap)
 	ld hl, OverworldSouthAttrmap
 	ld e, BANK(OverworldSouthAttrmap)
 	call LoadBGMapsToWRAM
 	ld a, EVENT_REVEAL_CASTLE
-	call Func_819c6
+	call IsEventAlreadyUnlocked
 	ret z
-	ld hl, Data_8561f
+	ld hl, SOWTilemapPatch_RevealCastle
 	farcall _ApplyOWTilemapPatches
 	ret
 
-Func_80b1b:
+LoadEastOWBGMaps:
 	ld bc, OverworldEastTilemap
 	ld d, BANK(OverworldEastTilemap)
 	ld hl, OverworldEastAttrmap
@@ -745,7 +745,7 @@ WriteBGMapFromWRAM:
 	ldh [rVBK], a
 	ret
 
-Func_80b54:
+InitOWAnimations:
 	ld a, $1e
 	ld [w2d032], a
 	ld a, $04
@@ -804,7 +804,7 @@ LoadCloudAndSeaGfx:
 	farcall _LoadCloudAndSeaGfx
 	ret
 
-Func_80bd9:
+ClearBGPriorityBottomLeft:
 	hlbgcoord 0, 14, wAttrmap
 	res B_BG_PRIO, [hl]
 

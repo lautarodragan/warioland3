@@ -52,7 +52,7 @@ DayNightTransition:
 	inc [hl] ; wOWPalTransitionState
 	ret
 
-.Func_84a8e: ; unreferenced
+.UnreferencedWait4: ; unreferenced
 	ld a, [wOWPalTransitionCounter]
 	cp $04
 	ret c
@@ -233,27 +233,27 @@ DaytimeTransition:
 	inc [hl]
 	ld a, [wOWPalTransitionState]
 	jumptable
-	dw .Func_84bad
-	dw .Func_84bb6
-	dw .Func_84bbf
-	dw .Func_84bcd
-	dw .Func_84bd6
-	dw .Func_84be7
-	dw .Func_84bf6
+	dw .Init
+	dw .Wait4
+	dw .Fade1
+	dw .Wait6
+	dw .LoadPal1
+	dw .Fade2
+	dw .End
 
-.Func_84bad:
+.Init:
 	call DayNightTransition.LoadBaseAndTargetPals
 	ld a, $03
 	ld [wOWPalTransitionDelay], a
 	ret
 
-.Func_84bb6:
+.Wait4:
 	ld a, [wOWPalTransitionCounter]
 	cp $04
 	ret c
 	jp DayNightTransition.AdvanceTable
 
-.Func_84bbf:
+.Fade1:
 	call DayNightTransition.FadeColours
 	ld a, [wDayNightTransistionSteps]
 	cp $0a
@@ -262,13 +262,13 @@ DaytimeTransition:
 	ld [wOWPalTransitionDelay], a
 	ret
 
-.Func_84bcd:
+.Wait6:
 	ld a, [wOWPalTransitionCounter]
 	cp $06
 	ret c
 	jp DayNightTransition.AdvanceTable
 
-.Func_84bd6:
+.LoadPal1:
 	call DayNightTransition.LoadPal1
 	ld a, $02
 	ld [wOWPalTransitionDelay], a
@@ -277,7 +277,7 @@ DaytimeTransition:
 	call SetSceneObjState
 	ret
 
-.Func_84be7:
+.Fade2:
 	call DayNightTransition.FadeColours
 	ld a, [wDayNightTransistionSteps]
 	cp $16
@@ -286,7 +286,7 @@ DaytimeTransition:
 	ld [wOWPalTransitionDelay], a
 	ret
 
-.Func_84bf6:
+.End:
 	ld a, [wOWBarsState]
 	and a
 	jr nz, .asm_84bff
@@ -701,7 +701,7 @@ OWPals:
 	dw Pals_84640
 	dw Pals_84640
 
-Data_84e39:
+GreyOWPalsPointers:
 	dw Pals_84780 ; NORTH
 	dw Pals_847c0 ; WEST
 	dw Pals_84800 ; SOUTH
@@ -805,11 +805,11 @@ _PrologueFade:
 
 .one
 	call .CopyPalsToBGAndOBPals
-	ld hl, Pals_869cd
+	ld hl, PrologueBGPals
 	ld de, wTempPals1
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86a8d
+	ld hl, PrologueOBPals
 	ld de, wTempPals2
 	ld b, 8 palettes
 	call CopyHLToDE
@@ -817,15 +817,15 @@ _PrologueFade:
 
 .six
 	call .CopyPalsToBGAndOBPals
-	ld hl, Pals_869cd
+	ld hl, PrologueBGPals
 	ld de, wTempPals1
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86a8d
+	ld hl, PrologueOBPals
 	ld de, wTempPals2
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86acd
+	ld hl, PrologueCaveWarioPal
 	ld de, wTempPals2
 	ld b, 1 palettes
 	call CopyHLToDE
@@ -833,15 +833,15 @@ _PrologueFade:
 
 .two
 	call .CopyPalsToBGAndOBPals
-	ld hl, Pals_86a4d
+	ld hl, TempleBGPals
 	ld de, wTempPals1
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86a8d
+	ld hl, PrologueOBPals
 	ld de, wTempPals2
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86ad5
+	ld hl, SceneWarioPal
 	ld de, wTempPals2
 	ld b, 1 palettes
 	call CopyHLToDE
@@ -875,15 +875,15 @@ _PrologueFade:
 
 .five
 	call .CopyPalsToBGAndOBPals
-	ld hl, Pals_86a4d palette 6
+	ld hl, TempleBGPals palette 6
 	ld de, wTempPals1 palette 6
 	ld b, 2 palettes
 	call CopyHLToDE
-	ld hl, Pals_86a8d
+	ld hl, PrologueOBPals
 	ld de, wTempPals2
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_86ad5
+	ld hl, SceneWarioPal
 	ld de, wTempPals2
 	ld b, 1 palettes
 	call CopyHLToDE
@@ -1209,7 +1209,7 @@ LoadGreyOWPals:
 	add a ; *2
 	ld e, a
 	ld d, $00
-	ld hl, Data_84e39
+	ld hl, GreyOWPalsPointers
 	add hl, de
 	ld a, EAST
 	cp b
@@ -1262,7 +1262,7 @@ FadeInLevelName:
 	jr z, .load_day_night_pal
 
 	; make level name blue
-	ld hl, Pals_852dd color 1
+	ld hl, TempleHintLevelNamePals color 1
 	ld de, wTempPals1 palette 7 color 1
 	ld b, $6
 	call CopyHLToDE
@@ -1309,7 +1309,7 @@ FadeInLevelName:
 	rl c
 	ret
 
-Pals_852dd:
+TempleHintLevelNamePals:
 	rgb 31, 31, 31
 	rgb  8, 31, 31
 	rgb 14, 14, 14
@@ -1723,7 +1723,7 @@ _ApplyOWTilemapPatches:
 	inc bc
 	jr .loop_2
 
-Data_8550b:
+WOWTilemapPatch_Rain:
 	dwcoord 9, 8, wTilemap
 	db $6d, $6e, $6e, $6e, $79, $70
 	db $0 | BG_BANK0, $0 | BG_BANK0, $0 | BG_BANK0, $0 | BG_BANK0 | BG_XFLIP, $0 | BG_BANK0, $70
@@ -1738,14 +1738,14 @@ Data_8550b:
 
 	db $00 ; end
 
-Data_85536:
+WOWTilemapPatch_VulcanoEruption:
 	dwcoord 7, 1, wTilemap
 	db $c4, $75, $76, $75, $7f, $77, $c4, $70
 	db $1 | BG_BANK1, $5 | BG_BANK1, $5 | BG_BANK1, $5 | BG_BANK1 | BG_XFLIP, $5 | BG_BANK1, $5 | BG_BANK1, $1 | BG_BANK1 | BG_XFLIP, $70
 
 	db $00 ; end
 
-Data_85549:
+WOWTilemapPatch_Earthquake:
 	dwcoord 8, 4, wTilemap
 	db $56, $57, $45, $46, $70
 	db $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $70
@@ -1760,14 +1760,14 @@ Data_85549:
 
 	db $00 ; end
 
-Data_8556e:
+WOWTilemapPatch_RedMusicBox:
 	dwcoord 6, 14, wTilemap
 	db $7e, $7e, $7e, $70
 	db $4 | BG_BANK1, $4 | BG_BANK1, $4 | BG_BANK1, $70
 
 	db $00 ; end
 
-Data_85579:
+SOWTilemapPatch_RaiseTower:
 	dwcoord 14, 2, wTilemap
 	db $20, $21, $70
 	db $1 | BG_BANK0, $1 | BG_BANK0, $70
@@ -1798,7 +1798,7 @@ Data_85579:
 
 	db $00 ; end
 
-Data_855b2:
+SOWTilemapPatch_CanyonThunder:
 	dwcoord 5, 6, wTilemap
 	db $00, $70
 	db $0 | BG_BANK0, $70
@@ -1829,7 +1829,7 @@ Data_855b2:
 
 	db $00 ; end
 
-Data_855f9:
+SOWTilemapPatch_Earthquake:
 	dwcoord 5, 10, wTilemap
 	db $19, $3e, $3f, $70
 	db $2 | BG_BANK1, $3 | BG_BANK0, $3 | BG_BANK0, $70
@@ -1840,7 +1840,7 @@ Data_855f9:
 
 	db $00 ; end
 
-Data_8560e:
+SOWTilemapPatch_GreenMusicBox:
 	dwcoord 8, 2, wTilemap
 	db $48, $49, $70
 	db $1 | BG_BANK0, $1 | BG_BANK0, $70
@@ -1851,7 +1851,7 @@ Data_8560e:
 
 	db $00 ; end
 
-Data_8561f:
+SOWTilemapPatch_RevealCastle:
 	dwcoord 16, 3, wTilemap
 	db $51, $5f, $53, $70
 	db $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $70
@@ -1866,7 +1866,7 @@ Data_8561f:
 
 	db $00 ; end
 
-Data_8563e:
+EOWTilemapPatch_Earthquake:
 	dwcoord 3, 9, wTilemap
 	db $6c, $6d, $6e, $6f, $70
 	db $0 | BG_BANK0, $0 | BG_BANK0, $0 | BG_BANK0, $0 | BG_BANK0, $70
@@ -1877,7 +1877,7 @@ Data_8563e:
 
 	db $00 ; end
 
-Data_85657:
+EOWTilemapPatch_FreezeSea:
 	dwcoord 1, 13, wTilemap
 	db $f7, $f6, $f9, $f8, $f8, $f8, $f9, $f9, $f9, $40, $41, $42, $43, $2c, $2d, $f8, $f9, $f6, $70
 	db $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1, $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1, $2 | BG_BANK1 | BG_XFLIP, $2 | BG_BANK1, $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $1 | BG_BANK0, $2 | BG_BANK0, $2 | BG_BANK1, $2 | BG_BANK1, $2 | BG_BANK1, $70
@@ -1997,49 +1997,49 @@ CopyOWTileColumn3:
 	call AddTilemapRowToPtrAtDE
 	jr .asm_85acb
 
-Data_85af4:
+EOWTilemapPatch_FormCastle1:
 	dwcoord 4, 3, wTilemap
 	db $44, $45, $70
 	db $01, $01, $70
 
 	db $00 ; end
 
-Data_85afd:
+EOWTilemapPatch_FormCastle2:
 	dwcoord 3, 4, wTilemap
 	db $46, $47, $48, $49, $70
 	db $01, $01, $01, $01, $70
 
 	db $00 ; end
 
-Data_85b0a:
+EOWTilemapPatch_FormCastle3:
 	dwcoord 2, 5, wTilemap
 	db $54, $55, $56, $57, $58, $59, $70
 	db $01, $01, $01, $03, $03, $01, $70
 
 	db $00 ; end
 
-Data_85b1b:
+EOWTilemapPatch_FormCastle4:
 	dwcoord 2, 6, wTilemap
 	db $4a, $4b, $4c, $4d, $4e, $4f, $70
 	db $01, $01, $01, $03, $03, $03, $70
 
 	db $00 ; end
 
-Data_85b2c:
+EOWTilemapPatch_FormCastle5:
 	dwcoord 2, 7, wTilemap
 	db $5a, $5b, $5c, $5d, $5e, $5f, $70
 	db $03, $03, $01, $03, $03, $03, $70
 
 	db $00 ; end
 
-Data_85b3d:
+EOWTilemapPatch_FormCastle6:
 	dwcoord 4, 8, wTilemap
 	db $3e, $3f, $01, $70
 	db $03, $03, $20, $70
 
 	db $00 ; end
 
-Data_85b48:
+EOWTilemapPatch_VulcanoEruption:
 	dwcoord 8, 1, wTilemap
 	db $c4, $75, $76, $75, $7f, $77, $c4, $70
 	db $09, $0d, $0d, $2d, $0d, $0d, $29, $70
@@ -2082,7 +2082,7 @@ OverworldBottomBarTreasuresAttrmap:INCBIN "data/bgmaps/overworld/bottom_bar_trea
 OverworldBottomBarTimeAttackTilemap:INCBIN "data/bgmaps/overworld/bottom_bar_time_attack.tilemap.rle"
 OverworldBottomBarTimeAttackAttrmap:INCBIN "data/bgmaps/overworld/bottom_bar_time_attack.attrmap.rle"
 
-Pals_8694d:
+OWLightningFlashPals1:
 	rgb 31, 31, 31
 	rgb 12, 29,  0
 	rgb  9, 12, 12
@@ -2123,7 +2123,7 @@ Pals_8694d:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Pals_8698d:
+OWLightningFlashPals2:
 	vc_patch FPA_80_BG_Flash_Palette_0
 	IF DEF(_VC)
 		rgb 11, 11, 11
@@ -2208,7 +2208,7 @@ Pals_8698d:
 	ENDC
 	vc_patch_end
 
-Pals_869cd:
+PrologueBGPals:
 	rgb 31, 31, 31
 	rgb  9,  4,  0
 	rgb  8, 23, 31
@@ -2249,7 +2249,7 @@ Pals_869cd:
 	rgb  2,  4,  2
 	rgb  0,  0,  0
 
-Pals_86a0d:
+PrologueMusicBoxBGPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb  2, 31, 31
@@ -2290,7 +2290,7 @@ Pals_86a0d:
 	rgb  2, 31, 31
 	rgb 31,  0,  0
 
-Pals_86a4d:
+TempleBGPals:
 	rgb 11, 12,  7
 	rgb  5,  6,  3
 	rgb  2,  3,  1
@@ -2331,7 +2331,7 @@ Pals_86a4d:
 	rgb 13,  6,  1
 	rgb  5,  2,  0
 
-Pals_86a8d:
+PrologueOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -2372,19 +2372,19 @@ Pals_86a8d:
 	rgb 20,  2, 31
 	rgb  0,  0,  0
 
-Pals_86acd:
+PrologueCaveWarioPal:
 	rgb  0,  0,  0
 	rgb 28, 31, 26
 	rgb 31, 11,  8
 	rgb  7,  2, 20
 
-Pals_86ad5::
+SceneWarioPal::
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 31, 15, 10
 	rgb  3,  3,  3
 
-Pals_86add:
+EpilogueBGPals:
 	rgb 15, 28, 31
 	rgb  5, 27, 19
 	rgb  0, 17, 22
@@ -2425,7 +2425,7 @@ Pals_86add:
 	rgb 31, 17,  9
 	rgb  5,  5,  0
 
-Pals_86b1d:
+EpilogueOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
