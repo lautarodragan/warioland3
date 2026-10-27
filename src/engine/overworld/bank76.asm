@@ -10,38 +10,38 @@ UpdateCommonOWAnimations:
 	xor a
 	ld [wOWCloudUpdateFlags], a
 
-	ld hl, w2d032
+	ld hl, wOWBigCloud1Anim
 	ld c, $00
 	call .UpdateBigClouds
-	ld hl, w2d035
+	ld hl, wOWBigCloud2Anim
 	ld c, $20
 	call .UpdateBigClouds
-	ld hl, w2d038
+	ld hl, wOWBigCloud3Anim
 	ld c, $40
 	call .UpdateBigClouds
-	ld hl, w2d03b
+	ld hl, wOWBigCloud4Anim
 	ld c, $60
 	call .UpdateBigClouds
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld c, $00
 	call .UpdateSea
-	ld hl, w2d041
+	ld hl, wOWSmallCloudsAnim
 	ld c, $20
 	call .UpdateSmallClouds
 
 	xor a
 	ld [wOWCliffsGfxSrc], a
-	ld hl, w2d046
+	ld hl, wOWCliffsAnim
 	ld a, [hli]
 	and a
 	ret z
 	dec a
-	inc [hl] ; w2d047
+	inc [hl] ; wOWCliffsAnimCounter
 	cp [hl]
 	ret nc
 	xor a
-	ld [hli], a ; w2d047
-	ld a, [hl] ; w2d048
+	ld [hli], a ; wOWCliffsAnimCounter
+	ld a, [hl] ; wOWCliffsAnimFrame
 	inc a
 	cp $3 + $1
 	jr nz, .asm_1d8b4b

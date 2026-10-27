@@ -892,8 +892,8 @@ InitEOWObjects_FreezeSea:
 	ret nz
 
 	xor a
-	ld [w2d03e], a
-	ld [w2d046], a
+	ld [wOWSeaAnimDuration], a
+	ld [wOWCliffsAnimDuration], a
 
 	hlbgcoord 15, 10, OWSceneFreezeSeaTilemap
 	debgcoord 15, 10, wTilemap
@@ -3530,7 +3530,7 @@ NOWFunc_Prologue:
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld [hli], a
 	xor a
 	ld [hli], a
@@ -3559,7 +3559,7 @@ NOWFunc_Prologue:
 	ld a, [wOWSceneShakeState]
 	and a
 	ret nz
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld a, $0e
 	ld [hli], a
 	xor a
@@ -4025,7 +4025,7 @@ WOWFunc_Earthquake:
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld [hli], a
 	xor a
 	ld [hli], a
@@ -4047,7 +4047,7 @@ WOWFunc_Earthquake:
 	ld a, $1a
 	ld hl, wSceneObj10State
 	call SetSceneObjState
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld a, $0e
 	ld [hli], a
 	xor a
@@ -4182,7 +4182,7 @@ WOWFunc_VulcanoEruption:
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld [hli], a
 	xor a
 	ld [hli], a
@@ -4232,7 +4232,7 @@ WOWFunc_VulcanoEruption:
 	ld a, $1a
 	ld hl, wSceneObj10State
 	call SetSceneObjState
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld a, $0e
 	ld [hli], a
 	xor a
@@ -4392,7 +4392,7 @@ WOWFunc_VulcanoEruption:
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld [hli], a
 	xor a
 	ld [hli], a
@@ -4406,7 +4406,7 @@ WOWFunc_VulcanoEruption:
 	ld a, $1a
 	ld hl, wSceneObj10State
 	call SetSceneObjState
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld a, $0e
 	ld [hli], a
 	xor a
@@ -6349,7 +6349,7 @@ SOWFunc_Earthquake:
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld [hli], a
 	xor a
 	ld [hli], a
@@ -6387,7 +6387,7 @@ SOWFunc_Earthquake:
 .StopShake:
 	ld a, $03
 	ld [wOWSceneShakeState], a
-	ld hl, w2d03e
+	ld hl, wOWSeaAnim
 	ld a, $0e
 	ld [hli], a
 	xor a
@@ -6766,7 +6766,7 @@ EOWFunc_FreezeSea:
 
 .StartObj1Move:
 	xor a
-	ld [w2d046], a
+	ld [wOWCliffsAnimDuration], a
 	ld a, $01
 	ld [wSceneObj1MovementStep], a
 	jp AdvanceOWFunc
@@ -7487,7 +7487,7 @@ EOWFunc_FormCastle:
 
 .SetUnusedW2d121:
 	ld a, $01
-	ld [w2d121], a
+	ld [wUnused_2d121], a
 	jp AdvanceOWFunc
 
 .MoveObj1AndFadePals:

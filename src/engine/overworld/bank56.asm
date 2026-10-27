@@ -1375,10 +1375,10 @@ _BestTimeList:
 
 PrintBestTimes:
 	xor a ; LEVEL_OUT_OF_THE_WOODS
-	ld [w2dfff], a
+	ld [wBestTimeListCurLevel], a
 .loop_levels
 	call .PrintLevelTime
-	ld hl, w2dfff
+	ld hl, wBestTimeListCurLevel
 	inc [hl]
 	ld a, NUM_LEVELS - 1
 	cp [hl]
@@ -1386,7 +1386,7 @@ PrintBestTimes:
 	jr .loop_levels
 
 .PrintLevelTime:
-	ld a, [w2dfff]
+	ld a, [wBestTimeListCurLevel]
 	ld hl, wLevelTimeAttackScores
 	add a
 	ld c, a
@@ -1417,7 +1417,7 @@ PrintBestTimes:
 	jr .loop_get_tiles
 
 .write_tiles
-	ld a, [w2dfff]
+	ld a, [wBestTimeListCurLevel]
 	ld hl, .bg_map_address_table
 	call GetPointerFromTableDE
 	ld b, $00

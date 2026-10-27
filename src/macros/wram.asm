@@ -66,6 +66,12 @@ MACRO ow_tile_column_copy_struct
 \1Source::   dw ; tiles (attributes are $a0 bytes after them)
 ENDM
 
+MACRO ow_anim_struct
+\1Duration:: db ; frames per animation frame, 0 = stopped
+\1Counter::  db
+\1Frame::    db ; 0-3
+ENDM
+
 MACRO golf_obj_struct
 \1State::          db
 \1Duration::       db

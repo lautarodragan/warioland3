@@ -1554,71 +1554,18 @@ wCloudType::
 wOWCloudUpdateFlags::
 	db
 
-w2d032::
-	db
-
-w2d033::
-	db
-
-w2d034::
-	db
-
-w2d035::
-	db
-
-w2d036::
-	db
-
-w2d037::
-	db
-
-w2d038::
-	db
-
-w2d039::
-	db
-
-w2d03a::
-	db
-
-w2d03b::
-	db
-
-w2d03c::
-	db
-
-w2d03d::
-	db
-
-w2d03e::
-	db
-
-w2d03f::
-	db
-
-w2d040::
-	db
-
-w2d041::
-	db
-
-w2d042::
-	db
-
-w2d043::
-	db
+; animations of the overworld map's tiles (UpdateCommonOWAnimations)
+wOWBigCloud1Anim::   ow_anim_struct wOWBigCloud1Anim
+wOWBigCloud2Anim::   ow_anim_struct wOWBigCloud2Anim
+wOWBigCloud3Anim::   ow_anim_struct wOWBigCloud3Anim
+wOWBigCloud4Anim::   ow_anim_struct wOWBigCloud4Anim
+wOWSeaAnim::         ow_anim_struct wOWSeaAnim
+wOWSmallCloudsAnim:: ow_anim_struct wOWSmallCloudsAnim
 
 wOWCliffsGfxSrc::
 	ds $2
 
-w2d046::
-	db
-
-w2d047::
-	db
-
-w2d048::
-	db
+wOWCliffsAnim:: ow_anim_struct wOWCliffsAnim
 
 wOWSeaGfxVariant::
 	db
@@ -1909,7 +1856,8 @@ wCurSceneObjPtr::
 
 	ds $1
 
-w2d121::
+; written by EOWFunc_FormCastle, never read
+wUnused_2d121::
 	db
 
 w2d122::
@@ -2327,17 +2275,33 @@ wBestTimeDigitTiles::
 wCheckedEvent::
 	db
 
-w2dffd::
+; the last 3 bytes are temporaries of several routines
+
+; LoadEventTreasures: the event's treasures (3, 2, 1)
+wEventTreasure3::
+; ShowMissingTreasureIndicators: wOWLevel saved
+wMissingTreasureSavedOWLevel::
 	db
 
-w2dffe::
+wEventTreasure2::
+; ShowMissingTreasureIndicators: index of the map side's level
+wMissingTreasureLevel::
+; ApplyPageTreasuresPals: cell in the page
+wCollectionCurCell::
 	db
 
+wEventTreasure1::
 ; if TRUE, current OW scene
 ; unlocks a connection to map side exit
 wOWExitUnlocked::
-
-w2dfff::
+; ShowMissingTreasureIndicators: number of the map side's levels
+wMissingTreasureNumLevels::
+; ApplyPageTreasuresPals: treasure in the cell
+wCollectionCurTreasure::
+; PrintBestTimes: LEVEL_* being printed
+wBestTimeListCurLevel::
+; LoadBGMapsToWRAM: bank of the tilemap
+wBGMapsTempBank::
 	db
 
 NEXTU

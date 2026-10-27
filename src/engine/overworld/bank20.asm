@@ -630,7 +630,7 @@ ShowMissingTreasureIndicators:
 	and a
 	ret z ; game not cleared OR all treasures collected
 	ld a, [wOWLevel]
-	ld [w2dffd], a
+	ld [wMissingTreasureSavedOWLevel], a
 	ld a, [wCurMapSide]
 	ld c, a
 	ld b, $00
@@ -652,9 +652,9 @@ ShowMissingTreasureIndicators:
 	ld b, NUM_NORTH_LEVELS
 .got_level_count
 	ld a, b
-	ld [w2dfff], a
+	ld [wMissingTreasureNumLevels], a
 	xor a
-	ld [w2dffe], a
+	ld [wMissingTreasureLevel], a
 
 	; if in North, skip The Temple
 	ld a, [wOWLevel]
@@ -671,17 +671,17 @@ ShowMissingTreasureIndicators:
 	ld a, [wOWLevel]
 	inc a
 	ld [wOWLevel], a
-	ld hl, w2dffe
+	ld hl, wMissingTreasureLevel
 	inc [hl]
 	ld a, [hli]
-	cp [hl] ; w2dfff
+	cp [hl] ; wMissingTreasureNumLevels
 	jr nz, .loop_levels
-	ld a, [w2dffd]
+	ld a, [wMissingTreasureSavedOWLevel]
 	ld [wOWLevel], a
 	ret
 
 .PlaceTreasureMissingIndicator:
-	ld a, [w2dffe]
+	ld a, [wMissingTreasureLevel]
 	call GetMapLevelCoords
 	ld a, [hli]
 	ld [wOWYCoord1], a
@@ -1317,7 +1317,7 @@ UnreferencedSetLastEventCutsceneSelectable:
 .asm_817cb
 	dec a
 	call LoadEventTreasures
-	ld a, [w2dfff]
+	ld a, [wEventTreasure1]
 	ld [wStoredTransitionParam], a
 	jr SetCutsceneButtonSelectable_GotTransitionParam
 
@@ -1634,13 +1634,13 @@ CheckIfTreasureUnlocksEvent:
 CheckIfEventIsUnlocked:
 	call LoadEventTreasures
 	ld c, TRUE
-	ld a, [w2dffd]
+	ld a, [wEventTreasure3]
 	call CheckEventTreasure
 	ret c
-	ld a, [w2dffe]
+	ld a, [wEventTreasure2]
 	call CheckEventTreasure
 	ret c
-	ld a, [w2dfff]
+	ld a, [wEventTreasure1]
 	call CheckEventTreasure
 	ret
 
@@ -1684,15 +1684,15 @@ LoadEventTreasures:
 	rl d
 	ld hl, EventTreasures
 	add hl, de
-	ld de, w2dfff
+	ld de, wEventTreasure1
 	ld a, [hli]
-	ld [de], a ; w2dfff
+	ld [de], a ; wEventTreasure1
 	ld a, [hli]
 	dec e
-	ld [de], a ; w2dffe
+	ld [de], a ; wEventTreasure2
 	ld a, [hl]
 	dec e
-	ld [de], a ; w2dffd
+	ld [de], a ; wEventTreasure3
 	ret
 
 EventTreasures:
