@@ -253,15 +253,15 @@ MACRO plane_part_struct
 \1Counter::     db
 ENDM
 
+; offsets are the COLOURFADESTRUCT_* constants
 MACRO colour_part_fade_struct
-\1Current:: db
-\1Target::  db
-\1Sign::    db ; $1 = incr, $2 = decr
-\1Diff::    db
-\1Unk1::    db
-\1Unk2::    db
-\1Unk3::    db
-\1Unk4::    db
+\1Base::        db
+\1Target::      db
+\1Sign::        db ; $1 = incr, $2 = decr
+\1Diff::        db
+\1Accumulator:: db
+\1Current::     db
+	ds 2 ; unused
 ENDM
 
 MACRO colour_fade_struct

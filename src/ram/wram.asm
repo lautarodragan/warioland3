@@ -2074,6 +2074,9 @@ wTilemap::
 
 SECTION "WRAM2 2", WRAMX
 
+; $800 bytes shared by the overworld's screens and scenes
+; (cleared as a whole by _InitBestTimeList)
+wOWSharedRAM::
 UNION
 
 wOWPathTracers::
@@ -2155,6 +2158,29 @@ wTempleRock7::  temple_rock_struct wTempleRock7
 wTempleRock8::  temple_rock_struct wTempleRock8
 wTempleRock9::  temple_rock_struct wTempleRock9
 wTempleRock10:: temple_rock_struct wTempleRock10
+
+NEXTU
+
+; UpdateTransformationSparkles
+wTransformationSparkle1Step::    db
+wTransformationSparkle1Counter:: db
+	ds $1
+wTransformationSparkle2Step::    db
+wTransformationSparkle2Counter:: db
+	ds $1
+wTransformationSparkle3Step::    db
+wTransformationSparkle3Counter:: db
+	ds $1
+wTransformationSparkle4Step::    db
+wTransformationSparkle4Counter:: db
+
+NEXTU
+
+; epilogue: the music box falling with Wario
+	ds $1e
+wEpilogueMusicBoxFallStep::    db
+wEpilogueMusicBoxFallCounter:: db
+wEpilogueMusicBoxFallActive::  db
 
 NEXTU
 
@@ -2315,6 +2341,37 @@ wCollectionScrollMode::       db
 ; linked together
 wCollectionLinkedCells::
 	ds $7
+
+NEXTU
+
+; best time list
+wBestTimeListAutoScroll::     db ; TRUE while scrolling by itself
+wBestTimeListIdleCounter::    db ; frames without input, autoscroll at 256
+wBestTimeListScrollStep::     db
+wBestTimeListScrollCounter::  db
+
+NEXTU
+
+; cutscenes
+	ds $2
+; a sound effect timer of some cutscene steps
+wCutsceneSFXCounter::   db
+; CutsceneScreenShake
+wCutsceneShakeStep::    db
+wCutsceneShakeCounter:: db
+	ds $b
+; Cutscene14's wobble data pointers
+wCutscene14Obj2WobblePtr:: dw
+wCutscene14Obj3WobblePtr:: dw
+wCutscene14Obj4WobblePtr:: dw
+
+NEXTU
+
+; the overworld golf building scene (_UpdateGolfBuilding)
+	ds $210
+wOWGolfBuildingScene::       db
+wOWGolfBuildingStep::        db
+wOWGolfBuildingStepCounter:: db
 
 ENDU
 

@@ -3872,7 +3872,7 @@ _GolfBuilding:
 	ld [de], a
 	ld a, [hli] ; useless
 	ld a, [hl]
-	ld [wPalFade6Colour2GreenCurrent], a
+	ld [wOWGolfBuildingScene], a
 	ld a, $ff
 	ld [wSceneWarioStateGroup], a
 	xor a
@@ -3895,7 +3895,7 @@ _GolfBuilding:
 	ld a, $50
 	ld [de], a
 	ld a, $04
-	ld [wPalFade6Colour2GreenCurrent], a
+	ld [wOWGolfBuildingScene], a
 	ld a, $ff
 	ld [wSceneWarioStateGroup], a
 	ld a, $01
@@ -3904,7 +3904,7 @@ _GolfBuilding:
 
 .asm_ada97
 	call .place_wario_by_map_side
-	ld hl, wPalFade6Colour2GreenCurrent
+	ld hl, wOWGolfBuildingScene
 	inc [hl]
 	inc [hl]
 	ret
@@ -4089,7 +4089,7 @@ _UpdateGolfBuilding:
 	ret
 
 .CheckExit:
-	ld a, [wPalFade6Colour2GreenCurrent]
+	ld a, [wOWGolfBuildingScene]
 	cp $04
 	jr z, .no_carry
 	ld a, [wJoypadPressed]
@@ -4108,11 +4108,11 @@ _UpdateGolfBuilding:
 	ret
 
 .RunScene:
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
-	ld a, [wPalFade6Colour2GreenCurrent]
+	ld a, [wOWGolfBuildingScene]
 	jumptable
 	dw .WalkRightAndExit ; $0
 	dw .WalkLeftAndExit ; $1
@@ -4121,22 +4121,22 @@ _UpdateGolfBuilding:
 	dw .AtDoor ; $4
 
 .next_step
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 .set_scene
-	ld [wPalFade6Colour2GreenCurrent], a
-	ld hl, wPalFade6Colour2GreenSign
+	ld [wOWGolfBuildingScene], a
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], a
 	ret
 
 .WalkRightAndExit:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .asm_adc65
 	dec a
@@ -4165,7 +4165,7 @@ _UpdateGolfBuilding:
 	jr .next_step
 
 .WalkLeftAndExit:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .asm_adc8f
 	dec a
@@ -4194,7 +4194,7 @@ _UpdateGolfBuilding:
 	jp .next_step
 
 .WalkRightToDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .asm_adcb6
 	dec a
@@ -4223,7 +4223,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .WalkLeftToDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .asm_adce7
 	dec a
@@ -4252,7 +4252,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .AtDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	jumptable
 	dw .WaitLookFront
 	dw .FaceFront
@@ -4296,7 +4296,7 @@ _UpdateGolfBuilding:
 	ld [wTargetMapSideLevelID], a
 	ld a, $37
 	call SetSceneWarioState
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], $07
@@ -4310,7 +4310,7 @@ _UpdateGolfBuilding:
 	ld [wTargetMapSideLevelID], a
 	ld a, $36
 	call SetSceneWarioState
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], $05

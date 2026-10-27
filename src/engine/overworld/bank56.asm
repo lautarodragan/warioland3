@@ -437,7 +437,7 @@ UpdateTransformationSparkles:
 	ret
 
 .UpdateSparkle1:
-	ld hl, wTempleMusicBox1
+	ld hl, wTransformationSparkle1Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -452,7 +452,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .asm_1584ed
-	ld hl, wTempleMusicBox1Counter
+	ld hl, wTransformationSparkle1Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -486,11 +486,11 @@ UpdateTransformationSparkles:
 .asm_158521
 	xor a
 	ld [wSceneObj5State], a
-	ld [wTempleMusicBox1], a
+	ld [wTransformationSparkle1Step], a
 	ret
 
 .UpdateSparkle2:
-	ld hl, wPlanePart2Counter
+	ld hl, wTransformationSparkle2Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -507,7 +507,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .asm_158540
-	ld hl, wTempleMusicBox3
+	ld hl, wTransformationSparkle2Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -555,11 +555,11 @@ UpdateTransformationSparkles:
 	jr z, .asm_158588
 	ld a, $02
 .asm_158588
-	ld [wPlanePart2Counter], a
+	ld [wTransformationSparkle2Step], a
 	ret
 
 .UpdateSparkle3:
-	ld hl, wTempleMusicBox4
+	ld hl, wTransformationSparkle3Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -574,7 +574,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .asm_15859f
-	ld hl, wTempleMusicBox4Counter
+	ld hl, wTransformationSparkle3Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -613,11 +613,11 @@ UpdateTransformationSparkles:
 .asm_1585d9
 	xor a
 	ld [wSceneObj7State], a
-	ld [wTempleMusicBox4], a
+	ld [wTransformationSparkle3Step], a
 	ret
 
 .UpdateSparkle4:
-	ld hl, wTempleMusicBox5Counter
+	ld hl, wTransformationSparkle4Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -634,7 +634,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .asm_1585f8
-	ld hl, wPalFade2Colour3GreenUnk1
+	ld hl, wTransformationSparkle4Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -687,7 +687,7 @@ UpdateTransformationSparkles:
 	jr z, .asm_158646
 	ld a, $02
 .asm_158646
-	ld [wTempleMusicBox5Counter], a
+	ld [wTransformationSparkle4Step], a
 	ret
 
 .get_rise_offset_1:
@@ -1241,7 +1241,7 @@ _InitBestTimeList:
 	ret
 
 .clear_ram:
-	ld hl, wCollectionRow
+	ld hl, wOWSharedRAM
 	ld bc, $800
 	xor a
 	call WriteAToHL_BCTimes
@@ -1268,7 +1268,7 @@ _InitBestTimeList:
 .func_end
 
 _BestTimeList:
-	ld a, [wCollectionRow]
+	ld a, [wBestTimeListAutoScroll]
 	and a
 	jr nz, .asm_158a76
 	ld hl, wSCY
@@ -1279,15 +1279,15 @@ _BestTimeList:
 	jr nz, .d_down
 
 	; no input
-	ld hl, wCollectionCol
+	ld hl, wBestTimeListIdleCounter
 	inc [hl]
 	ld a, [hl]
 	and a
 	jr nz, .asm_158a5a
-	ld hl, wCollectionRow
+	ld hl, wBestTimeListAutoScroll
 	inc [hl]
 	xor a
-	ld [wColourFadeDiff], a
+	ld [wBestTimeListScrollStep], a
 .asm_158a5a
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_START
@@ -1302,7 +1302,7 @@ _BestTimeList:
 	dec [hl]
 .asm_158a6a
 	xor a
-	ld [wCollectionCol], a
+	ld [wBestTimeListIdleCounter], a
 	ret
 .d_down
 	ld a, [hl]
@@ -1313,7 +1313,7 @@ _BestTimeList:
 .asm_158a76
 	call .StopAutoScrollOnInput
 	ret c
-	ld a, [wColourFadeDiff]
+	ld a, [wBestTimeListScrollStep]
 	and a
 	jr z, .asm_158a8c
 	dec a
@@ -1333,13 +1333,13 @@ _BestTimeList:
 	ret
 .asm_158a96
 	xor a
-	ld [wCollectionLinkStateCounter], a
-	ld hl, wColourFadeDiff
+	ld [wBestTimeListScrollCounter], a
+	ld hl, wBestTimeListScrollStep
 	inc [hl]
 	ret
 
 .asm_158a9f
-	ld hl, wCollectionLinkStateCounter
+	ld hl, wBestTimeListScrollCounter
 	inc [hl]
 	ld a, [hl]
 	cp $b4
@@ -1354,14 +1354,14 @@ _BestTimeList:
 	ret
 
 .asm_158ab2
-	ld hl, wCollectionLinkStateCounter
+	ld hl, wBestTimeListScrollCounter
 	inc [hl]
 	ld a, [hl]
 	cp $b4
 	ret c
 	xor a
-	ld [wCollectionLinkStateCounter], a
-	ld [wColourFadeDiff], a
+	ld [wBestTimeListScrollCounter], a
+	ld [wBestTimeListScrollStep], a
 	ret
 
 .StopAutoScrollOnInput:
@@ -1369,7 +1369,7 @@ _BestTimeList:
 	and PAD_A | PAD_B | PAD_START | PAD_UP | PAD_DOWN
 	ret z
 	xor a
-	ld [wCollectionRow], a
+	ld [wBestTimeListAutoScroll], a
 	scf
 	ret
 

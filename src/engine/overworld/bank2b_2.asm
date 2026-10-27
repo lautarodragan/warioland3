@@ -2372,7 +2372,7 @@ _InitEpilogue:
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
 
-	ld a, [wCollectionRow]
+	ld a, [wLCDCFlagsToFlip]
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
@@ -2381,7 +2381,7 @@ _InitEpilogue:
 .asm_af014
 	ldh [rLCDC], a
 	xor a
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	ld hl, wSubState
 	inc [hl]
 	ret
@@ -2463,7 +2463,7 @@ UnreferencedInitEpilogue:
 	ld [wPalConfig2TotalSteps], a
 	ld [wSceneStep], a
 	ld [wSceneStepCounter], a
-	ld a, [wCollectionRow]
+	ld a, [wLCDCFlagsToFlip]
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
@@ -2472,7 +2472,7 @@ UnreferencedInitEpilogue:
 .asm_af127
 	ldh [rLCDC], a
 	xor a
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceEpilogueOWStep
 
 WaitEpilogueOWStep:
@@ -2728,8 +2728,8 @@ _UpdateEpilogue:
 	ld [wSceneObj11State], a
 	ld [wSceneObj12State], a
 	ld [wSceneObj13State], a
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, PrologueBGPals
 	ld de, wTempPals1
@@ -2787,7 +2787,7 @@ _UpdateEpilogue:
 	and a
 	jr nz, .english
 ; japanese
-	ld a, [wPalFade7Colour3RedUnk1]
+	ld a, [wCurTextBufferPage]
 	cp $01
 	jr z, .asm_af3ce
 	cp $04
@@ -2802,7 +2802,7 @@ _UpdateEpilogue:
 	jr z, .asm_af3fa
 	jr .asm_af3bf
 .english
-	ld a, [wPalFade7Colour3RedUnk1]
+	ld a, [wCurTextBufferPage]
 	cp $01
 	jr z, .asm_af3ce
 	cp $04
@@ -2816,7 +2816,7 @@ _UpdateEpilogue:
 	cp $0c
 	jr z, .asm_af3de
 .asm_af3bf
-	ld a, [wPalFade7Colour3RedSign]
+	ld a, [wCurTextBufferLine]
 	cp $01
 	ret nz
 	ld a, $0b
@@ -2827,7 +2827,7 @@ _UpdateEpilogue:
 	ld b, $10
 .asm_af3d0
 	ld a, $01
-	ld hl, wPalFade7Colour3RedSign
+	ld hl, wCurTextBufferLine
 	cp [hl]
 	ret nz
 .asm_af3d7
@@ -2845,7 +2845,7 @@ _UpdateEpilogue:
 .asm_af3e8
 	ld a, $02
 .asm_af3ea
-	ld hl, wPalFade7Colour3RedSign
+	ld hl, wCurTextBufferLine
 	cp [hl]
 	jr nz, .asm_af3bf
 	jr .asm_af3d7
@@ -2923,10 +2923,10 @@ _UpdateEpilogue:
 
 .InitLanding:
 	xor a
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 	ld [wSceneSubStep], a
-	ld [wTempleRock5Action], a
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallStep], a
+	ld [wEpilogueMusicBoxFallActive], a
 	jp .next_scene_step
 
 .DropWario:
@@ -2943,7 +2943,7 @@ _UpdateEpilogue:
 	cp $56
 	ret c
 	ld a, $01
-	ld [wTempleRock5Action], a
+	ld [wEpilogueMusicBoxFallStep], a
 	play_sfx SFX_THROW
 	jp .next_scene_step
 
@@ -2951,7 +2951,7 @@ _UpdateEpilogue:
 	ld a, [wSceneSubStep]
 	cp $80
 	ret nz
-	ld a, [wTempleRock5Action]
+	ld a, [wEpilogueMusicBoxFallStep]
 	cp $80
 	ret nz
 	jp .next_scene_step
@@ -3081,7 +3081,7 @@ _UpdateEpilogue:
 	jp .end_scene_steps
 
 .UpdateWarioFall:
-	ld a, [wPalFade2Colour2GreenUnk1]
+	ld a, [wSceneSubActive]
 	and a
 	jr z, .asm_af597
 	ld a, [wSceneStepCounter]
@@ -3092,7 +3092,7 @@ _UpdateEpilogue:
 	call ApplyOWMovement_Mirrored
 	jr nz, .asm_af597
 	xor a
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 .asm_af597
 	ld a, [wSceneSubStep]
 	cp $80
@@ -3114,7 +3114,7 @@ _UpdateEpilogue:
 
 .WarioFall_Start:
 	ld a, $01
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 	xor a
 	ld [wSceneWarioMovementStep], a
 .asm_af5bc
@@ -3168,7 +3168,7 @@ _UpdateEpilogue:
 	ret
 
 .UpdateMusicBoxFall:
-	ld a, [wPalFade2Colour4GreenSign]
+	ld a, [wEpilogueMusicBoxFallActive]
 	and a
 	jr z, .asm_af622
 	ld hl, wSceneObj9
@@ -3176,9 +3176,9 @@ _UpdateEpilogue:
 	call ApplyOWMovement_Mirrored
 	jr nz, .asm_af622
 	xor a
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallActive], a
 .asm_af622
-	ld a, [wTempleRock5Action]
+	ld a, [wEpilogueMusicBoxFallStep]
 	cp $80
 	ret z
 	jumptable
@@ -3196,14 +3196,14 @@ _UpdateEpilogue:
 
 .MusicBoxFall_Start:
 	ld a, $01
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallActive], a
 	xor a
 	ld [wSceneObj9MovementStep], a
 .asm_af643
-	ld hl, wTempleRock5Action
+	ld hl, wEpilogueMusicBoxFallStep
 	inc [hl]
 	xor a
-	ld [wTempleRock5Counter], a
+	ld [wEpilogueMusicBoxFallCounter], a
 	ret
 
 .MusicBoxFall_Land:
@@ -3214,7 +3214,7 @@ _UpdateEpilogue:
 	jr .asm_af643
 
 .MusicBoxFall_Delay4:
-	ld hl, wTempleRock5Counter
+	ld hl, wEpilogueMusicBoxFallCounter
 	inc [hl]
 	ld a, [hl]
 	cp $04
@@ -3223,7 +3223,7 @@ _UpdateEpilogue:
 
 .MusicBoxFall_Done:
 	ld a, $80
-	ld [wTempleRock5Action], a
+	ld [wEpilogueMusicBoxFallStep], a
 	ret
 
 .play_music_box_bump_sfx:

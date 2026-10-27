@@ -1178,9 +1178,9 @@ CutsceneFadePals:
 	ret
 
 CutsceneScreenShake:
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	inc [hl]
-	ld a, [wCollectionLinkStateCounter]
+	ld a, [wCutsceneShakeStep]
 	ld c, $fc
 	and a
 	jr z, .asm_9cdfb
@@ -1212,7 +1212,7 @@ CutsceneScreenShake:
 	ld a, c
 	add [hl]
 	ld [hl], a
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -1225,7 +1225,7 @@ CutsceneScreenShake:
 	ld a, c
 	add [hl]
 	ld [hl], a
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	xor a
 	ld [hld], a
 	ld [hl], a
@@ -1594,7 +1594,7 @@ Cutscene06Func:
 	cp $03
 	ret nz
 	xor a
-	ld [wColourFadeDiff], a
+	ld [wCutsceneSFXCounter], a
 	jp AdvanceCutsceneFunc
 
 .Wait100:
@@ -1614,7 +1614,7 @@ Cutscene06Func:
 	jp AdvanceCutsceneFunc
 
 .play_sfx_023_every_14_frames:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0e
@@ -2028,8 +2028,8 @@ Cutscene11Func:
 	xor a
 	ld [wSceneObj1YCoord], a
 	ld [wSceneObj2State], a
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 
 	ld a, HIGH(wTempPals1)
 	ld [wPalConfig1SourceHi], a
@@ -2195,8 +2195,8 @@ Cutscene1bFunc:
 	call CopyFarBytes
 	call SetPalConfig2ToTempPals2
 
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .PlaceObj5:
@@ -2746,8 +2746,8 @@ Cutscene18Func:
 	jp WaitCutsceneFunc
 
 .FlipBGMap:
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 Cutscene0dFunc:
@@ -2796,8 +2796,8 @@ Cutscene0dFunc:
 	jp WaitCutsceneFunc
 
 .FlipBGMap:
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .Wait60:
@@ -3153,8 +3153,8 @@ Cutscene04Func:
 	call SetSceneObjState
 	xor a
 	ld [wSceneObj3State], a
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 InitCutscene24Objs:
@@ -3928,8 +3928,8 @@ Cutscene3aFunc:
 	ld a, [bc]
 	cp $8c
 	ret c
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	xor a
 	ld [wSceneObj3State], a
 	ld [wSceneObj2State], a
@@ -4348,8 +4348,8 @@ Cutscene3dFunc:
 	ld a, [bc]
 	cp $3c
 	ret c
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	ld hl, wSceneObj4
 	lb de, $50, $50
 	ld a, $05
@@ -4876,8 +4876,8 @@ Cutscene56Func:
 	ret c
 	xor a
 	ld [wSceneObj2State], a
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	ld b, BANK(RevealDarkRoomCutscenePals_b8800)
 	ld c, 8 palettes
 	ld hl, RevealDarkRoomCutscenePals_b8800
@@ -5106,8 +5106,8 @@ Cutscene58Func:
 	ld a, [wSceneObj2State]
 	cp $01
 	ret nz
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
@@ -5403,8 +5403,8 @@ Cutscene44Func:
 	ld a, [bc]
 	cp $1e
 	ret c
-	ld a, $08
-	ld [wCollectionRow], a
+	ld a, LCDC_BG_9C00
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .PlaceObjs2And3:
@@ -5586,7 +5586,7 @@ Cutscene14Func:
 	ld [hl], $50
 	ld a, $02
 	ld [wSceneObj1YCoord], a
-	ld hl, wPalFade1
+	ld hl, wCutscene14Obj2WobblePtr
 	ld [hl], $99
 	inc l
 	ld [hl], $6e
@@ -5660,7 +5660,7 @@ Cutscene14Func:
 .WaitWobbleThenSwitchTable:
 	call .WobbleObjs2To4
 	ret nc
-	ld hl, wPalFade1
+	ld hl, wCutscene14Obj2WobblePtr
 	ld a, $82
 	ld [hli], a
 	ld a, $6f
@@ -5696,7 +5696,7 @@ Cutscene14Func:
 	ld [wSceneObj2State], a
 	ld [wSceneObj3State], a
 	ld [wSceneObj4State], a
-	ld [wColourFadeDiff], a
+	ld [wCutsceneSFXCounter], a
 	jp AdvanceCutsceneFunc
 
 .Wait120:
@@ -5705,7 +5705,7 @@ Cutscene14Func:
 	jp WaitCutsceneFunc
 
 .play_sfx_10f_every_10_frames:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5729,7 +5729,7 @@ Cutscene14Func:
 	jp AdvanceCutsceneFunc
 
 .play_obj5_sfx:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5771,7 +5771,7 @@ Cutscene14Func:
 
 .WaitSFXCounter09:
 	call .play_obj5_sfx
-	ld a, [wColourFadeDiff]
+	ld a, [wCutsceneSFXCounter]
 	cp $09
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -5782,7 +5782,7 @@ Cutscene14Func:
 	ret
 
 .play_fade_sfx:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5807,13 +5807,13 @@ Cutscene14Func:
 	ret
 
 .WobbleObjs2To4:
-	ld bc, wPalFade1Colour1RedUnk1
+	ld bc, wCutscene14Obj4WobblePtr
 	ld hl, wSceneObj4
 	call .apply_wobble
-	ld bc, wPalFade1Colour1RedSign
+	ld bc, wCutscene14Obj3WobblePtr
 	ld hl, wSceneObj3
 	call .apply_wobble
-	ld bc, wPalFade1
+	ld bc, wCutscene14Obj2WobblePtr
 	ld hl, wSceneObj2
 	call .apply_wobble
 	ret
