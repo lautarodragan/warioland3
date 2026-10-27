@@ -1415,7 +1415,7 @@ WarioBouncyFrameset_1fccbf:
 	db $ff
 
 ; unreferenced
-Frameset_1fcccc:
+UnreferencedWarioBouncyFrameset_1fcccc:
 	db   8,  2
 	db   7,  1
 	db   6,  1
@@ -1719,7 +1719,7 @@ WarioCrazyTurningFrameset_1fcfd7:
 	db $ff
 
 ; unreferenced
-Frameset_1fcfde:
+UnreferencedWarioCrazyFrameset_1fcfde:
 	db   0,  3
 	db   4,  2
 	db   1,  3
@@ -1731,7 +1731,7 @@ Frameset_1fcfde:
 	db $ff
 
 ; unreferenced
-Frameset_1fcfef:
+UnreferencedWarioCrazyFrameset_1fcfef:
 	db   9,  3
 	db  13,  2
 	db  10,  3
@@ -1743,7 +1743,7 @@ Frameset_1fcfef:
 	db $ff
 
 ; unreferenced
-Frameset_1fd000:
+UnreferencedWarioCrazyFrameset_1fd000:
 	db   9,  3
 	db  10,  3
 	db  11,  3
@@ -2138,7 +2138,7 @@ WarioBatTransformingFrameset_1fd40a:
 	db $ff
 
 ; unreferenced
-Frameset_1fd429:
+UnreferencedWarioBatFrameset_1fd429:
 	db  14,  4
 	db $ff
 
@@ -2178,7 +2178,7 @@ WarioVampireFrameset_1fd439::
 	db $ff
 
 ; unreferenced
-Frameset_1fd45c:
+UnreferencedWarioBatFrameset_1fd45c:
 	db   0,  4
 	db $ff
 
@@ -2558,7 +2558,7 @@ WarioVampireFrameset_1fd82e::
 	db $ff
 
 ; unreferenced
-Frameset_1fd837:
+UnreferencedWarioVampireFrameset_1fd837:
 	db   0,  4
 	db $ff
 
@@ -2575,7 +2575,7 @@ WarioVampireTurningFrameset_1fd841:
 	db $ff
 
 ; unreferenced
-Frameset_1fd848:
+UnreferencedWarioVampireFrameset_1fd848:
 	db  14,  6
 	db  15,  6
 	db  16,  6
@@ -2583,7 +2583,7 @@ Frameset_1fd848:
 	db $ff
 
 ; unreferenced
-Frameset_1fd851:
+UnreferencedWarioVampireFrameset_1fd851:
 	db  18,  6
 	db  19,  6
 	db  20,  6
@@ -2591,17 +2591,17 @@ Frameset_1fd851:
 	db $ff
 
 ; unreferenced
-Frameset_1fd85a:
+UnreferencedWarioVampireFrameset_1fd85a:
 	db  22,  4
 	db $ff
 
 ; unreferenced
-Frameset_1fd85d:
+UnreferencedWarioVampireFrameset_1fd85d:
 	db  25,  4
 	db $ff
 
 ; unreferenced
-Frameset_1fd860:
+UnreferencedWarioVampireFrameset_1fd860:
 	db  22,  4
 	db  23,  4
 	db  24,  6
@@ -2609,7 +2609,7 @@ Frameset_1fd860:
 	db $ff
 
 ; unreferenced
-Frameset_1fd869:
+UnreferencedWarioVampireFrameset_1fd869:
 	db  25,  4
 	db  26,  4
 	db  27,  6
@@ -2617,13 +2617,13 @@ Frameset_1fd869:
 	db $ff
 
 ; unreferenced
-Frameset_1fd872:
+UnreferencedWarioVampireFrameset_1fd872:
 	db   0,  1
 	db  12,  2
 	db $ff
 
 ; unreferenced
-Frameset_1fd877:
+UnreferencedWarioVampireFrameset_1fd877:
 	db   0,  1
 	db  13,  2
 	db $ff
@@ -5635,7 +5635,7 @@ WarioSnowballCrashFrameset_1ff981:
 	db $ff
 
 ; unreferenced
-Frameset_1ff988:
+UnreferencedWarioSnowballFrameset_1ff988:
 	db   0,  3
 	db   1,  3
 	db   2,  4
@@ -5673,7 +5673,7 @@ Frameset_1ff988:
 	db $ff
 
 ; unreferenced
-Frameset_1ff9cd:
+UnreferencedWarioSnowballFrameset_1ff9cd:
 	db   4,  3
 	db   3,  3
 	db   2,  4

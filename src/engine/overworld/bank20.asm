@@ -3064,7 +3064,7 @@ SetCompassSprite:
 	db $14, $14
 
 ; unreferenced
-Data_82026:
+UnreferencedCompassCoords:
 	db $14, $14, $14, $14, $14, $14
 
 LoadCompassSprite:

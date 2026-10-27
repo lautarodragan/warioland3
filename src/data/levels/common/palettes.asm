@@ -5,7 +5,7 @@ ParticlePals_d1fe:
 	rgb  4,  5,  0
 
 ; unreferenced
-Pals_d206:
+UnreferencedParticlePals_d206:
 	rgb  0, 22, 16
 	rgb 31, 31,  0
 	rgb 31, 14,  0

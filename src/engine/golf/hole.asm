@@ -575,7 +575,7 @@ UpdateGolfParaGoom:
 	dw GolfHoleFrameset_1cafb1 ; GOLF_PARAGOOM_5
 
 ; unreferenced?
-Frameset_1c8e21:
+UnreferencedGolfParaGoomFrameset_1c8e21:
 	db  35, 78
 	db  32,  4
 	db $ff

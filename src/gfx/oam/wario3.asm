@@ -1224,12 +1224,12 @@ WarioPuffyInflatingFrameset_1dccc9:
 	db $ff
 
 ; unreferenced
-Frameset_1dccd2:
+UnreferencedWarioPuffyFrameset_1dccd2:
 	db   3,  4
 	db $ff
 
 ; unreferenced
-Frameset_1dccd5:
+UnreferencedWarioPuffyFrameset_1dccd5:
 	db   9,  4
 	db $ff
 
@@ -1794,7 +1794,7 @@ WarioFrameset_1dd230:
 	db $ff
 
 ; unreferenced
-Frameset_1dd23b:
+UnreferencedWarioBallFrameset_1dd23b:
 	db   0,  3
 	db   1,  2
 	db   2,  2
@@ -1826,7 +1826,7 @@ WarioBallFrameset_1dd26c:
 	db $ff
 
 ; unreferenced
-Frameset_1dd26f:
+UnreferencedWarioBallFrameset_1dd26f:
 	db   1,  2
 	db   0,  2
 	db   6,  3
@@ -1864,7 +1864,7 @@ WarioFrameset_1dd295:
 	db $ff
 
 ; unreferenced
-Frameset_1dd2a0:
+UnreferencedWarioBallFrameset_1dd2a0:
 	db   9,  3
 	db  10,  2
 	db  11,  2
@@ -1900,7 +1900,7 @@ WarioBallShotFrameset_1dd2d1:
 	db $ff
 
 ; unreferenced
-Frameset_1dd2dc:
+UnreferencedWarioBallFrameset_1dd2dc:
 	db   8,  1
 	db   2,  1
 	db  17,  2
@@ -1910,7 +1910,7 @@ Frameset_1dd2dc:
 	db $ff
 
 ; unreferenced
-Frameset_1dd2e9:
+UnreferencedWarioBallFrameset_1dd2e9:
 	db  20,  7
 	db  21,  7
 	db $ff
@@ -1929,7 +1929,7 @@ WarioBallAirborneFrameset_1dd2f6:
 	db $ff
 
 ; unreferenced
-Frameset_1dd2f9:
+UnreferencedWarioBallFrameset_1dd2f9:
 	db   8,  2
 	db  11,  2
 	db  18,  3
@@ -1939,7 +1939,7 @@ Frameset_1dd2f9:
 	db $ff
 
 ; unreferenced
-Frameset_1dd306:
+UnreferencedWarioBallFrameset_1dd306:
 	db   8,  2
 	db   2,  2
 	db  17,  3

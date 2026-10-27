@@ -62,7 +62,7 @@ ChestsFrameset_68060:
 	db $ff
 
 ; unreferenced
-Frameset_68065:
+UnreferencedChestsFrameset_68065:
 	db  18,  1
 	db  19,  1
 	db  20,  2
@@ -81,7 +81,7 @@ MuddeeStingerFrameset_68072:
 	db $ff
 
 ; unreferenced
-Frameset_6807f:
+UnreferencedStarsFrameset_6807f:
 	db  30,  3
 	db  31,  2
 	db  32,  1
@@ -92,7 +92,7 @@ Frameset_6807f:
 	db $ff
 
 ; unreferenced
-Frameset_6808e:
+UnreferencedStarsFrameset_6808e:
 	db  33,  3
 	db  32,  2
 	db  31,  2
@@ -1243,7 +1243,7 @@ KushimushiFrameset_68698:
 	db $ff
 
 ; unreferenced
-Frameset_6869b:
+UnreferencedKushimushiFrameset_6869b:
 	db  25,  4
 	db  26,  4
 	db  25,  4
@@ -1980,7 +1980,7 @@ BarrelFrameset_68a8b:
 	db $ff
 
 ; unreferenced
-Frameset_68a92:
+UnreferencedBarrelFrameset_68a92:
 	db   4, 150
 	db  10,  2
 	db  11,  4
@@ -2472,7 +2472,7 @@ ElectricLampFrameset_68ccd:
 	db $ff
 
 ; unreferenced
-Frameset_68cde:
+UnreferencedZombieFrameset_68cde:
 	db   0, 20
 	db   1, 20
 	db   0, 20
@@ -2480,7 +2480,7 @@ Frameset_68cde:
 	db $ff
 
 ; unreferenced
-Frameset_68ce7:
+UnreferencedZombieFrameset_68ce7:
 	db   4, 20
 	db   5, 20
 	db   4, 20
@@ -2488,32 +2488,32 @@ Frameset_68ce7:
 	db $ff
 
 ; unreferenced
-Frameset_68cf0:
+UnreferencedZombieFrameset_68cf0:
 	db   0, 24
 	db   3, 24
 	db  19, 64
 	db $ff
 
 ; unreferenced
-Frameset_68cf7:
+UnreferencedZombieFrameset_68cf7:
 	db   4, 24
 	db   7, 24
 	db  20, 64
 	db $ff
 
 ; unreferenced
-Frameset_68cfe:
+UnreferencedZombieFrameset_68cfe:
 	db   8, 20
 	db   9,  8
 	db $ff
 
 ; unreferenced
-Frameset_68d03:
+UnreferencedZombieFrameset_68d03:
 	db  10, 20
 	db  11,  8
 	db $ff
 
-Frameset_68d08:
+UnreferencedZombieFrameset_68d08:
 	db  23, 24
 	db  12, 24
 	db  13, 24
@@ -2521,7 +2521,7 @@ Frameset_68d08:
 	db $ff
 
 ; unreferenced
-Frameset_68d11:
+UnreferencedZombieFrameset_68d11:
 	db  24, 24
 	db  14, 24
 	db  15, 24
@@ -2925,14 +2925,14 @@ BeamBotFrameset_68ef8:
 	db $ff
 
 ; unreferenced
-Frameset_68efd:
+UnreferencedBeamBotFrameset_68efd:
 	db  11,  4
 	db  10,  4
 	db   0,  4
 	db $ff
 
 ; unreferenced
-Frameset_68f04:
+UnreferencedBeamBotFrameset_68f04:
 	db  13,  4
 	db  12,  4
 	db   3,  4
@@ -3196,7 +3196,7 @@ KobattoFrameset_69041:
 	db $ff
 
 ; unreferenced
-Frameset_69060:
+UnreferencedHandFrameset_69060:
 	db  11,  2
 	db  12,  2
 	db  13,  2
@@ -3807,7 +3807,7 @@ OwlFrameset_69377:
 	db $ff
 
 ; unreferenced
-Frameset_69382:
+UnreferencedOwlFrameset_69382:
 	db  36,  5
 	db  37,  5
 	db  38,  5
@@ -3816,7 +3816,7 @@ Frameset_69382:
 	db $ff
 
 ; unreferenced
-Frameset_6938d:
+UnreferencedOwlFrameset_6938d:
 	db  41,  5
 	db  42,  5
 	db  43,  5
@@ -3825,7 +3825,7 @@ Frameset_6938d:
 	db $ff
 
 ; unreferenced
-Frameset_69398:
+UnreferencedOwlFrameset_69398:
 	db  46,  5
 	db  47,  5
 	db  48,  5
@@ -3834,7 +3834,7 @@ Frameset_69398:
 	db $ff
 
 ; unreferenced
-Frameset_693a3:
+UnreferencedOwlFrameset_693a3:
 	db  51,  5
 	db  52,  5
 	db  53,  5
@@ -3843,7 +3843,7 @@ Frameset_693a3:
 	db $ff
 
 ; unreferenced
-Frameset_693ae:
+UnreferencedOwlFrameset_693ae:
 	db  46,  3
 	db  37,  3
 	db  38,  3
@@ -3852,7 +3852,7 @@ Frameset_693ae:
 	db $ff
 
 ; unreferenced
-Frameset_693b9:
+UnreferencedOwlFrameset_693b9:
 	db  51,  3
 	db  42,  3
 	db  43,  3
@@ -4284,7 +4284,7 @@ FlameBlockFrameset_695e7:
 	db $ff
 
 ; unreferenced
-Frameset_69608:
+UnreferencedFlameBlockFrameset_69608:
 	db   2,  4
 	db   3,  4
 	db   2,  4
@@ -4816,7 +4816,7 @@ YellowBellyFrameset_69896:
 	db $ff
 
 ; unreferenced
-Frameset_698a5:
+UnreferencedClearGateFrameset_698a5:
 	db   0, 100
 	db $ff
 
@@ -5254,32 +5254,32 @@ TadpoleFrameset_69a3d:
 	db $ff
 
 ; unreferenced
-Frameset_69a42:
+UnreferencedTadpoleFrameset_69a42:
 	db  11, 12
 	db  13, 12
 	db $ff
 
 ; unreferenced
-Frameset_69a47:
+UnreferencedTadpoleFrameset_69a47:
 	db   9,  6
 	db   8,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a4c:
+UnreferencedTadpoleFrameset_69a4c:
 	db  11,  6
 	db  10,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a51:
+UnreferencedTadpoleFrameset_69a51:
 	db   9,  6
 	db  14,  8
 	db  11,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a58:
+UnreferencedTadpoleFrameset_69a58:
 	db  11,  6
 	db  14,  8
 	db   9,  6
@@ -5518,7 +5518,7 @@ OctohonFrameset_69b88:
 	db $ff
 
 ; unreferenced
-Frameset_69b91:
+UnreferencedOctohonFrameset_69b91:
 	db   0, 20
 	db  22,  8
 	db   1,  8
@@ -5572,7 +5572,7 @@ SparkFrameset_69bd9:
 	db $ff
 
 ; unreferenced
-Frameset_69be2:
+UnreferencedSparkFrameset_69be2:
 	db   0,  4
 	db   3,  4
 	db   4,  6
@@ -5585,7 +5585,7 @@ Frameset_69be2:
 	db $ff
 
 ; unreferenced
-Frameset_69bf5:
+UnreferencedSparkFrameset_69bf5:
 	db   0,  3
 	db   6,  6
 	db   0,  3
@@ -6145,7 +6145,7 @@ WolfenbossFrameset_69eb2:
 	db $ff
 
 ; unreferenced
-Frameset_69ec3:
+UnreferencedShootFrameset_69ec3:
 	db   0, 11
 	db   1,  7
 	db   2,  3
@@ -6158,7 +6158,7 @@ Frameset_69ec3:
 	db $ff
 
 ; unreferenced
-Frameset_69ed6:
+UnreferencedShootFrameset_69ed6:
 	db   9, 11
 	db  10,  7
 	db  11,  3
@@ -6171,7 +6171,7 @@ Frameset_69ed6:
 	db $ff
 
 ; unreferenced
-Frameset_69ee9:
+UnreferencedShootFrameset_69ee9:
 	db   0,  6
 	db   1,  5
 	db   2,  2
@@ -6184,7 +6184,7 @@ Frameset_69ee9:
 	db $ff
 
 ; unreferenced
-Frameset_69efc:
+UnreferencedShootFrameset_69efc:
 	db   9,  6
 	db  10,  5
 	db  11,  2
@@ -6197,7 +6197,7 @@ Frameset_69efc:
 	db $ff
 
 ; unreferenced
-Frameset_69f0f:
+UnreferencedShootFrameset_69f0f:
 	db   0,  6
 	db   1,  5
 	db   2,  2
@@ -6210,7 +6210,7 @@ Frameset_69f0f:
 	db $ff
 
 ; unreferenced
-Frameset_69f22:
+UnreferencedShootFrameset_69f22:
 	db   9,  6
 	db  10,  5
 	db  11,  2
