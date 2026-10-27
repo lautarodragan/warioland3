@@ -51,7 +51,7 @@ proposals are being applied on another branch.
 - [x] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
 - [x] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
 - [x] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous (1406 labels; ~1150 shared ones left).
-- [~] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value. Done: map-side state entries (139, by slot), bank20's map-side loop / temple hint / path preview / scene actions / `UnlockLevel` (~75); bank21's last 3, bank26, part of bank2b_1 (~45).
+- [~] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value. Done: map-side state entries (139, by slot), bank20's map-side loop / temple hint / path preview / scene actions / `UnlockLevel` (~75); bank21's last 3, bank26, part of bank2b_1 (~45); bank27 cutscene set-up (19 by rule + 8).
 
 **Status:** first pass: about 430 table rows (~650 labels) plus 475
 mechanical object state names. Second pass (everything under "Second
@@ -1961,3 +1961,20 @@ remark in the 3a row doesn't apply.
 | `Func_9aaf4` | :1160 | `CheckLevelMusicalCoinsForBottomBar` | Sets bit 6 of `wBottomBarFlags` (and resets the compass object) when all musical coins of `wOWLevel` were collected. | medium |
 | `Func_9ab1c` | :1187 | `GetCurOWLevelCollectedTreasures` | `GetOWLevelCollectedTreasures` unless the point is the Temple (0) or none ($80). | high |
 | `Func_15868e` | bank56.asm:721 | `UpdateNOWPrologueObjs` | Called every frame by `NOWFunc_Prologue` (bank2d.asm:3504): six small state machines (`w2d150`, ...) for the scene objects of that scene. | low |
+
+#### bank27: cutscene set-up
+
+**Rule: `InitCutsceneXX` tails.** 19 of the existing `InitCutsceneXX`
+routines (bank27.asm:1-575) end with `jp Func_9xxxx`, a routine that places
+the cutscene's scene objects (coordinates, `SetSceneObjState`,
+`Func_9ccf9`) and usually draws them once through the cutscene's updater:
+`InitCutsceneXXObjs`, keeping the existing numbering. Generated, high:
+`Func_9d01a` InitCutscene06Objs; `Func_9d158` InitCutscene07Objs; `Func_9d0e6` InitCutscene0aObjs; `Func_9da0e` InitCutscene15Objs; `Func_9d536` InitCutscene1eObjs; `Func_9db85` InitCutscene24Objs; `Func_9d64b` InitCutscene27Objs; `Func_9dc6a` InitCutscene1fObjs; `Func_9ded4` InitCutscene30Objs; `Func_9e018` InitCutscene3aObjs; `Func_9e2b8` InitCutscene54Objs; `Func_9e438` InitCutscene4aObjs; `Func_9e4ae` InitCutscene4cObjs; `Func_9e5a1` InitCutscene4fObjs; `Func_9e655` InitCutscene51Objs; `Func_9e6ef` InitCutscene56Objs; `Func_9e79a` InitCutscene57Objs; `Func_9e855` InitCutscene58Objs; `Func_9e91a` InitCutscene55Objs.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_9c25f` | bank27.asm:65 | `InitMusicBoxCutscene` | Shared tail of `InitCutscene08/10/17/1d/25` (the five music boxes), entered with that box's OB palettes in `hl`: BG palettes `Pals_b8200`, `LoadCutscenes2Gfx`, BG maps 01/04. | high |
+| `Func_9c931` / `Func_9c937` | :609 / 613 | `LoadCutscenes7And5Gfx_Vram0` / `LoadCutscenes7And10Gfx_Vram0` | `LoadCutscenes7Gfx_Vram0` followed by `LoadCutscenes5Gfx_Vram0` / `LoadCutscenes10Gfx_Vram0`, next to the existing `LoadCutscenesNGfx_*` family (where the "5" part is implied, e.g. `LoadCutscenes1Gfx_Vram0` also loads set 5). | high |
+| `Func_9c977` / `Func_9c97d` | :625 / 629 | `LoadCutscenes8And5Gfx_Vram1` / `LoadCutscenes8And10Gfx_Vram1` | Same with `LoadCutscenes8Gfx_Vram1`. | high |
+| `Func_9cc4f` | :963 | `SetBGPriorityOn6x7Rect_Vram0` | Its header comment: fills a 6x7 attribute rectangle at (0, 5) with `BG_BANK0 \| BG_PRIO`; next to `SetBGPriorityOnTopRows_Vram0`. | high |
+| `Func_9ea9e` / `Func_9eab4` | :5329 / 5341 | `MoveCutsceneObj10` / `MoveCutsceneObj11` | Called every frame by Cutscene58 (open crater hole) and Cutscene55 (drill holes): while `wSceneObj12YCoord` / `wSceneObj12XCoord` is non-zero (used as flags, not coordinates), move scene object 10 / 11 along `Data_9ec16` / `Data_9ec41` (`ApplyOWMovement`), then clear the flag and the object's state. | medium |
