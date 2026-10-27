@@ -40,6 +40,19 @@ August 2026 commits renamed a few of the labels it covers:
 - [x] 2e. Audio engine `Func_` routines; action help demos (bulk rule covering all 302 `Func_`, plus the 4 common ones).
 - [~] 2f. Bulk data: `RoomPals###` (146 `Pals_`) and `LevelRooms_` (119) generated; framesets/OAM/other palettes/`Data_` only counted, with an owner-prefix rule suggested.
 
+**Third pass (branch `claude/naming-survey-3-dh93t5`), plan in this order.**
+Rows go in a new "Third pass" section at the end; existing rows are left
+untouched (mistakes found in them go in a "Corrections" note there), and
+everything is named by its current master label, since the earlier
+proposals are being applied on another branch.
+
+- [x] 3a. Phase 7: the overworld `Func_` with 4-8 references from 2b (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`).
+- [x] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule. Also bulk rules for the cutscene step tables (`.PlayCutscene`), the wait steps in bank27/bank2d (109 `.WaitN`) and the per-OW-function object init routines in bank2d (45).
+- [x] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
+- [x] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
+- [x] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous (1406 labels; ~1150 shared ones left).
+- [~] 3f. The rest of bank20/21/26/27/2b/2d/56 `Func_` and scene-local `.Func_`, in bulk where a mechanical rule is reliable, then by value. Done: map-side state entries (139, by slot), bank20's map-side loop / temple hint / path preview / scene actions / `UnlockLevel` (~75); bank21's last 3, bank26, part of bank2b_1 (~45); bank27 cutscene set-up (19 by rule + 8).
+
 **Status:** first pass: about 430 table rows (~650 labels) plus 475
 mechanical object state names. Second pass (everything under "Second
 pass" below): about 330 table rows, roughly 205 high, 100 medium, 12 low
@@ -49,17 +62,31 @@ level room tables 119, map-side object states ~150) it covers roughly
 1500 labels. Every proposed global name was checked with a script against
 `src/` and this file.
 
+**Third pass status:** about 90 table rows (roughly 45 high, 40 medium,
+5 low) plus bulk rules; together about 700 code labels (cutscene step
+tables 40, updaters 48, wait steps 109, per-OW-function inits 45, cutscene
+object inits 19, map-side state entries 139, boss locals ~120, bank20/21/
+26/27/2b_1 routines ~150, union bytes) and 1406 data labels by the
+owner-prefix rule. All new global names checked by script against `src/`
+and the earlier sections.
+
 **Resume at** (in this order):
-1. Phase 7: the overworld `Func_` with 4-8 references listed in 2b, then
-   bank27's per-cutscene object updaters (`Func_9f0e0`, `Func_9f11e`,
-   `Func_9f146`...: each animates scene objects with `Func_9f0a5` +
-   `Func_9f0ae` + `Func_9f0bc` and a frameset table, a bulk rule should
-   work), then scene locals.
-2. The boss phases left unnamed in 2d (read each boss's phase jumptable in
-   full, as was done for hidden_figure.asm).
-3. Data: owner-prefix rule for framesets/OAM, then descriptive names per
-   object/scene. Also give the boss union bytes per-boss names (see the
-   note after `w1d147`).
+1. 3f, overworld `Func_` still unnamed: bank2b_2 (~45, prologue internals:
+   `Func_ae9d0`/`ae9da`/`ae9e4` move scene object 3 along movement data,
+   `Func_ae9ee` plane part 2 actions, `Func_ae2ed`.. the `w2d8b0` steps),
+   bank2b_1 (~15 left), bank2d (~20: the per-state map animation handlers
+   `Func_b7ac0`.. `Func_b7cb3`, `Func_b4082`, `Func_b4874`), bank56
+   (`Func_15848a`, `Func_1580c8`), bank20 leftovers (`Func_812b0`,
+   `Func_819c6`, top-bar helpers `Func_824f1`/`8250a`/`82521`/`8269f`).
+2. Scene-local `.Func_` (~1200 minus the ~200 covered by the wait and
+   `.PlayCutscene` rules): the next mechanical candidates are the 14
+   `ret`-only locals (`.DoNothing`) and the set-object-state-then-advance
+   steps; otherwise per scene, starting with bank27's cutscene steps.
+3. Data not covered by the owner rule (~1150 labels shared by several files
+   or routines; Wario framesets used by several states; OAM tables shared
+   through object_data.asm), then descriptive names per object/scene.
+4. Optional consistency renames noted in passing: `OWCutTree` ->
+   `UpdateCutsceneObjs_CutTree`, bank2d's `.Wait1`..`.Wait4` -> frames.
 
 ## Inventory (master at f205aa3)
 
@@ -1456,3 +1483,512 @@ above are an example). Medium value; not generated here.
 | Current | Where | Proposed | Evidence | Conf. |
 |---|---|---|---|---|
 | `Func_ae915` | src/engine/overworld/bank2b_2.asm:1511 | `AdvanceStepAtHL` | `xor a / ld [hld], a / inc [hl]`: clears the counter at `hl` and increments the step byte before it; used with `w2d8a1` and the `wPlanePart*Counter` fields (12 references). | high |
+
+## Third pass
+
+Same conventions as above. Labels are the current master labels (the
+earlier proposals are being applied on another branch, so a row here may
+mention a label that an earlier row already renames). New global names were
+checked with a script against `src/` and against everything above (no
+collisions, no duplicates).
+
+### 3a. Phase 7: overworld routines with 4-8 references
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_b69a6` | src/engine/overworld/bank2d.asm:5906 | `FillPalsWithFlashColour` | Writes the colour $739c (VC build: $294a, `vc_patch FPA_80_BG_Flash_Palette_1_*`) to `b` colours at `hl`. Used by the canyon-thunder scene's lightning flash (`.Func_b5e10`, `.flash2_pal`) and by the flash at bank2d.asm:5893. Note `b` counts colours, so the callers' `ld b, 3 palettes` / `ld b, 4 palettes` are really 24 / 32 colours (palettes 0-5 / all 8): the operands are spelled misleadingly (`.Func_b5e10` copies palette 6 back right after, which only makes sense with 0-5 flashed). | high |
+| `Func_85a91` | src/engine/overworld/bank21.asm:1925 | `AddTilemapRowToPtrAtDE` | Adds $20 to the little-endian pointer at `de` and leaves `de` past it; always called twice in a row to move both the destination and the source pointer one tilemap row down. | high |
+| `Func_85a68` / `Func_85aa2` / `Func_85acb` | bank21.asm:1896 / 1942 / 1971 | `CopyOWTileColumn1` / `CopyOWTileColumn2` / `CopyOWTileColumn3` | Copy a column of tiles, one per row, from a 32-wide source (attributes $a0 bytes after the tiles) into `wTilemap`, and the attribute $300 bytes lower (`wAttrmap`); row count, destination and source come from the `wOWUIObj1` / `wOWUIObj2` / `w2d150` blocks (borrowed as scratch). Only callers: the freeze-sea scene (`EOWFunc_FreezeSea.Func_b6fae`/`.Func_b6ffe`/`.Func_b7056`, which read the next column from a $80-terminated list every 5 frames and set `wOWPendingTileUpdate`). | medium |
+| `Func_b71fc` | bank2d.asm:7170 | `UpdateOWSceneScreenShake` | Called first thing every frame by the map-side scenes with quakes (`NOWFunc_Prologue`, `WOWFunc_Earthquake`, `WOWFunc_VulcanoEruption`, `SOWFunc_Earthquake`, `EOWFunc_Earthquake`, `EOWFunc_VulcanoEruption`). `wOWUIObj1YCoord` is a request/state (0 off; 1 starts the script at step $01, 4 (once step $01 comes round again) and 6 at step $11, 8 at $15, 10 at $1e; each start moves to the next state, which waits for a given step and clears the request), `wOWUIObj1Frame` the current script step and `wOWUIObj1Attributes` its frame counter; `.Func_b7273` runs the script, a 38-entry jumptable of `wSCY`/`wSCX` nudges (+-1, +-2, +-4) held 1 or 3 frames, with `SFX_01F` / `SFX_063` on some steps. Locals: `.Func_b7273` -> `.RunShakeScript`, `.asm_b7304` -> `.next_step`. | medium |
+| `wOWUIObj1YCoord` / `wOWUIObj1Frame` / `wOWUIObj1Attributes` in map-side scenes | src/ram/wram.asm | scene aliases `wOWSceneShakeState` / `wOWSceneShakeStep` / `wOWSceneShakeCounter` | See `Func_b71fc`. This explains the Addenda row "bank2d.asm:3529-3559, 4016-4043, 4175-4228, 4388-4419 ... a scene step/flag byte": the scenes request a shake (1, 4) and wait for the state to reach 5 or 0. Correction to that row: lines 3529-3559 are in `NOWFunc_Prologue`, not the freeze-sea scene. | medium |
+| `Func_b7984` / `Func_b7a6d` / `Func_b7c18` / `Func_b7b61` | bank2d.asm:8344 / 8480 / 8736 / 8627 | `UpdateNorthOWObjMapAnim` / `UpdateWestOWObjMapAnim` / `UpdateSouthOWObjMapAnim` / `UpdateEastOWObjMapAnim` | Called by the existing `UpdateMapSideOWAnimations` for a fixed set of scene objects per side (`bc` = state byte); each dispatches on the object's state into a per-side table (44 / 36 / 33 / 35 entries) that is `Func_b791d` (`ret`) except for the few states with idle behaviour: the north leaves (`Func_b542e`), the tornado (`Func_b7ab7` -> `UpdateOWTornado`), day/night switches of objects 14/15 (`.Func_b79fa`..`.Func_b7a24`). The east table has 35 entries while `Func_b4ba2` handles 36 states (state $23 would read past it, if one of the two east objects passed here can have it; not checked). | high |
+| `Func_b7984.Func_b79fa` / `.Func_b7a08` / `.Func_b7a16` / `.Func_b7a24` | bank2d.asm:8403-8430 | `.Obj15WaitForDay` / `.Obj15WaitForNight` / `.Obj14WaitForDay` / `.Obj14WaitForNight` | States $18/$19 (obj 15) and $1a/$1b (obj 14): when `w2d011` (night) no longer matches, set the transition state ($17/$16, $1b/$1a). `Func_b403e.Func_b4055` sets the same states at init from `w2d011`. | medium |
+| `Func_b542e` | bank2d.asm:2818 | `UpdateNorthLeaves` | North map-side states $10-$13 (`Func_b7984`). Two copies of a 6-step loop for scene objects 6 and 7 (`w2d12c`/`w2d12d` and `w2d12e`/`w2d12f`, set up by `Func_b40ff`, the `NOWFUNC_FALL_LEAVES` init): wait $78 frames, state $12, wait $5a, state $13, wait $28, state $10 at Y $38, wait $5a, sink 1 px every 16 frames to Y $48, wait for the frameset to end, state $11 and restart. Locals: `.Func_b5435` / `.Func_b54ba` -> `.UpdateLeaf1` / `.UpdateLeaf2`. | medium |
+| `Func_b5114` | bank2d.asm:2380 | `AnimateNorthOWObj2` | North's second sprite set, exactly like the second-pass `AnimateWestOWObj2` family: `UpdateCurOWObjAnimation`, then `LoadCurSceneObjSpriteWithScroll` with `OAM_a9fe2`. Locals: `.asm_b5117` -> `.draw`, `.asm_b5122` -> `.set_state_when_finished` (entered by `Func_b50fb`/`Func_b510a` with the next state in `b`). The 2 instructions between `jp LoadCurSceneObjSpriteWithScroll` and `.asm_b5122` have no label and no reference: the unreferenced "Once" variant (`UnreferencedAnimateWestOWObj2Once` in the second pass). | high |
+| `Func_b4143` | bank2d.asm:204 | `InitNOWObjects_Crayon` | Shared tail of the 7 crayon entries of `InitOWObjects_North` (see rule 4 below): if the crayon is newly unlocked (`sla c` carry), places scene objects 5 and 1 and stores `b` (0-3, set by each colour's entry) as object 5's attributes (palette). | high |
+| `Func_9a78e` | bank26.asm:652 | `CollectionRowColToCoords` | Replaces the row/column at `de` with the cell's screen Y/X (same tables as `GetCollectionCellCoords`); used for the 7 linked-cell markers. In the caller: `ProcessCollectionLinkState.Func_9a806` -> `.PlaceLinkedCellMarkers`, `.Func_9a8d8` -> `.set_marker_state`. (The caller addresses objects 4-7 as `wSceneObj3End`..`wSceneObj6End`, i.e. "end of the previous object"; `wSceneObj4`.. would read better.) | high |
+| `Func_9fb53` | bank27.asm:7475 | `DrawCutsceneOverlay` | When `wSceneObj1YCoord == b`, copies Y/X of the scene object at `de` into the 4 bytes at `hl` (a spare object slot, `wCurSceneObj` or `wCurSceneObjDuration`), sets frame `c`, and draws it with `OAM_bc000` (Overworld OAM 2). The source comment says "b = y coord"; it is compared with `wSceneObj1YCoord`, which cutscenes set to 1/2/3 to choose which overlay frames apply (next row). | high |
+| `wSceneObj1YCoord` in bank27 cutscenes | src/ram/wram.asm | cutscene alias `wCutsceneOverlayType` | Written only as 1, 2 or 3 by the cutscene set-up steps (bank27.asm:1629, 2004, 2462, 5584, ...), read only by `Func_9fb53`/`Func_9fb87`. | medium |
+| `Func_9fb61` | :7490 | `LoadCutsceneOverlaySprite` | `hl &= ~3`, `LoadCutsceneObjSprite_OWOAM2` (`Func_9f0bc`) with `OAM_bc000`. | high |
+| `Func_9fb4c`, `Func_9fb6c`, `Func_9fb75`, `Func_9fb7e`, `Func_9fb87`, `Func_9fb97`, `Func_9fba0` | :7467-7539 | `DrawCutsceneOverlayFrame0` .. `DrawCutsceneOverlayFrame6` (in this order) | Fix the frame (0-6) and type (1 for frames 0-3, 2 for frame 4, 3 for frames 5-6) for `Func_9fb53`; `Func_9fb87` draws frame 4 without copying a position. Frames 0/2 and 1/3 are mirror images and frame 4 is 0+1+2+3 together; the updaters draw frame 0 before the object and frame 1 after it, i.e. behind and in front of it (music boxes, the seed bag). | high |
+
+### 3b. bank27: per-cutscene step tables and object updaters (bulk rules)
+
+Every `CutsceneXXFunc` in bank27.asm (table at bank27.asm:1250, commented
+with its `EVENT_*`) is `call .<steps> / jp <updater>`; a few also `call` a
+second updater. Cutscene02 (`.PlayCutscene` / `OWCutTree`) and Cutscene03
+(`.PlayCutscene`) are already named. Checked by script over all 48 entries.
+
+**Rule 1: step tables.** The local called first is the `w2d013` jumptable
+(some run per-frame helpers before the `jumptable`): `.PlayCutscene`, as
+in Cutscene02/03. 40 labels (Cutscene0e/11 and 15/49 share one): `Cutscene06Func.Func_9d033`, `Cutscene0aFunc.Func_9d114`, `Cutscene07Func.Func_9d191`, `Cutscene19Func.Func_9d285`, `Cutscene11Func.Func_9d340`, `Cutscene1bFunc.Func_9d44a`, `Cutscene1eFunc.Func_9d56f`, `Cutscene22Func.Func_9d5dd`, `Cutscene27Func.Func_9d664`, `Cutscene09Func.Func_9d6aa`, `Func_9d6f0.Func_9d6f6`, `Cutscene0cFunc.Func_9d834`, `Cutscene18Func.Func_9d86f`, `Cutscene0dFunc.Func_9d8bb`, `Cutscene13Func.Func_9d98b`, `Cutscene49Func.Func_9da37`, `Cutscene04Func.Func_9db09`, `Cutscene24Func.Func_9db9e`, `Cutscene1fFunc.Func_9dc83`, `Cutscene21Func.Func_9dd09`, `Cutscene37Func.Func_9de0d`, `Cutscene38Func.Func_9de4e`, `Cutscene30Func.Func_9df15`, `Cutscene39Func.Func_9dfd3`, `Cutscene3aFunc.Func_9e04c`, `Cutscene3cFunc.Func_9e177`, `Cutscene43Func.Func_9e262`, `Cutscene54Func.Func_9e2d7`, `Cutscene3dFunc.Func_9e350`, `Cutscene4aFunc.Func_9e457`, `Cutscene4cFunc.Func_9e4d8`, `Cutscene4eFunc.Func_9e552`, `Cutscene4fFunc.Func_9e5c0`, `Cutscene51Func.Func_9e674`, `Cutscene56Func.Func_9e703`, `Cutscene57Func.Func_9e7b9`, `Cutscene58Func.Func_9e87a`, `Cutscene55Func.Func_9e965`, `Cutscene44Func.Func_9ead3`, `Cutscene14Func.Func_9ec73`. High.
+
+`Func_9d6f0` (bank27.asm:2495), entered by `Cutscene08/10/17/1d/25Func`
+with `b` = 1/3/5/7/9: `MusicBoxCutsceneFunc`. The music box (scene object 2,
+state `b`) rises from Y 176 to $62 (`PlaySFX_112` at $88), switches to state
+`b+1` and plays that box's tune (`SFX_11E`..`SFX_122`). High.
+
+**Rule 2: object updaters.** The `jp` target animates the cutscene's scene
+objects: for each object (state 0 = inactive) `Func_9f0a5` picks the
+frameset from a local `.framesets` table, `Func_9f0ae`/`Func_9f0b5`
+animates, some states change on animation end (`Func_9f0d0`), and
+`Func_9f0bc`..`Func_9f0cb` draws with one OAM table. Name:
+`UpdateCutsceneObjs_<Event>`. The extra updaters that draw a level
+object's sprite (`Func_9f0b5` + Objects OAM 1/3/4) get
+`UpdateCutsceneLevelObj_<Event>` (the object, from the frameset's other
+user, in brackets). High for the rule; the event names come from the table.
+
+`Func_9f0e0` UpdateCutsceneObjs_OpenNorthGate; `Func_9f11e` UpdateCutsceneObjs_Rainstorm; `Func_9f146` UpdateCutsceneObjs_RaiseTower; `Func_9f174` UpdateCutsceneObjs_FixElevator; `Func_9f1d8` UpdateCutsceneObjs_RevealCastle; `Func_9f1f3` UpdateCutsceneObjs_FreezeSea (also used by SUMMON_LIGHTNING, which shares the step table, and PURIFY_WATER; medium); `Func_9f225` UpdateCutsceneObjs_SummonSun; `Func_9f244` UpdateCutsceneLevelObj_SummonSun (owl, `SFX_FLAP`); `Func_9f2a2` UpdateCutsceneObjs_ExplodeBombs; `Func_9f2cd` UpdateCutsceneObjs_TreasureMap; `Func_9f2f3` UpdateCutsceneObjs_PlaceCartWheels (draws the cart's level-object sprite only); `Func_9fbfa` UpdateCutsceneObjs_PlantSeeds; `Func_9fc1d` UpdateCutsceneObjs_MusicBox; `Func_9f323` UpdateCutsceneObjs_BlowMist; `Func_9f340` UpdateCutsceneObjs_SummonSnakes; `Func_9f367` UpdateCutsceneObjs_FootStone; `Func_9f38d` UpdateCutsceneObjs_OpenSnakeDoor (blue and golden); `Func_9f3cd` UpdateCutsceneObjs_ExpelTornado; `Func_9f3ee` UpdateCutsceneObjs_OpenTreeMouth; `Func_9f423` UpdateCutsceneObjs_LeavesFall; `Func_9f49c` UpdateCutsceneObjs_MakeWire; `Func_9f508` UpdateCutsceneObjs_TorchForest; `Func_9f547` UpdateCutsceneObjs_RevealWarpedVoid; `Func_9f5a0` UpdateCutsceneObjs_RaiseIceBlocks; `Func_9f607` UpdateCutsceneObjs_RaisePipe; `Func_9f638` UpdateCutsceneObjs_RemoveWarps; `Func_9f6a2` UpdateCutsceneObjs_CollectDemonsBlood; `Func_9f6f8` UpdateCutsceneObjs_PlacePropeller; `Func_9f73b` UpdateCutsceneObjs_CutBaloon; `Func_9f75c` UpdateCutsceneObjs_OpenParaGoomCage; `Func_9f7a2` UpdateCutsceneLevelObj_OpenParaGoomCage (Para-Goom); `Func_9f7bb` UpdateCutsceneObjs_OpenSkyDoor; `Func_9f7dc` UpdateCutsceneObjs_ExtinguishFire; `Func_9f821` UpdateCutsceneLevelObj_ExtinguishFire (fire); `Func_9f857` UpdateCutsceneObjs_PlaceBrick; `Func_9f86a` UpdateCutsceneObjs_SprayIronWall; `Func_9f8da` UpdateCutsceneObjs_MixChemicals; `Func_9f91f` UpdateCutsceneObjs_RevealDarkRoom; `Func_9f991` UpdateCutsceneObjs_SummonMoon; `Func_9f9c1` UpdateCutsceneObjs_OpenCraterHole; `Func_9f9f5` UpdateCutsceneLevelObj_OpenCraterHole (wall crack); `Func_9fa48` UpdateCutsceneObjs_DrillHoles; `Func_9fab4` UpdateCutsceneObjs_FeedOctohon; `Func_9faea` UpdateCutsceneLevelObj_FeedOctohon (Octohon); `Func_9fba9` UpdateCutsceneObjs_VolcanoEruption.
+
+For consistency `OWCutTree` could become `UpdateCutsceneObjs_CutTree`.
+Inside each updater, the per-object loop entry (`.asm_9f0e9`,
+`.asm_9f121`, ...) reads well as `.loop_obj` and the draw tail as
+`.draw`; not listed one by one.
+
+**Rule 3: wait steps.** A step local whose whole body is `ld c, N / jp
+WaitCutsceneFunc` (bank27) or `ld a, N / jp WaitOWFunc` (bank2d) is
+`.Wait<N>` (frames, decimal), with `_1`, `_2` when a routine has several
+with the same N, as Cutscene03's `.Wait30_1`.. already do. bank2d's
+existing `.Wait1`..`.Wait4` in `SOWFunc_RaiseTower` number the waits in
+order instead; renaming them to frames is optional. Generated by script
+(scope = the enclosing global label; no clash with an existing local in
+the same scope), 109 labels, high.
+
+bank27 (60):
+
+`Cutscene06Func.Func_9d071` .Wait30; `Cutscene06Func.Func_9d0bc` .Wait100; `Cutscene0aFunc.Func_9d140` .Wait50; `Cutscene0aFunc.Func_9d153` .Wait30; `Cutscene07Func.Func_9d1e4` .Wait50_1; `Cutscene07Func.Func_9d1fc` .Wait30; `Cutscene07Func.Func_9d20c` .Wait40_1; `Cutscene07Func.Func_9d234` .Wait50_2; `Cutscene07Func.Func_9d244` .Wait40_2; `Cutscene07Func.Func_9d264` .Wait50_3; `Cutscene19Func.Func_9d2cc` .Wait90; `Cutscene19Func.Func_9d2e4` .Wait30; `Cutscene19Func.Func_9d2fa` .Wait60; `Cutscene19Func.Func_9d326` .Wait8; `Cutscene11Func.Func_9d3a2` .Wait60; `Cutscene11Func.Func_9d3dc` .Wait30_1; `Cutscene11Func.Func_9d40e` .Wait30_2; `Cutscene1bFunc.Func_9d4ae` .Wait90; `Cutscene1bFunc.Func_9d4b3` .Wait8; `Cutscene1bFunc.Func_9d4b8` .Wait60; `Cutscene1bFunc.Func_9d4ff` .Wait20; `Cutscene1bFunc.Func_9d531` .Wait100; `Cutscene1eFunc.Func_9d589` .Wait15; `Cutscene1eFunc.Func_9d5a1` .Wait60; `Cutscene1eFunc.Func_9d5b9` .Wait70; `Cutscene1eFunc.Func_9d5d2` .Wait30; `Cutscene22Func.Func_9d611` .Wait45; `Cutscene27Func.Func_9d687` .Wait50; `Cutscene27Func.Func_9d69f` .Wait180; `Func_9d6f0.Func_9d733` .Wait30; `Func_9d6f0.Func_9d744` .Wait50; `Func_9d6f0.Func_9d792` .Wait254; `Cutscene18Func.Func_9d8a8` .Wait20; `Cutscene0dFunc.Func_9d8fc` .Wait20; `Cutscene0dFunc.Func_9d909` .Wait60; `Cutscene0dFunc.Func_9d980` .Wait80; `Cutscene13Func.Func_9d9f4` .Wait30; `Cutscene49Func.Func_9da4d` .Wait20; `Cutscene49Func.Func_9dac4` .Wait40; `Cutscene24Func.Func_9dbf8` .Wait40; `Cutscene1fFunc.Func_9dcfe` .Wait40; `Cutscene21Func.Func_9dd9c` .Wait60; `Cutscene37Func.Func_9de33` .Wait40; `Cutscene38Func.Func_9dec8` .Wait120; `Cutscene30Func.Func_9df52` .Wait10; `Cutscene30Func.Func_9df6b` .Wait30; `Cutscene39Func.Func_9e013` .Wait100; `Cutscene3aFunc.Func_9e093` .Wait45; `Cutscene3aFunc.Func_9e103` .Wait80; `Cutscene54Func.Func_9e303` .Wait40; `Cutscene54Func.Func_9e333` .Wait20; `Cutscene4cFunc.Func_9e506` .Wait40; `Cutscene4fFunc.Func_9e605` .Wait45; `Cutscene4fFunc.Func_9e61a` .Wait8; `Cutscene51Func.Func_9e6c0` .Wait45; `Cutscene58Func.Func_9e8b2` .Wait30; `Cutscene55Func.Func_9e9da` .Wait45; `Cutscene55Func.Func_9ea8e` .Wait30; `Cutscene44Func.Func_9eb9a` .Wait60; `Cutscene14Func.Func_9ed77` .Wait30
+
+bank2d (49):
+
+`NOWFunc_Prologue.Func_b59a0` .Wait86; `NOWFunc_Prologue.Func_b59d9` .Wait120; `WOWFunc_Earthquake.Func_b5c8f` .Wait60; `WOWFunc_VulcanoEruption.Func_b5da7` .Wait24; `WOWFunc_VulcanoEruption.Func_b5dd2` .Wait58; `WOWFunc_VulcanoEruption.Func_b5f10` .Wait16; `WOWFunc_RedMusicBox.Func_b60b5` .Wait254; `WOWFunc_RedMusicBox.Func_b60d0` .Wait23; `WOWFunc_RedMusicBox.Func_b60e4` .Wait10; `SOWFunc_CanyonThunder.Func_b67cc` .Wait90; `SOWFunc_CanyonThunder.Func_b681b` .Wait30; `SOWFunc_CanyonThunder.Func_b6831` .Wait7; `SOWFunc_CanyonThunder.Func_b6847` .Wait45; `SOWFunc_Fan.Func_b6a86` .Wait20_1; `SOWFunc_Fan.Func_b6a8b` .Wait20_2; `SOWFunc_Fan.Func_b6aa3` .Wait24; `SOWFunc_Fan.Func_b6acf` .Wait12; `SOWFunc_Earthquake.Func_b6c53` .Wait20; `SOWFunc_Earthquake.Func_b6c58` .Wait60; `SOWFunc_Earthquake.Func_b6c73` .Wait120; `EOWFunc_Explosives.Func_b6d3d` .Wait20_1; `EOWFunc_Explosives.Func_b6d42` .Wait40; `EOWFunc_Explosives.Func_b6d47` .Wait50; `EOWFunc_Explosives.Func_b6d92` .Wait20_2; `EOWFunc_Explosives.Func_b6d97` .Wait10; `EOWFunc_FreezeSea.Func_b6ee5` .Wait60; `EOWFunc_FreezeSea.Func_b6f0c` .Wait14; `EOWFunc_Earthquake.Func_b7138` .Wait20; `EOWFunc_Earthquake.Func_b713d` .Wait40; `EOWFunc_Earthquake.Func_b716b` .Wait10; `EOWFunc_FormCastle.Func_b73c4` .Wait60; `EOWFunc_FormCastle.Func_b73c9` .Wait40_1; `EOWFunc_FormCastle.Func_b73e1` .Wait40_2; `EOWFunc_FormCastle.Func_b742b` .Wait20; `EOWFunc_FormCastle.Func_b74a0` .Wait10; `EOWFunc_VulcanoEruption.Func_b75be` .Wait180; `EOWFunc_VulcanoEruption.Func_b75d8` .Wait56; `EOWFunc_BurnVines.Func_b7803` .Wait40_1; `EOWFunc_BurnVines.Func_b7808` .Wait30_1; `EOWFunc_BurnVines.Func_b7818` .Wait60; `EOWFunc_BurnVines.Func_b7828` .Wait30_2; `EOWFunc_BurnVines.Func_b7838` .Wait90; `EOWFunc_BurnVines.Func_b7847` .Wait40_2; `EOWFunc_ShowWarpedVoid.Func_b786d` .Wait60; `EOWFunc_ShowWarpedVoid.Func_b7872` .Wait160; `EOWFunc_RaisePipe.Func_b78aa` .Wait20; `EOWFunc_RaisePipe.Func_b78af` .Wait60; `EOWFunc_Daytime.Func_b78eb` .Wait60_1; `EOWFunc_Daytime.Func_b78f0` .Wait60_2
+
+**Rule 4: map-side object init per OW function.** `InitOWObjects_North/
+West/South/East` (bank2d.asm:18, 374, 594, 869) dispatch on
+`wOWSceneActionParam` to one routine per `*OWFUNC_*` constant (comment on
+each entry); each places the scene objects for that function's scene
+according to `w2d065` in `c` (0 not unlocked, $80 just unlocked). Name:
+`Init<side letter>OWObjects_<function>`, mirroring `NOWFunc_CutTree`.
+Generated for all 45 entries, high:
+
+`Func_b403e` InitNOWObjects_CutTree; `Func_b408e` InitNOWObjects_OpenGate; `Func_b409c` InitNOWObjects_Garlic; `Func_b40c0` InitNOWObjects_MagicSeed; `Func_b40d9` InitNOWObjects_SummonSnake; `Func_b40ff` InitNOWObjects_FallLeaves; `Func_b4140` InitNOWObjects_MusicBox (blue and gold music box; just `ret`); `Func_b4141` InitNOWObjects_CrayonRed; `Func_b4162` InitNOWObjects_CrayonBrown; `Func_b4166` InitNOWObjects_CrayonYellow; `Func_b416a` InitNOWObjects_CrayonGreen; `Func_b416e` InitNOWObjects_CrayonCyan; `Func_b4172` InitNOWObjects_CrayonBlue; `Func_b4176` InitNOWObjects_CrayonPink; `Func_b417a` InitNOWObjects_BottomBar; `Func_b4247` InitNOWObjects_DayNightSpell; `Func_b42e7` InitNOWObjects_Prologue; `Func_b431f` InitWOWObjects_Rain; `Func_b4351` InitWOWObjects_ClearTornado; `Func_b435f` InitWOWObjects_ElevatorWorking; `Func_b438f` InitWOWObjects_MagicSeed; `Func_b43a8` InitWOWObjects_SummonSnake; `Func_b43dd` InitWOWObjects_Earthquake; `Func_b4448` InitWOWObjects_VulcanoEruption; `Func_b4474` InitWOWObjects_RedMusicBox; `Func_b44b7` InitSOWObjects_SendSeeds; `Func_b44e7` InitSOWObjects_MagicSeed; `Func_b4509` InitSOWObjects_YellowMusicBox; `Func_b4520` InitSOWObjects_CanyonThunder; `Func_b4567` InitSOWObjects_RaiseTower; `Func_b45c8` InitSOWObjects_Fan; `Func_b45f5` InitSOWObjects_SummonSnake; `Func_b461b` InitSOWObjects_Earthquake; `Func_b4637` InitSOWObjects_GreenMusicBox; `Func_b4653` InitSOWObjects_Explosives; `Func_b4665` InitSOWObjects_FullMoon; `Func_b46a0` InitEOWObjects_FreezeSea; `Func_b46d9` InitEOWObjects_Earthquake; `Func_b4712` InitEOWObjects_FormCastle; `Func_b4771` InitEOWObjects_Explosives; `Func_b4792` InitEOWObjects_VulcanoEruption; `Func_b47f7` InitEOWObjects_BurnVines; `Func_b481b` InitEOWObjects_ShowWarpedVoid; `Func_b4832` InitEOWObjects_RaisePipe; `Func_b4873` InitEOWObjects_Daytime.
+
+Also `Func_b4001` (slot 0 of all four tables, `debug_nop`, i.e. an endless
+loop) -> `InvalidOWSceneAction`, as `InvalidMusicBoxAction` in bank2b_1. High.
+
+### 3c. Boss middle phases (left "not named" in 2d)
+
+Most of these bosses don't use a phase jumptable: each phase sets the next
+`OBJ_UPDATE_FUNCTION` itself, so the chains below were followed from
+the start of each file. After `SetObjectFramesetPtr`, `hl` points at
+`OBJ_STATE_DURATION`, so `ld [hli], a / ld [hl], b` right after it sets
+the duration and `OBJ_VAR_1`. Medium unless noted: the flow is certain,
+the words describing it are partly guessed from movement and SFX.
+
+| File | Proposed (label -> name) | Evidence | Conf. |
+|---|---|---|---|
+| anonster.asm (`AnonsterFunc`), ceiling phase | `.asm_50031` -> `.restart`; `.Func_5005e` -> `.Appear`; `.Func_5007f` -> `.Walk`; `.Func_5016f` -> `.Hover`; `.asm_5018e` -> `.set_shoot_frameset`; `.Func_501c4` / `.Func_50200` / `.Func_5023d` -> `.ShootSilk1` / `.ShootSilk2` / `.ShootSilk3`; `.asm_50266` -> `.end_shooting` | `.Appear` waits, turns visible and clears the state. `.Walk` bobs (`Data_60790`, loop index in `OBJ_VAR_3`) and walks with wall turns (`SFX_0B0`); after two bob cycles with no silk left (`_CountActiveTransientObjects`) it turns to Wario and goes to `.Hover`, which keeps bobbing until index $1f (then shoots) or $4f (then walks again). The shoot phases each create `ObjParams_AnonsterSilk1..3Left/Right` at frame $18 (`SFX_07E`); how many follow each other depends on the hits left in the substate's low nybble (4: one, 3: two, else three). `.restart` (also reached from `.ReturnToCeiling`) resets the walk. | medium |
+| anonster.asm, drop attack | `.Func_50282` -> `.StartRise`; `.Func_50293` -> `.RiseToCeiling`; `.Func_502d1` -> `.MoveAboveWario`; `.Func_5034c` -> `.DropOnWario`; `.Func_50397` -> `.Land`; `.Func_5041d` -> `.OnFloor` | Entered from `.Walk` on `OBJSTATE_28/29` (hit by a thrown object): `SFX_0B1`, rise to screen Y 8, wait $3c, run fast towards Wario's X (at most 3 wall turns, `OBJ_VAR_1`), then fall along `Data_607f0` with `OBJ_INTERACTION_48` until `Func_352b` finds floor; land with `SFX_061` + `DoGroundShake`. `.OnFloor` dispatches on the object state: 0 walks towards Wario, or turns and goes to $5b when he is behind; $5b counts down and spits `ObjParams_AnonsterWave*` at $2b (`OBJ_VAR_1` waves); $5c walks (`SFX_0AF`) or, when Wario is Ball o' String, returns to the ceiling; $5a waits after landing; `OBJSTATE_VANISH_TOUCH` from behind is a hit. Locals: `.asm_503e0` -> `.spit_waves`, `.asm_5043b` -> `.reset_to_walk`, `.asm_504b1` -> `.return_to_ceiling`, `.asm_504fe` -> `.walk_towards_wario`, `.asm_5054b` -> `.check_hit_from_behind`. | medium |
+| anonster.asm, hit and defeat | `.Func_505be` -> `.Hurt`; `.Func_505f4` / `.Func_50610` -> `.Recover1` / `.Recover2`; `.Func_50635` -> `.ReturnToCeiling`; `.Func_50650` / `.Func_5066c` -> `.StartReturnToCeiling` / `.JumpToCeiling`; `.Func_50689` -> `.Defeated`; `.Func_50705` -> `.DefeatedFall` | A hit (`DecrementRemainingBossHits`, `SFX_VANISH`, `UpdateAnonsterPal`) waits $56 frames (`SFX_0B1`), plays two framesets, then rises along `Data_607e0` (`SFX_0B2`) to screen Y $10 and restarts unless Wario is Ball o' String. The last hit waits $ac frames, marks the object map (`Func_ba42`), sets `BOSS_DEFEATED`, then falls off screen along `Data_60180` moving sideways (`SFX_0A3`). | medium (high for the defeat) |
+| anonster.asm (`AnonsterSilkFunc`) | `.Func_508cd` -> `.Update`; `.Func_508be` -> `.WaitAndDestroy`; correction: `.Func_50898` -> `.Dissolve` instead of the mechanical `.Default` (2d row) | `.Update` is the landed silk ball: positional state table (2d row). `.Func_50898` is not a do-nothing default: it plays `SFX_0A1`, switches to `Frameset_6955b` for $1d frames with collision off and then `.Func_508be` clears the flags; it is also used when the ball falls to screen Y $b0-$bf. | high |
+| muddee.asm (`MuddeeFunc`), `wCurObjVar1` phases | `.Func_55861` -> `.SwimUp`; `.Func_558d0` -> `.SwimDown`; `.Func_55942` / `.Func_5599c` -> `.SwimLeft` / `.SwimRight`; `.Func_559f6` -> `.WaitThenSink`; `.Func_55a0b` -> `.Sink`; `.Func_55a2b` -> `.MoveUnderWario`; `.Func_55a82` -> `.LeapFromFloor`; `.Func_55ad9` -> `.SwimZigZag` | Phases 0-3 swim up/down until the ceiling/floor or Wario's row (`.CompareYWithWarioRow`), left/right until a wall, then pick the next direction towards Wario (faster below 5 hits: `MoveObject*_Slow` only at 5). Phase 4 (after a hit, once back in the water) waits and sinks 8 px; 5 sinks to the floor; 6 moves along the floor under Wario, then spawns the two stingers (`.asm_556dc` -> `.spawn_stingers`, `SFX_0B2`) and leaps (7, `Data_60d30`, the same jump as `.Leap`); at 3 hits left it continues with 8, otherwise back to 0. Phase 8 moves diagonally, bouncing off walls, floor and ceiling (`SFX_0C1` bubbles), pausing $3c frames after every 3 frameset loops. | medium (low for 8) |
+| muddee.asm, the rest | `.Func_55ba7` -> `.DefeatedFall`; `.Func_55be7` -> `.PlaySwimSFX`; `.asm_55774` -> `.hit`; `.asm_557b1` -> `.hurt`; `.asm_55806` -> `.defeated` | `w1d147` = 1 (set by a stinger) is a hit: `SFX_VANISH`, frameset by facing, `DecrementRemainingBossHits`, `w1d147 = 2`; while 2, wait $3c (`SFX_0C0`) then fall (`Data_60d40`) until in water (`w1d147 = 0`, phase 4); at 2 hits left the hit is the last one: `.defeated` sets the frameset, `Func_ba42`, `stop_music2`, `wMuddeeAmbushState = 2` and `.DefeatedFall` (same fall as Anonster's, `SFX_0A3`). `.PlaySwimSFX`: `SFX_085` every 8/16/32 frames by hits left. | medium |
+| omodonmeka.asm (`OmodonmekaFunc`), steps 4-8 | `.Func_4244c` -> `.FlyAway`; `.Func_42291` -> `.CarryWarioUp`; `.Func_422fc` -> `.HoldWarioAtTop`; `.Func_42261` -> `.HoldFlatWario`; `.Func_42369` -> `.WatchWario`; `.asm_421dc` / `.asm_421e4` / `.asm_421ec` / `.asm_421f4` -> `.hit_by_obj_left` / `.hit_by_obj_right` / `.attacked_left` / `.attacked_right`; `.asm_42215` -> `.vanish_touch` | `OBJSTATE_ACTIVATE` (`.Activate`) grabs Wario: step 5 (or 7 for Flat Wario). 5 carries him up (`MoveWarioUp`, `HandleUpwardsFloorTransition`, `SFX_087`) to a ceiling or 64 px above the start, 6 holds him there (Wario Y = object + 26) and 7 holds Flat Wario for $18 frames; when `wAutoMoveState` drops to 0 the next frame's state change sends it to step 4, which flies off along `Data_604e0`/`Data_60650` (only Flat Wario lets it come back to its start Y). 8 is entered from `.Hover` when Wario is near and below: `SFX_08C`; directly below -> step 2 (`.Fall`, `SFX_088`), out of range -> step 1. The four `.asm_` set the shared `ObjState_*` trampolines (`Func_33f8`, `Func_3407`, `Func_3326`, `Func_3317`). | medium |
+| omodonmeka.asm (`OmodonmekaWithOmodonFunc`) | `.Func_42535` -> `.Idle`; `.Func_42554` -> `.WaitToLower`; `.Func_42559` -> `.StartLowering`; `.Func_4256c` -> `.LowerToOmodon`; `.Func_4261f` -> `.move_to_omodon`; `.Func_426ee` -> `.Rise`; `.Func_42714` -> `.FlyAway` | Steps of the substate low nybble: idle (straight to the bob routine when Wario is Flat), wait $3c, then look for the Omodon sharing its object-map pointer (`OBJ_UNK_01/02`, active+transient flags) in all 8 slots, move down until level with it, set it to state $2d (carried) and rise $32 frames carrying Wario if stepped on; hit states fly away like the plain Omodonmeka. | medium |
+| omodonmeka.asm, the Omodon | `Func_4279c` -> `OmodonFunc`; `Func_4279c.Func_427a9` -> `.Update`; `Func_42767` -> `Omodon_Idle`; `Func_42754` -> `Omodon_Landed`; `.asm_427cd` -> `.carried`; `.asm_427fe` -> `.fall`; `.Func_4284d` / `.Func_4286b` -> `.StartPressWario` / `.PressWario` | `Func_4279c` is the update function in `ObjParams_Omodon` and `ObjParams_Omodon1` (object_params.asm:1359, 1376), so it is the Omodon's main routine. State 0: idle (bobbing with Flat Wario, else falls: state $2e, `OBJ_INTERACTION_OMODON`); $2d carried up by the Omodonmeka; $2e falls (`Data_605e0`) until floor, `SFX_063` + `DoGroundShake`, solid, state $2f (`Omodon_Landed`, waits); `OBJSTATE_ACTIVATE` sits on Wario (Y = Wario - 24) while `wAutoMoveState`. `.Func_42894`/`.Func_42935` not named. | medium (high for `OmodonFunc`) |
+| omodonmeka.asm, data | `Func_42725` -> `ApplyOmodonHoverBob`; `Data_40000` (src/level.asm:69) -> `OmodonHoverBobYOffsets` | Adds the next byte of `Data_40000` (index `OBJ_VAR_3`, wraps at `$80`) to `OBJ_Y_POS`; the table's comment says so. Used while Wario is Flat. | medium |
+| scowler.asm (`ScowlerFunc`) | `.Func_546bd` -> `.MoveUp`; `.Func_546e0` -> `.Stunned`; `.Func_54770` -> `.Vulnerable`; `.Func_54806` -> `.Hit`; `.Func_54853` -> `.HitFloatUp`; `.Func_548c5` -> `.DefeatedRise`; `.asm_545ab` -> `.stun`; `.asm_545d3` -> `.shoot_ink`; `.asm_54737` -> `.check_hit_from_above`; `.asm_547e9` -> `.end_vulnerable`; `.asm_54895` -> `.reset_ink_timer` | `.Main`, state 0: swims sideways with wall turns and moves towards Wario's Y (`.Func_5469d` down, `.MoveUp` up to the water surface); `OBJ_VAR_3` counts down to an ink attack ($48 + 32 per hit left), state $2f spits `ObjParams_InkLeft/Right` at $20. `OBJSTATE_WOBBLE_*_START` stuns it (`SFX_0B3`, `OBJ_INTERACTION_07`): it sinks for $44 frames, then becomes vulnerable (`OBJ_INTERACTION_06`, darts around with `SFX_0AB` for 2 periods); hit again in that state while Wario is above it, it takes a hit (`SFX_0B4`, `DecrementRemainingBossHits`), floats up for $78 frames and recovers; the last hit stops the music, rises to the surface and goes to the existing `.DefeatedSink`. Correction to the 2d row: `.Func_5469d` (proposed `.Fall`) is the "move down until floor" half of the vertical movement, `.MoveDown` matches `.MoveUp`. | medium |
+| scowler.asm (`ScrowlerTentacleFunc`) | `.Func_54a97` -> `.FollowScowler`; `.asm_54a7f` -> `.activated` | Finds the active `SCOWLER` object and places itself next to it (offsets by tentacle side and Scowler's facing); Scowler's `OBJ_VAR_1` doubles as a signal: $fd -> `OBJ_INTERACTION_43`, $fe -> `OBJ_INTERACTION_WATER_TELEPORTING`, $ff -> despawn. | medium |
+| yellow_belly.asm (body) | `.Func_51652` -> `.Swim`; `.Func_515dd` -> `.GuardPump`; `.Func_51572` -> `.ReleasePump`; `.Func_5178c` -> `.Sink`; `.Func_5184a` -> `.Defeated`; `.asm_51442` -> `.start_shooting`; `.asm_514eb` -> `.end_shooting`; `.asm_5154e` -> `.release_pump` | `.Swim` bobs (`Data_60950`), moves sideways with wall turns and pauses (`OBJ_VAR_1`), freezes while byte 0 of the boss union is set (the head was hit), and starts shooting when Wario has been above it for a while. `OBJSTATE_VANISH_TOUCH` releases the pump: `stop_sfx`, union byte 2 = 1, $a6 frames of `SFX_VANISH`/`SFX_0A9`, `ObjParams_Pump` at $25, palette flashes, rising. While the pump is out it swims to 56 px from the pump (`.GuardPump`) and shoots; Puffy Wario clears the flag. The pump being stomped writes $3a to union byte 1, which every phase checks first (`.hit`). `.Sink`: moves down while its screen X is below $c8 (entered when Wario is above it at the end of a pause). `.Defeated`: flashes `Pals_51ce1`/`Pals_51cb1`, `SFX_0AA`, and at frameset offset $20 despawns and sets the platform's state to $2f (`Func_51c62`). | medium (low for `.Sink`) |
+| bubble.asm (`BubbleFunc`) | `.asm_47cf4` -> `.drift`; `.Func_47d56` -> `.drift_right` | Moving left/right (bit 7 of the substate): two wall probes ahead (`Func_3513`); a wall turns it around and sets a $30 pause; otherwise adds the next byte of a drift table to `OBJ_X_POS`. | high |
+| haridama.asm | `.Func_49094` -> `.RiseInWater` | State $38 (`OBJSTATE_WOBBLE_LEFT`): moves up slowly while both head probes are clear and it is in water, then switches to `.Func_490e8` (`.UpdateRolling`) with a $64 timer. | medium |
+| snake.asm | `.Func_49b76` -> `.SetStateFromScreenY` | Called every frame by `.Rise` and `.Sink`: state $48 while the snake's screen Y is below $10 or in $a0-$bf (at the screen edge), otherwise state 0. | medium |
+
+#### Notable finding: bubble drift tables addressed by literal
+
+`BubbleFunc` reads its drift tables as `ld b, $40 / add $20` and `ld b, $40
+/ add $50` (bubble.asm:203-204, 266-267), i.e. the fixed addresses $4020
+and $4050 of its bank. Those are `Data_44020` (all 0 / -1) and `Data_44050`
+(all 0 / +1) in src/level.asm:96-100, whose only "references" are these
+literals, so like the literal update-function pointers they would break as
+soon as anything before them in "Object Functions 2" moves. Fix:
+`ld b, HIGH(Data_44020) / add LOW(Data_44020)` (as omodonmeka.asm does for
+`Data_40000`), ROM unchanged. Names: `Data_44020` -> `BubbleDriftLeftX`,
+`Data_44050` -> `BubbleDriftRightX`. High.
+
+#### Possible bug: Scowler's stunned vertical direction
+
+`ScowlerFunc.Func_546e0` (scowler.asm:323-331) ends with
+
+    cp b
+    jr nc, .asm_54734
+    set 6, [hl]
+    .asm_54734
+    res 6, [hl]
+    ret
+
+so the `set` is always undone and `OBJSUBFLAG_VDIR` is always cleared
+when the vulnerable phase starts (`.Func_54770` then starts by moving up).
+Probably a missing `ret` after the `set`; harmless in practice. Medium.
+
+### 3d. Boss union: one `NEXTU` per boss
+
+The union after `wWarioGoals` (src/ram/wram.asm:997-1068) has named
+members for Doll Boy, Shoot, Wolfenboss, Jamano (byte 0 only) and Muddee
+(byte 0 only). Every other use borrows Doll Boy's names or `w1d147`/
+`w1d149`. All uses outside doll_boy.asm, shoot.asm and wolfenboss.asm were
+grepped (pesce, jamano, muddee, muddee_stinger, scowler, yellow_belly; no
+other file touches the union). Proposed `NEXTU` blocks (byte 0, 1, 2, 3):
+
+| Boss | Byte 0 | Byte 1 | Byte 2 | Byte 3 | Evidence | Conf. |
+|---|---|---|---|---|---|---|
+| Jamano | `wJamanoActiveSkulls` (exists) | `wJamanoSkullsInPlace` (2a) | `wJamanoDarkness` | `wJamanoSkullsInactive` (2a) | Byte 2 is the darkness step that `Func_55407` raises with the skulls in place and that `Func_554bc` reads (1, 2, ...) to pick the BG palettes; the skull spawner stops when bytes 2 and 3 are both 0 (jamano.asm:671-682). | medium |
+| Pesce | `wPesceFlyActive` | `wPesceHits` | `wPesceFightOver` | - | As in the 2d pesce row (names proposed there in passing). | medium |
+| Muddee | `wMuddeeAmbushState` (exists) | `wMuddeeHitState` | - | - | 0 normal, 1 hit (set by a stinger, muddee_stinger.asm:21), 2 hurt/falling back into the water (see 3c). | medium |
+| Scowler | `wScowlerBlackoutTimer` | `wScowlerInkTimer` | - | - | Byte 1: set to 1 when ink touches Wario (`InkFunc`, scowler.asm:1024), counted up by `Func_54c07` to $78 (flash at 2/$3d, blackout at $3c, restore at $78), cleared at the defeat. Byte 0: $ff at the blackout, decremented each frame while non-zero; while it is non-zero byte 1 doesn't advance. | high |
+| Yellow Belly | `wYellowBellyHeadHit` | `wYellowBellyHitRequest` | `wYellowBellyPumpOut` | - | Byte 0: the invisible head object sets 1 for $1e frames when it gets a state (also `stop_music2`, `wBossState = 0`), and the body freezes meanwhile. Byte 1: $3a from the pump when stomped (yellow_belly.asm:959); the body takes a hit and clears it. Byte 2: 1 while the pump is out (body phases, arrows fly slower while it is set: yellow_belly.asm:1045-1111). | medium |
+
+With these, `w1d147`, `w1d149` and the `ds $1` between them go away, and
+the second-pass row for `w1d147` ("+ per-boss aliases") is covered.
+
+### 3e. Data labels: owner-prefix rule (generated)
+
+Rule (the 2f suggestion, made concrete): a `Frameset_`, `OAM_`, `Pals_` or
+`Data_` label whose owner is unambiguous becomes `<Owner><Prefix>_<addr>`,
+keeping the address so names stay unique and the change stays mechanical
+(`Frameset_68a12` -> `ApplebyFrameset_68a12`). Descriptive names can then
+replace them one by one. Labels already given a name in this file (Hidden
+Figure's tables and palettes, the room palettes, the object Y-velocity
+tables, ...) are left out, and a descriptive name proposed anywhere in this
+file wins over the generated one (e.g. `Data_40000` ->
+`OmodonHoverBobYOffsets` in 3c rather than `OmodonmekaData_40000`).
+
+Owner, decided by a script over every reference in `src/` (the defining
+file itself doesn't count; `src/data/object_params.asm` doesn't count
+against an object):
+
+- **object**: all other references are in one file of
+  src/engine/level/objects/ (or the label is defined and only used inside
+  one): the file name in CamelCase (`brrr_bear.asm` -> `BrrrBear`).
+- **cutscene**: all references are inside one bank27 cutscene routine
+  (`CutsceneXXFunc` or its updater from 3b): `<Event>Cutscene`
+  (`OpenNorthGateCutsceneFrameset_bd348`).
+- **mapside**: all references are inside one bank2d map-side state entry;
+  the side follows from the entry's address range (East $b4b99-, South
+  $b4cc2-, West $b4dfb-, North $b4fa2-$b5147): `<Side>OWObj`
+  (`NorthOWObjFrameset_a87e8`). These are the framesets the 2b bulk rule
+  `<Side>OWObjState_<FramesetName>` waits for.
+- **scene**: all references in one of `UpdateSceneWario`,
+  `UpdateTempleSceneObjAnimation`, `Func_ac409` (`UpdatePrologueSceneObj`)
+  or `Func_ac0b6` (`UpdateEpilogueSceneObj`) in bank2b_1: `SceneWario`,
+  `TempleSceneObj`, `PrologueSceneObj`, `EpilogueSceneObj`.
+- **wario**: all references in one named `SetState_X`/`UpdateState_X` of
+  wario_states_1..4.asm: `WarioX` (`WarioFatWalkingFrameset_xxxxx`).
+  References from still-unnamed `Func_` routines are left out.
+
+Result: 1406 labels (1242 framesets, 58 OAM, 32 palettes, 74 `Data_`); by
+owner kind: object 812, cutscene 202, mapside 132, wario 168, scene 92. All
+generated names checked against `src/` and this file: no collisions, no
+duplicates. Not covered (about 1150): labels referenced from several files
+or several routines (e.g. Wario framesets shared by several states, OAM
+tables shared through object_data.asm), labels referenced only from their
+own data file (inside frameset tables), and owners that are still `Func_`.
+High as a mechanical rule (the owner is the only user by construction);
+the list, grouped by owner (each label becomes `<Owner><Prefix>_<addr>`):
+
+**cutscene**
+
+- BlowMistCutscene: `Frameset_bdb03`, `OAM_bdabc`
+- CollectDemonsBloodCutscene: `Frameset_bebcc`, `Frameset_bebd3`, `Frameset_bebda`, `Frameset_bebdd`, `Frameset_bebe0`, `Frameset_bebe3`, `Frameset_bebec`, `OAM_beafc`
+- CutBaloonCutscene: `Frameset_bed39`, `Frameset_bed3c`, `Frameset_bed3f`, `OAM_becdc`, `Pals_b8740`
+- DrillHolesCutscene: `Frameset_bf826`, `Frameset_bf829`, `Frameset_bf832`, `Frameset_bf835`, `Frameset_bf83e`, `OAM_bf6f0`, `Pals_b8680`
+- ExpelTornadoCutscene: `Frameset_bde60`, `Frameset_bde63`, `Frameset_bde66`, `OAM_bddcf`
+- ExplodeBombsCutscene: `Frameset_bd9ec`, `Frameset_bd9f5`, `Frameset_bd9f8`, `Frameset_bd9fb`, `Frameset_bd9fe`, `OAM_bd971`
+- ExtinguishFireCutscene: `Frameset_69c13`, `Frameset_bf100`, `Frameset_bf103`, `Frameset_bf110`, `OAM_befd5`, `Pals_b86c0`
+- FeedOctohonCutscene: `Frameset_69ba0`, `Frameset_bf923`, `Frameset_bf92a`, `OAM_bf847`
+- FixElevatorCutscene: `Frameset_bd5c3`, `Frameset_bd5cc`, `Frameset_bd5d5`, `Frameset_bd5d8`, `Frameset_bd5dd`, `Frameset_bd5e6`, `Frameset_bd605`, `Frameset_bd608`, `Frameset_bd60f`, `Frameset_bd612`, `OAM_bd46f`
+- FootStoneCutscene: `Frameset_bdce3`, `OAM_bdc9c`
+- FreezeSeaCutscene: `Frameset_bd905`, `Frameset_bd908`, `Frameset_bd90b`, `Frameset_bd90e`, `OAM_bd7a1`
+- LeavesFallCutscene: `Frameset_be1b0`, `Frameset_be1c3`, `Frameset_be1fc`, `Frameset_be203`, `OAM_bdfa5`
+- MakeWireCutscene: `Frameset_be2b9`, `Frameset_be2c2`, `Frameset_be2d3`, `Frameset_be2d6`, `OAM_be206`
+- MixChemicalsCutscene: `Frameset_bf43b`, `Frameset_bf43e`, `Frameset_bf45d`, `OAM_bf2ab`
+- MusicBoxCutscene: `Frameset_bcf15`, `Frameset_bcf18`, `Frameset_bcf21`, `Frameset_bcf24`, `Frameset_bcf35`, `Frameset_bcf38`, `Frameset_bcf49`, `Frameset_bcf4c`, `Frameset_bcf6d`, `Frameset_bcf70`, `OAM_bc1f6`
+- OpenCraterHoleCutscene: `Frameset_bf6df`, `Frameset_bf6e2`, `Frameset_bf6ed`, `OAM_bf66d`, `Pals_b87c0`
+- OpenNorthGateCutscene: `Frameset_bd348`, `Frameset_bd34b`, `Frameset_bd34e`, `Frameset_bd351`, `Frameset_bd354`, `Frameset_bd363`, `Frameset_bd372`, `OAM_bd1fd`
+- OpenParaGoomCageCutscene: `Frameset_bee4d`, `Frameset_bee50`, `Frameset_bee55`, `Frameset_bee58`, `Frameset_bee5d`, `Frameset_bee60`, `Frameset_bee6b`, `OAM_bed42`
+- OpenSkyDoorCutscene: `Frameset_befbe`, `Frameset_befc1`, `Frameset_befc4`, `OAM_bee6e`
+- OpenSnakeDoorCutscene: `Frameset_bdda9`, `Frameset_bddc0`, `Frameset_bddc3`, `Frameset_bddc6`, `Frameset_bddc9`, `Frameset_bddcc`, `OAM_bdce6`
+- OpenTreeMouthCutscene: `Frameset_bdf92`, `Frameset_bdf95`, `Frameset_bdfa0`, `OAM_bde69`
+- PlaceBrickCutscene: `Frameset_bf154`, `OAM_bf131`, `Pals_b8640`
+- PlaceCartWheelsCutscene: `Frameset_691bc`
+- PlacePropellerCutscene: `Frameset_becc7`, `Frameset_becca`, `Frameset_becd3`, `OAM_bebef`
+- PlantSeedsCutscene: `Frameset_bd1b4`
+- RainstormCutscene: `Frameset_bd43a`, `Frameset_bd43d`, `Frameset_bd44a`, `OAM_bd377`
+- RaiseIceBlocksCutscene: `Frameset_be8de`, `Frameset_be8e1`, `Frameset_be8ea`, `Frameset_be8ed`, `OAM_be807`, `Pals_b8500`
+- RaisePipeCutscene: `Frameset_be9fa`, `Frameset_be9fd`, `OAM_be8fe`
+- RaiseTowerCutscene: `Frameset_bd469`, `Frameset_bd46c`, `OAM_bd453`
+- RemoveWarpsCutscene: `Frameset_beacc`, `Frameset_beacf`, `Frameset_beae4`, `Frameset_beaed`, `OAM_bea06`, `Pals_b8780`
+- RevealCastleCutscene: `Frameset_bd790`, `Frameset_bd793`, `Frameset_bd79c`, `OAM_bd615`
+- RevealDarkRoomCutscene: `Frameset_bf5e0`, `OAM_bf460`, `Pals_b8800`, `Pals_b8840`, `Pals_b8880`, `Pals_b9080`
+- RevealWarpedVoidCutscene: `Frameset_be7e6`, `Frameset_be7e9`, `Frameset_be802`, `OAM_be3ce`
+- SprayIronWallCutscene: `Frameset_bf28c`, `Frameset_bf28f`, `Frameset_bf298`, `Frameset_bf2a5`, `Frameset_bf2a8`, `OAM_bf157`
+- SummonMoonCutscene: `Frameset_bf65d`, `Frameset_bf660`, `Frameset_bf665`, `Frameset_bf668`, `OAM_bf611`, `Pals_b8540`, `Pals_b8580`, `Pals_b85c0`, `Pals_b8600`
+- SummonSnakesCutscene: `Frameset_bdc5f`, `Frameset_bdc62`, `Frameset_bdc7f`, `OAM_bdb06`
+- SummonSunCutscene: `Frameset_bd96b`, `Frameset_bd96e`, `OAM_bd911`, `Pals_b8340`
+- TorchForestCutscene: `Frameset_be3c5`, `OAM_be2d9`
+- TreasureMapCutscene: `Frameset_bdaa2`, `Frameset_bdab9`, `OAM_bda01`, `Pals_b8100`, `Pals_b8d00`
+- VolcanoEruptionCutscene: `Frameset_bd1b7`, `Frameset_bd1ba`, `Frameset_bd1bd`, `Frameset_bd1c0`, `Frameset_bd1c5`, `Frameset_bd1f8`
+
+**mapside**
+
+- EastOWObj: `Frameset_a9e61`, `Frameset_a9e72`, `Frameset_a9e75`, `Frameset_a9e7a`, `Frameset_a9e8c`, `Frameset_a9e91`, `Frameset_a9e94`, `Frameset_a9e99`, `Frameset_a9eaa`, `Frameset_a9eb3`, `Frameset_a9ebc`, `Frameset_a9ec5`, `Frameset_a9ec8`, `Frameset_a9ecd`, `Frameset_a9ed0`, `Frameset_a9ed3`, `Frameset_a9ee0`, `Frameset_a9ee3`, `Frameset_a9eea`, `Frameset_a9ef1`, `Frameset_a9ef6`, `Frameset_a9efd`, `Frameset_a9f02`, `Frameset_a9f0d`, `Frameset_a9f36`, `Frameset_a9f47`, `Frameset_a9f76`, `Frameset_a9fa7`, `Frameset_a9faa`, `Frameset_a9fbb`, `Frameset_a9fc2`, `Frameset_a9fc9`, `Frameset_a9fd0`, `Frameset_a9fdf`
+- NorthOWObj: `Frameset_a8590`, `Frameset_a85cd`, `Frameset_a85d0`, `Frameset_a85d3`, `Frameset_a862a`, `Frameset_a862d`, `Frameset_a8636`, `Frameset_a8639`, `Frameset_a8646`, `Frameset_a8653`, `Frameset_a866e`, `Frameset_a867f`, `Frameset_a86da`, `Frameset_a872f`, `Frameset_a8732`, `Frameset_a873d`, `Frameset_a8750`, `Frameset_a8761`, `Frameset_a8764`, `Frameset_a876f`, `Frameset_a877a`, `Frameset_a877d`, `Frameset_a8782`, `Frameset_a8793`, `Frameset_a879a`, `Frameset_a879f`, `Frameset_a87d2`, `Frameset_a87d9`, `Frameset_a87dc`, `Frameset_a87df`, `Frameset_a87e8`, `Frameset_a87f1`, `Frameset_a883b`, `Frameset_aa252`, `Frameset_aa5f5`, `Frameset_aa5f8`, `OAM_a87fa`
+- SouthOWObj: `Frameset_a9674`, `Frameset_a967d`, `Frameset_a968d`, `Frameset_a969a`, `Frameset_a96a3`, `Frameset_a96a6`, `Frameset_a96a9`, `Frameset_a96ac`, `Frameset_a96af`, `Frameset_a96b2`, `Frameset_a96bd`, `Frameset_a96c0`, `Frameset_a96d1`, `Frameset_a96d8`, `Frameset_a96e1`, `Frameset_a96ea`, `Frameset_a96ef`, `Frameset_a974a`, `Frameset_a979f`, `Frameset_a97a2`, `Frameset_a97ad`, `Frameset_a97b2`, `Frameset_a97c5`, `Frameset_a97d4`, `Frameset_a97e1`, `Frameset_a97ec`, `Frameset_a97ef`, `Frameset_a97fe`, `Frameset_a9803`
+- WestOWObj: `Frameset_a8dd1`, `Frameset_a8de2`, `Frameset_a8de9`, `Frameset_a8df8`, `Frameset_a8e01`, `Frameset_a8e04`, `Frameset_a8e11`, `Frameset_a8e1e`, `Frameset_a8e29`, `Frameset_a8e2c`, `Frameset_a8e5d`, `Frameset_a8e6c`, `Frameset_a8e9d`, `Frameset_a8eac`, `Frameset_a8eb7`, `Frameset_a8ec2`, `Frameset_a8ec7`, `Frameset_a8ed3`, `Frameset_a8eda`, `Frameset_a8ee1`, `Frameset_a8f17`, `Frameset_a8f28`, `Frameset_a8f31`, `Frameset_a8f3a`, `Frameset_a8f47`, `Frameset_a9090`, `Frameset_a90eb`, `Frameset_a9140`, `Frameset_a9143`, `Frameset_a914e`, `OAM_a884a`, `OAM_a8f57`
+
+**object**
+
+- Anonster: `Data_60790`, `Data_607e0`, `Data_607f0`, `Data_60800`, `Data_60830`, `Frameset_693c4`, `Frameset_693d5`, `Frameset_693e6`, `Frameset_693f9`, `Frameset_69402`, `Frameset_69411`, `Frameset_69424`, `Frameset_6942d`, `Frameset_6943c`, `Frameset_69441`, `Frameset_69446`, `Frameset_6944d`, `Frameset_69450`, `Frameset_69463`, `Frameset_69474`, `Frameset_69485`, `Frameset_69496`, `Frameset_694a7`, `Frameset_694b8`, `Frameset_694c9`, `Frameset_694d0`, `Frameset_694d7`, `Frameset_694dc`, `Frameset_694e1`, `Frameset_694f5`, `Frameset_69512`, `Frameset_69519`, `Frameset_6951e`, `Frameset_6953c`, `Frameset_69543`, `Frameset_6954d`, `Frameset_69554`, `Frameset_6955b`, `Frameset_69568`, `Frameset_69573`
+- Appleby: `Data_60670`, `Frameset_689e9`, `Frameset_68a09`, `Frameset_68a12`, `Frameset_68a1f`, `Frameset_68a3a`, `Frameset_68a63`
+- Barrel: `Data_60a50`, `Frameset_68a66`, `Frameset_68a6f`, `Frameset_68a78`, `Frameset_68a7b`, `Frameset_68a7e`, `Frameset_68a8b`
+- BeamBot: `Data_60610`, `Data_60630`, `Frameset_68e77`, `Frameset_68e80`, `Frameset_68e89`, `Frameset_68e96`, `Frameset_68ea3`, `Frameset_68eaa`, `Frameset_68eb1`, `Frameset_68eb4`, `Frameset_68eb7`, `Frameset_68ec0`, `Frameset_68ec9`, `Frameset_68ece`, `Frameset_68ed3`, `Frameset_68eda`, `Frameset_68ef3`, `Frameset_68ef8`
+- BigLeaf: `Frameset_68729`, `Frameset_68732`, `Frameset_6873b`
+- Bird: `Frameset_687c9`, `Frameset_687ce`, `Frameset_687d3`, `Frameset_687e4`, `Frameset_687f5`, `Frameset_687fa`, `Frameset_687ff`
+- BrrrBear: `Frameset_69115`, `Frameset_69126`, `Frameset_69137`, `Frameset_6913a`, `Frameset_6913d`, `Frameset_6914c`, `Frameset_6915b`, `Frameset_69164`, `Frameset_6916e`, `Frameset_69175`, `Frameset_6917c`, `Frameset_69183`, `Frameset_6918e`
+- Bubble: `Frameset_690f4`, `Frameset_6910c`
+- Cart: `Frameset_69199`, `Frameset_6919e`, `Frameset_691aa`, `Frameset_691b3`
+- Chests: `Frameset_68000`, `Frameset_68003`, `Frameset_68060`, `Frameset_681be`, `Frameset_681c3`, `Frameset_681c8`, `Frameset_681cd`
+- ClearGate: `Frameset_698a8`, `Frameset_698ab`, `Frameset_698ae`
+- CountRichtertoffen: `Data_604b0`, `Frameset_683bc`, `Frameset_683c1`, `Frameset_683c4`, `Frameset_683c7`, `Frameset_683ca`, `Frameset_683d4`, `Frameset_683d9`, `Frameset_683de`, `Frameset_683e1`
+- DollBoy: `Data_60860`, `Data_60880`, `Data_60890`, `Data_608a0`, `Data_60ae0`, `Data_60b00`, `Data_60b30`, `Data_60b60`, `Data_60b80`, `Data_60ba0`, `Data_60bd0`, `Data_60c00`, `Frameset_69632`, `Frameset_6963b`, `Frameset_69646`, `Frameset_6964d`, `Frameset_69656`, `Frameset_6965f`, `Frameset_6966a`, `Frameset_69675`, `Frameset_6967a`, `Frameset_6967f`, `Frameset_69695`, `Frameset_6969a`, `Frameset_6969f`, `Frameset_696a8`, `Frameset_696b6`, `Frameset_696b9`
+- Doughnuteer: `Frameset_6856b`, `Frameset_68574`, `Frameset_6857d`, `Frameset_68586`, `Frameset_68597`, `Frameset_685a8`, `Frameset_685ad`, `Frameset_685b2`, `Frameset_685bb`, `Frameset_685c4`, `Frameset_685d7`, `Frameset_685f0`, `Frameset_685f7`, `Frameset_685fe`, `Frameset_68605`
+- ElectricLamp: `Frameset_68ca0`, `Frameset_68cc4`, `Frameset_68ccd`
+- FallingSnow: `Frameset_6958f`, `Frameset_695a6`, `Frameset_695af`, `Frameset_695c0`, `Frameset_695cb`, `Frameset_695d6`, `Frameset_695d9`
+- FireBot: `Frameset_6893d`, `Frameset_68946`, `Frameset_6894f`, `Frameset_6895c`, `Frameset_68969`, `Frameset_68976`, `Frameset_68983`, `Frameset_68986`, `Frameset_68989`, `Frameset_68992`, `Frameset_6899b`, `Frameset_689a0`, `Frameset_689a5`, `Frameset_689ac`, `Frameset_689b3`, `Frameset_689be`, `Frameset_689c9`, `Frameset_689d2`, `Frameset_689db`, `Frameset_689e2`
+- FlameBlock: `Frameset_695de`, `Frameset_695e7`
+- Futamogu: `Frameset_68319`, `Frameset_68336`, `Frameset_68343`, `Frameset_68348`, `Frameset_68351`
+- HammerBot: `Frameset_68b17`, `Frameset_68b1c`, `Frameset_68b25`, `Frameset_68b2e`, `Frameset_68b37`, `Frameset_68b40`, `Frameset_68b45`, `Frameset_68b4a`, `Frameset_68b51`, `Frameset_68b58`, `Frameset_68b5b`, `Frameset_68b5e`, `Frameset_68b61`
+- Hand: `Frameset_690ab`, `Frameset_690b4`, `Frameset_690b7`, `Frameset_690ba`, `Frameset_690bd`, `Frameset_690c0`, `Frameset_690c3`, `Frameset_690c6`, `Frameset_690c9`, `Frameset_690dc`, `Frameset_690df`, `Frameset_690e2`, `Frameset_690e5`, `Frameset_690e8`, `Frameset_690eb`
+- Haridama: `Frameset_6927f`, `Frameset_69290`, `Frameset_692a1`, `Frameset_692aa`, `Frameset_692b3`, `Frameset_692b8`, `Frameset_692bd`, `Frameset_692c2`, `Frameset_692c7`, `Frameset_692ce`, `Frameset_692d5`, `Frameset_692de`
+- Hebarii: `Frameset_683e4`, `Frameset_683ed`, `Frameset_683f8`, `Frameset_683fb`, `Frameset_6840d`, `Frameset_68418`, `Frameset_68421`, `Frameset_6842a`, `Frameset_6842d`, `Frameset_68430`
+- HiddenFigure: `Frameset_6a06c`, `Frameset_6a071`, `Frameset_6a07a`, `Frameset_6a07f`, `Frameset_6a084`, `Frameset_6a08d`, `Frameset_6a092`, `Frameset_6a097`, `Frameset_6a0b2`, `Frameset_6a0b7`, `Frameset_6a0bc`, `Frameset_6a0c3`, `Frameset_6a0c8`, `Frameset_6a0cf`, `Frameset_6a0d4`, `Frameset_6a0ef`, `Frameset_6a0f2`, `Frameset_6a0fe`, `Frameset_6a119`, `Frameset_6a11c`, `Frameset_6a128`, `Frameset_6a131`, `Frameset_6a13a`, `Frameset_6a145`
+- Jamano: `Data_60c20`, `Data_60c80`, `Data_60ce0`, `Data_60d00`, `Data_60d20`, `Frameset_69c1c`, `Frameset_69c40`, `Frameset_69c45`, `Frameset_69c4a`, `Frameset_69c4f`, `Frameset_69c7a`, `Frameset_69c92`, `Frameset_69ca1`, `Frameset_69cd6`, `Frameset_69cdb`, `Frameset_69ce0`, `Frameset_69ce9`, `Frameset_69cec`, `Frameset_69cef`, `Pals_55511`, `Pals_55551`, `Pals_55591`, `Pals_555d1`
+- Key: `Frameset_6804f`
+- Kobatto: `Frameset_69041`
+- Kushimushi: `Frameset_6860c`, `Frameset_68611`, `Frameset_68616`, `Frameset_6861b`, `Frameset_68620`, `Frameset_68625`, `Frameset_6862a`, `Frameset_6862f`, `Frameset_68634`, `Frameset_6863f`, `Frameset_6864a`, `Frameset_68655`, `Frameset_68698`
+- MadScienstein: `Frameset_68bb5`, `Frameset_68bbe`, `Frameset_68bc7`, `Frameset_68bcc`, `Frameset_68bd1`, `Frameset_68bda`, `Frameset_68be3`, `Frameset_68be8`, `Frameset_68bed`, `Frameset_68bf6`, `Frameset_68bff`, `Frameset_68c08`, `Frameset_68c11`, `Frameset_68c14`, `Frameset_68c17`, `Frameset_68c1e`, `Frameset_68c25`, `Frameset_68c2c`
+- Mizuuo: `Data_60700`, `Data_60740`, `Frameset_686a4`, `Frameset_686b9`, `Frameset_686d8`, `Frameset_686db`, `Frameset_686de`, `Frameset_686e5`, `Frameset_686ea`, `Frameset_686ef`, `Frameset_686f8`, `Frameset_68701`, `Frameset_6870a`, `Frameset_68713`, `Frameset_6871e`
+- Muddee: `Data_60d30`, `Data_60d40`, `Frameset_69cf2`, `Frameset_69cfb`, `Frameset_69d04`, `Frameset_69d0d`, `Frameset_69d16`, `Frameset_69d2f`, `Frameset_69d48`, `Frameset_69d4d`, `Frameset_69d52`, `Frameset_69d57`, `Frameset_69d5c`, `Frameset_69d65`, `Frameset_69d6a`, `Frameset_69d73`, `Frameset_69d85`, `Frameset_69d8e`, `Frameset_69da7`, `Frameset_69dc0`, `Pals_55e46`
+- MuddeeStinger: `Data_4caed`, `Data_4cb0d`
+- MusicalCoin: `Frameset_68036`
+- Nobiiru: `Frameset_698b1`, `Frameset_698b4`, `Frameset_698b7`, `Frameset_698ba`, `Frameset_698bd`, `Frameset_698c0`, `Frameset_698c3`, `Frameset_698c6`, `Frameset_698c9`, `Frameset_698cc`, `Frameset_698cf`, `Frameset_698d2`, `Frameset_698d5`, `Frameset_698d8`, `Frameset_698db`, `Frameset_698de`, `Frameset_698e1`, `Frameset_698e4`, `Frameset_698e7`, `Frameset_698ea`, `Frameset_698ed`, `Frameset_698f0`, `Frameset_698f3`, `Frameset_698f6`, `Frameset_698f9`, `Frameset_698fc`, `Frameset_698ff`
+- Octohon: `Data_4a5a9`, `Data_60d50`, `Frameset_69b2f`, `Frameset_69b41`, `Frameset_69b4c`, `Frameset_69b57`, `Frameset_69b69`, `Frameset_69b74`, `Frameset_69b7f`, `Frameset_69b88`, `Frameset_69bc3`, `Frameset_69bce`
+- Omodonmeka: `Data_40000`, `Data_604e0`, `Data_60500`, `Frameset_68f0b`, `Frameset_68f14`, `Frameset_68f1d`, `Frameset_68f26`, `Frameset_68f2b`, `Frameset_68f34`, `Frameset_68f3d`, `Frameset_68f42`, `Frameset_68f45`, `Frameset_68f50`
+- Owl: `Frameset_69318`, `Frameset_6936c`, `Frameset_69377`
+- ParaGoom: `Data_60530`, `Frameset_68442`, `Frameset_6844b`, `Frameset_68454`, `Frameset_6845d`, `Frameset_6846e`, `Frameset_6847f`, `Frameset_68490`, `Frameset_684a1`, `Frameset_684aa`, `Frameset_684af`, `Frameset_684b4`, `Frameset_684b7`, `Frameset_684cb`, `Frameset_684d2`, `Frameset_684d9`, `Frameset_684e0`, `Frameset_684e7`, `Frameset_6850a`, `Frameset_6852d`, `Frameset_68546`, `Frameset_6855f`
+- Pesce: `Frameset_6990a`, `Frameset_69911`, `Frameset_69918`, `Frameset_6991f`, `Frameset_69926`, `Frameset_6992d`, `Frameset_69934`, `Frameset_6993b`, `Frameset_69942`, `Frameset_69949`, `Frameset_69950`, `Frameset_69957`, `Frameset_6995e`, `Frameset_69965`, `Frameset_6996c`, `Frameset_69973`, `Frameset_6997a`, `Frameset_69981`, `Frameset_69988`, `Frameset_6998f`, `Frameset_69996`, `Frameset_6999d`, `Frameset_699a4`, `Frameset_699ab`, `Frameset_699b2`, `Frameset_699b7`, `Frameset_699bc`, `Frameset_699c1`, `Frameset_699c6`, `Frameset_699cb`, `Frameset_699d0`, `Frameset_699d5`, `Frameset_699da`, `Frameset_699df`, `Frameset_69a15`
+- PillarPlatform: `Frameset_6975b`, `Frameset_6975e`
+- Pneumo: `Data_44000`, `Data_60600`, `Frameset_68c5c`, `Frameset_68c7f`, `Frameset_68c84`, `Frameset_68c89`, `Frameset_68c8e`
+- PrinceFroggy: `Frameset_68ac6`, `Frameset_68add`, `Frameset_68ae6`, `Frameset_68ae9`, `Frameset_68af2`, `Frameset_68b01`
+- RoboMouse: `Frameset_691de`, `Frameset_691e5`, `Frameset_691f2`, `Frameset_691fb`, `Frameset_69200`, `Frameset_69205`, `Frameset_6920c`, `Frameset_69213`, `Frameset_69220`, `Frameset_69227`
+- Rock: `Frameset_69bfe`, `Frameset_69c01`
+- Scowler: `Data_60a60`, `Data_60a70`, `Data_60a80`, `Data_60a90`, `Frameset_69a5f`, `Frameset_69a68`, `Frameset_69a71`, `Frameset_69a7a`, `Frameset_69a95`, `Frameset_69aa8`, `Frameset_69ab3`, `Frameset_69abc`, `Frameset_69ac3`, `Frameset_69af5`, `Frameset_69b03`, `Frameset_69b08`, `Pals_54c87`, `Pals_54c9f`, `Pals_54cb7`, `Pals_54cf7`
+- SeeingEyeDoor: `Frameset_68c36`, `Frameset_68c47`, `Frameset_68c4a`, `Frameset_68c50`, `Frameset_68c56`, `Frameset_68c59`
+- Shoot: `Data_54000`, `Data_54010`, `Data_60e20`, `Data_60e40`, `Data_60e70`, `Data_60e90`, `Data_60ea0`, `Frameset_69f35`, `Frameset_69f40`, `Frameset_69f54`, `Frameset_69f5d`, `Frameset_69f66`, `Frameset_69f6f`, `Frameset_69f7c`, `Frameset_69f8a`, `Frameset_69f93`, `Frameset_69f9a`, `Frameset_69f9f`, `Frameset_69fa4`, `Frameset_69fa9`, `Frameset_69fba`, `Frameset_69fcf`, `Frameset_69fdc`, `Frameset_69fed`, `Frameset_69ff2`, `Frameset_69ffd`, `Frameset_6a000`, `Frameset_6a00b`, `Frameset_6a00e`, `Frameset_6a017`, `Frameset_6a022`, `Frameset_6a02b`, `Frameset_6a02e`, `Frameset_6a031`, `Frameset_6a034`, `Frameset_6a037`, `Frameset_6a03a`, `Frameset_6a043`, `Frameset_6a046`, `Frameset_6a049`, `Frameset_6a04c`, `Frameset_6a04f`
+- Silky: `Frameset_68744`, `Frameset_6874d`, `Frameset_68756`, `Frameset_6875f`, `Frameset_68768`, `Frameset_68771`, `Frameset_6877a`, `Frameset_68783`, `Frameset_6878c`, `Frameset_68795`, `Frameset_6879e`, `Frameset_687a7`, `Frameset_687b0`, `Frameset_687bb`, `Frameset_687c6`
+- SmallLeaf: `Frameset_68a9f`, `Frameset_68aa8`, `Frameset_68abb`
+- Snake: `Frameset_68804`, `Frameset_6881d`, `Frameset_68836`, `Frameset_6883d`, `Frameset_68844`, `Frameset_6884b`, `Frameset_68852`, `Frameset_6886f`, `Frameset_6888c`, `Frameset_688a9`, `Frameset_688c6`, `Frameset_688e3`, `Frameset_68900`, `Frameset_6891d`
+- Spark: `Frameset_69bd9`
+- SpearBot: `Frameset_68ddf`, `Frameset_68de8`, `Frameset_68df1`, `Frameset_68df8`, `Frameset_68dff`, `Frameset_68e08`, `Frameset_68e11`, `Frameset_68e14`, `Frameset_68e17`, `Frameset_68e20`, `Frameset_68e29`, `Frameset_68e2e`, `Frameset_68e33`, `Frameset_68e3a`, `Frameset_68e41`, `Frameset_68e4c`, `Frameset_68e57`, `Frameset_68e60`, `Frameset_68e69`, `Frameset_68e70`
+- Spearhead: `Data_601c0`, `Data_601e0`, `Frameset_681db`, `Frameset_681e4`, `Frameset_681ed`, `Frameset_681f6`, `Frameset_681ff`, `Frameset_68208`, `Frameset_68213`, `Frameset_6821e`, `Frameset_68229`, `Frameset_68234`, `Frameset_6824f`, `Frameset_6825a`, `Frameset_68265`, `Frameset_6826e`, `Frameset_68277`, `Frameset_6827c`, `Frameset_68287`, `Frameset_68292`, `Frameset_6829b`
+- Stove: `Frameset_69615`, `Frameset_69618`, `Frameset_69625`
+- SunMoon: `Data_60690`, `Data_606e0`, `Data_606f0`, `Frameset_68f74`, `Frameset_68f8f`, `Frameset_68f9e`, `Frameset_68fb7`, `Frameset_68fc0`, `Frameset_68fc9`, `Frameset_68fd0`, `Frameset_68fd9`, `Frameset_68ff4`, `Frameset_69003`, `Frameset_69024`, `Frameset_6902b`, `Frameset_69036`
+- Tadpole: `Data_60a20`, `Data_60a40`, `Frameset_69a1a`, `Frameset_69a1d`, `Frameset_69a26`, `Frameset_69a30`, `Frameset_69a33`, `Frameset_69a3d`
+- Teruteru: `Frameset_68b64`, `Frameset_68b6d`, `Frameset_68b76`, `Frameset_68b7d`, `Frameset_68b84`, `Frameset_68b8b`, `Frameset_68b90`, `Frameset_68b99`, `Frameset_68ba2`, `Frameset_68ba5`, `Frameset_68bae`
+- Togeba: `Data_60760`, `Frameset_69230`, `Frameset_6924b`, `Frameset_69256`, `Frameset_69263`, `Frameset_6926c`, `Frameset_69275`, `Frameset_6927c`
+- Torch: `Frameset_68359`, `Frameset_68360`, `Frameset_68369`
+- UnusedFlower: `Frameset_6837a`, `Frameset_68389`, `Frameset_683ac`, `Frameset_683b1`
+- WaterDrop: `Frameset_69761`, `Frameset_69772`, `Frameset_69775`
+- WaterSpark: `Frameset_69b12`, `Frameset_69b1e`
+- Webber: `Data_604a0`, `Frameset_682a4`, `Frameset_682a9`, `Frameset_682b2`, `Frameset_682b7`, `Frameset_682c2`, `Frameset_682c5`, `Frameset_682d1`, `Frameset_682d6`, `Frameset_682db`, `Frameset_682e2`
+- Wolfenboss: `Data_60d60`, `Data_60d80`, `Data_60da0`, `Data_60e00`, `Frameset_69dcb`, `Frameset_69dd5`, `Frameset_69dde`, `Frameset_69de7`, `Frameset_69dec`, `Frameset_69df1`, `Frameset_69df6`, `Frameset_69dfb`, `Frameset_69e00`, `Frameset_69e05`, `Frameset_69e0e`, `Frameset_69e1f`, `Frameset_69e39`, `Frameset_69e42`, `Frameset_69e4b`, `Frameset_69e59`, `Frameset_69e60`, `Frameset_69e72`, `Frameset_69e80`, `Frameset_69e85`, `Frameset_69e8e`, `Frameset_69e97`, `Frameset_69ea0`, `Frameset_69ea9`, `Frameset_69eb2`
+- Wormwould: `Data_608b0`, `Data_60900`, `Data_60dd0`, `Frameset_696bc`, `Frameset_696c5`, `Frameset_696ce`, `Frameset_696d7`, `Frameset_696e0`, `Frameset_696e5`, `Frameset_696ea`, `Frameset_696f3`, `Frameset_69701`, `Frameset_6970a`, `Frameset_69713`, `Frameset_6971c`, `Frameset_69721`, `Frameset_69726`, `Frameset_6972f`, `Frameset_69734`
+- YellowBelly: `Data_60950`, `Data_609e0`, `Data_60a00`, `Data_60a10`, `Frameset_69780`, `Frameset_69789`, `Frameset_69792`, `Frameset_697a1`, `Frameset_697b0`, `Frameset_697bb`, `Frameset_697c6`, `Frameset_697d5`, `Frameset_697e6`, `Frameset_697eb`, `Frameset_69845`, `Frameset_6987f`, `Frameset_69882`, `Frameset_69893`, `Frameset_69896`, `OAM_191940`, `OAM_191f04`, `Pals_51c81`, `Pals_51c99`, `Pals_51cb1`, `Pals_51cc9`, `Pals_51ce1`
+- ZipLine: `Frameset_691c4`, `Frameset_691c9`, `Frameset_691d2`, `Frameset_691db`
+- Zombie: `Data_60560`, `Data_605a0`, `Frameset_68d1a`, `Frameset_68d1f`, `Frameset_68d24`, `Frameset_68d2b`, `Frameset_68d81`, `Frameset_68d8a`, `Frameset_68d93`, `Frameset_68d9c`, `Frameset_68da5`, `Frameset_68dac`, `Frameset_68dd5`, `Frameset_68dda`
+
+**scene**
+
+- EpilogueSceneObj: `Frameset_15ed91`, `Frameset_15ed94`, `Frameset_15ed97`, `Frameset_15ed9a`, `Frameset_15ed9d`, `Frameset_15eda6`, `Frameset_15edb3`, `Frameset_15edc0`, `Frameset_15edc3`, `Frameset_15edc6`, `Frameset_15ede9`, `Frameset_15edf2`, `Frameset_15ee0f`, `Frameset_15ee1e`, `Frameset_15ee3b`, `Frameset_15ee44`, `Frameset_15ee57`, `Frameset_15ee64`, `Frameset_15ee67`, `Frameset_15ee70`, `Frameset_15ee79`, `Frameset_15ee82`, `Frameset_15ee87`, `Frameset_15ee8a`, `OAM_15e97d`
+- PrologueSceneObj: `Frameset_15e741`, `Frameset_15e748`, `Frameset_15e74b`, `Frameset_15e774`, `Frameset_15e77d`, `Frameset_15e780`, `Frameset_15e783`, `Frameset_15e78a`, `Frameset_15e793`, `Frameset_15e7a3`, `Frameset_15e7a6`, `Frameset_15e7b7`, `Frameset_15e7c4`, `Frameset_15e7f0`, `Frameset_15e7f5`, `Frameset_15e7fa`, `Frameset_15e801`, `Frameset_15e80a`, `Frameset_aad0b`
+- SceneWario: `Frameset_16b5a`, `Frameset_16b63`, `Frameset_1fc316`, `Frameset_1fc485`, `Frameset_1fc488`, `Frameset_aa6a5`, `Frameset_aa6c2`, `Frameset_aa6c7`, `Frameset_aa6ca`, `Frameset_aa8ec`, `Frameset_aa8f5`, `Frameset_aa902`, `Frameset_aa90d`, `Frameset_aa913`, `Frameset_aa924`, `Frameset_aa931`, `Frameset_aab27`, `Frameset_aab32`, `Frameset_aab3f`, `Frameset_aab42`, `Frameset_aab45`, `Frameset_aacf7`, `Frameset_aacfa`, `Frameset_ab03c`, `Frameset_ab06b`, `Frameset_ab08c`, `Frameset_ab098`, `Frameset_ab09d`, `Frameset_ab0ac`, `Frameset_ab14d`, `Frameset_ab160`, `Frameset_ab163`, `Frameset_d4de4`
+- TempleSceneObj: `Frameset_15e88d`, `Frameset_15e890`, `Frameset_15e893`, `Frameset_15e896`, `Frameset_15e899`, `Frameset_15e89c`, `Frameset_15e89f`, `Frameset_15e8a2`, `Frameset_15e8a5`, `Frameset_15e8a8`, `Frameset_15e8ab`, `Frameset_15e8b0`, `Frameset_15e932`, `Frameset_15e95c`, `OAM_15e813`
+
+**wario**
+
+- WarioAirborne: `Frameset_15f8e`, `Frameset_1604e`
+- WarioAttacking: `Frameset_1521c`
+- WarioAttackingAirborne: `Frameset_1523e`, `Frameset_15249`
+- WarioBallAirborne: `Frameset_1dd2f3`, `Frameset_1dd2f6`
+- WarioBallOStringKnockBack: `Frameset_17409`, `Frameset_1742a`
+- WarioBallShot: `Frameset_1dd27a`, `Frameset_1dd2d1`
+- WarioBallStart: `Frameset_1dd313`, `OAM_1dcff1`
+- WarioBallTurning: `Frameset_1dd287`, `Frameset_1dd28e`
+- WarioBatIdling: `Frameset_1fd45f`
+- WarioBatTransforming: `Frameset_1fd40a`
+- WarioBouncyAirborne: `Frameset_1fcc75`
+- WarioBouncyFloor: `Frameset_1fcc5f`
+- WarioBouncyStart: `OAM_1fc95e`
+- WarioBouncyUpsideDown: `Frameset_1fcc82`, `Frameset_1fcc85`
+- WarioCrazy: `OAM_1fccd5`
+- WarioCrazySpinning: `Frameset_14ccc`, `Frameset_14ce1`
+- WarioCrazyTurning: `Frameset_1fcfd0`, `Frameset_1fcfd7`
+- WarioElectric: `Frameset_17b9e`, `Frameset_17bad`
+- WarioElectricStart: `Frameset_17b7c`, `Frameset_17b8d`
+- WarioFanLifting: `Frameset_1dc374`, `Frameset_1dc3b8`
+- WarioFanRecovering: `Frameset_1dc384`, `Frameset_1dc3c8`
+- WarioFanSpinning: `Frameset_1dc393`
+- WarioFanStart: `Frameset_1dc37f`, `Frameset_1dc3c3`, `OAM_1dc000`
+- WarioFanTurning: `Frameset_1dc389`, `Frameset_1dc38e`
+- WarioFatBumping: `Frameset_178fc`, `Frameset_17905`
+- WarioFatIdling: `Frameset_1781c`, `Frameset_1781f`
+- WarioFatRecovering: `Frameset_17844`, `Frameset_1785b`
+- WarioFatTurning: `Frameset_178ea`, `Frameset_178f3`
+- WarioFatWalking: `Frameset_17822`, `Frameset_1782b`
+- WarioFenceMovingHorizontal: `Frameset_158e7`, `Frameset_158f2`
+- WarioFlatAirborne: `Frameset_171bd`
+- WarioFlatIdling: `Frameset_1718b`
+- WarioFlatSinking: `Frameset_1719a`
+- WarioFlatSquishedLifting: `Frameset_1716c`
+- WarioFlatWalking: `Frameset_17175`
+- WarioGetTreasureLookFront: `Frameset_1fc30d`
+- WarioGetTreasureTurnBack: `Frameset_1fc2c4`
+- WarioGetTreasureTurnFront: `Frameset_1fc2ab`
+- WarioGettingFlatAirborne: `Frameset_1715f`
+- WarioGrabAirborne: `Frameset_15fd2`, `Frameset_15fdf`, `Frameset_15fec`, `Frameset_15fef`, `Frameset_16020`, `Frameset_16037`, `Frameset_1605c`, `Frameset_16063`
+- WarioHot: `Frameset_16e47`, `Frameset_16e72`, `OAM_16b6c`
+- WarioIceSkatin: `Frameset_1fdd94`, `Frameset_1fdd97`
+- WarioIceSkatinCrash: `Frameset_1fdd9a`, `Frameset_1fdda7`
+- WarioIceSkatinStart: `Frameset_1fdd82`, `Frameset_1fdd8b`, `OAM_1fdb6d`
+- WarioLadderScratching: `Frameset_15903`, `Frameset_15924`
+- WarioLadderShakeStunned: `Frameset_15948`
+- WarioLaunched: `Frameset_1dc8fb`, `Frameset_1dc904`, `Frameset_1dc90d`, `Frameset_1dc926`, `OAM_1dc449`
+- WarioMagicRising: `Frameset_1dcfb0`, `OAM_1dcd60`
+- WarioPuffyDeflating: `Frameset_1dccee`, `Frameset_1dcd01`, `Frameset_1dcd1e`, `Frameset_1dcd31`
+- WarioPuffyInflating: `Frameset_1dccc0`, `Frameset_1dccc9`, `OAM_1dc93f`
+- WarioPuffyRising: `Frameset_1dcd4e`, `Frameset_1dcd57`
+- WarioPuffyTurning: `Frameset_1dccd8`, `Frameset_1dcce3`
+- WarioSleeping: `Frameset_1421c`, `Frameset_14225`, `Frameset_1422e`, `Frameset_14237`, `Frameset_14240`, `Frameset_14249`
+- WarioSliding: `Frameset_16708`
+- WarioSnowballCrash: `Frameset_1ff981`
+- WarioSnowballRolling: `Frameset_1ff938`, `Frameset_1ff945`, `Frameset_1ff963`, `Frameset_1ff970`
+- WarioSnowmanBumped: `Frameset_1ff628`, `Frameset_1ff639`
+- WarioSnowmanIdle: `Frameset_1ff5f8`, `Frameset_1ff5fb`
+- WarioSnowmanTurning: `Frameset_1ff5fe`, `Frameset_1ff605`
+- WarioSnowmanWalking: `Frameset_1ff5e6`, `Frameset_1ff5ef`
+- WarioSplitHit: `Frameset_1ffd10`, `Frameset_1ffd13`, `Frameset_1ffd16`, `Frameset_1ffd19`, `OAM_1ffa12`
+- WarioSplitKnockedBack: `Frameset_1ffc8e`, `Frameset_1ffccf`
+- WarioSwallowed: `OAM_1dc3cd`
+- WarioThrowCharging: `Frameset_1642c`, `Frameset_16432`
+- WarioThrowFullyCharged: `Frameset_16403`, `Frameset_16438`
+- WarioThrowingAirborne: `Frameset_15fae`, `Frameset_15fb3`
+- WarioTryingSubmerge: `Frameset_155b0`, `Frameset_155b7`
+- WarioTurningIntoSnowman: `Frameset_1ff560`, `Frameset_1ff5a3`, `OAM_1feec7`
+- WarioTurningInvisible: `Frameset_17e1b`, `Frameset_17e3a`, `OAM_17cf7`
+- WarioUnderwaterThrusting: `Frameset_15562`, `Frameset_155be`
+- WarioVampireIdling: `Frameset_1fd81c`
+- WarioVampireTurning: `Frameset_1fd83a`, `Frameset_1fd841`
+- WarioVampireWalking: `Frameset_1fd825`
+- WarioZombieIdling: `Frameset_1fc8b6`, `Frameset_1fc8b9`, `OAM_1fc48b`
+- WarioZombieKnockBack: `Frameset_1fc92e`, `Frameset_1fc93b`
+- WarioZombieLanding: `Frameset_1fc8bc`, `Frameset_1fc8d5`, `Frameset_1fc928`, `Frameset_1fc92b`, `Frameset_1fc948`, `Frameset_1fc953`
+- WarioZombieSlippingThroughFloor: `Frameset_1fc8ee`, `Frameset_1fc90b`
+- WarioZombieTurning: `Frameset_1fc894`, `Frameset_1fc89d`
+- WarioZombieWalking: `Frameset_1fc870`, `Frameset_1fc879`
+- WarioZombieWrithing: `Frameset_1fc882`, `Frameset_1fc88b`
+
+### 3f. Remaining overworld routines
+
+#### Map-side object state entries (bulk rule, bank2d)
+
+The 2b rule said to name the ~150 one-line state entries after their
+frameset, "or by slot (`NorthOWObjState_01`) until then". By slot,
+generated from the four jumptables (`Func_b4fab` North 44 entries,
+`Func_b4ba2` East 35, `Func_b4ccb` South 33, `Func_b4e04` West 36), in the
+`.State3b` hex style of spearhead.asm: `<Side>OWObjStateXX`. 139 labels
+(slot 0 is `Func_b4000`, `OWObjState_None`; `Func_b4e8b` fills West slots 5
+and 9 and takes the first). High as a mechanical rule; no collisions.
+
+Correction to 2b and to 3a: the East table has 35 entries, not 36, the
+same as `Func_b7b61` (`UpdateEastOWObjMapAnim`), so the "reads past it"
+remark in the 3a row doesn't apply.
+
+`Func_b4be9` EastOWObjState01; `Func_b4bee` EastOWObjState02; `Func_b4bf3` EastOWObjState03; `Func_b4bf8` EastOWObjState04; `Func_b4bfd` EastOWObjState05; `Func_b4c02` EastOWObjState06; `Func_b4c07` EastOWObjState07; `Func_b4c0c` EastOWObjState08; `Func_b4c16` EastOWObjState09; `Func_b4c1b` EastOWObjState0a; `Func_b4c25` EastOWObjState0b; `Func_b4c2a` EastOWObjState0c; `Func_b4c2f` EastOWObjState0d; `Func_b4c39` EastOWObjState0e; `Func_b4c3e` EastOWObjState0f; `Func_b4c43` EastOWObjState10; `Func_b4c48` EastOWObjState11; `Func_b4c4d` EastOWObjState12; `Func_b4c52` EastOWObjState13; `Func_b4c6d` EastOWObjState14; `Func_b4c72` EastOWObjState15; `Func_b4c77` EastOWObjState16; `Func_b4c7c` EastOWObjState17; `Func_b4c81` EastOWObjState18; `Func_b4c86` EastOWObjState19; `Func_b4c8b` EastOWObjState1a; `Func_b4c95` EastOWObjState1b; `Func_b4c9f` EastOWObjState1c; `Func_b4ca4` EastOWObjState1d; `Func_b4cae` EastOWObjState1e; `Func_b4cb3` EastOWObjState1f; `Func_b4cb8` EastOWObjState20; `Func_b4cbd` EastOWObjState21; `Func_b4c11` EastOWObjState22; `Func_b5004` NorthOWObjState01; `Func_b5009` NorthOWObjState02; `Func_b500e` NorthOWObjState03; `Func_b5013` NorthOWObjState04; `Func_b5018` NorthOWObjState05; `Func_b501d` NorthOWObjState06; `Func_b5022` NorthOWObjState07; `Func_b5027` NorthOWObjState08; `Func_b5031` NorthOWObjState09; `Func_b5036` NorthOWObjState0a; `Func_b5040` NorthOWObjState0b; `Func_b5045` NorthOWObjState0c; `Func_b504f` NorthOWObjState0d; `Func_b5059` NorthOWObjState0e; `Func_b505e` NorthOWObjState0f; `Func_b5063` NorthOWObjState10; `Func_b5068` NorthOWObjState11; `Func_b506d` NorthOWObjState12; `Func_b5072` NorthOWObjState14; `Func_b5077` NorthOWObjState15; `Func_b5093` NorthOWObjState16; `Func_b509d` NorthOWObjState17; `Func_b50a7` NorthOWObjState18; `Func_b50ac` NorthOWObjState1a; `Func_b50b1` NorthOWObjState1c; `Func_b50b6` NorthOWObjState1d; `Func_b50c0` NorthOWObjState1e; `Func_b50ca` NorthOWObjState1f; `Func_b50cf` NorthOWObjState20; `Func_b50d4` NorthOWObjState21; `Func_b50d9` NorthOWObjState22; `Func_b50de` NorthOWObjState23; `Func_b50ea` NorthOWObjState24; `Func_b50f6` NorthOWObjState25; `Func_b50fb` NorthOWObjState26; `Func_b5105` NorthOWObjState27; `Func_b510a` NorthOWObjState28; `Func_b512a` NorthOWObjState29; `Func_b5130` NorthOWObjState2a; `Func_b5136` NorthOWObjState2b; `Func_b4d0e` SouthOWObjState01; `Func_b4d14` SouthOWObjState02; `Func_b4d1f` SouthOWObjState03; `Func_b4d25` SouthOWObjState04; `Func_b4d2b` SouthOWObjState05; `Func_b4d31` SouthOWObjState06; `Func_b4d3c` SouthOWObjState07; `Func_b4d41` SouthOWObjState08; `Func_b4d4b` SouthOWObjState09; `Func_b4d50` SouthOWObjState0a; `Func_b4d55` SouthOWObjState0b; `Func_b4d5a` SouthOWObjState0c; `Func_b4d5f` SouthOWObjState0d; `Func_b4d64` SouthOWObjState0e; `Func_b4d69` SouthOWObjState0f; `Func_b4d6e` SouthOWObjState10; `Func_b4d73` SouthOWObjState11; `Func_b4d78` SouthOWObjState12; `Func_b4d7d` SouthOWObjState13; `Func_b4d87` SouthOWObjState14; `Func_b4d91` SouthOWObjState15; `Func_b4d96` SouthOWObjState16; `Func_b4d9b` SouthOWObjState17; `Func_b4db6` SouthOWObjState18; `Func_b4dbb` SouthOWObjState19; `Func_b4dc0` SouthOWObjState1a; `Func_b4ddd` SouthOWObjState1b; `Func_b4de2` SouthOWObjState1c; `Func_b4de7` SouthOWObjState1d; `Func_b4df1` SouthOWObjState1e; `Func_b4df6` SouthOWObjState20; `Func_b4e77` WestOWObjState01; `Func_b4e7c` WestOWObjState02; `Func_b4e81` WestOWObjState03; `Func_b4e86` WestOWObjState04; `Func_b4e8b` WestOWObjState05; `Func_b4ea4` WestOWObjState06; `Func_b4ea9` WestOWObjState07; `Func_b4ebd` WestOWObjState08; `Func_b4ec2` WestOWObjState0a; `Func_b4ec8` WestOWObjState0b; `Func_b4ed2` WestOWObjState0c; `Func_b4ed8` WestOWObjState0d; `Func_b4ee3` WestOWObjState0e; `Func_b4ee9` WestOWObjState0f; `Func_b4ef4` WestOWObjState10; `Func_b4eff` WestOWObjState11; `Func_b4f05` WestOWObjState12; `Func_b4f0b` WestOWObjState13; `Func_b4f16` WestOWObjState14; `Func_b4f1c` WestOWObjState15; `Func_b4f22` WestOWObjState16; `Func_b4f28` WestOWObjState17; `Func_b4f2e` WestOWObjState18; `Func_b4f34` WestOWObjState19; `Func_b4f3a` WestOWObjState1a; `Func_b4f40` WestOWObjState1b; `Func_b4f46` WestOWObjState1c; `Func_b4f4c` WestOWObjState1d; `Func_b4f52` WestOWObjState1e; `Func_b4f82` WestOWObjState1f; `Func_b4f8a` WestOWObjState20; `Func_b4f90` WestOWObjState21; `Func_b4f96` WestOWObjState22; `Func_b4f9c` WestOWObjState23
+
+#### bank20: map-side main loop, temple hint, path preview, scene actions
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_80ee7`, `Func_80f0d`, `Func_80f3c`, `Func_80fb8`, `Func_80fd6`, `Func_80ff7`, `Func_810bb`, `Func_8115c`, `Func_811cf`, `Func_81200`, `Func_81346` | bank20.asm:52-699 | `MapSide_Init`, `MapSide_DayNightTransition`, `MapSide_ArriveAtLevel`, `MapSide_LoadLevelName`, `MapSide_FadeInLevelName`, `MapSide_Idle`, `MapSide_StartPath`, `MapSide_Walk`, `MapSide_WalkOffEdge`, `MapSide_ChangeSide`, `MapSide_TempleHint` | The 11 `w2d013` steps of `Func_80e89` (`HandleMapSide`), in table order. Init: current point as target, clears fades; 1: pending day/night switch (`wDayNight` bit 7) or `PlayOverworldMusic`; 2: arrived at a point (loads the level, D-pad already held in an allowed direction starts walking at once; exits go straight to step 6); 3/4: load and fade in the level name; 5: waits for input (A enters the level via `Func_81240`, SELECT opens the bars, B path preview, UP at the Temple, START best times, D-pad walks); 6: sets the path's end point and shape and starts the line; 7: walks (two line steps per frame when running), at the end goes to step 2 or, for an exit, plays `SFX_0EB`; 8: walks off the screen edge; 9: switches `wNextMapSide` and the substate; 10: the temple hint. | high |
+| `Func_81034` | :222 | `MapSide_StartWalking` | Fall-through tail of step 5 (also jumped to from step 2): sets the direction, `Func_820e6`, requests the level-name fade-out ($03 in `w2d0e0`), next step. | high |
+| `Func_810a9` | :269 | `GetPressedOWDirection` | `wJoypadPressed` D-pad, with up/down taking precedence over left/right; `Func_80f3c.GetDirectionalInput` is the same on `wJoypadDown`. | high |
+| `Func_810fc` | :329 | `SetNextPathWaypoint` | Dispatches on the path shape at `bc` (`PATH_*`), sets `wOWCoords2` to the next corner and the shape to the next segment; returns $ff when the path is done. | high |
+| `Func_81142` | :387 | `SetOWWarioWalkDirection` | Sets `wLevelArrowDirections1` (which picks Wario's sprite) from the line flags `w2d0a0`. | medium |
+| `Func_81240` | :522 | `HandleEnterLevelInput` | A pressed on a level point: `ST_LEVEL`, or `SST_OVERWORLD_1A` at the Temple; carry when taken. | high |
+| `Func_820e6` | :3186 | `SetPathFromArrowDirection` | Reads the current point's connections (`Func_82111`) in the direction of `wLevelArrowDirections1` (right/left/up/down) into `w2d068` (target point) and `wOWPathShape`. | high |
+| `Func_8139f`, `Func_813ad`, `Func_813b4`, `Func_813ef`, `Func_813f6`, `Func_81413`, `Func_8142d` | :732-811 | `TempleHint_WaitThenFadeOutName`, `TempleHint_WaitNameFadedOut`, `TempleHint_LoadNextTreasureLevelName`, `TempleHint_ResetPalFade`, `TempleHint_FadeInName`, `TempleHint_WaitInput`, `TempleHint_End` | Entries of `Func_8137a`'s table (`UpdateTempleHint`): wait 8 frames and request the fade-out; wait for it; load the name of the level with the next treasure; reset the fade steps; fade in and show scene object 13 (state $1c); wait for B/LEFT/RIGHT/DOWN or the object to finish; then the old name comes back the same way and `TempleHint_End` faces Wario down and resets the steps. | high |
+| `Func_814b2`, `Func_814bd`, `Func_814c4`, `Func_814ec`, `Func_8150c` | :874-967 | `PathPreview_SaveWarioPos`, `AdvancePathPreview`, `PathPreview_Wait`, `PathPreview_InitTracers`, `PathPreview_RunTracers` | `Func_81477` (`HandlePathPreview`) table: save Wario's position (into `w2d88e`); the step helper (clears `w2d0e2`, increments `w2d0e3`); after 10 frames put Wario on the level point with the arrows sprite (`SFX_113`); clear the tracers and get the paths pointer; run the 4 tracers (sprites spawned at frames $14/$28, cleared at $2c/$40) until all are done (state 5). Locals of the last: `.Func_81576` / `.Func_81595` -> `.load_tracer` / `.save_tracer`, `.Func_815b6` -> `.get_tracer_ptr`, `.Func_815c1` / `.Func_815e5` -> `.copy_tracer_sprites_1` / `.copy_tracer_sprites_2`, `.Func_81609` -> `.clear_tracer_sprites`. | high |
+| `Func_8143d` | :814 | `UnreferencedPathPreviewStep` | Marked unreferenced: runs the init/run tracer steps once with Wario moved to the level point and restored. | low |
+| `Func_80de0` | src/engine/overworld/best_times/common.asm:1 | `HandleBestTimesInput` | In time attack mode, START opens `SST_OVERWORLD_BEST_TIMES`; called from `MapSide_Idle`. | high |
+| `Func_818ad` | bank20.asm:1487 | `RunOWScene` | Called by `UpdateOWScene` (init.asm:200): a 3-step `w2d013` table, B on the top bar ends the scene. `Func_818e7` -> `RunOWScene_Wait` (4 frames), `Func_818ed` -> `RunOWScene_Next`, `Func_818f6` -> `RunOWScene_DoAction` (until `wOWSceneActionParam` is 0), `Func_81900` -> `RunOWScene_NextParams` (next scene params: same side restarts, other side switches to substate 4, none left ends). | high |
+| `Func_81931` | :1548 | `EndOWScene` | Clears the event and scene action; epilogue -> `SST_OVERWORLD_EPILOGUE`, else next substate and `Func_803e6` (save). | high |
+| `Func_8195d` | :1570 | `DoOWSceneAction` | Jumptable on `wOWSceneAction` (`UnlockLevel`, `DoOWFunction`, `Func_82c33`); slot 0 `.InvalidAction`. | high |
+| `Func_81dce` | :2712 | `InitOWScenesForMapSide` | Called by init.asm:360, 499: for every event, `w2d065` = unlocked/just unlocked, then runs each of its scene params' init routine (`.DoInitFunc`) when it is on the current map side. | high |
+| `Func_81e44` | :2787 | `InvalidOWSceneInitAction` | Slot 0 of `.DoInitFunc`, `debug_nop`. | high |
+| `Func_82a79`, `Func_82a96`, `Func_82a9b`, `Func_82aae`, `Func_82ad2`, `Func_82aea`, `Func_82b22`, `Func_82b67`, `Func_82b7b`, `Func_82baa` | :4733-4907 | `UnlockLevel_Init`, `UnlockLevel_GetArrows`, `UnlockLevel_WaitHighlight`, `UnlockLevel_ShowArrow1`, `UnlockLevel_HighlightTileAndAdvance`, `UnlockLevel_ShowArrow2`, `UnlockLevel_ShowLevelPoint`, `UnlockLevel_WaitHighlight30`, `UnlockLevel_ShowStar`, `UnlockLevel_End` | Steps of `UnlockLevel` (`w2d062`): get the unlocked level data; the arrows; wait while a highlight is pending (`w2d07f`) then 4 frames; draw the first / second arrow and the new point (`SFX_103`, `w2d07f = 1`, then `Func_81feb` + `Func_81f21`); wait 30; spawn the star sprite at the new point (`SFX_104`) and wait $40; clear the action. | high |
+| `Func_82a0a`, `Func_82a26`, `Func_82a2f`, `Func_82a4e`, `Func_82a62` | :4680-4731 | `OWScene_FadeToGrey`, `OWScene_Wait20`, `OWScene_LoadLevelName`, `OWScene_FadeInLevelName`, `OWScene_LoadStarIndicatorPals` | Shared by `UnlockLevel` and `Func_82c33`: grey transition (source comment "fade to grey"); wait 20 frames; load the level name (exits skip the fade-in step); fade it in; after 16 frames `LoadOWStarIndicatorPals`. | high |
+| `Func_82c33` | :4981 | `HighlightLevel` | The `HIGHLIGHT_LEVEL` scene action, the same structure as `UnlockLevel`. | high |
+| `Func_82bb8` / `Func_82bda` | :4909 / :4926 | `DrawUnlockLevelStar` / `DrawHighlightLevelStar` | Animate and draw `wCurSceneObj` with `Frameset_aa544` / `Frameset_aa555` and `OAM_aa445` during `UNLOCK_LEVEL` / `HIGHLIGHT_LEVEL` (the second clears the state when the animation ends). | medium |
+| `Func_82c1d` / `Func_82c22` / `Func_82c29` | :4962-4979 | (duplicates of `WaitOWFunc` / `AdvanceOWFunc` / `EndOWFunc`) | Byte-identical to the bank2d routines (bank2d.asm:3432-3457), like `Func_82a8d` in the second pass. If kept: `WaitOWFunc_Bank20` / `AdvanceOWFunc_Bank20` / `EndOWFunc_Bank20`. | high |
+| `Func_82997` / `Func_829a1` | :4617 / :4623 | `DrawBottomBarTimeAttack` / `DrawBottomBarTimeAttackScore` | The second draws the four BCD digits of `w2d0ee`/`w2d0ef` as window sprites; the first adds the button prompt and the 8-coin. | medium / high |
+
+#### bank21, bank26, bank2b_1, bank56
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_84b97` | bank21.asm:231 | `DaytimeTransition` | Only called by `EOWFunc_Daytime` (bank2d.asm:8285): a 7-step `wOWPalTransitionState` table built from `DayNightTransition`'s pieces (`.LoadBaseAndTargetPals`, `.FadeColours`, `.LoadPal1`), sets scene object 7 to state $13 halfway, and ends by clearing `w2d011` (day) and `wDayNight` (unless the bars are open). | medium |
+| `Func_84c0d` | bank21.asm:302 | `DayNightSpellTransition` | Only called by `NOWFunc_DayNightSpell.DayNightTransition`: the same kind of table (`.Init` with `VBlank_OWPalTransition`, fades, `.LoadPal1/2`, `.SwitchDayNight`). | medium |
+| `Func_84e43` | bank21.asm:711 | `FadeBGAndOBPals` | First call points `wPalConfig1`/`wPalConfig2` at all 8 `wTempBGPals`/`wTempOBPals` palettes; later calls step both (`Func_851d1`, `Func_851bc`) until done, then clear the step counts. Called from bank2b_1 and bank2b_2. | medium |
+| `Func_ac9ca` | bank2b_1.asm:1497 | `FadeBGAndOBPalsAndAdvanceStep` | `Func_84e43` until done, then clears `w2d014` and increments `w2d013`. | high |
+| `Func_ac9e9` / `Func_ac9e4` / `Func_ac9ec` | :1511 / 1507 / 1515 | `SetPalConfig1FromDE` / `SetPalConfig2FromDE` / `CopyPalConfigFromDE` | Copy 5 bytes from `de` to `wPalConfig1` / `wPalConfig2` / `hl`. | high |
+| `Data_ac9f5`, `Data_ac9fa`, `Data_ac9ff`, `Data_aca04` | :1525-1543 | `PalConfig_BGFromTempPals1`, `PalConfig_BGFromTempBGPals`, `PalConfig_OB0FromTempOBPals`, `PalConfig_OBFromTempPals2` | The 5-byte configs those copy (register, index, count, big-endian source); the third has a count of 1. Used by bank2b_2. | high |
+| `Func_aca09` | :1545 | `CopyTempPalsToBGOBPals_Bank2b1` | `wTempPals2 -> wTempOBPals`, `wTempPals1 -> wTempBGPals`: bank27's `Func_9cd74` (`CopyTempPalsToBGOBPals`) with the two copies swapped. | high |
+| `Func_aca20` / `Func_aca25` / `Func_aca28` | :1557 / 1561 / 1563 | `UnreferencedFillTempPals1White` / `FillTempPals2White` / `Fill4PalsWhite` | Write `PALRGB_WHITE` to 32 colours (4 palettes) at `wTempPals1` / `wTempPals2` / `hl`; the first is marked unreferenced. | high |
+| `Func_aca63` / `Func_aca68` | :1611 / 1617 | `MoveSceneWarioLeft` / `UnreferencedMoveSceneWarioRight` | Decrement / increment `wOWUIObj1XCoord`, which shares its address with `wSceneWarioXCoord` ($d141); the only caller is the epilogue (bank2b_2.asm:3064), where the Addenda already found `wOWUIObj1` written for Scene Wario. Another case of that union mislabel. | medium |
+| `Func_aca9e`, `Func_acacd`, `Func_acae7`, `Func_acaf3` | :1653-1727 | `PrintTextPageWithHeader`, `WaitAButtonAndClearTextbox`, `PrintTextPageWithoutHeader`, `NextTextPageOrEnd` | Text steps used in the temple and prologue step tables next to the existing `InitTextPrinting` and `LoadCurTextPageBufferPage`: print until the page ends (`wCurTextLine == $80`), then next buffer page and next step; wait for A (except on page 1), hide the arrow (scene object 1) and clear the textbox; when the next page isn't the terminator, show the arrow and go back 3 steps, else next step with carry. | high |
+| `Func_ac056` | :74 | `SceneObjState_TextArrow` | State 1 of the three scene object dispatchers (`Func_ac0b6`, `Func_ac409`, `UpdateTempleSceneObjAnimation`): animates `Frameset_76ca` with `OAM_75c3` (title gfx). Scene object 1 gets state 1 from `NextTextPageOrEnd` and 0 when the text continues, so this is the "more text" arrow. | medium |
+| `Func_ad445` | :3024 | `HandleTempleMusicBoxScene` | Step $0c of the temple scene: runs `HandleTempleMusicBoxes` and its own `w2d890` table (`.ShowMusicBoxes`, `.SpawnMusicBoxes`, `.LowerHands`, ...), like the existing `HandleTempleShakeScene`. | high |
+| `Func_ad557` | :3222 | (duplicate of `Func_ae915`, `AdvanceStepAtHL`) | Same 4 instructions; used by the `temple_music_box_hover` macro. If kept: `AdvanceStepAtHL_Bank2b1`. | high |
+| `Func_9a9ec` / `Func_9a9f7` / `Func_9a9fd` | bank26.asm:1004 / 1013 / 1018 | `UpdateSceneObjAnim_Bank26` / `LoadSceneObjSpriteWithScroll_Bank26` / `SetSceneObjStateIfAnimFinished_Bank26` | `UpdateOWAnimation` / `LoadOWSpriteWithScroll` with `b = $26` (the routines' own bank, where the treasure collection's framesets and OAM live), and another copy of `SetObjStateIfAnimationIsFinished`. | high |
+| `Func_9aa6c`, `Func_9aa6d`, `Func_9aa72`, `Func_9aa77`, `Func_9aa7c` | :1080-1097 | `TreasureCollectionObjState_None`, `TreasureCollectionObjState01`..`04` | The state table of `AnimateTreasureCollection.Func_9aa4a` (scene objects 1-10); each sets a frameset and jumps to `Func_9aa56`. | high |
+| `Func_9aa56` / `Func_9aa59` / `Func_9aa60` | :1065 / 1067 / 1073 | `AnimateTreasureCollectionObj` / `DrawTreasureCollectionObj` / `UnreferencedAnimateTreasureCollectionObjThenSetState` | Animate then draw with `OAM_9ac5d`; the third is marked unreferenced. | high |
+| `Func_9aab5` | :1129 | `LoadMapLevelTreasureData` | Called when Wario arrives at a level point (`MapSide_ArriveAtLevel`): the level's treasure IDs, bottom-bar flags and treasure tiles (HDMA from `wTileBuffer`), or the time attack score in that mode. Next to the existing `LoadLevelTreasureData`. | high |
+| `Func_9aaf4` | :1160 | `CheckLevelMusicalCoinsForBottomBar` | Sets bit 6 of `wBottomBarFlags` (and resets the compass object) when all musical coins of `wOWLevel` were collected. | medium |
+| `Func_9ab1c` | :1187 | `GetCurOWLevelCollectedTreasures` | `GetOWLevelCollectedTreasures` unless the point is the Temple (0) or none ($80). | high |
+| `Func_15868e` | bank56.asm:721 | `UpdateNOWPrologueObjs` | Called every frame by `NOWFunc_Prologue` (bank2d.asm:3504): six small state machines (`w2d150`, ...) for the scene objects of that scene. | low |
+
+#### bank27: cutscene set-up
+
+**Rule: `InitCutsceneXX` tails.** 19 of the existing `InitCutsceneXX`
+routines (bank27.asm:1-575) end with `jp Func_9xxxx`, a routine that places
+the cutscene's scene objects (coordinates, `SetSceneObjState`,
+`Func_9ccf9`) and usually draws them once through the cutscene's updater:
+`InitCutsceneXXObjs`, keeping the existing numbering. Generated, high:
+`Func_9d01a` InitCutscene06Objs; `Func_9d158` InitCutscene07Objs; `Func_9d0e6` InitCutscene0aObjs; `Func_9da0e` InitCutscene15Objs; `Func_9d536` InitCutscene1eObjs; `Func_9db85` InitCutscene24Objs; `Func_9d64b` InitCutscene27Objs; `Func_9dc6a` InitCutscene1fObjs; `Func_9ded4` InitCutscene30Objs; `Func_9e018` InitCutscene3aObjs; `Func_9e2b8` InitCutscene54Objs; `Func_9e438` InitCutscene4aObjs; `Func_9e4ae` InitCutscene4cObjs; `Func_9e5a1` InitCutscene4fObjs; `Func_9e655` InitCutscene51Objs; `Func_9e6ef` InitCutscene56Objs; `Func_9e79a` InitCutscene57Objs; `Func_9e855` InitCutscene58Objs; `Func_9e91a` InitCutscene55Objs.
+
+| Current | Where | Proposed | Evidence | Conf. |
+|---|---|---|---|---|
+| `Func_9c25f` | bank27.asm:65 | `InitMusicBoxCutscene` | Shared tail of `InitCutscene08/10/17/1d/25` (the five music boxes), entered with that box's OB palettes in `hl`: BG palettes `Pals_b8200`, `LoadCutscenes2Gfx`, BG maps 01/04. | high |
+| `Func_9c931` / `Func_9c937` | :609 / 613 | `LoadCutscenes7And5Gfx_Vram0` / `LoadCutscenes7And10Gfx_Vram0` | `LoadCutscenes7Gfx_Vram0` followed by `LoadCutscenes5Gfx_Vram0` / `LoadCutscenes10Gfx_Vram0`, next to the existing `LoadCutscenesNGfx_*` family (where the "5" part is implied, e.g. `LoadCutscenes1Gfx_Vram0` also loads set 5). | high |
+| `Func_9c977` / `Func_9c97d` | :625 / 629 | `LoadCutscenes8And5Gfx_Vram1` / `LoadCutscenes8And10Gfx_Vram1` | Same with `LoadCutscenes8Gfx_Vram1`. | high |
+| `Func_9cc4f` | :963 | `SetBGPriorityOn6x7Rect_Vram0` | Its header comment: fills a 6x7 attribute rectangle at (0, 5) with `BG_BANK0 \| BG_PRIO`; next to `SetBGPriorityOnTopRows_Vram0`. | high |
+| `Func_9ea9e` / `Func_9eab4` | :5329 / 5341 | `MoveCutsceneObj10` / `MoveCutsceneObj11` | Called every frame by Cutscene58 (open crater hole) and Cutscene55 (drill holes): while `wSceneObj12YCoord` / `wSceneObj12XCoord` is non-zero (used as flags, not coordinates), move scene object 10 / 11 along `Data_9ec16` / `Data_9ec41` (`ApplyOWMovement`), then clear the flag and the object's state. | medium |
