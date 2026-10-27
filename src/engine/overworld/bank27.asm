@@ -4541,6 +4541,9 @@ Cutscene4cFunc:
 .Func_9e52a:
 	ld a, [wSceneObj2State]
 	cp $03
+	; bug, missing ret nz: meant to wait for object 2's state 3, it always
+	; advances. Harmless: state 2 is a 6-frame animation and the next step
+	; waits 100 frames, so the fire just goes out about 6 frames early
 	jp AdvanceCutsceneFunc
 
 .Func_9e532:
