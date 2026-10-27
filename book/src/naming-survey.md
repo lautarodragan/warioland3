@@ -33,6 +33,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 18 | Duplicates merged (changes the ROM): `Func_ac00b`/`ac016` into `UpdateSceneObjAnim_CreditsOAM`, `Func_ac047`/`ac04c` into `LoadSceneObjSpriteWithScroll_CreditsOAM`, `Func_aca6d` into `AdvanceTempleOWStep`, `Func_19246` into `StartMultiBlockBreak`, `Func_19bce` into `ProcessBlockToB` (was `Func_19b5c`). Bank `$20`'s `Func_82c1d`/`82c22`/`82c29`/`82a8d` kept (copies of bank `$2d` routines, reached by `jr` and fallthroughs) and named `WaitOWFunc_Bank20`, `AdvanceOWFunc_Bank20`, `EndOWFunc_Bank20`, `AdvanceOWFunc_UnlockLevel` | 7 merged, 4 named |
 | 19 | Sixth pass, RAM: the last address-named RAM labels (scene object scripts, VRAM backup buffers, golf, time attack, envelope, prologue particles) and the cutscene overlay sprites; see "Sixth pass: remaining RAM labels" | 44 |
 | 20 | Sixth pass, objects: 49 `OBJSTATE_*` (+3 aliases), 20 `OBJ_INTERACTION_*`, 9 `OBJACTION_*` and the labels named after their numbers; see "Sixth pass: object states and interactions" | 81 |
+| 21 | Sixth pass, sound effects: 151 `SFX_*` constants, their sound data labels and the code labels named after their numbers; see "Sixth pass: sound effects" | 151 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3343,3 +3344,250 @@ Labels that carried those numbers were renamed too: `SetObjAction_0D` ->
   the two sting names may be the wrong way round.
 - Many objects still use raw state literals (`cp $18`, `ld a, $3b`,
   `ld a, $5a`...). Only the one in `update_objects.asm` was converted.
+
+## Sixth pass: sound effects
+
+266 of the 312 `SFX_` constants (src/constants/sound_constants.asm) were
+named by number. Every use goes through the `play_sfx`/`play_sfx_rept`
+macros (src/macros/audio.asm); nothing computes an SFX ID or reads one
+from a table, so the callers below are all the uses. Each sound was named
+after the event that plays it, or after its most characteristic caller
+when several unrelated places share it (the others are listed). The
+audio data labels were renamed to match (`Sfx_00e` -> `Sfx_Swim`,
+`Sfx_00e_Ch1` -> `Sfx_Swim_Ch1`, ... in src/audio/sfx/sfx1.asm, sfx2.asm
+and the `SoundHeaders` table), and so were the code labels that carried a
+sound number: `PlaySFX_112` -> `PlayItemRaiseSFX`, `PlaySFX_12A` ->
+`PlayStepSFX`, and local labels such as `.PlaySFX076Every26Frames` ->
+`.PlayThunderSFXEvery26Frames` or `.play_sfx_01f_every_17_frames` ->
+`.play_sfx_rumble_every_17_frames`. The ROM is byte-identical.
+
+Caller paths are relative to src/engine/ and give line numbers in
+origin/master at the time of the pass (the renames did not move lines).
+
+| Old | New | Evidence |
+|---|---|---|
+| `SFX_006` | `SFX_PLANE_DEBRIS_LAND` | The plane wreckage pieces hitting the ground in the prologue/epilogue plane scenes (`.land_sfx_and_next`, `.check_landed` at y=$62). Callers: overworld/bank2b_2.asm:1556, overworld/bank2b_2.asm:1566, overworld/bank2b_2.asm:1689, overworld/bank2b_2.asm:1698, +7 more. |
+| `SFX_00E` | `SFX_SWIM` | Swimming stroke loop in `HandleSwimming`; the flippers/Frog's gloves action help screens use it the same way. Callers: level/wario_states_1.asm:5536, action_help/power_ups/swimming_flippers.asm:189, action_help/power_ups/swimming_flippers.asm:208, action_help/power_ups/swimming_flippers.asm:235, +13 more. |
+| `SFX_00F` | `SFX_UNDERWATER_THRUST` | `UpdateState_UnderwaterThrusting` loop (every 15 frames); also a golf Para-Goom frame and Cutscene30. Callers: level/wario_states_1.asm:2035, golf/hole.asm:559, action_help/power_ups/swimming_flippers.asm:304, action_help/power_ups/swimming_flippers.asm:372, +4 more. |
+| `SFX_014` | `SFX_STOMP` | Wario stepping on an object (`StepOnObject`, `PushObjectInWater`, then `OBJACTION_WOBBLE`), bosses' `.VanishTouch`, and the magic seed/crayon hitting the ground on the map. Callers: level/object_interactions.asm:722, level/object_interactions.asm:752, level/object_interactions.asm:1122, level/objects/count_richtertoffen.asm:131, +10 more. |
+| `SFX_016` | `SFX_THROWN_OBJECT_HIT` | `HandleGrabbedObjectCollisions`: a thrown object hits another object; also Wormwould's rolling rock hitting. Callers: level/update_objects.asm:1039, level/update_objects.asm:1061, level/update_objects.asm:1088, level/objects/wormwould.asm:586. |
+| `SFX_017` | `SFX_ATTACK_HIT` | `AttackObject` (any attack on an object); also golf hit, Zombie, Skull, Doll Boy barrel. Callers: level/object_interactions.asm:484, level/objects/zombie.asm:282, level/objects/jamano.asm:859, level/objects/doll_boy.asm:1016, +3 more. |
+| `SFX_01A` | `SFX_OBJECT_HIT_WALL` | A held/sliding object hits a wall (`_ObjState_Grabbed*`/`PickedUp*` drop, `_ObjState_BumpSlide*` -> stun); also Shoot/Kuri turning at the walls, a tree falling on the map. Callers: level/update_objects.asm:1201, level/update_objects.asm:1408, level/update_objects.asm:1652, level/update_objects.asm:1763, +7 more. |
+| `SFX_01B` | `SFX_FLATTEN` | Setting `TRANSFORMATION_FLAT_WARIO` (being crushed flat) in `SetState_FlatAirborne`. Callers: level/wario_states_3.asm:497. |
+| `SFX_01D` | `SFX_FLAT_JUMP` | `SetState_FlatJumping`; also `SetState_VampireAirborne_Jump`. Callers: level/wario_states_3.asm:723, level/wario_states_3.asm:4372. |
+| `SFX_01E` | `SFX_FIRE` | `UpdateState_OnFire`; also torch/fire/vine-burning cutscenes. Callers: level/wario_states_3.asm:99, overworld/bank27.asm:6572, overworld/bank27.asm:7032, overworld/bank2d.asm:8129. |
+| `SFX_01F` | `SFX_RUMBLE` | Looping rumble: `UpdateState_Hot`, temple screen shake, `UpdateOWSceneScreenShake`, Hidden Figure's defeat sink, golf clear cutscene. Callers: level/wario_states_3.asm:293, level/objects/hidden_figure.asm:426, golf/lobby.asm:660, overworld/bank56.asm:64, +5 more. |
+| `SFX_020` | `SFX_FLAT_FALL` | `UpdateState_FlatFalling`. Callers: level/wario_states_3.asm:951. |
+| `SFX_022` | `SFX_BURNT` | Hot Wario becoming `WST_BURNT`. Callers: level/wario_states_3.asm:341. |
+| `SFX_023` | `SFX_BUBBLE_FLOAT` | `UpdateState_InBubble` loop (every 14 frames); also intro plane and Cutscene06 with the same period. Callers: level/wario_states_3.asm:4846, title/intro.asm:512, overworld/bank27.asm:1624. |
+| `SFX_024` | `SFX_FAT_LAND` | Fat Wario landing (`UpdateState_FatAirborne`, with ground shake); also Snowman Wario landing. Callers: level/wario_states_3.asm:1884, level/wario_states_4.asm:1202. |
+| `SFX_025` | `SFX_PUFFY_INFLATE` | `SetState_PuffyInflating`. Callers: level/wario_states_3.asm:2500. |
+| `SFX_027` | `SFX_PUFFY_DEFLATE` | `SetState_PuffyDeflating`. Callers: level/wario_states_3.asm:2689. |
+| `SFX_028` | `SFX_ZOMBIE_TRANSFORM` | `ObjInteraction_ZombieHead` before setting `TRANSFORMATION_ZOMBIE_WARIO`; also `ObjInteraction_Ice` before `TRANSFORMATION_ICE_SKATIN`. Callers: level/object_interactions.asm:2648, level/object_interactions.asm:2950. |
+| `SFX_02A` | `SFX_ZOMBIE_LAND` | `SetState_ZombieLanding`. Callers: level/wario_states_3.asm:3089. |
+| `SFX_02B` | `SFX_BOUNCY_BOUNCE` | `SetState_BouncyAirborne`. Callers: level/wario_states_3.asm:3546. |
+| `SFX_02C` | `SFX_THROW_CHARGE` | `SetState_ThrowCharging` and the action help throw. Callers: level/wario_states_1.asm:3063, action_help/common1.asm:876. |
+| `SFX_02E` | `SFX_ICE_SKATIN_CRASH` | `SetState_IceSkatinCrash`. Callers: level/wario_states_4.asm:295. |
+| `SFX_034` | `SFX_SHOOT_KICK_WARIO` | Shoot sending Wario off as the ball (`.shoot_wario`, `wAutoMoveState`). Callers: level/objects/shoot.asm:552. |
+| `SFX_035` | `SFX_CHEST_OPEN` | `ChestFunc.Open`; also Cutscene07. Callers: level/objects/chests.asm:76, overworld/bank27.asm:1827. |
+| `SFX_039` | `SFX_BALL_O_STRING_TRANSFORM` | `TurnIntoBallOStringWario`. Callers: level/object_interactions.asm:2300. |
+| `SFX_03A` | `SFX_EAT_FOOD` | `ObjInteraction_Food` (turns Wario fat); also the musical coin screen after counting and when the pencil moves. Callers: level/object_interactions.asm:2413, clear/musical_coins.asm:113, clear/musical_coins.asm:151. |
+| `SFX_03C` | `SFX_BALL_O_STRING_BOUNCE` | `UpdateState_BallOStringKnockBack`: hitting a wall and turning round. Callers: level/wario_states_3.asm:1402. |
+| `SFX_03D` | `SFX_STRING_UNWRAP` | `UpdateState_GettingUnwrappedInString`. Callers: level/wario_states_3.asm:1441. |
+| `SFX_03E` | `SFX_GET_TREASURE_OPEN` | `UpdateState_GetTreasureTurnBack` -> `WST_GET_TREASURE_OPEN`. Callers: level/wario_states_2.asm:1473. |
+| `SFX_03F` | `SFX_INVISIBLE_TRANSFORM` | `SetState_TurningInvisible`. Callers: level/wario_states_3.asm:2400. |
+| `SFX_040` | `SFX_ELECTRIC_SHOCK` | `ObjInteraction_Electric`; also Scowler's tentacle activating and the warped-void reveal cutscene. Callers: level/object_interactions.asm:2522, level/objects/scowler.asm:86, level/objects/scowler.asm:800, overworld/bank27.asm:6626. |
+| `SFX_041` | `SFX_ELECTRIC_LAND` | `UpdateState_Electric`: the last bounce after a shock. Callers: level/wario_states_3.asm:2312. |
+| `SFX_042` | `SFX_CRAZY_SPIN` | `SetState_CrazySpinning`. Callers: level/wario_states_3.asm:3868. |
+| `SFX_043` | `SFX_CRAZY_DIZZY` | `SetState_Crazy` and the end of the spin (`WST_CRAZY_DIZZY`). Callers: level/wario_states_3.asm:3972, level/wario_states_3.asm:4018. |
+| `SFX_044` | `SFX_SPLIT_LAND` | `UpdateState_SplitKnockedBack` landing. Callers: level/wario_states_4.asm:1666. |
+| `SFX_045` | `SFX_VAMPIRE_TRANSFORM` | `SetState_VampireTransforming` (+ action help). Callers: level/wario_states_3.asm:4570, action_help/common2.asm:788. |
+| `SFX_046` | `SFX_BAT_TRANSFORM` | `SetState_BatTransforming` (+ action help). Callers: level/wario_states_3.asm:4436, action_help/power_ups/vampire.asm:143. |
+| `SFX_047` | `SFX_SNOWMAN_TRANSFORM` | `SetState_TurningIntoSnowman`. Callers: level/wario_states_4.asm:801. |
+| `SFX_048` | `SFX_LAUNCH_CRASH` | `UpdateState_Launched` -> `WST_LAUCH_CRASH`. Callers: level/wario_states_4.asm:2542. |
+| `SFX_049` | `SFX_HAMMER_HIT` | Hammer Bot's hammer hit (with stars), Doll Boy hitting Wario, Doll Boy's hammer. Callers: level/objects/hammer_bot.asm:784, level/objects/doll_boy.asm:707, level/objects/doll_boy.asm:1151. |
+| `SFX_04C` | `SFX_LAUNCHED` | `UpdateState_Launched` loop. Callers: level/wario_states_4.asm:2521. |
+| `SFX_061` | `SFX_EARTHQUAKE` | Big impacts with `DoGroundShake` (Igaguri, Anonster, `DollBoyGroundShake`) and the map earthquakes (`WOWFunc_Earthquake`, `SOWFunc_Earthquake`, prologue); also intro, Cutscene13, game over. Callers: level/objects/wolfenboss.asm:942, level/objects/anonster.asm:540, level/objects/doll_boy.asm:1276, title/intro.asm:649, +5 more. |
+| `SFX_063` | `SFX_SLAM` | Stove landing, Omodon falling and the Hidden Figure hand slam (all with `DoGroundShake`); also `UpdateOWSceneScreenShake` right shakes. Callers: level/objects/stove.asm:60, level/objects/omodonmeka.asm:1074, level/objects/hidden_figure.asm:990, level/objects/hidden_figure.asm:1403, +2 more. |
+| `SFX_065` | `SFX_GOLF_BUNKER` | Golf ball landing in a bunker (`UpdateGolfParaGoomYPos.bunker`). Callers: golf/hole.asm:1767. |
+| `SFX_066` | `SFX_BALL_BOUNCE` | `SetState_BallAirborne` and `UpdateState_BallThrown` (`WST_BALL_SENT_UPWARDS`); also a Count Richtertoffen state. Callers: level/wario_states_4.asm:2875, level/wario_states_4.asm:3087, level/objects/count_richtertoffen.asm:295. |
+| `SFX_067` | `SFX_ENEMY_THROW` | Enemies throwing: Appleby's apple, Doughnuteer, Mad Scienstein (on-screen only), GK Tortoise/Shoot ball, Igaguri. Callers: level/objects/shoot.asm:1590, level/objects/shoot.asm:1627, level/objects/shoot.asm:1727, level/objects/shoot.asm:1813, +4 more. |
+| `SFX_068` | `SFX_SUN_SHOOT` | Sun shooting (`SunFunc`, at duration 52, then `.shoot_left/right`). Callers: level/objects/sun_moon.asm:97. |
+| `SFX_069` | `SFX_BUBBLE_SPAWN` | `BubbleHoleFunc.create_bubble`. Callers: level/objects/bubble.asm:36. |
+| `SFX_06A` | `SFX_WHIRR` | Repeating buzz every 8/16 frames: electric lamp charging, Shoot, Kuri, Doll Boy's barrel, Hidden Figure's stunned hand. Callers: level/objects/shoot.asm:856, level/objects/electric_lamp.asm:39, level/objects/wolfenboss.asm:1095, level/objects/doll_boy.asm:979, +1 more. |
+| `SFX_06B` | `SFX_ELECTRIC_LAMP_DISCHARGE` | `ElectricLampFunc` switching to `.Discharged` (spawns the spark); also `IgaguriFunc` every 8 frames. Callers: level/objects/electric_lamp.asm:49, level/objects/wolfenboss.asm:759. |
+| `SFX_06C` | `SFX_ELECTRIC_SPARK` | `ElectricLampSparkFunc`. Callers: level/objects/electric_lamp.asm:101. |
+| `SFX_06D` | `SFX_CART_ROLL` | `CartFunc.Moving`/`CartVariableFunc.Moving`; also the cart wheels cutscene. Callers: level/objects/cart.asm:43, level/objects/cart.asm:175, overworld/bank27.asm:6254. |
+| `SFX_06E` | `SFX_MOON_SHOOT` | Moon shooting stars (`MoonFunc`, `ObjParams_MoonStar*`). Callers: level/objects/sun_moon.asm:592. |
+| `SFX_06F` | `SFX_BIRD_ALERT` | Bird seeing Wario in range (sets `OBJSTATE_SPECIAL_3`). Callers: level/objects/bird.asm:113. |
+| `SFX_070` | `SFX_BIRD_TAKE_OFF` | Bird at the end of `.Special3`, before `.FlyAway`. Callers: level/objects/bird.asm:130. |
+| `SFX_072` | `SFX_BUBBLE_POP` | `BubbleFunc.set_burst`. Callers: level/objects/bubble.asm:79. |
+| `SFX_073` | `SFX_FLAME` | Torch flame/ember (`FlameBlockTorchUpdate`, `TorchFunc.create_ember`), Fire Bot; also golf OB and Cutscene19. Callers: level/objects/torch.asm:9, level/objects/torch.asm:49, level/objects/torch.asm:147, level/objects/fire_bot.asm:271, +2 more. |
+| `SFX_074` | `SFX_ZOMBIE_RISE` | Zombie rising out of the ground (`.Rising`); also Cutscene3c. Callers: level/objects/zombie.asm:210, overworld/bank27.asm:4136. |
+| `SFX_075` | `SFX_HEAVY_STEP` | Count Richtertoffen landing (with ground shake) and Shoot's walk step. Callers: level/objects/count_richtertoffen.asm:425, level/objects/shoot.asm:833. |
+| `SFX_076` | `SFX_THUNDER` | `WOWFunc_Rain.PlayThunderSFX`, `PlayVolcanoRumbleSFX`, red music box, and cutscenes (leaves fall, extinguish fire, iron wall). Callers: overworld/bank27.asm:6470, overworld/bank27.asm:6998, overworld/bank27.asm:7095, overworld/bank2d.asm:3677, +2 more. |
+| `SFX_078` | `SFX_STOVE_RATTLE` | Stove rattling every 8 frames while being attacked. Callers: level/objects/stove.asm:114, level/objects/stove.asm:155. |
+| `SFX_079` | `SFX_NOBIIRU_EXTEND` | `NobiiruFunc.Wait` -> `.Extend1`. Callers: level/objects/nobiiru.asm:62. |
+| `SFX_07A` | `SFX_SEEING_EYE_DOOR_LOOK` | Seeing-Eye Door's eye changing frameset as Wario moves. Callers: level/objects/seeing_eye_door.asm:157, level/objects/seeing_eye_door.asm:176, level/objects/seeing_eye_door.asm:189, level/objects/seeing_eye_door.asm:204, +2 more. |
+| `SFX_07C` | `SFX_BEAM` | Beam Bot's beams, Yellow Belly, Wolfenboss's magic spiral. Callers: level/objects/yellow_belly.asm:222, level/objects/beam_bot.asm:783, level/objects/beam_bot.asm:805, level/objects/wolfenboss.asm:610. |
+| `SFX_07D` | `SFX_FAN_SPIN` | Fan states (`UpdateState_Fan*`), `UpdateState_MagicRising`, Beam Bot, propeller cutscene. Callers: level/wario_states_4.asm:1818, level/wario_states_4.asm:1866, level/wario_states_4.asm:1920, level/wario_states_4.asm:1959, +3 more. |
+| `SFX_07E` | `SFX_ENEMY_SHOOT` | Enemies shooting a projectile at a fixed state time: Brrr Bear, Scowler ink, Anonster silk/waves. Callers: level/objects/brrr_bear.asm:219, level/objects/scowler.asm:138, level/objects/anonster.asm:258, level/objects/anonster.asm:287, +2 more. |
+| `SFX_080` | `SFX_FALLING_SNOW_DROP` | `FallingSnowFunc` switching to `.StartFall`; also Cutscene3a and the crater-hole cutscene. Callers: level/objects/falling_snow.asm:107, overworld/bank27.asm:4031, overworld/bank27.asm:7327. |
+| `SFX_081` | `SFX_HAND_APPEAR` | `HandFunc.Hidden`: the hand coming out of the sand. Callers: level/objects/hand.asm:79. |
+| `SFX_082` | `SFX_TELEPORT` | `PlayTeleportingSFX`. Callers: level/wario_states_2.asm:508. |
+| `SFX_083` | `SFX_SMALL_SPLASH` | Robo Mouse splash particle, Muddee in water; also feed-Octohon cutscene. Callers: level/objects/robo_mouse.asm:261, level/objects/muddee.asm:261, overworld/bank27.asm:7476. |
+| `SFX_084` | `SFX_TURTLE_SWIM` | `PlayTurtleSwimSFX`. Callers: level/objects/muddee.asm:1165. |
+| `SFX_085` | `SFX_MUDDEE_SWIM` | `MuddeeFunc.PlaySwimSFX`; also raise-pipe cutscene. Callers: level/objects/muddee.asm:839, overworld/bank27.asm:6711. |
+| `SFX_086` | `SFX_BARREL_JUMP` | `Barrel1Func.Update2` before the hop movement (`BarrelData_60a50`). Callers: level/objects/barrel.asm:58. |
+| `SFX_087` | `SFX_OMODONMEKA_LIFT` | Omodonmeka lifting Wario (`MoveWarioUp` every 8 frames). Callers: level/objects/omodonmeka.asm:234. |
+| `SFX_089` | `SFX_SNAKE_SPIT_FIRE` | Snake spawning `ObjParams_SnakeFire*`. Callers: level/objects/snake.asm:248. |
+| `SFX_08A` | `SFX_SNAKE_PREPARE_FIRE` | Snake `.PrepareFire` / `.ShootFire` animation frame. Callers: level/objects/snake.asm:184, level/objects/snake.asm:226. |
+| `SFX_08B` | `SFX_SNAKE_SINK` | Snake `.Sink`. Callers: level/objects/snake.asm:326. |
+| `SFX_08C` | `SFX_RAIL_HUM` | Zip line hum, Rail action help, Omodonmeka hovering (`.WatchWario`). Callers: level/objects/zip_line.asm:268, level/objects/omodonmeka.asm:297, level/objects/omodonmeka.asm:303, action_help/power_ups/rail.asm:146, +3 more. |
+| `SFX_08E` | `SFX_SPARKLE` | `CoinFunc.ColourCoin` (a spawned coin turning out a colour coin); also leaves falling and epilogue/prologue/feed-Octohon twinkles. Callers: level/objects/coin.asm:63, overworld/bank2b_1.asm:292, overworld/bank27.asm:7415, overworld/bank2d.asm:2675, +2 more. |
+| `SFX_0A1` | `SFX_WATER_DROP` | `WaterDropFunc`, falling snow landing, Anonster silk dissolving, golf rough, cutscene drops. Callers: level/objects/falling_snow.asm:174, level/objects/water_drop.asm:36, level/objects/anonster.asm:1219, golf/hole.asm:1763, +2 more. |
+| `SFX_0A3` | `SFX_BOSS_DEFEAT_FALL` | Bosses starting the defeat fall: Shoot, Jamano, Wormwould, Wolfenboss, Anonster, Doll Boy, Muddee. Callers: level/objects/shoot.asm:1176, level/objects/jamano.asm:511, level/objects/wormwould.asm:526, level/objects/wolfenboss.asm:526, +3 more. |
+| `SFX_0A4` | `SFX_DOLL_BOY_STUNNED` | `DollBoyFunc.set_stunned`. Callers: level/objects/doll_boy.asm:347. |
+| `SFX_0A5` | `SFX_YELLOW_BELLY_SPAWN_PUMP` | Yellow Belly spawning `ObjParams_Pump`. Callers: level/objects/yellow_belly.asm:319. |
+| `SFX_0A7` | `SFX_WORMWOULD_HURT` | `WormwouldFunc.hurt` and `.set_defeated`. Callers: level/objects/wormwould.asm:359, level/objects/wormwould.asm:436. |
+| `SFX_0A9` | `SFX_BOSS_DEFEATED` | Boss defeat hit: `ShootFunc.set_defeated`, Yellow Belly (stops music), Wolfenboss hurt animation. Callers: level/objects/shoot.asm:1141, level/objects/yellow_belly.asm:314, level/objects/yellow_belly.asm:656, level/objects/wolfenboss.asm:264. |
+| `SFX_0AA` | `SFX_WOLFENBOSS_SMOKE` | Wolfenboss smoke entrance/exit (`.SmokeEntrance`, `.SmokeExit`); also Yellow Belly. Callers: level/objects/yellow_belly.asm:743, level/objects/wolfenboss.asm:96, level/objects/wolfenboss.asm:202. |
+| `SFX_0AC` | `SFX_SCOWLER_DEFEATED` | Scowler `.DefeatedRise` -> `.DefeatedSink`; also Cutscene3d. Callers: level/objects/scowler.asm:589, overworld/bank27.asm:4398. |
+| `SFX_0AF` | `SFX_ANONSTER_WALK` | Anonster walking towards Wario (every 16 frames). Callers: level/objects/anonster.asm:711. |
+| `SFX_0B3` | `SFX_SCOWLER_STUNNED` | Scowler -> `.Stunned`. Callers: level/objects/scowler.asm:129. |
+| `SFX_0B4` | `SFX_SCOWLER_STOMPED` | Scowler `.check_hit_from_above`. Callers: level/objects/scowler.asm:339. |
+| `SFX_0B6` | `SFX_SCOWLER_BLACKOUT` | `UpdateScowlerInkBlackout` starting `wScowlerBlackoutTimer`. Callers: level/objects/scowler.asm:1079. |
+| `SFX_0BA` | `SFX_PUMP` | `PumpFunc`; also raise-ice-blocks cutscene. Callers: level/objects/yellow_belly.asm:968, overworld/bank27.asm:6678. |
+| `SFX_0BB` | `SFX_PESCE_HIT` | Pesce being hit (`wPesceHits` incremented). Callers: level/objects/pesce.asm:74. |
+| `SFX_0BC` | `SFX_JAMANO_TURN` | Jamano turning to face Wario. Callers: level/objects/jamano.asm:328. |
+| `SFX_0BD` | `SFX_JAMANO_DEFEAT_POSE` | Jamano reaching the centre -> `.DefeatPose1`. Callers: level/objects/jamano.asm:353. |
+| `SFX_0BE` | `SFX_PESCE_FLY` | `FlyFunc` init (Pesce's fly, drops `ObjParams_Cheese`). Callers: level/objects/pesce.asm:1163. |
+| `SFX_0C0` | `SFX_MUDDEE_HURT` | `MuddeeFunc.hurt`. Callers: level/objects/muddee.asm:227. |
+| `SFX_0C1` | `SFX_MUDDEE_BUBBLE` | `MuddeeFunc.PlayBubbleSFX`. Callers: level/objects/muddee.asm:813. |
+| `SFX_0C2` | `SFX_MAGIC_SPIRAL_GROW` | `MagicSpiralFunc` -> `.Grow`. Callers: level/objects/wolfenboss.asm:577. |
+| `SFX_0C3` | `SFX_WOLFENBOSS_HOVER` | `WolfenbossFunc.do_movement` hover (every 32 frames). Callers: level/objects/wolfenboss.asm:408. |
+| `SFX_0C6` | `SFX_SHOOT_TAUNT` | `ShootFunc.Taunt`. Callers: level/objects/shoot.asm:110. |
+| `SFX_0C7` | `SFX_SHOOT_GOAL` | Shoot goal (`wWarioGoals`, `.no_goal_increment`). Callers: level/objects/shoot.asm:568, level/objects/shoot.asm:1044. |
+| `SFX_0C8` | `SFX_SHOOT_JUMP` | `ShootFunc.set_jumping_up`. Callers: level/objects/shoot.asm:275. |
+| `SFX_0CA` | `SFX_BOSS_APPEAR` | Boss intros: Yellow Belly `.IntroFade1`, Muddee's turtle ambush. Callers: level/objects/yellow_belly.asm:48, level/objects/muddee.asm:956. |
+| `SFX_0CD` | `SFX_HIDDEN_FIGURE_GRAB` | Hidden Figure hand catching Wario (`OBJSTATE_SPECIAL_3`, `wHiddenFigureBodyGrabResult = $80`). Callers: level/objects/hidden_figure.asm:1052. |
+| `SFX_0CE` | `SFX_HIDDEN_FIGURE_HIT` | Hidden Figure face `.Hit`/`.Defeated` and the body's defeat flashing. Callers: level/objects/hidden_figure.asm:415, level/objects/hidden_figure.asm:566, level/objects/hidden_figure.asm:590. |
+| `SFX_0CF` | `SFX_HIDDEN_FIGURE_DEFEATED` | `HiddenFigureFunc.Defeated` (`wHiddenFigureDefeatStarted = 1`). Callers: level/objects/hidden_figure.asm:409. |
+| `SFX_0E2` | `SFX_MENU_SCROLL` | Menu cursor scrolling: pause menu, start menu (`.play_scrolling_sfx`), golf course menu, action help, language select, top bar, treasure collection. Callers: pause/pause_menu_2.asm:178, golf/building/building.asm:464, title/start_menu_selection.asm:61, action_help/common1.asm:262, +3 more. |
+| `SFX_0E4` | `SFX_PAUSE` | `UpdateLevel.pause`; golf SELECT. Callers: level/update_level.asm:314, golf/hole.asm:889. |
+| `SFX_0E5` | `SFX_ERROR` | Refused input: START while blind/boss (`UpdateLevel.no_pause`), not enough coins (golf), `.cant_scroll` (collection); also golf overlay text, bat idling. Callers: level/update_level.asm:310, level/wario_states_3.asm:4566, golf/hole.asm:562, golf/hole.asm:1917, +4 more. |
+| `SFX_0E6` | `SFX_ENTER_DOOR` | `EnterDoor`; golf lobby up. Callers: level/block_functions.asm:866, golf/lobby.asm:279. |
+| `SFX_0E7` | `SFX_MENU_CANCEL` | Pause menu B (`.Return`), golf pause cancel. Callers: pause/pause_menu_2.asm:220, golf/hole.asm:2732. |
+| `SFX_0E8` | `SFX_GOLF_MISS` | Golf `.missed_1` (`GOLF_WARIO_MISSING`). Callers: golf/hole.asm:1418. |
+| `SFX_0E9` | `SFX_MENU_OPEN` | Top bar opening after the bottom bar closes, `NOWFunc_DayNightSpell.StartOpenTopBar`; golf A. Callers: golf/hole.asm:898, overworld/bank20.asm:3469, overworld/bank2d.asm:3267. |
+| `SFX_0EA` | `SFX_MENU_CLOSE` | Top bar closing with B/SELECT; golf power gauge at maximum. Callers: golf/hole.asm:1149, golf/hole.asm:1318, overworld/bank20.asm:3536. |
+| `SFX_0EC` | `SFX_ACTION_HELP_BUTTON` | Action help flashing the D-pad/A/B button graphics. Callers: action_help/common1.asm:15, action_help/common1.asm:43, action_help/common1.asm:71, action_help/common1.asm:99. |
+| `SFX_0ED` | `SFX_GOLF_CHARGE_SHOT` | `GolfHoleState_StartShot.ChargeShot`. Callers: golf/hole.asm:1391. |
+| `SFX_0EF` | `SFX_GOLF_HOLE_IN` | `UpdateGolfParaGoomYPos.hole`. Callers: golf/hole.asm:1773. |
+| `SFX_0FA` | `SFX_SUCCESS` | All flame-block torches lit (`wNumLitTorches == NUM_FLAME_BLOCK_TORCHES`); golf course record (`GOLF_WARIO_CLEARED`). Callers: level/objects/torch.asm:32, golf/hole.asm:2592. |
+| `SFX_102` | `SFX_TREE_FALL` | `NOWFunc_CutTree.SetTreeFall`; also Cutscene06. Callers: overworld/bank27.asm:1552, overworld/bank2d.asm:2469. |
+| `SFX_103` | `SFX_PATH_ARROW` | `UnlockLevel_ShowArrow1/2`; also Cutscene22. Callers: overworld/bank20.asm:4780, overworld/bank20.asm:4817, overworld/bank27.asm:2379. |
+| `SFX_104` | `SFX_LEVEL_STAR` | `UnlockLevel_ShowStar`, `HighlightLevel.ShowStar`, prologue music box sparkles. Callers: overworld/bank20.asm:4898, overworld/bank20.asm:5050, overworld/bank2b_2.asm:400. |
+| `SFX_105` | `SFX_GONG` | `SOWFunc_FullMoon.PlayGongSFX`; also Cutscene57. Callers: overworld/bank27.asm:4982, overworld/bank2d.asm:6594. |
+| `SFX_106` | `SFX_EMOTE` | Exclamation/emote over Wario (`ShowExclamationMark`, `ShowEmote`, `SnapSFX`) and cutscenes 03/0a/38. Callers: overworld/bank2b_1.asm:3437, overworld/bank27.asm:1439, overworld/bank27.asm:1687, overworld/bank27.asm:3622, +4 more. |
+| `SFX_107` | `SFX_HAMMER_BOT_WALK` | `HammerBotFunc.Walk`/`.Special2` (every 16/32 frames); also Cutscene22. Callers: level/objects/hammer_bot.asm:220, level/objects/hammer_bot.asm:342, overworld/bank27.asm:2386. |
+| `SFX_108` | `SFX_GATE_OPEN` | `NOWFunc_OpenGate.OpenDoor`. Callers: overworld/bank2d.asm:2506. |
+| `SFX_10A` | `SFX_FIX_ELEVATOR` | `UpdateCutsceneObjs_FixElevator` at animation end. Callers: overworld/bank27.asm:6053. |
+| `SFX_112` | `SFX_ITEM_RAISE` | `.RaiseItem` steps of the item cutscenes (via `PlaySFX_112`, now `PlayItemRaiseSFX`). Callers: overworld/bank27.asm:1235. |
+| `SFX_118` | `SFX_FLUTE` | `*OWFunc_SummonSnake.PlayFluteSFX`. Callers: overworld/bank2d.asm:2597, overworld/bank2d.asm:3953, overworld/bank2d.asm:6285. |
+| `SFX_119` | `SFX_ITEM_FALL` | `*OWFunc_MagicSeed.PlayFallSFX`, `NOWFunc_Crayon.PlayFallSFX`, intro. Callers: title/intro.asm:570, overworld/bank2d.asm:2537, overworld/bank2d.asm:3047, overworld/bank2d.asm:3894, +1 more. |
+| `SFX_11A` | `SFX_BEANSTALK_GROW` | `*OWFunc_MagicSeed.GrowStalk`; also Wormwould, Snake, full moon, epilogue, Cutscene44. Callers: level/objects/wormwould.asm:141, level/objects/snake.asm:105, overworld/bank2b_1.asm:314, overworld/bank27.asm:5461, +4 more. |
+| `SFX_11B` | `SFX_TOWER_RISE` | `SOWFunc_RaiseTower.StartDust`. Callers: overworld/bank2d.asm:5957. |
+| `SFX_11C` | `SFX_SEA_FREEZE` | `EOWFunc_FreezeSea`. Callers: overworld/bank2d.asm:6782. |
+| `SFX_11D` | `SFX_TORNADO` | `WOWFunc_ClearTornado`, `UpdateOWTornado`, Cutscene1f. Callers: overworld/bank27.asm:3313, overworld/bank2d.asm:3818, overworld/bank2d.asm:3847. |
+| `SFX_11E` | `SFX_YELLOW_MUSIC_BOX` | Yellow music box (`SOWFunc_YellowMusicBox`, `MusicBoxCutsceneFunc` case 1). Callers: overworld/bank27.asm:2566, overworld/bank2d.asm:5579. |
+| `SFX_11F` | `SFX_BLUE_MUSIC_BOX` | Blue music box (`NOWFunc_PlayMusicBox` non-gold = `NOWFUNC_BLUE_MUSIC_BOX`, `MusicBoxCutsceneFunc` case 3). Callers: overworld/bank27.asm:2569, overworld/bank2d.asm:3010. |
+| `SFX_120` | `SFX_GREEN_MUSIC_BOX` | Green music box (`SOWFunc_GreenMusicBox`, case 5). Callers: overworld/bank27.asm:2572, overworld/bank2d.asm:6420. |
+| `SFX_121` | `SFX_RED_MUSIC_BOX` | Red music box (`WOWFunc_RedMusicBox`, case 7). Callers: overworld/bank27.asm:2575, overworld/bank2d.asm:4669. |
+| `SFX_122` | `SFX_GOLD_MUSIC_BOX` | Gold music box (`NOWFunc_PlayMusicBox.gold_music_box`, case 9). Callers: overworld/bank27.asm:2578, overworld/bank2d.asm:3013. |
+| `SFX_123` | `SFX_BRIDGE_LOWER` | `SOWFunc_YellowMusicBox.LowerBridge`. Callers: overworld/bank2d.asm:5587. |
+| `SFX_124` | `SFX_LIGHTNING` | `SOWFunc_CanyonThunder`. Callers: overworld/bank2d.asm:5641, overworld/bank2d.asm:5818. |
+| `SFX_127` | `SFX_VOLCANO_ERUPTION` | `EOWFunc_VulcanoEruption`. Callers: overworld/bank2d.asm:7790. |
+| `SFX_128` | `SFX_WARPED_VOID_APPEAR` | `EOWFunc_ShowWarpedVoid`; also Cutscene24. Callers: overworld/bank27.asm:3211, overworld/bank2d.asm:8217. |
+| `SFX_129` | `SFX_EXPLOSION` | `SOWFunc_GreenMusicBox.BlowUpCave`, `EOWFunc_Explosives`, zip line. Callers: level/objects/zip_line.asm:215, overworld/bank2d.asm:6433, overworld/bank2d.asm:6500. |
+| `SFX_12A` | `SFX_STEP` | Map Wario walking (`wOWWalkSFXCounter`, via `PlaySFX_12A`, now `PlayStepSFX`), `PlaySceneWarioStepSFX`, prologue/epilogue get-up steps, golf building. Callers: overworld/bank20.asm:3078, overworld/bank2b_1.asm:775, overworld/bank2b_1.asm:4289, overworld/bank2b_2.asm:1013, +2 more. |
+| `SFX_12B` | `SFX_PAY_COINS` | `GolfCourseMenu_PayCoins`. Callers: golf/building/building.asm:518. |
+| `SFX_12D` | `SFX_CRAYON_SCRIBBLE` | `NOWFunc_Crayon.play_scribble_sfx`. Callers: overworld/bank2d.asm:3097. |
+| `SFX_12E` | `SFX_CASTLE_FORM` | `EOWFunc_FormCastle`. Callers: overworld/bank2d.asm:7481. |
+| `SFX_130` | `SFX_TEXT_PRINT` | `PrintText` per character. Callers: overworld/bank2b_1.asm:2279. |
+| `SFX_131` | `SFX_TREE_MOUTH_OPEN` | `UpdateCutsceneObjs_OpenTreeMouth` at animation end. Callers: overworld/bank27.asm:6398. |
+| `SFX_137` | `SFX_SCENE_WARIO_RUN` | `PlaySceneWarioRunSFX`. Callers: overworld/bank2b_1.asm:794. |
+
+**Left numbered (56 with callers):** the callers do not show what the
+sound stands for (an animation frame, a cutscene step or a boss state
+with no clearer meaning), so these keep their numbers:
+
+- `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.asm_ac730`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.asm_9f295`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f978`)
+- `SFX_064`: level/objects/zombie.asm:375 (`ZombieFunc.asm_45d1d`)
+- `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.asm_455ba`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.asm_4561e`)
+- `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.asm_49ee2`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.asm_b6675`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.asm_b6696`)
+- `SFX_088`: level/objects/omodonmeka.asm:361 (`OmodonmekaFunc.asm_423b8`)
+- `SFX_08D`: level/objects/shoot.asm:630 (`ShootFunc.MoveLeftOrRight`), level/objects/shoot.asm:639 (`ShootFunc.moving_right`), level/objects/octohon.asm:270 (`BigOctohonFunc.asm_4a6f3`), overworld/bank27.asm:5490 (`Cutscene44Func.WaitThenPlaySFX08D`)
+- `SFX_08F`: level/objects/big_leaf.asm:208 (`BigLeaf2Func.asm_42ccd`), overworld/bank27.asm:7460 (`UpdateCutsceneLevelObj_FeedOctohon.PlaySFX08FEvery40Frames`)
+- `SFX_0A2`: level/objects/doll_boy.asm:229 (`DollBoyFunc.spawn_hammer`), level/objects/doll_boy.asm:623 (`DollBoyFunc.handle_walk_movement`)
+- `SFX_0A6`: level/objects/wormwould.asm:212 (`WormwouldFunc.after_attack`)
+- `SFX_0A8`: level/objects/yellow_belly.asm:553 (`YellowBellyBodyFunc.asm_51704`)
+- `SFX_0AB`: level/objects/scowler.asm:377 (`ScowlerFunc.asm_54782`)
+- `SFX_0AD`: level/objects/pesce.asm:560 (`PesceFunc.asm_52108`)
+- `SFX_0AE`: level/objects/pesce.asm:274 (`PesceFunc.asm_51efc`)
+- `SFX_0B0`: level/objects/anonster.asm:155 (`AnonsterFunc.asm_50118`)
+- `SFX_0B1`: level/objects/anonster.asm:343 (`AnonsterFunc.StartRise`), level/objects/anonster.asm:817 (`AnonsterFunc.Hurt`), level/objects/anonster.asm:924 (`AnonsterFunc.Defeated`)
+- `SFX_0B2`: level/objects/anonster.asm:865 (`AnonsterFunc.Recover2`), level/objects/muddee.asm:108 (`MuddeeFunc.spawn_stingers`)
+- `SFX_0B5`: level/objects/scowler.asm:1071 (`UpdateScowlerInkBlackout.asm_54c31`)
+- `SFX_0B7`: level/objects/shoot.asm:842 (`ShootFunc.Walk`), level/objects/scowler.asm:1068 (`UpdateScowlerInkBlackout.asm_54c27`)
+- `SFX_0B8`: level/objects/scowler.asm:1090 (`UpdateScowlerInkBlackout.asm_54c5f`)
+- `SFX_0B9`: level/objects/yellow_belly.asm:677 (`YellowBellyBodyFunc.asm_5180a`), level/objects/pesce.asm:253 (`PesceFunc.asm_51ed4`)
+- `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.asm_553a8`)
+- `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.asm_564ce`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.asm_9f8d1`)
+- `SFX_0C5`: level/objects/wolfenboss.asm:975 (`IgaguriFunc.asm_564b1`)
+- `SFX_0C9`: level/objects/shoot.asm:135 (`ShootFunc.asm_566a9`)
+- `SFX_0CB`: level/objects/hidden_figure.asm:1213 (`HiddenFigureLeftHandFunc.asm_4d333`), level/objects/hidden_figure.asm:1581 (`HiddenFigureRightHandFunc.asm_4d5dc`)
+- `SFX_0D0`: level/objects/hidden_figure.asm:1490 (`HiddenFigureRightHandFunc.asm_4d52d`), level/objects/hidden_figure.asm:1504 (`HiddenFigureRightHandFunc.asm_4d540`)
+- `SFX_0D1`: level/objects/hidden_figure.asm:1479 (`HiddenFigureRightHandFunc.asm_4d50b`)
+- `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.asm_811b1`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.asm_9a68f`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
+- `SFX_0EE`: golf/hole.asm:1999 (`GolfHoleState_SpecialTerrain.asm_1c9743`)
+- `SFX_0F0`: golf/hole.asm:1968 (`GolfHoleState_SpecialTerrain.asm_1c9708`)
+- `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.asm_ac688`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f982`)
+- `SFX_0F2`: overworld/bank2b_1.asm:1101 (`UpdateSceneWario.asm_ac722`)
+- `SFX_0F3`: overworld/bank2b_1.asm:703 (`UpdatePrologueSceneObj.State0a`)
+- `SFX_0F4`: overworld/bank2b_1.asm:716 (`UpdatePrologueSceneObj.State0c`)
+- `SFX_101`: level/objects/yellow_belly.asm:529 (`YellowBellyBodyFunc.asm_516ec`), level/objects/wolfenboss.asm:791 (`IgaguriFunc.done_grow`), overworld/bank27.asm:2663 (`Cutscene02Func.ShowCut`)
+- `SFX_109`: overworld/bank27.asm:1800 (`Cutscene07Func.WaitObj2Frame00SFX`)
+- `SFX_10B`: overworld/bank27.asm:1841 (`Cutscene07Func.PlaySFX10B`)
+- `SFX_10C`: overworld/bank27.asm:1497 (`Cutscene03Func.PlaySFX10C`)
+- `SFX_10E`: overworld/bank27.asm:2313 (`Cutscene1eFunc.SetObj2State01SFX`), overworld/bank27.asm:6769 (`UpdateCutsceneObjs_RemoveWarps.asm_9f699`)
+- `SFX_10F`: overworld/bank27.asm:5715 (`Cutscene14Func.play_sfx_10f_every_10_frames`)
+- `SFX_110`: overworld/bank27.asm:5742 (`Cutscene14Func.play_obj5_sfx`)
+- `SFX_111`: overworld/bank27.asm:5745 (`Cutscene14Func.asm_9ede8`)
+- `SFX_113`: overworld/bank20.asm:263 (`HandleTempleHintInput.asm_81092`), overworld/bank20.asm:894 (`PathPreview_Wait`), overworld/bank27.asm:2105 (`Cutscene11Func.play_sfx_113`), overworld/bank27.asm:3147 (`Cutscene04Func.RaiseObj3SFX`), overworld/bank2d.asm:3183 (`NOWFunc_BottomBar.RaiseBBtnIndicator`), overworld/bank2d.asm:3210 (`NOWFunc_BottomBar.StartOpenBottomBar`)
+- `SFX_114`: overworld/bank27.asm:5796 (`Cutscene14Func.asm_9ee3c`)
+- `SFX_115`: overworld/bank27.asm:5799 (`Cutscene14Func.asm_9ee45`)
+- `SFX_116`: overworld/bank27.asm:5802 (`Cutscene14Func.asm_9ee4e`)
+- `SFX_117`: overworld/bank27.asm:2815 (`Cutscene0dFunc.PlaceObj3SFX`)
+- `SFX_125`: overworld/bank2d.asm:8132 (`EOWFunc_BurnVines.asm_b77f1`)
+- `SFX_126`: overworld/bank2d.asm:8135 (`EOWFunc_BurnVines.asm_b77fa`)
+- `SFX_12C`: overworld/bank27.asm:3033 (`Cutscene49Func.WaitObj2State01ThenOpen`)
+- `SFX_12F`: overworld/bank2d.asm:1828 (`PlaySFX12F`), overworld/bank2d.asm:6068 (`SOWFunc_Fan.StartFan`)
+- `SFX_132`: overworld/bank27.asm:4466 (`Cutscene4aFunc.WaitObj2Frame06SFX`), overworld/bank27.asm:5102 (`Cutscene58Func.start_objs_10_and_11`), overworld/bank27.asm:6533 (`UpdateCutsceneObjs_MakeWire.PlaySFX132Every16Frames`)
+- `SFX_133`: overworld/bank27.asm:6516 (`UpdateCutsceneObjs_MakeWire.PlaySFX133Every12Frames`)
+- `SFX_134`: game_over/core.asm:76 (`UpdateGameOverScreen`)
+- `SFX_135`: overworld/bank27.asm:7312 (`UpdateCutsceneLevelObj_OpenCraterHole.PlaySFX135Every27Frames`)
+- `SFX_138`: overworld/bank2b_1.asm:200 (`UpdateEpilogueSceneObj.PlaySFXEvery30Frames`)
+
+**Unused, left numbered:** `SFX_136` has its own sound data (`Sfx_136`) but
+nothing plays it; its constant comment now says "(unused)". The 58
+constants already marked "(unused)" (`SFX_04D`-`SFX_060`,
+`SFX_090`-`SFX_0A0`, `SFX_0D2`-`SFX_0E0`, `SFX_0FB`-`SFX_100`) are
+`filler_sounds` slots in `SoundHeaders` that point at
+`Music_OutOfTheWoodsDay`: there is no sound behind them to name.
+
+Names with the least support (one caller whose meaning is read from the
+state it sets): `SFX_BIRD_ALERT`, `SFX_BIRD_TAKE_OFF`, `SFX_BARREL_JUMP`,
+`SFX_SCOWLER_STOMPED`, `SFX_JAMANO_DEFEAT_POSE`, `SFX_BOSS_APPEAR`,
+`SFX_WHIRR` (a neutral name for a periodic buzz shared by five objects)
+and `SFX_EAT_FOOD` (also played twice on the musical coin screen).

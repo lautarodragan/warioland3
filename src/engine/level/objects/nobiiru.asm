@@ -59,7 +59,7 @@ NobiiruFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	play_sfx SFX_079
+	play_sfx SFX_NOBIIRU_EXTEND
 	ld a, $0c
 	ld [wCurObjVar2], a
 	ld a, [wCurObjSubState]

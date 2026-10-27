@@ -136,7 +136,7 @@ BrrrBearFunc:
 	ld a, [wCurObjInteractionType]
 	and $7f
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -216,7 +216,7 @@ BrrrBearFunc:
 	ld a, [hl]
 	cp $22
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_4819e

@@ -129,7 +129,7 @@ MadSciensteinFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -177,7 +177,7 @@ MadSciensteinFunc:
 	dec [hl]
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	play_sfx nz, SFX_067
+	play_sfx nz, SFX_ENEMY_THROW
 
 	ld l, OBJ_STATE
 	ld a, $5a

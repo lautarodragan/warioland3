@@ -780,7 +780,7 @@ BeamFunc_Left:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 .Update:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -802,7 +802,7 @@ BeamFunc_Right:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 .Update:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -823,6 +823,6 @@ BeamFunc:
 	jr z, .apply_movement
 	xor a
 	ld [hl], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .apply_movement
 	jp ApplyObjXMovement

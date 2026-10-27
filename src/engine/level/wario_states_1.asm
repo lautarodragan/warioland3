@@ -2032,7 +2032,7 @@ UpdateState_UnderwaterThrusting:
 	jr nc, .skip_sfx
 	ld a, 15
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_00F
+	play_sfx SFX_UNDERWATER_THRUST
 .skip_sfx
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -3060,7 +3060,7 @@ UpdateState_GrabAirborne:
 	ret
 
 SetState_ThrowCharging:
-	play_sfx SFX_02C
+	play_sfx SFX_THROW_CHARGE
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -5533,7 +5533,7 @@ HandleSwimming:
 	jr nc, .skip_sfx
 	ld a, 37
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_00E
+	play_sfx SFX_SWIM
 .skip_sfx
 
 	ld a, [wWarioStateCycles]

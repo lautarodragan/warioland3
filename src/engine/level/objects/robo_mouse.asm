@@ -258,7 +258,7 @@ RoboMouseFunc:
 	ldh [hXPosHi], a
 	ld b, PARTICLE_SPLASH
 	farcall CreateParticle
-	play_sfx SFX_083
+	play_sfx SFX_SMALL_SPLASH
 	ret
 
 .State3a:

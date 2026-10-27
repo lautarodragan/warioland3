@@ -481,7 +481,7 @@ SetState_EnemyBumping:
 ; routine called when an object is attacked
 ; whether by Wario's B attack, Fat Wario bump, rolling, etc.
 AttackObject:
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld a, [wWarioScreenXPos]
 	ld b, a
 	ld a, [wObjScreenXPos]
@@ -719,7 +719,7 @@ StepOnObject:
 .no_input
 	call BumpOffObject
 .asm_20578
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	jp SetObjAction
 
@@ -749,7 +749,7 @@ StepOnObject:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_205b7
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
 	ld a, [wTransformation]
@@ -1119,7 +1119,7 @@ PushObjectInWater:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_208ca
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
 	ld a, [wTransformation]
@@ -2297,7 +2297,7 @@ TurnIntoBallOStringWario:
 	ld [wDirection], a
 
 .set_ball_o_string
-	play_sfx SFX_039
+	play_sfx SFX_BALL_O_STRING_TRANSFORM
 
 	ld a, TRANSFORMATION_BALL_O_STRING_WARIO
 	ld [wTransformation], a
@@ -2410,7 +2410,7 @@ ObjInteraction_Food:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 .asm_213bb
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 	call UpdateLevelMusic
 
 	ld a, WST_FAT_EATING
@@ -2519,7 +2519,7 @@ ObjInteraction_Electric:
 	ld [wDirection], a
 
 .asm_21497
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 
 	xor a
 	ld [wWarioStateCounter], a
@@ -2645,7 +2645,7 @@ ObjInteraction_ZombieHead:
 	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
-	play_sfx SFX_028
+	play_sfx SFX_ZOMBIE_TRANSFORM
 
 	ld a, TRANSFORMATION_ZOMBIE_WARIO
 	ld [wTransformation], a
@@ -2947,7 +2947,7 @@ ObjInteraction_Ice:
 	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
-	play_sfx SFX_028
+	play_sfx SFX_ZOMBIE_TRANSFORM
 	ld a, TRANSFORMATION_ICE_SKATIN
 	ld [wTransformation], a
 	ld a, TOUCH_ATTACK

@@ -863,7 +863,7 @@ EnterDoor:
 	and $f0
 	add $08
 	ld [wWarioXPos + 1], a
-	play_sfx SFX_0E6
+	play_sfx SFX_ENTER_DOOR
 
 	ld a, WST_ENTERING_DOOR
 	ld [wWarioState], a

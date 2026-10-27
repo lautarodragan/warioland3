@@ -107,7 +107,7 @@ ShootFunc:
 	; play SFX every 16 frames
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_0C6
+	play_sfx z, SFX_SHOOT_TAUNT
 
 	; wait for this state to finish
 	ld hl, wCurObjStateDuration
@@ -272,7 +272,7 @@ ShootFunc:
 	inc l
 	xor a
 	ld [hl], a ; OBJ_VAR_3
-	play_sfx SFX_0C8
+	play_sfx SFX_SHOOT_JUMP
 	ret
 
 .JumpingUp:
@@ -549,7 +549,7 @@ ShootFunc:
 	ld [wCurObjVar3], a
 	ld a, $2 | (1 << 7)
 	ld [wAutoMoveState], a
-	play_sfx SFX_034
+	play_sfx SFX_SHOOT_KICK_WARIO
 	ret
 
 .ScoreGoal:
@@ -565,7 +565,7 @@ ShootFunc:
 .no_goal_increment
 	ld a, $1 | (1 << 7)
 	ld [wAutoMoveState], a
-	play_sfx SFX_0C7
+	play_sfx SFX_SHOOT_GOAL
 	ld a, TRUE
 	ld [wShootCanTurnAround], a
 	ld hl, wCurObjSubState
@@ -830,7 +830,7 @@ ShootFunc:
 .Walk:
 	ld a, [wCurObjVar3]
 	cp $22
-	play_sfx z, SFX_075
+	play_sfx z, SFX_HEAVY_STEP
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .return_to_regular_form
@@ -853,13 +853,13 @@ ShootFunc:
 .asm_56b81
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 .asm_56b90
 	ld bc, ShootData_60e40
 	jp ApplyObjYMovement_Loop
 
 .VanishTouch:
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -1041,7 +1041,7 @@ ShootFunc:
 	ld a, $02
 	ld [wShootBallState], a
 
-	play_sfx SFX_0C7
+	play_sfx SFX_SHOOT_GOAL
 
 	ld hl, wWarioGoals
 	ld a, [hl]
@@ -1079,7 +1079,7 @@ ShootFunc:
 .asm_56d05
 	ld a, TRUE
 	ld [wShootCanTurnAround], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ret
 .asm_56d13
 	ld a, [wCurObjXPos]
@@ -1138,7 +1138,7 @@ ShootFunc:
 	ld hl, wCurObjMapPtrHi
 	ld e, $09
 	farcall SetObjectMapEntryAndSpawn
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	ret
 
 .DefeatRise:
@@ -1173,7 +1173,7 @@ ShootFunc:
 ; still supsended in air
 	dec [hl]
 	ret nz
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 .fall
 	ld bc, ShootData_60ea0
@@ -1587,7 +1587,7 @@ GKTortoiseFunc:
 	ld [wAutoMoveState], a
 	ld a, no_actions_for 15
 	ld [wCurObjAction], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .KickWarioBall:
@@ -1624,7 +1624,7 @@ GKTortoiseFunc:
 .asm_570b3
 	ld a, $04
 	ld [wShootBallState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .asm_570c1
@@ -1724,7 +1724,7 @@ GKTortoiseFunc:
 .asm_5713f
 	ld a, $04
 	ld [wShootBallState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .GetShootPosPtr:
@@ -1810,7 +1810,7 @@ GKTortoiseFunc:
 	ld [wShootBallState], a
 	xor a
 	ld [wAutoMoveState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 .asm_571c7
 	ld hl, wCurObjYPos

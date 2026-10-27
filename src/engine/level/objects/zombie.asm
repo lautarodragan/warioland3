@@ -207,7 +207,7 @@ ZombieFunc:
 	ld [hld], a
 	ld a, LOW(.Rising)
 	ld [hld], a
-	play_sfx SFX_074
+	play_sfx SFX_ZOMBIE_RISE
 	ret
 
 .Rising:
@@ -279,7 +279,7 @@ ZombieFunc:
 	ld [hld], a
 	ld a, $02
 	ld [hld], a
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a

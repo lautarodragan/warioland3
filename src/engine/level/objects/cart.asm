@@ -40,7 +40,7 @@ CartFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $3f
-	play_sfx z, SFX_06D
+	play_sfx z, SFX_CART_ROLL
 	srl b
 	ret c
 	ld a, [wCurObjId]
@@ -172,7 +172,7 @@ CartVariableFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $3f
-	play_sfx z, SFX_06D
+	play_sfx z, SFX_CART_ROLL
 	srl b
 	ret c
 	ld a, [wCurObjId]

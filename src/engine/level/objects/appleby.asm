@@ -222,7 +222,7 @@ AppleFunc:
 	ld [hl], b
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .Update1_Left:

@@ -307,11 +307,11 @@ UpdateLevel:
 	cp TRANSFORMATION_BLIND
 	jr nz, .pause ; this jump will always happen
 .no_pause
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ret
 
 .pause
-	play_sfx SFX_0E4
+	play_sfx SFX_PAUSE
 	stop_music
 	xor a
 	ld [wRoomAnimatedPalsEnabled], a

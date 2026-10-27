@@ -231,7 +231,7 @@ OmodonmekaFunc:
 .asm_422e2
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_087
+	play_sfx z, SFX_OMODONMEKA_LIFT
 
 	ld b, $01
 	call MoveWarioUp
@@ -294,13 +294,13 @@ OmodonmekaFunc:
 	and $f0
 	or $08
 	ld [hld], a
-	play_sfx SFX_08C
+	play_sfx SFX_RAIL_HUM
 	ret
 
 .WatchWario:
 	ld a, [wGlobalCounter]
 	and %11111
-	play_sfx z, SFX_08C
+	play_sfx z, SFX_RAIL_HUM
 
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
@@ -1071,7 +1071,7 @@ OmodonFunc:
 	ldh a, [hYPosHi]
 	sbc $00
 	ld [hl], a
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, $18
 	call DoGroundShake
 	ld de, OmodonmekaFrameset_68f45

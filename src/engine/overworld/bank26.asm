@@ -567,7 +567,7 @@ HandleTreasureCollectionInput:
 	sub NUM_COLLECTION_COLS
 .got_target_cell
 	ld [wCollectionCell], a
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 
 	xor a
 	ld [wSceneObj2State], a
@@ -586,7 +586,7 @@ HandleTreasureCollectionInput:
 	jr GetCollectionCellCoords
 
 .cant_scroll
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ret
 
 .page_right

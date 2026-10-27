@@ -277,10 +277,10 @@ UpdateEpilogueSceneObj:
 .State16:
 	ld de, EpilogueSceneObjFrameset_15ee79
 	call UpdateSceneObjAnim_CreditsOAM
-	call .PlaySFX08EEvery48Frames
+	call .PlaySparkleSFXEvery48Frames
 	jp .draw
 
-.PlaySFX08EEvery48Frames:
+.PlaySparkleSFXEvery48Frames:
 	inc c
 	ld a, [bc]
 	inc a
@@ -289,16 +289,16 @@ UpdateEpilogueSceneObj:
 	ret c
 	xor a
 	ld [bc], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 .State17:
 	ld de, EpilogueSceneObjFrameset_15ee82
 	call UpdateSceneObjAnim_CreditsOAM
-	call .PlaySFX11AEvery40Frames
+	call .PlayBeanstalkGrowSFXEvery40Frames
 	jp .draw
 
-.PlaySFX11AEvery40Frames:
+.PlayBeanstalkGrowSFXEvery40Frames:
 	inc c
 	ld a, [bc]
 	inc a
@@ -311,7 +311,7 @@ UpdateEpilogueSceneObj:
 	ld [bc], a
 	ret
 .asm_ac215
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 .State18:
@@ -772,7 +772,7 @@ PlaySceneWarioStepSFX:
 	ld hl, wSceneWarioSFXCounter
 	ld a, [hl]
 	and a
-	play_sfx z, SFX_12A
+	play_sfx z, SFX_STEP
 	inc [hl]
 	ld c, $24
 	ld a, [hl]
@@ -791,7 +791,7 @@ PlaySceneWarioRunSFX:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_137
+	play_sfx SFX_SCENE_WARIO_RUN
 	ret
 
 UpdateSceneWario:
@@ -2276,7 +2276,7 @@ PrintText:
 	ld [wPendingCharDest + 1], a
 	ld a, [wPendingCharTile]
 	cp ' '
-	play_sfx nz, SFX_130
+	play_sfx nz, SFX_TEXT_PRINT
 	ld hl, wCurTextLinePos
 	inc [hl]
 	ld a, [hl]
@@ -3434,7 +3434,7 @@ HandleTempleShakeScene:
 	ld a, $02
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceTempleStep
 
 .WaitExclamationMark:
@@ -4286,7 +4286,7 @@ _UpdateGolfBuilding:
 .a_btn_or_d_up
 	ld a, $30
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jp .next_step
 
 .WaitLookBack:

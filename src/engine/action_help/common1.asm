@@ -12,7 +12,7 @@ ActionHelp_FlashDDownInput:
 	call ActionHelp_ClearDPadInput
 	ret
 .show_d_down
-	play_sfx SFX_0EC
+	play_sfx SFX_ACTION_HELP_BUTTON
 	call ActionHelp_ShowDDownInput
 	ld a, [wTimer]
 	cp $07
@@ -40,7 +40,7 @@ ActionHelp_FlashDUpInput:
 	call ActionHelp_ClearDPadInput
 	ret
 .show_d_up
-	play_sfx SFX_0EC
+	play_sfx SFX_ACTION_HELP_BUTTON
 	call ActionHelp_ShowDUpInput
 	ld a, [wTimer]
 	cp $7
@@ -68,7 +68,7 @@ ActionHelp_FlashBInput:
 	call ActionHelp_ClearButtonsInput
 	ret
 .show_b_button
-	play_sfx SFX_0EC
+	play_sfx SFX_ACTION_HELP_BUTTON
 	call ActionHelp_ShowBInput
 	ld a, [wTimer]
 	cp $7
@@ -96,7 +96,7 @@ ActionHelp_FlashAInput:
 	call ActionHelp_ClearButtonsInput
 	ret
 .show_a_button
-	play_sfx SFX_0EC
+	play_sfx SFX_ACTION_HELP_BUTTON
 	call ActionHelp_ShowAInput
 	ld a, [wTimer]
 	cp $7
@@ -259,7 +259,7 @@ HandleActionHelpPowerUpSelection:
 .finish
 	xor a
 	ldh [rVBK], a
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	ret
 
 PowerUpOBPals:
@@ -873,7 +873,7 @@ ActionHelp_ShowWarioGrabWalk:
 	ret
 
 ActionHelp_ShowWarioBeginThrow:
-	play_sfx SFX_02C
+	play_sfx SFX_THROW_CHARGE
 
 	ld a, BANK(WarioThrowGfx)
 	ld [wPendingDMASourceBank], a

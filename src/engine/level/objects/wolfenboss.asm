@@ -93,7 +93,7 @@ WolfenbossFunc:
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_SMOKE_ENTRANCE_DURATION
 	ld [hli], a
-	play_sfx SFX_0AA
+	play_sfx SFX_WOLFENBOSS_SMOKE
 	ret
 
 .SmokeEntrance:
@@ -199,7 +199,7 @@ WolfenbossFunc:
 	ld [hld], a
 	ld a, LOW(.SmokeExit)
 	ld [hld], a
-	play_sfx SFX_0AA
+	play_sfx SFX_WOLFENBOSS_SMOKE
 	ret
 
 .start_disappear
@@ -261,7 +261,7 @@ WolfenbossFunc:
 	cp 41
 	jp c, MoveObjectDown_Slow
 	ret nz
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	ret
 
 .done_hurt
@@ -405,7 +405,7 @@ WolfenbossFunc:
 .do_movement
 	ld a, [wGlobalCounter]
 	and %11111
-	play_sfx z, SFX_0C3
+	play_sfx z, SFX_WOLFENBOSS_HOVER
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 
@@ -523,7 +523,7 @@ WolfenbossFunc:
 	jr nc, .asm_561ca
 	ld a, [wCurObjVar3]
 	cp $2b
-	play_sfx z, SFX_0A3
+	play_sfx z, SFX_BOSS_DEFEAT_FALL
 	ld bc, WolfenbossData_60da0
 	jp ApplyObjYMovement
 .asm_561ca
@@ -574,7 +574,7 @@ MagicSpiralFunc:
 	ld [hld], a
 	ld a, LOW(.Grow)
 	ld [hld], a
-	play_sfx SFX_0C2
+	play_sfx SFX_MAGIC_SPIRAL_GROW
 .Grow:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -607,7 +607,7 @@ MagicSpiralFunc:
 	and a
 	jr z, .skip_sfx
 	dec [hl]
-	play_sfx z, SFX_07C
+	play_sfx z, SFX_BEAM
 .skip_sfx
 	ld a, [wTransformation]
 	and a
@@ -756,7 +756,7 @@ ClearObjAndSetObjMapEntry7:
 IgaguriFunc:
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_06B
+	play_sfx z, SFX_ELECTRIC_LAMP_DISCHARGE
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -792,7 +792,7 @@ IgaguriFunc:
 	ld a, $02
 	jr .got_var_2
 .last_hit_1
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ld a, $01
 .got_var_2
 	ld [hli], a ; OBJ_VAR_2
@@ -939,7 +939,7 @@ IgaguriFunc:
 	xor a
 	ld [wCurObjVar3], a
 .ground_shake
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	ld b, 24
 	jp DoGroundShake
 
@@ -1092,7 +1092,7 @@ KuriFunc:
 	jr nz, .skip_sfx
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 .skip_sfx
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -1171,5 +1171,5 @@ KuriFunc:
 	ld a, [wCurObjScreenYPos]
 	cp $11
 	ret c
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ret

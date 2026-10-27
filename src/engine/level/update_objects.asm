@@ -1036,7 +1036,7 @@ FOR n, 1, NUM_OBJECTS + 1
 	ld [hl], a ; OBJ_STATE
 	ld l, LOW(wObj{u:n}Flags)
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_016
+	play_sfx SFX_THROWN_OBJECT_HIT
 	ret
 .next_obj_{u:n}
 ENDR
@@ -1058,7 +1058,7 @@ FOR n, 1, NUM_OBJECTS + 1
 	ld [hl], a
 	ld l, LOW(wObj{u:n}Flags)
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_016
+	play_sfx SFX_THROWN_OBJECT_HIT
 	ret
 ENDR
 
@@ -1085,7 +1085,7 @@ FOR n, 1, NUM_OBJECTS + 1
 	ld [hl], a
 	ld l, LOW(wObj{u:n}Flags)
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_016
+	play_sfx SFX_THROWN_OBJECT_HIT
 	ret
 ENDR
 
@@ -1198,7 +1198,7 @@ _ObjState_PickedUpLeft::
 .drop_obj
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
@@ -1405,7 +1405,7 @@ _ObjState_PickedUpRight::
 .drop_obj
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
@@ -1649,7 +1649,7 @@ _ObjState_GrabbedRight::
 .asm_6229c
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
@@ -1760,7 +1760,7 @@ _ObjState_GrabbedLeft::
 .asm_62361
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
@@ -1847,7 +1847,7 @@ _ObjState_GrabbedChargeLeft::
 	jr z, .asm_62415
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	jr .asm_6239e
 
 .asm_62415
@@ -1993,7 +1993,7 @@ _ObjState_GrabbedChargeRight::
 	jr z, .asm_6250e
 	xor a
 	ld [wGrabState], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	jr .asm_62497
 
 .asm_6250e
@@ -3028,7 +3028,7 @@ _ObjState_BumpSlideLeft::
 	jr .asm_62b7d
 
 .asm_62b70
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, OBJSTATE_STUN_RIGHT_START
 	ld [wCurObjState], a
 
@@ -3156,7 +3156,7 @@ _ObjState_BumpSlideRight::
 	jr .asm_62c63
 
 .asm_62c56
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ld a, OBJSTATE_STUN_LEFT_START
 	ld [wCurObjState], a
 

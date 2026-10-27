@@ -71,7 +71,7 @@ PesceFunc:
 	xor a
 	ld [hl], a
 	ld [wCurObjStateDuration], a
-	play_sfx SFX_0BB
+	play_sfx SFX_PESCE_HIT
 	ld hl, wPesceHits
 	inc [hl]
 	ld a, [hl]
@@ -1160,7 +1160,7 @@ FlyFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $03
 	ld [wPesceFlyActive], a
-	play_sfx SFX_0BE
+	play_sfx SFX_PESCE_FLY
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
 

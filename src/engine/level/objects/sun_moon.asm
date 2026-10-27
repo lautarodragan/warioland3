@@ -94,7 +94,7 @@ SunFunc:
 	ld a, [hl]
 	cp 52
 	ret nz
-	play_sfx SFX_068
+	play_sfx SFX_SUN_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .shoot_right
@@ -589,7 +589,7 @@ MoonFunc:
 	ld a, [hl]
 	cp 52
 	ret nz
-	play_sfx SFX_06E
+	play_sfx SFX_MOON_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .shoot_right

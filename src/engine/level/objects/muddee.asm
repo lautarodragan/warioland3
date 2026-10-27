@@ -224,7 +224,7 @@ MuddeeFunc:
 	and a
 	jr z, .asm_557cf
 	cp $28
-	play_sfx z, SFX_0C0
+	play_sfx z, SFX_MUDDEE_HURT
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
@@ -258,7 +258,7 @@ MuddeeFunc:
 	ld [hli], a
 	ld a, $04
 	ld [hl], a
-	play_sfx SFX_083
+	play_sfx SFX_SMALL_SPLASH
 	ret
 
 .defeated
@@ -792,7 +792,7 @@ MuddeeFunc:
 	jr z, .asm_55bc6
 	dec [hl]
 	ret nz
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 .asm_55bc6
 	ld bc, AttackedYVel_Light
@@ -810,7 +810,7 @@ MuddeeFunc:
 	ld a, [wGlobalCounter]
 	and %1111
 	ret nz
-	play_sfx SFX_0C1
+	play_sfx SFX_MUDDEE_BUBBLE
 	ret
 
 .PlaySwimSFX:
@@ -836,7 +836,7 @@ MuddeeFunc:
 	and $07
 	ret nz
 .asm_55c08
-	play_sfx SFX_085
+	play_sfx SFX_MUDDEE_SWIM
 	ret
 
 .SetFramesetAndDurations:
@@ -953,7 +953,7 @@ Turtle1Func:
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
-	play_sfx SFX_0CA
+	play_sfx SFX_BOSS_APPEAR
 	ret
 
 .StartAmbush:
@@ -1162,7 +1162,7 @@ PlayTurtleSwimSFX:
 	ld a, [hl]
 	cp $04
 	ret nz
-	play_sfx SFX_084
+	play_sfx SFX_TURTLE_SWIM
 	ret
 
 MuddeePals_55e46:

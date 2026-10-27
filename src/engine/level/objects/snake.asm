@@ -102,7 +102,7 @@ SnakeFunc:
 	ld [hl], a
 	ld l, OBJ_SUBSTATE
 	inc [hl]
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 .Rise:
@@ -181,7 +181,7 @@ SnakeFunc:
 	ld a, [hld]
 	and a
 	ret nz
-	play_sfx SFX_08A
+	play_sfx SFX_SNAKE_PREPARE_FIRE
 	ret
 
 .asm_499d2
@@ -223,7 +223,7 @@ SnakeFunc:
 	ld a, [hld]
 	and a
 	ret nz
-	play_sfx SFX_08A
+	play_sfx SFX_SNAKE_PREPARE_FIRE
 	ret
 
 .asm_49a12
@@ -245,7 +245,7 @@ SnakeFunc:
 .asm_49a2a
 	ld a, $93
 	ld [wCurObjStateDuration], a
-	play_sfx SFX_089
+	play_sfx SFX_SNAKE_SPIT_FIRE
 	ld hl, wCurObjSubState
 	inc [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -323,7 +323,7 @@ SnakeFunc:
 	and a
 	jr z, .asm_49ac5
 	dec [hl]
-	play_sfx SFX_08B
+	play_sfx SFX_SNAKE_SINK
 .asm_49ac5
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]

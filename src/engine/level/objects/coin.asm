@@ -60,7 +60,7 @@ CoinFunc:
 	ld [hli], a
 
 .ColourCoin:
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ld a, 8
 	jr .got_frame
 .regular_coin

@@ -110,7 +110,7 @@ MusicalCoinScreen_CountCoins:
 	inc a
 	jp z, MusicalCoinScreen_GoToExit
 
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 
 	ld hl, wMenuObj1
 	ld a, $42
@@ -148,7 +148,7 @@ MusicalCoinScreen_MovePencil:
 
 	xor a
 	ld [wTimer], a
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 	ld hl, wSubState
 	inc [hl]
 	ret

@@ -104,7 +104,7 @@ FallingSnowFunc:
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	ret z
-	play_sfx SFX_080
+	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
 .StartFall:
@@ -171,7 +171,7 @@ FallingSnowFunc:
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	ret z
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	ret
 
 .asm_49666

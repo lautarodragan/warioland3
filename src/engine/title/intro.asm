@@ -509,7 +509,7 @@ IntroSequencePhase2:
 	jr nz, .skip_sfx
 	ld a, [wPlaneWarioDuration]
 	and a
-	play_sfx z, SFX_023
+	play_sfx z, SFX_BUBBLE_FLOAT
 .skip_sfx
 
 	ld hl, wTimer
@@ -567,7 +567,7 @@ IntroSequencePhase3:
 	ld a, [wPlaneWarioAnimationEnded]
 	and a
 	jp z, .continue
-	play_sfx SFX_119
+	play_sfx SFX_ITEM_FALL
 	ld hl, wPlaneWarioFramesetOffset
 	xor a
 	ld [hli], a
@@ -646,7 +646,7 @@ IntroSequencePhase3:
 	ld a, [hl]
 	cp 112
 	jr c, .continue
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	ld hl, wPlaneWarioFramesetOffset
 	xor a
 	ld [hli], a

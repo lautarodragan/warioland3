@@ -325,7 +325,7 @@ JamanoFunc:
 	call SetObjectFramesetPtr
 	ld a, $14
 	ld [hl], a
-	play_sfx SFX_0BC
+	play_sfx SFX_JAMANO_TURN
 	ret
 
 .MoveToCentre:
@@ -350,7 +350,7 @@ JamanoFunc:
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
-	play_sfx SFX_0BD
+	play_sfx SFX_JAMANO_DEFEAT_POSE
 	ret
 .asm_54fcd
 	ld a, [wCurObjState]
@@ -508,7 +508,7 @@ JamanoFunc:
 	xor a
 	ld [hld], a
 	ld [hl], a
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 
 .Fall:
@@ -856,7 +856,7 @@ SkullFunc:
 	ld [hli], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld hl, wJamanoSkullsInPlace
 	dec [hl]
 	ret

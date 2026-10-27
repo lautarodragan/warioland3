@@ -404,7 +404,7 @@ GolfCourseMenu_Input:
 	ld a, [wNumCoins + 1]
 	cp GOLF_BUILDING_PRICE
 	jr nc, .enough_coins
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ret
 .enough_coins
 	ld a, [wNumCoins + 1]
@@ -461,7 +461,7 @@ GolfCourseMenu_Input:
 	dec [hl]
 
 .scrolling
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	ld a, $01
 	ld [wGolfBuildingState], a
 	ld [wGolfVBlankMode], a
@@ -515,7 +515,7 @@ GolfCourseMenu_PayCoins:
 	jr nc, .done_subtracting
 	inc [hl]
 	and $03
-	play_sfx z, SFX_12B
+	play_sfx z, SFX_PAY_COINS
 
 	ld hl, wGolfNumCoins + 1
 	ld a, [hl]
