@@ -810,9 +810,9 @@ SetObjStarsSprite:
 	ld [wCurObjId], a
 
 	ld hl, wCurObjOAMPtr
-	ld a, LOW(OAM_18c000)
+	ld a, LOW(ChestsOAM_18c000)
 	ld [hli], a ; OBJ_OAM_PTR
-	ld a, HIGH(OAM_18c000)
+	ld a, HIGH(ChestsOAM_18c000)
 	ld [hli], a
 	ld a, LOW(StarsFrameset_680c5)
 	ld [hli], a ; OBJ_FRAMESET_PTR

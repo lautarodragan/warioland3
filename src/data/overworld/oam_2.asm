@@ -1,4 +1,4 @@
-OAM_bc000:
+CutsceneOverlayOAM_bc000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

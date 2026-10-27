@@ -1,4 +1,4 @@
-OAM_a8000:
+NorthOWObjOAM_a8000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2460,7 +2460,7 @@ WestOWObjFrameset_a914e:
 	db   0,  5
 	db $ff
 
-OAM_a9161:
+SouthOWObjOAM_a9161:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3381,7 +3381,7 @@ SouthOWObjFrameset_a9803:
 	db  95,  1
 	db $ff
 
-OAM_a980c:
+EastOWObjOAM_a980c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4404,7 +4404,7 @@ EastOWObjFrameset_a9fdf:
 	db 102,  4
 	db $ff
 
-OAM_a9fe2:
+TopBarOAM_a9fe2:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4578,7 +4578,7 @@ TopBarFrameset_aa0c6:
 	db  16,  1
 	db $ff
 
-OAM_aa0cf:
+OWUIOAM_aa0cf:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4998,7 +4998,7 @@ Frameset_aa326:
 	db  40,  4
 	db $ff
 
-OAM_aa329:
+OWWarioOAM_aa329:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5162,7 +5162,7 @@ OWWarioFrameset_aa438:
 	db  13,  5
 	db $ff
 
-OAM_aa445:
+LevelStarOAM_aa445:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5283,7 +5283,7 @@ OAM_aa445:
 	frame_oam  19,  -8, $2a, 4 | OAM_BANK1 | OAM_XFLIP | OAM_YFLIP
 	db $80
 
-Frameset_aa544:
+UnlockLevelStarFrameset_aa544:
 	db   4,  2
 	db   0,  2
 	db   5,  2
@@ -5294,7 +5294,7 @@ Frameset_aa544:
 	db   3,  2
 	db $ff
 
-Frameset_aa555:
+HighlightLevelStarFrameset_aa555:
 	db   8,  3
 	db   9,  3
 	db  10,  3
@@ -5318,7 +5318,7 @@ Frameset_aa555:
 	db  16,  1
 	db $ff
 
-OAM_aa580:
+CompassOAM_aa580:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

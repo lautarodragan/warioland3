@@ -472,9 +472,9 @@ ActionHelp_ShowInitialWarioWalk:
 	xor a
 	ld [hl], a ; wActionHelpWarioVar
 	ld [wSFXTimer], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -538,9 +538,9 @@ ActionHelp_ShowWarioJumpLeft:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [hli], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -671,9 +671,9 @@ ActionHelp_ShowWarioWalk:
 	ld [hli], a
 	ld a, LOW(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -855,9 +855,9 @@ ActionHelp_ShowWarioBeginGrab:
 	ld [hli], a
 	ld a, LOW(WarioGrabFrameset_14a23)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -1091,11 +1091,11 @@ ActionHelp_ShowParaGoomWalk:
 	ld [hli], a
 	ld a, LOW(ActionHelpParaGoomWalkFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -1180,11 +1180,11 @@ ActionHelp_ShowCountRichtertoffIdle:
 	ld [hli], a
 	ld a, LOW(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	ret
 

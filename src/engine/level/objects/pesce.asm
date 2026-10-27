@@ -1188,7 +1188,7 @@ FlyFunc:
 	ld [wDollBoyActiveBarrels], a
 	ret
 .asm_5255e
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld a, [wDollBoyActiveBarrels]
 	and a

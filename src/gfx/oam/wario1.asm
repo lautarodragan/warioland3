@@ -260,7 +260,7 @@ WarioFrameset_1425f::
 	db  16, 60
 	db $ff
 
-OAM_1426c::
+WarioWalkOAM_1426c::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -936,7 +936,7 @@ OAM_1426c::
 	frame_oam -32,  -4, $7c, 0 | OAM_XFLIP
 	db $80
 
-Frameset_149b4::
+WarioWalkFrameset_149b4::
 	db   0,  3
 	db   1,  3
 	db   2,  3
@@ -1088,7 +1088,7 @@ WarioBumpFrameset_14a71:
 	db  57,  2
 	db $ff
 
-Frameset_14a76:
+WarioBumpFrameset_14a76:
 	db  58,  4
 	db $ff
 
@@ -3226,7 +3226,7 @@ WarioFrameset_15f91::
 	db   7,  4
 	db $ff
 
-Frameset_15f94::
+WarioAirborneFrameset_15f94::
 	db  15,  4
 	db $ff
 

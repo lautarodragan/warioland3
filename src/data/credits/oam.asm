@@ -1,4 +1,4 @@
-OAM_15e44a::
+PrologueSceneObjOAM_15e44a::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -427,7 +427,7 @@ PrologueSceneObjFrameset_15e793::
 	db  13,  4
 	db $ff
 
-Frameset_15e796::
+PrologueSceneObjFrameset_15e796::
 	db  21,  2
 	db  22,  2
 	db  23,  6
@@ -483,7 +483,7 @@ PrologueSceneObjFrameset_15e7c4::
 	db  40,  1
 	db $ff
 
-Frameset_15e7ed::
+PrologueSceneObjFrameset_15e7ed::
 	db  49,  4
 	db $ff
 

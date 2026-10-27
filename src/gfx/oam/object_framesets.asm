@@ -1870,7 +1870,7 @@ ApplebyFrameset_689e9:
 	db  10,  4
 	db $ff
 
-Frameset_68a00:
+ApplebyFrameset_68a00:
 	db  13,  4
 	db   0,  6
 	db   1,  8
@@ -3011,7 +3011,7 @@ OmodonmekaFrameset_68f50:
 	db   0, 64
 	db $ff
 
-Frameset_68f6b:
+SunMoonFrameset_68f6b:
 	db   4,  8
 	db  13,  8
 	db   1,  8
@@ -5624,24 +5624,21 @@ JamanoFrameset_69c1c:
 	db   2, 16
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69c25:
+JamanoFrameset_69c25:
 	db   0, 12
 	db   3, 12
 	db   0, 12
 	db   4, 12
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69c2e:
+JamanoFrameset_69c2e:
 	db   5, 10
 	db   6, 10
 	db   5, 10
 	db   7, 10
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69c37:
+JamanoFrameset_69c37:
 	db   8,  6
 	db   9,  6
 	db   8,  6
@@ -5728,24 +5725,21 @@ JamanoFrameset_69ca1:
 	db  43, 16
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69caa:
+JamanoFrameset_69caa:
 	db  34, 12
 	db  44, 12
 	db  34, 12
 	db  45, 12
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69cb3:
+JamanoFrameset_69cb3:
 	db  46, 10
 	db  47, 10
 	db  46, 10
 	db  48, 10
 	db $ff
 
-; unreferenced
-UnreferencedJamanoFrameset_69cbc:
+JamanoFrameset_69cbc:
 	db  49,  6
 	db  50,  6
 	db  49,  6

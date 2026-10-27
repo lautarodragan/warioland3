@@ -710,9 +710,9 @@ CountRichtertoffenFunc:
 	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
-	ld a, $41
+	ld a, HIGH(CountRichtertoffenData_601d0)
 	ld [hld], a ; OBJ_VAR_3
-	ld a, $d0
+	ld a, LOW(CountRichtertoffenData_601d0)
 	ld [hld], a ; OBJ_VAR_2
 	ld a, $01
 	ld [hld], a ; OBJ_VAR_1
@@ -723,9 +723,9 @@ CountRichtertoffenFunc:
 	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
-	ld a, $41
+	ld a, HIGH(CountRichtertoffenData_601f0)
 	ld [hld], a ; OBJ_VAR_3
-	ld a, $f0
+	ld a, LOW(CountRichtertoffenData_601f0)
 	ld [hld], a ; OBJ_VAR_2
 	ld a, $01
 	ld [hld], a ; OBJ_VAR_1

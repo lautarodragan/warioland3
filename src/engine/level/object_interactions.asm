@@ -433,11 +433,11 @@ SetState_EnemyBumping:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wIsCrouching]
@@ -1193,11 +1193,11 @@ BumpOffObject:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 	xor a
 	ld [wGrabState], a
@@ -1224,9 +1224,9 @@ BumpOffObject:
 	ld [wInteractionSide], a
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	ld a, HIGH(Frameset_14a76)
+	ld a, HIGH(WarioBumpFrameset_14a76)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14a76)
+	ld a, LOW(WarioBumpFrameset_14a76)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_209a4
 

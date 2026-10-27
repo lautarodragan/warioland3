@@ -248,7 +248,7 @@ OmodonmekaFunc:
 	ret
 
 .asm_4230c
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -260,7 +260,7 @@ OmodonmekaFunc:
 	ret
 
 .Hover:
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
@@ -302,7 +302,7 @@ OmodonmekaFunc:
 	and %11111
 	play_sfx z, SFX_08C
 
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld c, $2a
 	ld a, [wWarioScreenXPos]
@@ -432,7 +432,7 @@ OmodonmekaFunc:
 	ld [wCurObjAction], a
 	ld bc, OmodonmekaData_604e0
 	call ApplyObjYMovement
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	call ApplyObjXMovement_Loop
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
@@ -900,7 +900,7 @@ OmodonmekaWithOmodonFunc:
 	ld [wCurObjAction], a
 	ld bc, OmodonmekaData_604e0
 	call ApplyObjYMovement
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	jp ApplyObjXMovement_Loop
 
 ApplyOmodonHoverBob:
@@ -1048,7 +1048,7 @@ OmodonFunc:
 	ret
 
 .fall
-	ld bc, Data_605e0
+	ld bc, DelayedFallYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]

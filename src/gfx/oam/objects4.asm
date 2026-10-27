@@ -1,4 +1,4 @@
-OAM_18c000:
+ChestsOAM_18c000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

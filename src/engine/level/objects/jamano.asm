@@ -1061,42 +1061,42 @@ SetJamanoDarknessFrameset:
 	ret nz
 	bit 7, [hl]
 	jr nz, .asm_554d8
-	ld b, $5c
-	ld c, $1c
+	ld b, HIGH(JamanoFrameset_69c1c)
+	ld c, LOW(JamanoFrameset_69c1c)
 	jr .asm_5550c
 .asm_554d8
-	ld b, $5c
-	ld c, $a1
+	ld b, HIGH(JamanoFrameset_69ca1)
+	ld c, LOW(JamanoFrameset_69ca1)
 	jr .asm_5550c
 .asm_554de
 	bit 7, [hl]
 	jr nz, .asm_554e8
-	ld b, $5c
-	ld c, $37
+	ld b, HIGH(JamanoFrameset_69c37)
+	ld c, LOW(JamanoFrameset_69c37)
 	jr .asm_5550c
 .asm_554e8
-	ld b, $5c
-	ld c, $bc
+	ld b, HIGH(JamanoFrameset_69cbc)
+	ld c, LOW(JamanoFrameset_69cbc)
 	jr .asm_5550c
 .asm_554ee
 	bit 7, [hl]
 	jr nz, .asm_554f8
-	ld b, $5c
-	ld c, $2e
+	ld b, HIGH(JamanoFrameset_69c2e)
+	ld c, LOW(JamanoFrameset_69c2e)
 	jr .asm_5550c
 .asm_554f8
-	ld b, $5c
-	ld c, $b3
+	ld b, HIGH(JamanoFrameset_69cb3)
+	ld c, LOW(JamanoFrameset_69cb3)
 	jr .asm_5550c
 .asm_554fe
 	bit 7, [hl]
 	jr nz, .asm_55508
-	ld b, $5c
-	ld c, $25
+	ld b, HIGH(JamanoFrameset_69c25)
+	ld c, LOW(JamanoFrameset_69c25)
 	jr .asm_5550c
 .asm_55508
-	ld b, $5c
-	ld c, $aa
+	ld b, HIGH(JamanoFrameset_69caa)
+	ld c, LOW(JamanoFrameset_69caa)
 .asm_5550c
 	ld l, e
 	ld a, b

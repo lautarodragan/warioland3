@@ -368,15 +368,15 @@ Credits_ShowCloseUp:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15e7ed)
+	ld a, HIGH(PrologueSceneObjFrameset_15e7ed)
 	ld [hli], a
-	ld a, LOW(Frameset_15e7ed)
+	ld a, LOW(PrologueSceneObjFrameset_15e7ed)
 	ld [hl], a
-	ld a, HIGH(OAM_15e44a)
+	ld a, HIGH(PrologueSceneObjOAM_15e44a)
 	ld [wCreditsMusicBoxOAMPtr + 0], a
-	ld a, LOW(OAM_15e44a)
+	ld a, LOW(PrologueSceneObjOAM_15e44a)
 	ld [wCreditsMusicBoxOAMPtr + 1], a
-	ld a, BANK(OAM_15e44a)
+	ld a, BANK(PrologueSceneObjOAM_15e44a)
 	ld [wCreditsMusicBoxOAMBank], a
 	call LoadCreditsCloseUpPals
 

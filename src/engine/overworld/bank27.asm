@@ -1,6 +1,6 @@
 InitCutscene02:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(CutTreeCutscenePals_b8c00)
 	ld hl, CutTreeCutscenePals_b8c00
@@ -20,8 +20,8 @@ InitCutscene03:
 	jp LoadCutsceneBGMaps07
 
 InitCutscene04:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(ExpelTornadoCutscenePals_b8ec0)
 	ld hl, ExpelTornadoCutscenePals_b8ec0
@@ -65,8 +65,8 @@ InitCutscene08:
 InitMusicBoxCutscene:
 	ld b, BANK(MusicBoxCutscenePals_b8ac0)
 	call LoadFarPalsToTempPals2
-	ld hl, Pals_b8200
-	ld b, BANK(Pals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
 	call LoadFarPalsToTempPals1
 
 	ld a, LCDC_BG_MAP
@@ -92,8 +92,8 @@ InitCutscene25:
 	jr InitMusicBoxCutscene
 
 InitCutscene09:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(PlantSeedsCutscenePals_b8a80)
 	ld hl, PlantSeedsCutscenePals_b8a80
@@ -134,8 +134,8 @@ InitCutscene0d:
 	jp LoadCutsceneBGMaps02
 
 InitCutscene0e:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(FreezeSeaCutscenePals_b8980)
 	ld hl, FreezeSeaCutscenePals_b8980
@@ -168,8 +168,8 @@ InitCutscene13:
 	jp LoadCutsceneBGMaps05
 
 InitCutscene14:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(VolcanoEruptionCutscenePals_b8a40)
 	ld hl, VolcanoEruptionCutscenePals_b8a40
@@ -315,8 +315,8 @@ InitCutscene27:
 	rgb  3,  0,  0
 
 InitCutscene18:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(PurifyWaterCutscenePals_b8d80)
 	ld hl, PurifyWaterCutscenePals_b8d80
@@ -371,8 +371,8 @@ InitCutscene37:
 	jp LoadCutsceneBGMaps12
 
 InitCutscene38:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(RevealWarpedVoidCutscenePals_b8f80)
 	ld hl, RevealWarpedVoidCutscenePals_b8f80
@@ -557,8 +557,8 @@ InitCutscene55:
 InitCutscene44:
 	ld a, LCDC_BG_MAP
 	ld [wLCDCFlagsToFlip], a
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
 	ld b, BANK(FeedOctohonCutscenePals_b90c0)
 	ld hl, FeedOctohonCutscenePals_b90c0
@@ -2023,7 +2023,7 @@ Cutscene11Func:
 .load_result_pals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(SharedCutsceneBGPals_b8040) ; aka BANK(Pals_b8200)
+	ld b, BANK(SharedCutsceneBGPals_b8040) ; aka BANK(SharedCutsceneBGPals_b8200)
 	call CopyFarBytes
 	xor a
 	ld [wSceneObj1YCoord], a
@@ -2071,7 +2071,7 @@ Cutscene11Func:
 	jp AdvanceCutsceneFunc
 
 .LoadLightningResultPals:
-	ld hl, Pals_b8200
+	ld hl, SharedCutsceneBGPals_b8200
 	jr .load_result_pals
 
 .Wait30_2:
@@ -7492,7 +7492,7 @@ DrawCutsceneOverlay:
 ;	fallthrough
 
 LoadCutsceneOverlaySprite:
-	ld de, OAM_bc000
+	ld de, CutsceneOverlayOAM_bc000
 	ld a, $fc
 	and l
 	ld l, a

@@ -32,7 +32,7 @@ StoveFunc:
 	jp SetObjectFramesetPtr
 
 .Fall:
-	ld bc, Data_605e0
+	ld bc, DelayedFallYVel
 	call ApplyObjYMovement
 
 	ld hl, wCurObjYPos

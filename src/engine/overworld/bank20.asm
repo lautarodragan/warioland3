@@ -1261,8 +1261,8 @@ UpdatePathPreviewAnimations:
 	ld a, $f8
 	and l
 	ld l, a
-	ld de, OAM_aa0cf
-	ld b, BANK(OAM_aa0cf)
+	ld de, OWUIOAM_aa0cf
+	ld b, BANK(OWUIOAM_aa0cf)
 	call LoadOWSpriteWithScroll
 	ret
 
@@ -3069,8 +3069,8 @@ Data_82026:
 
 LoadCompassSprite:
 	ld hl, wCompassObj
-	ld de, OAM_aa580
-	ld b, BANK(OAM_aa580)
+	ld de, CompassOAM_aa580
+	ld b, BANK(CompassOAM_aa580)
 	call LoadOWSpriteWithScroll
 	ret
 
@@ -3149,10 +3149,10 @@ SetOWWarioOAM:
 	ld [wOWWarioSprite], a
 	and a
 	ret z
-	ld bc, OAM_aa329
+	ld bc, OWWarioOAM_aa329
 	cp $05
 	jr c, .got_oam
-	ld bc, OAM_aa0cf
+	ld bc, OWUIOAM_aa0cf
 .got_oam
 	dec a
 	add a ; *2
@@ -3839,8 +3839,8 @@ DrawTopBarSelectionSprite:
 	ld a, [wOWUIObj1State]
 	ld hl, wOWUIObj1Duration
 	call AnimateTopBarSprite
-	ld b, BANK(OAM_a9fe2)
-	ld de, OAM_a9fe2
+	ld b, BANK(TopBarOAM_a9fe2)
+	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj1
 	call LoadOWSpriteWithScroll
 	ret
@@ -3851,8 +3851,8 @@ DrawTopBarNextMapSprite:
 	ret z
 	ld hl, wOWUIObj2Duration
 	call AnimateTopBarSprite
-	ld b, BANK(OAM_a9fe2)
-	ld de, OAM_a9fe2
+	ld b, BANK(TopBarOAM_a9fe2)
+	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj2
 	call LoadOWSpriteWithScroll
 	ret
@@ -4562,8 +4562,8 @@ LoadSpriteInsideWindow:
 	ld [wCurSpriteFrame], a
 	ld a, c
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_aa0cf
-	ld b, BANK(OAM_aa0cf)
+	ld hl, OWUIOAM_aa0cf
+	ld b, BANK(OWUIOAM_aa0cf)
 	call LoadOWSpriteWithScroll_GotParams
 	ret
 
@@ -4609,8 +4609,8 @@ DrawBottomBarButtonPrompt:
 	ld [wCurSpriteXCoord], a
 	ld a, $00
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_aa580
-	ld b, BANK(OAM_aa580)
+	ld hl, CompassOAM_aa580
+	ld b, BANK(CompassOAM_aa580)
 	call LoadOWSpriteWithScroll_GotParams
 	ret
 
@@ -4913,13 +4913,13 @@ DrawUnlockLevelStar:
 	ld a, [wCurSceneObjState]
 	and a
 	ret z
-	ld de, Frameset_aa544
+	ld de, UnlockLevelStarFrameset_aa544
 	ld hl, wCurSceneObjDuration
-	ld b, BANK(Frameset_aa544)
+	ld b, BANK(UnlockLevelStarFrameset_aa544)
 	call UpdateOWAnimation
 	ld hl, wCurSceneObj
-	ld de, OAM_aa445
-	ld b, BANK(OAM_aa445)
+	ld de, LevelStarOAM_aa445
+	ld b, BANK(LevelStarOAM_aa445)
 	call LoadOWSpriteWithScroll
 	ret
 
@@ -4931,15 +4931,15 @@ DrawHighlightLevelStar:
 	and a
 	ret z
 	ld hl, wCurSceneObjDuration
-	ld de, Frameset_aa555
-	ld b, BANK(Frameset_aa555)
+	ld de, HighlightLevelStarFrameset_aa555
+	ld b, BANK(HighlightLevelStarFrameset_aa555)
 	call UpdateOWAnimation
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	jr z, .asm_82c03
 	ld hl, wCurSceneObj
-	ld de, OAM_aa445
-	ld b, BANK(OAM_aa445)
+	ld de, LevelStarOAM_aa445
+	ld b, BANK(LevelStarOAM_aa445)
 	call LoadOWSpriteWithScroll
 	ret
 .asm_82c03

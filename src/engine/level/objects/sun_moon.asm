@@ -1,5 +1,5 @@
 SunFunc:
-	ld de, Frameset_68f6b
+	ld de, SunMoonFrameset_68f6b
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.CheckDirection)
@@ -41,7 +41,7 @@ SunFunc:
 	jr .asm_4729b
 .asm_47296
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68f6b
+	ld de, SunMoonFrameset_68f6b
 .asm_4729b
 	call SetObjectFramesetPtr
 	ld a, 50
@@ -116,7 +116,7 @@ SunFunc:
 	ld de, SunMoonFrameset_68f74
 	jp SetObjectFramesetPtr
 .asm_47318
-	ld de, Frameset_68f6b
+	ld de, SunMoonFrameset_68f6b
 	jp SetObjectFramesetPtr
 
 .Idle:
@@ -190,7 +190,7 @@ SunFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_68f6b
+	ld de, SunMoonFrameset_68f6b
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a

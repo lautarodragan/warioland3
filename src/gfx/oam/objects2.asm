@@ -1195,7 +1195,7 @@ TeruteruOAM_18496f:
 	frame_oam -18,   3, $f0, 7 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_184ab2:
+MadSciensteinOAM_184ab2:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

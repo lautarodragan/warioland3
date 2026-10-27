@@ -1565,7 +1565,7 @@ AnimateEastOWObj:
 	call UpdateCurOWObjAnimation
 ;	fallthrough
 DrawEastOWObj:
-	ld de, OAM_a980c
+	ld de, EastOWObjOAM_a980c
 	jp LoadCurSceneObjSpriteWithScroll
 
 AnimateEastOWObjOnce:
@@ -1793,7 +1793,7 @@ AnimateSouthOWObj:
 ;	fallthrough
 
 DrawSouthOWObj:
-	ld de, OAM_a9161
+	ld de, SouthOWObjOAM_a9161
 	jp LoadCurSceneObjSpriteWithScroll
 ;	fallthrough
 
@@ -1821,7 +1821,7 @@ SouthOWObjState1a:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	call z, PlaySFX12F
-	ld de, OAM_a9161
+	ld de, SouthOWObjOAM_a9161
 	jp LoadCurSceneObjSpriteWithScroll
 
 PlaySFX12F:
@@ -2277,7 +2277,7 @@ AnimateNorthOWObj:
 ;	fallthrough
 
 DrawNorthOWObj:
-	ld de, OAM_a8000
+	ld de, NorthOWObjOAM_a8000
 	jp LoadCurSceneObjSpriteWithScroll
 
 AnimateNorthOWObjOnce:
@@ -2348,13 +2348,13 @@ NorthOWObjState23:
 
 AnimateNorthOWObj3:
 	call UpdateCurOWObjAnimation
-	ld de, OAM_aa580
+	ld de, CompassOAM_aa580
 	jp LoadCurSceneObjSpriteWithScroll
 
 NorthOWObjState24:
 	ld de, NorthOWObjFrameset_aa252
 	call UpdateCurOWObjAnimation
-	ld de, OAM_aa0cf
+	ld de, OWUIOAM_aa0cf
 	jp LoadCurSceneObjSpriteWithScroll
 
 NorthOWObjState25:
@@ -2380,7 +2380,7 @@ NorthOWObjState28:
 AnimateNorthOWObj2:
 	call UpdateCurOWObjAnimation
 .draw
-	ld de, OAM_a9fe2
+	ld de, TopBarOAM_a9fe2
 	jp LoadCurSceneObjSpriteWithScroll
 
 	call UpdateCurOWObjAnimation

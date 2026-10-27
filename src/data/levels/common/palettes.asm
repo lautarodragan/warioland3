@@ -1,4 +1,4 @@
-Pals_d1fe:
+ParticlePals_d1fe:
 	rgb  0, 22, 16
 	rgb 28, 31, 29
 	rgb 30, 23,  0

@@ -80,7 +80,7 @@ ActionHelpPals_1e4eaf:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_1e4eef:
+ActionHelpBlackedOutBGPals:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 	rgb  0,  0,  0
@@ -121,7 +121,7 @@ Pals_1e4eef:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_1e4f2f:
+ActionHelpOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10

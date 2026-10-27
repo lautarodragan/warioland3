@@ -295,7 +295,7 @@ ActionHelpDRightAndDDownInputFrameset:
 	db  23,  4
 	db $ff
 
-OAM_1e6bab:
+ActionHelpEnemyOAM_1e6bab:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

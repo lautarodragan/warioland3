@@ -72,10 +72,10 @@ LoadSceneObjSprite_CreditsOAM:
 	jp LoadOWSprite
 
 SceneObjState_TextArrow:
-	ld de, Frameset_76ca
+	ld de, TextArrowFrameset_76ca
 	call UpdateSceneObjAnim_TitleGfx
-	ld de, OAM_75c3
-	ld b, BANK(OAM_75c3)
+	ld de, LanguageSelectionOAM_75c3
+	ld b, BANK(LanguageSelectionOAM_75c3)
 	jp LoadOWSprite
 
 ; return nz if animation is not finished yet
@@ -503,7 +503,7 @@ UpdateTempleSceneObjAnimation:
 	call Func_ac000
 
 .draw_1:
-	ld de, WarioOAM_1644a
+	ld de, PrologueSceneObjOAM_15e44a
 	jp Func_ac042
 
 .animate_once_1:
@@ -531,7 +531,7 @@ UpdateTempleSceneObjAnimation:
 	ret
 
 .State02:
-	ld de, Frameset_15e796
+	ld de, PrologueSceneObjFrameset_15e796
 	jr .animate_once_1
 
 .State03:
@@ -674,7 +674,7 @@ UpdatePrologueSceneObj:
 .animate_and_draw:
 	call Func_ac000
 .draw:
-	ld de, OAM_15e44a
+	ld de, PrologueSceneObjOAM_15e44a
 	jp Func_ac042
 
 .animate_once:
@@ -743,7 +743,7 @@ UpdatePrologueSceneObj:
 	ret
 
 .State0d:
-	ld de, Frameset_15e7ed
+	ld de, PrologueSceneObjFrameset_15e7ed
 	jr .animate_and_draw
 
 .State0e:
@@ -759,7 +759,7 @@ UpdatePrologueSceneObj:
 	jr .animate_once
 
 .State11:
-	ld de, Frameset_15e796
+	ld de, PrologueSceneObjFrameset_15e796
 	jr .animate_once
 
 .State12:
@@ -958,7 +958,7 @@ UpdateSceneWario:
 	jp .DoAnimation
 
 .WalkLeft:
-	ld de, Frameset_149b4
+	ld de, WarioWalkFrameset_149b4
 	call .UpdateAnimation
 	jp PlaySceneWarioStepSFX
 
@@ -1471,7 +1471,7 @@ ENDM
 
 .WarioSpritePointers:
 	scene_wario_gfx WarioOAM_14a82,  WarioIdleGfx  ; SCENEWARIO_GROUP_00
-	scene_wario_gfx OAM_1426c,  WarioWalkGfx  ; SCENEWARIO_GROUP_01
+	scene_wario_gfx WarioWalkOAM_1426c,  WarioWalkGfx  ; SCENEWARIO_GROUP_01
 	scene_wario_gfx WarioOAM_1606a,  WarioThrowGfx ; SCENEWARIO_GROUP_02
 	scene_wario_gfx WarioOAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
 	scene_wario_gfx GolfWarioOAM_d49cc,  WarioClearGfx ; SCENEWARIO_GROUP_04

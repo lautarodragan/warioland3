@@ -307,7 +307,7 @@ TeruteruFunc:
 	ret
 
 .asm_44afd
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjVar1
 	ld a, [wCurObjSubState]
@@ -334,7 +334,7 @@ TeruteruFunc:
 	ret
 
 .State5a:
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
