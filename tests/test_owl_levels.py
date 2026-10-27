@@ -47,6 +47,7 @@ THE_EAST_CRATER_DAY_1 = 0xB8
 THE_TEMPLE = 0xC8
 # src/constants/wario_constants.asm
 WST_OWL_FAST = 0xBA
+APPLEBY = 0x1D
 WST_SWIMMING_STATES = range(0x0A, 0x12)  # WST_DIVING .. WST_TRYING_SUBMERGE
 CURSOR_POWER = 1
 SCREEN_HEIGHT = 144
@@ -160,9 +161,13 @@ def test_debug_owl_floor_transitions(game, golden):
         assert owl_wario_on_screen(game), game.wario_pos()
 
     # Up into the second floor: the camera follows him, owl and all, and
-    # wFloor follows his feet.
+    # wFloor follows his feet. The owl's graphics are in slot 2, which the
+    # room lends while it's around (see test_owl_free_slot.py), so the
+    # Appleby up here isn't spawned (it would draw with the owl's tiles).
     game.play([("up", 120)], on_frame=visible)
     assert game.read("wFloor") == 2
+    assert game.read("wOwlTileOffset") == 0x41
+    assert not any(obj_id == APPLEBY for _, _, obj_id in game.objects())
     golden("any_level_floor_up", game.screenshot())
 
     # As high as he goes: the room's ceiling. Across and back, and down to
@@ -174,11 +179,14 @@ def test_debug_owl_floor_transitions(game, golden):
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     golden("any_level_floor_down", game.screenshot())
 
-    # Letting go, the camera goes back to where the floor has it.
+    # Letting go, the camera goes back to where the floor has it, and once
+    # the owl has flown off, the slot is given back.
     game.play([("b", 4), ("", 60)], on_frame=in_bounds)
     assert game.read("wTransformation") == TRANSFORMATION_NONE
     assert game.read("wOwlCameraDisplaced") == 0
     assert game.read("wSCY") == floor_1_scy
+    game.wait_until(lambda: game.read("wOwlTileOffset") == 0, timeout=120, what="slot given back")
+    assert not any(owl_tiles_in_slot(game, slot) for slot in range(1, 5))
 
 
 def test_debug_owl_reaches_the_top_of_the_room(game, golden):

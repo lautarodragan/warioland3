@@ -394,7 +394,7 @@ DrawObjects_NoPriority::
 	ld a, [wOwlTileOffset]
 	and a
 	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN | OBJFLAG_PRIORITY
-	jp nz, DrawObjects_OwlElsewhere
+	jp nz, DrawObjects_NoPriority_Owl
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -427,6 +427,15 @@ FOR n, 1, NUM_OBJECTS + 1
 :
 ENDR
 	ret
+
+; DrawObjects_NoPriority while the debug menu's owl has its graphics
+; somewhere else than in an owl object group (wOwlTileOffset != 0): once a
+; frame, see whether a slot it borrowed can be given back.
+DrawObjects_NoPriority_Owl:
+	push bc
+	call UpdateBorrowedOwlSlot
+	pop bc
+;	fallthrough
 
 ; Like DrawObjects_NoPriority and DrawObjects_WithPriority, for when the
 ; owl's graphics aren't in enemy graphics slot 1 (wOwlTileOffset != 0): the
@@ -469,6 +478,76 @@ DrawObjects_OwlElsewhere:
 	ld l, a
 	cp LOW(wObj1Flags + NUM_OBJECTS * OBJ_STRUCT_LENGTH)
 	jr nz, .loop
+	ret
+
+; If the owl borrowed one of the room's enemy graphics slots
+; (OWL_SLOT_BORROWED), gives it back once the owl's gone: no owl object, no
+; Owl Wario, and no owl flying off (PARTICLE_OWL). The slot's objects can
+; spawn again from then on (RefuseBorrowedSlotObjects). Its graphics, saved in
+; wOwlSlotTilesBackup, are copied back to VRAM with the LCD on, a chunk each
+; V-Blank (OwlSlotRestoreVBlankFunc), and then its palette; that clears
+; wOwlTileOffset. A new owl in the meantime takes the slot over again
+; (SetOwlTileOffset).
+; The level's V-Blank function is redirected to OwlSlotRestoreVBlankFunc
+; here, every frame, so that it's back after a menu.
+UpdateBorrowedOwlSlot:
+	ld a, [wOwlTileOffset]
+	bit OWL_SLOT_BORROWED_F, a
+	ret z
+	ld a, [wOwlSlotRestore]
+	and OWL_SLOT_RESTORE_MASK
+	jr nz, .restoring
+
+	; is the owl still around?
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	ret z
+FOR n, 0, MAX_NUM_PARTICLES
+	ld a, [wParticle{u:n} + PARTICLE_STRUCT_ID]
+	cp PARTICLE_OWL
+	ret z
+ENDR
+	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
+	ld hl, wObj1
+.loop_objs
+	ld a, [hl] ; OBJ_FLAGS
+	rra
+	jr nc, .next_obj ; OBJFLAG_ACTIVE not set
+	ld a, l
+	add OBJ_ID
+	ld e, a
+	ld d, h
+	ld a, [de]
+	cp OWL
+	ret z
+.next_obj
+	ld a, l
+	add OBJ_STRUCT_LENGTH
+	ld l, a
+	jr nc, .loop_objs
+
+	; gone: give the slot back, from its first chunk, and let its objects
+	; spawn again (RefuseBorrowedSlotObjects)
+	ld hl, wOwlSlotRestore
+	inc [hl]
+	ld hl, wOwlSlotObjDataBackup
+	ld de, wObjDataPtr01
+	ld b, wObjDataPointersEnd - wObjDataPtr01
+	call CopyHLToDE_Short
+
+.restoring
+	; The jump in wVBlankFunc goes to LevelVBlankFunc in levels. Both
+	; functions are in the same page, so that one write changes it, even if
+	; a V-Blank comes in between.
+	ASSERT HIGH(OwlSlotRestoreVBlankFunc) == HIGH(LevelVBlankFunc)
+	ld hl, wVBlankFunc + 1
+	ld a, [hli]
+	cp LOW(LevelVBlankFunc)
+	ret nz
+	ld a, [hld]
+	cp HIGH(LevelVBlankFunc)
+	ret nz
+	ld [hl], LOW(OwlSlotRestoreVBlankFunc)
 	ret
 
 DoObjectAction:

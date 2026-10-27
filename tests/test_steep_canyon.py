@@ -38,6 +38,8 @@ CURSOR_TREASURE = 4
 N5_RED = 4 * 4 + 1  # TREASURE row index: level * 4 + colour
 N8_BLUE = 20 * 4 + 3  # LEVEL_CASTLE_OF_ILLUSIONS
 NUM_TREASURE_ROWS = 25 * 4
+SPEARHEAD = 0x00
+OWL_SLOT_BORROWED = 1 << 0
 
 
 def test_steep_canyon_to_the_owl(game, golden):
@@ -145,13 +147,16 @@ def test_steep_canyon_debug_owl_to_next_room(game, golden):
     # The owl doesn't despawn: Wario holds it, as part of Owl Wario, into the
     # next room. That room's group (040) puts another enemy in slot 1, so Owl
     # Wario's owl used to draw with that enemy's tiles; now the owl's
-    # graphics are loaded too. The group uses all four enemy graphics slots,
-    # so they go into slot 1, where the owl's frames have them: the fallback.
+    # graphics are loaded too. The group uses all four enemy graphics slots
+    # (spearheads, Para-Gooms, Spear-Bots, Fire-Bots), and none is active yet
+    # when the room loads, so the owl borrows slot 1, where the owl's frames
+    # have them, and spearheads aren't spawned while he holds it.
     room = game.read("wLevelRoomID")
     game.play(COLUMN_FLY_TO_NEXT_ROOM, on_frame=in_bounds)
     assert game.read("wLevelRoomID") != room
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
-    assert game.read("wOwlTileOffset") == 0
+    assert game.read("wOwlTileOffset") == OWL_SLOT_BORROWED
     assert owl_tiles_in_slot(game, 1)
     assert sprites_in_slot(game, 1) == {0, 4}
+    assert SPEARHEAD not in [obj_id for _, _, obj_id in game.objects()]
     golden("steep_canyon_debug_owl_next_room", game.screenshot())
