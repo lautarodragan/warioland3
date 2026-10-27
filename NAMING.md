@@ -2328,6 +2328,356 @@ a state has to come from its frameset first. Generated from the tables
 | bank27.asm:5987 | `UpdateCutsceneObjs_RaiseTower`: `.Func_9f15e` -> `.update_obj`; `UpdateCutsceneObjs_FixElevator`: `.Func_9f189` -> `.update_obj`; `.Func_9f1b5` -> `.PlaySFX10AAtAnimEnd`; `Func_9f1f3`: `.Func_9f20b` -> `.update_obj`; `UpdateCutsceneObjs_SummonSun`: `.Func_9f22e` -> `.update_obj`; `Func_9f244`: `.Func_9f26b` -> `.PlayFlapSFXAtAnimEnd`; `.Func_9f27f` -> `.PlaySFX011OnFrame01`; `UpdateCutsceneObjs_ExplodeBombs`: `.Func_9f2b1` -> `.update_obj`; `Func_9f2f3`: `.Func_9f30e` -> `.PlaySFX06DAtAnimEnd`; `UpdateCutsceneObjs_SummonSnakes`: `.Func_9f34f` -> `.update_obj`; `UpdateCutsceneObjs_FootStone`: `.Func_9f379` -> `.update_obj`; `UpdateCutsceneObjs_ExpelTornado`: `.Func_9f3d6` -> `.update_obj`; `UpdateCutsceneObjs_OpenTreeMouth`: `.Func_9f3f7` -> `.update_obj`; `.Func_9f414` -> `.PlaySFX131AtAnimEnd`; `UpdateCutsceneObjs_LeavesFall`: `.Func_9f45a` -> `.PlayFatWalkSFXOnFrame07Or08`; `.Func_9f483` -> `.PlaySFX076Every26Frames`; `UpdateCutsceneObjs_MakeWire`: `.Func_9f4b1` -> `.update_obj`; `.Func_9f4d8` -> `.PlaySFX133Every12Frames`; `.Func_9f4f4` -> `.PlaySFX132Every16Frames`; `UpdateCutsceneObjs_TorchForest`: `.Func_9f52e` -> `.PlaySFX01EEvery14Frames`; `UpdateCutsceneObjs_RevealWarpedVoid`: `.Func_9f587` -> `.PlaySFX040Every16Frames`; `UpdateCutsceneObjs_RaiseIceBlocks`: `.Func_9f5bb` -> `.update_obj`; `.Func_9f5e5` -> `.PlaySFX0BAOnFrame03`; `UpdateCutsceneObjs_RaisePipe`: `.Func_9f629` -> `.PlaySFX085AtAnimEnd`; `UpdateCutsceneObjs_RemoveWarps`: `.Func_9f689` -> `.PlaySFX10EEvery72Frames`; `UpdateCutsceneObjs_PlacePropeller`: `.Func_9f701` -> `.update_obj`; `.Func_9f722` -> `.PlaySFX07DEvery12Frames`; `UpdateCutsceneObjs_ExtinguishFire`: `.Func_9f80d` -> `.PlaySFX076Every26Frames`; `Func_9f821`: `.Func_9f843` -> `.PlaySFX01EEvery14Frames`; `UpdateCutsceneObjs_SprayIronWall`: `.Func_9f8a8` -> `.PlaySFX076Every26Frames`; `.Func_9f8c1` -> `.PlaySFX0C4Every10Frames`; `UpdateCutsceneObjs_MixChemicals`: `.Func_9f912` -> `.set_state_when_anim_finished`; `UpdateCutsceneObjs_RevealDarkRoom`: `.Func_9f953` -> `.PlaySFXOnFrames`; `Func_9f9f5`: `.Func_9fa1b` -> `.PlaySFX135Every27Frames`; `.Func_9fa34` -> `.PlaySFX080Every27Frames`; `UpdateCutsceneObjs_DrillHoles`: `.Func_9faa0` -> `.PlayPlane1SFXEvery12Frames`; `UpdateCutsceneObjs_FeedOctohon`: `.Func_9fad6` -> `.PlaySFX08EEvery48Frames`; `Func_9faea`: `.Func_9fb1f` -> `.PlaySFX08FEvery40Frames`; `.Func_9fb38` -> `.PlaySFX083Every40Frames`; `Func_9fba9`: `.Func_9fbc5` -> `.update_obj`; `UpdateCutsceneObjs_PlantSeeds`: `.Func_9fc09` -> `.update_obj2`; `UpdateCutsceneObjs_MusicBox`: `.Func_9fc2c` -> `.update_obj2` | Updater locals (rule from 3b: the per-object entry of the updaters): `.update_obj` (called with `bc` = an object's state), `.update_obj2` for the two updaters that animate object 2 only; sound helpers by what they do: `.PlaySFX<id>AtAnimEnd` (when `wOWAnimationFinished` is $ff), `.PlaySFX<id>Every<N>Frames` (counter in the object's movement byte, or in `wSceneObj4YCoord` for the Octohon), `.PlaySFX<id>OnFrame<NN>` (once per animation loop, flag in the movement byte), `.PlaySFXOnFrames` (frames 2, 4, 5); `.set_state_when_anim_finished` in `UpdateCutsceneObjs_MixChemicals`. | high (medium: `.PlaySFX011OnFrame01`, `.PlayFatWalkSFXOnFrame07Or08`, `.PlaySFXOnFrames`) |
 | bank27.asm:7661 | `Pals_9fc8b` -> `RevealCastleCutscenePal2_1`; `Pals_9fc93` -> `RevealCastleCutscenePal2_2`; `Pals_9fc9b` -> `RevealCastleCutscenePal2_3`; `Pals_9fca3` -> `RevealCastleCutscenePal2_4` | The four BG palette 2 steps of `Cutscene19Func` (reveal castle). | high |
 
+### 4c. Data labels left by the 3e owner rule
+
+All 987 `Frameset_`/`OAM_`/`Pals_`/`Data_` labels that are still
+address-named and not mentioned anywhere earlier in this file (1083 in
+`src/` minus 96 already proposed). Ownership was worked out by script from
+every reference in `src/`, as in 3e, with two changes:
+
+- A reference from `src/data/object_params.asm` or `object_data.asm` counts
+  for the object whose update function the block names (3e left these out),
+  so object OAM tables and treasure/star framesets get an owner.
+- References from routines that only borrow another owner's data are
+  ignored when there is another owner: the level-object updaters of the
+  cutscenes (`UpdateCutsceneLevelObj_*`, `Func_9f2f3`), `UpdateEpilogueSceneObj`
+  and `SetObjStarsSprite`.
+
+Owners outside the objects and Wario are areas: the screen directory
+(`ActionHelp`, `ClearScreen`, `TimeAttackClearScreen`, `Credits`, `GameOver`,
+`GolfHole`, `GolfLobby`, `GolfCourseMenu`, `GolfWario`, `PauseMenu`,
+`Perfect`, `Intro`, `StartMenu`, `Title`, `Particle`, `Font`,
+`LanguageSelection`, `MusicalCoinScreen`), the cutscene by event
+(`<Event>Cutscene`, as in 3e), and for overworld routines the routine's
+subject (`TopBar`, `BottomBar`, `OWWario` for `SetOWWarioOAM`,
+`PathPreview`, `SceneWario`, `<Side>OWObj`, `<Side>OW<Scene>` for the
+`<S>OWFunc_<Scene>` scenes).
+
+Rules, in the order they are tried:
+
+- **Descriptive (table below)**: the overworld palettes, the idle input
+  framesets, the object movement tables and the labels shared by several
+  owners, each read in the code.
+- **P, palette loaders** (high): a `Pals_` label used only as
+  `ld hl, Pals_x` followed by `call LoadPalsToTempPals1` or
+  `LoadFarPalsToTempPals1` (`wTempPals1`, the BG palettes) or the `...2`
+  version (`wTempPals2`, the OB palettes) becomes `<Owner>BGPals` /
+  `<Owner>OBPals`. The owner is `X` when the only user is `LoadXPals`
+  (existing or proposed: `LoadCreditsCloseUpPals` gives
+  `CreditsCloseUpBGPals`), the area otherwise.
+- **S, show routines** (medium): every user is `ActionHelp(2)_Show<X>` or
+  `ParticleAnim_<X>` for one `X`: `ActionHelp<X><Kind>` /
+  `Particle<X><Kind>` (`Frameset_1e6b70` -> `ActionHelpAInputFrameset`,
+  `Frameset_d4ba` -> `ParticleSplashFrameset`). When two labels get the same
+  name both keep the address (`ParticleBubblesFrameset_d502`).
+- **O, single owner** (high, the 3e rule): `<Owner><Kind>_<addr>`.
+- **W, shared Wario graphics** (medium): labels used by several Wario states
+  (in wario_states_*, object_interactions.asm, block_functions.asm,
+  start_room.asm, the debug menu), possibly also by the action help, the
+  scene Wario or golf Wario, which only borrow Wario's graphics:
+  `Wario<Form><Kind>_<addr>` when one transformation is involved (taken
+  from the state names: `Owl`, `Bat`, `Vampire`, `Throw`, ...), plain
+  `Wario<Kind>_<addr>` otherwise.
+- **U, unreferenced** (medium when the nearest owner-named labels before
+  and after it in the same file have the same owner, low when only the one
+  before is known): `Unreferenced<Owner><Kind>_<addr>`; plain
+  `Unreferenced<Kind>_<addr>` (low) when no neighbour has an owner.
+
+Totals: 987 labels, all proposed. Descriptive 99 (44 high, 42 medium, 13
+low); P 24 high; O 444 high; W 95 medium; S 38 medium; U 287 (157 medium,
+130 low). All names checked by script against `src/` and the earlier
+sections of this file: no collisions, no duplicates.
+
+Findings from this part: `Data_60320` and `Data_60510` are identical
+Y-velocity tables (could be merged); `Data_60ec9` is used by
+code in torch.asm that is marked "unreferenced?" (it is Kobatto's table);
+`Pals_84940`/`Pals_849c0` (west/east OB palettes) have no reference by
+name but are reached by indexing from `Pals_84900`, so they must not be
+marked unreferenced.
+
+| Where | Current -> proposed | Evidence | Conf. |
+|---|---|---|---|
+| data/overworld/palettes.asm:1 | `Pals_84000` -> `NorthOWDayPals`; `Pals_84040` -> `NorthOWDusk1Pals`; `Pals_84080` -> `NorthOWDusk2Pals`; `Pals_840c0` -> `NorthOWNightPals`; `Pals_84100` -> `NorthOWDawnPals`; `Pals_84140` -> `WestOWDayPals`; `Pals_84180` -> `WestOWDusk1Pals`; `Pals_841c0` -> `WestOWDusk2Pals`; `Pals_84200` -> `WestOWNightPals`; `Pals_84240` -> `WestOWDawnPals`; `Pals_84280` -> `SouthOWDayPals`; `Pals_842c0` -> `SouthOWDusk1Pals`; `Pals_84300` -> `SouthOWDusk2Pals`; `Pals_84340` -> `SouthOWNightPals`; `Pals_84380` -> `SouthOWDawnPals`; `Pals_843c0` -> `EastOWDayPals`; `Pals_84400` -> `EastOWDusk1Pals`; `Pals_84440` -> `EastOWDusk2Pals`; `Pals_84480` -> `EastOWNightPals`; `Pals_844c0` -> `EastOWDawnPals`; `Pals_84500` -> `NorthOWCrayonsDayPals`; `Pals_84540` -> `NorthOWCrayonsDusk1Pals`; `Pals_84580` -> `NorthOWCrayonsDusk2Pals`; `Pals_845c0` -> `NorthOWCrayonsNightPals`; `Pals_84600` -> `NorthOWCrayonsDawnPals`; `Pals_84640` -> `WestOWCrayonsDayPals`; `Pals_84680` -> `WestOWCrayonsDusk1Pals`; `Pals_846c0` -> `WestOWCrayonsDusk2Pals`; `Pals_84700` -> `WestOWCrayonsNightPals`; `Pals_84740` -> `WestOWCrayonsDawnPals` | `OWPals` (bank21.asm:625) holds 4 pointers per map side and day/night, read by `GetOWPals` (`wCurMapSide`, `wOWIsNight`, all-crayons flag for north and west). `DayNightTransition` and `DayNightSpellTransition` fade entry 0 to 1, 1 to 2 and 2 to 3 (`LoadBaseAndTargetOWPals` with `a` = 0, 1, 2; `.LoadBaseAndTargetPals` loads entry 3 first). The day list is day, two dusk steps, night; the night list is night, dawn, day, day. So each side has five sets: `<Side>OWDayPals`, `Dusk1`, `Dusk2`, `NightPals`, `DawnPals`; the north and west versions with all crayons get `Crayons`. Several are also loaded on their own (`FadeInLevelName`, `GetMapSidePalGroup1`, `NOWFunc_BottomBar`, `_LoadMapSidePals`, `_LoadPalsForOWScene`, the rain/thunder/freeze-sea/crayon scenes), which fits the names. | high |
+| data/overworld/palettes.asm:1231 | `Pals_84780` -> `NorthOWGreyPals`; `Pals_847c0` -> `WestOWGreyPals`; `Pals_84800` -> `SouthOWGreyPals`; `Pals_84840` -> `EastOWGreyPals`; `Pals_84880` -> `EastOWGreyNoIcePals` | `GreyOWPalsPointers` (`Data_84e39`, proposed in 4a) points at each side's grey palettes; its comment calls the second east one "EAST (no Ice)". `EOWFunc_FormCastle` also loads the east one. | high (medium: `EastOWGreyNoIcePals`) |
+| data/overworld/palettes.asm:1471 | `Pals_848c0` -> `UnreferencedOWPals_848c0` | Marked unreferenced in palettes.asm; 4 palettes before `OWStarIndicatorPals`. | medium |
+| data/overworld/palettes.asm:1492 | `Pals_848e0` -> `OWStarIndicatorPals` | `LoadOWStarIndicatorPals` copies 2 palettes of it to OB palettes 4-5; `InitHighlightLevelScene` loads it too. | high |
+| data/overworld/palettes.asm:1513 | `Pals_84900` -> `NorthOWOBPals`; `Pals_84940` -> `WestOWOBPals`; `Pals_84980` -> `SouthOWOBPals`; `Pals_849c0` -> `EastOWOBPals` | 8 OB palettes per map side, indexed by `wCurMapSide` in `GetMapSidePalGroup2` and in the top bar's `.OpenTopBar` (palettes 4-7). The golf building (north) loads the north set, `SOWFunc_CanyonThunder` the south set (`Pals_84980`). The west and east sets are only reached by indexing. | high |
+| data/overworld/palettes.asm:1678 | `Pals_84a00` -> `UnreferencedOWPals_84a00` | Marked unreferenced in palettes.asm. | medium |
+| data/overworld/palettes.asm:1699 | `Pals_84a20` -> `TopBarOBPals` | 4 OB palettes copied to OB palettes 4-7 when the top bar is set up (bank20.asm:3505) and by `InitNOWObjects_DayNightSpell`. | medium |
+| gfx/oam/action_help.asm:215 | `Frameset_1e6b6d` -> `ActionHelpNoButtonInputFrameset`; `Frameset_1e6b76` -> `ActionHelpNoDPadInputFrameset` | The idle (unpressed) button and D-pad framesets: set by `ActionHelp(2)_ClearButtonsInput` / `_ClearDPadInput` and by `InitActionHelp`. The pressed ones next to them (A, B, each direction) come out of rule S below. | medium |
+| data/object_movements.asm:121 | `Data_60320` -> `SmallHopYVel`; `Data_60510` -> `SmallHopYVel2`; `Data_603d0` -> `RiseYVel`; `Data_603e0` -> `QuickFallYVel`; `Data_603f0` -> `DipYVel`; `Data_60490` -> `DropAndStopYVel`; `Data_60540` -> `JumpArcYVel`; `Data_60340` -> `UnreferencedBobYVel_60340`; `Data_60400` -> `UnreferencedBobYVel_60400` | Y-velocity tables in object_movements.asm (signed bytes, $80 ends them), next to the named `HopYVel_*`/`FallingYVel_*`. `Data_60320`: a small rise then a fall, used by the torch embers, the unused flower projectile and `Func_40c19`; `Data_60510` has exactly the same bytes and is used by the Doughnuteer's doughnut (left/right) and the Invisibility Potion (a duplicate table). `Data_603d0`: rise only, -6 slowing to 0 (Count Richtertoffen, Shoot). `Data_603e0`: 1, 1, 2, 2, 3, 3, then 4 (Count Richtertoffen, Falling Snow, Shoot), a faster fall than `FallingYVel_Light`. `Data_603f0`: 1, 2, 3, 2, 1 then 0 (Futamogu, Webber). `Data_60490`: 2 up to 10 then down to 0 (Futamogu, Webber). `Data_60540`: a jump arc, -6 to 0 then down to 4 (doughnut going up, potion drop). Both unreferenced ones are long up-and-down waves. The shape names are low where the use doesn't say more. | medium (low: `DipYVel`, `DropAndStopYVel`, `UnreferencedBobYVel_60340`, `UnreferencedBobYVel_60400`) |
+| data/object_movements.asm:401 | `Data_60ec9` -> `KobattoSetMovement`; `Data_60eb0` -> `UnreferencedSetMovement_60eb0`; `Data_6104a` -> `UnreferencedSetMovement_6104a` | Set-movement tables (3 bytes per step, read by `ApplyObjSetMovement`). `Data_60ec9` is Kobatto's (`KobattoFunc` stores it and applies it); torch.asm only uses it in code marked "unreferenced?". The other two are unreferenced. | medium (high: `KobattoSetMovement`) |
+| data/overworld/cutscene/palettes.asm:42 | `Pals_b8040` -> `SharedCutsceneBGPals_b8040`; `Pals_b8240` -> `SharedCutsceneBGPals_b8240`; `Pals_b8ac0` -> `MusicBoxCutscenePals_b8ac0`; `OAM_bcfb3` -> `SharedCutsceneOAM_bcfb3` | Data used by several owners, named after the main one or the defining file when no single owner exists. `Pals_b8040`: BG palettes loaded by the set-ups of cutscenes $0a, $0c, $0d, $11, $13, $1b and by `Cutscene11Func`; `Pals_b8240`: BG palettes of cutscenes $03 and $37; `Pals_b8ac0`: `InitMusicBoxCutscene` and `InitCutscene08` (Yellow music box) fall into the same loader. `OAM_bcfb3`: `UpdateCutsceneObjs_VolcanoEruption` (`Func_9fba9`) and `UpdateCutsceneObjs_PlantSeeds`. | medium |
+| data/title/palettes.asm:83 | `Pals_5002` -> `TitleScreenBGPals2`; `Pals_5042` -> `TitleScreenOBPals2` | `LoadTitleScreenPals` loads `Pals_4f82`/`Pals_4fc2` (rule P below: `TitleScreenBGPals`/`OBPals`) or, when `wRestoredSave` is set, these two; `IntroSequencePhase3` loads these when the plane animation ends and the title music starts. | medium |
+| main.asm:102 | `Pals_db000` -> `HiddenFigureBGPals`; `Pals_db040` -> `HiddenFigureOBPals` | `LoadHiddenFigureGfx` (game_over/load_gfx.asm): 8 BG palettes, then 5 OB palettes into OB palettes 3-7; `_PrologueFade`'s step 4 loads the same two. | high |
+| gfx/pals/golf.asm:288 | `Pals_1ca24f` -> `GolfBGPals_1ca24f`; `Pals_1ca34f` -> `GolfOBPals_1ca34f`; `OAM_1cb3e0` -> `GolfCourseMenuOAM_1cb3e0`; `Frameset_d4d1b` -> `GolfWarioFrameset_d4d1b`; `Frameset_d4d5f` -> `GolfWarioFrameset_d4d5f`; `OAM_d49cc` -> `GolfWarioOAM_d49cc` | Golf palettes shared by the course menu (`Func_1c87db`, `Func_1c8586`) and `InitGolfClearCutscene` (BG / OB, from the clear cutscene's loader). `OAM_1cb3e0`: course menu objects and the golf clear cutscene. `Frameset_d4d1b`/`d4d5f`/`OAM_d49cc` (golf data files): golf Wario, also used by the clear screen and the scene Wario. | medium |
+| gfx/oam/wario2.asm:458 | `Frameset_1fc473` -> `WarioFrameset_1fc473`; `Frameset_1fc47c` -> `WarioFrameset_1fc47c`; `OAM_1644a` -> `WarioOAM_1644a` | Wario graphics (wario1/2.asm) used only outside the Wario states: golf Wario and the scene Wario; `OAM_1644a` by the rolling/sliding states, the action help and the temple scene. | medium |
+| data/overworld/oam_1.asm:5979 | `OAM_aab5c` -> `SceneWarioOAM_aab5c`; `Frameset_aaccb` -> `SceneWarioFrameset_aaccb`; `Frameset_aace2` -> `SceneWarioFrameset_aace2` | Scene Wario sprites that the game over screen (sleeping and waking Wario) and the prologue reuse. | medium |
+| data/overworld/oam_1.asm:4524 | `Frameset_aa09d` -> `TopBarFrameset_aa09d`; `Frameset_aa0a3` -> `TopBarFrameset_aa0a3`; `Frameset_aa0bc` -> `TopBarFrameset_aa0bc`; `Frameset_aa0c1` -> `TopBarFrameset_aa0c1` | `AnimateTopBarSprite` (`Func_82521`) and `NorthOWObjState25`-`28`. | medium |
+| data/overworld/oam_1.asm:4581 | `OAM_aa0cf` -> `OWOAM_aa0cf`; `OAM_aa580` -> `OWUIOAM_aa580` | Low: shared by `SetOWWarioOAM`, the path preview, `LoadSpriteInsideWindow` and `NorthOWObjState24`; `OAM_aa580` by the bottom bar button prompt, the compass and `AnimateNorthOWObj3`. | low |
+| data/credits/oam.asm:1 | `OAM_15e44a` -> `CreditsOAM_15e44a`; `Frameset_15e796` -> `CreditsFrameset_15e796`; `Frameset_15e7ed` -> `CreditsFrameset_15e7ed` | Low: defined in credits/oam.asm; the close-up (`Credits_ShowCloseUp`) and the prologue scene objects share `OAM_15e44a`/`Frameset_15e7ed`; `Frameset_15e796` is the prologue's and the temple scene's. | low |
+| data/title/oam.asm:134 | `Frameset_6ce9` -> `StartMenuFrameset_6ce9`; `Frameset_6d1e` -> `StartMenuFrameset_6d1e`; `Frameset_1f1cd4` -> `PauseMenuFrameset_1f1cd4` | Intro and start menu; `Frameset_1f1cd4` pause menu and musical coin screen. | medium |
+| data/levels/common/oam.asm:1 | `OAM_d20e` -> `ParticleOAM_d20e`; `Frameset_d49a` -> `ParticleDebrisFrameset`; `OAM_d763` -> `ParticleOwlOAM`; `Frameset_d7b4` -> `ParticleOwlFrameset` | Particles (levels/common/oam.asm): `OAM_d20e` is the OAM of most particles (`ParticleAnim_*`) and two action help demos; the debris and owl framesets are also used by the action help's block debris / owl demos. | medium (high: `ParticleOAM_d20e`) |
+| gfx/oam/objects4.asm:831 | `OAM_18c88a` -> `HiddenFigureOAM_18c88a`; `OAM_18007b` -> `SpearheadOAM_18007b`; `OAM_184ab2` -> `MadSciensteinOAM_184ab2`; `OAM_188000` -> `BrrrBearOAM_188000`; `OAM_18c000` -> `TreasureOAM_18c000`; `OAM_190000` -> `AnonsterOAM_190000` | Object OAM banks shared through object_data.asm/object_params.asm. `OAM_18c88a`: Hidden Figure (face and hands), reused by the temple scene. `OAM_18007b`: Spearhead (and `DummyObjectData`, a placeholder, and the epilogue). Low for the rest: `OAM_184ab2` Mad Scienstein and his potion, also the Seeing-Eye Door; `OAM_188000` Brrr Bear and the tadpole spawner; `OAM_18c000` chests, keys, treasures, the musical coin and the stars; `OAM_190000` Anonster's silk, waves and platforms, also the fly/dragonfly spawners and the snowflakes. | low (high: `HiddenFigureOAM_18c88a`; medium: `SpearheadOAM_18007b`) |
+
+**Rule P (palette loaders, high)**, 24 labels
+
+`Pals_1e4f7f` ActionHelpPowerUpOBPals; `Pals_1e0378` ClearScreenBGPals; `Pals_1e03b8` ClearScreenOBPals; `Pals_1604cc` CreditsBGPals; `Pals_16050c` CreditsOBPals; `Pals_16054c` CreditsCloseUpBGPals; `Pals_16058c` CreditsCloseUpOBPals; `Pals_1605cc` CreditsFinalBGPals; `Pals_16060c` CreditsFinalOBPals; `Pals_db509` GameOverBGPals; `Pals_db549` GameOverOBPals; `Pals_1ca18f` GolfHoleOBPals; `Pals_1ca1cf` GolfLobbyBGPals; `Pals_1ca20f` GolfLobbyOBPals; `Pals_d50a4` MusicalCoinScreenBGPals; `Pals_d50e4` MusicalCoinScreenOBPals; `Pals_1f4182` PauseMenuBGPals; `Pals_1f41c2` PauseMenuOBPals; `Pals_dc1fb` PerfectOBPals; `Pals_1e03f8` TimeAttackClearScreenBGPals; `Pals_1e0438` TimeAttackClearScreenOBPals; `Pals_71b0` TimeAttackDescriptionBGPals; `Pals_4f82` TitleScreenBGPals; `Pals_4fc2` TitleScreenOBPals
+
+**Rule O (single owner, high)**, 444 labels
+
+- ActionHelp: `Frameset_1e6b64`, `Frameset_1e6b67`, `Frameset_1e6b6a`, `Frameset_1e6b85`, `Frameset_1e6b8b`, `Frameset_1e6b8e`, `Frameset_1e6b96`, `Frameset_1e6b99`, `Frameset_1e6b9c`, `Frameset_1e6ba2`, `Frameset_1e6ba5`, `Frameset_1e6f4d`, `Frameset_1e6f66`, `Frameset_1e6f6b`, `Frameset_1e6f7d`, `Frameset_1e6fc2`, `OAM_1e697c`, `OAM_1e6f86`, `Pals_1e4e6f`, `Pals_1e4eaf`, `Pals_1e4f6f`, `Pals_1e4fbf`
+- Anonster: `Frameset_694ee`, `Frameset_694f8`, `Frameset_69505`, `Frameset_6954a`
+- Appleby: `Frameset_68a60`, `OAM_185a1c`
+- Barrel: `OAM_181b0f`
+- BeamBot: `Frameset_68ee1`, `Frameset_68eea`, `OAM_1845aa`
+- BigLeaf: `OAM_180000`, `OAM_1817b4`
+- Bird: `OAM_1819e3`
+- BlowMistCutscene: `Pals_b8d40`
+- BlueMusicBoxCutscene: `Pals_b8b00`
+- BottomBar: `Frameset_aa2fb`
+- BrrrBear: `Frameset_69169`
+- Bubble: `Frameset_69105`, `OAM_185b98`
+- Cart: `Frameset_691a7`, `Frameset_691bf`, `OAM_188279`
+- Chests: `Frameset_680da`, `Frameset_68113`, `Frameset_6814c`, `Frameset_68185`
+- ClearGate: `OAM_181c47`
+- ClearScreen: `Frameset_d4d18`, `Frameset_d4d58`, `Frameset_d5045`, `Frameset_d504a`, `Frameset_d504f`, `Frameset_d5054`, `Frameset_d5059`, `Frameset_d505c`, `Frameset_d505f`, `Frameset_d5062`, `Frameset_d5065`, `Frameset_d5068`, `Frameset_d506b`, `Frameset_d5080`, `Frameset_d5095`, `Frameset_d5098`, `Frameset_d509b`, `Frameset_d509e`, `Frameset_d50a1`, `OAM_d4e26`
+- Coin: `OAM_180003`
+- CollectDemonsBloodCutscene: `Pals_b84c0`
+- CountRichtertoffen: `OAM_1809ff`
+- Credits: `Frameset_161caf`, `Frameset_161cc4`, `Frameset_161ce5`, `Frameset_161ce8`, `Frameset_161ceb`, `Frameset_161cee`, `OAM_1617e8`
+- CutTreeCutscene: `Frameset_bc1e8`, `Frameset_bc1f3`, `OAM_bc122`, `Pals_b8c00`
+- DollBoy: `Frameset_69684`, `Frameset_696b1`, `OAM_19105c`
+- Doughnuteer: `Frameset_68562`, `Frameset_685ea`, `Frameset_685ed`, `OAM_180ea7`
+- ElectricLamp: `Frameset_68c97`, `OAM_184eeb`
+- ExpelTornadoCutscene: `Pals_b8ec0`
+- ExplodeBombsCutscene: `Pals_b80c0`, `Pals_b8cc0`
+- FallingSnow: `Frameset_6957e`, `OAM_1893fe`
+- FeedOctohonCutscene: `Pals_b90c0`
+- Fire: `Frameset_69c0a`, `OAM_18aba0`
+- FireBot: `OAM_184755`
+- FixElevatorCutscene: `Pals_b8000`, `Pals_b89c0`
+- FlameBlock: `OAM_1895ec`
+- Font: `Pals_1f3610`
+- FootStoneCutscene: `Pals_b8e00`
+- FreezeSeaCutscene: `Pals_b8980`
+- Futamogu: `OAM_180564`
+- GameOver: `Frameset_dbbf5`, `OAM_dbbd2`
+- GoldMusicBoxCutscene: `Pals_b8bc0`
+- GolfCourseMenu: `Frameset_1cb598`, `Frameset_1cb59b`, `Frameset_1cb59e`, `Frameset_1cb5a1`, `Frameset_1cb5c3`, `Frameset_1cb5d8`, `Frameset_1cb5db`, `Frameset_1cb5de`, `Frameset_1cb5e1`, `Pals_1ca28f`, `Pals_1ca2cf`, `Pals_1ca30f`
+- GolfHole: `Frameset_1c9b87`, `Frameset_1c9b8a`, `Frameset_1caf6f`, `Frameset_1caf81`, `Frameset_1caf84`, `Frameset_1caf87`, `Frameset_1caf8a`, `Frameset_1caf8d`, `Frameset_1cafa0`, `Frameset_1cafb1`, `Frameset_1cafb6`, `Frameset_1cafc7`, `Frameset_1cafe8`, `Frameset_1cb005`, `Frameset_1cb016`, `Frameset_1cb035`, `Frameset_1cb068`, `Frameset_1cb089`, `Frameset_1cb0a4`, `Frameset_1cb0a9`, `Frameset_1cb0c2`, `Frameset_1cb0d7`, `Frameset_1cb0da`, `OAM_1ca6cf`, `Pals_1ca08f`, `Pals_1ca0cf`, `Pals_1ca10f`, `Pals_1ca14f`
+- GolfLobby: `Frameset_1cb3b3`, `Frameset_1cb3c4`, `Frameset_1cb3d1`, `Frameset_1cb3d4`, `Frameset_1cb3d7`, `Frameset_1cb5cc`, `Frameset_1cb5cf`, `OAM_1cb2d3`
+- GolfWario: `Frameset_1cb285`, `Frameset_1cb2ac`, `Frameset_2da4`, `Frameset_2da7`, `Frameset_2daa`, `Frameset_2dad`, `Frameset_2db0`, `Frameset_2db5`, `OAM_1cb0dd`
+- GreenMusicBoxCutscene: `Pals_b8b40`
+- HammerBot: `Frameset_68b12`, `OAM_18422f`
+- Hand: `OAM_185893`
+- Haridama: `OAM_188c7a`
+- Hebarii: `Frameset_68408`, `OAM_18a703`
+- Intro: `Frameset_6ce6`, `Frameset_6d18`, `Frameset_6d1b`, `Frameset_712c`, `Frameset_713d`, `Frameset_7144`, `Frameset_7165`, `Frameset_7172`, `Frameset_717b`, `Frameset_7184`, `Frameset_718d`, `Frameset_7198`, `Frameset_71a1`, `Frameset_71a4`, `Frameset_71a7`
+- Jamano: `Frameset_69c69`, `Frameset_69cc5`, `OAM_19501c`
+- Kobatto: `OAM_185788`
+- Kushimushi: `OAM_18160c`
+- LanguageSelection: `Frameset_76b5`
+- LeavesFallCutscene: `Pals_b8280`, `Pals_b8f00`
+- MadScienstein: `Frameset_68c33`
+- MakeWireCutscene: `Pals_b8300`
+- MixChemicalsCutscene: `Pals_b8400`
+- Mizuuo: `Frameset_686ce`, `Frameset_686d3`, `OAM_188395`
+- Muddee: `OAM_195699`
+- MuddeeStinger: `Frameset_68072`
+- MusicalCoinScreen: `Frameset_d65f0`, `OAM_d65e1`
+- Nobiiru: `OAM_181cd3`
+- OWWario: `Frameset_aa25e`, `Frameset_aa405`, `Frameset_aa416`, `Frameset_aa427`, `Frameset_aa438`
+- Octohon: `Frameset_69b38`, `Frameset_69b60`, `OAM_18a895`
+- Omodonmeka: `OAM_181189`, `OAM_18136c`, `OAM_18154f`
+- OpenBlueSnakeDoorCutscene: `Pals_b81c0`, `Pals_b8e80`
+- OpenGoldenSnakeDoorCutscene: `Pals_b8180`, `Pals_b8e40`
+- OpenNorthGateCutscene: `Pals_b88c0`
+- OpenParaGoomCageCutscene: `Pals_b8700`, `Pals_b9000`
+- OpenSkyDoorCutscene: `Pals_b83c0`, `Pals_b9040`
+- OpenTreeMouthCutscene: `Pals_b82c0`
+- Owl: `Frameset_692e7`, `Frameset_69335`, `OAM_188e16`
+- ParaGoom: `Frameset_68439`, `Frameset_684ba`, `OAM_180b43`
+- Particle: `OAM_d80d`
+- PathPreview: `Frameset_aa261`, `Frameset_aa264`, `Frameset_aa267`, `Frameset_aa26a`
+- PauseMenu: `Frameset_1f1c4a`, `Frameset_1f1c4d`, `Frameset_1f1c50`, `Frameset_1f1c69`, `Frameset_1f1c74`, `Frameset_1f1c77`, `Frameset_1f1c9c`, `Frameset_1f1c9f`, `Frameset_1f1cb8`, `Frameset_1f1cbb`, `Frameset_1f1ced`, `Frameset_1f1cf0`, `Frameset_1f1cf3`, `Frameset_1f1cf6`, `Frameset_1f1cf9`, `Frameset_1f1d0a`, `Frameset_1f1d1b`, `Frameset_1f1d20`, `Frameset_1f1d41`, `Frameset_1f1d4c`, `OAM_1f156c`, `Pals_1f628c`
+- Perfect: `Frameset_dd848`, `OAM_dd710`, `Pals_dc173`, `Pals_dc1b3`, `Pals_dc1cb`, `Pals_dc1e3`
+- Pesce: `Frameset_699e4`, `Frameset_69a00`, `OAM_1927d5`
+- PillarPlatform: `OAM_18a5ae`
+- PlacePropellerCutscene: `Pals_b8440`
+- PlantSeedsCutscene: `Pals_b8a80`
+- Pneumo: `OAM_184db9`
+- PrinceFroggy: `OAM_184000`
+- PurifyWaterCutscene: `Pals_b8d80`
+- RainstormCutscene: `Pals_b8080`, `Pals_b8900`
+- RaisePipeCutscene: `Pals_b8380`, `Pals_b8fc0`
+- RaiseTowerCutscene: `Pals_b8a00`
+- RedMusicBoxCutscene: `Pals_b8b80`
+- RevealCastleCutscene: `Pals_b8140`, `Pals_b8940`
+- RevealWarpedVoidCutscene: `Pals_b8f80`
+- RoboMouse: `OAM_188555`
+- Rock: `OAM_18ab5c`
+- SceneWario: `OAM_aa5fe`, `OAM_aa6e7`, `OAM_aa934`, `OAM_aad1e`, `OAM_ab0c5`
+- Scowler: `Frameset_69ae3`, `Frameset_69b0d`, `OAM_194895`
+- Shoot: `OAM_196583`
+- Silky: `OAM_18181e`
+- SmallLeaf: `OAM_181be4`
+- Snake: `Frameset_6893a`, `OAM_189783`
+- SouthOWObj: `Frameset_a9680`
+- Spark: `OAM_18ab04`
+- SpearBot: `OAM_18440a`
+- Spearhead: `Frameset_681d2`
+- SprayIronWallCutscene: `Pals_b8480`
+- Stars: `Frameset_680a5`, `Frameset_680b6`, `Frameset_680c5`
+- StartMenu: `Frameset_6cec`, `Frameset_6cef`, `Frameset_6cf2`, `Frameset_6d05`, `OAM_6b5f`
+- Stove: `OAM_1896e1`
+- SummonLightningCutscene: `Pals_b8c40`
+- SummonSnakesCutscene: `Pals_b8dc0`
+- SummonSunCutscene: `Pals_b8c80`
+- SunMoon: `Frameset_68fad`, `Frameset_68fb2`, `Frameset_69012`, `Frameset_6901b`, `OAM_1851df`, `OAM_1854a2`
+- Tadpole: `OAM_18a642`
+- Teruteru: `OAM_18496f`
+- Title: `OAM_6d21`
+- Togeba: `OAM_188b56`
+- TopBar: `Frameset_aa091`, `Frameset_aa094`, `Frameset_aa097`, `Frameset_aa09a`, `Frameset_aa0a9`, `Frameset_aa0ae`, `Frameset_aa0b1`, `Frameset_aa0b4`, `Frameset_aa0b9`, `Frameset_aa0c6`
+- Torch: `Frameset_68354`, `OAM_180838`
+- TorchForestCutscene: `Pals_b8f40`
+- UnusedFlower: `Frameset_6838c`, `Frameset_68395`, `OAM_180916`
+- VolcanoEruptionCutscene: `Pals_b8a40`
+- WallCrack: `Frameset_6a052`, `Frameset_6a05f`, `OAM_18c806`
+- Wario: `Frameset_155a0`, `Frameset_155a3`, `Frameset_15f9a`, `Frameset_15fb8`, `Frameset_15ff2`, `Frameset_1789c`, `Frameset_178c3`, `Frameset_1dd230`, `Frameset_1dd295`, `Frameset_1dd316`, `Frameset_1dd323`, `OAM_1742d`
+- WarioBall: `Frameset_1dd26c`, `Frameset_1dd2ee`
+- WarioBallOString: `Frameset_173fe`, `Frameset_17414`, `Frameset_1741f`
+- WarioBat: `Frameset_1fd434`
+- WarioBouncy: `Frameset_1fcc6c`, `Frameset_1fcc98`, `Frameset_1fcca5`, `Frameset_1fccb2`, `Frameset_1fccbf`
+- WarioBump: `Frameset_14a6c`, `Frameset_14a71`, `Frameset_14a79`
+- WarioCrazy: `Frameset_1fcf6e`, `Frameset_1fcf9f`
+- WarioCrouch: `Frameset_14a26`, `Frameset_14a2f`
+- WarioFat: `Frameset_17834`, `Frameset_17839`, `Frameset_1783e`, `Frameset_17841`, `Frameset_17872`, `Frameset_17887`
+- WarioFlat: `Data_2b664`, `Data_2b68c`, `Frameset_17186`, `Frameset_17190`, `Frameset_17193`, `Frameset_171a3`, `Frameset_171b8`
+- WarioGrab: `Frameset_15fa8`, `Frameset_15fab`, `Frameset_163f5`
+- WarioHot: `Frameset_16b26`, `Frameset_16b2f`
+- WarioInBubble: `Data_2b6b4`, `Frameset_1fdb2c`, `OAM_1fd87c`
+- WarioOwl: `Frameset_1fed53`, `Frameset_1fede5`
+- WarioRoll: `Frameset_166e6`
+- WarioSnowball: `Frameset_1ff92b`, `Frameset_1ff956`, `OAM_1ff64a`
+- WarioSnowman: `Frameset_1ff60c`, `Frameset_1ff617`, `Frameset_1ff622`, `Frameset_1ff625`
+- WarioSwallowed: `Frameset_1dc40f`, `Frameset_1dc42c`
+- WarioThrow: `Frameset_163fe`
+- WarioUnderwater: `Frameset_155a6`, `Frameset_155ab`
+- WarioZombie: `Frameset_1fc8a6`, `Frameset_1fc8ab`, `Frameset_1fc8b0`, `Frameset_1fc8b3`
+- WaterDrop: `OAM_18a5cc`
+- WaterSpark: `OAM_18a7fd`
+- Webber: `Frameset_682c8`, `OAM_180242`
+- WestOWObj: `Frameset_a8eca`, `Frameset_a8ee8`
+- Wolfenboss: `Frameset_69e30`, `Frameset_69e50`, `Frameset_69e7b`, `OAM_195e06`
+- Wormwould: `Frameset_696f8`, `Frameset_6973d`, `Frameset_69746`, `Frameset_6974d`, `Frameset_69754`, `OAM_194000`
+- YellowBelly: `Frameset_69870`, `Frameset_69875`, `Frameset_6987a`, `OAM_19153c`, `OAM_1926dc`
+- ZipLine: `OAM_18834a`
+- Zombie: `Frameset_68db3`, `Frameset_68dc4`, `OAM_184ffa`
+
+**Rule W (Wario graphics shared by several states, medium)**, 95 labels
+
+- Wario: `Frameset_14252`, `Frameset_1425f`, `Frameset_149c5`, `Frameset_14a38`, `Frameset_14a3b`, `Frameset_14cbe`, `Frameset_14cc5`, `Frameset_14cf6`, `Frameset_14d18`, `Frameset_151e4`, `Frameset_151fd`, `Frameset_1522d`, `Frameset_158d6`, `Frameset_158fd`, `Frameset_15900`, `Frameset_15945`, `Frameset_15f70`, `Frameset_15f7f`, `Frameset_15f91`, `Frameset_15fa1`, `Frameset_15fc5`, `Frameset_16009`, `Frameset_16055`, `OAM_14000`, `OAM_14a82`, `OAM_14d1b`, `OAM_155cc`, `OAM_15955`, `OAM_1606a`, `OAM_1fd031`
+- WarioBallOString: `OAM_171c0`
+- WarioBat: `Frameset_1fd42c`, `Frameset_1fd46c`, `Frameset_1fd479`
+- WarioBlind: `Frameset_15f97`
+- WarioBump: `Frameset_15216`, `Frameset_15219`
+- WarioCrazy: `Frameset_17ce2`, `OAM_17bbc`
+- WarioElectric: `Frameset_17b76`, `Frameset_17b79`, `OAM_1790e`
+- WarioFence: `Frameset_14d0b`, `Frameset_14d10`, `Frameset_14d15`
+- WarioFlat: `OAM_16e9d`
+- WarioGetTreasure: `Frameset_1fc439`, `Frameset_1fc446`, `Frameset_1fc453`, `Frameset_1fc45a`, `Frameset_1fc461`, `Frameset_1fc46a`, `OAM_1fc000`, `OAM_1fc31b`
+- WarioGrab: `Frameset_149fe`, `Frameset_14a0f`, `Frameset_14a20`, `Frameset_14a23`, `Frameset_163ec`, `Frameset_1640c`, `Frameset_16415`
+- WarioOnFire: `Frameset_16b14`, `Frameset_16b1d`, `Frameset_16b38`, `Frameset_16b49`, `OAM_1673c`
+- WarioOwl: `Frameset_1fed7c`, `Frameset_1fed91`, `Frameset_1feda6`, `Frameset_1fedbb`, `Frameset_1fedd0`, `Frameset_1fedfe`, `OAM_1fddb4`
+- WarioRail: `Frameset_1feeb4`, `Frameset_1feec4`, `OAM_1fee05`
+- WarioRoll: `Frameset_166f7`
+- WarioSlid: `Frameset_1671d`
+- WarioSwim: `Frameset_15569`, `Frameset_15573`, `Frameset_15576`, `Frameset_1558b`
+- WarioThrow: `Frameset_1641e`, `Frameset_16423`, `Frameset_1642f`, `Frameset_16435`, `Frameset_16441`
+- WarioUnderwater: `Frameset_1556c`, `Frameset_155c5`, `OAM_15254`
+- WarioVampire: `Frameset_1fd439`, `Frameset_1fd82e`, `OAM_1fd498`
+- WarioWater: `Frameset_15554`, `Frameset_1555b`
+
+**Rule S (one "show" routine, medium)**, 38 labels
+
+`Frameset_1e6b70` ActionHelpAInputFrameset; `Frameset_1e6b73` ActionHelpBInputFrameset; `Frameset_1e6b79` ActionHelpDUpInputFrameset; `Frameset_1e6b7c` ActionHelpDRightInputFrameset; `Frameset_1e6b7f` ActionHelpDDownInputFrameset; `Frameset_1e6b82` ActionHelpDLeftInputFrameset; `Frameset_1e6b88` ActionHelpSlideFrameset; `Frameset_1e6b93` ActionHelpVerticalBlockPairFrameset; `Frameset_1e6ba8` ActionHelpDRightAndDDownInputFrameset; `Frameset_1e6f36` ActionHelpParaGoomWalkFrameset; `Frameset_1e6f3f` ActionHelpParaGoomThrownFrameset; `Frameset_1e6f48` ActionHelpParaGoomStunFrameset; `Frameset_1e6f55` ActionHelpCountRichtertoffThrownFrameset; `Frameset_1e6f5e` ActionHelpCountRichtertoffStunFrameset; `Frameset_1e6f78` ActionHelpFutamoguAngryFrameset; `Frameset_1e6fcb` ActionHelpRailRotateRightFrameset; `Frameset_d4a5` ActionHelpEnemyVanishFrameset; `Frameset_d4ba` ParticleSplashFrameset; `Frameset_d4c5` ParticleDustFrameset; `Frameset_d4ea` ParticleSmokeSmallFrameset; `Frameset_d4f3` ParticleSmokeLargeFrameset; `Frameset_d502` ParticleBubblesFrameset_d502; `Frameset_d50b` ParticleBubblesFrameset_d50b; `Frameset_d525` ParticleStarsFrameset; `Frameset_d591` ParticleBouncyJumpFrameset; `Frameset_d622` ParticleBubbleBurstFrameset; `Frameset_d6e4` ParticleIceFrameset_d6e4; `Frameset_d6fd` ParticleIceFrameset_d6fd; `Frameset_d75a` ParticleTreasureGlowFrameset; `Frameset_d806` ParticleSnowFrameset; `Frameset_d8e7` ParticleMagic1Frameset; `Frameset_d8f4` ParticleMagic2Frameset; `Frameset_d901` ParticleMagicStopFrameset; `OAM_d532` ParticleBouncyJumpOAM; `OAM_d5ae` ParticleBubbleBurstOAM; `OAM_d62b` ParticleIceOAM; `OAM_d716` ParticleTreasureGlowOAM; `OAM_d7bd` ParticleSnowOAM
+
+**Rule U (unreferenced, owner of the neighbours)**, 287 labels
+
+- Unreferenced (low): `Data_82026`, `Frameset_1c8e21`, `Frameset_bc10d`, `Frameset_bc110`, `Frameset_bc113`, `Frameset_bc116`, `Frameset_bc119`, `Frameset_bc11c`, `Frameset_bc11f`, `Pals_d206`
+- UnreferencedActionHelp (medium): `Frameset_1e6b9f`, `Frameset_1e6f52`, `Frameset_1e6f63`
+- UnreferencedAnonster (medium): `Frameset_6945d`, `Frameset_69460`, `Frameset_69537`
+- UnreferencedAppleby (medium): `Frameset_68a55`
+- UnreferencedBarrel (low): `Frameset_68a92`
+- UnreferencedBeamBot (low): `Frameset_68efd`, `Frameset_68f04`
+- UnreferencedBottomBar (low): `Frameset_aa308`, `Frameset_aa30b`, `Frameset_aa30e`, `Frameset_aa311`, `Frameset_aa314`, `Frameset_aa317`, `Frameset_aa31a`, `Frameset_aa31d`, `Frameset_aa320`, `Frameset_aa323`, `Frameset_aa326`
+- UnreferencedChests (low): `Frameset_68065`
+- UnreferencedCountRichtertoffen (medium): `Frameset_683cf`
+- UnreferencedEastOWObj (medium): `Frameset_a9e81`
+- UnreferencedElectricLamp (low): `Frameset_68cde`, `Frameset_68ce7`, `Frameset_68cf0`, `Frameset_68cf7`, `Frameset_68cfe`, `Frameset_68d03`, `Frameset_68d08`, `Frameset_68d11`
+- UnreferencedElectricLamp (medium): `Frameset_68ca9`, `Frameset_68cb2`, `Frameset_68cbb`
+- UnreferencedFlameBlock (low): `Frameset_69608`
+- UnreferencedGolfCourseMenu (medium): `Frameset_1cb5ba`, `Frameset_1cb5bd`, `Frameset_1cb5c0`
+- UnreferencedGolfHole (medium): `Frameset_1caf78`
+- UnreferencedHiddenFigure (medium): `Frameset_6a09c`, `Frameset_6a0a7`, `Frameset_6a0d7`, `Frameset_6a0da`, `Frameset_6a0dd`, `Frameset_6a0e0`, `Frameset_6a0e3`, `Frameset_6a0e6`, `Frameset_6a0e9`, `Frameset_6a0ec`, `Frameset_6a0f5`, `Frameset_6a0f8`, `Frameset_6a0fb`, `Frameset_6a101`, `Frameset_6a104`, `Frameset_6a107`, `Frameset_6a10a`, `Frameset_6a10d`, `Frameset_6a110`, `Frameset_6a113`, `Frameset_6a116`, `Frameset_6a11f`, `Frameset_6a122`, `Frameset_6a125`
+- UnreferencedJamano (medium): `Frameset_69c25`, `Frameset_69c2e`, `Frameset_69c37`, `Frameset_69c58`, `Frameset_69c89`, `Frameset_69caa`, `Frameset_69cb3`, `Frameset_69cbc`
+- UnreferencedKobatto (low): `Frameset_69060`
+- UnreferencedKushimushi (low): `Frameset_6869b`
+- UnreferencedKushimushi (medium): `Frameset_68660`, `Frameset_68667`, `Frameset_6866e`, `Frameset_68675`, `Frameset_6867c`, `Frameset_68683`, `Frameset_6868a`, `Frameset_68691`
+- UnreferencedMizuuo (medium): `Data_60720`
+- UnreferencedMuddee (medium): `Frameset_69d7c`
+- UnreferencedMuddeeStinger (low): `Frameset_6807f`, `Frameset_6808e`
+- UnreferencedNorthOWObj (low): `Frameset_aa255`, `Frameset_aa258`, `Frameset_aa25b`, `Frameset_aa5fb`
+- UnreferencedOWUI (low): `Frameset_aa5e9`, `Frameset_aa5ec`, `Frameset_aa5ef`, `Frameset_aa5f2`
+- UnreferencedOctohon (low): `Frameset_69b91`
+- UnreferencedOwl (low): `Frameset_69382`, `Frameset_6938d`, `Frameset_69398`, `Frameset_693a3`, `Frameset_693ae`, `Frameset_693b9`
+- UnreferencedOwl (medium): `Frameset_69340`, `Frameset_6934b`, `Frameset_69356`, `Frameset_69363`
+- UnreferencedParticle (low): `Frameset_d4ce`, `Frameset_d4d5`, `Frameset_d4dc`, `Frameset_d4e3`
+- UnreferencedParticleBubbles (low): `Frameset_d514`, `Frameset_d519`, `Frameset_d51c`, `Frameset_d51f`, `Frameset_d522`
+- UnreferencedPathPreview (low): `Frameset_aa26d`, `Frameset_aa270`, `Frameset_aa2a9`, `Frameset_aa2b2`
+- UnreferencedPesce (medium): `Frameset_699e9`, `Frameset_699ee`, `Frameset_699f7`, `Frameset_69a03`, `Frameset_69a06`, `Frameset_69a09`, `Frameset_69a0c`, `Frameset_69a0f`, `Frameset_69a12`
+- UnreferencedPneumo (medium): `Frameset_68c6d`, `Frameset_68c76`
+- UnreferencedSceneWario (low): `Frameset_d4e23`
+- UnreferencedSceneWario (medium): `Frameset_aa910`, `Frameset_ab095`
+- UnreferencedScowler (medium): `Frameset_69acc`, `Frameset_69aec`, `Frameset_69afc`
+- UnreferencedSeeingEyeDoor (medium): `Frameset_68c4d`, `Frameset_68c53`
+- UnreferencedShoot (medium): `Frameset_69f4b`, `Frameset_69f81`, `Frameset_69fae`, `Frameset_69fb3`
+- UnreferencedSpark (low): `Frameset_69be2`, `Frameset_69bf5`
+- UnreferencedSpearhead (low): `Data_601f0`
+- UnreferencedSpearhead (medium): `Data_601d0`, `Frameset_6823d`, `Frameset_68246`
+- UnreferencedSunMoon (medium): `Frameset_68f7d`, `Frameset_68f86`, `Frameset_68fe2`, `Frameset_68feb`
+- UnreferencedTadpole (low): `Frameset_69a42`, `Frameset_69a47`, `Frameset_69a4c`, `Frameset_69a51`, `Frameset_69a58`
+- UnreferencedTadpole (medium): `Frameset_69a20`, `Frameset_69a23`, `Frameset_69a2b`, `Frameset_69a38`
+- UnreferencedTempleSceneObj (low): `Frameset_15e95f`, `Frameset_15e962`, `Frameset_15e965`, `Frameset_15e968`, `Frameset_15e96b`, `Frameset_15e974`
+- UnreferencedTempleSceneObj (medium): `Frameset_15e8b9`, `Frameset_15e8be`, `Frameset_15e8c3`, `Frameset_15e8cc`, `Frameset_15e8d1`, `Frameset_15e8d6`, `Frameset_15e8db`, `Frameset_15e8e6`, `Frameset_15e8f1`, `Frameset_15e8f6`, `Frameset_15e8fb`, `Frameset_15e902`, `Frameset_15e909`, `Frameset_15e910`, `Frameset_15e917`, `Frameset_15e91a`, `Frameset_15e91d`, `Frameset_15e920`, `Frameset_15e923`, `Frameset_15e926`, `Frameset_15e929`, `Frameset_15e92c`, `Frameset_15e92f`, `Frameset_15e935`, `Frameset_15e938`, `Frameset_15e93b`, `Frameset_15e93e`, `Frameset_15e941`, `Frameset_15e944`, `Frameset_15e947`, `Frameset_15e94a`, `Frameset_15e94d`, `Frameset_15e950`, `Frameset_15e953`, `Frameset_15e956`, `Frameset_15e959`
+- UnreferencedTopBar (medium): `Frameset_aa0a0`, `Frameset_aa0a6`
+- UnreferencedUnusedFlower (medium): `Frameset_6839e`, `Frameset_683a3`
+- UnreferencedWario (low): `Frameset_149d6`, `Frameset_149d9`, `Frameset_149dc`, `Frameset_149ed`, `Frameset_14a3e`, `Frameset_14a4f`, `Frameset_14a60`, `Frameset_14a63`, `Frameset_14a66`, `Frameset_14a69`, `Frameset_1dd23b`, `Frameset_1dd2a0`
+- UnreferencedWarioBall (low): `Frameset_1dd26f`
+- UnreferencedWarioBallAirborne (low): `Frameset_1dd2f9`, `Frameset_1dd306`
+- UnreferencedWarioBallShot (low): `Frameset_1dd2dc`, `Frameset_1dd2e9`
+- UnreferencedWarioBat (medium): `Frameset_1fd431`
+- UnreferencedWarioBatTransforming (low): `Frameset_1fd429`
+- UnreferencedWarioBouncy (low): `Frameset_1fcccc`
+- UnreferencedWarioBump (low): `Frameset_14a7c`, `Frameset_14a7f`
+- UnreferencedWarioCrazyTurning (low): `Frameset_1fcfde`, `Frameset_1fcfef`, `Frameset_1fd000`
+- UnreferencedWarioPuffyInflating (low): `Frameset_1dccd2`, `Frameset_1dccd5`
+- UnreferencedWarioRail (medium): `Frameset_1feebd`
+- UnreferencedWarioSlid (low): `Frameset_16732`, `Frameset_16737`
+- UnreferencedWarioSnowballCrash (low): `Frameset_1ff988`, `Frameset_1ff9cd`
+- UnreferencedWarioTurningInvisible (low): `Frameset_17e59`, `Frameset_17e78`
+- UnreferencedWarioVampire (low): `Frameset_1fd45c`, `Frameset_1fd837`
+- UnreferencedWarioVampireTurning (low): `Frameset_1fd848`, `Frameset_1fd851`, `Frameset_1fd85a`, `Frameset_1fd85d`, `Frameset_1fd860`, `Frameset_1fd869`, `Frameset_1fd872`, `Frameset_1fd877`
+- UnreferencedWaterSpark (medium): `Frameset_69b1b`
+- UnreferencedWestOWObj (medium): `Frameset_a8f54`
+- UnreferencedWolfenboss (low): `Frameset_69ec3`, `Frameset_69ed6`, `Frameset_69ee9`, `Frameset_69efc`, `Frameset_69f0f`, `Frameset_69f22`
+- UnreferencedWolfenboss (medium): `Frameset_69dd0`, `Frameset_69e69`
+- UnreferencedYellowBelly (low): `Frameset_698a5`
+- UnreferencedYellowBelly (medium): `Frameset_697f0`, `Frameset_697f9`, `Frameset_69802`, `Frameset_69811`, `Frameset_69820`, `Frameset_6982b`, `Frameset_69836`, `Frameset_69866`, `Frameset_6986b`
+- UnreferencedZombie (medium): `Frameset_68d32`, `Frameset_68d3f`, `Frameset_68d48`, `Frameset_68d51`, `Frameset_68d58`, `Frameset_68d5f`, `Frameset_68d70`
+
 ### 4e. Other address-named routines (outside the overworld)
 
 Not on the resume list, but a grep of `src/` still found them: clear screens, credits, game over, golf, title, the level engine (block functions, Wario-state helpers, objects), audio and action help locals, plus the `VBlank_`, `Text_` and `UnreferencedLCD_` labels of the inventory. All read; same conventions.
@@ -2356,3 +2706,5 @@ Not on the resume list, but a grep of `src/` still found them: clear screens, cr
 | level/objects/omodonmeka.asm:1131 | `OmodonFunc`: `.Func_42894` -> `.pass_stepped_flag_to_omodonmeka`; `.Func_42935` -> `.check_omodonmeka_linked` | The two object searches the second pass left "not named": `.check_omodonmeka_linked` looks through the 8 slots for an active, non-transient object with the same object-map pointer (flags & $41 = $01) and sets the substate to $10 if there is one (0 if not); `.pass_stepped_flag_to_omodonmeka` finds the active, on-screen, non-transient one (flags & $43 = $03) and copies this object's `OBJFLAG_STEPPED` into it (so stepping on the Omodon counts for the Omodonmeka carrying it), then checks a state of $3a. | medium |
 | bank20.asm:4202 | `UnreferencedLCD_82729` -> `UnreferencedLCDFunc_SetBGMap1`; `UnreferencedLCD_82754` -> `UnreferencedLCDFunc_Reti` | Both marked unreferenced: copy an LCD (STAT) handler to `wLCDFunc`. The first switches to BG map 1 in the next HBlank (and writes `a` = 2 to `rSCY`/`rSCX`, which looks like leftover code); the second is a bare `reti`. | medium (high: `UnreferencedLCDFunc_Reti`) |
 | overworld.asm:139 | `Text_b2107` -> `TextJP_HiddenFigureHeadFor_Unused`; `Text_b231c` -> `TextEN_HiddenFigureHeadFor_Unused`; `Text_b2411` -> `TextJP_HiddenFigureReplenishPower_Unused`; `Text_b2533` -> `TextEN_HiddenFigureReplenishPower_Unused`; `Text_b37e6` -> `TextJP_HiddenFigureAreYouAware_Unused`; `Text_b39f0` -> `TextEN_HiddenFigureAreYouAware_Unused`; `Text_15e212` -> `TextJP_OldManThankYou_Unused`; `Text_15e437` -> `TextEN_OldManThankYou_Unused` | Unreferenced short filler string after each text tilemap in "Hidden Figure Text 1/2" and "OW BG Maps 2" (the same bytes each time): named after the text they follow. | medium |
+| perfect/core.asm:123 | `Func_dc101` -> `LoadPerfectCyclePals0`; `Func_dc10d` -> `LoadPerfectCyclePals1`; `Func_dc119` -> `LoadPerfectCyclePals2`; `Func_dc125` -> `LoadPerfectCyclePals3`; `Func_dc13e` -> `LoadPerfectBGMaps`; `Func_dc158` -> `LoadPerfectSprite` | Perfect screen: the update cycles BG palettes 5-7 every 8 frames through `Pals_dc173` palettes 5-7 (`Func_dc101`), `Pals_dc1b3`, `Pals_dc1cb` and `Pals_dc1e3` (the other three); `Func_dc13e` loads the BG maps, `Func_dc158` draws a sprite with `OAM_dd710`. | high |
+| home/fade.asm:818 | `VBlank_88d` -> `VBlank_StorePals`; `VBlank_8bf` -> `VBlank_LoadPalsFromWRAM` | Home fade helpers: `VBlank_88d` backs up `wVBlankFunc` and installs a function that stores the current BG/OB palettes into WRAM (`StoreBGPals`/`StoreOBPals`); `VBlank_8bf` installs one that loads them from WRAM every frame (`LoadBGPalettesFromWRAM`/`LoadOBPalettesFromWRAM`). Used at the start of every fade routine in fade.asm. | high |
