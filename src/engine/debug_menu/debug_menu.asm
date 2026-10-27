@@ -466,6 +466,20 @@ DebugMenu_SpawnOwl:
 	ret
 
 ; -----------------------------------------------------------------------
+; GOLF: toggle the current area's golf win. It only decides whether the
+; clear gates are open, so the gates already in the room are moved to
+; match (see _DebugMoveClearGates) instead of reloading the room.
+; -----------------------------------------------------------------------
+DebugMenu_ToggleGolf:
+	ld a, [wIsMinigameCleared]
+	xor TRUE
+	ld [wIsMinigameCleared], a
+	push_wram BANK("Level Objects WRAM")
+	farcall _DebugMoveClearGates
+	pop_wram
+	ret
+
+; -----------------------------------------------------------------------
 ; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
 ; colour, the LevelTreasureIDs layout).
 ; output: a = treasure ID
@@ -1007,11 +1021,7 @@ UpdateDebugMenu:
 	jr z, .toggle_treasure
 	cp DEBUG_MENU_GOLF
 	jr nz, .check_redraw
-	ld a, [wIsMinigameCleared]
-	xor TRUE
-	ld [wIsMinigameCleared], a
-	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
-	ld [wRoomTransitionParam], a
+	call DebugMenu_ToggleGolf
 	ld c, 1
 	jr .check_redraw
 .spawn_owl
@@ -1099,17 +1109,4 @@ DebugMenu_Exit:
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
 
-	; If a room reload is pending (e.g. golf win toggled), skip directly to
-	; FastFadeToWhite (substate 5) so StartRoom_FromTransition fires immediately.
-	; UpdateState_Idling doesn't check wRoomTransitionParam, so returning to
-	; UpdateLevel (substate 3) would leave the transition param unprocessed.
-	ld a, [wRoomTransitionParam]
-	and a
-	jr z, .no_pending_reload
-	ld a, ST_LEVEL
-	ld [wState], a
-	ld a, 5    ; FastFadeToWhite → StartRoom_FromTransition
-	ld [wSubState], a
-	ret
-.no_pending_reload:
 	jp ReturnToPendingLevelState

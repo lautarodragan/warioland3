@@ -86,6 +86,7 @@ INCLUDE "engine/level/objects/barrel.asm"
 INCLUDE "engine/level/objects/small_leaf.asm"
 INCLUDE "engine/level/objects/clear_gate.asm"
 INCLUDE "engine/level/objects/nobiiru.asm"
+INCLUDE "engine/debug_menu/clear_gates.asm" ; last, so nothing before it moves
 
 
 SECTION "Object Functions 2", ROMX
