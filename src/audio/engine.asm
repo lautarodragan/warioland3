@@ -833,7 +833,7 @@ AudioModFunctionTable:
 	dw AudioMod_Pan              ; AUDIOMOD_PAN
 	dw AudioMod_VibratoAmplitude ; AUDIOMOD_VIBRATO_AMPLITUDE
 	dw AudioMod_VibratoSpeed     ; AUDIOMOD_VIBRATO_SPEED
-	dw Func_309b6                ; AUDIOMOD_UNK
+	dw AudioMod_Release                ; AUDIOMOD_UNK
 	assert_table_length NUM_AUDIOMOD_FUNCTIONS
 
 ; input:
@@ -1793,7 +1793,7 @@ AudioCmd_SetChannelReleaseLength:
 	ld bc, CHANNEL_RELEASE_LENGTH
 	jr SetChannelProperty
 
-Func_309b6:
+AudioMod_Release:
 	ld bc, CHANNEL_RELEASE_VOLUME
 	jp AudioModSetValue_Long
 

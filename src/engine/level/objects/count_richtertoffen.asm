@@ -47,8 +47,8 @@ CountRichtertoffenFunc:
 	dw .StunRightStart ; OBJSTATE_STUN_RIGHT_START
 	dw .State18 ; OBJSTATE_18
 	dw .State19 ; OBJSTATE_19
-	dw Func_3263 ; OBJSTATE_1A
-	dw Func_3272 ; OBJSTATE_1B
+	dw ObjState_HopStart ; OBJSTATE_1A
+	dw ObjState_Hop ; OBJSTATE_1B
 	dw ObjState_StartRandomWobble ; OBJSTATE_1C
 	dw .Default ; OBJSTATE_1D
 	dw .Default ; OBJSTATE_1E
@@ -588,7 +588,7 @@ CountRichtertoffenFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, OBJSTATE_00
 	ld [wCurObjState], a
 	ret
@@ -606,7 +606,7 @@ CountRichtertoffenFunc:
 .TurnAround:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, OBJ_INTERACTION_01
 	ld [wCurObjState], a
 	ret

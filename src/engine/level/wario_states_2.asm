@@ -560,7 +560,7 @@ SetState_SandFalling:
 	call SetWarioPal
 ;	fallthrough
 
-Func_1a12a:
+SetWarioSandAirborneAnimation:
 	ld a, BANK(WarioAirborneGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioAirborneGfx)
@@ -576,7 +576,7 @@ Func_1a12a:
 	ld [wWarioOAMPtr + 1], a
 ;	fallthrough
 
-Func_1a14b:
+SetWarioSandAirborneFrameset:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -622,7 +622,7 @@ SetState_SandJumping:
 	ld [wWarioStateCycles], a
 	inc a
 	ld [wJumpVelTable], a
-	jp Func_1a12a
+	jp SetWarioSandAirborneAnimation
 
 UpdateState_SandJumping:
 	farcall CheckTopBlockInteraction
@@ -645,7 +645,7 @@ UpdateState_SandJumping:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1a211
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 
 .asm_1a211
 	ld a, [wJoypadDown]
@@ -2331,7 +2331,7 @@ HandleSandFallingInput:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1b301
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 .asm_1b301
 	ret
 

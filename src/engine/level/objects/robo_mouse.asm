@@ -479,7 +479,7 @@ RoboMouseFunc:
 .TurnAround:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_X_POS
 	ld a, [hli]
 	ld e, a

@@ -5568,7 +5568,7 @@ HandleSwimming:
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_1f2c0
 	bit B_PAD_LEFT, a
-	jp nz, Func_1f357
+	jp nz, SwimLeft
 	ret
 
 .asm_1f2b2
@@ -5646,7 +5646,7 @@ SwimForward:
 	ld [wWaterCurrentBlockedDir], a
 	ret
 
-Func_1f357:
+SwimLeft:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -5894,7 +5894,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wSwimmingDirectionInput]
 	and PAD_RIGHT | PAD_LEFT
 	jr z, .asm_1f5e9
-	ld hl, Data_1f894
+	ld hl, SwimDiagonalVertVelTable
 .asm_1f5e9
 	add hl, de
 	ld b, [hl]
@@ -5923,7 +5923,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wSwimmingDirectionInput]
 	and PAD_RIGHT | PAD_LEFT
 	jr z, .asm_1f63c
-	ld hl, Data_1f894
+	ld hl, SwimDiagonalVertVelTable
 .asm_1f63c
 	add hl, de
 	ld b, [hl]
@@ -6230,7 +6230,7 @@ MoveWarioUpBySwimVel:
 SwimStraightVelTable:
 	db $01, $01, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00, $00, $00
 
-Data_1f894:
+SwimDiagonalVertVelTable:
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00, $00, $00
 
 SwimDiagonalVelTable:

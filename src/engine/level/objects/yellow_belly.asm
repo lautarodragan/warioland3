@@ -780,7 +780,7 @@ YellowBellyBodyFunc:
 	ld l, a
 	ld a, $2f
 	ld [hl], a
-	jp Func_51c62
+	jp SetObjMapEntry7_YellowBelly
 
 PumpFunc:
 	ld hl, wCurObjUpdateFunction + 1
@@ -1331,7 +1331,7 @@ YellowBellyPlatformFunc:
 	ld [wIsBossBattle], a
 ;	fallthrough
 
-Func_51c62:
+SetObjMapEntry7_YellowBelly:
 	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn

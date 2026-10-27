@@ -67,7 +67,7 @@ Func_ac04c:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSpriteWithScroll
 
-Func_ac051:
+LoadSceneObjSprite_CreditsOAM:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSprite
 
@@ -171,7 +171,7 @@ UpdateEpilogueSceneObj:
 	call Func_ac016
 .asm_ac10a
 	ld de, EpilogueSceneObjOAM_15e97d
-	jp Func_ac051
+	jp LoadSceneObjSprite_CreditsOAM
 
 ; unreachable
 	call Func_ac016

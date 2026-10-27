@@ -811,7 +811,7 @@ TempleHint_End:
 	ret
 
 ; unreferenced
-Func_8143d:
+UnreferencedPathPreviewFromLevel:
 	ld hl, wOWWarioSavedYCoord
 	ld a, [wOWWarioYCoord]
 	ld [hli], a ; wOWWarioSavedYCoord

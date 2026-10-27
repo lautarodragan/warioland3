@@ -2761,7 +2761,7 @@ SetState_BallStart:
 
 	ld a, [wJumpVelTable]
 	and a
-	jr z, Func_1edaca
+	jr z, LandFromBallStart
 
 	ld a, WST_BALL_START
 	ld [wWarioState], a
@@ -2803,7 +2803,7 @@ UpdateState_BallStart:
 	ld [de], a
 ;	fallthrough
 
-Func_1edaca:
+LandFromBallStart:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edae4
@@ -2825,7 +2825,7 @@ Func_1edaca:
 	ld [wWarioFramesetPtr + 1], a
 	jr SetState_BallBouncing
 
-Func_1edaf8:
+LandFromBallAirborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edb12
@@ -2916,7 +2916,7 @@ UpdateState_BallAirborne:
 	and a
 	ret z
 	update_pos_y
-	jp Func_1edaf8
+	jp LandFromBallAirborne
 
 SetState_BallShot:
 	ld a, WST_BALL_SHOT

@@ -53,7 +53,7 @@ SnakeFunc:
 	call SetOneWayPlatformAction
 	ld a, $0f
 	ld [wCurObjCollBoxBottom], a
-	call .Func_49af0
+	call .TurnToWario
 	ld hl, wCurObjState
 	ld a, [hld]
 	and a
@@ -72,29 +72,29 @@ SnakeFunc:
 	jr nz, .asm_4991e
 .asm_49919
 	ld l, OBJ_VAR_1
-	jp .Func_49a85
+	jp .start_sinking
 .asm_4991e
 	ld l, OBJ_SUBSTATE
 .asm_49920
 	ld a, [hl]
 	and $0f
 	jumptable
-	dw .Func_49943
-	dw .Func_49943
-	dw .Func_49957
-	dw .Func_49984
-	dw .Func_499b8
-	dw .Func_499f8
-	dw .Func_49a57
-	dw .Func_49a7c
-	dw .Func_49aa1
+	dw .Wait
+	dw .Wait
+	dw .Rise
+	dw .WaitAfterRise
+	dw .PrepareFire
+	dw .ShootFire
+	dw .EndShooting
+	dw .StartSinking
+	dw .Sink
 
 .asm_49936
 	play_sfx SFX_VANISH
 	ld l, OBJ_VAR_1
-	jp .Func_49a85
+	jp .start_sinking
 
-.Func_49943:
+.Wait:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -105,7 +105,7 @@ SnakeFunc:
 	play_sfx SFX_11A
 	ret
 
-.Func_49957:
+.Rise:
 	call .SetStateFromScreenY
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -130,7 +130,7 @@ SnakeFunc:
 	inc [hl]
 	ret
 
-.Func_49984:
+.WaitAfterRise:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -168,7 +168,7 @@ SnakeFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_499b8:
+.PrepareFire:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -210,7 +210,7 @@ SnakeFunc:
 	ld [hl], a
 	ret
 
-.Func_499f8:
+.ShootFire:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
@@ -260,7 +260,7 @@ SnakeFunc:
 	ld bc, ObjParams_SnakeFireRight
 	jp CreateObjectAtRelativePos
 
-.Func_49a57:
+.EndShooting:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
@@ -283,14 +283,14 @@ SnakeFunc:
 	ld de, SnakeFrameset_6891d
 	jp SetObjectFramesetPtr
 
-.Func_49a7c:
+.StartSinking:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
 	dec [hl]
 	ret nz
 	inc l
-.Func_49a85:
+.start_sinking:
 	xor a
 	ld [hl], a
 	ld l, OBJ_SUBSTATE
@@ -305,7 +305,7 @@ SnakeFunc:
 	ld [hli], a
 	ret
 
-.Func_49aa1:
+.Sink:
 	call .SetStateFromScreenY
 	ld hl, wCurObjVar2
 	ld a, [hli]
@@ -349,7 +349,7 @@ SnakeFunc:
 	ld [hld], a
 	ret
 
-.Func_49af0:
+.TurnToWario:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a

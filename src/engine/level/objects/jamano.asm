@@ -296,7 +296,7 @@ JamanoFunc:
 	ret nz
 	ld l, OBJ_SUBSTATE
 	ld e, $13
-	call Func_554bc
+	call SetJamanoDarknessFrameset
 	xor a
 	ld [wCurObjFrameDuration], a
 	ld [wCurObjFramesetOffset], a
@@ -681,7 +681,7 @@ SkullSpawnerFunc:
 	farcall SetObjectMapEntryAndSpawn
 	ret
 .asm_5525b
-	call Func_55407
+	call UpdateJamanoDarkness
 
 	ld hl, wJamanoActiveSkulls
 	ld a, [hl]
@@ -929,7 +929,7 @@ SkullFunc:
 	ld [wCurObjFlags], a
 	ret
 
-Func_55407:
+UpdateJamanoDarkness:
 	ld a, [wJamanoSkullsInPlace]
 	ld b, a
 	ld hl, wDollBoyHammerRange
@@ -1049,7 +1049,7 @@ Func_55407:
 	ld l, a
 ;	fallthrough
 
-Func_554bc:
+SetJamanoDarknessFrameset:
 	ld a, [wDollBoyHammerRange]
 	cp $01
 	jr z, .asm_554de

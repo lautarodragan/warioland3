@@ -82,11 +82,11 @@ HiddenFigureFunc:
 	dw .RightSwipe
 	dw .StartGrab
 	dw .Grab
-	dw .Func_4cbe8
+	dw .HoldCaughtWario
 	dw .WaitLeftHandStunned
 	dw .WaitRightHandStunned
 
-.Func_4cbe8:
+.HoldCaughtWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a

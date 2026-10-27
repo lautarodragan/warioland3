@@ -480,7 +480,7 @@ ZombieFunc:
 	cp 20
 	jr z, .asm_45deb
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	jp .asm_45cca
 .asm_45deb
 	dec [hl]

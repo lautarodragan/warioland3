@@ -2734,7 +2734,7 @@ _ObjState_Drop::
 	jp z, SetObjBounceFromYVel_Left
 	jp SetObjBounceFromYVel_Right
 
-ApplyObjHopYVel::
+_ApplyObjHopYVel::
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	ld b, HIGH(HopYVel_Light)
@@ -3797,7 +3797,7 @@ ObjBounceRight:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	jp HomeJumpRet
 
-Func_6303f::
+_ObjState_HopStart::
 	ld hl, wCurObjState
 	ld a, OBJSTATE_1B
 	ld [hld], a
@@ -3808,10 +3808,10 @@ Func_6303f::
 	ld [wCurObjStateDuration], a
 	jp HomeJumpRet
 
-Func_63050::
+_ObjState_Hop::
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ApplyObjHopYVel
+	jp nz, _ApplyObjHopYVel
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	jp HomeJumpRet

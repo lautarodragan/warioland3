@@ -53,8 +53,8 @@ SpearheadFunc:
 	dw .StunRightStart ; OBJSTATE_STUN_RIGHT_START
 	dw .State18 ; OBJSTATE_18
 	dw .State19 ; OBJSTATE_19
-	dw Func_3263 ; OBJSTATE_1A
-	dw Func_3272 ; OBJSTATE_1B
+	dw ObjState_HopStart ; OBJSTATE_1A
+	dw ObjState_Hop ; OBJSTATE_1B
 	dw ObjState_StartRandomWobble ; OBJSTATE_1C
 	dw .Default ; OBJSTATE_1D
 	dw .Default ; OBJSTATE_1E
@@ -720,7 +720,7 @@ SpearheadFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, OBJSTATE_00
 	ld [wCurObjState], a
 	ld a, $ff
@@ -764,7 +764,7 @@ SpearheadFunc:
 	and a
 	jr z, .asm_4054e
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -780,16 +780,16 @@ SpearheadFunc:
 	jr c, .asm_40545
 	ld de, SpearheadFrameset_6821e
 	call SetObjectFramesetPtr
-	jp Func_3308
+	jp ObjCheckFloorOrStandingFall
 .asm_40545
 	ld de, SpearheadFrameset_68229
 	call SetObjectFramesetPtr
-	jp Func_3308
+	jp ObjCheckFloorOrStandingFall
 
 .asm_4054e
 	inc l
 	dec [hl] ; OBJ_VAR_1
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_40562
