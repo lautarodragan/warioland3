@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 1
 
       - name: Deepen history for base ROM reconstruction
-        # `make patch` rebuilds the original ROM from an earlier commit (base_ref)
+        # `make ips` rebuilds the original ROM from an earlier commit (base_ref)
         # in a git worktree, so that commit must be present. Fetch just enough
         # history rather than the whole repo.
         run: git fetch --shallow-since=2026-01-29 origin
@@ -43,7 +43,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -yq libpng16-16
 
       - name: Build patch
-        run: make -j$(nproc) patch
+        run: make -j$(nproc) ips
 
       - name: Resolve release tag
         id: tag

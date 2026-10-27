@@ -44,7 +44,7 @@ To assemble, download RGBDS (https://github.com/gbdev/rgbds/releases) and extrac
 To generate the patch yourself:
 
 ```sh
-make patch
+make ips
 ```
 
 This builds the modified ROM, reconstructs the *original* ROM from the pre-debug-menu commit (verifying it against `rom.sha1`), diffs the two, and writes `warioland3-debug-menu.ips`. No extra dependencies beyond RGBDS and Python 3 — the IPS is produced by `tools/make_ips.py`.

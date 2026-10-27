@@ -38,7 +38,7 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all warioland3 patch clean tidy tools test
+.PHONY: all warioland3 patch ips clean tidy tools test
 
 all: $(rom)
 warioland3: $(rom)
@@ -65,7 +65,7 @@ tools:
 	$(MAKE) -C tools/
 
 ### IPS patch
-# `make patch` produces an IPS patch holding only this fork's changes, which is
+# `make ips` produces an IPS patch holding only this fork's changes, which is
 # safe to distribute (it contains none of the original ROM's data on its own).
 #
 # The original ROM is reconstructed from source: base_ref is the last commit
@@ -75,7 +75,7 @@ patch_name := warioland3-debug-menu.ips
 base_ref ?= bbe75a7
 basebuild := .basebuild
 
-patch: $(patch_name)
+ips: $(patch_name)
 
 $(patch_name): $(rom)
 	-git worktree remove --force $(basebuild) 2>/dev/null
