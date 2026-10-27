@@ -651,7 +651,7 @@ YellowBellyBodyFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
 	play_sfx SFX_0A9
 	stop_music2

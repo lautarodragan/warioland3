@@ -505,7 +505,7 @@ CountRichtertoffenFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunLeft:
 	ld hl, wCurObjVar2
@@ -525,7 +525,7 @@ CountRichtertoffenFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunRight:
 	ld hl, wCurObjVar2
@@ -557,7 +557,7 @@ CountRichtertoffenFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -607,7 +607,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, OBJ_INTERACTION_01
+	ld a, OBJ_INTERACTION_TOUCH
 	ld [wCurObjState], a
 	ret
 
@@ -636,7 +636,7 @@ CountRichtertoffenFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -778,6 +778,6 @@ CountRichtertoffenFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00 ; unnecessary
+	or OBJ_INTERACTION_GRABBABLE ; unnecessary
 	ld [hld], a
 	ret

@@ -133,7 +133,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectDown
 	ld de, KushimushiFrameset_6863f
 	ld b, $1
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .asm_42ac3
 .turn_around_up
@@ -149,7 +149,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectUp
 	ld de, KushimushiFrameset_68634
 	ld b, $3
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .asm_42ac3
 .turn_around_down
@@ -234,7 +234,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectRight
 	ld de, KushimushiFrameset_68655
 	ld b, $1
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .asm_42b71
 .turn_around_left
@@ -249,7 +249,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectLeft
 	ld de, KushimushiFrameset_6864a
 	ld b, $3
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .asm_42b71
 .turn_around_right

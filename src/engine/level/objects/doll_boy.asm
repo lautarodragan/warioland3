@@ -281,7 +281,7 @@ DollBoyFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
 	ld a, DOLLBOY_WALKING_PHASE_DELAY
 	ld [wCurObjStateDuration], a
@@ -443,7 +443,7 @@ DollBoyFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld hl, wCurObjState
 	ld a, [hl]

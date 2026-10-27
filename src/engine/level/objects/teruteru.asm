@@ -210,7 +210,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ret
 
@@ -264,7 +264,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, $ec
 	ld [hli], a
@@ -384,7 +384,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunLeft:
 	ld hl, wCurObjVar2
@@ -409,7 +409,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunRight:
 	ld hl, wCurObjVar2
@@ -438,7 +438,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hli], a
 	ld a, $f9
 	ld [hli], a
@@ -488,7 +488,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, $ec
 	ld [hli], a
@@ -527,7 +527,7 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hli], a
 	ld a, $f9
 	ld [hli], a
@@ -659,6 +659,6 @@ TeruteruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret

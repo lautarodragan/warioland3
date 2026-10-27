@@ -119,7 +119,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Stunned)
@@ -310,7 +310,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Vulnerable)
@@ -349,7 +349,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	jp DecrementRemainingBossHits
 .asm_54765
@@ -436,7 +436,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Recover)
@@ -868,7 +868,7 @@ ScrowlerTentacleFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_43
+	or OBJ_INTERACTION_WATER_FULL_STING
 	ld [hli], a
 	ld a, $fd
 	ld [hli], a

@@ -1871,7 +1871,7 @@ ThrowObject_Left:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hl], a
 	rla
 	ld l, OBJ_STATE_DURATION
@@ -2017,7 +2017,7 @@ ThrowObject_Right:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hl], a
 	rla
 	ld l, OBJ_STATE_DURATION

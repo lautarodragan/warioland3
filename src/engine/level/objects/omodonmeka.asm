@@ -384,7 +384,7 @@ OmodonmekaFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld a, $f9
 	ld [wCurObjCollBoxBottom], a

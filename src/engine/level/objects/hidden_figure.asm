@@ -913,7 +913,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_4F
+	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hli], a
 	ld a, $e0
 	ld [hli], a
@@ -1093,7 +1093,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_4F
+	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hld], a
 	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
@@ -1103,7 +1103,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_50
+	or OBJ_INTERACTION_FRONT_DRAG_DOWN
 	ld [hld], a
 	play_sfx SFX_FAT_WALK
 	ret
@@ -1127,7 +1127,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_4F
+	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hld], a
 	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
@@ -1137,7 +1137,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_50
+	or OBJ_INTERACTION_FRONT_DRAG_DOWN
 	ld [hld], a
 	play_sfx SFX_FAT_WALK
 	ret
@@ -1165,7 +1165,7 @@ HiddenFigureLeftHandFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hli], a
 	ld a, $ec
 	ld [hli], a
@@ -1199,7 +1199,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hld], a
 	ret
 .asm_4d333
@@ -1208,7 +1208,7 @@ HiddenFigureLeftHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_52
+	or OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
 	ld [hld], a
 	play_sfx SFX_0CB
 	ret
@@ -1225,7 +1225,7 @@ HiddenFigureLeftHandFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
 	ld a, $e8
 	ld [hli], a
@@ -1326,7 +1326,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_4F
+	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hli], a
 	ld a, $e0
 	ld [hli], a
@@ -1533,7 +1533,7 @@ HiddenFigureRightHandFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hli], a
 	ld a, $ec
 	ld [hli], a
@@ -1567,7 +1567,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hld], a
 	ret
 .asm_4d5dc
@@ -1576,7 +1576,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_52
+	or OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
 	ld [hld], a
 	play_sfx SFX_0CB
 	ret
@@ -1592,7 +1592,7 @@ HiddenFigureRightHandFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
 	ld a, $e8
 	ld [hli], a

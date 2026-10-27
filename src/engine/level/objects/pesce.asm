@@ -104,7 +104,7 @@ PesceFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_51
+	or OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
 	ld [hld], a
 	stop_music2
 	jp .asm_51e67
@@ -705,7 +705,7 @@ PesceFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_51
+	or OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
 	ld [hli], a
 	ld a, $03
 	ld [wCurObjVar1], a
