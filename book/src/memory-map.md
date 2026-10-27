@@ -78,6 +78,31 @@ The CGB has 8 WRAM banks of 4 KB; `$c000`-`$cfff` is always bank 0 and
 This fork also uses unused parts of WRAM bank 3 (`$d600`, "Owl Slot WRAM")
 and bank 1 (`$d700`) for the [debug owl](debug-owl.md).
 
+### Shared bytes and `UNION`s
+
+Many variables share their bytes with others that are never live at the
+same time; `src/ram/wram.asm` writes each sharing as a `UNION`, with one
+`NEXTU` per user, so that every routine reads the name of its own
+variable. The largest ones:
+
+- bank 2 `$d140`-`$d17f`: Scene Wario (`wSceneWario`), the path preview's
+  sprites (`wOWUIObj1`-`8`), the map-side scenes' scratch (`wOWSceneShake*`,
+  `wOWSceneSFXLoop*`, ...) and the freeze-sea tile column copies
+  (`wOWTileColumnCopy1`-`3`);
+- bank 2 `$d800`-`$dfff` (`wOWSharedRAM`): the path tracers
+  (`wOWPathTracer1`-`4`) and the scene/temple/text variables after them,
+  the palette fade structs (`wFadePals`), the collection screen, and a
+  `NEXTU` each for the best time list, the cutscenes and the golf
+  building scene;
+- bank 1 after `wWarioGoals`: one `NEXTU` per boss;
+- bank 1 `$d900`: the golf course menu's tilemap / the pin flag tiles.
+
+Because the bank in `rWBK` decides which variable an address means, a
+label from another WRAMX bank in code that runs with a different bank
+mapped is a mislabel (the overworld runs with bank 2, levels with bank 1).
+A few were fixed this way, for example `LoadBGMapsToWRAM`'s tilemap,
+which was written to the bank 3 label `wBackupSCY` but is `wTilemap`.
+
 ## SRAM
 
 32 KB of battery-backed RAM in four 8 KB banks, mapped at `$a000`. Writing

@@ -26,6 +26,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 11 | Fourth pass 4c: data labels, descriptive and rules P, S, O, W, U (medium lines only) | 846 |
 | 12 | Fourth pass 4d: `UpdateCutsceneObjs_CutTree`, `UpdateTempleSceneObjs_Back`, `wGolfBuildingCourseAttrMap`, bank2d's `.Wait<N>` by frames | 54 |
 | 13 | Fourth pass 4e: routines outside the overworld, `BlockFunc_`, `VBlank_`, `Text_`, `UnreferencedLCDFunc_` (the test tools' `187b0`/`187de`/`188ba` block function keys follow) | 112 |
+| 14 | RAM mislabels: wrong-bank and wrong-union label uses, the structural RAM rows (path tracers, boss union, `wShotYVel`, palette fade fields, OW animation slots) and scene aliases for borrowed bytes; see "RAM mislabels applied" below | ~90 uses, ~150 new labels |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -36,16 +37,78 @@ Deviations from the rows below: the per-level room tables are
 as a suffix (`.Default_4d7dc`).
 
 **Not applied** (still proposals):
-- low-confidence rows and "unclear"/"not named" entries;
-- structural changes: rows that merge several byte labels into one struct
-  or field (`w2d03e`/`3f`/`40` -> `wOWSeaAnim`, `w1dc4f` as the high byte of
-  `wShotYVel`, the path tracer structs, the boss union `NEXTU` blocks), the
-  palette fade struct fields, and the scene aliases for borrowed bytes;
-- the wrong-bank / wrong-union label uses (they need the right label first);
+- low-confidence rows and "unclear"/"not named" entries (among them the
+  generic `w2d150`..`wd156` scene variables and the `w2d122`..`w2d13f`
+  scene task pairs);
 - identical routines (`Func_19246`, `Func_82c1d`/`82c22`/`82c29`,
   `Func_ac00b`/`ac016`...): merging them is a separate decision;
 - the map-side state entries' frameset-based names, and everything listed
   as pending in Progress.
+
+### RAM mislabels applied (batch 14)
+
+Every case below was checked in the code first. No byte moved: each use
+got a label at its own address (a `UNION`/`NEXTU` member, an alias, or a
+struct field), the ROM stayed byte-identical and the `.sym` file shows
+no address change (only `wPalFade*Current`, which now names offset 5,
+see below). Commits on branch `claude/ram-mislabels-dh93t5`.
+
+Wrong-bank uses (code running with WRAM bank 2 using a label of another
+bank at the same address):
+
+| Where | Was | Now |
+|---|---|---|
+| bank2b_1 (after the next-objective text) | `w1d140`, `wDollBoyNoFlashingBarrel` | `wSceneWarioYCoord`, `wSceneWarioXCoord` (`w1d140` removed) |
+| `_InitBestTimeList` | `wObj1SubState` | `wCurMapSide` |
+| `LoadBGMapsToWRAM` (init.asm) | `wBackupSCY` (bank 3) | `wTilemap`: the first pass took this for a deliberate reuse, but the routine decompresses the attrmap to `wAttrmap` and the tilemap right after, to `wTilemap` (same `$d500` in bank 2) |
+
+Path preview and `$d140` union:
+
+| Was | Now |
+|---|---|
+| `w2d800`..`w2d860` (`ow_unk_struct`) | `wOWPathTracer1`..`4` (`ow_path_tracer_struct`: sprite bytes, `SpriteState`, `TracerState`, `Counter`, `LineState`, `Coords`), `wOWPathTracers` |
+| `wCurOWPathTracer + $0..$8` | `wCurOWPathTracer` fields (`ow_path_tracer_head_struct`); `+ $9` is `wPathPreviewPathsPtr` |
+| `wDayNightTransistionSteps`, `wPalFade1Colour1BlueUnk3`, `...3RedUnk3`, `...4GreenUnk3` in `UpdatePathPreviewAnimations` | `wOWPathTracer1`..`4SpriteState` |
+| `wd156`, `w2d15e`, `w2d160`, `w2d166`..`w2d17e` in the path preview | `wOWUIObj3`..`8` (the 8 preview sprites, `$d140`-`$d17f`); the `w2d15e`.. labels are gone |
+| `wCurOWPathTracer` in the prologue/temple fades | `wPrologueFadeType` |
+| `wOWUIObj1*`/`wOWUIObj2YCoord`/`Duration` in the epilogue, the golf building and `MoveSceneWarioLeft` | `wSceneWario*`, `wSceneWarioStateGroup`, `wSceneWarioSFXCounter` |
+| `wOWUIObj1*`/`wOWUIObj2*` in the map-side scenes (bank2d), and `wSceneWarioMovementStep` in the east volcano | `wOWSceneShakeState`/`StateCounter`/`Step`/`StepCounter`, `wOWSceneRocksStep`/`Counter`, `wOWSceneRockLauncherStep`/`Counter`, `wOWScenePalFadeStep`/`Counter`/`Index`, `wOWSceneSFXLoopActive`/`Counter` |
+| `wOWUIObj1`/`2`, `w2d150`..`wd156` in the freeze-sea scene and `CopyOWTileColumn1`-`3` | `wOWTileColumnCopy1`..`3` (`ow_tile_column_copy_struct`: `Counter`, `ListPtr`, `RowsLeft`, `Dest`, `Source`) |
+
+The `$d800` union of WRAM2 (`wOWSharedRAM`):
+
+| Was | Now |
+|---|---|
+| `wCollectionRow` written with `$08` (bank27 x10, epilogue) | `wLCDCFlagsToFlip` (and `LCDC_BG_9C00`) |
+| `wPalFade7Colour3RedUnk1`/`Sign` (epilogue old man) | `wCurTextBufferPage`/`Line` (existing labels, same address) |
+| `wPalFade2Colour2GreenUnk1` (epilogue Wario fall) | `wSceneSubActive` (existing, the prologue's bounce uses it the same way) |
+| `wPalFade2Colour4GreenSign`, `wTempleRock5Action`/`Counter` (epilogue) | `wEpilogueMusicBoxFallActive`/`Step`/`Counter` |
+| `wTempleMusicBox1`/`3`/`4`/`5*`, `wPlanePart2Counter`, `wPalFade2Colour3GreenUnk1` (bank56) | `wTransformationSparkle1`..`4Step`/`Counter` |
+| `wPalFade1` bytes (Cutscene14) | `wCutscene14Obj2`/`3`/`4WobblePtr` |
+| `wCollectionLinkStateCounter`/`ScrollMode` (`CutsceneScreenShake`) | `wCutsceneShakeStep`/`Counter` |
+| `wColourFadeDiff` in cutscene steps (not in the survey) | `wCutsceneSFXCounter` |
+| collection labels and `wColourFadeDiff` (best time list) | `wBestTimeListAutoScroll`/`IdleCounter`/`ScrollStep`/`ScrollCounter`; its `$800`-byte clear starts at `wOWSharedRAM` |
+| `wPalFade6Colour2GreenCurrent`/`Target`/`Sign` (golf building) | `wOWGolfBuildingScene`/`Step`/`StepCounter` |
+
+Other:
+
+| Was | Now |
+|---|---|
+| `colour_part_fade_struct` `Current`, `Unk1`, `Unk2`, `Unk3`/`Unk4` | `Base`, `Accumulator`, `Current`, `ds 2` (as `COLOURFADESTRUCT_*`; `UNK_3`/`UNK_4` became a `const_skip`) |
+| `wSceneObj1YCoord` in bank27 | `wCutsceneOverlayType` (a `UNION` with `wSceneObj1`) |
+| `w1dc4f` | gone: `wShotYVel` is a `dw` |
+| `wGolfPinFlagTiles` in `VBlank_GolfCourseMenu_CourseAttrs` | `wGolfCourseTileMap` |
+| boss union: Doll Boy's/Jamano's names in other bosses, `ds $1` | `wJamanoDarkness`, `wMuddeeHitState`, `wPesceFlyActive`/`Hits`/`FightOver`, `wScowlerBlackoutTimer`/`InkTimer`, `wYellowBellyHeadHit`/`HitRequest`/`PumpOut` (the 3d table) |
+| `w2d032`..`w2d043`, `w2d046`..`w2d048` | `ow_anim_struct`s: `wOWBigCloud1`..`4Anim`, `wOWSeaAnim`, `wOWSmallCloudsAnim`, `wOWCliffsAnim` |
+| `w2dffd`..`w2dfff` | aliases `wEventTreasure3`..`1`, `wMissingTreasureSavedOWLevel`/`Level`/`NumLevels`, `wCollectionCurCell`/`CurTreasure`, `wBestTimeListCurLevel`, `wBGMapsTempBank` |
+| `w2d121` (write-only) | `wUnused_2d121` |
+
+All of these are harmless sharing: the bytes were the right bytes, only
+the names were another variable's. No case was a real bug (a routine
+reading a variable it didn't mean). Not done: the literal pointers into
+`Data_9ef82` that Cutscene14 stores in its wobble pointers (ROM labels,
+left to the ROM naming work), and the `DrawCutsceneOverlayFrame*` writes
+into `wCurSceneObj` bytes.
 
 ## Upstream renames since the survey
 
@@ -179,6 +242,11 @@ findings (`Func_ce3e`, the bank20 copies, `Data_60510`) are named but
 would better be merged. The `.asm_` jump labels were not part of this survey.
 Next step: replacing the generated `<Owner><Kind>_<addr>` data names
 with descriptive ones where wanted.
+
+**RAM mislabels applied** (batch 14, branch `claude/ram-mislabels-dh93t5`):
+every wrong-bank and wrong-union case of the four passes and the
+structural RAM rows, listed in "RAM mislabels applied" above; one more
+wrong-bank use found by re-running the scan (`LoadBGMapsToWRAM`).
 
 **Fourth pass applied** (batches 9-13 in "Applied", branch
 `claude/naming-apply-4-dh93t5`): every high and medium name of 4.0, 4a/4b,
@@ -1014,6 +1082,8 @@ its own `NEXTU` with names for bytes 0-3 instead of borrowing Doll Boy's.
 
 #### Wrong-bank labels (found while checking `w1d140`)
 
+(Applied in batch 14.)
+
 The overworld runs with WRAM bank 2 mapped, so a WRAMX label from another
 bank used in overworld code points at the bank-2 variable at the same
 address. A scan of every bank 1/3-7 WRAMX label referenced from
@@ -1576,6 +1646,8 @@ above are an example). Medium value; not generated here.
 ### Addenda
 
 #### More union mislabels (same kind as the wrong-bank table above)
+
+(Applied in batch 14.)
 
 | Where | Written as | Actually | Evidence | Conf. |
 |---|---|---|---|---|
@@ -2781,6 +2853,8 @@ lines given; none is fixed (this pass changes no code).
 
 **RAM labels used under the wrong union member** (same address, other
 meaning; candidates for scene-specific aliases like the 3b ones):
+(all applied in batch 14, see "RAM mislabels applied"; the typo was
+already fixed in 4d)
 
 - `wCollectionRow` (= `wLCDCFlagsToFlip`, $d800) is written with $08 to
   flip the BG map: ten times in bank27 and in the epilogue's
