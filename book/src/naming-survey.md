@@ -2898,8 +2898,9 @@ already fixed in 4d)
 **Mislabeled "unreferenced"**:
 
 - `Data_9ef82` is marked unreferenced, but Cutscene14 uses literal pointers
-  into that data ($6e99, $6ee7, $6f33, $6f82, $6fe3, $7044); it should get
-  labels instead of numbers.
+  into that data ($6e99, $6ee7, $6f33, $6f82, $6fe3, $7044). Fixed: they are
+  `VolcanoEruptionWobbleLoop` (with `_Obj3Start`/`_Obj4Start`) and
+  `VolcanoEruptionWobbleOnce_Obj2`..`4`, written with `LOW()`/`HIGH()`.
 - `UnreferencedUpdateSceneObjAnim_ObjFramesets` is referenced
   (bank2b_1.asm:345, 352, 359).
 - `Data_60ec9` (Kobatto's set movement) is also used from torch.asm code

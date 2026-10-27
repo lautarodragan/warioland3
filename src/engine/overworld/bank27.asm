@@ -5587,17 +5587,17 @@ Cutscene14Func:
 	ld a, $02
 	ld [wCutsceneOverlayType], a
 	ld hl, wCutscene14Obj2WobblePtr
-	ld [hl], $99
+	ld [hl], LOW(VolcanoEruptionWobbleLoop)
 	inc l
-	ld [hl], $6e
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop)
 	inc l
-	ld [hl], $e7
+	ld [hl], LOW(VolcanoEruptionWobbleLoop_Obj3Start)
 	inc l
-	ld [hl], $6e
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop_Obj3Start)
 	inc l
-	ld [hl], $33
+	ld [hl], LOW(VolcanoEruptionWobbleLoop_Obj4Start)
 	inc l
-	ld [hl], $6f
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop_Obj4Start)
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -5661,17 +5661,17 @@ Cutscene14Func:
 	call .WobbleObjs2To4
 	ret nc
 	ld hl, wCutscene14Obj2WobblePtr
-	ld a, $82
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj2)
 	ld [hli], a
-	ld a, $6f
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj2)
 	ld [hli], a
-	ld a, $e3
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj3)
 	ld [hli], a
-	ld a, $6f
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj3)
 	ld [hli], a
-	ld a, $44
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj4)
 	ld [hli], a
-	ld a, $70
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj4)
 	ld [hli], a
 	jp AdvanceCutsceneFunc
 
@@ -5836,7 +5836,7 @@ Cutscene14Func:
 	ld a, [de]
 	cp $80
 	jr nz, .store_wobble_ptr
-	ld de, .data_9ee99
+	ld de, VolcanoEruptionWobbleLoop
 	call .store_wobble_ptr
 	scf
 	ret
@@ -5850,13 +5850,21 @@ Cutscene14Func:
 	and a
 	ret
 
-.data_9ee99
-	db  0, -1,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  1,  1,  0,  1,  0,  0,  0,  1,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  1,  1,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  1,  0,  1,  1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1,  0, -1,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0, -1,  0, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
+; y, x steps for the volcano eruption's objects 2-4, looped (.apply_wobble
+; goes back to the start at $80). Each object starts at its own point.
+VolcanoEruptionWobbleLoop:
+	db  0, -1,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  1,  1,  0,  1,  0,  0,  0,  1,  1,  1,  0
+VolcanoEruptionWobbleLoop_Obj3Start:
+	db  0,  1,  1,  0,  0,  1,  1,  0,  1,  1,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  1,  0,  1,  1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  1, -1,  0,  0,  1, -1,  0,  0,  1
+VolcanoEruptionWobbleLoop_Obj4Start:
+	db -1,  0, -1,  1,  0,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1,  0, -1,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0, -1,  0, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
-; unreferenced
-VolcanoEruptionCutsceneWobbles:
+; played once each after .WaitWobbleThenSwitchTable, then back to the loop
+VolcanoEruptionWobbleOnce_Obj2:
 	db  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0, $80
+VolcanoEruptionWobbleOnce_Obj3:
 	db  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0, -1,  1,  0,  0,  0,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0,  0,  0, $80
+VolcanoEruptionWobbleOnce_Obj4:
 	db -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0, -1,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0, -1,  1,  0, $80
 
 GetCutsceneObjFrameset:
