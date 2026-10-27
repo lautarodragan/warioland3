@@ -1421,7 +1421,7 @@ ObjParams_Coin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1436,7 +1436,7 @@ ObjParams_ColourCoin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc.ColourCoin
 	db OBJFLAG_PRIORITY ; obj flags
 

@@ -408,8 +408,16 @@ DEF HEAVY_OBJ_F EQU 7
 DEF HEAVY_OBJ EQU (1 << HEAVY_OBJ_F)
 DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 
+; OBJ_STATE values: each object's update function jumps on its state
+; (see e.g. BrrrBearFunc.Update); the shared ObjState_* handlers live in
+; src/engine/level/update_objects.asm. A *_START state sets up and moves
+; on, usually to the same name without _START, $30 higher.
+; LEFT/RIGHT in HIT_WARIO_* is the INTERACTION_* side Wario touched.
+; States still numbered are either unused by every object
+; ($1d-$1f, $3d, $3e) or object-specific with differing meanings
+; ($2b, $2c, $5a-$5d).
 	const_def
-	const OBJSTATE_00 ; $00
+	const OBJSTATE_DEFAULT ; $00
 	const OBJSTATE_LAND ; $01
 	const OBJSTATE_BUMP_LEFT_START ; $02
 	const OBJSTATE_BUMP_RIGHT_START ; $03
@@ -420,37 +428,37 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_WOBBLE_LEFT_START ; $08
 	const OBJSTATE_WOBBLE_RIGHT_START ; $09
 	const OBJSTATE_VANISH_TOUCH ; $0a
-	const OBJSTATE_0B ; $0b
-	const OBJSTATE_0C ; $0c
-	const OBJSTATE_0D ; $0d
-	const OBJSTATE_0E ; $0e
-	const OBJSTATE_0F ; $0f
-	const OBJSTATE_10 ; $10
+	const OBJSTATE_HIT_WARIO_RIGHT_START ; $0b
+	const OBJSTATE_HIT_WARIO_LEFT_START ; $0c
+	const OBJSTATE_HIT_WARIO_UP_START ; $0d
+	const OBJSTATE_HIT_WARIO_DOWN_START ; $0e
+	const OBJSTATE_STUNNED_START ; $0f
+	const OBJSTATE_RECOVER_START ; $10
 	const OBJSTATE_STANDING_FALL_START ; $11
-	const OBJSTATE_12 ; $12
+	const OBJSTATE_DROP_START ; $12
 	const OBJSTATE_TURN_AROUND_START ; $13
-	const OBJSTATE_14 ; $14
-	const OBJSTATE_15 ; $15
+	const OBJSTATE_FALL_LEFT_START ; $14
+	const OBJSTATE_FALL_RIGHT_START ; $15
 	const OBJSTATE_STUN_LEFT_START ; $16
 	const OBJSTATE_STUN_RIGHT_START ; $17
-	const OBJSTATE_18 ; $18
-	const OBJSTATE_19 ; $19
-	const OBJSTATE_1A ; $1a
-	const OBJSTATE_1B ; $1b
-	const OBJSTATE_1C ; $1c
+	const OBJSTATE_GRABBED_LEFT_START ; $18
+	const OBJSTATE_GRABBED_RIGHT_START ; $19
+	const OBJSTATE_HOP_START ; $1a
+	const OBJSTATE_HOP ; $1b
+	const OBJSTATE_RANDOM_WOBBLE_START ; $1c
 	const OBJSTATE_1D ; $1d
 	const OBJSTATE_1E ; $1e
 	const OBJSTATE_1F ; $1f
-	const OBJSTATE_20 ; $20
-	const OBJSTATE_21 ; $21
-	const OBJSTATE_22 ; $22
-	const OBJSTATE_23 ; $23
-	const OBJSTATE_24 ; $24
-	const OBJSTATE_25 ; $25
-	const OBJSTATE_26 ; $26
-	const OBJSTATE_27 ; $27
-	const OBJSTATE_28 ; $28
-	const OBJSTATE_29 ; $29
+	const OBJSTATE_BOUNCE_1_LEFT_START ; $20
+	const OBJSTATE_BOUNCE_1_RIGHT_START ; $21
+	const OBJSTATE_BOUNCE_2_LEFT_START ; $22
+	const OBJSTATE_BOUNCE_2_RIGHT_START ; $23
+	const OBJSTATE_BOUNCE_3_LEFT_START ; $24
+	const OBJSTATE_BOUNCE_3_RIGHT_START ; $25
+	const OBJSTATE_BOUNCE_FALL_LEFT_START ; $26
+	const OBJSTATE_BOUNCE_FALL_RIGHT_START ; $27
+	const OBJSTATE_HIT_BY_OBJ_LEFT_START ; $28
+	const OBJSTATE_HIT_BY_OBJ_RIGHT_START ; $29
 	const OBJSTATE_ACTIVATE ; $2a
 	const OBJSTATE_2B ; $2b
 	const OBJSTATE_2C ; $2c
@@ -467,44 +475,49 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_PICKED_UP_RIGHT ; $37
 	const OBJSTATE_WOBBLE_LEFT ; $38
 	const OBJSTATE_WOBBLE_RIGHT ; $39
-	const OBJSTATE_3A ; $3a
-	const OBJSTATE_3B ; $3b
-	const OBJSTATE_3C ; $3c
+	const OBJSTATE_RESIST_VANISH ; $3a
+	const OBJSTATE_HIT_WARIO_RIGHT ; $3b
+	const OBJSTATE_HIT_WARIO_LEFT ; $3c
 	const OBJSTATE_3D ; $3d
 	const OBJSTATE_3E ; $3e
-	const OBJSTATE_3F ; $3f
-	const OBJSTATE_40 ; $40
+	const OBJSTATE_STUNNED ; $3f
+	const OBJSTATE_RECOVER ; $40
 	const OBJSTATE_STANDING_FALL ; $41
-	const OBJSTATE_42 ; $42
+	const OBJSTATE_DROP ; $42
 	const OBJSTATE_TURN_AROUND ; $43
-	const OBJSTATE_44 ; $44
-	const OBJSTATE_45 ; $45
+	const OBJSTATE_FALL_LEFT ; $44
+	const OBJSTATE_FALL_RIGHT ; $45
 	const OBJSTATE_STUN_LEFT ; $46
 	const OBJSTATE_STUN_RIGHT ; $47
-	const OBJSTATE_48 ; $48
-	const OBJSTATE_49 ; $49
-	const OBJSTATE_4A ; $4a
-	const OBJSTATE_4B ; $4b
+	const OBJSTATE_GRABBED_LEFT ; $48
+	const OBJSTATE_GRABBED_RIGHT ; $49
+	const OBJSTATE_GRABBED_CHARGE_LEFT ; $4a
+	const OBJSTATE_GRABBED_CHARGE_RIGHT ; $4b
 	const OBJSTATE_FULL_THROW_LEFT_START ; $4c
 	const OBJSTATE_FULL_THROW_RIGHT_START ; $4d
-	const OBJSTATE_4E ; $4e
-	const OBJSTATE_4F ; $4f
-	const OBJSTATE_50 ; $50
-	const OBJSTATE_51 ; $51
-	const OBJSTATE_52 ; $52
-	const OBJSTATE_53 ; $53
-	const OBJSTATE_54 ; $54
-	const OBJSTATE_55 ; $55
-	const OBJSTATE_56 ; $56
-	const OBJSTATE_57 ; $57
-	const OBJSTATE_58 ; $58
-	const OBJSTATE_59 ; $59
+	const OBJSTATE_THROW_LEFT ; $4e
+	const OBJSTATE_THROW_RIGHT ; $4f
+	const OBJSTATE_BOUNCE_1_LEFT ; $50
+	const OBJSTATE_BOUNCE_1_RIGHT ; $51
+	const OBJSTATE_BOUNCE_2_LEFT ; $52
+	const OBJSTATE_BOUNCE_2_RIGHT ; $53
+	const OBJSTATE_BOUNCE_3_LEFT ; $54
+	const OBJSTATE_BOUNCE_3_RIGHT ; $55
+	const OBJSTATE_BOUNCE_FALL_LEFT ; $56
+	const OBJSTATE_BOUNCE_FALL_RIGHT ; $57
+	const OBJSTATE_HIT_BY_OBJ_LEFT ; $58
+	const OBJSTATE_HIT_BY_OBJ_RIGHT ; $59
 	const OBJSTATE_5A ; $5a
 	const OBJSTATE_5B ; $5b
 	const OBJSTATE_5C ; $5c
 	const OBJSTATE_5D ; $5d
 	const OBJSTATE_FULL_THROW_LEFT ; $5e
 	const OBJSTATE_FULL_THROW_RIGHT ; $5f
+
+; objects that cannot be grabbed reuse the grab states for other things
+DEF OBJSTATE_TRIGGERED  EQU OBJSTATE_GRABBED_LEFT_START  ; set by OBJACTION_TRIGGER (collected, eaten...)
+DEF OBJSTATE_NO_EFFECT  EQU OBJSTATE_GRABBED_RIGHT_START ; set by OBJACTION_NO_EFFECT (Wario immune)
+DEF OBJSTATE_COIN_INIT  EQU OBJSTATE_GRABBED_RIGHT_START ; CoinFunc's .Init
 
 	const_def
 	const OBJACTION_NONE                   ; $00

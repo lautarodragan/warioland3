@@ -696,23 +696,23 @@ DoObjectAction:
 	rla
 	jr nc, .check_interaction_up
 ; interaction down
-	ld a, OBJSTATE_0E
+	ld a, OBJSTATE_HIT_WARIO_DOWN_START
 	ld [hl], a ; OBJ_STATE
 	ret
 .check_interaction_up
 	rla
 	jr nc, .check_interaction_right
-	ld a, OBJSTATE_0D
+	ld a, OBJSTATE_HIT_WARIO_UP_START
 	ld [hl], a ; OBJ_STATE
 	ret
 .check_interaction_right
 	rla
 	jr nc, .interaction_left
-	ld a, OBJSTATE_0B
+	ld a, OBJSTATE_HIT_WARIO_RIGHT_START
 	ld [hl], a ; OBJ_STATE
 	ret
 .interaction_left
-	ld a, OBJSTATE_0C
+	ld a, OBJSTATE_HIT_WARIO_LEFT_START
 	ld [hl], a ; OBJ_STATE
 	ret
 
@@ -720,7 +720,7 @@ DoObjectAction:
 	ld hl, wCurObjAction
 	xor a
 	ld [hld], a
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_TRIGGERED
 	ld [hl], a ; OBJ_STATE
 	ret
 
@@ -757,7 +757,7 @@ DoObjectAction:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_NO_EFFECT
 	ld [hl], a
 	ret
 
@@ -898,7 +898,7 @@ ENDR
 	ld a, [hl] ; OBJ_STATE
 	cp OBJSTATE_FULL_THROW_LEFT_START
 	jr nc, .full_throw
-	cp OBJSTATE_48
+	cp OBJSTATE_GRABBED_LEFT
 	jr nc, .asm_61992
 
 .full_throw
@@ -911,53 +911,53 @@ ENDR
 ; thrown left
 	rla
 	jr c, .is_heavy1
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; hCollidedObjState_Light
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; hThrownObjState_Light
 	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [hli], a ; hCollidedObjState_Heavy
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; hThrownObjState_Heavy
 	jr .check_objs
 
 .is_heavy1
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; hCollidedObjState_Light
 	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [hli], a ; hThrownObjState_Light
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; hCollidedObjState_Heavy
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; hThrownObjState_Heavy
 	jr .check_objs
 
 .thrown_right
 	rla
 	jr c, .is_heavy2
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; ; hCollidedObjState_Light
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; ; hThrownObjState_Light
 	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [hli], a ; ; hCollidedObjState_Heavy
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; ; hThrownObjState_Heavy
 	jr .check_objs
 
 .is_heavy2
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; hCollidedObjState_Light
 	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [hli], a ; hThrownObjState_Light
-	ld a, OBJSTATE_29
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	ld [hli], a ; hCollidedObjState_Heavy
-	ld a, OBJSTATE_28
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT_START
 	ld [hli], a ; hThrownObjState_Heavy
 	jr .check_objs
 
 .asm_61992
-	; OBJSTATE_48 <= action <= OBJSTATE_4B
+	; OBJSTATE_GRABBED_LEFT <= action <= OBJSTATE_GRABBED_CHARGE_RIGHT
 	rra
 	ld hl, hCollidedObjState_Light
 	jr c, .asm_619a0
@@ -1011,9 +1011,9 @@ FOR n, 1, NUM_OBJECTS + 1
 	ld l, a
 	ld a, [hl] ; OBJ_STATE
 	and $fe
-	cp OBJSTATE_4A ; or OBJSTATE_4B
+	cp OBJSTATE_GRABBED_CHARGE_LEFT ; or OBJSTATE_GRABBED_CHARGE_RIGHT
 	jp z, .CollideWithObject{u:n}
-	cp OBJSTATE_48 ; or OBJSTATE_49
+	cp OBJSTATE_GRABBED_LEFT ; or OBJSTATE_GRABBED_RIGHT
 	jp z, .CollideWithObject{u:n}
 	ld a, [wObj{u:n}InteractionType]
 	rla
@@ -1026,7 +1026,7 @@ FOR n, 1, NUM_OBJECTS + 1
 	and $fe
 	cp OBJSTATE_PICKED_UP_LEFT
 	jr z, .reset_grab_{u:n}_1
-	cp OBJSTATE_48
+	cp OBJSTATE_GRABBED_LEFT
 	jr nz, .skip_reset_grab_{u:n}_1
 .reset_grab_{u:n}_1
 	xor a
@@ -1075,7 +1075,7 @@ FOR n, 1, NUM_OBJECTS + 1
 	and $fe
 	cp OBJSTATE_PICKED_UP_LEFT
 	jr z, .reset_grab_{u:n}_2
-	cp OBJSTATE_48
+	cp OBJSTATE_GRABBED_LEFT
 	jr nz, .skip_reset_grab_{u:n}_2
 .reset_grab_{u:n}_2
 	xor a
@@ -1145,7 +1145,7 @@ _ObjState_PickedUpLeft::
 	jp z, .PickUp
 	cp GRAB_IDLE
 	jr z, .GrabIdle
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1204,12 +1204,12 @@ _ObjState_PickedUpLeft::
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hld], a ; OBJ_STATE
 	jp HomeJumpRet
 
 .asm_61fd9
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_GRABBED_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1338,7 +1338,7 @@ _ObjState_PickedUpLeft::
 	jp nz, .drop_obj
 	or GRAB_UNK_02
 	ld [wGrabState], a
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_GRABBED_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1352,7 +1352,7 @@ _ObjState_PickedUpRight::
 	jp z, .PickUp
 	cp GRAB_IDLE
 	jr z, .GrabIdle
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1411,12 +1411,12 @@ _ObjState_PickedUpRight::
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hld], a ; OBJ_STATE
 	jp HomeJumpRet
 
 .asm_6212b
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_GRABBED_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1548,7 +1548,7 @@ _ObjState_PickedUpRight::
 	jp nz, .drop_obj
 	or GRAB_UNK_02
 	ld [wGrabState], a
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_GRABBED_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1574,17 +1574,17 @@ _ObjState_GrabbedRight::
 ; crouching
 	ld a, $01
 	ld [wCurObjVar2], a
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hl], a
 	jp HomeJumpRet
 
 .not_crouching
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [hl], a
 	jp HomeJumpRet
 
 .GrabChargeThrow:
-	ld a, OBJSTATE_4B
+	ld a, OBJSTATE_GRABBED_CHARGE_RIGHT
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1655,7 +1655,7 @@ _ObjState_GrabbedRight::
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hl], a ; OBJ_STATE
 	ld l, OBJ_FLAGS
 	res OBJFLAG_GRABBED_F, [hl]
@@ -1683,17 +1683,17 @@ _ObjState_GrabbedLeft::
 ; crouching
 	ld a, $01
 	ld [wCurObjVar2], a
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hl], a
 	jp HomeJumpRet
 
 .not_crouching
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [hl], a
 	jp HomeJumpRet
 
 .GrabChargeThrow:
-	ld a, OBJSTATE_4A
+	ld a, OBJSTATE_GRABBED_CHARGE_LEFT
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1766,7 +1766,7 @@ _ObjState_GrabbedLeft::
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hl], a ; OBJ_STATE
 	ld l, OBJ_FLAGS
 	res OBJFLAG_GRABBED_F, [hl]
@@ -1790,7 +1790,7 @@ _ObjState_GrabbedChargeLeft::
 .asm_6239e
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1894,7 +1894,7 @@ ThrowObject_Left:
 	xor a
 	ld [hli], a ; OBJ_VAR_3
 	inc l
-	ld a, OBJSTATE_4E
+	ld a, OBJSTATE_THROW_LEFT
 	ld [hli], a ; OBJ_STATE
 	ld a, 31 | (1 << 7)
 	ld [hld], a ; OBJ_ACTION
@@ -1936,7 +1936,7 @@ _ObjState_GrabbedChargeRight::
 .asm_62497
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -2040,7 +2040,7 @@ ThrowObject_Right:
 	xor a
 	ld [hli], a ; OBJ_VAR_3
 	inc l
-	ld a, OBJSTATE_4F
+	ld a, OBJSTATE_THROW_RIGHT
 	ld [hli], a ; OBJ_STATE
 	ld a, 31 | (1 << 7)
 	ld [hld], a ; OBJ_ACTION
@@ -2133,12 +2133,12 @@ _ObjState_ThrowLeft::
 	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_625ff
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
 .asm_625f7
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -2212,12 +2212,12 @@ _ObjState_ThrowRight::
 	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_6268d
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
 .asm_62685
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -2631,7 +2631,7 @@ _ObjCheckFloorOrDrop::
 	call ProcessBlock_Down
 	and a
 	jp nz, HomeJumpRet
-	ld a, OBJSTATE_12
+	ld a, OBJSTATE_DROP_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -2722,7 +2722,7 @@ _ObjState_Drop::
 	ld a, [wObjSlopeInteraction]
 	and a
 	jr nz, .asm_62997
-	ld a, OBJSTATE_0F
+	ld a, OBJSTATE_STUNNED_START
 	ld [hl], a
 	jp HomeJumpRet
 
@@ -3023,7 +3023,7 @@ _ObjState_BumpSlideLeft::
 	call ProcessBlock_DownSide
 	and a
 	jr nz, .asm_62b7d
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [wCurObjState], a
 	jr .asm_62b7d
 
@@ -3058,7 +3058,7 @@ _ObjState_BumpSlideLeft::
 	ld a, [hl]
 	cp OBJSTATE_STUN_LEFT
 	jp z, HomeJumpRet
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62bb3
@@ -3151,7 +3151,7 @@ _ObjState_BumpSlideRight::
 	call ProcessBlock_DownSide
 	and a
 	jr nz, .asm_62c63
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	jr .asm_62c63
 
@@ -3186,7 +3186,7 @@ _ObjState_BumpSlideRight::
 	ld a, [hl]
 	cp OBJSTATE_STUN_RIGHT
 	jp z, HomeJumpRet
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62c99
@@ -3196,7 +3196,7 @@ _ObjState_BumpSlideRight::
 
 _ObjState_FallLeftStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_56
+	ld a, OBJSTATE_BOUNCE_FALL_LEFT
 	ld [hld], a
 	dec l
 	xor a
@@ -3280,7 +3280,7 @@ _ObjState_FallLeft::
 	call ProcessBlock_Side
 	and $0f
 	jp z, HomeJumpRet
-	ld a, OBJSTATE_15
+	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -3323,7 +3323,7 @@ SetObjBounceFromYVel_Left:
 	jr c, .asm_62d71
 	cp 4
 	jr c, .asm_62d77
-	ld a, OBJSTATE_24
+	ld a, OBJSTATE_BOUNCE_3_LEFT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62d6b
@@ -3331,17 +3331,17 @@ SetObjBounceFromYVel_Left:
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62d71
-	ld a, OBJSTATE_20
+	ld a, OBJSTATE_BOUNCE_1_LEFT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62d77
-	ld a, OBJSTATE_22
+	ld a, OBJSTATE_BOUNCE_2_LEFT_START
 	ld [hl], a
 	jp HomeJumpRet
 
 _ObjState_FallRightStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_57
+	ld a, OBJSTATE_BOUNCE_FALL_RIGHT
 	ld [hld], a
 	dec l
 	xor a
@@ -3422,7 +3422,7 @@ _ObjState_FallRight::
 	call ProcessBlock_Side
 	and $0f
 	jp z, HomeJumpRet
-	ld a, OBJSTATE_14
+	ld a, OBJSTATE_FALL_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -3464,7 +3464,7 @@ SetObjBounceFromYVel_Right:
 	jr c, .asm_62e4b
 	cp 4
 	jr c, .asm_62e51
-	ld a, OBJSTATE_25
+	ld a, OBJSTATE_BOUNCE_3_RIGHT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62e45
@@ -3472,11 +3472,11 @@ SetObjBounceFromYVel_Right:
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62e4b
-	ld a, OBJSTATE_21
+	ld a, OBJSTATE_BOUNCE_1_RIGHT_START
 	ld [hl], a
 	jp HomeJumpRet
 .asm_62e51
-	ld a, OBJSTATE_23
+	ld a, OBJSTATE_BOUNCE_2_RIGHT_START
 	ld [hl], a
 	jp HomeJumpRet
 
@@ -3497,7 +3497,7 @@ _VanishObject2::
 
 _ObjState_Bounce3LeftStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_54
+	ld a, OBJSTATE_BOUNCE_3_LEFT
 	ld [hld], a
 	dec l
 	xor a
@@ -3517,7 +3517,7 @@ _ObjState_Bounce3Left::
 
 _ObjState_Bounce1LeftStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_50
+	ld a, OBJSTATE_BOUNCE_1_LEFT
 	ld [hld], a
 	dec l
 	xor a
@@ -3537,7 +3537,7 @@ _ObjState_Bounce1Left::
 
 _ObjState_Bounce2LeftStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_52
+	ld a, OBJSTATE_BOUNCE_2_LEFT
 	ld [hld], a
 	dec l
 	xor a
@@ -3635,14 +3635,14 @@ ObjBounceLeft:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, HomeJumpRet
-	ld a, OBJSTATE_26
+	ld a, OBJSTATE_BOUNCE_FALL_LEFT_START
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	jp HomeJumpRet
 
 .asm_62f4e
-	ld a, OBJSTATE_27
+	ld a, OBJSTATE_BOUNCE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
@@ -3650,7 +3650,7 @@ ObjBounceLeft:
 
 _ObjState_Bounce3RightStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_55
+	ld a, OBJSTATE_BOUNCE_3_RIGHT
 	ld [hld], a
 	dec l
 	xor a
@@ -3670,7 +3670,7 @@ _ObjState_Bounce3Right::
 
 _ObjState_Bounce1RightStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_51
+	ld a, OBJSTATE_BOUNCE_1_RIGHT
 	ld [hld], a
 	dec l
 	xor a
@@ -3690,7 +3690,7 @@ _ObjState_Bounce1Right::
 
 _ObjState_Bounce2RightStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_53
+	ld a, OBJSTATE_BOUNCE_2_RIGHT
 	ld [hld], a
 	dec l
 	xor a
@@ -3784,14 +3784,14 @@ ObjBounceRight:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, HomeJumpRet
-	ld a, OBJSTATE_27
+	ld a, OBJSTATE_BOUNCE_FALL_RIGHT_START
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	jp HomeJumpRet
 
 .asm_63032
-	ld a, $26
+	ld a, OBJSTATE_BOUNCE_FALL_LEFT_START
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
@@ -3799,7 +3799,7 @@ ObjBounceRight:
 
 _ObjState_HopStart::
 	ld hl, wCurObjState
-	ld a, OBJSTATE_1B
+	ld a, OBJSTATE_HOP
 	ld [hld], a
 	dec l
 	xor a
@@ -3952,7 +3952,7 @@ CheckObjectOnScreen:
 .asm_630fd
 	ld a, [wCurObjState]
 	and $fe
-	cp OBJSTATE_48
+	cp OBJSTATE_GRABBED_LEFT
 	jr z, .asm_6310b
 .outside_screen
 	ld hl, wCurObjFlags

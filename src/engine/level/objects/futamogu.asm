@@ -98,7 +98,7 @@ FutamoguFunc:
 	jr z, .Shake
 	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_407bf
-	cp OBJSTATE_3A
+	cp OBJSTATE_RESIST_VANISH
 	jp z, .Fall
 	and $fe
 	cp OBJSTATE_ATTACKED_LEFT_START
@@ -170,7 +170,7 @@ FutamoguFunc:
 	ld a, [hli] ; OBJ_SUBSTATE
 	rlca
 	jr c, .vanish
-	ld a, OBJSTATE_3A
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hld], a ; OBJ_STATE
 	dec l
 	xor a

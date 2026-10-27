@@ -248,7 +248,7 @@ ENDR
 	ld a, $1 | OBJSUBFLAG_UNINITIALISED
 	ld [de], a ; OBJ_SUBSTATE
 	inc e
-	xor a ; OBJSTATE_00
+	xor a ; OBJSTATE_DEFAULT
 	ld [de], a ; OBJ_STATE
 	inc e
 	ld a, 2 | (1 << 7)

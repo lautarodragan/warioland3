@@ -84,7 +84,7 @@ Flow:
 1. `ObjInteraction_Owl` → `Func_20a63` → `SetObjAction(OBJACTION_07)` on the
    owl object.
 2. Next frame: `DoObjectAction` handles `.Action07` → sets
-   `OBJ_STATE = OBJSTATE_18 ($18)`.
+   `OBJ_STATE = OBJSTATE_TRIGGERED ($18)`.
 3. `OwlFunc.Sleep` checks `wCurObjState`: nonzero → wakes the owl, calls
    `MoveObjectUp`, changes interaction type, starts fly sequence.
 4. Flying owl shifts `wCameraYDelta` even with no player vertical input.
@@ -103,7 +103,7 @@ root cause was confirmed.
   frame Wario is in the carrying state. It calls `Func_20a63` which calls
   `SetObjAction(OBJACTION_07)` on the held object — this sets
   `OBJ_ACTION = OBJACTION_07`, `OBJ_STATE = 0`, then next frame
-  `DoObjectAction` runs `.Action07` which sets `OBJ_STATE = OBJSTATE_18`.
+  `DoObjectAction` runs `.Action07` which sets `OBJ_STATE = OBJSTATE_TRIGGERED`.
 - **`OwlFunc.Sleep`** (`objects/owl.asm:35`) returns early only when
   `wCurObjState == 0`. Any nonzero state triggers the wake-up and full
   fly sequence. If using `OwlFunc.Sleep` as the update function, the owl
