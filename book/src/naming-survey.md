@@ -31,6 +31,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 16 | Fifth pass 5b: the remaining referenced data; literal Jamano frameset and Count Richtertoffen pointers written as labels, the temple's wrong-bank OAM label | 44 |
 | 17 | Fifth pass 5c: unreferenced data as `Unreferenced<Owner><Kind>_<addr>`, with corrected owners | 131 |
 | 18 | Duplicates merged (changes the ROM): `Func_ac00b`/`ac016` into `UpdateSceneObjAnim_CreditsOAM`, `Func_ac047`/`ac04c` into `LoadSceneObjSpriteWithScroll_CreditsOAM`, `Func_aca6d` into `AdvanceTempleOWStep`, `Func_19246` into `StartMultiBlockBreak`, `Func_19bce` into `ProcessBlockToB` (was `Func_19b5c`). Bank `$20`'s `Func_82c1d`/`82c22`/`82c29`/`82a8d` kept (copies of bank `$2d` routines, reached by `jr` and fallthroughs) and named `WaitOWFunc_Bank20`, `AdvanceOWFunc_Bank20`, `EndOWFunc_Bank20`, `AdvanceOWFunc_UnlockLevel` | 7 merged, 4 named |
+| 19 | Sixth pass, RAM: the last address-named RAM labels (scene object scripts, VRAM backup buffers, golf, time attack, envelope, prologue particles) and the cutscene overlay sprites; see "Sixth pass: remaining RAM labels" | 44 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
