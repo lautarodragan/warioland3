@@ -14,7 +14,7 @@ LoadActionHelpPalsWithoutWater:
 	call LoadActionHelpOBPals
 	ret
 
-Func_1e48bc:
+BlackOutActionHelpBGPals:
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
 	ld hl, Pals_1e4eef
@@ -238,7 +238,7 @@ ENDR
 	jr nz, .loop_copy_ob_pals
 	ret
 
-Func_1e4a47:
+LoadActionHelpPowerUpIconPals:
 	ld hl, Pals_1e4f2f palette 4
 	ld a, [wActionHelpPowerUp]
 	cp NUM_MAIN_POWER_UPS
@@ -381,7 +381,7 @@ LoadActionHelpSprite:
 	ret
 
 ; unreferenced
-Func_1e4b6d:
+UnreferencedLoadActionHelpObjSprite:
 	ld a, [wSCY]
 	ld b, a
 	ld a, [hli]

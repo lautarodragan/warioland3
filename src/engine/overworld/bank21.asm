@@ -734,8 +734,8 @@ Func_84e43:
 	ret
 
 .asm_84e77
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -787,8 +787,8 @@ _PrologueFade:
 	ret
 
 .do_fade
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -923,7 +923,7 @@ ClearTempPals_Bank21:
 	call WriteAToHL_BCTimes
 	ret
 
-Func_84fff:
+_CutsceneFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85033
@@ -949,8 +949,8 @@ Func_84fff:
 	ret
 
 .asm_85033
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -959,7 +959,7 @@ Func_84fff:
 	inc [hl]
 	ret
 
-Func_85046:
+_CutsceneFadeToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp 1
 	jr nc, .asm_850a6
@@ -1002,8 +1002,8 @@ Func_85046:
 	ret
 
 .asm_850a6
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1012,7 +1012,7 @@ Func_85046:
 	inc [hl]
 	ret
 
-Func_850b9:
+_CutsceneFadeOBToWhite:
 	ld a, [wPalConfig2TotalSteps]
 	cp $01
 	jr nc, .asm_850ef
@@ -1037,7 +1037,7 @@ Func_850b9:
 	ret
 
 .asm_850ef
-	call Func_851d1
+	call StepOBPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig2TotalSteps], a
@@ -1046,7 +1046,7 @@ Func_850b9:
 	inc [hl]
 	ret
 
-Func_850ff:
+_CutsceneFadeBGToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85135
@@ -1071,7 +1071,7 @@ Func_850ff:
 	ret
 
 .asm_85135
-	call Func_851bc
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1080,7 +1080,7 @@ Func_850ff:
 	inc [hl]
 	ret
 
-Func_85145:
+_OWFuncFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85179
@@ -1105,8 +1105,8 @@ Func_85145:
 	ret
 
 .asm_85179
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1115,7 +1115,7 @@ Func_85145:
 	inc [hl]
 	ret
 
-Func_8518c:
+_OWFuncFadeBGPals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .fade
@@ -1132,7 +1132,7 @@ Func_8518c:
 	ret
 
 .fade
-	call Func_851bc
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1141,7 +1141,7 @@ Func_8518c:
 	inc [hl]
 	ret
 
-Func_851bc:
+StepBGPalConfigFade:
 	ld a, LOW(rBGPI)
 	ld [wPalConfig1Register], a
 	xor a
@@ -1152,7 +1152,7 @@ Func_851bc:
 	call FadePalConfig
 	ret
 
-Func_851d1:
+StepOBPalConfigFade:
 	ld a, LOW(rOBPI)
 	ld [wPalConfig2Register], a
 	ld a, 1
@@ -1694,7 +1694,7 @@ ApplyPalConfig_Bank21:
 	jr nz, .loop
 	ret
 
-Func_854ee:
+_ApplyOWTilemapPatches:
 .start
 	ld a, [hli]
 	and a

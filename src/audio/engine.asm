@@ -108,7 +108,7 @@ _UpdateAudio::
 	; wSFXTempoAccumulator < $4a
 	call SetSFXChannels
 .loop_chs_1
-	call Func_30547
+	call RefreshChannel
 	call NextChannel
 	jr nz, .loop_chs_1
 	jr .asm_300c8
@@ -120,7 +120,7 @@ _UpdateAudio::
 
 	call SetAllTracks
 .loop_tracks
-	call Func_30bb0
+	call TickSFXTrack
 	call NextTrack
 	jr nz, .loop_tracks
 
@@ -158,7 +158,7 @@ _UpdateAudio::
 
 	call SetMusicChannels
 .asm_300e3
-	call Func_30547
+	call RefreshChannel
 	call NextChannel
 	jr nz, .asm_300e3
 	jr .asm_30111
@@ -169,7 +169,7 @@ _UpdateAudio::
 
 	call SetAllTracks
 .asm_300f2
-	call Func_30bc2
+	call TickMusicTrack
 	call NextTrack
 	jr nz, .asm_300f2
 
@@ -190,7 +190,7 @@ _UpdateAudio::
 .asm_30111
 	call SetAllTracks
 .asm_30114
-	call Func_30bfb
+	call ProcessTrack
 	call NextTrack
 	jr nz, .asm_30114
 
@@ -982,7 +982,7 @@ UpdateMusicFadeOut:
 	lb de, $00, $ff ; select only music channels
 	jp ExecuteAudioMod_Internal
 
-Func_30547:
+RefreshChannel:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -991,7 +991,7 @@ Func_30547:
 	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
 	ret c ; both flags not set
 	ld [wCurChannelFlags], a
-	jp Func_30651
+	jp ApplyChannelUpdates
 
 UpdateChannel:
 	ld a, [wCurChannelPtr + 0]
@@ -1055,10 +1055,10 @@ DoAudioCommand:
 
 .got_cmd
 	cp $d0
-	jp nc, Func_30a14 ; if >= $d0
+	jp nc, AudioCmd_Note ; if >= $d0
 	sub $b1
-	jp c, Func_3073f
-	ld bc, PointerTable_306d1
+	jp c, AudioCmd_Wait
+	ld bc, AudioCommandTable
 	; fallthrough
 
 ; bc = pointer table
@@ -1185,7 +1185,7 @@ UpdateVibrato:
 ; input:
 ; - a  = channel flags
 ; - hl = channel
-Func_30651:
+ApplyChannelUpdates:
 	bit CHANFLAGS_UPDATE_FREQUENCY_F, a
 	jr z, .skip_frequency
 	ld bc, CHANNEL_FREQUENCY_OFFSET
@@ -1282,7 +1282,7 @@ Func_30651:
 	ld [hl], a
 	ret
 
-PointerTable_306d1:
+AudioCommandTable:
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_END
 	dw AudioCmd_Jump                      ; AUDIOCMD_JUMP
 	dw AudioCmd_Call                      ; AUDIOCMD_CALL
@@ -1311,16 +1311,16 @@ PointerTable_306d1:
 	dw AudioCmd_SetChannelUnused1e           ; AUDIOCMD_UNK_CA
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_CB
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_UNUSED_CC
-	dw Func_30727                         ; cd
-	dw Func_30a10                         ; ce
-	dw Func_30b4d                         ; cf
+	dw AudioCmd_Special                         ; cd
+	dw AudioCmd_NoteNoDuration                         ; ce
+	dw AudioCmd_ReleaseNote                         ; cf
 
-PointerTable_3070f:
+AudioSpecialCommandTable:
 	dw AudioCmd_ClearFlags                ; AUDIOCMDSPECIAL_UNUSED_0
 	dw AudioCmd_SetChannelTimbre          ; AUDIOCMDSPECIAL_TIMBRE
 	dw AudioCmd_SetChannelFadeInEnvelope  ; AUDIOCMDSPECIAL_FADE_IN_ENVELOPE
-	dw Func_309e8                         ; 03
-	dw Func_30a03                         ; 04
+	dw AudioCmd_SetChannelFadeInEnvelopeLow                         ; 03
+	dw AudioCmd_SetChannelFadeOutEnvelopeHigh                         ; 04
 	dw AudioCmd_SetChannelFadeOutEnvelope ; 05
 	dw AudioCmd_SetChannelReleaseVolume           ; 06
 	dw AudioCmd_SetChannelReleaseLength           ; 07
@@ -1329,7 +1329,7 @@ PointerTable_3070f:
 	dw AudioCmd_SetChannelDuration        ; 0a
 	dw AudioCmd_SetChannelSweep           ; 0b
 
-Func_30727:
+AudioCmd_Special:
 	ld a, [wAudioCmdArg]
 	inc de
 	cp $0c
@@ -1339,17 +1339,17 @@ Func_30727:
 	ld a, c
 	ld [wAudioCmdArg], a
 	ld a, b
-	ld bc, PointerTable_3070f
+	ld bc, AudioSpecialCommandTable
 	jp JumpToPointerInTable
 
-Func_3073f:
+AudioCmd_Wait:
 	add $31
 	jp z, DoAudioCommand ; $80
 
-	add LOW(Data_3102b)
+	add LOW(AudioCmdDurations)
 	ld l, a
 	ld a, 0
-	adc HIGH(Data_3102b)
+	adc HIGH(AudioCmdDurations)
 	ld h, a
 	ld b, [hl]
 	dec b
@@ -1717,7 +1717,7 @@ AudioCmd_Pan:
 	set CHANFLAGS_UPDATE_SO_F, a
 	ld [wCurChannelFlags], a
 	ld bc, CHANNEL_SINGLE_PAN
-	jr Func_3098b
+	jr SetChannelSignedProperty
 
 AudioMod_Pan:
 	ld a, [wNumChannels]
@@ -1762,7 +1762,7 @@ AudioCmd_SetChannelFrequencyOffset:
 	ld bc, CHANNEL_FREQUENCY_OFFSET
 ;	fallthrough
 
-Func_3098b:
+SetChannelSignedProperty:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -1817,7 +1817,7 @@ AudioCmd_SetChannelFadeInEnvelope:
 	ld bc, CHANNEL_FADE_IN_ENVELOPE
 ;	fallthrough
 
-Func_309ce:
+SetChannelPropertyHighNybble:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -1834,11 +1834,11 @@ Func_309ce:
 	ld [hl], a
 	jp DoAudioCommand
 
-Func_309e8:
+AudioCmd_SetChannelFadeInEnvelopeLow:
 	ld bc, CHANNEL_FADE_IN_ENVELOPE
 ;	fallthrough
 
-Func_309eb:
+SetChannelPropertyLowNybble:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -1854,32 +1854,32 @@ Func_309eb:
 	ld [hl], a
 	jp DoAudioCommand
 
-Func_30a03:
+AudioCmd_SetChannelFadeOutEnvelopeHigh:
 	ld bc, CHANNEL_FADE_OUT_ENVELOPE
-	jr Func_309ce
+	jr SetChannelPropertyHighNybble
 
 AudioCmd_SetChannelFadeOutEnvelope:
 	ld bc, CHANNEL_FADE_OUT_ENVELOPE
-	jr Func_309eb
+	jr SetChannelPropertyLowNybble
 
 InvalidAudioCmd:
 	jp AudioCmd_ClearFlags
 
-Func_30a10:
+AudioCmd_NoteNoDuration:
 	ld b, $00
-	jr Func_30a1f
+	jr PlayNote
 
-Func_30a14:
+AudioCmd_Note:
 	sub $cf
-	add LOW(Data_3102b)
+	add LOW(AudioCmdDurations)
 	ld l, a
 	ld a, 0
-	adc HIGH(Data_3102b)
+	adc HIGH(AudioCmdDurations)
 	ld h, a
 	ld b, [hl]
 ;	fallthrough
 
-Func_30a1f:
+PlayNote:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -2095,7 +2095,7 @@ Func_30a1f:
 	pop de
 	jp DoAudioCommand
 
-Func_30b4d:
+AudioCmd_ReleaseNote:
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
@@ -2148,7 +2148,7 @@ Func_30b4d:
 	ld a, [hl]
 	and a
 	jr nz, .next_track
-	call Func_30be3
+	call ReleaseTrack
 	jr .done
 .next_track
 	call NextTrack
@@ -2158,7 +2158,7 @@ Func_30b4d:
 	pop de
 	jp DoAudioCommand
 
-Func_30bb0:
+TickSFXTrack:
 	ld a, [wCurTrackPtr + 0]
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
@@ -2169,9 +2169,9 @@ Func_30bb0:
 	inc hl
 	bit 7, [hl] ; TRACK_OWNER
 	ret z
-	jr Func_30bd2
+	jr TickTrackDuration
 
-Func_30bc2:
+TickMusicTrack:
 	ld a, [wCurTrackPtr + 0]
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
@@ -2184,7 +2184,7 @@ Func_30bc2:
 	ret nz
 	; fallthrough
 
-Func_30bd2:
+TickTrackDuration:
 	inc hl
 	inc hl
 	ld a, [hli] ; TRACK_CHANNEL_PTR
@@ -2193,7 +2193,7 @@ Func_30bd2:
 	ld d, a
 	ld a, [de]
 	cp TRACKFLAGS_6 | TRACKFLAGS_7
-	jr c, Func_30bf2
+	jr c, StopTrack_FromChannelPtr
 	inc hl
 	ld a, [hl] ; TRACK_DURATION
 	and a
@@ -2202,28 +2202,28 @@ Func_30bd2:
 	ret nz
 ;	fallthrough
 
-Func_30be3:
+ReleaseTrack:
 	ld bc, TRACK_FLAGS - TRACK_DURATION
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
 	bit TRACKFLAGS_6_F, a
-	jr nz, Func_30bf6
+	jr nz, StopTrack
 	or TRACKFLAGS_4 | TRACKFLAGS_6
 	and $ff ^ TRACKFLAGS_5
 	ld [hl], a
 	ret
 
-Func_30bf2:
+StopTrack_FromChannelPtr:
 	ld bc, TRACK_FLAGS - (TRACK_CHANNEL_PTR + 2)
 	add hl, bc
 	; fallthrough
 
-Func_30bf6:
+StopTrack:
 	xor a
 	ld [hl], a
 	jp TurnSoundRegisterOff
 
-Func_30bfb:
+ProcessTrack:
 	ld a, [wCurTrackPtr + 0]
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
@@ -2246,7 +2246,7 @@ Func_30bfb:
 	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
 	jr nc, .asm_30c1f
 	pop hl
-	jr Func_30bf6
+	jr StopTrack
 
 .asm_30c1f
 	ld [wCurChannelFlags], a
@@ -3006,7 +3006,7 @@ ENDR
 	add c
 	ret
 
-Data_3102b:
+AudioCmdDurations:
 	db  0 ; 80 | cf
 	db  1 ; 81 | d0
 	db  2 ; 82 | d1

@@ -1,4 +1,4 @@
-Func_803e6:
+SaveGameOnReturnFromLevel:
 	ld a, [wTransitionParam]
 	and a
 	ret z
@@ -96,7 +96,7 @@ InitOverworld:
 	ld [wCurEvent], a
 	ld a, SST_OVERWORLD_09
 	ld [wSubState], a
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 .play_ow_scene
@@ -122,7 +122,7 @@ InitOverworld:
 	jr .after_cutscene
 
 .game_over
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 .golf_building
@@ -131,7 +131,7 @@ InitOverworld:
 	ld [wMapSideLevelID], a
 	ld a, SST_OVERWORLD_GOLF_BUILDING
 	ld [wSubState], a
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 SetStoredTransitionParamAsReturnToMap:
@@ -158,7 +158,7 @@ UpdateStoredTransitionParam:
 	ret
 
 ; waits for A button input
-Func_804ec:
+OverworldWaitAPress:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
@@ -196,11 +196,11 @@ InitOWScene:
 	dw InitMapSideForScene_South ; SOUTH
 	dw InitMapSideForScene_East  ; EAST
 
-Func_80540:
+UpdateOWScene:
 	call Func_818ad
 	call Func_82bb8
 	call Func_82bda
-	farcall Func_b4a37
+	farcall UpdateMapSideOWObjs
 	call LoadCompassSprite
 	call ClearUnusedVirtualOAM
 	ret
@@ -265,8 +265,8 @@ InitMapSide:
 	dw InitSouthMapSide ; SOUTH
 	dw InitEastMapSide  ; EAST
 
-Func_805d7:
-	call Func_80e89
+UpdateMapSide:
+	call HandleMapSide
 	call LoadCompassSprite
 	call ClearUnusedVirtualOAM
 	ret
@@ -371,9 +371,9 @@ Func_8065e:
 
 	ld a, OWWARIO_DOWN
 	call SetOWWarioOAM
-	farcall Func_b4a3d
-	call Func_82041
-	farcall Func_b4aa9
+	farcall UpdateMapSideOWObjs_Front
+	call UpdateOWWario
+	farcall UpdateMapSideOWObjs_Back
 	call LoadCloudAndSeaGfx
 
 	ld a, [wGameModeFlags]
@@ -518,7 +518,7 @@ Func_8086f:
 	ld a, [wTempOWSceneParamsPtr + 1]
 	ld [wOWSceneParamsPtr + 1], a
 
-	farcall Func_b4a37
+	farcall UpdateMapSideOWObjs
 	call LoadCloudAndSeaGfx
 
 	xor a
@@ -710,7 +710,7 @@ Func_80af5:
 	call Func_819c6
 	ret z
 	ld hl, Data_8561f
-	farcall Func_854ee
+	farcall _ApplyOWTilemapPatches
 	ret
 
 Func_80b1b:

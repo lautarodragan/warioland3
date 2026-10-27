@@ -122,8 +122,8 @@ ActionHelp_Init:
 	ld a, $04
 	ld [wSCY], a
 
-	farcall Func_1e48bc
-	farcall Func_1e4a47
+	farcall BlackOutActionHelpBGPals
+	farcall LoadActionHelpPowerUpIconPals
 	call ActionHelp_ClearDPadInput
 	call ActionHelp_ClearButtonsInput
 
@@ -177,7 +177,7 @@ VBlank_1fb6b7:
 	ret
 .end
 
-Func_1fb6f7:
+HandleActionHelpPowerUpSelection:
 	ld hl, wActionHelpPowerUp
 	ld a, [wJoypadPressed]
 	bit B_PAD_RIGHT, a

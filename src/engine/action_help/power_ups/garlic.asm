@@ -67,43 +67,43 @@ GarlicActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1f9d1a
-	dw Func_1f9d7e
+	dw GarlicActionHelp_WaitToStart
+	dw GarlicActionHelp_Step02
 	dw ActionHelp_FlashBInput
-	dw Func_1f9d97
-	dw Func_1f9e07
-	dw Func_1f9e62
-	dw Func_1f9e9b
-	dw Func_1f9eb7
-	dw Func_1f9f35
-	dw Func_1f9f76
-	dw Func_1f9f86
-	dw Func_1f9f9e
-	dw Func_1f9ff4
-	dw Func_1fa035
-	dw Func_1fa045
-	dw Func_1fa072
-	dw Func_1fa0c2
-	dw Func_1fa145
-	dw Func_1fa155
-	dw Func_1fa17d
-	dw Func_1fa1c5
-	dw Func_1fa1d5
+	dw GarlicActionHelp_Step04
+	dw GarlicActionHelp_Step05
+	dw GarlicActionHelp_Step06
+	dw GarlicActionHelp_Step07
+	dw GarlicActionHelp_Step08
+	dw GarlicActionHelp_Step09
+	dw GarlicActionHelp_Step0A
+	dw GarlicActionHelp_Step0B
+	dw GarlicActionHelp_Step0C
+	dw GarlicActionHelp_Step0D
+	dw GarlicActionHelp_Step0E
+	dw GarlicActionHelp_Step0F
+	dw GarlicActionHelp_Step10
+	dw GarlicActionHelp_Step11
+	dw GarlicActionHelp_Step12
+	dw GarlicActionHelp_Step13
+	dw GarlicActionHelp_Step14
+	dw GarlicActionHelp_Step15
+	dw GarlicActionHelp_Step16
 	dw ActionHelp_FlashDDownInput
-	dw Func_1fa1ee
-	dw Func_1fa20a
-	dw Func_1fa223
-	dw Func_1fa248
-	dw Func_1fa298
-	dw Func_1fa2d4
-	dw Func_1fa315
-	dw Func_1fa33b
-	dw Func_1fa37c
-	dw Func_1fa38c
-	dw Func_1fa3ab
-	dw Func_1fa3e4
+	dw GarlicActionHelp_Step18
+	dw GarlicActionHelp_Step19
+	dw GarlicActionHelp_Step1A
+	dw GarlicActionHelp_Step1B
+	dw GarlicActionHelp_Step1C
+	dw GarlicActionHelp_Step1D
+	dw GarlicActionHelp_Step1E
+	dw GarlicActionHelp_Step1F
+	dw GarlicActionHelp_Step20
+	dw GarlicActionHelp_Step21
+	dw GarlicActionHelp_Step22
+	dw GarlicActionHelp_Step23
 
-Func_1f9ce7:
+GarlicActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1f9cf5
@@ -123,13 +123,13 @@ Func_1f9ce7:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1f9d1f
+	jr GarlicActionHelp_Start
 
-Func_1f9d1a:
+GarlicActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1f9d1f:
+GarlicActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 
@@ -188,7 +188,7 @@ Func_1f9d1f:
 	inc [hl]
 	ret
 
-Func_1f9d7e:
+GarlicActionHelp_Step02:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
@@ -205,7 +205,7 @@ Func_1f9d7e:
 	inc [hl]
 	ret
 
-Func_1f9d97:
+GarlicActionHelp_Step04:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld hl, wActionHelpWarioVar
@@ -261,7 +261,7 @@ Func_1f9d97:
 	inc [hl]
 	ret
 
-Func_1f9e07:
+GarlicActionHelp_Step05:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld hl, wActionHelpWarioVar
@@ -308,7 +308,7 @@ Func_1f9e07:
 	inc [hl]
 	ret
 
-Func_1f9e62:
+GarlicActionHelp_Step06:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld a, [wMenuObj5AnimationEnded]
@@ -330,7 +330,7 @@ Func_1f9e62:
 	inc [hl]
 	ret
 
-Func_1f9e9b:
+GarlicActionHelp_Step07:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
@@ -348,7 +348,7 @@ Func_1f9e9b:
 	inc [hl]
 	ret
 
-Func_1f9eb7:
+GarlicActionHelp_Step08:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld hl, wActionHelpWarioVar
@@ -411,7 +411,7 @@ Func_1f9eb7:
 	inc [hl]
 	ret
 
-Func_1f9f35:
+GarlicActionHelp_Step09:
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -447,7 +447,7 @@ Func_1f9f35:
 	inc [hl]
 	ret
 
-Func_1f9f76:
+GarlicActionHelp_Step0A:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -459,7 +459,7 @@ Func_1f9f76:
 	inc [hl]
 	ret
 
-Func_1f9f86:
+GarlicActionHelp_Step0B:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
@@ -475,7 +475,7 @@ Func_1f9f86:
 	inc [hl]
 	ret
 
-Func_1f9f9e:
+GarlicActionHelp_Step0C:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld hl, wActionHelpWarioVar
@@ -511,7 +511,7 @@ Func_1f9f9e:
 	inc [hl]
 	ret
 
-Func_1f9ff4:
+GarlicActionHelp_Step0D:
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -547,7 +547,7 @@ Func_1f9ff4:
 	inc [hl]
 	ret
 
-Func_1fa035:
+GarlicActionHelp_Step0E:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -559,7 +559,7 @@ Func_1fa035:
 	inc [hl]
 	ret
 
-Func_1fa045:
+GarlicActionHelp_Step0F:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -589,7 +589,7 @@ Func_1fa045:
 	inc [hl]
 	ret
 
-Func_1fa072:
+GarlicActionHelp_Step10:
 	play_sfx_rept 6, SFX_ATTACK_POWERED_UP
 
 	ld hl, wActionHelpWarioVar
@@ -621,7 +621,7 @@ Func_1fa072:
 	inc [hl]
 	ret
 
-Func_1fa0c2:
+GarlicActionHelp_Step11:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -696,7 +696,7 @@ Func_1fa0c2:
 	inc [hl]
 	ret
 
-Func_1fa145:
+GarlicActionHelp_Step12:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -707,7 +707,7 @@ Func_1fa145:
 	inc [hl]
 	ret
 
-Func_1fa155:
+GarlicActionHelp_Step13:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -735,7 +735,7 @@ Func_1fa155:
 	inc [hl]
 	ret
 
-Func_1fa17d:
+GarlicActionHelp_Step14:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -776,7 +776,7 @@ Func_1fa17d:
 	inc [hl]
 	ret
 
-Func_1fa1c5:
+GarlicActionHelp_Step15:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -788,7 +788,7 @@ Func_1fa1c5:
 	inc [hl]
 	ret
 
-Func_1fa1d5:
+GarlicActionHelp_Step16:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -807,7 +807,7 @@ Func_1fa1d5:
 	inc [hl]
 	ret
 
-Func_1fa1ee:
+GarlicActionHelp_Step18:
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $40
@@ -827,7 +827,7 @@ Func_1fa1ee:
 	inc [hl]
 	ret
 
-Func_1fa20a:
+GarlicActionHelp_Step19:
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $40
@@ -846,7 +846,7 @@ Func_1fa20a:
 	inc [hl]
 	ret
 
-Func_1fa223:
+GarlicActionHelp_Step1A:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -867,7 +867,7 @@ Func_1fa223:
 	inc [hl]
 	ret
 
-Func_1fa248:
+GarlicActionHelp_Step1B:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -919,7 +919,7 @@ Func_1fa248:
 	inc [hl]
 	ret
 
-Func_1fa298:
+GarlicActionHelp_Step1C:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
@@ -953,7 +953,7 @@ Func_1fa298:
 	inc [hl]
 	ret
 
-Func_1fa2d4:
+GarlicActionHelp_Step1D:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -998,7 +998,7 @@ Func_1fa2d4:
 	inc [hl]
 	ret
 
-Func_1fa315:
+GarlicActionHelp_Step1E:
 	ld a, [wMenuObj5AnimationEnded]
 	and a
 	jr z, .asm_1fa31e
@@ -1022,7 +1022,7 @@ Func_1fa315:
 	inc [hl]
 	ret
 
-Func_1fa33b:
+GarlicActionHelp_Step1F:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -1059,7 +1059,7 @@ Func_1fa33b:
 	inc [hl]
 	ret
 
-Func_1fa37c:
+GarlicActionHelp_Step20:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -1071,7 +1071,7 @@ Func_1fa37c:
 	inc [hl]
 	ret
 
-Func_1fa38c:
+GarlicActionHelp_Step21:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -1094,7 +1094,7 @@ Func_1fa38c:
 	inc [hl]
 	ret
 
-Func_1fa3ab:
+GarlicActionHelp_Step22:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -1129,10 +1129,10 @@ Func_1fa3ab:
 	inc [hl]
 	ret
 
-Func_1fa3e4:
+GarlicActionHelp_Step23:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
 	cp $e8
 	ret c
-	jp Func_1f9ce7
+	jp GarlicActionHelp_End

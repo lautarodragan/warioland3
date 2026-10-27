@@ -5,17 +5,17 @@ OverworldStateTable::
 	dw FastFadeToWhite
 	dw InitOverworld
 	dw SlowFadeFromWhite
-	dw Func_804ec
+	dw OverworldWaitAPress
 	dw FastFadeToWhite
 
 	dw InitOWScene          ; SST_OVERWORLD_OW_SCENE
 	dw SlowFadeFromWhite
-	dw Func_80540
+	dw UpdateOWScene
 
 	dw FadeBGToWhite_Normal ; SST_OVERWORLD_08
 	dw InitMapSide          ; SST_OVERWORLD_09
 	dw DarkenBGToPal_Normal
-	dw Func_805d7           ; SST_OVERWORLD_0B
+	dw UpdateMapSide           ; SST_OVERWORLD_0B
 
 	dw FadeBGToWhite_Normal ; SST_OVERWORLD_COLLECTION
 	dw InitTreasureCollection
@@ -27,7 +27,7 @@ OverworldStateTable::
 	dw DarkenBGToPal_Normal
 	dw UpdateCutscene
 	dw FadeBGToWhite_Normal
-	dw Func_80db1
+	dw ReturnFromCutscene
 
 	dw FadeBGToWhite_Normal ; SST_OVERWORLD_BEST_TIMES
 	dw InitBestTimeList
@@ -38,15 +38,15 @@ OverworldStateTable::
 	dw InitTempleScene
 	dw DarkenBGToPal_Normal
 	dw UpdateTempleScene
-	dw Func_80e33
+	dw ExitTempleScene
 
 	dw FadeBGToWhite_Normal
 	dw GolfBuilding           ; SST_OVERWORLD_GOLF_BUILDING
 	dw DarkenBGToPal_Normal
-	dw Func_80e55
+	dw UpdateGolfBuilding
 
 	dw FastFadeToWhite ; SST_OVERWORLD_EPILOGUE
 	dw InitEpilogue
 	dw SlowFadeFromWhite
-	dw Func_80e75
+	dw UpdateEpilogue
 	dw Func_80e85
