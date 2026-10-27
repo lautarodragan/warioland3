@@ -73,7 +73,7 @@ The CGB has 8 WRAM banks of 4 KB; `$c000`-`$cfff` is always bank 0 and
 | 2 | `$d000` | `wTreasuresCollected` and other game progress, the overworld's variables, `wTileBuffer` (`$dc00`) |
 | 3 | `$d000` | the audio engine's variables |
 | 3 | `$d280` | "GFX RAM": `wBackupPals`, `wRoomBlockAttributes`, door transition and menu variables |
-| 4-7 | `$d000`-`$dfff` | `SaveBackupVRAM`'s copy of VRAM: VRAM0 `$8000`, VRAM0 `$9000`, VRAM1 `$8000`, VRAM1 `$9000` |
+| 4-7 | `$d000`-`$dfff` | `SaveBackupVRAM`'s copy of VRAM: `wBackupV0Tiles0` (VRAM0 `$8000`), `wBackupV0Tiles2` (VRAM0 `$9000`, with the BG maps), `wBackupV1Tiles0` (VRAM1 `$8000`), `wBackupV1Tiles2` (VRAM1 `$9000`) |
 
 This fork also uses unused parts of WRAM bank 3 (`$d600`, "Owl Slot WRAM")
 and bank 1 (`$d700`) for the [debug owl](debug-owl.md).

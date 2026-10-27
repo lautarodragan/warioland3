@@ -94,9 +94,10 @@ Still named after their address, on purpose:
   and fallthroughs; `SmallHopYVel`/`SmallHopYVel2`; `SwimDiagonalVelTable`,
   which has the same bytes as `SwimStraightVelTable`;
   `GetBlockPtrBottomCentrePos`, close to `GetBlockPtrPos`.
-- A few low-confidence RAM scene variables (`w2d150`.., the `w2d122`..`w2d13f`
-  scene task pairs). The structural RAM changes and the labels used under the
-  wrong union member were fixed in batch 14.
+- No RAM label is named after its address any more either: the last ones
+  (`w2d150`.., the `w2d122`..`w2d13f` pairs, the VRAM backup buffers...)
+  were named in the sixth pass (see the naming survey), after the
+  structural RAM changes and wrong-union labels of batch 14.
 
 ## Doing more of this
 

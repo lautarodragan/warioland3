@@ -3179,3 +3179,36 @@ index `HiddenFigureOAM_18c88a`, not `TempleSceneObjOAM_15e813`.
 - The constants `AUDIOMOD_UNK`, `OBJSTATE_1A`/`1B` and `OBJ_INTERACTION_31`,
   `48`, `4F`, `51`, `52` could now take names from their handlers
   (release, hop start/hop, solid platform...).
+
+## Sixth pass: remaining RAM labels
+
+Branch `claude/ram-rest-dh93t5`. Every address-named label in `src/ram/`
+is gone (a grep for `w[0-9]?[0-9a-f]{3,5}` finds nothing in `src/`). No
+address moved: the ROM is byte-identical and the `.sym` file only gains
+labels (struct fields now also name the unreferenced bytes `$d128`,
+`$d131`, `$d136`, `$d137`) and loses the old ones. `wd156` had no use left
+(batch 14 moved its readers to `wOWUIObj3`); its `ds $2` stays unlabelled.
+
+| Old | New | Evidence |
+|---|---|---|
+| `w1dc21` | `wGolfWarioSnapToEdge` | Set by `GolfHoleState_Walk` (golf/hole.asm:2249). `UpdateGolfWario` (hole.asm:680-728): while Wario is off screen (`IsGolfXPosOnScreen`) and it is set, it clears it and puts him at scroll - 10 px or scroll + 170 px depending on `wGolfWarioDir`, i.e. just outside the edge he walks in from; once he is on screen it is cleared. |
+| `w2d07c` | `wOWIsNightTarget` | `wOWIsNight` on init (overworld/init.asm:256), 1 in `.InitDayToNight`, 0 in `.InitNightToDay` (bank21.asm:23, :203), both before `.SwitchDayNight` changes `wOWIsNight`. Read only by `MoveSouthOWObj14Diagonally` (bank2d.asm:8833) to pick the object's day or night path. |
+| `w2d07d` | `wSouthOWObj14MoveStarted` | Cleared with the above (init.asm:258, bank21.asm:25, :204); `MoveSouthOWObj14Diagonally` (bank2d.asm:8841-8886) resets the object's position once (night path) or just sets it (day path) the first time it runs after a change. |
+| `w2d0ee` / `w2d0ef` | `wOWLevelTimeAttackScore` = `wOWLevelTimeAttackMinutes` / `wOWLevelTimeAttackSeconds` | `GetLevelTimeAttackScore` (bank26.asm:1306) copies `wOWLevel`'s entry of `wLevelTimeAttackScores` (minutes byte, seconds byte, BCD, as commented there); `DrawBottomBarTimeAttackScore` (bank20.asm:4623) draws the two pairs of digits with a gap between them. |
+| `w2d122`..`w2d13f` | `wSceneObjScripts`: `wSceneObj1Script`..`wSceneObj15Script` (`scene_obj_script_struct`: `Step`, `Counter`) | Pair N belongs to `wSceneObjN` in every scene that uses one: the volcano's left/right/middle rocks are objects 1/3/6 with pairs 1/3/6 (bank2d.asm:4424-4620), the fan's two winds objects 1/2 with pairs 1/2 (:6121), the leaves objects 6/7/8/9 with pairs 6/7/8/9 (:2690-2990, `InitNOWObjects_FallLeaves`), the final scene's objects 10/12/13/14/15 with pairs 10/12/13/14/15 (:7833-8035), the map objects that react to Wario (north object 2, west object 5, south object 7, :8442, :8590, :8774) and `EastOWObj5IdleTimer` (:8724) with their own pairs, the rain clouds (object 15) with pair 15 (:3668), `EOWFunc_BurnVines` object 1 with pair 1 (:8112). The first byte is a 1-based jumptable index (0 = inactive) and the second a counter, cleared when the step advances (`xor a / ld [hld], a / inc [hl]`). Exceptions, which the names don't cover: `.MoveObj1` (:6836) keeps its step in `wSceneObj1MovementStep` and counts in `wSceneObj1ScriptStep`; `SOWFunc_MagicSeed`'s `.MoveSeeds` (:5408) uses the `Counter` bytes of objects 2-4 as on/off flag plus curve index; `SOWFunc_CanyonThunder`'s `.UpdateBarrage` (:5782) runs in object 2's pair but moves objects 1, 2 and 10. |
+| `w2d150` / `w2d151` (bank2b_2) | `wSceneWarioPalCycleStep` / `wSceneWarioPalCycleCounter` | `CycleSceneWarioPals` (bank2b_2.asm:887): 0 = off, 1-8 the palette written to `wSceneWarioAttributes` every 2 frames, $80 = reset and stop; started/stopped by the prologue (:683, :714) and the epilogue (:3278, :3286). |
+| `w2d150`, `w2d151`, `wd152`..`wd155` (bank2d, bank56) | `wNOWPrologueObj2ParticleStep`, `...Obj3...`, `...Obj5...`, `...Obj8...`, `...Obj9...`, `...Obj10ParticleStep` | `UpdateNOWPrologueParticles` (bank56.asm:721-1051): one jumptable index per scene object 2/3/5/8/9/10 (place, arc along `NOWPrologueParticleArc1`-`3`, loop); started one by one by `NOWFunc_Prologue` (bank2d.asm:3580-3607). The two uses are a nested `UNION` inside the `wSceneWario` branch; `wDebugSceneWarioState` (bank2b_1.asm:1322) keeps its own branch at `$d152`. |
+| `w2d8b0` / `w2d8b1` | `wMusicBoxSparkleStep` / `wMusicBoxSparkleCounter` | `UpdateMusicBoxSparkle` (bank2b_2.asm:532) dispatches on the first, counts in the second; set by `Prologue_WarioEnterCave` (`.start_sparkle`, `.StartSparkleLoop`) and cleared at :125. |
+| `w3d01a` | `wEnvelopeFrameCycle` | Counts 14..0 and wraps once per audio frame (audio/engine.asm:197-203). `ProcessTrack` (:2257) increments the track's envelope tick (`TRACK_FREQUENCY` low byte, compared with the envelope length at :2337 and :2432) twice when it is 0, else once: 16 ticks per 15 frames, i.e. 64 Hz at 60 fps, the hardware envelope's rate. |
+| `w4d000`..`w7d000` | `wBackupV0Tiles0`, `wBackupV0Tiles2`, `wBackupV1Tiles0`, `wBackupV1Tiles2` | `SaveBackupVRAM` / `LoadBackupVRAM` (home/backup_vram.asm) copy `v0Tiles0`, `v0Tiles2`..`v0End` (with the BG maps), `v1Tiles0` and `v1Tiles2`..`v1End` to/from them; nothing else uses WRAM banks 4-7. Named after the VRAM labels, next to `wBackupSCY`/`wBackupPals`. |
+| `wCurSceneObj` in `DrawCutsceneOverlay*` and Cutscene14 | `wCutsceneOverlaySprite1` / `wCutsceneOverlaySprite2` (`sprite_oam_struct`, a `UNION` with `wCurSceneObj`) | `DrawCutsceneOverlay` (bank27.asm:7487) writes Y, X, frame and attributes into the first 4 bytes of `wCurSceneObj` (frames 0 and 5) or the last 4 (`wCurSceneObjDuration`, frames 1, 2, 3, 6); `DrawCutsceneOverlayFrame4` only sets the frame of the first and draws it where it is. Cutscene14 places and moves that first sprite (bank27.asm:5583-5651) right before setting `wCutsceneOverlayType` to 2. |
+
+Left as they are:
+
+- `wUnused_2d121` (`$d121`, just before pair 1): written by
+  `EOWFunc_FormCastle` (bank2d.asm:7490), never read; nothing shows it is a
+  pair 0.
+- Cutscene14's local `.LowerCurObj` now lowers `wCutsceneOverlaySprite1`; a
+  ROM local label, left to the ROM naming work.
+- What the prologue particles and the south map's object 14 look like isn't
+  known, so the names say what the code does with them, not what they are.
