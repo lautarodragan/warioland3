@@ -104,12 +104,12 @@ UpdateLevel:
 	ld a, [wFloorTransitionTimer]
 	sub b
 	ld [wFloorTransitionTimer], a
-	jr nz, .asm_8209
+	jr nz, .scroll_vertically
 	ld hl, wFloorTransitionDir
 	res FLOOR_TRANSITION_DOWN_F, [hl]
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
-	jr .asm_8209
+	jr .scroll_vertically
 .transition_up
 	ld b, 4
 	ld a, [wCameraYDelta]
@@ -121,7 +121,7 @@ UpdateLevel:
 	jr z, .end_up_transition
 	ld a, [wScrollDownEdge]
 	dec a
-	jr nz, .asm_8209
+	jr nz, .scroll_vertically
 	xor a
 	ld [wFloorTransitionTimer], a
 .end_up_transition
@@ -130,33 +130,33 @@ UpdateLevel:
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
 
-.asm_8209
+.scroll_vertically
 	xor a
 	ld [wScrollUpEdge], a
 	ld [wScrollDownEdge], a
 	call LevelScroll_Vertical
-	jr .asm_8229
+	jr .update_level_edges
 
 .no_floor_transition
 	ld a, [wCameraConfigFlags]
 	cp HIDDEN_FIGURE_CAMCONFIG
-	jr z, .asm_8227
+	jr z, .hidden_figure
 	call OwlWarioCamera
 	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_XSCROLL2 | CAM_TRANSITIONS
-	jr z, .asm_8229
+	jr z, .update_level_edges
 	call LevelScroll_Horizontal
-	jr .asm_8229
-.asm_8227
+	jr .update_level_edges
+.hidden_figure
 	jr .check_end_screen
 
-.asm_8229
+.update_level_edges
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_8ed9
+	call UpdateLevelEdges
 	call ProcessBlockRedrawQueue
 	di
 	call SetTileQueueProcessingFunctions
@@ -364,7 +364,7 @@ UpdateLevel:
 	ld [wScrollDownEdge], a
 	call LevelScroll_Vertical
 	call LevelScroll_Horizontal
-	jp .asm_8229
+	jp .update_level_edges
 
 .yscroll_camera
 	ld a, TRUE
@@ -405,4 +405,4 @@ UpdateLevel:
 	ld [wScrollUpEdge], a
 	ld [wScrollDownEdge], a
 	call LevelScroll_Vertical
-	jp .asm_8229
+	jp .update_level_edges

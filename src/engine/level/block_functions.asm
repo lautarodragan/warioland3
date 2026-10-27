@@ -532,7 +532,7 @@ BlockFunc_NonSolidSpike:
 	jr z, .asm_1838a
 	jp BlockFunc_Free
 .asm_1838a
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	jp BlockFunc_Free
 
 BlockFunc_SolidSpike:
@@ -574,7 +574,7 @@ BlockFunc_SolidSpike:
 	jr z, .asm_183f0
 	jp BlockFunc_Solid
 .asm_183f0
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	jp BlockFunc_Solid
 
 BlockFunc_WaterSpike:

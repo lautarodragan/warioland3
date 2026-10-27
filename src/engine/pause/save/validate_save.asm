@@ -23,7 +23,7 @@ ValidateSaveData::
 	ld hl, sBackup3WRAMCheckVals
 	call CheckSaveVals2
 	jr nc, .checkvals_ok
-	jp .asm_1f0d0f
+	jp .no_valid_save
 
 .checkvals_ok
 	ld a, [sSaveProgress]
@@ -33,39 +33,39 @@ ValidateSaveData::
 	ld a, [sSaveProgressEcho2]
 	ld d, a
 	cp b ; sSaveProgressEcho2 == sSaveProgress?
-	jr nz, .asm_1f0d08
+	jr nz, .progress_differs
 	cp c ; sSaveProgressEcho2 == sSaveProgressEcho1?
-	jr z, .asm_1f0d03 ; both branches are the same
+	jr z, .progress_all_equal ; both branches are the same
 	ld [wSaveProgress], a
-	jr .asm_1f0d20
-.asm_1f0d03
+	jr .validate
+.progress_all_equal
 	ld [wSaveProgress], a
-	jr .asm_1f0d20
+	jr .validate
 
-.asm_1f0d08
+.progress_differs
 	; sSaveProgress != sSaveProgressEcho2
 	cp c ; sSaveProgressEcho2 == sSaveProgressEcho1?
-	jr z, .asm_1f0d16
+	jr z, .progress_echos_agree
 	ld a, b
 	cp c ; sSaveProgress == sSaveProgressEcho1?
-	jr z, .asm_1f0d1b
+	jr z, .progress_orig_echo1_agree
 
-.asm_1f0d0f
+.no_valid_save
 	ld a, $ff
 	ld [wSaveProgress], a
-	jr .asm_1f0d20
+	jr .validate
 
-.asm_1f0d16
+.progress_echos_agree
 	ld [wSaveProgress], a
-	jr .asm_1f0d20
+	jr .validate
 
-.asm_1f0d1b
+.progress_orig_echo1_agree
 	ld [wSaveProgress], a
-	jr .asm_1f0d20 ; useless jump
+	jr .validate ; useless jump
 
-.asm_1f0d20
-	call Func_1f0d60
-	call Func_1f1246
+.validate
+	call ValidateSaveChecksums
+	call LoadNewestValidSave
 	pop af
 	sramswitch
 	ret
@@ -114,7 +114,7 @@ CheckSaveVals2:
 	scf
 	ret
 
-Func_1f0d60:
+ValidateSaveChecksums:
 	xor a
 	ld [wValidSaves], a
 	ld hl, sCheckVals
@@ -139,13 +139,13 @@ Func_1f0d60:
 	call .CalculateChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f0d9b
+	jr nz, .game_data_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f0d9b
-	jr .asm_1f0dc2
+	jr nz, .game_data_mismatch
+	jr .game_data_ok
 
-.asm_1f0d9b
+.game_data_mismatch
 	ld a, [wChecksumMismatches]
 	and a
 	jr z, .clear_check_vals
@@ -153,13 +153,13 @@ Func_1f0d60:
 	; it's equal to calculated checksum
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f0daf
+	jr nz, .game_data_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f0daf
-	jr .asm_1f0dc2
+	jr nz, .game_data_check_alt2
+	jr .game_data_ok
 
-.asm_1f0daf
+.game_data_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
 	jr nz, .clear_check_vals
@@ -172,7 +172,7 @@ Func_1f0d60:
 	cp e
 	jr nz, .clear_check_vals
 
-.asm_1f0dc2
+.game_data_ok
 	ld hl, sGameData ; useless
 	ld hl, wValidSaves
 	set 0, [hl]
@@ -218,13 +218,13 @@ Func_1f0d60:
 	call .CalculateChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f0e20
+	jr nz, .backup_game_data_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f0e20
-	jr .asm_1f0e47
+	jr nz, .backup_game_data_mismatch
+	jr .backup_game_data_ok
 
-.asm_1f0e20
+.backup_game_data_mismatch
 	ld a, [wChecksumMismatches]
 	and a
 	jr z, .clear_backup_check_vals
@@ -232,13 +232,13 @@ Func_1f0d60:
 	; it's equal to calculated checksum
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f0e34
+	jr nz, .backup_game_data_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f0e34
-	jr .asm_1f0e47
+	jr nz, .backup_game_data_check_alt2
+	jr .backup_game_data_ok
 
-.asm_1f0e34
+.backup_game_data_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
 	jr nz, .clear_backup_check_vals
@@ -251,11 +251,11 @@ Func_1f0d60:
 	cp e
 	jr nz, .clear_backup_check_vals
 
-.asm_1f0e47
+.backup_game_data_ok
 	ld hl, sBackupGameData ; useless
 	ld hl, wValidSaves
 	set 1, [hl]
-	jr .asm_1f0e6e
+	jr .check_level_map
 
 .clear_backup_check_vals
 	ld a, $20
@@ -275,7 +275,7 @@ Func_1f0d60:
 	ld [sSaveProgressEcho1], a
 	ld [sSaveProgressEcho2], a
 
-.asm_1f0e6e
+.check_level_map
 	ld a, [sLevelMapChecksum + 0]
 	ld b, a
 	ld a, [sLevelMapChecksum + 1]
@@ -293,40 +293,40 @@ Func_1f0d60:
 	call CalculateBackupSRAMChecksum1
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f0e9a
+	jr nz, .level_map_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f0e9a
-	jr .asm_1f0ec1
+	jr nz, .level_map_mismatch
+	jr .level_map_ok
 
-.asm_1f0e9a
+.level_map_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f0efd
+	jr z, .level_map_bad
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f0eae
+	jr nz, .level_map_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f0eae
-	jr .asm_1f0ec1
+	jr nz, .level_map_check_alt2
+	jr .level_map_ok
 
-.asm_1f0eae
+.level_map_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f0efd
+	jr nz, .level_map_bad
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f0efd
+	jr nz, .level_map_bad
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f0efd
-.asm_1f0ec1
+	jr nz, .level_map_bad
+.level_map_ok
 	ld hl, wValidSaves
 	set 6, [hl]
 	ld hl, sWRAMCheckVals
 	call CheckSaveVals2
-	jr c, .asm_1f0f2f
+	jr c, .clear_level_save_check_vals
 	ld a, [sWRAMChecksum + 0]
 	ld b, a
 	ld a, [sWRAMChecksum + 1]
@@ -342,44 +342,44 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sSaveCounter
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f0f00
+	jr nz, .level_save_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f0f00
-	jr .asm_1f0f27
+	jr nz, .level_save_mismatch
+	jr .level_save_ok
 
-.asm_1f0efd
-	jp .asm_1f0fb2
+.level_map_bad
+	jp .clear_level_save_and_backup1_check_vals
 
-.asm_1f0f00
+.level_save_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f0f2f
+	jr z, .clear_level_save_check_vals
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f0f14
+	jr nz, .level_save_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f0f14
-	jr .asm_1f0f27
-.asm_1f0f14
+	jr nz, .level_save_check_alt2
+	jr .level_save_ok
+.level_save_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f0f2f
+	jr nz, .clear_level_save_check_vals
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f0f2f
+	jr nz, .clear_level_save_check_vals
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f0f2f
-.asm_1f0f27
+	jr nz, .clear_level_save_check_vals
+.level_save_ok
 	ld hl, wValidSaves
 	set 2, [hl]
-	jp .asm_1f0fe2
-.asm_1f0f2f
+	jp .check_backup_level_map
+.clear_level_save_check_vals
 	ld a, $30
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a
@@ -399,7 +399,7 @@ Func_1f0d60:
 
 	ld hl, sBackup1WRAMCheckVals
 	call CheckSaveVals2
-	jr c, .asm_1f0fb2
+	jr c, .clear_level_save_and_backup1_check_vals
 	ld a, [sBackup1WRAMChecksum + 0]
 	ld b, a
 	ld a, [sBackup1WRAMChecksum + 1]
@@ -415,40 +415,40 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup1WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f0f83
+	jr nz, .backup1_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f0f83
-	jr .asm_1f0faa
-.asm_1f0f83
+	jr nz, .backup1_mismatch
+	jr .backup1_ok
+.backup1_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f0fb2
+	jr z, .clear_level_save_and_backup1_check_vals
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f0f97
+	jr nz, .backup1_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f0f97
-	jr .asm_1f0faa
-.asm_1f0f97
+	jr nz, .backup1_check_alt2
+	jr .backup1_ok
+.backup1_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f0fb2
+	jr nz, .clear_level_save_and_backup1_check_vals
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f0fb2
+	jr nz, .clear_level_save_and_backup1_check_vals
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f0fb2
-.asm_1f0faa
+	jr nz, .clear_level_save_and_backup1_check_vals
+.backup1_ok
 	ld hl, wValidSaves
 	set 3, [hl]
-	jp .asm_1f0fe2
-.asm_1f0fb2
+	jp .check_backup_level_map
+.clear_level_save_and_backup1_check_vals
 	ld a, $30
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a
@@ -478,7 +478,7 @@ Func_1f0d60:
 	ld [sSaveProgressEcho1], a
 	ld [sSaveProgressEcho2], a
 
-.asm_1f0fe2
+.check_backup_level_map
 	ld a, [sBackupLevelMapChecksum + 0]
 	ld b, a
 	ld a, [sBackupLevelMapChecksum + 1]
@@ -496,38 +496,38 @@ Func_1f0d60:
 	call CalculateBackupSRAMChecksum2
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f100e
+	jr nz, .backup_level_map_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f100e
-	jr .asm_1f1035
-.asm_1f100e
+	jr nz, .backup_level_map_mismatch
+	jr .backup_level_map_ok
+.backup_level_map_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f1071
+	jr z, .backup_level_map_bad
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f1022
+	jr nz, .backup_level_map_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f1022
-	jr .asm_1f1035
-.asm_1f1022
+	jr nz, .backup_level_map_check_alt2
+	jr .backup_level_map_ok
+.backup_level_map_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f1071
+	jr nz, .backup_level_map_bad
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f1071
+	jr nz, .backup_level_map_bad
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f1071
-.asm_1f1035
+	jr nz, .backup_level_map_bad
+.backup_level_map_ok
 	ld hl, wValidSaves
 	set 7, [hl]
 	ld hl, sBackup2WRAMCheckVals
 	call CheckSaveVals2
-	jr c, .asm_1f10a1
+	jr c, .clear_backup2_check_vals
 	ld a, [sBackup2WRAMChecksum + 0]
 	ld b, a
 	ld a, [sBackup2WRAMChecksum + 1]
@@ -543,43 +543,43 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup2WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f1074
+	jr nz, .backup2_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f1074
-	jr .asm_1f109b
-.asm_1f1071
-	jp .asm_1f1122
-.asm_1f1074
+	jr nz, .backup2_mismatch
+	jr .backup2_ok
+.backup_level_map_bad
+	jp .clear_backup2_and_backup3_check_vals
+.backup2_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f10a1
+	jr z, .clear_backup2_check_vals
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f1088
+	jr nz, .backup2_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f1088
-	jr .asm_1f109b
-.asm_1f1088
+	jr nz, .backup2_check_alt2
+	jr .backup2_ok
+.backup2_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f10a1
+	jr nz, .clear_backup2_check_vals
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f10a1
+	jr nz, .clear_backup2_check_vals
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f10a1
-.asm_1f109b
+	jr nz, .clear_backup2_check_vals
+.backup2_ok
 	ld hl, wValidSaves
 	set 4, [hl]
 	ret
 
-.asm_1f10a1
+.clear_backup2_check_vals
 	ld a, $60
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a
@@ -599,7 +599,7 @@ Func_1f0d60:
 
 	ld hl, sBackup3WRAMCheckVals
 	call CheckSaveVals2
-	jr c, .asm_1f1122
+	jr c, .clear_backup2_and_backup3_check_vals
 	ld a, [sBackup3WRAMChecksum + 0]
 	ld b, a
 	ld a, [sBackup3WRAMChecksum + 1]
@@ -615,41 +615,41 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup3WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
-	jr nz, .asm_1f10f5
+	jr nz, .backup3_mismatch
 	ld a, [wChecksum + 1]
 	cp e
-	jr nz, .asm_1f10f5
-	jr .asm_1f111c
-.asm_1f10f5
+	jr nz, .backup3_mismatch
+	jr .backup3_ok
+.backup3_mismatch
 	ld a, [wChecksumMismatches]
 	and a
-	jr z, .asm_1f1122
+	jr z, .clear_backup2_and_backup3_check_vals
 	ld a, [wChecksumAlt1 + 0]
 	cp d
-	jr nz, .asm_1f1109
+	jr nz, .backup3_check_alt2
 	ld a, [wChecksumAlt1 + 1]
 	cp e
-	jr nz, .asm_1f1109
-	jr .asm_1f111c
-.asm_1f1109
+	jr nz, .backup3_check_alt2
+	jr .backup3_ok
+.backup3_check_alt2
 	ld a, [wChecksumMismatches]
 	cp MISMATCH_ORIG | MISMATCH_ECHO1 | MISMATCH_ECHO2
-	jr nz, .asm_1f1122
+	jr nz, .clear_backup2_and_backup3_check_vals
 	ld a, [wChecksumAlt2 + 0]
 	cp d
-	jr nz, .asm_1f1122
+	jr nz, .clear_backup2_and_backup3_check_vals
 	ld a, [wChecksumAlt2 + 1]
 	cp e
-	jr nz, .asm_1f1122
-.asm_1f111c
+	jr nz, .clear_backup2_and_backup3_check_vals
+.backup3_ok
 	ld hl, wValidSaves
 	set 5, [hl]
 	ret
 
-.asm_1f1122
+.clear_backup2_and_backup3_check_vals
 	ld a, $60
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a
@@ -864,7 +864,7 @@ CalculateGameDataChecksum:
 	pop_wram
 	ret
 
-Func_1f1246:
+LoadNewestValidSave:
 	xor a
 	ld [wRestoredSave], a
 	ld a, [wValidSaves]
@@ -1057,32 +1057,32 @@ Func_1f1246:
 	jp .asm_1f1251
 .asm_1f13a7
 	ld hl, sGameData
-	call .Func_1f13d7
+	call .LoadGameData
 	ret
 .asm_1f13ae
 	ld hl, sBackupGameData
-	call .Func_1f13d7
+	call .LoadGameData
 	ret
 .asm_1f13b5
 	ld hl, sSaveCounter
-	call .Func_1f13f2
+	call .LoadWRAMData
 	ret
 .asm_1f13bc
 	ld hl, sBackup1WRAMData
-	call .Func_1f13f2
+	call .LoadWRAMData
 	ret
 .asm_1f13c3
 	ld hl, sBackup2WRAMData
-	call .Func_1f13f2
-	call .Func_1f1420
+	call .LoadWRAMData
+	call .RestoreLevelMapFromBackup
 	ret
 .asm_1f13cd
 	ld hl, sBackup3WRAMData
-	call .Func_1f13f2
-	call .Func_1f1420
+	call .LoadWRAMData
+	call .RestoreLevelMapFromBackup
 	ret
 
-.Func_1f13d7:
+.LoadGameData:
 	ld de, STARTOF("Progress WRAM")
 	ld b, $5b
 	call CopyHLToDE
@@ -1093,7 +1093,7 @@ Func_1f1246:
 	pop_wram
 	ret
 
-.Func_1f13f2:
+.LoadWRAMData:
 	ld de, wSaveCounter
 	ld b, SIZEOF("Progress WRAM") + SIZEOF("Level WRAM")
 	call CopyHLToDE
@@ -1109,7 +1109,7 @@ Func_1f1246:
 	pop_wram
 	ret
 
-.Func_1f1420:
+.RestoreLevelMapFromBackup:
 	ld a, $40
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a
@@ -1187,7 +1187,7 @@ Func_1f1246:
 	ld [sSaveProgressEcho2], a
 	ret
 
-Func_1f14c6:
+BackupLevelMap:
 	ld a, $70
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a

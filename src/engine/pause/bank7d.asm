@@ -33,10 +33,10 @@ LoadPauseMenuGfx:
 	call CopyHLToDE_BC
 	ret
 
-Func_1f403f:
+LoadPauseMenuTilemap:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
-	jr nz, .asm_1f4060
+	jr nz, .time_attack
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PauseMenuAttrmap
@@ -49,7 +49,7 @@ Func_1f403f:
 	call Decompress
 	ret
 
-.asm_1f4060
+.time_attack
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, TimeAttackPauseMenuAttrmap

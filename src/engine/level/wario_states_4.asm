@@ -3075,7 +3075,7 @@ UpdateState_BallThrown:
 	cp 3
 	jr z, .asm_1edd3c
 	pop_wram
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	ret
 
 .asm_1edd3c
@@ -3138,7 +3138,7 @@ UpdateState_BallSentUpwards:
 	ld [wIsIntangible], a
 	ld [wJumpVelIndex], a
 	ld [wJumpVelTable], a
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	ret
 
 SetState_BallTurning:

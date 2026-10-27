@@ -213,7 +213,7 @@ ScrollCameraDown:
 	ld c, a
 	ld a, [wWarioYPos + 0]
 	cp c
-	jr c, .asm_b836
+	jr c, .snap_to_upper_edge
 	ret nz
 	ld a, [wPrevWarioScreenYPos]
 	sub $10
@@ -228,7 +228,7 @@ ScrollCameraDown:
 	ld a, [wWarioYPos + 1]
 	cp c
 	ret nc ; no adjustment needed
-.asm_b836
+.snap_to_upper_edge
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_UP_F, a
 	; scroll window ranges between [0, SCREEN_HEIGHT_PX]
@@ -262,10 +262,10 @@ ScrollCameraUp:
 	bit CAM_BORDER_UP_F, a
 	; scroll window ranges between [0, SCREEN_HEIGHT_PX]
 	ld b, $10
-	jr z, .asm_b86e
+	jr z, .check_scroll_limit
 	; scroll window ranges between [$20, $20 + SCREEN_HEIGHT_PX]
 	ld b, CAMERA_BORDER_UPPER_H + $10
-.asm_b86e
+.check_scroll_limit
 	ld a, [wCameraSCY + 1]
 	add $10
 	ld l, a
@@ -310,11 +310,11 @@ ScrollCameraUp:
 	ld c, a ; -((SCREEN_HEIGHT_PX + $10) - wPrevWarioScreenYPos)
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_DOWN_F, a
-	jr z, .asm_b8ba
+	jr z, .check_wario_y
 	ld a, c
 	sub CAMERA_BORDER_LOWER_H
 	ld c, a
-.asm_b8ba
+.check_wario_y
 	ld a, [wWarioYPos + 1]
 	cp c
 	ret c
@@ -324,10 +324,10 @@ ScrollCameraUp:
 	bit CAM_BORDER_DOWN_F, a
 	; scroll window ranges between [TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + 8), TILEMAP_HEIGHT_PX - 8]
 	ld a, TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + 8)
-	jr z, .asm_b8cf
+	jr z, .got_lower_scroll_adjustment
 	; scroll window ranges between [TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + $28), TILEMAP_HEIGHT_PX - $28]
 	ld a, TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + CAMERA_BORDER_LOWER_H + 8)
-.asm_b8cf
+.got_lower_scroll_adjustment
 	ld [wCameraSCY + 1], a
 	ret
 
@@ -453,10 +453,10 @@ LevelScroll_Vertical:
 	ld hl, wWarioScreenYPos
 	ld a, [wPrevWarioScreenYPos]
 	sub [hl]
-	jr nc, .asm_b98f
+	jr nc, .got_abs_y_offset
 	cpl
 	inc a
-.asm_b98f
+.got_abs_y_offset
 	ld b, a
 	ld a, [wWarioSlopeInteraction]
 	and a
@@ -498,11 +498,11 @@ LevelScroll_Horizontal:
 .got_cam_spacing_r
 	cp [hl]
 	jr z, .scroll_right
-	jr c, .asm_b9ce
+	jr c, .past_cam_spacing_r
 	; x pos < cam spacing
 	dec b
 	jr .scroll_right
-.asm_b9ce
+.past_cam_spacing_r
 	; x pos > cam spacing
 	inc b
 .scroll_right
@@ -537,11 +537,11 @@ LevelScroll_Horizontal:
 .got_cam_spacing_l
 	cp [hl]
 	jr z, .scroll_left
-	jr c, .asm_b9ff
+	jr c, .past_cam_spacing_l
 	; x pos < cam spacing
 	inc b
 	jr .scroll_left
-.asm_b9ff
+.past_cam_spacing_l
 	; x pos > cam spacing
 	dec b
 .scroll_left
@@ -575,12 +575,12 @@ LevelScroll_Horizontal:
 	ld hl, wWarioScreenXPos
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_ba38
+	jr nz, .dir_right_idle
 	ld a, [wCamLeftSpacing]
-	jr .asm_ba3b
-.asm_ba38
+	jr .got_cam_spacing_idle
+.dir_right_idle
 	ld a, [wCamRightSpacing]
-.asm_ba3b
+.got_cam_spacing_idle
 	cp [hl] ; wWarioScreenXPos
 	jr c, .scroll_right
 	ret z

@@ -20,7 +20,7 @@ GetNextLevelRoomID:
 	ld [wLevelRoomID], a
 	ret
 
-Func_8ed9:
+UpdateLevelEdges:
 	ld a, [wLevelEdgeUpdateFlags]
 	and a
 	ret z
@@ -42,24 +42,24 @@ Func_8ed9:
 	jr .check_vertical_direction
 
 .down
-	call .Func_8f79
-	call .Func_9085
+	call .SetLowerEdgeRowPos
+	call .QueueEdgeRow
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_DOWN_F, [hl]
 	farcall SpawnColEdgeObjects
 	ret
 
 .up
-	call .Func_8fb3
-	call .Func_9085
+	call .SetUpperEdgeRowPos
+	call .QueueEdgeRow
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_UP_F, [hl]
 	farcall SpawnColEdgeObjects
 	ret
 
 .right
-	call .Func_8fec
-	call Func_a0e2
+	call .SetRightEdgeColumnPos
+	call QueueEdgeColumn
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_RIGHT_F, [hl]
 	farcall SpawnRowEdgeObjects
@@ -71,8 +71,8 @@ Func_8ed9:
 	ret
 
 .left
-	call .Func_9039
-	call Func_a0e2
+	call .SetLeftEdgeColumnPos
+	call QueueEdgeColumn
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_LEFT_F, [hl]
 	farcall SpawnRowEdgeObjects
@@ -83,7 +83,7 @@ Func_8ed9:
 	jp nz, .down
 	ret
 
-.Func_8f79:
+.SetLowerEdgeRowPos:
 	ld hl, wCameraSCY + 1
 	ld a, [hld]
 	and $f8
@@ -120,7 +120,7 @@ Func_8ed9:
 	ld [wBlockXPos + 1], a
 	ret
 
-.Func_8fb3:
+.SetUpperEdgeRowPos:
 	ld hl, wCameraSCY + 1
 	ld a, [hld]
 	and $f8
@@ -155,7 +155,7 @@ Func_8ed9:
 	ld [wBlockXPos + 1], a
 	ret
 
-.Func_8fec:
+.SetRightEdgeColumnPos:
 	ld hl, wCameraSCY + 1
 	ld a, [hld]
 	and $f8
@@ -204,7 +204,7 @@ Func_8ed9:
 	ld [wBlockXPos + 1], a
 	ret
 
-.Func_9039:
+.SetLeftEdgeColumnPos:
 	ld hl, wCameraSCY + 1
 	ld a, [hld]
 	and $f8
@@ -252,7 +252,7 @@ Func_8ed9:
 	ld [wBlockXPos + 1], a
 	ret
 
-.Func_9085:
+.QueueEdgeRow:
 	call GetBlockBGPtr
 	ld a, [wBGMapAddressQueueSize]
 	ld b, a
@@ -294,7 +294,7 @@ ENDR
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call .Func_9605
+	call .AddRowBottomAttributes
 	jr .update_queue_size
 
 .asm_923a
@@ -303,7 +303,7 @@ ENDR
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call .Func_9d4c
+	call .AddRowTopAttributes
 
 .update_queue_size
 	ld a, [wBGMapTileQueueSize]
@@ -441,7 +441,7 @@ ENDR
 	pop hl
 	ret
 
-.Func_9605:
+.AddRowBottomAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
@@ -676,7 +676,7 @@ ENDR
 
 	ret
 
-.Func_9d4c:
+.AddRowTopAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
@@ -780,7 +780,7 @@ ENDR
 	pop_wram
 	ret
 
-Func_a0e2:
+QueueEdgeColumn:
 	call GetBlockBGPtr
 	ld a, [wBGMapAddressQueueSize]
 	ld b, a
@@ -817,26 +817,26 @@ ENDR
 	and $08
 	jr z, .asm_a290
 	push hl
-	call Func_a2aa
+	call AddColumnRightTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call Func_a79e
+	call AddColumnRightAttributes
 	jr .asm_a2a1
 .asm_a290
 	push hl
-	call Func_aca6
+	call AddColumnLeftTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call Func_b182
+	call AddColumnLeftAttributes
 .asm_a2a1
 	ld a, [wBGMapTileQueueSize]
 	add 23
 	ld [wBGMapTileQueueSize], a
 	ret
 
-Func_a2aa:
+AddColumnRightTiles:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
@@ -992,7 +992,7 @@ ENDR
 	pop hl
 	ret
 
-Func_a79e:
+AddColumnRightAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
@@ -1152,7 +1152,7 @@ ENDR
 	pop_wram
 	ret
 
-Func_aca6:
+AddColumnLeftTiles:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
@@ -1303,7 +1303,7 @@ ENDR
 	pop hl
 	ret
 
-Func_b182:
+AddColumnLeftAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)

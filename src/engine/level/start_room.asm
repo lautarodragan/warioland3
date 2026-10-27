@@ -100,7 +100,7 @@ StartRoom_FromTransition:
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_896f
+	call SpawnObjectsInView
 	pop af
 	sramswitch
 	call SetWarioScreenPos
@@ -351,7 +351,7 @@ StartRoom_FromLevelStart:
 
 	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_883a
+	jr nz, .restore_saved_pals
 	call SetWarioPositionToSpawn
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
@@ -366,9 +366,9 @@ StartRoom_FromLevelStart:
 	ld a, BANK(WarioDefaultPal)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE_Short
-	jr .asm_8861
+	jr .load_common_pal
 
-.asm_883a
+.restore_saved_pals
 	ld a, [wWarioPalsPtr + 0]
 	ld h, a
 	ld a, [wWarioPalsPtr + 1]
@@ -384,7 +384,7 @@ StartRoom_FromLevelStart:
 	ld b, 4 palettes
 	call CopyHLToDE
 
-.asm_8861
+.load_common_pal
 	ld hl, Pals_d1fe
 	ld de, wTempPals2 palette 2
 	ld b, 1 palettes
@@ -408,16 +408,16 @@ StartRoom_FromLevelStart:
 
 	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_88b7
+	jr nz, .skip_spawning_objects
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_896f
+	call SpawnObjectsInView
 	pop af
 	sramswitch
 
-.asm_88b7
+.skip_spawning_objects
 	ld a, [wLevel]
 	cp THE_TEMPLE
 	jr nz, .not_the_temple
@@ -441,7 +441,7 @@ StartRoom_FromLevelStart:
 
 	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_8917
+	jr nz, .from_level_save
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
 	push_wram BANK("Level Objects WRAM")
@@ -451,7 +451,7 @@ StartRoom_FromLevelStart:
 	pop_wram
 	jr .draw_objs
 
-.asm_8917
+.from_level_save
 	ld a, TRUE
 	ld [wIsFloorTransition], a
 	push_wram BANK("Level Objects WRAM")
@@ -473,7 +473,7 @@ StartRoom_FromLevelStart:
 	pop_wram
 	ret
 
-Func_896f:
+SpawnObjectsInView:
 	; load block X pos to hPos
 	ld de, wBlockXPos + 1
 	ld hl, hXPosLo
@@ -515,13 +515,13 @@ Func_896f:
 	ld a, [hl]
 	and $f0
 	swap a
-	call nz, .Func_89e2
+	call nz, .SpawnIfInRoom
 	ld a, b
 	xor $01
 	ld b, a
 	ld a, [hl]
 	and $0f
-	call nz, .Func_89e2
+	call nz, .SpawnIfInRoom
 	inc l
 	ld a, b
 	xor $01
@@ -545,7 +545,7 @@ Func_896f:
 	jr nz, .loop_search
 	ret
 
-.Func_89e2:
+.SpawnIfInRoom:
 	cp $0f
 	ret nc ; is Wario spawn block
 	ld c, a ; object index

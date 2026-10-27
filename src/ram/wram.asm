@@ -118,7 +118,7 @@ wCameraConfigFlags::
 	db
 
 ; holds LEVEL_EDGE_UPDATE_* flags
-; used in Func_8ed9 to know which
+; used in UpdateLevelEdges to know which
 ; edge in the level screen to update
 wLevelEdgeUpdateFlags::
 	db
