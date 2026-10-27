@@ -194,13 +194,13 @@ _UpdateAudio::
 	call NextTrack
 	jr nz, .asm_30114
 
-	ld a, [w3d01a]
+	ld a, [wEnvelopeFrameCycle]
 	and a
 	jr nz, .asm_30124
 	ld a, $0f
 .asm_30124
 	dec a
-	ld [w3d01a], a
+	ld [wEnvelopeFrameCycle], a
 
 ; get active channels
 	ld c, NUM_CHANNELS
@@ -2254,7 +2254,7 @@ ProcessTrack:
 	jr nz, .asm_30c46
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
-	ld a, [w3d01a]
+	ld a, [wEnvelopeFrameCycle]
 	and a
 	jr nz, .asm_30c31
 	inc [hl]

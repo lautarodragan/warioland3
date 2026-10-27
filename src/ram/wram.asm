@@ -1310,7 +1310,10 @@ wGolfNumCoins::
 wGolfOutOfStrokes::
 	db
 
-w1dc21::
+; set when Wario starts walking to the ball (GolfHoleState_Walk);
+; if he is off screen, UpdateGolfWario moves him just outside the
+; screen edge he walks in from, then clears it
+wGolfWarioSnapToEdge::
 	db
 
 ; current stroke number
@@ -1674,10 +1677,14 @@ wAccessibleMapSides::
 wIsCollectionOpen::
 	db
 
-w2d07c::
+; the day/night state a transition goes to (0 = day, 1 = night),
+; set before wOWIsNight changes (MoveSouthOWObj14Diagonally)
+wOWIsNightTarget::
 	db
 
-w2d07d::
+; MoveSouthOWObj14Diagonally: set once the object has started its
+; movement for the current wOWIsNightTarget
+wSouthOWObj14MoveStarted::
 	db
 
 	ds $1
@@ -1783,11 +1790,11 @@ wTempleHintCounter::
 
 	ds $8
 
-w2d0ee::
-	db
-
-w2d0ef::
-	db
+; wLevelTimeAttackScores entry of wOWLevel (GetLevelTimeAttackScore),
+; drawn in the bottom bar (DrawBottomBarTimeAttackScore)
+wOWLevelTimeAttackScore::
+wOWLevelTimeAttackMinutes:: db
+wOWLevelTimeAttackSeconds:: db
 
 wLevelTreasureIDs::
 wLevelGreyTreasureID::  db
@@ -1860,89 +1867,25 @@ wCurSceneObjPtr::
 wUnused_2d121::
 	db
 
-w2d122::
-	db
-
-w2d123::
-	ds $1
-
-w2d124::
-	db
-
-w2d125::
-	db
-
-w2d126::
-	db
-
-w2d127::
-	db
-
-	ds $1
-
-w2d129::
-	db
-
-w2d12a::
-	db
-
-w2d12b::
-	db
-
-w2d12c::
-	db
-
-w2d12d::
-	db
-
-w2d12e::
-	db
-
-w2d12f::
-	db
-
-w2d130::
-	db
-
-	ds $1
-
-w2d132::
-	db
-
-w2d133::
-	db
-
-w2d134::
-	db
-
-w2d135::
-	db
-
-	ds $2
-
-w2d138::
-	db
-
-w2d139::
-	db
-
-w2d13a::
-	db
-
-w2d13b::
-	db
-
-w2d13c::
-	db
-
-w2d13d::
-	db
-
-w2d13e::
-	db
-
-w2d13f::
-	db
+; a (step, counter) pair for each of wSceneObj1-15, used by the
+; map-side scenes and object animations of bank2d.asm; the step is
+; usually a 1-based jumptable index (0 = inactive)
+wSceneObjScripts::
+wSceneObj1Script::   scene_obj_script_struct wSceneObj1Script
+wSceneObj2Script::   scene_obj_script_struct wSceneObj2Script
+wSceneObj3Script::   scene_obj_script_struct wSceneObj3Script
+wSceneObj4Script::   scene_obj_script_struct wSceneObj4Script
+wSceneObj5Script::   scene_obj_script_struct wSceneObj5Script
+wSceneObj6Script::   scene_obj_script_struct wSceneObj6Script
+wSceneObj7Script::   scene_obj_script_struct wSceneObj7Script
+wSceneObj8Script::   scene_obj_script_struct wSceneObj8Script
+wSceneObj9Script::   scene_obj_script_struct wSceneObj9Script
+wSceneObj10Script::  scene_obj_script_struct wSceneObj10Script
+wSceneObj11Script::  scene_obj_script_struct wSceneObj11Script
+wSceneObj12Script::  scene_obj_script_struct wSceneObj12Script
+wSceneObj13Script::  scene_obj_script_struct wSceneObj13Script
+wSceneObj14Script::  scene_obj_script_struct wSceneObj14Script
+wSceneObj15Script::  scene_obj_script_struct wSceneObj15Script
 
 UNION
 
@@ -1962,26 +1905,23 @@ wSceneWarioAnimFinished::
 
 	ds $1
 
-w2d150::
-	db
+UNION
+; CycleSceneWarioPals: 0 = off, 1-8 = palette step, $80 = stop
+wSceneWarioPalCycleStep::    db
+wSceneWarioPalCycleCounter:: db
+NEXTU
+; UpdateNOWPrologueParticles: jumptable index for each particle object
+wNOWPrologueObj2ParticleStep::  db
+wNOWPrologueObj3ParticleStep::  db
+wNOWPrologueObj5ParticleStep::  db
+wNOWPrologueObj8ParticleStep::  db
+wNOWPrologueObj9ParticleStep::  db
+wNOWPrologueObj10ParticleStep:: db
+NEXTU
+	ds $2
+wDebugSceneWarioState:: db
+ENDU
 
-w2d151::
-	db
-
-wd152::
-wDebugSceneWarioState::
-	db
-
-wd153::
-	db
-
-wd154::
-	db
-
-wd155::
-	db
-
-wd156::
 	ds $2
 
 wHDMADestVRAMBank::
@@ -2034,7 +1974,13 @@ wOWTileColumnCopy3:: ow_tile_column_copy_struct wOWTileColumnCopy3
 
 ENDU
 
+UNION
 wCurSceneObj:: scene_obj_struct wCurSceneObj
+NEXTU
+; the two sprites DrawCutsceneOverlay draws (in bank27 cutscenes)
+wCutsceneOverlaySprite1:: sprite_oam_struct wCutsceneOverlaySprite1
+wCutsceneOverlaySprite2:: sprite_oam_struct wCutsceneOverlaySprite2
+ENDU
 
 wSceneObjs::
 UNION
@@ -2187,10 +2133,11 @@ wPlanePart4::  plane_part_struct wPlanePart4
 
 	ds $6
 
-w2d8b0::
+; UpdateMusicBoxSparkle (prologue)
+wMusicBoxSparkleStep::
 	db
 
-w2d8b1::
+wMusicBoxSparkleCounter::
 	db
 
 ENDU
@@ -2449,7 +2396,10 @@ wAudioCmdPtr::
 wCurChannelFlags::
 	db
 
-w3d01a::
+; counts 14..0 and wraps every frame; when it is 0, ProcessTrack
+; advances the envelope tick (TRACK_FREQUENCY low byte) twice,
+; so the envelopes run 16 ticks per 15 frames (64 Hz, like the hardware)
+wEnvelopeFrameCycle::
 	db
 
 wLoadedMusic::
@@ -2678,20 +2628,24 @@ wOwlSlotObjDataBackup::
 
 SECTION "WRAM4", WRAMX
 
-w4d000::
+; SaveBackupVRAM's copy of v0Tiles0
+wBackupV0Tiles0::
 	ds $1000
 
 SECTION "WRAM5", WRAMX
 
-w5d000::
+; SaveBackupVRAM's copy of v0Tiles2 (and the BG map area)
+wBackupV0Tiles2::
 	ds $1000
 
 SECTION "WRAM6", WRAMX
 
-w6d000::
+; SaveBackupVRAM's copy of v1Tiles0
+wBackupV1Tiles0::
 	ds $1000
 
 SECTION "WRAM7", WRAMX
 
-w7d000::
+; SaveBackupVRAM's copy of v1Tiles2 (and the BG map area)
+wBackupV1Tiles2::
 	ds $1000

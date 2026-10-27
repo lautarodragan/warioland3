@@ -4621,7 +4621,7 @@ DrawBottomBarTimeAttack:
 	ret
 
 DrawBottomBarTimeAttackScore:
-	ld a, [w2d0ee]
+	ld a, [wOWLevelTimeAttackMinutes]
 	and $f0
 	swap a ; top nybble
 	add $1e
@@ -4629,14 +4629,14 @@ DrawBottomBarTimeAttackScore:
 	ld c, $00
 	ld d, $50
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ee]
+	ld a, [wOWLevelTimeAttackMinutes]
 	and $0f ; bottom nybble
 	add $1e
 	ld e, a
 	ld c, $00
 	ld d, $58
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ef]
+	ld a, [wOWLevelTimeAttackSeconds]
 	and $f0
 	swap a ; top nybble
 	add $1e
@@ -4644,7 +4644,7 @@ DrawBottomBarTimeAttackScore:
 	ld c, $00
 	ld d, $68
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ef]
+	ld a, [wOWLevelTimeAttackSeconds]
 	and $0f ; bottom nybbles
 	add $1e
 	ld e, a

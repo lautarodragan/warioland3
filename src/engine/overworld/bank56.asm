@@ -728,7 +728,7 @@ UpdateNOWPrologueParticles:
 	ret
 
 .UpdateObj2:
-	ld a, [w2d150]
+	ld a, [wNOWPrologueObj2ParticleStep]
 	jumptable
 	dw .Obj2_None
 	dw .Obj2_PlaceUpLeft
@@ -746,7 +746,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj2
 	call .place_center
 .asm_1586bc
-	ld hl, w2d150
+	ld hl, wNOWPrologueObj2ParticleStep
 	inc [hl]
 	ret
 
@@ -778,11 +778,11 @@ UpdateNOWPrologueParticles:
 
 .Obj2_Loop:
 	ld a, $01
-	ld [w2d150], a
+	ld [wNOWPrologueObj2ParticleStep], a
 	ret
 
 .UpdateObj5:
-	ld a, [wd152]
+	ld a, [wNOWPrologueObj5ParticleStep]
 	jumptable
 	dw .Obj5_None
 	dw .Obj5_PlaceCenter
@@ -800,7 +800,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj5
 	call .place_center
 .asm_158708
-	ld hl, wd152
+	ld hl, wNOWPrologueObj5ParticleStep
 	inc [hl]
 	ret
 
@@ -832,11 +832,11 @@ UpdateNOWPrologueParticles:
 
 .Obj5_Loop:
 	ld a, $01
-	ld [wd152], a
+	ld [wNOWPrologueObj5ParticleStep], a
 	ret
 
 .UpdateObj9:
-	ld a, [wd154]
+	ld a, [wNOWPrologueObj9ParticleStep]
 	jumptable
 	dw .Obj9_None
 	dw .Obj9_PlaceDownLeft
@@ -854,7 +854,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj9
 	call .place_center
 .asm_158754
-	ld hl, wd154
+	ld hl, wNOWPrologueObj9ParticleStep
 	inc [hl]
 	ret
 
@@ -886,11 +886,11 @@ UpdateNOWPrologueParticles:
 
 .Obj9_Loop:
 	ld a, $01
-	ld [wd154], a
+	ld [wNOWPrologueObj9ParticleStep], a
 	ret
 
 .UpdateObj3:
-	ld a, [w2d151]
+	ld a, [wNOWPrologueObj3ParticleStep]
 	jumptable
 	dw .Obj3_None
 	dw .Obj3_PlaceUpRight
@@ -908,7 +908,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj3
 	call .place_center
 .asm_1587a0
-	ld hl, w2d151
+	ld hl, wNOWPrologueObj3ParticleStep
 	inc [hl]
 	ret
 
@@ -940,11 +940,11 @@ UpdateNOWPrologueParticles:
 
 .Obj3_Loop:
 	ld a, $01
-	ld [w2d151], a
+	ld [wNOWPrologueObj3ParticleStep], a
 	ret
 
 .UpdateObj8:
-	ld a, [wd153]
+	ld a, [wNOWPrologueObj8ParticleStep]
 	jumptable
 	dw .Obj8_None
 	dw .Obj8_PlaceCenter
@@ -962,7 +962,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj8
 	call .place_center
 .asm_1587ec
-	ld hl, wd153
+	ld hl, wNOWPrologueObj8ParticleStep
 	inc [hl]
 	ret
 
@@ -994,11 +994,11 @@ UpdateNOWPrologueParticles:
 
 .Obj8_Loop:
 	ld a, $01
-	ld [wd153], a
+	ld [wNOWPrologueObj8ParticleStep], a
 	ret
 
 .UpdateObj10:
-	ld a, [wd155]
+	ld a, [wNOWPrologueObj10ParticleStep]
 	jumptable
 	dw .Obj10_None
 	dw .Obj10_PlaceDownRight
@@ -1016,7 +1016,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj10
 	call .place_center
 .asm_158838
-	ld hl, wd155
+	ld hl, wNOWPrologueObj10ParticleStep
 	inc [hl]
 	ret
 
@@ -1048,7 +1048,7 @@ UpdateNOWPrologueParticles:
 
 .Obj10_Loop:
 	ld a, $01
-	ld [wd155], a
+	ld [wNOWPrologueObj10ParticleStep], a
 	ret
 
 .place_center:

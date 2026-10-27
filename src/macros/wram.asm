@@ -66,6 +66,12 @@ MACRO ow_tile_column_copy_struct
 \1Source::   dw ; tiles (attributes are $a0 bytes after them)
 ENDM
 
+; wSceneObj1Script-15Script
+MACRO scene_obj_script_struct
+\1Step::    db
+\1Counter:: db
+ENDM
+
 MACRO ow_anim_struct
 \1Duration:: db ; frames per animation frame, 0 = stopped
 \1Counter::  db

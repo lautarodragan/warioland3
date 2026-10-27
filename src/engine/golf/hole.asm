@@ -677,11 +677,11 @@ UpdateGolfWario:
 	and a
 	jr nz, .asm_1c8f02
 	pop de
-	ld a, [w1dc21]
+	ld a, [wGolfWarioSnapToEdge]
 	and a
 	ret z
 	xor a
-	ld [w1dc21], a
+	ld [wGolfWarioSnapToEdge], a
 
 	ld a, [wGolfWarioDir]
 	and a
@@ -725,7 +725,7 @@ UpdateGolfWario:
 
 .asm_1c8f02
 	xor a
-	ld [w1dc21], a
+	ld [wGolfWarioSnapToEdge], a
 	pop de
 	ld a, [wSCX]
 	ld b, a
@@ -2246,7 +2246,7 @@ GolfHoleState_Walk:
 	ret nz
 	ld a, $03
 	ld [wGolfVBlankMode], a
-	ld [w1dc21], a
+	ld [wGolfWarioSnapToEdge], a
 	jp PrintGolfStrokeNumber
 
 .asm_1c98e1

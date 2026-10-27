@@ -253,9 +253,9 @@ InitMapSide:
 	res 7, [hl]
 .asm_805be
 	ld a, [wOWIsNight]
-	ld [w2d07c], a
+	ld [wOWIsNightTarget], a
 	xor a
-	ld [w2d07d], a
+	ld [wSouthOWObj14MoveStarted], a
 	ld a, [wNextMapSide]
 	ld [wCurMapSide], a
 	jumptable

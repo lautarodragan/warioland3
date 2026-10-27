@@ -1311,16 +1311,16 @@ GetLevelTimeAttackScore:
 	ret z
 	ld hl, wLevelTimeAttackScores
 	dec a
-	ld de, w2d0ee
+	ld de, wOWLevelTimeAttackScore
 	add a ; *2
 	ld c, a
 	ld b, $00
 	add hl, bc
 	ld a, [hli]
-	ld [de], a ; w2d0ee
+	ld [de], a ; wOWLevelTimeAttackMinutes
 	inc e
 	ld a, [hl]
-	ld [de], a ; w2d0ef
+	ld [de], a ; wOWLevelTimeAttackSeconds
 	ret
 
 ; fills wBottomBarTreasureIDs

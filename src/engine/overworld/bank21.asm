@@ -20,9 +20,9 @@ DayNightTransition:
 .InitDayToNight:
 	call .LoadBaseAndTargetPals
 	ld a, $01
-	ld [w2d07c], a
+	ld [wOWIsNightTarget], a
 	xor a
-	ld [w2d07d], a
+	ld [wSouthOWObj14MoveStarted], a
 	xor a
 	ld [wOWPalTransitionDelay], a
 	ret
@@ -200,8 +200,8 @@ DayNightTransition:
 .InitNightToDay:
 	call .LoadBaseAndTargetPals
 	xor a
-	ld [w2d07c], a
-	ld [w2d07d], a
+	ld [wOWIsNightTarget], a
+	ld [wSouthOWObj14MoveStarted], a
 	xor a
 	ld [wOWPalTransitionDelay], a
 	ret

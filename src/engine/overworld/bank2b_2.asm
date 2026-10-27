@@ -122,7 +122,7 @@ Prologue:
 	ld [wSceneObj2XCoord], a
 
 	xor a
-	ld [w2d8b0], a
+	ld [wMusicBoxSparkleStep], a
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 
@@ -461,11 +461,11 @@ Prologue_WarioEnterCave:
 
 .start_sparkle:
 	ld a, $01
-	ld [w2d8b0], a
+	ld [wMusicBoxSparkleStep], a
 	ret
 
 .WaitSparkle:
-	ld a, [w2d8b0]
+	ld a, [wMusicBoxSparkleStep]
 	and a
 	ret nz
 	jp AdvancePrologueStep
@@ -513,7 +513,7 @@ Prologue_WarioEnterCave:
 	jp AdvancePrologueStep
 .asm_ae2c5
 	ld a, $03
-	ld [w2d8b0], a
+	ld [wMusicBoxSparkleStep], a
 	ret
 
 .WarioLookMusicBox:
@@ -530,7 +530,7 @@ Prologue_WarioEnterCave:
 	jp WaitPrologueStep
 
 UpdateMusicBoxSparkle:
-	ld a, [w2d8b0]
+	ld a, [wMusicBoxSparkleStep]
 	jumptable
 	dw MusicBoxSparkle_None
 	dw MusicBoxSparkle_Show
@@ -544,10 +544,10 @@ MusicBoxSparkle_Show:
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 MusicBoxSparkle_Next:
-	ld hl, w2d8b1
+	ld hl, wMusicBoxSparkleCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2d8b0
+	inc [hl] ; wMusicBoxSparkleStep
 MusicBoxSparkle_None:
 	ret
 
@@ -561,18 +561,18 @@ MusicBoxSparkle_WaitThenStop:
 	ld a, [wSceneObj1State]
 	and a
 	ret nz
-	ld hl, w2d8b0
+	ld hl, wMusicBoxSparkleStep
 	ld [hli], a
 	ld [hl], a
 	ret
 
 MusicBoxSparkle_Repeat:
-	ld hl, w2d8b1
+	ld hl, wMusicBoxSparkleCounter
 	inc [hl]
 	ld a, [hl]
 	cp $14
 	ret c
-	ld hl, w2d8b0
+	ld hl, wMusicBoxSparkleStep
 	dec [hl]
 	dec [hl]
 	ret
@@ -680,7 +680,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld a, $0c
 	call SetSceneObjState
 	ld a, $01
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ret
 
 .Wait120_1:
@@ -711,7 +711,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	and a
 	ret nz
 	ld a, $80
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	jp AdvancePrologueStep
 
 .StartSuckIn:
@@ -885,20 +885,20 @@ Prologue_WarioSuckedIntoMusicBox:
 	jp WaitPrologueStep
 
 CycleSceneWarioPals:
-	ld hl, w2d150
+	ld hl, wSceneWarioPalCycleStep
 	ld a, [hl]
 	and a
 	ret z
 	cp $80
 	jr z, .asm_ae554
-	ld hl, w2d151
+	ld hl, wSceneWarioPalCycleCounter
 	inc [hl]
 	ld a, [hl]
 	cp $02
 	ret c
 	xor a
-	ld [hld], a ; w2d151
-	ld c, [hl] ; w2d150
+	ld [hld], a ; wSceneWarioPalCycleCounter
+	ld c, [hl] ; wSceneWarioPalCycleStep
 	inc [hl]
 	ld a, [hl]
 	cp $09
@@ -926,7 +926,7 @@ CycleSceneWarioPals:
 .asm_ae554
 	xor a
 	ld [wSceneWarioAttributes], a
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ret
 
 Prologue_WarioWakeUp:
@@ -3275,7 +3275,7 @@ _UpdateEpilogue:
 	cp $3c
 	ret c
 	ld a, $01
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	jp .next_scene_step
 
 .StopWarioPalCycle:
@@ -3283,7 +3283,7 @@ _UpdateEpilogue:
 	cp $28
 	ret c
 	ld a, $80
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ld hl, wCurSceneObj
 	ld a, [wSceneWarioYCoord]
 	sub $04

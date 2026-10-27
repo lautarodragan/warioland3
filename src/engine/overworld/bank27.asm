@@ -5580,7 +5580,7 @@ Cutscene14Func:
 	ld a, $03
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld a, $bc
 	ld [hli], a
 	ld [hl], $50
@@ -5611,7 +5611,7 @@ Cutscene14Func:
 	dec [hl]
 	ld hl, wSceneObj4YCoord
 	dec [hl]
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	dec [hl]
 	ld a, [hl]
 	cp $87
@@ -5636,7 +5636,7 @@ Cutscene14Func:
 	inc [hl]
 	ld hl, wSceneObj4YCoord
 	inc [hl]
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	inc [hl]
 	ld a, [hl]
 	cp $82
@@ -5648,7 +5648,7 @@ Cutscene14Func:
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	inc [hl]
 	ld a, [hl]
 	cp $92
@@ -7478,7 +7478,7 @@ UpdateCutsceneLevelObj_FeedOctohon:
 
 DrawCutsceneOverlayFrame0:
 	ld c, $00
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld b, $01
 ;	fallthrough
 
@@ -7509,19 +7509,19 @@ LoadCutsceneOverlaySprite:
 
 DrawCutsceneOverlayFrame1:
 	ld c, $01
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame2:
 	ld c, 2
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame3:
 	ld c, 3
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
@@ -7529,7 +7529,7 @@ DrawCutsceneOverlayFrame4:
 	ld a, [wCutsceneOverlayType]
 	cp $02
 	ret nz
-	ld hl, wCurSceneObjFrame
+	ld hl, wCutsceneOverlaySprite1Frame
 	ld a, $04
 	ld [hli], a
 	xor a
@@ -7538,14 +7538,14 @@ DrawCutsceneOverlayFrame4:
 
 ; de = scene obj
 DrawCutsceneOverlayFrame5:
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld c, 5
 	ld b, $03
 	jr DrawCutsceneOverlay
 
 ; de = scene obj
 DrawCutsceneOverlayFrame6:
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld c, 6
 	ld b, $03
 	jr DrawCutsceneOverlay
