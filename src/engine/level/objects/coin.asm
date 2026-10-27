@@ -28,7 +28,7 @@ MACRO move_coin
 .continue_movement_{u:x}
 	inc [hl]
 .got_y_vel_{u:x}
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -190,11 +190,11 @@ CoinFunc:
 	ret
 
 	; move left
-	move_coin $0a, 6, Data_60300
+	move_coin $0a, 6, Bounce3YVel_Light
 	jp .asm_63502
-	move_coin $02, 4, Data_602c0
+	move_coin $02, 4, Bounce1YVel_Light
 	jr .asm_63502
-	move_coin $06, 5, Data_602e0
+	move_coin $06, 5, Bounce2YVel_Light
 .asm_63502
 	call MoveObjectLeftByVar2
 	ld hl, wCurObjYPos
@@ -210,7 +210,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .set_fall_right
 	ld hl, wCurObjStateDuration
@@ -225,11 +225,11 @@ CoinFunc:
 	ret
 
 	; move right
-	move_coin $0b, 6, Data_60300
+	move_coin $0b, 6, Bounce3YVel_Light
 	jp .asm_635db
-	move_coin $03, 4, Data_602c0
+	move_coin $03, 4, Bounce1YVel_Light
 	jr .asm_635db
-	move_coin $07, 5, Data_602e0
+	move_coin $07, 5, Bounce2YVel_Light
 .asm_635db
 	call MoveObjectRightByVar2
 	ld hl, wCurObjYPos
@@ -245,7 +245,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .set_fall_left
 	ld hl, wCurObjStateDuration
@@ -282,7 +282,7 @@ CoinFunc:
 .asm_6362a
 	inc [hl]
 .asm_6362b
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -307,7 +307,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_63680
 	ld a, [wIsInWaterOrSand]
@@ -328,7 +328,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld a, $0d
@@ -346,7 +346,7 @@ CoinFunc:
 	jr z, .asm_63690
 	dec [hl]
 .asm_63690
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	cp 2
 	jr c, .asm_636a4
 	cp 3
@@ -392,7 +392,7 @@ CoinFunc:
 .asm_636d3
 	inc [hl]
 .asm_636d4
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -417,7 +417,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_63729
 	ld a, [wIsInWaterOrSand]
@@ -438,7 +438,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld a, $0c
@@ -456,7 +456,7 @@ CoinFunc:
 	jr z, .asm_63739
 	dec [hl]
 .asm_63739
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	cp 2
 	jr c, .asm_6374d
 	cp 3
@@ -506,7 +506,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_637dd
 	call MoveObjectLeftByVar2
@@ -519,7 +519,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -534,7 +534,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -544,7 +544,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, $0c
@@ -582,7 +582,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_63861
 	call MoveObjectRightByVar2
@@ -595,7 +595,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -610,7 +610,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -620,7 +620,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, $0d
@@ -658,7 +658,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	ret nz
 	ld a, $14
@@ -717,8 +717,8 @@ CoinFunc:
 .State15:
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, $40
-	add $40
+	ld b, HIGH(DropYVel_Light)
+	add LOW(DropYVel_Light)
 	ld c, a
 	ld a, [bc]
 	cp $80
@@ -729,7 +729,7 @@ CoinFunc:
 .asm_638f5
 	inc [hl]
 .asm_638f6
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -754,7 +754,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_6392d
 	ld hl, wCurObjYPos

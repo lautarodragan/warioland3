@@ -46,38 +46,38 @@ LeadOverallsActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1f89bb
-	dw Func_1f89e0
-	dw Func_1f89fb
+	dw LeadOverallsActionHelp_WaitToStart
+	dw LeadOverallsActionHelp_Step02
+	dw LeadOverallsActionHelp_Step03
 	dw ActionHelp_FlashDDownInput
-	dw Func_1f8a2a
-	dw Func_1f8a52
-	dw Func_1f8a79
-	dw Func_1f8a91
-	dw Func_1f8aa1
-	dw Func_1f8abc
-	dw Func_1f8b04
-	dw Func_1f8b14
-	dw Func_1f8b3d
-	dw Func_1f8b71
-	dw Func_1f8b86
-	dw Func_1f8bb2
-	dw Func_1f8bc7
-	dw Func_1f8bda
-	dw Func_1f8c59
-	dw Func_1f8c81
-	dw Func_1f8c94
-	dw Func_1f8cbb
-	dw Func_1f8cf7
-	dw Func_1f8d04
-	dw Func_1f8d34
-	dw Func_1f8d49
-	dw Func_1f8d72
-	dw Func_1f8d88
-	dw Func_1f8da4
-	dw Func_1f8db7
+	dw LeadOverallsActionHelp_Step05
+	dw LeadOverallsActionHelp_Step06
+	dw LeadOverallsActionHelp_Step07
+	dw LeadOverallsActionHelp_Step08
+	dw LeadOverallsActionHelp_Step09
+	dw LeadOverallsActionHelp_Step0A
+	dw LeadOverallsActionHelp_Step0B
+	dw LeadOverallsActionHelp_Step0C
+	dw LeadOverallsActionHelp_Step0D
+	dw LeadOverallsActionHelp_Step0E
+	dw LeadOverallsActionHelp_Step0F
+	dw LeadOverallsActionHelp_Step10
+	dw LeadOverallsActionHelp_Step11
+	dw LeadOverallsActionHelp_Step12
+	dw LeadOverallsActionHelp_Step13
+	dw LeadOverallsActionHelp_Step14
+	dw LeadOverallsActionHelp_Step15
+	dw LeadOverallsActionHelp_Step16
+	dw LeadOverallsActionHelp_Step17
+	dw LeadOverallsActionHelp_Step18
+	dw LeadOverallsActionHelp_Step19
+	dw LeadOverallsActionHelp_Step1A
+	dw LeadOverallsActionHelp_Step1B
+	dw LeadOverallsActionHelp_Step1C
+	dw LeadOverallsActionHelp_Step1D
+	dw LeadOverallsActionHelp_Step1E
 
-Func_1f8988:
+LeadOverallsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1f8996
@@ -97,13 +97,13 @@ Func_1f8988:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1f89c0
+	jr LeadOverallsActionHelp_Start
 
-Func_1f89bb:
+LeadOverallsActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1f89c0:
+LeadOverallsActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowParaGoomWalk
@@ -114,7 +114,7 @@ Func_1f89c0:
 	inc [hl]
 	ret
 
-Func_1f89e0:
+LeadOverallsActionHelp_Step02:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -133,7 +133,7 @@ Func_1f89e0:
 	inc [hl]
 	ret
 
-Func_1f89fb:
+LeadOverallsActionHelp_Step03:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -163,7 +163,7 @@ Func_1f89fb:
 	inc [hl]
 	ret
 
-Func_1f8a2a:
+LeadOverallsActionHelp_Step05:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -187,7 +187,7 @@ Func_1f8a2a:
 	inc [hl]
 	ret
 
-Func_1f8a52:
+LeadOverallsActionHelp_Step06:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -211,7 +211,7 @@ Func_1f8a52:
 	inc [hl]
 	ret
 
-Func_1f8a79:
+LeadOverallsActionHelp_Step07:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
 	ret z
@@ -226,7 +226,7 @@ Func_1f8a79:
 	inc [hl]
 	ret
 
-Func_1f8a91:
+LeadOverallsActionHelp_Step08:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -238,7 +238,7 @@ Func_1f8a91:
 	inc [hl]
 	ret
 
-Func_1f8aa1:
+LeadOverallsActionHelp_Step09:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -257,7 +257,7 @@ Func_1f8aa1:
 	inc [hl]
 	ret
 
-Func_1f8abc:
+LeadOverallsActionHelp_Step0A:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -298,7 +298,7 @@ Func_1f8abc:
 	inc [hl]
 	ret
 
-Func_1f8b04:
+LeadOverallsActionHelp_Step0B:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -310,7 +310,7 @@ Func_1f8b04:
 	inc [hl]
 	ret
 
-Func_1f8b14:
+LeadOverallsActionHelp_Step0C:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -334,7 +334,7 @@ Func_1f8b14:
 	inc [hl]
 	ret
 
-Func_1f8b3d:
+LeadOverallsActionHelp_Step0D:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -363,7 +363,7 @@ Func_1f8b3d:
 	inc [hl]
 	ret
 
-Func_1f8b71:
+LeadOverallsActionHelp_Step0E:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -377,7 +377,7 @@ Func_1f8b71:
 	inc [hl]
 	ret
 
-Func_1f8b86:
+LeadOverallsActionHelp_Step0F:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -403,7 +403,7 @@ Func_1f8b86:
 	inc [hl]
 	ret
 
-Func_1f8bb2:
+LeadOverallsActionHelp_Step10:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -417,7 +417,7 @@ Func_1f8bb2:
 	inc [hl]
 	ret
 
-Func_1f8bc7:
+LeadOverallsActionHelp_Step11:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -430,7 +430,7 @@ Func_1f8bc7:
 	inc [hl]
 	ret
 
-Func_1f8bda:
+LeadOverallsActionHelp_Step12:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	cp $27
@@ -516,7 +516,7 @@ Func_1f8bda:
 	inc [hl]
 	ret
 
-Func_1f8c59:
+LeadOverallsActionHelp_Step13:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -540,7 +540,7 @@ Func_1f8c59:
 	inc [hl]
 	ret
 
-Func_1f8c81:
+LeadOverallsActionHelp_Step14:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -553,7 +553,7 @@ Func_1f8c81:
 	inc [hl]
 	ret
 
-Func_1f8c94:
+LeadOverallsActionHelp_Step15:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -576,7 +576,7 @@ Func_1f8c94:
 	inc [hl]
 	ret
 
-Func_1f8cbb:
+LeadOverallsActionHelp_Step16:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -613,7 +613,7 @@ Func_1f8cbb:
 	inc [hl]
 	ret
 
-Func_1f8cf7:
+LeadOverallsActionHelp_Step17:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -624,7 +624,7 @@ Func_1f8cf7:
 	inc [hl]
 	ret
 
-Func_1f8d04:
+LeadOverallsActionHelp_Step18:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -652,7 +652,7 @@ Func_1f8d04:
 	inc [hl]
 	ret
 
-Func_1f8d34:
+LeadOverallsActionHelp_Step19:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -666,7 +666,7 @@ Func_1f8d34:
 	inc [hl]
 	ret
 
-Func_1f8d49:
+LeadOverallsActionHelp_Step1A:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -690,7 +690,7 @@ Func_1f8d49:
 	inc [hl]
 	ret
 
-Func_1f8d72:
+LeadOverallsActionHelp_Step1B:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -709,7 +709,7 @@ Func_1f8d72:
 	inc [hl]
 	ret
 
-Func_1f8d88:
+LeadOverallsActionHelp_Step1C:
 	ld hl, wMenuObj4YCoord
 	dec [hl]
 	ld hl, wActionHelpWarioYCoord
@@ -727,7 +727,7 @@ Func_1f8d88:
 	inc [hl]
 	ret
 
-Func_1f8da4:
+LeadOverallsActionHelp_Step1D:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -740,7 +740,7 @@ Func_1f8da4:
 	inc [hl]
 	ret
 
-Func_1f8db7:
+LeadOverallsActionHelp_Step1E:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -753,4 +753,4 @@ Func_1f8db7:
 	ld [wMenuObj5XCoord], a
 	cp $f0
 	ret c
-	jp Func_1f8988
+	jp LeadOverallsActionHelp_End

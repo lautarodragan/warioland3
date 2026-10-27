@@ -1,6 +1,6 @@
 ; input:
 ; - e = ?
-Func_ba42:
+SetObjectMapEntryAndSpawn:
 	push_wram BANK("Level Objects WRAM")
 	ld a, [wSRAMBank]
 	push af
@@ -23,8 +23,8 @@ Func_ba42:
 	ld h, a
 	ld a, c
 	ld [wBlockPtrBank], a
-	call Func_d8c
-	ld a, [wccec]
+	call BlockPtrToObjectMapPtr
+	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
 	jr z, .asm_ba85
@@ -72,7 +72,7 @@ Func_ba42:
 	ld [wBlockPtrBank], a
 	ld h, d
 	ld l, e
-	call Func_d3e
+	call GetBlockPtrPos
 	pop de
 
 	ld c, e
@@ -87,12 +87,15 @@ Func_ba42:
 ; hl = obj unk02
 DespawnObject:
 	push_wram BANK("Level Objects WRAM")
+	ld a, [hl] ; OBJ_MAP_PTR_HI
+	and a
+	jr z, .no_map_entry
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
 	ld c, $01
-	ld a, [hld] ; OBJ_UNK_02
+	ld a, [hld] ; OBJ_MAP_PTR_HI
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr c, .asm_bb12
 	inc c
@@ -103,7 +106,7 @@ DespawnObject:
 	sub $20
 .asm_bb12
 	ld d, a
-	ld a, [hld] ; OBJ_UNK_01
+	ld a, [hld] ; OBJ_MAP_PTR_LO
 	ld e, a
 	xor a
 	ld [hl], a
@@ -117,7 +120,17 @@ DespawnObject:
 	pop_wram
 	ret
 
-Func_bb2d:
+.no_map_entry
+; objects spawned outside the object map (from the debug menu) have no
+; entry to mark as despawned; marking "$0000" would write to the MBC's
+; RAM enable register and switch off SRAM, where the level's blocks live
+	dec l
+	dec l
+	ld [hl], a ; OBJ_FLAGS
+	pop_wram
+	ret
+
+ClearObjectMapEntry:
 	push_wram BANK("Level Objects WRAM")
 	ld a, [wSRAMBank]
 	push af
@@ -138,8 +151,8 @@ Func_bb2d:
 	ld h, a
 	ld a, c
 	ld [wBlockPtrBank], a
-	call Func_d8c
-	ld a, [wccec]
+	call BlockPtrToObjectMapPtr
+	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
 	jr z, .asm_bb76
@@ -160,16 +173,16 @@ Func_bb2d:
 	pop_wram
 	ret
 
-Func_bb85:
+ProcessBlockRedrawQueue:
 	ld a, [wIsDMATransferPending]
 	and a
 	ret nz ; exit if DMA pending
 
 	ld b, BANK("SRAM1")
-	ld a, [wc19f]
+	ld a, [wBlockRedrawQueueReadIndex]
 	ld e, a
 	ld d, $00
-	ld hl, wc18e
+	ld hl, wBlockRedrawQueue
 	add hl, de
 	ld a, [hli]
 	and a
@@ -306,10 +319,10 @@ Func_bb85:
 	add 4
 	ld [wBGMapTileQueueSize], a
 
-	ld a, [wc19f]
+	ld a, [wBlockRedrawQueueReadIndex]
 	ld e, a
 	ld d, $00
-	ld hl, wc18e
+	ld hl, wBlockRedrawQueue
 	add hl, de
 	xor a
 	ld [hli], a
@@ -317,6 +330,6 @@ Func_bb85:
 	ld a, e
 	add 2
 	and $0f
-	ld [wc19f], a
+	ld [wBlockRedrawQueueReadIndex], a
 	pop_wram
 	ret

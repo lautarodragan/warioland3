@@ -62,7 +62,7 @@ FinishIntroBackgroundScroll:
 ; pans the background of the intro airplane scene
 ; each horizontal layer scrolls at different speed
 PanIntroBackgroundLayers:
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	ret nz
 .sky

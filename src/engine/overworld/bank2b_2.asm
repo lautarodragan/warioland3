@@ -1,14 +1,14 @@
 Prologue_Delay:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp c
 	ret c
 ;	fallthrough
 
 Prologue_Next:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2d013
+	inc [hl] ; wOWStep
 	ret
 
 Prologue_Finish:
@@ -20,11 +20,11 @@ Prologue:
 	call .PlayCutscene
 	call UpdatePrologueSceneObjects
 	call UpdateSceneWario
-	call Func_ac3fd
+	call UpdatePrologueSceneObjs8And9
 	ret
 
 .PlayCutscene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 
 	dw Prologue_Next
@@ -55,11 +55,11 @@ Prologue:
 	dw .Func_ae169
 	dw Func_ae641
 	dw InitTextPrinting
-	dw Func_aca9e
+	dw PrintTextPageWithHeader
 	dw .Wait30
 	dw LoadCurTextPageBufferPage
-	dw Func_acacd
-	dw Func_acae7
+	dw WaitAButtonAndClearTextbox
+	dw PrintTextPageWithoutHeader
 	dw .Func_ae181
 	dw .Func_ae196
 	dw .Func_ae19e
@@ -76,7 +76,7 @@ Prologue:
 ;	fallthrough
 
 .Func_ae009:
-	ld [w2d880], a
+	ld [wCurOWPathTracer], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -182,10 +182,10 @@ Prologue:
 	ld b, BANK(Pals_86a0d)
 	call CopyFarBytes
 
-	ld de, Data_ac9f5
-	call Func_ac9e9
-	ld de, Data_ac9ff
-	call Func_ac9e4
+	ld de, PalConfig_BGFromTempPals1
+	call SetPalConfig1FromDE
+	ld de, PalConfig_OB0FromTempOBPals
+	call SetPalConfig2FromDE
 	jp Prologue_Next
 
 .PrepareCaveScene2:
@@ -279,7 +279,7 @@ Prologue:
 	jp .Func_ae009
 
 .Func_ae15b:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $07
 	ret nz
 	jp PrologueFade
@@ -295,7 +295,7 @@ Prologue:
 	jr c, .asm_ae174
 	ld c, $01
 .asm_ae174
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and c
 	ret nz
 	jp PrologueFade
@@ -305,7 +305,7 @@ Prologue:
 	jp Prologue_Delay
 
 .Func_ae181:
-	call Func_acaf3
+	call NextTextPageOrEnd
 	call .Func_ae188
 	ret
 
@@ -343,37 +343,37 @@ Prologue:
 	call ClearTextbox
 	jp Prologue_Next
 
-Func_ae1c2:
+AdvancePrologueStepOnWarioState:
 	ld a, [wSceneWarioState]
 	cp b
 	ret nz
-	jr Func_ae1ce
+	jr AdvancePrologueStep
 
-Func_ae1c9:
-	ld a, [w2d891]
+WaitPrologueStep:
+	ld a, [wSceneStepCounter]
 	cp c
 	ret c
 ;	fallthrough
 
-Func_ae1ce:
-	ld hl, w2d891
+AdvancePrologueStep:
+	ld hl, wSceneStepCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2d890
+	inc [hl] ; wSceneStep
 	ret
 
-Func_ae1d5:
+ResetPrologueStepAndNext:
 	xor a
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld [hli], a
-	ld [hl], a ; w2d891
+	ld [hl], a ; wSceneStepCounter
 	jp Prologue_Next
 
 Func_ae1de:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .Wait20
@@ -381,11 +381,11 @@ Func_ae1de:
 	dw .Wait10
 	dw .Func_ae215
 	dw .Wait90
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 .Wait20:
 	ld c, 20
-	jr Func_ae1c9
+	jr WaitPrologueStep
 
 .Func_ae1f5:
 	; set Obj4's position to (56, 56)
@@ -398,11 +398,11 @@ Func_ae1de:
 	ld hl, wSceneObj4State
 	call SetSceneObjState
 	play_sfx SFX_104
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait10:
 	ld c, 10
-	jr Func_ae1c9
+	jr WaitPrologueStep
 
 .Func_ae215:
 	; set Obj5's position to (120, 48)
@@ -414,18 +414,18 @@ Func_ae1de:
 	ld a, $0e
 	ld hl, wSceneObj5State
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait90:
 	ld c, 90
-	jr Func_ae1c9
+	jr WaitPrologueStep
 
 Prologue_WarioEnterCave:
 	call Func_ae2dd
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .WarioWalkRight
@@ -440,12 +440,12 @@ Prologue_WarioEnterCave:
 	dw .WarioLookMusicBox
 	dw .WarioHoldMusicBox
 	dw .Wait60
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 .WarioWalkRight:
 	ld a, SCENEWARIO_WALK_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioMoveRightTo64:
 	call ApplySceneWarioMovementRight
@@ -457,7 +457,7 @@ Prologue_WarioEnterCave:
 .wario_idle_right
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae26c:
 	ld a, $01
@@ -468,10 +468,10 @@ Prologue_WarioEnterCave:
 	ld a, [w2d8b0]
 	and a
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .ShowEmote:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $16
 	ret c
 	ld hl, wCurSceneObj
@@ -485,17 +485,17 @@ Prologue_WarioEnterCave:
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
 	play_sfx SFX_106
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WaitEmoteAnimation:
 	ld a, [wCurSceneObjState]
 	and a
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait26:
 	ld c, 26
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioMoveRightTo102:
 	call ApplySceneWarioMovementRight
@@ -505,12 +505,12 @@ Prologue_WarioEnterCave:
 	jr .wario_idle_right
 
 .Func_ae2b8:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $14
 	jr z, .asm_ae2c5
 	cp $3c
 	ret c
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 .asm_ae2c5
 	ld a, $03
 	ld [w2d8b0], a
@@ -519,15 +519,15 @@ Prologue_WarioEnterCave:
 .WarioLookMusicBox:
 	ld a, SCENEWARIO_LOOK_MUSIC_BOX
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioHoldMusicBox:
 	ld b, SCENEWARIO_HOLD_MUSIC_BOX
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 .Wait60:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae2dd:
 	ld a, [w2d8b0]
@@ -579,10 +579,10 @@ Func_ae30e:
 
 Prologue_WarioSuckedIntoMusicBox:
 	call Func_ae523
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 	dw .Func_ae352
 	dw .Func_ae35a
@@ -605,49 +605,49 @@ Prologue_WarioSuckedIntoMusicBox:
 	dw .Func_ae4a9
 	dw .Func_ae4e5
 	dw .Wait120
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 .Func_ae352:
 	ld a, [wSceneObj1State]
 	and a
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae35a:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $14
 	ret c
 	stop_music2
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait30:
 	ld c, 30
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioPickupMusicBox:
 	ld a, SCENEWARIO_PICKUP_MUSIC_BOX
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae37c:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $08
 	ret nc
 	ld hl, wSceneObj3State
 	ld a, $0a
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioShortHopBack:
 	ld hl, wSceneWario
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $01
 	jr z, .hop_up
 	cp $05
 	jr z, .hop_down
 	cp $30
 	ret c
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 .hop_up
 	dec [hl] ; y
 	inc l
@@ -660,7 +660,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ret
 
 .MusicBoxRise:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	and $07
 	ret nz
 	ld hl, wSceneObj3YCoord
@@ -674,7 +674,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	jr z, .asm_ae3c5
 	cp 165
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 .asm_ae3c5
 	ld hl, wSceneObj2State
 	ld a, $0c
@@ -685,13 +685,13 @@ Prologue_WarioSuckedIntoMusicBox:
 
 .Wait120_1:
 	ld c, 120
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .Func_ae3d8:
 	xor a
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae3e2:
 	; place obj at (Wario_x, Wario_y - 8)
@@ -704,7 +704,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld a, $0e
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae3fa:
 	ld a, [wCurSceneObjState]
@@ -712,7 +712,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ret nz
 	ld a, $80
 	ld [w2d150], a
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae407:
 	ld hl, wCurSceneObj
@@ -737,9 +737,9 @@ Prologue_WarioSuckedIntoMusicBox:
 	dec b
 	jr nz, .loop_set_pal
 
-	ld de, Data_ac9ff
-	call Func_ac9e4
-	jp Func_ae1ce
+	ld de, PalConfig_OB0FromTempOBPals
+	call SetPalConfig2FromDE
+	jp AdvancePrologueStep
 
 .Func_ae435:
 	ld a, [wCurSceneObjState]
@@ -747,18 +747,18 @@ Prologue_WarioSuckedIntoMusicBox:
 	ret nz
 	xor a ; SCENEWARIO_NONE
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait60:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .Func_ae447:
 	ld hl, wCurSceneObj
 	ld a, [hli] ; y
 	cp 181
 	jr c, .above_181
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	ld b, a
 	and $03
 	ret nz
@@ -780,7 +780,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	jr z, .asm_ae46d
 	cp 156
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 .asm_ae46d
 	ld a, $17
 	ld hl, wCurSceneObjState
@@ -794,10 +794,10 @@ Prologue_WarioSuckedIntoMusicBox:
 	xor a
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae488:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	srl a
 	ret c
 	ld hl, wSceneObj3XCoord
@@ -806,7 +806,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	cp $02
 	jr z, .DecreaseX
 	call .IncreaseX
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 .IncreaseX
 	inc [hl]
 	ret
@@ -817,10 +817,10 @@ Prologue_WarioSuckedIntoMusicBox:
 
 .Wait40:
 	ld c, 40
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .Func_ae4a9:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	call .Func_ae4c0
 	ld hl, wSceneObj3YCoord
 	add [hl]
@@ -830,7 +830,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld a, 195
 	ld [hl], a
 	call .PlayBumpSFX
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae4c0:
 	ld a, [hl]
@@ -850,7 +850,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	db 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2
 
 .Func_ae4e5:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	call .Func_ae4fe
 	and a
 	ret z
@@ -862,7 +862,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld a, $80
 	cp b
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_ae4fe:
 	ld a, [hl]
@@ -882,7 +882,7 @@ Prologue_WarioSuckedIntoMusicBox:
 
 .Wait120:
 	ld c, 120
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae523:
 	ld hl, w2d150
@@ -930,12 +930,12 @@ Func_ae523:
 	ret
 
 Func_ae55c:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 	dw Func_ae585
 	dw Func_ae58d
@@ -952,13 +952,13 @@ Func_ae55c:
 	dw Func_ae61d
 	dw Func_ae630
 	dw Func_ae63c
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 Func_ae585:
-	ld a, [w2d14e]
+	ld a, [wSceneWarioAnimFinished]
 	inc a
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae58d:
 	ld a, [bc]
@@ -966,20 +966,20 @@ Func_ae58d:
 	ret c
 	ld a, SCENEWARIO_WAKE_UP
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae599:
 	ld a, [bc]
 	cp $14
 	ret c
 	play_sfx SFX_GRAB
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5a8:
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_SIT_IDLE
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5b1:
 	ld a, [bc]
@@ -994,7 +994,7 @@ Func_ae5b1:
 	ld a, $14
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5d0:
 	ld a, [bc]
@@ -1002,7 +1002,7 @@ Func_ae5d0:
 	ret c
 	ld a, SCENEWARIO_SIT_STILL
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5dc:
 	ld a, [bc]
@@ -1011,16 +1011,16 @@ Func_ae5dc:
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
 	play_sfx SFX_12A
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5f0:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae5f5:
 	ld a, SCENEWARIO_WALK_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae5fd:
 	call ApplySceneWarioMovementRight
@@ -1029,7 +1029,7 @@ Func_ae5fd:
 	ld [hl], a
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae60c:
 	ld a, [bc]
@@ -1037,18 +1037,18 @@ Func_ae60c:
 	ret c
 	ld a, SCENEWARIO_TURN_BACK_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae618:
 	ld b, SCENEWARIO_LOOK_BACK
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 Func_ae61d:
 	ld a, [bc]
 	cp $1e
 	ret c
 	play_music2 MUSIC_THE_TEMPLE
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae630:
 	ld a, [bc]
@@ -1056,45 +1056,45 @@ Func_ae630:
 	ret c
 	ld a, SCENEWARIO_LOOK_AROUND
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae63c:
 	ld c, 30
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae641:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 	dw Func_ae652
 	dw Func_ae657
 	dw Func_ae663
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 Func_ae652:
 	ld b, SCENEWARIO_LOOK_FORWARD
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 Func_ae657:
 	ld a, SCENEWARIO_JUMP_AND_BOW
 	call SetSceneWarioState
 	xor a
-	ld [wSceneWarioUnk7], a
-	jp Func_ae1ce
+	ld [wSceneWarioMovementStep], a
+	jp AdvancePrologueStep
 
 Func_ae663:
 	ld b, SCENEWARIO_LOOK_BACK
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 Func_ae668:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 	dw Func_ae683
 	dw Func_ae68b
@@ -1105,44 +1105,44 @@ Func_ae668:
 	dw Func_ae6b3
 	dw Func_ae6c1
 	dw Func_ae6ce
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 Func_ae683:
 	ld a, SCENEWARIO_SNAP_FINGERS
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae68b:
 	ld a, [wSceneWarioFrame]
 	cp $0f
 	ret nz
 	play_sfx SFX_106
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae69c:
 	ld b, SCENEWARIO_LOOK_BACK
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 Func_ae6a1:
 	ld c, 30
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae6a6:
 	ld a, SCENEWARIO_TURN_BACK_TO_LEFT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae6ae:
 	ld b, SCENEWARIO_IDLE_LEFT
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 Func_ae6b3:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $04
 	ret c
 	ld a, SCENEWARIO_WALK_LEFT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae6c1:
 	call ApplySceneWarioMovementLeft
@@ -1150,18 +1150,18 @@ Func_ae6c1:
 	ret nz
 	xor a ; SCENEWARIO_NONE
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 Func_ae6ce:
 	ld c, 30
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Prologue_WarioFallFromPlane:
 	call Func_ae8bb
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 	dw .Wait74
 	dw .ShowWarioFall
@@ -1173,11 +1173,11 @@ Prologue_WarioFallFromPlane:
 	dw .WarioLookAround
 	dw .WarioIdleRight
 	dw .Wait46
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 .Wait74:
 	ld c, 74
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .ShowWarioFall:
 	; set Wario's coordinates to (240, 60)
@@ -1193,22 +1193,22 @@ Prologue_WarioFallFromPlane:
 	play_sfx SFX_THROW
 
 	xor a
-	ld [w2d894], a
-	ld [w2d892], a
-	jp Func_ae1ce
+	ld [wSceneSubActive], a
+	ld [wSceneSubStep], a
+	jp AdvancePrologueStep
 
 .WarioBounce:
 	call .DoBounce
-	ld a, [w2d892]
+	ld a, [wSceneSubStep]
 	cp $80
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .DoBounce:
-	ld a, [w2d894]
+	ld a, [wSceneSubActive]
 	and a
 	jr z, .asm_ae740
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	and $03
 	jr z, .asm_ae740
 	ld de, Data_aed06
@@ -1216,9 +1216,9 @@ Prologue_WarioFallFromPlane:
 	call ApplyOWMovement
 	jr nz, .asm_ae740
 	xor a
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 .asm_ae740
-	ld a, [w2d892]
+	ld a, [wSceneSubStep]
 	and a
 	jr z, .asm_ae763
 	dec a
@@ -1243,12 +1243,12 @@ Prologue_WarioFallFromPlane:
 
 .asm_ae763
 	ld a, $01
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 .asm_ae768
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
-	ld [w2d893], a
+	ld [wSceneSubStepCounter], a
 	ret
 
 .asm_ae771
@@ -1270,7 +1270,7 @@ Prologue_WarioFallFromPlane:
 	jr .asm_ae768
 
 .asm_ae794
-	ld hl, w2d893
+	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
 	cp $04
@@ -1304,14 +1304,14 @@ Prologue_WarioFallFromPlane:
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_STUNNED_RIGHT
 	ret nz
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
-	ld [w2d893], a
+	ld [wSceneSubStepCounter], a
 	ret
 
 .asm_ae7d4
-	ld hl, w2d893
+	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
 	cp $3e
@@ -1319,15 +1319,15 @@ Prologue_WarioFallFromPlane:
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
 	play_sfx SFX_12A
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
-	ld [w2d893], a
+	ld [wSceneSubStepCounter], a
 	ret
 
 .asm_ae7f2
 	ld a, $80
-	ld [w2d892], a
+	ld [wSceneSubStep], a
 	ret
 
 .PlayBumpSfx:
@@ -1336,36 +1336,36 @@ Prologue_WarioFallFromPlane:
 
 .Wait60:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioTurnRight:
 	ld a, SCENEWARIO_TURN_BACK_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioLookBack:
 	ld b, SCENEWARIO_LOOK_BACK
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 .Wait38:
 	ld c, 38
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioLookAround:
 	ld a, SCENEWARIO_LOOK_AROUND_THEN_TURN
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioIdleRight:
 	ld b, SCENEWARIO_IDLE_RIGHT
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 .Wait46:
 	ld c, 46
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Prologue_WarioWalkToCaveEntrance:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	dec l
 	ld a, [hl]
@@ -1382,11 +1382,11 @@ Prologue_WarioWalkToCaveEntrance:
 	dw .WarioWalkRight
 	dw .WarioMoveRightTo208
 	dw .Wait40_2
-	dw Func_ae1d5
+	dw ResetPrologueStepAndNext
 
 .Wait60_1:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioMoveRightTo120:
 	call ApplySceneWarioMovementRight
@@ -1395,20 +1395,20 @@ Prologue_WarioWalkToCaveEntrance:
 	ld [hl], a
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait60_2:
 	ld c, 60
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioLookUp:
 	ld a, SCENEWARIO_LOOK_UP
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioIdleRight:
 	ld b, SCENEWARIO_IDLE_RIGHT
-	jp Func_ae1c2
+	jp AdvancePrologueStepOnWarioState
 
 .ShowEmote:
 	; place emote on position (Wario_x + 16, Wario_y - 24)
@@ -1424,22 +1424,22 @@ Prologue_WarioWalkToCaveEntrance:
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
 	play_sfx SFX_106
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WaitEmoteAnimation:
 	ld a, [wCurSceneObjState]
 	and a
 	ret nz
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait40_1:
 	ld c, 40
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 .WarioWalkRight:
 	ld a, SCENEWARIO_WALK_RIGHT
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .WarioMoveRightTo208:
 	call ApplySceneWarioMovementRight
@@ -1448,11 +1448,11 @@ Prologue_WarioWalkToCaveEntrance:
 	ld [hl], a
 	xor a ; SCENEWARIO_NONE
 	call SetSceneWarioState
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Wait40_2:
 	ld c, 40
-	jp Func_ae1c9
+	jp WaitPrologueStep
 
 Func_ae8bb:
 	call Func_ae924
@@ -1460,10 +1460,10 @@ Func_ae8bb:
 	call Func_aeb0d
 	call Func_aec1f
 
-	ld hl, w2d8a1
+	ld hl, wSceneAuxStepCounter
 	inc [hl]
 	dec l
-	ld a, [hl] ; w2d8a0
+	ld a, [hl] ; wSceneAuxStep
 	jumptable
 	dw .Func_ae8d9
 	dw .Func_ae8e8
@@ -1475,40 +1475,40 @@ Func_ae8bb:
 	ret
 
 .Func_ae8d9:
-	ld a, [w2d8a1]
+	ld a, [wSceneAuxStepCounter]
 	cp $08
 	ret c
 	ld hl, wPlanePart1Counter
-	call Func_ae915
+	call AdvanceStepAtHL
 	jp .asm_ae912
 
 .Func_ae8e8:
-	ld a, [w2d8a1]
+	ld a, [wSceneAuxStepCounter]
 	cp $08
 	ret c
 	ld hl, wPlanePart2Counter
-	call Func_ae915
+	call AdvanceStepAtHL
 	jr .asm_ae912
 
 .Func_ae8f6:
-	ld a, [w2d8a1]
+	ld a, [wSceneAuxStepCounter]
 	cp $08
 	ret c
 	ld hl, wPlanePart3Counter
-	call Func_ae915
+	call AdvanceStepAtHL
 	jr .asm_ae912
 
 .Func_ae904:
-	ld a, [w2d8a1]
+	ld a, [wSceneAuxStepCounter]
 	cp $08
 	ret c
 	ld hl, wPlanePart4Counter
-	call Func_ae915
+	call AdvanceStepAtHL
 	jr .asm_ae912 ; unnecessary jump
 .asm_ae912
-	ld hl, w2d8a1
+	ld hl, wSceneAuxStepCounter
 
-Func_ae915:
+AdvanceStepAtHL:
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -1557,7 +1557,7 @@ Func_ae924:
 
 .Func_ae950:
 	ld hl, wPlanePart1Counter
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_ae956:
 	ld a, [wSceneObj3YCoord]
@@ -1573,7 +1573,7 @@ Func_ae924:
 	ld a, [hl]
 	cp c
 	ret c
-	jr Func_ae915
+	jr AdvanceStepAtHL
 
 .Func_ae971:
 	ld hl, wSceneObj3
@@ -1689,7 +1689,7 @@ Func_ae9ee:
 	play_sfx SFX_006
 .Func_aea1e:
 	ld hl, wPlanePart2Counter
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aea24:
 	ld a, [wSceneObj4YCoord]
@@ -1705,7 +1705,7 @@ Func_ae9ee:
 	ld a, [hl]
 	cp c
 	ret c
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aea40:
 	ld hl, wSceneObj4
@@ -1857,7 +1857,7 @@ Func_aeb0d:
 	play_sfx SFX_006
 .Func_aeb3d:
 	ld hl, wPlanePart3Counter
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aeb43:
 	ld a, [wSceneObj5YCoord]
@@ -1873,7 +1873,7 @@ Func_aeb0d:
 	ld a, [hl]
 	cp c
 	ret c
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aeb5f:
 	ld hl, wSceneObj5
@@ -2011,7 +2011,7 @@ Func_aec1f:
 	play_sfx SFX_006
 .Func_aec47:
 	ld hl, wPlanePart4Counter
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aec4d:
 	ld a, [wSceneObj9YCoord]
@@ -2027,7 +2027,7 @@ Func_aec1f:
 	ld a, [hl]
 	cp c
 	ret c
-	jp Func_ae915
+	jp AdvanceStepAtHL
 
 .Func_aec69:
 	ld hl, wSceneObj9
@@ -2367,8 +2367,8 @@ _InitEpilogue:
 	hcall Decompress
 
 	xor a
-	ld [w2d013], a
-	ld [w2d014], a
+	ld [wOWStep], a
+	ld [wOWStepCounter], a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
 
@@ -2387,7 +2387,7 @@ _InitEpilogue:
 	ret
 
 ; unreferenced
-Func_af01f:
+UnreferencedInitEpilogue:
 	call DisableLCD
 	call FillBGMap0_With7f
 	call ClearVirtualOAM
@@ -2461,8 +2461,8 @@ Func_af01f:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	ld [w2d890], a
-	ld [w2d891], a
+	ld [wSceneStep], a
+	ld [wSceneStepCounter], a
 	ld a, [wCollectionRow]
 	ld b, a
 	and a
@@ -2473,40 +2473,40 @@ Func_af01f:
 	ldh [rLCDC], a
 	xor a
 	ld [wCollectionRow], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 
-Func_af130:
-	ld a, [w2d014]
+WaitEpilogueOWStep:
+	ld a, [wOWStepCounter]
 	cp c
 	ret c
 ;	fallthrough
 
-Func_af135:
-	ld hl, w2d014
+AdvanceEpilogueOWStep:
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-Func_af13c:
+_UpdateEpilogue:
 	call .Func_af14c
-	call Func_ac074
+	call UpdateEpilogueSceneObjs_Front
 	call UpdateSceneWario
-	call Func_ac080
+	call UpdateEpilogueSceneObjs_Back
 	call ClearUnusedVirtualOAM
 	ret
 
 .Func_af14c:
 	call .Func_af8bc
 
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	inc [hl]
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
-	dw Func_af135
+	dw AdvanceEpilogueOWStep
 	dw .Func_af197
 	dw .Func_af19c
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af7af
 	dw .Func_af2d0
 	dw PrologueFade
@@ -2516,21 +2516,21 @@ Func_af13c:
 	dw .Func_af222
 	dw .Func_af230
 	dw .Func_af23e
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af741
 	dw InitTextPrinting
-	dw Func_aca9e
+	dw PrintTextPageWithHeader
 	dw .Func_af2bc
 	dw LoadCurTextPageBufferPage
-	dw Func_acacd
+	dw WaitAButtonAndClearTextbox
 	dw .Func_af2c1
-	dw Func_acaf3
+	dw NextTextPageOrEnd
 	dw .Func_af670
 	dw .Func_af2d0
 	dw PrologueFade
 	dw .Func_af2df
 	dw .Func_af2f2
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af436
 	dw .Func_af2d0
 	dw .Func_af34a
@@ -2538,7 +2538,7 @@ Func_af13c:
 
 .Func_af197:
 	ld c, $3c
-	jp Func_af130
+	jp WaitEpilogueOWStep
 .Func_af19c:
 	ld hl, wSceneObj9
 	ld a, $60
@@ -2553,9 +2553,9 @@ Func_af13c:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 .Func_af1bd:
-	call Func_aca09
+	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, Pals_86add
 	ld de, wTempPals1
 	ld c, 8 palettes
@@ -2594,7 +2594,7 @@ Func_af13c:
 	ld [hli], a
 	ld a, c
 	ld [hl], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 .Func_af207:
 	ld a, BANK("VRAM1")
 	ld [wHDMADestVRAMBank], a
@@ -2666,9 +2666,9 @@ Func_af13c:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	ld [w2d890], a
-	ld [w2d891], a
-	jp Func_af135
+	ld [wSceneStep], a
+	ld [wSceneStepCounter], a
+	jp AdvanceEpilogueOWStep
 .Func_af2ab:
 	ld a, d
 	ld [hli], a
@@ -2683,21 +2683,21 @@ Func_af13c:
 	jp CopyFarBytes
 .Func_af2bc:
 	ld c, $1e
-	jp Func_af130
+	jp WaitEpilogueOWStep
 .Func_af2c1:
 	call PrintTextWithoutHeader
 	call .Func_af376
 	ld a, [wCurTextLine]
 	cp $80
 	ret nz
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 .Func_af2d0:
 	ld a, $00
-	ld [w2d880], a
+	ld [wCurOWPathTracer], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 .Func_af2df:
 	xor a
 	ld [wHDMADestVRAMBank], a
@@ -2730,7 +2730,7 @@ Func_af13c:
 	ld [wSceneObj13State], a
 	ld a, $08
 	ld [wCollectionRow], a
-	call Func_aca09
+	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, Pals_869cd
 	ld de, wTempPals1
 	ld c, 8 palettes
@@ -2744,16 +2744,16 @@ Func_af13c:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 
 .Func_af34a:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $03
 	ret nz
 	jp PrologueFade
 
 .Func_af353:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp $3c
 	ret c
 	ld hl, wSubState
@@ -2866,12 +2866,12 @@ Func_af13c:
 	ret nz
 	jr .asm_af40c
 
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp c
 	ret c
 
 .asm_af40c
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -2879,17 +2879,17 @@ Func_af13c:
 
 .asm_af413
 	xor a
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld [hli], a
 	ld [hl], a
-	jp Func_af135
+	jp AdvanceEpilogueOWStep
 
 .Func_af41c:
-	farcall Func_84e43
+	farcall FadeBGAndOBPals
 	ld a, [wPalConfig1TotalSteps]
 	and a
 	ret nz
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -2897,7 +2897,7 @@ Func_af13c:
 .Func_af436:
 	call .Func_af60d
 	call .Func_af57b
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -2924,7 +2924,7 @@ Func_af13c:
 .Func_af466:
 	xor a
 	ld [wPalFade2Colour2GreenUnk1], a
-	ld [w2d892], a
+	ld [wSceneSubStep], a
 	ld [wTempleRock5Action], a
 	ld [wPalFade2Colour4GreenSign], a
 	jp .asm_af40c
@@ -2934,7 +2934,7 @@ Func_af13c:
 	cp $40
 	ret c
 	ld a, $01
-	ld [w2d892], a
+	ld [wSceneSubStep], a
 	play_sfx SFX_THROW
 	jp .asm_af40c
 
@@ -2948,7 +2948,7 @@ Func_af13c:
 	jp .asm_af40c
 
 .Func_af49e:
-	ld a, [w2d892]
+	ld a, [wSceneSubStep]
 	cp $80
 	ret nz
 	ld a, [wTempleRock5Action]
@@ -2987,12 +2987,12 @@ Func_af13c:
 	ld a, $0b
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	play_sfx SFX_GRAB
 	jp .asm_af40c
 
 .Func_af4e7:
-	ld a, [wSceneObj9Unk7]
+	ld a, [wSceneObj9MovementStep]
 	cp $80
 	ret nz
 	ld a, [wOWUIObj1State]
@@ -3001,7 +3001,7 @@ Func_af13c:
 	jp .asm_af40c
 
 .Func_af4f6:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp $04
 	jr z, .asm_af506
 	cp $06
@@ -3057,11 +3057,11 @@ Func_af13c:
 	ld a, $09
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	jp .asm_af40c
 
 .Func_af55a:
-	call Func_aca63
+	call MoveSceneWarioLeft
 	ld a, [wOWUIObj1XCoord]
 	ld b, a
 	sub $04
@@ -3084,7 +3084,7 @@ Func_af13c:
 	ld a, [wPalFade2Colour2GreenUnk1]
 	and a
 	jr z, .asm_af597
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	and $03
 	jr z, .asm_af597
 	ld de, Data_aed06
@@ -3094,7 +3094,7 @@ Func_af13c:
 	xor a
 	ld [wPalFade2Colour2GreenUnk1], a
 .asm_af597
-	ld a, [w2d892]
+	ld a, [wSceneSubStep]
 	cp $80
 	ret z
 	jumptable
@@ -3116,12 +3116,12 @@ Func_af13c:
 	ld a, $01
 	ld [wPalFade2Colour2GreenUnk1], a
 	xor a
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 .asm_af5bc
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
-	ld [w2d893], a
+	ld [wSceneSubStepCounter], a
 	ret
 
 .Func_af5c5:
@@ -3134,7 +3134,7 @@ Func_af13c:
 	jr .asm_af5bc
 
 .Func_af5d5:
-	ld hl, w2d893
+	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
 	cp $04
@@ -3148,7 +3148,7 @@ Func_af13c:
 	jr .asm_af5bc
 
 .Func_af5e7:
-	ld hl, w2d893
+	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
 	cp $42
@@ -3160,7 +3160,7 @@ Func_af13c:
 
 .Func_af5fe:
 	ld a, $80
-	ld [w2d892], a
+	ld [wSceneSubStep], a
 	ret
 
 .Func_af604:
@@ -3198,7 +3198,7 @@ Func_af13c:
 	ld a, $01
 	ld [wPalFade2Colour4GreenSign], a
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 .asm_af643
 	ld hl, wTempleRock5Action
 	inc [hl]
@@ -3232,7 +3232,7 @@ Func_af13c:
 
 .Func_af670:
 	call Func_ae523
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -3314,7 +3314,7 @@ Func_af13c:
 	ld a, [hl]
 	cp $50
 	jr c, .asm_af711
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	ld b, a
 	and $03
 	ret nz
@@ -3342,7 +3342,7 @@ Func_af13c:
 .asm_af733
 	xor a
 	ld [wCurSceneObjState], a
-	jp Func_ae1ce
+	jp AdvancePrologueStep
 
 .Func_af73a:
 	ld a, [bc]
@@ -3351,7 +3351,7 @@ Func_af13c:
 	jp .asm_af413
 
 .Func_af741:
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -3423,7 +3423,7 @@ Func_af13c:
 
 .Func_af7af:
 	farcall Func_15848a
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -3463,7 +3463,7 @@ Func_af13c:
 	ld [wSceneObj8Attributes], a
 	ld [wSceneObj1Attributes], a
 	ld a, $01
-	ld [w2d8a0], a
+	ld [wSceneAuxStep], a
 	jp .asm_af40c
 
 .Func_af816:
@@ -3471,8 +3471,8 @@ Func_af13c:
 	cp $50
 	ret c
 	play_sfx SFX_0EB
-	call Func_aca09
-	call Func_aca25
+	call CopyTempPalsToBGOBPals_Bank2b1
+	call FillTempPals2White
 	jp .asm_af40c
 
 .Func_af82d:
@@ -3497,8 +3497,8 @@ Func_af13c:
 	ld a, $48
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
-	call Func_ac9e4
+	ld de, PalConfig_OBFromTempPals2
+	call SetPalConfig2FromDE
 	jp .asm_af40c
 
 .Func_af860:
@@ -3523,8 +3523,8 @@ Func_af13c:
 	ld a, $58
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
-	call Func_ac9e4
+	ld de, PalConfig_OBFromTempPals2
+	call SetPalConfig2FromDE
 	jp .asm_af40c
 
 .Func_af88e:

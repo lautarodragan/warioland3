@@ -9,19 +9,19 @@ ClearSaveData::
 	ld b, $8
 	call WriteAToHL_BTimes
 
-	ld hl, s0a000
+	ld hl, sWRAMCheckVals
 	ld b, $8
 	call WriteAToHL_BTimes
 
-	ld hl, s0a800
+	ld hl, sBackup1WRAMCheckVals
 	ld b, $8
 	call WriteAToHL_BTimes
 
-	ld hl, s0a400
+	ld hl, sBackup2WRAMCheckVals
 	ld b, $8
 	call WriteAToHL_BTimes
 
-	ld hl, s0ac00
+	ld hl, sBackup3WRAMCheckVals
 	ld b, $8
 	call WriteAToHL_BTimes
 

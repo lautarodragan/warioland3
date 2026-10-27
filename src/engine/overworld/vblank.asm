@@ -18,12 +18,12 @@ VBlank_Overworld:
 	add WX_OFS
 	ldh [rWX], a
 
-	ld b, BANK(Func_1d8c2c)
+	ld b, BANK(CopyCommonOWAnimTilesToVRAM)
 	ld a, [wROMBank]
 	push af
 	ld a, b
 	bankswitch
-	call Func_1d8c2c
+	call CopyCommonOWAnimTilesToVRAM
 	pop af
 	bankswitch
 
@@ -93,7 +93,7 @@ VBlank_Overworld:
 	ld [$ff00+c], a
 
 .asm_80c84
-	ld hl, w2d0b5
+	ld hl, wHDMAVRAM1
 	ld a, [hl]
 	and a
 	jr z, .asm_80ca2
@@ -190,19 +190,19 @@ VBlank_OWScene:
 	push af
 	ld a, b
 	bankswitch
-	call Func_3c03
+	call StartOWHDMA
 	pop af
 	bankswitch
 
 .asm_80d1b
 	xor a
 	ldh [rVBK], a
-	ld b, BANK(Func_1d8c2c)
+	ld b, BANK(CopyCommonOWAnimTilesToVRAM)
 	ld a, [wROMBank]
 	push af
 	ld a, b
 	bankswitch
-	call Func_1d8c2c
+	call CopyCommonOWAnimTilesToVRAM
 	pop af
 	bankswitch
 

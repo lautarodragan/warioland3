@@ -45,32 +45,32 @@ HighJumpBootsActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1fa945
-	dw Func_1fa984
+	dw HighJumpBootsActionHelp_WaitToStart
+	dw HighJumpBootsActionHelp_Step02
 	dw ActionHelp_FlashDUpInput
-	dw Func_1fa994
-	dw Func_1fa9a9
-	dw Func_1fa9d3
-	dw Func_1faa07
-	dw Func_1faa1c
-	dw Func_1faa51
-	dw Func_1faa64
-	dw Func_1faa99
-	dw Func_1faacc
-	dw Func_1faafb
-	dw Func_1fab19
-	dw Func_1fab55
-	dw Func_1fab83
-	dw Func_1fabb2
-	dw Func_1fabf8
-	dw Func_1fac08
-	dw Func_1fac3c
-	dw Func_1fac4c
-	dw Func_1fac71
-	dw Func_1faca5
-	dw Func_1facb8
+	dw HighJumpBootsActionHelp_Step04
+	dw HighJumpBootsActionHelp_Step05
+	dw HighJumpBootsActionHelp_Step06
+	dw HighJumpBootsActionHelp_Step07
+	dw HighJumpBootsActionHelp_Step08
+	dw HighJumpBootsActionHelp_Step09
+	dw HighJumpBootsActionHelp_Step0A
+	dw HighJumpBootsActionHelp_Step0B
+	dw HighJumpBootsActionHelp_Step0C
+	dw HighJumpBootsActionHelp_Step0D
+	dw HighJumpBootsActionHelp_Step0E
+	dw HighJumpBootsActionHelp_Step0F
+	dw HighJumpBootsActionHelp_Step10
+	dw HighJumpBootsActionHelp_Step11
+	dw HighJumpBootsActionHelp_Step12
+	dw HighJumpBootsActionHelp_Step13
+	dw HighJumpBootsActionHelp_Step14
+	dw HighJumpBootsActionHelp_Step15
+	dw HighJumpBootsActionHelp_Step16
+	dw HighJumpBootsActionHelp_Step17
+	dw HighJumpBootsActionHelp_Step18
 
-Func_1fa912:
+HighJumpBootsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1fa920
@@ -90,13 +90,13 @@ Func_1fa912:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1fa94a
+	jr HighJumpBootsActionHelp_Start
 
-Func_1fa945:
+HighJumpBootsActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1fa94a:
+HighJumpBootsActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowParaGoomWalk
@@ -128,7 +128,7 @@ Func_1fa94a:
 	inc [hl]
 	ret
 
-Func_1fa984:
+HighJumpBootsActionHelp_Step02:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld a, [hl]
@@ -141,7 +141,7 @@ Func_1fa984:
 	inc [hl]
 	ret
 
-Func_1fa994:
+HighJumpBootsActionHelp_Step04:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -156,7 +156,7 @@ Func_1fa994:
 	inc [hl]
 	ret
 
-Func_1fa9a9:
+HighJumpBootsActionHelp_Step05:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -181,7 +181,7 @@ Func_1fa9a9:
 	inc [hl]
 	ret
 
-Func_1fa9d3:
+HighJumpBootsActionHelp_Step06:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	dec [hl]
@@ -211,7 +211,7 @@ Func_1fa9d3:
 	inc [hl]
 	ret
 
-Func_1faa07:
+HighJumpBootsActionHelp_Step07:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -225,7 +225,7 @@ Func_1faa07:
 	inc [hl]
 	ret
 
-Func_1faa1c:
+HighJumpBootsActionHelp_Step08:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -257,7 +257,7 @@ Func_1faa1c:
 	inc [hl]
 	ret
 
-Func_1faa51:
+HighJumpBootsActionHelp_Step09:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -271,7 +271,7 @@ Func_1faa51:
 	inc [hl]
 	ret
 
-Func_1faa64:
+HighJumpBootsActionHelp_Step0A:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -301,7 +301,7 @@ Func_1faa64:
 	inc [hl]
 	ret
 
-Func_1faa99:
+HighJumpBootsActionHelp_Step0B:
 	ld hl, wMenuObj5XCoord
 	ld a, [hl]
 	cp $3c
@@ -332,7 +332,7 @@ Func_1faa99:
 	inc [hl]
 	ret
 
-Func_1faacc:
+HighJumpBootsActionHelp_Step0C:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -359,7 +359,7 @@ Func_1faacc:
 	inc [hl]
 	ret
 
-Func_1faafb:
+HighJumpBootsActionHelp_Step0D:
 	call ActionHelp_ClearDPadInput
 	ld hl, wTimer
 	dec [hl]
@@ -376,7 +376,7 @@ Func_1faafb:
 	inc [hl]
 	ret
 
-Func_1fab19:
+HighJumpBootsActionHelp_Step0E:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld hl, wMenuObj5XCoord
@@ -411,7 +411,7 @@ Func_1fab19:
 	inc [hl]
 	ret
 
-Func_1fab55:
+HighJumpBootsActionHelp_Step0F:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld hl, wMenuObj5XCoord
@@ -438,7 +438,7 @@ Func_1fab55:
 	inc [hl]
 	ret
 
-Func_1fab83:
+HighJumpBootsActionHelp_Step10:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	inc [hl]
@@ -467,7 +467,7 @@ Func_1fab83:
 	inc [hl]
 	ret
 
-Func_1fabb2:
+HighJumpBootsActionHelp_Step11:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
 	jr z, .asm_1fabbe
@@ -507,7 +507,7 @@ Func_1fabb2:
 	inc [hl]
 	ret
 
-Func_1fabf8:
+HighJumpBootsActionHelp_Step12:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -519,7 +519,7 @@ Func_1fabf8:
 	inc [hl]
 	ret
 
-Func_1fac08:
+HighJumpBootsActionHelp_Step13:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -550,7 +550,7 @@ Func_1fac08:
 	call ActionHelp_ClearButtonsInput
 	ret
 
-Func_1fac3c:
+HighJumpBootsActionHelp_Step14:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	ret z
@@ -562,7 +562,7 @@ Func_1fac3c:
 	inc [hl]
 	ret
 
-Func_1fac4c:
+HighJumpBootsActionHelp_Step15:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -585,7 +585,7 @@ Func_1fac4c:
 	inc [hl]
 	ret
 
-Func_1fac71:
+HighJumpBootsActionHelp_Step16:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	dec [hl]
@@ -615,7 +615,7 @@ Func_1fac71:
 	inc [hl]
 	ret
 
-Func_1faca5:
+HighJumpBootsActionHelp_Step17:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -628,7 +628,7 @@ Func_1faca5:
 	inc [hl]
 	ret
 
-Func_1facb8:
+HighJumpBootsActionHelp_Step18:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	dec [hl]
@@ -652,4 +652,4 @@ Func_1facb8:
 	ret c
 	ld a, $40
 	ld [wActionHelpWarioYCoord], a
-	jp Func_1fa912
+	jp HighJumpBootsActionHelp_End

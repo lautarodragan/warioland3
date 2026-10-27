@@ -73,7 +73,7 @@ ObjParams_BigLeaf1:
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
 	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafFrameset_68732 ; frameset
 	db 80 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -90,7 +90,7 @@ ObjParams_BigLeaf2:
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
 	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafFrameset_68732 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -107,7 +107,7 @@ ObjParams_BigLeaf3:
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
 	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafFrameset_68732 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -775,7 +775,7 @@ ObjParams_SilkPlatform1:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -792,7 +792,7 @@ ObjParams_SilkPlatform2:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -809,7 +809,7 @@ ObjParams_SilkPlatform3:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -877,7 +877,7 @@ ObjParams_HammerPlatform:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw HammerPlatformFunc
 	db OBJFLAG_PRIORITY ; obj flags
@@ -963,7 +963,7 @@ ObjParams_PalmTreeShort:
 	db $1a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -980,7 +980,7 @@ ObjParams_PalmTreeMedium:
 	db $30 ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -997,7 +997,7 @@ ObjParams_PalmTreeTall:
 	db $4a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -1043,7 +1043,7 @@ ObjParams_Dragonfly1:
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -9, -7, -7, 6 ; collision box
 	dw OAM_1927d5 ; OAM
-	dw Frameset_699d0 ; frameset
+	dw PesceFrameset_699d0 ; frameset
 	db 36 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1077,7 +1077,7 @@ ObjParams_Tadpole:
 	db OBJ_INTERACTION_TADPOLE ; interaction type
 	db -12, -4, -5, 4 ; collision box
 	dw OAM_18a642 ; OAM
-	dw Frameset_69a33 ; frameset
+	dw TadpoleFrameset_69a33 ; frameset
 	db 28 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1133,7 +1133,7 @@ ObjParams_FloatingRing:
 	db $00 ; var1
 	db $14 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw FloatingRingFunc
 	db $0 ; obj flags
@@ -1213,7 +1213,7 @@ ObjParams_JamanoHat:
 	db OBJ_INTERACTION_0B ; interaction type
 	db -4, 0, -6, 5 ; collision box
 	dw OAM_19501c ; OAM
-	dw Frameset_69cef ; frameset
+	dw JamanoFrameset_69cef ; frameset
 	db 40 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1231,11 +1231,11 @@ ObjParams_MagicSpiralLeft:
 	db -4, 3, -4, 3 ; collision box
 	dw OAM_195e06 ; OAM
 	dw Frameset_69e30 ; frameset
-	db 92 ; action duration
+	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db 5 | OBJSUBFLAG_VDIR ; substate
+	db MAGIC_SPIRAL_NUMBER_BOUNCES | OBJSUBFLAG_VDIR ; substate
 	db $00 ; state
 	dw MagicSpiralFunc
 	db OBJFLAG_PRIORITY ; obj flags
@@ -1248,11 +1248,11 @@ ObjParams_MagicSpiralRight:
 	db -4, 3, -4, 3 ; collision box
 	dw OAM_195e06 ; OAM
 	dw Frameset_69e30 ; frameset
-	db 92 ; action duration
+	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db 5 | OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR ; substate
+	db MAGIC_SPIRAL_NUMBER_BOUNCES | OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR ; substate
 	db $00 ; state
 	dw MagicSpiralFunc
 	db OBJFLAG_PRIORITY ; obj flags
@@ -1298,7 +1298,7 @@ ObjParams_HiddenFigureFace:
 	db OBJ_INTERACTION_FULL_STING | HEAVY_OBJ ; interaction type
 	db -24, -19, -4, 3 ; collision box
 	dw OAM_18c88a ; OAM
-	dw Frameset_6a06c ; frameset
+	dw HiddenFigureFrameset_6a06c ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1315,7 +1315,7 @@ ObjParams_HiddenFigureLeftHand:
 	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw OAM_18c88a ; OAM
-	dw Frameset_6a128 ; frameset
+	dw HiddenFigureFrameset_6a128 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1332,7 +1332,7 @@ ObjParams_HiddenFigureRightHand:
 	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw OAM_18c88a ; OAM
-	dw Frameset_6a131 ; frameset
+	dw HiddenFigureFrameset_6a131 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1349,14 +1349,14 @@ ObjParams_Omodon2:
 	db OBJ_INTERACTION_01 ; interaction type
 	db -16, 11, -17, 0 ; collision box
 	dw OAM_18154f ; OAM
-	dw Frameset_68f50 ; frameset
+	dw OmodonmekaFrameset_68f50 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
 	db $00 ; state
-	dw Func_4279c
+	dw OmodonFunc
 	db $0 ; obj flags
 
 ObjParams_Omodon1:
@@ -1366,14 +1366,14 @@ ObjParams_Omodon1:
 	db OBJ_INTERACTION_01 ; interaction type
 	db -26, 11, -17, 0 ; collision box
 	dw OAM_18154f ; OAM
-	dw Frameset_68f50 ; frameset
+	dw OmodonmekaFrameset_68f50 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
 	db $00 ; state
-	dw Func_4279c
+	dw OmodonFunc
 	db $0 ; obj flags
 
 ObjParams_DollBoyHammerStarsLeft:
@@ -1610,7 +1610,7 @@ ObjParams_ScrowlerTentacleRight:
 	db OBJ_INTERACTION_WATER_TELEPORTING ; interaction type
 	db -10, -2, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69af5 ; frameset
+	dw ScowlerFrameset_69af5 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1625,7 +1625,7 @@ ObjParams_ScrowlerTentacleLeft:
 	db OBJ_INTERACTION_WATER_TELEPORTING ; interaction type
 	db -10, -2, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69af5 ; frameset
+	dw ScowlerFrameset_69af5 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2

@@ -1,10 +1,10 @@
-Func_4c860:
+StarsFunc_Despawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ret
 

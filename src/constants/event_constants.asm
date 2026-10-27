@@ -126,7 +126,7 @@ DEF SCENEWARIO_GROUP_04 EQU const_value
 	const SCENEWARIO_LOOK_AROUND_THEN_TURN   ; $13
 	const SCENEWARIO_LOOK_TURN_RIGHT         ; $14
 DEF SCENEWARIO_GROUP_05 EQU const_value
-; WarioUnk2Gfx
+; WarioCrashGfx
 	const SCENEWARIO_ON_FIRE                 ; $15
 	const SCENEWARIO_CRASH_LAND_RIGHT        ; $16
 	const SCENEWARIO_CRASH_TUMBLE            ; $17
@@ -136,7 +136,7 @@ DEF SCENEWARIO_GROUP_05 EQU const_value
 	const SCENEWARIO_CRASH_LAND_LEFT         ; $1b
 	const SCENEWARIO_STUNNED_LEFT            ; $1c
 DEF SCENEWARIO_GROUP_06 EQU const_value
-; WarioUnk3Gfx
+; WarioMusicBoxGfx
 	const SCENEWARIO_LOOK_MUSIC_BOX          ; $1d
 	const SCENEWARIO_PICKUP_MUSIC_BOX        ; $1e
 	const SCENEWARIO_HOLD_MUSIC_BOX          ; $1f
@@ -158,7 +158,7 @@ DEF SCENEWARIO_GROUP_08 EQU const_value
 	const SCENEWARIO_PANIC                   ; $2b
 	const SCENEWARIO_BOW                     ; $2c
 DEF SCENEWARIO_GROUP_19 EQU const_value
-; WarioUnk5Gfx
+; WarioShowMusicBoxesGfx
 	const SCENEWARIO_SHOW_MUSIC_BOXES_2      ; $2d
 	const SCENEWARIO_SHOW_MUSIC_BOXES_3      ; $2e
 	const SCENEWARIO_SHOW_MUSIC_BOXES_4      ; $2f

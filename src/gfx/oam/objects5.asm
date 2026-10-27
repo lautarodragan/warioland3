@@ -2153,7 +2153,7 @@ OAM_19153c:
 	frame_oam -25,   0, $10, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_191940:
+YellowBellyOAM_191940:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2615,7 +2615,7 @@ OAM_191940:
 	frame_oam -31,   0, $10, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_191f04:
+YellowBellyOAM_191f04:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

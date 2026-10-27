@@ -8,7 +8,7 @@ SunFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
 	ld [hld], a
@@ -24,9 +24,9 @@ SunFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_472a6)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_472a6)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [wWarioScreenXPos]
@@ -37,7 +37,7 @@ SunFunc:
 	cp b
 	jr c, .asm_47296
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68f74
+	ld de, SunMoonFrameset_68f74
 	jr .asm_4729b
 .asm_47296
 	set OBJSUBFLAG_HDIR_F, [hl]
@@ -52,20 +52,20 @@ SunFunc:
 	ld [hl], a ; var2
 	ret
 
-.Func_472a6:
+.Update:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar1]
 	jumptable
 
-	dw .Func_4731e
-	dw .Func_47378
-	dw .Func_4739c
-	dw .Func_47388
-	dw .Func_473ac
-	dw .Func_472bb
+	dw .Idle
+	dw .StartTurnRight
+	dw .StartTurnLeft
+	dw .TurnRight
+	dw .TurnLeft
+	dw .Drop
 
-.Func_472bb:
+.Drop:
 	call SunMoon_XMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -77,15 +77,15 @@ SunFunc:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
-	call Func_352b
+	ld [wHitFloorBlock], a
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_472dd
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_472e3
 .asm_472dd
-	ld bc, Data_60690
+	ld bc, SunMoonData_60690
 	call ApplyObjYMovement
 .asm_472e3
 	ld hl, wCurObjStateDuration
@@ -113,13 +113,13 @@ SunFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_47318
-	ld de, Frameset_68f74
+	ld de, SunMoonFrameset_68f74
 	jp SetObjectFramesetPtr
 .asm_47318
 	ld de, Frameset_68f6b
 	jp SetObjectFramesetPtr
 
-.Func_4731e:
+.Idle:
 	call SunMoon_GeneralMovement
 	ld a, [wJoypadPressed]
 	and $ff ^ (PAD_SELECT | PAD_START)
@@ -169,15 +169,15 @@ SunFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_47372
-	ld de, Frameset_68f9e
+	ld de, SunMoonFrameset_68f9e
 	jp SetObjectFramesetPtr
 .asm_47372
-	ld de, Frameset_68f8f
+	ld de, SunMoonFrameset_68f8f
 	jp SetObjectFramesetPtr
 
-.Func_47378:
+.StartTurnRight:
 	call SunMoon_GeneralMovement
-	ld de, Frameset_68fc0
+	ld de, SunMoonFrameset_68fc0
 	call SetObjectFramesetPtr
 	ld a, 35
 	ld [hli], a
@@ -185,7 +185,7 @@ SunFunc:
 	ld [hl], a ; var1
 	ret
 
-.Func_47388:
+.TurnRight:
 	call SunMoon_GeneralMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -198,9 +198,9 @@ SunFunc:
 	ld [hl], a
 	ret
 
-.Func_4739c:
+.StartTurnLeft:
 	call SunMoon_GeneralMovement
-	ld de, Frameset_68fb7
+	ld de, SunMoonFrameset_68fb7
 	call SetObjectFramesetPtr
 	ld a, 35
 	ld [hli], a
@@ -208,12 +208,12 @@ SunFunc:
 	ld [hl], a
 	ret
 
-.Func_473ac:
+.TurnLeft:
 	call SunMoon_GeneralMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_68f74
+	ld de, SunMoonFrameset_68f74
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a
@@ -378,7 +378,7 @@ SunMoon_MoveRight:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	ld hl, wCurObjYPos
@@ -388,7 +388,7 @@ SunMoon_MoveRight:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectRightByVar2
@@ -407,7 +407,7 @@ SunMoon_MoveLeft:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	ld hl, wCurObjYPos
@@ -417,7 +417,7 @@ SunMoon_MoveLeft:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectLeftByVar2
@@ -433,11 +433,11 @@ SunMoon_MoveDown:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
-	call Func_352b
+	ld [wHitFloorBlock], a
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_4751a
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	ret z
 .asm_4751a
@@ -455,16 +455,16 @@ SunMoon_MoveUp:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	ret nz
 	jp MoveObjectUpByVar2
 
 SunFlameFunc_Left:
-	ld bc, Data_606e0
+	ld bc, SunMoonData_606e0
 	jr SunFlameFunc
 SunFlameFunc_Right:
-	ld bc, Data_606f0
+	ld bc, SunMoonData_606f0
 SunFlameFunc:
 	call ApplyObjXMovement
 	ld hl, wCurObjFlags
@@ -477,7 +477,7 @@ SunFlameFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68fc9
+	ld de, SunMoonFrameset_68fc9
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a
@@ -494,7 +494,7 @@ SunFlameFunc:
 	ret
 
 MoonFunc:
-	ld de, Frameset_68fd0
+	ld de, SunMoonFrameset_68fd0
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.CheckDirection)
@@ -503,7 +503,7 @@ MoonFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
 	ld [hld], a
@@ -532,11 +532,11 @@ MoonFunc:
 	cp b
 	jr c, .asm_475b7
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68fd9
+	ld de, SunMoonFrameset_68fd9
 	jr .asm_475bc
 .asm_475b7
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68fd0
+	ld de, SunMoonFrameset_68fd0
 .asm_475bc
 	call SetObjectFramesetPtr
 	ld a, 50
@@ -572,15 +572,15 @@ MoonFunc:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
-	call Func_352b
+	ld [wHitFloorBlock], a
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_475fe
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_47604
 .asm_475fe
-	ld bc, Data_60690
+	ld bc, SunMoonData_60690
 	call ApplyObjYMovement
 .asm_47604
 	ld hl, wCurObjStateDuration
@@ -608,10 +608,10 @@ MoonFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_47639
-	ld de, Frameset_68fd9
+	ld de, SunMoonFrameset_68fd9
 	jp SetObjectFramesetPtr
 .asm_47639
-	ld de, Frameset_68fd0
+	ld de, SunMoonFrameset_68fd0
 	jp SetObjectFramesetPtr
 
 .Func_4763f:
@@ -664,15 +664,15 @@ MoonFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_47693
-	ld de, Frameset_69003
+	ld de, SunMoonFrameset_69003
 	jp SetObjectFramesetPtr
 .asm_47693
-	ld de, Frameset_68ff4
+	ld de, SunMoonFrameset_68ff4
 	jp SetObjectFramesetPtr
 
 .Func_47699:
 	call SunMoon_GeneralMovement
-	ld de, Frameset_69036
+	ld de, SunMoonFrameset_69036
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -685,7 +685,7 @@ MoonFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_68fd0
+	ld de, SunMoonFrameset_68fd0
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a
@@ -695,7 +695,7 @@ MoonFunc:
 
 .Func_476bd:
 	call SunMoon_GeneralMovement
-	ld de, Frameset_6902b
+	ld de, SunMoonFrameset_6902b
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -708,7 +708,7 @@ MoonFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_68fd9
+	ld de, SunMoonFrameset_68fd9
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a
@@ -717,10 +717,10 @@ MoonFunc:
 	ret
 
 MoonStarFunc_Left:
-	ld bc, Data_606e0
+	ld bc, SunMoonData_606e0
 	jr MoonStarFunc
 MoonStarFunc_Right:
-	ld bc, Data_606f0
+	ld bc, SunMoonData_606f0
 MoonStarFunc:
 	call ApplyObjXMovement
 	ld hl, wCurObjFlags
@@ -733,7 +733,7 @@ MoonStarFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_69024
+	ld de, SunMoonFrameset_69024
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a

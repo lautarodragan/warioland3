@@ -36,10 +36,10 @@ LoadRoomGfx::
 	ld a, BANK("Level Data 1")
 	add b
 	ld [wRoomBlockFunctionTableBank], a
-	call Func_298d
+	call LoadRoomBlockTiles
 	call LoadBlockFunctionTable
 	ld a, [wRoomBlockFunctionTableBank]
-	ld [wc0d0], a
+	ld [wRoomTileMapBank], a
 	call LoadRoomTileMap
 
 	ld a, [wRoomMainTiles]
@@ -94,7 +94,7 @@ InitRoomAnimatedPals::
 	ld [wRoomPalCyclePtr + 0], a
 	ld l, [hl]
 	ld h, a
-	ld de, ROOM_PAL_CYCLE_LENGTH
+	ld de, ROOM_PALCYCLE_LENGTH
 	add hl, de
 	ld a, [hl]
 	ld [wRoomPalCycleDuration], a

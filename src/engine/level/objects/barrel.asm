@@ -7,7 +7,7 @@ Barrel1Func:
 	ld [hld], a
 	ld a, LOW(.Update1)
 	ld [hld], a
-	ld de, Frameset_68a7b
+	ld de, BarrelFrameset_68a7b
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -30,7 +30,7 @@ Barrel1Func:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a7e
+	ld de, BarrelFrameset_68a7e
 	call SetObjectFramesetPtr
 	ld a, $11
 	ld [hli], a
@@ -59,8 +59,8 @@ Barrel1Func:
 	ret
 
 .asm_434b4
-	ld bc, Data_60a50
-	jp Func_34fc
+	ld bc, BarrelData_60a50
+	jp ApplyObjYMovement_Platform
 
 Barrel2Func:
 	ld hl, wCurObjFlags
@@ -70,7 +70,7 @@ Barrel2Func:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -89,107 +89,107 @@ Barrel2Func:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435df
-	dw .Func_435e7
-	dw .Func_436cf
-	dw .Func_436c1
-	dw .Func_4360b
-	dw .Func_43624
-	dw .Func_435df
-	dw .Func_435e7
-	dw Func_3173
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_4367c
-	dw .Func_435de
-	dw .Func_435f8
-	dw .Func_435fc
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_4365c
-	dw .Func_4363d
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_436a5
-	dw .Func_436b3
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435c2
-	dw .Func_435a6
-	dw .Func_435de
+	dw .Default
+	dw .Default
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw VanishAndDespawnObject
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .Default
+	dw .Default
+	dw .State18
+	dw .State19
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special3
+	dw .Default
+	dw .TurnAroundStart
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw .Func_435a6
-	dw .Func_435a6
-	dw Func_3335
-	dw Func_3344
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw Func_3371
-	dw .Func_435a6
-	dw Func_32cc
-	dw Func_32db
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_4366b
-	dw .Func_4364c
-	dw Func_3380
-	dw Func_338f
-	dw .Func_43689
-	dw .Func_43697
-	dw Func_339e
-	dw Func_33ad
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
-	dw .Func_435a6
+	dw .Default
+	dw .Default
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Drop
+	dw .Default
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw .Default
+	dw .Default
+	dw .State48
+	dw .State49
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
+	dw .FullThrowLeftStart
+	dw .FullThrowRightStart
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
 
-.Func_435a6:
+.Default:
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_68a8b
+	ld de, BarrelFrameset_68a8b
 	call SetObjectFramesetPtr
 	ld a, $0e
 	ld [hli], a
@@ -197,25 +197,25 @@ Barrel2Func:
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	play_sfx SFX_TEMPLE_ROCK
-.Func_435c2:
+.Special3:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ret
-.Func_435de:
+.TurnAroundStart:
 	ret
 
-.Func_435df:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_435ed
 
-.Func_435e7:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -226,11 +226,11 @@ Barrel2Func:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_435f8:
+.State14:
 	ld a, $44
 	jr .asm_435fe
 
-.Func_435fc:
+.State15:
 	ld a, $45
 .asm_435fe
 	ld [wCurObjState], a
@@ -240,7 +240,7 @@ Barrel2Func:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_4360b:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -251,10 +251,10 @@ Barrel2Func:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
-	jp Func_3335
-.Func_43624:
+	jp ObjState_PickedUpLeft
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -265,45 +265,45 @@ Barrel2Func:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
-.Func_4363d:
+.State19:
 	ld a, $49
 	ld [wCurObjState], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4364c:
+.State49:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_4365c
+	jr .State18
 
-.Func_4365c:
+.State18:
 	ld a, $48
 	ld [wCurObjState], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4366b:
+.State48:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_4363d
+	jp .State19
 
-.Func_4367c:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
@@ -314,47 +314,47 @@ Barrel2Func:
 	ld [hl], a
 	ret
 
-.Func_43689:
+.FullThrowLeftStart:
 	ld a, $5e
 	ld [wCurObjState], a
-	ld de, Frameset_68a6f
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
-.Func_43697:
+.FullThrowRightStart:
 	ld a, $5f
 	ld [wCurObjState], a
-	ld de, Frameset_68a66
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
-.Func_436a5:
-	ld de, Frameset_68a6f
+.State28:
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_436db
 
-.Func_436b3:
-	ld de, Frameset_68a66
+.State29:
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_436db
 
-.Func_436c1:
-	ld de, Frameset_68a6f
+.AttackedRightStart:
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	jr .asm_436db
 
-.Func_436cf:
-	ld de, Frameset_68a66
+.AttackedLeftStart:
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 .asm_436db
 	ld l, OBJ_UPDATE_FUNCTION + 1

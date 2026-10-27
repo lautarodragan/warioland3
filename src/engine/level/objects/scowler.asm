@@ -2,9 +2,9 @@ ScowlerFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54520)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_54520)
+	ld a, LOW(.StartFight)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -24,40 +24,40 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, $f8
 	ld [hl], a
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
 	ld [wDollBoyActiveBarrels], a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ret
 
-.Func_54520:
+.StartFight:
 	ld a, TRUE
 	ld [wIsBossBattle], a
 	ld a, BOSS_REGULAR
 	ld [wBossState], a
 	call UpdateLevelMusic
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5458a)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_5458a)
+	ld a, LOW(.Main)
 	ld [hld], a
 	ld bc, ObjParams_ScrowlerTentacleRight
 	call CreateObjectFromCurObjPos
 	ld bc, ObjParams_ScrowlerTentacleLeft
 	jp CreateObjectFromCurObjPos
 
-.Func_54542:
+.CatchWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
 	ret z
 	dec [hl]
 	ret nz
-	ld de, Frameset_69b03
+	ld de, ScowlerFrameset_69b03
 	call SetObjectFramesetPtr
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -72,9 +72,9 @@ ScowlerFunc:
 
 .asm_54563
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_54542)
+	ld a, HIGH(.CatchWario)
 	ld [hld], a
-	ld a, LOW(.Func_54542)
+	ld a, LOW(.CatchWario)
 	ld [hld], a
 	ld a, $1e
 	ld [wCurObjStateDuration], a
@@ -87,8 +87,8 @@ ScowlerFunc:
 	stop_music2
 	ret
 
-.Func_5458a:
-	call Func_54c07
+.Main:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $2a
@@ -101,13 +101,13 @@ ScowlerFunc:
 	and a
 	jr z, .asm_545f8
 	cp $2f
-	jr z, .asm_545d3
+	jr z, .shoot_ink
 	and $fe
 	cp $08
-	jr z, .asm_545ab
+	jr z, .stun
 	ret
-.asm_545ab
-	ld de, Frameset_69a95
+.stun
+	ld de, ScowlerFrameset_69a95
 	call SetObjectFramesetPtr
 	ld a, $44
 	ld [hli], a
@@ -122,16 +122,16 @@ ScowlerFunc:
 	or OBJ_INTERACTION_07
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_546e0)
+	ld a, HIGH(.Stunned)
 	ld [hld], a
-	ld a, LOW(.Func_546e0)
+	ld a, LOW(.Stunned)
 	ld [hld], a
 	play_sfx SFX_0B3
 	ret
-.asm_545d3
+.shoot_ink
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp z, .asm_54895
+	jp z, .reset_ink_timer
 	ld a, [hl]
 	cp $20
 	ret nz
@@ -154,13 +154,13 @@ ScowlerFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_5460f
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	jp SetObjectFramesetPtr
 .asm_5460f
-	ld de, Frameset_69a68
+	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 .asm_54615
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jr nz, .asm_54646
 	ld l, OBJ_VAR_3
@@ -180,7 +180,7 @@ ScowlerFunc:
 	jr c, .asm_54646
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_69a7a
+	ld de, ScowlerFrameset_69a7a
 	call SetObjectFramesetPtr
 	ld a, $48
 	ld [hli], a
@@ -204,7 +204,7 @@ ScowlerFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	jr .asm_5467d
@@ -215,11 +215,11 @@ ScowlerFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 .asm_5467d
-	ld de, Frameset_69a71
+	ld de, ScowlerFrameset_69a71
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $2b
@@ -238,9 +238,9 @@ ScowlerFunc:
 	and $fe
 	cp b
 	ret z
-	jr nc, .Func_546bd
+	jr nc, .MoveUp
 
-.Func_5469d:
+.MoveDown:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $05
@@ -252,14 +252,14 @@ ScowlerFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	ret
 
-.Func_546bd:
+.MoveUp:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $2c
@@ -271,7 +271,7 @@ ScowlerFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	jp nz, MoveObjectUp
@@ -279,8 +279,8 @@ ScowlerFunc:
 	set OBJSUBFLAG_VDIR_F, [hl]
 	ret
 
-.Func_546e0:
-	call Func_54c07
+.Stunned:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $05
@@ -292,14 +292,14 @@ ScowlerFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
-	ld bc, Data_60a60
+	ld bc, ScowlerData_60a60
 	call z, ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69ab3
+	ld de, ScowlerFrameset_69ab3
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -313,9 +313,9 @@ ScowlerFunc:
 	or OBJ_INTERACTION_06
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54770)
+	ld a, HIGH(.Vulnerable)
 	ld [hld], a
-	ld a, LOW(.Func_54770)
+	ld a, LOW(.Vulnerable)
 	ld [hld], a
 	ld l, OBJ_STATE
 	xor a
@@ -330,21 +330,21 @@ ScowlerFunc:
 	res 6, [hl]
 	ret
 
-.asm_54737
+.check_hit_from_above
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	cp b
 	jr nc, .asm_54765
 	play_sfx SFX_0B4
-	ld de, Frameset_69abc
+	ld de, ScowlerFrameset_69abc
 	call SetObjectFramesetPtr
 	ld a, $1e
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54806)
+	ld a, HIGH(.Hit)
 	ld [hld], a
-	ld a, LOW(.Func_54806)
+	ld a, LOW(.Hit)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -360,15 +360,15 @@ ScowlerFunc:
 	ld [wCurObjVar2], a
 	jr .asm_54782
 
-.Func_54770:
-	call Func_54c07
+.Vulnerable:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
 	jr z, .asm_54782
 	and $fe
 	cp $08
-	jr z, .asm_54737
+	jr z, .check_hit_from_above
 	xor a
 	ld [hl], a
 .asm_54782
@@ -380,15 +380,15 @@ ScowlerFunc:
 	jr nz, .asm_5479c
 	ld l, OBJ_VAR_2
 	dec [hl]
-	jr z, .asm_547e9
+	jr z, .end_vulnerable
 .asm_5479c
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr z, .asm_547a7
-	call .Func_5469d
+	call .MoveDown
 	jr .asm_547aa
 .asm_547a7
-	call .Func_546bd
+	call .MoveUp
 .asm_547aa
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -406,7 +406,7 @@ ScowlerFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	jr .asm_547e1
@@ -417,7 +417,7 @@ ScowlerFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 .asm_547e1
@@ -426,8 +426,8 @@ ScowlerFunc:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ret
-.asm_547e9
-	ld de, Frameset_69aa8
+.end_vulnerable
+	ld de, ScowlerFrameset_69aa8
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -439,14 +439,14 @@ ScowlerFunc:
 	or OBJ_INTERACTION_07
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5487d)
+	ld a, HIGH(.Recover)
 	ld [hld], a
-	ld a, LOW(.Func_5487d)
+	ld a, LOW(.Recover)
 	ld [hld], a
 	ret
 
-.Func_54806:
-	call Func_54c07
+.Hit:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -458,11 +458,11 @@ ScowlerFunc:
 	dec a
 	jr z, .asm_5482a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54853)
+	ld a, HIGH(.HitFloatUp)
 	ld [hld], a
-	ld a, LOW(.Func_54853)
+	ld a, LOW(.HitFloatUp)
 	ld [hld], a
-	ld de, Frameset_69b08
+	ld de, ScowlerFrameset_69b08
 	call SetObjectFramesetPtr
 	ld a, $78
 	ld [hli], a
@@ -472,11 +472,11 @@ ScowlerFunc:
 	and $80
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_548c5)
+	ld a, HIGH(.DefeatedRise)
 	ld [hld], a
-	ld a, LOW(.Func_548c5)
+	ld a, LOW(.DefeatedRise)
 	ld [hld], a
-	ld de, Frameset_69ac3
+	ld de, ScowlerFrameset_69ac3
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $ff
@@ -487,11 +487,11 @@ ScowlerFunc:
 	stop_music2
 	ret
 
-.Func_54853:
-	call Func_54c07
+.HitFloatUp:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_547e9
+	jr z, .end_vulnerable
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $2c
@@ -503,15 +503,15 @@ ScowlerFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z
-	ld bc, Data_60a70
+	ld bc, ScowlerData_60a70
 	jp ApplyObjYMovement
 
-.Func_5487d:
-	call Func_54c07
+.Recover:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -521,12 +521,12 @@ ScowlerFunc:
 	or OBJ_INTERACTION_SCOWLER
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5458a)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_5458a)
+	ld a, LOW(.Main)
 	ld [hld], a
 
-.asm_54895
+.reset_ink_timer
 	ld l, OBJ_SUBSTATE
 	ld a, [hld]
 	and $0f
@@ -546,17 +546,17 @@ ScowlerFunc:
 	cp b
 	jr c, .asm_548bd
 	res 7, [hl]
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	jp SetObjectFramesetPtr
 .asm_548bd
 	set 7, [hl]
-	ld de, Frameset_69a68
+	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 
-.Func_548c5:
+.DefeatedRise:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -568,10 +568,10 @@ ScowlerFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
-	ld bc, Data_60a70
+	ld bc, ScowlerData_60a70
 	jp nz, ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	ld a, $0f
@@ -582,19 +582,19 @@ ScowlerFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5490b)
+	ld a, HIGH(.DefeatedSink)
 	ld [hld], a
-	ld a, LOW(.Func_5490b)
+	ld a, LOW(.DefeatedSink)
 	ld [hld], a
 	play_sfx SFX_0AC
 	ret
 
-.Func_5490b:
+.DefeatedSink:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	call MoveObjectDown_Slow
-	ld bc, Data_60a80
+	ld bc, ScowlerData_60a80
 	call ApplyObjXMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -604,72 +604,72 @@ ScowlerFunc:
 	xor a
 	ld [wCurObjVar2], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54931)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_54931)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ret
 
-.Func_54931:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
 	jr z, .asm_54978
 	dec [hl]
 	jr nz, .asm_54978
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
 	xor a
 	ld [wIsBossBattle], a
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	ld a, [hl]
 	and a
 	jr z, .asm_54978
 	xor a
 	ld [hl], a
-	ld hl, Pals_54c87
+	ld hl, ScowlerPals_54c87
 	call WriteScowlerOBPals
-	ld hl, Pals_54cb7
+	ld hl, ScowlerPals_54cb7
 	call WriteScowlerBGPals
 .asm_54978
 	call MoveObjectDown_Slow
-	ld bc, Data_60a90
+	ld bc, ScowlerData_60a90
 	jp ApplyObjXMovement_Loop
 
 FloatingRingSpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_54997)
+	ld a, HIGH(.WaitAndSpawn)
 	ld [hld], a
-	ld a, LOW(.Func_54997)
+	ld a, LOW(.WaitAndSpawn)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $40
 	ld [wCurObjStateDuration], a
-	jr .Func_549ab
+	jr .DoNothing
 
-.Func_54997:
+.WaitAndSpawn:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr nz, .Func_549ab
+	jr nz, .DoNothing
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_549ab)
+	ld a, HIGH(.DoNothing)
 	ld [hld], a
-	ld a, LOW(.Func_549ab)
+	ld a, LOW(.DoNothing)
 	ld [hld], a
 	ld bc, ObjParams_FloatingRing
 	call CreateObjectAtRelativePos
 ;	fallthrough
 
-.Func_549ab:
+.DoNothing:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
@@ -680,13 +680,13 @@ FloatingRingFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_549c7)
+	ld a, HIGH(.Rise)
 	ld [hld], a
-	ld a, LOW(.Func_549c7)
+	ld a, LOW(.Rise)
 	ld [hld], a
 	jp MoveObjectLeftByVar2
 
-.Func_549c7:
+.Rise:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wGlobalCounter]
@@ -698,9 +698,9 @@ FloatingRingFunc:
 	ld a, $3c
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_549ee)
+	ld a, HIGH(.WaitForWario)
 	ld [hld], a
-	ld a, LOW(.Func_549ee)
+	ld a, LOW(.WaitForWario)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -709,20 +709,20 @@ FloatingRingFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_549ee:
+.WaitForWario:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a02)
+	ld a, HIGH(.RiseWithWario)
 	ld [hld], a
-	ld a, LOW(.Func_54a02)
+	ld a, LOW(.RiseWithWario)
 	ld [hld], a
 	ret
 
-.Func_54a02:
+.RiseWithWario:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -740,13 +740,13 @@ FloatingRingFunc:
 	jp MoveObjectUp
 .asm_54a24
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a2d)
+	ld a, HIGH(.Return)
 	ld [hld], a
-	ld a, LOW(.Func_54a2d)
+	ld a, LOW(.Return)
 	ld [hld], a
 	ret
 
-.Func_54a2d:
+.Return:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjVar2
 	ld b, [hl]
@@ -776,9 +776,9 @@ FloatingRingFunc:
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a02)
+	ld a, HIGH(.RiseWithWario)
 	ld [hld], a
-	ld a, LOW(.Func_54a02)
+	ld a, LOW(.RiseWithWario)
 	ld [hld], a
 	ld a, $3c
 	ld [wCurObjStateDuration], a
@@ -788,24 +788,24 @@ ScrowlerTentacleFunc:
 	ld hl, wCurObjFlags
 	set 4, [hl]
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_54a97)
+	ld a, HIGH(.FollowScowler)
 	ld [hld], a
-	ld a, LOW(.Func_54a97)
+	ld a, LOW(.FollowScowler)
 	ld [hld], a
 	ret
 
-.asm_54a7f
+.activated
 	ld a, $5a
 	ld [hl], a
 	play_sfx SFX_040
 	stop_music2
 	ret
 
-.Func_54a97:
+.FollowScowler:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $2a
-	jr z, .asm_54a7f
+	jr z, .activated
 	ld a, [wRoomTransitionParam]
 	and a
 	ret nz
@@ -1011,7 +1011,7 @@ InkFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr z, .asm_54be6
@@ -1021,20 +1021,20 @@ InkFunc:
 	jp MoveObjectUp
 .asm_54be1
 	ld a, $01
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 .asm_54be6
-	ld de, Frameset_69af5
+	ld de, ScowlerFrameset_69af5
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54bf8)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_54bf8)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ret
 
-.Func_54bf8:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1044,8 +1044,8 @@ InkFunc:
 	ld [wCurObjFlags], a
 	ret
 
-Func_54c07:
-	ld hl, w1d147
+UpdateScowlerInkBlackout:
+	ld hl, wJamanoSkullsInPlace
 	ld a, [hl]
 	and a
 	ret z
@@ -1070,9 +1070,9 @@ Func_54c07:
 .asm_54c31
 	play_sfx SFX_0B5
 .asm_54c39
-	ld hl, Pals_54c9f
+	ld hl, ScowlerPals_54c9f
 	call WriteScowlerOBPals
-	ld hl, Pals_54cf7
+	ld hl, ScowlerPals_54cf7
 	jr WriteScowlerBGPals
 
 .asm_54c44
@@ -1090,9 +1090,9 @@ Func_54c07:
 	play_sfx SFX_0B8
 	xor a
 	ld [hl], a
-	ld hl, Pals_54c87
+	ld hl, ScowlerPals_54c87
 	call WriteScowlerOBPals
-	ld hl, Pals_54cb7
+	ld hl, ScowlerPals_54cb7
 	jr WriteScowlerBGPals
 .asm_54c74
 	ld hl, wDollBoyActiveBarrels
@@ -1109,7 +1109,7 @@ WriteScowlerBGPals:
 	ld b, 8
 	jp SetBGPals
 
-Pals_54c87:
+ScowlerPals_54c87:
 	rgb  0, 20,  0
 	rgb 31, 27,  0
 	rgb  0, 17, 31
@@ -1125,7 +1125,7 @@ Pals_54c87:
 	rgb  0, 28,  0
 	rgb  0,  0,  0
 
-Pals_54c9f:
+ScowlerPals_54c9f:
 	rgb  0, 10,  0
 	rgb 31, 13,  0
 	rgb 16, 24, 15
@@ -1141,7 +1141,7 @@ Pals_54c9f:
 	rgb  0, 14,  0
 	rgb  0,  0,  0
 
-Pals_54cb7:
+ScowlerPals_54cb7:
 	rgb  1, 11, 23
 	rgb  2,  8, 19
 	rgb  0,  6, 15
@@ -1182,7 +1182,7 @@ Pals_54cb7:
 	rgb 10,  0,  6
 	rgb  2,  0,  0
 
-Pals_54cf7:
+ScowlerPals_54cf7:
 	rgb  1,  5, 13
 	rgb  0,  3,  8
 	rgb  0,  1,  5

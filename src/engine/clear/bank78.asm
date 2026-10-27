@@ -71,13 +71,13 @@ Func_1e005f:
 	ld hl, wLevelTimeAttackScores
 	add hl, de
 	ld a, [hli]
-	ld [w3d511 + 0], a
+	ld [wTempTimeAttackScore + 0], a
 	ld a, [hl]
-	ld [w3d511 + 1], a
+	ld [wTempTimeAttackScore + 1], a
 	hlbgcoord 10, 7
 	ld bc, -TILEMAP_WIDTH
 	ld de, TILEMAP_WIDTH
-	ld a, [w3d511 + 0]
+	ld a, [wTempTimeAttackScore + 0]
 	swap a
 	and $0f
 	add a
@@ -87,7 +87,7 @@ Func_1e005f:
 	inc a
 	ld [hli], a
 	add hl, bc
-	ld a, [w3d511 + 0]
+	ld a, [wTempTimeAttackScore + 0]
 	and $0f
 	add a
 	add $a0
@@ -97,7 +97,7 @@ Func_1e005f:
 	ld [hli], a
 	add hl, bc
 	inc l
-	ld a, [w3d511 + 1]
+	ld a, [wTempTimeAttackScore + 1]
 	swap a
 	and $0f
 	add a
@@ -107,7 +107,7 @@ Func_1e005f:
 	inc a
 	ld [hli], a
 	add hl, bc
-	ld a, [w3d511 + 1]
+	ld a, [wTempTimeAttackScore + 1]
 	and $0f
 	add a
 	add $a0

@@ -206,7 +206,7 @@ UpdateActionHelp:
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_TITLE_SCREEN | ACTION_HELP_LEVEL_CLEAR
 	jr nz, .asm_1f81d9
-	call Func_1fb6f7
+	call HandleActionHelpPowerUpSelection
 .asm_1f81d9
 	call ExecuteMainPowerUpActionHelp
 
@@ -244,7 +244,7 @@ UpdateActionHelp:
 	ld [wAnimatedTilesFrameCount], a
 	ld [wAnimatedTilesFrame], a
 	xor a ; unnecessary
-	ld [w3d50d], a
+	ld [wUnused_3d50d], a
 
 	call ResumeNormalVolume
 	ld hl, wSubState

@@ -7,7 +7,7 @@ ApplebyFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_689e9
+	ld de, ApplebyFrameset_689e9
 	call SetObjectFramesetPtr
 	ld a, 5
 	ld [hli], a
@@ -22,7 +22,7 @@ ApplebyFunc:
 	ld [hld], a
 	ret
 
-.Func_479e0:
+.Hidden:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_FLAGS
@@ -45,9 +45,9 @@ ApplebyFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .Func_479e0
+	jr z, .Hidden
 	cp $2a
-	jp c, .Func_47ab0
+	jp c, .HandleHit
 	cp $5a
 	jr z, .asm_47a1e
 	cp $5b
@@ -64,7 +64,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a12
+	ld de, ApplebyFrameset_68a12
 	call SetObjectFramesetPtr
 	ld a, 91
 	ld [wCurObjState], a
@@ -76,7 +76,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_689e9
+	ld de, ApplebyFrameset_689e9
 	call SetObjectFramesetPtr
 	ld a, 60
 	ld [hli], a
@@ -134,13 +134,13 @@ ApplebyFunc:
 	cp $40
 	jr nc, .asm_47a9c
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68a1f
+	ld de, ApplebyFrameset_68a1f
 	jr .asm_47aa4
 .asm_47a9c
 	cp $c0
 	ret c
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68a3a
+	ld de, ApplebyFrameset_68a3a
 .asm_47aa4
 	call SetObjectFramesetPtr
 	ld a, 122
@@ -149,7 +149,7 @@ ApplebyFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_47ab0:
+.HandleHit:
 	cp $0a
 	jr z, .asm_47ad5
 	cp $04
@@ -163,7 +163,7 @@ ApplebyFunc:
 .asm_47ac4
 	ld a, $2d
 	ld [hl], a
-	ld de, Frameset_68a09
+	ld de, ApplebyFrameset_68a09
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a
@@ -174,29 +174,29 @@ ApplebyFunc:
 .asm_47ad5
 	jp VanishObject
 .asm_47ad8
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_47af6
 .asm_47ae0
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_47af6
 .asm_47ae8
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	jr .asm_47af6
 .asm_47af0
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 .asm_47af6
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
-	ld de, Frameset_68a63
+	ld de, ApplebyFrameset_68a63
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -307,7 +307,7 @@ AppleFunc:
 	jr z, .destroy
 	cp $19
 	jr z, .asm_47bb2
-	ld bc, Data_60670
+	ld bc, ApplebyData_60670
 	jp ApplyObjYMovement
 .destroy
 	xor a
@@ -322,10 +322,10 @@ AppleFunc:
 	add $2a
 	cp b
 	jr c, .asm_47bc5
-	ld bc, .Func_47bd8
+	ld bc, .HopRight
 	jr .asm_47bc8
 .asm_47bc5
-	ld bc, .Func_47bd3
+	ld bc, .HopLeft
 .asm_47bc8
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, b
@@ -335,13 +335,13 @@ AppleFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_47bd3:
+.HopLeft:
 	call MoveObjectLeft
 	jr .asm_47bdb
-.Func_47bd8:
+.HopRight:
 	call MoveObjectRight
 .asm_47bdb
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement

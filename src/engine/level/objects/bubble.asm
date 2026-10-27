@@ -49,8 +49,8 @@ BubbleFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jp nz, .Func_47c88
-	ld de, Frameset_690f4
+	jp nz, .Rise
+	ld de, BubbleFrameset_690f4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
@@ -63,11 +63,11 @@ BubbleFunc:
 	ld a, [wCurObjState]
 	and a
 	jr nz, .destroy
-	call .Func_47c88
+	call .Rise
 	ret
 
 .set_burst
-	ld de, Frameset_6910c
+	ld de, BubbleFrameset_6910c
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a
@@ -90,7 +90,7 @@ BubbleFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.Func_47c88:
+.Rise:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	jr z, .asm_47c96
@@ -116,7 +116,7 @@ BubbleFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp nz, .set_burst
 	ld a, [wIsInWaterOrSand]
@@ -133,7 +133,7 @@ BubbleFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret nz ; still underwater
@@ -146,7 +146,7 @@ BubbleFunc:
 	ld hl, wCurObjVar1
 	dec [hl]
 	ld l, OBJ_SUBSTATE
-	jr nz, .asm_47cf4
+	jr nz, .drift
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
@@ -157,10 +157,10 @@ BubbleFunc:
 	ld [hl], a
 	ret
 
-.asm_47cf4
+.drift
 	ld a, [hl]
 	rla
-	jp c, .Func_47d56
+	jp c, .drift_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -174,7 +174,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_47d2b
 	ld hl, wCurObjYPos
@@ -184,7 +184,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_47d38
 .asm_47d2b
@@ -200,8 +200,8 @@ BubbleFunc:
 .asm_47d38
 	ld hl, wCurObjVar2
 	ld a, [hl]
-	ld b, $40
-	add $20
+	ld b, HIGH(BubbleDriftLeftX)
+	add LOW(BubbleDriftLeftX)
 	ld c, a
 	ld a, [bc]
 	cp $80
@@ -223,7 +223,7 @@ BubbleFunc:
 	dec [hl]
 	ret
 
-.Func_47d56:
+.drift_right:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -237,7 +237,7 @@ BubbleFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_47d88
 	ld hl, wCurObjYPos
@@ -247,7 +247,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_47d95
 .asm_47d88
@@ -263,8 +263,8 @@ BubbleFunc:
 .asm_47d95
 	ld hl, wCurObjVar2
 	ld a, [hl]
-	ld b, $40
-	add $50
+	ld b, HIGH(BubbleDriftRightX)
+	add LOW(BubbleDriftRightX)
 	ld c, a
 	ld a, [bc]
 	cp $80

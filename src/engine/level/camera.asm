@@ -213,7 +213,7 @@ ScrollCameraDown:
 	ld c, a
 	ld a, [wWarioYPos + 0]
 	cp c
-	jr c, .asm_b836
+	jr c, .snap_to_upper_edge
 	ret nz
 	ld a, [wPrevWarioScreenYPos]
 	sub $10
@@ -228,7 +228,7 @@ ScrollCameraDown:
 	ld a, [wWarioYPos + 1]
 	cp c
 	ret nc ; no adjustment needed
-.asm_b836
+.snap_to_upper_edge
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_UP_F, a
 	; scroll window ranges between [0, SCREEN_HEIGHT_PX]
@@ -262,10 +262,10 @@ ScrollCameraUp:
 	bit CAM_BORDER_UP_F, a
 	; scroll window ranges between [0, SCREEN_HEIGHT_PX]
 	ld b, $10
-	jr z, .asm_b86e
+	jr z, .check_scroll_limit
 	; scroll window ranges between [$20, $20 + SCREEN_HEIGHT_PX]
 	ld b, CAMERA_BORDER_UPPER_H + $10
-.asm_b86e
+.check_scroll_limit
 	ld a, [wCameraSCY + 1]
 	add $10
 	ld l, a
@@ -310,11 +310,11 @@ ScrollCameraUp:
 	ld c, a ; -((SCREEN_HEIGHT_PX + $10) - wPrevWarioScreenYPos)
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_DOWN_F, a
-	jr z, .asm_b8ba
+	jr z, .check_wario_y
 	ld a, c
 	sub CAMERA_BORDER_LOWER_H
 	ld c, a
-.asm_b8ba
+.check_wario_y
 	ld a, [wWarioYPos + 1]
 	cp c
 	ret c
@@ -324,10 +324,10 @@ ScrollCameraUp:
 	bit CAM_BORDER_DOWN_F, a
 	; scroll window ranges between [TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + 8), TILEMAP_HEIGHT_PX - 8]
 	ld a, TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + 8)
-	jr z, .asm_b8cf
+	jr z, .got_lower_scroll_adjustment
 	; scroll window ranges between [TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + $28), TILEMAP_HEIGHT_PX - $28]
 	ld a, TILEMAP_HEIGHT_PX - (SCREEN_HEIGHT_PX + CAMERA_BORDER_LOWER_H + 8)
-.asm_b8cf
+.got_lower_scroll_adjustment
 	ld [wCameraSCY + 1], a
 	ret
 
@@ -352,14 +352,14 @@ SetWarioScreenPos:
 .hidden_figure_camconfig
 	ld a, [wSCYShake]
 	ld c, a
-	ld a, [wc08a]
+	ld a, [wHiddenFigureBaseSCY]
 	add c
 	ld b, a
 	ld a, [wWarioYPos + 1]
 	add OAM_Y_OFS
 	sub b
 	ld [wWarioScreenYPos], a
-	ld a, [wc08c]
+	ld a, [wHiddenFigureBaseSCX]
 	ld b, a
 	ld a, [wWarioXPos + 1]
 	add OAM_X_OFS
@@ -375,7 +375,7 @@ LevelScroll_Vertical:
 
 ; there was an offset in Wario's Y coordinate
 	xor a
-	ld [wc0d4], a
+	ld [wCameraYIdleCounter], a
 	bit 7, b
 	jr nz, .up_movement
 
@@ -444,19 +444,19 @@ LevelScroll_Vertical:
 	ret c
 
 .not_in_ladder
-	ld a, [wc0d4]
+	ld a, [wCameraYIdleCounter]
 	inc a
-	ld [wc0d4], a
+	ld [wCameraYIdleCounter], a
 	dec a
-	ret z ; return if wc0d4 == 1
+	ret z ; return if wCameraYIdleCounter == 1
 
 	ld hl, wWarioScreenYPos
 	ld a, [wPrevWarioScreenYPos]
 	sub [hl]
-	jr nc, .asm_b98f
+	jr nc, .got_abs_y_offset
 	cpl
 	inc a
-.asm_b98f
+.got_abs_y_offset
 	ld b, a
 	ld a, [wWarioSlopeInteraction]
 	and a
@@ -480,7 +480,7 @@ LevelScroll_Horizontal:
 
 ; there was an offset in Wario's X coordinate
 	xor a
-	ld [wc0d5], a
+	ld [wCameraXIdleCounter], a
 	bit 7, b
 	jr nz, .left_movement
 
@@ -498,11 +498,11 @@ LevelScroll_Horizontal:
 .got_cam_spacing_r
 	cp [hl]
 	jr z, .scroll_right
-	jr c, .asm_b9ce
+	jr c, .past_cam_spacing_r
 	; x pos < cam spacing
 	dec b
 	jr .scroll_right
-.asm_b9ce
+.past_cam_spacing_r
 	; x pos > cam spacing
 	inc b
 .scroll_right
@@ -537,11 +537,11 @@ LevelScroll_Horizontal:
 .got_cam_spacing_l
 	cp [hl]
 	jr z, .scroll_left
-	jr c, .asm_b9ff
+	jr c, .past_cam_spacing_l
 	; x pos < cam spacing
 	inc b
 	jr .scroll_left
-.asm_b9ff
+.past_cam_spacing_l
 	; x pos > cam spacing
 	dec b
 .scroll_left
@@ -565,23 +565,167 @@ LevelScroll_Horizontal:
 	and a
 	ret nz ; is jumping
 .not_flat
-	ld a, [wc0d5]
+	ld a, [wCameraXIdleCounter]
 	inc a
-	ld [wc0d5], a
+	ld [wCameraXIdleCounter], a
 	dec a
-	ret z ; return if wc0d5 == 1
+	ret z ; return if wCameraXIdleCounter == 1
 
 	ld b, 1
 	ld hl, wWarioScreenXPos
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_ba38
+	jr nz, .dir_right_idle
 	ld a, [wCamLeftSpacing]
-	jr .asm_ba3b
-.asm_ba38
+	jr .got_cam_spacing_idle
+.dir_right_idle
 	ld a, [wCamRightSpacing]
-.asm_ba3b
+.got_cam_spacing_idle
 	cp [hl] ; wWarioScreenXPos
 	jr c, .scroll_right
 	ret z
 	jp .scroll_left
+
+DEF OWL_CAMERA_SPEED EQU 4 ; pixels per frame, like floor transitions
+
+; In rooms with floor transitions the camera moves a floor (128 px) at a
+; time, and on a 144 px screen there's no floor position where Owl Wario,
+; 60 px tall with the owl, always fits. Real owls only fly in rooms with a
+; free camera; for the debug menu's, the camera follows Owl Wario vertically
+; instead, keeping wFloor on his feet, and once he's let go it scrolls back
+; to where floor transitions put it for his floor.
+; Called each frame of a room with floor transitions, when none is going on.
+OwlWarioCamera:
+	ld a, [wCameraConfigFlags]
+	and CAM_SCROLLING_MASK
+	cp CAM_TRANSITIONS
+	ret c ; no floor transitions
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	jr nz, .realign
+
+	call UpdateFloor
+	; wWarioScreenYPos is his feet, in OAM coordinates
+	ld a, [wWarioScreenYPos]
+	cp OAM_Y_OFS + SCREEN_HEIGHT_PX + 32
+	jr nc, .up_max ; far above the screen (wrapped around)
+	cp OAM_Y_OFS + OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN
+	jr c, .up
+	cp OAM_Y_OFS + SCREEN_HEIGHT_PX - OWL_CAMERA_MARGIN + 1
+	ret c ; he fits
+	sub OAM_Y_OFS + SCREEN_HEIGHT_PX - OWL_CAMERA_MARGIN
+	jr .down
+
+.up
+	ld b, a
+	ld a, OAM_Y_OFS + OWL_WARIO_HEIGHT + OWL_CAMERA_MARGIN
+	sub b
+	cp OWL_CAMERA_SPEED
+	jr c, .scroll_up
+.up_max
+	ld a, OWL_CAMERA_SPEED
+.scroll_up
+	ld b, a
+	ld a, TRUE
+	ld [wOwlCameraDisplaced], a
+	xor a
+	ld [wScrollUpEdge], a
+	call ScrollCameraUp
+	ld a, [wScrollUpEdge]
+	and a
+	ret nz
+	ld hl, wLevelEdgeUpdateFlags
+	set LEVEL_EDGE_UPDATE_UP_F, [hl]
+	ret
+
+.down
+	cp OWL_CAMERA_SPEED
+	jr c, .scroll_down
+	ld a, OWL_CAMERA_SPEED
+.scroll_down
+	ld b, a
+	ld a, TRUE
+	ld [wOwlCameraDisplaced], a
+	xor a
+	ld [wScrollDownEdge], a
+	call ScrollCameraDown
+	ld a, [wScrollDownEdge]
+	and a
+	ret nz
+	ld hl, wLevelEdgeUpdateFlags
+	set LEVEL_EDGE_UPDATE_DOWN_F, [hl]
+	ret
+
+.realign
+	ld a, [wOwlCameraDisplaced]
+	and a
+	ret z
+	; where floor transitions put the camera: $18 px above the floor's top
+	; (SetInitialCameraScroll), as far as the room's edges allow (which the
+	; scrolling stops at)
+	ld a, [wFloor]
+	ld c, a
+	ld a, 6
+	sub c
+	ld c, a ; floors from the top of the level
+	srl a
+	ld h, a
+	ld a, c
+	rrca
+	and $80
+	ld l, a ; hl = floor's top
+	ld de, -$18
+	add hl, de ; hl = target camera y
+	ld a, [wCameraSCY + 1]
+	ld e, a
+	ld a, [wCameraSCY + 0]
+	ld d, a
+	; hl = target - camera
+	ld a, l
+	sub e
+	ld l, a
+	ld a, h
+	sbc d
+	ld h, a
+	or l
+	jr z, .realigned
+	bit 7, h
+	jr nz, .realign_up
+	; camera above the target
+	ld a, h
+	and a
+	jr nz, .realign_down_max
+	ld a, l
+	cp OWL_CAMERA_SPEED
+	jr c, .realign_down
+.realign_down_max
+	ld a, OWL_CAMERA_SPEED
+.realign_down
+	call .scroll_down
+	ld a, [wScrollDownEdge]
+	and a
+	ret z
+	jr .realigned
+
+.realign_up
+	; hl = -(camera - target)
+	ld a, h
+	inc a
+	jr nz, .realign_up_max
+	ld a, l
+	cpl
+	inc a
+	jr z, .realign_up_max ; -256
+	cp OWL_CAMERA_SPEED
+	jr c, .realign_up_ok
+.realign_up_max
+	ld a, OWL_CAMERA_SPEED
+.realign_up_ok
+	call .scroll_up
+	ld a, [wScrollUpEdge]
+	and a
+	ret z
+.realigned
+	xor a
+	ld [wOwlCameraDisplaced], a
+	ret

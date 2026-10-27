@@ -16,107 +16,107 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_41cdb
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_41cdb
-	dw .Func_41d36
-	dw .Func_41e3a
-	dw .Func_41e7c
-	dw .Func_42034
-	dw .Func_4203e
-	dw .Func_42064
-	dw .Func_42077
-	dw .Func_41fe9
-	dw .Func_41ff3
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41f5d
-	dw .Func_41f86
-	dw .Func_41d1a
-	dw .Func_420e3
-	dw .Func_41fa1
-	dw .Func_41f2d
-	dw .Func_41f35
-	dw .Func_41ed7
-	dw .Func_41f02
-	dw .Func_420b6
-	dw .Func_4208a
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
-	dw Func_3281
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
-	dw .Func_4202a
-	dw .Func_42020
-	dw .Func_41cdb
-	dw .Func_41bae
-	dw .Func_41c8b
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
+	dw ObjState_StartRandomWobble
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .State2b
+	dw .State2c
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_41d56
-	dw .Func_41e53
-	dw .Func_41eae
-	dw Func_3326
-	dw Func_3317
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41cdb
-	dw .Func_41f6c
-	dw .Func_41f94
+	dw .Walk
+	dw .BumpLeft
+	dw .BumpRight
+	dw ObjState_AttackedLeft
+	dw ObjState_AttackedRight
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
-	dw Func_3371
-	dw .Func_41fbd
-	dw Func_32cc
-	dw Func_32db
-	dw .Func_41ef4
-	dw .Func_41f1f
-	dw .Func_420d2
-	dw .Func_420a6
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_Drop
+	dw .TurnAround
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
-	dw Func_33f8
-	dw Func_3407
-	dw .Func_41b58
-	dw .Func_41bdc
-	dw .Func_41cc1
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw ObjState_HitByObjLeft
+	dw ObjState_HitByObjRight
+	dw .State5a
+	dw .State5b
+	dw .State5c
 
-.Func_41b58:
+.State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41b65
@@ -137,14 +137,14 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41b84
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
 	ret
 
 .asm_41b84
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -166,7 +166,7 @@ DoughnuteerFunc:
 .asm_41bab
 	jp CreateObjectAtRelativePos
 
-.Func_41bae:
+.State2b:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $08
@@ -179,10 +179,10 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41bc9
-	ld de, Frameset_68574
+	ld de, DoughnuteerFrameset_68574
 	jp SetObjectFramesetPtr
 .asm_41bc9
-	ld de, Frameset_6857d
+	ld de, DoughnuteerFrameset_6857d
 	jp SetObjectFramesetPtr
 .asm_41bcf
 	dec [hl]
@@ -197,7 +197,7 @@ DoughnuteerFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_41bdc:
+.State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41be9
@@ -215,7 +215,7 @@ DoughnuteerFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_41c04
 	ld a, $11
@@ -252,13 +252,13 @@ DoughnuteerFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 .asm_41c3f
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -287,19 +287,19 @@ DoughnuteerFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 .asm_41c7c
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
 	ret
 
-.Func_41c8b:
+.State2c:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $08
@@ -312,14 +312,14 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41caa
-	ld de, Frameset_685c4
+	ld de, DoughnuteerFrameset_685c4
 	call SetObjectFramesetPtr
 	ld a, $37
 	ld [hli], a
 	ret
 
 .asm_41caa
-	ld de, Frameset_685d7
+	ld de, DoughnuteerFrameset_685d7
 	call SetObjectFramesetPtr
 	ld a, $37
 	ld [hli], a
@@ -338,7 +338,7 @@ DoughnuteerFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_41cc1:
+.State5c:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41cce
@@ -354,7 +354,7 @@ DoughnuteerFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_41cdb:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -390,11 +390,11 @@ DoughnuteerFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
-.Func_41d1a:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -410,11 +410,11 @@ DoughnuteerFunc:
 .asm_41d2d
 	xor a
 	ld [hld], a
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
-.Func_41d36:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -431,11 +431,11 @@ DoughnuteerFunc:
 	ret
 
 .asm_41d4f
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
-.Func_41d56:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41d63
@@ -470,7 +470,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_41d95
-	ld de, Frameset_68586
+	ld de, DoughnuteerFrameset_68586
 	jr .asm_41da0
 
 .asm_41d95
@@ -482,7 +482,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_41d95
-	ld de, Frameset_68597
+	ld de, DoughnuteerFrameset_68597
 .asm_41da0
 	ld a, $5a
 	ld [hl], a
@@ -501,7 +501,7 @@ DoughnuteerFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_41dc5
 	ld a, $11
@@ -538,7 +538,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 .asm_41e00
@@ -569,7 +569,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_41e34
@@ -577,7 +577,7 @@ DoughnuteerFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_41e3a:
+.BumpLeftStart:
 	ld a, [wCurObjFrame]
 	cp $24
 	jr nc, .asm_41e45
@@ -592,7 +592,7 @@ DoughnuteerFunc:
 	ld [hld], a
 	jr .asm_41e93
 
-.Func_41e53:
+.BumpLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -607,7 +607,7 @@ DoughnuteerFunc:
 	jr c, .asm_41e72
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -616,11 +616,11 @@ DoughnuteerFunc:
 .asm_41e72
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_6857d
+	ld de, DoughnuteerFrameset_6857d
 	call SetObjectFramesetPtr
 	ret
 
-.Func_41e7c:
+.BumpRightStart:
 	ld a, [wCurObjFrame]
 	cp $24
 	jr nc, .asm_41e87
@@ -637,12 +637,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41e9f
-	ld de, Frameset_685a8
+	ld de, DoughnuteerFrameset_685a8
 	call SetObjectFramesetPtr
 	jr .asm_41ea5
 
 .asm_41e9f
-	ld de, Frameset_685ad
+	ld de, DoughnuteerFrameset_685ad
 	call SetObjectFramesetPtr
 .asm_41ea5
 	ld a, $0c
@@ -651,7 +651,7 @@ DoughnuteerFunc:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_41eae:
+.BumpRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -666,70 +666,70 @@ DoughnuteerFunc:
 	jr c, .asm_41eca
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_68574
+	ld de, DoughnuteerFrameset_68574
 	call SetObjectFramesetPtr
 	ret
 
 .asm_41eca
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
 	ret
 
-.Func_41ed7:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_685b2, Frameset_685bb
+	ld_obj_frameset DoughnuteerFrameset_685b2, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_41ef4:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_41f02:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_685b2, Frameset_685bb
+	ld_obj_frameset DoughnuteerFrameset_685b2, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_41f1f:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_41f2d:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_41f3b
 
-.Func_41f35:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -737,12 +737,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41f47
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_41f4d
 
 .asm_41f47
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_41f4d
 	inc l
@@ -758,14 +758,14 @@ DoughnuteerFunc:
 	ld [hld], a
 	ret
 
-.Func_41f5d:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_41f6c:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41f79
@@ -776,12 +776,12 @@ DoughnuteerFunc:
 .asm_41f79
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_32ea
+	jp nz, ObjCheckFloorOrDrop
 	ld a, $10
 	ld [wCurObjState], a
 	ret
 
-.Func_41f86:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -790,34 +790,34 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_41f94:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_32f9
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $00
 	ld [wCurObjState], a
 	ret
 
-.Func_41fa1:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
 	ld a, [hld]
 	rlca
 	jr c, .asm_41fb3
-	ld de, Frameset_685f0
+	ld de, DoughnuteerFrameset_685f0
 	call SetObjectFramesetPtr
 	jr .asm_41fb9
 
 .asm_41fb3
-	ld de, Frameset_685f7
+	ld de, DoughnuteerFrameset_685f7
 	call SetObjectFramesetPtr
 .asm_41fb9
 	ld a, $1a
 	ld [hli], a
 	ret
 
-.Func_41fbd:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41fca
@@ -849,14 +849,14 @@ DoughnuteerFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_41fe9:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_41ffb
 
-.Func_41ff3:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -866,12 +866,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_42008
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_4200e
 
 .asm_42008
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_4200e
 	ld a, $04
@@ -888,28 +888,28 @@ DoughnuteerFunc:
 	ld [hld], a
 	ret
 
-.Func_42020:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_42046
 
-.Func_4202a:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_42046
 
-.Func_42034:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_42046
 
-.Func_4203e:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -928,12 +928,12 @@ DoughnuteerFunc:
 	ld a, c
 	rlca
 	jr c, .asm_4205e
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	jp SetObjectFramesetPtr
 .asm_4205e
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	jp SetObjectFramesetPtr
-.Func_42064:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -944,8 +944,8 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
-.Func_42077:
+	jp ObjState_PickedUpLeft
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -956,63 +956,63 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
-.Func_4208a:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
 	ld a, [hld]
 	rlca
 	jr c, .asm_4209c
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_420a2
 
 .asm_4209c
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_420a2
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_420a6:
+.State49:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_420b6
+	jr .State18
 
-.Func_420b6:
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
 	ld a, [hld]
 	rlca
 	jr c, .asm_420c8
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_420ce
 
 .asm_420c8
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_420ce
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_420d2:
+.State48:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_4208a
+	jp .State19
 
-.Func_420e3:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
@@ -1094,5 +1094,5 @@ DoughnutFunc:
 .asm_42165
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement

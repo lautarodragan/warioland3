@@ -26,22 +26,22 @@ ZipLineFunc:
 	ld [hl], a
 	xor a
 	ld [wCurObjVar1], a
-.Func_49356:
-	ld de, Frameset_691c4
+.Reset:
+	ld de, ZipLineFrameset_691c4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49369)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_49369)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	xor a
 	ld [wCurObjState], a
 	ret
 
-.Func_49369:
+.Idle:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call .Func_49418
+	call .Move
 	ld a, [wCurObjVar1]
 	cp $03
 	jr z, .asm_493cd
@@ -64,9 +64,9 @@ ZipLineFunc:
 
 .asm_49393
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_493dc)
+	ld a, HIGH(.CarryWario)
 	ld [hld], a
-	ld a, LOW(.Func_493dc)
+	ld a, LOW(.CarryWario)
 	ld [hld], a
 	ld a, $01
 	ld [wCurObjVar1], a
@@ -86,27 +86,27 @@ ZipLineFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_493c7
-	ld de, Frameset_691c9
+	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
 .asm_493c7
-	ld de, Frameset_691d2
+	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
 
 .asm_493cd
-	ld de, Frameset_691db
+	ld de, ZipLineFrameset_691db
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49412)
+	ld a, HIGH(.DoNothing)
 	ld [hld], a
-	ld a, LOW(.Func_49412)
+	ld a, LOW(.DoNothing)
 	ld [hld], a
 	ret
 
-.Func_493dc:
+.CarryWario:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call .Func_49418
+	call .Move
 	ld a, [wCurObjVar1]
 	cp $03
 	jr z, .asm_493cd
@@ -114,9 +114,9 @@ ZipLineFunc:
 	cp TRANSFORMATION_RAIL
 	ret z
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49405)
+	ld a, HIGH(.WaitThenReset)
 	ld [hld], a
-	ld a, LOW(.Func_49405)
+	ld a, LOW(.WaitThenReset)
 	ld [hld], a
 	ld a, $0a
 	ld [wCurObjStateDuration], a
@@ -124,20 +124,20 @@ ZipLineFunc:
 	ld [wCurObjVar1], a
 	ret
 
-.Func_49405:
+.WaitThenReset:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	jp .Func_49356
+	jp .Reset
 
-.Func_49412:
+.DoNothing:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_49418:
+.Move:
 	ld a, [wCurObjVar1]
 	and a
 	ret z
@@ -157,10 +157,10 @@ ZipLineFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_4947b
-	call .Func_494cb
+	call .move_right
 	ld a, [wCurObjId]
 	cp ZIP_LINE1
 	ret z
@@ -181,10 +181,10 @@ ZipLineFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_4947b
-	call .Func_494af
+	call .move_left
 	ld a, [wCurObjId]
 	cp ZIP_LINE1
 	ret z
@@ -199,11 +199,11 @@ ZipLineFunc:
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_49491
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691d2
+	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
 .asm_49491
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691c9
+	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
 .asm_49499
@@ -218,22 +218,22 @@ ZipLineFunc:
 	ld [hl], a
 	ret
 
-.Func_494af:
+.move_left:
 	call MoveObjectLeftByVar2
 	ld a, [wCurObjVar1]
 	dec a
 	ret nz
 	call MoveWarioLeft
-	farcall Func_19713
+	farcall CheckCarriedWarioLeftCollision
 	jr .asm_49518
 
-.Func_494cb:
+.move_right:
 	call MoveObjectRightByVar2
 	ld a, [wCurObjVar1]
 	dec a
 	ret nz
 	call MoveWarioRight
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	jr .asm_49518
 .asm_494e7
 	call MoveObjectUpByVar2

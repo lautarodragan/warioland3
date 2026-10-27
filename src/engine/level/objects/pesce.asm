@@ -2,13 +2,13 @@ StrongWaterCurrentFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51d2d)
+	ld a, HIGH(.DoNothing)
 	ld [hld], a
-	ld a, LOW(.Func_51d2d)
+	ld a, LOW(.DoNothing)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -16,7 +16,7 @@ StrongWaterCurrentFunc:
 	ld [hld], a
 	ld a, $fe
 	ld [hl], a
-	ld de, Frameset_69965
+	ld de, PesceFrameset_69965
 	call SetObjectFramesetPtr
 	ld a, $2a
 	ld [wCurObjVar2], a
@@ -25,20 +25,20 @@ StrongWaterCurrentFunc:
 	ld [wCurObjVar2], a
 	jp MoveObjectLeftByVar2
 
-.Func_51d2d:
+.DoNothing:
 	ret
 
 PesceFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51e28)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_51e28)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -46,10 +46,10 @@ PesceFunc:
 	ld [hld], a
 	ld a, $fe
 	ld [hl], a
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	call SetObjectFramesetPtr
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld [wDollBoyHammerRange], a
 	ld [hli], a
 	ld [hli], a
@@ -72,7 +72,7 @@ PesceFunc:
 	ld [hl], a
 	ld [wCurObjStateDuration], a
 	play_sfx SFX_0BB
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -97,9 +97,9 @@ PesceFunc:
 	ld a, $e6
 	ld [wCurObjCollBoxTop], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_521d0)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_521d0)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -130,7 +130,7 @@ PesceFunc:
 	ld a, [hl]
 	sbc $00
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_6992d
+	ld de, PesceFrameset_6992d
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -142,7 +142,7 @@ PesceFunc:
 	ld [wWarioXPos + 1], a
 	ld a, [hl]
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_69a15
+	ld de, PesceFrameset_69a15
 	call SetObjectFramesetPtr
 	ld a, $0d
 	ld [hli], a
@@ -152,7 +152,7 @@ PesceFunc:
 	ld [wIsTurning], a
 	ret
 
-.Func_51e28:
+.Update:
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
 	ld l, OBJ_STATE
@@ -203,7 +203,7 @@ PesceFunc:
 	ld a, [hl]
 	sbc $00
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_6992d
+	ld de, PesceFrameset_6992d
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -238,7 +238,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_51ed4
 	ld a, [wGlobalCounter]
@@ -259,10 +259,10 @@ PesceFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_51ef6
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	jp SetObjectFramesetPtr
 .asm_51ef6
-	ld de, Frameset_69942
+	ld de, PesceFrameset_69942
 	jp SetObjectFramesetPtr
 
 .asm_51efc
@@ -284,7 +284,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr z, .asm_51f46
@@ -316,7 +316,7 @@ PesceFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	jr .asm_51f7d
@@ -327,7 +327,7 @@ PesceFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 .asm_51f7d
@@ -380,7 +380,7 @@ PesceFunc:
 	cp b
 	jp nc, .asm_520c5
 .asm_51fcb
-	call .Func_521a5
+	call .FindBait
 	ld a, d
 	cp $d0
 	jr z, .asm_51ff1
@@ -416,7 +416,7 @@ PesceFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 	jr .asm_52060
@@ -428,7 +428,7 @@ PesceFunc:
 	cp b
 	jp c, .asm_520c5
 .asm_5201c
-	call .Func_521a5
+	call .FindBait
 	ld a, d
 	cp $d0
 	jr z, .asm_52042
@@ -464,7 +464,7 @@ PesceFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_52060
@@ -479,7 +479,7 @@ PesceFunc:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_52092
 	cp $02
@@ -487,37 +487,37 @@ PesceFunc:
 	cp $03
 	jr z, .asm_520b2
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld c, $17
 	sla b
 	jr c, .asm_5208d
-	ld de, Frameset_69981
+	ld de, PesceFrameset_69981
 	jr .asm_520c0
 .asm_5208d
-	ld de, Frameset_6997a
+	ld de, PesceFrameset_6997a
 	jr .asm_520c0
 .asm_52092
 	ld c, $1b
 	sla b
 	jr c, .asm_5209d
-	ld de, Frameset_6998f
+	ld de, PesceFrameset_6998f
 	jr .asm_520c0
 .asm_5209d
-	ld de, Frameset_69988
+	ld de, PesceFrameset_69988
 	jr .asm_520c0
 .asm_520a2
 	ld c, $1f
 	sla b
 	jr c, .asm_520ad
-	ld de, Frameset_6999d
+	ld de, PesceFrameset_6999d
 	jr .asm_520c0
 .asm_520ad
-	ld de, Frameset_69996
+	ld de, PesceFrameset_69996
 	jr .asm_520c0
 .asm_520b2
 	ld c, $25
 	sla b
-	ld_obj_frameset Frameset_699ab, Frameset_699a4
+	ld_obj_frameset PesceFrameset_699ab, PesceFrameset_699a4
 .asm_520c0
 	call SetObjectFramesetPtr
 	ld [hl], c
@@ -528,31 +528,31 @@ PesceFunc:
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_520eb
 	cp $02
 	jr z, .asm_520f9
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_520e6
-	ld de, Frameset_69911
+	ld de, PesceFrameset_69911
 	jr .asm_52105
 .asm_520e6
-	ld de, Frameset_69949
+	ld de, PesceFrameset_69949
 	jr .asm_52105
 .asm_520eb
 	sla b
 	jr c, .asm_520f4
-	ld de, Frameset_69934
+	ld de, PesceFrameset_69934
 	jr .asm_52105
 .asm_520f4
-	ld de, Frameset_6996c
+	ld de, PesceFrameset_6996c
 	jr .asm_52105
 .asm_520f9
 	sla b
-	ld_obj_frameset Frameset_6993b, Frameset_69973
+	ld_obj_frameset PesceFrameset_6993b, PesceFrameset_69973
 .asm_52105
 	jp SetObjectFramesetPtr
 
@@ -560,31 +560,31 @@ PesceFunc:
 	play_sfx SFX_0AD
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_52131
 	cp $02
 	jr z, .asm_5213f
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_5212c
-	ld de, Frameset_699b2
+	ld de, PesceFrameset_699b2
 	jr .asm_5214b
 .asm_5212c
-	ld de, Frameset_699c1
+	ld de, PesceFrameset_699c1
 	jr .asm_5214b
 .asm_52131
 	sla b
 	jr c, .asm_5213a
-	ld de, Frameset_699b7
+	ld de, PesceFrameset_699b7
 	jr .asm_5214b
 .asm_5213a
-	ld de, Frameset_699c6
+	ld de, PesceFrameset_699c6
 	jr .asm_5214b
 .asm_5213f
 	sla b
-	ld_obj_frameset Frameset_699bc, Frameset_699cb
+	ld_obj_frameset PesceFrameset_699bc, PesceFrameset_699cb
 .asm_5214b
 	call SetObjectFramesetPtr
 	ld a, $3c
@@ -596,7 +596,7 @@ PesceFunc:
 .asm_52155
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_5217a
 	cp $02
@@ -604,37 +604,37 @@ PesceFunc:
 	cp $03
 	jr z, .asm_52196
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_52175
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	jr .asm_521a2
 .asm_52175
-	ld de, Frameset_69942
+	ld de, PesceFrameset_69942
 	jr .asm_521a2
 .asm_5217a
 	sla b
 	jr c, .asm_52183
-	ld de, Frameset_69918
+	ld de, PesceFrameset_69918
 	jr .asm_521a2
 .asm_52183
-	ld de, Frameset_69950
+	ld de, PesceFrameset_69950
 	jr .asm_521a2
 .asm_52188
 	sla b
 	jr c, .asm_52191
-	ld de, Frameset_6991f
+	ld de, PesceFrameset_6991f
 	jr .asm_521a2
 .asm_52191
-	ld de, Frameset_69957
+	ld de, PesceFrameset_69957
 	jr .asm_521a2
 .asm_52196
 	sla b
-	ld_obj_frameset Frameset_69926, Frameset_6995e
+	ld_obj_frameset PesceFrameset_69926, PesceFrameset_6995e
 .asm_521a2
 	jp SetObjectFramesetPtr
 
-.Func_521a5:
+.FindBait:
 	xor a
 	ld b, a
 	ld h, HIGH(wObj1)
@@ -671,7 +671,7 @@ PesceFunc:
 	ld e, d
 	ret
 
-.Func_521d0:
+.Defeated:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
@@ -699,7 +699,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 	ld hl, wCurObjInteractionType
@@ -709,9 +709,9 @@ PesceFunc:
 	ld [hli], a
 	ld a, $03
 	ld [wCurObjVar1], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, $01
 	ld [wDollBoyHammerRange], a
 	ret
@@ -722,7 +722,7 @@ PesceFunc:
 	inc l
 	ld a, $02
 	ld [hl], a
-	ld de, Frameset_6995e
+	ld de, PesceFrameset_6995e
 	jp SetObjectFramesetPtr
 .asm_52239
 	ld l, OBJ_Y_POS
@@ -736,13 +736,13 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown_Slow
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_52265
-	ld de, Frameset_699a4
+	ld de, PesceFrameset_699a4
 	call SetObjectFramesetPtr
 	ld a, $25
 	ld [hli], a
@@ -756,9 +756,9 @@ PesceFunc:
 
 DragonflySpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52282)
+	ld a, HIGH(.Wait)
 	ld [hld], a
-	ld a, LOW(.Func_52282)
+	ld a, LOW(.Wait)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -768,7 +768,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_52282:
+.Wait:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -777,18 +777,18 @@ DragonflySpawnerFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5229a)
+	ld a, HIGH(.SpawnDragonfly)
 	ld [hld], a
-	ld a, LOW(.Func_5229a)
+	ld a, LOW(.SpawnDragonfly)
 	ld [hld], a
 	ret
 
-.Func_5229a:
+.SpawnDragonfly:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_522cf
 	xor a
@@ -820,13 +820,13 @@ DragonflySpawnerFunc:
 
 .asm_522cf
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_522d9)
+	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
-	ld a, LOW(.Func_522d9)
+	ld a, LOW(.WaitForFightEnd)
 	ld [hld], a
 	ret
 
-.Func_522d9:
+.WaitForFightEnd:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -836,9 +836,9 @@ DragonflySpawnerFunc:
 	ret z
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -852,13 +852,13 @@ DragonflySpawnerFunc:
 
 Dragonfly1Func:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52321)
+	ld a, HIGH(.Descend)
 	ld [hld], a
-	ld a, LOW(.Func_52321)
+	ld a, LOW(.Descend)
 	ld [hld], a
 	ret
 
-.Func_52321:
+.Descend:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -869,13 +869,13 @@ Dragonfly1Func:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5233b)
+	ld a, HIGH(.Fly)
 	ld [hld], a
-	ld a, LOW(.Func_5233b)
+	ld a, LOW(.Fly)
 	ld [hld], a
 	ret
 
-.Func_5233b:
+.Fly:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjVar1
 	ld a, [hl]
@@ -886,13 +886,13 @@ Dragonfly1Func:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_52353
-	ld de, Frameset_699d0
+	ld de, PesceFrameset_699d0
 	jp SetObjectFramesetPtr
 .asm_52353
-	ld de, Frameset_699d5
+	ld de, PesceFrameset_699d5
 	jp SetObjectFramesetPtr
 .asm_52359
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_523a3
 	dec l
@@ -927,22 +927,22 @@ Dragonfly1Func:
 	ld [hl], a
 	rlca
 	jr c, .asm_5239d
-	ld de, Frameset_699df
+	ld de, PesceFrameset_699df
 	jp SetObjectFramesetPtr
 .asm_5239d
-	ld de, Frameset_699da
+	ld de, PesceFrameset_699da
 	jp SetObjectFramesetPtr
 .asm_523a3
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_523b1)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_523b1)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_523b1:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjSubState]
@@ -951,18 +951,18 @@ Dragonfly1Func:
 	jp MoveObjectLeft_Fast
 
 Dragonfly2Func:
-	ld de, Frameset_699d0
+	ld de, PesceFrameset_699d0
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_523f2)
+	ld a, HIGH(.WaitToAppear)
 	ld [hld], a
-	ld a, LOW(.Func_523f2)
+	ld a, LOW(.WaitToAppear)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
 	ld [hld], a
@@ -977,7 +977,7 @@ Dragonfly2Func:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_523f2:
+.WaitToAppear:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -988,15 +988,15 @@ Dragonfly2Func:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5240f)
+	ld a, HIGH(.Fly)
 	ld [hld], a
-	ld a, LOW(.Func_5240f)
+	ld a, LOW(.Fly)
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ret
 
-.Func_5240f:
+.Fly:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -1047,9 +1047,9 @@ Dragonfly2Func:
 
 FlySpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52475)
+	ld a, HIGH(.WaitOnScreen)
 	ld [hld], a
-	ld a, LOW(.Func_52475)
+	ld a, LOW(.WaitOnScreen)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -1059,7 +1059,7 @@ FlySpawnerFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_52475:
+.WaitOnScreen:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -1071,20 +1071,20 @@ FlySpawnerFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_52497)
+	ld a, HIGH(.SpawnFly)
 	ld [hld], a
-	ld a, LOW(.Func_52497)
+	ld a, LOW(.SpawnFly)
 	ld [hld], a
 	xor a
 	ld [wDollBoyActiveBarrels], a
 	ret
 
-.Func_52497:
+.SpawnFly:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_524dc
 	ld a, [wDollBoyActiveBarrels]
@@ -1125,9 +1125,9 @@ FlySpawnerFunc:
 	jp CreateObjectAtRelativePos
 .asm_524dc
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_524eb)
+	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
-	ld a, LOW(.Func_524eb)
+	ld a, LOW(.WaitForFightEnd)
 	ld [hld], a
 	ret
 .deactivate
@@ -1135,7 +1135,7 @@ FlySpawnerFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.Func_524eb:
+.WaitForFightEnd:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -1143,18 +1143,18 @@ FlySpawnerFunc:
 	ld a, [wDollBoyHammerRange]
 	and a
 	ret z
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	xor a
 	ld [wCurObjFlags], a
 	ret
 
 FlyFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52533)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_52533)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -1164,7 +1164,7 @@ FlyFunc:
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
 
-.Func_52533:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $5a
@@ -1222,12 +1222,12 @@ FlyFunc:
 	add $2a
 	cp b
 	jr c, .asm_525a5
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_525a9
 .asm_525a5
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 .asm_525a9
 	ld hl, wCurObjUpdateFunction + 1
 	ld [hld], a
@@ -1310,7 +1310,7 @@ CheeseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water

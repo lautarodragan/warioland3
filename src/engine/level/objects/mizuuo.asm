@@ -9,7 +9,7 @@ MizuuoFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_686e5
+	ld de, MizuuoFrameset_686e5
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $30
@@ -33,11 +33,11 @@ MizuuoFunc:
 	ld [hl], a
 	rlca
 	jr c, .asm_48770
-	ld de, Frameset_686e5
+	ld de, MizuuoFrameset_686e5
 	jp SetObjectFramesetPtr
 
 .asm_48770
-	ld de, Frameset_686ea
+	ld de, MizuuoFrameset_686ea
 	jp SetObjectFramesetPtr
 
 .asm_48776
@@ -54,7 +54,7 @@ MizuuoFunc:
 .asm_48789
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_68713, Frameset_6871e
+	ld_obj_frameset MizuuoFrameset_68713, MizuuoFrameset_6871e
 	call SetObjectFramesetPtr
 	ld a, $22
 	ld [hli], a
@@ -71,7 +71,7 @@ MizuuoFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_686ef, Frameset_686f8
+	ld_obj_frameset MizuuoFrameset_686ef, MizuuoFrameset_686f8
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a
@@ -90,7 +90,7 @@ MizuuoFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_686a4, Frameset_686b9
+	ld_obj_frameset MizuuoFrameset_686a4, MizuuoFrameset_686b9
 	call SetObjectFramesetPtr
 	ld a, $5d
 	ld [hli], a
@@ -122,7 +122,7 @@ MizuuoFunc:
 .asm_48812
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_68701, Frameset_6870a
+	ld_obj_frameset MizuuoFrameset_68701, MizuuoFrameset_6870a
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a
@@ -147,11 +147,11 @@ MizuuoFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_4884d
-	ld de, Frameset_686e5
+	ld de, MizuuoFrameset_686e5
 	jp SetObjectFramesetPtr
 
 .asm_4884d
-	ld de, Frameset_686ea
+	ld de, MizuuoFrameset_686ea
 	jp SetObjectFramesetPtr
 
 MizzouProjectileFunc_Left:
@@ -171,22 +171,22 @@ MizzouProjectileFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_488b5
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_4888b
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_488b5
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water
-	ld bc, Data_60740
+	ld bc, MizuuoData_60740
 	jr .asm_4888e
 .asm_4888b
-	ld bc, Data_60700
+	ld bc, MizuuoData_60700
 .asm_4888e
 	call ApplyObjYMovement
 	ld a, [wCurObjState]
@@ -204,11 +204,11 @@ MizzouProjectileFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_488af
-	ld de, Frameset_686d8
+	ld de, MizuuoFrameset_686d8
 	jp SetObjectFramesetPtr
 
 .asm_488af
-	ld de, Frameset_686db
+	ld de, MizuuoFrameset_686db
 	jp SetObjectFramesetPtr
 
 .asm_488b5
@@ -217,7 +217,7 @@ MizzouProjectileFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_686de
+	ld de, MizuuoFrameset_686de
 	call SetObjectFramesetPtr
 	ld a, $17
 	ld [hli], a

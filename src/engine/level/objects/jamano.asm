@@ -11,9 +11,9 @@ JamanoFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54d7d)
+	ld a, HIGH(.Intro)
 	ld [hld], a
-	ld a, LOW(.Func_54d7d)
+	ld a, LOW(.Intro)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -24,7 +24,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, $06
 	ld [hl], a
-	ld de, Frameset_69ce9
+	ld de, JamanoFrameset_69ce9
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -35,7 +35,7 @@ JamanoFunc:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_54d7d:
+.Intro:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -46,18 +46,18 @@ JamanoFunc:
 .asm_54d96
 	dec [hl]
 	ret nz
-	ld de, Frameset_69cdb
+	ld de, JamanoFrameset_69cdb
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54daa)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_54daa)
+	ld a, LOW(.StartFight)
 	ld [hld], a
 	ret
 
-.Func_54daa:
+.StartFight:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -74,9 +74,9 @@ JamanoFunc:
 	ld hl, wCurObjFlags
 	set 7, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54e10)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_54e10)
+	ld a, LOW(.Main)
 	ld [hld], a
 	xor a
 	ld l, OBJ_STATE_DURATION
@@ -84,7 +84,7 @@ JamanoFunc:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld [w1d149], a
+	ld [wJamanoSkullsInactive], a
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -96,22 +96,22 @@ JamanoFunc:
 	inc l
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_69c1c
+	ld de, JamanoFrameset_69c1c
 	jp SetObjectFramesetPtr
 .asm_54dfe
 	set 7, [hl]
 	inc l
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_69ca1
+	ld de, JamanoFrameset_69ca1
 	jp SetObjectFramesetPtr
 
-.Func_54e0a:
+.Frozen:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_54e10:
+.Main:
 	ld hl, wCurObjFlags
 	ld a, [wGlobalCounter]
 	rra
@@ -124,13 +124,13 @@ JamanoFunc:
 	and a
 	jr nz, .asm_54e46
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54f9d)
+	ld a, HIGH(.MoveToCentre)
 	ld [hld], a
-	ld a, LOW(.Func_54f9d)
+	ld a, LOW(.MoveToCentre)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_69ce0
+	ld de, JamanoFrameset_69ce0
 	call SetObjectFramesetPtr
 	ld a, $a0
 	ld [hli], a
@@ -145,22 +145,22 @@ JamanoFunc:
 	jr z, .asm_54eae
 	bit 7, [hl]
 	jr nz, .asm_54e5a
-	ld de, Frameset_69c92
+	ld de, JamanoFrameset_69c92
 	jr .asm_54e5d
 .asm_54e5a
-	ld de, Frameset_69c7a
+	ld de, JamanoFrameset_69c7a
 .asm_54e5d
 	ld l, OBJ_FLAGS
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54e0a)
+	ld a, HIGH(.Frozen)
 	ld [hld], a
-	ld a, LOW(.Func_54e0a)
+	ld a, LOW(.Frozen)
 	ld [hld], a
 	stop_music2
 	jp SetObjectFramesetPtr
 .asm_54e78
-	call .Func_54f55
+	call .TurnToWario
 	ld a, [wCurObjVar2]
 	dec a
 	jr nz, .asm_54e87
@@ -179,7 +179,7 @@ JamanoFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_54ea6
 .asm_54e9f
@@ -187,11 +187,11 @@ JamanoFunc:
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54ea6
-	ld bc, Data_60c80
+	ld bc, JamanoData_60c80
 	call ApplyObjXMovement_Loop
 	jr .asm_54efb
 .asm_54eae
-	call .Func_54f55
+	call .TurnToWario
 	ld a, [wCurObjVar2]
 	dec a
 	jr nz, .asm_54ebd
@@ -210,7 +210,7 @@ JamanoFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_54edc
 .asm_54ed5
@@ -218,11 +218,11 @@ JamanoFunc:
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54edc
-	ld bc, Data_60c20
+	ld bc, JamanoData_60c20
 	call ApplyObjXMovement_Loop
 	jr .asm_54efb
 
-.Func_54ee4:
+.SetVerticalDirToWario:
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenYPos]
 	add $2a
@@ -241,7 +241,7 @@ JamanoFunc:
 	ld a, [wCurObjVar3]
 	dec a
 	jr nz, .asm_54f04
-	call .Func_54ee4
+	call .SetVerticalDirToWario
 .asm_54f04
 	ld a, [wCurObjScreenYPos]
 	ld hl, wCurObjSubState
@@ -254,7 +254,7 @@ JamanoFunc:
 	ld [wCurObjVar3], a
 	jr .asm_54f4f
 .asm_54f1a
-	ld bc, Data_60c80
+	ld bc, JamanoData_60c80
 	jp ApplyObjYMovement_Loop
 .asm_54f20
 	cp $98
@@ -274,7 +274,7 @@ JamanoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_54f4f
 	ld hl, wCurObjSubState
@@ -284,10 +284,10 @@ JamanoFunc:
 	ld [wCurObjVar3], a
 	jr .asm_54f1a
 .asm_54f4f
-	ld bc, Data_60c20
+	ld bc, JamanoData_60c20
 	jp ApplyObjYMovement_Loop
 
-.Func_54f55:
+.TurnToWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -314,13 +314,13 @@ JamanoFunc:
 	rlca
 	ret nc
 	res 7, [hl]
-	ld de, Frameset_69c7a
+	ld de, JamanoFrameset_69c7a
 	jr .asm_54f8e
 .asm_54f87
 	rlca
 	ret c
 	set 7, [hl]
-	ld de, Frameset_69c92
+	ld de, JamanoFrameset_69c92
 .asm_54f8e
 	call SetObjectFramesetPtr
 	ld a, $14
@@ -328,7 +328,7 @@ JamanoFunc:
 	play_sfx SFX_0BC
 	ret
 
-.Func_54f9d:
+.MoveToCentre:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -342,11 +342,11 @@ JamanoFunc:
 	cp $58
 	jr nz, .asm_54fcd
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5507b)
+	ld a, HIGH(.DefeatPose1)
 	ld [hld], a
-	ld a, LOW(.Func_5507b)
+	ld a, LOW(.DefeatPose1)
 	ld [hld], a
-	ld de, Frameset_69c40
+	ld de, JamanoFrameset_69c40
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -371,7 +371,7 @@ JamanoFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_55001
 	play_sfx SFX_BUMP
@@ -393,7 +393,7 @@ JamanoFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_5502e
 	play_sfx SFX_BUMP
@@ -426,7 +426,7 @@ JamanoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown
 	ld hl, wCurObjSubState
@@ -434,52 +434,52 @@ JamanoFunc:
 	play_sfx SFX_BUMP
 	jp MoveObjectUp
 
-.Func_5507b:
+.DefeatPose1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55097)
+	ld a, HIGH(.DefeatPose2)
 	ld [hld], a
-	ld a, LOW(.Func_55097)
+	ld a, LOW(.DefeatPose2)
 	ld [hld], a
-	ld de, Frameset_69c45
+	ld de, JamanoFrameset_69c45
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
 	ret
 
-.Func_55097:
+.DefeatPose2:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_550b3)
+	ld a, HIGH(.LoseHat)
 	ld [hld], a
-	ld a, LOW(.Func_550b3)
+	ld a, LOW(.LoseHat)
 	ld [hld], a
-	ld de, Frameset_69c4a
+	ld de, JamanoFrameset_69c4a
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
 	ret
 
-.Func_550b3:
+.LoseHat:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_550db)
+	ld a, HIGH(.StartFalling)
 	ld [hld], a
-	ld a, LOW(.Func_550db)
+	ld a, LOW(.StartFalling)
 	ld [hld], a
-	ld de, Frameset_69c4f
+	ld de, JamanoFrameset_69c4f
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -490,16 +490,16 @@ JamanoFunc:
 	ld bc, ObjParams_JamanoHat
 	jp CreateObjectAtRelativePos
 
-.Func_550db:
+.StartFalling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_550ff)
+	ld a, HIGH(.Fall)
 	ld [hld], a
-	ld a, LOW(.Func_550ff)
+	ld a, LOW(.Fall)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -511,10 +511,10 @@ JamanoFunc:
 	play_sfx SFX_0A3
 	ret
 
-.Func_550ff:
+.Fall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60d20
+	ld bc, JamanoData_60d20
 	jp ApplyObjYMovement
 
 JamanoHatFunc:
@@ -528,13 +528,13 @@ JamanoHatFunc:
 	ld a, $03
 	ld [wCurObjVar2], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55125)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_55125)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ret
 
-.Func_55125:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
@@ -545,9 +545,9 @@ JamanoHatFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $06
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -561,9 +561,9 @@ HatPlatformFunc:
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55194)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_55194)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -572,7 +572,7 @@ HatPlatformFunc:
 	ld [hld], a
 	ld a, $00
 	ld [hl], a
-	ld de, Frameset_69cef
+	ld de, JamanoFrameset_69cef
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a
@@ -586,7 +586,7 @@ HatPlatformFunc:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_55194:
+.Update:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -634,9 +634,9 @@ HatPlatformFunc:
 
 SkullSpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5522c)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_5522c)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -657,18 +657,18 @@ SkullSpawnerFunc:
 	ld a, JAMANO_SKULL1 | JAMANO_SKULL2 | JAMANO_SKULL3 | JAMANO_SKULL4
 	ld [wJamanoActiveSkulls], a
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld [wDollBoyHammerRange], a
 	ld a, $01
-	ld [w1d149], a
+	ld [wJamanoSkullsInactive], a
 	ret
 
-.Func_5522c:
+.Update:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d149]
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_5525b
 	ld a, [wDollBoyHammerRange]
@@ -676,9 +676,9 @@ SkullSpawnerFunc:
 	jr nz, .asm_5525b
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 .asm_5525b
 	call Func_55407
@@ -711,18 +711,18 @@ SkullSpawnerFunc:
 	jp CreateObjectAtRelativePos
 
 SkullFunc:
-	call .Func_553e8
+	call .Blink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5529f)
+	ld a, HIGH(.Wait)
 	ld [hld], a
-	ld a, LOW(.Func_5529f)
+	ld a, LOW(.Wait)
 	ld [hld], a
 	ret
 
-.Func_5529f:
-	call .Func_553e8
+.Wait:
+	call .Blink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -731,30 +731,30 @@ SkullFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_552ba)
+	ld a, HIGH(.WaitToFly)
 	ld [hld], a
-	ld a, LOW(.Func_552ba)
+	ld a, LOW(.WaitToFly)
 	ld [hld], a
 	ret
 
-.Func_552ba:
-	call .Func_553e8
+.WaitToFly:
+	call .Blink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjVar1
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_552d4)
+	ld a, HIGH(.FlyToEdge)
 	ld [hld], a
-	ld a, LOW(.Func_552d4)
+	ld a, LOW(.FlyToEdge)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ret
 
-.Func_552d4:
-	call .Func_553e8
+.FlyToEdge:
+	call .Blink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjId]
@@ -769,7 +769,7 @@ SkullFunc:
 	rra
 	jr c, .asm_55303
 .asm_552f2
-	ld bc, Data_60ce0
+	ld bc, JamanoData_60ce0
 	jp ApplyObjYMovement
 .asm_552f8
 	cp SCREEN_WIDTH_PX
@@ -779,22 +779,22 @@ SkullFunc:
 	rra
 	jr nc, .asm_552f2
 .asm_55303
-	ld bc, Data_60d00
+	ld bc, JamanoData_60d00
 	jp ApplyObjYMovement
 .asm_55309
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5531c)
+	ld a, HIGH(.Settle)
 	ld [hld], a
-	ld a, LOW(.Func_5531c)
+	ld a, LOW(.Settle)
 	ld [hld], a
 	ld a, $27
 	ld [wCurObjStateDuration], a
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	inc [hl]
 	ret
 
-.Func_5531c:
-	call .Func_553e8
+.Settle:
+	call .Blink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -811,20 +811,20 @@ SkullFunc:
 	res 7, [hl]
 	res 4, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55347)
+	ld a, HIGH(.InPlace)
 	ld [hld], a
-	ld a, LOW(.Func_55347)
+	ld a, LOW(.InPlace)
 	ld [hld], a
-	ld de, Frameset_69cd6
+	ld de, JamanoFrameset_69cd6
 	jp SetObjectFramesetPtr
 
-.Func_55347:
-	ld a, [w1d149]
+.InPlace:
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr z, .asm_55355
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	jp .Func_553e8
+	jp .Blink
 .asm_55355
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
@@ -835,12 +835,12 @@ SkullFunc:
 	jr z, .asm_55366
 	ret
 .asm_55366
-	ld a, HIGH(.Func_55396)
-	ld c, LOW(.Func_55396)
+	ld a, HIGH(.KnockedRight)
+	ld c, LOW(.KnockedRight)
 	jr .asm_55370
 .asm_5536c
-	ld a, HIGH(.Func_553a0)
-	ld c, LOW(.Func_553a0)
+	ld a, HIGH(.KnockedLeft)
+	ld c, LOW(.KnockedLeft)
 .asm_55370
 	ld hl, wCurObjUpdateFunction + 1
 	ld [hld], a
@@ -850,27 +850,27 @@ SkullFunc:
 	ld [hld], a
 	inc a
 	ld [hl], a
-	ld de, Frameset_69cec
+	ld de, JamanoFrameset_69cec
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	play_sfx SFX_017
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	dec [hl]
 	ret
 
-.Func_55396:
+.KnockedRight:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jp nz, Func_3317
+	jp nz, ObjState_AttackedRight
 	jr .asm_553a8
 
-.Func_553a0:
+.KnockedLeft:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jp nz, Func_3326
+	jp nz, ObjState_AttackedLeft
 
 .asm_553a8
 	ld a, no_actions_for 1
@@ -908,8 +908,8 @@ SkullFunc:
 	ld [wJamanoActiveSkulls], a
 	ret
 
-.Func_553e8:
-	ld a, [w1d149]
+.Blink:
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_553f4
 	ld a, [wDollBoyHammerRange]
@@ -930,7 +930,7 @@ SkullFunc:
 	ret
 
 Func_55407:
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	ld b, a
 	ld hl, wDollBoyHammerRange
 	ld a, [hl]
@@ -946,52 +946,52 @@ Func_55407:
 	cp $03
 	ret nz
 	dec [hl]
-	call .Func_5548b
-	ld hl, Pals_555d1
+	call .AlertJamano
+	ld hl, JamanoPals_555d1
 	jr .asm_55484
 .asm_5542b
 	ld a, b
 	cp $01
 	ret nz
 	inc [hl]
-	call .Func_5548b
-	ld hl, Pals_55551
+	call .AlertJamano
+	ld hl, JamanoPals_55551
 	jr .asm_55484
 .asm_55438
 	ld a, b
 	cp $02
 	jr nz, .asm_55446
 	inc [hl]
-	call .Func_5548b
-	ld hl, Pals_55591
+	call .AlertJamano
+	ld hl, JamanoPals_55591
 	jr .asm_55484
 .asm_55446
 	and a
 	ret nz
 	dec [hl]
-	ld hl, Pals_55511
+	ld hl, JamanoPals_55511
 	jr .asm_55484
 .asm_5544e
 	ld a, b
 	cp $03
 	jr nz, .asm_5545c
 	inc [hl]
-	call .Func_5548b
-	ld hl, Pals_555d1
+	call .AlertJamano
+	ld hl, JamanoPals_555d1
 	jr .asm_55484
 .asm_5545c
 	cp $01
 	ret nz
 	dec [hl]
-	call .Func_5548b
-	ld hl, Pals_55551
+	call .AlertJamano
+	ld hl, JamanoPals_55551
 	jr .asm_55484
 .asm_55468
 	ld a, b
 	cp $04
 	jr nz, .asm_55478
 	inc [hl]
-	call .Func_5548b
+	call .AlertJamano
 	ld c, 0
 	ld b, 8
 	jp BlackOutBGPals
@@ -999,16 +999,16 @@ Func_55407:
 	cp $02
 	ret nz
 	dec [hl]
-	call .Func_5548b
-	ld hl, Pals_55591
+	call .AlertJamano
+	ld hl, JamanoPals_55591
 	jr .asm_55484 ; unnecessary jr
 .asm_55484
 	ld c, 0
 	ld b, 8
 	jp SetBGPals
 
-.Func_5548b:
-	ld a, [w1d149]
+.AlertJamano:
+	ld a, [wJamanoSkullsInactive]
 	and a
 	ret nz
 	xor a
@@ -1104,7 +1104,7 @@ Func_554bc:
 	ld [hl], c
 	ret
 
-Pals_55511:
+JamanoPals_55511:
 	rgb 10,  6,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1145,7 +1145,7 @@ Pals_55511:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_55551:
+JamanoPals_55551:
 	rgb  8,  4,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1186,7 +1186,7 @@ Pals_55551:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_55591:
+JamanoPals_55591:
 	rgb  7,  2,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1227,7 +1227,7 @@ Pals_55591:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_555d1:
+JamanoPals_555d1:
 	rgb  3,  0,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0

@@ -25,9 +25,9 @@ PillarPlatformFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49ce5)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49ce5)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -41,20 +41,20 @@ PillarPlatformFunc:
 	ld a, [wDayNight]
 	rra
 	jr c, .asm_49cbc
-	ld de, Frameset_6975b
+	ld de, PillarPlatformFrameset_6975b
 	jp SetObjectFramesetPtr
 
 .asm_49cbc
-	ld de, Frameset_6975e
+	ld de, PillarPlatformFrameset_6975e
 	jp SetObjectFramesetPtr
 
-.Func_49cc2:
+.Rise:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectUp_Fast
 	jr .asm_49cd8
-.Func_49cce:
+.Lower:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -63,13 +63,13 @@ PillarPlatformFunc:
 	xor a
 	ld [wCurObjState], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49ce5)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49ce5)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ret
 
-.Func_49ce5:
+.Update:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjState
 	ld a, [hl]
@@ -98,9 +98,9 @@ PillarPlatformFunc:
 	ld a, $09
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49cc2)
+	ld a, HIGH(.Rise)
 	ld [hld], a
-	ld a, LOW(.Func_49cc2)
+	ld a, LOW(.Rise)
 	ld [hld], a
 	ret
 
@@ -118,26 +118,26 @@ PillarPlatformFunc:
 	ld a, $09
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49cce)
+	ld a, HIGH(.Lower)
 	ld [hld], a
-	ld a, LOW(.Func_49cce)
+	ld a, LOW(.Lower)
 	ld [hld], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	add $03
 	ld e, a
 	ld c, $2b
 	ld a, $00
 	ld b, $00
-	call .Func_49d43
-	ld a, [wCurObjUnk01]
+	call .SetLinkedPlatformsState
+	ld a, [wCurObjMapPtrLo]
 	sub $03
 	ld e, a
 	ld a, $00
 	ld b, $00
-.Func_49d43:
+.SetLinkedPlatformsState:
 	ld h, HIGH(wObjects)
 .asm_49d45
-	ld l, OBJ_UNK_01
+	ld l, OBJ_MAP_PTR_LO
 	add l
 	ld l, a
 	ld a, [hl]

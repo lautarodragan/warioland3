@@ -42,7 +42,7 @@ InitCutscene06:
 	ld b, BANK(Pals_b8900)
 	ld hl, Pals_b8900
 	call LoadFarPalsToTempPals2
-	jp Func_9d01a
+	jp InitCutscene06Objs
 
 InitCutscene07:
 	call LoadCutscenes1Gfx_Vram0
@@ -56,13 +56,13 @@ InitCutscene07:
 	ld b, BANK(Pals_b89c0)
 	ld hl, Pals_b89c0
 	call LoadFarPalsToTempPals2
-	jp Func_9d158
+	jp InitCutscene07Objs
 
 InitCutscene08:
 	ld hl, Pals_b8ac0
 ;	fallthrough
 
-Func_9c25f:
+InitMusicBoxCutscene:
 	ld b, BANK(Pals_b8ac0)
 	call LoadFarPalsToTempPals2
 	ld hl, Pals_b8200
@@ -77,19 +77,19 @@ Func_9c25f:
 
 InitCutscene10:
 	ld hl, Pals_b8b00
-	jr Func_9c25f
+	jr InitMusicBoxCutscene
 
 InitCutscene1d:
 	ld hl, Pals_b8b80
-	jr Func_9c25f
+	jr InitMusicBoxCutscene
 
 InitCutscene17:
 	ld hl, Pals_b8b40
-	jr Func_9c25f
+	jr InitMusicBoxCutscene
 
 InitCutscene25:
 	ld hl, Pals_b8bc0
-	jr Func_9c25f
+	jr InitMusicBoxCutscene
 
 InitCutscene09:
 	ld b, BANK(Pals_b8200)
@@ -110,7 +110,7 @@ InitCutscene0a:
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps03
-	jp Func_9d0e6
+	jp InitCutscene0aObjs
 
 InitCutscene0c:
 	ld b, BANK(Pals_b8040)
@@ -199,7 +199,7 @@ InitCutscene15:
 	call LoadCutscenes2Gfx
 	call LoadCutsceneBGMaps14
 	call LoadCutsceneBGMaps13
-	jp Func_9da0e
+	jp InitCutscene15Objs
 
 InitCutscene19:
 	ld b, BANK(Pals_b8140)
@@ -250,7 +250,7 @@ InitCutscene1e:
 	decompress_attrmap Cutscene09Attrmap, v1BGMap0
 	decompress_tilemap Cutscene09Tilemap, v0BGMap0
 
-	jp Func_9d536
+	jp InitCutscene1eObjs
 
 InitCutscene22:
 	call LoadCutscenes3Gfx
@@ -276,7 +276,7 @@ InitCutscene24:
 	call LoadFarTiles
 	xor a
 	ldh [rVBK], a
-	jp Func_9db85
+	jp InitCutscene24Objs
 
 InitCutscene27:
 	ld b, BANK(LevelMainTiles14)
@@ -293,10 +293,10 @@ InitCutscene27:
 	decompress_attrmap Cutscene11Attrmap, v1BGMap0
 	decompress_tilemap Cutscene11Tilemap, v0BGMap0
 
-	ld hl, Pals_cc5c0
+	ld hl, RoomPals023
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_cc5c0)
+	ld b, BANK(RoomPals023)
 	call CopyFarBytes
 
 	decompress_tiles1 CartGfx, v0Tiles1
@@ -306,7 +306,7 @@ InitCutscene27:
 	ld b, 1 palettes
 	call CopyHLToDE
 
-	jp Func_9d64b
+	jp InitCutscene27Objs
 
 .palette
 	rgb  0, 25,  0
@@ -341,11 +341,11 @@ InitCutscene1f:
 	ld b, BANK(Pals_b8f00)
 	ld hl, Pals_b8f00
 	call LoadFarPalsToTempPals2
-	call Func_9c931
+	call LoadCutscenes7And5Gfx_Vram0
 	call LoadCutsceneBGMaps16
 	call SetBGPriorityOnTopRows_Vram0
-	call Func_9cc4f
-	jp Func_9dc6a
+	call SetBGPriorityOn6x7Rect_Vram0
+	jp InitCutscene1fObjs
 
 InitCutscene21:
 	ld b, BANK(Pals_b8300)
@@ -354,7 +354,7 @@ InitCutscene21:
 	ld b, BANK(Pals_b8300)
 	ld hl, Pals_b8300
 	call LoadFarPalsToTempPals2
-	call Func_9c977
+	call LoadCutscenes8And5Gfx_Vram1
 	ld b, BANK(LevelMainTiles22)
 	ld hl, LevelMainTiles22
 	call LoadFarTiles
@@ -377,17 +377,17 @@ InitCutscene38:
 	ld b, BANK(Pals_b8f80)
 	ld hl, Pals_b8f80
 	call LoadFarPalsToTempPals2
-	call Func_9c931
+	call LoadCutscenes7And5Gfx_Vram0
 	jp LoadCutsceneBGMaps03
 
 InitCutscene30:
 	ld b, BANK(LevelMainTiles7)
 	ld hl, LevelMainTiles7
 	call LoadFarTiles
-	call Func_9c977
+	call LoadCutscenes8And5Gfx_Vram1
 	call LoadCutsceneBGMaps26
 	call ClearTempPals_Bank27
-	jp Func_9ded4
+	jp InitCutscene30Objs
 
 InitCutscene39:
 	ld b, BANK(Pals_b8380)
@@ -406,7 +406,7 @@ InitCutscene3a:
 	call LoadFarTiles
 	call LoadCutsceneBGMaps37
 	call LoadCutsceneBGMaps38
-	jp Func_9e018
+	jp InitCutscene3aObjs
 
 InitCutscene3c:
 	ld b, BANK(Pals_b84c0)
@@ -415,7 +415,7 @@ InitCutscene3c:
 	ld b, BANK(Pals_b84c0)
 	ld hl, Pals_b84c0
 	call LoadFarPalsToTempPals2
-	call Func_9c977
+	call LoadCutscenes8And5Gfx_Vram1
 	ld b, BANK(LevelMainTiles31)
 	ld hl, LevelMainTiles31
 	call LoadFarTiles
@@ -441,7 +441,7 @@ InitCutscene54:
 	call LoadFarTiles
 	call LoadCutsceneBGMaps36
 	call ClearTempPals_Bank27
-	jp Func_9e2b8
+	jp InitCutscene54Objs
 
 InitCutscene3d:
 	ld b, BANK(Pals_b8700)
@@ -471,9 +471,9 @@ InitCutscene4a:
 	ld b, BANK(Pals_b9040)
 	ld hl, Pals_b9040
 	call LoadFarPalsToTempPals2
-	call Func_9c937
+	call LoadCutscenes7And10Gfx_Vram0
 	call LoadCutsceneBGMaps17
-	jp Func_9e438
+	jp InitCutscene4aObjs
 
 InitCutscene4c:
 	call ClearTempPals_Bank27
@@ -483,7 +483,7 @@ InitCutscene4c:
 
 	call LoadLevelMainTiles29_Vram1
 	call LoadCutsceneBGMaps32
-	jp Func_9e4ae
+	jp InitCutscene4cObjs
 
 InitCutscene4e:
 	call ClearTempPals_Bank27
@@ -504,7 +504,7 @@ InitCutscene4f:
 	ld hl, LevelMainTiles23
 	call LoadFarTiles
 	call LoadCutsceneBGMaps22
-	jp Func_9e5a1
+	jp InitCutscene4fObjs
 
 InitCutscene51:
 	ld b, BANK(Pals_b8400)
@@ -513,28 +513,28 @@ InitCutscene51:
 	ld b, BANK(Pals_b8400)
 	ld hl, Pals_b8400
 	call LoadFarPalsToTempPals2
-	call Func_9c931
+	call LoadCutscenes7And5Gfx_Vram0
 	call LoadCutsceneBGMaps18
 	call LoadCutsceneBGMaps19
 	call SetBGPriorityOnTopRows_Vram0
-	jp Func_9e655
+	jp InitCutscene51Objs
 
 InitCutscene56:
 	call ClearTempPals_Bank27
 	ld b, BANK(LevelMainTiles11)
 	ld hl, LevelMainTiles11
 	call LoadFarTiles
-	call Func_9c97d
+	call LoadCutscenes8And10Gfx_Vram1
 	call LoadCutsceneBGMaps24
 	call LoadCutsceneBGMaps25
-	jp Func_9e6ef
+	jp InitCutscene56Objs
 
 InitCutscene57:
 	call ClearTempPals_Bank27
-	call Func_9c937
+	call LoadCutscenes7And10Gfx_Vram0
 	call LoadCutsceneBGMaps29
 	call SetBGPriorityOnTopRows_Vram0
-	jp Func_9e79a
+	jp InitCutscene57Objs
 
 InitCutscene58:
 	call ClearTempPals_Bank27
@@ -545,7 +545,7 @@ InitCutscene58:
 	call LoadLevelMainTiles29_Vram1
 	call LoadCutsceneBGMaps39
 	call LoadCutsceneBGMaps040
-	jp Func_9e855
+	jp InitCutscene58Objs
 
 InitCutscene55:
 	call ClearTempPals_Bank27
@@ -563,7 +563,7 @@ InitCutscene44:
 	ld b, BANK(Pals_b90c0)
 	ld hl, Pals_b90c0
 	call LoadFarPalsToTempPals2
-	call Func_9c931
+	call LoadCutscenes7And5Gfx_Vram0
 
 	decompress_tiles1 OctohonGfx, v1Tiles1, $40
 
@@ -571,7 +571,7 @@ InitCutscene44:
 	call LoadCutsceneBGMaps04
 	call SetBGPriorityOnTopRows_BGMap1
 	call SetBGPriorityOnTopRows_Vram0
-	call Func_9cc4f
+	call SetBGPriorityOn6x7Rect_Vram0
 	ret
 
 LoadCutscenes1Gfx_Vram0:
@@ -606,11 +606,11 @@ LoadCutscenes7Gfx_Vram1:
 	decompress_tiles1 Cutscenes7Gfx, v1Tiles0
 	jp LoadCutscenes5Gfx_Vram1
 
-Func_9c931:
+LoadCutscenes7And5Gfx_Vram0:
 	call LoadCutscenes7Gfx_Vram0
 	jp LoadCutscenes5Gfx_Vram0
 
-Func_9c937:
+LoadCutscenes7And10Gfx_Vram0:
 	call LoadCutscenes7Gfx_Vram0
 	jp LoadCutscenes10Gfx_Vram0
 
@@ -622,11 +622,11 @@ LoadCutscenes8Gfx_Vram0:
 	decompress_tiles0 Cutscenes8Gfx, v0Tiles0
 	jp LoadCutscenes5Gfx_Vram0
 
-Func_9c977:
+LoadCutscenes8And5Gfx_Vram1:
 	call LoadCutscenes8Gfx_Vram1
 	jp LoadCutscenes5Gfx_Vram1
 
-Func_9c97d:
+LoadCutscenes8And10Gfx_Vram1:
 	call LoadCutscenes8Gfx_Vram1
 	jp LoadCutscenes10Gfx_Vram1
 
@@ -960,7 +960,7 @@ SetBGPriorityOnTopRows_BGMap1:
 
 ; fills 6x7 rectangle in attribute map at coordinate 0, 5
 ; sets those tiles to use vram0 tiles and with priority
-Func_9cc4f:
+SetBGPriorityOn6x7Rect_Vram0:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld d, BG_BANK0 | BG_PRIO
@@ -998,7 +998,7 @@ ClearTempPals_Bank27:
 	call WriteAToHL_BCTimes
 	ret
 
-Func_9cc87:
+ClearBGOBPals_Bank27:
 	xor a
 	ld hl, wTempBGPals
 	ld bc, 8 palettes
@@ -1061,7 +1061,7 @@ VBlank_Cutscene:
 ; a = state
 ; d = y coord
 ; e = x coord
-Func_9ccf9:
+SetSceneObjPosAndState:
 	ld [hl], d
 	inc l
 	ld [hl], e
@@ -1071,14 +1071,14 @@ Func_9ccf9:
 	ret
 
 AdvanceCutsceneFunc:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 WaitCutsceneFunc:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp c
 	ret c
 	jr AdvanceCutsceneFunc
@@ -1087,7 +1087,7 @@ StartCutsceneDelay:
 	ld c, 30
 	jp WaitCutsceneFunc
 
-Func_9cd16:
+ExitCutscene:
 	ld hl, wSubState
 	inc [hl]
 	stop_sfx
@@ -1097,10 +1097,10 @@ EndCutsceneDelay_20Frames:
 	ld e, 20
 ;	fallthrough
 EndCutscene:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp e
 	ret c
-	jr Func_9cd16
+	jr ExitCutscene
 
 EndCutsceneDelay_40Frames:
 	ld e, 40
@@ -1122,7 +1122,7 @@ EndCutsceneDelay_120Frames:
 	ld e, 120
 	jr EndCutscene
 
-Func_9cd40:
+SetPalConfig1ToTempPals1:
 	ld a, HIGH(wTempPals1)
 	ld [wPalConfig1SourceHi], a
 	ld a, LOW(wTempPals1)
@@ -1135,7 +1135,7 @@ Func_9cd40:
 	ld [wPalConfig1Register], a
 	ret
 
-Func_9cd5a:
+SetPalConfig2ToTempPals2:
 	ld a, HIGH(wTempPals2)
 	ld [wPalConfig2SourceHi], a
 	ld a, LOW(wTempPals2)
@@ -1148,7 +1148,7 @@ Func_9cd5a:
 	ld [wPalConfig2Register], a
 	ret
 
-Func_9cd74:
+CopyTempPalsToBGOBPals:
 	push hl
 	ld hl, wTempPals2
 	ld de, wTempOBPals
@@ -1161,23 +1161,23 @@ Func_9cd74:
 	pop hl
 	ret
 
-Func_9cd8d:
-	farcall Func_85046
+CutsceneFadeToWhite:
+	farcall _CutsceneFadeToWhite
 	ret
 
-Func_9cd9d:
-	farcall Func_850b9
+CutsceneFadeOBToWhite:
+	farcall _CutsceneFadeOBToWhite
 	ret
 
-Func_9cdad:
-	farcall Func_850ff
+CutsceneFadeBGToWhite:
+	farcall _CutsceneFadeBGToWhite
 	ret
 
-Func_9cdbd:
-	farcall Func_84fff
+CutsceneFadePals:
+	farcall _CutsceneFadePals
 	ret
 
-Func_9cdcd:
+CutsceneScreenShake:
 	ld hl, wCollectionScrollMode
 	inc [hl]
 	ld a, [wCollectionLinkStateCounter]
@@ -1231,13 +1231,13 @@ Func_9cdcd:
 	ld [hl], a
 	jp AdvanceCutsceneFunc
 
-Func_9ce1f:
+PlaySFX_112:
 	play_sfx SFX_112
 	ret
 
 DoCutsceneFunc:
 	call ProcessDPadRepeat
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	inc [hl]
 	ld b, h
 	ld c, l
@@ -1354,10 +1354,10 @@ PrologueFunc:
 
 Cutscene03Func:
 	call .PlayCutscene
-	jp Func_9f0e0
+	jp UpdateCutsceneObjs_OpenNorthGate
 
 .PlayCutscene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9cf36
@@ -1376,7 +1376,7 @@ Cutscene03Func:
 	dw .Func_9d001
 	dw .Func_9d00a
 	dw .Wait30_4
-	dw Func_9cd8d
+	dw CutsceneFadeToWhite
 	dw EndCutsceneDelay_40Frames
 
 .Func_9cf36:
@@ -1501,7 +1501,7 @@ Cutscene03Func:
 	ld c, 30
 	jp WaitCutsceneFunc
 
-Func_9d01a:
+InitCutscene06Objs:
 	ld hl, wSceneObj2
 	ld a, 72 ; y
 	ld [hli], a
@@ -1509,23 +1509,23 @@ Func_9d01a:
 	ld a, $01
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jp Func_9f11e
+	jp UpdateCutsceneObjs_Rainstorm
 
 Cutscene06Func:
-	call .Func_9d033
-	jp Func_9f11e
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_Rainstorm
 
-.Func_9d033:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d04b
-	dw .Func_9d071
+	dw .Wait30
 	dw .Func_9d076
-	dw .Func_9d071
+	dw .Wait30
 	dw .Func_9d09c
 	dw .Func_9d0af
-	dw .Func_9d0bc
+	dw .Wait100
 	dw .Func_9d0c1
 	dw EndCutsceneDelay_40Frames
 
@@ -1552,7 +1552,7 @@ Cutscene06Func:
 	play_sfx SFX_102
 	ret
 
-.Func_9d071:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -1597,7 +1597,7 @@ Cutscene06Func:
 	ld [wColourFadeDiff], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d0bc:
+.Wait100:
 	ld c, 100
 	jp WaitCutsceneFunc
 
@@ -1624,7 +1624,7 @@ Cutscene06Func:
 	play_sfx SFX_023
 	ret
 
-Func_9d0e6:
+InitCutscene0aObjs:
 	ld a, $03
 	ld [wSceneObj1YCoord], a
 	ld hl, wSceneObj2
@@ -1641,21 +1641,21 @@ Func_9d0e6:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	jp Func_9f146
+	jp UpdateCutsceneObjs_RaiseTower
 
 Cutscene0aFunc:
-	call .Func_9d114
-	jp Func_9f146
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RaiseTower
 
-.Func_9d114:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d126
-	dw .Func_9d140
+	dw .Wait50
 	dw .Func_9d145
-	dw .Func_9d153
-	dw Func_9cd8d
+	dw .Wait30
+	dw CutsceneFadeToWhite
 	dw EndCutsceneDelay_20Frames
 
 .Func_9d126:
@@ -1678,7 +1678,7 @@ Cutscene0aFunc:
 	inc [hl]
 	ret
 
-.Func_9d140:
+.Wait50:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -1686,11 +1686,11 @@ Cutscene0aFunc:
 	call .Func_9d133
 	play_sfx SFX_106
 	jp AdvanceCutsceneFunc
-.Func_9d153:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
-Func_9d158:
+InitCutscene07Objs:
 	ld hl, wSceneObj2
 	ld a, 88 ; y
 	ld [hli], a
@@ -1714,22 +1714,22 @@ Func_9d158:
 	ld a, $0a
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	jp Func_9f174
+	jp UpdateCutsceneObjs_FixElevator
 
 Cutscene07Func:
-	call .Func_9d191
-	jp Func_9f174
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_FixElevator
 
-.Func_9d191:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d1c5
-	dw .Func_9d1e4
+	dw .Wait50_1
 	dw .Func_9d1e9
-	dw .Func_9d1fc
+	dw .Wait30
 	dw .Func_9d201
-	dw .Func_9d20c
+	dw .Wait40_1
 	dw .Func_9d211
 	dw .Func_9d21c
 	dw .Func_9d22c
@@ -1738,12 +1738,12 @@ Cutscene07Func:
 	dw .Func_9d21c
 	dw .Func_9d22c
 	dw .Func_9d21c
-	dw .Func_9d234
+	dw .Wait50_2
 	dw .Func_9d239
-	dw .Func_9d244
+	dw .Wait40_2
 	dw .Func_9d249
 	dw .Func_9d25c
-	dw .Func_9d264
+	dw .Wait50_3
 	dw .Func_9d269
 	dw .Func_9d274
 	dw EndCutsceneDelay_60Frames
@@ -1762,7 +1762,7 @@ Cutscene07Func:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-.Func_9d1e4:
+.Wait50_1:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -1773,7 +1773,7 @@ Cutscene07Func:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-.Func_9d1fc:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -1783,7 +1783,7 @@ Cutscene07Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d20c:
+.Wait40_1:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -1806,7 +1806,7 @@ Cutscene07Func:
 	ret z
 	jp AdvanceCutsceneFunc
 
-.Func_9d234:
+.Wait50_2:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -1816,7 +1816,7 @@ Cutscene07Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d244:
+.Wait40_2:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -1833,7 +1833,7 @@ Cutscene07Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d264:
+.Wait50_3:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -1850,26 +1850,26 @@ Cutscene07Func:
 	jp AdvanceCutsceneFunc
 
 Cutscene19Func:
-	call .Func_9d285
-	jp Func_9f1d8
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RevealCastle
 
-.Func_9d285:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d2a9
 	dw .Func_9d2bc
-	dw .Func_9d2cc
+	dw .Wait90
 	dw .Func_9d2d1
-	dw .Func_9d2e4
+	dw .Wait30
 	dw .Func_9d2e9
-	dw .Func_9d2fa
+	dw .Wait60
 	dw .Func_9d2ff
-	dw .Func_9d326
+	dw .Wait8
 	dw .Func_9d32b
-	dw .Func_9d326
+	dw .Wait8
 	dw .Func_9d330
-	dw .Func_9d326
+	dw .Wait8
 	dw .Func_9d335
 	dw EndCutsceneDelay_60Frames
 
@@ -1888,12 +1888,12 @@ Cutscene19Func:
 	dec [hl]
 	ld a, [hl]
 	cp $86
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d2cc:
+.Wait90:
 	ld c, 90
 	jp WaitCutsceneFunc
 
@@ -1904,7 +1904,7 @@ Cutscene19Func:
 	play_sfx SFX_073
 	jp AdvanceCutsceneFunc
 
-.Func_9d2e4:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -1917,7 +1917,7 @@ Cutscene19Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d2fa:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -1939,7 +1939,7 @@ Cutscene19Func:
 	ld [wPalConfig1Register], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d326:
+.Wait8:
 	ld c, 8
 	jp WaitCutsceneFunc
 
@@ -1957,29 +1957,29 @@ Cutscene19Func:
 
 Cutscene0eFunc:
 Cutscene11Func:
-	call .Func_9d340
+	call .PlayCutscene
 	jp Func_9f1f3
 
-.Func_9d340:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d36a
 	dw .Func_9d37a
 	dw .Func_9d392
-	dw .Func_9d3a2
+	dw .Wait60
 	dw .Func_9d3a7
-	dw .Func_9d3dc
+	dw .Wait30_1
 	dw .Func_9d3e1
 	dw .Func_9d3f9
 	dw EndCutsceneDelay_60Frames
 
 	dw .Func_9d37a
 	dw .Func_9d392
-	dw .Func_9d3a2
+	dw .Wait60
 	dw .Func_9d409
-	dw .Func_9d3dc
-	dw .Func_9d40e
+	dw .Wait30_1
+	dw .Wait30_2
 	dw .Func_9d413
 	dw .Func_9d426
 	dw EndCutsceneDelay_60Frames
@@ -1989,7 +1989,7 @@ Cutscene11Func:
 	cp EVENT_SUMMON_LIGHTNING
 	jp nz, AdvanceCutsceneFunc
 	ld a, $09
-	ld [w2d013], a
+	ld [wOWStep], a
 	jp AdvanceCutsceneFunc
 
 .Func_9d37a:
@@ -2009,12 +2009,12 @@ Cutscene11Func:
 	dec [hl]
 	ld a, [hl]
 	cp $92
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $6c
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d3a2:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -2043,7 +2043,7 @@ Cutscene11Func:
 	ld [wPalConfig1Register], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d3dc:
+.Wait30_1:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -2074,7 +2074,7 @@ Cutscene11Func:
 	ld hl, Pals_b8200
 	jr .asm_9d3aa
 
-.Func_9d40e:
+.Wait30_2:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -2106,27 +2106,27 @@ Cutscene11Func:
 	ret
 
 Cutscene1bFunc:
-	call .Func_9d44a
-	call Func_9f225
+	call .PlayCutscene
+	call UpdateCutsceneObjs_SummonSun
 	jp Func_9f244
 
-.Func_9d44a:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d46c
 	dw .Func_9d48f
-	dw .Func_9d4ae
-	dw Func_9cd9d
-	dw .Func_9d4b3
-	dw Func_9cdad
-	dw .Func_9d4b8
+	dw .Wait90
+	dw CutsceneFadeOBToWhite
+	dw .Wait8
+	dw CutsceneFadeBGToWhite
+	dw .Wait60
 	dw .Func_9d4bd
 	dw .Func_9d4ec
-	dw .Func_9d4ff
+	dw .Wait20
 	dw .Func_9d504
 	dw .Func_9d51d
-	dw .Func_9d531
+	dw .Wait100
 	dw EndCutsceneDelay_120Frames
 
 .Func_9d46c:
@@ -2164,15 +2164,15 @@ Cutscene1bFunc:
 	dec [hl]
 	ret
 
-.Func_9d4ae:
+.Wait90:
 	ld c, 90
 	jp WaitCutsceneFunc
 
-.Func_9d4b3:
+.Wait8:
 	ld c, 8
 	jp WaitCutsceneFunc
 
-.Func_9d4b8:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -2181,19 +2181,19 @@ Cutscene1bFunc:
 	ld [wSceneObj2State], a
 	ld [wSceneObj3State], a
 
-	ld b, BANK(Pals_b8340)
+	ld b, BANK(SummonSunCutscenePals_b8340)
 	ld c, 8 palettes
-	ld hl, Pals_b8340
+	ld hl, SummonSunCutscenePals_b8340
 	ld de, wTempPals1
 	call CopyFarBytes
-	call Func_9cd40
+	call SetPalConfig1ToTempPals1
 
-	ld b, BANK(Pals_b8340)
+	ld b, BANK(SummonSunCutscenePals_b8340)
 	ld c, 8 palettes
-	ld hl, Pals_b8340
+	ld hl, SummonSunCutscenePals_b8340
 	ld de, wTempPals2
 	call CopyFarBytes
-	call Func_9cd5a
+	call SetPalConfig2ToTempPals2
 
 	ld a, $08
 	ld [wCollectionRow], a
@@ -2209,7 +2209,7 @@ Cutscene1bFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d4ff:
+.Wait20:
 	ld c, 20
 	jp WaitCutsceneFunc
 
@@ -2221,7 +2221,7 @@ Cutscene1bFunc:
 	jr c, .asm_9d510
 	ld b, $07
 .asm_9d510
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and b
 	ret nz
 	inc [hl]
@@ -2242,11 +2242,11 @@ Cutscene1bFunc:
 	ld [hl], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d531:
+.Wait100:
 	ld c, 100
 	jp WaitCutsceneFunc
 
-Func_9d536:
+InitCutscene1eObjs:
 	ld hl, wSceneObj2
 	ld a, 83 ; y
 	ld [hli], a
@@ -2268,28 +2268,28 @@ Func_9d536:
 	ld a, $03
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	jp Func_9f2a2
+	jp UpdateCutsceneObjs_ExplodeBombs
 
 Cutscene1eFunc:
-	call .Func_9d56f
-	jp Func_9f2a2
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_ExplodeBombs
 
-.Func_9d56f:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
-	dw .Func_9d589
+	dw .Wait15
 	dw .Func_9d58e
-	dw .Func_9d5a1
+	dw .Wait60
 	dw .Func_9d5a6
-	dw .Func_9d5b9
+	dw .Wait70
 	dw .Func_9d5be
 	dw .Func_9d5c7
-	dw .Func_9d5d2
-	dw Func_9cd8d
-	dw Func_9cd16
+	dw .Wait30
+	dw CutsceneFadeToWhite
+	dw ExitCutscene
 
-.Func_9d589:
+.Wait15:
 	ld c, 15
 	jp WaitCutsceneFunc
 
@@ -2302,7 +2302,7 @@ Cutscene1eFunc:
 	play_sfx SFX_SWITCH
 	jp AdvanceCutsceneFunc
 
-.Func_9d5a1:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -2313,7 +2313,7 @@ Cutscene1eFunc:
 	play_sfx SFX_10E
 	jp AdvanceCutsceneFunc
 
-.Func_9d5b9:
+.Wait70:
 	ld c, 70
 	jp WaitCutsceneFunc
 
@@ -2329,42 +2329,42 @@ Cutscene1eFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d5d2:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
 Cutscene22Func:
-	call .Func_9d5dd
-	jp Func_9f2cd
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_TreasureMap
 
-.Func_9d5dd:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d5f1
-	dw Func_9cdbd
-	dw .Func_9d611
+	dw CutsceneFadePals
+	dw .Wait45
 	dw .Func_9d616
 	dw .Func_9d631
 	dw .Func_9d642
 	dw EndCutsceneDelay_20Frames
 
 .Func_9d5f1:
-	ld hl, Pals_b8100
+	ld hl, TreasureMapCutscenePals_b8100
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_b8100)
+	ld b, BANK(TreasureMapCutscenePals_b8100)
 	call CopyFarBytes
 
-	ld hl, Pals_b8d00
+	ld hl, TreasureMapCutscenePals_b8d00
 	ld de, wTempPals2
 	ld c, 8 palettes
-	ld b, BANK(Pals_b8d00)
+	ld b, BANK(TreasureMapCutscenePals_b8d00)
 	call CopyFarBytes
-	call Func_9cc87
+	call ClearBGOBPals_Bank27
 	jp AdvanceCutsceneFunc
 
-.Func_9d611:
+.Wait45:
 	ld c, 45
 	jp WaitCutsceneFunc
 
@@ -2392,7 +2392,7 @@ Cutscene22Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-Func_9d64b:
+InitCutscene27Objs:
 	ld hl, wSceneObj2
 	ld a, 86 ; y
 	ld [hli], a
@@ -2403,18 +2403,18 @@ Func_9d64b:
 	jp Func_9f2f3
 
 Cutscene27Func:
-	call .Func_9d664
+	call .PlayCutscene
 	jp Func_9f2f3
 
-.Func_9d664:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d674
-	dw .Func_9d687
+	dw .Wait50
 	dw .Func_9d68c
-	dw .Func_9d69f
-	dw Func_9cd16
+	dw .Wait180
+	dw ExitCutscene
 
 .Func_9d674:
 	ld a, $02
@@ -2423,7 +2423,7 @@ Cutscene27Func:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-.Func_9d687:
+.Wait50:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -2434,16 +2434,16 @@ Cutscene27Func:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-.Func_9d69f:
+.Wait180:
 	ld c, 180
 	jp WaitCutsceneFunc
 
 Cutscene09Func:
-	call .Func_9d6aa
-	jp Func_9fbfa
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_PlantSeeds
 
-.Func_9d6aa:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d6b6
@@ -2467,46 +2467,46 @@ Cutscene09Func:
 	dec [hl]
 	ld a, [hl]
 	cp $88
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $62
 	ret nz
 	jp AdvanceCutsceneFunc
 
 Cutscene08Func:
 	ld b, $01
-	jr Func_9d6f0
+	jr MusicBoxCutsceneFunc
 
 Cutscene10Func:
 	ld b, $03
-	jr Func_9d6f0
+	jr MusicBoxCutsceneFunc
 
 Cutscene17Func:
 	ld b, $05
-	jr Func_9d6f0
+	jr MusicBoxCutsceneFunc
 
 Cutscene1dFunc:
 	ld b, $07
-	jr Func_9d6f0
+	jr MusicBoxCutsceneFunc
 
 Cutscene25Func:
 	ld b, $09
 ;	fallthrough
 
-Func_9d6f0:
+MusicBoxCutsceneFunc:
 	call .Func_9d6f6
-	jp Func_9fc1d
+	jp UpdateCutsceneObjs_MusicBox
 
 .Func_9d6f6:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d70c
 	dw .Func_9d723
-	dw .Func_9d733
+	dw .Wait30
 	dw .Func_9d738
-	dw .Func_9d744
+	dw .Wait50
 	dw .Func_9d749
-	dw .Func_9d792
+	dw .Wait254
 	dw EndCutsceneDelay_80Frames
 
 .Func_9d70c:
@@ -2526,12 +2526,12 @@ Func_9d6f0:
 	dec [hl]
 	ld a, [hl]
 	cp $88
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $62
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d733:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -2543,7 +2543,7 @@ Func_9d6f0:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9d744:
+.Wait50:
 	ld c, 50
 	jp WaitCutsceneFunc
 
@@ -2578,7 +2578,7 @@ Func_9d6f0:
 	play_sfx SFX_122
 	ret
 
-.Func_9d792:
+.Wait254:
 	ld c, 254
 	jp WaitCutsceneFunc
 
@@ -2587,7 +2587,7 @@ Cutscene02Func:
 	jp OWCutTree
 
 .PlayCutscene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .ShowAxe
@@ -2620,7 +2620,7 @@ Cutscene02Func:
 	inc l
 	dec [hl]
 	cp $86
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2670,11 +2670,11 @@ Cutscene02Func:
 	jp AdvanceCutsceneFunc
 
 Cutscene0cFunc:
-	call .Func_9d834
-	jp Func_9f323
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_BlowMist
 
-.Func_9d834:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d840
@@ -2699,22 +2699,22 @@ Cutscene0cFunc:
 	ld a, [hli]
 	dec [hl]
 	cp $8a
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $64
 	ret nz
 	jp AdvanceCutsceneFunc
 
 Cutscene18Func:
-	call .Func_9d86f
+	call .PlayCutscene
 	jp Func_9f1f3
 
-.Func_9d86f:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d87f
 	dw .Func_9d897
-	dw .Func_9d8a8
+	dw .Wait20
 	dw .Func_9d8ad
 	dw EndCutsceneDelay_60Frames
 
@@ -2736,12 +2736,12 @@ Cutscene18Func:
 	ld a, [hli]
 	dec [hl]
 	cp $8a
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $64
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d8a8:
+.Wait20:
 	ld c, 20
 	jp WaitCutsceneFunc
 
@@ -2751,24 +2751,24 @@ Cutscene18Func:
 	jp AdvanceCutsceneFunc
 
 Cutscene0dFunc:
-	call .Func_9d8bb
-	jp Func_9f340
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_SummonSnakes
 
-.Func_9d8bb:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d8d9
 	dw .Func_9d8ec
-	dw .Func_9d8fc
+	dw .Wait20
 	dw .Func_9d901
-	dw .Func_9d909
+	dw .Wait60
 	dw .Func_9d90e
 	dw .Func_9d929
 	dw .Func_9d94c
 	dw .Func_9d929
 	dw .Func_9d973
-	dw .Func_9d980
+	dw .Wait80
 	dw EndCutsceneDelay_20Frames
 
 .Func_9d8d9:
@@ -2786,12 +2786,12 @@ Cutscene0dFunc:
 	dec [hl]
 	ld a, [hl]
 	cp $7a
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $54
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d8fc:
+.Wait20:
 	ld c, 20
 	jp WaitCutsceneFunc
 
@@ -2800,7 +2800,7 @@ Cutscene0dFunc:
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d909:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -2867,25 +2867,25 @@ Cutscene0dFunc:
 	ld [wSceneObj4State], a
 	jp AdvanceCutsceneFunc
 
-.Func_9d980:
+.Wait80:
 	ld c, 80
 	jp WaitCutsceneFunc
 
 Cutscene13Func:
-	call .Func_9d98b
-	jp Func_9f367
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_FootStone
 
-.Func_9d98b:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d9a1
 	dw .Func_9d9c5
 	dw .Func_9d9d8
 	dw .Func_9d9e5
-	dw .Func_9d9f4
+	dw .Wait30
 	dw .Func_9d9f9
-	dw Func_9cdcd
+	dw CutsceneScreenShake
 	dw EndCutsceneDelay_40Frames
 
 .Func_9d9a1:
@@ -2910,7 +2910,7 @@ Cutscene13Func:
 	ld a, [hl]
 	ld [wSceneObj3YCoord], a
 	cp $86
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $60
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2935,7 +2935,7 @@ Cutscene13Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9d9f4:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -2950,7 +2950,7 @@ Cutscene13Func:
 	play_sfx SFX_061
 	jp AdvanceCutsceneFunc
 
-Func_9da0e:
+InitCutscene15Objs:
 	ld a, $05
 	ld hl, wSceneObj4State
 	call SetSceneObjState
@@ -2969,23 +2969,23 @@ Func_9da0e:
 
 Cutscene15Func:
 Cutscene49Func:
-	call .Func_9da37
+	call .PlayCutscene
 	jp Func_9f38d
 
-.Func_9da37:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
-	dw .Func_9da4d
+	dw .Wait20
 	dw .Func_9da52
 	dw .Func_9da65
 	dw .Func_9da7c
 	dw .Func_9da8b
-	dw .Func_9dac4
+	dw .Wait40
 	dw .Func_9dac9
 	dw EndCutsceneDelay_40Frames
 
-.Func_9da4d:
+.Wait20:
 	ld c, 20
 	jp WaitCutsceneFunc
 
@@ -3046,7 +3046,7 @@ Cutscene49Func:
 	ld [wSceneObj3XCoord], a
 	jp AdvanceCutsceneFunc
 
-.Func_9dac4:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -3074,7 +3074,7 @@ Cutscene49Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9daf0:
-	ld hl, wSceneObj4Unk7
+	ld hl, wSceneObj4MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $11
@@ -3085,11 +3085,11 @@ Cutscene49Func:
 	ret
 
 Cutscene04Func:
-	call .Func_9db09
-	jp Func_9f3cd
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_ExpelTornado
 
-.Func_9db09:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9db1b
@@ -3116,7 +3116,7 @@ Cutscene04Func:
 	ld hl, wSceneObj2
 	call .Func_9db43
 	cp $70
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $4a
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -3157,7 +3157,7 @@ Cutscene04Func:
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
-Func_9db85:
+InitCutscene24Objs:
 	ld hl, wSceneObj2
 	ld a, 104 ; y
 	ld [hli], a
@@ -3165,20 +3165,20 @@ Func_9db85:
 	ld a, $01
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jp Func_9f3ee
+	jp UpdateCutsceneObjs_OpenTreeMouth
 
 Cutscene24Func:
-	call .Func_9db9e
-	jp Func_9f3ee
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_OpenTreeMouth
 
-.Func_9db9e:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dbb2
 	dw .Func_9dbc9
 	dw .Func_9dbe5
-	dw .Func_9dbf8
+	dw .Wait40
 	dw .Func_9dbfd
 	dw .Func_9dc63
 	dw EndCutsceneDelay_40Frames
@@ -3222,12 +3222,12 @@ Cutscene24Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9dbf8:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
 .Func_9dbfd:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	call .Func_9dc0e
 	ld hl, wSceneObj2YCoord
 	add [hl]
@@ -3258,7 +3258,7 @@ Cutscene24Func:
 	ld [wSceneObj2State], a
 	jp AdvanceCutsceneFunc
 
-Func_9dc6a:
+InitCutscene1fObjs:
 	ld hl, wSceneObj3
 	ld a, 96 ; y
 	ld [hli], a
@@ -3266,14 +3266,14 @@ Func_9dc6a:
 	ld a, $04
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	jp Func_9f423
+	jp UpdateCutsceneObjs_LeavesFall
 
 Cutscene1fFunc:
-	call .Func_9dc83
-	jp Func_9f423
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_LeavesFall
 
-.Func_9dc83:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dc99
@@ -3282,7 +3282,7 @@ Cutscene1fFunc:
 	dw .Func_9dcd5
 	dw .Func_9dce4
 	dw .Func_9dcf5
-	dw .Func_9dcfe
+	dw .Wait40
 	dw EndCutsceneDelay_120Frames
 
 .Func_9dc99:
@@ -3343,37 +3343,37 @@ Cutscene1fFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9dcfe:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
 Cutscene21Func:
-	call .Func_9dd09
-	jp Func_9f49c
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_MakeWire
 
-.Func_9dd09:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dd60
 	dw .Func_9dd8b
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9dda1
 	dw .Func_9dda9
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9ddb3
 	dw .Func_9ddbb
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9ddc2
 	dw .Func_9ddca
 	dw .Func_9ddd8
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9dddf
 	dw .Func_9dde3
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9ddea
 	dw .Func_9ddee
-	dw .Func_9dd9c
+	dw .Wait60
 	dw .Func_9ddf5
 	dw .Func_9dd80
 	dw .Func_9ddf9
@@ -3440,7 +3440,7 @@ Cutscene21Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9dd9c:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -3521,15 +3521,15 @@ Cutscene21Func:
 	jp AdvanceCutsceneFunc
 
 Cutscene37Func:
-	call .Func_9de0d
-	jp Func_9f508
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_TorchForest
 
-.Func_9de0d:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9de1b
-	dw .Func_9de33
+	dw .Wait40
 	dw .Func_9de38
 	dw EndCutsceneDelay_100Frames
 
@@ -3545,7 +3545,7 @@ Cutscene37Func:
 	ld [wSceneObj1YCoord], a
 	jp AdvanceCutsceneFunc
 
-.Func_9de33:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -3554,17 +3554,17 @@ Cutscene37Func:
 	dec [hl]
 	ld a, [hl]
 	cp $8e
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $68
 	ret nz
 	jp AdvanceCutsceneFunc
 
 Cutscene38Func:
-	call .Func_9de4e
-	jp Func_9f547
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RevealWarpedVoid
 
-.Func_9de4e:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9de68
@@ -3573,8 +3573,8 @@ Cutscene38Func:
 	dw .Func_9de9d
 	dw .Func_9deae
 	dw .Func_9debf
-	dw .Func_9dec8
-	dw Func_9cd8d
+	dw .Wait120
+	dw CutsceneFadeToWhite
 	dw .Func_9decd
 	dw EndCutsceneDelay_40Frames
 
@@ -3591,7 +3591,7 @@ Cutscene38Func:
 	call SetSceneObjState
 	ld a, $01
 	ld [wSceneObj1YCoord], a
-	call Func_9ce1f
+	call PlaySFX_112
 	jp AdvanceCutsceneFunc
 
 .Func_9de87:
@@ -3628,7 +3628,7 @@ Cutscene38Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9dec8:
+.Wait120:
 	ld c, 120
 	jp WaitCutsceneFunc
 
@@ -3637,7 +3637,7 @@ Cutscene38Func:
 	ld [wSceneObj2State], a
 	jp AdvanceCutsceneFunc
 
-Func_9ded4:
+InitCutscene30Objs:
 	ld hl, wSceneObj2
 	ld a, 88 ; y
 	ld [hli], a
@@ -3667,44 +3667,44 @@ Func_9ded4:
 	ld [hli], a
 	ld [hl], 52 ; x
 
-	jp Func_9f5a0
+	jp UpdateCutsceneObjs_RaiseIceBlocks
 
 Cutscene30Func:
-	call .Func_9df15
-	jp Func_9f5a0
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RaiseIceBlocks
 
-.Func_9df15:
+.PlayCutscene:
 	call .Func_9dfb6
 	call .Func_9dfa6
 	call .Func_9dfae
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9df3c
-	dw Func_9cdbd
-	dw .Func_9df52
+	dw CutsceneFadePals
+	dw .Wait10
 	dw .Func_9df57
 	dw .Func_9df62
 	dw .Func_9df57
 	dw .Func_9df62
 	dw .Func_9df57
 	dw .Func_9df62
-	dw .Func_9df6b
+	dw .Wait30
 	dw .Func_9df70
 	dw EndCutsceneDelay_20Frames
 
 .Func_9df3c:
-	call Func_9cc87
-	ld b, BANK(Pals_b8500)
-	ld hl, Pals_b8500
+	call ClearBGOBPals_Bank27
+	ld b, BANK(RaiseIceBlocksCutscenePals_b8500)
+	ld hl, RaiseIceBlocksCutscenePals_b8500
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8500)
-	ld hl, Pals_b8500
+	ld b, BANK(RaiseIceBlocksCutscenePals_b8500)
+	ld hl, RaiseIceBlocksCutscenePals_b8500
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
-.Func_9df52:
+.Wait10:
 	ld c, 10
 	jp WaitCutsceneFunc
 
@@ -3720,12 +3720,12 @@ Cutscene30Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9df6b:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
 .Func_9df70:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $07
 	ret nz
 	ld hl, wSceneObj3YCoord
@@ -3774,7 +3774,7 @@ Cutscene30Func:
 	ld a, [de]
 	and a
 	ret z
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $01
 	ret nz
 	dec [hl]
@@ -3786,24 +3786,24 @@ Cutscene30Func:
 	ret
 
 Cutscene39Func:
-	call .Func_9dfd3
-	jp Func_9f607
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RaisePipe
 
-.Func_9dfd3:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dfe3
 	dw .Func_9dff1
 	dw .Func_9e004
-	dw .Func_9e013
+	dw .Wait100
 	dw EndCutsceneDelay_40Frames
 
 .Func_9dfe3:
 	ld hl, wSceneObj2
 	lb de, $18, $54
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9dff1:
@@ -3824,15 +3824,15 @@ Cutscene39Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9e013:
+.Wait100:
 	ld c, 100
 	jp WaitCutsceneFunc
 
-Func_9e018:
+InitCutscene3aObjs:
 	ld hl, wSceneObj2
 	lb de, $54, $46
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 
 	ld hl, wSceneObj4
 	ld a, 80 ; y
@@ -3850,24 +3850,24 @@ Func_9e018:
 	ld a, 80 ; y
 	ld [hli], a
 	ld [hl], 104 ; x
-	jp Func_9f638
+	jp UpdateCutsceneObjs_RemoveWarps
 
 Cutscene3aFunc:
-	call .Func_9e04c
-	jp Func_9f638
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RemoveWarps
 
-.Func_9e04c:
+.PlayCutscene:
 	call .Func_9e153
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e07d
-	dw Func_9cdbd
-	dw .Func_9e093
+	dw CutsceneFadePals
+	dw .Wait45
 	dw .Func_9e098
 	dw .Func_9e0b6
 	dw .Func_9e0c8
-	dw .Func_9e103
+	dw .Wait80
 	dw .Func_9e108
 	dw .Func_9e112
 	dw .Func_9e11d
@@ -3883,16 +3883,16 @@ Cutscene3aFunc:
 	dw EndCutsceneDelay_60Frames
 
 .Func_9e07d:
-	call Func_9cc87
-	ld b, BANK(Pals_b8780)
-	ld hl, Pals_b8780
+	call ClearBGOBPals_Bank27
+	ld b, BANK(RemoveWarpsCutscenePals_b8780)
+	ld hl, RemoveWarpsCutscenePals_b8780
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8780)
-	ld hl, Pals_b8780
+	ld b, BANK(RemoveWarpsCutscenePals_b8780)
+	ld hl, RemoveWarpsCutscenePals_b8780
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
-.Func_9e093:
+.Wait45:
 	ld c, 45
 	jp WaitCutsceneFunc
 
@@ -3921,7 +3921,7 @@ Cutscene3aFunc:
 	ld hl, wSceneObj3
 	lb de, $3d, $52
 	ld a, $02
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e0c8:
@@ -3950,7 +3950,7 @@ Cutscene3aFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9e103:
+.Wait80:
 	ld c, 80
 	jp WaitCutsceneFunc
 
@@ -4017,7 +4017,7 @@ Cutscene3aFunc:
 	ld a, [wSceneObj7State]
 	cp $03
 	ret nz
-	ld hl, wSceneObj7Unk7
+	ld hl, wSceneObj7MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4032,11 +4032,11 @@ Cutscene3aFunc:
 	ret
 
 Cutscene3cFunc:
-	call .Func_9e177
-	jp Func_9f6a2
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_CollectDemonsBlood
 
-.Func_9e177:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e18f
@@ -4053,11 +4053,11 @@ Cutscene3cFunc:
 	ld hl, wSceneObj2
 	lb de, $20, $42
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $3e, $50
 	ld a, $00
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e1a8:
@@ -4068,7 +4068,7 @@ Cutscene3cFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $27
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $3a
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4132,7 +4132,7 @@ Cutscene3cFunc:
 	ld hl, wSceneObj4
 	lb de, $58, $50
 	ld a, $06
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	play_sfx SFX_074
 	jp AdvanceCutsceneFunc
 
@@ -4143,11 +4143,11 @@ Cutscene3cFunc:
 	jp AdvanceCutsceneFunc
 
 Cutscene43Func:
-	call .Func_9e262
-	jp Func_9f6f8
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_PlacePropeller
 
-.Func_9e262:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e272
@@ -4160,7 +4160,7 @@ Cutscene43Func:
 	ld hl, wSceneObj2
 	lb de, $20, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e280:
@@ -4191,48 +4191,48 @@ Cutscene43Func:
 	ld hl, wSceneObj3
 	lb de, $48, $50
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
-Func_9e2b8:
+InitCutscene54Objs:
 	ld hl, wSceneObj2
 	lb de, $58, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $70, $50
 	ld a, $02
-	call Func_9ccf9
-	jp Func_9f73b
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_CutBaloon
 
 Cutscene54Func:
-	call .Func_9e2d7
-	jp Func_9f73b
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_CutBaloon
 
-.Func_9e2d7:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e2ed
-	dw Func_9cdbd
-	dw .Func_9e303
+	dw CutsceneFadePals
+	dw .Wait40
 	dw .Func_9e308
 	dw .Func_9e31c
-	dw .Func_9e333
+	dw .Wait20
 	dw .Func_9e338
 	dw EndCutsceneDelay_20Frames
 
 .Func_9e2ed:
-	call Func_9cc87
-	ld b, BANK(Pals_b8740)
-	ld hl, Pals_b8740
+	call ClearBGOBPals_Bank27
+	ld b, BANK(CutBaloonCutscenePals_b8740)
+	ld hl, CutBaloonCutscenePals_b8740
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8740)
-	ld hl, Pals_b8740
+	ld b, BANK(CutBaloonCutscenePals_b8740)
+	ld hl, CutBaloonCutscenePals_b8740
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
-.Func_9e303:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -4244,7 +4244,7 @@ Cutscene54Func:
 	dec [hl]
 	ld a, [hl]
 	cp $6b
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4259,7 +4259,7 @@ Cutscene54Func:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-.Func_9e333:
+.Wait20:
 	ld c, 20
 	jp WaitCutsceneFunc
 
@@ -4275,12 +4275,12 @@ Cutscene54Func:
 	jp AdvanceCutsceneFunc
 
 Cutscene3dFunc:
-	call .Func_9e350
+	call .PlayCutscene
 	call Func_9f7a2
-	jp Func_9f75c
+	jp UpdateCutsceneObjs_OpenParaGoomCage
 
-.Func_9e350:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e376
@@ -4304,7 +4304,7 @@ Cutscene3dFunc:
 	ld hl, wSceneObj2
 	lb de, $6c, $78
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e384:
@@ -4341,7 +4341,7 @@ Cutscene3dFunc:
 	ld hl, wSceneObj2
 	lb de, $84, $78
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e3c2:
@@ -4353,11 +4353,11 @@ Cutscene3dFunc:
 	ld hl, wSceneObj4
 	lb de, $50, $50
 	ld a, $05
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $40, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e3e4:
@@ -4409,23 +4409,23 @@ Cutscene3dFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-Func_9e438:
+InitCutscene4aObjs:
 	ld hl, wSceneObj2
 	lb de, $40, $b0
 	ld a, $02
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $44, $50
 	ld a, $01
-	call Func_9ccf9
-	jp Func_9f7bb
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_OpenSkyDoor
 
 Cutscene4aFunc:
-	call .Func_9e457
-	jp Func_9f7bb
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_OpenSkyDoor
 
-.Func_9e457:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e469
@@ -4472,32 +4472,32 @@ Cutscene4aFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-Func_9e4ae:
+InitCutscene4cObjs:
 	ld hl, wSceneObj2
 	lb de, $80, $40
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $50, $5c
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3Attributes
 	set 1, [hl]
-	call Func_9f7dc
+	call UpdateCutsceneObjs_ExtinguishFire
 	jp Func_9f821
 
 Cutscene4cFunc:
-	call .Func_9e4d8
-	call Func_9f7dc
+	call .PlayCutscene
+	call UpdateCutsceneObjs_ExtinguishFire
 	jp Func_9f821
 
-.Func_9e4d8:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e4f0
-	dw Func_9cdbd
-	dw .Func_9e506
+	dw CutsceneFadePals
+	dw .Wait40
 	dw .Func_9e50b
 	dw .Func_9e51b
 	dw .Func_9e52a
@@ -4506,16 +4506,16 @@ Cutscene4cFunc:
 	dw EndCutsceneDelay_60Frames
 
 .Func_9e4f0:
-	call Func_9cc87
-	ld b, BANK(Pals_b86c0)
-	ld hl, Pals_b86c0
+	call ClearBGOBPals_Bank27
+	ld b, BANK(ExtinguishFireCutscenePals_b86c0)
+	ld hl, ExtinguishFireCutscenePals_b86c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b86c0)
-	ld hl, Pals_b86c0
+	ld b, BANK(ExtinguishFireCutscenePals_b86c0)
+	ld hl, ExtinguishFireCutscenePals_b86c0
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
-.Func_9e506:
+.Wait40:
 	ld c, 40
 	jp WaitCutsceneFunc
 
@@ -4524,7 +4524,7 @@ Cutscene4cFunc:
 	dec [hl]
 	ld a, [hl]
 	cp $7e
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4561,26 +4561,26 @@ Cutscene4cFunc:
 	jp AdvanceCutsceneFunc
 
 Cutscene4eFunc:
-	call .Func_9e552
-	jp Func_9f857
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_PlaceBrick
 
-.Func_9e552:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e562
-	dw Func_9cdbd
+	dw CutsceneFadePals
 	dw .Func_9e578
 	dw .Func_9e58a
 	dw EndCutsceneDelay_80Frames
 
 .Func_9e562:
-	call Func_9cc87
-	ld b, BANK(Pals_b8640)
-	ld hl, Pals_b8640
+	call ClearBGOBPals_Bank27
+	ld b, BANK(PlaceBrickCutscenePals_b8640)
+	ld hl, PlaceBrickCutscenePals_b8640
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8640)
-	ld hl, Pals_b8640
+	ld b, BANK(PlaceBrickCutscenePals_b8640)
+	ld hl, PlaceBrickCutscenePals_b8640
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4591,7 +4591,7 @@ Cutscene4eFunc:
 	ld hl, wSceneObj2
 	lb de, $78, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e58a:
@@ -4606,34 +4606,34 @@ Cutscene4eFunc:
 	play_sfx SFX_CLICK
 	jp AdvanceCutsceneFunc
 
-Func_9e5a1:
+InitCutscene4fObjs:
 	ld hl, wSceneObj2
 	lb de, $20, $4c
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $50, $60
 	ld a, $04
-	call Func_9ccf9
-	jp Func_9f86a
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_SprayIronWall
 
 Cutscene4fFunc:
-	call .Func_9e5c0
-	jp Func_9f86a
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_SprayIronWall
 
-.Func_9e5c0:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e5e2
 	dw .Func_9e5f6
-	dw .Func_9e605
+	dw .Wait45
 	dw .Func_9e60a
-	dw .Func_9e61a
+	dw .Wait8
 	dw .Func_9e61f
-	dw .Func_9e61a
+	dw .Wait8
 	dw .Func_9e60a
-	dw .Func_9e61a
+	dw .Wait8
 	dw .Func_9e61f
 	dw .Func_9e62e
 	dw .Func_9e63d
@@ -4648,7 +4648,7 @@ Cutscene4fFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $31
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $44
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4662,7 +4662,7 @@ Cutscene4fFunc:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9e605:
+.Wait45:
 	ld c, 45
 	jp WaitCutsceneFunc
 
@@ -4678,7 +4678,7 @@ Cutscene4fFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9e61a:
+.Wait8:
 	ld c, 8
 	jp WaitCutsceneFunc
 
@@ -4717,30 +4717,30 @@ Cutscene4fFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-Func_9e655:
+InitCutscene51Objs:
 	ld hl, wSceneObj2
 	lb de, $40, $58
 	ld a, $02
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $58, $58
 	ld a, $01
-	call Func_9ccf9
-	jp Func_9f8da
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_MixChemicals
 
 Cutscene51Func:
-	call .Func_9e674
-	jp Func_9f8da
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_MixChemicals
 
-.Func_9e674:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e688
 	dw .Func_9e69c
 	dw .Func_9e6a7
 	dw .Func_9e6b8
-	dw .Func_9e6c0
+	dw .Wait45
 	dw .Func_9e6c5
 	dw EndCutsceneDelay_60Frames
 
@@ -4752,7 +4752,7 @@ Cutscene51Func:
 	inc [hl]
 	ld a, [hl]
 	cp $45
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $58
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4776,7 +4776,7 @@ Cutscene51Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9e6c0:
+.Wait45:
 	ld c, 45
 	jp WaitCutsceneFunc
 
@@ -4793,7 +4793,7 @@ Cutscene51Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9e6d7:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4807,23 +4807,23 @@ Cutscene51Func:
 	play_sfx SFX_01F
 	ret
 
-Func_9e6ef:
+InitCutscene56Objs:
 	ld hl, wSceneObj2
 	lb de, $56, $50
 	ld a, $01
-	call Func_9ccf9
-	jp Func_9f91f
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_RevealDarkRoom
 
 Cutscene56Func:
-	call .Func_9e703
-	jp Func_9f91f
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_RevealDarkRoom
 
-.Func_9e703:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e71f
-	dw Func_9cdbd
+	dw CutsceneFadePals
 	dw .Func_9e735
 	dw .Func_9e747
 	dw .Func_9e750
@@ -4832,15 +4832,15 @@ Cutscene56Func:
 	dw .Func_9e787
 	dw .Func_9e78e
 	dw .Func_9e793
-	dw Func_9cd16
+	dw ExitCutscene
 
 .Func_9e71f:
-	call Func_9cc87
-	ld b, BANK(Pals_b9080)
-	ld hl, Pals_b9080
+	call ClearBGOBPals_Bank27
+	ld b, BANK(RevealDarkRoomCutscenePals_b9080)
+	ld hl, RevealDarkRoomCutscenePals_b9080
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b9080)
-	ld hl, Pals_b9080
+	ld b, BANK(RevealDarkRoomCutscenePals_b9080)
+	ld hl, RevealDarkRoomCutscenePals_b9080
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4851,7 +4851,7 @@ Cutscene56Func:
 	ld hl, wSceneObj2
 	lb de, $56, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e747:
@@ -4874,19 +4874,19 @@ Cutscene56Func:
 	ld [wSceneObj2State], a
 	ld a, $08
 	ld [wCollectionRow], a
-	ld b, BANK(Pals_b8800)
+	ld b, BANK(RevealDarkRoomCutscenePals_b8800)
 	ld c, 8 palettes
-	ld hl, Pals_b8800
+	ld hl, RevealDarkRoomCutscenePals_b8800
 	ld de, wTempPals1
 	call CopyFarBytes
-	call Func_9cd40
+	call SetPalConfig1ToTempPals1
 	jp AdvanceCutsceneFunc
 
 .Func_9e779:
-	ld hl, Pals_b8840
+	ld hl, RevealDarkRoomCutscenePals_b8840
 .asm_9e77c
-	call Func_9cd74
-	ld b, BANK(Pals_b8840) ; aka BANK(Pals_b8880)
+	call CopyTempPalsToBGOBPals
+	ld b, BANK(RevealDarkRoomCutscenePals_b8840) ; aka BANK(RevealDarkRoomCutscenePals_b8880)
 	call LoadFarPalsToTempPals1
 	jp AdvanceCutsceneFunc
 
@@ -4894,39 +4894,39 @@ Cutscene56Func:
 	ld a, [bc]
 	and $01
 	ret nz
-	jp Func_9cdbd
+	jp CutsceneFadePals
 
 .Func_9e78e:
-	ld hl, Pals_b8880
+	ld hl, RevealDarkRoomCutscenePals_b8880
 	jr .asm_9e77c
 
 .Func_9e793:
 	ld a, [bc]
 	and $03
 	ret nz
-	jp Func_9cdbd
+	jp CutsceneFadePals
 
-Func_9e79a:
+InitCutscene57Objs:
 	ld hl, wSceneObj3
 	lb de, $4e, $54
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj2
 	lb de, $10, $48
 	ld a, $03
-	call Func_9ccf9
-	jp Func_9f991
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_SummonMoon
 
 Cutscene57Func:
-	call .Func_9e7b9
-	jp Func_9f991
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_SummonMoon
 
-.Func_9e7b9:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e7d9
-	dw Func_9cdbd
+	dw CutsceneFadePals
 	dw .Func_9e7ef
 	dw .Func_9e7ff
 	dw .Func_9e80e
@@ -4937,15 +4937,15 @@ Cutscene57Func:
 	dw .Func_9e844
 	dw .Func_9e850
 	dw .Func_9e844
-	dw Func_9cd16
+	dw ExitCutscene
 
 .Func_9e7d9:
-	call Func_9cc87
-	ld b, BANK(Pals_b8540)
-	ld hl, Pals_b8540
+	call ClearBGOBPals_Bank27
+	ld b, BANK(SummonMoonCutscenePals_b8540)
+	ld hl, SummonMoonCutscenePals_b8540
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8540)
-	ld hl, Pals_b8540
+	ld b, BANK(SummonMoonCutscenePals_b8540)
+	ld hl, SummonMoonCutscenePals_b8540
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4954,7 +4954,7 @@ Cutscene57Func:
 	inc [hl]
 	ld a, [hl]
 	cp $2c
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $52
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -4988,10 +4988,10 @@ Cutscene57Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9e836:
-	ld hl, Pals_b8580
+	ld hl, SummonMoonCutscenePals_b8580
 .asm_9e839
-	call Func_9cd74
-	ld b, BANK(Pals_b8580) ; aka BANK(Pals_b85c0) and BANK(Pals_b8600)
+	call CopyTempPalsToBGOBPals
+	ld b, BANK(SummonMoonCutscenePals_b8580) ; aka BANK(SummonMoonCutscenePals_b85c0) and BANK(SummonMoonCutscenePals_b8600)
 	call LoadFarPalsToTempPals1
 	jp AdvanceCutsceneFunc
 
@@ -4999,47 +4999,47 @@ Cutscene57Func:
 	ld a, [bc]
 	and $01
 	ret nz
-	jp Func_9cdbd
+	jp CutsceneFadePals
 
 .Func_9e84b:
-	ld hl, Pals_b85c0
+	ld hl, SummonMoonCutscenePals_b85c0
 	jr .asm_9e839
 
 .Func_9e850:
-	ld hl, Pals_b8600
+	ld hl, SummonMoonCutscenePals_b8600
 	jr .asm_9e839
 
-Func_9e855:
+InitCutscene58Objs:
 	ld hl, wSceneObj2
 	lb de, SCREEN_HEIGHT_PX, $48
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $48, $58
 	ld a, $01
-	call Func_9ccf9
-	call Func_9f9c1
+	call SetSceneObjPosAndState
+	call UpdateCutsceneObjs_OpenCraterHole
 	jp Func_9f9f5
 
 Cutscene58Func:
-	call .Func_9e87a
-	call Func_9f9c1
+	call .PlayCutscene
+	call UpdateCutsceneObjs_OpenCraterHole
 	jp Func_9f9f5
 
-.Func_9e87a:
+.PlayCutscene:
 	push bc
-	call Func_9ea9e
-	call Func_9eab4
+	call MoveCutsceneObj10
+	call MoveCutsceneObj11
 	pop bc
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e89c
-	dw Func_9cdbd
-	dw .Func_9e8b2
+	dw CutsceneFadePals
+	dw .Wait30
 	dw .Func_9e8b7
-	dw .Func_9e8b2
+	dw .Wait30
 	dw .Func_9e8c7
 	dw .Func_9e8d6
 	dw .Func_9e8c7
@@ -5047,16 +5047,16 @@ Cutscene58Func:
 	dw EndCutsceneDelay_120Frames
 
 .Func_9e89c:
-	call Func_9cc87
-	ld b, BANK(Pals_b87c0)
-	ld hl, Pals_b87c0
+	call ClearBGOBPals_Bank27
+	ld b, BANK(OpenCraterHoleCutscenePals_b87c0)
+	ld hl, OpenCraterHoleCutscenePals_b87c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b87c0)
-	ld hl, Pals_b87c0
+	ld b, BANK(OpenCraterHoleCutscenePals_b87c0)
+	ld hl, OpenCraterHoleCutscenePals_b87c0
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
-.Func_9e8b2:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -5065,7 +5065,7 @@ Cutscene58Func:
 	dec [hl]
 	ld a, [hl]
 	cp $76
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $50
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -5087,11 +5087,11 @@ Cutscene58Func:
 	ld hl, wSceneObj10
 	lb de, $48, $54
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj11
 	lb de, $44, $58
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld a, $01
 	ld [wSceneObj12YCoord], a
 	ld [wSceneObj12XCoord], a
@@ -5113,74 +5113,74 @@ Func_9e91a:
 	ld hl, wSceneObj3
 	lb de, $58, $40
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj4
 	lb de, $58, $50
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj5
 	lb de, $58, $60
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj6
 	lb de, $58, $40
 	ld a, $04
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj7
 	lb de, $58, $50
 	ld a, $04
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj8
 	lb de, $58, $60
 	ld a, $04
-	call Func_9ccf9
-	jp Func_9fa48
+	call SetSceneObjPosAndState
+	jp UpdateCutsceneObjs_DrillHoles
 
 Cutscene55Func:
-	call .Func_9e965
-	jp Func_9fa48
+	call .PlayCutscene
+	jp UpdateCutsceneObjs_DrillHoles
 
-.Func_9e965:
+.PlayCutscene:
 	push bc
-	call Func_9ea9e
-	call Func_9eab4
+	call MoveCutsceneObj10
+	call MoveCutsceneObj11
 	pop bc
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e9a3
-	dw Func_9cdbd
+	dw CutsceneFadePals
 	dw .Func_9e9b9
 	dw .Func_9e9cb
-	dw .Func_9e9da
+	dw .Wait45
 	dw .Func_9e9df
 	dw .Func_9e9f6
 	dw .Func_9ea1b
 	dw .Func_9ea2a
 	dw .Func_9ea39
-	dw .Func_9e9da
+	dw .Wait45
 	dw .Func_9e9df
 	dw .Func_9ea49
 	dw .Func_9ea61
 	dw .Func_9ea2a
 	dw .Func_9ea70
-	dw .Func_9e9da
+	dw .Wait45
 	dw .Func_9e9df
 	dw .Func_9ea74
 	dw .Func_9ea7f
 	dw .Func_9ea2a
-	dw .Func_9ea8e
+	dw .Wait30
 	dw .Func_9ea93
 	dw EndCutsceneDelay_40Frames
 
 .Func_9e9a3:
-	call Func_9cc87
-	ld b, BANK(Pals_b8680)
-	ld hl, Pals_b8680
+	call ClearBGOBPals_Bank27
+	ld b, BANK(DrillHolesCutscenePals_b8680)
+	ld hl, DrillHolesCutscenePals_b8680
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8680)
-	ld hl, Pals_b8680
+	ld b, BANK(DrillHolesCutscenePals_b8680)
+	ld hl, DrillHolesCutscenePals_b8680
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -5191,7 +5191,7 @@ Cutscene55Func:
 	ld hl, wSceneObj2
 	lb de, $46, $90
 	ld a, $02
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9e9cb:
@@ -5205,7 +5205,7 @@ Cutscene55Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.Func_9e9da:
+.Wait45:
 	ld c, 45
 	jp WaitCutsceneFunc
 
@@ -5228,11 +5228,11 @@ Cutscene55Func:
 	ld hl, wSceneObj10
 	lb de, $4c, $40
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj11
 	lb de, $4c, $48
 	ld a, $03
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld a, $01
 	ld [wSceneObj12YCoord], a
 	ld [wSceneObj12XCoord], a
@@ -5314,7 +5314,7 @@ Cutscene55Func:
 	call SetSceneObjState
 	jp AdvanceCutsceneFunc
 
-.Func_9ea8e:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -5326,7 +5326,7 @@ Cutscene55Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-Func_9ea9e:
+MoveCutsceneObj10:
 	ld a, [wSceneObj12YCoord]
 	and a
 	ret z
@@ -5338,7 +5338,7 @@ Func_9ea9e:
 	ld [wSceneObj10State], a
 	ret
 
-Func_9eab4:
+MoveCutsceneObj11:
 	ld a, [wSceneObj12XCoord]
 	and a
 	ret z
@@ -5351,12 +5351,12 @@ Func_9eab4:
 	ret
 
 Cutscene44Func:
-	call .Func_9ead3
-	call Func_9fab4
+	call .PlayCutscene
+	call UpdateCutsceneObjs_FeedOctohon
 	jp Func_9faea
 
-.Func_9ead3:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9eaf7
@@ -5369,17 +5369,17 @@ Cutscene44Func:
 	dw .Func_9eb68
 	dw .Func_9eb73
 	dw .Func_9eb8a
-	dw .Func_9eb9a
+	dw .Wait60
 	dw .Func_9eb9f
 	dw .Func_9ebad
-	dw Func_9cdcd
+	dw CutsceneScreenShake
 	dw EndCutsceneDelay_60Frames
 
 .Func_9eaf7:
 	ld hl, wSceneObj2
 	lb de, $20, $4c
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9eb05:
@@ -5407,11 +5407,11 @@ Cutscene44Func:
 	ld hl, wSceneObj2
 	lb de, $20, $50
 	ld a, $02
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	ld hl, wSceneObj3
 	lb de, $48, $20
 	ld a, $01
-	call Func_9ccf9
+	call SetSceneObjPosAndState
 	jp AdvanceCutsceneFunc
 
 .Func_9eb3d:
@@ -5462,11 +5462,11 @@ Cutscene44Func:
 	cp $03
 	ret nz
 	xor a
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	ld [wSceneObj4YCoord], a
 	jp AdvanceCutsceneFunc
 
-.Func_9eb9a:
+.Wait60:
 	ld c, 60
 	jp WaitCutsceneFunc
 
@@ -5495,7 +5495,7 @@ Cutscene44Func:
 	ret
 
 .Func_9ebc7:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	call .Func_9ebd3
 	ld hl, wSceneObj3XCoord
 	add [hl]
@@ -5528,12 +5528,12 @@ Data_9ec41:
 	db  0,  0, -1,  1, -2,  1, -1,  1, -1,  1, -1,  1, -1,  1,  0,  2,  1,  1,  1,  2,  1,  0,  2,  1,  1,  1,  5,  2,  5,  1,  6,  1,  5,  1,  6,  0,  5,  1,  6,  0,  5,  0, $80
 
 Cutscene14Func:
-	call .Func_9ec73
+	call .PlayCutscene
 	call Func_9fba9
 	ret
 
-.Func_9ec73:
-	ld a, [w2d013]
+.PlayCutscene:
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9ec9b
@@ -5543,7 +5543,7 @@ Cutscene14Func:
 	dw .Func_9ed3c
 	dw .Func_9ed54
 	dw .Func_9ed70
-	dw .Func_9ed77
+	dw .Wait30
 	dw .Func_9ed7c
 	dw .Func_9ed9c
 	dw .Func_9edb7
@@ -5611,7 +5611,7 @@ Cutscene14Func:
 	dec [hl]
 	ld a, [hl]
 	cp $87
-	jp z, Func_9ce1f
+	jp z, PlaySFX_112
 	cp $74
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -5676,7 +5676,7 @@ Cutscene14Func:
 	ret nc
 	jp AdvanceCutsceneFunc
 
-.Func_9ed77:
+.Wait30:
 	ld c, 30
 	jp WaitCutsceneFunc
 
@@ -5748,7 +5748,7 @@ Cutscene14Func:
 
 .Func_9edf9:
 	call .Func_9edce
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	ld b, $01
 	cp $08
 	jr c, .asm_9ee0b
@@ -5774,7 +5774,7 @@ Cutscene14Func:
 
 .Func_9ee23:
 	call .Func_9ee2a
-	call Func_9cd8d
+	call CutsceneFadeToWhite
 	ret
 
 .Func_9ee2a:
@@ -5799,7 +5799,7 @@ Cutscene14Func:
 	ret
 
 .Func_9ee57:
-	call Func_9cd16
+	call ExitCutscene
 	ret
 
 .Func_9ee5b:
@@ -5855,7 +5855,7 @@ Data_9ef82:
 	db  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0, -1,  1,  0,  0,  0,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0,  0,  0, $80
 	db -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0, -1,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0, -1,  1,  0, $80
 
-Func_9f0a5:
+GetCutsceneObjFrameset:
 	dec a
 	call GetPointerFromTableDE
 	dec c
@@ -5864,39 +5864,39 @@ Func_9f0a5:
 	ld h, b
 	ret
 
-Func_9f0ae:
+UpdateCutsceneObjAnim_OWOAM2:
 	ld b, $2f
 	call UpdateOWAnimation
 	ld a, [bc]
 	ret
 
-Func_9f0b5:
+UpdateCutsceneObjAnim_ObjFramesets:
 	ld b, $1a
 	call UpdateOWAnimation
 	ld a, [bc]
 	ret
 
 ; de = OAM
-Func_9f0bc:
+LoadCutsceneObjSprite_OWOAM2:
 	ld b, $2f
 	jp LoadOWSprite
 
 ; de = OAM
-Func_9f0c1:
+_ObjOAM3:
 	ld b, $62
 	jp LoadOWSprite
 
 ; de = OAM
-Func_9f0c6:
+_ObjOAM1:
 	ld b, $60
 	jp LoadOWSprite
 
 ; de = OAM
-Func_9f0cb:
+_ObjOAM4:
 	ld b, $63
 	jp LoadOWSprite
 
-Func_9f0d0:
+SetSceneObjStateWhenAnimFinished:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
@@ -5910,7 +5910,7 @@ Func_9f0d0:
 	ld c, l
 	ret
 
-Func_9f0e0:
+UpdateCutsceneObjs_OpenNorthGate:
 	ld bc, wSceneObj3State
 	call .asm_9f0e9
 	ld bc, wSceneObj2State
@@ -5919,62 +5919,62 @@ Func_9f0e0:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $05
 	jr z, .asm_9f103
 	cp $06
 	jr z, .asm_9f107
 .asm_9f0fd
-	ld de, OAM_bd1fd
-	jp Func_9f0bc
+	ld de, OpenNorthGateCutsceneOAM_bd1fd
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f103
 	ld b, $00
 	jr .asm_9f109
 .asm_9f107
 	ld b, $07
 .asm_9f109
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f0e9
 	jr .asm_9f0fd
 
 .framesets
-	dw Frameset_bd348
-	dw Frameset_bd34b
-	dw Frameset_bd34e
-	dw Frameset_bd351
-	dw Frameset_bd354
-	dw Frameset_bd363
-	dw Frameset_bd372
+	dw OpenNorthGateCutsceneFrameset_bd348
+	dw OpenNorthGateCutsceneFrameset_bd34b
+	dw OpenNorthGateCutsceneFrameset_bd34e
+	dw OpenNorthGateCutsceneFrameset_bd351
+	dw OpenNorthGateCutsceneFrameset_bd354
+	dw OpenNorthGateCutsceneFrameset_bd363
+	dw OpenNorthGateCutsceneFrameset_bd372
 
-Func_9f11e:
+UpdateCutsceneObjs_Rainstorm:
 	ld bc, wSceneObj2State
 .asm_9f121
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f137
 
 .asm_9f131
-	ld de, OAM_bd377
-	jp Func_9f0bc
+	ld de, RainstormCutsceneOAM_bd377
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .asm_9f137
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f121 ; ?? this will never happen
 	jr .asm_9f131
 
 .framesets
-	dw Frameset_bd43a
-	dw Frameset_bd43d
-	dw Frameset_bd44a
+	dw RainstormCutsceneFrameset_bd43a
+	dw RainstormCutsceneFrameset_bd43d
+	dw RainstormCutsceneFrameset_bd44a
 
-Func_9f146:
+UpdateCutsceneObjs_RaiseTower:
 	ld bc, wSceneObj2State
 	call .Func_9f15e
 	ld bc, wSceneObj3State
@@ -5989,16 +5989,16 @@ Func_9f146:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bd453
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, RaiseTowerCutsceneOAM_bd453
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bd469
-	dw Frameset_bd46c
+	dw RaiseTowerCutsceneFrameset_bd469
+	dw RaiseTowerCutsceneFrameset_bd46c
 
-Func_9f174:
+UpdateCutsceneObjs_FixElevator:
 	ld bc, wSceneObj4State
 	call .Func_9f189
 	ld bc, wSceneObj2State
@@ -6013,8 +6013,8 @@ Func_9f174:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $06
 	jr z, .asm_9f1a8
 	cp $08
@@ -6022,15 +6022,15 @@ Func_9f174:
 	cp $05
 	call z, .Func_9f1b5
 .asm_9f1a2
-	ld de, OAM_bd46f
-	jp Func_9f0bc
+	ld de, FixElevatorCutsceneOAM_bd46f
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f1a8
 	ld b, $07
 	jr .asm_9f1ae
 .asm_9f1ac
 	ld b, $00
 .asm_9f1ae
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .Func_9f189
 	jr .asm_9f1a2
 
@@ -6042,32 +6042,32 @@ Func_9f174:
 	ret
 
 .framesets
-	dw Frameset_bd5c3
-	dw Frameset_bd5cc
-	dw Frameset_bd5d5
-	dw Frameset_bd5d8
-	dw Frameset_bd5dd
-	dw Frameset_bd5e6
-	dw Frameset_bd605
-	dw Frameset_bd608
-	dw Frameset_bd60f
-	dw Frameset_bd612
+	dw FixElevatorCutsceneFrameset_bd5c3
+	dw FixElevatorCutsceneFrameset_bd5cc
+	dw FixElevatorCutsceneFrameset_bd5d5
+	dw FixElevatorCutsceneFrameset_bd5d8
+	dw FixElevatorCutsceneFrameset_bd5dd
+	dw FixElevatorCutsceneFrameset_bd5e6
+	dw FixElevatorCutsceneFrameset_bd605
+	dw FixElevatorCutsceneFrameset_bd608
+	dw FixElevatorCutsceneFrameset_bd60f
+	dw FixElevatorCutsceneFrameset_bd612
 
-Func_9f1d8:
+UpdateCutsceneObjs_RevealCastle:
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bd615
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, RevealCastleCutsceneOAM_bd615
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bd790
-	dw Frameset_bd793
-	dw Frameset_bd79c
+	dw RevealCastleCutsceneFrameset_bd790
+	dw RevealCastleCutsceneFrameset_bd793
+	dw RevealCastleCutsceneFrameset_bd79c
 
 Func_9f1f3:
 	ld de, wSceneObj2
@@ -6084,18 +6084,18 @@ Func_9f1f3:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bd7a1
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, FreezeSeaCutsceneOAM_bd7a1
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bd905
-	dw Frameset_bd908
-	dw Frameset_bd90b
-	dw Frameset_bd90e
+	dw FreezeSeaCutsceneFrameset_bd905
+	dw FreezeSeaCutsceneFrameset_bd908
+	dw FreezeSeaCutsceneFrameset_bd90b
+	dw FreezeSeaCutsceneFrameset_bd90e
 
-Func_9f225:
+UpdateCutsceneObjs_SummonSun:
 	ld bc, wSceneObj2State
 	call .Func_9f22e
 	ld bc, wSceneObj3State
@@ -6104,14 +6104,14 @@ Func_9f225:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bd911
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, SummonSunCutsceneOAM_bd911
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bd96b
-	dw Frameset_bd96e
+	dw SummonSunCutsceneFrameset_bd96b
+	dw SummonSunCutsceneFrameset_bd96e
 
 Func_9f244:
 	ld bc, wSceneObj5State
@@ -6119,15 +6119,15 @@ Func_9f244:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $02
 	jr z, .asm_9f266
 	cp $01
 	jr z, .asm_9f27a
 .asm_9f25b
 	ld de, OAM_188e16
-	call Func_9f0c1
+	call _ObjOAM3
 	ret
 
 .framesets
@@ -6174,7 +6174,7 @@ Func_9f244:
 	play_sfx SFX_011
 	ret
 
-Func_9f2a2:
+UpdateCutsceneObjs_ExplodeBombs:
 	ld bc, wSceneObj2State
 	call .Func_9f2b1
 	ld bc, wSceneObj4State
@@ -6185,41 +6185,41 @@ Func_9f2a2:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bd971
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, ExplodeBombsCutsceneOAM_bd971
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bd9ec
-	dw Frameset_bd9f5
-	dw Frameset_bd9f8
-	dw Frameset_bd9fb
-	dw Frameset_bd9fe
+	dw ExplodeBombsCutsceneFrameset_bd9ec
+	dw ExplodeBombsCutsceneFrameset_bd9f5
+	dw ExplodeBombsCutsceneFrameset_bd9f8
+	dw ExplodeBombsCutsceneFrameset_bd9fb
+	dw ExplodeBombsCutsceneFrameset_bd9fe
 
-Func_9f2cd:
+UpdateCutsceneObjs_TreasureMap:
 	ld bc, wSceneObj2State
 .asm_9f2d0
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
 	jr z, .asm_9f2e6
 .asm_9f2e0
-	ld de, OAM_bda01
-	jp Func_9f0bc
+	ld de, TreasureMapCutsceneOAM_bda01
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f2e6
 	ld b, $02
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f2d0
 	jr .asm_9f2e0
 
 .framesets
-	dw Frameset_bdaa2
-	dw Frameset_bdab9
+	dw TreasureMapCutsceneFrameset_bdaa2
+	dw TreasureMapCutsceneFrameset_bdab9
 
 Func_9f2f3:
 	ld bc, wSceneObj2State
@@ -6227,12 +6227,12 @@ Func_9f2f3:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $03
 	call z, .Func_9f30e
 	ld de, OAM_188279
-	call Func_9f0c1
+	call _ObjOAM3
 	ret
 
 .Func_9f30e:
@@ -6244,10 +6244,10 @@ Func_9f2f3:
 
 .framesets
 	dw Frameset_691a7
-	dw Frameset_691bc
+	dw PlaceCartWheelsCutsceneFrameset_691bc
 	dw Frameset_691bf
 
-Func_9f323:
+UpdateCutsceneObjs_BlowMist:
 	ld de, wSceneObj2
 	call Func_9fb97
 	ld bc, wSceneObj2State
@@ -6255,15 +6255,15 @@ Func_9f323:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bdabc
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, BlowMistCutsceneOAM_bdabc
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bdb03
+	dw BlowMistCutsceneFrameset_bdb03
 
-Func_9f340:
+UpdateCutsceneObjs_SummonSnakes:
 	ld bc, wSceneObj3State
 	call .Func_9f34f
 	ld bc, wSceneObj4State
@@ -6274,17 +6274,17 @@ Func_9f340:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bdb06
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, SummonSnakesCutsceneOAM_bdb06
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bdc5f
-	dw Frameset_bdc62
-	dw Frameset_bdc7f
+	dw SummonSnakesCutsceneFrameset_bdc5f
+	dw SummonSnakesCutsceneFrameset_bdc62
+	dw SummonSnakesCutsceneFrameset_bdc7f
 
-Func_9f367:
+UpdateCutsceneObjs_FootStone:
 	ld de, wSceneObj3
 	call Func_9fb4c
 	ld bc, wSceneObj2State
@@ -6297,13 +6297,13 @@ Func_9f367:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bdc9c
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, FootStoneCutsceneOAM_bdc9c
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bdce3
+	dw FootStoneCutsceneFrameset_bdce3
 
 Func_9f38d:
 	ld bc, wSceneObj2State
@@ -6318,28 +6318,28 @@ Func_9f38d:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
 	jr z, .asm_9f3b8
 .asm_9f3b2
-	ld de, OAM_bdce6
-	jp Func_9f0bc
+	ld de, OpenSnakeDoorCutsceneOAM_bdce6
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f3b8
 	ld b, $01
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f3a2
 	jr .asm_9f3b2
 
 .framesets
-	dw Frameset_bddcc
-	dw Frameset_bddc3
-	dw Frameset_bddc6
-	dw Frameset_bdda9
-	dw Frameset_bddc0
-	dw Frameset_bddc9
+	dw OpenSnakeDoorCutsceneFrameset_bddcc
+	dw OpenSnakeDoorCutsceneFrameset_bddc3
+	dw OpenSnakeDoorCutsceneFrameset_bddc6
+	dw OpenSnakeDoorCutsceneFrameset_bdda9
+	dw OpenSnakeDoorCutsceneFrameset_bddc0
+	dw OpenSnakeDoorCutsceneFrameset_bddc9
 
-Func_9f3cd:
+UpdateCutsceneObjs_ExpelTornado:
 	ld bc, wSceneObj3State
 	call .Func_9f3d6
 	ld bc, wSceneObj2State
@@ -6348,17 +6348,17 @@ Func_9f3cd:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bddcf
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, ExpelTornadoCutsceneOAM_bddcf
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bde60
-	dw Frameset_bde63
-	dw Frameset_bde66
+	dw ExpelTornadoCutsceneFrameset_bde60
+	dw ExpelTornadoCutsceneFrameset_bde63
+	dw ExpelTornadoCutsceneFrameset_bde66
 
-Func_9f3ee:
+UpdateCutsceneObjs_OpenTreeMouth:
 	ld bc, wSceneObj2State
 	call .Func_9f3f7
 	ld bc, wSceneObj3State
@@ -6367,17 +6367,17 @@ Func_9f3ee:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $03
 	call z, .Func_9f414
-	ld de, OAM_bde69
-	jp Func_9f0bc
+	ld de, OpenTreeMouthCutsceneOAM_bde69
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bdf92
-	dw Frameset_bdf95
-	dw Frameset_bdfa0
+	dw OpenTreeMouthCutsceneFrameset_bdf92
+	dw OpenTreeMouthCutsceneFrameset_bdf95
+	dw OpenTreeMouthCutsceneFrameset_bdfa0
 
 .Func_9f414:
 	ld a, [wOWAnimationFinished]
@@ -6386,7 +6386,7 @@ Func_9f3ee:
 	play_sfx SFX_131
 	ret
 
-Func_9f423:
+UpdateCutsceneObjs_LeavesFall:
 	ld bc, wSceneObj2State
 	call .asm_9f42c
 	ld bc, wSceneObj3State
@@ -6395,32 +6395,32 @@ Func_9f423:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f446
 	cp $03
 	jr z, .asm_9f47e
 .asm_9f440
-	ld de, OAM_bdfa5
-	jp Func_9f0bc
+	ld de, LeavesFallCutsceneOAM_bdfa5
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f446
 	call .Func_9f45a
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f42c
 	jr .asm_9f440
 
 .framesets
-	dw Frameset_be1b0
-	dw Frameset_be1c3
-	dw Frameset_be1fc
-	dw Frameset_be203
+	dw LeavesFallCutsceneFrameset_be1b0
+	dw LeavesFallCutsceneFrameset_be1c3
+	dw LeavesFallCutsceneFrameset_be1fc
+	dw LeavesFallCutsceneFrameset_be203
 
 .Func_9f45a:
 	ld a, [wSceneObj3Frame]
 	ld c, a
-	ld a, [wSceneObj3Unk7]
+	ld a, [wSceneObj3MovementStep]
 	ld b, a
 	and a
 	jr z, .asm_9f46b
@@ -6435,7 +6435,7 @@ Func_9f423:
 .asm_9f46f
 	ld a, b
 	xor $1
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	play_sfx SFX_FAT_WALK
 	ret
 .asm_9f47e
@@ -6443,7 +6443,7 @@ Func_9f423:
 	jr .asm_9f440
 
 .Func_9f483:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6458,7 +6458,7 @@ Func_9f423:
 	play_sfx SFX_076
 	ret
 
-Func_9f49c:
+UpdateCutsceneObjs_MakeWire:
 	ld bc, wSceneObj2State
 	call .Func_9f4b1
 	ld bc, wSceneObj3State
@@ -6472,28 +6472,28 @@ Func_9f49c:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
 	jr z, .asm_9f4d3
 	cp $02
 	jr z, .asm_9f4ec
 .asm_9f4c5
-	ld de, OAM_be206
-	jp Func_9f0bc
+	ld de, MakeWireCutsceneOAM_be206
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_be2b9
-	dw Frameset_be2c2
-	dw Frameset_be2d3
-	dw Frameset_be2d6
+	dw MakeWireCutsceneFrameset_be2b9
+	dw MakeWireCutsceneFrameset_be2c2
+	dw MakeWireCutsceneFrameset_be2d3
+	dw MakeWireCutsceneFrameset_be2d6
 
 .asm_9f4d3
 	call .Func_9f4d8
 	jr .asm_9f4c5
 
 .Func_9f4d8:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6510,7 +6510,7 @@ Func_9f49c:
 	jr .asm_9f4c5
 
 .Func_9f4f4:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6521,7 +6521,7 @@ Func_9f49c:
 	play_sfx SFX_132
 	ret
 
-Func_9f508:
+UpdateCutsceneObjs_TorchForest:
 	ld de, wSceneObj2
 	call Func_9fb97
 	ld bc, wSceneObj2State
@@ -6529,23 +6529,23 @@ Func_9f508:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
 	jr z, .asm_9f529
 .asm_9f521
-	ld de, OAM_be2d9
-	jp Func_9f0bc
+	ld de, TorchForestCutsceneOAM_be2d9
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_be3c5
+	dw TorchForestCutsceneFrameset_be3c5
 
 .asm_9f529
 	call .Func_9f52e
 	jr .asm_9f521
 
 .Func_9f52e:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6560,7 +6560,7 @@ Func_9f508:
 	play_sfx SFX_01E
 	ret
 
-Func_9f547:
+UpdateCutsceneObjs_RevealWarpedVoid:
 	ld de, wSceneObj2
 	call Func_9fb4c
 	ld bc, wSceneObj2State
@@ -6573,33 +6573,33 @@ Func_9f547:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f573
 	cp $03
 	jr z, .asm_9f582
 .asm_9f56d
-	ld de, OAM_be3ce
-	jp Func_9f0bc
+	ld de, RevealWarpedVoidCutsceneOAM_be3ce
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .asm_9f573
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f559
 	jr .asm_9f56d
 
 .framesets
-	dw Frameset_be7e6
-	dw Frameset_be7e9
-	dw Frameset_be802
+	dw RevealWarpedVoidCutsceneFrameset_be7e6
+	dw RevealWarpedVoidCutsceneFrameset_be7e9
+	dw RevealWarpedVoidCutsceneFrameset_be802
 
 .asm_9f582
 	call .Func_9f587
 	jr .asm_9f56d
 
 .Func_9f587:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6614,7 +6614,7 @@ Func_9f547:
 	play_sfx SFX_040
 	ret
 
-Func_9f5a0:
+UpdateCutsceneObjs_RaiseIceBlocks:
 	ld bc, wSceneObj4State
 	call .Func_9f5bb
 	ld bc, wSceneObj6State
@@ -6629,30 +6629,30 @@ Func_9f5a0:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f5d1
 .asm_9f5cb
-	ld de, OAM_be807
-	jp Func_9f0bc
+	ld de, RaiseIceBlocksCutsceneOAM_be807
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f5d1
 	call .Func_9f5e5
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .Func_9f5bb
 	jr .asm_9f5cb
 
 .framesets
-	dw Frameset_be8de
-	dw Frameset_be8e1
-	dw Frameset_be8ea
-	dw Frameset_be8ed
+	dw RaiseIceBlocksCutsceneFrameset_be8de
+	dw RaiseIceBlocksCutsceneFrameset_be8e1
+	dw RaiseIceBlocksCutsceneFrameset_be8ea
+	dw RaiseIceBlocksCutsceneFrameset_be8ed
 
 .Func_9f5e5:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	ld a, $03
@@ -6667,26 +6667,26 @@ Func_9f5a0:
 .asm_9f600
 	ld a, b
 	xor $1
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
-Func_9f607:
+UpdateCutsceneObjs_RaisePipe:
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f624
 .asm_9f61a
-	ld de, OAM_be8fe
-	jp Func_9f0bc
+	ld de, RaisePipeCutsceneOAM_be8fe
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_be9fa
-	dw Frameset_be9fd
+	dw RaisePipeCutsceneFrameset_be9fa
+	dw RaisePipeCutsceneFrameset_be9fd
 
 .asm_9f624
 	call .Func_9f629
@@ -6699,7 +6699,7 @@ Func_9f607:
 	play_sfx SFX_085
 	ret
 
-Func_9f638:
+UpdateCutsceneObjs_RemoveWarps:
 	ld bc, wSceneObj2State
 	call .asm_9f659
 	ld bc, wSceneObj3State
@@ -6716,33 +6716,33 @@ Func_9f638:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
 	jr z, .asm_9f673
 	cp $02
 	jr z, .asm_9f684
 .asm_9f66d
-	ld de, OAM_bea06
-	jp Func_9f0bc
+	ld de, RemoveWarpsCutsceneOAM_bea06
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f673
 	ld b, $00
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f659
 	jr .asm_9f66d
 
 .framesets
-	dw Frameset_beacc
-	dw Frameset_beacf
-	dw Frameset_beae4
-	dw Frameset_beaed
+	dw RemoveWarpsCutsceneFrameset_beacc
+	dw RemoveWarpsCutsceneFrameset_beacf
+	dw RemoveWarpsCutsceneFrameset_beae4
+	dw RemoveWarpsCutsceneFrameset_beaed
 
 .asm_9f684
 	call .Func_9f689
 	jr .asm_9f66d
 
 .Func_9f689:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6757,7 +6757,7 @@ Func_9f638:
 	play_sfx SFX_10E
 	ret
 
-Func_9f6a2:
+UpdateCutsceneObjs_CollectDemonsBlood:
 	ld bc, wSceneObj4State
 	call .asm_9f6b1
 	ld bc, wSceneObj2State
@@ -6768,8 +6768,8 @@ Func_9f6a2:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f6cf
 	cp $05
@@ -6777,12 +6777,12 @@ Func_9f6a2:
 	cp $06
 	jr z, .asm_9f6e1
 .asm_9f6c9
-	ld de, OAM_beafc
-	jp Func_9f0bc
+	ld de, CollectDemonsBloodCutsceneOAM_beafc
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .asm_9f6cf
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr nz, .asm_9f6c9
 	ld a, $04
 	ld [wSceneObj3State], a
@@ -6793,20 +6793,20 @@ Func_9f6a2:
 .asm_9f6e1
 	ld b, $07
 .asm_9f6e3
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f6b1
 	jr .asm_9f6c9
 
 .framesets
-	dw Frameset_bebda
-	dw Frameset_bebcc
-	dw Frameset_bebdd
-	dw Frameset_bebe0
-	dw Frameset_bebd3
-	dw Frameset_bebe3
-	dw Frameset_bebec
+	dw CollectDemonsBloodCutsceneFrameset_bebda
+	dw CollectDemonsBloodCutsceneFrameset_bebcc
+	dw CollectDemonsBloodCutsceneFrameset_bebdd
+	dw CollectDemonsBloodCutsceneFrameset_bebe0
+	dw CollectDemonsBloodCutsceneFrameset_bebd3
+	dw CollectDemonsBloodCutsceneFrameset_bebe3
+	dw CollectDemonsBloodCutsceneFrameset_bebec
 
-Func_9f6f8:
+UpdateCutsceneObjs_PlacePropeller:
 	ld bc, wSceneObj2State
 	call .Func_9f701
 	ld bc, wSceneObj3State
@@ -6815,25 +6815,25 @@ Func_9f6f8:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f71d
 .asm_9f711
-	ld de, OAM_bebef
-	jp Func_9f0bc
+	ld de, PlacePropellerCutsceneOAM_bebef
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_becc7
-	dw Frameset_becca
-	dw Frameset_becd3
+	dw PlacePropellerCutsceneFrameset_becc7
+	dw PlacePropellerCutsceneFrameset_becca
+	dw PlacePropellerCutsceneFrameset_becd3
 
 .asm_9f71d
 	call .Func_9f722
 	jr .asm_9f711
 
 .Func_9f722:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6848,7 +6848,7 @@ Func_9f6f8:
 	play_sfx SFX_07D
 	ret
 
-Func_9f73b:
+UpdateCutsceneObjs_CutBaloon:
 	ld bc, wSceneObj2State
 	call .asm_9f744
 	ld bc, wSceneObj3State
@@ -6857,17 +6857,17 @@ Func_9f73b:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_becdc
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, CutBaloonCutsceneOAM_becdc
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bed39
-	dw Frameset_bed3c
-	dw Frameset_bed3f
+	dw CutBaloonCutsceneFrameset_bed39
+	dw CutBaloonCutsceneFrameset_bed3c
+	dw CutBaloonCutsceneFrameset_bed3f
 
-Func_9f75c:
+UpdateCutsceneObjs_OpenParaGoomCage:
 	ld bc, wSceneObj2State
 	call .asm_9f765
 	ld bc, wSceneObj4State
@@ -6876,8 +6876,8 @@ Func_9f75c:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f783
 	cp $04
@@ -6885,8 +6885,8 @@ Func_9f75c:
 	cp $06
 	jr z, .asm_9f78b
 .asm_9f77d
-	ld de, OAM_bed42
-	jp Func_9f0bc
+	ld de, OpenParaGoomCageCutsceneOAM_bed42
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f783
 	ld b, $00
 	jr .asm_9f78d
@@ -6896,18 +6896,18 @@ Func_9f75c:
 .asm_9f78b
 	ld b, $07
 .asm_9f78d
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f765
 	jr .asm_9f77d
 
 .framesets
-	dw Frameset_bee4d
-	dw Frameset_bee50
-	dw Frameset_bee55
-	dw Frameset_bee58
-	dw Frameset_bee5d
-	dw Frameset_bee60
-	dw Frameset_bee6b
+	dw OpenParaGoomCageCutsceneFrameset_bee4d
+	dw OpenParaGoomCageCutsceneFrameset_bee50
+	dw OpenParaGoomCageCutsceneFrameset_bee55
+	dw OpenParaGoomCageCutsceneFrameset_bee58
+	dw OpenParaGoomCageCutsceneFrameset_bee5d
+	dw OpenParaGoomCageCutsceneFrameset_bee60
+	dw OpenParaGoomCageCutsceneFrameset_bee6b
 
 Func_9f7a2:
 	ld bc, wSceneObj3State
@@ -6915,16 +6915,16 @@ Func_9f7a2:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	ld de, OAM_180b43
-	jp Func_9f0c6
+	jp _ObjOAM1
 
 .framesets
 	dw Frameset_68439
 	dw Frameset_684ba
 
-Func_9f7bb:
+UpdateCutsceneObjs_OpenSkyDoor:
 	ld bc, wSceneObj2State
 	call .asm_9f7c4
 	ld bc, wSceneObj3State
@@ -6933,49 +6933,49 @@ Func_9f7bb:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
-	ld de, OAM_bee6e
-	jp Func_9f0bc
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, OpenSkyDoorCutsceneOAM_bee6e
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_befbe
-	dw Frameset_befc1
-	dw Frameset_befc4
+	dw OpenSkyDoorCutsceneFrameset_befbe
+	dw OpenSkyDoorCutsceneFrameset_befc1
+	dw OpenSkyDoorCutsceneFrameset_befc4
 
-Func_9f7dc:
+UpdateCutsceneObjs_ExtinguishFire:
 	ld bc, wSceneObj2State
 .asm_9f7df
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f7f9
 	cp $03
 	jr z, .asm_9f808
 .asm_9f7f3
-	ld de, OAM_befd5
-	jp Func_9f0bc
+	ld de, ExtinguishFireCutsceneOAM_befd5
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f7f9
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f7df
 	jr .asm_9f7f3
 
 .framesets
-	dw Frameset_bf100
-	dw Frameset_bf103
-	dw Frameset_bf110
+	dw ExtinguishFireCutsceneFrameset_bf100
+	dw ExtinguishFireCutsceneFrameset_bf103
+	dw ExtinguishFireCutsceneFrameset_bf110
 
 .asm_9f808
 	call .Func_9f80d
 	jr .asm_9f7f3
 
 .Func_9f80d:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6992,24 +6992,24 @@ Func_9f821:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
 	jr z, .asm_9f83e
 .asm_9f834
 	ld de, OAM_18aba0
-	jp Func_9f0c1
+	jp _ObjOAM3
 
 .framesets
 	dw Frameset_69c0a
-	dw Frameset_69c13
+	dw ExtinguishFireCutsceneFrameset_69c13
 
 .asm_9f83e
 	call .Func_9f843
 	jr .asm_9f834
 
 .Func_9f843:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7020,18 +7020,18 @@ Func_9f821:
 	play_sfx SFX_01E
 	ret
 
-Func_9f857:
+UpdateCutsceneObjs_PlaceBrick:
 	ld hl, wSceneObj2State
 	ld a, [hld]
 	and a
 	ret z
 	dec l
-	ld de, Frameset_bf154
-	call Func_9f0ae
-	ld de, OAM_bf131
-	jp Func_9f0bc
+	ld de, PlaceBrickCutsceneFrameset_bf154
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, PlaceBrickCutsceneOAM_bf131
+	jp LoadCutsceneObjSprite_OWOAM2
 
-Func_9f86a:
+UpdateCutsceneObjs_SprayIronWall:
 	ld bc, wSceneObj2State
 	call .asm_9f873
 	ld bc, wSceneObj3State
@@ -7040,35 +7040,35 @@ Func_9f86a:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f8a3
 	cp $03
 	jr z, .asm_9f88d
 .asm_9f887
-	ld de, OAM_bf157
-	jp Func_9f0bc
+	ld de, SprayIronWallCutsceneOAM_bf157
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f88d
 	call .Func_9f8c1
 	ld b, $05
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f873
 	jr .asm_9f887
 
 .framesets
-	dw Frameset_bf28c
-	dw Frameset_bf28f
-	dw Frameset_bf298
-	dw Frameset_bf2a5
-	dw Frameset_bf2a8
+	dw SprayIronWallCutsceneFrameset_bf28c
+	dw SprayIronWallCutsceneFrameset_bf28f
+	dw SprayIronWallCutsceneFrameset_bf298
+	dw SprayIronWallCutsceneFrameset_bf2a5
+	dw SprayIronWallCutsceneFrameset_bf2a8
 
 .asm_9f8a3
 	call .Func_9f8a8
 	jr .asm_9f887
 
 .Func_9f8a8:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7084,7 +7084,7 @@ Func_9f86a:
 	ret
 
 .Func_9f8c1:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7099,7 +7099,7 @@ Func_9f86a:
 	play_sfx SFX_0C4
 	ret
 
-Func_9f8da:
+UpdateCutsceneObjs_MixChemicals:
 	ld bc, wSceneObj2State
 	call .asm_9f8e3
 	ld bc, wSceneObj3State
@@ -7108,17 +7108,17 @@ Func_9f8da:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $03
 	jr z, .asm_9f8f9
 	.asm_9f8f3
-	ld de, OAM_bf2ab
-	jp Func_9f0bc
+	ld de, MixChemicalsCutsceneOAM_bf2ab
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f8f9
 	ld b, $00
 	call .Func_9f912
-	ld hl, wSceneObj2Unk7
+	ld hl, wSceneObj2MovementStep
 	ld a, [hl]
 	and a
 	ret nz
@@ -7131,31 +7131,31 @@ Func_9f8da:
 	ret
 
 .Func_9f912:
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f8e3
 	jr .asm_9f8f3
 
 .framesets
-	dw Frameset_bf43b
-	dw Frameset_bf45d
-	dw Frameset_bf43e
+	dw MixChemicalsCutsceneFrameset_bf43b
+	dw MixChemicalsCutsceneFrameset_bf45d
+	dw MixChemicalsCutsceneFrameset_bf43e
 
-Func_9f91f:
+UpdateCutsceneObjs_RevealDarkRoom:
 	ld bc, wSceneObj2State
 .asm_9f922
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
 	jr z, .asm_9f93c
 	cp $02
 	jr z, .asm_9f943
 .asm_9f936
-	ld de, OAM_bf460
-	jp Func_9f0bc
+	ld de, RevealDarkRoomCutsceneOAM_bf460
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f93c
 	call .Func_9f953
 	ld b, $02
@@ -7164,18 +7164,18 @@ Func_9f91f:
 	call .Func_9f953
 	ld b, $01
 .asm_9f948
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f922
 	jr .asm_9f936
 
 .framesets
-	dw Frameset_bf5e0
-	dw Frameset_bf5e0
+	dw RevealDarkRoomCutsceneFrameset_bf5e0
+	dw RevealDarkRoomCutsceneFrameset_bf5e0
 
 .Func_9f953:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	jr z, .asm_9f96a
@@ -7204,10 +7204,10 @@ Func_9f91f:
 .asm_9f98a
 	ld a, b
 	xor $01
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
-Func_9f991:
+UpdateCutsceneObjs_SummonMoon:
 	ld bc, wSceneObj2State
 	call .asm_9f99a
 	ld bc, wSceneObj3State
@@ -7216,26 +7216,26 @@ Func_9f991:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
 	jr z, .asm_9f9b0
 .asm_9f9aa
-	ld de, OAM_bf611
-	jp Func_9f0bc
+	ld de, SummonMoonCutsceneOAM_bf611
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f9b0
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f99a
 	jr .asm_9f9aa
 
 .framesets
-	dw Frameset_bf65d
-	dw Frameset_bf660
-	dw Frameset_bf665
-	dw Frameset_bf668
+	dw SummonMoonCutsceneFrameset_bf65d
+	dw SummonMoonCutsceneFrameset_bf660
+	dw SummonMoonCutsceneFrameset_bf665
+	dw SummonMoonCutsceneFrameset_bf668
 
-Func_9f9c1:
+UpdateCutsceneObjs_OpenCraterHole:
 	ld bc, wSceneObj11State
 	call .asm_9f9d0
 	ld bc, wSceneObj10State
@@ -7246,23 +7246,23 @@ Func_9f9c1:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9f9e6
 .asm_9f9e0
-	ld de, OAM_bf66d
-	jp Func_9f0bc
+	ld de, OpenCraterHoleCutsceneOAM_bf66d
+	jp LoadCutsceneObjSprite_OWOAM2
 .asm_9f9e6
 	ld b, $01
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9f9d0
 	jr .asm_9f9e0
 
 .framesets
-	dw Frameset_bf6df
-	dw Frameset_bf6e2
-	dw Frameset_bf6ed
+	dw OpenCraterHoleCutsceneFrameset_bf6df
+	dw OpenCraterHoleCutsceneFrameset_bf6e2
+	dw OpenCraterHoleCutsceneFrameset_bf6ed
 
 Func_9f9f5:
 	ld bc, wSceneObj3State
@@ -7270,15 +7270,15 @@ Func_9f9f5:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
 	jr z, .asm_9fa16
 	cp $02
 	jr z, .asm_9fa2f
 .asm_9fa0c
 	ld de, OAM_18c806
-	jp Func_9f0cb
+	jp _ObjOAM4
 
 .framesets
 	dw Frameset_6a052
@@ -7289,7 +7289,7 @@ Func_9f9f5:
 	jr .asm_9fa0c
 
 .Func_9fa1b:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7304,7 +7304,7 @@ Func_9f9f5:
 	jr .asm_9fa0c
 
 .Func_9fa34:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7315,7 +7315,7 @@ Func_9f9f5:
 	play_sfx SFX_080
 	ret
 
-Func_9fa48:
+UpdateCutsceneObjs_DrillHoles:
 	ld bc, wSceneObj10State
 	call .asm_9fa7b
 	ld bc, wSceneObj11State
@@ -7338,27 +7338,27 @@ Func_9fa48:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
 	jr z, .asm_9fa9b
 .asm_9fa8b
-	ld de, OAM_bf6f0
-	jp Func_9f0bc
+	ld de, DrillHolesCutsceneOAM_bf6f0
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bf826
-	dw Frameset_bf829
-	dw Frameset_bf832
-	dw Frameset_bf835
-	dw Frameset_bf83e
+	dw DrillHolesCutsceneFrameset_bf826
+	dw DrillHolesCutsceneFrameset_bf829
+	dw DrillHolesCutsceneFrameset_bf832
+	dw DrillHolesCutsceneFrameset_bf835
+	dw DrillHolesCutsceneFrameset_bf83e
 
 .asm_9fa9b
 	call .Func_9faa0
 	jr .asm_9fa8b
 
 .Func_9faa0:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7369,30 +7369,30 @@ Func_9fa48:
 	play_sfx SFX_PLANE1
 	ret
 
-Func_9fab4:
+UpdateCutsceneObjs_FeedOctohon:
 	ld bc, wSceneObj2State
 	ld a, [bc]
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
 	jr z, .asm_9fad1
 .asm_9fac7
-	ld de, OAM_bf847
-	jp Func_9f0bc
+	ld de, FeedOctohonCutsceneOAM_bf847
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bf923
-	dw Frameset_bf92a
+	dw FeedOctohonCutsceneFrameset_bf923
+	dw FeedOctohonCutsceneFrameset_bf92a
 
 .asm_9fad1
 	call .Func_9fad6
 	jr .asm_9fac7
 
 .Func_9fad6:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7410,8 +7410,8 @@ Func_9faea:
 	and a
 	ret z
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0b5
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
 	jr z, .asm_9fb1a
 	cp $03
@@ -7420,16 +7420,16 @@ Func_9faea:
 	jr z, .asm_9fb0b
 .asm_9fb05
 	ld de, OAM_18a895
-	jp Func_9f0c1
+	jp _ObjOAM3
 .asm_9fb0b
 	ld b, $03
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .asm_9faed
 	jr .asm_9fb05
 
 .framesets
 	dw Frameset_69b38
-	dw Frameset_69ba0
+	dw FeedOctohonCutsceneFrameset_69ba0
 	dw Frameset_69b60
 
 .asm_9fb1a
@@ -7472,7 +7472,7 @@ Func_9fb4c:
 
 ; b = y coord
 ; c = frame
-Func_9fb53:
+DrawCutsceneOverlay:
 	ld a, [wSceneObj1YCoord]
 	cp b
 	ret nz
@@ -7487,31 +7487,31 @@ Func_9fb53:
 	ld [hl], a ; attributes
 ;	fallthrough
 
-Func_9fb61:
+LoadCutsceneOverlaySprite:
 	ld de, OAM_bc000
 	ld a, $fc
 	and l
 	ld l, a
-	call Func_9f0bc
+	call LoadCutsceneObjSprite_OWOAM2
 	ret
 
 Func_9fb6c:
 	ld c, $01
 	ld hl, wCurSceneObjDuration
 	ld b, $01
-	jr Func_9fb53
+	jr DrawCutsceneOverlay
 
 Func_9fb75:
 	ld c, 2
 	ld hl, wCurSceneObjDuration
 	ld b, $01
-	jr Func_9fb53
+	jr DrawCutsceneOverlay
 
 Func_9fb7e:
 	ld c, 3
 	ld hl, wCurSceneObjDuration
 	ld b, $01
-	jr Func_9fb53
+	jr DrawCutsceneOverlay
 
 Func_9fb87:
 	ld a, [wSceneObj1YCoord]
@@ -7522,21 +7522,21 @@ Func_9fb87:
 	ld [hli], a
 	xor a
 	ld [hl], a
-	jr Func_9fb61
+	jr LoadCutsceneOverlaySprite
 
 ; de = scene obj
 Func_9fb97:
 	ld hl, wCurSceneObj
 	ld c, 5
 	ld b, $03
-	jr Func_9fb53
+	jr DrawCutsceneOverlay
 
 ; de = scene obj
 Func_9fba0:
 	ld hl, wCurSceneObjDuration
 	ld c, 6
 	ld b, $03
-	jr Func_9fb53
+	jr DrawCutsceneOverlay
 
 Func_9fba9:
 	call Func_9fb87
@@ -7557,30 +7557,30 @@ Func_9fba9:
 	cp $05
 	jr z, .asm_9fbdc
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 .asm_9fbd5
 	ld de, OAM_bcfb3
-	call Func_9f0bc
+	call LoadCutsceneObjSprite_OWOAM2
 	ret
 .asm_9fbdc
 	ld hl, .framesets
-	call Func_9f0a5
-	call Func_9f0ae
+	call GetCutsceneObjFrameset
+	call UpdateCutsceneObjAnim_OWOAM2
 	ld b, $06
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .Func_9fbc5
 	jr .asm_9fbd5
 
 .framesets
-	dw Frameset_bd1b7
-	dw Frameset_bd1ba
-	dw Frameset_bd1bd
-	dw Frameset_bd1c0
-	dw Frameset_bd1c5
-	dw Frameset_bd1f8
+	dw VolcanoEruptionCutsceneFrameset_bd1b7
+	dw VolcanoEruptionCutsceneFrameset_bd1ba
+	dw VolcanoEruptionCutsceneFrameset_bd1bd
+	dw VolcanoEruptionCutsceneFrameset_bd1c0
+	dw VolcanoEruptionCutsceneFrameset_bd1c5
+	dw VolcanoEruptionCutsceneFrameset_bd1f8
 
-Func_9fbfa:
+UpdateCutsceneObjs_PlantSeeds:
 	ld de, wSceneObj2
 	call Func_9fb4c
 	call .Func_9fc09
@@ -7591,13 +7591,13 @@ Func_9fbfa:
 	ld a, [wSceneObj2State]
 	and a
 	ret z
-	ld de, Frameset_bd1b4
+	ld de, PlantSeedsCutsceneFrameset_bd1b4
 	ld hl, wSceneObj2Duration
-	call Func_9f0ae
+	call UpdateCutsceneObjAnim_OWOAM2
 	ld de, OAM_bcfb3
-	jp Func_9f0bc
+	jp LoadCutsceneObjSprite_OWOAM2
 
-Func_9fc1d:
+UpdateCutsceneObjs_MusicBox:
 	ld de, wSceneObj2
 	call Func_9fb4c
 	call .Func_9fc2c
@@ -7612,21 +7612,21 @@ Func_9fc1d:
 	ld hl, .framesets
 	call GetPointerFromTableDE
 	ld hl, wSceneObj2Duration
-	call Func_9f0ae
-	ld de, OAM_bc1f6
-	jp Func_9f0bc
+	call UpdateCutsceneObjAnim_OWOAM2
+	ld de, MusicBoxCutsceneOAM_bc1f6
+	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
-	dw Frameset_bcf15
-	dw Frameset_bcf18
-	dw Frameset_bcf21
-	dw Frameset_bcf24
-	dw Frameset_bcf35
-	dw Frameset_bcf38
-	dw Frameset_bcf49
-	dw Frameset_bcf4c
-	dw Frameset_bcf6d
-	dw Frameset_bcf70
+	dw MusicBoxCutsceneFrameset_bcf15
+	dw MusicBoxCutsceneFrameset_bcf18
+	dw MusicBoxCutsceneFrameset_bcf21
+	dw MusicBoxCutsceneFrameset_bcf24
+	dw MusicBoxCutsceneFrameset_bcf35
+	dw MusicBoxCutsceneFrameset_bcf38
+	dw MusicBoxCutsceneFrameset_bcf49
+	dw MusicBoxCutsceneFrameset_bcf4c
+	dw MusicBoxCutsceneFrameset_bcf6d
+	dw MusicBoxCutsceneFrameset_bcf70
 
 OWCutTree:
 .start
@@ -7652,11 +7652,11 @@ OWCutTree:
 	ld de, Frameset_bc1e8
 	call UpdateOWAnimation
 	ld b, $00
-	call Func_9f0d0
+	call SetSceneObjStateWhenAnimFinished
 	jr z, .start
 .asm_9fc85
 	ld de, OAM_bc122
-	jp Func_9f0bc
+	jp LoadCutsceneObjSprite_OWOAM2
 
 Pals_9fc8b:
 	rgb  6,  7, 16

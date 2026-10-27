@@ -16,20 +16,44 @@ DebugFormTable:
 	db TRANSFORMATION_CRAZY_WARIO,         "CRAZY"
 	db TRANSFORMATION_VAMPIRE_WARIO,       "VAMPI"
 	db TRANSFORMATION_SNOWMAN_WARIO,       "SNWMN"
+	db TRANSFORMATION_INVISIBLE_WARIO,     "INVIS"
 
-DEF NUM_DEBUG_FORMS  EQU 12
+DEF NUM_DEBUG_FORMS  EQU 13
 DEF NUM_DEBUG_POWERS EQU 10
-DEF DEBUG_MENU_ITEMS EQU 4
 
-; Strings for menu labels (temple charmap)
-DebugMenuStrHeader: db "DEBUG MENU"       ; 10 bytes, drawn at row 1 col 3
-DebugMenuStrPower:  db "POWER   :"        ; 9 bytes  (cols 1-9, row 3)
-DebugMenuStrForm:   db "FORM    :"        ; 9 bytes  (cols 1-9, row 5)
-DebugMenuStrInvnbl: db "INVNBL  :"        ; 9 bytes  (cols 1-9, row 7)
-DebugMenuStrGolf:   db "GOLF    :"        ; 9 bytes  (cols 1-9, row 9)
+; menu items, in wDebugMenuCursor order
+	const_def
+	const DEBUG_MENU_FORM
+	const DEBUG_MENU_POWER
+	const DEBUG_MENU_GOLF
+	const DEBUG_MENU_OWL
+	const DEBUG_MENU_TREASURE
+DEF DEBUG_MENU_ITEMS EQU const_value
+
+; where the cursor and the values go (the rest of the screen, labels
+; included, is in debug_menu.tilemap: see tools/debug_menu_bgmap.py)
+DEF DEBUG_MENU_CURSOR_X EQU 2
+DEF DEBUG_MENU_VALUE_X  EQU 11
+DEF DEBUG_MENU_FORM_Y     EQU 5
+DEF DEBUG_MENU_POWER_Y    EQU 7
+DEF DEBUG_MENU_GOLF_Y     EQU 9
+DEF DEBUG_MENU_OWL_Y      EQU 11
+DEF DEBUG_MENU_TREASURE_Y EQU 13
+DEF DEBUG_MENU_TREASURE_VALUE_X EQU 5 ; on the row below its label
+
+; Strings for menu values (temple charmap)
+; level codes, 2 bytes per level, in level order
+DebugLevelCodes:
+	db "N1N2N3N4N5N6"
+	db "W1W2W3W4W5W6"
+	db "S1S2S3S4S5S6"
+	db "E1E2E3E4E5E6E7"
+; treasure colours, 3 bytes each, in LevelTreasureIDs order
+DebugTreasureColours: db "GRYREDGRNBLU"
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
-DebugMenuStrInstr:  db "LR:CYCLE  B:EXIT" ; 16 bytes (row 15)
+DebugMenuStrOk:     db "OK "              ; 3 bytes
+DebugMenuStrNo:     db "NO "              ; 3 bytes
 
 SETCHARMAP main
 
@@ -72,6 +96,7 @@ DebugMenu_ApplyForm:
 	dw .form_crazy
 	dw .form_vampire
 	dw .form_snowman
+	dw .form_invisible
 
 ; NONE: restore normal Wario state without playing the in-game recovery SFX
 .form_none:
@@ -93,12 +118,12 @@ DebugMenu_ApplyForm:
 	ld a, TRANSFORMATION_HOT_WARIO
 	ld [wTransformation], a
 	ld a, 1
-	ld [wWarioTransformationProgress], a
+	ld [wTransformationProgress], a
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, HIGH(HOT_WARIO_DURATION)
 	ld [wTransformationDuration], a
 	ld a, LOW(HOT_WARIO_DURATION)
@@ -117,7 +142,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -133,11 +158,11 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_16e9d)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_16e9d)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_16e9d)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	farcall SetState_FlatIdling
 	ret
 
@@ -149,7 +174,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -165,15 +190,15 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_171c0)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_171c0)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_171c0)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	farcall SetState_BallOString
 	ret
 
-; FAT: bump-type, SetState_FatIdling sets wTouchState/wca94 itself
+; FAT: bump-type, SetState_FatIdling sets wTouchState/wSpikeTouchState itself
 .form_fat:
 	ld a, TRANSFORMATION_FAT_WARIO
 	ld [wTransformation], a
@@ -193,12 +218,12 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_1742d)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_1742d)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1742d)
-	ld [wOAMPtr + 1], a
-	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wca94=$01,
+	ld [wWarioOAMPtr + 1], a
+	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wSpikeTouchState=$01,
 	; and standard collision box
 	farcall SetState_FatIdling
 	ret
@@ -211,7 +236,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -250,31 +275,31 @@ DebugMenu_ApplyForm:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 	ld a, BANK(OAM_1790e)
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	ld a, HIGH(OAM_1790e)
-	ld [wOAMPtr + 0], a
+	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1790e)
-	ld [wOAMPtr + 1], a
+	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
 	jr nz, .elec_right
 	ld a, HIGH(Frameset_17b79)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_17b79)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 	jr .elec_anim
 .elec_right:
 	ld a, HIGH(Frameset_17b76)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_17b76)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 .elec_anim:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
-	hcall UpdateAnimation
+	hcall UpdateWarioAnimation
 	ret
 
-; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wca94/GFX itself
+; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wSpikeTouchState/GFX itself
 .form_puffy:
 	ld a, $FF
 	ld [wTransformationDuration], a
@@ -282,7 +307,7 @@ DebugMenu_ApplyForm:
 	farcall SetState_PuffyInflating
 	ret
 
-; ZOMBIE: SetState_ZombieIdling sets wTouchState/wca94/GFX/OAM itself
+; ZOMBIE: SetState_ZombieIdling sets wTouchState/wSpikeTouchState/GFX/OAM itself
 .form_zombie:
 	ld a, TRANSFORMATION_ZOMBIE_WARIO
 	ld [wTransformation], a
@@ -300,7 +325,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -315,7 +340,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -333,7 +358,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -349,10 +374,10 @@ DebugMenu_ApplyForm:
 	ld [wCollisionBoxLeft], a
 	ld a, 9
 	ld [wCollisionBoxRight], a
-	; SetState_VampireIdling sets wOAMPtr but not wOAMBank; set it here since
+	; SetState_VampireIdling sets wWarioOAMPtr but not wWarioOAMBank; set it here since
 	; we bypass the normal VampireTransforming → VampireIdling path.
 	ld a, BANK("Wario OAM 2")
-	ld [wOAMBank], a
+	ld [wWarioOAMBank], a
 	farcall SetState_VampireIdling
 	ret
 
@@ -361,214 +386,333 @@ DebugMenu_ApplyForm:
 	ld a, TRANSFORMATION_SNOWMAN_WARIO
 	ld [wTransformation], a
 	xor a
-	ld [wWarioTransformationProgress], a
+	ld [wTransformationProgress], a
 	ld a, TOUCH_ATTACK
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
 	farcall SetState_TurningIntoSnowman
 	ret
 
-; -----------------------------------------------------------------------
-; Write BG attribute map (VRAM bank 1) to colour the debug menu regions.
-; Called during InitDebugMenu with LCD off. Clobbers: A, B, C, H, L
-; Palette 0 (teal bg) is already the default from FillBGMap0_With7f.
-; Layout:
-;   Rows  2-3 : pal 6 (bright yellow)  — header band
-;   Rows 5,7,9,11 : pal 5 (white)      — item rows
-;   Rows 13-14 : pal 6 (bright yellow) — footer band
-; -----------------------------------------------------------------------
-DebugMenu_SetAttrMap:
-	ld a, BANK("VRAM1")
-	ldh [rVBK], a
-
-	; Rows 2-3: bright yellow header band
-	ld hl, v1BGMap0 + 2 * TILEMAP_WIDTH
-	ld bc, 2 * TILEMAP_WIDTH
-	ld a, 6
-	call WriteAToHL_BCTimes
-
-	; Item rows: white background
-	ld a, 5
-	ld hl, v1BGMap0 + 5 * TILEMAP_WIDTH
-	ld bc, TILEMAP_WIDTH
-	call WriteAToHL_BCTimes    ; A preserved by WriteAToHL_BCTimes, BC not
-	ld hl, v1BGMap0 + 7 * TILEMAP_WIDTH
-	ld bc, TILEMAP_WIDTH
-	call WriteAToHL_BCTimes
-	ld hl, v1BGMap0 + 9 * TILEMAP_WIDTH
-	ld bc, TILEMAP_WIDTH
-	call WriteAToHL_BCTimes
-	ld hl, v1BGMap0 + 11 * TILEMAP_WIDTH
-	ld bc, TILEMAP_WIDTH
-	call WriteAToHL_BCTimes
-
-	; Rows 13-14: bright yellow footer band
-	ld hl, v1BGMap0 + 13 * TILEMAP_WIDTH
-	ld bc, 2 * TILEMAP_WIDTH
-	ld a, 6
-	call WriteAToHL_BCTimes
-
-	xor a
-	ldh [rVBK], a
-	ret
-
-; -----------------------------------------------------------------------
-; Toggle TRANSFORMATION_INVISIBLE_WARIO on/off.
-; Mirrors what UpdateState_TurningInvisible does when the potion animation ends.
-; Clobbers: A, H, L
-; -----------------------------------------------------------------------
-DebugMenu_ToggleInvisible:
-	ld a, [wTransformation]
-	cp TRANSFORMATION_INVISIBLE_WARIO
-	jr z, .clear_invisible
-	; Apply invisible transformation (skip the turning animation)
+; INVIS: what UpdateState_TurningInvisible does when the potion animation
+; ends (another form, NONE included, turns it off)
+.form_invisible:
 	ld a, TRANSFORMATION_INVISIBLE_WARIO
 	ld [wTransformation], a
 	xor a
 	ld [wTouchState], a
 	ld [wStingTouchState], a
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld [wIsIntangible], a
 	call UpdateLevelMusic
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .apply_fall
+	jr nz, .form_invisible_fall
 	farcall SetState_Idling
 	ret
-.apply_fall:
-	farcall StartFall
-	ret
-.clear_invisible:
-	call ClearTransformationValues
-	call UpdateLevelMusic
-	ld hl, WarioDefaultPal
-	call SetWarioPal
-	ld a, [wJumpVelTable]
-	and a
-	jr nz, .clear_fall
-	farcall SetState_Idling
-	ret
-.clear_fall:
+.form_invisible_fall:
 	farcall StartFall
 	ret
 
 ; -----------------------------------------------------------------------
-; Draw the full debug menu to v0BGMap0 (LCD must be off or in VBlank)
+; Spawn an owl next to Wario (from the room's object group if it has one,
+; otherwise from ROM), and record the outcome in wDebugMenuOwlStatus
+; (1 = spawned, 2 = not: no free object slot, or a boss battle).
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_SpawnOwl:
+	; Bosses keep their own graphics in the enemy slots, the owl's included
+	; (it would overwrite part of the boss): no owl in a boss battle.
+	ld a, [wIsBossBattle]
+	and a
+	ld a, 2
+	jr nz, .got_status
+	push_wram BANK("Level Objects WRAM")
+	ld c, OWL
+	farcall _DebugSpawnObject
+	pop_wram
+	ld a, b
+	and a
+	jr nz, .spawned
+	; This room's object group has no owl: spawn one from ROM, and load its
+	; graphics when the menu closes (VRAM is restored then), into an enemy
+	; graphics slot the group doesn't use (slot 1 if it uses all four).
+	push_wram BANK("Level Objects WRAM")
+	farcall _DebugSpawnOwlFromROM
+	pop_wram
+	ld a, b
+	and a
+	ld a, 2
+	jr z, .got_status
+	ld a, TRUE
+	ld [wDebugMenuOwlGfxPending], a
+.spawned
+	ld a, 1
+.got_status
+	ld [wDebugMenuOwlStatus], a
+	ret
+
+; -----------------------------------------------------------------------
+; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
+; colour, the LevelTreasureIDs layout).
+; output: a = treasure ID
+; -----------------------------------------------------------------------
+DebugMenu_GetTreasureID:
+	ld a, [wDebugMenuTreasureIdx]
+	ld e, a
+	ld d, 0
+	ld hl, LevelTreasureIDs_WithoutTemple
+	add hl, de
+	ld a, [hl]
+	ret
+
+; output: carry set if the picked treasure is collected
+; Clobbers: A, B, D, E, H, L
+DebugMenu_IsTreasureCollected:
+	call DebugMenu_GetTreasureID
+	ld b, a
+	push_wram BANK(wTreasuresCollected)
+	ld a, b
+	call IsTreasureCollected
+	ld b, a ; TRUE if collected
+	pop_wram
+	ld a, b
+	and a ; clears carry
+	ret z
+	scf
+	ret
+
+; Gives or takes the picked treasure. Level variants that need it change
+; the next time a level is entered from the map.
+; Clobbers: A, B, D, E, H, L
+DebugMenu_ToggleTreasure:
+	call DebugMenu_GetTreasureID
+	ld b, a
+	push_wram BANK(wTreasuresCollected)
+	ld a, b
+	call IsTreasureCollected
+	; hl = byte in wTreasuresCollected, d = the treasure's bit
+	ld a, [hl]
+	xor d
+	ld [hl], a
+	pop_wram
+	farcall UpdateNumCollectedTreasures
+	ret
+
+; -----------------------------------------------------------------------
+; Draw the cursor and the values (LCD must be off or in VBlank); the rest is
+; in debug_menu.tilemap
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawAll:
-	; Header "DEBUG MENU" centred at row 3
-	hlbgcoord 5, 3
-	ld de, DebugMenuStrHeader
-	ld b, 10
-	call DebugMenu_DrawString
+	call DebugMenu_DrawItems1
+	jp DebugMenu_DrawItems2
 
-	; FORM row (row 5)
+; -----------------------------------------------------------------------
+; Write the cursor (▼) to hl if item c is selected, a space otherwise.
+; Clobbers: A
+; -----------------------------------------------------------------------
+DebugMenu_DrawCursor:
 	ld a, [wDebugMenuCursor]
-	and a                  ; cursor == 0?
-	ld a, $5d              ; ▼
-	jr z, .cursor_form
-	ld a, $7e              ; space
-.cursor_form:
-	ldcoord_a 0, 5
-	hlbgcoord 1, 5
-	ld de, DebugMenuStrForm
-	ld b, 9
-	call DebugMenu_DrawString
-	; Compute DE = &DebugFormTable[formIdx].name  (entries are 6 bytes, name at +1)
+	cp c
+	ld a, $5d ; ▼
+	jr z, .got_char
+	ld a, $7e ; space
+.got_char
+	ld [hl], a
+	ret
+
+; -----------------------------------------------------------------------
+; The items, in two halves: redrawing all of them takes longer than one
+; V-Blank, and VRAM can't be written while the LCD draws.
+; -----------------------------------------------------------------------
+DebugMenu_DrawItems1:
+	; FORM: the form's name
+	ld c, DEBUG_MENU_FORM
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_FORM_Y
+	call DebugMenu_DrawCursor
+	; de = &DebugFormTable[formIdx].name (entries are 6 bytes, name at +1)
 	ld a, [wDebugMenuFormIdx]
-	add a       ; 2*idx
-	ld c, a    ; save 2*idx
-	add a       ; 4*idx
-	add c       ; 6*idx
+	add a ; 2*idx
+	ld c, a
+	add a ; 4*idx
+	add c ; 6*idx
 	ld c, a
 	ld b, 0
-	ld hl, DebugFormTable + 1  ; +1: skip transform byte
+	ld hl, DebugFormTable + 1 ; +1: skip transform byte
 	add hl, bc
 	ld d, h
 	ld e, l
-	hlbgcoord 10, 5
+	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_FORM_Y
 	ld b, 5
 	call DebugMenu_DrawString
 
-	; POWER row (row 7)
-	ld a, [wDebugMenuCursor]
-	cp 1
-	ld a, $5d              ; ▼
-	jr z, .cursor_power
-	ld a, $7e              ; space
-.cursor_power:
-	ldcoord_a 0, 7
-	hlbgcoord 1, 7
-	ld de, DebugMenuStrPower
-	ld b, 9
-	call DebugMenu_DrawString
+	; POWER: a digit
+	ld c, DEBUG_MENU_POWER
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_POWER_Y
+	call DebugMenu_DrawCursor
 	ld a, [wPowerUpLevel]
-	add $30                ; digit in temple charmap ($30-$39)
-	ldcoord_a 10, 7
+	add $30 ; digit in temple charmap ($30-$39)
+	ldcoord_a DEBUG_MENU_VALUE_X, DEBUG_MENU_POWER_Y
 
-	; INVNBL row (row 9)
-	ld a, [wDebugMenuCursor]
-	cp 2
-	ld a, $5d              ; ▼
-	jr z, .cursor_invnbl
-	ld a, $7e              ; space
-.cursor_invnbl:
-	ldcoord_a 0, 9
-	hlbgcoord 1, 9
-	ld de, DebugMenuStrInvnbl
-	ld b, 9
-	call DebugMenu_DrawString
-	ld a, [wTransformation]
-	cp TRANSFORMATION_INVISIBLE_WARIO
-	jr nz, .invnbl_off
-	ld de, DebugMenuStrOn
-	ld b, 3
-	jr .draw_invnbl_val
-.invnbl_off:
-	ld de, DebugMenuStrOff
-	ld b, 3
-.draw_invnbl_val:
-	hlbgcoord 10, 9
-	call DebugMenu_DrawString
-
-	; GOLF row (row 11)
-	ld a, [wDebugMenuCursor]
-	cp 3
-	ld a, $5d              ; ▼
-	jr z, .cursor_golf
-	ld a, $7e              ; space
-.cursor_golf:
-	ldcoord_a 0, 11
-	hlbgcoord 1, 11
-	ld de, DebugMenuStrGolf
-	ld b, 9
-	call DebugMenu_DrawString
+	; GOLF: ON or OFF
+	ld c, DEBUG_MENU_GOLF
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_GOLF_Y
+	call DebugMenu_DrawCursor
 	ld a, [wIsMinigameCleared]
 	and a
-	jr z, .golf_off
 	ld de, DebugMenuStrOn
-	ld b, 3
-	jr .draw_golf_val
-.golf_off:
+	jr nz, .draw_golf_val
 	ld de, DebugMenuStrOff
+.draw_golf_val
+	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_GOLF_Y
 	ld b, 3
-.draw_golf_val:
-	hlbgcoord 10, 11
-	call DebugMenu_DrawString
+	jp DebugMenu_DrawString
 
-	; Instructions row (row 13), centred
-	hlbgcoord 2, 13
-	ld de, DebugMenuStrInstr
-	ld b, 16
+DebugMenu_DrawItems2:
+	; OWL: LEFT/RIGHT spawns an owl, the value shows whether the last try
+	; worked
+	ld c, DEBUG_MENU_OWL
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_OWL_Y
+	call DebugMenu_DrawCursor
+	ld a, [wDebugMenuOwlStatus]
+	and a
+	jr z, .owl_status_done
+	dec a
+	ld de, DebugMenuStrOk
+	jr z, .draw_owl_status
+	ld de, DebugMenuStrNo
+.draw_owl_status
+	ld b, 3
+	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_OWL_Y
 	call DebugMenu_DrawString
+.owl_status_done
 
-	ret
+	; TREASURE: LEFT/RIGHT picks a level's treasure, A gives or takes it.
+	; Shows e.g. "N5 RED ON", on the row below the label.
+	ld c, DEBUG_MENU_TREASURE
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_TREASURE_Y
+	call DebugMenu_DrawCursor
+	ld a, [wDebugMenuTreasureIdx]
+	srl a
+	srl a ; level
+	add a ; 2 bytes per code
+	ld e, a
+	ld d, 0
+	ld hl, DebugLevelCodes
+	add hl, de
+	ld d, h
+	ld e, l
+	hlbgcoord DEBUG_MENU_TREASURE_VALUE_X, DEBUG_MENU_TREASURE_Y + 1
+	ld b, 2
+	call DebugMenu_DrawString
+	ld a, $7e ; space
+	ld [hli], a
+	ld a, [wDebugMenuTreasureIdx]
+	and %11 ; colour
+	ld c, a
+	add a
+	add c ; 3 bytes per colour
+	ld e, a
+	ld d, 0
+	push hl
+	ld hl, DebugTreasureColours
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+	ld b, 3
+	call DebugMenu_DrawString
+	ld a, $7e ; space
+	ld [hli], a
+	push hl
+	call DebugMenu_IsTreasureCollected
+	pop hl
+	ld de, DebugMenuStrOn
+	jr c, .draw_treasure_status
+	ld de, DebugMenuStrOff
+.draw_treasure_status
+	ld b, 3
+	jp DebugMenu_DrawString
+
+; -----------------------------------------------------------------------
+; Load the menu's screen: the font in VRAM0, the pause menu's graphics in
+; VRAM1 (for the frame), the map and the palettes. See
+; tools/debug_menu_bgmap.py for the layout. The LCD must be off.
+; -----------------------------------------------------------------------
+DebugMenu_LoadScreen:
+	farcall LoadFontTiles
+	ld a, BANK("VRAM1")
+	ldh [rVBK], a
+	ld hl, PauseMenuGfx
+	ld bc, v1Tiles0
+	ld a, BANK(PauseMenuGfx)
+	ldh [hCallFuncBank], a
+	hcall Decompress
+	ld hl, DebugMenuAttrmap
+	ld bc, v1BGMap0
+	call Decompress
+	xor a ; VRAM0
+	ldh [rVBK], a
+	ld hl, DebugMenuTilemap
+	ld bc, v0BGMap0
+	call Decompress
+	ld hl, DebugMenuPals
+	ld de, wTempPals1
+	ld b, 8 palettes
+	jp CopyHLToDE_Short
+
+DebugMenuTilemap: INCBIN "data/bgmaps/debug_menu.tilemap.rle"
+DebugMenuAttrmap: INCBIN "data/bgmaps/debug_menu.attrmap.rle"
+
+; The font draws its glyphs in colour 0 on colour 3: the text palettes are a
+; text colour on the colour of what's behind it.
+DebugMenuPals:
+	; 0: title, yellow on the title band's dark blue
+	rgb 31, 31,  0
+	rgb 21, 21, 21
+	rgb 10, 10, 10
+	rgb  7,  2, 23
+	; 1-4: the pause menu's (Pals_1f4182), for its gems, the checkered
+	; band and the yellow frame
+	rgb 27, 31, 18
+	rgb 16, 26,  8
+	rgb  4, 18,  2
+	rgb  0, 14,  0
+
+	rgb 31, 17, 17
+	rgb 29, 14, 12
+	rgb 27,  7,  5
+	rgb 10,  2,  0
+
+	rgb 31, 31, 31
+	rgb  9, 10, 31
+	rgb  7,  2, 23
+	rgb  0,  0,  0
+
+	rgb 31, 27,  0
+	rgb 26, 11,  1
+	rgb 11,  0,  1
+	rgb  0,  0,  0
+	; 5: labels, white on the frame's dark red
+	rgb 31, 31, 31
+	rgb 21, 21, 21
+	rgb 10, 10, 10
+	rgb 11,  0,  1
+	; 6: cursor and values, yellow on dark red
+	rgb 31, 27,  0
+	rgb 21, 21, 21
+	rgb 10, 10, 10
+	rgb 11,  0,  1
+	; 7: instructions, white on dark blue
+	rgb 31, 31, 31
+	rgb 21, 21, 21
+	rgb 10, 10, 10
+	rgb  7,  2, 23
 
 ; -----------------------------------------------------------------------
 ; Substate 0: initialise debug menu display
@@ -587,6 +731,17 @@ InitDebugMenu:
 	; wTransformation so the display starts on the current form
 	xor a
 	ld [wDebugMenuCursor], a
+	ld [wDebugMenuOwlStatus], a
+	ld [wDebugMenuOwlGfxPending], a
+	; Start the treasure row on this level's grey treasure
+	ld a, [wLevel]
+	srl a ; levels are 8 apart, treasures 4 apart
+	and %11111100
+	cp NUM_LEVELS * 4
+	jr c, .got_treasure_idx
+	xor a ; the temple and the golf building have none
+.got_treasure_idx
+	ld [wDebugMenuTreasureIdx], a
 
 	; Determine starting form index from current wTransformation
 	ld a, [wTransformation]
@@ -615,11 +770,8 @@ InitDebugMenu:
 	ld [wDebugMenuFormIdx], a
 .form_init_done:
 
-	call FillBGMap0_With7f
-	call DebugMenu_SetAttrMap
 	call ClearVirtualOAM
-	farcall LoadFontTiles
-	farcall LoadFontPals
+	call DebugMenu_LoadScreen
 	call ApplyTempPals1ToBGPals
 
 	call DebugMenu_DrawAll
@@ -651,7 +803,7 @@ UpdateDebugMenu:
 
 	; Check for any actionable input
 	ld a, b
-	and PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT
+	and PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT | PAD_A
 	ret z                  ; nothing pressed, done
 
 	; Determine if anything changed (used to trigger redraw)
@@ -687,13 +839,15 @@ UpdateDebugMenu:
 	jr z, .not_right
 
 	ld a, [wDebugMenuCursor]
-	and a
+	cp DEBUG_MENU_FORM
 	jr z, .change_form_fwd
-	cp 1
+	cp DEBUG_MENU_POWER
 	jr z, .change_power_fwd
-	cp 2
-	jr z, .toggle_invnbl_r
-	; else cursor 3: toggle golf win
+	cp DEBUG_MENU_OWL
+	jr z, .spawn_owl_r
+	cp DEBUG_MENU_TREASURE
+	jr z, .treasure_fwd
+	; else DEBUG_MENU_GOLF: toggle golf win
 	ld a, [wIsMinigameCleared]
 	xor TRUE
 	ld [wIsMinigameCleared], a
@@ -701,8 +855,18 @@ UpdateDebugMenu:
 	ld [wRoomTransitionParam], a
 	ld c, 1
 	jr .not_right
-.toggle_invnbl_r:
-	call DebugMenu_ToggleInvisible
+.spawn_owl_r:
+	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .not_right
+.treasure_fwd:
+	ld a, [wDebugMenuTreasureIdx]
+	inc a
+	cp NUM_LEVELS * 4
+	jr c, .treasure_fwd_ok
+	xor a
+.treasure_fwd_ok:
+	ld [wDebugMenuTreasureIdx], a
 	ld c, 1
 	jr .not_right
 
@@ -733,16 +897,18 @@ UpdateDebugMenu:
 	; Reload joypad in case DebugMenu_ApplyForm clobbered b
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
-	jr z, .check_redraw
+	jr z, .not_left
 
 	ld a, [wDebugMenuCursor]
-	and a
+	cp DEBUG_MENU_FORM
 	jr z, .change_form_bwd
-	cp 1
+	cp DEBUG_MENU_POWER
 	jr z, .change_power_bwd
-	cp 2
-	jr z, .toggle_invnbl_l
-	; else cursor 3: toggle golf win (same as right)
+	cp DEBUG_MENU_OWL
+	jr z, .spawn_owl_l
+	cp DEBUG_MENU_TREASURE
+	jr z, .treasure_bwd
+	; else DEBUG_MENU_GOLF: toggle golf win (same as right)
 	ld a, [wIsMinigameCleared]
 	xor TRUE
 	ld [wIsMinigameCleared], a
@@ -750,8 +916,18 @@ UpdateDebugMenu:
 	ld [wRoomTransitionParam], a
 	ld c, 1
 	jr .check_redraw
-.toggle_invnbl_l:
-	call DebugMenu_ToggleInvisible
+.spawn_owl_l:
+	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .check_redraw
+.treasure_bwd:
+	ld a, [wDebugMenuTreasureIdx]
+	and a
+	jr nz, .treasure_bwd_ok
+	ld a, NUM_LEVELS * 4
+.treasure_bwd_ok:
+	dec a
+	ld [wDebugMenuTreasureIdx], a
 	ld c, 1
 	jr .check_redraw
 
@@ -780,24 +956,46 @@ UpdateDebugMenu:
 	ld [wDebugMenuFormIdx], a
 	call DebugMenu_ApplyForm
 	ld c, 1
+	jr .check_redraw
+
+.not_left:
+	; A: give or take the selected treasure
+	ld a, [wJoypadPressed]
+	bit B_PAD_A, a
+	jr z, .check_redraw
+	ld a, [wDebugMenuCursor]
+	cp DEBUG_MENU_TREASURE
+	jr nz, .check_redraw
+	call DebugMenu_ToggleTreasure
+	ld c, 1
 
 .check_redraw:
 	ld a, c
 	and a
 	ret z                  ; nothing changed
 
-	; Redraw during VBlank (LCD stays on, no flash)
+	; Redraw during V-Blank (LCD stays on, no flash), half the rows in each
+	; of two V-Blanks
 	di
-.wait_vblank:
+	call DebugMenu_WaitVBlank
+	call DebugMenu_DrawItems1
+.wait_vblank_end:
 	ldh a, [rLY]
 	cp LY_VBLANK
-	jr c, .wait_vblank
-	call DebugMenu_DrawAll
+	jr nc, .wait_vblank_end
+	call DebugMenu_WaitVBlank
+	call DebugMenu_DrawItems2
 	ei
 	ret
 
 .exit:
 	jp DebugMenu_Exit
+
+DebugMenu_WaitVBlank:
+	ldh a, [rLY]
+	cp LY_VBLANK
+	jr c, DebugMenu_WaitVBlank
+	ret
 
 ; -----------------------------------------------------------------------
 ; Exit: restore level state
@@ -807,10 +1005,16 @@ DebugMenu_Exit:
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
+	ld a, [wDebugMenuOwlGfxPending]
+	and a
+	jr z, .owl_gfx_done
+	farcall LoadOwlGfx
+.owl_gfx_done
+	xor a
+	ld [wDebugMenuOwlGfxPending], a
 
-	; wTempPals2 is now back to the pre-menu snapshot. InitDebugMenu also called
-	; LoadFontPals which had previously overwritten wTempPals2 with font palettes.
-	; Re-apply the current Wario palette from wWarioPalsPtr (unaffected by both).
+	; wTempPals2 is now back to the pre-menu snapshot. Re-apply the current
+	; Wario palette from wWarioPalsPtr, in case FORM changed it.
 	; hcall handles the ROM bank switch safely from ROMX: it saves/restores the
 	; Debug Menu bank internally and reads [hl] with Wario Palettes bank active.
 	ld a, [wWarioPalsPtr + 0]

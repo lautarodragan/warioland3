@@ -7,7 +7,7 @@ CartFunc:
 	ld [hld], a
 	ld a, LOW(.Waiting)
 	ld [hld], a
-	ld de, Frameset_69199
+	ld de, CartFrameset_69199
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -31,7 +31,7 @@ CartFunc:
 	ld [hld], a
 	ld a, LOW(.Moving)
 	ld [hld], a
-	ld de, Frameset_6919e
+	ld de, CartFrameset_6919e
 	call SetObjectFramesetPtr
 	ret
 
@@ -60,7 +60,7 @@ CartFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_48613
 	call MoveObjectLeft
@@ -68,7 +68,7 @@ CartFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19713
+	farcall CheckCarriedWarioLeftCollision
 	ld a, b
 	and a
 	ret nz
@@ -89,7 +89,7 @@ CartFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_48613
 	call MoveObjectRight
@@ -97,14 +97,14 @@ CartFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	ld a, b
 	and a
 	ret nz
 	ld b, $01
 	jp MoveWarioRight
 .asm_48613
-	ld de, Frameset_69199
+	ld de, CartFrameset_69199
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(CartStoppedFunc)
@@ -161,10 +161,10 @@ CartVariableFunc:
 	ld a, [wCurObjId]
 	cp CART_VARIABLE_RIGHT
 	jr z, .asm_48682
-	ld de, Frameset_691b3
+	ld de, CartFrameset_691b3
 	jp SetObjectFramesetPtr
 .asm_48682
-	ld de, Frameset_691aa
+	ld de, CartFrameset_691aa
 	jp SetObjectFramesetPtr
 
 .Moving:
@@ -191,7 +191,7 @@ CartVariableFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_48721
 	call MoveObjectLeft
@@ -199,7 +199,7 @@ CartVariableFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19713
+	farcall CheckCarriedWarioLeftCollision
 	ld a, b
 	and a
 	ret nz
@@ -219,7 +219,7 @@ CartVariableFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_48721
 	call MoveObjectRight
@@ -227,7 +227,7 @@ CartVariableFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	ld a, b
 	and a
 	ret nz

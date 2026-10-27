@@ -65,7 +65,7 @@ ShootFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $5
@@ -77,7 +77,7 @@ ShootFunc:
 	ld [hld], a
 	ld a, -8
 	ld [hl], a
-	ld de, Frameset_69f7c
+	ld de, ShootFrameset_69f7c
 	call SetObjectFramesetPtr
 	ld a, SHOOT_TAUNT_DURATION
 	ld [hli], a
@@ -148,7 +148,7 @@ ShootFunc:
 .jump_out_of_ball
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	ld_obj_frameset Frameset_6a022 + $2, Frameset_6a03a + $2
+	ld_obj_frameset ShootFrameset_6a022 + $2, ShootFrameset_6a03a + $2
 	ld a, SHOOT_OUT_OF_BALL_X_SPEED
 	ld [wCurObjVar2], a
 	jp .set_jumping_up
@@ -164,7 +164,7 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_2
 	call MoveObjectUpByVar2
 
-	ld de, Frameset_69ffd
+	ld de, ShootFrameset_69ffd
 	call SetObjectFramesetPtr
 	inc l
 	ld a, SHOOTPHASE_PREKICK_JUMP
@@ -241,11 +241,11 @@ ShootFunc:
 	rlca
 	jr c, .asm_56763
 	res OBJSUBFLAG_VDIR_F, [hl]
-	ld de, Frameset_6a022
+	ld de, ShootFrameset_6a022
 	jr .asm_56768
 .asm_56763
 	set OBJSUBFLAG_VDIR_F, [hl]
-	ld de, Frameset_6a03a
+	ld de, ShootFrameset_6a03a
 .asm_56768
 	call SetObjectFramesetPtr
 	ld a, SHOOT_IDLE_DURATION
@@ -262,7 +262,7 @@ ShootFunc:
 	ret nz ; not finished yet
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_6a02b, Frameset_6a043
+	ld_obj_frameset ShootFrameset_6a02b, ShootFrameset_6a043
 .set_jumping_up
 	call SetObjectFramesetPtr
 	ld a, SHOOT_JUMP_UP_DURATION
@@ -306,7 +306,7 @@ ShootFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .grounded
 
@@ -318,7 +318,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_16_px
 
@@ -330,7 +330,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_32_px
 
@@ -342,7 +342,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_48_px
 	ret
@@ -351,30 +351,30 @@ ShootFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_56817
-	ld de, Frameset_6a02e
+	ld de, ShootFrameset_6a02e
 	jp SetObjectFramesetPtr
 .asm_56817
-	ld de, Frameset_6a046
+	ld de, ShootFrameset_6a046
 	jp SetObjectFramesetPtr
 
 .high_32_px
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_56829
-	ld de, Frameset_6a031
+	ld de, ShootFrameset_6a031
 	jp SetObjectFramesetPtr
 .asm_56829
-	ld de, Frameset_6a049
+	ld de, ShootFrameset_6a049
 	jp SetObjectFramesetPtr
 
 .high_16_px
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_5683b
-	ld de, Frameset_6a034
+	ld de, ShootFrameset_6a034
 	jp SetObjectFramesetPtr
 .asm_5683b
-	ld de, Frameset_6a04c
+	ld de, ShootFrameset_6a04c
 	jp SetObjectFramesetPtr
 
 .grounded
@@ -409,7 +409,7 @@ ShootFunc:
 	; else do a jump
 	ld a, [hl] ; OBJ_SUBSTATE
 	rlca
-	ld_obj_frameset Frameset_6a037, Frameset_6a04f
+	ld_obj_frameset ShootFrameset_6a037, ShootFrameset_6a04f
 	call SetObjectFramesetPtr
 
 	; set jumping delay
@@ -431,7 +431,7 @@ ShootFunc:
 .turn_around
 	ld a, [hl]
 	rlca
-	ld_obj_frameset Frameset_69f35, Frameset_69f40
+	ld_obj_frameset ShootFrameset_69f35, ShootFrameset_69f40
 	call SetObjectFramesetPtr
 	ld a, SHOOT_TURN_AROUND_DURATION
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -463,7 +463,7 @@ ShootFunc:
 .PreKickJump:
 	; handle movement in x and y axis
 	call .DoPreKickingXMovement
-	ld bc, Data_54000
+	ld bc, ShootData_54000
 	call DoPreKickingJumpYMovement
 
 	ld hl, wCurObjYPos
@@ -473,7 +473,7 @@ ShootFunc:
 	ret c ; y < 224
 
 	; y >= 224
-	ld de, Frameset_6a000
+	ld de, ShootFrameset_6a000
 	call SetObjectFramesetPtr
 	inc l
 	ld a, SHOOTPHASE_PREKICK_ANIMATION
@@ -514,7 +514,7 @@ ShootFunc:
 	inc l
 	ld a, SHOOTPHASE_KICKING
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_69f54
+	ld de, ShootFrameset_69f54
 	jp SetObjectFramesetPtr
 .frame_6
 	; move Wario 8 pixels right
@@ -540,7 +540,7 @@ ShootFunc:
 	inc l
 	ld a, SHOOTPHASE_SCORE_GOAL
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_6a00b
+	ld de, ShootFrameset_6a00b
 	jp SetObjectFramesetPtr
 .shoot_wario
 	ld a, SHOOTBALL_WARIO_KICKED
@@ -588,7 +588,7 @@ ShootFunc:
 	cp 237
 	jr nc, .ball_wario_inside_net
 ; move Wario right
-	ld bc, Data_54010
+	ld bc, ShootData_54010
 	call ApplyYOffsetOnKickedWarioBall
 	ld b, 3
 	jp MoveWarioRight
@@ -647,7 +647,7 @@ ShootFunc:
 	ret
 
 .stepped_on
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.BallForm)
@@ -673,109 +673,109 @@ ShootFunc:
 .asm_56a2c
 	ld a, [wCurObjState]
 	jumptable
-	dw .Func_56b20
-	dw .Func_56b2a
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56c1b
-	dw .Func_56c3d
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56b96
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56bd1
-	dw .Func_56bd1
-	dw .Func_56b20
-	dw .Func_56bdb
-	dw .Func_56be3
-	dw .Func_56bf1
-	dw .Func_56bf8
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
-	dw .Func_56af0
-	dw .Func_56af0
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56d1c
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .Default
+	dw .Default
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .VanishTouch
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .StandingFallStart
+	dw .StandingFallStart
+	dw .Default
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
+	dw .State28
+	dw .State28
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_56b47
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw .Func_56c49
-	dw .Func_56c49
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .AttackedLeft
+	dw .AttackedLeft
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_StandingFall
-	dw Func_3371
-	dw .Func_56b20
-	dw Func_32cc
-	dw Func_32db
-	dw .Func_56bff
-	dw .Func_56c0d
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw ObjState_Drop
+	dw .Default
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw .StunLeft
+	dw .StunRight
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 
-.Func_56af0:
+.State28:
 	ld a, $2d
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	jp SetObjectFramesetPtr
 
 .return_to_regular_form
@@ -799,7 +799,7 @@ ShootFunc:
 	ld [hl], a
 	ret
 
-.Func_56b20:
+.Default:
 	ld hl, wCurObjState
 	ld a, $30
 	ld [hld], a
@@ -808,7 +808,7 @@ ShootFunc:
 	ld [hld], a
 	ret
 
-.Func_56b2a:
+.Land:
 	ld hl, wCurObjState
 	ld a, $31
 	ld [hld], a
@@ -825,9 +825,9 @@ ShootFunc:
 	ld a, SHOOT_LAST_GOAL_BALL_DURATION
 .got_ball_form_duration
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
-.Func_56b47:
+.Walk:
 	ld a, [wCurObjVar3]
 	cp $22
 	play_sfx z, SFX_075
@@ -837,7 +837,7 @@ ShootFunc:
 	ld a, [hl]
 	cp $12
 	jr nz, .asm_56b71
-	ld de, Frameset_69f93
+	ld de, ShootFrameset_69f93
 	call SetObjectFramesetPtr
 	play_sfx SFX_0B7
 	jr .asm_56b90
@@ -845,7 +845,7 @@ ShootFunc:
 	jr c, .asm_56b90
 	cp $64
 	jr nz, .asm_56b7f
-	ld de, Frameset_69f66
+	ld de, ShootFrameset_69f66
 	call SetObjectFramesetPtr
 	jr .asm_56b81
 .asm_56b7f
@@ -855,10 +855,10 @@ ShootFunc:
 	and %1111
 	play_sfx z, SFX_06A
 .asm_56b90
-	ld bc, Data_60e40
+	ld bc, ShootData_60e40
 	jp ApplyObjYMovement_Loop
 
-.Func_56b96:
+.VanishTouch:
 	play_sfx SFX_014
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -866,22 +866,22 @@ ShootFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr nc, .Func_56bae
-	jr .Func_56bb8
-.Func_56bae:
+	jr nc, .BumpLeftStart
+	jr .BumpRightStart
+.BumpLeftStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $38
 	jr .asm_56bc0
-.Func_56bb8:
+.BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $39
 .asm_56bc0
 	ld [hld], a ; OBJ_STATE
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -892,7 +892,7 @@ ShootFunc:
 	ld [hli], a
 	ret
 
-.Func_56bd1:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -901,12 +901,12 @@ ShootFunc:
 	ld [hld], a
 	ret
 
-.Func_56bdb:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_56be9
-.Func_56be3:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -918,39 +918,39 @@ ShootFunc:
 	ld [hli], a
 	ret
 
-.Func_56bf1:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
 	ret
 
-.Func_56bf8:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
 	ret
 
-.Func_56bff:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_56c0d:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_56c1b:
+.AttackedLeftStart:
 	ld a, $34
-	ld de, Frameset_69f9f
+	ld de, ShootFrameset_69f9f
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
 .asm_56c25
@@ -970,14 +970,14 @@ ShootFunc:
 	ld [hld], a
 	jp SetObjectFramesetPtr
 
-.Func_56c3d:
+.AttackedRightStart:
 	ld a, $35
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	jr .asm_56c25
 
-.Func_56c49:
+.AttackedLeft:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wShootCanTurnAround]
@@ -985,17 +985,17 @@ ShootFunc:
 	jr z, .asm_56c5e
 	xor a ; FALSE
 	ld [wShootCanTurnAround], a
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 .asm_56c5e
-	call .Func_56cdb
+	call .MoveBetweenWalls
 	ld a, [wCurObjVar2]
 	cp $04
 	jr z, .asm_56c6d
-	ld bc, Data_60e20
+	ld bc, ShootData_60e20
 	jr .asm_56c70
 .asm_56c6d
-	ld bc, Data_60e70
+	ld bc, ShootData_60e70
 .asm_56c70
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -1053,10 +1053,10 @@ ShootFunc:
 	jr nz, .asm_56cd5
 	stop_music2
 .asm_56cd5
-	ld de, Frameset_69f9a
+	ld de, ShootFrameset_69f9a
 	jp SetObjectFramesetPtr
 
-.Func_56cdb:
+.MoveBetweenWalls:
 	ld a, [wCurObjSubState]
 	rlca
 	rlca
@@ -1087,7 +1087,7 @@ ShootFunc:
 	jp c, MoveObjectRightByVar2
 	ret
 
-.Func_56d1c:
+.Special1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
@@ -1095,7 +1095,7 @@ ShootFunc:
 	ld a, [wShootBallState]
 	cp $04
 	ret nz
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	ld a, $35
@@ -1116,7 +1116,7 @@ ShootFunc:
 	ret
 
 .set_defeated
-	ld de, Frameset_69f8a
+	ld de, ShootFrameset_69f8a
 	call SetObjectFramesetPtr
 	ld a, SHOOT_DEFEAT_RISE_DURATION
 	ld [hli], a
@@ -1135,9 +1135,9 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_3
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_0A9
 	ret
 
@@ -1147,12 +1147,12 @@ ShootFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .asm_56d99
-	ld bc, Data_60e90
+	ld bc, ShootData_60e90
 	jp ApplyObjYMovement
 .asm_56d99
 	xor a
 	ld [wCurObjVar3], a
-	ld de, Frameset_69f6f
+	ld de, ShootFrameset_69f6f
 	call SetObjectFramesetPtr
 	ld a, SHOOT_DEFEAT_SUSPENDED_DURATION
 	ld [hli], a
@@ -1176,7 +1176,7 @@ ShootFunc:
 	play_sfx SFX_0A3
 	ret
 .fall
-	ld bc, Data_60ea0
+	ld bc, ShootData_60ea0
 	jp ApplyObjYMovement
 
 GKTortoisePlatformFunc:
@@ -1189,13 +1189,13 @@ GKTortoisePlatformFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
 	ld a, -6
 	ld [hld], a
-	ld de, Frameset_69fdc
+	ld de, ShootFrameset_69fdc
 	call SetObjectFramesetPtr
 	ld a, 32
 	ld [hli], a
@@ -1285,13 +1285,13 @@ GKTortoiseFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
 	ld a, -6
 	ld [hld], a
-	ld de, Frameset_69fed
+	ld de, ShootFrameset_69fed
 	call SetObjectFramesetPtr
 	inc l
 	xor a ; GKTORTOISEPHASE_0
@@ -1306,7 +1306,7 @@ GKTortoiseFunc:
 	jp MoveObjectDownByVar2
 
 .set_ducking
-	ld de, Frameset_6a017
+	ld de, ShootFrameset_6a017
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_DUCKING
@@ -1334,18 +1334,18 @@ GKTortoiseFunc:
 .no_kicked_wario
 	ld a, [wCurObjVar1]
 	jumptable
-	dw .Func_56f27 ; GKTORTOISEPHASE_0
-	dw .Func_56f2e ; GKTORTOISEPHASE_1
-	dw .Func_56fef ; GKTORTOISEPHASE_2
-	dw .Func_57021 ; GKTORTOISEPHASE_3
-	dw .Func_5707b ; GKTORTOISEPHASE_4
-	dw .Func_57039 ; GKTORTOISEPHASE_5
-	dw .Func_57198 ; GKTORTOISEPHASE_6
+	dw .Idle ; GKTORTOISEPHASE_0
+	dw .Guard ; GKTORTOISEPHASE_1
+	dw .Phase2 ; GKTORTOISEPHASE_2
+	dw .Phase3 ; GKTORTOISEPHASE_3
+	dw .KickWarioBall ; GKTORTOISEPHASE_4
+	dw .CatchWarioBall ; GKTORTOISEPHASE_5
+	dw .ThrowShootBall ; GKTORTOISEPHASE_6
 	dw .Ducking ; GKTORTOISEPHASE_DUCKING
-	dw .Func_56edd ; GKTORTOISEPHASE_8
-	dw .Func_5710f ; GKTORTOISEPHASE_9
+	dw .Defeated ; GKTORTOISEPHASE_8
+	dw .CatchShootBall ; GKTORTOISEPHASE_9
 
-.Func_56edd:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1353,9 +1353,9 @@ GKTortoiseFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -1383,11 +1383,11 @@ GKTortoiseFunc:
 	ret nz
 	jp .asm_56fd2
 
-.Func_56f27:
+.Idle:
 	ld a, [wShootBallState]
 	and a
 	jp nz, .asm_57009
-.Func_56f2e:
+.Guard:
 	ld a, [wShootBallState]
 	cp $02
 	jr z, .asm_56f93
@@ -1404,7 +1404,7 @@ GKTortoiseFunc:
 	jr nz, .asm_56f7d
 	xor a
 	ld [hl], a ; OBJ_STATE
-	ld de, Frameset_69ff2
+	ld de, ShootFrameset_69ff2
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_9
@@ -1412,7 +1412,7 @@ GKTortoiseFunc:
 	ld a, $03
 	ld [wShootBallState], a
 	play_sfx SFX_FAT_WALK
-	call .Func_57170
+	call .FindShoot
 
 .set_shoot_pos_11x_16y
 	call .GetShootPosPtr
@@ -1441,7 +1441,7 @@ GKTortoiseFunc:
 .asm_56f7d
 	xor a
 	ld [hl], a
-	ld de, Frameset_69fcf
+	ld de, ShootFrameset_69fcf
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $02
@@ -1454,7 +1454,7 @@ GKTortoiseFunc:
 .asm_56f93
 	ld a, $03
 	ld [wShootBallState], a
-	ld de, Frameset_69fba
+	ld de, ShootFrameset_69fba
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $04
@@ -1464,7 +1464,7 @@ GKTortoiseFunc:
 .asm_56fa3
 	xor a
 	ld [hl], a ; OBJ_STATE
-	ld de, Frameset_69ff2
+	ld de, ShootFrameset_69ff2
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_5
@@ -1492,7 +1492,7 @@ GKTortoiseFunc:
 .asm_56fd2
 	ld a, $07
 	ld [wShootBallState], a
-	ld de, Frameset_69fba
+	ld de, ShootFrameset_69fba
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $06
@@ -1502,7 +1502,7 @@ GKTortoiseFunc:
 	play_sfx SFX_FAT_WALK
 	ret
 
-.Func_56fef:
+.Phase2:
 	ld a, [wShootBallState]
 	cp $02
 	jr z, .asm_56fff
@@ -1519,7 +1519,7 @@ GKTortoiseFunc:
 	and a
 	ret nz
 .asm_57009
-	ld de, Frameset_69fa9
+	ld de, ShootFrameset_69fa9
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_1
@@ -1532,7 +1532,7 @@ GKTortoiseFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.Func_57021:
+.Phase3:
 	ld hl, wCurObjFlags
 	res 3, [hl]
 	ld l, OBJ_STATE
@@ -1548,7 +1548,7 @@ GKTortoiseFunc:
 	ret nz
 	jr .asm_57009
 
-.Func_57039:
+.CatchWarioBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1590,7 +1590,7 @@ GKTortoiseFunc:
 	play_sfx SFX_067
 	ret
 
-.Func_5707b:
+.KickWarioBall:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_FRAME_DURATION
@@ -1611,7 +1611,7 @@ GKTortoiseFunc:
 	ld a, [wWarioGoals]
 	cp NUM_WARIO_GOALS_NEEDED
 	jp nz, .asm_57009
-	ld de, Frameset_6a00e
+	ld de, ShootFrameset_6a00e
 	call SetObjectFramesetPtr
 	ld a, 180
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -1682,7 +1682,7 @@ GKTortoiseFunc:
 	ld [hli], a
 	ret
 
-.Func_5710f:
+.CatchShootBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1756,7 +1756,7 @@ GKTortoiseFunc:
 	inc l
 	ret
 
-.Func_57170:
+.FindShoot:
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
@@ -1788,7 +1788,7 @@ GKTortoiseFunc:
 	ld [hl], a
 	ret
 
-.Func_57198:
+.ThrowShootBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1918,7 +1918,7 @@ ApplyYOffsetOnKickedWarioBall:
 	jp HandleDownwardsFloorTransition
 
 ; unreferenced
-Func_5725b:
+UnreferencedMoveWarioUpByNegB:
 	xor a
 	sub b
 	ld b, a
@@ -1933,7 +1933,7 @@ ShootGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c
@@ -1980,7 +1980,7 @@ WarioGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c

@@ -10,10 +10,10 @@ ClearTransformationValues::
 	xor a
 	ld [wInvincibleCounter], a
 	ld [wTransformation], a
-	ld [wWarioTransformationProgress], a
+	ld [wTransformationProgress], a
 	ld [wStingTouchState], a
 	ld [wTouchState], a
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld [wIsIntangible], a
 	ld [wTransformationDuration + 0], a
 	ld [wTransformationDuration + 1], a
@@ -59,7 +59,7 @@ ENDR
 	ret
 
 ; unreferenced
-Func_10fc:
+UnreferencedConvertToBCD:
 	ld a, c
 	ld b, $00
 	ld hl, 0
@@ -84,7 +84,7 @@ Func_10fc:
 	ret
 
 ; unreferenced
-Func_111e:
+UnreferencedConvertBCDToBinary:
 	push hl
 	ld a, h
 	ld hl, 0

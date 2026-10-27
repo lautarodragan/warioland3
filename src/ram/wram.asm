@@ -23,10 +23,10 @@ wIntroBGXOffsetNear::   db
 
 ; Hidden Figure fight values
 wHiddenFigureSCYShake:: db
-wc08a:: db
-wc08b:: db
-wc08c:: db
-wc08d:: db
+wHiddenFigureBaseSCY:: db
+wHiddenFigureSCX:: db
+wHiddenFigureBaseSCX:: db
+wHiddenFigureWY:: db
 
 wSRAMBank::
 	db
@@ -99,7 +99,7 @@ wCompressedLevelBlockMapPtr::
 
 	ds $4
 
-wc0b3::
+wBGMapTileVRAM1QueuePtr::
 	dw
 
 ; whether camera is on the edge of the room horizontally
@@ -118,7 +118,7 @@ wCameraConfigFlags::
 	db
 
 ; holds LEVEL_EDGE_UPDATE_* flags
-; used in Func_8ed9 to know which
+; used in UpdateLevelEdges to know which
 ; edge in the level screen to update
 wLevelEdgeUpdateFlags::
 	db
@@ -154,16 +154,16 @@ wCameraYDelta:: db
 ; X coordinate delta from camera to scroll
 wCameraXDelta:: db
 
-wc0c4::
+wRoomObjMapLowerY::
 	db
 
-wc0c5::
+wRoomObjMapUpperY::
 	db
 
-wc0c6::
+wRoomObjMapLeftX::
 	db
 
-wc0c7::
+wRoomObjMapRightX::
 	db
 
 wObjectGroup::
@@ -176,17 +176,17 @@ wRoomMainTiles::          db
 wRoomSpecialTiles::       db
 wRoomPalettes::           db
 wRoomBlockFunctionTableBank:: db
-wc0d0::                   db
+wRoomTileMapBank::                   db
 wRoomMainTilesBank::      db
 wRoomSpecialTilesBank::   db
 
 wPaletteBank::
 	db
 
-wc0d4::
+wCameraYIdleCounter::
 	db
 
-wc0d5::
+wCameraXIdleCounter::
 	db
 
 wCollisionPoints::
@@ -219,7 +219,7 @@ wBlockFuncWarioFlag::
 wWaterInteraction::
 	db
 
-wc0dc::
+wFrontCollisionBlockY::
 	db
 
 wIsInWaterOrSand::
@@ -230,10 +230,10 @@ wIsOnSlipperyGround::
 
 	ds $1
 
-wc0e0::
+wUnused_c0e0::
 	db
 
-wc0e1::
+wWaterCurrentBlockedDir::
 	db
 
 ; byte 1 = minutes
@@ -302,9 +302,9 @@ wObjSlopeInteraction::
 wUnused_c18d::
 	db
 
-wc18e:: ds 8 * 2
-wc19e:: db
-wc19f:: db
+wBlockRedrawQueue:: ds 8 * 2
+wBlockRedrawQueueWriteIndex:: db
+wBlockRedrawQueueReadIndex:: db
 
 wIsDMATransferPending::      db
 wPendingDMASourceBank::      db
@@ -313,14 +313,14 @@ wPendingDMADestinationBank:: db
 wPendingDMADestinationPtr::  dw
 wPendingDMALength::          db
 
-wAnimationEnded::
+wWarioAnimationEnded::
 	db
 
 wFloorTransitionTimer::
 	db
 
-; bit 2 set = transitioning downwards
-; bit 3 set = transitioning upwards
+; bit 2 set = transitioning upwards (FLOOR_TRANSITION_UP: the camera scrolls up)
+; bit 3 set = transitioning downwards (FLOOR_TRANSITION_DOWN: it scrolls down)
 wFloorTransitionDir::
 	db
 
@@ -362,10 +362,10 @@ wObjScreenXPos:: db
 wInteractionSide::
 	db
 
-wc1c1:: db
-wc1c2:: db
-wc1c3:: db
-wc1c4:: db
+wObjOverlapFromAbove:: db
+wObjOverlapFromBelow:: db
+wObjOverlapFromLeft:: db
+wObjOverlapFromRight:: db
 
 	ds $1
 
@@ -381,10 +381,26 @@ wIsNearFence::
 wIsInAirCurrent::
 	db
 
-wc1ca::
+wHitFloorBlock::
 	db
 
-	ds $35
+; where the owl's graphics are, as a tile offset from v1Tiles0: $00 for enemy
+; graphics slot 1 (and object palette 4), as in every owl object group,
+; $40/$80/$c0 for slots 2-4 (palettes 5-7) when the debug menu put them in a
+; slot the room doesn't use. The owl's sprites are drawn with slot 1's tiles
+; and palette 4, so when this isn't 0 they're moved to the slot as they're
+; drawn (RelocateOwlSprites).
+; Not in "Level WRAM": that's saved, and the save format has to stay the
+; same. It doesn't need saving, as every room load sets it again.
+wOwlTileOffset::
+	db
+
+; TRUE while the camera isn't where the room's floor transitions put it,
+; after following Owl Wario (OwlWarioCamera). Not saved, like wOwlTileOffset.
+wOwlCameraDisplaced::
+	db
+
+	ds $33
 
 SECTION "wVBlankFunc", WRAM0
 
@@ -502,10 +518,13 @@ wWarioPos::
 wWarioYPos:: dw
 wWarioXPos:: dw
 
-wca65::
+; which frame in the animation Wario is in
+wWarioFrame::
 	db
 
-wca66::
+; which OAM attributes to apply to Wario's sprite
+; is always $0
+wWarioAttributes::
 	db
 
 wFrameDuration::
@@ -530,7 +549,7 @@ wSwitchStateUpdated:: db
 ; - $68 is on
 wSwitchState::        db
 
-wca6c::
+wUnused_ca6c::
 	db
 
 wSwimVelIndex::
@@ -582,10 +601,10 @@ wWarioPalsPtr::
 wDMASourceBank:: db
 wDMASourcePtr::  dw
 
-wOAMBank:: db
-wOAMPtr::  dw
+wWarioOAMBank:: db
+wWarioOAMPtr::  dw
 
-wFramesetPtr::
+wWarioFramesetPtr::
 	dw
 
 ; a STATE_* constant, corresponding
@@ -646,7 +665,7 @@ wTransformation::
 ; - 1: small snowball
 ; - 2: medium snowball
 ; - 3: big snowball
-wWarioTransformationProgress::
+wTransformationProgress::
 	db
 
 ; duration left for current transformation
@@ -672,7 +691,7 @@ wStingTouchState::
 wTouchState::
 	db
 
-wca94::
+wSpikeTouchState::
 	db
 
 wIsTurning::
@@ -722,7 +741,7 @@ wPickedUpFrameCounter::
 wIsInSand::
 	db
 
-wcaa1::
+wSavedEnemyPals::
 	ds 4 palettes
 
 ; whether the level's Mini-Game
@@ -774,7 +793,7 @@ wCurParticleIndex::
 wCurParticle:: sprite_oam_struct wCurParticle
 wCurParticleAnimEnded:: db
 
-wcce7::
+wBGMapTileVRAM0QueuePtr::
 	dw
 
 ; the world is divided in a grid,
@@ -782,13 +801,13 @@ wcce7::
 wBlockPtrBank:: db
 wBlockPtr:: dw
 
-wccec::
+wObjectMapBank::
 	db
 
 wObjectSpawnBlockY:: db
 wObjectSpawnBlockX:: db
 
-wUnused_ccef::
+wUnused_ObjectParity::
 	db
 
 wBGPtr::
@@ -870,10 +889,10 @@ wRoomAnimatedTilesEnabled:: db
 wRoomAnimatedPalsEnabled::  db
 
 wMultiBlockParam:: db
-wcedb:: db
-wcedc:: dw
-wcede:: db
-wcedf:: db
+wMultiBlockOriginBank:: db
+wMultiBlockOriginPtr:: dw
+wUnused_cede:: db
+wUnused_cedf:: db
 
 ; uses CURRENT_* as flags
 ; to indicate what direction the
@@ -885,7 +904,7 @@ wCurWaterCurrent::  db
 wTransitionParam::
 	db
 
-wcee4::
+wBGUpdateRequest::
 	db
 
 ; used to time various events in
@@ -894,8 +913,8 @@ wTimer::
 	ds $2
 
 wChecksum:: dw
-wcee9::     dw
-wceeb::     dw
+wChecksumAlt1::     dw
+wChecksumAlt2::     dw
 
 ; used to control SFX looping
 ; every frame 1 is subtracted
@@ -904,16 +923,16 @@ wceeb::     dw
 wSFXLoopCounter::
 	db
 
-wceee::
+wValidSaves::
 	db
 
-wceef::
+wRestoredSave::
 	db
 
 wChecksumMismatches::
 	db
 
-wcef1::
+wSaveProgress::
 	db
 
 wNumMusicBoxes::
@@ -1031,12 +1050,12 @@ NEXTU
 wJamanoActiveSkulls::
 	db
 
-w1d147::
+wJamanoSkullsInPlace::
 	db
 
 	ds $1
 
-w1d149::
+wJamanoSkullsInactive::
 	db
 
 NEXTU
@@ -1055,58 +1074,58 @@ SECTION "WRAM1", WRAMX
 wEffectivePowerUp::
 	db
 
-w1d14b::
+wHiddenFigureAttack::
 	db
 
-w1d14c::
+wHiddenFigureLeftHandStunned::
 	db
 
-w1d14d::
+wHiddenFigureRightHandStunned::
 	db
 
-w1d14e::
+wHiddenFigureBodyGrabResult::
 	db
 
-w1d14f::
+wHiddenFigureLeftHandGrabResult::
 	db
 
-w1d150::
+wHiddenFigureRightHandGrabResult::
 	db
 
-w1d151::
+wHiddenFigureHandsFlinch::
 	db
 
-w1d152::
+wHiddenFigureLeftHandRestPos::
 	ds $4
 
-w1d156::
+wHiddenFigureRightHandRestPos::
 	ds $4
 
-w1d15a::
+wHiddenFigureRemainingHits::
 	db
 
-w1d15b::
+wHiddenFigureRightHandSlamming::
 	db
 
-w1d15c::
+wHiddenFigureLeftHandSlamming::
 	db
 
-w1d15d::
+wHiddenFigureHandWasGrabbed::
 	db
 
-w1d15e::
+wHiddenFigureSwipeInterrupted::
 	db
 
-w1d15f::
+wHiddenFigureDefeatStarted::
 	db
 
-w1d160::
+wHiddenFigureSwipeCount::
 	db
 
-w1d161::
+wHiddenFigureAttackCounter::
 	db
 
-w1d162::
+wHiddenFigureGrabsLeft::
 	db
 
 
@@ -1115,7 +1134,7 @@ SECTION "Golf RAM", WRAMX
 ; start of the whole Golf RAM
 wGolfRAMStart::
 
-w1d800::
+wGolfMode::
 	db
 
 wGolfMenuOption::
@@ -1161,30 +1180,30 @@ ENDU
 wGoldBuildingCourseAttrMap::
 	ds $100
 
-w1db00::
+wGolfPals::
 	ds 8 palettes
 
 wGolfHoleData::
 wGolfTerrainBlocks:: ds NUM_GOLF_TERRAIN_BLOCKS
 wGolfPar::           db
-w1db82::             ds $2
+wGolfHoleDataHoleXPos::             ds $2
 wGolfWaterSpawn1::   db
 wGolfWaterSpawn2::   db
 wGolfHoleDataEnd::
 
 	ds $a
 
-w1db90::
+wGolfStrokeNumberTiles::
 	ds 4 tiles
 
 	ds $30
 
-w1dc00::
+wGolfBuildingState::
 wGolfLobbyState::
 wGolfHoleState::
 	db
 
-w1dc01::
+wGolfNextHoleState::
 	db
 
 wGolfVBlankMode::
@@ -1202,7 +1221,7 @@ wGolfAnimLastFrame::
 wGolfCounter::
 	db
 
-w1dc0b::
+wGolfPinFlagAnimCounter::
 	db
 
 wGolfLCDConfig::
@@ -1219,11 +1238,11 @@ wGolfPrice::
 
 	ds $1
 
-wdc11::
+wGolfHDMADest::
 wGolfWarioTilesPtr::
 	dw
 
-w1dc13::
+wGolfHDMALength::
 	db
 
 	ds $3
@@ -1238,7 +1257,7 @@ wGolfNumCoins::
 
 	ds $5
 
-w1dc20::
+wGolfOutOfStrokes::
 	db
 
 w1dc21::
@@ -1301,7 +1320,7 @@ wGolfHoleHoleXPos:: ds $2
 wLastGolfParaGoomYPos:: ds $2
 wLastGolfParaGoomXPos:: ds $2
 
-w1dc3e::
+wGolfParaGoomBlockX::
 	ds $2
 
 wGolfWarioTargetXPos::
@@ -1327,7 +1346,7 @@ wShotTerrainModifier::
 
 ; used to check whether the Para-Goom
 ; has already left the Tee Box
-w1dc47::
+wGolfParaGoomLeftTeeBox::
 	db
 
 ; golf terrain of where Para-Goom was shot from
@@ -1362,12 +1381,12 @@ w1dc4f::
 wShotXVel::
 	db
 
-w1dc51::
+wGolfShotXDecelCounter::
 	db
 
 	ds $1
 
-w1dc53::
+wGolfParaGoomLeftTeeBoxBackup::
 	db
 
 wGolfObj1::          golf_obj_struct wGolfObj1
@@ -1408,19 +1427,19 @@ wOWLevel::
 
 	ds $1
 
-w2d011::
+wOWIsNight::
 	db
 
 wNextMapSide::
 	db
 
-w2d013::
+wOWStep::
 	db
 
-w2d014::
+wOWStepCounter::
 	db
 
-w2d015::
+wUnused_2d015::
 	db
 
 wOWSceneMapSide::
@@ -1429,7 +1448,7 @@ wOWSceneMapSide::
 wOWSceneActionParam::
 	db
 
-w2d018::
+wUnused_2d018::
 	db
 
 wTempUnlockableConnectionID::
@@ -1476,7 +1495,7 @@ wOWSceneAction::        db
 wTempOWSceneAction::    db
 wTempOWSceneParamsPtr:: dw
 
-w2d02c::
+wSavedTransitionParam::
 	db
 
 	ds $3
@@ -1484,7 +1503,7 @@ w2d02c::
 wCloudType::
 	db
 
-w2d031::
+wOWCloudUpdateFlags::
 	db
 
 w2d032::
@@ -1541,7 +1560,7 @@ w2d042::
 w2d043::
 	db
 
-w2d044::
+wOWCliffsGfxSrc::
 	ds $2
 
 w2d046::
@@ -1553,7 +1572,7 @@ w2d047::
 w2d048::
 	db
 
-w2d049::
+wOWSeaGfxVariant::
 	db
 
 	ds $6
@@ -1603,25 +1622,25 @@ wOWPendingTileUpdate::
 wOWFuncCounter::
 	db
 
-w2d062::
+wOWFuncStep::
 	db
 
 wUnlockedLevelArrowsPtr::
 	dw
 
-w2d065::
+wEventUnlockState::
 	db
 
 wLevel1:: db
 wLevel2:: db
 
-w2d068::
+wTargetMapSideLevelID::
 	db
 
-w2d069::
+wOWLevelYCoord::
 	db
 
-w2d06a::
+wOWLevelXCoord::
 	db
 
 wOWCoords1::
@@ -1632,23 +1651,23 @@ wOWCoords2::
 wOWYCoord2:: db
 wOWXCoord2:: db
 
-w2d06f:: db
-w2d070:: db
+wOWPathTargetYCoord:: db
+wOWPathTargetXCoord:: db
 
 ; PATH_* constant to connect 2 OW map points
 wOWPathShape:: db
-w2d072:: db
+wLevelArrowIndex:: db
 
 wLevelArrowDirections1:: db
-w2d074::                 db
+wNumLevelArrows1::                 db
 wLevelArrowDirections2:: db
-w2d076::                 db
+wNumLevelArrows2::                 db
 
 ; EVENT_* constant
 wTempEvent::
 	db
 
-w2d078::
+wUnused_2d078::
 	db
 
 wHDMABank::
@@ -1668,7 +1687,7 @@ w2d07d::
 
 	ds $1
 
-w2d07f::
+wHighlightOWTile::
 	db
 
 wTileToPlaceInOW::
@@ -1706,18 +1725,18 @@ wWY::
 wWX::
 	db
 
-w2d096::
+wUnused_2d096::
 	db
 
 	ds $9
 
-w2d0a0:: db
-w2d0a1:: db
-w2d0a2:: db
-w2d0a3:: db
-w2d0a4:: db
-w2d0a5:: db
-w2d0a6:: db
+wOWLineFlags:: db
+wOWLineStepsLeft:: db
+wOWLineMajorDist:: db
+wOWLineError:: db
+wOWLineMinorDist:: db
+wOWLineYStep:: db
+wOWLineXStep:: db
 
 wOWYDistance:: db
 wOWXDistance:: db
@@ -1725,12 +1744,12 @@ wOWXDistance:: db
 	ds $7
 
 wHDMA::  hdma_config_struct wHDMA
-w2d0b5:: hdma_config_struct w2d0b5
+wHDMAVRAM1:: hdma_config_struct wHDMAVRAM1
 
 	ds $6
 
 
-w2d0c0::
+wUnused_2d0c0::
 	ds $10
 
 wPalConfig1:: pal_config_struct wPalConfig1
@@ -1749,22 +1768,22 @@ wPalFadeRepeat::
 
 	ds $2
 
-w2d0e0::
+wLevelNameFadeState::
 	db
 
 wCurPalTotalSteps::
 	db
 
-w2d0e2::
+wPathPreviewCounter::
 	db
 
-w2d0e3::
+wPathPreviewState::
 	db
 
-w2d0e4::
+wTempleHintState::
 	db
 
-w2d0e5::
+wTempleHintCounter::
 	db
 
 	ds $8
@@ -1797,38 +1816,38 @@ wBottomBarFlags::
 wBottomBarTreasureIDs::
 	ds NUM_LEVEL_TREASURES
 
-w2d100::
+wOWWarioYCoord::
 	db
 
-w2d101::
+wOWWarioXCoord::
 	db
 
 	ds $2
 
-w2d104::
+wOWWarioAnimDuration::
 	ds $2
 
-w2d106::
+wOWWarioSprite::
 	db
 
 ; some sprite pointer
-w2d107::
+wOWWarioOAMPtr::
 	ds $2
 
 ; some frameset pointer
-w2d109::
+wOWWarioFramesetPtr::
 	ds $2
 
 wOWAllowedDPadInput::
 	db
 
-w2d10c::
+wOWWarioLastDir::
 	db
 
-w2d10d::
+wOWWalkSFXCounter::
 	db
 
-w2d10e::
+wOWWarioRunCounter::
 	db
 
 	ds $1
@@ -1936,13 +1955,13 @@ wSceneWarioStateGroup:: db
 wSceneWarioOAMPtr::     dw
 wSceneWarioOAMBank::    db
 
-w2d14c::
+wSceneWarioSFXCounter::
 	db
 
 wSceneWarioIgnoreScroll::
 	db
 
-w2d14e::
+wSceneWarioAnimFinished::
 	db
 
 	ds $1
@@ -2037,49 +2056,49 @@ w2d820:: ow_unk_struct w2d820
 w2d840:: ow_unk_struct w2d840
 w2d860:: ow_unk_struct w2d860
 
-w2d880::
+wCurOWPathTracer::
 	ds $9
 
-w2d889::
+wPathPreviewPathsPtr::
 	ds $2
 
-w2d88b::
+wCurOWPathTracerIndex::
 	db
 
 	ds $2
 
-w2d88e:: db
-w2d88f:: db
+wOWWarioSavedYCoord:: db
+wOWWarioSavedXCoord:: db
 
-w2d890::
+wSceneStep::
 	db
 
-w2d891::
+wSceneStepCounter::
 	db
 
-w2d892::
+wSceneSubStep::
 	db
 
-w2d893::
+wSceneSubStepCounter::
 	db
 
-w2d894::
+wSceneSubActive::
 	db
 
 	ds $1
 
-w2d896::
+wTempleShakeState::
 	db
 
-w2d897::
+wTempleShakeCounter::
 	db
 
 	ds $8
 
-w2d8a0::
+wSceneAuxStep::
 	db
 
-w2d8a1::
+wSceneAuxStepCounter::
 	db
 
 UNION
@@ -2125,12 +2144,12 @@ ENDU
 
 	ds $2
 
-w2d8da::
+wTempleLeftHandMoving::
 	db
 
 	ds $1
 
-w2d8dc::
+wTempleRightHandMoving::
 	db
 
 	ds $123
@@ -2144,7 +2163,7 @@ wTempleScene::
 wTempleMusicIsPlaying::    db
 wTempleMusicDelayCounter:: db
 
-w2da04::
+wTempleSceneStep::
 	db
 
 wTempleSceneCounter::
@@ -2197,10 +2216,10 @@ wTileBuffer::
 
 	ds $100
 
-w2df00::
+wBestTimeDigitTiles::
 	ds $fc
 
-w2dffc::
+wCheckedEvent::
 	db
 
 w2dffd::
@@ -2221,7 +2240,7 @@ NEXTU
 wLCDCFlagsToFlip::
 	db
 
-w2d801::
+wUnused_2d801::
 	ds $1
 
 wColourFadeDiff::           db
@@ -2229,13 +2248,13 @@ wColourFadeAccumulator::    db
 	ds $2
 wDayNightTransistionSteps:: db
 
-w2d807::
+wColourFadeLoopCounter::
 	db
 
 wColourFadeStep::
 	db
 
-w2d809::
+wOWPalTransitionDelay::
 	db
 
 	ds $6
@@ -2290,14 +2309,14 @@ wSFXBaseTempo:: db
 wSFXTempoMult:: db
 wSFXTempo::     db
 
-w3d008::
+wSFXTempoAccumulator::
 	ds $2
 
 wMusicBaseTempo:: db
 wMusicTempoMult:: db
 wMusicTempo::     db
 
-w3d00d::
+wMusicTempoAccumulator::
 	ds $2
 
 wNumAudioChannels::
@@ -2363,7 +2382,7 @@ wMusicFadeOutVolumeMult::
 wActiveChannels::
 	db
 
-w3d025::
+wMusicChannelsDeactivated::
 	db
 
 wSoundBank::
@@ -2382,7 +2401,7 @@ wSoundEngineParam3:: db
 wSoundEngineParam4:: db
 NEXTU
 wTempTrackPriority:: db
-wTempTrackUnk02::    db
+wTempTrackOwner::    db
 ENDU
 
 wNumChannels::
@@ -2416,16 +2435,16 @@ wTrack4:: track_struct wTrack4
 
 SECTION "GFX RAM", WRAMX
 
-w3d280::
+wBackupPals::
 	ds 16 palettes
 
 wRoomBlockAttributes::
 	ds $4 * $80
 
-w3d500::
+wBackupSCY::
 	db
 
-w3d501::
+wBackupSCX::
 	db
 
 wDPadRepeatCounter::
@@ -2461,7 +2480,7 @@ wActionHelpPowerUp::
 wActionHelpState::
 	db
 
-w3d50d::
+wUnused_3d50d::
 	db
 
 ; if TRUE, don't update the animations
@@ -2475,7 +2494,7 @@ wTempAnimatedTilesFrameDuration::
 wTempAnimatedTilesGroup::
 	db
 
-w3d511::
+wTempTimeAttackScore::
 	ds $2
 
 wStartMenuSelection::
@@ -2530,6 +2549,13 @@ wMenuObj11:: menu_obj_struct wMenuObj11
 
 wDebugMenuCursor::  db
 wDebugMenuFormIdx:: db
+; 0 = no spawn tried, 1 = owl spawned, 2 = couldn't spawn
+wDebugMenuOwlStatus:: db
+; treasure on the TREASURE row: level * 4 + colour
+wDebugMenuTreasureIdx:: db
+; TRUE if an owl was spawned in a room without owl graphics, to load them
+; when the menu closes
+wDebugMenuOwlGfxPending:: db
 
 SECTION "WRAM4", WRAMX
 

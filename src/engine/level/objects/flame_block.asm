@@ -14,7 +14,7 @@ FlameBlockFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_695de
+	ld de, FlameBlockFrameset_695de
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -32,7 +32,7 @@ FlameBlockFunc:
 	cp NUM_FLAME_BLOCK_TORCHES
 	ret nz
 	ld [wFlameBlockCleared], a
-	ld de, Frameset_695e7
+	ld de, FlameBlockFrameset_695e7
 	call SetObjectFramesetPtr
 	ld a, 159
 	ld [hli], a ; OBJ_STATE_DURATION

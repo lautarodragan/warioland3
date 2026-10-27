@@ -50,7 +50,7 @@ IsOnSlipperyGround::
 	dec de
 	ld a, [hl]
 	ld [de], a
-	farcall Func_19b51
+	farcall _ProcessBlock_Down
 	ld a, [wIsOnSlipperyGround]
 	and a
 	ret nz
@@ -73,12 +73,12 @@ IsOnSlipperyGround::
 	dec de
 	ld a, [hl]
 	ld [de], a
-	farcall Func_19b51
+	farcall _ProcessBlock_Down
 	ld a, [wIsOnSlipperyGround]
 	and a
 	ret
 
-Func_1762::
+LimitAirWalkVelocity::
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
 	jr nc, .asm_1776

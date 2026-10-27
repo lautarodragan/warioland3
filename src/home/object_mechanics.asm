@@ -317,53 +317,53 @@ HomeJumpRet::
 	bankswitch
 	ret
 
-Func_3173::
-	homejp Func_62e57
+VanishAndDespawnObject::
+	homejp _VanishAndDespawnObject
 
 VanishObject2::
 	homejp _VanishObject2
 
-Func_3191::
-	homejp Func_62e8f
+ObjState_Bounce1LeftStart::
+	homejp _ObjState_Bounce1LeftStart
 
-Func_31a0::
-	homejp Func_62ea5
+ObjState_Bounce1Left::
+	homejp _ObjState_Bounce1Left
 
-Func_31af::
-	homejp Func_62f76
+ObjState_Bounce1RightStart::
+	homejp _ObjState_Bounce1RightStart
 
-Func_31be::
-	homejp Func_62f8c
+ObjState_Bounce1Right::
+	homejp _ObjState_Bounce1Right
 
-Func_31cd::
-	homejp Func_62eaa
+ObjState_Bounce2LeftStart::
+	homejp _ObjState_Bounce2LeftStart
 
-Func_31dc::
-	homejp Func_62ec0
+ObjState_Bounce2Left::
+	homejp _ObjState_Bounce2Left
 
-Func_31eb::
-	homejp Func_62f91
+ObjState_Bounce2RightStart::
+	homejp _ObjState_Bounce2RightStart
 
-Func_31fa::
-	homejp Func_62fa7
+ObjState_Bounce2Right::
+	homejp _ObjState_Bounce2Right
 
-Func_3209::
-	homejp Func_62e74
+ObjState_Bounce3LeftStart::
+	homejp _ObjState_Bounce3LeftStart
 
-Func_3218::
-	homejp Func_62e8a
+ObjState_Bounce3Left::
+	homejp _ObjState_Bounce3Left
 
-Func_3227::
-	homejp Func_62f5b
+ObjState_Bounce3RightStart::
+	homejp _ObjState_Bounce3RightStart
 
-Func_3236::
-	homejp Func_62f71
+ObjState_Bounce3Right::
+	homejp _ObjState_Bounce3Right
 
-Func_3245::
-	homejp Func_62c9f
+ObjState_FallLeftStart::
+	homejp _ObjState_FallLeftStart
 
-Func_3254::
-	homejp Func_62d7d
+ObjState_FallRightStart::
+	homejp _ObjState_FallRightStart
 
 Func_3263::
 	homejp Func_6303f
@@ -371,8 +371,8 @@ Func_3263::
 Func_3272::
 	homejp Func_63050
 
-Func_3281::
-	homejp Func_6305f
+ObjState_StartRandomWobble::
+	homejp _ObjState_StartRandomWobble
 
 ObjState_Fall::
 	homejp _ObjState_Fall
@@ -380,65 +380,65 @@ ObjState_Fall::
 ObjState_StandingFall::
 	homejp _ObjState_StandingFall
 
-Func_32ae::
-	homejp Func_62ae5
+ObjState_BumpSlideLeft::
+	homejp _ObjState_BumpSlideLeft
 
-Func_32bd::
-	homejp Func_62bce
+ObjState_BumpSlideRight::
+	homejp _ObjState_BumpSlideRight
 
-Func_32cc::
-	homejp Func_62ca8
+ObjState_FallLeft::
+	homejp _ObjState_FallLeft
 
-Func_32db::
-	homejp Func_62d86
+ObjState_FallRight::
+	homejp _ObjState_FallRight
 
-Func_32ea::
-	homejp Func_628ea
+ObjCheckFloorOrDrop::
+	homejp _ObjCheckFloorOrDrop
 
-Func_32f9::
-	homejp Func_629a6
+ObjCheckFloorOrStandingFall::
+	homejp ApplyObjHopYVel
 
 Func_3308::
-	homejp Func_62908
+	homejp _ObjCheckFloorOrStandingFall
 
-Func_3317::
-	homejp Func_62898
+ObjState_AttackedRight::
+	homejp _ObjState_AttackedRight
 
-Func_3326::
-	homejp Func_62840
+ObjState_AttackedLeft::
+	homejp _ObjState_AttackedLeft
 
-Func_3335::
-	homejp Func_61f54
+ObjState_PickedUpLeft::
+	homejp _ObjState_PickedUpLeft
 
-Func_3344::
-	homejp Func_620a6
+ObjState_PickedUpRight::
+	homejp _ObjState_PickedUpRight
 
-Func_3353::
-	homejp Func_621fb
+ObjState_GrabbedRight::
+	homejp _ObjState_GrabbedRight
 
-Func_3362::
-	homejp Func_622bd
+ObjState_GrabbedLeft::
+	homejp _ObjState_GrabbedLeft
 
-Func_3371::
-	homejp Func_62926
+ObjState_Drop::
+	homejp _ObjState_Drop
 
-Func_3380::
-	homejp Func_62382
+ObjState_GrabbedChargeLeft::
+	homejp _ObjState_GrabbedChargeLeft
 
-Func_338f::
-	homejp Func_6247b
+ObjState_GrabbedChargeRight::
+	homejp _ObjState_GrabbedChargeRight
 
-Func_339e::
-	homejp Func_62574
+ObjState_ThrowLeft::
+	homejp _ObjState_ThrowLeft
 
-Func_33ad::
-	homejp Func_62605
+ObjState_ThrowRight::
+	homejp _ObjState_ThrowRight
 
 ObjState_FullThrowLeft::
-	homejp Func_626da
+	homejp _ObjState_FullThrowLeft
 
 ObjState_FullThrowRight::
-	homejp Func_62768
+	homejp _ObjState_FullThrowRight
 
 ObjState_BumpLeft::
 	homejp _ObjState_BumpLeft
@@ -446,11 +446,11 @@ ObjState_BumpLeft::
 ObjState_BumpRight::
 	homejp _ObjState_BumpRight
 
-Func_33f8::
-	homejp Func_62892
+ObjState_HitByObjLeft::
+	homejp _ObjState_HitByObjLeft
 
-Func_3407::
-	homejp Func_6283a
+ObjState_HitByObjRight::
+	homejp _ObjState_HitByObjRight
 
 ; bc = object creation data
 CreateObjectAtRelativePos::
@@ -462,8 +462,8 @@ CreateObjectFromCurObjPos::
 	homecall _CreateObjectFromCurObjPos
 	ret
 
-Func_3444::
-	homecall Func_632ac
+CountCurObjTransientChildren::
+	homecall _CountCurObjTransientChildren
 	ret
 
 ; returns in e how many objects there are
@@ -497,22 +497,22 @@ VanishObject::
 	homecall _VanishObject
 	ret
 
-Func_34fc::
-	homecall Func_63209
+ApplyObjYMovement_Platform::
+	homecall _ApplyObjYMovement_Platform
 	ret
 
-Func_3513::
-	homecall Func_19bc3
+ProcessBlock_Side::
+	homecall _ProcessBlock_Side
 	ld a, b
 	ret
 
-Func_352b::
-	homecall Func_19b7b
+ProcessBlock_Landing::
+	homecall _ProcessBlock_Landing
 	ld a, b
 	ret
 
-Func_3543::
-	homecall Func_19b51
+ProcessBlock_Down::
+	homecall _ProcessBlock_Down
 	ld a, b
 	ret
 
@@ -526,13 +526,13 @@ ProcessBlockOnRight::
 	ld a, b
 	ret
 
-Func_358b::
-	homecall Func_19b9b
+ProcessBlock_UpSide::
+	homecall _ProcessBlock_UpSide
 	ld a, b
 	ret
 
-Func_35a3::
-	homecall Func_19b8b
+ProcessBlock_DownSide::
+	homecall _ProcessBlock_DownSide
 	ld a, b
 	ret
 

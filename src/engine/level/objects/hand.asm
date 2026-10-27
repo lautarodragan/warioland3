@@ -43,24 +43,24 @@ HandFunc:
 	ld a, [wCurObjVar1]
 	jumptable
 
-	dw .Func_477b2
-	dw .Func_477de
+	dw .Hidden
+	dw .Emerge
 	dw .Func_477f3
 	dw .Func_4780e
 	dw .Func_47825
 	dw .Func_4783c
 	dw .Func_47853
-	dw .Func_4786a
-	dw .Func_47881
-	dw .Func_47896
+	dw .Rise1
+	dw .Reach
+	dw .Grab
 	dw .Func_478e1
 	dw .Func_47903
 	dw .Func_47925
-	dw .Func_47947
-	dw .Func_47966
+	dw .Sink1
+	dw .Retract
 	dw .Invisible
 
-.Func_477b2:
+.Hidden:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -71,7 +71,7 @@ HandFunc:
 	ret nz
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_690ab
+	ld de, HandFrameset_690ab
 	call SetObjectFramesetPtr
 	ld a, 41
 	ld [hli], a
@@ -83,13 +83,13 @@ HandFunc:
 	ld [hl], a
 	ret
 
-.Func_477de:
+.Emerge:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690b4
+	ld de, HandFrameset_690b4
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -102,7 +102,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690b7
+	ld de, HandFrameset_690b7
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -118,7 +118,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690ba
+	ld de, HandFrameset_690ba
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -131,7 +131,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690bd
+	ld de, HandFrameset_690bd
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -144,7 +144,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c0
+	ld de, HandFrameset_690c0
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -157,40 +157,40 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c3
+	ld de, HandFrameset_690c3
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
 	inc [hl]
 	jp MoveObjectUpByVar2
 
-.Func_4786a:
+.Rise1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c6
+	ld de, HandFrameset_690c6
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
 	inc [hl]
 	jp MoveObjectUpByVar2
 
-.Func_47881:
+.Reach:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c9
+	ld de, HandFrameset_690c9
 	call SetObjectFramesetPtr
 	ld a, 56
 	ld [hli], a
 	inc [hl]
 	ret
 
-.Func_47896:
+.Grab:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 49
@@ -218,7 +218,7 @@ HandFunc:
 	ld [wCurObjAction], a
 	dec [hl]
 	ret nz
-	ld de, Frameset_690dc
+	ld de, HandFrameset_690dc
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -239,7 +239,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690df
+	ld de, HandFrameset_690df
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -257,7 +257,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e2
+	ld de, HandFrameset_690e2
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -275,7 +275,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e5
+	ld de, HandFrameset_690e5
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -287,13 +287,13 @@ HandFunc:
 	ld b, 8
 	jp .ApplyOffsetToWario
 
-.Func_47947:
+.Sink1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e8
+	ld de, HandFrameset_690e8
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -304,13 +304,13 @@ HandFunc:
 	ld b, 0
 	jp .ApplyOffsetToWario
 
-.Func_47966:
+.Retract:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690eb
+	ld de, HandFrameset_690eb
 	call SetObjectFramesetPtr
 	ld a, 41
 	ld [hli], a

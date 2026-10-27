@@ -16,7 +16,7 @@ StoveFunc:
 	ld [hld], a
 	ld a, -9
 	ld [hl], a
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar1], a
@@ -28,7 +28,7 @@ StoveFunc:
 	dec l
 	xor a
 	ld [hld], a ; OBJ_VAR_3
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	jp SetObjectFramesetPtr
 
 .Fall:
@@ -44,7 +44,7 @@ StoveFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -87,10 +87,10 @@ StoveFunc:
 .VanishTouch:
 	ld a, [wTransformation]
 	and a
-	jp nz, Func_3173
+	jp nz, VanishAndDespawnObject
 	ld a, OBJSTATE_3A
 	ld [hl], a
-	ld de, Frameset_69625
+	ld de, StoveFrameset_69625
 	call SetObjectFramesetPtr
 	ld a, 44
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -128,14 +128,14 @@ StoveFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jp z, MoveObjectRightByVar2
 
 .set_land
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	jp SetObjectFramesetPtr
 
 .State05:
@@ -144,7 +144,7 @@ StoveFunc:
 	ld [hl], a ; OBJ_STATE
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_69618
+	ld de, StoveFrameset_69618
 	jp SetObjectFramesetPtr
 
 .AttackedRightStart:
@@ -169,7 +169,7 @@ StoveFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jp z, MoveObjectLeftByVar2
 	jr .set_land
@@ -184,7 +184,7 @@ StoveFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -199,7 +199,7 @@ StoveFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -209,7 +209,7 @@ StoveFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, OBJSTATE_00

@@ -33,17 +33,17 @@ BirdFunc:
 	cp b
 	jr c, .asm_432b9
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687d3
+	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
 	ret
 
 .asm_432b9
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687e4
+	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
 	ret
 
-.Func_432c2:
+.Idle:
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	ret z
@@ -58,13 +58,13 @@ BirdFunc:
 	rlca
 	jr c, .asm_432df
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687e4
+	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
 	jr .asm_432e7
 
 .asm_432df
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687d3
+	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
 .asm_432e7
 	ld c, $2a
@@ -93,7 +93,7 @@ BirdFunc:
 	ld a, b
 	cp $70
 	ret nc
-	ld de, Frameset_687c9
+	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
 	jr .asm_43327
 
@@ -103,7 +103,7 @@ BirdFunc:
 	ld a, b
 	cp $90
 	ret c
-	ld de, Frameset_687ce
+	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
 .asm_43327
 	ld a, $23
@@ -114,13 +114,13 @@ BirdFunc:
 	ret
 
 .asm_43338
-	ld de, Frameset_687ff
+	ld de, BirdFrameset_687ff
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hli], a
 	ret
 
-.Func_43342:
+.Special3:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
@@ -130,7 +130,7 @@ BirdFunc:
 	play_sfx SFX_070
 	ret
 
-.Func_43353:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 .asm_43358
@@ -143,9 +143,9 @@ BirdFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jp z, .Func_432c2
+	jp z, .Idle
 	cp $2f
-	jr z, .Func_43342
+	jr z, .Special3
 	cp $0b
 	jr z, .asm_4338f
 	cp $0c
@@ -188,44 +188,44 @@ BirdFunc:
 	ld a, [wCurObjId]
 	cp BLUE_BIRD
 	jr z, .blue_bird
-	ld a, HIGH(.Func_43353)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_43353)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	jp CreateObjectAtRelativePos
 .blue_bird
-	ld a, HIGH(.Func_4340b)
+	ld a, HIGH(.BlueBirdWait)
 	ld [hld], a
-	ld a, LOW(.Func_4340b)
+	ld a, LOW(.BlueBirdWait)
 	ld [hld], a
 	ld a, $14
 	ld [wCurObjStateDuration], a
 	ret
 
 .asm_433c7
-	jp Func_3173
+	jp VanishAndDespawnObject
 
 .asm_433ca
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_433e8
 
 .asm_433d2
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_433e8
 
 .asm_433da
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	jr .asm_433e8
 
 .asm_433e2
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 .asm_433e8
 	ld l, OBJ_FLAGS
@@ -243,37 +243,37 @@ BirdFunc:
 	ld a, [hl]
 	rlca
 	jr c, .asm_43405
-	ld de, Frameset_687f5
+	ld de, BirdFrameset_687f5
 	jp SetObjectFramesetPtr
 .asm_43405
-	ld de, Frameset_687fa
+	ld de, BirdFrameset_687fa
 	jp SetObjectFramesetPtr
 
-.Func_4340b:
+.BlueBirdWait:
 	ld hl, wCurObjAction
 	ld a, $81
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_687ff
+	ld de, BirdFrameset_687ff
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_43427)
+	ld a, HIGH(.BlueBirdLand)
 	ld [hld], a
-	ld a, LOW(.Func_43427)
+	ld a, LOW(.BlueBirdLand)
 	ld [hld], a
 	ret
 
-.Func_43427:
+.BlueBirdLand:
 	ld hl, wCurObjAction
 	ld a, $81
 	ld [hld], a
 	ld a, [hl]
 	and a
-	jp nz, .Func_43342
+	jp nz, .Special3
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -284,12 +284,12 @@ BirdFunc:
 	rlca
 	jr c, .asm_43448
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687ce
+	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
 	ret
 
 .asm_43448
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687c9
+	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
 	ret

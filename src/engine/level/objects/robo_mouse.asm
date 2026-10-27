@@ -1,8 +1,8 @@
 RoboMouseFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_488f7)
+	ld a, HIGH(.Init)
 	ld [hld], a
-	ld a, LOW(.Func_488f7)
+	ld a, LOW(.Init)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -16,13 +16,13 @@ RoboMouseFunc:
 	ld [hl], a
 	ret
 
-.Func_488f7:
+.Init:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4892a)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4892a)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [wWarioScreenXPos]
@@ -36,164 +36,164 @@ RoboMouseFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	jp SetObjectFramesetPtr
 .asm_4891f
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	jp SetObjectFramesetPtr
 
-.Func_4892a:
+.Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_48b13
-	dw .Func_48b2b
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48a47
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b21
-	dw .Func_48b13
-	dw .Func_48c4d
-	dw Func_3245
-	dw Func_3254
-	dw .Func_48c4d
-	dw .Func_48c4d
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw Func_3191
-	dw Func_31af
-	dw .Func_48a17
-	dw .Func_48a23
-	dw .Func_489ff
-	dw .Func_48a0b
-	dw .Func_48a2f
-	dw .Func_48a3b
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_489e8
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48cc6
-	dw .Func_48cd7
-	dw .Func_48b13
+	dw .Default
+	dw .Land
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .VanishTouch
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .StandingFallStart
+	dw .Default
+	dw .TurnAroundStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
+	dw .TurnAroundStart
+	dw .TurnAroundStart
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw .State22
+	dw .State23
+	dw .State24
+	dw .State25
+	dw .State26
+	dw .State27
+	dw .Default
+	dw .Default
+	dw .Activate
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_48b30
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48ae9
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
+	dw .Walk
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3a
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_StandingFall
-	dw .Func_48b13
-	dw .Func_48c60
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_48b13
-	dw Func_31a0
-	dw Func_31be
-	dw .Func_48a1d
-	dw .Func_48a29
-	dw .Func_48a05
-	dw .Func_48a11
-	dw .Func_48a35
-	dw .Func_48a41
-	dw .Func_48b13
-	dw .Func_48b13
-	dw .Func_489fe
-	dw .Func_48b13
-	dw .Func_48b13
+	dw .Default
+	dw .TurnAround
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw .State52
+	dw .State53
+	dw .State54
+	dw .State55
+	dw .State56
+	dw .State57
+	dw .Default
+	dw .Default
+	dw .State5a
+	dw .Default
+	dw .Default
 
-.Func_489e8:
+.Activate:
 	ld hl, wCurObjState
 	ld a, $5a
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69200, Frameset_691fb
+	ld_obj_frameset RoboMouseFrameset_69200, RoboMouseFrameset_691fb
 	call SetObjectFramesetPtr
 	ret
 
-.Func_489fe:
+.State5a:
 	ret
 
-.Func_489ff:
-	call .Func_48cec
-	jp Func_3209
-.Func_48a05:
-	call .Func_48cec
-	jp Func_3218
-.Func_48a0b:
+.State24:
+	call .BreakBlocksInFront
+	jp ObjState_Bounce3LeftStart
+.State54:
+	call .BreakBlocksInFront
+	jp ObjState_Bounce3Left
+.State25:
 	call .asm_48d3d
-	jp Func_3227
-.Func_48a11:
+	jp ObjState_Bounce3RightStart
+.State55:
 	call .asm_48d3d
-	jp Func_3236
-.Func_48a17:
-	call .Func_48cec
-	jp Func_31cd
-.Func_48a1d:
-	call .Func_48cec
-	jp Func_31dc
-.Func_48a23:
+	jp ObjState_Bounce3Right
+.State22:
+	call .BreakBlocksInFront
+	jp ObjState_Bounce2LeftStart
+.State52:
+	call .BreakBlocksInFront
+	jp ObjState_Bounce2Left
+.State23:
 	call .asm_48d3d
-	jp Func_31eb
-.Func_48a29:
+	jp ObjState_Bounce2RightStart
+.State53:
 	call .asm_48d3d
-	jp Func_31fa
-.Func_48a2f:
-	call .Func_48cec
-	jp Func_3245
-.Func_48a35:
-	call .Func_48cec
-	jp Func_32cc
-.Func_48a3b:
+	jp ObjState_Bounce2Right
+.State26:
+	call .BreakBlocksInFront
+	jp ObjState_FallLeftStart
+.State56:
+	call .BreakBlocksInFront
+	jp ObjState_FallLeft
+.State27:
 	call .asm_48d3d
-	jp Func_3254
-.Func_48a41:
+	jp ObjState_FallRightStart
+.State57:
 	call .asm_48d3d
-	jp Func_32db
-.Func_48a47:
+	jp ObjState_FallRight
+.VanishTouch:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_NO_COLLISION_F, [hl]
 	jr z, .asm_48a8e
@@ -201,7 +201,7 @@ RoboMouseFunc:
 	res OBJFLAG_PRIORITY_F, [hl]
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_6920c, Frameset_69205
+	ld_obj_frameset RoboMouseFrameset_6920c, RoboMouseFrameset_69205
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -219,8 +219,8 @@ RoboMouseFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jp c, .Func_489ff
-	jp .Func_48a0b
+	jp c, .State24
+	jp .State25
 .asm_48a8e
 	ld l, OBJ_STATE
 	ld a, $3a
@@ -231,7 +231,7 @@ RoboMouseFunc:
 	jr z, .asm_48aab
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69220, Frameset_691de
+	ld_obj_frameset RoboMouseFrameset_69220, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 .asm_48aab
 	ld l, OBJ_FLAGS
@@ -261,7 +261,7 @@ RoboMouseFunc:
 	play_sfx SFX_083
 	ret
 
-.Func_48ae9:
+.State3a:
 	call MoveObjectDown_Slow
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -272,7 +272,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld a, [wCurObjInteractionType]
@@ -287,7 +287,7 @@ RoboMouseFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_48b13:
+.Default:
 	ld hl, wCurObjState
 	ld a, $30
 	ld [hld], a
@@ -298,7 +298,7 @@ RoboMouseFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.Func_48b21:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -307,10 +307,10 @@ RoboMouseFunc:
 	ld [hld], a
 	ret
 
-.Func_48b2b:
+.Land:
 	ld a, $31
 	ld [wCurObjState], a
-.Func_48b30:
+.Walk:
 	ld a, [wCurObjSubState]
 	rlca
 	jp c, .asm_48bc2
@@ -324,7 +324,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jp z, .asm_48bb7
 	cp $10
@@ -340,7 +340,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .asm_48ba2
 	call .asm_48ce8
@@ -359,7 +359,7 @@ RoboMouseFunc:
 	ldh [hXPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_FREE
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld hl, wCurObjYPos
@@ -378,7 +378,7 @@ RoboMouseFunc:
 .asm_48ba7
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_69213
+	ld de, RoboMouseFrameset_69213
 	ld a, [wCurObjFramesetPtr]
 	cp e
 	ret z
@@ -387,7 +387,7 @@ RoboMouseFunc:
 .asm_48bb7
 	ld a, $11
 	ld [wCurObjState], a
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	jp SetObjectFramesetPtr
 
 .asm_48bc2
@@ -401,7 +401,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jp z, .asm_48c42
 	cp $10
@@ -417,7 +417,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .asm_48c2d
 	call .asm_48d39
@@ -436,7 +436,7 @@ RoboMouseFunc:
 	ldh [hXPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_FREE
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld hl, wCurObjYPos
@@ -455,7 +455,7 @@ RoboMouseFunc:
 .asm_48c32
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_691e5
+	ld de, RoboMouseFrameset_691e5
 	ld a, [wCurObjFramesetPtr]
 	cp e
 	ret z
@@ -464,9 +464,9 @@ RoboMouseFunc:
 .asm_48c42
 	ld a, $11
 	ld [wCurObjState], a
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	jp SetObjectFramesetPtr
-.Func_48c4d:
+.TurnAroundStart:
 	ld a, $43
 	ld [wCurObjState], a
 	ld a, $01
@@ -476,7 +476,7 @@ RoboMouseFunc:
 	ld a, $0a
 .asm_48c5d
 	ld [wCurObjStateDuration], a
-.Func_48c60:
+.TurnAround:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, Func_3308
@@ -499,7 +499,7 @@ RoboMouseFunc:
 	ld a, $2d
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69227
+	ld de, RoboMouseFrameset_69227
 	jr .asm_48c96
 .asm_48c8a
 	ld a, [hli]
@@ -508,7 +508,7 @@ RoboMouseFunc:
 	ld a, $2e
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691f2
+	ld de, RoboMouseFrameset_691f2
 .asm_48c96
 	call SetObjectFramesetPtr
 	ld a, $31
@@ -530,26 +530,26 @@ RoboMouseFunc:
 	jr nz, .asm_48c9c
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69220, Frameset_691de
+	ld_obj_frameset RoboMouseFrameset_69220, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	jr .asm_48c9c
-.Func_48cc6:
+.Special1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 	ld a, $31
 	ld [wCurObjState], a
 	ret
 
-.Func_48cd7:
+.Special2:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	call SetObjectFramesetPtr
 	ld a, $31
 	ld [wCurObjState], a
@@ -558,7 +558,7 @@ RoboMouseFunc:
 .asm_48ce8
 	ld b, $0c
 	jr .asm_48cee
-.Func_48cec:
+.BreakBlocksInFront:
 	ld b, $0e
 .asm_48cee
 	ld hl, wCurObjXPos
@@ -577,7 +577,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $14
@@ -587,7 +587,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $24
@@ -597,7 +597,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	jp Func_3513
+	jp ProcessBlock_Side
 
 .asm_48d39
 	ld b, $0b
@@ -621,7 +621,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $14
@@ -631,7 +631,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $24
@@ -641,4 +641,4 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	jp Func_3513
+	jp ProcessBlock_Side

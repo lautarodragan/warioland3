@@ -9,6 +9,7 @@
 
 # roms
 *.gbc
+*.patch
 
 # rgbds extras
 *.map
@@ -45,3 +46,8 @@ src/data/golf/holes/*.attrmap
 
 # vscode
 *.vscode/*
+
+# emulator test screenshots
+tests/output/
+__pycache__/
+.pytest_cache/

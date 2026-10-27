@@ -205,9 +205,9 @@ PickAndLoadGolfHole:
 	ld de, wGolfHoleData
 	ld bc, wGolfHoleDataEnd - wGolfHoleData
 	call FarCopyHLToDE_BC2
-	ld a, [w1db82 + 0]
+	ld a, [wGolfHoleDataHoleXPos + 0]
 	ld [wGolfHoleHoleXPos + 0], a
-	ld a, [w1db82 + 1]
+	ld a, [wGolfHoleDataHoleXPos + 1]
 	ld [wGolfHoleHoleXPos + 1], a
 	ret
 
@@ -241,7 +241,7 @@ ShowGolfHoleFlagAndPar:
 
 ; if playing Golf in the Golf Building,
 ; then the number of strokes can exceed the par
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $02
 	jr z, .asm_1c8ba3
 	ld a, [wGolfPar]
@@ -290,7 +290,7 @@ ShowGolfHoleFlagAndPar:
 	ld b, 1 tiles
 	call CopyHLToDE
 
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $02
 	jr z, .stroke_number
 	ld hl, GolfHoleFlagGfx
@@ -309,7 +309,7 @@ ShowGolfHoleFlagAndPar:
 
 .stroke_number
 	call PrintGolfStrokeNumber
-	ld hl, w1db90
+	ld hl, wGolfStrokeNumberTiles
 	ld de, v1Tiles0 tile $f0
 	ld b, 4 tiles
 	call CopyHLToDE
@@ -372,7 +372,7 @@ PrintGolfStrokeNumber:
 	dec d
 	jr nz, .loop_tens_digit
 .got_tens_digit
-	ld de, w1db90
+	ld de, wGolfStrokeNumberTiles
 	ld b, 2 tiles
 	call CopyHLToDE
 	pop de
@@ -387,7 +387,7 @@ PrintGolfStrokeNumber:
 	dec e
 	jr nz, .loop_ones_digit
 .got_ones_digit
-	ld de, w1db90 tile $02
+	ld de, wGolfStrokeNumberTiles tile $02
 	ld b, 2 tiles
 	jp CopyHLToDE
 
@@ -478,7 +478,7 @@ UpdateGolfHoleUI:
 	jp LoadGolfSprite
 
 UpdateGolfParaGoom:
-	ld a, [w1dc20]
+	ld a, [wGolfOutOfStrokes]
 	and a
 	ret nz
 	ld a, [wGolfParaGoomState]
@@ -659,7 +659,7 @@ SetGolfParaGoomRespawnYPosIfEnoughStrokes:
 	ld [hli], a
 	ld [hl], HIGH(PARAGOOM_GROUND_LEVEL)
 	ld a, TRUE
-	ld [w1dc20], a
+	ld [wGolfOutOfStrokes], a
 	ret
 
 UpdateGolfWario:
@@ -911,8 +911,8 @@ GolfHoleState_WaitInput:
 	ld [wGolfHoleState], a
 	ld a, [wGolfTerrain]
 	ld [wStrokeGolfTerrain], a
-	ld a, [w1dc47]
-	ld [w1dc53], a
+	ld a, [wGolfParaGoomLeftTeeBox]
+	ld [wGolfParaGoomLeftTeeBoxBackup], a
 
 	; save ParaGoom's current position
 	; for future reference
@@ -1440,7 +1440,7 @@ GolfHoleState_StartShot:
 	ld a, GOLF_WARIO_ATTACKING_2
 	ld [wGolfWarioState], a
 	ld a, GOLFHOLESTATE_BOUNCE
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 	ld a, GOLFHOLESTATE_SHOT
 	ld [wGolfHoleState], a
 	ret
@@ -1467,7 +1467,7 @@ GolfHoleState_Shot:
 	; being here means we changed the hole state
 	; and we are doing a bounce
 	ld a, GOLFHOLESTATE_WALK
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 	ld a, [wShotSpin]
 	cp SHOT_NORMAL
 	jr z, .normal_shot
@@ -1548,7 +1548,7 @@ GolfHoleState_Shot:
 	db $0a, $08 ; $9
 
 UpdateGolfParaGoomXPos:
-	ld hl, w1dc51
+	ld hl, wGolfShotXDecelCounter
 	inc [hl]
 	ld a, [hl]
 	and %111
@@ -1602,9 +1602,9 @@ UpdateGolfParaGoomXPos:
 	rr e
 	; de / 32
 	ld a, e
-	ld [w1dc3e + 0], a
+	ld [wGolfParaGoomBlockX + 0], a
 	ld a, d
-	ld [w1dc3e + 1], a
+	ld [wGolfParaGoomBlockX + 1], a
 
 	; store the terrain that is directly below
 	ld hl, wGolfTerrainBlocks
@@ -1622,7 +1622,7 @@ UpdateGolfParaGoomXPos:
 	ret
 
 .tee_box
-	ld a, [w1dc47]
+	ld a, [wGolfParaGoomLeftTeeBox]
 	and a
 	jr nz, .check_tee_ob
 	ld a, LOW(PARAGOOM_TEE_BOX_LEVEL)
@@ -1702,22 +1702,22 @@ UpdateGolfParaGoomYPos:
 	jr z, .asm_1c9521
 	cp GOLF_TERRAIN_OB
 	jr nc, .asm_1c9521
-	ld [w1dc47], a
+	ld [wGolfParaGoomLeftTeeBox], a
 .asm_1c9521
 	xor a
-	ld [w1dc51], a
+	ld [wGolfShotXDecelCounter], a
 	ld a, d
 	cp SPECIAL_GOLF_TERRAIN
 	jr nc, .no_bounce
 
 	; is either GOLF_TERRAIN_TEE_BOX or GOLF_TERRAIN_PLAIN
 	play_sfx SFX_BUMP
-	ld a, [w1dc01]
+	ld a, [wGolfNextHoleState]
 	ld [wGolfHoleState], a
 	cp GOLFHOLESTATE_BOUNCE
 	ret z
 	ld a, GOLFHOLESTATE_BETWEEN_SHOTS
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 	call UpdateGolfHoleDirection
 	xor a
 	ld [wGolfParaGoomDuration], a
@@ -1783,8 +1783,8 @@ UpdateGolfParaGoomYPos:
 	jr .golf_stroke_penalty
 .ob
 	play_sfx SFX_073
-	ld a, [w1dc53]
-	ld [w1dc47], a
+	ld a, [wGolfParaGoomLeftTeeBoxBackup]
+	ld [wGolfParaGoomLeftTeeBox], a
 .golf_stroke_penalty
 	ld a, GOLF_PARAGOOM_6
 	ld [wGolfParaGoomState], a
@@ -1792,7 +1792,7 @@ UpdateGolfParaGoomYPos:
 	inc [hl]
 
 .check_edges
-	ld hl, w1dc3e
+	ld hl, wGolfParaGoomBlockX
 	bit GOLF_TERRAIN_EDGE_RIGHT_F, c
 	jr nz, .right_edge
 	bit GOLF_TERRAIN_EDGE_LEFT_F, c
@@ -1885,7 +1885,7 @@ GolfHoleState_SpecialTerrain:
 	ld [wGolfOverlayTextXCoord], a
 	ld [wGolfObj4State], a
 	ld a, GOLFHOLESTATE_BETWEEN_SHOTS
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 
 	ld a, [wGolfTerrain]
 	and GOLF_TERRAIN_MASK
@@ -2144,16 +2144,16 @@ GolfHoleState_SpecialTerrain:
 	ld [wGolfResult], a
 .asm_1c9863
 	ld a, GOLFHOLESTATE_CLEARED
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 	jp .asm_1c976f
 .over_par
 	ld a, GOLFRESULT_OVER_PAR
 	ld [wGolfResult], a
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $01
 	jr z, .asm_1c9863
 	ld a, GOLFHOLESTATE_GAME_OVER
-	ld [w1dc01], a
+	ld [wGolfNextHoleState], a
 	jp .asm_1c976f
 
 .HoleXPosOffsetSigns:
@@ -2250,7 +2250,7 @@ GolfHoleState_Walk:
 	jp PrintGolfStrokeNumber
 
 .asm_1c98e1
-	ld a, [w1dc47]
+	ld a, [wGolfParaGoomLeftTeeBox]
 	and a
 	jr z, .move_x_pos
 	ld a, [wGolfWarioYPos]
@@ -2363,7 +2363,7 @@ GolfHoleState_Walk:
 	ld [wGolfWarioDuration], a
 	ld [wGolfWarioFramesetOffset], a
 
-	ld hl, w1dc01
+	ld hl, wGolfNextHoleState
 	ld a, [hl]
 	cp GOLFHOLESTATE_CLEARED
 	jr z, .asm_1c99a4
@@ -2448,7 +2448,7 @@ GolfHoleState_BetweenShots:
 	ld [wShotPowerGaugeCursor], a
 	xor a
 	ld [wGolfCounter], a
-	ld [w1dc51], a
+	ld [wGolfShotXDecelCounter], a
 	ld [wIsPowerGaugeFalling], a
 	ld [wGolfObj4State], a
 	ld [wGolfObj5], a
@@ -2481,7 +2481,7 @@ GolfHoleState_BetweenShots:
 	ret
 
 GolfHoleState_Cleared:
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $01
 	jr z, .asm_1c9ac2
 	ld a, $50
@@ -2510,7 +2510,7 @@ GolfHoleState_Cleared:
 	; exit
 	stop_music2
 	xor a
-	ld [w1d800], a
+	ld [wGolfMode], a
 	ld [wGolfMenuOption], a
 	ld a, [wIsMinigameCleared]
 	and a
@@ -2688,7 +2688,7 @@ GolfHoleState_GameOver:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $02
 	jr nz, .asm_1c9bf7
 	ld a, $01
@@ -2718,7 +2718,7 @@ GolfHoleState_Pause:
 	jr nz, .asm_1c9c40
 	ret
 .asm_1c9c27
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	cp $01
 	jr z, .asm_1c9c33
 	ld a, $01
@@ -2915,7 +2915,7 @@ VBlank_1c9d1d:
 .end
 
 .UpdatePinFlagTiles:
-	ld hl, w1dc0b
+	ld hl, wGolfPinFlagAnimCounter
 	ld a, [hl]
 	cp $18
 	jr nc, .frame_3
@@ -2939,7 +2939,7 @@ VBlank_1c9d1d:
 	ld b, 4 tiles
 	call CopyHLToDE
 
-	ld hl, w1dc0b
+	ld hl, wGolfPinFlagAnimCounter
 	ld a, [hl]
 	inc a
 	and $1f
@@ -3021,9 +3021,9 @@ VBlank_1c9ef1:
 	ld a, [wGolfLCDConfig]
 	ldh [rLCDC], a
 	ld hl, rVDMA_SRC_HIGH
-	ld a, HIGH(w1db90)
+	ld a, HIGH(wGolfStrokeNumberTiles)
 	ld [hli], a
-	ld a, LOW(w1db90)
+	ld a, LOW(wGolfStrokeNumberTiles)
 	ld [hli], a
 	ld a, $0f
 	ld [hli], a
@@ -3158,11 +3158,11 @@ VBlank_1c9fe1:
 
 VBlank_1c9ffa:
 	ld a, HIGH(v1BGMap0 + 6 * TILEMAP_WIDTH) - $80
-	ld [wdc11 + 0], a
+	ld [wGolfHDMADest + 0], a
 	ld a, LOW(v1BGMap0 + 6 * TILEMAP_WIDTH)
-	ld [wdc11 + 1], a
+	ld [wGolfHDMADest + 1], a
 	ld a, 7 dma_rows
-	ld [w1dc13], a
+	ld [wGolfHDMALength], a
 
 	ld hl, .Func
 	ld de, wVBlankFunc
@@ -3179,7 +3179,7 @@ VBlank_1c9ffa:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wGoldBuildingCourseAttrMap
-	call Func_2c30
+	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a
 	ld a, HIGH(wVirtualOAM)
@@ -3199,19 +3199,19 @@ VBlank_1ca033:
 	ld [wGolfVBlankMode], a
 	ld a, [wSCX]
 	ldh [rSCX], a
-	ld hl, w1db00
-	call Func_2c46
+	ld hl, wGolfPals
+	call SetGolfBGPals
 	ld a, HIGH(wVirtualOAM)
 	jp hTransferVirtualOAM
 .end
 
 VBlank_1ca056:
 	ld a, HIGH(v1BGMap0 + 6 * TILEMAP_WIDTH) - $80
-	ld [wdc11 + 0], a
+	ld [wGolfHDMADest + 0], a
 	ld a, LOW(v1BGMap0 + 6 * TILEMAP_WIDTH)
-	ld [wdc11 + 1], a
+	ld [wGolfHDMADest + 1], a
 	ld a, $e dma_tiles
-	ld [w1dc13], a
+	ld [wGolfHDMALength], a
 
 	ld hl, .Func
 	ld de, wVBlankFunc
@@ -3228,7 +3228,7 @@ VBlank_1ca056:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wGolfPinFlagTiles
-	call Func_2c30
+	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a
 	ld a, HIGH(wVirtualOAM)

@@ -16,7 +16,7 @@ GreyPrinceFroggyFunc:
 	ld a, $00
 	ld [hld], a
 	ld l, OBJ_STATE
-	jp PrinceFroggyFunc.Func_441dc
+	jp PrinceFroggyFunc.StartTurnAround
 
 RedPrinceFroggyFunc:
 	ld hl, wCurObjFlags
@@ -26,7 +26,7 @@ RedPrinceFroggyFunc:
 	ld [hld], a
 	ld a, LOW(PrinceFroggyFunc.Update_Stuck)
 	ld [hld], a
-	ld de, Frameset_68ac6
+	ld de, PrinceFroggyFrameset_68ac6
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -40,21 +40,21 @@ RedPrinceFroggyFunc:
 	ret
 
 PrinceFroggyFunc:
-.Func_440c4:
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+.SetHitByObjLeft:
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	jr .asm_440da
-.Func_440ca:
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+.SetHitByObjRight:
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_440da
-.Func_440d0:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+.SetAttackedLeft:
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	jr .asm_440da
-.Func_440d6:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+.SetAttackedRight:
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 .asm_440da
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
@@ -69,7 +69,7 @@ PrinceFroggyFunc:
 	ld [hld], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	jp SetObjectFramesetPtr
 
 .Update_Stuck:
@@ -83,7 +83,7 @@ PrinceFroggyFunc:
 	res OBJFLAG_STEPPED_F, [hl]
 	ld a, $5a
 	ld [wCurObjState], a
-	ld de, Frameset_68add
+	ld de, PrinceFroggyFrameset_68add
 	call SetObjectFramesetPtr
 	ld a, 111
 	ld [hli], a
@@ -103,13 +103,13 @@ PrinceFroggyFunc:
 	cp $3b
 	jr z, .asm_44161
 	cp $28
-	jr z, .Func_440c4
+	jr z, .SetHitByObjLeft
 	cp $29
-	jr z, .Func_440ca
+	jr z, .SetHitByObjRight
 	cp $04
-	jr z, .Func_440d0
+	jr z, .SetAttackedLeft
 	cp $05
-	jr z, .Func_440d6
+	jr z, .SetAttackedRight
 	cp $0a
 	jp z, .asm_4420a
 	jr .asm_44172
@@ -121,7 +121,7 @@ PrinceFroggyFunc:
 	ld a, LOW(.Update_Sitting)
 	ld [hld], a
 	ld l, OBJ_STATE
-	jp .Func_441dc
+	jp .StartTurnAround
 
 .asm_44151
 	ld a, $41
@@ -145,13 +145,13 @@ PrinceFroggyFunc:
 .asm_44166
 	xor a
 	ld [wCurObjState], a
-	ld de, Frameset_68ac6
+	ld de, PrinceFroggyFrameset_68ac6
 	call SetObjectFramesetPtr
 	jr .asm_44185
 .asm_44172
 	ld a, $3b
 	ld [wCurObjState], a
-	ld de, Frameset_68af2
+	ld de, PrinceFroggyFrameset_68af2
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -169,7 +169,7 @@ PrinceFroggyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	call SetObjectFramesetPtr
 	ld a, 13
 	ld [hli], a
@@ -192,25 +192,25 @@ PrinceFroggyFunc:
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $28
-	jp z, .Func_440c4
+	jp z, .SetHitByObjLeft
 	cp $29
-	jp z, .Func_440ca
+	jp z, .SetHitByObjRight
 	cp $04
-	jp z, .Func_440d0
+	jp z, .SetAttackedLeft
 	cp $05
-	jp z, .Func_440d6
+	jp z, .SetAttackedRight
 	cp $13
-	jr z, .Func_441dc
+	jr z, .StartTurnAround
 	cp $43
 	jr z, .asm_441f8
 	cp $0a
 	jr z, .asm_4420a
 	xor a
 	ld [hl], a
-.Func_441dc:
+.StartTurnAround:
 	ld a, $43
 	ld [hl], a
-	ld de, Frameset_68b01
+	ld de, PrinceFroggyFrameset_68b01
 	call SetObjectFramesetPtr
 	ld a, 73
 	ld [hli], a
@@ -231,17 +231,17 @@ PrinceFroggyFunc:
 	jr nz, .asm_44185
 	xor a
 	ld [wCurObjState], a
-	ld de, Frameset_68ae9
+	ld de, PrinceFroggyFrameset_68ae9
 	call SetObjectFramesetPtr
 	jp .asm_44185
 
 .asm_4420a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_44220)
+	ld a, HIGH(.HopAndVanish)
 	ld [hld], a
-	ld a, LOW(.Func_44220)
+	ld a, LOW(.HopAndVanish)
 	ld [hld], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a
@@ -249,10 +249,10 @@ PrinceFroggyFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_44220:
+.HopAndVanish:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]

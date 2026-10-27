@@ -33,10 +33,10 @@ LoadPauseMenuGfx:
 	call CopyHLToDE_BC
 	ret
 
-Func_1f403f:
+LoadPauseMenuTilemap:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
-	jr nz, .asm_1f4060
+	jr nz, .time_attack
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PauseMenuAttrmap
@@ -49,7 +49,7 @@ Func_1f403f:
 	call Decompress
 	ret
 
-.asm_1f4060
+.time_attack
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, TimeAttackPauseMenuAttrmap
@@ -71,13 +71,13 @@ Func_1f403f:
 	ld hl, wLevelTimeAttackScores
 	add hl, de
 	ld a, [hli]
-	ld [w3d511 + 0], a
+	ld [wTempTimeAttackScore + 0], a
 	ld a, [hl]
-	ld [w3d511 + 1], a
+	ld [wTempTimeAttackScore + 1], a
 	hlbgcoord 4, 2, v1BGMap1
 	ld bc, -TILEMAP_WIDTH
 	ld de, TILEMAP_WIDTH
-	ld a, [w3d511 + 0]
+	ld a, [wTempTimeAttackScore + 0]
 	swap a
 	and $0f
 	add a
@@ -87,7 +87,7 @@ Func_1f403f:
 	inc a
 	ld [hli], a
 	add hl, bc
-	ld a, [w3d511 + 0]
+	ld a, [wTempTimeAttackScore + 0]
 	and $0f
 	add a
 	add $a0
@@ -97,7 +97,7 @@ Func_1f403f:
 	ld [hli], a
 	add hl, bc
 	inc l
-	ld a, [w3d511 + 1]
+	ld a, [wTempTimeAttackScore + 1]
 	swap a
 	and $0f
 	add a
@@ -107,7 +107,7 @@ Func_1f403f:
 	inc a
 	ld [hli], a
 	add hl, bc
-	ld a, [w3d511 + 1]
+	ld a, [wTempTimeAttackScore + 1]
 	and $0f
 	add a
 	add $a0
@@ -295,7 +295,7 @@ Pals_1f41c2:
 	rgb 31, 14,  0
 	rgb  0,  0,  0
 
-PauseMenuGfx:
+PauseMenuGfx::
 INCBIN "gfx/pause/pause_menu.2bpp.rle"
 
 ActionHelpOwlGfx::

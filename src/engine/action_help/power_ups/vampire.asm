@@ -25,25 +25,25 @@ VampireActionHelp:
 	jumptable
 
 	dw ActionHelp2_Init
-	dw Func_1e45ee
-	dw Func_1e464b
+	dw VampireActionHelp_WaitToStart
+	dw VampireActionHelp_Step02
 	dw ActionHelp2_FlashBInput
-	dw Func_1e465e
-	dw Func_1e4684
+	dw VampireActionHelp_Step04
+	dw VampireActionHelp_Step05
 	dw ActionHelp2_FlashAInput
-	dw ApplyWaterCurrentMovementb
-	dw Func_1e46e8
-	dw Func_1e471c
-	dw Func_1e4759
-	dw Func_1e478d
-	dw Func_1e47ca
-	dw Func_1e47fe
-	dw Func_1e483d
-	dw Func_1e4871
-	dw Func_1e4898
+	dw VampireActionHelp_Step07
+	dw VampireActionHelp_Step08
+	dw VampireActionHelp_Step09
+	dw VampireActionHelp_Step0A
+	dw VampireActionHelp_Step0B
+	dw VampireActionHelp_Step0C
+	dw VampireActionHelp_Step0D
+	dw VampireActionHelp_Step0E
+	dw VampireActionHelp_Step0F
+	dw VampireActionHelp_Step10
 
 
-Func_1e45d7:
+VampireActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
@@ -54,13 +54,13 @@ Func_1e45d7:
 	call ActionHelp2_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1e45f3
+	jr VampireActionHelp_Start
 
-Func_1e45ee:
+VampireActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1e45f3:
+VampireActionHelp_Start:
 	call ActionHelp2_ShowDRightInput
 
 	ld a, BANK(WarioVampireGfx)
@@ -109,7 +109,7 @@ Func_1e45f3:
 	inc [hl]
 	ret
 
-Func_1e464b:
+VampireActionHelp_Step02:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
@@ -123,7 +123,7 @@ Func_1e464b:
 	inc [hl]
 	ret
 
-Func_1e465e:
+VampireActionHelp_Step04:
 	ld a, [wTimer]
 	and a
 	jr z, .asm_1e4676
@@ -145,7 +145,7 @@ Func_1e465e:
 	ld [wTimer], a
 	ret
 
-Func_1e4684:
+VampireActionHelp_Step05:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld hl, wTimer
@@ -159,7 +159,7 @@ Func_1e4684:
 	inc [hl]
 	ret
 
-ApplyWaterCurrentMovementb:
+VampireActionHelp_Step07:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -187,7 +187,7 @@ ApplyWaterCurrentMovementb:
 	inc [hl]
 	ret
 
-Func_1e46e8:
+VampireActionHelp_Step08:
 	ld a, [wActionHelpCounter]
 	and %1
 	jr z, .asm_1e46f3
@@ -218,7 +218,7 @@ Func_1e46e8:
 	inc [hl]
 	ret
 
-Func_1e471c:
+VampireActionHelp_Step09:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -246,7 +246,7 @@ Func_1e471c:
 	inc [hl]
 	ret
 
-Func_1e4759:
+VampireActionHelp_Step0A:
 	ld a, [wActionHelpCounter]
 	and %1
 	jr z, .asm_1e4764
@@ -277,7 +277,7 @@ Func_1e4759:
 	inc [hl]
 	ret
 
-Func_1e478d:
+VampireActionHelp_Step0B:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -305,7 +305,7 @@ Func_1e478d:
 	inc [hl]
 	ret
 
-Func_1e47ca:
+VampireActionHelp_Step0C:
 	ld a, [wActionHelpCounter]
 	and %1
 	jr z, .asm_1e47d5
@@ -336,7 +336,7 @@ Func_1e47ca:
 	inc [hl]
 	ret
 
-Func_1e47fe:
+VampireActionHelp_Step0D:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld hl, wActionHelpWario
@@ -364,7 +364,7 @@ Func_1e47fe:
 	inc [hl]
 	ret
 
-Func_1e483d:
+VampireActionHelp_Step0E:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	cp $27
@@ -395,7 +395,7 @@ Func_1e483d:
 	inc [hl]
 	ret
 
-Func_1e4871:
+VampireActionHelp_Step0F:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld hl, wTimer
@@ -409,8 +409,8 @@ Func_1e4871:
 	inc [hl]
 	ret
 
-Func_1e4898:
+VampireActionHelp_Step10:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	ret z
-	jp Func_1e45d7
+	jp VampireActionHelp_End

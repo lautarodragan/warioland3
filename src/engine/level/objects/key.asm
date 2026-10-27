@@ -9,7 +9,7 @@ KeyFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_6804f
+	ld de, KeyFrameset_6804f
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 4
@@ -26,6 +26,6 @@ KeyFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
-	farcall Func_bb2d
+	ld hl, wCurObjMapPtrHi
+	farcall ClearObjectMapEntry
 	ret

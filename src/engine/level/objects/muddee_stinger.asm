@@ -3,24 +3,24 @@ MuddeeStingerFunc:
 	set OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_SUBSTATE
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4ca2a)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4ca2a)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ret
 
-.Func_4ca2a:
+.Update:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, [wCurObjState]
 	cp $0a
 	jr nz, .asm_4ca3b
 	ld a, $01
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 .asm_4ca3b
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jr z, .asm_4ca46
 	xor a
@@ -61,10 +61,10 @@ MuddeeStingerFunc:
 	ld a, [wCurObjId]
 	cp MUDDEE_STINGER2
 	jr z, .asm_4ca7b
-	ld de, Data_4caed
+	ld de, MuddeeStingerData_4caed
 	jr .asm_4ca7e
 .asm_4ca7b
-	ld de, Data_4cb0d
+	ld de, MuddeeStingerData_4cb0d
 .asm_4ca7e
 	ld a, c
 	cp $10
@@ -140,7 +140,7 @@ MuddeeStingerFunc:
 	ld [wCurObjXPos + 1], a
 	ret
 
-Data_4caed:
+MuddeeStingerData_4caed:
 	db  25,   0
 	db  23,  -5
 	db  23,   5
@@ -158,7 +158,7 @@ Data_4caed:
 	db  -5, -10
 	db  18, -10
 
-Data_4cb0d:
+MuddeeStingerData_4cb0d:
 	db  -7,   0
 	db  -6,  -5
 	db  -6,   5

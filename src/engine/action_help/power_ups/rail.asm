@@ -36,25 +36,25 @@ RailActionHelp:
 	jumptable
 
 	dw ActionHelp2_Init
-	dw Func_1e4324
-	dw Func_1e43a0
-	dw Func_1e43cb
+	dw RailActionHelp_WaitToStart
+	dw RailActionHelp_Step02
+	dw RailActionHelp_Step03
 	dw ActionHelp2_FlashBInput
-	dw Func_1e4403
-	dw Func_1e4432
-	dw Func_1e4442
-	dw Func_1e4455
-	dw Func_1e4483
-	dw Func_1e4490
-	dw Func_1e44bb
+	dw RailActionHelp_Step05
+	dw RailActionHelp_Step06
+	dw RailActionHelp_Step07
+	dw RailActionHelp_Step08
+	dw RailActionHelp_Step09
+	dw RailActionHelp_Step0A
+	dw RailActionHelp_Step0B
 	dw ActionHelp2_FlashAInput
-	dw Func_1e44ee
-	dw Func_1e452a
-	dw Func_1e453a
-	dw Func_1e454d
-	dw Func_1e4578
+	dw RailActionHelp_Step0D
+	dw RailActionHelp_Step0E
+	dw RailActionHelp_Step0F
+	dw RailActionHelp_Step10
+	dw RailActionHelp_Step11
 
-Func_1e430d:
+RailActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
@@ -65,13 +65,13 @@ Func_1e430d:
 	call ActionHelp2_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1e4329
+	jr RailActionHelp_Start
 
-Func_1e4324:
+RailActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1e4329:
+RailActionHelp_Start:
 	ld a, BANK(WarioHangGfx)
 	ld [wPendingDMASourceBank], a
 	ld a, HIGH(WarioHangGfx)
@@ -142,7 +142,7 @@ Func_1e4329:
 	inc [hl]
 	ret
 
-Func_1e43a0:
+RailActionHelp_Step02:
 	play_sfx_rept 30, SFX_08C
 
 	ld hl, wActionHelpWarioXCoord
@@ -159,7 +159,7 @@ Func_1e43a0:
 	inc [hl]
 	ret
 
-Func_1e43cb:
+RailActionHelp_Step03:
 	play_sfx_rept 30, SFX_08C
 
 	ld hl, wActionHelpWarioXCoord
@@ -179,7 +179,7 @@ Func_1e43cb:
 	inc [hl]
 	ret
 
-Func_1e4403:
+RailActionHelp_Step05:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld hl, wActionHelpWarioVar
@@ -207,7 +207,7 @@ Func_1e4403:
 	inc [hl]
 	ret
 
-Func_1e4432:
+RailActionHelp_Step06:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld a, [hl]
@@ -220,7 +220,7 @@ Func_1e4432:
 	inc [hl]
 	ret
 
-Func_1e4442:
+RailActionHelp_Step07:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -234,7 +234,7 @@ Func_1e4442:
 	inc [hl]
 	ret
 
-Func_1e4455:
+RailActionHelp_Step08:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	inc [hl]
@@ -261,7 +261,7 @@ Func_1e4455:
 	inc [hl]
 	ret
 
-Func_1e4483:
+RailActionHelp_Step09:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	ret z
@@ -272,7 +272,7 @@ Func_1e4483:
 	inc [hl]
 	ret
 
-Func_1e4490:
+RailActionHelp_Step0A:
 	play_sfx_rept 30, SFX_08C
 
 	ld hl, wActionHelpWarioXCoord
@@ -289,7 +289,7 @@ Func_1e4490:
 	inc [hl]
 	ret
 
-Func_1e44bb:
+RailActionHelp_Step0B:
 	play_sfx_rept 30, SFX_08C
 
 	ld hl, wActionHelpWarioXCoord
@@ -307,7 +307,7 @@ Func_1e44bb:
 	inc [hl]
 	ret
 
-Func_1e44ee:
+RailActionHelp_Step0D:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld hl, wActionHelpWarioVar
@@ -342,7 +342,7 @@ Func_1e44ee:
 	inc [hl]
 	ret
 
-Func_1e452a:
+RailActionHelp_Step0E:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld a, [hl]
@@ -355,7 +355,7 @@ Func_1e452a:
 	inc [hl]
 	ret
 
-Func_1e453a:
+RailActionHelp_Step0F:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -369,7 +369,7 @@ Func_1e453a:
 	inc [hl]
 	ret
 
-Func_1e454d:
+RailActionHelp_Step10:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	inc [hl]
@@ -395,8 +395,8 @@ Func_1e454d:
 	inc [hl]
 	ret
 
-Func_1e4578:
+RailActionHelp_Step11:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	ret z
-	jp Func_1e430d
+	jp RailActionHelp_End

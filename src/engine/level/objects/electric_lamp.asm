@@ -9,7 +9,7 @@ ElectricLampFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_68cc4
+	ld de, ElectricLampFrameset_68cc4
 	call SetObjectFramesetPtr
 	ret
 
@@ -19,7 +19,7 @@ ElectricLampFunc:
 	ld a, [wGlobalCounter]
 	and a
 	ret nz
-	ld de, Frameset_68ccd
+	ld de, ElectricLampFrameset_68ccd
 	call SetObjectFramesetPtr
 	ld a, 30
 	ld [hli], a ; state duration
@@ -39,7 +39,7 @@ ElectricLampFunc:
 	play_sfx z, SFX_06A
 	dec [hl]
 	ret nz
-	ld de, Frameset_68cc4
+	ld de, ElectricLampFrameset_68cc4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Discharged)
@@ -53,7 +53,7 @@ ElectricLampFunc:
 ElectricLampSparkFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -64,7 +64,7 @@ ElectricLampSparkFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 
@@ -79,7 +79,7 @@ ElectricLampSparkFunc:
 	ld [hli], a
 	ld a, 5
 	ld [hl], a
-	ld de, Frameset_68ca0
+	ld de, ElectricLampFrameset_68ca0
 	call SetObjectFramesetPtr
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -129,7 +129,7 @@ ElectricLampSparkFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .destroy
 	ld hl, wCurObjYPos
@@ -139,7 +139,7 @@ ElectricLampSparkFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret z
 .destroy

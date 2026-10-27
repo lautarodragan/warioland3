@@ -11,7 +11,7 @@ FutamoguFunc:
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 
-	ld de, Frameset_68319
+	ld de, FutamoguFrameset_68319
 	call SetObjectFramesetPtr
 
 	; save starting position
@@ -77,7 +77,7 @@ FutamoguFunc:
 	ret
 
 .set_idle
-	ld de, Frameset_68319
+	ld de, FutamoguFrameset_68319
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
@@ -114,7 +114,7 @@ FutamoguFunc:
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hl], a ; OBJ_STATE
 
-	ld de, Frameset_68348
+	ld de, FutamoguFrameset_68348
 	call SetObjectFramesetPtr
 	ld a, 32
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -136,7 +136,7 @@ FutamoguFunc:
 	ld a, OBJSTATE_SPECIAL_3
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
-	ld de, Frameset_68336
+	ld de, FutamoguFrameset_68336
 	call SetObjectFramesetPtr
 	ret
 
@@ -146,14 +146,14 @@ FutamoguFunc:
 	ret z
 	ld a, OBJSTATE_SPECIAL_2
 	ld [wCurObjState], a
-	ld de, Frameset_68343
+	ld de, FutamoguFrameset_68343
 	call SetObjectFramesetPtr
 	ret
 
 .Attacked:
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hl], a ; OBJ_STATE
-	ld de, Frameset_68351
+	ld de, FutamoguFrameset_68351
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -175,7 +175,7 @@ FutamoguFunc:
 	dec l
 	xor a
 	ld [hl], a ; OBJ_VAR_3
-	ld de, Frameset_68348
+	ld de, FutamoguFrameset_68348
 	call SetObjectFramesetPtr
 	ld a, 48
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -208,7 +208,7 @@ FutamoguFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 

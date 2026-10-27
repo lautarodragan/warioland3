@@ -1,20 +1,20 @@
-Func_19706:
+CheckCarriedWarioRightCollision:
 	ld a, TRUE
 	ld [wBlockFuncWarioFlag], a
-	call Func_19741
+	call CheckBottomRightCollision_Break
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 	ret
 
-Func_19713:
+CheckCarriedWarioLeftCollision:
 	ld a, TRUE
 	ld [wBlockFuncWarioFlag], a
-	call Func_197b1
+	call CheckBottomLeftCollision_Break
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 	ret
 
-Func_19720:
+CheckCarriedWarioDownCollision:
 	ld a, TRUE
 	ld [wBlockFuncWarioFlag], a
 	call CheckAirborneCollision
@@ -34,7 +34,7 @@ CheckFrontCollision:
 	jr z, CheckBottomLeftCollision
 	jr CheckBottomRightCollision
 
-Func_19741:
+CheckBottomRightCollision_Break:
 	ld a, TRUE
 	ld [wBlockFuncBreakFlag], a
 ;	fallthrough
@@ -100,17 +100,17 @@ CheckBottomRightCollision:
 .got_collision_coords
 	ldh a, [hYPosLo]
 	and $f0
-	ld [wc0dc], a
-	call Func_19bc3
+	ld [wFrontCollisionBlockY], a
+	call _ProcessBlock_Side
 	and $0f
-	jp z, Func_19832
+	jp z, CheckFrontBlockAbove
 	ld a, [wAttackCounter]
 	and a
-	jp nz, Func_19823
+	jp nz, ProcessFrontBlockAbove_Break
 	ld a, b
 	ret
 
-Func_197b1:
+CheckBottomLeftCollision_Break:
 	ld a, TRUE
 	ld [wBlockFuncBreakFlag], a
 ;	fallthrough
@@ -180,26 +180,26 @@ CheckBottomLeftCollision:
 .got_collision_coords
 	ldh a, [hYPosLo]
 	and $f0
-	ld [wc0dc], a
-	call Func_19bc3
+	ld [wFrontCollisionBlockY], a
+	call _ProcessBlock_Side
 	and $0f
-	jr z, Func_19832
+	jr z, CheckFrontBlockAbove
 	ld a, [wAttackCounter]
 	and a
-	jr nz, Func_19823
+	jr nz, ProcessFrontBlockAbove_Break
 	ld a, b
 	ret
 
-Func_19823:
+ProcessFrontBlockAbove_Break:
 	ld a, TRUE
 	ld [wBlockFuncBreakFlag], a
-	call Func_19bd3
+	call ProcessBlockAbove
 	ld a, $01
 	ld [wUnused_c18d], a
 	ld b, a
 	ret
 
-Func_19832:
+CheckFrontBlockAbove:
 	ld a, [wIsCrouching]
 	and a
 	jp nz, .asm_198c1
@@ -210,12 +210,12 @@ Func_19832:
 	add 2
 	and $f0
 	ld b, a
-	ld a, [wc0dc]
+	ld a, [wFrontCollisionBlockY]
 	cp b
 	jp z, .asm_198c1
 	ld a, TRUE
 	ld [wBlockFuncBreakFlag], a
-	call Func_19bd3
+	call ProcessBlockAbove
 	and $0f
 	ret z
 	ld a, [wJumpVelTable]
@@ -269,18 +269,18 @@ Func_19832:
 	ret
 
 ; resets wWarioSlopeInteraction
-Func_198c7:
+CheckDownCollisionAtWario:
 	xor a
 	ld [wWarioSlopeInteraction], a
 	get_pos
-	call Func_19b51
+	call _ProcessBlock_Down
 	ret
 
 CheckCentreCollision:
 ; collision in centre
 	ld a, $01
 	ld [wUnused_ced3], a
-	call Func_198c7
+	call CheckDownCollisionAtWario
 	and a
 	ret nz
 	xor a
@@ -307,7 +307,7 @@ CheckCentreCollision:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19b8b
+	call _ProcessBlock_DownSide
 	and a
 	ret nz
 
@@ -330,7 +330,7 @@ CheckCentreCollision:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19b8b
+	call _ProcessBlock_DownSide
 	and a
 	ret nz
 
@@ -342,7 +342,7 @@ CheckCentreCollision:
 	ld a, $01
 	ret
 
-Func_19942:
+CheckUpCentreCollision:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
 	jr z, .puffy
@@ -371,13 +371,13 @@ Func_19942:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	call Func_19beb
+	call ProcessBlock_Up
 	ret
 
 CheckUpCollision:
 	ld a, TRUE
 	ld [wJumpCollision], a
-	call Func_19942
+	call CheckUpCentreCollision
 	and a
 	ret nz
 	xor a
@@ -418,7 +418,7 @@ CheckUpCollision:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	call Func_19b9b
+	call _ProcessBlock_UpSide
 	and a
 	ret nz
 
@@ -456,7 +456,7 @@ CheckUpCollision:
 	ld a, [hl]
 	sbc $00
 	ld [de], a
-	call Func_19b9b
+	call _ProcessBlock_UpSide
 	ret
 
 CheckAirborneCollision:
@@ -490,7 +490,7 @@ CheckAirborneCollision:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19bfb
+	call ProcessBlock_LandingSide
 	and a
 	ret nz
 	ld a, [wIsOnSteppableObject]
@@ -524,7 +524,7 @@ CheckAirborneCollision:
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Func_19bfb
+	call ProcessBlock_LandingSide
 	and a
 	ret nz
 	ld a, [wIsOnSteppableObject]
@@ -543,12 +543,12 @@ CheckAirborneCollision:
 	ld [wBlockFuncBreakFlag], a
 .no_smash_attack_3
 	get_pos
-	call Func_19b7b
+	call _ProcessBlock_Landing
 	ret
 
-Func_19a77:
+CheckStandingOnFloorBlocks:
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionBoxLeft]
 	cpl
 	inc a
@@ -572,13 +572,13 @@ Func_19a77:
 	call UpdateEnvState
 	and a
 	jr z, .asm_19aa2
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	ret z
 
 .asm_19aa2
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionBoxRight]
 	sub $03
 	ld c, a
@@ -603,10 +603,10 @@ Func_19a77:
 	ret
 .asm_19ac7
 	ld a, TRUE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ret
 
-Func_19acd:
+UpdateEnvStateAtChest:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -624,7 +624,7 @@ Func_19acd:
 	ld [de], a
 	jr UpdateEnvState
 
-Func_19ae4:
+UpdateEnvStateAboveHead:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -642,7 +642,7 @@ Func_19ae4:
 	ld [de], a
 	jr UpdateEnvState
 
-Func_19afb:
+UpdateEnvStateAtHead:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -661,7 +661,7 @@ Func_19afb:
 	jr UpdateEnvState
 
 ; collision on centre
-Func_19b12:
+UpdateEnvStateAtFeet:
 	get_pos
 	jr UpdateEnvState
 
@@ -692,10 +692,10 @@ UpdateEnvState:
 	ld [wIsInSand], a
 	ld [wIsNearFence], a
 	ld [wIsInAirCurrent], a
-	call ProcessBlock_UNK7
+	call ProcessBlock_Env
 	ret
 
-Func_19b51::
+_ProcessBlock_Down::
 	ld hl, hPos
 	call GetBlockPtr
 	ld a, COLLISION_DOWN
@@ -731,35 +731,35 @@ IncrementBlockPtr:
 	inc [hl]
 	ret
 
-Func_19b7b::
+_ProcessBlock_Landing::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK1
+	ld a, COLLISION_LANDING
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
 	ret
 
-Func_19b8b::
+_ProcessBlock_DownSide::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK2
+	ld a, COLLISION_DOWN_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
 	ret
 
-Func_19b9b::
+_ProcessBlock_UpSide::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK3
+	ld a, COLLISION_UP_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
 	ret
 
 ; unreferenced
-Func_19bab:
+UnreferencedProcessBlockOnLeft:
 	ld hl, wBlockPtr + 1
 	dec [hl]
 	ld a, [hld]
@@ -770,7 +770,7 @@ Func_19bab:
 	ret
 
 ; unreferenced
-Func_19bb7:
+UnreferencedProcessBlockOnRight:
 	ld hl, wBlockPtr + 1
 	inc [hl]
 	ld a, [hld]
@@ -780,17 +780,17 @@ Func_19bb7:
 	ld b, a
 	ret
 
-Func_19bc3::
+_ProcessBlock_Side::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK4
+	ld a, COLLISION_SIDE
 	ld [wCollisionPoints], a
 Func_19bce:
 	call ProcessBlock
 	ld b, a
 	ret
 
-Func_19bd3:
+ProcessBlockAbove:
 	ld hl, wBlockPtr
 	dec [hl]
 	ld a, [hl]
@@ -808,28 +808,28 @@ Func_19bd3:
 	ld h, a
 	jr Func_19bce
 
-Func_19beb:
+ProcessBlock_Up:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK5
+	ld a, COLLISION_UP
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
 	ret
 
-Func_19bfb:
+ProcessBlock_LandingSide:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK6
+	ld a, COLLISION_LANDING_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
 	ret
 
-ProcessBlock_UNK7:
+ProcessBlock_Env:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK7
+	ld a, COLLISION_ENV
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a

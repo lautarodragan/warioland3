@@ -37,20 +37,20 @@ OwlActionHelp:
 	jumptable
 
 	dw ActionHelp2_Init
-	dw Func_1e4095
-	dw Func_1e4104
-	dw Func_1e4134
-	dw Func_1e4165
-	dw Func_1e4195
-	dw Func_1e41c9
-	dw Func_1e41fd
-	dw Func_1e4227
+	dw OwlActionHelp_WaitToStart
+	dw OwlActionHelp_Step02
+	dw OwlActionHelp_Step03
+	dw OwlActionHelp_Step04
+	dw OwlActionHelp_Step05
+	dw OwlActionHelp_Step06
+	dw OwlActionHelp_Step07
+	dw OwlActionHelp_Step08
 	dw ActionHelp2_FlashBInput
-	dw Func_1e4254
-	dw Func_1e4271
-	dw Func_1e4286
+	dw OwlActionHelp_Step0A
+	dw OwlActionHelp_Step0B
+	dw OwlActionHelp_Step0C
 
-Func_1e407e:
+OwlActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
@@ -61,13 +61,13 @@ Func_1e407e:
 	call ActionHelp2_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1e409a
+	jr OwlActionHelp_Start
 
-Func_1e4095:
+OwlActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1e409a:
+OwlActionHelp_Start:
 	ld a, BANK(WarioHangGfx)
 	ld [wPendingDMASourceBank], a
 	ld a, HIGH(WarioHangGfx)
@@ -117,7 +117,7 @@ Func_1e409a:
 	inc [hl]
 	ret
 
-Func_1e4104:
+OwlActionHelp_Step02:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -136,7 +136,7 @@ Func_1e4104:
 	inc [hl]
 	ret
 
-Func_1e4134:
+OwlActionHelp_Step03:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -158,7 +158,7 @@ Func_1e4134:
 .asm_1e4162
 	jp ActionHelp2_ClearDPadInput
 
-Func_1e4165:
+OwlActionHelp_Step04:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -177,7 +177,7 @@ Func_1e4165:
 	inc [hl]
 	ret
 
-Func_1e4195:
+OwlActionHelp_Step05:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -200,7 +200,7 @@ Func_1e4195:
 .asm_1e41c6
 	jp ActionHelp2_ClearDPadInput
 
-Func_1e41c9:
+OwlActionHelp_Step06:
 	play_sfx_rept 32, SFX_FLAP
 
 	ld a, [wActionHelpCounter]
@@ -221,7 +221,7 @@ Func_1e41c9:
 	inc [hl]
 	ret
 
-Func_1e41fd:
+OwlActionHelp_Step07:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld hl, wActionHelpWarioXCoord
@@ -237,7 +237,7 @@ Func_1e41fd:
 	inc [hl]
 	ret
 
-Func_1e4227:
+OwlActionHelp_Step08:
 	play_sfx_rept 16, SFX_FLAP
 
 	ld hl, wActionHelpWarioXCoord
@@ -254,7 +254,7 @@ Func_1e4227:
 	inc [hl]
 	ret
 
-Func_1e4254:
+OwlActionHelp_Step0A:
 	ld hl, wMenuObj4YCoord
 	dec [hl]
 	dec [hl]
@@ -273,7 +273,7 @@ Func_1e4254:
 	inc [hl]
 	ret
 
-Func_1e4271:
+OwlActionHelp_Step0B:
 	ld hl, wMenuObj4YCoord
 	dec [hl]
 	dec [hl]
@@ -288,10 +288,10 @@ Func_1e4271:
 	inc [hl]
 	ret
 
-Func_1e4286:
+OwlActionHelp_Step0C:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
 	cp $b0
 	ret c
-	jp Func_1e407e
+	jp OwlActionHelp_End

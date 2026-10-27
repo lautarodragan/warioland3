@@ -1,20 +1,20 @@
 ; hl = source
-; wdc11 = destination
-; w1dc13 = length - 1
-Func_2c30::
+; wGolfHDMADest = destination
+; wGolfHDMALength = length - 1
+StartGolfHDMA::
 	ld a, h
 	ldh [rVDMA_SRC_HIGH], a
 	ld a, l
 	ldh [rVDMA_SRC_LOW], a
-	ld a, [wdc11 + 0]
+	ld a, [wGolfHDMADest + 0]
 	ldh [rVDMA_DEST_HIGH], a
-	ld a, [wdc11 + 1]
+	ld a, [wGolfHDMADest + 1]
 	ldh [rVDMA_DEST_LOW], a
-	ld a, [w1dc13]
+	ld a, [wGolfHDMALength]
 	ldh [rVDMA_LEN], a
 	ret
 
-Func_2c46::
+SetGolfBGPals::
 	ld de, rBGPI
 	ld c, 4
 	jr .asm_2c52

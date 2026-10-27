@@ -5,7 +5,7 @@ FlameBlockTorchUpdate:
 	ret z
 	xor a
 	ld [hld], a
-	set OBJSUBFLAG_UNK_4_F, [hl] ; OBJ_SUBSTATE
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl] ; OBJ_SUBSTATE
 	play_sfx SFX_073
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
@@ -17,7 +17,7 @@ FlameBlockTorchUpdate:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FIRE
 	ld [hld], a
-	ld de, Frameset_68360
+	ld de, TorchFrameset_68360
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -54,7 +54,7 @@ FlameBlockTorchUpdate:
 	inc l
 	dec [hl] ; OBJ_VAR_1
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ld hl, wNumLitTorches
 	dec [hl]
@@ -66,7 +66,7 @@ FlameBlockTorchFunc:
 	ld [hld], a
 	ld a, LOW(FlameBlockTorchUpdate)
 	ld [hld], a
-	ld de, Frameset_68369
+	ld de, TorchFrameset_68369
 	call SetObjectFramesetPtr
 	jr TorchFunc.got_frameset
 
@@ -88,7 +88,7 @@ TorchFunc:
 	ld a, LOW(.Update)
 	ld [hld], a
 .got_update_func
-	ld de, Frameset_68360
+	ld de, TorchFrameset_68360
 	call SetObjectFramesetPtr
 .got_frameset
 	xor a
@@ -203,7 +203,7 @@ TorchEmberCommonFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -218,7 +218,7 @@ TorchEmberCommonFunc:
 	ld [hld], a
 	ld a, LOW(.Destroy)
 	ld [hld], a
-	ld de, Frameset_68359
+	ld de, TorchFrameset_68359
 	call SetObjectFramesetPtr
 	ld a, 24
 	ld [hli], a ; OBJ_STATE_DURATION

@@ -7,7 +7,7 @@ KobattoFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_69041
+	ld de, KobattoFrameset_69041
 	call SetObjectFramesetPtr
 
 	ld l, OBJ_SUBSTATE

@@ -1,8 +1,8 @@
 WaterDropFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49d83)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49d83)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -17,7 +17,7 @@ WaterDropFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	jp .asm_49ddd
 
-.Func_49d83:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -29,7 +29,7 @@ WaterDropFunc:
 .asm_49d92
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_69775
+	ld de, WaterDropFrameset_69775
 	call SetObjectFramesetPtr
 	ld a, $18
 	ld [hli], a
@@ -71,7 +71,7 @@ WaterDropFunc:
 	and a
 	ret nz
 .asm_49ddd
-	ld de, Frameset_69761
+	ld de, WaterDropFrameset_69761
 	call SetObjectFramesetPtr
 	ld a, $41
 	ld [hli], a
@@ -94,7 +94,7 @@ WaterDropFunc:
 	jr z, .asm_49e05
 	dec [hl]
 	ret nz
-	ld de, Frameset_69772
+	ld de, WaterDropFrameset_69772
 	jp SetObjectFramesetPtr
 
 .asm_49e05
@@ -107,7 +107,7 @@ WaterDropFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_49e26
 	ld a, [wIsInWaterOrSand]

@@ -91,7 +91,7 @@ BigLeaf1Func:
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_68732
+	ld de, BigLeafFrameset_68732
 	call SetObjectFramesetPtr
 	ret
 
@@ -109,7 +109,7 @@ BigLeaf2Func:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68729
+	ld de, BigLeafFrameset_68729
 	call SetObjectFramesetPtr
 	ret
 
@@ -183,18 +183,18 @@ BigLeaf2Func:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_42d0e)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_42d0e)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
-	ld de, Frameset_6873b
+	ld de, BigLeafFrameset_6873b
 	call SetObjectFramesetPtr
 	ld a, $14
 	ld [hli], a
@@ -208,7 +208,7 @@ BigLeaf2Func:
 	play_sfx SFX_08F
 	ret
 
-.Func_42d0e:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

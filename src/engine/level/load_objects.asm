@@ -1,4 +1,7 @@
 LoadObjectGroupData::
+	xor a ; enemy graphics slot 1, where owl object groups have the owl
+	ld [wOwlTileOffset], a
+
 ; fills wObjDataPointers with Dummy Object
 	ld hl, wObjDataPointers
 	ld bc, DummyObjectData
@@ -60,7 +63,7 @@ LoadObjectGroupData::
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld a, [hli]
-	ldh [hffa0], a
+	ldh [hTemp], a
 
 	; enemy slot 1
 	ld a, [hli]
@@ -70,7 +73,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles0
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 1")
 	add e
 	ldh [hCallFuncBank], a
@@ -85,7 +88,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles0 tile $40
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 2")
 	add e
 	ldh [hCallFuncBank], a
@@ -100,7 +103,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles1
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 3")
 	add e
 	ldh [hCallFuncBank], a
@@ -115,7 +118,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles1 tile $40
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 4")
 	add e
 	ldh [hCallFuncBank], a
@@ -126,7 +129,7 @@ LoadObjectGroupData::
 	ldh [rVBK], a
 
 	ld a, 13
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld de, wObjDataPtr01
 .loop_2
 	ld a, [hli]
@@ -141,13 +144,14 @@ LoadObjectGroupData::
 	ld a, b
 	ld [de], a
 	inc e
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	dec a
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jr nz, .loop_2
 
 .copy_pals
-	jp LoadObjPals
+	call LoadObjPals
+	jp LoadOwlGfxForOwlWario
 
 ; input:
 ; - de = block
@@ -176,9 +180,9 @@ ENDR
 	and $7f
 	ld [de], a
 
-	ld [hl], e ; OBJ_UNK_01
+	ld [hl], e ; OBJ_MAP_PTR_LO
 	inc l
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	dec a
 	add a ; *2
 	add a ; *4
@@ -186,7 +190,7 @@ ENDR
 	add a ; *16
 	add a ; *32
 	add d
-	ld [hli], a ; OBJ_UNK_02
+	ld [hli], a ; OBJ_MAP_PTR_HI
 	ldh a, [hYPosLo]
 	ld [hli], a ; OBJ_Y_POS
 	ldh a, [hYPosHi]
@@ -207,6 +211,7 @@ ENDR
 	ld l, a
 	pop de
 
+.copy_data
 	ld a, [hli]
 	ld [de], a ; OBJ_ID
 	inc e
@@ -300,9 +305,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld [hli], a
@@ -326,9 +331,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld e, a
@@ -455,7 +460,7 @@ CreateObject_GotPos:
 LoadHiddenFigureData:
 	ld hl, .pointers
 	ld a, $d
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld de, wObjDataPtr01
 .loop
 	ld a, [hli]
@@ -470,9 +475,9 @@ LoadHiddenFigureData:
 	ld a, b
 	ld [de], a
 	inc e
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	dec a
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jr nz, .loop
 	ret
 

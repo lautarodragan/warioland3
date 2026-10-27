@@ -1,4 +1,4 @@
-UpdateNumCollectedTreasures:
+UpdateNumCollectedTreasures::
 	push_wram BANK(wTreasuresCollected)
 	xor a
 	ld [wNumCollectedTreasures + 1], a

@@ -6,7 +6,7 @@ RockFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_69bfe
+	ld de, RockFrameset_69bfe
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -27,15 +27,15 @@ RockFunc:
 
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aa27
-	dw .Func_4aa2f
-	dw .Func_4aae3
-	dw .Func_4aadb
-	dw .Func_4aa53
-	dw .Func_4aa66
-	dw .Func_4aa27
-	dw .Func_4aa2f
-	dw Func_3173
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw VanishAndDespawnObject
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -43,17 +43,14 @@ RockFunc:
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aaae
-	dw .Func_4aa26
-	dw .Func_4aa40
-	dw .Func_4aa44
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aa93
-	dw .Func_4aa79
-	dw .Destroy
-	dw .Destroy
-	dw .Destroy
+	dw .State18
+	dw .State19
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -65,22 +62,25 @@ RockFunc:
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aacb
-	dw .Func_4aad3
+	dw .Destroy
+	dw .Destroy
+	dw .Destroy
+	dw .State28
+	dw .State29
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aa0a
+	dw .Special3
 	dw .Destroy
-	dw .Func_4aa26
+	dw .TurnAroundStart
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw .Destroy
 	dw .Destroy
-	dw Func_3335
-	dw Func_3344
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -91,20 +91,20 @@ RockFunc:
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Destroy
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Destroy
 	dw .Destroy
-	dw .Func_4aa9d
-	dw .Func_4aa83
-	dw Func_3380
-	dw Func_338f
-	dw .Func_4aabb
-	dw .Func_4aac3
-	dw Func_339e
-	dw Func_33ad
+	dw .State48
+	dw .State49
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
+	dw .FullThrowLeftStart
+	dw .FullThrowRightStart
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -125,7 +125,7 @@ RockFunc:
 .Destroy:
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_69c01
+	ld de, RockFrameset_69c01
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a
@@ -134,25 +134,25 @@ RockFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	play_sfx SFX_TEMPLE_ROCK
 
-.Func_4aa0a:
+.Special3:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ret
 
-.Func_4aa26:
+.TurnAroundStart:
 	ret
 
-.Func_4aa27:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_4aa35
-.Func_4aa2f:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -162,10 +162,10 @@ RockFunc:
 	ld a, $01
 	ld [wCurObjVar2], a
 	ret
-.Func_4aa40:
+.State14:
 	ld a, $44
 	jr .asm_4aa46
-.Func_4aa44:
+.State15:
 	ld a, $45
 .asm_4aa46
 	ld [wCurObjState], a
@@ -174,7 +174,7 @@ RockFunc:
 	ld a, $02
 	ld [wCurObjVar2], a
 	ret
-.Func_4aa53:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -185,8 +185,8 @@ RockFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
-.Func_4aa66:
+	jp ObjState_PickedUpLeft
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -197,39 +197,39 @@ RockFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
-.Func_4aa79:
+.State19:
 	ld a, $49
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4aa83:
+.State49:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_4aa93
+	jr .State18
 
-.Func_4aa93:
+.State18:
 	ld a, $48
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4aa9d:
+.State48:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_4aa79
+	jp .State19
 
-.Func_4aaae:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
@@ -240,34 +240,34 @@ RockFunc:
 	ld [hl], a
 	ret
 
-.Func_4aabb:
+.FullThrowLeftStart:
 	ld a, $5e
 	ld [wCurObjState], a
 	jp ObjState_FullThrowLeft
 
-.Func_4aac3:
+.FullThrowRightStart:
 	ld a, $5f
 	ld [wCurObjState], a
 	jp ObjState_FullThrowRight
 
-.Func_4aacb:
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+.State28:
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_4aae9
-.Func_4aad3:
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+.State29:
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_4aae9
-.Func_4aadb:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+.AttackedRightStart:
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	jr .asm_4aae9
-.Func_4aae3:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+.AttackedLeftStart:
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 .asm_4aae9
 	ld hl, wCurObjUpdateFunction + 1

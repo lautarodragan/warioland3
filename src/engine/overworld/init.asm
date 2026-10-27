@@ -1,4 +1,4 @@
-Func_803e6:
+SaveGameOnReturnFromLevel:
 	ld a, [wTransitionParam]
 	and a
 	ret z
@@ -96,7 +96,7 @@ InitOverworld:
 	ld [wCurEvent], a
 	ld a, SST_OVERWORLD_09
 	ld [wSubState], a
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 .play_ow_scene
@@ -122,7 +122,7 @@ InitOverworld:
 	jr .after_cutscene
 
 .game_over
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 .golf_building
@@ -131,7 +131,7 @@ InitOverworld:
 	ld [wMapSideLevelID], a
 	ld a, SST_OVERWORLD_GOLF_BUILDING
 	ld [wSubState], a
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 
 SetStoredTransitionParamAsReturnToMap:
@@ -158,7 +158,7 @@ UpdateStoredTransitionParam:
 	ret
 
 ; waits for A button input
-Func_804ec:
+OverworldWaitAPress:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
@@ -175,9 +175,9 @@ InitOWScene:
 	call ClearVirtualOAM
 
 	xor a
-	ld [w2d011], a
-	ld a, [w2d015]
-	ld [w2d018], a
+	ld [wOWIsNight], a
+	ld a, [wUnused_2d015]
+	ld [wUnused_2d018], a
 	ld a, [wOWSceneActionParam]
 	ld [wTempUnlockableConnectionID], a
 	ld a, [wOWSceneAction]
@@ -196,11 +196,11 @@ InitOWScene:
 	dw InitMapSideForScene_South ; SOUTH
 	dw InitMapSideForScene_East  ; EAST
 
-Func_80540:
-	call Func_818ad
-	call Func_82bb8
-	call Func_82bda
-	farcall Func_b4a37
+UpdateOWScene:
+	call RunOWScene
+	call DrawUnlockLevelStar
+	call DrawHighlightLevelStar
+	farcall UpdateMapSideOWObjs
 	call LoadCompassSprite
 	call ClearUnusedVirtualOAM
 	ret
@@ -227,7 +227,7 @@ InitMapSide:
 	ld a, [hl]
 	swap a
 	and $0f
-	ld [w2d011], a
+	ld [wOWIsNight], a
 	; swap bit 0 in a and [hl]
 	srl [hl]
 	rra
@@ -238,21 +238,21 @@ InitMapSide:
 	ld a, b
 	res 7, a
 	res 4, a
-	ld [w2d011], a
+	ld [wOWIsNight], a
 
 	ld a, [wTransitionParam]
 	and a
 	jr nz, .asm_805be
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	xor $1
-	ld [w2d011], a
+	ld [wOWIsNight], a
 	ld hl, wDayNight
 	srl [hl]
 	rra
 	rl [hl]
 	res 7, [hl]
 .asm_805be
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	ld [w2d07c], a
 	xor a
 	ld [w2d07d], a
@@ -265,8 +265,8 @@ InitMapSide:
 	dw InitSouthMapSide ; SOUTH
 	dw InitEastMapSide  ; EAST
 
-Func_805d7:
-	call Func_80e89
+UpdateMapSide:
+	call HandleMapSide
 	call LoadCompassSprite
 	call ClearUnusedVirtualOAM
 	ret
@@ -307,7 +307,7 @@ InitEastMapSide:
 	and a
 	jr nz, .got_medallion
 	ld a, $01
-	ld [w2d011], a
+	ld [wOWIsNight], a
 	ld hl, wDayNight
 	set 0, [hl]
 	res 7, [hl]
@@ -357,7 +357,7 @@ Func_8065e:
 	ld [wVirtualOAMByteSize], a
 
 	ld a, [wCurMapSide] ; a gets overwritten
-	call Func_81dce
+	call InitOWScenesForMapSide
 	call ShowMissingTreasureIndicators
 	call Func_80bd9
 	call WriteBGMapFromWRAM
@@ -365,15 +365,15 @@ Func_8065e:
 	call Func_8212c
 	ld a, [wMapSideLevelID]
 	ld [wLevel2], a
-	ld [w2d068], a
+	ld [wTargetMapSideLevelID], a
 	xor a
 	ld [wLevelArrowDirections1], a
 
 	ld a, OWWARIO_DOWN
 	call SetOWWarioOAM
-	farcall Func_b4a3d
-	call Func_82041
-	farcall Func_b4aa9
+	farcall UpdateMapSideOWObjs_Front
+	call UpdateOWWario
+	farcall UpdateMapSideOWObjs_Back
 	call LoadCloudAndSeaGfx
 
 	ld a, [wGameModeFlags]
@@ -440,7 +440,7 @@ Func_8065e:
 	xor a
 	ldh [rVBK], a
 
-	ld a, [w2d02c]
+	ld a, [wSavedTransitionParam]
 	ld [wTransitionParam], a
 	call PlayOverworldMusic
 
@@ -457,7 +457,7 @@ Func_8065e:
 	ld b, $00
 .asm_80821
 	ld a, b
-	ld [w2d0e0], a
+	ld [wLevelNameFadeState], a
 	farcall DrawCoinCount
 	call SetCompassSprite
 
@@ -468,7 +468,7 @@ Func_8065e:
 	xor a
 	ld [wLevelArrowDirections1], a
 	ld [wOWPalTransitionState], a
-	ld [w2d013], a
+	ld [wOWStep], a
 
 	ld a, LCDC_ON | LCDC_WIN_9C00 | LCDC_WIN_ON | LCDC_OBJ_16 | LCDC_OBJ_ON | LCDC_BG_ON
 	ldh [rLCDC], a
@@ -496,7 +496,7 @@ Func_8086f:
 	call Func_80b54
 
 	ld a, [wCurMapSide] ; a gets overwritten
-	call Func_81dce
+	call InitOWScenesForMapSide
 	call WriteBGMapFromWRAM
 
 	ld a, $04
@@ -505,8 +505,8 @@ Func_8086f:
 	xor a
 	ldh [rSCX], a
 	ld [wSCX], a
-	ld a, [w2d018]
-	ld [w2d015], a
+	ld a, [wUnused_2d018]
+	ld [wUnused_2d015], a
 	ld a, [wTempUnlockableConnectionID]
 	ld [wOWSceneActionParam], a
 	ld a, [wTempOWSceneAction]
@@ -518,7 +518,7 @@ Func_8086f:
 	ld a, [wTempOWSceneParamsPtr + 1]
 	ld [wOWSceneParamsPtr + 1], a
 
-	farcall Func_b4a37
+	farcall UpdateMapSideOWObjs
 	call LoadCloudAndSeaGfx
 
 	xor a
@@ -548,12 +548,12 @@ Func_8086f:
 	ldh [rVBK], a
 
 	xor a
-	ld [w2d0e0], a
+	ld [wLevelNameFadeState], a
 	call SetCompassSprite
 	xor a
 	ld [wLevelArrowDirections1], a
 	ld [wOWPalTransitionState], a
-	ld [w2d013], a
+	ld [wOWStep], a
 
 	ld a, [wCurMapSide]
 	and a
@@ -585,7 +585,7 @@ InitMapSideForScene_South:
 	cp EVENT_SUMMON_MOON
 	jr nz, .asm_8093c
 	ld a, $01
-	ld [w2d011], a
+	ld [wOWIsNight], a
 .asm_8093c
 	call LoadPalsForOWScene
 	call LoadOverworld5Gfx
@@ -602,7 +602,7 @@ InitMapSideForScene_East:
 	and a
 	jr nz, .got_medallion
 	ld a, $01
-	ld [w2d011], a
+	ld [wOWIsNight], a
 .got_medallion
 	call LoadPalsForOWScene
 	call LoadOverworld6Gfx
@@ -629,7 +629,7 @@ LoadBGMapsToWRAM:
 
 	ld a, [w2dfff]
 	ld [wTempBank], a
-	ld bc, w3d500
+	ld bc, wBackupSCY
 	ld a, [wTempBank]
 	ldh [hCallFuncBank], a
 	hcall Decompress
@@ -710,7 +710,7 @@ Func_80af5:
 	call Func_819c6
 	ret z
 	ld hl, Data_8561f
-	farcall Func_854ee
+	farcall _ApplyOWTilemapPatches
 	ret
 
 Func_80b1b:
@@ -759,9 +759,9 @@ Func_80b54:
 	ld [w2d041], a
 
 	xor a
-	ld [w2d031], a
+	ld [wOWCloudUpdateFlags], a
 	ld [wCloudType], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld [w2d033], a
 	ld [w2d036], a
 	ld [w2d039], a
@@ -779,7 +779,7 @@ Func_80b54:
 	ld [w2d046], a
 
 	xor a
-	ld [w2d044], a
+	ld [wOWCliffsGfxSrc], a
 	ld [w2d047], a
 	ld [w2d048], a
 

@@ -47,7 +47,7 @@ UpdateSwitchableBlocks:
 	push af
 	ld a, BANK("SRAM2")
 	sramswitch
-	ld hl, s2a000
+	ld hl, sLevelBlockObjectMap2
 .loop_2
 	ld a, [hli]
 	and $7f
@@ -105,7 +105,7 @@ UpdateSwitchableBlocks:
 	push af
 	ld a, BANK("SRAM2")
 	sramswitch
-	ld hl, s2a000
+	ld hl, sLevelBlockObjectMap2
 .loop_4
 	ld a, [hli]
 	and $7f

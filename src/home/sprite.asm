@@ -20,28 +20,87 @@ DrawWario::
 	ret nz
 
 .show_wario
-	ld a, [wOAMBank]
+	ld a, [wWarioOAMBank]
 	ld [wTempBank], a
 	ld a, [wROMBank]
 	push af
 	ld a, [wTempBank]
 	bankswitch
-	ld a, [wOAMPtr + 0]
+	ld a, [wWarioOAMPtr + 0]
 	ld h, a
-	ld a, [wOAMPtr + 1]
+	ld a, [wWarioOAMPtr + 1]
 	ld l, a
 	ld a, [wWarioScreenYPos]
 	ld [wCurSpriteYCoord], a
 	ld a, [wWarioScreenXPos]
 	ld [wCurSpriteXCoord], a
-	ld a, [wca65]
+	ld a, [wWarioFrame]
 	ld [wCurSpriteFrame], a
-	ld a, [wca66]
+	ld a, [wWarioAttributes]
 	ld [wCurSpriteAttributes], a
+	ld a, [wOwlTileOffset]
+	and a
+	jr nz, .owl_elsewhere
 	call LoadSprite
 	pop af
 	bankswitch
 	ret
+
+.owl_elsewhere
+	; Owl Wario's frames draw the owl from slot 1's tiles
+	ld a, [wVirtualOAMByteSize]
+	push af
+	call LoadSprite
+	pop af
+	ld l, a
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	call z, RelocateOwlSprites
+	pop af
+	bankswitch
+	ret
+
+; Moves the owl's sprites from enemy graphics slot 1 to where its graphics
+; are (wOwlTileOffset): from virtual OAM byte offset l to the end, VRAM1
+; tiles move by the offset and object palette 4 becomes the slot's palette.
+; Every VRAM1 sprite in that range has to be the owl's (Wario's own sprites
+; are in VRAM0, so Owl Wario's frames qualify).
+RelocateOwlSprites::
+	ld h, HIGH(wVirtualOAM)
+	ld a, [wOwlTileOffset]
+	ld d, a
+	rlca
+	rlca
+	add 4
+	ld e, a ; slot 1-4 -> palette 4-7
+	ld a, [wVirtualOAMByteSize]
+	ld c, a
+.loop
+	ld a, l
+	cp c
+	ret nc
+	inc l
+	inc l
+	inc l
+	ld a, [hl] ; SPRITEOAMSTRUCT_ATTRIBUTES
+	bit B_OAM_BANK1, a
+	jr z, .next
+	ld b, a
+	and OAM_PALETTE
+	cp 4
+	ld a, b
+	jr nz, .tile
+	and ~OAM_PALETTE
+	or e
+	ld [hl], a
+.tile
+	dec l
+	ld a, [hl] ; SPRITEOAMSTRUCT_TILE_ID
+	add d
+	ld [hli], a
+.next
+	inc l
+	jr .loop
 
 ; hl = OAM data pointer
 ; given an OAM pointer and a frame index in wCurSpriteFrame
@@ -93,13 +152,13 @@ LoadSprite::
 	inc de
 	jr .loop
 
-Func_e2b::
+QueueBlockRedraw_IfObjOnScreen::
 	ld a, [wCurObjFlags]
 	bit OBJFLAG_ON_SCREEN_F, a
 	ret z
 ;	fallthrough
 
-Func_e31::
+QueueBlockRedraw::
 	ld a, [wBlockPtrBank]
 	dec a
 	add a
@@ -110,8 +169,8 @@ Func_e31::
 	add h ; = h + (wBlockPtrBank - 1) * $20
 	ld b, a
 	ld c, l
-	ld hl, wc18e
-	ld a, [wc19e]
+	ld hl, wBlockRedrawQueue
+	ld a, [wBlockRedrawQueueWriteIndex]
 	ld e, a
 	ld d, $00
 	add hl, de
@@ -121,17 +180,17 @@ Func_e31::
 	ld a, e
 	add 2
 	and $0f
-	ld [wc19e], a
+	ld [wBlockRedrawQueueWriteIndex], a
 	ret
 
-UpdateAnimation::
-	ld a, [wFramesetPtr + 0]
+UpdateWarioAnimation::
+	ld a, [wWarioFramesetPtr + 0]
 	ld d, a
-	ld a, [wFramesetPtr + 1]
+	ld a, [wWarioFramesetPtr + 1]
 	ld e, a
 
 	xor a ; FALSE
-	ld [wAnimationEnded], a
+	ld [wWarioAnimationEnded], a
 	ld hl, wFrameDuration
 	ld a, [hl]
 	sub 1
@@ -149,7 +208,7 @@ UpdateAnimation::
 	jr z, .finished
 
 ; next frame
-	ld [wca65], a
+	ld [wWarioFrame], a
 	ld a, [hl] ; wAnimationFrame
 	add 2
 	ld [hld], a
@@ -163,5 +222,5 @@ UpdateAnimation::
 	ld [hld], a ; wAnimationFrame
 	ld [hl], a ; wFrameDuration
 	ld a, TRUE
-	ld [wAnimationEnded], a
+	ld [wWarioAnimationEnded], a
 	ret

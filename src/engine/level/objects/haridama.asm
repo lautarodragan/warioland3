@@ -32,14 +32,14 @@ HaridamaFunc:
 	cp b
 	jr c, .asm_48f20
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6927f
+	ld de, HaridamaFrameset_6927f
 	jp SetObjectFramesetPtr
 .asm_48f20
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69290
+	ld de, HaridamaFrameset_69290
 	jp SetObjectFramesetPtr
 
-.Func_48f28:
+.Patrol:
 	ld c, $2a
 	ld a, [wCurObjSubState]
 	rlca
@@ -63,12 +63,12 @@ HaridamaFunc:
 	sub b
 	cp $40
 	jr nc, .asm_48f55
-	ld de, Frameset_692c7
+	ld de, HaridamaFrameset_692c7
 	jr .asm_48fa2
 .asm_48f55
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft_Slow
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jr .asm_48f8e
 .asm_48f60
 	ld a, [wWarioScreenYPos]
@@ -90,12 +90,12 @@ HaridamaFunc:
 	sub b
 	cp $c0
 	jr c, .asm_48f85
-	ld de, Frameset_692ce
+	ld de, HaridamaFrameset_692ce
 	jr .asm_48fa2
 .asm_48f85
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight_Slow
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 .asm_48f8e
 	call SetObjectFramesetPtr
 	ld a, $1b
@@ -117,7 +117,7 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_48fae:
+.Uncurl:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -132,22 +132,22 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_48fc9
-	ld de, Frameset_692bd
+	ld de, HaridamaFrameset_692bd
 	jp SetObjectFramesetPtr
 
 .asm_48fc9
-	ld de, Frameset_692c2
+	ld de, HaridamaFrameset_692c2
 	jp SetObjectFramesetPtr
 
 .Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jp z, .Func_48f28
+	jp z, .Patrol
 	cp $5a
 	jr z, .asm_4903e
 	cp $5b
-	jr z, .Func_48fae
+	jr z, .Uncurl
 	cp $02
 	jr z, .asm_49013
 	cp $03
@@ -158,15 +158,15 @@ HaridamaFunc:
 	cp $32
 	jr z, .asm_49020
 	cp $38
-	jp z, .Func_49094
+	jp z, .RiseInWater
 .asm_48ff6
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49001
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jr .asm_48f8e
 .asm_49001
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jr .asm_48f8e
 .asm_49006
 	ld a, $32
@@ -174,7 +174,7 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_48ff6
-	ld de, Frameset_692b3
+	ld de, HaridamaFrameset_692b3
 	jp SetObjectFramesetPtr
 
 .asm_49013
@@ -183,21 +183,21 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr nc, .asm_48ff6
-	ld de, Frameset_692b8
+	ld de, HaridamaFrameset_692b8
 	jp SetObjectFramesetPtr
 
 .asm_49020
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49032
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft_Fast
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jp .asm_48f8e
 .asm_49032
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight_Fast
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jp .asm_48f8e
 .asm_4903e
 	ld l, OBJ_STATE_DURATION
@@ -225,15 +225,15 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_49063
-	ld de, Frameset_6927f
+	ld de, HaridamaFrameset_6927f
 	jp SetObjectFramesetPtr
 
 .asm_49063
-	ld de, Frameset_69290
+	ld de, HaridamaFrameset_69290
 	jp SetObjectFramesetPtr
 
 .asm_49069
-	ld l, OBJ_UNK_1D
+	ld l, OBJ_ACTION_SIDE
 	bit 7, [hl]
 	jr nz, .asm_49077
 	ld l, OBJ_SUBSTATE
@@ -253,14 +253,14 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4908e
-	ld de, Frameset_692d5
+	ld de, HaridamaFrameset_692d5
 	jp SetObjectFramesetPtr
 
 .asm_4908e
-	ld de, Frameset_692de
+	ld de, HaridamaFrameset_692de
 	jp SetObjectFramesetPtr
 
-.Func_49094:
+.RiseInWater:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $11
@@ -274,7 +274,7 @@ HaridamaFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jr nz, .asm_490d5
 	ld a, [wIsInWaterOrSand]
@@ -293,14 +293,14 @@ HaridamaFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp z, MoveObjectUp_Slow
 .asm_490d5
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_490e8)
+	ld a, HIGH(.UpdateRolling)
 	ld [hld], a
-	ld a, LOW(.Func_490e8)
+	ld a, LOW(.UpdateRolling)
 	ld [hld], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -308,7 +308,7 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_490e8:
+.UpdateRolling:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -316,7 +316,7 @@ HaridamaFunc:
 	cp $32
 	jr z, .asm_4916a
 	cp $33
-	jp z, .Func_49184
+	jp z, .RollRight
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -347,11 +347,11 @@ HaridamaFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49131
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft
 	jr .asm_49137
 .asm_49131
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight
 .asm_49137
 	ld hl, wCurObjSubState
@@ -374,19 +374,19 @@ HaridamaFunc:
 	cp $1a
 	jp c, .asm_49054
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jp .asm_48f8e
 .asm_4915d
 	cp $1a
 	jp nc, .asm_49054
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jp .asm_48f8e
 .asm_4916a
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .asm_4917f
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft
 	ld hl, wCurObjState
 	ld a, $33
@@ -399,11 +399,11 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_49184:
+.RollRight:
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .asm_4917f
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight
 	ld hl, wCurObjState
 	ld a, $32
@@ -411,7 +411,7 @@ HaridamaFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_49199:
+.CheckWallLeft:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $08
@@ -425,11 +425,11 @@ HaridamaFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret
 
-.Func_491b6:
+.CheckWallRight:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $08
@@ -443,6 +443,6 @@ HaridamaFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret

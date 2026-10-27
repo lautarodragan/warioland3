@@ -6,7 +6,7 @@ VBlank_LanguageSelection:
 	ret
 
 .Func:
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	bit 7, a
 	jr z, .skip
 	and $7f
@@ -36,7 +36,7 @@ VBlank_LanguageSelection:
 	ld a, $07
 	call WriteAToHL_BTimes
 .asm_4e29
-	ld hl, wcee4
+	ld hl, wBGUpdateRequest
 	res 7, [hl]
 
 .skip

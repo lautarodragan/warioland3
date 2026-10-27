@@ -44,7 +44,7 @@ OwlFunc:
 	ld [hld], a
 	ld a, LOW(.WakeUp)
 	ld [hld], a
-	ld de, Frameset_69318
+	ld de, OwlFrameset_69318
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -94,9 +94,9 @@ OwlFunc:
 	ld a, 30
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_492b4)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_492b4)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -112,14 +112,14 @@ OwlFunc:
 	cp b
 	jr c, .asm_492ac
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6936c
+	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
 .asm_492ac
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69377
+	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 
-.Func_492b4:
+.FlyAway:
 	ld a, [wCurObjState]
 	cp $18
 	jr z, .despawn
@@ -157,15 +157,15 @@ OwlFunc:
 	ld [hl], a
 	rla
 	jr c, .asm_49309
-	ld de, Frameset_6936c
+	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
 .asm_49309
-	ld de, Frameset_69377
+	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 
 .despawn
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	farcall DespawnObject
 	ret

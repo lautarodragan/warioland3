@@ -29,11 +29,11 @@ SnakeFunc:
 	cp b
 	jr c, .asm_498d8
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68804
+	ld de, SnakeFrameset_68804
 	jr .asm_498dd
 .asm_498d8
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6881d
+	ld de, SnakeFrameset_6881d
 .asm_498dd
 	call SetObjectFramesetPtr
 	ld a, $78
@@ -106,7 +106,7 @@ SnakeFunc:
 	ret
 
 .Func_49957:
-	call .Func_49b76
+	call .SetStateFromScreenY
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .asm_4997d
@@ -149,12 +149,12 @@ SnakeFunc:
 	jr nz, .asm_499a3
 	cp $05
 	ret nz
-	ld de, Frameset_68852
+	ld de, SnakeFrameset_68852
 	jr .asm_499a9
 .asm_499a3
 	cp $0e
 	ret nz
-	ld de, Frameset_688c6
+	ld de, SnakeFrameset_688c6
 .asm_499a9
 	inc [hl]
 	call SetObjectFramesetPtr
@@ -195,12 +195,12 @@ SnakeFunc:
 	jr nz, .asm_499e7
 	cp $22
 	ret nz
-	ld de, Frameset_6886f
+	ld de, SnakeFrameset_6886f
 	jr .asm_499ed
 .asm_499e7
 	cp $45
 	ret nz
-	ld de, Frameset_688e3
+	ld de, SnakeFrameset_688e3
 .asm_499ed
 	inc [hl]
 	call SetObjectFramesetPtr
@@ -250,12 +250,12 @@ SnakeFunc:
 	inc [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_49a4b
-	ld de, Frameset_6888c
+	ld de, SnakeFrameset_6888c
 	call SetObjectFramesetPtr
 	ld bc, ObjParams_SnakeFireLeft
 	jp CreateObjectAtRelativePos
 .asm_49a4b
-	ld de, Frameset_68900
+	ld de, SnakeFrameset_68900
 	call SetObjectFramesetPtr
 	ld bc, ObjParams_SnakeFireRight
 	jp CreateObjectAtRelativePos
@@ -276,11 +276,11 @@ SnakeFunc:
 	ld [hl], a
 	rlca
 	jr c, .asm_49a76
-	ld de, Frameset_688a9
+	ld de, SnakeFrameset_688a9
 	jp SetObjectFramesetPtr
 
 .asm_49a76
-	ld de, Frameset_6891d
+	ld de, SnakeFrameset_6891d
 	jp SetObjectFramesetPtr
 
 .Func_49a7c:
@@ -299,14 +299,14 @@ SnakeFunc:
 	or $08
 	ld [hl], a
 	rlca
-	ld_obj_frameset Frameset_68804, Frameset_6881d
+	ld_obj_frameset SnakeFrameset_68804, SnakeFrameset_6881d
 	call SetObjectFramesetPtr
 	ld a, $01
 	ld [hli], a
 	ret
 
 .Func_49aa1:
-	call .Func_49b76
+	call .SetStateFromScreenY
 	ld hl, wCurObjVar2
 	ld a, [hli]
 	ld b, a
@@ -363,21 +363,21 @@ SnakeFunc:
 	jr nz, .asm_49b12
 	cp $04
 	jr nz, .asm_49b0c
-	ld de, Frameset_68852
+	ld de, SnakeFrameset_68852
 	jp SetObjectFramesetPtr
 
 .asm_49b0c
-	ld de, Frameset_68804
+	ld de, SnakeFrameset_68804
 	jp SetObjectFramesetPtr
 
 .asm_49b12
 	cp $04
 	jr nz, .asm_49b1c
-	ld de, Frameset_688c6
+	ld de, SnakeFrameset_688c6
 	jp SetObjectFramesetPtr
 
 .asm_49b1c
-	ld de, Frameset_6881d
+	ld de, SnakeFrameset_6881d
 	jp SetObjectFramesetPtr
 
 .asm_49b22
@@ -408,10 +408,10 @@ SnakeFunc:
 	and $0f
 	cp $04
 	jr nz, .asm_49b55
-	ld de, Frameset_6884b
+	ld de, SnakeFrameset_6884b
 	jr .asm_49b6e
 .asm_49b55
-	ld de, Frameset_6883d
+	ld de, SnakeFrameset_6883d
 	jr .asm_49b6e
 .asm_49b5a
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -421,10 +421,10 @@ SnakeFunc:
 	and $0f
 	cp $04
 	jr nz, .asm_49b6b
-	ld de, Frameset_68844
+	ld de, SnakeFrameset_68844
 	jr .asm_49b6e
 .asm_49b6b
-	ld de, Frameset_68836
+	ld de, SnakeFrameset_68836
 .asm_49b6e
 	call SetObjectFramesetPtr
 	inc l
@@ -432,7 +432,7 @@ SnakeFunc:
 	ld [hl], a
 	ret
 
-.Func_49b76:
+.SetStateFromScreenY:
 	ld a, [wCurObjScreenYPos]
 	cp $10
 	jr c, .asm_49b8a
@@ -463,7 +463,7 @@ SnakeFireFunc:
 	ret
 
 .Update:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -472,11 +472,11 @@ SnakeFireFunc:
 	ld h, HIGH(wObjects)
 
 FOR n, 1, NUM_OBJECTS + 1
-	ld l, LOW(wObj{u:n}Unk02)
-	ld a, [hld] ; unk02
+	ld l, LOW(wObj{u:n}MapPtrHi)
+	ld a, [hld] ; map ptr hi
 	cp b
 	jr nz, :+
-	ld a, [hld] ; unk01
+	ld a, [hld] ; map ptr lo
 	cp c
 	jr nz, :+
 	ld a, [hl]

@@ -23,95 +23,95 @@ SilkyFunc:
 	jumptable
 
 	dw .Default
-	dw .Func_42eca
-	dw .Func_43126
-	dw .Func_43130
-	dw .Func_431b4
-	dw .Func_431be
-	dw .Func_431da
-	dw .Func_431ed
-	dw .Func_43126
-	dw .Func_43130
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .BumpLeftStart
+	dw .BumpRightStart
 	dw VanishObject2
-	dw .Func_43162
-	dw .Func_43169
+	dw .State0b
+	dw .State0c
 	dw .Default
 	dw .Default
-	dw .Func_43083
-	dw .Func_430ba
-	dw .Func_42e7b
-	dw .Func_43263
-	dw .Func_430d5
-	dw .Func_4304b
-	dw .Func_43053
-	dw .Func_42fe5
-	dw .Func_43018
-	dw .Func_43231
-	dw .Func_43200
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
-	dw Func_3281
+	dw ObjState_StartRandomWobble
 	dw .Default
 	dw .Default
 	dw .Default
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
-	dw .Func_431aa
-	dw .Func_431a0
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
+	dw .State28
+	dw .State29
 	dw .Default
 	dw .Default
 	dw .Default
-	dw .Func_42e95
+	dw .Special1
 	dw .Default
 	dw .Default
 	dw ObjState_Fall
-	dw .Func_42ef8
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw Func_3326
-	dw Func_3317
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_AttackedLeft
+	dw ObjState_AttackedRight
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Default
-	dw .Func_4317a
-	dw .Func_4318d
+	dw .State3b
+	dw .State3c
 	dw .Default
 	dw .Default
-	dw .Func_430a0
-	dw .Func_430c8
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
-	dw Func_3371
-	dw .Func_430f6
-	dw Func_32cc
-	dw Func_32db
-	dw .Func_4300a
-	dw .Func_4303d
-	dw .Func_43252
-	dw .Func_43221
-	dw Func_3380
-	dw Func_338f
-	dw .Func_42dff
-	dw .Func_42e1b
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
-	dw Func_33f8
-	dw Func_3407
+	dw ObjState_Drop
+	dw .TurnAround
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
+	dw .FullThrowLeftStart
+	dw .FullThrowRightStart
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw ObjState_HitByObjLeft
+	dw ObjState_HitByObjRight
 	dw .Default
 	dw .Default
 	dw .Default
@@ -119,33 +119,33 @@ SilkyFunc:
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
 
-.Func_42dff:
+.FullThrowLeftStart:
 	ld hl, wCurObjState
 	ld a, $5e
 	ld [hld], a
 	ld a, [hld]
 	rlca
 	jr c, .asm_42e12
-	ld de, Frameset_6879e
+	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 .asm_42e12
-	ld de, Frameset_687a7
+	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
-.Func_42e1b:
+.FullThrowRightStart:
 	ld hl, wCurObjState
 	ld a, $5f
 	ld [hld], a
 	ld a, [hld]
 	rlca
 	jr c, .asm_42e2e
-	ld de, Frameset_6879e
+	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 .asm_42e2e
-	ld de, Frameset_687a7
+	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 
@@ -169,7 +169,7 @@ SilkyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
@@ -183,7 +183,7 @@ SilkyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -192,7 +192,7 @@ SilkyFunc:
 	ld [hld], a
 	ret
 
-.Func_42e7b:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -201,14 +201,14 @@ SilkyFunc:
 	jr c, .asm_42e8d
 	xor a
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
 .asm_42e8d
 	xor a
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	jp SetObjectFramesetPtr
-.Func_42e95:
+.Special1:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -234,13 +234,13 @@ SilkyFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_42ec4
-	ld de, Frameset_68756
+	ld de, SilkyFrameset_68756
 	jp SetObjectFramesetPtr
 .asm_42ec4
-	ld de, Frameset_6875f
+	ld de, SilkyFrameset_6875f
 	jp SetObjectFramesetPtr
 
-.Func_42eca:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -257,7 +257,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $f8
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
 .asm_42eea
 	ld l, OBJ_COLLBOX_RIGHT
@@ -265,10 +265,10 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	jp SetObjectFramesetPtr
 
-.Func_42ef8:
+.Walk:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
 	jr z, .asm_42f44
@@ -294,12 +294,12 @@ SilkyFunc:
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr c, .asm_42f2b
 	jr nz, .asm_42f32
-	ld de, Frameset_687b0
+	ld de, SilkyFrameset_687b0
 	jr .asm_42f38
 
 .asm_42f2b
 	jr z, .asm_42f32
-	ld de, Frameset_687bb
+	ld de, SilkyFrameset_687bb
 	jr .asm_42f38
 
 .asm_42f32
@@ -336,7 +336,7 @@ SilkyFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_42f70
 	ld a, $11
@@ -373,7 +373,7 @@ SilkyFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 .asm_42fab
@@ -404,7 +404,7 @@ SilkyFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_42fdf
@@ -412,13 +412,13 @@ SilkyFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_42fe5:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -430,22 +430,22 @@ SilkyFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4300a:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_43018:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -457,22 +457,22 @@ SilkyFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4303d:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
 
-.Func_4304b:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_43059
 
-.Func_43053:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -480,12 +480,12 @@ SilkyFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_43065
-	ld de, Frameset_6877a
+	ld de, SilkyFrameset_6877a
 	call SetObjectFramesetPtr
 	jr .asm_4306b
 
 .asm_43065
-	ld de, Frameset_68783
+	ld de, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 .asm_4306b
 	inc l
@@ -506,19 +506,19 @@ SilkyFunc:
 	ld [hld], a
 	ret
 
-.Func_43083:
+.State0f:
 	ld hl, wCurObjState
 	ld a, $3f
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld a, $64
 	ld [hli], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_430a0:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_430ad
@@ -529,12 +529,12 @@ SilkyFunc:
 .asm_430ad
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_32ea
+	jp nz, ObjCheckFloorOrDrop
 	ld a, $10
 	ld [wCurObjState], a
 	ret
 
-.Func_430ba:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -543,21 +543,21 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_430c8:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_32f9
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $00
 	ld [wCurObjState], a
 	ret
 
-.Func_430d5:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68768, Frameset_68771
+	ld_obj_frameset SilkyFrameset_68768, SilkyFrameset_68771
 	call SetObjectFramesetPtr
 	ld a, $23
 	ld [hli], a
@@ -568,7 +568,7 @@ SilkyFunc:
 	ld [hld], a
 	ret
 
-.Func_430f6:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_43107
@@ -599,14 +599,14 @@ SilkyFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_43126:
+.BumpLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_43138
 
-.Func_43130:
+.BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -615,7 +615,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6878c, Frameset_68795
+	ld_obj_frameset SilkyFrameset_6878c, SilkyFrameset_68795
 	call SetObjectFramesetPtr
 	ld a, $04
 	ld [hli], a
@@ -636,12 +636,12 @@ SilkyFunc:
 	ld [hld], a
 	ret
 
-.Func_43162:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
 	jr .asm_4316e
 
-.Func_43169:
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
 .asm_4316e
@@ -653,7 +653,7 @@ SilkyFunc:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_4317a:
+.State3b:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -661,12 +661,12 @@ SilkyFunc:
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.Func_4318d:
+.State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -674,33 +674,33 @@ SilkyFunc:
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.Func_431a0:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
-.Func_431aa:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
-.Func_431b4:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
-.Func_431be:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -713,13 +713,13 @@ SilkyFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_687c6
+	ld de, SilkyFrameset_687c6
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_431da:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -730,8 +730,8 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
-.Func_431ed:
+	jp ObjState_PickedUpLeft
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -742,15 +742,15 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
-.Func_43200:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -759,23 +759,23 @@ SilkyFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_43221:
+.State49:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_43231
+	jr .State18
 
-.Func_43231:
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -784,17 +784,17 @@ SilkyFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_43252:
+.State48:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_43200
+	jp .State19
 
-.Func_43263:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

@@ -16,7 +16,7 @@ LoadBlockFunctionTable::
 	cp $ff
 	jr z, .reset
 	ld a, [wRoomBlockFunctionTable]
-	cp NUM_BLOCKSETS_GROUP_1 - 1
+	cp NUM_BLOCK_FUNCTION_TABLES_GROUP_1 - 1
 	jr nc, .group_2
 
 ; group_1
@@ -57,14 +57,14 @@ LoadRoom::
 
 	ld a, [wROMBank]
 	push af
-	ld a, BANK(LevelRooms)
+	ld a, BANK(LevelHeaders)
 	bankswitch
 	ld a, [wLevel]
 	add a ; *2
 	ld e, a
 	ld d, $00
 	rl d
-	ld hl, LevelRooms
+	ld hl, LevelHeaders
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -153,10 +153,10 @@ LoadRoom::
 	add a
 	add a ; *16
 	add $a0
-	jr nz, .asm_2963
+	jr nz, .got_lower_limit
 	ld a, $ff
-.asm_2963
-	ld [wc0c4], a
+.got_lower_limit
+	ld [wRoomObjMapLowerY], a
 
 	ld a, [wRoomUpperYLimit]
 	add a
@@ -164,27 +164,27 @@ LoadRoom::
 	add a
 	add a ; *16
 	add $a0
-	ld [wc0c5], a
+	ld [wRoomObjMapUpperY], a
 
 	ld a, [wRoomRightXLimit]
 	add a
 	add a
 	add a ; *8
 	add $b0
-	jr nz, .asm_297e
+	jr nz, .got_right_limit
 	ld a, $ff
-.asm_297e
-	ld [wc0c7], a
+.got_right_limit
+	ld [wRoomObjMapRightX], a
 
 	ld a, [wRoomLeftXLimit]
 	add a
 	add a
 	add a ; *8
 	add $b0
-	ld [wc0c6], a
+	ld [wRoomObjMapLeftX], a
 	ret
 
-Func_298d::
+LoadRoomBlockTiles::
 	ld a, [wRoomBlockFunctionTable]
 	add a
 	ld e, a
@@ -217,7 +217,7 @@ LoadRoomTileMap::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wc0d0]
+	ld a, [wRoomTileMapBank]
 	ld [wTempBank], a
 	ld bc, wRoomBlockAttributes
 	ld a, [wTempBank]
@@ -317,7 +317,7 @@ UpdateRoomAnimatedPals::
 
 	ld a, [wRoomPalCycleIndex]
 	inc a
-	cp ROOM_PAL_CYCLE_LENGTH
+	cp ROOM_PALCYCLE_LENGTH
 	jr c, .ok
 	xor a ; reset to 0
 .ok

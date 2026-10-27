@@ -20,28 +20,28 @@ SwimmingFlippersActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1f8e64
-	dw Func_1f8ed9
-	dw Func_1f8ee9
-	dw Func_1f8efe
-	dw Func_1f8f2c
+	dw SwimmingFlippersActionHelp_WaitToStart
+	dw SwimmingFlippersActionHelp_Step02
+	dw SwimmingFlippersActionHelp_Step03
+	dw SwimmingFlippersActionHelp_Step04
+	dw SwimmingFlippersActionHelp_Step05
 	dw ActionHelp_FlashDDownInput
-	dw Func_1f8f39
-	dw Func_1f8f6b
-	dw Func_1f8fa6
-	dw Func_1f8fdc
-	dw Func_1f900a
+	dw SwimmingFlippersActionHelp_Step07
+	dw SwimmingFlippersActionHelp_Step08
+	dw SwimmingFlippersActionHelp_Step09
+	dw SwimmingFlippersActionHelp_Step0A
+	dw SwimmingFlippersActionHelp_Step0B
 	dw ActionHelp_FlashBInput
-	dw Func_1f9043
-	dw Func_1f9080
-	dw Func_1f90b6
-	dw Func_1f90e2
-	dw Func_1f910e
-	dw Func_1f913c
-	dw Func_1f917a
-	dw Func_1f9191
+	dw SwimmingFlippersActionHelp_Step0D
+	dw SwimmingFlippersActionHelp_Step0E
+	dw SwimmingFlippersActionHelp_Step0F
+	dw SwimmingFlippersActionHelp_Step10
+	dw SwimmingFlippersActionHelp_Step11
+	dw SwimmingFlippersActionHelp_Step12
+	dw SwimmingFlippersActionHelp_Step13
+	dw SwimmingFlippersActionHelp_Step14
 
-Func_1f8e31:
+SwimmingFlippersActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1f8e3f
@@ -61,13 +61,13 @@ Func_1f8e31:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1f8e69
+	jr SwimmingFlippersActionHelp_Start
 
-Func_1f8e64:
+SwimmingFlippersActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1f8e69:
+SwimmingFlippersActionHelp_Start:
 	ld a, BANK(WarioIdleGfx)
 	ld [wPendingDMASourceBank], a
 	ld a, HIGH(WarioIdleGfx)
@@ -120,7 +120,7 @@ Func_1f8e69:
 	inc [hl]
 	ret
 
-Func_1f8ed9:
+SwimmingFlippersActionHelp_Step02:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -132,7 +132,7 @@ Func_1f8ed9:
 	inc [hl]
 	ret
 
-Func_1f8ee9:
+SwimmingFlippersActionHelp_Step03:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
@@ -147,7 +147,7 @@ Func_1f8ee9:
 	inc [hl]
 	ret
 
-Func_1f8efe:
+SwimmingFlippersActionHelp_Step04:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld hl, wActionHelpWarioVar
@@ -174,7 +174,7 @@ Func_1f8efe:
 	inc [hl]
 	ret
 
-Func_1f8f2c:
+SwimmingFlippersActionHelp_Step05:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -185,7 +185,7 @@ Func_1f8f2c:
 	inc [hl]
 	ret
 
-Func_1f8f39:
+SwimmingFlippersActionHelp_Step07:
 	play_sfx_rept 37, SFX_00E
 
 	ld a, [wActionHelpCounter]
@@ -204,7 +204,7 @@ Func_1f8f39:
 	inc [hl]
 	ret
 
-Func_1f8f6b:
+SwimmingFlippersActionHelp_Step08:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wTimer
@@ -231,7 +231,7 @@ Func_1f8f6b:
 	inc [hl]
 	ret
 
-Func_1f8fa6:
+SwimmingFlippersActionHelp_Step09:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wTimer
@@ -256,7 +256,7 @@ Func_1f8fa6:
 	inc [hl]
 	ret
 
-Func_1f8fdc:
+SwimmingFlippersActionHelp_Step0A:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wActionHelpWarioXCoord
@@ -273,7 +273,7 @@ Func_1f8fdc:
 	inc [hl]
 	ret
 
-Func_1f900a:
+SwimmingFlippersActionHelp_Step0B:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wTimer
@@ -300,7 +300,7 @@ Func_1f900a:
 	inc [hl]
 	ret
 
-Func_1f9043:
+SwimmingFlippersActionHelp_Step0D:
 	play_sfx_rept 15, SFX_00F
 
 	ld hl, wActionHelpWarioXCoord
@@ -326,7 +326,7 @@ Func_1f9043:
 	inc [hl]
 	ret
 
-Func_1f9080:
+SwimmingFlippersActionHelp_Step0E:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wTimer
@@ -352,7 +352,7 @@ Func_1f9080:
 	inc [hl]
 	ret
 
-Func_1f90b6:
+SwimmingFlippersActionHelp_Step0F:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wActionHelpWarioXCoord
@@ -368,7 +368,7 @@ Func_1f90b6:
 	inc [hl]
 	ret
 
-Func_1f90e2:
+SwimmingFlippersActionHelp_Step10:
 	play_sfx_rept 15, SFX_00F
 
 	ld hl, wTimer
@@ -385,7 +385,7 @@ Func_1f90e2:
 	inc [hl]
 	ret
 
-Func_1f910e:
+SwimmingFlippersActionHelp_Step11:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wActionHelpWarioXCoord
@@ -403,7 +403,7 @@ Func_1f910e:
 	inc [hl]
 	ret
 
-Func_1f913c:
+SwimmingFlippersActionHelp_Step12:
 	play_sfx_rept 37, SFX_00E
 
 	ld hl, wTimer
@@ -432,7 +432,7 @@ Func_1f913c:
 	inc [hl]
 	ret
 
-Func_1f917a:
+SwimmingFlippersActionHelp_Step13:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -447,7 +447,7 @@ Func_1f917a:
 	inc [hl]
 	ret
 
-Func_1f9191:
+SwimmingFlippersActionHelp_Step14:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $18
@@ -475,4 +475,4 @@ Func_1f9191:
 	ld [wActionHelpWarioYCoord], a
 	xor a
 	ld [wActionHelpWarioVar], a
-	jp Func_1f8e31
+	jp SwimmingFlippersActionHelp_End

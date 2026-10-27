@@ -13,7 +13,7 @@ UpdateCutscene:
 	and a
 	ret z
 	; was a cutscene triggered from the Top Bar
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	cp $01
 	ret c
 	ld a, [wJoypadPressed]
@@ -26,5 +26,5 @@ UpdateCutscene:
 	stop_sfx
 	ret
 
-Func_80db1:
+ReturnFromCutscene:
 	jp InitOverworld.after_cutscene

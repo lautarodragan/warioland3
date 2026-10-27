@@ -49,7 +49,7 @@ StartRoom_FromTransition:
 	swap b
 	ld a, [wWarioXPos + 0]
 	or b
-	ld [wca6c], a
+	ld [wUnused_ca6c], a
 
 	; get next room ID from Wario's position
 	ld hl, wWarioPos
@@ -100,7 +100,7 @@ StartRoom_FromTransition:
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_896f
+	call SpawnObjectsInView
 	pop af
 	sramswitch
 	call SetWarioScreenPos
@@ -112,12 +112,12 @@ StartRoom_FromTransition:
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
 	ld a, HIGH(Frameset_14d18)
-	ld [wFramesetPtr + 0], a
+	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(Frameset_14d18)
-	ld [wFramesetPtr + 1], a
+	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
-	hcall UpdateAnimation
+	hcall UpdateWarioAnimation
 
 .not_entering_door
 	call UpdateLevelMusic
@@ -179,7 +179,7 @@ ProcessMultiBlock:
 	add $10
 	ld [wMultiBlockParam], a
 	and $08
-	ld [wcede], a
+	ld [wUnused_cede], a
 
 .loop
 	ld a, [wMultiBlockParam]
@@ -193,33 +193,33 @@ ProcessMultiBlock:
 
 ; up block
 	; get block above
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	inc a
 	ld h, a
 	ld [wBlockPtr + 0], a
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	jr nz, .no_wrap_1
 	ld a, HIGH(sLevelBlockObjectMap)
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	inc a
 .no_wrap_1
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	ld l, a
 	ld [wBlockPtr + 1], a
 	jr .process_block
 
 .right_block
 	; get block on right
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	inc a
 	ld l, a
 	ld [wBlockPtr + 1], a
@@ -227,34 +227,34 @@ ProcessMultiBlock:
 
 .left_block
 	; get block on left
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	dec a
 	ld l, a
 	ld [wBlockPtr + 1], a
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	ld h, a
 	ld [wBlockPtr + 0], a
 	jr .process_block
 
 .down_block
 	; get block below
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	dec a
 	ld h, a
 	ld [wBlockPtr + 0], a
 	cp HIGH(STARTOF(SRAM)) - 1
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	jr nz, .no_wrap_2
 	ld a, HIGH(STARTOF(SRAM) + SIZEOF(SRAM)) - 1
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	dec a
 .no_wrap_2
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	ld l, a
 	ld [wBlockPtr + 1], a
 
@@ -268,7 +268,7 @@ ProcessMultiBlock:
 	jr nz, .continue_loop
 	jp .break ; can be jr
 .continue_loop
-	call Func_bb85
+	call ProcessBlockRedrawQueue
 	jp .loop
 
 .break
@@ -284,13 +284,13 @@ StartRoom_FromLevelStart:
 	ld [wIsBossBattle], a
 
 	; if from saved level, don't init start level vars
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jp nz, .skip_init_vars_and_objects
 
 	xor a
 	ld [wLevelRoomID], a
-	ld [wca6c], a
+	ld [wUnused_ca6c], a
 	ld [wTempLevelRoomID], a
 	xor a ; unnecessary
 	ld [wLevelEndScreen], a
@@ -306,7 +306,7 @@ StartRoom_FromLevelStart:
 	ld [wIsMinigameCleared], a
 	ld [wIsRolling], a
 	ld [wIsGettingOffLadder], a
-	ld [wca66], a
+	ld [wWarioAttributes], a
 	ld [wSwitchStateUpdated], a
 	ld [wLevelTime + 0], a
 	ld [wLevelTime + 1], a
@@ -349,9 +349,9 @@ StartRoom_FromLevelStart:
 	call LoadRoom
 	pop_wram
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_883a
+	jr nz, .restore_saved_pals
 	call SetWarioPositionToSpawn
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
@@ -366,9 +366,9 @@ StartRoom_FromLevelStart:
 	ld a, BANK(WarioDefaultPal)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE_Short
-	jr .asm_8861
+	jr .load_common_pal
 
-.asm_883a
+.restore_saved_pals
 	ld a, [wWarioPalsPtr + 0]
 	ld h, a
 	ld a, [wWarioPalsPtr + 1]
@@ -379,12 +379,12 @@ StartRoom_FromLevelStart:
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE_Short
 
-	ld hl, wcaa1
+	ld hl, wSavedEnemyPals
 	ld de, wTempPals2 palette 4
 	ld b, 4 palettes
 	call CopyHLToDE
 
-.asm_8861
+.load_common_pal
 	ld hl, Pals_d1fe
 	ld de, wTempPals2 palette 2
 	ld b, 1 palettes
@@ -406,31 +406,31 @@ StartRoom_FromLevelStart:
 	pop af
 	sramswitch
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_88b7
+	jr nz, .skip_spawning_objects
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_896f
+	call SpawnObjectsInView
 	pop af
 	sramswitch
 
-.asm_88b7
+.skip_spawning_objects
 	ld a, [wLevel]
 	cp THE_TEMPLE
 	jr nz, .not_the_temple
 
 	xor a
 	ld a, [wCameraSCY + 1]
-	ld [wc08a], a
+	ld [wHiddenFigureBaseSCY], a
 	ld [wHiddenFigureSCYShake], a
 	ld [wSCY], a
 	ldh [rSCY], a
 	ld a, [wCameraSCX + 1]
-	ld [wc08c], a
-	ld [wc08b], a
+	ld [wHiddenFigureBaseSCX], a
+	ld [wHiddenFigureSCX], a
 	ld [wSCX], a
 	ldh [rSCX], a
 
@@ -439,9 +439,9 @@ StartRoom_FromLevelStart:
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
-	jr nz, .asm_8917
+	jr nz, .from_level_save
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
 	push_wram BANK("Level Objects WRAM")
@@ -451,7 +451,7 @@ StartRoom_FromLevelStart:
 	pop_wram
 	jr .draw_objs
 
-.asm_8917
+.from_level_save
 	ld a, TRUE
 	ld [wIsFloorTransition], a
 	push_wram BANK("Level Objects WRAM")
@@ -473,7 +473,7 @@ StartRoom_FromLevelStart:
 	pop_wram
 	ret
 
-Func_896f:
+SpawnObjectsInView:
 	; load block X pos to hPos
 	ld de, wBlockXPos + 1
 	ld hl, hXPosLo
@@ -488,7 +488,7 @@ Func_896f:
 	dec de
 	ld a, [de]
 	ld [hl], a
-	call Func_cc0
+	call GetObjectMapPtr
 
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
@@ -503,10 +503,10 @@ Func_896f:
 .asm_8996
 	ld h, a
 	ld a, c
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
-	ld a, $01
-	ld [wUnused_ccef], a
+	ld a, 1
+	ld [wUnused_ObjectParity], a
 	ld b, a
 	ld d, $10
 .loop_search
@@ -515,13 +515,13 @@ Func_896f:
 	ld a, [hl]
 	and $f0
 	swap a
-	call nz, .Func_89e2
+	call nz, .SpawnIfInRoom
 	ld a, b
 	xor $01
 	ld b, a
 	ld a, [hl]
 	and $0f
-	call nz, .Func_89e2
+	call nz, .SpawnIfInRoom
 	inc l
 	ld a, b
 	xor $01
@@ -536,50 +536,50 @@ Func_896f:
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr nz, .asm_89de
 	ld h, HIGH(sLevelBlockObjectMap)
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	inc a
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 .asm_89de
 	dec d
 	jr nz, .loop_search
 	ret
 
-.Func_89e2:
+.SpawnIfInRoom:
 	cp $0f
 	ret nc ; is Wario spawn block
 	ld c, a ; object index
-	ld a, [wc0c7]
+	ld a, [wRoomObjMapRightX]
 	dec a
 	cp l
 	ret c
-	; wc0c7 > l
-	ld a, [wc0c6]
+	; wRoomObjMapRightX > l
+	ld a, [wRoomObjMapLeftX]
 	cp l
 	jr z, .asm_89f3
 	ret nc
 .asm_89f3
-	; wc0c6 <= l
-	ld a, [wccec]
+	; wRoomObjMapLeftX <= l
+	ld a, [wObjectMapBank]
 	dec a
 	jr nz, .asm_8a08
-	ld a, [wc0c4]
+	ld a, [wRoomObjMapLowerY]
 	dec a
 	cp h
 	ret c
-	ld a, [wc0c5]
+	ld a, [wRoomObjMapUpperY]
 	cp h
 	jr z, .spawn
 	ret nc
 	jr .spawn
 
 .asm_8a08
-	ld a, [wc0c4]
+	ld a, [wRoomObjMapLowerY]
 	sub $20
 	dec a
 	cp h
 	ret c
-	ld a, [wc0c5]
+	ld a, [wRoomObjMapUpperY]
 	sub $20
 	cp h
 	jr z, .spawn
@@ -588,9 +588,9 @@ Func_896f:
 .spawn
 	push de
 	push bc
-	call Func_cf8
+	call GetObjectMapPtrPos
 	push hl
-	call Func_d81
+	call ObjectMapPtrToBlockPtr
 	ld d, h
 	ld e, l
 	push_wram BANK("Level Objects WRAM")
@@ -614,7 +614,7 @@ SetWarioPositionToSpawn:
 	and $f0
 	swap a
 	ld [hl], a ; hYPosHi
-	call Func_cc0
+	call GetObjectMapPtr
 
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
@@ -629,7 +629,7 @@ SetWarioPositionToSpawn:
 .asm_8a6c
 	ld h, a
 	ld a, c
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 
 .loop_search
@@ -664,22 +664,22 @@ SetWarioPositionToSpawn:
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr nz, .loop_search
 	ld h, HIGH(sLevelBlockObjectMap)
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	inc a
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 	jr .loop_search
 
 .found_spawn_block
 	ld c, a
-	call Func_cf8
+	call GetObjectMapPtrPos
 	update_pos
 
 	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_TRANSITIONS
 	jr c, .skip_floor_update
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr nz, .skip_floor_update
 	call UpdateFloor
@@ -691,6 +691,7 @@ SetWarioPositionToSpawn:
 SetInitialCameraScroll:
 	xor a
 	ld [wCameraRoomXScrollLimit], a
+	ld [wOwlCameraDisplaced], a
 	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_XSCROLL2 | CAM_TRANSITIONS
@@ -781,7 +782,7 @@ SetInitialCameraScroll:
 	ld [wCameraRoomXScrollLimit], a
 
 .check_if_saved_level
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr z, .handle_cam_y_scroll
 	ld a, [wCameraConfigFlags]

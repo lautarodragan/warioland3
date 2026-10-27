@@ -162,7 +162,7 @@ Pals_b80c0:
 	rgb 21,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8100:
+TreasureMapCutscenePals_b8100:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -531,7 +531,7 @@ Pals_b8300:
 	rgb  5,  7,  7
 	rgb  0,  0,  0
 
-Pals_b8340:
+SummonSunCutscenePals_b8340:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -818,7 +818,7 @@ Pals_b84c0:
 	rgb  2,  6,  2
 	rgb  0,  0,  0
 
-Pals_b8500:
+RaiseIceBlocksCutscenePals_b8500:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -859,7 +859,7 @@ Pals_b8500:
 	rgb  4,  9,  0
 	rgb  3,  0,  0
 
-Pals_b8540:
+SummonMoonCutscenePals_b8540:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -900,7 +900,7 @@ Pals_b8540:
 	rgb 22,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8580:
+SummonMoonCutscenePals_b8580:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -941,7 +941,7 @@ Pals_b8580:
 	rgb 22,  0,  0
 	rgb  0,  0,  0
 
-Pals_b85c0:
+SummonMoonCutscenePals_b85c0:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -982,7 +982,7 @@ Pals_b85c0:
 	rgb 22,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8600:
+SummonMoonCutscenePals_b8600:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1023,7 +1023,7 @@ Pals_b8600:
 	rgb 22,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8640:
+PlaceBrickCutscenePals_b8640:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1064,7 +1064,7 @@ Pals_b8640:
 	rgb  9,  7,  1
 	rgb  0,  0,  0
 
-Pals_b8680:
+DrillHolesCutscenePals_b8680:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -1105,7 +1105,7 @@ Pals_b8680:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-Pals_b86c0:
+ExtinguishFireCutscenePals_b86c0:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1187,7 +1187,7 @@ Pals_b8700:
 	rgb 13, 12, 13
 	rgb  0,  0,  0
 
-Pals_b8740:
+CutBaloonCutscenePals_b8740:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1228,7 +1228,7 @@ Pals_b8740:
 	rgb 16, 17, 23
 	rgb  1,  3, 12
 
-Pals_b8780:
+RemoveWarpsCutscenePals_b8780:
 	rgb  0, 22, 16
 	rgb 30,  0,  8
 	rgb 21,  3, 14
@@ -1269,7 +1269,7 @@ Pals_b8780:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-Pals_b87c0:
+OpenCraterHoleCutscenePals_b87c0:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -1310,7 +1310,7 @@ Pals_b87c0:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-Pals_b8800:
+RevealDarkRoomCutscenePals_b8800:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -1351,7 +1351,7 @@ Pals_b8800:
 	rgb  2,  0,  0
 	rgb  2,  0,  0
 
-Pals_b8840:
+RevealDarkRoomCutscenePals_b8840:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -1392,7 +1392,7 @@ Pals_b8840:
 	rgb  5,  0,  0
 	rgb  2,  0,  0
 
-Pals_b8880:
+RevealDarkRoomCutscenePals_b8880:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -2130,7 +2130,7 @@ Pals_b8cc0:
 	rgb 31, 31, 31
 	rgb 31, 31, 31
 
-Pals_b8d00:
+TreasureMapCutscenePals_b8d00:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -2704,7 +2704,7 @@ Pals_b9040:
 	rgb  1, 13, 12
 	rgb  0,  0,  0
 
-Pals_b9080:
+RevealDarkRoomCutscenePals_b9080:
 	rgb  0, 22, 16
 	rgb 21, 21, 21
 	rgb 10, 10, 10

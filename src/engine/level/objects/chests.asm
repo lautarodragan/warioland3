@@ -38,8 +38,8 @@ ChestFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
-	ld de, Frameset_68000
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
+	ld de, ChestsFrameset_68000
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 13
@@ -56,7 +56,7 @@ ChestFunc:
 	ld a, [wAutoMoveState]
 	and a
 	ret nz
-	ld de, Frameset_68003
+	ld de, ChestsFrameset_68003
 	call SetObjectFramesetPtr
 	ld a, 86
 	ld [hli], a
@@ -76,7 +76,7 @@ ChestFunc:
 	play_sfx z, SFX_035
 	dec [hl]
 	ret nz
-	ld de, Frameset_68060
+	ld de, ChestsFrameset_68060
 	call SetObjectFramesetPtr
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Ret)
@@ -111,16 +111,16 @@ ChestFunc:
 ; to addresses in VRAM that are loaded
 ; with the treasure tiles
 GreyTreasureFunc:
-	ld de, Frameset_681be
+	ld de, ChestsFrameset_681be
 	jr TreasureFunc
 RedTreasureFunc:
-	ld de, Frameset_681c3
+	ld de, ChestsFrameset_681c3
 	jr TreasureFunc
 GreenTreasureFunc:
-	ld de, Frameset_681c8
+	ld de, ChestsFrameset_681c8
 	jr TreasureFunc
 BlueTreasureFunc:
-	ld de, Frameset_681cd
+	ld de, ChestsFrameset_681cd
 TreasureFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
