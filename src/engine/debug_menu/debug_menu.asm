@@ -792,6 +792,8 @@ DebugMenuPals:
 ; Substate 0: initialise debug menu display
 ; -----------------------------------------------------------------------
 InitDebugMenu:
+	ldh a, [rLCDC]
+	ld [wDebugMenuLevelLCDC], a
 	call DisableLCD
 	call SaveBackupVRAM
 
@@ -1106,7 +1108,7 @@ DebugMenu_Exit:
 	call ApplyTempPals1ToBGPals
 	call ApplyTempPals2ToOBPals
 	call UpdateLevelMusic
-	ld a, LCDC_DEFAULT
+	ld a, [wDebugMenuLevelLCDC]
 	ldh [rLCDC], a
 
 	jp ReturnToPendingLevelState

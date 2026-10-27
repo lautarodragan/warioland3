@@ -484,6 +484,9 @@ it, hangs on for a moment, and lets go.
 
 Not fixed: The Grasslands' start room is fine, but its Hebariis keep
 stinging Wario before he can grab the owl, so the test only fills its object
-slots. Also seen, not investigated: after opening and closing the debug menu
-in the Temple's boss battle (owl or not), the arena's floor isn't drawn and
-the view is shifted. That's the debug menu itself, not the owl.
+slots. Also seen: after opening and closing the debug menu in the Temple's boss
+battle (owl or not), the arena's floor wasn't drawn and the view looked
+shifted. That was the debug menu itself, not the owl, and it's fixed: the
+floor is the window layer, and the menu closed with `LCDC_DEFAULT` (window
+off) instead of the level's own `rLCDC` (see
+[The debug menu](debug-menu.md#opening-and-closing)).

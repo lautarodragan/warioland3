@@ -2565,6 +2565,8 @@ wDebugMenuTreasureIdx:: db
 ; TRUE if an owl was spawned in a room without owl graphics, to load them
 ; when the menu closes
 wDebugMenuOwlGfxPending:: db
+; rLCDC as the level had it (The Temple's battle also shows the window)
+wDebugMenuLevelLCDC:: db
 
 ; the enemy graphics slot the debug menu's owl borrowed (OWL_SLOT_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.

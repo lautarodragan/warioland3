@@ -14,6 +14,9 @@ CURSOR_TREASURE = 4
 MUSIC_PAUSE_MENU = 0x25
 OWL_STATUS_SPAWNED = 1
 
+THE_TEMPLE = 0xC8  # src/constants/level_constants.asm
+LCDC_WIN_ON = 1 << 5  # hardware.inc
+
 # src/constants/treasure_constants.asm
 FOOT_OF_STONE = 0x3F  # N5 The Tidal Coast, red chest
 
@@ -136,3 +139,19 @@ def test_debug_menu_controls(game, golden):
     game.tick(60)
     assert game.state[0] == ST_LEVEL
     assert music[-1] != MUSIC_PAUSE_MENU  # the level's music again
+
+
+def test_debug_menu_keeps_the_temple_window(game, golden):
+    # The Temple's battle draws the arena floor with the window, which the
+    # level turns on in rLCDC. The menu used to close with LCDC_DEFAULT
+    # (window off): no floor, and the view looked shifted.
+    game.new_game_to_overworld()
+    game.enter_level(THE_TEMPLE)
+    game.tick(120)
+    lcdc = game.pb.memory[0xFF40]
+    assert lcdc & LCDC_WIN_ON
+    game.open_debug_menu()
+    game.close_debug_menu()
+    game.tick(30)
+    assert game.pb.memory[0xFF40] == lcdc
+    golden("debug_menu_closed_in_the_temple", game.screenshot())

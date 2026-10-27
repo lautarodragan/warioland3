@@ -33,14 +33,21 @@ slot). `UpdateLevel` checks for SELECT only when no room transition is pending
 (`wRoomTransitionParam` is 0). It stops the music, saves the level's substate
 in `wPendingSubState` and switches `wState`.
 
-`InitDebugMenu` turns the LCD off, saves the level's VRAM (`SaveBackupVRAM`)
+`InitDebugMenu` saves `rLCDC` (in `wDebugMenuLevelLCDC`), turns the LCD off, saves the level's VRAM (`SaveBackupVRAM`)
 and its animated tile state, finds the current form's row, loads the screen,
 turns the LCD on and plays `MUSIC_PAUSE_MENU`.
 
 `DebugMenu_Exit` does the reverse: it redraws the level's objects, restores
 VRAM, loads the owl's graphics if the menu spawned one, reapplies Wario's palette
-(FORM may have changed it), restores the animated tiles and the level music, and
-returns to the saved substate with `ReturnToPendingLevelState`.
+(FORM may have changed it), restores the animated tiles and the level music, turns the LCD back on with
+the level's own `rLCDC`, and returns to the saved substate with
+`ReturnToPendingLevelState`.
+
+Restoring the level's `rLCDC` matters in The Temple: its battle draws the
+arena floor with the window layer, which only that level turns on. The menu
+used to close with `LCDC_DEFAULT` (window off), so the floor disappeared. The
+pause menu does the same, but the game doesn't let you pause in boss battles,
+so the original never shows it.
 
 ## Drawing
 
