@@ -32,7 +32,7 @@ MACRO scene_obj_struct
 \1Duration::       db
 \1FramesetOffset:: db
 \1State::          db
-\1Unk7::           db
+\1MovementStep::   db
 \1End::
 ENDM
 
@@ -55,8 +55,8 @@ ENDM
 
 MACRO obj_struct
 \1Flags::           db
-\1Unk01::           db
-\1Unk02::           db
+\1MapPtrLo::        db
+\1MapPtrHi::        db
 \1YPos::            dw
 \1XPos::            dw
 \1Id::              db
@@ -80,7 +80,7 @@ MACRO obj_struct
 ; bit 7: set if facing right, left otherwise
 \1State::           db
 \1Action::          db
-\1Unk1d::           db
+\1ActionSide::      db
 \1UpdateFunction::  dw
 ENDM
 

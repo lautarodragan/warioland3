@@ -924,7 +924,7 @@ AnonsterFunc:
 	play_sfx z, SFX_0B1
 	dec [hl]
 	ret nz
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -983,7 +983,7 @@ SilkPlatformsFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $28
 	ld [wCurObjStateDuration], a
 	jr .asm_50746

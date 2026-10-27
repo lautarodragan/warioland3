@@ -16,7 +16,7 @@ WormwouldFunc:
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
-	or (WORMWOULD_NUM_HITS + 1) | OBJSUBFLAG_UNK_4 | OBJSUBFLAG_HDIR
+	or (WORMWOULD_NUM_HITS + 1) | OBJSUBFLAG_NO_DESPAWN | OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
@@ -430,7 +430,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedRaise)
 	ld [hld], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_0A7
@@ -502,7 +502,7 @@ WormwouldFunc:
 .asm_543a9
 	set OBJSUBFLAG_HDIR_F, [hl]
 .asm_543ab
-	res OBJSUBFLAG_UNK_4_F, [hl]
+	res OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and $80
 	ld [hld], a
@@ -604,7 +604,7 @@ PalmTreeSpawnerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, 240
 	ld [wCurObjStateDuration], a
 	jr .Wait

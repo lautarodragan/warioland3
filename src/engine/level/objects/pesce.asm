@@ -8,7 +8,7 @@ StrongWaterCurrentFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -38,7 +38,7 @@ PesceFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -709,7 +709,7 @@ PesceFunc:
 	ld [hli], a
 	ld a, $03
 	ld [wCurObjVar1], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ld a, $01
@@ -836,7 +836,7 @@ DragonflySpawnerFunc:
 	ret z
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -962,7 +962,7 @@ Dragonfly2Func:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
 	ld [hld], a
@@ -1143,7 +1143,7 @@ FlySpawnerFunc:
 	ld a, [wDollBoyHammerRange]
 	and a
 	ret z
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
 	farcall SetObjectMapEntryAndSpawn
 	xor a

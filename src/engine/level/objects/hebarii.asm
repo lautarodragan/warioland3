@@ -395,7 +395,7 @@ HebariiFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ret
 

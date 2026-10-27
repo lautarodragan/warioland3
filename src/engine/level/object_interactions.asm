@@ -34,7 +34,7 @@ ProcessInteractions:
 
 .is_visible
 	push hl
-	ld e, OBJ_UNK_1D
+	ld e, OBJ_ACTION_SIDE
 	ld d, $00
 	add hl, de
 	ld a, [hld]
@@ -820,7 +820,7 @@ SetObjAction:
 	inc l
 	ld a, [wInteractionSide]
 	ld b, a
-	ld a, [hl] ; OBJ_UNK_1D
+	ld a, [hl] ; OBJ_ACTION_SIDE
 	and $0f
 	or b
 	ld [hl], a

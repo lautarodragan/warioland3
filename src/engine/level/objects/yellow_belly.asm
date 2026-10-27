@@ -1301,7 +1301,7 @@ YellowBellyPlatformFunc:
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
 	ld [hld], a
@@ -1332,7 +1332,7 @@ YellowBellyPlatformFunc:
 ;	fallthrough
 
 Func_51c62:
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret

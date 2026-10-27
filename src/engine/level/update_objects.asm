@@ -527,7 +527,7 @@ DoObjectAction:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .Wobble
-	ld hl, wCurObjUnk1d
+	ld hl, wCurObjActionSide
 	ld a, [hld]
 	and INTERACTION_RIGHT
 	ld a, 15 | (1 << 7)
@@ -545,7 +545,7 @@ DoObjectAction:
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	ld l, OBJ_UNK_1D
+	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
 	ld a, 15 | (1 << 7)
@@ -579,7 +579,7 @@ DoObjectAction:
 .Wobble:
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-	ld l, OBJ_UNK_1D
+	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
 	ld a, 15 | (1 << 7)
@@ -610,7 +610,7 @@ DoObjectAction:
 .Action06:
 	ld b, 15 | (1 << 7)
 .asm_6181f
-	ld hl, wCurObjUnk1d
+	ld hl, wCurObjActionSide
 	ld a, [hld]
 	ld [hl], b ; OBJ_ACTION
 	dec l
@@ -3973,11 +3973,11 @@ CheckObjectOnScreen:
 	jr c, .done
 .asm_6317e
 	ld a, [wCurObjSubState]
-	and $f | OBJSUBFLAG_UNK_4
-	cp $0 | OBJSUBFLAG_UNK_4
+	and $f | OBJSUBFLAG_NO_DESPAWN
+	cp $0 | OBJSUBFLAG_NO_DESPAWN
 	ret nc
-	; OBJSUBFLAG_UNK_4 is not set
-	ld hl, wCurObjUnk02
+	; OBJSUBFLAG_NO_DESPAWN is not set
+	ld hl, wCurObjMapPtrHi
 	and a
 	jr z, .asm_6319c
 	farcall DespawnObject
@@ -4212,7 +4212,7 @@ _ApplyObjXMovement_Loop::
 	ret
 
 _CountCurObjTransientChildren::
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]

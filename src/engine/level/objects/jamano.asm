@@ -545,7 +545,7 @@ JamanoHatFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $06
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -676,7 +676,7 @@ SkullSpawnerFunc:
 	jr nz, .asm_5525b
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret

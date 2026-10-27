@@ -620,7 +620,7 @@ ScowlerFunc:
 	jr z, .asm_54978
 	dec [hl]
 	jr nz, .asm_54978
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -651,7 +651,7 @@ FloatingRingSpawnerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $40
 	ld [wCurObjStateDuration], a
 	jr .Func_549ab

@@ -5,7 +5,7 @@ FlameBlockTorchUpdate:
 	ret z
 	xor a
 	ld [hld], a
-	set OBJSUBFLAG_UNK_4_F, [hl] ; OBJ_SUBSTATE
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl] ; OBJ_SUBSTATE
 	play_sfx SFX_073
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
@@ -54,7 +54,7 @@ FlameBlockTorchUpdate:
 	inc l
 	dec [hl] ; OBJ_VAR_1
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ld hl, wNumLitTorches
 	dec [hl]

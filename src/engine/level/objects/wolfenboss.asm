@@ -560,7 +560,7 @@ WolfenbossFunc:
 	jr .loop_objects
 .found_platform_obj
 	ld a, l
-	add OBJ_STATE - OBJ_UNK_01
+	add OBJ_STATE - OBJ_MAP_PTR_LO
 	ld l, a
 	ld a, $2f
 	ld [hl], a
@@ -698,7 +698,7 @@ WolfenbossPlatformFunc:
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
 	ld [hld], a
@@ -748,7 +748,7 @@ WolfenbossPlatformFunc:
 Func_56326:
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret

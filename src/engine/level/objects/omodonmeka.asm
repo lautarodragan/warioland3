@@ -594,7 +594,7 @@ OmodonmekaWithOmodonFunc:
 	ld a, [hl]
 	cp $28
 	jp nz, .asm_42635
-	ld l, OBJ_UNK_01
+	ld l, OBJ_MAP_PTR_LO
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -740,7 +740,7 @@ OmodonmekaWithOmodonFunc:
 	call SetObjectFramesetPtr
 	ld a, $32
 	ld [hli], a
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
@@ -1129,7 +1129,7 @@ Func_4279c:
 
 
 .Func_42894:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -1258,7 +1258,7 @@ Func_4279c:
 	jp Func_42767.asm_4277f
 
 .Func_42935:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]

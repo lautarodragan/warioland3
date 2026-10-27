@@ -3,7 +3,7 @@ MuddeeStingerFunc:
 	set OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_SUBSTATE
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Func_4ca2a)
 	ld [hld], a

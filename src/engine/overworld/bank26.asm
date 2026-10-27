@@ -1166,7 +1166,7 @@ Func_9aaf4:
 	ld hl, wCompassObjState
 	xor a
 	ld [hli], a
-	ld [hl], a ; wCompassObjUnk7
+	ld [hl], a ; wCompassObjMovementStep
 	ret
 
 ; clears treasure tiles and info in WRAM

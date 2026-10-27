@@ -1083,7 +1083,7 @@ Func_ae657:
 	ld a, SCENEWARIO_JUMP_AND_BOW
 	call SetSceneWarioState
 	xor a
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 	jp Func_ae1ce
 
 Func_ae663:
@@ -2987,12 +2987,12 @@ Func_af13c:
 	ld a, $0b
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	play_sfx SFX_GRAB
 	jp .asm_af40c
 
 .Func_af4e7:
-	ld a, [wSceneObj9Unk7]
+	ld a, [wSceneObj9MovementStep]
 	cp $80
 	ret nz
 	ld a, [wOWUIObj1State]
@@ -3057,7 +3057,7 @@ Func_af13c:
 	ld a, $09
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	jp .asm_af40c
 
 .Func_af55a:
@@ -3116,7 +3116,7 @@ Func_af13c:
 	ld a, $01
 	ld [wPalFade2Colour2GreenUnk1], a
 	xor a
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 .asm_af5bc
 	ld hl, wSceneSubStep
 	inc [hl]
@@ -3198,7 +3198,7 @@ Func_af13c:
 	ld a, $01
 	ld [wPalFade2Colour4GreenSign], a
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 .asm_af643
 	ld hl, wTempleRock5Action
 	inc [hl]

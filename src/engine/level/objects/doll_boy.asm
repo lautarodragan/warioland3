@@ -499,7 +499,7 @@ DollBoyFunc:
 	ld [hl], c
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	stop_music2
@@ -808,7 +808,7 @@ DollBoyBarrelFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.StartDelay)
 	ld [hld], a
@@ -1171,7 +1171,7 @@ HammerPlatformSpawnerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, 150
 	ld [wCurObjStateDuration], a
 	jr .DoNothing

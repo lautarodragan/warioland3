@@ -4474,7 +4474,7 @@ HandleBottomBar:
 	ld [hl], a
 	xor a
 	ld [wCompassObjState], a
-	ld [wCompassObjUnk7], a
+	ld [wCompassObjMovementStep], a
 	xor a ; unnecessary
 	ld [wBottomBarAction], a
 	xor a ; unnecessary

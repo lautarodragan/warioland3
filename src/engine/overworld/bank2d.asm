@@ -2593,7 +2593,7 @@ NOWFunc_SummonSnake:
 
 .PlayFluteSFX:
 	ld a, $01
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	play_sfx SFX_118
 	jp AdvanceOWFunc
 
@@ -2621,7 +2621,7 @@ NOWFunc_SummonSnake:
 	jp AdvanceOWFunc
 
 .MoveNotes:
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	and a
 	ret z
 	ld hl, wSceneObj1XCoord
@@ -2631,7 +2631,7 @@ NOWFunc_SummonSnake:
 	cp $f0
 	ret c
 	xor a
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	ret
 
 NOWFunc_FallLeaves:
@@ -3087,7 +3087,7 @@ NOWFunc_Crayon:
 	ld de, Data_b6294
 	ld hl, wSceneObj5
 	call ApplyOWMovement
-	ld a, [wSceneObj5Unk7]
+	ld a, [wSceneObj5MovementStep]
 	cp $0a
 	jr z, .play_scribble_sfx
 	and a
@@ -3808,7 +3808,7 @@ WOWFunc_ClearTornado:
 
 .ShowTornado:
 	call UpdateOWTornado
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	cp $01
 	jr z, .play_tornado_sfx
 	and a
@@ -3949,7 +3949,7 @@ WOWFunc_SummonSnake:
 
 .PlayFluteSFX:
 	ld a, $01
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	play_sfx SFX_118
 	jp AdvanceOWFunc
 
@@ -3971,7 +3971,7 @@ WOWFunc_SummonSnake:
 	jp AdvanceOWFunc
 
 .MoveNotes:
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	and a
 	ret z
 	ld hl, wSceneObj1XCoord
@@ -3981,7 +3981,7 @@ WOWFunc_SummonSnake:
 	cp $f0
 	ret c
 	xor a
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	ret
 
 WOWFunc_Earthquake:
@@ -4647,7 +4647,7 @@ WOWFunc_RedMusicBox:
 	dw EndOWFunc
 
 .Func_b608a:
-	ld hl, wSceneObj6Unk7
+	ld hl, wSceneObj6MovementStep
 	ld a, [hl]
 	and a
 	ret z
@@ -4680,7 +4680,7 @@ WOWFunc_RedMusicBox:
 	ld hl, Data_8556e
 	call Func_b5868
 	ld a, $01
-	ld [wSceneObj6Unk7], a
+	ld [wSceneObj6MovementStep], a
 	jp AdvanceOWFunc
 
 .Func_b60d0:
@@ -4710,7 +4710,7 @@ WOWFunc_RedMusicBox:
 	cp 106
 	ret c
 	xor a
-	ld [wSceneObj6Unk7], a
+	ld [wSceneObj6MovementStep], a
 	jp AdvanceOWFunc
 
 Data_b6101:
@@ -6281,7 +6281,7 @@ SOWFunc_SummonSnake:
 
 .PlayFluteSFX:
 	ld a, $01
-	ld [wSceneObj7Unk7], a
+	ld [wSceneObj7MovementStep], a
 	play_sfx SFX_118
 	jp AdvanceOWFunc
 
@@ -6303,7 +6303,7 @@ SOWFunc_SummonSnake:
 	jp AdvanceOWFunc
 
 .MoveNotes:
-	ld a, [wSceneObj7Unk7]
+	ld a, [wSceneObj7MovementStep]
 	and a
 	ret z
 	ld hl, wSceneObj1XCoord
@@ -6313,7 +6313,7 @@ SOWFunc_SummonSnake:
 	cp $f0
 	ret c
 	xor a
-	ld [wSceneObj7Unk7], a
+	ld [wSceneObj7MovementStep], a
 	ret
 
 SOWFunc_Earthquake:
@@ -6768,7 +6768,7 @@ EOWFunc_FreezeSea:
 	xor a
 	ld [w2d046], a
 	ld a, $01
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	jp AdvanceOWFunc
 
 .Func_b6f0c:
@@ -6806,7 +6806,7 @@ EOWFunc_FreezeSea:
 	jr .asm_b6f31
 
 .Func_b6f4a:
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	and a
 	ret nz
 	jp AdvanceOWFunc
@@ -6834,7 +6834,7 @@ EOWFunc_FreezeSea:
 	ret
 
 .Func_b6f77:
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	and a
 	ret z
 	dec a
@@ -6845,7 +6845,7 @@ EOWFunc_FreezeSea:
 .asm_b6f83
 	xor a
 	ld [w2d122], a
-	ld hl, wSceneObj1Unk7
+	ld hl, wSceneObj1MovementStep
 	inc [hl]
 	ret
 .asm_b6f8c
@@ -6869,7 +6869,7 @@ EOWFunc_FreezeSea:
 	ret
 .asm_b6fa9
 	xor a
-	ld [wSceneObj1Unk7], a
+	ld [wSceneObj1MovementStep], a
 	ret
 
 .Func_b6fae:
@@ -6898,7 +6898,7 @@ EOWFunc_FreezeSea:
 	ld a, [hli]
 	ld [wOWUIObj1State], a
 	ld a, [hli]
-	ld [wOWUIObj1Unk7], a
+	ld [wOWUIObj1MovementStep], a
 	ld a, l
 	ld [wOWUIObj1XCoord], a
 	ld a, h
@@ -6948,7 +6948,7 @@ EOWFunc_FreezeSea:
 	ld a, l
 	ld [wOWUIObj2State], a
 	ld a, h
-	ld [wOWUIObj2Unk7], a
+	ld [wOWUIObj2MovementStep], a
 	farcall Func_85aa2
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
@@ -7492,7 +7492,7 @@ EOWFunc_FormCastle:
 
 .Func_b73ee:
 	call .Func_b741b
-	ld a, [wSceneObj1Unk7]
+	ld a, [wSceneObj1MovementStep]
 	cp $30
 	jr z, .asm_b7404
 	cp $50
@@ -8048,14 +8048,14 @@ EOWFunc_VulcanoEruption:
 
 .Func_b7763:
 	play_sfx SFX_TEMPLE_ROCK
-	ld hl, wSceneWarioUnk7
+	ld hl, wSceneWarioMovementStep
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 .Func_b7772:
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	cp $50
 	ret c
 	ld a, $05
@@ -8063,7 +8063,7 @@ EOWFunc_VulcanoEruption:
 	jr .Func_b7763
 
 .Func_b777f:
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	cp $3c
 	ret c
 	ld a, $07
@@ -8071,7 +8071,7 @@ EOWFunc_VulcanoEruption:
 	jr .Func_b7763
 
 .Func_b778c:
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	cp $50
 	ret c
 	ld a, $07
@@ -8079,7 +8079,7 @@ EOWFunc_VulcanoEruption:
 	jr .Func_b7763
 
 ; unreachable
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	cp $3c
 	ret c
 	ld a, $05
@@ -8528,7 +8528,7 @@ Func_b7ac0:
 	ld a, [wCurEvent]
 	and a
 	ret nz
-	ld hl, wSceneObj8Unk7
+	ld hl, wSceneObj8MovementStep
 	ld a, [hl]
 	and a
 	jr nz, .asm_b7ad7
@@ -8551,7 +8551,7 @@ Func_b7ac0:
 	ld hl, wSceneObj7State
 	call SetSceneObjState
 	xor a
-	ld [wSceneObj8Unk7], a
+	ld [wSceneObj8MovementStep], a
 	ret
 .asm_b7af0
 	ld a, $08
@@ -8564,7 +8564,7 @@ Func_b7afb:
 	ld a, [wCurEvent]
 	and a
 	ret nz
-	ld hl, wSceneObj8Unk7
+	ld hl, wSceneObj8MovementStep
 	ld a, [hl]
 	and a
 	jr nz, .asm_b7b0d
@@ -8584,7 +8584,7 @@ Func_b7afb:
 	ld [wSceneObj8State], a
 	xor a
 	ld [wSceneObj8Duration], a
-	ld [wSceneObj8Unk7], a
+	ld [wSceneObj8MovementStep], a
 	ret
 
 Func_b7b26:

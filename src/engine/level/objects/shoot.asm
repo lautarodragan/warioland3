@@ -65,7 +65,7 @@ ShootFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $5
@@ -1135,7 +1135,7 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_3
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
 	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_0A9
@@ -1189,7 +1189,7 @@ GKTortoisePlatformFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -1285,7 +1285,7 @@ GKTortoiseFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -1353,7 +1353,7 @@ GKTortoiseFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -1933,7 +1933,7 @@ ShootGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c
@@ -1980,7 +1980,7 @@ WarioGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c

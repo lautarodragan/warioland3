@@ -1204,11 +1204,11 @@ UpdateSceneWario:
 	ld a, [wSceneWarioFrame]
 	cp $07
 	ret nz
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	and a
 	ret nz
 	xor $1
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 	play_sfx SFX_LAND
 	ret
 
@@ -1476,11 +1476,11 @@ ENDM
 	scene_wario_gfx OAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
 	scene_wario_gfx OAM_d49cc,  WarioClearGfx ; SCENEWARIO_GROUP_04
 	scene_wario_gfx OAM_aa5fe,  WarioClearGfx ; SCENEWARIO_GROUP_05
-	scene_wario_gfx OAM_aa6e7,  WarioUnk2Gfx  ; SCENEWARIO_GROUP_06
-	scene_wario_gfx OAM_aa934,  WarioUnk3Gfx  ; SCENEWARIO_GROUP_07
+	scene_wario_gfx OAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
+	scene_wario_gfx OAM_aa934,  WarioMusicBoxGfx  ; SCENEWARIO_GROUP_07
 	scene_wario_gfx OAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
 	scene_wario_gfx OAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_19
-	scene_wario_gfx OAM_ab0c5,  WarioUnk5Gfx  ; SCENEWARIO_GROUP_10
+	scene_wario_gfx OAM_ab0c5,  WarioShowMusicBoxesGfx  ; SCENEWARIO_GROUP_10
 	scene_wario_gfx OAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
 	scene_wario_gfx OAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12
 	scene_wario_gfx OAM_1fc000, WarioClearGfx ; SCENEWARIO_GROUP_13
@@ -3169,7 +3169,7 @@ HandleTempleMusicBoxes:
 
 .DeinitYellowMusicBox:
 	ld de, wTempleMusicBox1
-	ld hl, wSceneObj8Unk7
+	ld hl, wSceneObj8MovementStep
 
 .WaitThenDeinitMusicBox:
 	ld a, [hld]
@@ -3182,22 +3182,22 @@ HandleTempleMusicBoxes:
 
 .DeinitBlueMusicBox:
 	ld de, wTempleMusicBox2
-	ld hl, wSceneObj9Unk7
+	ld hl, wSceneObj9MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitGreenMusicBox:
 	ld de, wTempleMusicBox3
-	ld hl, wSceneObj10Unk7
+	ld hl, wSceneObj10MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitRedMusicBox:
 	ld de, wTempleMusicBox4
-	ld hl, wSceneObj11Unk7
+	ld hl, wSceneObj11MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitGoldMusicBox:
 	ld de, wTempleMusicBox5
-	ld hl, wSceneObj12Unk7
+	ld hl, wSceneObj12MovementStep
 	jr .WaitThenDeinitMusicBox
 
 ; a = scene obj state
@@ -3576,7 +3576,7 @@ HandleTempleShakeScene:
 	cp 30
 	ret c
 	xor a
-	ld [wSceneObj8Unk7], a
+	ld [wSceneObj8MovementStep], a
 	ld hl, wTempleRock7
 	jr .InitLargeTempleRock
 
@@ -3585,7 +3585,7 @@ HandleTempleShakeScene:
 	cp 8
 	ret c
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	ld hl, wTempleRock8
 	jr .InitLargeTempleRock
 
@@ -3594,7 +3594,7 @@ HandleTempleShakeScene:
 	cp 10
 	ret c
 	xor a
-	ld [wSceneObj10Unk7], a
+	ld [wSceneObj10MovementStep], a
 	ld hl, wTempleRock9
 	jr .InitLargeTempleRock
 
@@ -3603,7 +3603,7 @@ HandleTempleShakeScene:
 	cp 8
 	ret c
 	xor a
-	ld [wSceneObj11Unk7], a
+	ld [wSceneObj11MovementStep], a
 	ld hl, wTempleRock10
 	jr .InitLargeTempleRock
 

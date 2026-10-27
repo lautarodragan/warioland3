@@ -87,7 +87,7 @@ SetObjectMapEntryAndSpawn:
 ; hl = obj unk02
 DespawnObject:
 	push_wram BANK("Level Objects WRAM")
-	ld a, [hl] ; OBJ_UNK_02
+	ld a, [hl] ; OBJ_MAP_PTR_HI
 	and a
 	jr z, .no_map_entry
 	ld a, [wSRAMBank]
@@ -95,7 +95,7 @@ DespawnObject:
 	ld a, BANK("SRAM1")
 	sramswitch
 	ld c, $01
-	ld a, [hld] ; OBJ_UNK_02
+	ld a, [hld] ; OBJ_MAP_PTR_HI
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr c, .asm_bb12
 	inc c
@@ -106,7 +106,7 @@ DespawnObject:
 	sub $20
 .asm_bb12
 	ld d, a
-	ld a, [hld] ; OBJ_UNK_01
+	ld a, [hld] ; OBJ_MAP_PTR_LO
 	ld e, a
 	xor a
 	ld [hl], a

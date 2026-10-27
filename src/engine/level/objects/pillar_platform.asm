@@ -122,14 +122,14 @@ PillarPlatformFunc:
 	ld [hld], a
 	ld a, LOW(.Func_49cce)
 	ld [hld], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	add $03
 	ld e, a
 	ld c, $2b
 	ld a, $00
 	ld b, $00
 	call .Func_49d43
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	sub $03
 	ld e, a
 	ld a, $00
@@ -137,7 +137,7 @@ PillarPlatformFunc:
 .Func_49d43:
 	ld h, HIGH(wObjects)
 .asm_49d45
-	ld l, OBJ_UNK_01
+	ld l, OBJ_MAP_PTR_LO
 	add l
 	ld l, a
 	ld a, [hl]

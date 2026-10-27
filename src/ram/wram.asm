@@ -2401,7 +2401,7 @@ wSoundEngineParam3:: db
 wSoundEngineParam4:: db
 NEXTU
 wTempTrackPriority:: db
-wTempTrackUnk02::    db
+wTempTrackOwner::    db
 ENDU
 
 wNumChannels::

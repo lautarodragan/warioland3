@@ -41,8 +41,8 @@ ENDR
 
 .got_obj
 	xor a
-	ld [hli], a ; OBJ_UNK_01
-	ld [hli], a ; OBJ_UNK_02
+	ld [hli], a ; OBJ_MAP_PTR_LO
+	ld [hli], a ; OBJ_MAP_PTR_HI
 	ld a, [wWarioYPos + 1]
 	ld [hli], a ; OBJ_Y_POS
 	ld a, [wWarioYPos + 0]

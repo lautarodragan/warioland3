@@ -233,7 +233,7 @@ HaridamaFunc:
 	jp SetObjectFramesetPtr
 
 .asm_49069
-	ld l, OBJ_UNK_1D
+	ld l, OBJ_ACTION_SIDE
 	bit 7, [hl]
 	jr nz, .asm_49077
 	ld l, OBJ_SUBSTATE

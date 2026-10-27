@@ -180,7 +180,7 @@ ENDR
 	and $7f
 	ld [de], a
 
-	ld [hl], e ; OBJ_UNK_01
+	ld [hl], e ; OBJ_MAP_PTR_LO
 	inc l
 	ld a, [wObjectMapBank]
 	dec a
@@ -190,7 +190,7 @@ ENDR
 	add a ; *16
 	add a ; *32
 	add d
-	ld [hli], a ; OBJ_UNK_02
+	ld [hli], a ; OBJ_MAP_PTR_HI
 	ldh a, [hYPosLo]
 	ld [hli], a ; OBJ_Y_POS
 	ldh a, [hYPosHi]
@@ -305,9 +305,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld [hli], a
@@ -331,9 +331,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld e, a

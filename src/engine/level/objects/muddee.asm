@@ -8,7 +8,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $05
@@ -294,7 +294,7 @@ MuddeeFunc:
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	stop_music2
@@ -894,7 +894,7 @@ Turtle1Func:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0a
 	ld [hld], a
@@ -1012,7 +1012,7 @@ Turtle1Func:
 	ld [hld], a
 	ld a, LOW(.Func_55d4c)
 	ld [hld], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $06
 	farcall SetObjectMapEntryAndSpawn
 	ret

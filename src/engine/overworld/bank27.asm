@@ -3074,7 +3074,7 @@ Cutscene49Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9daf0:
-	ld hl, wSceneObj4Unk7
+	ld hl, wSceneObj4MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $11
@@ -4017,7 +4017,7 @@ Cutscene3aFunc:
 	ld a, [wSceneObj7State]
 	cp $03
 	ret nz
-	ld hl, wSceneObj7Unk7
+	ld hl, wSceneObj7MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4793,7 +4793,7 @@ Cutscene51Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9e6d7:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -5462,7 +5462,7 @@ Cutscene44Func:
 	cp $03
 	ret nz
 	xor a
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	ld [wSceneObj4YCoord], a
 	jp AdvanceCutsceneFunc
 
@@ -5495,7 +5495,7 @@ Cutscene44Func:
 	ret
 
 .Func_9ebc7:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	call .Func_9ebd3
 	ld hl, wSceneObj3XCoord
 	add [hl]
@@ -6420,7 +6420,7 @@ Func_9f423:
 .Func_9f45a:
 	ld a, [wSceneObj3Frame]
 	ld c, a
-	ld a, [wSceneObj3Unk7]
+	ld a, [wSceneObj3MovementStep]
 	ld b, a
 	and a
 	jr z, .asm_9f46b
@@ -6435,7 +6435,7 @@ Func_9f423:
 .asm_9f46f
 	ld a, b
 	xor $1
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	play_sfx SFX_FAT_WALK
 	ret
 .asm_9f47e
@@ -6443,7 +6443,7 @@ Func_9f423:
 	jr .asm_9f440
 
 .Func_9f483:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6493,7 +6493,7 @@ Func_9f49c:
 	jr .asm_9f4c5
 
 .Func_9f4d8:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6510,7 +6510,7 @@ Func_9f49c:
 	jr .asm_9f4c5
 
 .Func_9f4f4:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6545,7 +6545,7 @@ Func_9f508:
 	jr .asm_9f521
 
 .Func_9f52e:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6599,7 +6599,7 @@ Func_9f547:
 	jr .asm_9f56d
 
 .Func_9f587:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6652,7 +6652,7 @@ Func_9f5a0:
 .Func_9f5e5:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	ld a, $03
@@ -6667,7 +6667,7 @@ Func_9f5a0:
 .asm_9f600
 	ld a, b
 	xor $1
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
 Func_9f607:
@@ -6742,7 +6742,7 @@ Func_9f638:
 	jr .asm_9f66d
 
 .Func_9f689:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6833,7 +6833,7 @@ Func_9f6f8:
 	jr .asm_9f711
 
 .Func_9f722:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6975,7 +6975,7 @@ Func_9f7dc:
 	jr .asm_9f7f3
 
 .Func_9f80d:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7009,7 +7009,7 @@ Func_9f821:
 	jr .asm_9f834
 
 .Func_9f843:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7068,7 +7068,7 @@ Func_9f86a:
 	jr .asm_9f887
 
 .Func_9f8a8:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7084,7 +7084,7 @@ Func_9f86a:
 	ret
 
 .Func_9f8c1:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7118,7 +7118,7 @@ Func_9f8da:
 .asm_9f8f9
 	ld b, $00
 	call .Func_9f912
-	ld hl, wSceneObj2Unk7
+	ld hl, wSceneObj2MovementStep
 	ld a, [hl]
 	and a
 	ret nz
@@ -7175,7 +7175,7 @@ Func_9f91f:
 .Func_9f953:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	jr z, .asm_9f96a
@@ -7204,7 +7204,7 @@ Func_9f91f:
 .asm_9f98a
 	ld a, b
 	xor $01
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
 Func_9f991:
@@ -7289,7 +7289,7 @@ Func_9f9f5:
 	jr .asm_9fa0c
 
 .Func_9fa1b:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7304,7 +7304,7 @@ Func_9f9f5:
 	jr .asm_9fa0c
 
 .Func_9fa34:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7358,7 +7358,7 @@ Func_9fa48:
 	jr .asm_9fa8b
 
 .Func_9faa0:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7392,7 +7392,7 @@ Func_9fab4:
 	jr .asm_9fac7
 
 .Func_9fad6:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a

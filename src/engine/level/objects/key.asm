@@ -26,6 +26,6 @@ KeyFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	farcall ClearObjectMapEntry
 	ret

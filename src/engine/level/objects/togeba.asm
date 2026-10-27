@@ -169,7 +169,7 @@ TogebaFunc:
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
-	ld a, [wCurObjUnk1d]
+	ld a, [wCurObjActionSide]
 	rla
 	jr nc, .asm_48eb3
 	ld l, OBJ_UPDATE_FUNCTION + 1

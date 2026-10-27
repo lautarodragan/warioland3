@@ -775,7 +775,7 @@ ObjParams_SilkPlatform1:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -792,7 +792,7 @@ ObjParams_SilkPlatform2:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -809,7 +809,7 @@ ObjParams_SilkPlatform3:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -877,7 +877,7 @@ ObjParams_HammerPlatform:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw HammerPlatformFunc
 	db OBJFLAG_PRIORITY ; obj flags
@@ -963,7 +963,7 @@ ObjParams_PalmTreeShort:
 	db $1a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -980,7 +980,7 @@ ObjParams_PalmTreeMedium:
 	db $30 ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -997,7 +997,7 @@ ObjParams_PalmTreeTall:
 	db $4a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -1133,7 +1133,7 @@ ObjParams_FloatingRing:
 	db $00 ; var1
 	db $14 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw FloatingRingFunc
 	db $0 ; obj flags
