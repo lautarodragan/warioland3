@@ -25,7 +25,7 @@ YellowBellyBodyFunc:
 	ld [hl], a
 	xor a
 	ld [wDollBoyActiveBarrels], a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld [wDollBoyHammerRange], a
 	ld a, TRUE
 	ld [wIsBossBattle], a
@@ -191,7 +191,7 @@ YellowBellyBodyFunc:
 	ret
 
 .Func_514a4:
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jp nz, .asm_5179a
 	ld hl, wCurObjVar1
@@ -357,7 +357,7 @@ YellowBellyBodyFunc:
 	ld [wDollBoyHammerRange], a
 	jp .asm_514eb
 .asm_515eb
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jp nz, .asm_5179a
 	ld a, [wDollBoyHammerRange]
@@ -440,7 +440,7 @@ YellowBellyBodyFunc:
 	ld [wCurObjState], a
 	ret
 .asm_51662
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jp nz, .asm_5179a
 	ld hl, wCurObjVar1
@@ -618,7 +618,7 @@ YellowBellyBodyFunc:
 
 .asm_5179a
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Func_517ee)
 	ld [hld], a
@@ -956,7 +956,7 @@ PumpFunc:
 .asm_519e3
 	ld a, $3a
 	ld [hl], a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	xor a
 	ld [wDollBoyHammerRange], a
 	ld de, Frameset_69882

@@ -5,11 +5,11 @@ Func_d47f1:
 	lb bc, (NUM_LEVELS / 8), 8
 	debgcoord 8, 9
 	ld a, -1
-	ldh [hffa0], a
+	ldh [hTemp], a
 .loop_bits
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	inc a
-	ldh [hffa0], a
+	ldh [hTemp], a
 	rrc [hl]
 	call c, .ApplyBGPal
 	inc e
@@ -36,7 +36,7 @@ Func_d47f1:
 .ApplyBGPal:
 	push bc
 	push hl
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld c, a
 	ld b, $00
 	ld hl, MusicalCoinLevelBGPals

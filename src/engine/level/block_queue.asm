@@ -24,7 +24,7 @@ Func_ba42:
 	ld a, c
 	ld [wBlockPtrBank], a
 	call Func_d8c
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
 	jr z, .asm_ba85
@@ -152,7 +152,7 @@ Func_bb2d:
 	ld a, c
 	ld [wBlockPtrBank], a
 	call Func_d8c
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
 	jr z, .asm_bb76
@@ -179,10 +179,10 @@ Func_bb85:
 	ret nz ; exit if DMA pending
 
 	ld b, BANK("SRAM1")
-	ld a, [wc19f]
+	ld a, [wBlockRedrawQueueReadIndex]
 	ld e, a
 	ld d, $00
-	ld hl, wc18e
+	ld hl, wBlockRedrawQueue
 	add hl, de
 	ld a, [hli]
 	and a
@@ -319,10 +319,10 @@ Func_bb85:
 	add 4
 	ld [wBGMapTileQueueSize], a
 
-	ld a, [wc19f]
+	ld a, [wBlockRedrawQueueReadIndex]
 	ld e, a
 	ld d, $00
-	ld hl, wc18e
+	ld hl, wBlockRedrawQueue
 	add hl, de
 	xor a
 	ld [hli], a
@@ -330,6 +330,6 @@ Func_bb85:
 	ld a, e
 	add 2
 	and $0f
-	ld [wc19f], a
+	ld [wBlockRedrawQueueReadIndex], a
 	pop_wram
 	ret

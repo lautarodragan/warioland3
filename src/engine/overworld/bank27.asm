@@ -1071,14 +1071,14 @@ Func_9ccf9:
 	ret
 
 AdvanceCutsceneFunc:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 WaitCutsceneFunc:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp c
 	ret c
 	jr AdvanceCutsceneFunc
@@ -1097,7 +1097,7 @@ EndCutsceneDelay_20Frames:
 	ld e, 20
 ;	fallthrough
 EndCutscene:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp e
 	ret c
 	jr Func_9cd16
@@ -1237,7 +1237,7 @@ Func_9ce1f:
 
 DoCutsceneFunc:
 	call ProcessDPadRepeat
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	inc [hl]
 	ld b, h
 	ld c, l
@@ -1357,7 +1357,7 @@ Cutscene03Func:
 	jp Func_9f0e0
 
 .PlayCutscene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9cf36
@@ -1516,7 +1516,7 @@ Cutscene06Func:
 	jp Func_9f11e
 
 .Func_9d033:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d04b
@@ -1648,7 +1648,7 @@ Cutscene0aFunc:
 	jp Func_9f146
 
 .Func_9d114:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d126
@@ -1721,7 +1721,7 @@ Cutscene07Func:
 	jp Func_9f174
 
 .Func_9d191:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d1c5
@@ -1854,7 +1854,7 @@ Cutscene19Func:
 	jp Func_9f1d8
 
 .Func_9d285:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d2a9
@@ -1961,7 +1961,7 @@ Cutscene11Func:
 	jp Func_9f1f3
 
 .Func_9d340:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d36a
@@ -1989,7 +1989,7 @@ Cutscene11Func:
 	cp EVENT_SUMMON_LIGHTNING
 	jp nz, AdvanceCutsceneFunc
 	ld a, $09
-	ld [w2d013], a
+	ld [wOWStep], a
 	jp AdvanceCutsceneFunc
 
 .Func_9d37a:
@@ -2111,7 +2111,7 @@ Cutscene1bFunc:
 	jp Func_9f244
 
 .Func_9d44a:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d46c
@@ -2221,7 +2221,7 @@ Cutscene1bFunc:
 	jr c, .asm_9d510
 	ld b, $07
 .asm_9d510
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and b
 	ret nz
 	inc [hl]
@@ -2275,7 +2275,7 @@ Cutscene1eFunc:
 	jp Func_9f2a2
 
 .Func_9d56f:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d589
@@ -2338,7 +2338,7 @@ Cutscene22Func:
 	jp Func_9f2cd
 
 .Func_9d5dd:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d5f1
@@ -2407,7 +2407,7 @@ Cutscene27Func:
 	jp Func_9f2f3
 
 .Func_9d664:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d674
@@ -2443,7 +2443,7 @@ Cutscene09Func:
 	jp Func_9fbfa
 
 .Func_9d6aa:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d6b6
@@ -2497,7 +2497,7 @@ Func_9d6f0:
 	jp Func_9fc1d
 
 .Func_9d6f6:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d70c
@@ -2587,7 +2587,7 @@ Cutscene02Func:
 	jp OWCutTree
 
 .PlayCutscene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .ShowAxe
@@ -2674,7 +2674,7 @@ Cutscene0cFunc:
 	jp Func_9f323
 
 .Func_9d834:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d840
@@ -2709,7 +2709,7 @@ Cutscene18Func:
 	jp Func_9f1f3
 
 .Func_9d86f:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d87f
@@ -2755,7 +2755,7 @@ Cutscene0dFunc:
 	jp Func_9f340
 
 .Func_9d8bb:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d8d9
@@ -2876,7 +2876,7 @@ Cutscene13Func:
 	jp Func_9f367
 
 .Func_9d98b:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9d9a1
@@ -2973,7 +2973,7 @@ Cutscene49Func:
 	jp Func_9f38d
 
 .Func_9da37:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9da4d
@@ -3089,7 +3089,7 @@ Cutscene04Func:
 	jp Func_9f3cd
 
 .Func_9db09:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9db1b
@@ -3172,7 +3172,7 @@ Cutscene24Func:
 	jp Func_9f3ee
 
 .Func_9db9e:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dbb2
@@ -3227,7 +3227,7 @@ Cutscene24Func:
 	jp WaitCutsceneFunc
 
 .Func_9dbfd:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	call .Func_9dc0e
 	ld hl, wSceneObj2YCoord
 	add [hl]
@@ -3273,7 +3273,7 @@ Cutscene1fFunc:
 	jp Func_9f423
 
 .Func_9dc83:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dc99
@@ -3352,7 +3352,7 @@ Cutscene21Func:
 	jp Func_9f49c
 
 .Func_9dd09:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dd60
@@ -3525,7 +3525,7 @@ Cutscene37Func:
 	jp Func_9f508
 
 .Func_9de0d:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9de1b
@@ -3564,7 +3564,7 @@ Cutscene38Func:
 	jp Func_9f547
 
 .Func_9de4e:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9de68
@@ -3678,7 +3678,7 @@ Cutscene30Func:
 	call .Func_9dfa6
 	call .Func_9dfae
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9df3c
@@ -3725,7 +3725,7 @@ Cutscene30Func:
 	jp WaitCutsceneFunc
 
 .Func_9df70:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $07
 	ret nz
 	ld hl, wSceneObj3YCoord
@@ -3774,7 +3774,7 @@ Cutscene30Func:
 	ld a, [de]
 	and a
 	ret z
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $01
 	ret nz
 	dec [hl]
@@ -3790,7 +3790,7 @@ Cutscene39Func:
 	jp Func_9f607
 
 .Func_9dfd3:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9dfe3
@@ -3858,7 +3858,7 @@ Cutscene3aFunc:
 
 .Func_9e04c:
 	call .Func_9e153
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e07d
@@ -4036,7 +4036,7 @@ Cutscene3cFunc:
 	jp Func_9f6a2
 
 .Func_9e177:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e18f
@@ -4147,7 +4147,7 @@ Cutscene43Func:
 	jp Func_9f6f8
 
 .Func_9e262:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e272
@@ -4210,7 +4210,7 @@ Cutscene54Func:
 	jp Func_9f73b
 
 .Func_9e2d7:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e2ed
@@ -4280,7 +4280,7 @@ Cutscene3dFunc:
 	jp Func_9f75c
 
 .Func_9e350:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e376
@@ -4425,7 +4425,7 @@ Cutscene4aFunc:
 	jp Func_9f7bb
 
 .Func_9e457:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e469
@@ -4492,7 +4492,7 @@ Cutscene4cFunc:
 	jp Func_9f821
 
 .Func_9e4d8:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e4f0
@@ -4565,7 +4565,7 @@ Cutscene4eFunc:
 	jp Func_9f857
 
 .Func_9e552:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e562
@@ -4622,7 +4622,7 @@ Cutscene4fFunc:
 	jp Func_9f86a
 
 .Func_9e5c0:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e5e2
@@ -4733,7 +4733,7 @@ Cutscene51Func:
 	jp Func_9f8da
 
 .Func_9e674:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e688
@@ -4819,7 +4819,7 @@ Cutscene56Func:
 	jp Func_9f91f
 
 .Func_9e703:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e71f
@@ -4922,7 +4922,7 @@ Cutscene57Func:
 	jp Func_9f991
 
 .Func_9e7b9:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e7d9
@@ -5032,7 +5032,7 @@ Cutscene58Func:
 	call Func_9eab4
 	pop bc
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e89c
@@ -5146,7 +5146,7 @@ Cutscene55Func:
 	call Func_9eab4
 	pop bc
 
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9e9a3
@@ -5356,7 +5356,7 @@ Cutscene44Func:
 	jp Func_9faea
 
 .Func_9ead3:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9eaf7
@@ -5533,7 +5533,7 @@ Cutscene14Func:
 	ret
 
 .Func_9ec73:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 	dw StartCutsceneDelay
 	dw .Func_9ec9b
@@ -5748,7 +5748,7 @@ Cutscene14Func:
 
 .Func_9edf9:
 	call .Func_9edce
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	ld b, $01
 	cp $08
 	jr c, .asm_9ee0b

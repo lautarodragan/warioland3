@@ -8,7 +8,7 @@ UnusedOverworldCliffsGfx: INCBIN "gfx/overworld/unused_cliffs.2bpp" ; unreferenc
 ; updates animations for clouds, sea and cliffs
 UpdateCommonOWAnimations:
 	xor a
-	ld [w2d031], a
+	ld [wOWCloudUpdateFlags], a
 
 	ld hl, w2d032
 	ld c, $00
@@ -30,7 +30,7 @@ UpdateCommonOWAnimations:
 	call .UpdateSmallClouds
 
 	xor a
-	ld [w2d044], a
+	ld [wOWCliffsGfxSrc], a
 	ld hl, w2d046
 	ld a, [hli]
 	and a
@@ -50,11 +50,11 @@ UpdateCommonOWAnimations:
 	ld [hl], a
 	ld b, a
 	add HIGH(OverworldCliffs1Gfx)
-	ld [w2d044 + 0], a
+	ld [wOWCliffsGfxSrc + 0], a
 	ld a, b
 	rrca
 	rrca
-	ld [w2d044 + 1], a
+	ld [wOWCliffsGfxSrc + 1], a
 	ret
 
 .UpdateBigClouds:
@@ -92,7 +92,7 @@ UpdateCommonOWAnimations:
 	ld b, 2 tiles
 	call CopyHLToDE
 
-	ld hl, w2d031
+	ld hl, wOWCloudUpdateFlags
 	set 0, [hl]
 	ret
 
@@ -111,7 +111,7 @@ UpdateCommonOWAnimations:
 	and %11
 	ld [hl], a ; current frame
 
-	ld hl, w2d049
+	ld hl, wOWSeaGfxVariant
 	ld d, [hl]
 	rlca
 	rlca
@@ -129,7 +129,7 @@ UpdateCommonOWAnimations:
 	ld b, 2 tiles
 	call CopyHLToDE
 
-	ld hl, w2d031
+	ld hl, wOWCloudUpdateFlags
 	set 1, [hl]
 	ret
 
@@ -163,7 +163,7 @@ UpdateCommonOWAnimations:
 ; %0000 -> %0100 -> %1000 -> %1100 -> %1000 -> %0100
 	swap a ; *$10
 	ld e, a
-	ld hl, w2d049
+	ld hl, wOWSeaGfxVariant
 	ld d, [hl]
 	ld hl, OverworldSeaGfx
 	add hl, de
@@ -176,7 +176,7 @@ UpdateCommonOWAnimations:
 	ld b, 2 tiles
 	call CopyHLToDE
 
-	ld hl, w2d031
+	ld hl, wOWCloudUpdateFlags
 	set 1, [hl]
 	ret
 
@@ -207,7 +207,7 @@ _LoadCloudAndSeaGfx:
 	ldh [rVBK], a
 	ret
 
-Func_1d8c2c:
+CopyCommonOWAnimTilesToVRAM:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld c, LOW(rVDMA_SRC_HIGH)
@@ -226,12 +226,12 @@ Func_1d8c2c:
 	inc c
 	ld [$ff00+c], a
 
-	ld a, [w2d044 + 0]
+	ld a, [wOWCliffsGfxSrc + 0]
 	and a
 	jr z, .done
 	ld c, LOW(rVDMA_SRC_HIGH)
 	ld [$ff00+c], a
-	ld a, [w2d044 + 1]
+	ld a, [wOWCliffsGfxSrc + 1]
 	inc c
 	ld [$ff00+c], a
 	ld a, $0e

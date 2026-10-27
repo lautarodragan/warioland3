@@ -63,7 +63,7 @@ LoadObjectGroupData::
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld a, [hli]
-	ldh [hffa0], a
+	ldh [hTemp], a
 
 	; enemy slot 1
 	ld a, [hli]
@@ -73,7 +73,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles0
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 1")
 	add e
 	ldh [hCallFuncBank], a
@@ -88,7 +88,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles0 tile $40
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 2")
 	add e
 	ldh [hCallFuncBank], a
@@ -103,7 +103,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles1
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 3")
 	add e
 	ldh [hCallFuncBank], a
@@ -118,7 +118,7 @@ LoadObjectGroupData::
 	ld h, a
 	ld l, c
 	ld bc, v1Tiles1 tile $40
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	ld e, BANK("Enemy Gfx 1 Slot 4")
 	add e
 	ldh [hCallFuncBank], a
@@ -129,7 +129,7 @@ LoadObjectGroupData::
 	ldh [rVBK], a
 
 	ld a, 13
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld de, wObjDataPtr01
 .loop_2
 	ld a, [hli]
@@ -144,9 +144,9 @@ LoadObjectGroupData::
 	ld a, b
 	ld [de], a
 	inc e
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	dec a
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jr nz, .loop_2
 
 .copy_pals
@@ -182,7 +182,7 @@ ENDR
 
 	ld [hl], e ; OBJ_UNK_01
 	inc l
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	dec a
 	add a ; *2
 	add a ; *4
@@ -460,7 +460,7 @@ CreateObject_GotPos:
 LoadHiddenFigureData:
 	ld hl, .pointers
 	ld a, $d
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld de, wObjDataPtr01
 .loop
 	ld a, [hli]
@@ -475,9 +475,9 @@ LoadHiddenFigureData:
 	ld a, b
 	ld [de], a
 	inc e
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	dec a
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jr nz, .loop
 	ret
 

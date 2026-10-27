@@ -94,18 +94,18 @@ _UpdateAudio::
 	ld hl, wSFXTempo
 	ld a, [hli]
 	add [hl]
-	ld [hli], a ; w3d008 += wSFXTempo
+	ld [hli], a ; wSFXTempoAccumulator += wSFXTempo
 	ld a, 0
 	adc [hl]
 	ld [hld], a
-	ld a, [hli] ; w3d008
+	ld a, [hli] ; wSFXTempoAccumulator
 	sub $4a
 	ld b, a
 	ld a, [hl]
 	sbc 0
 	jr nc, .asm_300a4
 
-	; w3d008 < $4a
+	; wSFXTempoAccumulator < $4a
 	call SetSFXChannels
 .loop_chs_1
 	call Func_30547
@@ -114,7 +114,7 @@ _UpdateAudio::
 	jr .asm_300c8
 
 .asm_300a4
-	; w3d008 -= $4a
+	; wSFXTempoAccumulator -= $4a
 	ld [hld], a
 	ld [hl], b
 
@@ -130,7 +130,7 @@ _UpdateAudio::
 	call NextChannel
 	jr nz, .loop_chs_2
 
-	ld hl, w3d008
+	ld hl, wSFXTempoAccumulator
 	ld a, [hli]
 	sub $4a
 	ld b, a
@@ -144,12 +144,12 @@ _UpdateAudio::
 
 	ld hl, wMusicTempo
 	ld a, [hli]
-	add [hl] ; w3d00d
+	add [hl] ; wMusicTempoAccumulator
 	ld [hli], a
 	ld a, 0
 	adc [hl]
 	ld [hld], a
-	ld a, [hli] ; w3d00d
+	ld a, [hli] ; wMusicTempoAccumulator
 	sub $4a
 	ld b, a
 	ld a, [hl]
@@ -179,7 +179,7 @@ _UpdateAudio::
 	call NextChannel
 	jr nz, .asm_300fd
 
-	ld hl, w3d00d
+	ld hl, wMusicTempoAccumulator
 	ld a, [hli]
 	sub $4a
 	ld b, a
@@ -450,7 +450,7 @@ PlayMusic::
 	xor a
 	ld [wMusicFadeOutPeriod], a
 	xor a
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call GetSound
 
 ; init noise channels
@@ -517,7 +517,7 @@ _PlayNewMusic_SetNoise::
 ; then set it as active
 Func_302e4::
 	xor a
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call SetMusicChannels
 .loop_chs
 	ld a, [wCurChannelPtr + 0]
@@ -753,7 +753,7 @@ DeactivateMusicChannels_FromFadeOut:
 
 DeactivateMusicChannels:
 	ld a, $ff
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call SetMusicChannels
 .loop_chs
 	ld a, [wCurChannelPtr + 0]
@@ -958,7 +958,7 @@ _SetMusicFadeOut::
 	jp ReturnFromAudioJump
 
 UpdateMusicFadeOut:
-	ld a, [w3d025]
+	ld a, [wMusicChannelsDeactivated]
 	and a
 	ret nz ; music channels are deactivated
 

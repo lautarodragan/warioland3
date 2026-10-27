@@ -1505,7 +1505,7 @@ SetState_Diving:
 	ld [wIsRolling], a
 	ld [wSwimVelIndex], a
 	ld [wIsCrouching], a
-	ld [wc0e0], a
+	ld [wUnused_c0e0], a
 
 	ld hl, WarioDefaultPal
 	call SetWarioPal
@@ -1562,7 +1562,7 @@ SetState_Submerged:
 	ld [wWarioStateCounter], a
 	ld [wWarioStateCycles], a
 	ld [wSwimVelIndex], a
-	ld [wc0e0], a
+	ld [wUnused_c0e0], a
 	ld [wSwimmingDirectionInput], a
 
 	ld a, BANK(WarioSwimGfx)
@@ -1643,7 +1643,7 @@ SetState_Submerged:
 
 UpdateState_Submerged:
 	xor a
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
@@ -1691,7 +1691,7 @@ SetState_WaterSurfaceIdling:
 	ld [wWarioStateCounter], a
 	ld [wWarioStateCycles], a
 	ld [wSwimVelIndex], a
-	ld [wc0e0], a
+	ld [wUnused_c0e0], a
 	ld [wSwimmingDirectionInput], a
 	ld a, [wWaterInteraction]
 	and a
@@ -1721,7 +1721,7 @@ SetState_WaterSurfaceIdling:
 
 UpdateState_WaterSurfaceIdling:
 	xor a
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	farcall CheckTopBlockInteraction
 	ld a, [wWarioState]
 	cp WST_WATER_SURFACE_IDLING
@@ -1794,7 +1794,7 @@ SetState_WaterSurfaceMoving:
 
 UpdateState_WaterSurfaceMoving:
 	xor a
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
@@ -2017,7 +2017,7 @@ SetState_UnderwaterThrusting:
 
 UpdateState_UnderwaterThrusting:
 	xor a
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
@@ -2061,7 +2061,7 @@ SetState_SwimKnockBack:
 	ld [wWarioStateCycles], a
 	ld [wSwimVelIndex], a
 	ld [wSwimmingDirectionInput], a
-	ld [wc0e0], a
+	ld [wUnused_c0e0], a
 	ld a, BANK(WarioSwimGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioSwimGfx)
@@ -2160,7 +2160,7 @@ UpdateState_WaterStung:
 	cp $78
 	ret c
 	ld a, PAD_UP
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 .asm_1d3f8
 	xor a
 	ld [wIsIntangible], a
@@ -3937,7 +3937,7 @@ ApplyWaterCurrentMovement:
 	ld a, [hl]
 	ld [wCurWaterCurrent], a
 	res CURRENT_RIGHT_F, [hl]
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_RIGHT, a
 	ret nz
 	farcall Func_19741
@@ -3965,7 +3965,7 @@ ApplyWaterCurrentMovement:
 	ld a, [hl]
 	ld [wCurWaterCurrent], a
 	res CURRENT_LEFT_F, [hl]
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_LEFT, a
 	ret nz
 	farcall Func_197b1
@@ -3993,7 +3993,7 @@ ApplyWaterCurrentMovement:
 	ld a, [hl]
 	ld [wCurWaterCurrent], a
 	res CURRENT_UP_F, [hl]
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_UP, a
 	ret nz
 	farcall CheckUpCollision
@@ -4021,7 +4021,7 @@ ApplyWaterCurrentMovement:
 	ld a, [hl]
 	ld [wCurWaterCurrent], a
 	res CURRENT_DOWN_F, [hl]
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_DOWN, a
 	ret nz
 	farcall CheckCentreCollision
@@ -4068,7 +4068,7 @@ ApplyLastWaterCurrentMovement:
 	ret
 
 .right_current
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_RIGHT, a
 	jr nz, .reset_last_water_current
 	farcall Func_19741
@@ -4089,7 +4089,7 @@ ApplyLastWaterCurrentMovement:
 	jr .decr_counter
 
 .left_current
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_LEFT, a
 	jr nz, .reset_last_water_current
 	farcall Func_197b1
@@ -4120,7 +4120,7 @@ ApplyLastWaterCurrentMovement:
 	ret
 
 .up_current
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_UP, a
 	jr nz, .reset_last_water_current
 	farcall CheckUpCollision
@@ -4141,7 +4141,7 @@ ApplyLastWaterCurrentMovement:
 	jr .decr_counter
 
 .down_current
-	ld a, [wc0e1]
+	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_DOWN, a
 	jr nz, .reset_last_water_current
 	farcall CheckCentreCollision
@@ -5523,7 +5523,7 @@ Func_1f1a9:
 
 .asm_1f246
 	ld a, PAD_UP
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	ret
 
 Func_1f24c:
@@ -5638,12 +5638,12 @@ Func_1f310:
 	and a
 	jr z, .asm_1f351
 	ld a, PAD_RIGHT
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	ret
 
 .asm_1f351
 	ld a, PAD_LEFT
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	ret
 
 Func_1f357:
@@ -5680,7 +5680,7 @@ Func_1f3a7:
 	jr z, .asm_1f3cb
 	update_pos_y
 	ld a, PAD_DOWN
-	ld [wc0e1], a
+	ld [wWaterCurrentBlockedDir], a
 	ret
 
 .asm_1f3cb
@@ -5863,7 +5863,7 @@ HandleUnderwaterThrustingInput:
 	ret
 
 .asm_1f593
-	ld hl, wc0e1
+	ld hl, wWaterCurrentBlockedDir
 	set B_PAD_UP, [hl]
 	ret
 
@@ -5878,7 +5878,7 @@ HandleUnderwaterThrustingInput:
 
 .asm_1f5b2
 	update_pos_y
-	ld hl, wc0e1
+	ld hl, wWaterCurrentBlockedDir
 	set B_PAD_DOWN, [hl]
 	ret
 
@@ -5903,7 +5903,7 @@ HandleUnderwaterThrustingInput:
 
 .asm_1f5ef
 	update_pos_y
-	ld hl, wc0e1
+	ld hl, wWaterCurrentBlockedDir
 	set B_PAD_DOWN, [hl]
 	ret
 
@@ -5931,7 +5931,7 @@ HandleUnderwaterThrustingInput:
 	ret
 
 .asm_1f642
-	ld hl, wc0e1
+	ld hl, wWaterCurrentBlockedDir
 	set B_PAD_UP, [hl]
 	jp StartDive
 

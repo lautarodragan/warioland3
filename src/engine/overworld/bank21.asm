@@ -1,7 +1,7 @@
 DayNightTransition:
 	ld hl, wOWPalTransitionCounter
 	inc [hl]
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jp nz, .NightToDayTable
 
@@ -24,7 +24,7 @@ DayNightTransition:
 	xor a
 	ld [w2d07d], a
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .LoadBaseAndTargetPals:
@@ -75,7 +75,7 @@ DayNightTransition:
 	jp nz, SkipDayNightTransition
 
 .no_skip
-	ld hl, w2d809
+	ld hl, wOWPalTransitionDelay
 	ld a, [wOWPalTransitionCounter]
 	cp [hl]
 	ret c
@@ -83,7 +83,7 @@ DayNightTransition:
 	xor a
 	ld [wOWPalTransitionCounter], a
 	ld a, 8 * PAL_COLORS * 3
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 
 	ld hl, wFadePals + COLOURFADESTRUCT_SIGN
 .loop
@@ -133,9 +133,9 @@ DayNightTransition:
 	ld bc, (COLOURFADESTRUCT_LENGTH + COLOURFADESTRUCT_SIGN) - COLOURFADESTRUCT_DIFF
 	add hl, bc
 .next
-	ld a, [w2d807]
+	ld a, [wColourFadeLoopCounter]
 	dec a
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 	and a
 	jr nz, .loop
 
@@ -163,7 +163,7 @@ DayNightTransition:
 	cp 12
 	ret nz
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .LoadPal2:
@@ -172,9 +172,9 @@ DayNightTransition:
 	jp .AdvanceTable
 
 .SwitchDayNight:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	xor $1
-	ld [w2d011], a
+	ld [wOWIsNight], a
 	ld hl, wDayNight
 	srl [hl]
 	rra
@@ -182,7 +182,7 @@ DayNightTransition:
 	res 7, [hl]
 	call PlayOverworldMusic
 	xor a
-	ld [w2d0e3], a
+	ld [wPathPreviewState], a
 	ld [wOWPalTransitionState], a
 	ld [wOWPalTransitionCounter], a
 	ret
@@ -203,7 +203,7 @@ DayNightTransition:
 	ld [w2d07c], a
 	ld [w2d07d], a
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .FadeDayToPal1:
@@ -212,7 +212,7 @@ DayNightTransition:
 	cp 10
 	ret nz
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .LoadPal1_Night:
@@ -225,7 +225,7 @@ DayNightTransition:
 	cp $16
 	ret nz
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 Func_84b97:
@@ -244,7 +244,7 @@ Func_84b97:
 .Func_84bad:
 	call DayNightTransition.LoadBaseAndTargetPals
 	ld a, $03
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .Func_84bb6:
@@ -259,7 +259,7 @@ Func_84b97:
 	cp $0a
 	ret nz
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .Func_84bcd:
@@ -271,7 +271,7 @@ Func_84b97:
 .Func_84bd6:
 	call DayNightTransition.LoadPal1
 	ld a, $02
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ld a, $13
 	ld hl, wSceneObj7State
 	call SetSceneObjState
@@ -283,7 +283,7 @@ Func_84b97:
 	cp $16
 	ret nz
 	ld a, $03
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 .Func_84bf6:
@@ -293,8 +293,8 @@ Func_84b97:
 	ld [wDayNight], a ; $0
 .asm_84bff
 	xor a
-	ld [w2d011], a
-	ld [w2d0e3], a
+	ld [wOWIsNight], a
+	ld [wPathPreviewState], a
 	ld [wOWPalTransitionState], a
 	ld [wOWPalTransitionCounter], a
 	ret
@@ -330,11 +330,11 @@ Func_84c0d:
 	jp DayNightTransition.LoadPal2
 
 .SwitchDayNight:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	xor $01
-	ld [w2d011], a
+	ld [wOWIsNight], a
 	xor a
-	ld [w2d0e3], a
+	ld [wPathPreviewState], a
 	ld [wOWPalTransitionState], a
 	ld [wOWPalTransitionCounter], a
 	ret
@@ -369,7 +369,7 @@ LoadBaseAndTargetOWPals:
 	ld a, DAYNIGHT_TRANSITION_STEPS
 	ld [wDayNightTransistionSteps], a
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	ret
 
 GetOWPals:
@@ -379,7 +379,7 @@ GetOWPals:
 	swap a ; *$10
 	ld e, a
 	ld d, $00
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	swap a
 	rrca ; day/night shift
 	or e ; crayon shift
@@ -409,7 +409,7 @@ GetOWPals:
 
 InitColourFadeStructs:
 	ld a, 8 * PAL_COLORS * 3
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 	ld hl, wFadePals
 .loop
 	ld a, [hli] ; COLOURFADESTRUCT_BASE
@@ -447,9 +447,9 @@ InitColourFadeStructs:
 .next
 	ld bc, (COLOURFADESTRUCT_LENGTH + COLOURFADESTRUCT_BASE) - COLOURFADESTRUCT_CURRENT
 	add hl, bc
-	ld a, [w2d807]
+	ld a, [wColourFadeLoopCounter]
 	dec a
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 	ret z
 	jr .loop
 
@@ -458,7 +458,7 @@ InitColourFadeStructs:
 ; in intervals of 8 bytes between them
 CopyPalToColourFadeStructs:
 	ld a, 8 * PAL_COLORS
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 .loop
 	ld a, [de]
 	and %11111
@@ -489,9 +489,9 @@ CopyPalToColourFadeStructs:
 	ld bc, COLOURFADESTRUCT_LENGTH
 	add hl, bc
 
-	ld a, [w2d807]
+	ld a, [wColourFadeLoopCounter]
 	dec a
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 	and a
 	jr nz, .loop
 	ret
@@ -500,7 +500,7 @@ ApplyPalFadeColours:
 	ld hl, wFadePals + COLOURFADESTRUCT_CURRENT
 	ld de, wTempBGPals
 	ld a, 8 * PAL_COLORS
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 .loop
 	ld a, [hl] ; red
 	ld bc, COLOURFADESTRUCT_LENGTH
@@ -530,9 +530,9 @@ ApplyPalFadeColours:
 	and %1111111
 	ld [de], a
 
-	ld a, [w2d807]
+	ld a, [wColourFadeLoopCounter]
 	dec a
-	ld [w2d807], a
+	ld [wColourFadeLoopCounter], a
 	and a
 	ret z
 	inc de
@@ -551,7 +551,7 @@ SkipDayNightTransition:
 	ld [wDayNightTransistionSteps], a
 	ld [wOWPalTransitionCounter], a
 	ld b, $06
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .day
 	ld b, $04
@@ -582,12 +582,12 @@ VBlank_OWPalTransition:
 	add WX_OFS
 	ldh [rWX], a
 
-	ld b, BANK(Func_1d8c2c)
+	ld b, BANK(CopyCommonOWAnimTilesToVRAM)
 	ld a, [wROMBank]
 	push af
 	ld a, b
 	bankswitch
-	call Func_1d8c2c
+	call CopyCommonOWAnimTilesToVRAM
 	pop af
 	bankswitch
 
@@ -747,7 +747,7 @@ _PrologueFade:
 	cp 1
 	jp nc, .do_fade ; >= 1
 ; init fade
-	ld a, [w2d880]
+	ld a, [wCurOWPathTracer]
 	and a
 	jr z, .zero
 	dec a
@@ -793,7 +793,7 @@ _PrologueFade:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -954,8 +954,8 @@ Func_84fff:
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	ld [w2d014], a
-	ld hl, w2d013
+	ld [wOWStepCounter], a
+	ld hl, wOWStep
 	inc [hl]
 	ret
 
@@ -1007,8 +1007,8 @@ Func_85046:
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	ld [w2d014], a
-	ld hl, w2d013
+	ld [wOWStepCounter], a
+	ld hl, wOWStep
 	inc [hl]
 	ret
 
@@ -1041,8 +1041,8 @@ Func_850b9:
 	ret c
 	xor a
 	ld [wPalConfig2TotalSteps], a
-	ld [w2d014], a
-	ld hl, w2d013
+	ld [wOWStepCounter], a
+	ld hl, wOWStep
 	inc [hl]
 	ret
 
@@ -1075,8 +1075,8 @@ Func_850ff:
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	ld [w2d014], a
-	ld hl, w2d013
+	ld [wOWStepCounter], a
+	ld hl, wOWStep
 	inc [hl]
 	ret
 
@@ -1111,7 +1111,7 @@ Func_85145:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wOWFuncCounter], a
-	ld hl, w2d062
+	ld hl, wOWFuncStep
 	inc [hl]
 	ret
 
@@ -1137,7 +1137,7 @@ Func_8518c:
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wOWFuncCounter], a
-	ld hl, w2d062
+	ld hl, wOWFuncStep
 	inc [hl]
 	ret
 
@@ -1190,7 +1190,7 @@ OWGreyTransition:
 	ld a, DAYNIGHT_TRANSITION_STEPS
 	ld [wDayNightTransistionSteps], a
 	xor a
-	ld [w2d809], a
+	ld [wOWPalTransitionDelay], a
 	di
 	call VBlank_OWPalTransition
 	ei
@@ -1198,7 +1198,7 @@ OWGreyTransition:
 
 .Finish:
 	xor a
-	ld [w2d0e3], a
+	ld [wPathPreviewState], a
 	ld [wOWPalTransitionState], a
 	ld [wOWPalTransitionCounter], a
 	ret
@@ -1250,14 +1250,14 @@ FadeInLevelName:
 	jr nc, .do_fade
 ; init fade
 	ld a, $02
-	ld [w2d0e0], a
+	ld [wLevelNameFadeState], a
 
 	ld hl, wTempPals1 palette 7
 	ld de, wTempBGPals palette 7
 	ld b, 1 palettes
 	call CopyHLToDE
 
-	ld a, [w2d0e4]
+	ld a, [wTempleHintState]
 	and a
 	jr z, .load_day_night_pal
 
@@ -1272,7 +1272,7 @@ FadeInLevelName:
 ; level name pal during the day is white
 ; and during the night is yellow
 	ld hl, Pals_84000 palette 7 ; day
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .got_pal
 	ld hl, Pals_840c0 palette 7 ; night
@@ -1302,7 +1302,7 @@ FadeInLevelName:
 	ld a, 0
 	ld [wPalConfig1TotalSteps], a
 	inc a ; $1
-	ld [w2d0e0], a
+	ld [wLevelNameFadeState], a
 .return
 	; shift carry flag to c
 	ld c, $00
@@ -1315,8 +1315,8 @@ Pals_852dd:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Func_852e5:
-	ld a, [w2d0e0]
+FadeOutLevelName:
+	ld a, [wLevelNameFadeState]
 	xor $03
 	ret nz
 	ld a, [wBottomBarAction]
@@ -1353,7 +1353,7 @@ Func_852e5:
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	ld [w2d0e0], a
+	ld [wLevelNameFadeState], a
 	ret
 
 FadeBGPalConfig:
@@ -1531,7 +1531,7 @@ FadePalConfig:
 _LoadPalsForOWScene:
 	call GetMapSidePalGroup1
 	call .GetCrayonPal
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .day
 	ld de, 24 palettes
@@ -1598,7 +1598,7 @@ LoadOWStarIndicatorPals:
 _LoadMapSidePals:
 	call GetMapSidePalGroup1
 	call .UpdatePalsIfGotAllCrayons
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .load_pals
 	ld de, 24 palettes

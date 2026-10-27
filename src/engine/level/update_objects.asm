@@ -43,7 +43,7 @@ ENDR
 	ld a, [wHiddenFigureSCYShake]
 	add [hl]
 	ld [wSCY], a
-	ld a, [wc08b]
+	ld a, [wHiddenFigureSCX]
 	ld [wSCX], a
 	pop hl
 
@@ -1102,11 +1102,11 @@ Func_61f54::
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr z, .asm_61fd9
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr nz, .asm_61fd9
 	ld hl, wCurObjYPos
@@ -1309,11 +1309,11 @@ Func_620a6::
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr z, .asm_6212b
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr nz, .asm_6212b
 	ld hl, wCurObjYPos
@@ -1999,13 +1999,13 @@ Func_62574::
 	ld a, [hl]
 	ldh [hYPosLo], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	inc a
 	ld [wBlockFuncSpecialCollision], a ; COLLISION_THROWN_OBJ
 	call Func_352b
 	and a
 	ld a, $03
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jp nz, Func_62d34
 	ld a, [wIsInWaterOrSand]
 	and a
@@ -2081,13 +2081,13 @@ Func_62605::
 	ld a, [hl]
 	ldh [hYPosLo], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	inc a
 	ld [wBlockFuncSpecialCollision], a ; COLLISION_THROWN_OBJ
 	call Func_352b
 	and a
 	ld a, $03
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jp nz, Func_62e0f
 	ld a, [wIsInWaterOrSand]
 	and a
@@ -2171,7 +2171,7 @@ Func_62690:
 .asm_626ae
 	inc [hl]
 .asm_626af
-	ldh [hffa0], a
+	ldh [hTemp], a
 	and a
 	jr z, .asm_626d1
 	ld l, OBJ_Y_POS
@@ -2215,13 +2215,13 @@ Func_626da::
 	ld a, [hl]
 	ldh [hYPosLo], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	inc a
 	ld [wBlockFuncSpecialCollision], a ; COLLISION_THROWN_OBJ
 	call Func_352b
 	and a
 	ld a, $03
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jp nz, Func_62d34
 	ld a, [wIsInWaterOrSand]
 	and a
@@ -2295,13 +2295,13 @@ Func_62768::
 	ld a, [hl]
 	ldh [hYPosLo], a
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	inc a
 	ld [wBlockFuncSpecialCollision], a ; COLLISION_THROWN_OBJ
 	call Func_352b
 	and a
 	ld a, $03
-	ldh [hffa0], a
+	ldh [hTemp], a
 	jp nz, Func_62e0f
 	ld a, [wIsInWaterOrSand]
 	and a
@@ -2382,7 +2382,7 @@ Func_627f0:
 .asm_6280e
 	inc [hl]
 .asm_6280f
-	ldh [hffa0], a
+	ldh [hTemp], a
 	and a
 	jr z, .asm_62831
 	ld l, OBJ_Y_POS
@@ -2455,7 +2455,7 @@ Func_6284f:
 .asm_62874
 	inc [hl]
 .asm_62875
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -2519,7 +2519,7 @@ Func_628a7:
 .asm_628cc
 	inc [hl]
 .asm_628cd
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -2595,7 +2595,7 @@ Func_62926::
 .asm_62942
 	inc [hl]
 .asm_62943
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -2677,7 +2677,7 @@ Func_629a6::
 .asm_629c2
 	inc [hl] ; OBJ_VAR_3
 .asm_629c3
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	ld c, [hl]
 	add c
@@ -2718,7 +2718,7 @@ _ObjState_StandingFall::
 .not_last
 	inc [hl] ; OBJ_VAR_3
 .got_y_vel
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -2803,7 +2803,7 @@ _ObjState_Fall::
 .incr_index
 	inc [hl]
 .got_y_vel
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	ld c, [hl]
 	add c
@@ -3154,7 +3154,7 @@ Func_62ca8::
 .not_last
 	inc [hl]
 .got_y_vel
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	ld c, [hl]
 	add c
@@ -3173,7 +3173,7 @@ Func_62ca8::
 	ldh [hXPosHi], a
 	xor a
 	ld [wObjSlopeInteraction], a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr nz, Func_62d34
@@ -3237,7 +3237,7 @@ Func_62d34:
 
 ; hl = OBJ_STATE
 Func_62d57:
-	ldh a, [hffa0] ; y vel
+	ldh a, [hTemp] ; y vel
 	cp 2
 	jr c, .asm_62d6b
 	cp 3
@@ -3299,7 +3299,7 @@ Func_62d86::
 .not_last
 	inc [hl]
 .got_y_vel
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	ld c, [hl]
 	add c
@@ -3318,7 +3318,7 @@ Func_62d86::
 	ldh [hXPosHi], a
 	xor a
 	ld [wObjSlopeInteraction], a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr nz, Func_62e0f
@@ -3378,7 +3378,7 @@ Func_62e0f:
 
 ; hl = OBJ_STATE
 Func_62e31:
-	ldh a, [hffa0] ; y vel
+	ldh a, [hTemp] ; y vel
 	cp 2
 	jr c, .asm_62e45
 	cp 3

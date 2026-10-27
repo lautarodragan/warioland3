@@ -31,7 +31,7 @@ ScowlerFunc:
 	ld [hli], a
 	ld [hli], a
 	ld [wDollBoyActiveBarrels], a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ret
 
 .Func_54520:
@@ -160,7 +160,7 @@ ScowlerFunc:
 	ld de, Frameset_69a68
 	jp SetObjectFramesetPtr
 .asm_54615
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	and a
 	jr nz, .asm_54646
 	ld l, OBJ_VAR_3
@@ -628,7 +628,7 @@ ScowlerFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [wIsBossBattle], a
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	ld a, [hl]
 	and a
 	jr z, .asm_54978
@@ -1021,7 +1021,7 @@ InkFunc:
 	jp MoveObjectUp
 .asm_54be1
 	ld a, $01
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 .asm_54be6
 	ld de, Frameset_69af5
 	call SetObjectFramesetPtr
@@ -1045,7 +1045,7 @@ InkFunc:
 	ret
 
 Func_54c07:
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	ld a, [hl]
 	and a
 	ret z

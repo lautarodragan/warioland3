@@ -315,10 +315,10 @@ ENDR
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
+	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockXPos + 1]
 	and $08
 	jp nz, .asm_9438
@@ -335,12 +335,12 @@ REPT 12
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli] ; bottom-left tile
 	ld [de], a
 	inc e
@@ -360,9 +360,9 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hl] ; bottom-left tile
 	ld [de], a
@@ -382,12 +382,12 @@ ENDR
 	inc l
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl] ; bottom-right tile
 	ld [de], a
 	pop hl
@@ -404,12 +404,12 @@ REPT 11
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli] ; bottom-left tile
 	ld [de], a
 	inc e
@@ -429,9 +429,9 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hli] ; bottom-left tile
 	ld [de], a
@@ -445,10 +445,10 @@ ENDR
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockXPos + 1]
 	and $08
 	jp nz, .asm_97f3
@@ -466,12 +466,12 @@ REPT 12
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -491,9 +491,9 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -515,12 +515,12 @@ ENDR
 	inc l
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -537,12 +537,12 @@ REPT 11
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -562,9 +562,9 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld [de], a
@@ -579,10 +579,10 @@ ENDR
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
+	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockXPos + 1]
 	and $08
 	jp nz, .asm_9b94
@@ -597,12 +597,12 @@ REPT 12
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli] ; top-left
 	ld [de], a
 	inc e
@@ -620,9 +620,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hl] ; top-left
 	ld [de], a
@@ -640,12 +640,12 @@ ENDR
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl] ; top-right
 	ld [de], a
 	pop hl
@@ -660,12 +660,12 @@ REPT 12
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli] ; top-left
 	ld [de], a
 	inc e
@@ -680,10 +680,10 @@ ENDR
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockXPos + 1]
 	and $08
 	jp nz, .asm_9f20
@@ -699,12 +699,12 @@ REPT 12
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -721,9 +721,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -743,12 +743,12 @@ ENDR
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -763,12 +763,12 @@ REPT 12
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -840,10 +840,10 @@ Func_a2aa:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
+	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_a52f
@@ -859,12 +859,12 @@ REPT 11
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -893,9 +893,9 @@ ENDR
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -915,12 +915,12 @@ ENDR
 	inc l
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -945,12 +945,12 @@ REPT 10
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -979,9 +979,9 @@ ENDR
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld [de], a
@@ -996,10 +996,10 @@ Func_a79e:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_aa2d
@@ -1016,12 +1016,12 @@ REPT 11
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1050,9 +1050,9 @@ ENDR
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -1074,12 +1074,12 @@ ENDR
 	inc l
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -1104,12 +1104,12 @@ ENDR
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1138,9 +1138,9 @@ ENDR
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld [de], a
@@ -1156,10 +1156,10 @@ Func_aca6:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
+	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_af1f
@@ -1174,12 +1174,12 @@ REPT 11
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1207,9 +1207,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -1228,12 +1228,12 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -1257,12 +1257,12 @@ REPT 10
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1290,9 +1290,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld [de], a
@@ -1307,10 +1307,10 @@ Func_b182:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_b405
@@ -1326,12 +1326,12 @@ REPT 11
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1359,9 +1359,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -1382,12 +1382,12 @@ ENDR
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -1411,12 +1411,12 @@ REPT 10
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -1444,9 +1444,9 @@ ENDR
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld [de], a

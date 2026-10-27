@@ -28,7 +28,7 @@ MACRO move_coin
 .continue_movement_{u:x}
 	inc [hl]
 .got_y_vel_{u:x}
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -282,7 +282,7 @@ CoinFunc:
 .asm_6362a
 	inc [hl]
 .asm_6362b
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -346,7 +346,7 @@ CoinFunc:
 	jr z, .asm_63690
 	dec [hl]
 .asm_63690
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	cp 2
 	jr c, .asm_636a4
 	cp 3
@@ -392,7 +392,7 @@ CoinFunc:
 .asm_636d3
 	inc [hl]
 .asm_636d4
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
@@ -456,7 +456,7 @@ CoinFunc:
 	jr z, .asm_63739
 	dec [hl]
 .asm_63739
-	ldh a, [hffa0]
+	ldh a, [hTemp]
 	cp 2
 	jr c, .asm_6374d
 	cp 3
@@ -729,7 +729,7 @@ CoinFunc:
 .asm_638f5
 	inc [hl]
 .asm_638f6
-	ldh [hffa0], a
+	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]

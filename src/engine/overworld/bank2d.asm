@@ -5,7 +5,7 @@ Func_b4001:
 	debug_nop
 
 _InitOWObjects:
-	ld a, [w2d065]
+	ld a, [wEventUnlockState]
 	ld c, a
 	ld a, [wOWSceneMapSide]
 	jumptable
@@ -65,7 +65,7 @@ Func_b403e:
 	ld de, .data_2
 	call InitSceneObjParams
 
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $18
@@ -420,7 +420,7 @@ Func_b435f:
 	ld hl, wSceneObj8
 	ld de, .data_1
 	call InitSceneObjParams
-	ld a, [w2d065]
+	ld a, [wEventUnlockState]
 	add a
 	ret z
 	ld a, [wCurEvent]
@@ -429,7 +429,7 @@ Func_b435f:
 	ld hl, wSceneObj7
 	ld de, .data_2
 	call InitSceneObjParams
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ld a, $06
 	jr z, .asm_b4385
@@ -576,7 +576,7 @@ Func_b4474:
 	ld hl, wSceneObj6
 	ld de, .data
 	call InitSceneObjParams
-	ld a, [w2d065]
+	ld a, [wEventUnlockState]
 	add a
 	jr z, .asm_b448f
 	ld hl, Data_8556e
@@ -659,7 +659,7 @@ Func_b4509:
 	ld hl, wSceneObj6
 	ld de, .data
 	call InitSceneObjParams
-	ld a, [w2d065]
+	ld a, [wEventUnlockState]
 	dec a
 	ret nz
 	ld hl, wSceneObj6State
@@ -741,7 +741,7 @@ Func_b4567:
 	ld hl, wSceneObj15
 	ld de, .data_3
 	call InitSceneObjParams
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $1e
@@ -854,7 +854,7 @@ Func_b4665:
 	ld a, $80
 	cp c
 	ret z
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $80
@@ -988,7 +988,7 @@ Func_b4712:
 	ld hl, wSceneObj7
 	ld de, .data_2
 	call InitSceneObjParams
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret nz
 	ld a, $13
@@ -1957,7 +1957,7 @@ Func_b4e8b:
 	ld de, Frameset_a8e29
 	call UpdateCurOWObjAnimation
 	pop hl
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ld b, $00
 	jr z, .asm_b4e9d
@@ -2443,7 +2443,7 @@ NorthOWFunctions:
 	dw NOWFunc_Prologue      ; NOWFUNC_PROLOGUE
 
 NOWFunc_CutTree:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 
 	dw AdvanceOWFunc
@@ -2481,7 +2481,7 @@ NOWFunc_CutTree:
 	jp WaitOWObjDisappear
 
 NOWFunc_OpenGate:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 
 	dw AdvanceOWFunc
@@ -2514,7 +2514,7 @@ NOWFunc_Garlic:
 	jp EndOWFunc
 
 NOWFunc_MagicSeed:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -2574,7 +2574,7 @@ NOWFunc_MagicSeed:
 
 NOWFunc_SummonSnake:
 	call .MoveNotes
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -2640,7 +2640,7 @@ NOWFunc_FallLeaves:
 	call .HandleLeaf2Movement
 	call .HandleLeaf4Movement
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -2991,7 +2991,7 @@ Func_b542e:
 	ret
 
 NOWFunc_PlayMusicBox:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3018,7 +3018,7 @@ NOWFunc_PlayMusicBox:
 	jp WaitOWFunc
 
 NOWFunc_Crayon:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3103,7 +3103,7 @@ NOWFunc_Crayon:
 	cp ALL_CRAYONS
 	jp z, AdvanceOWFunc
 	ld a, $0c
-	ld [w2d062], a
+	ld [wOWFuncStep], a
 	xor a
 	ld [wOWFuncCounter], a
 	ret
@@ -3130,7 +3130,7 @@ NOWFunc_Crayon:
 	ret
 
 NOWFunc_BottomBar:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3233,7 +3233,7 @@ NOWFunc_BottomBar:
 	jp AdvanceOWFunc
 
 NOWFunc_DayNightSpell:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3382,15 +3382,15 @@ NOWFunc_DayNightSpell:
 	ld [wHDMAMode], a
 
 	ld a, HIGH(wAttrmap + 0 + 19 * TILEMAP_WIDTH)
-	ld [w2d0b5SourceHi], a
+	ld [wHDMAVRAM1SourceHi], a
 	ld a, LOW(wAttrmap + 0 + 19 * TILEMAP_WIDTH)
-	ld [w2d0b5SourceLo], a
+	ld [wHDMAVRAM1SourceLo], a
 	ld a, HIGH(v0BGMap0 + 0 + 30 * TILEMAP_WIDTH) - $80
-	ld [w2d0b5DestHi], a
+	ld [wHDMAVRAM1DestHi], a
 	ld a, LOW(v0BGMap0 + 0 + 30 * TILEMAP_WIDTH)
-	ld [w2d0b5DestLo], a
+	ld [wHDMAVRAM1DestLo], a
 	ld a, 2 dma_rows
-	ld [w2d0b5Mode], a
+	ld [wHDMAVRAM1Mode], a
 	ret
 
 .Func_b5827:
@@ -3453,7 +3453,7 @@ EndOWFunc:
 	ld [wOWSceneActionParam], a
 	ld hl, wOWFuncCounter
 	ld [hli], a
-	ld [hl], a ; w2d062
+	ld [hl], a ; wOWFuncStep
 	ret
 
 Func_b5868:
@@ -3503,7 +3503,7 @@ NOWFunc_Prologue:
 	call Func_b71fc
 	farcall Func_15868e
 	call .Func_b59e5
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b5949
@@ -3528,7 +3528,7 @@ NOWFunc_Prologue:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $01
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld a, $03
 	ld hl, w2d03e
 	ld [hli], a
@@ -3565,7 +3565,7 @@ NOWFunc_Prologue:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
 .Func_b59a0:
@@ -3651,7 +3651,7 @@ WOWFunc_Rain:
 	call .UpdatePals
 	call .PlayThunderSFX
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .InitPalConfig
@@ -3793,7 +3793,7 @@ WOWFunc_Rain:
 	ret
 
 WOWFunc_ClearTornado:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .ShowTornado
@@ -3848,7 +3848,7 @@ UpdateOWTornado:
 	ret
 
 WOWFunc_ElevatorWorking:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3871,7 +3871,7 @@ WOWFunc_ElevatorWorking:
 	jp WaitOWFunc
 
 WOWFunc_MagicSeed:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3931,7 +3931,7 @@ WOWFunc_MagicSeed:
 
 WOWFunc_SummonSnake:
 	call .MoveNotes
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -3988,7 +3988,7 @@ WOWFunc_Earthquake:
 	call Func_b71fc
 	call .Func_b5d0a
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -4023,7 +4023,7 @@ WOWFunc_Earthquake:
 	ld hl, wSceneObj10State
 	call SetSceneObjState
 	ld a, $01
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld a, $03
 	ld hl, w2d03e
 	ld [hli], a
@@ -4053,7 +4053,7 @@ WOWFunc_Earthquake:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
 .WaitPostShake:
@@ -4137,7 +4137,7 @@ WOWFunc_VulcanoEruption:
 	call .Func_b601a
 	call Func_b6055
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -4180,7 +4180,7 @@ WOWFunc_VulcanoEruption:
 	ld hl, wSceneObj10State
 	call SetSceneObjState
 	ld a, $01
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld a, $03
 	ld hl, w2d03e
 	ld [hli], a
@@ -4238,7 +4238,7 @@ WOWFunc_VulcanoEruption:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 
 	ld hl, wTempBGPals palette 0
 	ld b, 3 palettes
@@ -4390,7 +4390,7 @@ WOWFunc_VulcanoEruption:
 	ld hl, wSceneObj10State
 	call SetSceneObjState
 	ld a, $01
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld a, $03
 	ld hl, w2d03e
 	ld [hli], a
@@ -4412,7 +4412,7 @@ WOWFunc_VulcanoEruption:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
 .Func_b5f50:
@@ -4632,7 +4632,7 @@ Func_b6055:
 
 WOWFunc_RedMusicBox:
 	call .Func_b608a
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -5356,7 +5356,7 @@ SouthOWFunctions:
 	dw SOWFunc_FullMoon       ; SOWFUNC_FULL_MOON
 
 SOWFunc_SendSeeds:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -5497,7 +5497,7 @@ SOWFunc_SendSeeds:
 	db 4, 6, 8, 8, 8, 8, 8, 8
 
 SOWFunc_MagicSeed:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -5556,7 +5556,7 @@ SOWFunc_MagicSeed:
 	jp WaitOWObjState
 
 SOWFunc_YellowMusicBox:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -5597,7 +5597,7 @@ SOWFunc_YellowMusicBox:
 
 SOWFunc_CanyonThunder:
 	call .Func_b68cd
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b67c7
@@ -5747,7 +5747,7 @@ SOWFunc_CanyonThunder:
 .asm_b6892
 	xor a
 	ld [hl], a
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	cp $07
 	jr z, .flash1_pal
 	ld hl, Pals_84280
@@ -5926,7 +5926,7 @@ Func_b69a6:
 	ret
 
 SOWFunc_RaiseTower:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -6038,7 +6038,7 @@ SOWFunc_RaiseTower:
 SOWFunc_Fan:
 	call .Func_b6af2
 	call .Func_b6b48
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b6a86
@@ -6263,7 +6263,7 @@ SOWFunc_Fan:
 
 SOWFunc_SummonSnake:
 	call .MoveNotes
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -6319,7 +6319,7 @@ SOWFunc_SummonSnake:
 SOWFunc_Earthquake:
 	call Func_b71fc
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b6c53
@@ -6347,7 +6347,7 @@ SOWFunc_Earthquake:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $01
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	ld a, $03
 	ld hl, w2d03e
 	ld [hli], a
@@ -6393,11 +6393,11 @@ SOWFunc_Earthquake:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld [w2d049], a
+	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
 SOWFunc_GreenMusicBox:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -6439,7 +6439,7 @@ SOWFunc_GreenMusicBox:
 
 SOWFunc_Explosives:
 EOWFunc_Explosives:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b6d3d
@@ -6489,7 +6489,7 @@ EOWFunc_Explosives:
 	cp SOUTH
 	jp z, AdvanceOWFunc
 	ld a, $0e
-	ld [w2d062], a
+	ld [wOWFuncStep], a
 	ret
 
 .Func_b6d5a:
@@ -6564,15 +6564,15 @@ EOWFunc_Explosives:
 
 .Func_b6dcd:
 	ld a, $03
-	ld [w2d0e0], a
-	farcall Func_852e5
-	ld a, [w2d0e0]
+	ld [wLevelNameFadeState], a
+	farcall FadeOutLevelName
+	ld a, [wLevelNameFadeState]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
 SOWFunc_FullMoon:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Wait1
@@ -6732,7 +6732,7 @@ EOWFunc_FreezeSea:
 	call .Func_b7056
 	call .Func_b6ffe
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b6ee5
@@ -7028,7 +7028,7 @@ EOWFunc_FreezeSea:
 EOWFunc_Earthquake:
 	call Func_b71fc
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b7138
@@ -7443,7 +7443,7 @@ Func_b71fc:
 EOWFunc_FormCastle:
 	call .Func_b74cb
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b73c4
@@ -7744,7 +7744,7 @@ EOWFunc_VulcanoEruption:
 	call .Func_b7719
 	call Func_b6055
 
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b75b6
@@ -8092,7 +8092,7 @@ EOWFunc_VulcanoEruption:
 
 EOWFunc_BurnVines:
 	call .Func_b77ce
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b7803
@@ -8193,7 +8193,7 @@ EOWFunc_BurnVines:
 	jp WaitOWObjDisappear
 
 EOWFunc_ShowWarpedVoid:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b786d
@@ -8223,7 +8223,7 @@ EOWFunc_ShowWarpedVoid:
 	jp WaitOWObjState
 
 EOWFunc_RaisePipe:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b78aa
@@ -8265,7 +8265,7 @@ EOWFunc_RaisePipe:
 	jp WaitOWObjState
 
 EOWFunc_Daytime:
-	ld a, [w2d062]
+	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
 	dw .Func_b78eb
@@ -8404,7 +8404,7 @@ Func_b7984:
 	ret
 
 .Func_b79fa:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret nz
 	ld a, $17
@@ -8413,7 +8413,7 @@ Func_b7984:
 	ret
 
 .Func_b7a08:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $16
@@ -8422,7 +8422,7 @@ Func_b7984:
 	ret
 
 .Func_b7a16:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret nz
 	ld a, $1b
@@ -8431,7 +8431,7 @@ Func_b7984:
 	ret
 
 .Func_b7a24:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $1a
@@ -8540,7 +8540,7 @@ Func_b7ac0:
 	ret nz
 	inc [hl]
 .asm_b7ad7
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr nz, .asm_b7af0
 	ld a, [wOWPalTransitionState]
@@ -8573,7 +8573,7 @@ Func_b7afb:
 	ret nz
 	inc [hl]
 .asm_b7b0d
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .asm_b7b19
 	ld a, [wOWPalTransitionState]
@@ -8667,7 +8667,7 @@ Func_b7b61:
 Func_b7ba9:
 	call Func_b7be9
 	ret nz
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr z, .asm_b7bc2
 	ld a, [wOWPalTransitionState]
@@ -8687,7 +8687,7 @@ Func_b7ba9:
 Func_b7bc9:
 	call Func_b7be9
 	ret nz
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr nz, .asm_b7be2
 	ld a, [wOWPalTransitionState]
@@ -8809,7 +8809,7 @@ Func_b7c84:
 	ret
 
 Func_b7c97:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret nz
 	ld a, $1f
@@ -8818,7 +8818,7 @@ Func_b7c97:
 	ret
 
 Func_b7ca5:
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	ret z
 	ld a, $1e

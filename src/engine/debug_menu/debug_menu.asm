@@ -123,7 +123,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, HIGH(HOT_WARIO_DURATION)
 	ld [wTransformationDuration], a
 	ld a, LOW(HOT_WARIO_DURATION)
@@ -142,7 +142,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -174,7 +174,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -198,7 +198,7 @@ DebugMenu_ApplyForm:
 	farcall SetState_BallOString
 	ret
 
-; FAT: bump-type, SetState_FatIdling sets wTouchState/wca94 itself
+; FAT: bump-type, SetState_FatIdling sets wTouchState/wSpikeTouchState itself
 .form_fat:
 	ld a, TRANSFORMATION_FAT_WARIO
 	ld [wTransformation], a
@@ -223,7 +223,7 @@ DebugMenu_ApplyForm:
 	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1742d)
 	ld [wWarioOAMPtr + 1], a
-	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wca94=$01,
+	; SetState_FatIdling sets wTouchState=ATTACK, wStingTouchState=ATTACK, wSpikeTouchState=$01,
 	; and standard collision box
 	farcall SetState_FatIdling
 	ret
@@ -236,7 +236,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -299,7 +299,7 @@ DebugMenu_ApplyForm:
 	hcall UpdateWarioAnimation
 	ret
 
-; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wca94/GFX itself
+; PUFFY: SetState_PuffyInflating sets wTransformation/wTouchState/wSpikeTouchState/GFX itself
 .form_puffy:
 	ld a, $FF
 	ld [wTransformationDuration], a
@@ -307,7 +307,7 @@ DebugMenu_ApplyForm:
 	farcall SetState_PuffyInflating
 	ret
 
-; ZOMBIE: SetState_ZombieIdling sets wTouchState/wca94/GFX/OAM itself
+; ZOMBIE: SetState_ZombieIdling sets wTouchState/wSpikeTouchState/GFX/OAM itself
 .form_zombie:
 	ld a, TRANSFORMATION_ZOMBIE_WARIO
 	ld [wTransformation], a
@@ -325,7 +325,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -340,7 +340,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -358,7 +358,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -391,7 +391,7 @@ DebugMenu_ApplyForm:
 	ld [wTouchState], a
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, $FF
 	ld [wTransformationDuration], a
 	ld [wTransformationDuration + 1], a
@@ -406,7 +406,7 @@ DebugMenu_ApplyForm:
 	xor a
 	ld [wTouchState], a
 	ld [wStingTouchState], a
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld [wIsIntangible], a
 	call UpdateLevelMusic
 	ld a, [wJumpVelTable]

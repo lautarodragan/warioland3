@@ -84,7 +84,7 @@ JamanoFunc:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld [w1d149], a
+	ld [wJamanoSkullsInactive], a
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -657,10 +657,10 @@ SkullSpawnerFunc:
 	ld a, JAMANO_SKULL1 | JAMANO_SKULL2 | JAMANO_SKULL3 | JAMANO_SKULL4
 	ld [wJamanoActiveSkulls], a
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld [wDollBoyHammerRange], a
 	ld a, $01
-	ld [w1d149], a
+	ld [wJamanoSkullsInactive], a
 	ret
 
 .Func_5522c:
@@ -668,7 +668,7 @@ SkullSpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d149]
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_5525b
 	ld a, [wDollBoyHammerRange]
@@ -789,7 +789,7 @@ SkullFunc:
 	ld [hld], a
 	ld a, $27
 	ld [wCurObjStateDuration], a
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	inc [hl]
 	ret
 
@@ -819,7 +819,7 @@ SkullFunc:
 	jp SetObjectFramesetPtr
 
 .Func_55347:
-	ld a, [w1d149]
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr z, .asm_55355
 	ld a, no_actions_for 1
@@ -857,7 +857,7 @@ SkullFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	play_sfx SFX_017
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	dec [hl]
 	ret
 
@@ -909,7 +909,7 @@ SkullFunc:
 	ret
 
 .Func_553e8:
-	ld a, [w1d149]
+	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .asm_553f4
 	ld a, [wDollBoyHammerRange]
@@ -930,7 +930,7 @@ SkullFunc:
 	ret
 
 Func_55407:
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	ld b, a
 	ld hl, wDollBoyHammerRange
 	ld a, [hl]
@@ -1008,7 +1008,7 @@ Func_55407:
 	jp SetBGPals
 
 .Func_5548b:
-	ld a, [w1d149]
+	ld a, [wJamanoSkullsInactive]
 	and a
 	ret nz
 	xor a

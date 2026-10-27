@@ -6,7 +6,7 @@ UNION
 
 hThrownObjInteractionType::
 hIsInWaterOrSandBackup::
-hffa0::
+hTemp::
 	db
 
 hCollidedObjState_Light:: db
@@ -34,7 +34,7 @@ hYPosLo:: db
 hXPosHi:: db
 hXPosLo:: db
 
-hffac::
+hAudioTempA::
 	db
 
 hYPosHiBackup:: db

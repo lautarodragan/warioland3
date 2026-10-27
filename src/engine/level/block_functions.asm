@@ -347,7 +347,7 @@ BlockFunc_DownCurrent:
 
 BlockFunc_Floor:
 	ld a, TRUE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jr nz, .asm_18228
@@ -394,7 +394,7 @@ BlockFunc_18262:
 	and a
 	jp nz, BlockFunc_Free
 	ld a, TRUE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jp nz, BlockFunc_Solid
@@ -500,7 +500,7 @@ BlockFunc_NonSolidSpike:
 	ld a, [wInvincibleCounter]
 	and a
 	jp nz, BlockFunc_Free
-	ld a, [wca94]
+	ld a, [wSpikeTouchState]
 	cp $02
 	jp z, BlockFunc_Free
 	ld a, [wWarioState]
@@ -522,7 +522,7 @@ BlockFunc_NonSolidSpike:
 	ld [wDirection], a
 
 .asm_1836b
-	ld a, [wca94]
+	ld a, [wSpikeTouchState]
 	and a
 	jr nz, .asm_18383
 	farcall SetState_Stung
@@ -542,7 +542,7 @@ BlockFunc_SolidSpike:
 	ld a, [wInvincibleCounter]
 	and a
 	jp nz, BlockFunc_Solid
-	ld a, [wca94]
+	ld a, [wSpikeTouchState]
 	cp $02
 	jp z, BlockFunc_Solid
 	ld a, [wWarioState]
@@ -564,7 +564,7 @@ BlockFunc_SolidSpike:
 	ld [wDirection], a
 
 .asm_183d1
-	ld a, [wca94]
+	ld a, [wSpikeTouchState]
 	and a
 	jr nz, .asm_183e9
 	farcall SetState_Stung
@@ -1165,7 +1165,7 @@ BlockFunc_Fire:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, HIGH(HOT_WARIO_DURATION)
 	ld [wTransformationDuration + 0], a
 	ld a, LOW(HOT_WARIO_DURATION)
@@ -1211,7 +1211,7 @@ BlockFunc_AirCurrent:
 	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_FanStart
 	jp BlockFunc_Free
 
@@ -2094,16 +2094,16 @@ Func_18ec0:
 
 Func_18f32:
 	ld a, [wSRAMBank]
-	ld [wcedb], a
+	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
 	ld a, [hli]
-	ld [wcedc + 0], a
+	ld [wMultiBlockOriginPtr + 0], a
 	ld d, a
 	ld a, [hl]
-	ld [wcedc + 1], a
+	ld [wMultiBlockOriginPtr + 1], a
 	ld e, a
 	ld a, [de]
-	ld [wcedf], a
+	ld [wUnused_cedf], a
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -2309,16 +2309,16 @@ Func_19011:
 
 Func_19086:
 	ld a, [wSRAMBank]
-	ld [wcedb], a
+	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
 	ld a, [hli]
-	ld [wcedc + 0], a
+	ld [wMultiBlockOriginPtr + 0], a
 	ld d, a
 	ld a, [hl]
-	ld [wcedc + 1], a
+	ld [wMultiBlockOriginPtr + 1], a
 	ld e, a
 	ld a, [de]
-	ld [wcedf], a
+	ld [wUnused_cedf], a
 	ld a, TRUE
 	ld [wIsFloorTransition], a
 	ld hl, wBlockPtr
@@ -2572,16 +2572,16 @@ Func_191b3:
 
 Func_19246:
 	ld a, [wSRAMBank]
-	ld [wcedb], a
+	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
 	ld a, [hli]
-	ld [wcedc + 0], a
+	ld [wMultiBlockOriginPtr + 0], a
 	ld d, a
 	ld a, [hl]
-	ld [wcedc + 1], a
+	ld [wMultiBlockOriginPtr + 1], a
 	ld e, a
 	ld a, [de]
-	ld [wcedf], a
+	ld [wUnused_cedf], a
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -2816,16 +2816,16 @@ Func_19346:
 
 Func_193dc:
 	ld a, [wSRAMBank]
-	ld [wcedb], a
+	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
 	ld a, [hli]
-	ld [wcedc + 0], a
+	ld [wMultiBlockOriginPtr + 0], a
 	ld d, a
 	ld a, [hl]
-	ld [wcedc + 1], a
+	ld [wMultiBlockOriginPtr + 1], a
 	ld e, a
 	ld a, [de]
-	ld [wcedf], a
+	ld [wUnused_cedf], a
 	ld a, TRUE
 	ld [wIsFloorTransition], a
 	jp Func_18df1

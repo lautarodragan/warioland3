@@ -78,10 +78,10 @@ ProcessInteractions:
 	xor a
 	ld [wInteractionSide], a
 	ld a, $ff
-	ld [wc1c2], a
-	ld [wc1c1], a
-	ld [wc1c3], a
-	ld [wc1c4], a
+	ld [wObjOverlapFromBelow], a
+	ld [wObjOverlapFromAbove], a
+	ld [wObjOverlapFromLeft], a
+	ld [wObjOverlapFromRight], a
 
 	ld e, $d0
 	ld hl, wObjCollBoxTop
@@ -115,14 +115,14 @@ ProcessInteractions:
 	jr z, .asm_200c5
 
 	ld a, c
-	ld [wc1c1], a
+	ld [wObjOverlapFromAbove], a
 	jr .asm_200cd
 .asm_200c5
 	ld a, c
-	ld [wc1c1], a
+	ld [wObjOverlapFromAbove], a
 .asm_200c9
 	ld a, d
-	ld [wc1c2], a
+	ld [wObjOverlapFromBelow], a
 .asm_200cd
 
 	ld hl, wObjCollBoxLeft
@@ -154,22 +154,22 @@ ProcessInteractions:
 	jr z, .asm_20104
 
 	ld a, c
-	ld [wc1c3], a
+	ld [wObjOverlapFromLeft], a
 	jr .asm_2010c
 .asm_20104
 	ld a, c
-	ld [wc1c3], a
+	ld [wObjOverlapFromLeft], a
 .asm_20108
 	ld a, d
-	ld [wc1c4], a
+	ld [wObjOverlapFromRight], a
 .asm_2010c
 
 	ld hl, wInteractionSide
 	ld a, INTERACTION_LEFT | INTERACTION_RIGHT | INTERACTION_UP | INTERACTION_DOWN
 	ld [hl], a
-	ld a, [wc1c4]
+	ld a, [wObjOverlapFromRight]
 	ld b, a
-	ld a, [wc1c3]
+	ld a, [wObjOverlapFromLeft]
 	ld c, a
 	cp b
 	jr z, .asm_20126
@@ -180,9 +180,9 @@ ProcessInteractions:
 	res INTERACTION_LEFT_F, [hl]
 	ld b, c
 .asm_20126
-	ld a, [wc1c2]
+	ld a, [wObjOverlapFromBelow]
 	ld d, a
-	ld a, [wc1c1]
+	ld a, [wObjOverlapFromAbove]
 	ld e, a
 	cp d
 	jr z, .asm_2013a
@@ -1246,7 +1246,7 @@ Func_209ca:
 	ret z
 	ld a, TRUE
 	ld [wIsOnSteppableObject], a
-	ld a, [wc1c1]
+	ld a, [wObjOverlapFromAbove]
 	and a
 	jr z, .set_stepped_on
 	cp $03
@@ -1322,7 +1322,7 @@ Func_20a6f:
 	ld a, b
 	and a
 	jr nz, .asm_20acf
-	ld a, [wc1c3]
+	ld a, [wObjOverlapFromLeft]
 	cp $ff
 	jr z, .asm_20aa5
 	ld b, a
@@ -1339,7 +1339,7 @@ Func_20a6f:
 	ld a, b
 	and a
 	jr nz, .asm_20acf
-	ld a, [wc1c4]
+	ld a, [wObjOverlapFromRight]
 	cp $ff
 	jr z, .asm_20a79
 	ld b, a
@@ -1823,7 +1823,7 @@ ObjInteraction_Fire:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, HIGH(HOT_WARIO_DURATION)
 	ld [wTransformationDuration + 0], a
 	ld a, LOW(HOT_WARIO_DURATION)
@@ -2105,7 +2105,7 @@ GetTreasure:
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jr nz, .asm_21130
-	ld a, [wc1c3]
+	ld a, [wObjOverlapFromLeft]
 	ld b, a
 	call MoveWarioLeft
 	ld a, DIRECTION_RIGHT
@@ -2116,7 +2116,7 @@ GetTreasure:
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_21146
 .asm_21130
-	ld a, [wc1c4]
+	ld a, [wObjOverlapFromRight]
 	ld b, a
 	call MoveWarioRight
 	ld a, DIRECTION_LEFT
@@ -2308,7 +2308,7 @@ Func_2126a:
 	ld a, TOUCH_ATTACK
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	call UpdateLevelMusic
 
 	ld a, WST_GETTING_WRAPPED_IN_STRING
@@ -2386,7 +2386,7 @@ ObjInteraction_Food:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	ld a, HIGH(FAT_WARIO_DURATION)
 	ld [wTransformationDuration + 0], a
@@ -2552,7 +2552,7 @@ ObjInteraction_Electric:
 	ld a, TOUCH_VANISH
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	call UpdateLevelMusic
 
 	xor a
@@ -2654,7 +2654,7 @@ ObjInteraction_ZombieHead:
 	ld a, TOUCH_VANISH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_ZombieIdling
 	ret
 
@@ -2693,7 +2693,7 @@ Func_2160a:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	ld a, HIGH(BOUNCY_WARIO_DURATION)
 	ld [wTransformationDuration + 0], a
@@ -2741,7 +2741,7 @@ Func_2168b:
 	ret
 
 .asm_216a2
-	ld a, [wc1c2]
+	ld a, [wObjOverlapFromBelow]
 	cp $10
 	jr c, .asm_216ab
 	ld a, $0c
@@ -2877,7 +2877,7 @@ ObjInteraction_OrangeBird:
 	ld a, TOUCH_ATTACK
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_CrazySpinning
 	ret
 
@@ -2919,7 +2919,7 @@ ObjInteraction_Bubble:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall Func_2ac7d
 	ret
 
@@ -2955,7 +2955,7 @@ ObjInteraction_Ice:
 	ld a, TOUCH_ATTACK
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_IceSkatinStart
 	ret
 
@@ -2983,7 +2983,7 @@ ObjInteraction_Owl:
 	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, WST_GRABBING_OWL
 	ld [wWarioState], a
 	ld a, $ff
@@ -3055,7 +3055,7 @@ ObjInteraction_Rail:
 	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	ld a, WST_HANGING_RAIL
 	ld [wWarioState], a
@@ -3142,7 +3142,7 @@ ObjInteraction_Snow:
 	ld a, TOUCH_ATTACK
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_TurningIntoSnowman
 	ret
 
@@ -3263,7 +3263,7 @@ ObjInteraction_Beam:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_SplitHit
 	ret
 
@@ -3299,7 +3299,7 @@ ObjInteraction_Teruteru:
 	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	farcall SetState_BlindIdling
 
@@ -3574,7 +3574,7 @@ ObjInteraction_MagicalSpiral:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	farcall SetState_MagicRising
 	ret
 
@@ -3616,7 +3616,7 @@ ObjInteraction_Shoot:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	farcall SetState_BallStart
 	ret

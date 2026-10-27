@@ -13,11 +13,11 @@ _HandleTempleShakeAndRocks:
 	ret
 
 HandleTempleScreenShake:
-	ld hl, w2d896
+	ld hl, wTempleShakeState
 	ld a, [hli]
 	and a
 	ret z
-	inc [hl] ; w2d897
+	inc [hl] ; wTempleShakeCounter
 	ld b, h
 	ld c, l
 	dec a
@@ -45,7 +45,7 @@ HandleTempleScreenShake:
 	dw .FastScrollLeftAndReset
 
 .Init:
-	ld hl, w2d897
+	ld hl, wTempleShakeCounter
 	xor a
 	ld [hld], a
 	ld [hl], a
@@ -54,7 +54,7 @@ HandleTempleScreenShake:
 	ret
 
 .Next:
-	ld hl, w2d897
+	ld hl, wTempleShakeCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -84,10 +84,10 @@ HandleTempleScreenShake:
 	ret c
 	ld hl, wSCX
 	inc [hl]
-	ld hl, w2d897
+	ld hl, wTempleShakeCounter
 	xor a
 	ld [hld], a
-	ld a, [hl] ; w2d896
+	ld a, [hl] ; wTempleShakeState
 	sub $07
 	ld [hl], a
 	ret
@@ -119,7 +119,7 @@ HandleTempleScreenShake:
 	ld hl, wSCX
 	dec [hl]
 	dec [hl]
-	ld hl, w2d897
+	ld hl, wTempleShakeCounter
 	xor a
 	ld [hld], a
 	ld a, [hl]
@@ -394,7 +394,7 @@ Func_15848a:
 	ret
 
 .Func_15849a:
-	ld hl, w2d8a0
+	ld hl, wSceneAuxStep
 	ld a, [hli]
 	inc [hl]
 	jumptable
@@ -404,7 +404,7 @@ Func_15848a:
 
 .Func_1584a6:
 	xor a
-	ld [w2d8a1], a
+	ld [wSceneAuxStepCounter], a
 	ret
 
 .Func_1584ab:
@@ -416,14 +416,14 @@ Func_15848a:
 	ld a, $16
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	ld hl, w2d8a1
+	ld hl, wSceneAuxStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 .Func_1584c4:
-	ld a, [w2d8a1]
+	ld a, [wSceneAuxStepCounter]
 	and $03
 	ret nz
 	ld hl, wSceneObj1YCoord
@@ -433,7 +433,7 @@ Func_15848a:
 	ret nz
 	xor a
 	ld [wSceneObj1State], a
-	ld [w2d8a0], a
+	ld [wSceneAuxStep], a
 	ret
 
 .Func_1584da:
@@ -1396,7 +1396,7 @@ PrintBestTimes:
 	ld d, a    ; minutes
 	ld e, [hl] ; seconds
 	ld b, 2
-	ld hl, w2df00
+	ld hl, wBestTimeDigitTiles
 .loop_get_tiles
 	and $f0
 	swap a
@@ -1423,7 +1423,7 @@ PrintBestTimes:
 	ld b, $00
 .loop_write_bg_map
 	ld c, 5 ; num tiles wide
-	ld hl, w2df00
+	ld hl, wBestTimeDigitTiles
 .loop_write_tiles
 	ld a, [hli]
 	add b

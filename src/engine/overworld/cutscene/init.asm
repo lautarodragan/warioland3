@@ -44,9 +44,9 @@ _InitCutscene:
 	ld [wSCY], a
 	ldh [rSCX], a
 	ld [wSCX], a
-	ld [w2d801], a
-	ld [w2d013], a
-	ld [w2d014], a
+	ld [wUnused_2d801], a
+	ld [wOWStep], a
+	ld [wOWStepCounter], a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
 

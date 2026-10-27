@@ -10,7 +10,7 @@ Func_1c8586:
 	ld [wAnimatedTilesFrame], a
 	inc a
 	ld [wRoomAnimatedTilesEnabled], a
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	and a
 	call z, SaveBackupVRAM
 
@@ -18,7 +18,7 @@ Func_1c8586:
 	and a
 	jr nz, .asm_1c85b3
 	ld a, $01
-	ld [w1d800], a
+	ld [wGolfMode], a
 
 .asm_1c85b3
 	; clear all Golf RAM starting from wPredeterminedGolfHole onwards
@@ -36,7 +36,7 @@ Func_1c8586:
 	ld [wHasAllMusicalCoinFlags], a
 
 	call Func_1c8604
-	ld hl, w1db00
+	ld hl, wGolfPals
 	call LoadPalsToTempPals1
 	ld hl, Pals_1ca34f
 	call LoadPalsToTempPals2
@@ -221,7 +221,7 @@ Func_1c86dd:
 	cp $08
 	jp nz, Func_1c9fae
 	xor a
-	ld [w1d800], a
+	ld [wGolfMode], a
 	ld [wGolfMenuOption], a
 	jp Func_1c9fae
 
@@ -265,7 +265,7 @@ Func_1c86f8:
 	ld hl, wGolfObj4Sprite
 	call LoadGolfSprite
 
-	ld a, [w1dc00]
+	ld a, [wGolfBuildingState]
 	and a
 	ret nz
 	ld a, $76
@@ -323,7 +323,7 @@ Func_1c86f8:
 	dw Frameset_1cb5e1
 
 ; loads attribute map to wGolfCourseTileMap
-; and palettes to w1db00
+; and palettes to wGolfPals
 ; depending on value in wGolfCourse
 Func_1c87db:
 	ld a, BANK("Golf Gfx 2")
@@ -349,7 +349,7 @@ Func_1c87db:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, w1db00
+	ld de, wGolfPals
 	ld b, 8 palettes
 	jp CopyHLToDE
 
@@ -378,7 +378,7 @@ GetGolfCourseTargetSCX:
 	db $8c ; GOLF_COURSE_4
 
 Func_1c882b:
-	ld a, [w1dc00]
+	ld a, [wGolfBuildingState]
 	jumptable
 	dw Func_1c8837
 	dw Func_1c88dc
@@ -415,7 +415,7 @@ Func_1c8837:
 	sbc 0
 	ld [wNumCoins + 0], a
 	ld a, $03
-	ld [w1dc00], a
+	ld [wGolfBuildingState], a
 	ret
 
 .b_btn
@@ -463,7 +463,7 @@ Func_1c8837:
 .scrolling
 	play_sfx SFX_0E2
 	ld a, $01
-	ld [w1dc00], a
+	ld [wGolfBuildingState], a
 	ld [wGolfVBlankMode], a
 	ld a, [hl]
 	ld [wGolfCourse], a
@@ -497,13 +497,13 @@ Func_1c88dc:
 
 .reached_target_scx
 	ld a, $02
-	ld [w1dc00], a
+	ld [wGolfBuildingState], a
 	ld [wGolfVBlankMode], a
 	ret
 
 Func_1c8907:
 	xor a
-	ld [w1dc00], a
+	ld [wGolfBuildingState], a
 	ld a, $03
 	ld [wGolfVBlankMode], a
 	ret

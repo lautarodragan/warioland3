@@ -13,7 +13,7 @@ InitIntroSequence:
 	xor a
 	ld [wSCX], a
 	ldh [rSCX], a
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	jr nz, .no_intro
 
@@ -247,7 +247,7 @@ InitIntroSequence:
 ; fly to the centre of the screen from the right
 ; then exiting after hovering for a while
 IntroSequencePhase1:
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	jp nz, StartTitleScreen
 	call PlayIntroSFXPlane_Close
@@ -723,7 +723,7 @@ EndIntroSequence:
 	call LoadIntroSprite
 	call ClearUnusedVirtualOAM
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	jr nz, StartTitleScreen
 	ld hl, wTimer

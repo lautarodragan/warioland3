@@ -49,7 +49,7 @@ PesceFunc:
 	ld de, Frameset_6990a
 	call SetObjectFramesetPtr
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld [wDollBoyHammerRange], a
 	ld [hli], a
 	ld [hli], a
@@ -72,7 +72,7 @@ PesceFunc:
 	ld [hl], a
 	ld [wCurObjStateDuration], a
 	play_sfx SFX_0BB
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -479,7 +479,7 @@ PesceFunc:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_52092
 	cp $02
@@ -487,7 +487,7 @@ PesceFunc:
 	cp $03
 	jr z, .asm_520b2
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	ld c, $17
 	sla b
 	jr c, .asm_5208d
@@ -528,13 +528,13 @@ PesceFunc:
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_520eb
 	cp $02
 	jr z, .asm_520f9
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_520e6
 	ld de, Frameset_69911
@@ -560,13 +560,13 @@ PesceFunc:
 	play_sfx SFX_0AD
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_52131
 	cp $02
 	jr z, .asm_5213f
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_5212c
 	ld de, Frameset_699b2
@@ -596,7 +596,7 @@ PesceFunc:
 .asm_52155
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $01
 	jr z, .asm_5217a
 	cp $02
@@ -604,7 +604,7 @@ PesceFunc:
 	cp $03
 	jr z, .asm_52196
 	xor a
-	ld [w1d147], a
+	ld [wJamanoSkullsInPlace], a
 	sla b
 	jr c, .asm_52175
 	ld de, Frameset_6990a
@@ -788,7 +788,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_522cf
 	xor a
@@ -892,7 +892,7 @@ Dragonfly1Func:
 	ld de, Frameset_699d5
 	jp SetObjectFramesetPtr
 .asm_52359
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_523a3
 	dec l
@@ -1084,7 +1084,7 @@ FlySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	cp $03
 	jr z, .asm_524dc
 	ld a, [wDollBoyActiveBarrels]
