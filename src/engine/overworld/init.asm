@@ -629,7 +629,7 @@ LoadBGMapsToWRAM:
 
 	ld a, [wBGMapsTempBank]
 	ld [wTempBank], a
-	ld bc, wBackupSCY
+	ld bc, wTilemap
 	ld a, [wTempBank]
 	ldh [hCallFuncBank], a
 	hcall Decompress
