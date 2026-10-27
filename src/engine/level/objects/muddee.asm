@@ -104,7 +104,7 @@ MuddeeFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [wJamanoSkullsInPlace], a
-.asm_556dc
+.spawn_stingers
 	play_sfx SFX_0B2
 	ld bc, ObjParams_MuddeeStinger1
 	call CreateObjectFromCurObjPos
@@ -598,7 +598,7 @@ MuddeeFunc:
 	inc l
 	xor a
 	ld [hl], a
-	jp .asm_556dc
+	jp .spawn_stingers
 
 .LeapFromFloor:
 	ld hl, wCurObjVar3

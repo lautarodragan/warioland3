@@ -158,8 +158,8 @@ _InitTreasureCollection:
 	ld a, $02
 	ldh [rWBK], a
 	call VBlank_TreasureCollection
-	call Func_9a54e
-	call Func_9a559
+	call ClearCollectionRAM
+	call ClearCollectionSceneObjs
 	xor a
 	ld [wHDMA], a
 
@@ -197,9 +197,9 @@ _InitTreasureCollection:
 	call GetCurrentCollectionCellRowAndColumn
 	call GetCollectionCellCoords
 
-	ld hl, Pals_9ad45
+	ld hl, TreasureCollectionBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_9ad05
+	ld hl, TreasureCollectionOBPals
 	call LoadPalsToTempPals2
 
 	decompress_tiles0 TreasureCollectionCursorGfx, v0Tiles0
@@ -289,14 +289,14 @@ LoadCollectionPageTreasureGfx:
 	call CopyHLToDE
 	ret
 
-Func_9a54e:
+ClearCollectionRAM:
 	ld hl, wCollectionRow
 	ld bc, $800
 	xor a
 	call WriteAToHL_BCTimes
 	ret
 
-Func_9a559:
+ClearCollectionSceneObjs:
 	ld hl, wCurSceneObj
 	ld bc, $200
 	xor a
@@ -710,7 +710,7 @@ ProcessCollectionLinkState:
 	dw .WaitDelay
 	dw .GetLinkedCells
 	dw .Return
-	dw .Func_9a806
+	dw .PlaceLinkedCellMarkers
 	dw .Return
 
 .AdvanceState:
@@ -744,7 +744,7 @@ ProcessCollectionLinkState:
 .Return:
 	ret
 
-.Func_9a806:
+.PlaceLinkedCellMarkers:
 	ld a, [wCollectionLinkedCells + 0]
 	cp $80
 	jr z, .AdvanceState
@@ -754,7 +754,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a823
 	ld hl, wSceneObj2YCoord
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj2YCoord
 	call CollectionRowColToCoords
 .asm_9a823
@@ -767,7 +767,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a840
 	ld hl, wSceneObj3YCoord
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj3YCoord
 	call CollectionRowColToCoords
 .asm_9a840
@@ -780,7 +780,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a85d
 	ld hl, wSceneObj3End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj3End
 	call CollectionRowColToCoords
 .asm_9a85d
@@ -793,7 +793,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a87b
 	ld hl, wSceneObj4End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj4End
 	call CollectionRowColToCoords
 .asm_9a87b
@@ -806,7 +806,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a899
 	ld hl, wSceneObj5End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj5End
 	call CollectionRowColToCoords
 .asm_9a899
@@ -819,7 +819,7 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a8b7
 	ld hl, wSceneObj6End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj6End
 	call CollectionRowColToCoords
 .asm_9a8b7
@@ -832,13 +832,13 @@ ProcessCollectionLinkState:
 	jr z, .asm_9a8d5
 	ld hl, wSceneObj7End
 	call GetCollectionCellRowAndColumn
-	call .Func_9a8d8
+	call .set_marker_state
 	ld de, wSceneObj7End
 	call CollectionRowColToCoords
 .asm_9a8d5
 	jp .AdvanceState
 
-.Func_9a8d8:
+.set_marker_state:
 	set 2, l
 	ld a, $02
 	call SetSceneObjState
@@ -1031,41 +1031,41 @@ SetSceneObjStateIfAnimFinished_Bank26:
 
 AnimateTreasureCollection:
 	ld bc, wSceneObj1State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj2State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj3State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj4State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj5State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj6State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj7State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj8State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj9State
-	call .Func_9aa4a
+	call .UpdateObj
 	ld bc, wSceneObj10State
-	call .Func_9aa4a
+	call .UpdateObj
 	ret
 
-.Func_9aa4a:
+.UpdateObj:
 	ld a, [bc]
 	jumptable
 
-	dw Func_9aa6c
-	dw Func_9aa6d
-	dw Func_9aa72
-	dw Func_9aa77
-	dw Func_9aa7c
+	dw TreasureCollectionObjState_None
+	dw TreasureCollectionObjState01
+	dw TreasureCollectionObjState02
+	dw TreasureCollectionObjState03
+	dw TreasureCollectionObjState04
 
 AnimateTreasureCollectionObj:
 	call UpdateSceneObjAnim_Bank26
 DrawTreasureCollectionObj:
-	ld de, OAM_9ac5d
+	ld de, TreasureCollectionObjOAM
 	call LoadSceneObjSpriteWithScroll_Bank26
 	ret
 
@@ -1075,25 +1075,25 @@ UnreferencedAnimateTreasureCollectionObjThenSetState:
 	ld e, $00
 	call SetSceneObjStateIfAnimFinished_Bank26
 	jr nz, DrawTreasureCollectionObj
-	jr AnimateTreasureCollection.Func_9aa4a
+	jr AnimateTreasureCollection.UpdateObj
 
-Func_9aa6c:
+TreasureCollectionObjState_None:
 	ret
 
-Func_9aa6d:
-	ld de, Frameset_9ace1
+TreasureCollectionObjState01:
+	ld de, TreasureCollectionObjFrameset1
 	jr AnimateTreasureCollectionObj
 
-Func_9aa72:
-	ld de, Frameset_9acea
+TreasureCollectionObjState02:
+	ld de, TreasureCollectionObjFrameset2
 	jr AnimateTreasureCollectionObj
 
-Func_9aa77:
-	ld de, Frameset_9acf3
+TreasureCollectionObjState03:
+	ld de, TreasureCollectionObjFrameset3
 	jr AnimateTreasureCollectionObj
 
-Func_9aa7c:
-	ld de, Frameset_9acfc
+TreasureCollectionObjState04:
+	ld de, TreasureCollectionObjFrameset4
 	jr AnimateTreasureCollectionObj
 
 ; input:
@@ -1438,7 +1438,7 @@ TreasureOBPals:
 	db $03                   ; TREASURE_DUMMY
 	assert_table_length NUM_TREASURES + 1
 
-OAM_9ac5d:
+TreasureCollectionObjOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1512,35 +1512,35 @@ OAM_9ac5d:
 	frame_oam  -8,  -4, $16, 2 | OAM_XFLIP
 	db $80
 
-Frameset_9ace1:
+TreasureCollectionObjFrameset1:
 	db   0,  3
 	db   1,  3
 	db   2,  3
 	db   1,  3
 	db $ff
 
-Frameset_9acea:
+TreasureCollectionObjFrameset2:
 	db   3,  6
 	db   4,  6
 	db   5,  6
 	db   4,  6
 	db $ff
 
-Frameset_9acf3:
+TreasureCollectionObjFrameset3:
 	db   6,  8
 	db   7,  4
 	db   8,  8
 	db   7,  4
 	db $ff
 
-Frameset_9acfc:
+TreasureCollectionObjFrameset4:
 	db   9,  8
 	db  10,  4
 	db  11,  8
 	db  10,  4
 	db $ff
 
-Pals_9ad05:
+TreasureCollectionOBPals:
 	rgb 31, 31, 31
 	rgb 10, 31, 10
 	rgb  0, 20,  0
@@ -1581,7 +1581,7 @@ Pals_9ad05:
 	rgb 15, 15, 15
 	rgb  0,  0,  7
 
-Pals_9ad45:
+TreasureCollectionBGPals:
 	rgb 31, 31, 31
 	rgb 20, 31, 31
 	rgb 10, 20, 31

@@ -389,7 +389,7 @@ BlockFunc_WaterSurface:
 	ld [wIsInWaterOrSand], a
 	jp BlockFunc_Solid
 
-BlockFunc_18262:
+BlockFunc_ObjectFloor:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp nz, BlockFunc_Free
@@ -664,15 +664,15 @@ EnterPipeDown:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_14cf6)
+	ld a, HIGH(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14cf6)
+	ld a, LOW(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -753,15 +753,15 @@ EnterPipeUp:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_14cf6)
+	ld a, HIGH(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14cf6)
+	ld a, LOW(WarioFrameset_14cf6)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -817,7 +817,7 @@ BlockFunc_MinigameDoor:
 	jr EnterDoor
 
 ; unreferenced
-Func_18624:
+BlockFunc_Door_NoReload:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -838,7 +838,7 @@ Func_18624:
 	jr EnterDoor
 
 ; unreferenced
-Func_1864e:
+BlockFunc_MinigameDoor_NoReload:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -887,24 +887,24 @@ EnterDoor:
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14a82)
+	ld a, BANK(WarioOAM_14a82)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14a82)
+	ld a, HIGH(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14a82)
+	ld a, LOW(WarioOAM_14a82)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_186dd
-	ld a, HIGH(Frameset_14d0b)
+	ld a, HIGH(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14d0b)
+	ld a, LOW(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_186e7
 .asm_186dd
-	ld a, HIGH(Frameset_14d10)
+	ld a, HIGH(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14d10)
+	ld a, LOW(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 1], a
 .asm_186e7
 	ld a, BANK("Wario OAM 1")
@@ -935,7 +935,7 @@ BlockFunc_UnderwaterDoor:
 .asm_18724
 	jp BlockFunc_Free
 
-BlockFunc_18727:
+BlockFunc_UnderwaterDoor_NoReload:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Water
@@ -1004,7 +1004,7 @@ BlockFunc_TreasureDoor:
 	ld [wLevelEndScreen], a
 	jp BlockFunc_Free
 
-BlockFunc_187b0:
+BlockFunc_RoomExit_ReloadObjects:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -1015,7 +1015,7 @@ BlockFunc_187b0:
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
-Func_187c7:
+BlockFunc_RoomExit:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -1026,7 +1026,7 @@ Func_187c7:
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
-BlockFunc_187de:
+BlockFunc_WaterRoomExit_ReloadObjects:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Water
@@ -1037,7 +1037,7 @@ BlockFunc_187de:
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Water
 
-Func_187f5:
+BlockFunc_WaterRoomExit:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Water
@@ -1086,7 +1086,7 @@ BlockFunc_Sand:
 	ld [wIsInSand], a
 	jp BlockFunc_Free
 
-BlockFunc_18868:
+BlockFunc_VampireWarioBarrier:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -1124,7 +1124,7 @@ BlockFunc_18868:
 	ld [wWarioXPos + 0], a
 	jp BlockFunc_Solid
 
-BlockFunc_188ba:
+BlockFunc_ObjectWall:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1261,7 +1261,7 @@ BlockFunc_SmallGap:
 	jp z, BlockFunc_Free
 	jp BlockFunc_Solid
 
-BlockFunc_189f1:
+BlockFunc_WarioFloor:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -1729,7 +1729,7 @@ BlockFunc_CrackedBlock_7f:
 CrackedBlockCollision:
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jp z, Func_19423
+	jp z, BreakBlockHitByThrownObj
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	ld a, [wBlockFuncBreakFlag]
@@ -1831,7 +1831,7 @@ BlockFunc_NonCrackedBlock_7f:
 NonCrackedBlockCollision:
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jp z, Func_19423
+	jp z, BreakBlockHitByThrownObj
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	ld a, [wBlockFuncBreakFlag]
@@ -2865,10 +2865,10 @@ BlockFunc_EnemyBlock_7f:
 EnemyBlockCollision:
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_THROWN_OBJ
-	jr z, Func_19423
+	jr z, BreakBlockHitByThrownObj
 	jp BlockFunc_Solid
 
-Func_19423:
+BreakBlockHitByThrownObj:
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]

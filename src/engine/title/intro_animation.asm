@@ -99,7 +99,7 @@ PanIntroBackgroundLayers:
 	ldh [rSCX], a
 	ret
 
-Func_4d45:
+ScrollIntroClouds:
 	ld a, [wGlobalCounter]
 	and %1
 	jr z, .asm_4d66

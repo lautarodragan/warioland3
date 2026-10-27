@@ -1,10 +1,10 @@
-OAM_180000:
+BigLeafOAM_180000:
 	dw .frame_0
 
 .frame_0
 	db $80
 
-OAM_180003:
+CoinOAM_180003:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -81,7 +81,7 @@ OAM_180003:
 	frame_oam -34,  -5, $c4, 2
 	db $80
 
-OAM_18007b::
+SpearheadOAM_18007b::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -304,7 +304,7 @@ OAM_18007b::
 	frame_oam -16,  -4, $28, 4 | OAM_BANK1
 	db $80
 
-OAM_180242:
+WebberOAM_180242:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -643,7 +643,7 @@ OAM_180242:
 	frame_oam -16, -12, $7e, 5 | OAM_BANK1
 	db $80
 
-OAM_180564:
+FutamoguOAM_180564:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -891,7 +891,7 @@ OAM_180564:
 	frame_oam -19,  -8, $bc, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_180838:
+TorchOAM_180838:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -994,7 +994,7 @@ OAM_180838:
 	frame_oam  -8,  -8, $f0, 7 | OAM_BANK1
 	db $80
 
-OAM_180916:
+UnusedFlowerOAM_180916:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1116,7 +1116,7 @@ OAM_180916:
 	frame_oam -24,  -1, $10, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_1809ff:
+CountRichtertoffenOAM_1809ff:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1238,7 +1238,7 @@ OAM_1809ff:
 	frame_oam -31,  -4, $46, 5 | OAM_BANK1
 	db $80
 
-OAM_180b43::
+ParaGoomOAM_180b43::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1626,7 +1626,7 @@ OAM_180b43::
 	frame_oam -27,  -6, $70, 3 | OAM_BANK1
 	db $80
 
-OAM_180ea7::
+DoughnuteerOAM_180ea7::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1949,7 +1949,7 @@ OAM_180ea7::
 	frame_oam -18,   4, $86, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_181189:
+OmodonmekaOAM_181189:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2140,7 +2140,7 @@ OAM_181189:
 	frame_oam -32, -16, $ce, 5 | OAM_BANK1 | OAM_YFLIP
 	db $80
 
-OAM_18136c:
+OmodonmekaOAM_18136c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2331,7 +2331,7 @@ OAM_18136c:
 	frame_oam -32, -16, $ce, 7 | OAM_BANK1 | OAM_YFLIP
 	db $80
 
-OAM_18154f:
+OmodonmekaOAM_18154f:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2403,7 +2403,7 @@ OAM_18154f:
 	frame_oam -16,  -4, $ac, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_18160c:
+KushimushiOAM_18160c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2602,7 +2602,7 @@ OAM_18160c:
 	frame_oam -16, -12, $72, 5 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_1817b4:
+BigLeafOAM_1817b4:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2650,7 +2650,7 @@ OAM_1817b4:
 	frame_oam -23,   4, $9c, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_18181e:
+SilkyOAM_18181e:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2866,7 +2866,7 @@ OAM_18181e:
 	frame_oam  -4,  -1, $3e, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_1819e3:
+BirdOAM_1819e3:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3008,7 +3008,7 @@ OAM_1819e3:
 	frame_oam -15,   4, $54, 5 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_181b0f:
+BarrelOAM_181b0f:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3112,7 +3112,7 @@ OAM_181b0f:
 	frame_oam -16,  -8, $c8, 7 | OAM_BANK1
 	db $80
 
-OAM_181be4:
+SmallLeafOAM_181be4:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3168,7 +3168,7 @@ OAM_181be4:
 	frame_oam -24,  -7, $c0, 7 | OAM_BANK1
 	db $80
 
-OAM_181c47:
+ClearGateOAM_181c47:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3218,7 +3218,7 @@ OAM_181c47:
 	frame_oam -16,   0, $ce, 7 | OAM_BANK1
 	db $80
 
-OAM_181cd3:
+NobiiruOAM_181cd3:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

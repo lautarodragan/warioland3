@@ -59,7 +59,7 @@ InitActionHelp:
 	farcall LoadActionHelpPowerUpPals
 	farcall LoadActionHelpGfx
 	farcall LoadActionHelpBGMaps
-	call VBlank_1fb6b7
+	call VBlank_ActionHelp
 
 	xor a
 	ldh [rSCX], a
@@ -80,9 +80,9 @@ InitActionHelp:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b8e)
+	ld a, HIGH(ActionHelpFrameset_1e6b8e)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b8e)
+	ld a, LOW(ActionHelpFrameset_1e6b8e)
 	ld [hl], a
 
 	ld hl, wMenuObj2
@@ -95,9 +95,9 @@ InitActionHelp:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b76)
+	ld a, HIGH(ActionHelpNoDPadInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b76)
+	ld a, LOW(ActionHelpNoDPadInputFrameset)
 	ld [hl], a
 
 	ld hl, wMenuObj3
@@ -110,9 +110,9 @@ InitActionHelp:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b6d)
+	ld a, HIGH(ActionHelpNoButtonInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b6d)
+	ld a, LOW(ActionHelpNoButtonInputFrameset)
 	ld [hl], a
 
 	ld hl, wMenuObj3FramesetPtr + 1

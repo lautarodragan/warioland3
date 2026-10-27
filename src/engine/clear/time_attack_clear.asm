@@ -9,9 +9,9 @@ InitTimeAttackClearScreen:
 	ld a, TRANSITION_RETURN_TO_MAP
 	ld [wTransitionParam], a
 
-	farcall Func_1e000d
+	farcall LoadTimeAttackClearScreenPals
 	farcall LoadClearScreenGfx
-	farcall Func_1e005f
+	farcall LoadTimeAttackClearScreenBGMaps
 	call VBlank_ClearScreen
 
 	xor a
@@ -20,7 +20,7 @@ InitTimeAttackClearScreen:
 	ld a, $04
 	ld [wSCY], a
 	ldh [rSCY], a
-	farcall Func_1e028a
+	farcall InitTimeAttackClearScreenObjs
 
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
@@ -88,7 +88,7 @@ InitTimeAttackClearScreen:
 	inc [hl]
 	ret
 
-Func_d434c:
+UpdateTimeAttackClearScreen:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_d435f
@@ -116,15 +116,15 @@ Func_d434c:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_d438b
-	ld a, HIGH(Frameset_d4d1b)
+	ld a, HIGH(GolfWarioFrameset_d4d1b)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d1b)
+	ld a, LOW(GolfWarioFrameset_d4d1b)
 	ld [hl], a
 	jr .asm_d4391
 .asm_d438b
-	ld a, HIGH(Frameset_d4d5f)
+	ld a, HIGH(GolfWarioFrameset_d4d5f)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d5f)
+	ld a, LOW(GolfWarioFrameset_d4d5f)
 	ld [hl], a
 .asm_d4391
 	call UpdateObjAnim

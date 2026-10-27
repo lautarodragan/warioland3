@@ -3,9 +3,9 @@ _GolfBuildingStateTable::
 	jumptable
 
 	dw FastFadeToWhite
-	dw Func_1c8586
+	dw InitGolfCourseMenu
 	dw SlowFadeFromWhite
-	dw Func_1c86dd
+	dw UpdateGolfCourseMenu
 	dw FastFadeToWhite
 	dw InitGolfHole
 	dw SlowFadeFromWhite

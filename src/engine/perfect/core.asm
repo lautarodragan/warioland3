@@ -5,7 +5,7 @@ InitPerfectScreen:
 
 	call LoadPerfectPals
 	call LoadPerfectGfx
-	call Func_dc13e
+	call LoadPerfectBGMaps
 	call VBlank_Perfect
 
 	xor a
@@ -24,14 +24,14 @@ InitPerfectScreen:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_dd848)
+	ld a, HIGH(PerfectFrameset_dd848)
 	ld [hli], a
-	ld a, LOW(Frameset_dd848)
+	ld a, LOW(PerfectFrameset_dd848)
 	ld [hl], a
 	call UpdateObjAnim
 
 	ld hl, wMenuObj1
-	call Func_dc158
+	call LoadPerfectSprite
 
 	play_music MUSIC_PERFECT
 
@@ -48,7 +48,7 @@ UpdatePerfectScreen:
 	ld hl, wMenuObj1FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj1
-	call Func_dc158
+	call LoadPerfectSprite
 	call ClearUnusedVirtualOAM
 	ld hl, wTimer
 	ld a, [hl]
@@ -80,19 +80,19 @@ UpdatePerfectScreen:
 	dec a
 	jr z, .asm_dc0c2
 	ld [hl], $00
-	call Func_dc101
+	call LoadPerfectCyclePals0
 	jr .asm_dc0cf
 .asm_dc0bd
 	ld a, 240
 	ld [wTimer], a
 .asm_dc0c2
-	call Func_dc10d
+	call LoadPerfectCyclePals1
 	jr .asm_dc0cf
 .asm_dc0c7
-	call Func_dc119
+	call LoadPerfectCyclePals2
 	jr .asm_dc0cf
 .asm_dc0cc
-	call Func_dc125
+	call LoadPerfectCyclePals3
 
 .asm_dc0cf
 	ld a, [wGameModeFlags]
@@ -114,35 +114,35 @@ UpdatePerfectScreen:
 	ret
 
 LoadPerfectPals:
-	ld hl, Pals_dc173
+	ld hl, PerfectPals_dc173
 	call LoadPalsToTempPals1
-	ld hl, Pals_dc1fb
+	ld hl, PerfectOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_dc101:
-	ld hl, Pals_dc173 palette 5
+LoadPerfectCyclePals0:
+	ld hl, PerfectPals_dc173 palette 5
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
-Func_dc10d:
-	ld hl, Pals_dc1b3
+LoadPerfectCyclePals1:
+	ld hl, PerfectPals_dc1b3
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
-Func_dc119:
-	ld hl, Pals_dc1cb
+LoadPerfectCyclePals2:
+	ld hl, PerfectPals_dc1cb
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
 	ret
 
-Func_dc125:
-	ld hl, Pals_dc1e3
+LoadPerfectCyclePals3:
+	ld hl, PerfectPals_dc1e3
 	ld de, wTempPals1 palette 5
 	ld b, 3 palettes
 	call CopyHLToDE_Short
@@ -156,7 +156,7 @@ LoadPerfectGfx:
 	call Decompress
 	ret
 
-Func_dc13e:
+LoadPerfectBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PerfectAttrmap
@@ -169,7 +169,7 @@ Func_dc13e:
 	call Decompress
 	ret
 
-Func_dc158:
+LoadPerfectSprite:
 	ld a, [hli]
 	add OAM_Y_OFS
 	ld [wCurSpriteYCoord], a
@@ -180,6 +180,6 @@ Func_dc158:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_dd710
+	ld hl, PerfectOAM_dd710
 	call LoadSprite
 	ret

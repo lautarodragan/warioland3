@@ -52,7 +52,7 @@ SwimmingFlippersActionHelp_End:
 .asm_1f8e3f
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -95,15 +95,15 @@ SwimmingFlippersActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1425f)
+	ld a, HIGH(WarioFrameset_1425f)
 	ld [hli], a
-	ld a, LOW(Frameset_1425f)
+	ld a, LOW(WarioFrameset_1425f)
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 1], a
 
 	ld a, 6

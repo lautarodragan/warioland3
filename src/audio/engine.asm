@@ -2284,7 +2284,7 @@ ProcessTrack:
 	ld a, [wCurChannelFlags]
 	or CHANFLAGS_UPDATE_SO | CHANFLAGS_UPDATE_VOLUME | CHANFLAGS_UPDATE_FREQUENCY
 	ld [wCurChannelFlags], a
-	call .Func_30dc6
+	call .SetVolumeFromNoteVolume
 
 ; fade in
 	ld bc, TRACK_FADE_IN_ENVELOPE
@@ -2327,7 +2327,7 @@ ProcessTrack:
 .asm_30c95
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_VOLUME_F, a
-	call nz, .Func_30dc6
+	call nz, .SetVolumeFromNoteVolume
 
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
@@ -2341,7 +2341,7 @@ ProcessTrack:
 	ld a, [hl] ; TRACK_VOLUME_ENVELOPE
 	add $10
 	jr c, .asm_30cba
-	call .Func_30e1b
+	call .CheckWaveVolumeChange
 	ld [hli], a
 .asm_30cb3
 	dec hl
@@ -2360,7 +2360,7 @@ ProcessTrack:
 	ld bc, TRACK_FLAGS - TRACK_VOLUME
 	add hl, bc
 	res TRACKFLAGS_4_F, [hl]
-	call .Func_30deb
+	call .SetVolumeWithFadeOut
 	ld d, a
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
@@ -2384,7 +2384,7 @@ ProcessTrack:
 .asm_30ce9
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_VOLUME_F, a
-	call nz, .Func_30deb
+	call nz, .SetVolumeWithFadeOut
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
 	ld a, [hli]
@@ -2398,7 +2398,7 @@ ProcessTrack:
 	ld a, [hl]
 	sub $10
 	jr c, .asm_30d11
-	call .Func_30e1b
+	call .CheckWaveVolumeChange
 	ld [hli], a
 .asm_30d09
 	dec hl
@@ -2436,7 +2436,7 @@ ProcessTrack:
 	ld a, [hl] ; TRACK_VOLUME_ENVELOPE
 	sub $10
 	jr c, .asm_30d3b
-	call .Func_30e1b
+	call .CheckWaveVolumeChange
 	ld [hl], a
 	jr .asm_30d84
 
@@ -2539,7 +2539,7 @@ ProcessTrack:
 	and $f0
 	ret
 
-.Func_30dc6:
+.SetVolumeFromNoteVolume:
 	push hl
 	ld bc, TRACK_NOTE_VOLUME
 	add hl, bc
@@ -2562,7 +2562,7 @@ ProcessTrack:
 	add hl, de
 	ret
 
-.Func_30deb:
+.SetVolumeWithFadeOut:
 	push hl
 	ld bc, TRACK_FADE_OUT_ENVELOPE
 	add hl, bc
@@ -2591,7 +2591,7 @@ ProcessTrack:
 	add hl, de
 	ret
 
-.Func_30e1b:
+.CheckWaveVolumeChange:
 	ld b, a
 	ld a, [wCurSoundRegister]
 	cp LOW(rAUD3LEVEL)

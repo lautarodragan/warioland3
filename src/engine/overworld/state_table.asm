@@ -49,4 +49,4 @@ OverworldStateTable::
 	dw InitEpilogue
 	dw SlowFadeFromWhite
 	dw UpdateEpilogue
-	dw Func_80e85
+	dw SaveGameAfterEpilogue

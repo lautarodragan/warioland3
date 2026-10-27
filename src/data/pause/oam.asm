@@ -1,4 +1,4 @@
-OAM_1f156c:
+PauseMenuOAM_1f156c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -609,15 +609,15 @@ OAM_1f156c:
 	frame_oam   0,   4, $1a, 6
 	db $80
 
-Frameset_1f1c4a:
+PauseMenuFrameset_1f1c4a:
 	db   0,  1
 	db $ff
 
-Frameset_1f1c4d:
+PauseMenuFrameset_1f1c4d:
 	db   1,  1
 	db $ff
 
-Frameset_1f1c50:
+PauseMenuFrameset_1f1c50:
 	db   6, 100
 	db   7,  3
 	db   8,  3
@@ -632,7 +632,7 @@ Frameset_1f1c50:
 	db   7,  4
 	db $ff
 
-Frameset_1f1c69:
+PauseMenuFrameset_1f1c69:
 	db   6,  8
 	db   9,  8
 	db   6,  8
@@ -640,11 +640,11 @@ Frameset_1f1c69:
 	db   6, 50
 	db $ff
 
-Frameset_1f1c74:
+PauseMenuFrameset_1f1c74:
 	db  10, 50
 	db $ff
 
-Frameset_1f1c77:
+PauseMenuFrameset_1f1c77:
 	db  11,  4
 	db  12,  4
 	db  10,  4
@@ -665,11 +665,11 @@ Frameset_1f1c77:
 	db  15,  4
 	db $ff
 
-Frameset_1f1c9c:
+PauseMenuFrameset_1f1c9c:
 	db  17, 50
 	db $ff
 
-Frameset_1f1c9f:
+PauseMenuFrameset_1f1c9f:
 	db  18,  4
 	db  19,  4
 	db  20,  4
@@ -684,11 +684,11 @@ Frameset_1f1c9f:
 	db  21,  4
 	db $ff
 
-Frameset_1f1cb8:
+PauseMenuFrameset_1f1cb8:
 	db  22, 50
 	db $ff
 
-Frameset_1f1cbb:
+PauseMenuFrameset_1f1cbb:
 	db  23,  4
 	db  24,  4
 	db  25,  4
@@ -703,7 +703,7 @@ Frameset_1f1cbb:
 	db  28,  4
 	db $ff
 
-Frameset_1f1cd4::
+PauseMenuFrameset_1f1cd4::
 	db  29, 10
 	db  30,  9
 	db  31,  8
@@ -718,23 +718,23 @@ Frameset_1f1cd4::
 	db  30,  9
 	db $ff
 
-Frameset_1f1ced:
+PauseMenuFrameset_1f1ced:
 	db   2,  4
 	db $ff
 
-Frameset_1f1cf0:
+PauseMenuFrameset_1f1cf0:
 	db   3,  4
 	db $ff
 
-Frameset_1f1cf3:
+PauseMenuFrameset_1f1cf3:
 	db   4,  4
 	db $ff
 
-Frameset_1f1cf6:
+PauseMenuFrameset_1f1cf6:
 	db   5,  4
 	db $ff
 
-Frameset_1f1cf9:
+PauseMenuFrameset_1f1cf9:
 	db  39, 17
 	db  40, 20
 	db  41, 20
@@ -745,7 +745,7 @@ Frameset_1f1cf9:
 	db  40, 14
 	db $ff
 
-Frameset_1f1d0a:
+PauseMenuFrameset_1f1d0a:
 	db  42,  4
 	db  43,  4
 	db  42,  4
@@ -756,12 +756,12 @@ Frameset_1f1d0a:
 	db  43,  4
 	db $ff
 
-Frameset_1f1d1b:
+PauseMenuFrameset_1f1d1b:
 	db  44, 18
 	db  45, 18
 	db $ff
 
-Frameset_1f1d20:
+PauseMenuFrameset_1f1d20:
 	db  44,  3
 	db  46,  3
 	db  47,  3
@@ -780,7 +780,7 @@ Frameset_1f1d20:
 	db  48,  3
 	db $ff
 
-Frameset_1f1d41:
+PauseMenuFrameset_1f1d41:
 	db  49, 30
 	db  50,  4
 	db  49,  4
@@ -788,7 +788,7 @@ Frameset_1f1d41:
 	db  49,  4
 	db $ff
 
-Frameset_1f1d4c:
+PauseMenuFrameset_1f1d4c:
 	db  51,  4
 	db  52,  4
 	db  51,  4

@@ -154,98 +154,98 @@ UpdateGolfWarioAnimation::
 	ret
 
 .OAMBanks:
-	db BANK(OAM_14000)
+	db BANK(WarioOAM_14000)
 	db BANK(OAM_1426c)
-	db BANK(OAM_14d1b)
-	db BANK(OAM_14d1b)
-	db BANK(OAM_14d1b)
-	db BANK(OAM_1cb0dd)
-	db BANK(OAM_d49cc)
-	db BANK(OAM_d49cc)
-	db BANK(OAM_d49cc)
-	db BANK(OAM_d49cc)
-	db BANK(OAM_14a82)
-	db BANK(OAM_1fc31b)
+	db BANK(WarioOAM_14d1b)
+	db BANK(WarioOAM_14d1b)
+	db BANK(WarioOAM_14d1b)
+	db BANK(GolfWarioOAM_1cb0dd)
+	db BANK(GolfWarioOAM_d49cc)
+	db BANK(GolfWarioOAM_d49cc)
+	db BANK(GolfWarioOAM_d49cc)
+	db BANK(GolfWarioOAM_d49cc)
+	db BANK(WarioOAM_14a82)
+	db BANK(WarioGetTreasureOAM_1fc31b)
 
 .OAMTable:
 	; facing right
-	dw OAM_14000
+	dw WarioOAM_14000
 	dw OAM_1426c
-	dw OAM_14d1b
-	dw OAM_14d1b
-	dw OAM_14d1b
-	dw OAM_1cb0dd
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_14a82
-	dw OAM_1fc31b
+	dw WarioOAM_14d1b
+	dw WarioOAM_14d1b
+	dw WarioOAM_14d1b
+	dw GolfWarioOAM_1cb0dd
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw WarioOAM_14a82
+	dw WarioGetTreasureOAM_1fc31b
 
 	; facing left
-	dw OAM_14000
+	dw WarioOAM_14000
 	dw OAM_1426c
-	dw OAM_14d1b
-	dw OAM_14d1b
-	dw OAM_14d1b
-	dw OAM_1cb0dd
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_d49cc
-	dw OAM_14a82
-	dw OAM_1fc31b
+	dw WarioOAM_14d1b
+	dw WarioOAM_14d1b
+	dw WarioOAM_14d1b
+	dw GolfWarioOAM_1cb0dd
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw GolfWarioOAM_d49cc
+	dw WarioOAM_14a82
+	dw WarioGetTreasureOAM_1fc31b
 
 .Framesets:
 	; facing right
-	dw Frameset_1425f
-	dw Frameset_149c5
-	dw Frameset_151fd
-	dw Frameset_2da4
-	dw Frameset_2da7
-	dw Frameset_1cb285
-	dw Frameset_d4d1b
-	dw Frameset_d4d5f
-	dw Frameset_2db0
-	dw Frameset_2db5
-	dw Frameset_14cf6
-	dw Frameset_1fc47c
+	dw WarioFrameset_1425f
+	dw WarioFrameset_149c5
+	dw WarioFrameset_151fd
+	dw GolfWarioFrameset_2da4
+	dw GolfWarioFrameset_2da7
+	dw GolfWarioFrameset_1cb285
+	dw GolfWarioFrameset_d4d1b
+	dw GolfWarioFrameset_d4d5f
+	dw GolfWarioFrameset_2db0
+	dw GolfWarioFrameset_2db5
+	dw WarioFrameset_14cf6
+	dw WarioFrameset_1fc47c
 
 	; facing left
-	dw Frameset_14252
+	dw WarioFrameset_14252
 	dw Frameset_149b4
-	dw Frameset_151e4
-	dw Frameset_2daa
-	dw Frameset_2dad
-	dw Frameset_1cb2ac
-	dw Frameset_d4d1b
-	dw Frameset_d4d5f
-	dw Frameset_2db0
-	dw Frameset_2db5
-	dw Frameset_14cf6
-	dw Frameset_1fc473
+	dw WarioFrameset_151e4
+	dw GolfWarioFrameset_2daa
+	dw GolfWarioFrameset_2dad
+	dw GolfWarioFrameset_1cb2ac
+	dw GolfWarioFrameset_d4d1b
+	dw GolfWarioFrameset_d4d5f
+	dw GolfWarioFrameset_2db0
+	dw GolfWarioFrameset_2db5
+	dw WarioFrameset_14cf6
+	dw WarioFrameset_1fc473
 
-Frameset_2da4:
+GolfWarioFrameset_2da4:
 	db   8,  1
 	db $ff
 
-Frameset_2da7:
+GolfWarioFrameset_2da7:
 	db   9, 15
 	db $ff
 
-Frameset_2daa:
+GolfWarioFrameset_2daa:
 	db   0,  1
 	db $ff
 
-Frameset_2dad:
+GolfWarioFrameset_2dad:
 	db   1, 15
 	db $ff
 
-Frameset_2db0:
+GolfWarioFrameset_2db0:
 	db   0, 15
 	db   1, 15
 	db $ff
 
-Frameset_2db5:
+GolfWarioFrameset_2db5:
 	db   9,  8
 	db $ff

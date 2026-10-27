@@ -541,7 +541,7 @@ AnonsterFunc:
 	ld b, $18
 	jp DoGroundShake
 
-.asm_503e0
+.spit_waves
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jr z, .asm_50403
@@ -560,7 +560,7 @@ AnonsterFunc:
 .asm_50403
 	inc l
 	dec [hl]
-	jp z, .asm_504b1
+	jp z, .return_to_ceiling
 	ld l, OBJ_STATE
 	ld a, $5c
 	ld [hld], a
@@ -579,19 +579,19 @@ AnonsterFunc:
 	and a
 	jr z, .asm_5046b
 	cp $5b
-	jr z, .asm_503e0
+	jr z, .spit_waves
 	cp $5c
 	jr z, .asm_504aa
 	cp $5a
 	jr z, .asm_50437
 	cp $0a
-	jp z, .asm_5054b
-	jr .asm_5043b
+	jp z, .check_hit_from_behind
+	jr .reset_to_walk
 .asm_50437
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-.asm_5043b
+.reset_to_walk
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, [wCurObjSubState]
 	rlca
@@ -628,7 +628,7 @@ AnonsterFunc:
 	and a
 	jr z, .asm_5047f
 	dec [hl]
-	jr z, .asm_5043b
+	jr z, .reset_to_walk
 	ld a, [hl]
 	cp $07
 	ret nz
@@ -649,11 +649,11 @@ AnonsterFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_50499
-	jr c, .asm_504fe
+	jr c, .walk_towards_wario
 	ld de, AnonsterFrameset_69463
 	jr .asm_5049e
 .asm_50499
-	jr nc, .asm_504fe
+	jr nc, .walk_towards_wario
 	ld de, AnonsterFrameset_69474
 .asm_5049e
 	call SetObjectFramesetPtr
@@ -668,7 +668,7 @@ AnonsterFunc:
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
 	jr nz, .asm_504d0
 
-.asm_504b1
+.return_to_ceiling
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset AnonsterFrameset_69554, AnonsterFrameset_6954d
@@ -688,7 +688,7 @@ AnonsterFunc:
 	and a
 	jr z, .asm_504e5
 	dec [hl]
-	jp z, .asm_5043b
+	jp z, .reset_to_walk
 	ld a, [hl]
 	cp $07
 	ret nz
@@ -709,7 +709,7 @@ AnonsterFunc:
 	ld a, [wGlobalCounter]
 	and %1111
 	play_sfx z, SFX_0AF
-.asm_504fe
+.walk_towards_wario
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_50527
@@ -753,7 +753,7 @@ AnonsterFunc:
 	ld [hli], a
 	ret
 
-.asm_5054b
+.check_hit_from_behind
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -764,9 +764,9 @@ AnonsterFunc:
 	bit 7, [hl]
 	jr nz, .asm_50561
 	jr c, .asm_50564
-	jp .asm_5043b
+	jp .reset_to_walk
 .asm_50561
-	jp c, .asm_5043b
+	jp c, .reset_to_walk
 .asm_50564
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1503,25 +1503,25 @@ UpdateAnonsterPal:
 	and $0f
 	cp $03
 	jr nz, .asm_50aa4
-	ld hl, .Pals_50ab4
+	ld hl, .green_pal
 	jr .got_pal
 .asm_50aa4
 	cp $02
 	ret nz
-	ld hl, .Pals_50abc
+	ld hl, .red_pal
 .got_pal
 	ld de, wTempPals2 palette 7
 	ld c, 7
 	ld b, 1
 	jp CopyAndApplyOBPals
 
-.Pals_50ab4:
+.green_pal:
 	rgb  0, 20, 12
 	rgb  0, 31,  5
 	rgb  0, 11,  0
 	rgb  1,  0,  0
 
-.Pals_50abc:
+.red_pal:
 	rgb  0, 20, 12
 	rgb 31,  0,  0
 	rgb 14,  0,  0

@@ -279,7 +279,7 @@ ShootFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .set_jumping_down
-	ld bc, Data_603d0
+	ld bc, RiseYVel
 	call ApplyObjYMovement
 	jp .MoveLeftOrRight
 .set_jumping_down
@@ -292,7 +292,7 @@ ShootFunc:
 	ret
 
 .JumpingDown:
-	ld bc, Data_603e0
+	ld bc, QuickFallYVel
 	call ApplyObjYMovement
 	call .MoveLeftOrRight
 

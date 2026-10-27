@@ -3,7 +3,7 @@ EpilogueStateTable:
 	jumptable
 
 	dw .FadeToWhite
-	dw .Func_473c
+	dw .ReturnToOverworld
 
 .FadeToWhite:
 	ld a, [wGlobalCounter]
@@ -12,6 +12,6 @@ EpilogueStateTable:
 	call FastFadeToWhite
 	ret
 
-.Func_473c:
-	farcall Func_4628
+.ReturnToOverworld:
+	farcall ReturnToOverworld
 	ret

@@ -125,7 +125,7 @@ Frameset_bc11f:
 	db   6,  4
 	db $ff
 
-OAM_bc122:
+CutTreeCutsceneOAM_bc122:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -196,7 +196,7 @@ OAM_bc122:
 	frame_oam -32,  -8, $66, 0 | OAM_XFLIP
 	db $80
 
-Frameset_bc1e8:
+CutTreeCutsceneFrameset_bc1e8:
 	db   1,  2
 	db   2,  2
 	db   3,  2
@@ -204,7 +204,7 @@ Frameset_bc1e8:
 	db   5,  2
 	db $ff
 
-Frameset_bc1f3:
+CutTreeCutsceneFrameset_bc1f3:
 	db   0,  4
 	db $ff
 
@@ -1326,7 +1326,7 @@ MusicBoxCutsceneFrameset_bcf70:
 	db  36, 20
 	db $ff
 
-OAM_bcfb3:
+SharedCutsceneOAM_bcfb3:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

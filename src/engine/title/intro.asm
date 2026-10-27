@@ -27,9 +27,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_712c)
+	ld a, HIGH(IntroFrameset_712c)
 	ld [hli], a
-	ld a, LOW(Frameset_712c)
+	ld a, LOW(IntroFrameset_712c)
 	ld [hli], a
 	xor a
 	ld [hld], a ; state
@@ -46,9 +46,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_6ce6)
+	ld a, HIGH(IntroFrameset_6ce6)
 	ld [hli], a
-	ld a, LOW(Frameset_6ce6)
+	ld a, LOW(IntroFrameset_6ce6)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -62,9 +62,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_71a1)
+	ld a, HIGH(IntroFrameset_71a1)
 	ld [hli], a
-	ld a, LOW(Frameset_71a1)
+	ld a, LOW(IntroFrameset_71a1)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -78,9 +78,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_71a4)
+	ld a, HIGH(IntroFrameset_71a4)
 	ld [hli], a
-	ld a, LOW(Frameset_71a4)
+	ld a, LOW(IntroFrameset_71a4)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -104,9 +104,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_7198)
+	ld a, HIGH(IntroFrameset_7198)
 	ld [hli], a
-	ld a, LOW(Frameset_7198)
+	ld a, LOW(IntroFrameset_7198)
 	ld [hli], a
 	xor a
 	ld [hld], a
@@ -177,15 +177,15 @@ InitIntroSequence:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	jr nz, .time_attack_enabled_1
-	ld a, HIGH(Frameset_6ce9)
+	ld a, HIGH(StartMenuFrameset_6ce9)
 	ld [hli], a
-	ld a, LOW(Frameset_6ce9)
+	ld a, LOW(StartMenuFrameset_6ce9)
 	ld [hl], a
 	jr .got_menu_frameset
 .time_attack_enabled_1
-	ld a, HIGH(Frameset_6d1e)
+	ld a, HIGH(StartMenuFrameset_6d1e)
 	ld [hli], a
-	ld a, LOW(Frameset_6d1e)
+	ld a, LOW(StartMenuFrameset_6d1e)
 	ld [hl], a
 .got_menu_frameset
 	call UpdateObjAnim
@@ -208,9 +208,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_6d1b)
+	ld a, HIGH(IntroFrameset_6d1b)
 	ld [hli], a
-	ld a, LOW(Frameset_6d1b)
+	ld a, LOW(IntroFrameset_6d1b)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -228,9 +228,9 @@ InitIntroSequence:
 	ld [hli], a
 	ld [hli], a ; frameset offset
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_6d18)
+	ld a, HIGH(IntroFrameset_6d18)
 	ld [hli], a
-	ld a, LOW(Frameset_6d18)
+	ld a, LOW(IntroFrameset_6d18)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -251,7 +251,7 @@ IntroSequencePhase1:
 	and a
 	jp nz, StartTitleScreen
 	call PlayIntroSFXPlane_Close
-	call Func_4d45
+	call ScrollIntroClouds
 
 	ld a, [wPlaneWarioVar]
 	dec a
@@ -319,9 +319,9 @@ IntroSequencePhase1:
 	xor a
 	ld [hli], a
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_71a7)
+	ld a, HIGH(IntroFrameset_71a7)
 	ld [hli], a
-	ld a, LOW(Frameset_71a7)
+	ld a, LOW(IntroFrameset_71a7)
 	ld [hl], a
 	ld hl, wPlaneWarioVar
 	inc [hl]
@@ -366,9 +366,9 @@ IntroSequencePhase1:
 	xor a
 	ld [hli], a
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_712c)
+	ld a, HIGH(IntroFrameset_712c)
 	ld [hli], a
-	ld a, LOW(Frameset_712c)
+	ld a, LOW(IntroFrameset_712c)
 	ld [hl], a
 	ld hl, wPlaneWarioVar
 	inc [hl]
@@ -404,9 +404,9 @@ IntroSequencePhase1:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_713d)
+	ld a, HIGH(IntroFrameset_713d)
 	ld [hli], a
-	ld a, LOW((Frameset_713d))
+	ld a, LOW((IntroFrameset_713d))
 	ld [hli], a
 	xor a
 	ld [hl], a ; state
@@ -433,7 +433,7 @@ IntroSequencePhase1:
 ; phase 2 of Intro sequence, where Wario's plane
 ; comes into the centre while far away from the foreground
 IntroSequencePhase2:
-	call Func_4d45
+	call ScrollIntroClouds
 	call PlayIntroSFXPlane_Far
 
 	ld a, [wPlaneWarioVar]
@@ -490,9 +490,9 @@ IntroSequencePhase2:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_7144)
+	ld a, HIGH(IntroFrameset_7144)
 	ld [hli], a
-	ld a, LOW(Frameset_7144)
+	ld a, LOW(IntroFrameset_7144)
 	ld [hli], a
 	xor a
 	ld [wSFXTimer], a
@@ -521,9 +521,9 @@ IntroSequencePhase2:
 	xor a
 	ld [hli], a
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_7165)
+	ld a, HIGH(IntroFrameset_7165)
 	ld [hli], a
-	ld a, LOW(Frameset_7165)
+	ld a, LOW(IntroFrameset_7165)
 	ld [hli], a
 	xor a
 	ld [hl], a ; state
@@ -549,7 +549,7 @@ IntroSequencePhase2:
 ; phase 3 of the Intro sequence where Wario's plane
 ; starts wobbling and then explodes, making it nosedive
 IntroSequencePhase3:
-	call Func_4d45
+	call ScrollIntroClouds
 
 	ld a, [wPlaneWarioVar]
 	dec a
@@ -572,9 +572,9 @@ IntroSequencePhase3:
 	xor a
 	ld [hli], a
 	ld [hli], a ; duration
-	ld a, HIGH(Frameset_7172)
+	ld a, HIGH(IntroFrameset_7172)
 	ld [hli], a
-	ld a, LOW(Frameset_7172)
+	ld a, LOW(IntroFrameset_7172)
 	ld [hli], a
 	inc [hl] ; next state
 	jp .continue
@@ -598,9 +598,9 @@ IntroSequencePhase3:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_717b)
+	ld a, HIGH(IntroFrameset_717b)
 	ld [hli], a
-	ld a, LOW(Frameset_717b)
+	ld a, LOW(IntroFrameset_717b)
 	ld [hli], a
 	inc [hl] ; next state
 	jp .continue
@@ -624,9 +624,9 @@ IntroSequencePhase3:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_7184)
+	ld a, HIGH(IntroFrameset_7184)
 	ld [hli], a
-	ld a, LOW(Frameset_7184)
+	ld a, LOW(IntroFrameset_7184)
 	ld [hli], a
 	inc [hl] ; next state
 	jr .continue
@@ -651,9 +651,9 @@ IntroSequencePhase3:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_718d)
+	ld a, HIGH(IntroFrameset_718d)
 	ld [hli], a
-	ld a, LOW(Frameset_718d)
+	ld a, LOW(IntroFrameset_718d)
 	ld [hli], a
 	inc [hl] ; next state
 	jr .continue
@@ -677,17 +677,17 @@ IntroSequencePhase3:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_7198)
+	ld a, HIGH(IntroFrameset_7198)
 	ld [hli], a
-	ld a, LOW(Frameset_7198)
+	ld a, LOW(IntroFrameset_7198)
 	ld [hli], a
 	xor a
 	ld [hld], a ; state
 	ld [wTimer], a
 
-	ld hl, Pals_5002
+	ld hl, TitleScreenBGPals2
 	call LoadPalsToTempPals1
-	ld hl, Pals_5042
+	ld hl, TitleScreenOBPals2
 	call LoadPalsToTempPals2
 
 	play_music MUSIC_TITLE_SCREEN

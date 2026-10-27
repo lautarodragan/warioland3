@@ -3,10 +3,10 @@ InitMusicalCoinScreen:
 	call ClearBGMap0
 	call ClearVirtualOAM
 
-	call Func_d464e
-	call Func_d465b
-	call Func_d4668
-	call Func_d47f1
+	call LoadMusicalCoinScreenPals
+	call LoadMusicalCoinScreenGfx
+	call LoadMusicalCoinScreenBGMaps
+	call ColourMusicalCoinLevels
 
 	ld a, $ff
 	ld [wAllMusicalCoinsLevel], a
@@ -32,9 +32,9 @@ InitMusicalCoinScreen:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cd4)
+	ld a, HIGH(PauseMenuFrameset_1f1cd4)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cd4)
+	ld a, LOW(PauseMenuFrameset_1f1cd4)
 	ld [hl], a
 	farcall $7c, UpdateObjAnim
 	ld hl, wMenuObj3
@@ -59,7 +59,7 @@ InitMusicalCoinScreen:
 	inc [hl]
 	ret
 
-Func_d4472:
+MusicalCoinScreen_CountCoins:
 	ld hl, wMenuObj3FramesetPtr + 1
 	farcall $7c, UpdateObjAnim
 	ld hl, wMenuObj3
@@ -108,7 +108,7 @@ Func_d4472:
 .counting_up_done
 	ld a, [wAllMusicalCoinsLevel]
 	inc a
-	jp z, Func_d45e1
+	jp z, MusicalCoinScreen_GoToExit
 
 	play_sfx SFX_03A
 
@@ -122,9 +122,9 @@ Func_d4472:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d65f0)
+	ld a, HIGH(MusicalCoinScreenFrameset_d65f0)
 	ld [hli], a
-	ld a, LOW(Frameset_d65f0)
+	ld a, LOW(MusicalCoinScreenFrameset_d65f0)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -132,7 +132,7 @@ Func_d4472:
 	inc [hl]
 	ret
 
-Func_d4507:
+MusicalCoinScreen_MovePencil:
 	call DoPencilMovement
 	push af
 	ld hl, wMenuObj1
@@ -153,7 +153,7 @@ Func_d4507:
 	inc [hl]
 	ret
 
-Func_d454c:
+MusicalCoinScreen_ColourLevel:
 	call DoPencilScribbling
 
 	ld hl, wMenuObj1
@@ -225,7 +225,7 @@ Func_d454c:
 	play_sfx SFX_MUSICAL_COIN
 ;	fallthrough
 
-Func_d45e1:
+MusicalCoinScreen_GoToExit:
 	xor a
 	ld [wTimer + 0], a
 	ld a, 2
@@ -262,17 +262,17 @@ ExitClearScreen:
 	and ACTION_HELP_LEVEL_CLEAR
 	jp nz, OpenActionHelp
 .asm_d463e
-	farcall Func_4628
+	farcall ReturnToOverworld
 	ret
 
-Func_d464e:
-	ld hl, Pals_d50a4
+LoadMusicalCoinScreenPals:
+	ld hl, MusicalCoinScreenBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_d50e4
+	ld hl, MusicalCoinScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_d465b:
+LoadMusicalCoinScreenGfx:
 	xor a
 	ldh [rVBK], a
 	ld hl, GolfMenuGfx
@@ -280,7 +280,7 @@ Func_d465b:
 	call Decompress
 	ret
 
-Func_d4668:
+LoadMusicalCoinScreenBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, GolfMenuAttrmap

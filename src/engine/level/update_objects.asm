@@ -814,9 +814,9 @@ SetObjStarsSprite:
 	ld [hli], a ; OBJ_OAM_PTR
 	ld a, HIGH(OAM_18c000)
 	ld [hli], a
-	ld a, LOW(Frameset_680c5)
+	ld a, LOW(StarsFrameset_680c5)
 	ld [hli], a ; OBJ_FRAMESET_PTR
-	ld a, HIGH(Frameset_680c5)
+	ld a, HIGH(StarsFrameset_680c5)
 	ld [hli], a
 	xor a
 	ld [hli], a ; OBJ_FRAME_DURATION

@@ -121,11 +121,11 @@ CartVariableFunc:
 	ld a, TRUCK_WHEEL
 	call IsTreasureCollected
 	jr nz, .asm_4863b
-	ld de, Frameset_691a7
+	ld de, CartFrameset_691a7
 	ld bc, CartStoppedFunc
 	jr .asm_48641
 .asm_4863b
-	ld de, Frameset_691bf
+	ld de, CartFrameset_691bf
 	ld bc, .Waiting
 .asm_48641
 	pop_wram
@@ -234,7 +234,7 @@ CartVariableFunc:
 	ld b, $01
 	jp MoveWarioRight
 .asm_48721
-	ld de, Frameset_691bf
+	ld de, CartFrameset_691bf
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(CartStoppedFunc)

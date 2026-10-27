@@ -19,7 +19,7 @@ OwlFunc:
 	ld [hld], a
 	ld a, LOW(.Sleep)
 	ld [hld], a
-	ld de, Frameset_692e7
+	ld de, OwlFrameset_692e7
 	jp SetObjectFramesetPtr
 
 .night
@@ -73,7 +73,7 @@ OwlFunc:
 	ld [hld], a
 	ld a, LOW(.FlyUpwards)
 	ld [hld], a
-	ld de, Frameset_69335
+	ld de, OwlFrameset_69335
 	call SetObjectFramesetPtr
 	ld a, 54
 	ld [hli], a

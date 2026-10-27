@@ -88,7 +88,7 @@ NoPowerUpActionHelp_End:
 .asm_1f8370
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -309,13 +309,13 @@ NoPowerUpActionHelp_Step08:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6ba5)
+	ld a, HIGH(ActionHelpFrameset_1e6ba5)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6ba5)
+	ld a, LOW(ActionHelpFrameset_1e6ba5)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
 
 	xor a

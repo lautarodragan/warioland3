@@ -2089,7 +2089,7 @@ WestOWObjFrameset_a8ec7:
 	db  68,  4
 	db $ff
 
-Frameset_a8eca:
+WestOWObjFrameset_a8eca:
 	db  70,  3
 	db  71,  3
 	db  72,  3
@@ -2114,7 +2114,7 @@ WestOWObjFrameset_a8ee1:
 	db  82,  5
 	db $ff
 
-Frameset_a8ee8:
+WestOWObjFrameset_a8ee8:
 	db  83,  1
 	db  87,  1
 	db  84,  1
@@ -2184,7 +2184,7 @@ WestOWObjFrameset_a8f47:
 	db $ff
 
 ; unreferenced
-Frameset_a8f54:
+UnreferencedWestOWObjFrameset_a8f54:
 	db  48,  4
 	db $ff
 
@@ -3113,7 +3113,7 @@ SouthOWObjFrameset_a967d:
 	db   4,  4
 	db $ff
 
-Frameset_a9680:
+SouthOWObjFrameset_a9680:
 	db   5,  2
 	db   6,  3
 	db   7,  2
@@ -4150,7 +4150,7 @@ EastOWObjFrameset_a9e7a:
 	db $ff
 
 ; unreferenced
-Frameset_a9e81:
+UnreferencedEastOWObjFrameset_a9e81:
 	db  12,  5
 	db  13,  5
 	db  14,  5
@@ -4505,73 +4505,73 @@ OAM_a9fe2:
 	frame_oam -16, -12, $40, 6 | OAM_BANK1
 	db $80
 
-Frameset_aa091:
+TopBarFrameset_aa091:
 	db   0,  4
 	db $ff
 
-Frameset_aa094:
+TopBarFrameset_aa094:
 	db   1,  4
 	db $ff
 
-Frameset_aa097:
+TopBarFrameset_aa097:
 	db   2,  4
 	db $ff
 
-Frameset_aa09a:
+TopBarFrameset_aa09a:
 	db   3,  4
 	db $ff
 
-Frameset_aa09d:
+TopBarFrameset_aa09d:
 	db   4,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa0a0:
+UnreferencedTopBarFrameset_aa0a0:
 	db   5,  4
 	db $ff
 
-Frameset_aa0a3:
+TopBarFrameset_aa0a3:
 	db   6,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa0a6:
+UnreferencedTopBarFrameset_aa0a6:
 	db   7,  4
 	db $ff
 
-Frameset_aa0a9:
+TopBarFrameset_aa0a9:
 	db   8, 10
 	db  13, 10
 	db $ff
 
-Frameset_aa0ae:
+TopBarFrameset_aa0ae:
 	db   9,  4
 	db $ff
 
-Frameset_aa0b1:
+TopBarFrameset_aa0b1:
 	db  10,  4
 	db $ff
 
-Frameset_aa0b4:
+TopBarFrameset_aa0b4:
 	db  11, 10
 	db  14, 10
 	db $ff
 
-Frameset_aa0b9:
+TopBarFrameset_aa0b9:
 	db  12,  4
 	db $ff
 
-Frameset_aa0bc:
+TopBarFrameset_aa0bc:
 	db   5,  8
 	db   6,  8
 	db $ff
 
-Frameset_aa0c1:
+TopBarFrameset_aa0c1:
 	db   7,  8
 	db   4,  8
 	db $ff
 
-Frameset_aa0c6:
+TopBarFrameset_aa0c6:
 	db  15,  4
 	db  16,  1
 	db  10,  4
@@ -4829,23 +4829,23 @@ Frameset_aa25b:
 	db   3,  4
 	db $ff
 
-Frameset_aa25e:
+OWWarioFrameset_aa25e:
 	db   4,  4
 	db $ff
 
-Frameset_aa261:
+PathPreviewFrameset_aa261:
 	db   5,  4
 	db $ff
 
-Frameset_aa264:
+PathPreviewFrameset_aa264:
 	db   6,  4
 	db $ff
 
-Frameset_aa267:
+PathPreviewFrameset_aa267:
 	db   7,  4
 	db $ff
 
-Frameset_aa26a:
+PathPreviewFrameset_aa26a:
 	db   8,  4
 	db $ff
 
@@ -4934,7 +4934,7 @@ Frameset_aa2b2:
 	db  10, 12
 	db $ff
 
-Frameset_aa2fb:
+BottomBarFrameset_aa2fb:
 	db  24,  9
 	db  25,  9
 	db  26,  7
@@ -5120,7 +5120,7 @@ OAM_aa329:
 	frame_oam -18,   0, $14, 0 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-Frameset_aa405:
+OWWarioFrameset_aa405:
 	db   0,  6
 	db   1,  4
 	db   2,  3
@@ -5131,7 +5131,7 @@ Frameset_aa405:
 	db   3,  4
 	db $ff
 
-Frameset_aa416:
+OWWarioFrameset_aa416:
 	db   5,  6
 	db   6,  4
 	db   7,  3
@@ -5142,7 +5142,7 @@ Frameset_aa416:
 	db   8,  4
 	db $ff
 
-Frameset_aa427:
+OWWarioFrameset_aa427:
 	db  15,  6
 	db  16,  4
 	db  17,  3
@@ -5153,7 +5153,7 @@ Frameset_aa427:
 	db  18,  4
 	db $ff
 
-Frameset_aa438:
+OWWarioFrameset_aa438:
 	db  11,  5
 	db  12,  5
 	db  11,  5
@@ -5402,7 +5402,7 @@ Frameset_aa5fb:
 	db   6,  4
 	db $ff
 
-OAM_aa5fe:
+SceneWarioOAM_aa5fe:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5505,7 +5505,7 @@ SceneWarioFrameset_aa6ca:
 	db   0,  8
 	db $ff
 
-OAM_aa6e7:
+SceneWarioOAM_aa6e7:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5727,7 +5727,7 @@ SceneWarioFrameset_aa90d:
 	db $ff
 
 ; unreferenced
-Frameset_aa910:
+UnreferencedSceneWarioFrameset_aa910:
 	db  12,  4
 	db $ff
 
@@ -5755,7 +5755,7 @@ SceneWarioFrameset_aa931:
 	db  18,  4
 	db $ff
 
-OAM_aa934:
+SceneWarioOAM_aa934:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5976,7 +5976,7 @@ SceneWarioFrameset_aab45:
 	db   8,  6
 	db $ff
 
-OAM_aab5c::
+SceneWarioOAM_aab5c::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6138,7 +6138,7 @@ OAM_aab5c::
 	frame_oam -56, -10, $58, 0
 	db $80
 
-Frameset_aaccb::
+SceneWarioFrameset_aaccb::
 	db   5,  3
 	db   6,  2
 	db   5,  3
@@ -6152,7 +6152,7 @@ Frameset_aaccb::
 	db   6,  2
 	db $ff
 
-Frameset_aace2::
+SceneWarioFrameset_aace2::
 	db   5,  4
 	db   6,  3
 	db   0,  4
@@ -6192,7 +6192,7 @@ PrologueSceneObjFrameset_aad0b:
 	db  20,  8
 	db $ff
 
-OAM_aad1e:
+SceneWarioOAM_aad1e:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6518,7 +6518,7 @@ SceneWarioFrameset_ab08c:
 	db $ff
 
 ; unreferenced
-Frameset_ab095:
+UnreferencedSceneWarioFrameset_ab095:
 	db   0, 60
 	db $ff
 
@@ -6552,7 +6552,7 @@ SceneWarioFrameset_ab0ac:
 	db   8,  5
 	db $ff
 
-OAM_ab0c5:
+SceneWarioOAM_ab0c5:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

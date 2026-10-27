@@ -19,9 +19,9 @@ LoadGBIncompatibleScreenMap::
 	ret
 
 LoadFontPals::
-	ld hl, Pals_1f3610
+	ld hl, FontPals_1f3610
 	call LoadPalsToTempPals1
-	ld hl, Pals_1f3610
+	ld hl, FontPals_1f3610
 	call LoadPalsToTempPals2
 	ret
 

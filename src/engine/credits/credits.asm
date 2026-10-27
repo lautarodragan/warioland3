@@ -7,8 +7,8 @@ InitCredits:
 
 	call LoadCreditsPals
 	call LoadCreditsGfx
-	call Func_16041f
-	call VBlank_160439
+	call LoadCreditsBGMaps
+	call VBlank_Credits
 
 	ld a, $04
 	ldh [rSCX], a
@@ -48,15 +48,15 @@ InitCredits:
 	ld [hli], a
 	ld [hli], a
 	ld [wCreditsMusicBoxVar], a
-	ld a, HIGH(Frameset_161cc4)
+	ld a, HIGH(CreditsFrameset_161cc4)
 	ld [hli], a ; frameset ptr
-	ld a, LOW(Frameset_161cc4)
+	ld a, LOW(CreditsFrameset_161cc4)
 	ld [hl], a
-	ld a, HIGH(OAM_1617e8)
+	ld a, HIGH(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 0], a
-	ld a, LOW(OAM_1617e8)
+	ld a, LOW(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 1], a
-	ld a, BANK(OAM_1617e8)
+	ld a, BANK(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMBank], a
 	call UpdateObjAnim
 	ld hl, wCreditsMusicBox
@@ -72,9 +72,9 @@ InitCredits:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_161caf)
+	ld a, HIGH(CreditsFrameset_161caf)
 	ld [hli], a
-	ld a, LOW(Frameset_161caf)
+	ld a, LOW(CreditsFrameset_161caf)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj1
@@ -206,7 +206,7 @@ ShowCredits:
 	inc [hl]
 	ret
 
-Func_160190:
+Credits_MoveMusicBox:
 	ld a, [wCreditsMusicBoxVar]
 	and a
 	jr nz, .stopped_moving
@@ -251,9 +251,9 @@ Func_160190:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_161cee)
+	ld a, HIGH(CreditsFrameset_161cee)
 	ld [hli], a
-	ld a, LOW(Frameset_161cee)
+	ld a, LOW(CreditsFrameset_161cee)
 	ld [hl], a
 
 .update_anims
@@ -295,15 +295,15 @@ Func_160190:
 	ld [hli], a
 	ld [hli], a
 	ld [wCreditsMusicBoxVar], a
-	ld a, HIGH(Frameset_161ce8)
+	ld a, HIGH(CreditsFrameset_161ce8)
 	ld [hli], a
-	ld a, LOW(Frameset_161ce8)
+	ld a, LOW(CreditsFrameset_161ce8)
 	ld [hl], a
-	ld a, HIGH(OAM_1617e8)
+	ld a, HIGH(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 0], a
-	ld a, LOW(OAM_1617e8)
+	ld a, LOW(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 1], a
-	ld a, BANK(OAM_1617e8)
+	ld a, BANK(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMBank], a
 
 	ld hl, wMenuObj1
@@ -316,9 +316,9 @@ Func_160190:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_161ce5)
+	ld a, HIGH(CreditsFrameset_161ce5)
 	ld [hli], a
-	ld a, LOW(Frameset_161ce5)
+	ld a, LOW(CreditsFrameset_161ce5)
 	ld [hl], a
 
 	ld a, 16
@@ -327,7 +327,7 @@ Func_160190:
 	inc [hl]
 	jp .update_anims
 
-Func_16026c:
+Credits_ShowCloseUp:
 	ld hl, wTimer
 	dec [hl]
 	jr z, .close_up
@@ -345,15 +345,15 @@ Func_16026c:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_161ceb)
+	ld a, HIGH(CreditsFrameset_161ceb)
 	ld [hli], a
-	ld a, LOW(Frameset_161ceb)
+	ld a, LOW(CreditsFrameset_161ceb)
 	ld [hl], a
-	ld a, HIGH(OAM_1617e8)
+	ld a, HIGH(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 0], a
-	ld a, LOW(OAM_1617e8)
+	ld a, LOW(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMPtr + 1], a
-	ld a, BANK(OAM_1617e8)
+	ld a, BANK(CreditsOAM_1617e8)
 	ld [wCreditsMusicBoxOAMBank], a
 	jr .update_anims
 
@@ -378,7 +378,7 @@ Func_16026c:
 	ld [wCreditsMusicBoxOAMPtr + 1], a
 	ld a, BANK(OAM_15e44a)
 	ld [wCreditsMusicBoxOAMBank], a
-	call Func_1603be
+	call LoadCreditsCloseUpPals
 
 	ld a, $2 | (1 << 7)
 	ld [wBGUpdateRequest], a
@@ -398,7 +398,7 @@ Func_16026c:
 	call ClearUnusedVirtualOAM
 	ret
 
-Func_1602ee:
+Credits_LoadFinalPals:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -408,12 +408,12 @@ Func_1602ee:
 	ld hl, wCreditsMusicBox
 	call LoadCreditsMusicBoxSprite
 	call ClearUnusedVirtualOAM
-	call Func_1603cb
+	call LoadCreditsFinalPals
 	ld hl, wSubState
 	inc [hl]
 	ret
 
-Func_160318:
+Credits_FadeIn:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -445,7 +445,7 @@ Func_160318:
 	ld [wTimer], a
 	ret
 
-Func_160365:
+Credits_WaitEnd:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -478,23 +478,23 @@ Func_160365:
 	jp SetPerfectState
 
 LoadCreditsPals:
-	ld hl, Pals_1604cc
+	ld hl, CreditsBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_16050c
+	ld hl, CreditsOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_1603be:
-	ld hl, Pals_16054c
+LoadCreditsCloseUpPals:
+	ld hl, CreditsCloseUpBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_16058c
+	ld hl, CreditsCloseUpOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_1603cb:
-	ld hl, Pals_1605cc
+LoadCreditsFinalPals:
+	ld hl, CreditsFinalBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_16060c
+	ld hl, CreditsFinalOBPals
 	call LoadPalsToTempPals2
 	ret
 
@@ -522,7 +522,7 @@ LoadCreditsGfx:
 	call Decompress
 	ret
 
-Func_16041f:
+LoadCreditsBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, CreditsAttrmap
@@ -535,7 +535,7 @@ Func_16041f:
 	call Decompress
 	ret
 
-VBlank_160439:
+VBlank_Credits:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -620,11 +620,11 @@ LoadCreditsSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_1617e8
+	ld hl, CreditsOAM_1617e8
 	call LoadSprite
 	ret
 
-Pals_1604cc:
+CreditsBGPals:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -665,7 +665,7 @@ Pals_1604cc:
 	rgb  6,  6, 31
 	rgb  0,  0,  0
 
-Pals_16050c:
+CreditsOBPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 21, 10,  2
@@ -706,7 +706,7 @@ Pals_16050c:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_16054c:
+CreditsCloseUpBGPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 25, 17,  9
@@ -747,7 +747,7 @@ Pals_16054c:
 	rgb 28, 23, 14
 	rgb 21, 10,  2
 
-Pals_16058c:
+CreditsCloseUpOBPals:
 	rgb  0, 22, 16
 	rgb  0,  0,  0
 	rgb  0,  0,  0
@@ -788,7 +788,7 @@ Pals_16058c:
 	rgb 21, 10,  2
 	rgb  0,  0,  0
 
-Pals_1605cc:
+CreditsFinalBGPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb  2, 31, 31
@@ -829,7 +829,7 @@ Pals_1605cc:
 	rgb  2, 31, 31
 	rgb 31,  0,  0
 
-Pals_16060c:
+CreditsFinalOBPals:
 	rgb  0,  0,  0
 	rgb 23, 23, 23
 	rgb 15, 15, 15
@@ -876,7 +876,7 @@ CreditsMusicBoxGfx:: INCBIN "gfx/credits_music_box.2bpp.rle"
 CreditsTilemap: INCBIN "data/bgmaps/credits.tilemap.rle"
 CreditsAttrmap: INCBIN "data/bgmaps/credits.attrmap.rle"
 
-OAM_1617e8:
+CreditsOAM_1617e8:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1278,7 +1278,7 @@ OAM_1617e8:
 	frame_oam -24,  20, $14, 1
 	db $80
 
-Frameset_161caf:
+CreditsFrameset_161caf:
 	db  16, 11
 	db  17, 10
 	db  18,  9
@@ -1291,7 +1291,7 @@ Frameset_161caf:
 	db  25, 10
 	db $ff
 
-Frameset_161cc4:
+CreditsFrameset_161cc4:
 	db   0, 12
 	db   1, 12
 	db   2, 12
@@ -1310,19 +1310,19 @@ Frameset_161cc4:
 	db  15, 12
 	db $ff
 
-Frameset_161ce5:
+CreditsFrameset_161ce5:
 	db  26,  4
 	db $ff
 
-Frameset_161ce8:
+CreditsFrameset_161ce8:
 	db  28,  4
 	db $ff
 
-Frameset_161ceb:
+CreditsFrameset_161ceb:
 	db  27,  4
 	db $ff
 
-Frameset_161cee:
+CreditsFrameset_161cee:
 	db   0, 12
 	db   1, 12
 	db   2, 12

@@ -74,7 +74,7 @@ SuperJumpSlamOverallsActionHelp_End:
 .asm_1fa4c0
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -104,9 +104,9 @@ SuperJumpSlamOverallsActionHelp_Start:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f4d)
+	ld a, HIGH(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f4d)
+	ld a, LOW(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
 	ld a, HIGH(OAM_1e6bab)
 	ld [hli], a

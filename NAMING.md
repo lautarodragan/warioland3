@@ -6,7 +6,7 @@ or reject.
 
 ## Applied
 
-The high- and medium-confidence proposals of all three passes have been
+The high- and medium-confidence proposals of all four passes have been
 applied to the code, one commit per batch, each checked by building: every
 batch left the ROM byte-identical, and the emulator tests passed.
 
@@ -21,6 +21,11 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 6 | Phase 6 object state locals (repeats in one routine get an `_<addr>` suffix) | 756 |
 | 7 | Second pass: overworld, audio engine, action help (302), `RoomPalsNNN` (146), per-level `...RoomHeaders` (119) | 699 |
 | 8 | Third pass: overworld, cutscene rules, boss phases, map-side states, owner-prefix data (1406) | 1998 |
+| 9 | Fourth pass 4.0: the comma lists applied as one name (hand `.Rise6`/`.Sink4`, Nobiiru `.Extend5`/`.Retract5`, right hand `.DefeatSink`) and the rest of each list; `Func_ae915` at $ad557 -> `AdvanceStepAtHL_Bank2b1`; the table of unapplied proposals | 86 |
+| 10 | Fourth pass 4a/4b: overworld `Func_` (bank2b_1/2, bank20/21/26/27, bank2d, bank56, init) and scene-local `.Func_` (R2 `.StateXX`, wait steps, step legend, sound helpers, `.update_obj`), overworld data of the 4a rows | 1245 |
+| 11 | Fourth pass 4c: data labels, descriptive and rules P, S, O, W, U (medium lines only) | 846 |
+| 12 | Fourth pass 4d: `UpdateCutsceneObjs_CutTree`, `UpdateTempleSceneObjs_Back`, `wGolfBuildingCourseAttrMap`, bank2d's `.Wait<N>` by frames | 54 |
+| 13 | Fourth pass 4e: routines outside the overworld, `BlockFunc_`, `VBlank_`, `Text_`, `UnreferencedLCDFunc_` (the test tools' `187b0`/`187de`/`188ba` block function keys follow) | 112 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -172,8 +177,20 @@ unreferenced framesets whose owner only comes from their neighbours), the
 "not named" notes of the first passes; the duplicates listed in the
 findings (`Func_ce3e`, the bank20 copies, `Data_60510`) are named but
 would better be merged. The `.asm_` jump labels were not part of this survey.
-Next steps are applying the batches and replacing the generated
-`<Owner><Kind>_<addr>` data names with descriptive ones where wanted.
+Next step: replacing the generated `<Owner><Kind>_<addr>` data names
+with descriptive ones where wanted.
+
+**Fourth pass applied** (batches 9-13 in "Applied", branch
+`claude/naming-apply-4-dh93t5`): every high and medium name of 4.0, 4a/4b,
+4c, 4d and 4e, 2343 renames in all (4.0 86, 4a 1245, 4c 846, 4d 54, 4e
+112), including the high/medium exceptions inside low rows
+(`HiddenFigureOAM_18c88a`, `SpearheadOAM_18007b`) and the medium/high names
+of mixed rows. Not applied: the 144 low names (143 in 4c: the
+`UnreferencedXxx (low)` lines and low descriptive rows/exceptions; 1 in 4e:
+`BlockFunc_Transition8Door`), and what 4.0 lists as "not carried over"
+(low rows and duplicates of earlier passes). No routine or table was
+merged and the Cutscene4c `.WaitObj2State03` oddity is left as it is.
+Every batch built to a byte-identical ROM and the emulator tests pass.
 
 ## Inventory (master at f205aa3)
 

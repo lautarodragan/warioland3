@@ -6,11 +6,11 @@ _CreditsStateTable::
 	dw InitCredits
 	dw SlowFadeFromWhite
 	dw ShowCredits
-	dw Func_160190
-	dw Func_16026c
-	dw Func_1602ee
-	dw Func_160318
-	dw Func_160365
+	dw Credits_MoveMusicBox
+	dw Credits_ShowCloseUp
+	dw Credits_LoadFinalPals
+	dw Credits_FadeIn
+	dw Credits_WaitEnd
 	dw DebugReset
 	dw DebugReset
 	dw DebugReset

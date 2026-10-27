@@ -417,7 +417,7 @@ WarioSwallowedOAM_1dc3cd:
 	frame_oam -24,   0, $66, 0 | OAM_XFLIP
 	db $80
 
-Frameset_1dc40f:
+WarioSwallowedFrameset_1dc40f:
 	db   0,  6
 	db   1,  6
 	db   2,  4
@@ -434,7 +434,7 @@ Frameset_1dc40f:
 	db   1, 30
 	db $ff
 
-Frameset_1dc42c:
+WarioSwallowedFrameset_1dc42c:
 	db   3,  6
 	db   4,  6
 	db   5,  4
@@ -1785,7 +1785,7 @@ WarioBallStartOAM_1dcff1:
 	frame_oam -25,   0, $7a, 0 | OAM_XFLIP
 	db $80
 
-Frameset_1dd230:
+WarioFrameset_1dd230:
 	db   3,  2
 	db   4,  1
 	db   5,  3
@@ -1821,7 +1821,7 @@ Frameset_1dd23b:
 	db   1,  2
 	db $ff
 
-Frameset_1dd26c:
+WarioBallFrameset_1dd26c:
 	db   8, 60
 	db $ff
 
@@ -1855,7 +1855,7 @@ WarioBallTurningFrameset_1dd28e:
 	db   2,  2
 	db $ff
 
-Frameset_1dd295:
+WarioFrameset_1dd295:
 	db  12,  2
 	db  13,  1
 	db  14,  3
@@ -1915,7 +1915,7 @@ Frameset_1dd2e9:
 	db  21,  7
 	db $ff
 
-Frameset_1dd2ee:
+WarioBallFrameset_1dd2ee:
 	db  22,  7
 	db  23,  7
 	db $ff
@@ -1952,7 +1952,7 @@ WarioBallStartFrameset_1dd313:
 	db  24,  4
 	db $ff
 
-Frameset_1dd316:
+WarioFrameset_1dd316:
 	db  24,  4
 	db   3,  2
 	db   4,  2
@@ -1961,7 +1961,7 @@ Frameset_1dd316:
 	db   3,  2
 	db $ff
 
-Frameset_1dd323:
+WarioFrameset_1dd323:
 	db  24,  4
 	db  12,  2
 	db  13,  2

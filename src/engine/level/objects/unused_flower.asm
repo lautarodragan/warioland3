@@ -182,10 +182,10 @@ UnusedFlowerProjectileCommonFunc:
 	ret
 
 .Jump:
-	ld bc, Data_60320 + $8
+	ld bc, SmallHopYVel + $8
 	jr .asm_40ddd
 .Thrown:
-	ld bc, Data_60320
+	ld bc, SmallHopYVel
 .asm_40ddd
 	call ApplyObjYMovement
 

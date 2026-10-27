@@ -2,16 +2,16 @@ LoadTitleScreenPals:
 	ld a, [wRestoredSave]
 	and a
 	jr nz, .asm_492a
-	ld hl, Pals_4f82
+	ld hl, TitleScreenBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_4fc2
+	ld hl, TitleScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 
 .asm_492a
-	ld hl, Pals_5002
+	ld hl, TitleScreenBGPals2
 	call LoadPalsToTempPals1
-	ld hl, Pals_5042
+	ld hl, TitleScreenOBPals2
 	call LoadPalsToTempPals2
 	ret
 
@@ -44,7 +44,7 @@ LoadTitleScreenTileMap:
 	ret
 
 LoadTimeAttackDescriptionPals:
-	ld hl, Pals_71b0
+	ld hl, TimeAttackDescriptionBGPals
 	call LoadPalsToTempPals1
 	ret
 

@@ -1,8 +1,8 @@
-Frameset_d4d18:
+ClearScreenFrameset_d4d18:
 	db   0, 30
 	db $ff
 
-Frameset_d4d1b::
+GolfWarioFrameset_d4d1b::
 	db   1,  8
 	db   2,  8
 	db   3,  1
@@ -35,13 +35,13 @@ Frameset_d4d1b::
 	db   0, 180
 	db $ff
 
-Frameset_d4d58:
+ClearScreenFrameset_d4d58:
 	db   7, 20
 	db   8, 10
 	db   9, 10
 	db $ff
 
-Frameset_d4d5f::
+GolfWarioFrameset_d4d5f::
 	db  10,  8
 	db  11,  4
 	db  12,  4

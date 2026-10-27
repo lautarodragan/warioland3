@@ -1099,10 +1099,10 @@ InvisibilityPotionFunc:
 	ld a, [wCurObjState]
 	cp $18
 	jr z, DestroyInvisibilityPotion
-	ld bc, Data_60510
+	ld bc, SmallHopYVel2
 	jp ApplyObjYMovement
 
-Func_45453:
+InvisibilityPotion_CheckFloor:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -1140,6 +1140,6 @@ InvisibilityPotionFunc_Drop:
 	ld a, [wCurObjState]
 	cp $18
 	jr z, DestroyInvisibilityPotion
-	ld bc, Data_60540
+	ld bc, JumpArcYVel
 	call ApplyObjYMovement
-	jr Func_45453
+	jr InvisibilityPotion_CheckFloor

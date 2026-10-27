@@ -98,7 +98,7 @@ ENDR
 	ret
 
 ; unreferenced
-Func_8eac:
+UnreferencedGetPackedNybble:
 	srl l
 	jr c, .asm_8eba
 	ld a, l

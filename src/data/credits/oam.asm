@@ -635,19 +635,19 @@ TempleSceneObjFrameset_15e8b0::
 	db $ff
 
 ; unreferenced
-Frameset_15e8b9:
+UnreferencedTempleSceneObjFrameset_15e8b9:
 	db   5, 20
 	db   6, 20
 	db $ff
 
 ; unreferenced
-Frameset_15e8be:
+UnreferencedTempleSceneObjFrameset_15e8be:
 	db   7, 20
 	db   8, 20
 	db $ff
 
 ; unreferenced
-Frameset_15e8c3:
+UnreferencedTempleSceneObjFrameset_15e8c3:
 	db   9,  4
 	db  10,  4
 	db   9,  4
@@ -655,25 +655,25 @@ Frameset_15e8c3:
 	db $ff
 
 ; unreferenced
-Frameset_15e8cc:
+UnreferencedTempleSceneObjFrameset_15e8cc:
 	db  12, 15
 	db  13, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8d1:
+UnreferencedTempleSceneObjFrameset_15e8d1:
 	db  14, 15
 	db  15, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8d6:
+UnreferencedTempleSceneObjFrameset_15e8d6:
 	db  16, 15
 	db  17, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8db:
+UnreferencedTempleSceneObjFrameset_15e8db:
 	db  21,  7
 	db  22,  7
 	db  23,  7
@@ -682,7 +682,7 @@ Frameset_15e8db:
 	db $ff
 
 ; unreferenced
-Frameset_15e8e6:
+UnreferencedTempleSceneObjFrameset_15e8e6:
 	db  36,  7
 	db  37,  7
 	db  38,  7
@@ -691,87 +691,87 @@ Frameset_15e8e6:
 	db $ff
 
 ; unreferenced
-Frameset_15e8f1:
+UnreferencedTempleSceneObjFrameset_15e8f1:
 	db  52,  4
 	db  32,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e8f6:
+UnreferencedTempleSceneObjFrameset_15e8f6:
 	db  53,  4
 	db  47,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e8fb:
+UnreferencedTempleSceneObjFrameset_15e8fb:
 	db  18, 10
 	db  28,  6
 	db  27, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e902:
+UnreferencedTempleSceneObjFrameset_15e902:
 	db  27, 10
 	db  28,  6
 	db  18, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e909:
+UnreferencedTempleSceneObjFrameset_15e909:
 	db  33, 10
 	db  43,  6
 	db  42, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e910:
+UnreferencedTempleSceneObjFrameset_15e910:
 	db  42, 10
 	db  43,  6
 	db  33, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e917:
+UnreferencedTempleSceneObjFrameset_15e917:
 	db  18,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e91a:
+UnreferencedTempleSceneObjFrameset_15e91a:
 	db  19,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e91d:
+UnreferencedTempleSceneObjFrameset_15e91d:
 	db  20,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e920:
+UnreferencedTempleSceneObjFrameset_15e920:
 	db  21,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e923:
+UnreferencedTempleSceneObjFrameset_15e923:
 	db  22,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e926:
+UnreferencedTempleSceneObjFrameset_15e926:
 	db  23,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e929:
+UnreferencedTempleSceneObjFrameset_15e929:
 	db  24,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e92c:
+UnreferencedTempleSceneObjFrameset_15e92c:
 	db  25,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e92f:
+UnreferencedTempleSceneObjFrameset_15e92f:
 	db  26,  4
 	db $ff
 
@@ -780,67 +780,67 @@ TempleSceneObjFrameset_15e932::
 	db $ff
 
 ; unreferenced
-Frameset_15e935:
+UnreferencedTempleSceneObjFrameset_15e935:
 	db  28,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e938:
+UnreferencedTempleSceneObjFrameset_15e938:
 	db  29,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e93b:
+UnreferencedTempleSceneObjFrameset_15e93b:
 	db  30,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e93e:
+UnreferencedTempleSceneObjFrameset_15e93e:
 	db  31,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e941:
+UnreferencedTempleSceneObjFrameset_15e941:
 	db  33,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e944:
+UnreferencedTempleSceneObjFrameset_15e944:
 	db  34,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e947:
+UnreferencedTempleSceneObjFrameset_15e947:
 	db  35,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e94a:
+UnreferencedTempleSceneObjFrameset_15e94a:
 	db  36,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e94d:
+UnreferencedTempleSceneObjFrameset_15e94d:
 	db  37,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e950:
+UnreferencedTempleSceneObjFrameset_15e950:
 	db  38,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e953:
+UnreferencedTempleSceneObjFrameset_15e953:
 	db  39,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e956:
+UnreferencedTempleSceneObjFrameset_15e956:
 	db  40,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e959:
+UnreferencedTempleSceneObjFrameset_15e959:
 	db  41,  4
 	db $ff
 

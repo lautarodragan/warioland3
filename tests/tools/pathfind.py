@@ -43,7 +43,7 @@ SOLID, FLOOR, FREE, LADDER, WATER, HAZARD = range(6)
 
 SLOPES = {"LeftSlope", "RightSlope", "1809f", "180b5", "18129", "1813f"}
 DOORS = {"Door"}  # TreasureDoor exits the level, it's no room transition
-WALK_INS = {"187b0", "187de"}
+WALK_INS = {"RoomExit_ReloadObjects", "WaterRoomExit_ReloadObjects"}
 
 # Measured: a ground pound sends Togeba 5 blocks up, and it's walkable for
 # about two seconds while it floats back down.
@@ -63,7 +63,7 @@ def classify(func):
     if func is None:
         return SOLID
     name = func.removeprefix("BlockFunc_")
-    if name in ("Free", "188ba", "TreasureDoor") or name in DOORS or name in WALK_INS:
+    if name in ("Free", "ObjectWall", "TreasureDoor") or name in DOORS or name in WALK_INS:
         return FREE
     if name in ("Floor", "SlipperyFloor", "LadderTop") or name in SLOPES or "Cloud" in name:
         return FLOOR

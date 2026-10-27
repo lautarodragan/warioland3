@@ -306,7 +306,7 @@ SpearheadFunc:
 	ld a, -10
 	ld [hld], a ; OBJ_COLLBOX_LEFT
 
-	ld de, Frameset_681d2
+	ld de, SpearheadFrameset_681d2
 	jp SetObjectFramesetPtr
 
 .on_left2
@@ -333,7 +333,7 @@ SpearheadFunc:
 	jr c, .asm_40270
 	xor a
 	ld [hld], a ; OBJ_VAR_3
-	ld de, Frameset_681d2
+	ld de, SpearheadFrameset_681d2
 	call SetObjectFramesetPtr
 	ret
 .asm_40270
@@ -399,7 +399,7 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	ld_obj_frameset Frameset_681d2, SpearheadFrameset_681db
+	ld_obj_frameset SpearheadFrameset_681d2, SpearheadFrameset_681db
 	call SetObjectFramesetPtr
 	ret
 
@@ -424,7 +424,7 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, -10
 	ld [hld], a
-	ld de, Frameset_681d2
+	ld de, SpearheadFrameset_681d2
 	jr .asm_40308
 .asm_402fd
 	ld l, OBJ_COLLBOX_RIGHT

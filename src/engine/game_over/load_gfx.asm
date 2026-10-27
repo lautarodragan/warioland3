@@ -5,9 +5,9 @@ LoadHiddenFigureGfx::
 	ret
 
 .LoadPals:
-	ld hl, Pals_db000
+	ld hl, HiddenFigureBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_db040
+	ld hl, HiddenFigureOBPals
 	ld de, wTempPals2 + palette 3
 	ld b, 5 palettes
 	call CopyHLToDE_Short
@@ -50,15 +50,15 @@ LoadHiddenFigureGfx::
 	ret
 
 LoadGameOverPals:
-	ld hl, Pals_db509
+	ld hl, GameOverBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_db549
+	ld hl, GameOverOBPals
 	call LoadPalsToTempPals2
 
-	ld hl, Pals_86ad5
+	ld hl, SceneWarioPal
 	ld de, wTempPals2 palette 0
 	ld b, 1 palettes
-	farcall BANK(Pals_86ad5), CopyHLToDE_Short
+	farcall BANK(SceneWarioPal), CopyHLToDE_Short
 	ret
 
 LoadGameOverGfx:
@@ -73,7 +73,7 @@ LoadGameOverGfx:
 	farcall BANK(WarioSleepGfx), CopyHLToDE_BC
 	ret
 
-Func_db4cf:
+LoadGameOverBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, GameOverAttrmap
@@ -86,7 +86,7 @@ Func_db4cf:
 	call Decompress
 	ret
 
-Func_db4e9:
+LoadGameOverSpriteWithScroll:
 	ld a, [wSCY]
 	ld b, a
 	ld a, [hli]
@@ -100,6 +100,6 @@ Func_db4e9:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_dbbd2
+	ld hl, GameOverOAM_dbbd2
 	call LoadSprite
 	ret

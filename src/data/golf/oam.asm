@@ -1,4 +1,4 @@
-OAM_d49cc::
+GolfWarioOAM_d49cc::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

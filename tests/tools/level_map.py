@@ -23,7 +23,7 @@ LEGEND = {
     "SlipperyFloor": "=", "Ladder": "H", "LadderTop": "T", "Door": "D",
     "TreasureDoor": "D", "MinigameDoor": "G", "UnderwaterDoor": "D",
     "Water": "~", "WaterSurface": "~", "NonSubmersibleWater": "~",
-    "Fence": "|", "187b0": "W", "187de": "W",
+    "Fence": "|", "RoomExit_ReloadObjects": "W", "WaterRoomExit_ReloadObjects": "W",
     "LeftSlope": "/", "RightSlope": "\\", "Fire": "^",
     "NonSolidSpike": "^", "SolidSpike": "^", "WaterSpike": "^",
 }

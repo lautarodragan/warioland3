@@ -1,14 +1,14 @@
 LoadClearScreenPals:
-	ld hl, Pals_1e0378
+	ld hl, ClearScreenBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_1e03b8
+	ld hl, ClearScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_1e000d:
-	ld hl, Pals_1e03f8
+LoadTimeAttackClearScreenPals:
+	ld hl, TimeAttackClearScreenBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_1e0438
+	ld hl, TimeAttackClearScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 
@@ -33,7 +33,7 @@ LoadClearScreenGfx:
 	call FarCopyHLToDE_BC
 	ret
 
-Func_1e0045:
+LoadTreasureClearScreenBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, ClearScreenTreasureAttrmap
@@ -47,7 +47,7 @@ Func_1e0045:
 	call Decompress
 	ret
 
-Func_1e005f:
+LoadTimeAttackClearScreenBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, ClearScreenTimeAttackAttrmap
@@ -199,7 +199,7 @@ Func_1e005f:
 	ld [wTimeAttackResult], a
 	ret
 
-Func_1e015b:
+InitTreasureClearScreenObjs:
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_LEVEL_CLEAR
 	jr z, .no_power_up
@@ -213,9 +213,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d506b)
+	ld a, HIGH(ClearScreenFrameset_d506b)
 	ld [hli], a
-	ld a, LOW(Frameset_d506b)
+	ld a, LOW(ClearScreenFrameset_d506b)
 	ld [hl], a
 
 .no_power_up
@@ -233,15 +233,15 @@ Func_1e015b:
 	ld a, [wTransitionParam]
 	cp TRANSITION_RETURN_TO_MAP
 	jr z, .asm_1e0196
-	ld a, HIGH(Frameset_d4d18)
+	ld a, HIGH(ClearScreenFrameset_d4d18)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d18)
+	ld a, LOW(ClearScreenFrameset_d4d18)
 	ld [hl], a
 	jr .asm_1e019c
 .asm_1e0196
-	ld a, HIGH(Frameset_d4d58)
+	ld a, HIGH(ClearScreenFrameset_d4d58)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d58)
+	ld a, LOW(ClearScreenFrameset_d4d58)
 	ld [hl], a
 
 .asm_1e019c
@@ -302,9 +302,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5059)
+	ld a, HIGH(ClearScreenFrameset_d5059)
 	ld [hli], a
-	ld a, LOW(Frameset_d5059)
+	ld a, LOW(ClearScreenFrameset_d5059)
 	ld [hl], a
 	ld a, [wNumMusicBoxes]
 	and a
@@ -328,9 +328,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5068)
+	ld a, HIGH(ClearScreenFrameset_d5068)
 	ld [hli], a
-	ld a, LOW(Frameset_d5068)
+	ld a, LOW(ClearScreenFrameset_d5068)
 	ld [hl], a
 
 .asm_1e0229
@@ -344,9 +344,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5065)
+	ld a, HIGH(ClearScreenFrameset_d5065)
 	ld [hli], a
-	ld a, LOW(Frameset_d5065)
+	ld a, LOW(ClearScreenFrameset_d5065)
 	ld [hl], a
 
 .asm_1e023d
@@ -360,9 +360,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5062)
+	ld a, HIGH(ClearScreenFrameset_d5062)
 	ld [hli], a
-	ld a, LOW(Frameset_d5062)
+	ld a, LOW(ClearScreenFrameset_d5062)
 	ld [hl], a
 
 .asm_1e0251
@@ -376,9 +376,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d505f)
+	ld a, HIGH(ClearScreenFrameset_d505f)
 	ld [hli], a
-	ld a, LOW(Frameset_d505f)
+	ld a, LOW(ClearScreenFrameset_d505f)
 	ld [hl], a
 
 .asm_1e0265
@@ -392,9 +392,9 @@ Func_1e015b:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d505c)
+	ld a, HIGH(ClearScreenFrameset_d505c)
 	ld [hli], a
-	ld a, LOW(Frameset_d505c)
+	ld a, LOW(ClearScreenFrameset_d505c)
 	ld [hl], a
 .asm_1e0279
 	ret
@@ -402,24 +402,24 @@ Func_1e015b:
 .GreyTreasureParams:
 	db $38 ; y
 	db $20 ; x
-	bigdw Frameset_d5045 ; frameset
+	bigdw ClearScreenFrameset_d5045 ; frameset
 
 .RedTreasureParams:
 	db $38 ; y
 	db $40 ; x
-	bigdw Frameset_d504a ; frameset
+	bigdw ClearScreenFrameset_d504a ; frameset
 
 .GreenTreasureParams:
 	db $38 ; y
 	db $60 ; x
-	bigdw Frameset_d504f ; frameset
+	bigdw ClearScreenFrameset_d504f ; frameset
 
 .BlueTreasureParams:
 	db $38 ; y
 	db $80 ; x
-	bigdw Frameset_d5054 ; frameset
+	bigdw ClearScreenFrameset_d5054 ; frameset
 
-Func_1e028a:
+InitTimeAttackClearScreenObjs:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_1e02a5
@@ -433,9 +433,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5080)
+	ld a, HIGH(ClearScreenFrameset_d5080)
 	ld [hli], a
-	ld a, LOW(Frameset_d5080)
+	ld a, LOW(ClearScreenFrameset_d5080)
 	ld [hl], a
 
 .asm_1e02a5
@@ -454,16 +454,16 @@ Func_1e028a:
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_1e02cd
 	play_music MUSIC_LEVEL_CLEAR_GOT_TREASURE
-	ld a, HIGH(Frameset_d4d18)
+	ld a, HIGH(ClearScreenFrameset_d4d18)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d18)
+	ld a, LOW(ClearScreenFrameset_d4d18)
 	ld [hl], a
 	jr .asm_1e02db
 .asm_1e02cd
 	play_music MUSIC_LEVEL_CLEAR_NO_TREASURE
-	ld a, HIGH(Frameset_d4d58)
+	ld a, HIGH(ClearScreenFrameset_d4d58)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d58)
+	ld a, LOW(ClearScreenFrameset_d4d58)
 	ld [hl], a
 .asm_1e02db
 	stop_sfx
@@ -478,9 +478,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5059)
+	ld a, HIGH(ClearScreenFrameset_d5059)
 	ld [hli], a
-	ld a, LOW(Frameset_d5059)
+	ld a, LOW(ClearScreenFrameset_d5059)
 	ld [hl], a
 
 	ld hl, wMenuObj3
@@ -493,9 +493,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d50a1)
+	ld a, HIGH(ClearScreenFrameset_d50a1)
 	ld [hli], a
-	ld a, LOW(Frameset_d50a1)
+	ld a, LOW(ClearScreenFrameset_d50a1)
 	ld [hl], a
 
 	ld a, [wKeyAndTreasureFlags]
@@ -511,9 +511,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5095)
+	ld a, HIGH(ClearScreenFrameset_d5095)
 	ld [hli], a
-	ld a, LOW(Frameset_d5095)
+	ld a, LOW(ClearScreenFrameset_d5095)
 	ld [hl], a
 
 .red_key
@@ -530,9 +530,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d5098)
+	ld a, HIGH(ClearScreenFrameset_d5098)
 	ld [hli], a
-	ld a, LOW(Frameset_d5098)
+	ld a, LOW(ClearScreenFrameset_d5098)
 	ld [hl], a
 
 .green_key
@@ -549,9 +549,9 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d509b)
+	ld a, HIGH(ClearScreenFrameset_d509b)
 	ld [hli], a
-	ld a, LOW(Frameset_d509b)
+	ld a, LOW(ClearScreenFrameset_d509b)
 	ld [hl], a
 
 .blue_key
@@ -568,14 +568,14 @@ Func_1e028a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d509e)
+	ld a, HIGH(ClearScreenFrameset_d509e)
 	ld [hli], a
-	ld a, LOW(Frameset_d509e)
+	ld a, LOW(ClearScreenFrameset_d509e)
 	ld [hl], a
 .done
 	ret
 
-Pals_1e0378:
+ClearScreenBGPals:
 	rgb 24, 30, 31
 	rgb 11, 24, 31
 	rgb  0,  9, 25
@@ -616,7 +616,7 @@ Pals_1e0378:
 	rgb  0, 19, 31
 	rgb  0,  0,  0
 
-Pals_1e03b8:
+ClearScreenOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -657,7 +657,7 @@ Pals_1e03b8:
 	rgb 10, 10,  8
 	rgb  0,  0,  0
 
-Pals_1e03f8:
+TimeAttackClearScreenBGPals:
 	rgb 31, 27, 16
 	rgb 31, 15,  2
 	rgb 25,  3,  0
@@ -698,7 +698,7 @@ Pals_1e03f8:
 	rgb  0, 19, 31
 	rgb  0,  0,  0
 
-Pals_1e0438:
+TimeAttackClearScreenOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10

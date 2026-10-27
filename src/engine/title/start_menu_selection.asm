@@ -34,11 +34,11 @@ HandleStartMenuSelection:
 	ld [wMenuObj1FramesetOffset], a
 	ret
 .clear_data_no
-	ld bc, Frameset_6cf2
+	ld bc, StartMenuFrameset_6cf2
 	ld a, $23
 	jr .update_obj
 .clea_data_yes
-	ld bc, Frameset_6d05
+	ld bc, StartMenuFrameset_6d05
 	ld a, $24
 	jr .update_obj
 
@@ -66,7 +66,7 @@ HandleStartMenuSelection:
 	cp STARTMENU_CLEAR_DATA_NO
 	ret nz
 	call .play_scrolling_sfx
-	ld bc, Frameset_6cef
+	ld bc, StartMenuFrameset_6cef
 	ld a, STARTMENU_CLEAR_DATA_YES
 	jr .update_obj
 
@@ -75,7 +75,7 @@ HandleStartMenuSelection:
 	cp STARTMENU_CLEAR_DATA_YES
 	ret nz
 	call .play_scrolling_sfx
-	ld bc, Frameset_6cec
+	ld bc, StartMenuFrameset_6cec
 	ld a, STARTMENU_CLEAR_DATA_NO
 
 .update_obj

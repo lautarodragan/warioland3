@@ -164,7 +164,7 @@ HammerBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
@@ -186,7 +186,7 @@ HammerBotFunc:
 	jr c, .asm_4439e
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
@@ -323,7 +323,7 @@ HammerBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44485
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 

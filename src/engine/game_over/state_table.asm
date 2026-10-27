@@ -6,7 +6,7 @@ _GameOverStateTable::
 	dw InitGameOverScreen
 	dw SlowFadeFromWhite
 	dw UpdateGameOverScreen
-	dw Func_db3e4
+	dw WaitGameOverWarioAnim
 	dw FastFadeToWhite
 	dw GameOverReset
 	dw DebugReset

@@ -1,4 +1,4 @@
-OAM_d4e26:
+ClearScreenOAM_d4e26:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

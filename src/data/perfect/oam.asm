@@ -1,4 +1,4 @@
-OAM_dd710:
+PerfectOAM_dd710:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
