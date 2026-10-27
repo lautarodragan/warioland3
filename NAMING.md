@@ -62,17 +62,31 @@ level room tables 119, map-side object states ~150) it covers roughly
 1500 labels. Every proposed global name was checked with a script against
 `src/` and this file.
 
+**Third pass status:** about 90 table rows (roughly 45 high, 40 medium,
+5 low) plus bulk rules; together about 700 code labels (cutscene step
+tables 40, updaters 48, wait steps 109, per-OW-function inits 45, cutscene
+object inits 19, map-side state entries 139, boss locals ~120, bank20/21/
+26/27/2b_1 routines ~150, union bytes) and 1406 data labels by the
+owner-prefix rule. All new global names checked by script against `src/`
+and the earlier sections.
+
 **Resume at** (in this order):
-1. Phase 7: the overworld `Func_` with 4-8 references listed in 2b, then
-   bank27's per-cutscene object updaters (`Func_9f0e0`, `Func_9f11e`,
-   `Func_9f146`...: each animates scene objects with `Func_9f0a5` +
-   `Func_9f0ae` + `Func_9f0bc` and a frameset table, a bulk rule should
-   work), then scene locals.
-2. The boss phases left unnamed in 2d (read each boss's phase jumptable in
-   full, as was done for hidden_figure.asm).
-3. Data: owner-prefix rule for framesets/OAM, then descriptive names per
-   object/scene. Also give the boss union bytes per-boss names (see the
-   note after `w1d147`).
+1. 3f, overworld `Func_` still unnamed: bank2b_2 (~45, prologue internals:
+   `Func_ae9d0`/`ae9da`/`ae9e4` move scene object 3 along movement data,
+   `Func_ae9ee` plane part 2 actions, `Func_ae2ed`.. the `w2d8b0` steps),
+   bank2b_1 (~15 left), bank2d (~20: the per-state map animation handlers
+   `Func_b7ac0`.. `Func_b7cb3`, `Func_b4082`, `Func_b4874`), bank56
+   (`Func_15848a`, `Func_1580c8`), bank20 leftovers (`Func_812b0`,
+   `Func_819c6`, top-bar helpers `Func_824f1`/`8250a`/`82521`/`8269f`).
+2. Scene-local `.Func_` (~1200 minus the ~200 covered by the wait and
+   `.PlayCutscene` rules): the next mechanical candidates are the 14
+   `ret`-only locals (`.DoNothing`) and the set-object-state-then-advance
+   steps; otherwise per scene, starting with bank27's cutscene steps.
+3. Data not covered by the owner rule (~1150 labels shared by several files
+   or routines; Wario framesets used by several states; OAM tables shared
+   through object_data.asm), then descriptive names per object/scene.
+4. Optional consistency renames noted in passing: `OWCutTree` ->
+   `UpdateCutsceneObjs_CutTree`, bank2d's `.Wait1`..`.Wait4` -> frames.
 
 ## Inventory (master at f205aa3)
 
