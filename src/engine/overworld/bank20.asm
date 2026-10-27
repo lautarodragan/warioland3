@@ -904,7 +904,7 @@ PathPreview_Wait:
 
 PathPreview_InitTracers:
 	xor a
-	ld hl, w2d800
+	ld hl, wOWPathTracers
 	ld bc, $8e
 	call WriteAToHL_BCTimes
 	ld hl, wOWUIObj1
@@ -947,11 +947,11 @@ PathPreview_RunTracers:
 	call z, .clear_tracer_sprites
 	ld a, [wPathPreviewCounter]
 	cp $40
-	ld hl, w2d160 + $6
+	ld hl, wOWUIObj5State
 	call z, .clear_tracer_sprites
 	call UpdatePathPreviewAnimations
 
-	ld hl, w2d800 + $7
+	ld hl, wOWPathTracer1TracerState
 	ld c, $04
 .loop
 	ld a, [hl]
@@ -999,44 +999,44 @@ PathPreview_RunTracers:
 ; input:
 ; - a = index
 ; output:
-; - hl = w2d800 struct
+; - hl = wOWPathTracer* struct
 .get_tracer_ptr:
 	rlca
 	swap a ; *32
 	ld e, a
 	ld d, $00
-	ld hl, w2d800
+	ld hl, wOWPathTracers
 	add hl, de
 	ret
 
 .copy_tracer_sprites_1:
-	ld hl, w2d800
+	ld hl, wOWPathTracer1
 	ld de, wOWUIObj1
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d820
+	ld hl, wOWPathTracer2
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d840
+	ld hl, wOWPathTracer3
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d860
+	ld hl, wOWPathTracer4
 	ld b, $08
 	call CopyHLToDE
 	ret
 
 .copy_tracer_sprites_2:
-	ld hl, w2d800
-	ld de, w2d160
+	ld hl, wOWPathTracer1
+	ld de, wOWUIObj5
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d820
+	ld hl, wOWPathTracer2
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d840
+	ld hl, wOWPathTracer3
 	ld b, $08
 	call CopyHLToDE
-	ld hl, w2d860
+	ld hl, wOWPathTracer4
 	ld b, $08
 	call CopyHLToDE
 	ret
@@ -1054,7 +1054,7 @@ PathPreview_RunTracers:
 	ret
 
 .UpdateTracer:
-	ld a, [wCurOWPathTracer + $7]
+	ld a, [wCurOWPathTracerTracerState]
 	jumptable
 	dw .TracerInit ; $0
 	dw .TracerGetTarget ; $1
@@ -1087,16 +1087,16 @@ PathPreview_RunTracers:
 	ld d, a
 .asm_81645
 	ld a, d
-	ld [wCurOWPathTracer + $0], a
+	ld [wCurOWPathTracerYCoord], a
 	ld [wOWYCoord1], a
 	ld [wOWYCoord2], a
 	ld [wOWPathTargetYCoord], a
 	ld a, e
-	ld [wCurOWPathTracer + $1], a
+	ld [wCurOWPathTracerXCoord], a
 	ld [wOWXCoord1], a
 	ld [wOWXCoord2], a
 	ld [wOWPathTargetXCoord], a
-	ld hl, wCurOWPathTracer + $4
+	ld hl, wCurOWPathTracerDuration
 	xor a
 	ld [hli], a
 	ld [hli], a
@@ -1116,15 +1116,15 @@ PathPreview_RunTracers:
 .asm_81679
 	ld [hl], a
 .next_tracer_state
-	ld hl, wCurOWPathTracer + $7
+	ld hl, wCurOWPathTracerTracerState
 	inc [hl]
 	ret
 
 .TracerGetTarget:
-	ld a, [wCurOWPathTracer + $6]
+	ld a, [wCurOWPathTracerSpriteState]
 	and a
 	jr z, .asm_816ad
-	ld hl, wCurOWPathTracer + $9
+	ld hl, wPathPreviewPathsPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1148,7 +1148,7 @@ PathPreview_RunTracers:
 	jr .next_tracer_state
 .asm_816ad
 	ld a, $05
-	ld [wCurOWPathTracer + $7], a
+	ld [wCurOWPathTracerTracerState], a
 	ret
 
 .TracerStartLine:
@@ -1160,9 +1160,9 @@ PathPreview_RunTracers:
 .TracerWalk:
 	call StepOWLineMovement
 	ld a, [wOWYCoord1]
-	ld [wCurOWPathTracer + $0], a
+	ld [wCurOWPathTracerYCoord], a
 	ld a, [wOWXCoord1]
-	ld [wCurOWPathTracer + $1], a
+	ld [wCurOWPathTracerXCoord], a
 	ld a, [wOWLineStepsLeft]
 	and a
 	ret nz
@@ -1175,11 +1175,11 @@ PathPreview_RunTracers:
 	ret
 .asm_816e3
 	xor a
-	ld [wCurOWPathTracer + $8], a
+	ld [wCurOWPathTracerCounter], a
 	jp .next_tracer_state
 
 .TracerWait8:
-	ld hl, wCurOWPathTracer + $8
+	ld hl, wCurOWPathTracerCounter
 	inc [hl]
 	ld a, [hl]
 	cp $08
@@ -1204,7 +1204,7 @@ PathPreview_RunTracers:
 .asm_8170b
 	inc a
 .asm_8170c
-	ld hl, wCurOWPathTracer + $6
+	ld hl, wCurOWPathTracerSpriteState
 	ld [hld], a
 	xor a
 	ld [hld], a
@@ -1212,29 +1212,29 @@ PathPreview_RunTracers:
 	ret
 
 UpdatePathPreviewAnimations:
-	ld hl, wDayNightTransistionSteps
+	ld hl, wOWPathTracer1SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour1BlueUnk3
+	ld hl, wOWPathTracer2SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour3RedUnk3
+	ld hl, wOWPathTracer3SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour4GreenUnk3
+	ld hl, wOWPathTracer4SpriteState
 	call .animate_and_draw
 	ld hl, wOWUIObj1State
 	call .animate_and_draw
 	ld hl, wOWUIObj2State
 	call .animate_and_draw
-	ld hl, wd156
+	ld hl, wOWUIObj3State
 	call .animate_and_draw
-	ld hl, w2d15e
+	ld hl, wOWUIObj4State
 	call .animate_and_draw
-	ld hl, w2d166
+	ld hl, wOWUIObj5State
 	call .animate_and_draw
-	ld hl, w2d16e
+	ld hl, wOWUIObj6State
 	call .animate_and_draw
-	ld hl, w2d176
+	ld hl, wOWUIObj7State
 	call .animate_and_draw
-	ld hl, w2d17e
+	ld hl, wOWUIObj8State
 	call .animate_and_draw
 	ret
 

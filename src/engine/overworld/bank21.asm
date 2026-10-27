@@ -747,7 +747,7 @@ _PrologueFade:
 	cp 1
 	jp nc, .do_fade ; >= 1
 ; init fade
-	ld a, [wCurOWPathTracer]
+	ld a, [wPrologueFadeType]
 	and a
 	jr z, .zero
 	dec a

@@ -1818,9 +1818,9 @@ _InitTempleScene:
 
 .asm_acc68
 	ld a, $60
-	ld [w1d140], a
+	ld [wSceneWarioYCoord], a
 	ld a, $e8
-	ld [wDollBoyNoFlashingBarrel], a
+	ld [wSceneWarioXCoord], a
 	ld a, SCENEWARIO_GROUP_NONE
 	ld [wSceneWarioStateGroup], a
 
@@ -2515,7 +2515,7 @@ HiddenFigureRevealScene:
 .SetFadeToDarkness:
 	call HandleTempleShakeAndRocks
 	ld a, $03
-	ld [wCurOWPathTracer], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -2639,7 +2639,7 @@ HiddenFigureRevealScene:
 	ld [wTempleLeftHandMoving], a
 	ld [wTempleRightHandMoving], a
 	ld a, $04
-	ld [wCurOWPathTracer], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a

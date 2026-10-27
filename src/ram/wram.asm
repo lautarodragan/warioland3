@@ -986,8 +986,6 @@ wObjDataPtr12::          dw
 wObjDataPtr13::          dw
 wObjDataPointersEnd::
 
-w1d140::
-
 ; if non-0, the Flame Block puzzle
 ; has already been cleared for the level
 wFlameBlockCleared::
@@ -1975,13 +1973,6 @@ wSceneWarioAnimFinished::
 
 	ds $1
 
-NEXTU
-
-wOWUIObj1:: scene_obj_struct wOWUIObj1
-wOWUIObj2:: scene_obj_struct wOWUIObj2
-
-ENDU
-
 w2d150::
 	db
 
@@ -2007,27 +1998,23 @@ wd156::
 wHDMADestVRAMBank::
 	db
 
-	ds $5
+	ds $27
 
-w2d15e::
-	db
+NEXTU
 
-	ds $1
+; the B-button path preview's sprites
+; (PathPreview_RunTracers)
+wOWUIObjs::
+wOWUIObj1:: scene_obj_struct wOWUIObj1
+wOWUIObj2:: scene_obj_struct wOWUIObj2
+wOWUIObj3:: scene_obj_struct wOWUIObj3
+wOWUIObj4:: scene_obj_struct wOWUIObj4
+wOWUIObj5:: scene_obj_struct wOWUIObj5
+wOWUIObj6:: scene_obj_struct wOWUIObj6
+wOWUIObj7:: scene_obj_struct wOWUIObj7
+wOWUIObj8:: scene_obj_struct wOWUIObj8
 
-w2d160::
-	ds $6
-
-w2d166::
-	ds $8
-
-w2d16e::
-	ds $8
-
-w2d176::
-	ds $8
-
-w2d17e::
-	ds $2
+ENDU
 
 wCurSceneObj:: scene_obj_struct wCurSceneObj
 
@@ -2060,13 +2047,20 @@ SECTION "WRAM2 2", WRAMX
 
 UNION
 
-w2d800:: ow_unk_struct w2d800
-w2d820:: ow_unk_struct w2d820
-w2d840:: ow_unk_struct w2d840
-w2d860:: ow_unk_struct w2d860
+wOWPathTracers::
+wOWPathTracer1:: ow_path_tracer_struct wOWPathTracer1
+wOWPathTracer2:: ow_path_tracer_struct wOWPathTracer2
+wOWPathTracer3:: ow_path_tracer_struct wOWPathTracer3
+wOWPathTracer4:: ow_path_tracer_struct wOWPathTracer4
 
-wCurOWPathTracer::
-	ds $9
+UNION
+wCurOWPathTracer:: ow_path_tracer_head_struct wCurOWPathTracer
+NEXTU
+; prologue and temple scenes: which fade
+; _PrologueFade starts (0-6)
+wPrologueFadeType::
+	db
+ENDU
 
 wPathPreviewPathsPtr::
 	ds $2

@@ -1212,7 +1212,7 @@ _InitBestTimeList:
 	xor a
 	ldh [rSCX], a
 	ld [wSCX], a
-	ld a, [wObj1SubState]
+	ld a, [wCurMapSide]
 	rra
 	and a
 	jr z, .asm_158990

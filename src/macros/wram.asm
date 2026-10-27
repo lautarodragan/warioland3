@@ -36,13 +36,24 @@ MACRO scene_obj_struct
 \1End::
 ENDM
 
-MACRO ow_unk_struct_sub
-	ds $9
+; the part of an ow_path_tracer_struct that is copied
+; to wCurOWPathTracer while the tracer is updated;
+; bytes 0-6 are laid out like a scene_obj_struct
+MACRO ow_path_tracer_head_struct
+	sprite_oam_struct \1
+\1Duration::       db
+\1FramesetOffset:: db
+\1SpriteState::    db ; animation state of its sprite
+\1TracerState::    db ; PathPreview_RunTracers.UpdateTracer step, 5 = done
+\1Counter::        db
 ENDM
 
-MACRO ow_unk_struct
-	ow_unk_struct_sub \1
-	ds $17
+; one of the four tracers of the B-button path preview
+MACRO ow_path_tracer_struct
+	ow_path_tracer_head_struct \1
+\1LineState:: ds 7 ; saved wOWLineFlags..wOWLineXStep
+\1Coords::    ds 8 ; saved wOWCoords1 and the 7 bytes after it
+	ds 8
 ENDM
 
 MACRO golf_obj_struct

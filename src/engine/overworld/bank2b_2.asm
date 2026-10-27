@@ -76,7 +76,7 @@ Prologue:
 ;	fallthrough
 
 .set_fade_type:
-	ld [wCurOWPathTracer], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -2693,7 +2693,7 @@ _UpdateEpilogue:
 	jp AdvanceEpilogueOWStep
 .SetFadeToBlack:
 	ld a, $00
-	ld [wCurOWPathTracer], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
