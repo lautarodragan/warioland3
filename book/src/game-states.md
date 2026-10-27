@@ -141,12 +141,12 @@ restores it.
 
 | `wSubState` | Routine | What |
 |---|---|---|
-| 0 | `FastFadeToWhite` | fade out the map |
+| 0 | `SlowFadeToWhite` | fade out the map |
 | 1 | `InitLevel` | LCD off, load the level and its first room, LCD on |
 | 2 | `SlowFadeFromWhite` | fade in |
 | 3 | `UpdateLevel` | normal play, once per frame |
 | 4 | `DoorTransition` | the closing-square door effect |
-| 5 | `FastFadeToWhite` | fade out the room |
+| 5 | `SlowFadeToWhite` | fade out the room |
 | 6 | `StartRoom_FromTransition` | LCD off, load the next room, LCD on, back to 2 |
 | 7 | `ProcessMultiBlock` (`SST_LEVEL_MULTI_BLOCK`) | break a group of blocks, back to `wPendingSubState` |
 | 8-15 | `DebugReset` | resets the game |
@@ -165,9 +165,9 @@ first two: with `ROOMTRANSITIONF_DOOR` in `wRoomTransitionParam` it adds 1 to
 `wSubState` (door effect), otherwise 2 (straight to the fade). Room
 transitions are described in [Levels, rooms and doors](levels-and-rooms.md).
 
-The fade routines' names don't match their speeds: `FastFadeToWhite` sets
-`FADE_SPEED_SLOW` (the smallest colour step, until its counter reaches 33),
-while `SlowFadeBGToWhite` sets `FADE_SPEED_FAST` (until 10). See
+`SlowFadeToWhite` sets `FADE_SPEED_SLOW` (the smallest colour step, until its
+counter reaches 33) and `FastFadeBGToWhite` sets `FADE_SPEED_FAST` (until 10).
+Until this fork renamed them, their names had the speeds backwards. See
 `src/home/fade.asm`.
 
 ### One frame of `UpdateLevel`
@@ -182,7 +182,7 @@ the same work in the same order:
 3. `UpdateObjects`
 4. `SetWarioScreenPos`
 5. `ProcessInteractions`: Wario against each object
-6. draw: `DrawObjects_NoPriority`, `DrawWario`, `DrawObjects_WithPriority`,
+6. draw: `DrawObjects_WithPriority`, `DrawWario`, `DrawObjects_NoPriority`,
    `ClearUnusedVirtualOAM`
 7. the camera: floor transition step, `LevelScroll_Vertical`,
    `LevelScroll_Horizontal`

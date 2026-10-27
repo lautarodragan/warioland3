@@ -2,11 +2,11 @@ _ActionHelpStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw InitActionHelp
 	dw DarkenBGToPal_Fast
 	dw UpdateActionHelp
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw ReturnToPauseMenuFromActionHelp
 	dw DebugReset
 	dw DebugReset

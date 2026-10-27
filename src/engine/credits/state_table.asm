@@ -2,7 +2,7 @@ _CreditsStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitCredits
 	dw SlowFadeFromWhite
 	dw ShowCredits

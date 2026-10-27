@@ -198,9 +198,8 @@ a transformation with `TRANSFORMATIONF_SUPER_SMASH` is on), runs
 
 While `wIsFloorTransition` is set it skips `HandleGrabbedObjectCollisions`
 and runs `UpdateObjectDuringFloorTransition` instead, which only calls the update
-function for objects that still have `OBJSUBFLAG_UNINITIALISED` set (the
-comment above that check says the opposite; the code runs it only for
-uninitialised objects), and calls `UpdateObjectFrame` instead of
+function for objects that still have `OBJSUBFLAG_UNINITIALISED` set (that
+check's comment used to say the opposite), and calls `UpdateObjectFrame` instead of
 `UpdateObjectAnimation`, which doesn't advance the animation.
 
 ### Actions
@@ -235,14 +234,15 @@ state, a transformation, damage) and to the object (`SetObjAction`).
 
 After the objects and interactions, `UpdateLevel` draws:
 
-1. `DrawObjects_NoPriority`: objects that are active, on screen, not
+1. `DrawObjects_WithPriority`: objects that are active, on screen, not
    invisible **and have** `OBJFLAG_PRIORITY`
 2. `DrawWario`
-3. `DrawObjects_WithPriority`: the same, **without** `OBJFLAG_PRIORITY`
+3. `DrawObjects_NoPriority`: the same, **without** `OBJFLAG_PRIORITY`
 4. `ClearUnusedVirtualOAM`
 
 On the Game Boy, sprites earlier in OAM win, so objects with
-`OBJFLAG_PRIORITY` are drawn in front of Wario, despite the routine's name.
+`OBJFLAG_PRIORITY` are drawn in front of Wario. (The two routines' names
+were swapped until this fork fixed them.)
 
 `UpdateObjSprite` (`src/home/object_mechanics.asm`) looks up the current
 frame in the object's OAM table (`dw` per frame) and copies its sprites to

@@ -129,11 +129,11 @@ StartRoom_FromTransition:
 	farcall UpdateObjects
 	pop_wram
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 	call DrawWario
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 	xor a
 	ld [wIsIntangible], a
@@ -151,13 +151,13 @@ ProcessMultiBlock:
 	farcall UpdateParticles
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 
 	call ClearUnusedVirtualOAM
@@ -463,13 +463,13 @@ StartRoom_FromLevelStart:
 	ld [wIsFloorTransition], a
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 	ret
 

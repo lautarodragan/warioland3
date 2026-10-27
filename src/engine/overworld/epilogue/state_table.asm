@@ -9,7 +9,7 @@ EpilogueStateTable:
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
-	call FastFadeToWhite
+	call SlowFadeToWhite
 	ret
 
 .ReturnToOverworld:

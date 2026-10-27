@@ -2,7 +2,7 @@ GBIncompatibleStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw  FastFadeToWhite
+	dw  SlowFadeToWhite
 	dw  GBIncompatible
 	dw  SlowFadeFromWhite
 	dw  ExitGBIncompatible

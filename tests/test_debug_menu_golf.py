@@ -19,7 +19,7 @@ THE_VAST_PLAIN_DAY_1 = 0x10
 # src/constants/level_constants.asm
 ROOMTRANSITION_DOOR = 2
 ROOMTRANSITIONF_RELOAD_OBJECTS = 1 << 6
-SST_LEVEL_FAST_FADE_TO_WHITE = 5  # then StartRoom_FromTransition
+SST_LEVEL_SLOW_FADE_TO_WHITE = 5  # then StartRoom_FromTransition
 
 GATE_RAISE = 32  # pixels, ClearGateFunc
 
@@ -78,7 +78,7 @@ def door_to(game, sector):
         game.pb.memory[addr] = hi
         game.pb.memory[addr + 1] = 0x80
     game.write("wRoomTransitionParam", ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS)
-    game.write("wSubState", SST_LEVEL_FAST_FADE_TO_WHITE)
+    game.write("wSubState", SST_LEVEL_SLOW_FADE_TO_WHITE)
     game.wait_until(lambda: game.state == (ST_LEVEL, SST_LEVEL_UPDATE), what="room")
     game.tick(60)
 

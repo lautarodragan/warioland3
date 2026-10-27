@@ -291,8 +291,8 @@ ENDR
 	ld a, [hl]
 	ld [wCurObj + OBJ_STRUCT_LENGTH - 1], a
 
-	; only run update function
-	; on initialised objects
+	; during a floor transition, only run the update function
+	; of objects that are still uninitialised (to set them up)
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_UNINITIALISED_F, [hl]
 	jr z, .skip_update_function
@@ -390,11 +390,11 @@ ENDR
 	ld [hl], a
 	ret
 
-DrawObjects_NoPriority::
+DrawObjects_WithPriority::
 	ld a, [wOwlTileOffset]
 	and a
 	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN | OBJFLAG_PRIORITY
-	jp nz, DrawObjects_NoPriority_Owl
+	jp nz, DrawObjects_WithPriority_Owl
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -409,7 +409,7 @@ FOR n, 1, NUM_OBJECTS + 1
 ENDR
 	ret
 
-DrawObjects_WithPriority::
+DrawObjects_NoPriority::
 	ld a, [wOwlTileOffset]
 	and a
 	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN
@@ -428,16 +428,16 @@ FOR n, 1, NUM_OBJECTS + 1
 ENDR
 	ret
 
-; DrawObjects_NoPriority while the debug menu's owl has its graphics
+; DrawObjects_WithPriority while the debug menu's owl has its graphics
 ; somewhere else than in an owl object group (wOwlTileOffset != 0): once a
 ; frame, see whether a slot it borrowed can be given back.
-DrawObjects_NoPriority_Owl:
+DrawObjects_WithPriority_Owl:
 	push bc
 	call UpdateBorrowedOwlSlot
 	pop bc
 ;	fallthrough
 
-; Like DrawObjects_NoPriority and DrawObjects_WithPriority, for when the
+; Like DrawObjects_WithPriority and DrawObjects_NoPriority, for when the
 ; owl's graphics aren't in enemy graphics slot 1 (wOwlTileOffset != 0): the
 ; owl's sprites are moved to their slot as they're drawn.
 ; input:

@@ -2,11 +2,11 @@ OverworldStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitOverworld
 	dw SlowFadeFromWhite
 	dw OverworldWaitAPress
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 
 	dw InitOWScene          ; SST_OVERWORLD_OW_SCENE
 	dw SlowFadeFromWhite
@@ -45,7 +45,7 @@ OverworldStateTable::
 	dw DarkenBGToPal_Normal
 	dw UpdateGolfBuilding
 
-	dw FastFadeToWhite ; SST_OVERWORLD_EPILOGUE
+	dw SlowFadeToWhite ; SST_OVERWORLD_EPILOGUE
 	dw InitEpilogue
 	dw SlowFadeFromWhite
 	dw UpdateEpilogue

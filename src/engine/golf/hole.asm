@@ -2,7 +2,7 @@
 UnreferencedGolfHoleStateTable:
 	ld a, [wSubState]
 	jumptable
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitGolfHole
 	dw SlowFadeFromWhite
 	dw HandleGolfHole

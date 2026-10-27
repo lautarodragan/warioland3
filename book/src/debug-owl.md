@@ -236,7 +236,7 @@ VRAM1 sprite from a given virtual OAM offset to the end, add the offset to
 the tile, and turn palette 4 into the slot's. It's called only when
 `wOwlTileOffset` isn't 0, from the three places that draw the owl:
 
-1. the spawned owl object: `DrawObjects_NoPriority`/`_WithPriority` switch
+1. the spawned owl object: `DrawObjects_WithPriority`/`_WithPriority` switch
    to `DrawObjects_OwlElsewhere`, the same loop over the objects but
    relocating the sprites `UpdateObjSprite` wrote for an `OWL` object;
 2. and 4. Owl Wario holding it, in this room or one he flew into:
@@ -369,7 +369,7 @@ of chunks given back. `LoadObjectGroupData` already clears `wOwlTileOffset`
 on every room load, which ends a borrow (the new room's graphics and object
 data are loaded anyway); the redirected V-Blank function checks the flag and
 puts the jump back by itself. `UpdateBorrowedOwlSlot` (Update Objects bank)
-runs once a frame from `DrawObjects_NoPriority`'s owl path: it sees the owl
+runs once a frame from `DrawObjects_WithPriority`'s owl path: it sees the owl
 go, starts giving the slot back, and redirects the V-Blank function again
 after a menu or the pause menu (they install their own, then
 `LevelVBlankFunc` again, and back up and restore VRAM, so the chunks copied

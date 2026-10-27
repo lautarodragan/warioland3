@@ -2,17 +2,17 @@ _ClearScreenStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitClearScreen
 	dw SlowFadeFromWhite
 	dw UpdateClearScreen
 
-	dw SlowFadeBGToWhite ; SST_CLEAR_TIME_ATTACK
+	dw FastFadeBGToWhite ; SST_CLEAR_TIME_ATTACK
 	dw InitTimeAttackClearScreen
 	dw DarkenBGToPal_Fast
 	dw UpdateTimeAttackClearScreen
 
-	dw SlowFadeBGToWhite ; SST_CLEAR_MUSICAL_COINS
+	dw FastFadeBGToWhite ; SST_CLEAR_MUSICAL_COINS
 	dw InitMusicalCoinScreen
 	dw DarkenBGToPal_Fast
 	dw MusicalCoinScreen_CountCoins

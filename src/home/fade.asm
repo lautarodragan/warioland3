@@ -3,12 +3,12 @@ FadeBGToWhite_Normal::
 	ld [wFadeSpeed], a
 	jr FadeBGToWhite
 
-SlowFadeBGToWhite::
+FastFadeBGToWhite::
 	ld a, FADE_SPEED_FAST
 	ld [wFadeSpeed], a
 	jr FadeBGToWhite
 
-FastFadeToWhite::
+SlowFadeToWhite::
 	xor a ; FADE_SPEED_SLOW
 	ld [wFadeSpeed], a
 	; fallthrough
