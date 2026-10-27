@@ -167,19 +167,19 @@ UpdateState_Slipping:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wWarioStateCycles]
 	and $01
 	jr nz, .asm_19da3
-	ld a, HIGH(Frameset_149b4)
+	ld a, HIGH(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_149b4)
+	ld a, LOW(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_19daf
 .asm_19da3
@@ -296,11 +296,11 @@ SetState_CrouchSlipping_KeepCounter:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	xor a
@@ -560,7 +560,7 @@ SetState_SandFalling:
 	call SetWarioPal
 ;	fallthrough
 
-Func_1a12a:
+SetWarioSandAirborneAnimation:
 	ld a, BANK(WarioAirborneGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioAirborneGfx)
@@ -576,16 +576,16 @@ Func_1a12a:
 	ld [wWarioOAMPtr + 1], a
 ;	fallthrough
 
-Func_1a14b:
+SetWarioSandAirborneFrameset:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1a164
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1a16e
 .asm_1a164
@@ -622,7 +622,7 @@ SetState_SandJumping:
 	ld [wWarioStateCycles], a
 	inc a
 	ld [wJumpVelTable], a
-	jp Func_1a12a
+	jp SetWarioSandAirborneAnimation
 
 UpdateState_SandJumping:
 	farcall CheckTopBlockInteraction
@@ -645,7 +645,7 @@ UpdateState_SandJumping:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1a211
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 
 .asm_1a211
 	ld a, [wJoypadDown]
@@ -1173,11 +1173,11 @@ SetState_GrabSlipping:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	xor a
@@ -2331,7 +2331,7 @@ HandleSandFallingInput:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1b301
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 .asm_1b301
 	ret
 

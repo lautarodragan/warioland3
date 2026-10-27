@@ -15,15 +15,15 @@ assert ({\1} >> 4) & %111 == (BANK(\2) - BANK("Objects OAM 1"))
 ENDM
 
 DummyObjectData:           object_data DUMMY_OBJECT,            SpearheadOAM_18007b, OBJ_INTERACTION_00,                           0, DummyObjectFunc,           $0
-GreyChestData:             object_data GREY_CHEST,              OAM_18c000, OBJ_INTERACTION_GREY_TREASURE  | HEAVY_OBJ, -24, GreyChestFunc,             $0
-RedChestData:              object_data RED_CHEST,               OAM_18c000, OBJ_INTERACTION_RED_TREASURE   | HEAVY_OBJ, -24, RedChestFunc,              $0
-GreenChestData:            object_data GREEN_CHEST,             OAM_18c000, OBJ_INTERACTION_GREEN_TREASURE | HEAVY_OBJ, -24, GreenChestFunc,            $0
-BlueChestData:             object_data BLUE_CHEST,              OAM_18c000, OBJ_INTERACTION_BLUE_TREASURE  | HEAVY_OBJ, -24, BlueChestFunc,             $0
-GreyKeyData:               object_data GREY_KEY_O,              OAM_18c000, OBJ_INTERACTION_GREY_KEY,                   -24, KeyFunc,                   $0
-RedKeyData:                object_data RED_KEY_O,               OAM_18c000, OBJ_INTERACTION_RED_KEY,                    -24, KeyFunc,                   $0
-GreenKeyData:              object_data GREEN_KEY_O,             OAM_18c000, OBJ_INTERACTION_GREEN_KEY,                  -24, KeyFunc,                   $0
-BlueKeyData:               object_data BLUE_KEY_O,              OAM_18c000, OBJ_INTERACTION_BLUE_KEY,                   -24, KeyFunc,                   $0
-MusicalCoinData:           object_data MUSICAL_COIN,            OAM_18c000, OBJ_INTERACTION_MUSICAL_COIN,               -25, MusicalCoinFunc,           $0
+GreyChestData:             object_data GREY_CHEST,              ChestsOAM_18c000, OBJ_INTERACTION_GREY_TREASURE  | HEAVY_OBJ, -24, GreyChestFunc,             $0
+RedChestData:              object_data RED_CHEST,               ChestsOAM_18c000, OBJ_INTERACTION_RED_TREASURE   | HEAVY_OBJ, -24, RedChestFunc,              $0
+GreenChestData:            object_data GREEN_CHEST,             ChestsOAM_18c000, OBJ_INTERACTION_GREEN_TREASURE | HEAVY_OBJ, -24, GreenChestFunc,            $0
+BlueChestData:             object_data BLUE_CHEST,              ChestsOAM_18c000, OBJ_INTERACTION_BLUE_TREASURE  | HEAVY_OBJ, -24, BlueChestFunc,             $0
+GreyKeyData:               object_data GREY_KEY_O,              ChestsOAM_18c000, OBJ_INTERACTION_GREY_KEY,                   -24, KeyFunc,                   $0
+RedKeyData:                object_data RED_KEY_O,               ChestsOAM_18c000, OBJ_INTERACTION_RED_KEY,                    -24, KeyFunc,                   $0
+GreenKeyData:              object_data GREEN_KEY_O,             ChestsOAM_18c000, OBJ_INTERACTION_GREEN_KEY,                  -24, KeyFunc,                   $0
+BlueKeyData:               object_data BLUE_KEY_O,              ChestsOAM_18c000, OBJ_INTERACTION_BLUE_KEY,                   -24, KeyFunc,                   $0
+MusicalCoinData:           object_data MUSICAL_COIN,            ChestsOAM_18c000, OBJ_INTERACTION_MUSICAL_COIN,               -25, MusicalCoinFunc,           $0
 SpearheadData:             object_data SPEARHEAD,               SpearheadOAM_18007b, OBJ_INTERACTION_01,                         -14, SpearheadFunc,             OBJFLAG_PRIORITY
 FutamoguData:              object_data FUTAMOGU,                FutamoguOAM_180564, OBJ_INTERACTION_WALKABLE       | HEAVY_OBJ, -17, FutamoguFunc,              OBJFLAG_PRIORITY
 WebberData:                object_data WEBBER,                  WebberOAM_180242, OBJ_INTERACTION_WALKABLE       | HEAVY_OBJ, -16, WebberFunc,                OBJFLAG_PRIORITY
@@ -57,8 +57,8 @@ RedPrinceFroggyData:       object_data RED_PRINCE_FROGGY,       PrinceFroggyOAM_
 GreyPrinceFroggyData:      object_data GREY_PRINCE_FROGGY,      PrinceFroggyOAM_184000, OBJ_INTERACTION_PRINCE_FROGGY  | HEAVY_OBJ, -26, GreyPrinceFroggyFunc,      OBJFLAG_PRIORITY
 HammerBotData:             object_data HAMMER_BOT,              HammerBotOAM_18422f, OBJ_INTERACTION_01             | HEAVY_OBJ, -18, HammerBotFunc,             OBJFLAG_PRIORITY
 TeruteruData:              object_data TERUTERU,                TeruteruOAM_18496f, OBJ_INTERACTION_01,                         -20, TeruteruFunc,              OBJFLAG_PRIORITY
-MadSciensteinData:         object_data MAD_SCIENSTEIN,          OAM_184ab2, OBJ_INTERACTION_01             | HEAVY_OBJ, -18, MadSciensteinFunc,         OBJFLAG_PRIORITY
-SeeingEyeDoorData:         object_data SEEING_EYE_DOOR,         OAM_184ab2, OBJ_INTERACTION_SOLID          | HEAVY_OBJ, -24, SeeingEyeDoorFunc,         OBJFLAG_PRIORITY
+MadSciensteinData:         object_data MAD_SCIENSTEIN,          MadSciensteinOAM_184ab2, OBJ_INTERACTION_01             | HEAVY_OBJ, -18, MadSciensteinFunc,         OBJFLAG_PRIORITY
+SeeingEyeDoorData:         object_data SEEING_EYE_DOOR,         MadSciensteinOAM_184ab2, OBJ_INTERACTION_SOLID          | HEAVY_OBJ, -24, SeeingEyeDoorFunc,         OBJFLAG_PRIORITY
 PneumoData:                object_data PNEUMO,                  PneumoOAM_184db9, OBJ_INTERACTION_PNEUMO,                     -16, PneumoFunc,                OBJFLAG_PRIORITY
 ElectricLampData:          object_data ELECTRIC_LAMP,           ElectricLampOAM_184eeb, OBJ_INTERACTION_0B,                           0, ElectricLampFunc,          $0
 ZombieData:                object_data ZOMBIE,                  ZombieOAM_184ffa, OBJ_INTERACTION_0B             | HEAVY_OBJ,  -6, ZombieFunc,                OBJFLAG_PRIORITY
@@ -70,7 +70,7 @@ MoonData:                  object_data MOON,                    SunMoonOAM_1854a
 KobattoData:               object_data KOBATTO,                 KobattoOAM_185788, OBJ_INTERACTION_VAMPIRE,                    -12, KobattoFunc,               OBJFLAG_PRIORITY
 HandData:                  object_data HAND,                    HandOAM_185893, OBJ_INTERACTION_HAND,                       -20, HandFunc,                  OBJFLAG_PRIORITY
 BubbleHoleData:            object_data BUBBLE_HOLE,             BubbleOAM_185b98, OBJ_INTERACTION_0B,                           0, BubbleHoleFunc,            $0
-BrrrBearData:              object_data BRRR_BEAR,               OAM_188000, OBJ_INTERACTION_ICE            | HEAVY_OBJ, -18, BrrrBearFunc,              OBJFLAG_PRIORITY
+BrrrBearData:              object_data BRRR_BEAR,               BrrrBearOAM_188000, OBJ_INTERACTION_ICE            | HEAVY_OBJ, -18, BrrrBearFunc,              OBJFLAG_PRIORITY
 CartLeftData:              object_data CART_LEFT,               CartOAM_188279, OBJ_INTERACTION_SOLID,                      -16, CartFunc,                  OBJFLAG_PRIORITY
 CartRightData:             object_data CART_RIGHT,              CartOAM_188279, OBJ_INTERACTION_SOLID,                      -16, CartFunc,                  OBJFLAG_PRIORITY
 CartVariableLeftData:      object_data CART_VARIABLE_LEFT,      CartOAM_188279, OBJ_INTERACTION_SOLID,                      -16, CartVariableFunc,          OBJFLAG_PRIORITY
@@ -84,8 +84,8 @@ ZipLine2Data:              object_data ZIP_LINE2,               ZipLineOAM_18834
 ZipLine3Data:              object_data ZIP_LINE3,               ZipLineOAM_18834a, OBJ_INTERACTION_RAIL,                        -7, ZipLineFunc,               OBJFLAG_PRIORITY
 ZipLine4Data:              object_data ZIP_LINE4,               ZipLineOAM_18834a, OBJ_INTERACTION_RAIL,                        -7, ZipLineFunc,               OBJFLAG_PRIORITY
 ZipLine5Data:              object_data ZIP_LINE5,               ZipLineOAM_18834a, OBJ_INTERACTION_RAIL,                        -7, ZipLineFunc,               OBJFLAG_PRIORITY
-AnonsterData:              object_data ANONSTER,                OAM_190000, OBJ_INTERACTION_0B,                         -29, AnonsterFunc,              $0
-SilkPlatformsData:         object_data SILK_PLATFORMS,          OAM_190000, OBJ_INTERACTION_0B,                           0, SilkPlatformsFunc,         $0
+AnonsterData:              object_data ANONSTER,                AnonsterOAM_190000, OBJ_INTERACTION_0B,                         -29, AnonsterFunc,              $0
+SilkPlatformsData:         object_data SILK_PLATFORMS,          AnonsterOAM_190000, OBJ_INTERACTION_0B,                           0, SilkPlatformsFunc,         $0
 FallingSnowSpawnerData:    object_data FALLING_SNOW_SPAWNER,    FallingSnowOAM_1893fe, OBJ_INTERACTION_0B,                           0, FallingSnowSpawnerFunc,    $0
 DollBoyData:               object_data DOLL_BOY,                DollBoyOAM_19105c, OBJ_INTERACTION_0B             | HEAVY_OBJ, -28, DollBoyFunc,               $0
 HammerPlatformSpawnerData: object_data HAMMER_PLATFORM_SPAWNER, DollBoyOAM_19105c, OBJ_INTERACTION_0B,                           0, HammerPlatformSpawnerFunc, $0
@@ -106,11 +106,11 @@ ClearGate1Data:            object_data CLEAR_GATE1,             ClearGateOAM_181
 ClearGate2Data:            object_data CLEAR_GATE2,             ClearGateOAM_181c47, OBJ_INTERACTION_SOLID,                      -31, ClearGate2Func,            $0
 ClearGate3Data:            object_data CLEAR_GATE3,             ClearGateOAM_181c47, OBJ_INTERACTION_SOLID,                      -31, ClearGate3Func,            $0
 PesceData:                 object_data PESCE,                   PesceOAM_1927d5, OBJ_INTERACTION_PESCE          | HEAVY_OBJ, -14, PesceFunc,                 OBJFLAG_PRIORITY
-DragonflySpawnerData:      object_data DRAGONFLY_SPAWNER,       OAM_190000, OBJ_INTERACTION_0B,                           0, DragonflySpawnerFunc,      $0
-FlySpawnerData:            object_data FLY_SPAWNER,             OAM_190000, OBJ_INTERACTION_0B,                           0, FlySpawnerFunc,            $0
+DragonflySpawnerData:      object_data DRAGONFLY_SPAWNER,       AnonsterOAM_190000, OBJ_INTERACTION_0B,                           0, DragonflySpawnerFunc,      $0
+FlySpawnerData:            object_data FLY_SPAWNER,             AnonsterOAM_190000, OBJ_INTERACTION_0B,                           0, FlySpawnerFunc,            $0
 StrongWaterCurrentData:    object_data STRONG_WATER_CURRENT,    PesceOAM_1927d5, OBJ_INTERACTION_51             | HEAVY_OBJ, -26, StrongWaterCurrentFunc,    OBJFLAG_PRIORITY
 Dragonfly2Data:            object_data DRAGONFLY2,              PesceOAM_1927d5, OBJ_INTERACTION_WALKABLE,                    -9, Dragonfly2Func,            OBJFLAG_PRIORITY
-TadpoleSpawnerData:        object_data TADPOLE_SPAWNER,         OAM_188000, OBJ_INTERACTION_0B,                           0, TadpoleSpawnerFunc,        $0
+TadpoleSpawnerData:        object_data TADPOLE_SPAWNER,         BrrrBearOAM_188000, OBJ_INTERACTION_0B,                           0, TadpoleSpawnerFunc,        $0
 WaterSparkData:            object_data WATER_SPARK,             WaterSparkOAM_18a7fd, OBJ_INTERACTION_YELLOW_BELLY_ARROW,         -13, WaterSparkFunc,            $0
 SmallOctohonData:          object_data SMALL_OCTOHON,           OctohonOAM_18a895, OBJ_INTERACTION_06,                           0, SmallOctohonFunc,          OBJFLAG_PRIORITY
 BigOctohonData:            object_data BIG_OCTOHON,             OctohonOAM_18a895, OBJ_INTERACTION_06,                          -9, BigOctohonFunc,            $0

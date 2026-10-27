@@ -2101,11 +2101,11 @@ SetState_BlindWalking:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wJoypadDown]
@@ -2118,9 +2118,9 @@ SetState_BlindWalking:
 	and a
 	jr nz, .asm_1ed44f
 .asm_1ed443
-	ld a, HIGH(Frameset_149b4)
+	ld a, HIGH(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_149b4)
+	ld a, LOW(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1ed459
 .asm_1ed44f
@@ -2268,9 +2268,9 @@ SetState_BlindAirborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1ed5c0
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1ed5ca
 .asm_1ed5c0
@@ -2761,7 +2761,7 @@ SetState_BallStart:
 
 	ld a, [wJumpVelTable]
 	and a
-	jr z, Func_1edaca
+	jr z, LandFromBallStart
 
 	ld a, WST_BALL_START
 	ld [wWarioState], a
@@ -2803,7 +2803,7 @@ UpdateState_BallStart:
 	ld [de], a
 ;	fallthrough
 
-Func_1edaca:
+LandFromBallStart:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edae4
@@ -2825,7 +2825,7 @@ Func_1edaca:
 	ld [wWarioFramesetPtr + 1], a
 	jr SetState_BallBouncing
 
-Func_1edaf8:
+LandFromBallAirborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edb12
@@ -2916,7 +2916,7 @@ UpdateState_BallAirborne:
 	and a
 	ret z
 	update_pos_y
-	jp Func_1edaf8
+	jp LandFromBallAirborne
 
 SetState_BallShot:
 	ld a, WST_BALL_SHOT

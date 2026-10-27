@@ -61,7 +61,7 @@ BlockFunc_Solid:
 
 ; output:
 ; - a = $10
-Func_18064:
+BlockFunc_SlopeEnd:
 	xor a ; SRAM0
 	sramswitch
 	xor a
@@ -74,7 +74,7 @@ Func_18064:
 ; output:
 ; - a = $01
 ; unreferenced
-Func_18078:
+UnreferencedBlockFunc_Result01:
 	xor a ; SRAM0
 	sramswitch
 	xor a
@@ -86,7 +86,7 @@ Func_18078:
 
 ; output:
 ; - a = $00
-Func_1808c:
+BlockFunc_FreeEnvInteraction:
 	xor a ; SRAM0
 	sramswitch
 	xor a
@@ -96,7 +96,7 @@ Func_1808c:
 	ld [wUnused_c18d], a
 	ret
 
-BlockFunc_1809f:
+BlockFunc_AboveRightSlope:
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jp z, BlockFunc_Free
@@ -108,7 +108,7 @@ BlockFunc_1809f:
 	ldh [hYPosHi], a
 	jr RightSlopeCollision
 
-BlockFunc_180b5:
+BlockFunc_BelowRightSlope:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jr z, .asm_180c3
@@ -197,9 +197,9 @@ RightSlopeCollision:
 	ld a, ON_SLOPE | RIGHT_SLOPE
 	ld [wWarioSlopeInteraction], a
 .asm_18126
-	jp Func_18064
+	jp BlockFunc_SlopeEnd
 
-BlockFunc_18129:
+BlockFunc_AboveLeftSlope:
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jp z, BlockFunc_Free
@@ -211,7 +211,7 @@ BlockFunc_18129:
 	ldh [hYPosHi], a
 	jr LeftSlopeCollision
 
-BlockFunc_1813f:
+BlockFunc_BelowLeftSlope:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jr z, .asm_1814d
@@ -298,7 +298,7 @@ LeftSlopeCollision:
 	ld a, ON_SLOPE | LEFT_SLOPE
 	ld [wWarioSlopeInteraction], a
 .asm_181a9
-	jp Func_18064
+	jp BlockFunc_SlopeEnd
 
 BlockFunc_Water:
 	ld a, TRUE
@@ -443,7 +443,7 @@ BlockFunc_Ladder:
 .set_ladder_interaction
 	ld a, LADDER_COLLISION
 	ld [wLadderInteraction], a
-	jp Func_1808c
+	jp BlockFunc_FreeEnvInteraction
 
 BlockFunc_SolidLadderTop:
 	ld a, [wBlockFuncWarioFlag]
@@ -465,9 +465,9 @@ LadderTopCollision:
 .asm_182f6
 	ld a, LADDER_UNDERNEATH
 	ld [wLadderInteraction], a
-	jp Func_1808c
+	jp BlockFunc_FreeEnvInteraction
 
-BlockFunc_182fe:
+BlockFunc_LadderRoomExit_ReloadObjects:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -480,7 +480,7 @@ BlockFunc_182fe:
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
-Func_1831a:
+UnreferencedBlockFunc_LadderRoomExit:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -959,7 +959,7 @@ BlockFunc_UnderwaterDoor_NoReload:
 	jp BlockFunc_Free
 
 ; unreferenced
-Func_18755:
+UnreferencedBlockFunc_Transition8Door:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -1185,7 +1185,7 @@ BlockFunc_Fence:
 .set_near_fence
 	ld a, TRUE
 	ld [wIsNearFence], a
-	jp Func_1808c
+	jp BlockFunc_FreeEnvInteraction
 
 BlockFunc_AirCurrent:
 	ld a, [wBlockFuncWarioFlag]
@@ -2451,7 +2451,7 @@ LargeNonCrackedBlockRightCollision:
 .asm_1917d
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_193dc
+	jp StartMultiBlockBreak_SolidUnlessRolling
 .asm_19185
 	or $01
 	ld [wMultiBlockParam], a
@@ -2560,7 +2560,7 @@ LargeNonCrackedBlockDownCollision:
 .asm_19232
 	ld a, $03
 	ld [wMultiBlockParam], a
-	jp Func_193dc
+	jp StartMultiBlockBreak_SolidUnlessRolling
 .asm_1923a
 	or $03
 	ld [wMultiBlockParam], a
@@ -2695,7 +2695,7 @@ LargeNonCrackedBlockLeftCollision:
 .asm_19310
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_193dc
+	jp StartMultiBlockBreak_SolidUnlessRolling
 .asm_19318
 	or $02
 	ld [wMultiBlockParam], a
@@ -2804,7 +2804,7 @@ LargeNonCrackedBlockUpCollision:
 .asm_193c5
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jr Func_193dc
+	jr StartMultiBlockBreak_SolidUnlessRolling
 .asm_193cc
 	or $04
 	ld [wMultiBlockParam], a
@@ -2814,7 +2814,7 @@ LargeNonCrackedBlockUpCollision:
 	ld [wMultiBlockParam], a
 	jp Func_19246
 
-Func_193dc:
+StartMultiBlockBreak_SolidUnlessRolling:
 	ld a, [wSRAMBank]
 	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
@@ -2931,11 +2931,11 @@ BonfireBlockCollision:
 	jr nz, .dont_break
 	ld a, [wTransformationProgress]
 	cp 2
-	jr nc, Func_19481 ; engulfed in flames
+	jr nc, BreakBlock_Free ; engulfed in flames
 .dont_break
 	jp BlockFunc_Solid
 
-Func_19481:
+BreakBlock_Free:
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -3058,7 +3058,7 @@ SmallYarnBlockCollision:
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jp z, Func_19481
+	jp z, BreakBlock_Free
 	jp BlockFunc_Solid
 
 ; unreferenced

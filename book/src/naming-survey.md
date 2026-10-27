@@ -7,7 +7,7 @@ or reject.
 ## Applied
 
 The high- and medium-confidence proposals of all four passes have been
-applied to the code, one commit per batch, each checked by building: every
+applied (and the fifth pass, applied as it went) to the code, one commit per batch, each checked by building: every
 batch left the ROM byte-identical, and the emulator tests passed.
 
 | Batch | What | Renames |
@@ -27,6 +27,9 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 12 | Fourth pass 4d: `UpdateCutsceneObjs_CutTree`, `UpdateTempleSceneObjs_Back`, `wGolfBuildingCourseAttrMap`, bank2d's `.Wait<N>` by frames | 54 |
 | 13 | Fourth pass 4e: routines outside the overworld, `BlockFunc_`, `VBlank_`, `Text_`, `UnreferencedLCDFunc_` (the test tools' `187b0`/`187de`/`188ba` block function keys follow) | 112 |
 | 14 | RAM mislabels: wrong-bank and wrong-union label uses, the structural RAM rows (path tracers, boss union, `wShotYVel`, palette fade fields, OW animation slots) and scene aliases for borrowed bytes; see "RAM mislabels applied" below | ~90 uses, ~150 new labels |
+| 15 | Fifth pass 5a: the remaining address-named routines and `.Func_` locals; the swapped `ObjCheckFloorOrStandingFall` trampoline name | 64 |
+| 16 | Fifth pass 5b: the remaining referenced data; literal Jamano frameset and Count Richtertoffen pointers written as labels, the temple's wrong-bank OAM label | 44 |
+| 17 | Fifth pass 5c: unreferenced data as `Unreferenced<Owner><Kind>_<addr>`, with corrected owners | 131 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -259,6 +262,22 @@ of mixed rows. Not applied: the 144 low names (143 in 4c: the
 (low rows and duplicates of earlier passes). No routine or table was
 merged and the Cutscene4c `.WaitObj2State03` oddity is left as it is.
 Every batch built to a byte-identical ROM and the emulator tests pass.
+
+**Fifth pass (branch `claude/naming-low-dh93t5`)**, rows in "Fifth
+pass" at the end, applied as batches 15-17:
+
+- [x] 5a. The 50 `Func_`, 20 `.Func_` and 5 `BlockFunc_` still
+  address-named, re-read: 61 named (with `Data_1f894`, read with its
+  routine), 14 duplicates left for the merge.
+- [x] 5b. Referenced data (OAM, framesets, palettes, movement tables):
+  37, plus 7 `Unreferenced...` labels that literal pointers use.
+- [x] 5c. Unreferenced data: 131, owners checked against the OAM
+  tables' frame counts; 5 fourth-pass owner guesses corrected.
+
+**Fifth pass status:** 239 renames (52 high, 187 medium), every batch
+byte-identical, emulator tests pass. Address-named labels left in `src/`
+(not counting `.asm_`): the 14 duplicate routines listed in the Fifth
+pass section.
 
 ## Inventory (master at f205aa3)
 
@@ -2907,3 +2926,254 @@ block); the bank20 duplicate routines (4a); `Data_60320` and `Data_60510`
 **Raw values**: raw `SCENEWARIO_*` numbers in the epilogue and the golf
 building; the musical coin screen loads the golf menu's gfx and maps
 (`GolfMenuGfx`, `GolfMenuTilemap`/`Attrmap`).
+
+## Fifth pass
+
+The address-named labels the four passes left (244 at the start of this
+pass: 50 `Func_`, 20 `.Func_`, 5 `BlockFunc_`, 137 `Frameset_`, 17 `OAM_`,
+5 `Pals_`, 10 `Data_`; `.asm_` jump labels not counted), mostly the low
+rows. Each was checked again in the code: who references it (by name,
+through a table, by a literal address or an index), what it does or
+holds. Unlike the earlier passes, this one was applied as it went
+(batches 15-17), so the tables use the names as they were in `src/`
+before it.
+
+Unreferenced data is named `Unreferenced<Owner><Kind>_<addr>` when the
+owner shows in the data: a frameset's frame indices must fit the owner's
+OAM table (checked against the `.frame_N` count in the symbol file), and
+the framesets around it must be that owner's. Where the indices or the
+sequence point to another owner than the fourth pass's neighbour guess,
+the row says "Corrects". Literal addresses were searched for every
+unreferenced data label (`$xxxx` and `ld r, $hi` / `ld r, $lo` pairs):
+the hits are in the notes below.
+
+239 renames: 230 address-named labels; 6 Jamano framesets and 1 movement
+table that were named `Unreferenced...` but are used through literal
+pointers; and the 2 swapped trampoline names. 52 high, 187 medium.
+
+**Left as they are: 14 duplicate routines**, for the separate merge
+decision: `Func_19246` (= `StartMultiBlockBreak`), `Func_19b5c` / `Func_19bce`
+(both `call ProcessBlock / ld b, a / ret`), `Func_82a8d`, `Func_82c1d` /
+`Func_82c22` / `Func_82c29` (bank20 copies of bank2d's `AdvanceOWFunc`,
+`WaitOWFunc`, `EndOWFunc`), `Func_ac000` / `Func_ac00b` / `Func_ac016`
+(identical credits-bank animation helpers), `Func_ac042` / `Func_ac047` /
+`Func_ac04c` (identical `LoadOWSpriteWithScroll` wrappers), `Func_aca6d`
+(= `AdvanceTempleOWStep`). `Func_ac051`, grouped with them before, has no twin and
+is named.
+
+### 5a. Routines (batch 15)
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `Func_18064` | `BlockFunc_SlopeEnd` | Tail of `RightSlopeCollision`/`LeftSlopeCollision` (`jp Func_18064`): like `BlockFunc_Free`, but stores $10 in `wUnused_c18d` (free = 0, solid = 0/1). | medium |
+| `Func_18078` | `UnreferencedBlockFunc_Result01` | No references; `BlockFunc_Free` with result $01 in `wUnused_c18d`, which nothing reads. | medium |
+| `Func_1808c` | `BlockFunc_FreeEnvInteraction` | Tail of `BlockFunc_Ladder`, `LadderTopCollision`, `BlockFunc_Fence` after they set `wLadderInteraction`/`wIsNearFence`. Same effect as `BlockFunc_Free` (not byte-identical: one extra `xor a`). | medium |
+| `BlockFunc_1809f` | `BlockFunc_AboveRightSlope` | Block tables put it one row (8 entries) above `BlockFunc_RightSlope` ($1b over $23); on `COLLISION_DOWN` it adds $10 to Y and runs `RightSlopeCollision`, i.e. treats the hit as the slope below. | high |
+| `BlockFunc_180b5` | `BlockFunc_BelowRightSlope` | One row below `BlockFunc_RightSlope` ($2b under $23); subtracts $10 from Y and runs `RightSlopeCollision`; solid for `WST_ATTACKING_AIRBORNE`. | high |
+| `BlockFunc_18129` | `BlockFunc_AboveLeftSlope` | Same as `BlockFunc_AboveRightSlope` for `LeftSlopeCollision` ($1c over $24). | high |
+| `BlockFunc_1813f` | `BlockFunc_BelowLeftSlope` | Same as `BlockFunc_BelowRightSlope` for `LeftSlopeCollision` ($2c under $24). | high |
+| `BlockFunc_182fe` | `BlockFunc_LadderRoomExit_ReloadObjects` | Ladder (`LADDER_COLLISION`) plus room transition `ROOMTRANSITION_5 | ROOMTRANSITIONF_RELOAD_OBJECTS`, like `BlockFunc_RoomExit_ReloadObjects` does with `ROOMTRANSITION_4`. | medium |
+| `Func_1831a` | `UnreferencedBlockFunc_LadderRoomExit` | No references; the same without `ROOMTRANSITIONF_RELOAD_OBJECTS` (pairs like `BlockFunc_RoomExit`). | medium |
+| `Func_18755` | `UnreferencedBlockFunc_Transition8Door` | No references; Up while touching (`COLLISION_ENV`) sets `ROOMTRANSITION_8 | ROOMTRANSITIONF_DOOR | ...RELOAD_OBJECTS | ...DELAY`, the door pattern of the neighbouring block functions. | medium |
+| `Func_193dc` | `StartMultiBlockBreak_SolidUnlessRolling` | Stores the multi-block origin (`wMultiBlockOriginBank`/`Ptr`) like `StartMultiBlockBreak_Wario`, sets `wIsFloorTransition`, then `jp BreakBlock_SolidUnlessRolling`. | medium |
+| `Func_19481` | `BreakBlock_Free` | Writes `b` to the block, `QueueBlockRedraw`, `BreakBlock`, `jp BlockFunc_Free`; the `BlockFunc_Free` twin of `BreakBlock_SolidUnlessRolling`. Used by `BonfireBlockCollision` and the yarn block. | high |
+| `Func_20a69` | `SetObjAction_0D` | `ld b, OBJACTION_0D / call SetObjAction`; used by Food (when Wario can't eat it) and others. Named after the action, which is itself unnamed. | medium |
+| `Func_20e6a` | `ObjInteraction_BumpOffAction0A` | Slot `OBJ_INTERACTION_0B`: `BumpOffObject`, then `OBJACTION_0A` unless `wTouchState`. Also the bump-off tail of `ObjInteraction_FrontStingBumpOff`/`TopStingBumpOff` and others (20 jumps). | medium |
+| `Func_20fe8` | `UnreferencedSetObjAction_06` | No references; `ld b, OBJACTION_06 / jp SetObjAction`. | medium |
+| `Func_21af1` | `ObjInteraction_SolidPlatform` | Slot `OBJ_INTERACTION_31` (Barrel 1, Hat Platform, GK Tortoise Platform): `ObjInteraction_Solid` except that from below it is `StepOnObject` instead of pushing Wario down. | medium |
+| `Func_21cc9` | `SetObjAction_13` | `ld b, OBJACTION_13 / call SetObjAction`; tail of the drag-down interactions and `ShootBallWario`. | medium |
+| `Func_21d6f` | `ObjInteraction_BottomStingSmashableTop` | Slot `OBJ_INTERACTION_48` (Anonster, Hidden Figure): from above smash-vanish (`JumpOffVanishingObject`) when smash attacking, from below `GetStungByObject`, otherwise `ObjInteraction_BumpOffAction0A`. | medium |
+| `Func_21ea6` | `ObjInteraction_FrontPushBumpOff` | Slot `OBJ_INTERACTION_4F` (Hidden Figure): touching its front turns Wario away and `PushAgainstSolidObject`, otherwise `BumpOffObject_NoAction`. | medium |
+| `Func_21f01` | `ObjInteraction_WaterKnockBackTopRight` | Slot `OBJ_INTERACTION_51` (Pesce, Strong Water Current): from above `SetState_SwimKnockBack` towards the right, otherwise `ObjInteraction_WaterKnockBack`. | medium |
+| `Func_21f28` | `ObjInteraction_FrontStingSmashableTop` | Slot `OBJ_INTERACTION_52` (Hidden Figure): from above as `ObjInteraction_BottomStingSmashableTop`, from below bump off, front sting, back bump off. | medium |
+| `.Func_4cbe8` | `.HoldCaughtWario` | `HiddenFigureFunc.Main` state 8, set by `.Grab` when `wHiddenFigureBodyGrabResult` is $80 (Wario caught) with a duration of $a0; when it runs out, clears `wAutoMoveState`. | medium |
+| `Func_55407` | `UpdateJamanoDarkness` | Moves the darkness step (`wDollBoyHammerRange`, a Jamano union byte) up or down with `wJamanoSkullsInPlace`, alerts Jamano and loads `JamanoPals_*` (or black) into the BG palettes. | high |
+| `Func_554bc` | `SetJamanoDarknessFrameset` | Writes a Jamano frameset pointer (by darkness step and facing bit 7) to the object at `hl`/`e`; the pointers were literals (`ld b, $5c / ld c, $xx`), now written with the frameset labels. | high |
+| `.Func_456fe` | `.set_float` | `PneumoFunc` substates (low nybble, `.substate_table`): sets `PneumoFrameset_68c5c` and substate 1; target of every state's exit. | medium |
+| `.Func_4570f` | `.Float` | Substates 0/1: bobs along `PneumoData_44000`; when Wario is below and close, every 64 frames goes to substate 6; at the table's end swoops (substate 3) if Wario is in range. | medium |
+| `.Func_458c7` | `.Retreat` | Substate 2: rises along `PneumoData_60600` and moves sideways fast until its timer (27) ends. | medium |
+| `.Func_4592e` | `.end_retreat` | End of `.Retreat`: clears the variable and `.set_float`. | medium |
+| `.Func_457bd` | `.SwoopDown` | Substate 3: after its delay, sinks 2 px a frame (counting in var 1) while moving sideways, until the floor or Wario's height, then substate 4. | medium |
+| `.Func_4585c` | `.Rise` | Substate 4: rises 2 px a frame back by var 1, moving sideways, until a ceiling or the timer; then `.set_float`. | medium |
+| `.Func_45893` | `.UnusedMoveSideways` | Substate 5: moves sideways until its timer ends; nothing sets substate 5. | medium |
+| `.Func_45934` | `.MoveToWarioY` | Substate 6: moves up/down towards Wario's Y (unless Puffy), `.start_retreat` on a ceiling. | medium |
+| `.Func_4589d` | `.start_retreat` | Sets substate 2 facing away from Wario, `PneumoFrameset_68c8e`, timer 27; also when hit/touched. | medium |
+| `.Func_49943` | `.Wait` | `SnakeFunc.Update` substates 0/1: count down, then substate 2 (timer $3e, `SFX_11A`). | medium |
+| `.Func_49957` | `.Rise` | Substate 2: rises (carrying Wario with `MoveWarioUp` when stepped on) until the timer ends. | medium |
+| `.Func_49984` | `.WaitAfterRise` | Substate 3: waits $53 frames, then on the right animation frame switches to `SnakeFrameset_68852`/`688c6` (substate 4). | medium |
+| `.Func_499b8` | `.PrepareFire` | Substate 4: plays `SFX_08A`, waits $31 frames, then switches to the shooting frameset (substate 5). | medium |
+| `.Func_499f8` | `.ShootFire` | Substate 5: spawns `ObjParams_SnakeFireLeft/Right` (`SFX_089`) when a slot is free. | medium |
+| `.Func_49a57` | `.EndShooting` | Substate 6: count down, then substate 7 with `SnakeFrameset_688a9`/`6891d`. | medium |
+| `.Func_49a7c` | `.StartSinking` | Substate 7: count down, then falls into `.start_sinking`. | medium |
+| `.Func_49a85` | `.start_sinking` | Sets substate 8 and the idle frameset; also the target when hit. | medium |
+| `.Func_49aa1` | `.Sink` | Substate 8: sinks (`SFX_08B`, carrying Wario down when stepped on) to the start Y in var 2, then waits $78 frames (substate 1). | medium |
+| `.Func_49af0` | `.TurnToWario` | Called every frame by `.Update`: when Wario is within $28 px vertically, turns to face him (turn frameset for $14 frames), then restores the frameset. | medium |
+| `Func_51c62` | `SetObjMapEntry7_YellowBelly` | `SetObjectMapEntryAndSpawn` with `e = 7` for the current object (as `ClearObjAndSetObjMapEntry7` in wolfenboss.asm), at the end of Yellow Belly's defeat. | medium |
+| `Func_6303f` | `_ObjState_HopStart` | Slot `OBJSTATE_1A` (via the home trampoline): `OBJSTATE_1B`, var 3 = 0, duration 7. | medium |
+| `Func_63050` | `_ObjState_Hop` | Slot `OBJSTATE_1B`: `ApplyObjHopYVel` while the duration runs, then `OBJSTATE_STANDING_FALL_START`. | medium |
+| `Func_3263` | `ObjState_HopStart` | Home trampoline of `_ObjState_HopStart`; the `OBJSTATE_1A` entry of Count Richtertoffen's and Spearhead's tables. | medium |
+| `Func_3272` | `ObjState_Hop` | Home trampoline of `_ObjState_Hop`; their `OBJSTATE_1B` entry. | medium |
+| `Func_3308` | `ObjCheckFloorOrStandingFall` | `homejp _ObjCheckFloorOrStandingFall`. The label of that name was on the trampoline before it, which jumps to `ApplyObjHopYVel` (see the note below). | high |
+| `ObjCheckFloorOrStandingFall`, `ApplyObjHopYVel` | `ApplyObjHopYVel`, `_ApplyObjHopYVel` | The home trampoline that does `homejp ApplyObjHopYVel` takes that name, and the bank routine the usual `_` prefix (applied first, so `Func_3308` could take the freed name). | high |
+| `Func_1f357` | `SwimLeft` | Underwater D-pad left in `UpdateState_Swimming`: faces left (`WarioSwimFrameset_15576`) or `SwimForward`; the right-hand twin is the local `.asm_1f2c0`. | high |
+| `Data_1f894` | `SwimDiagonalVertVelTable` | Vertical speed for swimming up/down while also holding left/right (`wSwimmingDirectionInput`); `SwimDiagonalVelTable` is the horizontal one. | high |
+| `Func_2afc5` | `OnFireBounceOffWall` | On Fire Wario hitting a wall: turns around, steps back 3 px, sets the on-fire frameset; also from object_interactions.asm's `.hot` case, next to `BallOStringBounceOffWall`. | high |
+| `Func_2b42b` | `UpdateCrazyWalk` | Called from `HandleCrazyInput`: advances `wWalkVelIndex` and staggers Crazy Wario 1-2 px with wall checks and dust particles. | medium |
+| `Func_1edaca` | `LandFromBallStart` | End of `UpdateState_BallStart` (and `SetState_BallStart` when grounded): `SetState_BallTurning` if pushing against the facing, else `SetState_BallBouncing`. | medium |
+| `Func_1edaf8` | `LandFromBallAirborne` | The same after `UpdateState_BallAirborne` lands, with the airborne framesets. | medium |
+| `Func_1a12a` | `SetWarioSandAirborneAnimation` | Tail of `SetState_SandFalling`/`SetState_SandJumping`: airborne gfx and `WarioOAM_15955`, then the frameset. | medium |
+| `Func_1a14b` | `SetWarioSandAirborneFrameset` | Sets `WarioAirborneFrameset_15f94`/`WarioBlindFrameset_15f97` by direction; also when turning in sand. | medium |
+| `Func_8143d` | `UnreferencedPathPreviewFromLevel` | No references; runs one path preview step (`.RunTracerStep`) from the current level's coordinates, saving and restoring Wario's. | medium |
+| `Func_1c8f56` | `IsGolfXPosOnScreen` | Returns TRUE when `de` is within -$20..+$b0 of `wGolfXScroll` (its comment); used to put golf Wario at the edge when he is off screen. | medium |
+| `Func_7cf` | `UnreferencedFadeToTargetRGB` | No references; for $20 frames, raises every colour component of the palettes in `wTempPals1` (and the $c1xx copy) by one towards `wTargetRed/Green/Blue`, then restores the VBlank function. | medium |
+| `Func_309b6` | `AudioMod_Release` | `AUDIOMOD_UNK` slot of `AudioModFunctionTable`: `AudioModSetValue_Long` on `CHANNEL_RELEASE_VOLUME` and the next byte, `CHANNEL_RELEASE_LENGTH` (the field names are now settled). | high |
+| `Func_ac051` | `LoadSceneObjSprite_CreditsOAM` | `ld b, BANK("Credits OAM") / jp LoadOWSprite`; unlike its neighbours it has no duplicate. | high |
+
+### 5b. Referenced data and literal pointers (batch 16)
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `OAM_1426c` | `WarioWalkOAM_1426c` | Always loaded with `WarioWalkGfx` (walk, grab, crouch, bump framesets follow it). | high |
+| `Frameset_149b4` | `WarioWalkFrameset_149b4` | Left walk in `SetWarioWalkAnimation` (`WarioFrameset_149c5` is the right one). | high |
+| `Frameset_14a76` | `WarioBumpFrameset_14a76` | `BumpOffObject`'s frameset for one side, next to `WarioBumpFrameset_14a79`. | high |
+| `Frameset_15f94` | `WarioAirborneFrameset_15f94` | Frame 15 of `WarioOAM_15955` (airborne gfx), facing left; `WarioBlindFrameset_15f97` faces right. | high |
+| `Frameset_68a00` | `ApplebyFrameset_68a00` | Only user: `ApplebyFunc.Hidden` (appear). | high |
+| `Frameset_68f6b` | `SunMoonFrameset_68f6b` | Only user: sun_moon.asm (`SunFunc`). | high |
+| `OAM_15e44a` | `PrologueSceneObjOAM_15e44a` | The prologue scene objects' OAM (`UpdatePrologueSceneObj.draw`); the `PrologueSceneObjFrameset_*` follow it. Also the temple scene (`UpdateTempleSceneObjAnimation.draw_1`, see the mislabel note) and the credits music box close-up. | medium |
+| `Frameset_15e796` | `PrologueSceneObjFrameset_15e796` | In the prologue frameset run, used by `UpdatePrologueSceneObj.State11` and the temple's `.State02`. | medium |
+| `Frameset_15e7ed` | `PrologueSceneObjFrameset_15e7ed` | `UpdatePrologueSceneObj.State0d` and the credits close-up (music box). | medium |
+| `Pals_d1fe` | `ParticlePals_d1fe` | Loaded into OB palette 2 on every room start; `ParticleOAM_d20e`, right after it, draws most tiles with palette 2. | medium |
+| `Data_603f0` | `SmashedYVel` | Futamogu and Webber, when ground-smashed without `SUPER_JUMP_SLAM_OVERALLS`: pushed down 9 px. | medium |
+| `Data_60490` | `SuperSmashedYVel` | The same with Super Jump Slam Overalls: 65 px. | medium |
+| `Data_604c0` | `HoverYVel` | Looped (`ApplyObjYMovement_Loop`) +5/-5 px bob over 32 frames: Omodonmeka, Pesce, Wolfenboss, Teruteru. | medium |
+| `Data_605e0` | `DelayedFallYVel` | 12 frames still, then accelerating to 5 px/frame: Stove `.Fall`, Omodon `.fall`. | medium |
+| `Data_60650` | `JitterXVel` | Applied with `ApplyObjXMovement_Loop` (X, not Y): 1 px left/right jitter over 32 frames (Omodonmeka, Wolfenboss). | medium |
+| `Pals_b8200` | `SharedCutsceneBGPals_b8200` | BG palettes (`LoadFarPalsToTempPals1`) of many cutscenes (20 uses), next to `SharedCutsceneBGPals_b8040`/`b8240`. | high |
+| `OAM_a8000` | `NorthOWObjOAM_a8000` | `DrawNorthOWObj`; the `NorthOWObjFrameset_*` follow it. | high |
+| `OAM_a9161` | `SouthOWObjOAM_a9161` | `DrawSouthOWObj`, `SouthOWObjState1a`; `SouthOWObjFrameset_*` follow. | high |
+| `OAM_a980c` | `EastOWObjOAM_a980c` | `DrawEastOWObj`; `EastOWObjFrameset_*` follow. | high |
+| `OAM_a9fe2` | `TopBarOAM_a9fe2` | Top bar sprites (`DrawTopBarSelectionSprite`...) and `AnimateNorthOWObj2` with `TopBarFrameset_*`, which follow it. | high |
+| `OAM_aa0cf` | `OWUIOAM_aa0cf` | Overworld UI sheet: treasure icons 0-3 and empty slot 9 (`DrawBottomBar`), arrows 4 (`SetOWWarioOAM`), path tracers 5-8, digits 30-39 (`DrawBottomBarTimeAttackScore`), via `LoadSpriteInsideWindow`; also `NorthOWObjState24`. | medium |
+| `OAM_aa329` | `OWWarioOAM_aa329` | `SetOWWarioOAM` for the four directions; `OWWarioFrameset_aa405`.. follow. | high |
+| `OAM_aa445` | `LevelStarOAM_aa445` | `DrawUnlockLevelStar` / `DrawHighlightLevelStar`. | high |
+| `Frameset_aa544` | `UnlockLevelStarFrameset_aa544` | `DrawUnlockLevelStar`. | high |
+| `Frameset_aa555` | `HighlightLevelStarFrameset_aa555` | `DrawHighlightLevelStar`. | high |
+| `OAM_aa580` | `CompassOAM_aa580` | `LoadCompassSprite` (frames 0-3, one per map side, from `SetCompassSprite`); frames 4-6 are the bottom bar button prompts (`DrawBottomBarButtonPrompt`), also drawn by `AnimateNorthOWObj3`. | medium |
+| `OAM_bc000` | `CutsceneOverlayOAM_bc000` | `LoadCutsceneOverlaySprite` / `DrawCutsceneOverlayFrame0`-`6`. | high |
+| `OAM_75c3` | `LanguageSelectionOAM_75c3` | Loaded by language_selection/load_oam.asm (`LanguageSelectionFrameset_76b5`); frames 1-4 are also the text arrow. | medium |
+| `Frameset_76ca` | `TextArrowFrameset_76ca` | `SceneObjState_TextArrow`. | high |
+| `OAM_1e6bab` | `ActionHelpEnemyOAM_1e6bab` | The action help demos' enemies: Para-Goom, Count Richtertoffen, Futamogu framesets follow it (`ActionHelpParaGoomWalkFrameset`...). | medium |
+| `Pals_1e4eef` | `ActionHelpBlackedOutBGPals` | `BlackOutActionHelpBGPals` (sets `wActionHelpBlackedOut`) and `LoadActionHelpCommonPals`: mostly black. | high |
+| `Pals_1e4f2f` | `ActionHelpOBPals` | `LoadActionHelpOBPals`, main power-up palettes, power-up icon palettes 4 and 7. | high |
+| `OAM_184ab2` | `MadSciensteinOAM_184ab2` | Mad Scienstein, his Invisibility Potions (`MadSciensteinFrameset_68c33`) and the Seeing-Eye Door. | medium |
+| `OAM_188000` | `BrrrBearOAM_188000` | Brrr Bear and the Tadpole Spawner. | medium |
+| `OAM_18c000` | `ChestsOAM_18c000` | Chests (the `ChestsFrameset_*` at the start of object_framesets.asm), keys, treasures, the musical coin, stars (`SetObjStarsSprite`), Muddee's stinger. | medium |
+| `OAM_190000` | `AnonsterOAM_190000` | Anonster's silk, waves and silk platforms; also the fly/dragonfly spawners and Brrr Bear's snowflakes. | medium |
+| `UnreferencedJamanoFrameset_69c25` | `JamanoFrameset_69c25` | Referenced by literal pointer in `SetJamanoDarknessFrameset` (`ld b, $5c / ld c, $25`), now written as `HIGH`/`LOW` of the label. | high |
+| `UnreferencedJamanoFrameset_69c2e` | `JamanoFrameset_69c2e` | Same ($5c2e). | high |
+| `UnreferencedJamanoFrameset_69c37` | `JamanoFrameset_69c37` | Same ($5c37). | high |
+| `UnreferencedJamanoFrameset_69caa` | `JamanoFrameset_69caa` | Same ($5caa). | high |
+| `UnreferencedJamanoFrameset_69cb3` | `JamanoFrameset_69cb3` | Same ($5cb3). | high |
+| `UnreferencedJamanoFrameset_69cbc` | `JamanoFrameset_69cbc` | Same ($5cbc). | high |
+| `UnreferencedSpearheadData_601d0` | `CountRichtertoffenData_601d0` | Count Richtertoffen's picked-up offsets (left): `.PickedUpLeftStart` stores $41d0 in `OBJ_VAR_3`/`OBJ_VAR_2` as literals, the way Spearhead stores `SpearheadData_601c0`; now `HIGH`/`LOW` of the label. | high |
+| `Data_601f0` | `CountRichtertoffenData_601f0` | Same for `.PickedUpRightStart` ($41f0); the first row is used, the rest of the table is not. | high |
+
+### 5c. Unreferenced data (batch 17)
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `Frameset_149d6` | `UnreferencedWarioWalkFrameset_149d6` | Follows `WarioWalkOAM_1426c` among its framesets; frame indices fit its 64 frames. Frame 2, a single frame of the left walk (`WarioWalkFrameset_149b4`). | medium |
+| `Frameset_149d9` | `UnreferencedWarioWalkFrameset_149d9` | Follows `WarioWalkOAM_1426c` among its framesets; frame indices fit its 64 frames. Frame 6, of the right walk. | medium |
+| `Frameset_149dc`, `Frameset_149ed`, `Frameset_14a3e`, `Frameset_14a4f`, `Frameset_14a60`, `Frameset_14a63`, `Frameset_14a66`, `Frameset_14a69` | `UnreferencedWarioFrameset_149dc`, `UnreferencedWarioFrameset_149ed`, `UnreferencedWarioFrameset_14a3e`, `UnreferencedWarioFrameset_14a4f`, `UnreferencedWarioFrameset_14a60`, `UnreferencedWarioFrameset_14a63`, `UnreferencedWarioFrameset_14a66`, `UnreferencedWarioFrameset_14a69` | Follows `WarioWalkOAM_1426c` among its framesets; frame indices fit its 64 frames. Frames 8-23 and 40-55, used by no referenced frameset. | medium |
+| `Frameset_14a7c` | `UnreferencedWarioBumpFrameset_14a7c` | Follows `WarioWalkOAM_1426c` among its framesets; frame indices fit its 64 frames. Single frame 60, continuing `WarioBumpFrameset_14a76`/`14a79` (58/59). | medium |
+| `Frameset_14a7f` | `UnreferencedWarioBumpFrameset_14a7f` | Follows `WarioWalkOAM_1426c` among its framesets; frame indices fit its 64 frames. Single frame 61. | medium |
+| `Frameset_16732`, `Frameset_16737` | `UnreferencedWarioSlidFrameset_16732`, `UnreferencedWarioSlidFrameset_16737` | After `WarioSlidFrameset_1671d`, before the next OAM; indices fit `WarioOAM_1644a` (28 frames). | medium |
+| `Frameset_17e59`, `Frameset_17e78` | `UnreferencedWarioTurningInvisibleFrameset_17e59`, `UnreferencedWarioTurningInvisibleFrameset_17e78` | After `WarioTurningInvisibleFrameset_17e3a`, end of the file; indices fit `WarioTurningInvisibleOAM_17cf7` (12 frames). | medium |
+| `Frameset_1fcccc` | `UnreferencedWarioBouncyFrameset_1fcccc` | After `WarioBouncyFrameset_1fccbf`; fits `WarioBouncyStartOAM_1fc95e` (27 frames). | medium |
+| `Frameset_1fcfde`, `Frameset_1fcfef`, `Frameset_1fd000` | `UnreferencedWarioCrazyFrameset_1fcfde`, `UnreferencedWarioCrazyFrameset_1fcfef`, `UnreferencedWarioCrazyFrameset_1fd000` | After `WarioCrazyTurningFrameset_1fcfd7`; fits `WarioCrazyOAM_1fccd5` (19 frames). | medium |
+| `Frameset_1fd429`, `Frameset_1fd45c` | `UnreferencedWarioBatFrameset_1fd429`, `UnreferencedWarioBatFrameset_1fd45c` | Among the `WarioBat*` framesets after `WarioOAM_1fd031` (31 frames). | medium |
+| `Frameset_1fd837`, `Frameset_1fd848`, `Frameset_1fd851`, `Frameset_1fd85a`, `Frameset_1fd85d`, `Frameset_1fd860`, `Frameset_1fd869`, `Frameset_1fd872`, `Frameset_1fd877` | `UnreferencedWarioVampireFrameset_1fd837`, `UnreferencedWarioVampireFrameset_1fd848`, `UnreferencedWarioVampireFrameset_1fd851`, `UnreferencedWarioVampireFrameset_1fd85a`, `UnreferencedWarioVampireFrameset_1fd85d`, `UnreferencedWarioVampireFrameset_1fd860`, `UnreferencedWarioVampireFrameset_1fd869`, `UnreferencedWarioVampireFrameset_1fd872`, `UnreferencedWarioVampireFrameset_1fd877` | Among the `WarioVampire*` framesets; fits `WarioVampireOAM_1fd498` (28 frames). | medium |
+| `Frameset_1ff988`, `Frameset_1ff9cd` | `UnreferencedWarioSnowballFrameset_1ff988`, `UnreferencedWarioSnowballFrameset_1ff9cd` | After `WarioSnowballCrashFrameset_1ff981`; fits `WarioSnowballOAM_1ff64a` (23 frames). | medium |
+| `Frameset_1dccd2`, `Frameset_1dccd5` | `UnreferencedWarioPuffyFrameset_1dccd2`, `UnreferencedWarioPuffyFrameset_1dccd5` | Between `WarioPuffyInflatingFrameset_1dccc9` and `WarioPuffyTurningFrameset_1dccd8`; fits `WarioPuffyInflatingOAM_1dc93f` (27 frames). | medium |
+| `Frameset_1dd23b`, `Frameset_1dd26f`, `Frameset_1dd2a0`, `Frameset_1dd2dc`, `Frameset_1dd2e9`, `Frameset_1dd2f9`, `Frameset_1dd306` | `UnreferencedWarioBallFrameset_1dd23b`, `UnreferencedWarioBallFrameset_1dd26f`, `UnreferencedWarioBallFrameset_1dd2a0`, `UnreferencedWarioBallFrameset_1dd2dc`, `UnreferencedWarioBallFrameset_1dd2e9`, `UnreferencedWarioBallFrameset_1dd2f9`, `UnreferencedWarioBallFrameset_1dd306` | Among the `WarioBall*` framesets; fits `WarioBallStartOAM_1dcff1` (25 frames). | medium |
+| `Frameset_d4e23` | `UnreferencedGolfWarioFrameset_d4e23` | data/golf/framesets.asm follows data/golf/oam.asm (`GolfWarioOAM_d49cc`, 28 frames); frame 9. | medium |
+| `Frameset_1c8e21` | `UnreferencedGolfParaGoomFrameset_1c8e21` | Right after `UpdateGolfParaGoom`'s frameset table; frames 35 and 32 are Para-Goom frames of `GolfHoleFrameset_1cafb6` (28-35). | medium |
+| `Frameset_d4ce`, `Frameset_d4d5`, `Frameset_d4dc`, `Frameset_d4e3`, `Frameset_d514`, `Frameset_d519`, `Frameset_d51c`, `Frameset_d51f`, `Frameset_d522` | `UnreferencedParticleFrameset_d4ce`, `UnreferencedParticleFrameset_d4d5`, `UnreferencedParticleFrameset_d4dc`, `UnreferencedParticleFrameset_d4e3`, `UnreferencedParticleFrameset_d514`, `UnreferencedParticleFrameset_d519`, `UnreferencedParticleFrameset_d51c`, `UnreferencedParticleFrameset_d51f`, `UnreferencedParticleFrameset_d522` | Among the `Particle*Frameset`s; indices fit `ParticleOAM_d20e` (60 frames). | medium |
+| `Pals_d206` | `UnreferencedParticlePals_d206` | Right after `ParticlePals_d1fe`, same first colour, before `ParticleOAM_d20e`. | medium |
+| `Frameset_15e95f`, `Frameset_15e962`, `Frameset_15e965`, `Frameset_15e968`, `Frameset_15e96b`, `Frameset_15e974` | `UnreferencedTempleSceneObjFrameset_15e95f`, `UnreferencedTempleSceneObjFrameset_15e962`, `UnreferencedTempleSceneObjFrameset_15e965`, `UnreferencedTempleSceneObjFrameset_15e968`, `UnreferencedTempleSceneObjFrameset_15e96b`, `UnreferencedTempleSceneObjFrameset_15e974` | End of the temple scene object framesets (`TempleSceneObjFrameset_15e95c`), whose indices (up to 52) are frames of `HiddenFigureOAM_18c88a` (54), drawn by `UpdateTempleSceneObjAnimation.animate_and_draw_3`, not of `TempleSceneObjOAM_15e813` (10). | medium |
+| `Frameset_aa255`, `Frameset_aa258`, `Frameset_aa25b` | `UnreferencedOWUIFrameset_aa255`, `UnreferencedOWUIFrameset_aa258`, `UnreferencedOWUIFrameset_aa25b` | Follows `OWUIOAM_aa0cf`; frames 1-3 are the red/green/blue treasure icons of `DrawBottomBar` (frame 0, grey, is `NorthOWObjFrameset_aa252`). | medium |
+| `Frameset_aa26d` | `UnreferencedOWUIFrameset_aa26d` | Frame 9 of `OWUIOAM_aa0cf`: the empty treasure slot of `DrawBottomBar`. | medium |
+| `Frameset_aa270`, `Frameset_aa2a9`, `Frameset_aa2b2` | `UnreferencedOWUIFrameset_aa270`, `UnreferencedOWUIFrameset_aa2a9`, `UnreferencedOWUIFrameset_aa2b2` | Between the path preview and bottom bar framesets of `OWUIOAM_aa0cf`; animations of frames 10-23, which nothing else uses. | medium |
+| `Frameset_aa308`, `Frameset_aa30b`, `Frameset_aa30e`, `Frameset_aa311`, `Frameset_aa314`, `Frameset_aa317`, `Frameset_aa31a`, `Frameset_aa31d`, `Frameset_aa320`, `Frameset_aa323` | `UnreferencedOWUIDigitFrameset_aa308`, `UnreferencedOWUIDigitFrameset_aa30b`, `UnreferencedOWUIDigitFrameset_aa30e`, `UnreferencedOWUIDigitFrameset_aa311`, `UnreferencedOWUIDigitFrameset_aa314`, `UnreferencedOWUIDigitFrameset_aa317`, `UnreferencedOWUIDigitFrameset_aa31a`, `UnreferencedOWUIDigitFrameset_aa31d`, `UnreferencedOWUIDigitFrameset_aa320`, `UnreferencedOWUIDigitFrameset_aa323` | Frames 30-39 of `OWUIOAM_aa0cf`, the digits drawn by `DrawBottomBarTimeAttackScore` (`$1e` + digit), one frameset each. | medium |
+| `Frameset_aa326` | `UnreferencedOWUIFrameset_aa326` | Frame 40 of `OWUIOAM_aa0cf`, after the digits. | medium |
+| `Frameset_aa5e9`, `Frameset_aa5ec`, `Frameset_aa5ef`, `Frameset_aa5f2` | `UnreferencedCompassFrameset_aa5e9`, `UnreferencedCompassFrameset_aa5ec`, `UnreferencedCompassFrameset_aa5ef`, `UnreferencedCompassFrameset_aa5f2` | Follows `CompassOAM_aa580`; frames 0-3, the compass for each map side. | medium |
+| `Frameset_aa5fb` | `UnreferencedNorthOWObjFrameset_aa5fb` | Frame 6 of `CompassOAM_aa580`, after `NorthOWObjFrameset_aa5f5`/`aa5f8` (frames 4, 5). | medium |
+| `Frameset_bc10d`, `Frameset_bc110`, `Frameset_bc113`, `Frameset_bc116`, `Frameset_bc119`, `Frameset_bc11c`, `Frameset_bc11f` | `UnreferencedCutsceneOverlayFrameset_bc10d`, `UnreferencedCutsceneOverlayFrameset_bc110`, `UnreferencedCutsceneOverlayFrameset_bc113`, `UnreferencedCutsceneOverlayFrameset_bc116`, `UnreferencedCutsceneOverlayFrameset_bc119`, `UnreferencedCutsceneOverlayFrameset_bc11c`, `UnreferencedCutsceneOverlayFrameset_bc11f` | Right after `CutsceneOverlayOAM_bc000`, one frameset per each of its 7 frames (the overlay is drawn frame by frame, without framesets). | high |
+| `Data_82026` | `UnreferencedCompassCoords` | Right after `SetCompassSprite.coords` (`$14, $14`): three more y/x pairs, as for the other map sides; the routine only copies the first pair. | medium |
+| `Data_60340` | `UnreferencedWaveYVel_60340` | Y-velocity table among the object movement tables ($80-terminated), a long down-up wave. | medium |
+| `Data_60400` | `UnreferencedWaveYVel_60400` | Same, starting upwards. | medium |
+| `Frameset_68065` | `UnreferencedChestsFrameset_68065` | Among the `ChestsOAM_18c000` framesets (chests, key, stinger, stars); frames 18-23, used by no other frameset. | medium |
+| `Frameset_6807f`, `Frameset_6808e` | `UnreferencedStarsFrameset_6807f`, `UnreferencedStarsFrameset_6808e` | Frames 30-36 of `ChestsOAM_18c000`, the stars' frames (`StarsFrameset_680a5` uses 30-33, 37-40), not the stinger's (24-29). Corrects the fourth pass's `UnreferencedMuddeeStinger`. | medium |
+| `Frameset_6869b` | `UnreferencedKushimushiFrameset_6869b` | After `KushimushiFrameset_68698` (frame 24); frames 25-27 fit `KushimushiOAM_18160c` (28). | medium |
+| `Frameset_68a92` | `UnreferencedBarrelFrameset_68a92` | After the Barrel framesets; frames 4, 10-14 fit `BarrelOAM_181b0f` (15). | medium |
+| `Frameset_68cde`, `Frameset_68ce7`, `Frameset_68cf0`, `Frameset_68cf7`, `Frameset_68cfe`, `Frameset_68d03`, `Frameset_68d08`, `Frameset_68d11` | `UnreferencedZombieFrameset_68cde`, `UnreferencedZombieFrameset_68ce7`, `UnreferencedZombieFrameset_68cf0`, `UnreferencedZombieFrameset_68cf7`, `UnreferencedZombieFrameset_68cfe`, `UnreferencedZombieFrameset_68d03`, `UnreferencedZombieFrameset_68d08`, `UnreferencedZombieFrameset_68d11` | Before the Zombie framesets; indices up to 24 exceed `ElectricLampOAM_184eeb` (21 frames) and fit `ZombieOAM_184ffa` (31), and they pair on frames 0/4, Zombie's two facings (`ZombieFrameset_68d24`). Corrects the fourth pass's `UnreferencedElectricLamp`. | medium |
+| `Frameset_68efd`, `Frameset_68f04` | `UnreferencedBeamBotFrameset_68efd`, `UnreferencedBeamBotFrameset_68f04` | Same frames as `BeamBotFrameset_68ea3` / `68eaa` (11,10,0 / 13,12,3). | high |
+| `Frameset_69060` | `UnreferencedHandFrameset_69060` | Strings Hand sequences together: 11,12,13,10 (as `HandFrameset_690ab`), 0-6, then `HandFrameset_690c9`'s 7,8,9,19,20,8,7,21,22; Kobatto has only 9 frames. Corrects the fourth pass's `UnreferencedKobatto`. | high |
+| `Frameset_69382`, `Frameset_6938d`, `Frameset_69398`, `Frameset_693a3`, `Frameset_693ae`, `Frameset_693b9` | `UnreferencedOwlFrameset_69382`, `UnreferencedOwlFrameset_6938d`, `UnreferencedOwlFrameset_69398`, `UnreferencedOwlFrameset_693a3`, `UnreferencedOwlFrameset_693ae`, `UnreferencedOwlFrameset_693b9` | After `OwlFrameset_69377`; frames 29-55 fit `OwlOAM_188e16` (56). | medium |
+| `Frameset_69608` | `UnreferencedFlameBlockFrameset_69608` | After the Flame Block framesets; frames 2/3 of `FlameBlockOAM_1895ec`. | medium |
+| `Frameset_698a5` | `UnreferencedClearGateFrameset_698a5` | Frame 0 for 100 frames, the same shape as the next `ClearGateFrameset_698a8`/`698ab` (frames 1, 2). Corrects `UnreferencedYellowBelly`. | medium |
+| `Frameset_69a42`, `Frameset_69a47`, `Frameset_69a4c`, `Frameset_69a51`, `Frameset_69a58` | `UnreferencedTadpoleFrameset_69a42`, `UnreferencedTadpoleFrameset_69a47`, `UnreferencedTadpoleFrameset_69a4c`, `UnreferencedTadpoleFrameset_69a51`, `UnreferencedTadpoleFrameset_69a58` | After `TadpoleFrameset_69a3d`; frames 8-14 fit `TadpoleOAM_18a642` (15). | medium |
+| `Frameset_69b91` | `UnreferencedOctohonFrameset_69b91` | After the Octohon framesets; frames 0/9 are Octohon's facings (`OctohonFrameset_69b2f`/`69b57`). | medium |
+| `Frameset_69be2`, `Frameset_69bf5` | `UnreferencedSparkFrameset_69be2`, `UnreferencedSparkFrameset_69bf5` | After `SparkFrameset_69bd9`; frames up to 7 fit `SparkOAM_18ab04` (8), not Rock's (4). | medium |
+| `Frameset_69ec3`, `Frameset_69ed6`, `Frameset_69ee9`, `Frameset_69efc`, `Frameset_69f0f`, `Frameset_69f22` | `UnreferencedShootFrameset_69ec3`, `UnreferencedShootFrameset_69ed6`, `UnreferencedShootFrameset_69ee9`, `UnreferencedShootFrameset_69efc`, `UnreferencedShootFrameset_69f0f`, `UnreferencedShootFrameset_69f22` | Walk cycles 0-8 and 9-17, Shoot's left/right frame sets (`ShootFrameset_6a022`.. `6a04f`, facings 0/9 in `ShootFrameset_69f35`); Wolfenboss faces with 0/2. Directly before the Shoot framesets. Corrects `UnreferencedWolfenboss`. | medium |
+### Findings of the fifth pass
+
+**Wrong names fixed (ROM unchanged):**
+
+- The home trampolines `ObjCheckFloorOrStandingFall` and `Func_3308` had
+  their names one label off: the label called `ObjCheckFloorOrStandingFall`
+  did `homejp ApplyObjHopYVel`, and `Func_3308` did
+  `homejp _ObjCheckFloorOrStandingFall`. Now the first is
+  `ApplyObjHopYVel` (the bank routine became `_ApplyObjHopYVel`, the usual
+  home/bank pair) and `Func_3308` is `ObjCheckFloorOrStandingFall`. The
+  nine objects that `jp nz` to the first one after a 7-frame duration
+  (`.State40` in count_richtertoffen.asm and others) are doing the hop,
+  like `_ObjState_Hop`.
+- `UpdateTempleSceneObjAnimation.draw_1` named `WarioOAM_1644a` (bank $05),
+  but `Func_ac042` loads from the Credits OAM bank, where $644a is the
+  prologue scene object OAM (`PrologueSceneObjOAM_15e44a`). A scan of every
+  `ld de, X` before a fixed-bank sprite or animation wrapper found no other
+  case.
+
+**Mislabeled "unreferenced" (literal pointers, now labels):**
+
+- `SetJamanoDarknessFrameset` (was `Func_554bc`) loads its eight frameset
+  pointers as `ld b, $5c / ld c, $xx`; six of the framesets were
+  `UnreferencedJamanoFrameset_*`.
+- Count Richtertoffen's `.PickedUpLeftStart` / `.PickedUpRightStart` store
+  $41d0 / $41f0 in `OBJ_VAR_3`/`OBJ_VAR_2`, the picked-up offset tables
+  that were `UnreferencedSpearheadData_601d0` and `Data_601f0`.
+
+**Fourth-pass owner guesses corrected** (5c): `Frameset_69060` (Hand, not
+Kobatto), `Frameset_68cde`..`68d11` (Zombie, not Electric Lamp),
+`Frameset_69ec3`..`69f22` (Shoot, not Wolfenboss), `Frameset_6807f` /
+`6808e` (stars, not Muddee's stinger), `Frameset_698a5` (Clear Gate, not
+Yellow Belly). The temple's framesets, called `TempleSceneObjFrameset_*`,
+index `HiddenFigureOAM_18c88a`, not `TempleSceneObjOAM_15e813`.
+
+**Oddities, not changed:**
+
+- Pneumo's substate 5 (`.UnusedMoveSideways`) is in its jumptable but
+  nothing sets it.
+- `wDollBoyHammerRange` is Jamano's darkness step, and
+  `wDollBoyActiveBarrels` is used by Omodonmeka and Pesce: more union
+  mislabels for the RAM work.
+- `SwimDiagonalVelTable` holds the same bytes as `SwimStraightVelTable`.
+- `SetCompassSprite` copies only the first y/x pair; the three after it
+  (`UnreferencedCompassCoords`) are the same values.
+- `BlockFunc_FreeEnvInteraction` behaves like `BlockFunc_Free` (an extra
+  `xor a`), and the result values the block functions store in
+  `wUnused_c18d` ($00, $01, $10) are never read.
+- The constants `AUDIOMOD_UNK`, `OBJSTATE_1A`/`1B` and `OBJ_INTERACTION_31`,
+  `48`, `4F`, `51`, `52` could now take names from their handlers
+  (release, hop start/hop, solid platform...).

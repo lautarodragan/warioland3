@@ -48,8 +48,8 @@ MadSciensteinFunc:
 	dw .StunRightStart
 	dw .State18
 	dw .State19
-	dw Func_3263
-	dw Func_3272
+	dw ObjState_HopStart
+	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
 	dw .Default
 	dw .Default
@@ -153,7 +153,7 @@ MadSciensteinFunc:
 	cp $18
 	jr z, .asm_44e86
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $2b
 	ld [hld], a
@@ -197,7 +197,7 @@ MadSciensteinFunc:
 	cp $08
 	jr z, .asm_44ecd
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $5b
 	ld [hld], a
@@ -334,7 +334,7 @@ MadSciensteinFunc:
 	cp $08
 	jr z, .asm_44fb2
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $5c
 	ld [hld], a
@@ -378,7 +378,7 @@ MadSciensteinFunc:
 .asm_44fcc
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret
@@ -828,7 +828,7 @@ MadSciensteinFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, $00
 	ld [wCurObjState], a
 	ret
@@ -865,7 +865,7 @@ MadSciensteinFunc:
 	cp $08
 	jr z, .asm_452ea
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret

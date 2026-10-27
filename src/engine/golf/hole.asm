@@ -494,7 +494,7 @@ UpdateGolfParaGoom:
 	rr e
 	; de / 4
 	push de
-	call Func_1c8f56
+	call IsGolfXPosOnScreen
 	and a
 	jr nz, .asm_1c8d96 ; if true
 	pop de
@@ -575,7 +575,7 @@ UpdateGolfParaGoom:
 	dw GolfHoleFrameset_1cafb1 ; GOLF_PARAGOOM_5
 
 ; unreferenced?
-Frameset_1c8e21:
+UnreferencedGolfParaGoomFrameset_1c8e21:
 	db  35, 78
 	db  32,  4
 	db $ff
@@ -673,7 +673,7 @@ UpdateGolfWario:
 	rr e
 	; de / 2
 	push de
-	call Func_1c8f56
+	call IsGolfXPosOnScreen
 	and a
 	jr nz, .asm_1c8f02
 	pop de
@@ -771,7 +771,7 @@ HoldGolfWarioLastFrame::
 	ret
 
 ; return (wGolfXScroll - $e0) <= de < (wGolfXScroll + $b0)
-Func_1c8f56:
+IsGolfXPosOnScreen:
 	ld hl, wGolfXScroll
 	call Sub16Bit
 	ld a, d
@@ -996,7 +996,7 @@ GolfHoleState_Scroll:
 
 .asm_1c9099
 	push de
-	call Func_1c8f56
+	call IsGolfXPosOnScreen
 	and a
 	jr nz, .inside_view
 	; outside of view

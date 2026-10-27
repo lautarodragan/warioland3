@@ -676,7 +676,7 @@ SlowFadeInScreen::
 	ret
 
 ; unreferenced
-Func_7cf:
+UnreferencedFadeToTargetRGB:
 	ld a, [wPalFadeCounter]
 	cp $02
 	jr nc, .asm_7e9

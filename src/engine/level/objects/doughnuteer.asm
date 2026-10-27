@@ -48,8 +48,8 @@ DoughnuteerFunc:
 	dw .StunRightStart
 	dw .State18
 	dw .State19
-	dw Func_3263
-	dw Func_3272
+	dw ObjState_HopStart
+	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
 	dw .Default
 	dw .Default
@@ -130,7 +130,7 @@ DoughnuteerFunc:
 	cp $1a
 	jr z, .asm_41b8e
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $2b
 	ld [hld], a
@@ -172,7 +172,7 @@ DoughnuteerFunc:
 	cp $08
 	jr z, .asm_41bcf
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $5b
 	ld [hld], a
@@ -305,7 +305,7 @@ DoughnuteerFunc:
 	cp $08
 	jr z, .asm_41cb4
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $5c
 	ld [hld], a
@@ -349,7 +349,7 @@ DoughnuteerFunc:
 .asm_41cce
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret
@@ -793,7 +793,7 @@ DoughnuteerFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, $00
 	ld [wCurObjState], a
 	ret
@@ -831,7 +831,7 @@ DoughnuteerFunc:
 	cp $08
 	jr z, .asm_41fdc
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret

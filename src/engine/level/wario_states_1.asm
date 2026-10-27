@@ -328,9 +328,9 @@ SetState_Airborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1c345
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1c34f
 .asm_1c345
@@ -449,9 +449,9 @@ UpdateState_Airborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1c462
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1c4aa
 .asm_1c462
@@ -795,11 +795,11 @@ SetState_CrouchSliding:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	cp DIRECTION_RIGHT
@@ -4228,20 +4228,20 @@ SetWarioWalkAnimation:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]
 	and a
 	jr nz, .dir_right
 ; dir_left
-	ld a, HIGH(Frameset_149b4)
+	ld a, HIGH(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_149b4)
+	ld a, LOW(WarioWalkFrameset_149b4)
 	ld [wWarioFramesetPtr + 1], a
 	jr .got_frameset
 .dir_right
@@ -4414,11 +4414,11 @@ CrouchOrSlide:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 	xor a
 	ld [wFrameDuration], a
@@ -4764,11 +4764,11 @@ SetState_CrouchWalking:
 	ld [wGrabState], a
 	ld [wSFXLoopCounter], a ; redundant
 
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 	ld a, BANK(WarioWalkGfx)
 	ld [wDMASourceBank], a
@@ -4959,11 +4959,11 @@ SetState_CrouchAirborne:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]
@@ -5268,11 +5268,11 @@ SetState_GrabIdling:
 	ld a, LOW(WarioWalkGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1426c)
+	ld a, BANK(WarioWalkOAM_1426c)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]
@@ -5568,7 +5568,7 @@ HandleSwimming:
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_1f2c0
 	bit B_PAD_LEFT, a
-	jp nz, Func_1f357
+	jp nz, SwimLeft
 	ret
 
 .asm_1f2b2
@@ -5646,7 +5646,7 @@ SwimForward:
 	ld [wWaterCurrentBlockedDir], a
 	ret
 
-Func_1f357:
+SwimLeft:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -5894,7 +5894,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wSwimmingDirectionInput]
 	and PAD_RIGHT | PAD_LEFT
 	jr z, .asm_1f5e9
-	ld hl, Data_1f894
+	ld hl, SwimDiagonalVertVelTable
 .asm_1f5e9
 	add hl, de
 	ld b, [hl]
@@ -5923,7 +5923,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wSwimmingDirectionInput]
 	and PAD_RIGHT | PAD_LEFT
 	jr z, .asm_1f63c
-	ld hl, Data_1f894
+	ld hl, SwimDiagonalVertVelTable
 .asm_1f63c
 	add hl, de
 	ld b, [hl]
@@ -6230,7 +6230,7 @@ MoveWarioUpBySwimVel:
 SwimStraightVelTable:
 	db $01, $01, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00, $00, $00
 
-Data_1f894:
+SwimDiagonalVertVelTable:
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00, $00, $00
 
 SwimDiagonalVelTable:

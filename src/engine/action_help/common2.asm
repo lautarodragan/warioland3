@@ -17,14 +17,14 @@ LoadActionHelpPalsWithoutWater:
 BlackOutActionHelpBGPals:
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4eef
+	ld hl, ActionHelpBlackedOutBGPals
 	call LoadActionHelpBGPals
 	ret
 
 LoadActionHelpCommonPals:
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4eef
+	ld hl, ActionHelpBlackedOutBGPals
 	call LoadPalsToTempPals1
 	ret
 
@@ -47,7 +47,7 @@ LoadActionHelpPowerUpPals:
 	ret
 
 .main_power_up
-	ld hl, Pals_1e4f2f
+	ld hl, ActionHelpOBPals
 	call LoadPalsToTempPals2
 	ld a, [wActionHelpPowerUp]
 	cp GARLIC
@@ -195,7 +195,7 @@ ENDR
 	ret
 
 LoadActionHelpOBPals:
-	ld hl, Pals_1e4f2f
+	ld hl, ActionHelpOBPals
 	ld a, [wActionHelpPowerUp]
 	cp NUM_MAIN_POWER_UPS
 	ret nc ; quit if is a special Power-Up
@@ -239,7 +239,7 @@ ENDR
 	ret
 
 LoadActionHelpPowerUpIconPals:
-	ld hl, Pals_1e4f2f palette 4
+	ld hl, ActionHelpOBPals palette 4
 	ld a, [wActionHelpPowerUp]
 	cp NUM_MAIN_POWER_UPS
 	ret nc
@@ -263,7 +263,7 @@ LoadActionHelpPowerUpIconPals:
 	ld de, wTempPals2 palette 4
 	ld b, 1 palettes
 	call CopyHLToDE_Short
-	ld hl, Pals_1e4f2f palette 7
+	ld hl, ActionHelpOBPals palette 7
 	ld de, wTempPals2 palette 7
 	ld b, 1 palettes
 	call CopyHLToDE_Short
@@ -395,7 +395,7 @@ UnreferencedLoadActionHelpObjSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_1e6bab
+	ld hl, ActionHelpEnemyOAM_1e6bab
 	call LoadSprite
 	ret
 
@@ -614,9 +614,9 @@ ActionHelp2_ShowWarioWalk:
 	ld [hli], a
 	ld a, LOW(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 

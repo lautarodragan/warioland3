@@ -48,8 +48,8 @@ HammerBotFunc:
 	dw .StunRightStart
 	dw .State18
 	dw .State19
-	dw Func_3263
-	dw Func_3272
+	dw ObjState_HopStart
+	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
 	dw .Default
 	dw .Default
@@ -664,7 +664,7 @@ HammerBotFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, $00
 	ld [wCurObjState], a
 	ret
@@ -707,7 +707,7 @@ HammerBotFunc:
 	cp $09
 	jr z, .asm_44722
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret

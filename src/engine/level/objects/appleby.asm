@@ -31,7 +31,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a00
+	ld de, ApplebyFrameset_68a00
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a

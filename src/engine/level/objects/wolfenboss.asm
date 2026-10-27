@@ -62,7 +62,7 @@ WolfenbossFunc:
 	ret z
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	jp nz, ApplyObjXMovement_Loop
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.WhispRising)
@@ -372,7 +372,7 @@ WolfenbossFunc:
 	jp CreateObjectAtRelativePos
 
 .turning
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -406,7 +406,7 @@ WolfenbossFunc:
 	ld a, [wGlobalCounter]
 	and %11111
 	play_sfx z, SFX_0C3
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 
 	ld a, [wCurObjSubState]

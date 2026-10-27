@@ -1,4 +1,4 @@
-OAM_188000:
+BrrrBearOAM_188000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

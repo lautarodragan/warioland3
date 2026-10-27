@@ -1,4 +1,4 @@
-OAM_bc000:
+CutsceneOverlayOAM_bc000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -91,37 +91,37 @@ OAM_bc000:
 	db $80
 
 ; unreferenced
-Frameset_bc10d:
+UnreferencedCutsceneOverlayFrameset_bc10d:
 	db   0,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc110:
+UnreferencedCutsceneOverlayFrameset_bc110:
 	db   1,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc113:
+UnreferencedCutsceneOverlayFrameset_bc113:
 	db   2,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc116:
+UnreferencedCutsceneOverlayFrameset_bc116:
 	db   3,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc119:
+UnreferencedCutsceneOverlayFrameset_bc119:
 	db   4,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc11c:
+UnreferencedCutsceneOverlayFrameset_bc11c:
 	db   5,  4
 	db $ff
 
 ; unreferenced
-Frameset_bc11f:
+UnreferencedCutsceneOverlayFrameset_bc11f:
 	db   6,  4
 	db $ff
 

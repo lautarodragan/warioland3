@@ -480,11 +480,11 @@ LeadOverallsActionHelp_Step12:
 	ld [hli], a
 	ld a, LOW(ActionHelpFrameset_1e6f66)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	xor a
 	ld [hl], a

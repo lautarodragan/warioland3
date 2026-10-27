@@ -260,7 +260,7 @@ WarioFrameset_1425f::
 	db  16, 60
 	db $ff
 
-OAM_1426c::
+WarioWalkOAM_1426c::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -936,7 +936,7 @@ OAM_1426c::
 	frame_oam -32,  -4, $7c, 0 | OAM_XFLIP
 	db $80
 
-Frameset_149b4::
+WarioWalkFrameset_149b4::
 	db   0,  3
 	db   1,  3
 	db   2,  3
@@ -958,15 +958,15 @@ WarioFrameset_149c5::
 	db   7,  3
 	db $ff
 
-Frameset_149d6:
+UnreferencedWarioWalkFrameset_149d6:
 	db   2,  4
 	db $ff
 
-Frameset_149d9:
+UnreferencedWarioWalkFrameset_149d9:
 	db   6,  4
 	db $ff
 
-Frameset_149dc:
+UnreferencedWarioFrameset_149dc:
 	db   8,  3
 	db   9,  3
 	db  10,  3
@@ -977,7 +977,7 @@ Frameset_149dc:
 	db  15,  3
 	db $ff
 
-Frameset_149ed:
+UnreferencedWarioFrameset_149ed:
 	db  16,  3
 	db  17,  3
 	db  18,  3
@@ -1040,7 +1040,7 @@ WarioFrameset_14a3b:
 	db  36,  4
 	db $ff
 
-Frameset_14a3e:
+UnreferencedWarioFrameset_14a3e:
 	db  40,  3
 	db  41,  3
 	db  42,  3
@@ -1051,7 +1051,7 @@ Frameset_14a3e:
 	db  47,  3
 	db $ff
 
-Frameset_14a4f:
+UnreferencedWarioFrameset_14a4f:
 	db  48,  3
 	db  49,  3
 	db  50,  3
@@ -1062,19 +1062,19 @@ Frameset_14a4f:
 	db  55,  3
 	db $ff
 
-Frameset_14a60:
+UnreferencedWarioFrameset_14a60:
 	db  40,  4
 	db $ff
 
-Frameset_14a63:
+UnreferencedWarioFrameset_14a63:
 	db  48,  4
 	db $ff
 
-Frameset_14a66:
+UnreferencedWarioFrameset_14a66:
 	db   8,  4
 	db $ff
 
-Frameset_14a69:
+UnreferencedWarioFrameset_14a69:
 	db  16,  4
 	db $ff
 
@@ -1088,7 +1088,7 @@ WarioBumpFrameset_14a71:
 	db  57,  2
 	db $ff
 
-Frameset_14a76:
+WarioBumpFrameset_14a76:
 	db  58,  4
 	db $ff
 
@@ -1096,11 +1096,11 @@ WarioBumpFrameset_14a79:
 	db  59,  4
 	db $ff
 
-Frameset_14a7c:
+UnreferencedWarioBumpFrameset_14a7c:
 	db  60,  4
 	db $ff
 
-Frameset_14a7f:
+UnreferencedWarioBumpFrameset_14a7f:
 	db  61,  4
 	db $ff
 
@@ -3226,7 +3226,7 @@ WarioFrameset_15f91::
 	db   7,  4
 	db $ff
 
-Frameset_15f94::
+WarioAirborneFrameset_15f94::
 	db  15,  4
 	db $ff
 
@@ -4102,12 +4102,12 @@ WarioSlidFrameset_1671d::
 	db  11,  2
 	db $ff
 
-Frameset_16732:
+UnreferencedWarioSlidFrameset_16732:
 	db  14,  8
 	db  15,  6
 	db $ff
 
-Frameset_16737:
+UnreferencedWarioSlidFrameset_16737:
 	db  16,  8
 	db  17,  6
 	db $ff
@@ -6490,7 +6490,7 @@ WarioTurningInvisibleFrameset_17e3a:
 	db  10,  3
 	db $ff
 
-Frameset_17e59:
+UnreferencedWarioTurningInvisibleFrameset_17e59:
 	db   4,  2
 	db   3,  2
 	db   2,  2
@@ -6508,7 +6508,7 @@ Frameset_17e59:
 	db   5,  6
 	db $ff
 
-Frameset_17e78:
+UnreferencedWarioTurningInvisibleFrameset_17e78:
 	db  10,  2
 	db   9,  2
 	db   8,  2

@@ -145,6 +145,6 @@ SceneWarioFrameset_d4de4::
 	db $ff
 
 ; unreferenced
-Frameset_d4e23:
+UnreferencedGolfWarioFrameset_d4e23:
 	db   9,  4
 	db $ff

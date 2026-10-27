@@ -155,7 +155,7 @@ UpdateGolfWarioAnimation::
 
 .OAMBanks:
 	db BANK(WarioOAM_14000)
-	db BANK(OAM_1426c)
+	db BANK(WarioWalkOAM_1426c)
 	db BANK(WarioOAM_14d1b)
 	db BANK(WarioOAM_14d1b)
 	db BANK(WarioOAM_14d1b)
@@ -170,7 +170,7 @@ UpdateGolfWarioAnimation::
 .OAMTable:
 	; facing right
 	dw WarioOAM_14000
-	dw OAM_1426c
+	dw WarioWalkOAM_1426c
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b
@@ -184,7 +184,7 @@ UpdateGolfWarioAnimation::
 
 	; facing left
 	dw WarioOAM_14000
-	dw OAM_1426c
+	dw WarioWalkOAM_1426c
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b
@@ -213,7 +213,7 @@ UpdateGolfWarioAnimation::
 
 	; facing left
 	dw WarioFrameset_14252
-	dw Frameset_149b4
+	dw WarioWalkFrameset_149b4
 	dw WarioFrameset_151e4
 	dw GolfWarioFrameset_2daa
 	dw GolfWarioFrameset_2dad

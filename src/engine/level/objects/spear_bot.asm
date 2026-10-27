@@ -48,8 +48,8 @@ SpearBotFunc:
 	dw .StunRightStart
 	dw .State18
 	dw .State19
-	dw Func_3263
-	dw Func_3272
+	dw ObjState_HopStart
+	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
 	dw .Default
 	dw .Default
@@ -417,7 +417,7 @@ SpearBotFunc:
 	cp $0f
 	jr z, .asm_461be
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
 	ld a, $2e
 	ld [hld], a
@@ -760,7 +760,7 @@ SpearBotFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, ObjCheckFloorOrStandingFall
+	jp nz, ApplyObjHopYVel
 	ld a, $00
 	ld [wCurObjState], a
 	ret
@@ -802,7 +802,7 @@ SpearBotFunc:
 	cp $09
 	jr z, .asm_46444
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret

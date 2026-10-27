@@ -326,7 +326,7 @@ OpenBlueSnakeDoorCutscenePals_b81c0:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_b8200:
+SharedCutsceneBGPals_b8200:
 	rgb 31, 31, 27
 	rgb 21, 21, 19
 	rgb 10, 10,  8

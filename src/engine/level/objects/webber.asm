@@ -303,10 +303,10 @@ WebberFunc:
 	ld a, [wEffectivePowerUp]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jr nc, .has_super_jump_slam
-	ld bc, Data_603f0
+	ld bc, SmashedYVel
 	jr .asm_40a14
 .has_super_jump_slam
-	ld bc, Data_60490
+	ld bc, SuperSmashedYVel
 .asm_40a14
 	call ApplyObjYMovement
 

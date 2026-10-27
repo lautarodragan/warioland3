@@ -12,6 +12,6 @@ LoadLanguageSelectionSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_75c3
+	ld hl, LanguageSelectionOAM_75c3
 	call LoadSprite
 	ret

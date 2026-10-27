@@ -385,10 +385,10 @@ StartRoom_FromLevelStart:
 	call CopyHLToDE
 
 .load_common_pal
-	ld hl, Pals_d1fe
+	ld hl, ParticlePals_d1fe
 	ld de, wTempPals2 palette 2
 	ld b, 1 palettes
-	ld a, BANK(Pals_d1fe)
+	ld a, BANK(ParticlePals_d1fe)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE_Short
 

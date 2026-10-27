@@ -27,18 +27,18 @@ PneumoFunc:
 .asm_45672
 	xor a
 	ld [hld], a
-	jp .Func_4589d
+	jp .start_retreat
 
 .asm_45677
 	xor a
 	ld [hld], a
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jp z, .Func_4589d
+	jp z, .start_retreat
 	ld a, [hl]
 	and $0f
 	cp $01
-	jp z, .Func_4589d
+	jp z, .start_retreat
 	jr .substate_table
 
 .Update:
@@ -70,13 +70,13 @@ PneumoFunc:
 	and $0f
 	jumptable
 
-	dw .Func_4570f
-	dw .Func_4570f
-	dw .Func_458c7
-	dw .Func_457bd
-	dw .Func_4585c
-	dw .Func_45893
-	dw .Func_45934
+	dw .Float
+	dw .Float
+	dw .Retreat
+	dw .SwoopDown
+	dw .Rise
+	dw .UnusedMoveSideways
+	dw .MoveToWarioY
 
 .asm_456c7
 	jp VanishAndDespawnObject
@@ -115,7 +115,7 @@ PneumoFunc:
 	ld [wCurObjAction], a
 	ret
 
-.Func_456fe:
+.set_float:
 	ld de, PneumoFrameset_68c5c
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
@@ -127,7 +127,7 @@ PneumoFunc:
 	ld [hld], a
 	ret
 
-.Func_4570f:
+.Float:
 	ld a, [wCurObjScreenYPos]
 	add $2a
 	ld b, a
@@ -239,7 +239,7 @@ PneumoFunc:
 	ld [hli], a
 	ret
 
-.Func_457bd:
+.SwoopDown:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -340,10 +340,10 @@ PneumoFunc:
 	ld [hl], a
 	ret
 
-.Func_4585c:
+.Rise:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp z, .Func_456fe
+	jp z, .set_float
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 16
@@ -361,7 +361,7 @@ PneumoFunc:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jp z, .Func_456fe
+	jp z, .set_float
 	dec [hl]
 	ld l, OBJ_Y_POS
 	ld a, [hl]
@@ -371,13 +371,13 @@ PneumoFunc:
 	dec [hl]
 	jp .asm_4581d
 
-.Func_45893:
+.UnusedMoveSideways:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, .asm_4581d
-	jp .Func_456fe
+	jp .set_float
 
-.Func_4589d:
+.start_retreat:
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -405,10 +405,10 @@ PneumoFunc:
 	ld [hli], a
 	ret
 
-.Func_458c7:
+.Retreat:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp z, .Func_4592e
+	jp z, .end_retreat
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 16
@@ -463,16 +463,16 @@ PneumoFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_4592e:
+.end_retreat:
 	inc l
 	xor a
 	ld [hl], a
-	jp .Func_456fe
+	jp .set_float
 
-.Func_45934:
+.MoveToWarioY:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jp z, .Func_456fe
+	jp z, .set_float
 	ld a, [wWarioYPos + 0]
 	ld h, a
 	ld a, [wWarioYPos + 1]
@@ -500,13 +500,13 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and a
-	jp nz, .Func_4589d
+	jp nz, .start_retreat
 	jp MoveObjectUp
 .asm_45971
 	ld a, [wCurObjYPos + 0]
 	and $fc
 	cp e
-	jp z, .Func_456fe
+	jp z, .set_float
 	jr nc, .asm_45954
 .asm_4597c
 	xor a
@@ -526,9 +526,9 @@ PneumoFunc:
 	ld a, [wHitFloorBlock]
 	and a
 	jp nz, MoveObjectDown_Slow
-	jp .Func_456fe
+	jp .set_float
 .asm_4599f
 	ld a, [wIsInWaterOrSand]
 	and a
 	jp z, MoveObjectDown
-	jp .Func_456fe
+	jp .set_float

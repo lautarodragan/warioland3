@@ -365,11 +365,11 @@ ObjState_FallLeftStart::
 ObjState_FallRightStart::
 	homejp _ObjState_FallRightStart
 
-Func_3263::
-	homejp Func_6303f
+ObjState_HopStart::
+	homejp _ObjState_HopStart
 
-Func_3272::
-	homejp Func_63050
+ObjState_Hop::
+	homejp _ObjState_Hop
 
 ObjState_StartRandomWobble::
 	homejp _ObjState_StartRandomWobble
@@ -395,10 +395,10 @@ ObjState_FallRight::
 ObjCheckFloorOrDrop::
 	homejp _ObjCheckFloorOrDrop
 
-ObjCheckFloorOrStandingFall::
-	homejp ApplyObjHopYVel
+ApplyObjHopYVel::
+	homejp _ApplyObjHopYVel
 
-Func_3308::
+ObjCheckFloorOrStandingFall::
 	homejp _ObjCheckFloorOrStandingFall
 
 ObjState_AttackedRight::

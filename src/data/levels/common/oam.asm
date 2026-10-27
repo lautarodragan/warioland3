@@ -395,28 +395,28 @@ ParticleDustFrameset:
 	db $ff
 
 ; unreferenced
-Frameset_d4ce:
+UnreferencedParticleFrameset_d4ce:
 	db  20,  3
 	db  21,  3
 	db  22,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4d5:
+UnreferencedParticleFrameset_d4d5:
 	db  23,  3
 	db  24,  3
 	db  25,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4dc:
+UnreferencedParticleFrameset_d4dc:
 	db  26,  3
 	db  27,  3
 	db  28,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4e3:
+UnreferencedParticleFrameset_d4e3:
 	db  29,  3
 	db  30,  3
 	db  31,  3
@@ -454,28 +454,28 @@ ParticleBubblesFrameset_d50b:
 	db $ff
 
 ; unreferenced
-Frameset_d514:
+UnreferencedParticleFrameset_d514:
 	db  47,  3
 	db  48,  3
 	db $ff
 
 ; unreferenced
-Frameset_d519:
+UnreferencedParticleFrameset_d519:
 	db  49,  4
 	db $ff
 
 ; unreferenced
-Frameset_d51c:
+UnreferencedParticleFrameset_d51c:
 	db  50,  4
 	db $ff
 
 ; unreferenced
-Frameset_d51f:
+UnreferencedParticleFrameset_d51f:
 	db  51,  4
 	db $ff
 
 ; unreferenced
-Frameset_d522:
+UnreferencedParticleFrameset_d522:
 	db  52,  4
 	db $ff
 

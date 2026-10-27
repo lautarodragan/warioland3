@@ -5115,7 +5115,7 @@ HandleOnFireAirborneMovement:
 	ld [wJumpVelIndex], a
 ;	fallthrough
 
-Func_2afc5:
+OnFireBounceOffWall:
 	ld a, [wDirection]
 	xor $1 ; switch direction
 	ld [wDirection], a
@@ -5601,7 +5601,7 @@ HandleCrazyInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_CrazyAirborne_Jump
-	call Func_2b42b
+	call UpdateCrazyWalk
 	ld a, [wWarioState]
 	cp WST_CRAZY
 	ret nz ; done if not crazy any more
@@ -5627,7 +5627,7 @@ HandleCrazyInput:
 .asm_2b428
 	jp SetState_CrazyTurning
 
-Func_2b42b:
+UpdateCrazyWalk:
 	ld hl, wWalkVelIndex
 	inc [hl]
 	ld a, [hl]

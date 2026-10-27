@@ -19,7 +19,7 @@ Naming and renaming were separate steps:
 2. **Apply.** The high- and medium-confidence proposals were applied in
    batches, one commit each.
 
-The survey ran in four passes:
+The survey ran in five passes:
 
 | Pass | Covered |
 |---|---|
@@ -27,6 +27,7 @@ The survey ran in four passes:
 | 2 | The `w1d`/`w2d` RAM, the overworld's states and helpers, the Hidden Figure, action help demos, the audio engine, bulk rules for room palettes and room tables |
 | 3 | The rest of the overworld, cutscene rules, boss phases, owner-prefix names for framesets, OAM, palettes and data |
 | 4 | Leftovers of the applied batches, the remaining scene locals, all remaining data labels, consistency renames, routines outside the overworld |
+| 5 | The low-confidence leftovers, re-read and applied as it went: routines, referenced data, unreferenced framesets with owners checked against their OAM tables |
 
 When labels came in large families, rules replaced hand naming. For example,
 a frameset used by a single object is named `<Owner>Frameset_<addr>`, a
@@ -72,25 +73,29 @@ checked to change only what it meant to:
   were swapped: when Wario went down a floor, the code set the flag called
   UP. Swapping the names left the ROM identical and made the code readable.
 - **Numbers instead of labels.** Some update-function pointers (Togeba, the
-  seeing eye door) and data tables (Bubble, coin, Omodon) were written as
+  seeing eye door), data tables (Bubble, coin, Omodon, Count Richtertoffen's
+  picked-up offsets) and Jamano's darkness framesets were written as
   literal addresses. They pointed at the right place only as long as nothing
   moved. They are labels now.
 
 ## Results
 
-13 batches, about 6,500 renames. The batches are listed in the survey's
+17 batches: about 6,800 label renames, plus the RAM mislabel fixes (batch 14). The batches are listed in the survey's
 [Applied](naming-survey.md#applied) section.
 
 Still named after their address, on purpose:
 
-- About 240 labels whose proposals are low confidence, mostly unreferenced
-  framesets whose owner is only guessed from their neighbours.
-- Duplicate routines and tables (`Data_60320`/`Data_60510`, `Func_ce3e`, which
-  repeats `GetBlockPtrPos`, and duplicates in bank `$20`). Merging them changes
-  the ROM, so it's a separate decision.
-- Structural changes the survey suggests but a rename can't do: merging byte
-  labels into structs, and fixing RAM labels used under the wrong union member
-  (for example, `wCurOWPathTracer` holding the prologue's fade type).
+- 14 duplicate routines, the only `Func_`/`Data_`/`Frameset_`/`OAM_`/`Pals_`
+  labels still named after their address (`Func_19246`, `Func_19b5c`/`19bce`,
+  bank `$20`'s `Func_82a8d`/`82c1d`/`82c22`/`82c29`, bank `$2b`'s
+  `Func_ac000`/`ac00b`/`ac016`, `Func_ac042`/`ac047`/`ac04c`, `Func_aca6d`),
+  plus duplicates that already have names (`SmallHopYVel`/`SmallHopYVel2`,
+  `GetBlockPtrBottomCentrePos`, close to `GetBlockPtrPos`). Merging them changes the ROM,
+  so it's a separate decision. The `.asm_` jump labels were never part of
+  the survey.
+- A few low-confidence RAM scene variables (`w2d150`.., the `w2d122`..`w2d13f`
+  scene task pairs). The structural RAM changes and the labels used under the
+  wrong union member were fixed in batch 14.
 
 ## Doing more of this
 

@@ -1,4 +1,4 @@
-OAM_15e44a::
+PrologueSceneObjOAM_15e44a::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -427,7 +427,7 @@ PrologueSceneObjFrameset_15e793::
 	db  13,  4
 	db $ff
 
-Frameset_15e796::
+PrologueSceneObjFrameset_15e796::
 	db  21,  2
 	db  22,  2
 	db  23,  6
@@ -483,7 +483,7 @@ PrologueSceneObjFrameset_15e7c4::
 	db  40,  1
 	db $ff
 
-Frameset_15e7ed::
+PrologueSceneObjFrameset_15e7ed::
 	db  49,  4
 	db $ff
 
@@ -849,27 +849,27 @@ TempleSceneObjFrameset_15e95c::
 	db $ff
 
 ; unreferenced
-Frameset_15e95f:
+UnreferencedTempleSceneObjFrameset_15e95f:
 	db  43,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e962:
+UnreferencedTempleSceneObjFrameset_15e962:
 	db  44,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e965:
+UnreferencedTempleSceneObjFrameset_15e965:
 	db  45,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e968:
+UnreferencedTempleSceneObjFrameset_15e968:
 	db  46,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e96b:
+UnreferencedTempleSceneObjFrameset_15e96b:
 	db  18, 10
 	db  48,  6
 	db  49, 10
@@ -877,7 +877,7 @@ Frameset_15e96b:
 	db $ff
 
 ; unreferenced
-Frameset_15e974:
+UnreferencedTempleSceneObjFrameset_15e974:
 	db  51, 10
 	db  50,  6
 	db  33, 10

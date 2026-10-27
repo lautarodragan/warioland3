@@ -91,7 +91,7 @@ PrinceFroggyFunc:
 
 .asm_44113
 	cp $1b
-	jp z, Func_3272
+	jp z, ObjState_Hop
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $13
@@ -188,7 +188,7 @@ PrinceFroggyFunc:
 	cp $11
 	jr z, .asm_44151
 	cp $1b
-	jp z, Func_3272
+	jp z, ObjState_Hop
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $28
