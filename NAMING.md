@@ -134,25 +134,46 @@ applied, so this pass works from a fresh grep: at its start `src/` had 240
 `Func_`, 1131 `.Func_`, 712 `Frameset_`, 139 `OAM_`, 167 `Pals_`, 68
 `Data_` address-named definitions).
 
+- [x] 4a. Overworld `Func_` still address-named: bank2b_2 (47), bank2d (24),
+  bank20 (19), bank27 (17), bank2b_1 (12), bank26 (7), init.asm (7),
+  bank56 (3), all done together with their data. Also 4.0: leftovers of the
+  applied batches (mis-applied comma lists, unapplied rows).
+- [x] 4b. Scene-local `.Func_`: done with 4a, scene by scene (the 4a
+  tables), with mechanical rules where they hold: R2 scene object state
+  tables `.StateXX`/`.None` (70), wait steps `.Wait<N>` (27), cutscene step
+  legend (`.ShowItem`, `.WaitThen<Action>`, `.SetObjNState<NN>`,
+  `.FadeEvery<N>Frames`, ...; 148), sound helpers (30), `.update_obj` (15),
+  tilemap patches (18).
+- [x] 4c. Data still address-named: all 987 labels, by rules P (palette
+  loaders), S (show routines), O (single owner), W (shared Wario graphics),
+  U (unreferenced, by neighbours), plus descriptive names for the overworld
+  palettes, object movement tables and shared labels.
+- [x] 4d. The optional consistency renames of the third pass (and all of
+  bank2d's ordinal `.Wait1`.. locals, 51).
 - [x] 4e. Not on the list but still address-named: the other `Func_`
   outside the overworld (clear, credits, game over, golf, title, level,
   ~95), 12 `BlockFunc_`, 14 `VBlank_`, 8 `Text_`, 2 `UnreferencedLCD_`.
-- [~] 4a. Overworld `Func_` still address-named: bank2b_2 (47), bank2d (24),
-  bank20 (19), bank27 (17), bank2b_1 (12), bank26 (7), init.asm (7),
-  bank56 (3). Done so far, together with their `.Func_` locals (4b) and
-  data: bank2b_2, bank2b_1, bank20, bank21, bank26, init.asm, bank56,
-  bank2d, bank27. Also 4.0:
-  leftovers of the applied batches (mis-applied comma lists, unapplied
-  rows).
-- [ ] 4b. Scene-local `.Func_` (~1070 in the overworld banks, ~60 in level
-  objects and elsewhere): mechanical rules first (`ret`-only locals,
-  set-state-then-advance steps, frameset-setter state entries, ...), then
-  per scene where the code is clear.
-- [ ] 4c. Data still address-named: rules (Wario framesets shared by the
-  states of one transformation, OAM tables reached through
-  object_data.asm, framesets only listed in one frameset table, ...), then
-  descriptive names where cheap.
-- [ ] 4d. The optional consistency renames of the third pass.
+- [x] Findings of the fourth pass collected in their own section at the end.
+
+**Fourth pass status:** 2401 labels proposed (1620 high, 637 medium, 144
+low) plus the 4.0 table (about 30 rows carried over from earlier passes).
+Code labels 1358 (by hand 1050; by rule 308: cutscene step legend 148,
+`.StateXX` 70, sound helpers 30, `.Wait<N>` 27, tilemap patches 18,
+`.update_obj` 15); data 989 (descriptive 101, P 24, O 444, W 95, S 38, U
+287); 4d 54. All new global names checked by script against `src/` and the
+earlier sections; locals checked for uniqueness in their scope.
+
+**What is left:** no address-named `Func_`, `.Func_`, `Frameset_`, `OAM_`,
+`Pals_`, `Data_`, `BlockFunc_`, `VBlank_` or `Text_` label in `src/` is
+without a proposal in one of the four passes (checked by script). Left
+open on purpose, with the reason in their rows: the low-confidence names
+(the earlier passes' snake/Pneumo locals; in this pass 144, mostly
+unreferenced framesets whose owner only comes from their neighbours), the
+"not named" notes of the first passes; the duplicates listed in the
+findings (`Func_ce3e`, the bank20 copies, `Data_60510`) are named but
+would better be merged. The `.asm_` jump labels were not part of this survey.
+Next steps are applying the batches and replacing the generated
+`<Owner><Kind>_<addr>` data names with descriptive ones where wanted.
 
 ## Inventory (master at f205aa3)
 
@@ -2132,6 +2153,7 @@ one label per entry so they can be applied mechanically:
 | `AnonsterFunc.asm_503e0`, `.asm_5043b`, `.asm_504b1`, `.asm_504fe`, `.asm_5054b` | anonster.asm:544-756 | `.spit_waves`, `.reset_to_walk`, `.return_to_ceiling`, `.walk_towards_wario`, `.check_hit_from_behind` | 3c | medium |
 | `MuddeeFunc.asm_556dc` | muddee.asm:107 | `.spawn_stingers` | 3c | medium |
 | `Func_84fd5` | bank21.asm:904 | `UnreferencedClearBGOBPals` | 3a, the `Func_9cc87` row | high |
+| `MusicBoxCutsceneFunc.Func_9d6f6` | bank27.asm:2499 | `.PlayCutscene` | 3b rule 1, listed under its old scope `Func_9d6f0` | high |
 
 Not carried over on purpose: the low rows (snake.asm "low-medium",
 pneumo.asm, `Func_80e85`, `Func_8143d`, `Func_15868e`, ...), the
@@ -2383,8 +2405,8 @@ Rules, in the order they are tried:
   before is known): `Unreferenced<Owner><Kind>_<addr>`; plain
   `Unreferenced<Kind>_<addr>` (low) when no neighbour has an owner.
 
-Totals: 987 labels, all proposed. Descriptive 99 (44 high, 42 medium, 13
-low); P 24 high; O 444 high; W 95 medium; S 38 medium; U 287 (157 medium,
+Totals: 987 labels, all proposed. Descriptive 99 (44 high, 40 medium, 13
+low, plus Anonster's two local palettes, medium); P 24 high; O 444 high; W 95 medium; S 38 medium; U 287 (157 medium,
 130 low). All names checked by script against `src/` and the earlier
 sections of this file: no collisions, no duplicates.
 
@@ -2419,6 +2441,7 @@ marked unreferenced.
 | data/title/oam.asm:134 | `Frameset_6ce9` -> `StartMenuFrameset_6ce9`; `Frameset_6d1e` -> `StartMenuFrameset_6d1e`; `Frameset_1f1cd4` -> `PauseMenuFrameset_1f1cd4` | Intro and start menu; `Frameset_1f1cd4` pause menu and musical coin screen. | medium |
 | data/levels/common/oam.asm:1 | `OAM_d20e` -> `ParticleOAM_d20e`; `Frameset_d49a` -> `ParticleDebrisFrameset`; `OAM_d763` -> `ParticleOwlOAM`; `Frameset_d7b4` -> `ParticleOwlFrameset` | Particles (levels/common/oam.asm): `OAM_d20e` is the OAM of most particles (`ParticleAnim_*`) and two action help demos; the debris and owl framesets are also used by the action help's block debris / owl demos. | medium (high: `ParticleOAM_d20e`) |
 | gfx/oam/objects4.asm:831 | `OAM_18c88a` -> `HiddenFigureOAM_18c88a`; `OAM_18007b` -> `SpearheadOAM_18007b`; `OAM_184ab2` -> `MadSciensteinOAM_184ab2`; `OAM_188000` -> `BrrrBearOAM_188000`; `OAM_18c000` -> `TreasureOAM_18c000`; `OAM_190000` -> `AnonsterOAM_190000` | Object OAM banks shared through object_data.asm/object_params.asm. `OAM_18c88a`: Hidden Figure (face and hands), reused by the temple scene. `OAM_18007b`: Spearhead (and `DummyObjectData`, a placeholder, and the epilogue). Low for the rest: `OAM_184ab2` Mad Scienstein and his potion, also the Seeing-Eye Door; `OAM_188000` Brrr Bear and the tadpole spawner; `OAM_18c000` chests, keys, treasures, the musical coin and the stars; `OAM_190000` Anonster's silk, waves and platforms, also the fly/dragonfly spawners and the snowflakes. | low (high: `HiddenFigureOAM_18c88a`; medium: `SpearheadOAM_18007b`) |
+| level/objects/anonster.asm:1518 | `UpdateAnonsterPal`: `.Pals_50ab4` -> `.green_pal`; `.Pals_50abc` -> `.red_pal` | The two local palettes copied to OB palette 7 when the low nybble of `wCurObjSubState` is 3 (green body colours) or 2 (red); named by their colours, the meaning of the two sub-states is not clear from this routine. | medium |
 
 **Rule P (palette loaders, high)**, 24 labels
 
@@ -2678,6 +2701,30 @@ marked unreferenced.
 - UnreferencedYellowBelly (medium): `Frameset_697f0`, `Frameset_697f9`, `Frameset_69802`, `Frameset_69811`, `Frameset_69820`, `Frameset_6982b`, `Frameset_69836`, `Frameset_69866`, `Frameset_6986b`
 - UnreferencedZombie (medium): `Frameset_68d32`, `Frameset_68d3f`, `Frameset_68d48`, `Frameset_68d51`, `Frameset_68d58`, `Frameset_68d5f`, `Frameset_68d70`
 
+### 4d. Optional consistency renames
+
+Not needed for meaning; they make existing names follow the rules used
+elsewhere.
+
+| Current | Proposed | Why | Conf. |
+|---|---|---|---|
+| `OWCutTree` (bank27.asm:7631) | `UpdateCutsceneObjs_CutTree` | It is Cutscene02's object updater (`jp OWCutTree` at the end of its step table), the only one not named `UpdateCutsceneObjs_<Event>` (3b). | high |
+| `UpdateTempleSceneObjs` (bank2b_1.asm:454) | `UpdateTempleSceneObjs_Back` | Pairs with the 4a proposal `UpdateTempleSceneObjs_Front` (`Func_ac2b2`), as the epilogue's `UpdateEpilogueSceneObjs_Front` / `_Back`. | high |
+| `wGoldBuildingCourseAttrMap` (wram.asm:1180) | `wGolfBuildingCourseAttrMap` | Typo ("Gold" for "Golf"); used in golf/hole.asm:3181 and golf/building/building.asm:472. | high |
+
+**bank2d waits by frames.** bank2d's map-side scenes number their wait
+steps in order (`.Wait1`, `.Wait2`, ...) in 24 scenes, not only
+`SOWFunc_RaiseTower`, while the other bank2d scenes, bank27 and the 3b
+rule 3 name them by frames. All 88 `.Wait<N>` locals of bank2d are
+`ld a, N / jp WaitOWFunc`, so rule 3 applies as is:
+`.Wait<N>`, with `_1`, `_2` when a scene has several waits of the same
+length (`SOWFunc_RaiseTower`: `.Wait1` 30, `.Wait2` 45, `.Wait3` and
+`.Wait4` 40 frames -> `.Wait30`, `.Wait45`, `.Wait40_1`, `.Wait40_2`). 51
+labels change (the other 37 already give their frame count); generated by
+script, medium only because the ordinal names are not wrong:
+
+`NOWFunc_CutTree.Wait1` .Wait4_1; `NOWFunc_CutTree.Wait2` .Wait4_2; `NOWFunc_OpenGate.Wait1` .Wait4_1; `NOWFunc_OpenGate.Wait2` .Wait4_2; `NOWFunc_MagicSeed.Wait1` .Wait20; `NOWFunc_MagicSeed.Wait2` .Wait30; `NOWFunc_SummonSnake.Wait1` .Wait8; `NOWFunc_FallLeaves.Wait1` .Wait20; `NOWFunc_FallLeaves.Wait2` .Wait8; `NOWFunc_FallLeaves.Wait3` .Wait40; `NOWFunc_PlayMusicBox.Wait1` .Wait20; `NOWFunc_PlayMusicBox.Wait2` .Wait254; `NOWFunc_Crayon.Wait1` .Wait20_1; `NOWFunc_Crayon.Wait2` .Wait4; `NOWFunc_Crayon.Wait3` .Wait10; `NOWFunc_Crayon.Wait4` .Wait20_2; `NOWFunc_BottomBar.Wait1` .Wait40; `NOWFunc_BottomBar.Wait2` .Wait45; `NOWFunc_BottomBar.Wait3` .Wait10; `NOWFunc_BottomBar.Wait4` .Wait60; `NOWFunc_DayNightSpell.Wait1` .Wait30; `NOWFunc_DayNightSpell.Wait2` .Wait40; `NOWFunc_DayNightSpell.Wait3` .Wait60; `WOWFunc_Rain.Wait1` .Wait180; `WOWFunc_Rain.Wait2` .Wait120; `WOWFunc_Rain.Wait3` .Wait60; `WOWFunc_ClearTornado.Wait1` .Wait20; `WOWFunc_ElevatorWorking.Wait1` .Wait20; `WOWFunc_ElevatorWorking.Wait2` .Wait200; `WOWFunc_MagicSeed.Wait1` .Wait20; `WOWFunc_MagicSeed.Wait2` .Wait30; `WOWFunc_SummonSnake.Wait1` .Wait8; `WOWFunc_Earthquake.Wait1` .Wait20; `WOWFunc_VulcanoEruption.Wait1` .Wait60; `WOWFunc_RedMusicBox.Wait1` .Wait20; `SOWFunc_SendSeeds.Wait1` .Wait30; `SOWFunc_SendSeeds.Wait2` .Wait10; `SOWFunc_MagicSeed.Wait1` .Wait20; `SOWFunc_MagicSeed.Wait2` .Wait30; `SOWFunc_YellowMusicBox.Wait1` .Wait20; `SOWFunc_YellowMusicBox.Wait2` .Wait40; `SOWFunc_RaiseTower.Wait1` .Wait30; `SOWFunc_RaiseTower.Wait2` .Wait45; `SOWFunc_RaiseTower.Wait3` .Wait40_1; `SOWFunc_RaiseTower.Wait4` .Wait40_2; `SOWFunc_SummonSnake.Wait1` .Wait20; `SOWFunc_GreenMusicBox.Wait1` .Wait20; `SOWFunc_GreenMusicBox.Wait2` .Wait40; `SOWFunc_FullMoon.Wait1` .Wait40; `SOWFunc_FullMoon.Wait2` .Wait30; `SOWFunc_FullMoon.Wait3` .Wait60
+
 ### 4e. Other address-named routines (outside the overworld)
 
 Not on the resume list, but a grep of `src/` still found them: clear screens, credits, game over, golf, title, the level engine (block functions, Wario-state helpers, objects), audio and action help locals, plus the `VBlank_`, `Text_` and `UnreferencedLCD_` labels of the inventory. All read; same conventions.
@@ -2708,3 +2755,64 @@ Not on the resume list, but a grep of `src/` still found them: clear screens, cr
 | overworld.asm:139 | `Text_b2107` -> `TextJP_HiddenFigureHeadFor_Unused`; `Text_b231c` -> `TextEN_HiddenFigureHeadFor_Unused`; `Text_b2411` -> `TextJP_HiddenFigureReplenishPower_Unused`; `Text_b2533` -> `TextEN_HiddenFigureReplenishPower_Unused`; `Text_b37e6` -> `TextJP_HiddenFigureAreYouAware_Unused`; `Text_b39f0` -> `TextEN_HiddenFigureAreYouAware_Unused`; `Text_15e212` -> `TextJP_OldManThankYou_Unused`; `Text_15e437` -> `TextEN_OldManThankYou_Unused` | Unreferenced short filler string after each text tilemap in "Hidden Figure Text 1/2" and "OW BG Maps 2" (the same bytes each time): named after the text they follow. | medium |
 | perfect/core.asm:123 | `Func_dc101` -> `LoadPerfectCyclePals0`; `Func_dc10d` -> `LoadPerfectCyclePals1`; `Func_dc119` -> `LoadPerfectCyclePals2`; `Func_dc125` -> `LoadPerfectCyclePals3`; `Func_dc13e` -> `LoadPerfectBGMaps`; `Func_dc158` -> `LoadPerfectSprite` | Perfect screen: the update cycles BG palettes 5-7 every 8 frames through `Pals_dc173` palettes 5-7 (`Func_dc101`), `Pals_dc1b3`, `Pals_dc1cb` and `Pals_dc1e3` (the other three); `Func_dc13e` loads the BG maps, `Func_dc158` draws a sprite with `OAM_dd710`. | high |
 | home/fade.asm:818 | `VBlank_88d` -> `VBlank_StorePals`; `VBlank_8bf` -> `VBlank_LoadPalsFromWRAM` | Home fade helpers: `VBlank_88d` backs up `wVBlankFunc` and installs a function that stores the current BG/OB palettes into WRAM (`StoreBGPals`/`StoreOBPals`); `VBlank_8bf` installs one that loads them from WRAM every frame (`LoadBGPalettesFromWRAM`/`LoadOBPalettesFromWRAM`). Used at the start of every fade routine in fade.asm. | high |
+| bank20.asm:611 | `Func_812b0` -> `UnreferencedGetMapSideLastLevel` | Marked unreferenced (bank20.asm:611; the third pass left it open): returns in `c` the byte for `wNextMapSide` from `.data` = 6, 5, 5, 6 for north, west, south, east, which is the index of the last level on each side (`NUM_<SIDE>_LEVELS` - 1: 7, 6, 6, 7 levels). | medium |
+
+### Findings of the fourth pass (not renames)
+
+Collected here so they are not lost in the tables. Each is backed by the
+lines given; none is fixed (this pass changes no code).
+
+**RAM labels used under the wrong union member** (same address, other
+meaning; candidates for scene-specific aliases like the 3b ones):
+
+- `wCollectionRow` (= `wLCDCFlagsToFlip`, $d800) is written with $08 to
+  flip the BG map: ten times in bank27 and in the epilogue's
+  `_InitEpilogue`.
+- `wPalFade7Colour3RedUnk1` / `wPalFade7Colour3RedSign` are used as
+  `wCurTextBufferPage` / `wCurTextBufferLine` (bank2b_2.asm:2790-2848).
+- `wCurOWPathTracer` holds the `_PrologueFade` type (bank21.asm).
+- `wPalFade6Colour2Green*` hold the golf building scene's state, step and
+  counter.
+- The epilogue uses `wPalFade2Colour2GreenUnk1`, `wPalFade2Colour4GreenSign`
+  and `wTempleRock5Action`/`Counter`; bank56 borrows `wTempleMusicBox*`,
+  `wPlanePart2Counter` and `wPalFade2Colour3GreenUnk1`; Cutscene14 keeps
+  pointers in `wPalFade1`; the best time list's autoscroll uses the
+  collection labels; the east volcano scene uses `wSceneWarioMovementStep`
+  and `wOWUIObj1State`.
+- `VBlank_1ca056` reads `wGolfPinFlagTiles`, which is `wGolfCourseTileMap`
+  in the golf union.
+- `w2d121` is written but never read.
+- Typo: `wGoldBuildingCourseAttrMap` (4d).
+
+**Mislabeled "unreferenced"**:
+
+- `Data_9ef82` is marked unreferenced, but Cutscene14 uses literal pointers
+  into that data ($6e99, $6ee7, $6f33, $6f82, $6fe3, $7044); it should get
+  labels instead of numbers.
+- `UnreferencedUpdateSceneObjAnim_ObjFramesets` is referenced
+  (bank2b_1.asm:345, 352, 359).
+- `Data_60ec9` (Kobatto's set movement) is also used from torch.asm code
+  marked "unreferenced?" (4c).
+- `Pals_84940`/`Pals_849c0` have no reference by name but are reached by
+  indexing from `Pals_84900` (4c).
+
+**Possible bugs or oddities**:
+
+- Cutscene4c `.Func_9e52a` (bank27.asm:4541) compares `wSceneObj2State`
+  with 3 and then advances unconditionally: a `ret nz` seems to be missing,
+  so the compare does nothing.
+- The `.data` table in `EOWFunc_FormCastle` has trailing bytes that decode
+  as code.
+- Plane part 2's `.Fall3` doesn't move the trailing object;
+  `.move_arc3_2` duplicates another helper.
+- In 4.0: two comma-list rows of the applied batches were applied as one
+  name, and the "`Func_ad557` (duplicate of `Func_ae915`)" row was applied
+  as a rename, so bank2b_1.asm:3222 defines `Func_ae915` at $ad557.
+
+**Duplicates**: `Func_ce3e` vs home's `GetBlockPtrPos` (other corner of the
+block); the bank20 duplicate routines (4a); `Data_60320` and `Data_60510`
+(identical Y-velocity tables, 4c).
+
+**Raw values**: raw `SCENEWARIO_*` numbers in the epilogue and the golf
+building; the musical coin screen loads the golf menu's gfx and maps
+(`GolfMenuGfx`, `GolfMenuTilemap`/`Attrmap`).
