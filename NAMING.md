@@ -46,8 +46,8 @@ untouched (mistakes found in them go in a "Corrections" note there), and
 everything is named by its current master label, since the earlier
 proposals are being applied on another branch.
 
-- [ ] 3a. Phase 7: the overworld `Func_` with 4-8 references from 2b (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`).
-- [ ] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule.
+- [x] 3a. Phase 7: the overworld `Func_` with 4-8 references from 2b (`Func_b69a6`, `Func_9a78e`, `Func_b7984`, `Func_b71fc`, `Func_b4143`, `Func_85a91`, `Func_9fb53`/`Func_9fb97`, `Func_b7a6d`, `Func_b542e`, `Func_b5114`).
+- [x] 3b. bank27's per-cutscene object updaters (`Func_9f0e0`...): bulk rule. Also bulk rules for the cutscene step tables (`.PlayCutscene`), the wait steps in bank27/bank2d (109 `.WaitN`) and the per-OW-function object init routines in bank2d (45).
 - [ ] 3c. Boss middle phases left "not named" in 2d: anonster, muddee, omodonmeka, scowler, yellow_belly, and the unclear helpers in bubble/haridama/snake (phase jumptables read in full).
 - [ ] 3d. Boss union: per-boss names for bytes 0-3 of the `w1d146` union.
 - [ ] 3e. Data: owner-prefix rule for `Frameset_`/`OAM_`/other `Pals_`/`Data_`, generated where the owner is unambiguous.
