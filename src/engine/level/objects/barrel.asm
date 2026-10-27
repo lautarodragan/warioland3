@@ -7,7 +7,7 @@ Barrel1Func:
 	ld [hld], a
 	ld a, LOW(.Update1)
 	ld [hld], a
-	ld de, Frameset_68a7b
+	ld de, BarrelFrameset_68a7b
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -30,7 +30,7 @@ Barrel1Func:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a7e
+	ld de, BarrelFrameset_68a7e
 	call SetObjectFramesetPtr
 	ld a, $11
 	ld [hli], a
@@ -59,7 +59,7 @@ Barrel1Func:
 	ret
 
 .asm_434b4
-	ld bc, Data_60a50
+	ld bc, BarrelData_60a50
 	jp ApplyObjYMovement_Platform
 
 Barrel2Func:
@@ -70,7 +70,7 @@ Barrel2Func:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -189,7 +189,7 @@ Barrel2Func:
 .Default:
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_68a8b
+	ld de, BarrelFrameset_68a8b
 	call SetObjectFramesetPtr
 	ld a, $0e
 	ld [hli], a
@@ -251,7 +251,7 @@ Barrel2Func:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	jp ObjState_PickedUpLeft
 .PickedUpRightStart:
@@ -265,14 +265,14 @@ Barrel2Func:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	jp ObjState_PickedUpRight
 
 .State19:
 	ld a, $49
 	ld [wCurObjState], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -289,7 +289,7 @@ Barrel2Func:
 .State18:
 	ld a, $48
 	ld [wCurObjState], a
-	ld de, Frameset_68a78
+	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -317,17 +317,17 @@ Barrel2Func:
 .FullThrowLeftStart:
 	ld a, $5e
 	ld [wCurObjState], a
-	ld de, Frameset_68a6f
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 .FullThrowRightStart:
 	ld a, $5f
 	ld [wCurObjState], a
-	ld de, Frameset_68a66
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 .State28:
-	ld de, Frameset_68a6f
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
@@ -335,7 +335,7 @@ Barrel2Func:
 	jr .asm_436db
 
 .State29:
-	ld de, Frameset_68a66
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
@@ -343,7 +343,7 @@ Barrel2Func:
 	jr .asm_436db
 
 .AttackedRightStart:
-	ld de, Frameset_68a6f
+	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
@@ -351,7 +351,7 @@ Barrel2Func:
 	jr .asm_436db
 
 .AttackedLeftStart:
-	ld de, Frameset_68a66
+	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)

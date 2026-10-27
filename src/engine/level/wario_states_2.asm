@@ -1406,9 +1406,9 @@ UpdateState_GetTreasureTurnFront:
 	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1fc000)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_1fc2ab)
+	ld a, HIGH(WarioGetTreasureTurnFrontFrameset_1fc2ab)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_1fc2ab)
+	ld a, LOW(WarioGetTreasureTurnFrontFrameset_1fc2ab)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
@@ -1491,9 +1491,9 @@ UpdateState_GetTreasureTurnBack:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
-	ld a, HIGH(Frameset_1fc2c4)
+	ld a, HIGH(WarioGetTreasureTurnBackFrameset_1fc2c4)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_1fc2c4)
+	ld a, LOW(WarioGetTreasureTurnBackFrameset_1fc2c4)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
@@ -1585,9 +1585,9 @@ SetState_GetTreasureLookFront:
 	ld [wWarioOAMPtr + 0], a
 	ld a, LOW(OAM_1fc000)
 	ld [wWarioOAMPtr + 1], a
-	ld a, HIGH(Frameset_1fc30d)
+	ld a, HIGH(WarioGetTreasureLookFrontFrameset_1fc30d)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_1fc30d)
+	ld a, LOW(WarioGetTreasureLookFrontFrameset_1fc30d)
 	ld [wWarioFramesetPtr + 1], a
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
@@ -1668,15 +1668,15 @@ SetState_Sleeping:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1ac59
-	ld a, HIGH(Frameset_1421c)
+	ld a, HIGH(WarioSleepingFrameset_1421c)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_1421c)
+	ld a, LOW(WarioSleepingFrameset_1421c)
 	ld [wWarioFramesetPtr + 1], a
 	jr .got_frameset
 .asm_1ac59
-	ld a, HIGH(Frameset_14225)
+	ld a, HIGH(WarioSleepingFrameset_14225)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14225)
+	ld a, LOW(WarioSleepingFrameset_14225)
 	ld [wWarioFramesetPtr + 1], a
 .got_frameset
 	ld a, BANK("Wario OAM 1")
@@ -1707,15 +1707,15 @@ UpdateState_Sleeping:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1acb6
-	ld a, HIGH(Frameset_1422e)
+	ld a, HIGH(WarioSleepingFrameset_1422e)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_1422e)
+	ld a, LOW(WarioSleepingFrameset_1422e)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1acc0
 .asm_1acb6
-	ld a, HIGH(Frameset_14237)
+	ld a, HIGH(WarioSleepingFrameset_14237)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14237)
+	ld a, LOW(WarioSleepingFrameset_14237)
 	ld [wWarioFramesetPtr + 1], a
 .asm_1acc0
 	ld a, BANK("Wario OAM 1")
@@ -1738,15 +1738,15 @@ UpdateState_Sleeping:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1ad00
-	ld a, HIGH(Frameset_14240)
+	ld a, HIGH(WarioSleepingFrameset_14240)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14240)
+	ld a, LOW(WarioSleepingFrameset_14240)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1acc0
 .asm_1ad00
-	ld a, HIGH(Frameset_14249)
+	ld a, HIGH(WarioSleepingFrameset_14249)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_14249)
+	ld a, LOW(WarioSleepingFrameset_14249)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1acc0
 
@@ -1782,15 +1782,15 @@ SetState_LadderScratching:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1ad63
-	ld a, HIGH(Frameset_15903)
+	ld a, HIGH(WarioLadderScratchingFrameset_15903)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15903)
+	ld a, LOW(WarioLadderScratchingFrameset_15903)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1ad6d
 .asm_1ad63
-	ld a, HIGH(Frameset_15924)
+	ld a, HIGH(WarioLadderScratchingFrameset_15924)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_15924)
+	ld a, LOW(WarioLadderScratchingFrameset_15924)
 	ld [wWarioFramesetPtr + 1], a
 .asm_1ad6d
 	ld a, BANK("Wario OAM 1")
@@ -2054,15 +2054,15 @@ SetState_FenceMovingHorizontal:
 	and a
 	jr nz, .d_right
 .d_left
-	ld a, HIGH(Frameset_158f2)
+	ld a, HIGH(WarioFenceMovingHorizontalFrameset_158f2)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_158f2)
+	ld a, LOW(WarioFenceMovingHorizontalFrameset_158f2)
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1afff
 .d_right
-	ld a, HIGH(Frameset_158e7)
+	ld a, HIGH(WarioFenceMovingHorizontalFrameset_158e7)
 	ld [wWarioFramesetPtr + 0], a
-	ld a, LOW(Frameset_158e7)
+	ld a, LOW(WarioFenceMovingHorizontalFrameset_158e7)
 	ld [wWarioFramesetPtr + 1], a
 .asm_1afff
 	ld a, BANK("Wario OAM 1")

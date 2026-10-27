@@ -228,7 +228,7 @@ DayNightTransition:
 	ld [wOWPalTransitionDelay], a
 	ret
 
-Func_84b97:
+DaytimeTransition:
 	ld hl, wOWPalTransitionCounter
 	inc [hl]
 	ld a, [wOWPalTransitionState]
@@ -299,7 +299,7 @@ Func_84b97:
 	ld [wOWPalTransitionCounter], a
 	ret
 
-Func_84c0d:
+DayNightSpellTransition:
 	ld hl, wOWPalTransitionCounter
 	inc [hl]
 	ld a, [wOWPalTransitionState]
@@ -708,7 +708,7 @@ Data_84e39:
 	dw Pals_84840 ; EAST
 	dw Pals_84880 ; EAST (no Ice)
 
-Func_84e43:
+FadeBGAndOBPals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_84e77
@@ -1893,7 +1893,7 @@ OWSceneFreezeSeaAttrmap: INCBIN "data/bgmaps/overworld/ow_scene_freeze_sea.attrm
 
 Tilemap_85928: INCBIN "data/bgmaps/map_85928.tilemap" ; unreferenced
 
-Func_85a68:
+CopyOWTileColumn1:
 .asm_85a68
 	ld hl, wOWUIObj1Duration
 	ld a, [hli]
@@ -1918,11 +1918,11 @@ Func_85a68:
 	ld [wOWUIObj1Attributes], a
 	ret z
 	ld de, wOWUIObj1Duration
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85a68
 
-Func_85a91:
+AddTilemapRowToPtrAtDE:
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1939,7 +1939,7 @@ Func_85a91:
 	inc de
 	ret
 
-Func_85aa2:
+CopyOWTileColumn2:
 .asm_85aa2
 	ld hl, wOWUIObj2Duration
 	ld a, [hli]
@@ -1964,11 +1964,11 @@ Func_85aa2:
 	ld [wOWUIObj2Attributes], a
 	ret z
 	ld de, wOWUIObj2Duration
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85aa2
 
-Func_85acb:
+CopyOWTileColumn3:
 .asm_85acb
 	ld hl, wd154
 	ld a, [hli]
@@ -1993,8 +1993,8 @@ Func_85acb:
 	ld [wd153], a
 	ret z
 	ld de, wd154
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85acb
 
 Data_85af4:

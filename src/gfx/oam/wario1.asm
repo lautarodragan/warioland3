@@ -200,42 +200,42 @@ OAM_14000::
 	frame_oam -15, -12, $64, 0 | OAM_XFLIP
 	db $80
 
-Frameset_1421c:
+WarioSleepingFrameset_1421c:
 	db  18,  4
 	db   1, 12
 	db   2, 12
 	db   3, 12
 	db $ff
 
-Frameset_14225:
+WarioSleepingFrameset_14225:
 	db  19,  4
 	db   5, 12
 	db   6, 12
 	db   7, 12
 	db $ff
 
-Frameset_1422e:
+WarioSleepingFrameset_1422e:
 	db   3, 30
 	db   8, 30
 	db   9, 40
 	db   8, 30
 	db $ff
 
-Frameset_14237:
+WarioSleepingFrameset_14237:
 	db   7, 30
 	db  10, 30
 	db  11, 40
 	db  10, 30
 	db $ff
 
-Frameset_14240:
+WarioSleepingFrameset_14240:
 	db  12,  6
 	db   2,  6
 	db   1,  6
 	db  18,  2
 	db $ff
 
-Frameset_14249:
+WarioSleepingFrameset_14249:
 	db  13,  6
 	db   6,  6
 	db   5,  6
@@ -1326,7 +1326,7 @@ Frameset_14cc5::
 	db   1,  1
 	db $ff
 
-Frameset_14ccc:
+WarioCrazySpinningFrameset_14ccc:
 	db   0,  1
 	db   1,  1
 	db   2,  2
@@ -1339,7 +1339,7 @@ Frameset_14ccc:
 	db   9,  1
 	db $ff
 
-Frameset_14ce1:
+WarioCrazySpinningFrameset_14ce1:
 	db   9,  1
 	db   8,  1
 	db   7,  2
@@ -1843,7 +1843,7 @@ Frameset_15219:
 	db  10,  1
 	db $ff
 
-Frameset_1521c:
+WarioAttackingFrameset_1521c:
 	db  16,  1
 	db  17,  1
 	db  18,  1
@@ -1865,7 +1865,7 @@ Frameset_1522d::
 	db  11,  1
 	db $ff
 
-Frameset_1523e:
+WarioAttackingAirborneFrameset_1523e:
 	db  28,  1
 	db  29,  1
 	db  18,  1
@@ -1873,7 +1873,7 @@ Frameset_1523e:
 	db   2,  1
 	db $ff
 
-Frameset_15249:
+WarioAttackingAirborneFrameset_15249:
 	db  31,  1
 	db  32,  1
 	db  33,  1
@@ -2165,7 +2165,7 @@ Frameset_1555b::
 	db   5,  5
 	db $ff
 
-Frameset_15562:
+WarioUnderwaterThrustingFrameset_15562:
 	db   8,  6
 	db   7,  5
 	db  22, 30
@@ -2229,19 +2229,19 @@ Frameset_155ab:
 	db  21,  5
 	db $ff
 
-Frameset_155b0:
+WarioTryingSubmergeFrameset_155b0:
 	db   0,  3
 	db   1,  3
 	db   2,  3
 	db $ff
 
-Frameset_155b7:
+WarioTryingSubmergeFrameset_155b7:
 	db   3,  3
 	db   4,  3
 	db   5,  3
 	db $ff
 
-Frameset_155be:
+WarioUnderwaterThrustingFrameset_155be:
 	db   9,  3
 	db  10,  3
 	db  22,  2
@@ -2545,7 +2545,7 @@ Frameset_158d6:
 	db   3,  2
 	db $ff
 
-Frameset_158e7:
+WarioFenceMovingHorizontalFrameset_158e7:
 	db   1,  3
 	db   6,  3
 	db   7,  3
@@ -2553,7 +2553,7 @@ Frameset_158e7:
 	db   0,  3
 	db $ff
 
-Frameset_158f2:
+WarioFenceMovingHorizontalFrameset_158f2:
 	db   4,  3
 	db   7,  3
 	db   6,  3
@@ -2569,7 +2569,7 @@ Frameset_15900:
 	db   3,  4
 	db $ff
 
-Frameset_15903:
+WarioLadderScratchingFrameset_15903:
 	db  10,  8
 	db  11, 10
 	db  12, 10
@@ -2588,7 +2588,7 @@ Frameset_15903:
 	db  11,  8
 	db $ff
 
-Frameset_15924:
+WarioLadderScratchingFrameset_15924:
 	db  16,  8
 	db  17, 10
 	db  18, 10
@@ -2611,7 +2611,7 @@ Frameset_15945:
 	db  24,  4
 	db $ff
 
-Frameset_15948:
+WarioLadderShakeStunnedFrameset_15948:
 	db  22,  2
 	db  23,  1
 	db   6,  2
@@ -3218,7 +3218,7 @@ Frameset_15f7f::
 	db  13,  3
 	db $ff
 
-Frameset_15f8e:
+WarioAirborneFrameset_15f8e:
 	db   0,  4
 	db $ff
 
@@ -3254,12 +3254,12 @@ Frameset_15fab:
 	db  23,  4
 	db $ff
 
-Frameset_15fae:
+WarioThrowingAirborneFrameset_15fae:
 	db  25,  2
 	db  26,  2
 	db $ff
 
-Frameset_15fb3:
+WarioThrowingAirborneFrameset_15fb3:
 	db  27,  2
 	db  28,  2
 	db $ff
@@ -3282,7 +3282,7 @@ Frameset_15fc5::
 	db  31,  2
 	db $ff
 
-Frameset_15fd2:
+WarioGrabAirborneFrameset_15fd2:
 	db  35,  2
 	db  34,  1
 	db  33,  1
@@ -3291,7 +3291,7 @@ Frameset_15fd2:
 	db  34,  2
 	db $ff
 
-Frameset_15fdf:
+WarioGrabAirborneFrameset_15fdf:
 	db  38,  2
 	db  37,  1
 	db  36,  1
@@ -3300,11 +3300,11 @@ Frameset_15fdf:
 	db  37,  2
 	db $ff
 
-Frameset_15fec:
+WarioGrabAirborneFrameset_15fec:
 	db  33,  4
 	db $ff
 
-Frameset_15fef:
+WarioGrabAirborneFrameset_15fef:
 	db  36,  4
 	db $ff
 
@@ -3336,7 +3336,7 @@ Frameset_16009::
 	db   7,  1
 	db $ff
 
-Frameset_16020:
+WarioGrabAirborneFrameset_16020:
 	db  39,  3
 	db  40,  4
 	db  47,  3
@@ -3350,7 +3350,7 @@ Frameset_16020:
 	db  33,  1
 	db $ff
 
-Frameset_16037:
+WarioGrabAirborneFrameset_16037:
 	db  41,  3
 	db  42,  4
 	db  48,  3
@@ -3364,7 +3364,7 @@ Frameset_16037:
 	db  36,  1
 	db $ff
 
-Frameset_1604e:
+WarioAirborneFrameset_1604e:
 	db   0,  1
 	db  49,  2
 	db  50,  1
@@ -3376,13 +3376,13 @@ Frameset_16055::
 	db  52,  1
 	db $ff
 
-Frameset_1605c:
+WarioGrabAirborneFrameset_1605c:
 	db  33,  1
 	db  53,  2
 	db  54,  1
 	db $ff
 
-Frameset_16063:
+WarioGrabAirborneFrameset_16063:
 	db  36,  1
 	db  55,  2
 	db  56,  1
@@ -3731,7 +3731,7 @@ Frameset_163fe:
 	db   7,  2
 	db $ff
 
-Frameset_16403:
+WarioThrowFullyChargedFrameset_16403:
 	db   8,  4
 	db   4,  4
 	db  10,  2
@@ -3764,7 +3764,7 @@ Frameset_16423::
 	db  23,  2
 	db $ff
 
-Frameset_1642c:
+WarioThrowChargingFrameset_1642c:
 	db   3,  4
 	db $ff
 
@@ -3772,7 +3772,7 @@ Frameset_1642f::
 	db  15,  4
 	db $ff
 
-Frameset_16432:
+WarioThrowChargingFrameset_16432:
 	db   8,  4
 	db $ff
 
@@ -3780,7 +3780,7 @@ Frameset_16435::
 	db  20,  4
 	db $ff
 
-Frameset_16438:
+WarioThrowFullyChargedFrameset_16438:
 	db  24,  2
 	db  26,  1
 	db  27,  1
@@ -4076,7 +4076,7 @@ Frameset_166f7::
 	db  27,  1
 	db $ff
 
-Frameset_16708:
+WarioSlidingFrameset_16708:
 	db   8,  3
 	db   9,  2
 	db   8,  3
@@ -4514,21 +4514,21 @@ Frameset_16b49:
 	db  23,  2
 	db $ff
 
-Frameset_16b5a::
+SceneWarioFrameset_16b5a::
 	db  24,  2
 	db  25,  2
 	db  26,  2
 	db  27,  2
 	db $ff
 
-Frameset_16b63::
+SceneWarioFrameset_16b63::
 	db  28,  2
 	db  29,  2
 	db  30,  2
 	db  31,  2
 	db $ff
 
-OAM_16b6c:
+WarioHotOAM_16b6c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4781,7 +4781,7 @@ OAM_16b6c:
 	frame_oam -52, -11, $40, 0
 	db $80
 
-Frameset_16e47:
+WarioHotFrameset_16e47:
 	db   0,  5
 	db   1,  6
 	db   2,  3
@@ -4805,7 +4805,7 @@ Frameset_16e47:
 	db  14,  1
 	db $ff
 
-Frameset_16e72:
+WarioHotFrameset_16e72:
 	db  19,  5
 	db  20,  6
 	db  15,  3
@@ -5105,7 +5105,7 @@ OAM_16e9d::
 	frame_oam -16, -20, $18, 0
 	db $80
 
-Frameset_1715f:
+WarioGettingFlatAirborneFrameset_1715f:
 	db   1,  6
 	db   2,  4
 	db   3,  2
@@ -5114,14 +5114,14 @@ Frameset_1715f:
 	db   4,  4
 	db $ff
 
-Frameset_1716c:
+WarioFlatSquishedLiftingFrameset_1716c:
 	db   5,  3
 	db   6,  3
 	db   7,  3
 	db   6,  3
 	db $ff
 
-Frameset_17175:
+WarioFlatWalkingFrameset_17175:
 	db   8,  3
 	db   9,  2
 	db  10,  1
@@ -5137,7 +5137,7 @@ Frameset_17186:
 	db  14, 10
 	db $ff
 
-Frameset_1718b:
+WarioFlatIdlingFrameset_1718b:
 	db  10,  3
 	db  29,  3
 	db $ff
@@ -5152,7 +5152,7 @@ Frameset_17193:
 	db   0,  8
 	db $ff
 
-Frameset_1719a:
+WarioFlatSinkingFrameset_1719a:
 	db  20, 11
 	db  21, 11
 	db  22, 11
@@ -5177,7 +5177,7 @@ Frameset_171b8:
 	db  16, 10
 	db $ff
 
-Frameset_171bd:
+WarioFlatAirborneFrameset_171bd:
 	db   0,  4
 	db $ff
 
@@ -5393,7 +5393,7 @@ Frameset_173fe:
 	db   4,  3
 	db $ff
 
-Frameset_17409:
+WarioBallOStringKnockBackFrameset_17409:
 	db   5, 12
 	db   6,  8
 	db   7,  6
@@ -5417,7 +5417,7 @@ Frameset_1741f:
 	db  17,  3
 	db $ff
 
-Frameset_1742a:
+WarioBallOStringKnockBackFrameset_1742a:
 	db   5,  4
 	db $ff
 
@@ -5795,22 +5795,22 @@ OAM_1742d::
 	frame_oam -15,   4, $52, 0 | OAM_XFLIP
 	db $80
 
-Frameset_1781c:
+WarioFatIdlingFrameset_1781c:
 	db   0,  7
 	db $ff
 
-Frameset_1781f:
+WarioFatIdlingFrameset_1781f:
 	db   4,  7
 	db $ff
 
-Frameset_17822:
+WarioFatWalkingFrameset_17822:
 	db   0,  7
 	db   1,  7
 	db   2,  7
 	db   3,  7
 	db $ff
 
-Frameset_1782b:
+WarioFatWalkingFrameset_1782b:
 	db   4,  7
 	db   5,  7
 	db   6,  7
@@ -5835,7 +5835,7 @@ Frameset_17841:
 	db  10,  4
 	db $ff
 
-Frameset_17844:
+WarioFatRecoveringFrameset_17844:
 	db   0,  1
 	db  35,  2
 	db   0,  1
@@ -5849,7 +5849,7 @@ Frameset_17844:
 	db  33, 14
 	db $ff
 
-Frameset_1785b:
+WarioFatRecoveringFrameset_1785b:
 	db   4,  1
 	db  36,  2
 	db   4,  1
@@ -5933,28 +5933,28 @@ Frameset_178c3:
 	db  29, 14
 	db $ff
 
-Frameset_178ea:
+WarioFatTurningFrameset_178ea:
 	db   0,  1
 	db  30,  2
 	db  31,  2
 	db  32,  2
 	db $ff
 
-Frameset_178f3:
+WarioFatTurningFrameset_178f3:
 	db   4,  1
 	db  32,  2
 	db  31,  2
 	db  30,  2
 	db $ff
 
-Frameset_178fc:
+WarioFatBumpingFrameset_178fc:
 	db   0,  1
 	db  35,  2
 	db  33,  1
 	db  35,  2
 	db $ff
 
-Frameset_17905:
+WarioFatBumpingFrameset_17905:
 	db   4,  1
 	db  36,  2
 	db  34,  1
@@ -6177,7 +6177,7 @@ Frameset_17b79::
 	db   8,  4
 	db $ff
 
-Frameset_17b7c:
+WarioElectricStartFrameset_17b7c:
 	db   2,  2
 	db   1,  2
 	db   2,  2
@@ -6188,7 +6188,7 @@ Frameset_17b7c:
 	db   3,  2
 	db $ff
 
-Frameset_17b8d:
+WarioElectricStartFrameset_17b8d:
 	db  10,  2
 	db   9,  2
 	db  10,  2
@@ -6199,7 +6199,7 @@ Frameset_17b8d:
 	db  11,  2
 	db $ff
 
-Frameset_17b9e:
+WarioElectricFrameset_17b9e:
 	db   0,  4
 	db   5,  7
 	db   6,  7
@@ -6209,7 +6209,7 @@ Frameset_17b9e:
 	db   6,  7
 	db $ff
 
-Frameset_17bad:
+WarioElectricFrameset_17bad:
 	db   8,  4
 	db  13,  7
 	db  14,  7
@@ -6340,7 +6340,7 @@ Frameset_17ce2:
 	db   9,  8
 	db $ff
 
-OAM_17cf7:
+WarioTurningInvisibleOAM_17cf7:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6454,7 +6454,7 @@ OAM_17cf7:
 	frame_oam -16, -12, $38, 0 | OAM_XFLIP
 	db $80
 
-Frameset_17e1b:
+WarioTurningInvisibleFrameset_17e1b:
 	db   5,  6
 	db   0,  6
 	db   1,  4
@@ -6472,7 +6472,7 @@ Frameset_17e1b:
 	db   4,  3
 	db $ff
 
-Frameset_17e3a:
+WarioTurningInvisibleFrameset_17e3a:
 	db  11,  6
 	db   6,  6
 	db   7,  4

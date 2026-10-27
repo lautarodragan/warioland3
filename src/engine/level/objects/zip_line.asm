@@ -27,7 +27,7 @@ ZipLineFunc:
 	xor a
 	ld [wCurObjVar1], a
 .Reset:
-	ld de, Frameset_691c4
+	ld de, ZipLineFrameset_691c4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Idle)
@@ -86,15 +86,15 @@ ZipLineFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_493c7
-	ld de, Frameset_691c9
+	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
 .asm_493c7
-	ld de, Frameset_691d2
+	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
 
 .asm_493cd
-	ld de, Frameset_691db
+	ld de, ZipLineFrameset_691db
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.DoNothing)
@@ -199,11 +199,11 @@ ZipLineFunc:
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_49491
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691d2
+	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
 .asm_49491
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691c9
+	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
 .asm_49499

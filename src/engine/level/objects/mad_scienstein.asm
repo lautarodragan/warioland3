@@ -160,14 +160,14 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44e7c
-	ld de, Frameset_68c25
+	ld de, MadSciensteinFrameset_68c25
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
 	ret
 
 .asm_44e7c
-	ld de, Frameset_68c2c
+	ld de, MadSciensteinFrameset_68c2c
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
@@ -204,12 +204,12 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44ec6
-	ld de, Frameset_68bd1
+	ld de, MadSciensteinFrameset_68bd1
 	call SetObjectFramesetPtr
 	ret
 
 .asm_44ec6
-	ld de, Frameset_68bda
+	ld de, MadSciensteinFrameset_68bda
 	call SetObjectFramesetPtr
 	ret
 
@@ -287,7 +287,7 @@ MadSciensteinFunc:
 .asm_44f3d
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_68c25
+	ld de, MadSciensteinFrameset_68c25
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
@@ -322,7 +322,7 @@ MadSciensteinFunc:
 .asm_44f7a
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_68c2c
+	ld de, MadSciensteinFrameset_68c2c
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
@@ -341,14 +341,14 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44fa8
-	ld de, Frameset_68bff
+	ld de, MadSciensteinFrameset_68bff
 	call SetObjectFramesetPtr
 	ld a, 63
 	ld [hli], a
 	ret
 
 .asm_44fa8
-	ld de, Frameset_68c08
+	ld de, MadSciensteinFrameset_68c08
 	call SetObjectFramesetPtr
 	ld a, 63
 	ld [hli], a
@@ -410,7 +410,7 @@ MadSciensteinFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68bb5
+	ld de, MadSciensteinFrameset_68bb5
 	call SetObjectFramesetPtr
 	ret
 
@@ -419,7 +419,7 @@ MadSciensteinFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68bbe
+	ld de, MadSciensteinFrameset_68bbe
 	call SetObjectFramesetPtr
 	ret
 
@@ -432,14 +432,14 @@ MadSciensteinFunc:
 	jr c, .asm_4502b
 	xor a
 	ld [hld], a
-	ld de, Frameset_68bb5
+	ld de, MadSciensteinFrameset_68bb5
 	call SetObjectFramesetPtr
 	ret
 
 .asm_4502b
 	xor a
 	ld [hld], a
-	ld de, Frameset_68bbe
+	ld de, MadSciensteinFrameset_68bbe
 	call SetObjectFramesetPtr
 	ret
 
@@ -455,12 +455,12 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4504d
-	ld de, Frameset_68bb5
+	ld de, MadSciensteinFrameset_68bb5
 	call SetObjectFramesetPtr
 	ret
 
 .asm_4504d
-	ld de, Frameset_68bbe
+	ld de, MadSciensteinFrameset_68bbe
 	call SetObjectFramesetPtr
 	ret
 
@@ -501,7 +501,7 @@ MadSciensteinFunc:
 	jr c, .asm_4509b
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_68bed
+	ld de, MadSciensteinFrameset_68bed
 	call SetObjectFramesetPtr
 	ld a, 63
 	ld [hli], a
@@ -518,7 +518,7 @@ MadSciensteinFunc:
 	jr nc, .asm_4509b
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_68bf6
+	ld de, MadSciensteinFrameset_68bf6
 	call SetObjectFramesetPtr
 	ld a, 63
 	ld [hli], a
@@ -642,7 +642,7 @@ MadSciensteinFunc:
 	jr c, .asm_4517c
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_68c25
+	ld de, MadSciensteinFrameset_68c25
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
@@ -651,7 +651,7 @@ MadSciensteinFunc:
 .asm_4517c
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_68bda
+	ld de, MadSciensteinFrameset_68bda
 	call SetObjectFramesetPtr
 	ret
 
@@ -674,11 +674,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_451ad
-	ld de, Frameset_68bc7
+	ld de, MadSciensteinFrameset_68bc7
 	call SetObjectFramesetPtr
 	jr .asm_451b3
 .asm_451ad
-	ld de, Frameset_68bcc
+	ld de, MadSciensteinFrameset_68bcc
 	call SetObjectFramesetPtr
 .asm_451b3
 	ld a, $0c
@@ -702,14 +702,14 @@ MadSciensteinFunc:
 	jr c, .asm_451d8
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_68bd1
+	ld de, MadSciensteinFrameset_68bd1
 	call SetObjectFramesetPtr
 	ret
 
 .asm_451d8
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_68c2c
+	ld de, MadSciensteinFrameset_68c2c
 	call SetObjectFramesetPtr
 	ld a, 28
 	ld [hli], a
@@ -721,7 +721,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68be3, Frameset_68be8
+	ld_obj_frameset MadSciensteinFrameset_68be3, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -743,7 +743,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68be3, Frameset_68be8
+	ld_obj_frameset MadSciensteinFrameset_68be3, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -773,11 +773,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_45255
-	ld de, Frameset_68be3
+	ld de, MadSciensteinFrameset_68be3
 	call SetObjectFramesetPtr
 	jr .asm_4525b
 .asm_45255
-	ld de, Frameset_68be8
+	ld de, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 .asm_4525b
 	inc l
@@ -840,11 +840,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_452c1
-	ld de, Frameset_68c17
+	ld de, MadSciensteinFrameset_68c17
 	call SetObjectFramesetPtr
 	jr .asm_452c7
 .asm_452c1
-	ld de, Frameset_68c1e
+	ld de, MadSciensteinFrameset_68c1e
 	call SetObjectFramesetPtr
 .asm_452c7
 	ld a, $1c
@@ -899,11 +899,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_45316
-	ld de, Frameset_68be3
+	ld de, MadSciensteinFrameset_68be3
 	call SetObjectFramesetPtr
 	jr .asm_4531c
 .asm_45316
-	ld de, Frameset_68be8
+	ld de, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 .asm_4531c
 	ld a, $04
@@ -988,10 +988,10 @@ MadSciensteinFunc:
 	ld a, c
 	rlca
 	jr c, .asm_453a0
-	ld de, Frameset_68c11
+	ld de, MadSciensteinFrameset_68c11
 	jp SetObjectFramesetPtr
 .asm_453a0
-	ld de, Frameset_68c14
+	ld de, MadSciensteinFrameset_68c14
 	jp SetObjectFramesetPtr
 
 .PickedUpLeftStart:
@@ -1027,11 +1027,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_453de
-	ld de, Frameset_68be3
+	ld de, MadSciensteinFrameset_68be3
 	call SetObjectFramesetPtr
 	jr .asm_453e4
 .asm_453de
-	ld de, Frameset_68be8
+	ld de, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 .asm_453e4
 	ld l, OBJ_FLAGS
@@ -1053,11 +1053,11 @@ MadSciensteinFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4540a
-	ld de, Frameset_68be3
+	ld de, MadSciensteinFrameset_68be3
 	call SetObjectFramesetPtr
 	jr .asm_45410
 .asm_4540a
-	ld de, Frameset_68be8
+	ld de, MadSciensteinFrameset_68be8
 	call SetObjectFramesetPtr
 .asm_45410
 	ld l, OBJ_FLAGS

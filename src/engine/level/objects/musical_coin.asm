@@ -9,7 +9,7 @@ MusicalCoinFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_68036
+	ld de, MusicalCoinFrameset_68036
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 1

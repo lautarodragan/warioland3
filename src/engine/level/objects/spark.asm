@@ -9,7 +9,7 @@ SparkFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_69bd9
+	ld de, SparkFrameset_69bd9
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a

@@ -26,7 +26,7 @@ HebariiFunc:
 	ld a, LOW(.AttachedUpdate)
 	ld [hld], a
 
-	ld de, Frameset_683e4
+	ld de, HebariiFrameset_683e4
 	call SetObjectFramesetPtr
 
 	ld a, 20
@@ -90,7 +90,7 @@ HebariiFunc:
 	ld [hld], a
 	ld a, LOW(.DetachedUpdate)
 	ld [hld], a
-	ld de, Frameset_683f8
+	ld de, HebariiFrameset_683f8
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
@@ -137,7 +137,7 @@ HebariiFunc:
 	jr z, .asm_4a0fd
 	dec [hl]
 	jr nz, .asm_4a0a3
-	ld de, Frameset_683ed
+	ld de, HebariiFrameset_683ed
 	call SetObjectFramesetPtr
 	ld a, 41
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -209,7 +209,7 @@ HebariiFunc:
 	ld [hli], a
 	xor a
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_683e4
+	ld de, HebariiFrameset_683e4
 	jp SetObjectFramesetPtr
 
 .asm_4a10f
@@ -352,7 +352,7 @@ HebariiFunc:
 	ld [hl], a
 	ld a, OBJSTATE_WALK
 	ld [wCurObjState], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	ld a, 160
 	ld [hli], a
@@ -383,7 +383,7 @@ HebariiFunc:
 	ld [wCurObjAction], a ; redundant, already done below
 	ld a, OBJSTATE_3F
 	ld [wCurObjState], a
-	ld de, Frameset_68430
+	ld de, HebariiFrameset_68430
 	call SetObjectFramesetPtr
 	ld a, 35
 	ld [hli], a
@@ -412,7 +412,7 @@ HebariiFunc:
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_4a27f
 	ld [hld], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -432,7 +432,7 @@ HebariiFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 .StunLeft:
 	ld hl, wCurObjVar2
@@ -447,7 +447,7 @@ HebariiFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 .StunRight:
 	ld hl, wCurObjVar2
@@ -482,7 +482,7 @@ HebariiFunc:
 	ld [hld], a ; OBJ_VAR_2
 	ld a, $01
 	ld [hld], a ; OBJ_VAR_1
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	jp ObjState_PickedUpLeft
 
@@ -497,14 +497,14 @@ HebariiFunc:
 	ld [hld], a ; OBJ_VAR_2
 	ld a, $01
 	ld [hld], a ; OBJ_VAR_1
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	jp ObjState_PickedUpRight
 
 .State19:
 	ld a, OBJSTATE_49
 	ld [wCurObjState], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -522,7 +522,7 @@ HebariiFunc:
 .State18:
 	ld a, OBJSTATE_48
 	ld [wCurObjState], a
-	ld de, Frameset_683fb
+	ld de, HebariiFrameset_683fb
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -550,19 +550,19 @@ HebariiFunc:
 .FullThrowLeftStart:
 	ld a, OBJSTATE_FULL_THROW_LEFT
 	ld [wCurObjState], a
-	ld de, Frameset_68421
+	ld de, HebariiFrameset_68421
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
 .FullThrowRightStart:
 	ld a, OBJSTATE_FULL_THROW_RIGHT
 	ld [wCurObjState], a
-	ld de, Frameset_68418
+	ld de, HebariiFrameset_68418
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 
 .State28:
-	ld de, Frameset_6842d
+	ld de, HebariiFrameset_6842d
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
@@ -570,7 +570,7 @@ HebariiFunc:
 	jr .asm_4a3af
 
 .State29:
-	ld de, Frameset_6842a
+	ld de, HebariiFrameset_6842a
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
@@ -578,7 +578,7 @@ HebariiFunc:
 	jr .asm_4a3af
 
 .AttackedRightStart:
-	ld de, Frameset_6842d
+	ld de, HebariiFrameset_6842d
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
@@ -586,7 +586,7 @@ HebariiFunc:
 	jr .asm_4a3af
 
 .AttackedLeftStart:
-	ld de, Frameset_6842a
+	ld de, HebariiFrameset_6842a
 	call SetObjectFramesetPtr
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
@@ -688,7 +688,7 @@ HebariiProjectileFunc:
 	ld [hld], a
 	ld a, LOW(.Destroy)
 	ld [hld], a
-	ld de, Frameset_6840d
+	ld de, HebariiFrameset_6840d
 	call SetObjectFramesetPtr
 	ld a, $18
 	ld [hli], a

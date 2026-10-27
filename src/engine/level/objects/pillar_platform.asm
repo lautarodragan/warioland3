@@ -41,11 +41,11 @@ PillarPlatformFunc:
 	ld a, [wDayNight]
 	rra
 	jr c, .asm_49cbc
-	ld de, Frameset_6975b
+	ld de, PillarPlatformFrameset_6975b
 	jp SetObjectFramesetPtr
 
 .asm_49cbc
-	ld de, Frameset_6975e
+	ld de, PillarPlatformFrameset_6975e
 	jp SetObjectFramesetPtr
 
 .Rise:

@@ -649,7 +649,7 @@ GetCollectionCellCoords:
 	db $68 ; col 3
 	db $80 ; col 4
 
-Func_9a78e:
+CollectionRowColToCoords:
 	ld a, [de]
 	ld hl, .table_1
 	ld c, a
@@ -756,7 +756,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj2YCoord
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a823
 	ld a, [wCollectionLinkedCells + 1]
 	cp $80
@@ -769,7 +769,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj3YCoord
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a840
 	ld a, [wCollectionLinkedCells + 2]
 	cp $80
@@ -782,7 +782,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj3End
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a85d
 	ld a, [wCollectionLinkedCells + 3]
 	cp $80
@@ -795,7 +795,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj4End
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a87b
 	ld a, [wCollectionLinkedCells + 4]
 	cp $80
@@ -808,7 +808,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj5End
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a899
 	ld a, [wCollectionLinkedCells + 5]
 	cp $80
@@ -821,7 +821,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj6End
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a8b7
 	ld a, [wCollectionLinkedCells + 6]
 	cp $80
@@ -834,7 +834,7 @@ ProcessCollectionLinkState:
 	call GetCollectionCellRowAndColumn
 	call .Func_9a8d8
 	ld de, wSceneObj7End
-	call Func_9a78e
+	call CollectionRowColToCoords
 .asm_9a8d5
 	jp .AdvanceState
 
@@ -1001,7 +1001,7 @@ CollectionLinkTable:
 .crayons
 	db $0e, $0f, $10, $11, $12, $13, $14, $80
 
-Func_9a9ec:
+UpdateSceneObjAnim_Bank26:
 	ld h, b
 	ld l, c
 	res 1, l
@@ -1010,12 +1010,12 @@ Func_9a9ec:
 	ld a, [bc]
 	ret
 
-Func_9a9f7:
+LoadSceneObjSpriteWithScroll_Bank26:
 	ld b, $26
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_9a9fd:
+SetSceneObjStateIfAnimFinished_Bank26:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
@@ -1062,19 +1062,19 @@ AnimateTreasureCollection:
 	dw Func_9aa77
 	dw Func_9aa7c
 
-Func_9aa56:
-	call Func_9a9ec
-Func_9aa59:
+AnimateTreasureCollectionObj:
+	call UpdateSceneObjAnim_Bank26
+DrawTreasureCollectionObj:
 	ld de, OAM_9ac5d
-	call Func_9a9f7
+	call LoadSceneObjSpriteWithScroll_Bank26
 	ret
 
 ; unreferenced
-Func_9aa60:
-	call Func_9a9ec
+UnreferencedAnimateTreasureCollectionObjThenSetState:
+	call UpdateSceneObjAnim_Bank26
 	ld e, $00
-	call Func_9a9fd
-	jr nz, Func_9aa59
+	call SetSceneObjStateIfAnimFinished_Bank26
+	jr nz, DrawTreasureCollectionObj
 	jr AnimateTreasureCollection.Func_9aa4a
 
 Func_9aa6c:
@@ -1082,19 +1082,19 @@ Func_9aa6c:
 
 Func_9aa6d:
 	ld de, Frameset_9ace1
-	jr Func_9aa56
+	jr AnimateTreasureCollectionObj
 
 Func_9aa72:
 	ld de, Frameset_9acea
-	jr Func_9aa56
+	jr AnimateTreasureCollectionObj
 
 Func_9aa77:
 	ld de, Frameset_9acf3
-	jr Func_9aa56
+	jr AnimateTreasureCollectionObj
 
 Func_9aa7c:
 	ld de, Frameset_9acfc
-	jr Func_9aa56
+	jr AnimateTreasureCollectionObj
 
 ; input:
 ; c = * constant
@@ -1126,14 +1126,14 @@ LoadLevelTreasureData::
 	pop_wram
 	ret
 
-Func_9aab5:
+LoadMapLevelTreasureData:
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
 	ret nc
 
 	call ClearTreasureData
-	call Func_9aaf4
-	call Func_9ab1c
+	call CheckLevelMusicalCoinsForBottomBar
+	call GetCurOWLevelCollectedTreasures
 
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
@@ -1157,7 +1157,7 @@ Func_9aab5:
 	ld [wHDMAMode], a
 	ret
 
-Func_9aaf4:
+CheckLevelMusicalCoinsForBottomBar:
 	ld a, [wOWLevel]
 	call CheckLevelMusicalCoinFlag
 	ret z ; didn't get all musical coins
@@ -1184,7 +1184,7 @@ ClearTreasureData:
 	call WriteAToHL_BCTimes
 	ret
 
-Func_9ab1c:
+GetCurOWLevelCollectedTreasures:
 	ld a, [wOWLevel]
 	and a
 	ret z

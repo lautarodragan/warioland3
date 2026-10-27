@@ -26,7 +26,7 @@ RedPrinceFroggyFunc:
 	ld [hld], a
 	ld a, LOW(PrinceFroggyFunc.Update_Stuck)
 	ld [hld], a
-	ld de, Frameset_68ac6
+	ld de, PrinceFroggyFrameset_68ac6
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -69,7 +69,7 @@ PrinceFroggyFunc:
 	ld [hld], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	jp SetObjectFramesetPtr
 
 .Update_Stuck:
@@ -83,7 +83,7 @@ PrinceFroggyFunc:
 	res OBJFLAG_STEPPED_F, [hl]
 	ld a, $5a
 	ld [wCurObjState], a
-	ld de, Frameset_68add
+	ld de, PrinceFroggyFrameset_68add
 	call SetObjectFramesetPtr
 	ld a, 111
 	ld [hli], a
@@ -145,13 +145,13 @@ PrinceFroggyFunc:
 .asm_44166
 	xor a
 	ld [wCurObjState], a
-	ld de, Frameset_68ac6
+	ld de, PrinceFroggyFrameset_68ac6
 	call SetObjectFramesetPtr
 	jr .asm_44185
 .asm_44172
 	ld a, $3b
 	ld [wCurObjState], a
-	ld de, Frameset_68af2
+	ld de, PrinceFroggyFrameset_68af2
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -169,7 +169,7 @@ PrinceFroggyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	call SetObjectFramesetPtr
 	ld a, 13
 	ld [hli], a
@@ -210,7 +210,7 @@ PrinceFroggyFunc:
 .StartTurnAround:
 	ld a, $43
 	ld [hl], a
-	ld de, Frameset_68b01
+	ld de, PrinceFroggyFrameset_68b01
 	call SetObjectFramesetPtr
 	ld a, 73
 	ld [hli], a
@@ -231,7 +231,7 @@ PrinceFroggyFunc:
 	jr nz, .asm_44185
 	xor a
 	ld [wCurObjState], a
-	ld de, Frameset_68ae9
+	ld de, PrinceFroggyFrameset_68ae9
 	call SetObjectFramesetPtr
 	jp .asm_44185
 
@@ -241,7 +241,7 @@ PrinceFroggyFunc:
 	ld [hld], a
 	ld a, LOW(.HopAndVanish)
 	ld [hld], a
-	ld de, Frameset_68ae6
+	ld de, PrinceFroggyFrameset_68ae6
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a

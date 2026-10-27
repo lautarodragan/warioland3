@@ -53,7 +53,7 @@ DollBoyFunc:
 	ld [hld], a
 	ld a, -28
 	ld [hld], a
-	ld de, Frameset_69632
+	ld de, DollBoyFrameset_69632
 	call SetObjectFramesetPtr
 	ld a, DOLLBOY_START_DELAY
 	ld [hli], a
@@ -104,7 +104,7 @@ DollBoyFunc:
 	ret
 
 .start_fall
-	ld de, Frameset_69632
+	ld de, DollBoyFrameset_69632
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $09
@@ -140,7 +140,7 @@ DollBoyFunc:
 	ld a, [wCurObjVar3]
 	cp 18
 	jr nz, .wait_ground_shake_1
-	ld de, Frameset_69646
+	ld de, DollBoyFrameset_69646
 	call SetObjectFramesetPtr
 	jr .fall_movement_1
 .wait_ground_shake_1
@@ -152,7 +152,7 @@ DollBoyFunc:
 	cp 30
 	jr z, .after_fall
 .fall_movement_1
-	ld bc, Data_60b80
+	ld bc, DollBoyData_60b80
 	jp ApplyObjYMovement
 
 .fall_wait_2_barrels
@@ -164,7 +164,7 @@ DollBoyFunc:
 	ld a, [wCurObjVar3]
 	cp 34
 	jr nz, .wait_ground_shake_2
-	ld de, Frameset_69646
+	ld de, DollBoyFrameset_69646
 	call SetObjectFramesetPtr
 	jr .fall_movement_2
 .wait_ground_shake_2
@@ -176,14 +176,14 @@ DollBoyFunc:
 	cp 46
 	jr z, .after_fall
 .fall_movement_2
-	ld bc, Data_60ba0
+	ld bc, DollBoyData_60ba0
 	jp ApplyObjYMovement
 
 .fall_immediately
 	ld a, [wCurObjVar3]
 	cp 2
 	jr nz, .wait_ground_shake_3
-	ld de, Frameset_69646
+	ld de, DollBoyFrameset_69646
 	call SetObjectFramesetPtr
 	jr .fall_movement_3
 .wait_ground_shake_3
@@ -195,11 +195,11 @@ DollBoyFunc:
 	cp 14
 	jr z, .after_fall
 .fall_movement_3
-	ld bc, Data_60880
+	ld bc, DollBoyData_60880
 	jp ApplyObjYMovement
 
 .after_fall
-	ld de, Frameset_69632
+	ld de, DollBoyFrameset_69632
 	call SetObjectFramesetPtr
 	inc l
 	xor a
@@ -231,7 +231,7 @@ DollBoyFunc:
 	jp CreateObjectAtRelativePos
 
 .after_hammer_throw
-	ld de, Frameset_69632
+	ld de, DollBoyFrameset_69632
 	call SetObjectFramesetPtr
 	inc l
 	xor a
@@ -264,7 +264,7 @@ DollBoyFunc:
 	cp DOLLBOY_THROW_HAMMER_ODDS
 	ret c
 	; rDIV >= DOLLBOY_THROW_HAMMER_ODDS, throw hammer
-	ld de, Frameset_6963b
+	ld de, DollBoyFrameset_6963b
 	call SetObjectFramesetPtr
 	ld a, DOLLBOY_THROW_HAMMER_DELAY
 	ld [hli], a ; wCurObjStateDuration
@@ -291,7 +291,7 @@ DollBoyFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_6964d
+	ld de, DollBoyFrameset_6964d
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.WalkingPhase)
@@ -308,11 +308,11 @@ DollBoyFunc:
 	jp CopyAndApplyOBPals
 
 .show_stars_left
-	ld de, Frameset_696b9
+	ld de, DollBoyFrameset_696b9
 	ld bc, ObjParams_DollBoyHammerStarsLeft
 	jr .got_stars_params
 .show_stars_right
-	ld de, Frameset_696b6
+	ld de, DollBoyFrameset_696b6
 	ld bc, ObjParams_DollBoyHammerStarsRight
 .got_stars_params
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -349,7 +349,7 @@ DollBoyFunc:
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
-	ld_obj_frameset Frameset_6967a, Frameset_69675
+	ld_obj_frameset DollBoyFrameset_6967a, DollBoyFrameset_69675
 	xor a
 	ld [hl], a ; wCurObjVar3
 	call SetObjectFramesetPtr
@@ -408,11 +408,11 @@ DollBoyFunc:
 	add $2a
 	cp b
 	jr c, .asm_50d5b
-	ld de, Frameset_69656
+	ld de, DollBoyFrameset_69656
 	ld b, 0
 	jr .asm_50d7c
 .asm_50d5b
-	ld de, Frameset_6966a
+	ld de, DollBoyFrameset_6966a
 	ld b, 32
 	jr .asm_50d7c
 
@@ -424,11 +424,11 @@ DollBoyFunc:
 	add $2a
 	cp b
 	jr c, .asm_50d77
-	ld de, Frameset_6965f
+	ld de, DollBoyFrameset_6965f
 	ld b, 32
 	jr .asm_50d7c
 .asm_50d77
-	ld de, Frameset_6964d
+	ld de, DollBoyFrameset_6964d
 	ld b, 0
 
 .asm_50d7c
@@ -503,14 +503,14 @@ DollBoyFunc:
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	stop_music2
-	ld de, Frameset_6967f
+	ld de, DollBoyFrameset_6967f
 	jp SetObjectFramesetPtr
 
 .jump_platform_below
-	ld bc, Data_60890
+	ld bc, DollBoyData_60890
 	jr .got_jump_movement
 .jump_platform_above
-	ld bc, Data_608a0
+	ld bc, DollBoyData_608a0
 .got_jump_movement
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
@@ -549,16 +549,16 @@ DollBoyFunc:
 	ld [hl], a
 	call DollBoyGroundShake
 .short_hop_movement
-	ld bc, Data_60c00
+	ld bc, DollBoyData_60c00
 	jp ApplyObjYMovement
 .asm_50e6c
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50e78
-	ld de, Frameset_69656
+	ld de, DollBoyFrameset_69656
 	jp SetObjectFramesetPtr
 .asm_50e78
-	ld de, Frameset_6964d
+	ld de, DollBoyFrameset_6964d
 	jp SetObjectFramesetPtr
 .asm_50e7e
 	inc l
@@ -658,7 +658,7 @@ DollBoyFunc:
 	jp MoveObjectLeft
 
 .turn_right
-	ld de, Frameset_6966a
+	ld de, DollBoyFrameset_6966a
 	jr .set_turn_frameset
 
 .going_right
@@ -687,7 +687,7 @@ DollBoyFunc:
 	jp MoveObjectRight
 
 .turn_left
-	ld de, Frameset_6965f
+	ld de, DollBoyFrameset_6965f
 .set_turn_frameset
 	call SetObjectFramesetPtr
 	ld a, DOLLBOY_TURN_DELAY
@@ -745,10 +745,10 @@ DollBoyFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50fa7
-	ld de, Frameset_6969a
+	ld de, DollBoyFrameset_6969a
 	jp SetObjectFramesetPtr
 .asm_50fa7
-	ld de, Frameset_69695
+	ld de, DollBoyFrameset_69695
 	jp SetObjectFramesetPtr
 
 .DoNothing:
@@ -781,7 +781,7 @@ DollBoyFunc:
 	dec [hl]
 	play_sfx z, SFX_0A3
 .defeated_fall_movement
-	ld bc, Data_60bd0
+	ld bc, DollBoyData_60bd0
 	jp ApplyObjYMovement
 
 .set_defeat_music
@@ -814,7 +814,7 @@ DollBoyBarrelFunc:
 	ld [hld], a
 	ld a, LOW(.StartDelay)
 	ld [hld], a
-	ld de, Frameset_6969f
+	ld de, DollBoyFrameset_6969f
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
@@ -880,7 +880,7 @@ DollBoyBarrelFunc:
 	cp $0e
 	jr z, .end_falling
 .fall_movement
-	ld bc, Data_60880
+	ld bc, DollBoyData_60880
 	jp ApplyObjYMovement
 
 .delay_then_fall
@@ -893,7 +893,7 @@ DollBoyBarrelFunc:
 	cp $1e
 	jr z, .end_falling
 .fall_with_delay_movement
-	ld bc, Data_60b80
+	ld bc, DollBoyData_60b80
 	jp ApplyObjYMovement
 .end_falling
 	xor a
@@ -952,7 +952,7 @@ DollBoyBarrelFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_696a8
+	ld de, DollBoyFrameset_696a8
 	call SetObjectFramesetPtr
 	ld a, BARREL_FLASH_DURATION
 	ld [hli], a ; wCurObjStateDuration
@@ -989,7 +989,7 @@ DollBoyBarrelFunc:
 	xor a
 .end_flashing
 	ld [hl], a ; wCurObjVar1
-	ld de, Frameset_6969f
+	ld de, DollBoyFrameset_6969f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Main)
@@ -1006,7 +1006,7 @@ DollBoyBarrelFunc:
 	ld [hld], a ; wCurObjVar3
 	ld a, $01
 	ld [hld], a ; wCurObjVar2
-	ld de, Frameset_6969f
+	ld de, DollBoyFrameset_6969f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(ObjState_AttackedRight)
@@ -1104,29 +1104,29 @@ DollBoyHammerFunc:
 	and a
 	jp nz, MoveObjectRight_Fast
 
-	ld bc, Data_60860
+	ld bc, DollBoyData_60860
 	call ApplyObjYMovement
 
 	ld a, [wDollBoyHammerRange]
 	cp HAMMER_SHORT
 	jr nz, .check_mid_short
 ; short
-	ld bc, Data_60ae0
+	ld bc, DollBoyData_60ae0
 	jp ApplyObjXMovement
 .check_mid_short
 	cp HAMMER_MID_SHORT
 	jr nz, .check_mid_long
 ; mid-short
-	ld bc, Data_60b00
+	ld bc, DollBoyData_60b00
 	jp ApplyObjXMovement
 .check_mid_long
 	cp HAMMER_MID_LONG
 	jr nz, .long
 ; mid-long
-	ld bc, Data_60b30
+	ld bc, DollBoyData_60b30
 	jp ApplyObjXMovement
 .long
-	ld bc, Data_60b60
+	ld bc, DollBoyData_60b60
 	jp ApplyObjXMovement
 
 .hit

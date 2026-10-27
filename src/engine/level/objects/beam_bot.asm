@@ -141,14 +141,14 @@ BeamBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68e77
+	ld de, BeamBotFrameset_68e77
 	jp SetObjectFramesetPtr
 .asm_466c0
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68e80
+	ld de, BeamBotFrameset_68e80
 	jp SetObjectFramesetPtr
 .StandingFallStart:
 	ld hl, wCurObjState
@@ -159,14 +159,14 @@ BeamBotFunc:
 	jr c, .asm_466de
 	xor a
 	ld [hld], a
-	ld de, Frameset_68e77
+	ld de, BeamBotFrameset_68e77
 	call SetObjectFramesetPtr
 	ret
 
 .asm_466de
 	xor a
 	ld [hld], a
-	ld de, Frameset_68e80
+	ld de, BeamBotFrameset_68e80
 	call SetObjectFramesetPtr
 	ret
 .Special1:
@@ -201,7 +201,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68ea3, Frameset_68eaa
+	ld_obj_frameset BeamBotFrameset_68ea3, BeamBotFrameset_68eaa
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a
@@ -235,7 +235,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e77, Frameset_68e80
+	ld_obj_frameset BeamBotFrameset_68e77, BeamBotFrameset_68e80
 	call SetObjectFramesetPtr
 	ld a, 100
 	ld [hli], a
@@ -284,7 +284,7 @@ BeamBotFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_467ba
-	ld de, Frameset_68e89
+	ld de, BeamBotFrameset_68e89
 	jr .asm_467c5
 .asm_467ba
 	ld a, $13
@@ -295,7 +295,7 @@ BeamBotFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_467ba
-	ld de, Frameset_68e96
+	ld de, BeamBotFrameset_68e96
 .asm_467c5
 	ld a, $2d
 	ld [hl], a
@@ -413,7 +413,7 @@ BeamBotFunc:
 .asm_46882
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb1, Frameset_68eb4
+	ld_obj_frameset BeamBotFrameset_68eb1, BeamBotFrameset_68eb4
 	call SetObjectFramesetPtr
 	ld a, 12
 	ld [hld], a
@@ -436,7 +436,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -462,7 +462,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -494,7 +494,7 @@ BeamBotFunc:
 .asm_4691e
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -557,7 +557,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68ed3, Frameset_68eda
+	ld_obj_frameset BeamBotFrameset_68ed3, BeamBotFrameset_68eda
 	call SetObjectFramesetPtr
 	ld a, 17
 	ld [hli], a
@@ -621,7 +621,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -678,10 +678,10 @@ BeamBotFunc:
 	ld a, c
 	rlca
 	jr c, .asm_46a5c
-	ld de, Frameset_68ec9
+	ld de, BeamBotFrameset_68ec9
 	jp SetObjectFramesetPtr
 .asm_46a5c
-	ld de, Frameset_68ece
+	ld de, BeamBotFrameset_68ece
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
 	ld hl, wCurObjState
@@ -714,7 +714,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -738,7 +738,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68eb7, Frameset_68ec0
+	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -788,10 +788,10 @@ BeamFunc_Left:
 	jr z, .ok
 	dec [hl]
 	jr nz, .ok
-	ld de, Frameset_68ef3
+	ld de, BeamBotFrameset_68ef3
 	call SetObjectFramesetPtr
 .ok
-	ld bc, Data_60610
+	ld bc, BeamBotData_60610
 	jr BeamFunc
 
 BeamFunc_Right:
@@ -810,10 +810,10 @@ BeamFunc_Right:
 	jr z, .ok
 	dec [hl]
 	jr nz, .ok
-	ld de, Frameset_68ef8
+	ld de, BeamBotFrameset_68ef8
 	call SetObjectFramesetPtr
 .ok
-	ld bc, Data_60630
+	ld bc, BeamBotData_60630
 ;	fallthrough
 
 BeamFunc:

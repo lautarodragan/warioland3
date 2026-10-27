@@ -208,7 +208,7 @@ Frameset_bc1f3:
 	db   0,  4
 	db $ff
 
-OAM_bc1f6:
+MusicBoxCutsceneOAM_bc1f6:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1222,22 +1222,22 @@ OAM_bc1f6:
 	frame_oam -42,  18, $18, 0
 	db $80
 
-Frameset_bcf15:
+MusicBoxCutsceneFrameset_bcf15:
 	db   0,  4
 	db $ff
 
-Frameset_bcf18:
+MusicBoxCutsceneFrameset_bcf18:
 	db   0, 12
 	db   1, 12
 	db   2, 12
 	db   3, 12
 	db $ff
 
-Frameset_bcf21:
+MusicBoxCutsceneFrameset_bcf21:
 	db   4,  4
 	db $ff
 
-Frameset_bcf24:
+MusicBoxCutsceneFrameset_bcf24:
 	db   4,  8
 	db   5,  8
 	db   6,  8
@@ -1248,11 +1248,11 @@ Frameset_bcf24:
 	db  11,  8
 	db $ff
 
-Frameset_bcf35:
+MusicBoxCutsceneFrameset_bcf35:
 	db  12,  4
 	db $ff
 
-Frameset_bcf38:
+MusicBoxCutsceneFrameset_bcf38:
 	db  12, 12
 	db  13, 12
 	db  14, 12
@@ -1263,11 +1263,11 @@ Frameset_bcf38:
 	db  19, 12
 	db $ff
 
-Frameset_bcf49:
+MusicBoxCutsceneFrameset_bcf49:
 	db  20,  4
 	db $ff
 
-Frameset_bcf4c:
+MusicBoxCutsceneFrameset_bcf4c:
 	db  20,  4
 	db  21,  4
 	db  22,  4
@@ -1286,11 +1286,11 @@ Frameset_bcf4c:
 	db  35,  4
 	db $ff
 
-Frameset_bcf6d:
+MusicBoxCutsceneFrameset_bcf6d:
 	db  36,  4
 	db $ff
 
-Frameset_bcf70:
+MusicBoxCutsceneFrameset_bcf70:
 	db  36, 20
 	db  37,  4
 	db  38,  4
@@ -1518,28 +1518,28 @@ OAM_bcfb3:
 	frame_oam -80,   0, $fe, 6 | OAM_XFLIP
 	db $80
 
-Frameset_bd1b4:
+PlantSeedsCutsceneFrameset_bd1b4:
 	db   0,  4
 	db $ff
 
-Frameset_bd1b7:
+VolcanoEruptionCutsceneFrameset_bd1b7:
 	db   1,  4
 	db $ff
 
-Frameset_bd1ba:
+VolcanoEruptionCutsceneFrameset_bd1ba:
 	db   2,  4
 	db $ff
 
-Frameset_bd1bd:
+VolcanoEruptionCutsceneFrameset_bd1bd:
 	db   3,  4
 	db $ff
 
-Frameset_bd1c0:
+VolcanoEruptionCutsceneFrameset_bd1c0:
 	db   4,  2
 	db   5,  2
 	db $ff
 
-Frameset_bd1c5:
+VolcanoEruptionCutsceneFrameset_bd1c5:
 	db   6,  4
 	db   7,  4
 	db   8,  4
@@ -1567,12 +1567,12 @@ Frameset_bd1c5:
 	db  18,  2
 	db $ff
 
-Frameset_bd1f8:
+VolcanoEruptionCutsceneFrameset_bd1f8:
 	db  17,  2
 	db  18,  2
 	db $ff
 
-OAM_bd1fd:
+OpenNorthGateCutsceneOAM_bd1fd:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1699,23 +1699,23 @@ OAM_bd1fd:
 	frame_oam -17, -12, $04, 0
 	db $80
 
-Frameset_bd348:
+OpenNorthGateCutsceneFrameset_bd348:
 	db   0,  4
 	db $ff
 
-Frameset_bd34b:
+OpenNorthGateCutsceneFrameset_bd34b:
 	db   1,  4
 	db $ff
 
-Frameset_bd34e:
+OpenNorthGateCutsceneFrameset_bd34e:
 	db   2,  4
 	db $ff
 
-Frameset_bd351:
+OpenNorthGateCutsceneFrameset_bd351:
 	db  12,  4
 	db $ff
 
-Frameset_bd354:
+OpenNorthGateCutsceneFrameset_bd354:
 	db   3,  4
 	db   4,  4
 	db   5,  4
@@ -1725,7 +1725,7 @@ Frameset_bd354:
 	db   3,  4
 	db $ff
 
-Frameset_bd363:
+OpenNorthGateCutsceneFrameset_bd363:
 	db   3,  2
 	db   4,  2
 	db   5,  2
@@ -1735,12 +1735,12 @@ Frameset_bd363:
 	db  10,  2
 	db $ff
 
-Frameset_bd372:
+OpenNorthGateCutsceneFrameset_bd372:
 	db  10,  2
 	db  11,  2
 	db $ff
 
-OAM_bd377:
+RainstormCutsceneOAM_bd377:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1820,11 +1820,11 @@ OAM_bd377:
 	frame_oam -19,   7, $6e, 4
 	db $80
 
-Frameset_bd43a:
+RainstormCutsceneFrameset_bd43a:
 	db   0,  4
 	db $ff
 
-Frameset_bd43d:
+RainstormCutsceneFrameset_bd43d:
 	db   1,  4
 	db   2,  4
 	db   3,  4
@@ -1833,14 +1833,14 @@ Frameset_bd43d:
 	db   6,  4
 	db $ff
 
-Frameset_bd44a:
+RainstormCutsceneFrameset_bd44a:
 	db   6,  8
 	db   7,  8
 	db   6,  8
 	db   8,  8
 	db $ff
 
-OAM_bd453:
+RaiseTowerCutsceneOAM_bd453:
 	dw .frame_0
 	dw .frame_1
 
@@ -1854,15 +1854,15 @@ OAM_bd453:
 	frame_oam -46, -11, $9c, 5 | OAM_XFLIP
 	db $80
 
-Frameset_bd469:
+RaiseTowerCutsceneFrameset_bd469:
 	db   0,  4
 	db $ff
 
-Frameset_bd46c:
+RaiseTowerCutsceneFrameset_bd46c:
 	db   1,  4
 	db $ff
 
-OAM_bd46f:
+FixElevatorCutsceneOAM_bd46f:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2014,37 +2014,37 @@ OAM_bd46f:
 	frame_oam -16,  -8, $76, 0
 	db $80
 
-Frameset_bd5c3:
+FixElevatorCutsceneFrameset_bd5c3:
 	db  16,  4
 	db  17,  4
 	db  18,  4
 	db  19,  4
 	db $ff
 
-Frameset_bd5cc:
+FixElevatorCutsceneFrameset_bd5cc:
 	db  12,  4
 	db  13,  4
 	db  14,  4
 	db  15,  4
 	db $ff
 
-Frameset_bd5d5:
+FixElevatorCutsceneFrameset_bd5d5:
 	db  10,  4
 	db $ff
 
-Frameset_bd5d8:
+FixElevatorCutsceneFrameset_bd5d8:
 	db  10,  4
 	db  11,  4
 	db $ff
 
-Frameset_bd5dd:
+FixElevatorCutsceneFrameset_bd5dd:
 	db   6,  4
 	db   7,  4
 	db   8,  4
 	db   9,  4
 	db $ff
 
-Frameset_bd5e6:
+FixElevatorCutsceneFrameset_bd5e6:
 	db   2,  4
 	db   1,  2
 	db   0,  2
@@ -2062,25 +2062,25 @@ Frameset_bd5e6:
 	db   0,  4
 	db $ff
 
-Frameset_bd605:
+FixElevatorCutsceneFrameset_bd605:
 	db   0,  4
 	db $ff
 
-Frameset_bd608:
+FixElevatorCutsceneFrameset_bd608:
 	db   3,  4
 	db   4,  4
 	db   5,  4
 	db $ff
 
-Frameset_bd60f:
+FixElevatorCutsceneFrameset_bd60f:
 	db   2,  4
 	db $ff
 
-Frameset_bd612:
+FixElevatorCutsceneFrameset_bd612:
 	db   3,  4
 	db $ff
 
-OAM_bd615:
+RevealCastleCutsceneOAM_bd615:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2193,23 +2193,23 @@ OAM_bd615:
 	frame_oam -28,   4, $4a, 3 | OAM_XFLIP
 	db $80
 
-Frameset_bd790:
+RevealCastleCutsceneFrameset_bd790:
 	db   0,  4
 	db $ff
 
-Frameset_bd793:
+RevealCastleCutsceneFrameset_bd793:
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db   4,  4
 	db $ff
 
-Frameset_bd79c:
+RevealCastleCutsceneFrameset_bd79c:
 	db   3,  4
 	db   4,  4
 	db $ff
 
-OAM_bd7a1:
+FreezeSeaCutsceneOAM_bd7a1:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2313,23 +2313,23 @@ OAM_bd7a1:
 	frame_oam -23,  -2, $b4, 1
 	db $80
 
-Frameset_bd905:
+FreezeSeaCutsceneFrameset_bd905:
 	db   0,  4
 	db $ff
 
-Frameset_bd908:
+FreezeSeaCutsceneFrameset_bd908:
 	db   1,  4
 	db $ff
 
-Frameset_bd90b:
+FreezeSeaCutsceneFrameset_bd90b:
 	db   2,  4
 	db $ff
 
-Frameset_bd90e:
+FreezeSeaCutsceneFrameset_bd90e:
 	db   3,  4
 	db $ff
 
-OAM_bd911:
+SummonSunCutsceneOAM_bd911:
 	dw .frame_0
 	dw .frame_1
 
@@ -2360,15 +2360,15 @@ OAM_bd911:
 	frame_oam -24,   8, $28, 3
 	db $80
 
-Frameset_bd96b:
+SummonSunCutsceneFrameset_bd96b:
 	db   0,  4
 	db $ff
 
-Frameset_bd96e:
+SummonSunCutsceneFrameset_bd96e:
 	db   1,  4
 	db $ff
 
-OAM_bd971:
+ExplodeBombsCutsceneOAM_bd971:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2417,30 +2417,30 @@ OAM_bd971:
 	frame_oam  -7,   4, $88, 2
 	db $80
 
-Frameset_bd9ec:
+ExplodeBombsCutsceneFrameset_bd9ec:
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db   2,  4
 	db $ff
 
-Frameset_bd9f5:
+ExplodeBombsCutsceneFrameset_bd9f5:
 	db   0,  4
 	db $ff
 
-Frameset_bd9f8:
+ExplodeBombsCutsceneFrameset_bd9f8:
 	db   4,  4
 	db $ff
 
-Frameset_bd9fb:
+ExplodeBombsCutsceneFrameset_bd9fb:
 	db   1,  4
 	db $ff
 
-Frameset_bd9fe:
+ExplodeBombsCutsceneFrameset_bd9fe:
 	db   3,  4
 	db $ff
 
-OAM_bda01:
+TreasureMapCutsceneOAM_bda01:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2518,7 +2518,7 @@ OAM_bda01:
 	frame_oam -16,  -8, $96, 2
 	db $80
 
-Frameset_bdaa2:
+TreasureMapCutsceneFrameset_bdaa2:
 	db   0,  4
 	db   1,  4
 	db   2,  4
@@ -2532,11 +2532,11 @@ Frameset_bdaa2:
 	db  10, 50
 	db $ff
 
-Frameset_bdab9:
+TreasureMapCutsceneFrameset_bdab9:
 	db  10,  4
 	db $ff
 
-OAM_bdabc:
+BlowMistCutsceneOAM_bdabc:
 	dw .frame_0
 
 .frame_0
@@ -2559,11 +2559,11 @@ OAM_bdabc:
 	frame_oam -10,   4, $6a, 0
 	db $80
 
-Frameset_bdb03:
+BlowMistCutsceneFrameset_bdb03:
 	db   0,  4
 	db $ff
 
-OAM_bdb06:
+SummonSnakesCutsceneOAM_bdb06:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2700,11 +2700,11 @@ OAM_bdb06:
 	frame_oam   0,   3, $9c, 4
 	db $80
 
-Frameset_bdc5f:
+SummonSnakesCutsceneFrameset_bdc5f:
 	db   0,  4
 	db $ff
 
-Frameset_bdc62:
+SummonSnakesCutsceneFrameset_bdc62:
 	db   1,  4
 	db   2,  4
 	db   3,  4
@@ -2721,7 +2721,7 @@ Frameset_bdc62:
 	db   5,  4
 	db $ff
 
-Frameset_bdc7f:
+SummonSnakesCutsceneFrameset_bdc7f:
 	db   8,  4
 	db   9,  4
 	db  10,  4
@@ -2738,7 +2738,7 @@ Frameset_bdc7f:
 	db  12,  4
 	db $ff
 
-OAM_bdc9c:
+FootStoneCutsceneOAM_bdc9c:
 	dw .frame_0
 
 .frame_0
@@ -2761,11 +2761,11 @@ OAM_bdc9c:
 	frame_oam -52,  13, $bc, 1
 	db $80
 
-Frameset_bdce3:
+FootStoneCutsceneFrameset_bdce3:
 	db   0,  4
 	db $ff
 
-OAM_bdce6:
+OpenSnakeDoorCutsceneOAM_bdce6:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2845,7 +2845,7 @@ OAM_bdce6:
 	frame_oam -16,   8, $0c, 6 | OAM_XFLIP
 	db $80
 
-Frameset_bdda9:
+OpenSnakeDoorCutsceneFrameset_bdda9:
 	db   0, 50
 	db   1,  6
 	db   2,  6
@@ -2859,27 +2859,27 @@ Frameset_bdda9:
 	db   1,  6
 	db $ff
 
-Frameset_bddc0:
+OpenSnakeDoorCutsceneFrameset_bddc0:
 	db   5,  4
 	db $ff
 
-Frameset_bddc3:
+OpenSnakeDoorCutsceneFrameset_bddc3:
 	db   6,  4
 	db $ff
 
-Frameset_bddc6:
+OpenSnakeDoorCutsceneFrameset_bddc6:
 	db   7,  4
 	db $ff
 
-Frameset_bddc9:
+OpenSnakeDoorCutsceneFrameset_bddc9:
 	db   8,  4
 	db $ff
 
-Frameset_bddcc:
+OpenSnakeDoorCutsceneFrameset_bddcc:
 	db   0,  4
 	db $ff
 
-OAM_bddcf:
+ExpelTornadoCutsceneOAM_bddcf:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2927,19 +2927,19 @@ OAM_bddcf:
 	frame_oam -16,   8, $62, 1
 	db $80
 
-Frameset_bde60:
+ExpelTornadoCutsceneFrameset_bde60:
 	db   0,  4
 	db $ff
 
-Frameset_bde63:
+ExpelTornadoCutsceneFrameset_bde63:
 	db   1,  4
 	db $ff
 
-Frameset_bde66:
+ExpelTornadoCutsceneFrameset_bde66:
 	db   2,  4
 	db $ff
 
-OAM_bde69:
+OpenTreeMouthCutsceneOAM_bde69:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3038,11 +3038,11 @@ OAM_bde69:
 	frame_oam -16,   8, $b8, 3
 	db $80
 
-Frameset_bdf92:
+OpenTreeMouthCutsceneFrameset_bdf92:
 	db   0,  4
 	db $ff
 
-Frameset_bdf95:
+OpenTreeMouthCutsceneFrameset_bdf95:
 	db   1, 10
 	db   2, 10
 	db   3, 10
@@ -3050,12 +3050,12 @@ Frameset_bdf95:
 	db   5, 10
 	db $ff
 
-Frameset_bdfa0:
+OpenTreeMouthCutsceneFrameset_bdfa0:
 	db   0,  4
 	db   6,  4
 	db $ff
 
-OAM_bdfa5:
+LeavesFallCutsceneOAM_bdfa5:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3243,7 +3243,7 @@ OAM_bdfa5:
 	frame_oam -16, -23, $62, 6 | OAM_BANK1
 	db $80
 
-Frameset_be1b0:
+LeavesFallCutsceneFrameset_be1b0:
 	db   0,  4
 	db   1,  4
 	db   2,  4
@@ -3255,7 +3255,7 @@ Frameset_be1b0:
 	db   5,  4
 	db $ff
 
-Frameset_be1c3:
+LeavesFallCutsceneFrameset_be1c3:
 	db   6,  8
 	db  15,  4
 	db   7,  8
@@ -3286,17 +3286,17 @@ Frameset_be1c3:
 	db  14,  4
 	db $ff
 
-Frameset_be1fc:
+LeavesFallCutsceneFrameset_be1fc:
 	db  11,  4
 	db  12,  4
 	db  13,  4
 	db $ff
 
-Frameset_be203:
+LeavesFallCutsceneFrameset_be203:
 	db   6,  4
 	db $ff
 
-OAM_be206:
+MakeWireCutsceneOAM_be206:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3372,14 +3372,14 @@ OAM_be206:
 	frame_oam -32,   0, $e8, 4 | OAM_BANK1
 	db $80
 
-Frameset_be2b9:
+MakeWireCutsceneFrameset_be2b9:
 	db   0,  6
 	db   1,  6
 	db   0,  6
 	db   2,  6
 	db $ff
 
-Frameset_be2c2:
+MakeWireCutsceneFrameset_be2c2:
 	db   0,  6
 	db   3,  6
 	db   0,  6
@@ -3390,15 +3390,15 @@ Frameset_be2c2:
 	db   6,  6
 	db $ff
 
-Frameset_be2d3:
+MakeWireCutsceneFrameset_be2d3:
 	db   7,  4
 	db $ff
 
-Frameset_be2d6:
+MakeWireCutsceneFrameset_be2d6:
 	db   8,  4
 	db $ff
 
-OAM_be2d9:
+TorchForestCutsceneOAM_be2d9:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3472,14 +3472,14 @@ OAM_be2d9:
 	frame_oam -67,  46, $cc, 7
 	db $80
 
-Frameset_be3c5:
+TorchForestCutsceneFrameset_be3c5:
 	db   0,  6
 	db   1,  6
 	db   2,  6
 	db   3,  6
 	db $ff
 
-OAM_be3ce:
+RevealWarpedVoidCutsceneOAM_be3ce:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3782,11 +3782,11 @@ OAM_be3ce:
 	frame_oam -86,   8, $1e, 4
 	db $80
 
-Frameset_be7e6:
+RevealWarpedVoidCutsceneFrameset_be7e6:
 	db   0,  4
 	db $ff
 
-Frameset_be7e9:
+RevealWarpedVoidCutsceneFrameset_be7e9:
 	db   0, 50
 	db   1,  6
 	db   2,  6
@@ -3801,12 +3801,12 @@ Frameset_be7e9:
 	db  10, 50
 	db $ff
 
-Frameset_be802:
+RevealWarpedVoidCutsceneFrameset_be802:
 	db  10,  2
 	db  11,  2
 	db $ff
 
-OAM_be807:
+RaiseIceBlocksCutsceneOAM_be807:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3891,22 +3891,22 @@ OAM_be807:
 	frame_oam  -8,  -2, $b0, 4 | OAM_BANK1
 	db $80
 
-Frameset_be8de:
+RaiseIceBlocksCutsceneFrameset_be8de:
 	db   0,  4
 	db $ff
 
-Frameset_be8e1:
+RaiseIceBlocksCutsceneFrameset_be8e1:
 	db   1, 20
 	db   2,  6
 	db   3, 20
 	db   2,  6
 	db $ff
 
-Frameset_be8ea:
+RaiseIceBlocksCutsceneFrameset_be8ea:
 	db   1,  4
 	db $ff
 
-Frameset_be8ed:
+RaiseIceBlocksCutsceneFrameset_be8ed:
 	db   4,  4
 	db   5,  4
 	db   6,  8
@@ -3917,7 +3917,7 @@ Frameset_be8ed:
 	db   7,  4
 	db $ff
 
-OAM_be8fe:
+RaisePipeCutsceneOAM_be8fe:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3995,18 +3995,18 @@ OAM_be8fe:
 	frame_oam -16,  -8, $a6, 4 | OAM_BANK1 | OAM_XFLIP | OAM_YFLIP
 	db $80
 
-Frameset_be9fa:
+RaisePipeCutsceneFrameset_be9fa:
 	db   0, 20
 	db $ff
 
-Frameset_be9fd:
+RaisePipeCutsceneFrameset_be9fd:
 	db   0, 20
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db $ff
 
-OAM_bea06:
+RemoveWarpsCutsceneOAM_bea06:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4116,11 +4116,11 @@ OAM_bea06:
 	frame_oam -16,   0, $4c, 2 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-Frameset_beacc:
+RemoveWarpsCutsceneFrameset_beacc:
 	db   0,  4
 	db $ff
 
-Frameset_beacf:
+RemoveWarpsCutsceneFrameset_beacf:
 	db   1,  4
 	db   2,  4
 	db   3,  4
@@ -4133,14 +4133,14 @@ Frameset_beacf:
 	db   2,  4
 	db $ff
 
-Frameset_beae4:
+RemoveWarpsCutsceneFrameset_beae4:
 	db   7,  4
 	db   8,  4
 	db   9,  4
 	db  10,  4
 	db $ff
 
-Frameset_beaed:
+RemoveWarpsCutsceneFrameset_beaed:
 	db  11,  4
 	db  12,  4
 	db  13,  4
@@ -4150,7 +4150,7 @@ Frameset_beaed:
 	db  17,  4
 	db $ff
 
-OAM_beafc:
+CollectDemonsBloodCutsceneOAM_beafc:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4243,42 +4243,42 @@ OAM_beafc:
 	frame_oam -32,   0, $06, 6 | OAM_BANK1
 	db $80
 
-Frameset_bebcc:
+CollectDemonsBloodCutsceneFrameset_bebcc:
 	db   0,  4
 	db   1,  4
 	db   2,  4
 	db $ff
 
-Frameset_bebd3:
+CollectDemonsBloodCutsceneFrameset_bebd3:
 	db   5,  4
 	db   6,  4
 	db   7,  4
 	db $ff
 
-Frameset_bebda:
+CollectDemonsBloodCutsceneFrameset_bebda:
 	db   0,  4
 	db $ff
 
-Frameset_bebdd:
+CollectDemonsBloodCutsceneFrameset_bebdd:
 	db   3,  4
 	db $ff
 
-Frameset_bebe0:
+CollectDemonsBloodCutsceneFrameset_bebe0:
 	db   4,  4
 	db $ff
 
-Frameset_bebe3:
+CollectDemonsBloodCutsceneFrameset_bebe3:
 	db   8, 20
 	db   9, 10
 	db  10, 10
 	db  11, 50
 	db $ff
 
-Frameset_bebec:
+CollectDemonsBloodCutsceneFrameset_bebec:
 	db  11,  4
 	db $ff
 
-OAM_bebef:
+PlacePropellerCutsceneOAM_bebef:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4360,25 +4360,25 @@ OAM_bebef:
 	frame_oam -32,   8, $86, 5 | OAM_BANK1
 	db $80
 
-Frameset_becc7:
+PlacePropellerCutsceneFrameset_becc7:
 	db   0,  4
 	db $ff
 
-Frameset_becca:
+PlacePropellerCutsceneFrameset_becca:
 	db   0,  3
 	db   1,  3
 	db   2,  3
 	db   3,  3
 	db $ff
 
-Frameset_becd3:
+PlacePropellerCutsceneFrameset_becd3:
 	db   4,  3
 	db   5,  3
 	db   6,  3
 	db   7,  3
 	db $ff
 
-OAM_becdc:
+CutBaloonCutsceneOAM_becdc:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4413,19 +4413,19 @@ OAM_becdc:
 	frame_oam  -9,  -4, $36, 4 | OAM_BANK1
 	db $80
 
-Frameset_bed39:
+CutBaloonCutsceneFrameset_bed39:
 	db   0,  4
 	db $ff
 
-Frameset_bed3c:
+CutBaloonCutsceneFrameset_bed3c:
 	db   1,  4
 	db $ff
 
-Frameset_bed3f:
+CutBaloonCutsceneFrameset_bed3f:
 	db   2,  4
 	db $ff
 
-OAM_bed42:
+OpenParaGoomCageCutsceneOAM_bed42:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4523,29 +4523,29 @@ OAM_bed42:
 	frame_oam -16,   8, $14, 4
 	db $80
 
-Frameset_bee4d:
+OpenParaGoomCageCutsceneFrameset_bee4d:
 	db   0,  4
 	db $ff
 
-Frameset_bee50:
+OpenParaGoomCageCutsceneFrameset_bee50:
 	db   0,  4
 	db   1, 10
 	db $ff
 
-Frameset_bee55:
+OpenParaGoomCageCutsceneFrameset_bee55:
 	db   2,  4
 	db $ff
 
-Frameset_bee58:
+OpenParaGoomCageCutsceneFrameset_bee58:
 	db   2,  4
 	db   3, 10
 	db $ff
 
-Frameset_bee5d:
+OpenParaGoomCageCutsceneFrameset_bee5d:
 	db   4,  4
 	db $ff
 
-Frameset_bee60:
+OpenParaGoomCageCutsceneFrameset_bee60:
 	db   4,  4
 	db   5,  4
 	db   6,  4
@@ -4553,11 +4553,11 @@ Frameset_bee60:
 	db   8,  4
 	db $ff
 
-Frameset_bee6b:
+OpenParaGoomCageCutsceneFrameset_bee6b:
 	db   8,  4
 	db $ff
 
-OAM_bee6e:
+OpenSkyDoorCutsceneOAM_bee6e:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4669,15 +4669,15 @@ OAM_bee6e:
 	frame_oam  -6,   9, $5c, 3
 	db $80
 
-Frameset_befbe:
+OpenSkyDoorCutsceneFrameset_befbe:
 	db   0,  4
 	db $ff
 
-Frameset_befc1:
+OpenSkyDoorCutsceneFrameset_befc1:
 	db   1,  4
 	db $ff
 
-Frameset_befc4:
+OpenSkyDoorCutsceneFrameset_befc4:
 	db   1,  4
 	db   2,  4
 	db   3,  4
@@ -4688,7 +4688,7 @@ Frameset_befc4:
 	db   4, 50
 	db $ff
 
-OAM_befd5:
+ExtinguishFireCutsceneOAM_befd5:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4794,11 +4794,11 @@ OAM_befd5:
 	frame_oam -12,   0, $f0, 3 | OAM_XFLIP
 	db $80
 
-Frameset_bf100:
+ExtinguishFireCutsceneFrameset_bf100:
 	db   0,  4
 	db $ff
 
-Frameset_bf103:
+ExtinguishFireCutsceneFrameset_bf103:
 	db   1,  1
 	db   8,  1
 	db   2,  1
@@ -4807,7 +4807,7 @@ Frameset_bf103:
 	db   8,  1
 	db $ff
 
-Frameset_bf110:
+ExtinguishFireCutsceneFrameset_bf110:
 	db   3,  1
 	db   8,  1
 	db   4,  1
@@ -4826,7 +4826,7 @@ Frameset_bf110:
 	db   8,  1
 	db $ff
 
-OAM_bf131:
+PlaceBrickCutsceneOAM_bf131:
 	dw .frame_0
 
 .frame_0
@@ -4840,11 +4840,11 @@ OAM_bf131:
 	frame_oam -16,   8, $0e, 5 | OAM_BANK1
 	db $80
 
-Frameset_bf154:
+PlaceBrickCutsceneFrameset_bf154:
 	db   0,  4
 	db $ff
 
-OAM_bf157:
+SprayIronWallCutsceneOAM_bf157:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4959,18 +4959,18 @@ OAM_bf157:
 	frame_oam -48,   0, $f2, 5 | OAM_BANK1
 	db $80
 
-Frameset_bf28c:
+SprayIronWallCutsceneFrameset_bf28c:
 	db   0,  4
 	db $ff
 
-Frameset_bf28f:
+SprayIronWallCutsceneFrameset_bf28f:
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db   4,  4
 	db $ff
 
-Frameset_bf298:
+SprayIronWallCutsceneFrameset_bf298:
 	db   5,  4
 	db   6,  4
 	db   7,  4
@@ -4979,15 +4979,15 @@ Frameset_bf298:
 	db  10,  4
 	db $ff
 
-Frameset_bf2a5:
+SprayIronWallCutsceneFrameset_bf2a5:
 	db   5,  4
 	db $ff
 
-Frameset_bf2a8:
+SprayIronWallCutsceneFrameset_bf2a8:
 	db  10,  4
 	db $ff
 
-OAM_bf2ab:
+MixChemicalsCutsceneOAM_bf2ab:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5141,11 +5141,11 @@ OAM_bf2ab:
 	frame_oam -13,  -5, $b2, 2
 	db $80
 
-Frameset_bf43b:
+MixChemicalsCutsceneFrameset_bf43b:
 	db   0,  4
 	db $ff
 
-Frameset_bf43e:
+MixChemicalsCutsceneFrameset_bf43e:
 	db   1, 50
 	db   2,  4
 	db   3,  2
@@ -5163,11 +5163,11 @@ Frameset_bf43e:
 	db   9,  6
 	db $ff
 
-Frameset_bf45d:
+MixChemicalsCutsceneFrameset_bf45d:
 	db   1,  2
 	db $ff
 
-OAM_bf460:
+RevealDarkRoomCutsceneOAM_bf460:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5291,7 +5291,7 @@ OAM_bf460:
 	frame_oam -20,  16, $7e, 1 | OAM_BANK1
 	db $80
 
-Frameset_bf5e0:
+RevealDarkRoomCutsceneFrameset_bf5e0:
 	db   0, 40
 	db   1,  8
 	db   2, 14
@@ -5318,7 +5318,7 @@ Frameset_bf5e0:
 	db   1,  4
 	db $ff
 
-OAM_bf611:
+SummonMoonCutsceneOAM_bf611:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5352,25 +5352,25 @@ OAM_bf611:
 	frame_oam -11,  -2, $ce, 1
 	db $80
 
-Frameset_bf65d:
+SummonMoonCutsceneFrameset_bf65d:
 	db   0,  4
 	db $ff
 
-Frameset_bf660:
+SummonMoonCutsceneFrameset_bf660:
 	db   0,  4
 	db   1,  4
 	db $ff
 
-Frameset_bf665:
+SummonMoonCutsceneFrameset_bf665:
 	db   3,  4
 	db $ff
 
-Frameset_bf668:
+SummonMoonCutsceneFrameset_bf668:
 	db   3,  4
 	db   2, 20
 	db $ff
 
-OAM_bf66d:
+OpenCraterHoleCutsceneOAM_bf66d:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5420,11 +5420,11 @@ OAM_bf66d:
 	frame_oam  -8,  -4, $7a, 1
 	db $80
 
-Frameset_bf6df:
+OpenCraterHoleCutsceneFrameset_bf6df:
 	db   0,  4
 	db $ff
 
-Frameset_bf6e2:
+OpenCraterHoleCutsceneFrameset_bf6e2:
 	db   0,  4
 	db   1,  4
 	db   4,  4
@@ -5432,11 +5432,11 @@ Frameset_bf6e2:
 	db   3,  4
 	db $ff
 
-Frameset_bf6ed:
+OpenCraterHoleCutsceneFrameset_bf6ed:
 	db   5,  4
 	db $ff
 
-OAM_bf6f0:
+DrillHolesCutsceneOAM_bf6f0:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5561,36 +5561,36 @@ OAM_bf6f0:
 	frame_oam -48,   0, $ea, 2 | OAM_BANK1
 	db $80
 
-Frameset_bf826:
+DrillHolesCutsceneFrameset_bf826:
 	db   0,  4
 	db $ff
 
-Frameset_bf829:
+DrillHolesCutsceneFrameset_bf829:
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db   4,  4
 	db $ff
 
-Frameset_bf832:
+DrillHolesCutsceneFrameset_bf832:
 	db   5,  4
 	db $ff
 
-Frameset_bf835:
+DrillHolesCutsceneFrameset_bf835:
 	db   6,  3
 	db   7,  3
 	db   8,  3
 	db   9,  3
 	db $ff
 
-Frameset_bf83e:
+DrillHolesCutsceneFrameset_bf83e:
 	db  10,  3
 	db  11,  3
 	db  12,  3
 	db  13,  3
 	db $ff
 
-OAM_bf847:
+FeedOctohonCutsceneOAM_bf847:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5660,12 +5660,12 @@ OAM_bf847:
 	frame_oam -32,   0, $8e, 6
 	db $80
 
-Frameset_bf923:
+FeedOctohonCutsceneFrameset_bf923:
 	db   0,  4
 	db   1,  4
 	db   2,  4
 	db $ff
 
-Frameset_bf92a:
+FeedOctohonCutsceneFrameset_bf92a:
 	db   3,  4
 	db $ff

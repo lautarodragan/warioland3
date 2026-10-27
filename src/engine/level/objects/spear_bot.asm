@@ -141,7 +141,7 @@ SpearBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68ddf
+	ld de, SpearBotFrameset_68ddf
 	call SetObjectFramesetPtr
 	ret
 
@@ -150,7 +150,7 @@ SpearBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68de8
+	ld de, SpearBotFrameset_68de8
 	call SetObjectFramesetPtr
 	ret
 .StandingFallStart:
@@ -168,14 +168,14 @@ SpearBotFunc:
 	jr nz, .asm_4601b
 	ld a, $fa
 	ld [hl], a
-	ld de, Frameset_68e69
+	ld de, SpearBotFrameset_68e69
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a
 	ret
 
 .asm_4601b
-	ld de, Frameset_68ddf
+	ld de, SpearBotFrameset_68ddf
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -190,14 +190,14 @@ SpearBotFunc:
 	jr nz, .asm_4603a
 	ld a, $05
 	ld [hl], a
-	ld de, Frameset_68e70
+	ld de, SpearBotFrameset_68e70
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a
 	ret
 
 .asm_4603a
-	ld de, Frameset_68de8
+	ld de, SpearBotFrameset_68de8
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -212,10 +212,10 @@ SpearBotFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_46059
-	ld de, Frameset_68ddf
+	ld de, SpearBotFrameset_68ddf
 	jp SetObjectFramesetPtr
 .asm_46059
-	ld de, Frameset_68de8
+	ld de, SpearBotFrameset_68de8
 	jp SetObjectFramesetPtr
 .Special1:
 	ld a, [wGroundShakeCounter]
@@ -243,7 +243,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
-	ld de, Frameset_68e57
+	ld de, SpearBotFrameset_68e57
 	jr .asm_46096
 .asm_4608b
 	ld l, OBJ_COLLBOX_RIGHT
@@ -251,7 +251,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, $fa
 	ld [hld], a
-	ld de, Frameset_68e60
+	ld de, SpearBotFrameset_68e60
 .asm_46096
 	call SetObjectFramesetPtr
 	inc l
@@ -328,10 +328,10 @@ SpearBotFunc:
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_46118
-	ld de, Frameset_68e41
+	ld de, SpearBotFrameset_68e41
 	jr .asm_46154
 .asm_46118
-	ld de, Frameset_68dff
+	ld de, SpearBotFrameset_68dff
 	jr .asm_46164
 .asm_4611d
 	ld a, [hl]
@@ -363,7 +363,7 @@ SpearBotFunc:
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_46161
-	ld de, Frameset_68e4c
+	ld de, SpearBotFrameset_68e4c
 .asm_46154
 	call SetObjectFramesetPtr
 	ld a, 36
@@ -374,7 +374,7 @@ SpearBotFunc:
 	ret
 
 .asm_46161
-	ld de, Frameset_68e08
+	ld de, SpearBotFrameset_68e08
 .asm_46164
 	call SetObjectFramesetPtr
 	ld a, 38
@@ -424,10 +424,10 @@ SpearBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_461b8
-	ld de, Frameset_68e57
+	ld de, SpearBotFrameset_68e57
 	jp SetObjectFramesetPtr
 .asm_461b8
-	ld de, Frameset_68e60
+	ld de, SpearBotFrameset_68e60
 	jp SetObjectFramesetPtr
 .asm_461be
 	dec [hl]
@@ -463,12 +463,12 @@ SpearBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_461f4
-	ld de, Frameset_68ddf
+	ld de, SpearBotFrameset_68ddf
 	call SetObjectFramesetPtr
 	ret
 
 .asm_461f4
-	ld de, Frameset_68de8
+	ld de, SpearBotFrameset_68de8
 	call SetObjectFramesetPtr
 	ret
 .Walk:
@@ -509,7 +509,7 @@ SpearBotFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_4623e
-	ld de, Frameset_68df1
+	ld de, SpearBotFrameset_68df1
 	jr .asm_46249
 .asm_4623e
 	ld a, $13
@@ -520,7 +520,7 @@ SpearBotFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_4623e
-	ld de, Frameset_68df8
+	ld de, SpearBotFrameset_68df8
 .asm_46249
 	ld a, $2d
 	ld [hl], a
@@ -626,7 +626,7 @@ SpearBotFunc:
 .asm_462f1
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e11, Frameset_68e14
+	ld_obj_frameset SpearBotFrameset_68e11, SpearBotFrameset_68e14
 	call SetObjectFramesetPtr
 	ld a, 12
 	ld [hld], a
@@ -649,7 +649,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -675,7 +675,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -707,7 +707,7 @@ SpearBotFunc:
 .asm_4638d
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -770,7 +770,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e33, Frameset_68e3a
+	ld_obj_frameset SpearBotFrameset_68e33, SpearBotFrameset_68e3a
 	call SetObjectFramesetPtr
 	ld a, 26
 	ld [hli], a
@@ -834,7 +834,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -878,7 +878,7 @@ SpearBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld de, Frameset_68dff
+	ld de, SpearBotFrameset_68dff
 	jr .asm_464c7
 .State3c:
 	ld hl, wCurObjFrameDuration
@@ -889,7 +889,7 @@ SpearBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld de, Frameset_68e08
+	ld de, SpearBotFrameset_68e08
 .asm_464c7
 	call SetObjectFramesetPtr
 	ld a, 38
@@ -934,10 +934,10 @@ SpearBotFunc:
 	ld a, c
 	rlca
 	jr c, .asm_46511
-	ld de, Frameset_68e29
+	ld de, SpearBotFrameset_68e29
 	jp SetObjectFramesetPtr
 .asm_46511
-	ld de, Frameset_68e2e
+	ld de, SpearBotFrameset_68e2e
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
 	ld hl, wCurObjState
@@ -970,7 +970,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -994,7 +994,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68e17, Frameset_68e20
+	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05

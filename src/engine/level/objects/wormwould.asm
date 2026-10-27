@@ -25,7 +25,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, 30
 	ld [hld], a
-	ld de, Frameset_696ce
+	ld de, WormwouldFrameset_696ce
 	jp SetObjectFramesetPtr
 
 .Init:
@@ -71,11 +71,11 @@ WormwouldFunc:
 	cp $38
 	jr c, .place_on_right_side
 .not_on_screen_1
-	ld de, Frameset_696ce
+	ld de, WormwouldFrameset_696ce
 	jr .set_direction_frameset
 .place_on_right_side
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6970a
+	ld de, WormwouldFrameset_6970a
 	ld l, OBJ_X_POS
 	ld a, [hl]
 	add $70
@@ -101,11 +101,11 @@ WormwouldFunc:
 	cp $38
 	jr c, .place_on_left_side
 .not_on_screen_2
-	ld de, Frameset_6970a
+	ld de, WormwouldFrameset_6970a
 	jr .set_direction_frameset
 .place_on_left_side
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_696ce
+	ld de, WormwouldFrameset_696ce
 	ld l, OBJ_X_POS
 	ld a, [hl]
 	sub $70
@@ -171,7 +171,7 @@ WormwouldFunc:
 .asm_54131
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_696bc, Frameset_696c5
+	ld_obj_frameset WormwouldFrameset_696bc, WormwouldFrameset_696c5
 	call SetObjectFramesetPtr
 	ld a, 34
 	ld [hli], a
@@ -188,10 +188,10 @@ WormwouldFunc:
 	ld a, [hld] ; wCurObjSubState
 	rlca
 	jr c, .asm_5415d
-	ld de, Frameset_69734
+	ld de, WormwouldFrameset_69734
 	jp SetObjectFramesetPtr
 .asm_5415d
-	ld de, Frameset_69701
+	ld de, WormwouldFrameset_69701
 	jp SetObjectFramesetPtr
 
 .attacked
@@ -199,7 +199,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6971c, Frameset_696e0
+	ld_obj_frameset WormwouldFrameset_6971c, WormwouldFrameset_696e0
 	call SetObjectFramesetPtr
 	ld a, WORMWOULD_BURROW_DELAY
 	ld [hli], a
@@ -293,7 +293,7 @@ WormwouldFunc:
 .asm_54209
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69713, Frameset_696d7
+	ld_obj_frameset WormwouldFrameset_69713, WormwouldFrameset_696d7
 	call SetObjectFramesetPtr
 	ld a, WORMWOULD_SHOOT_ROCK_DURATION
 	ld [hli], a ; wCurObjFrameDuration
@@ -312,7 +312,7 @@ WormwouldFunc:
 	ret nz
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6970a, Frameset_696ce
+	ld_obj_frameset WormwouldFrameset_6970a, WormwouldFrameset_696ce
 	call SetObjectFramesetPtr
 	jp .set_idle
 
@@ -332,7 +332,7 @@ WormwouldFunc:
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
-	ld_obj_frameset Frameset_69721, Frameset_696e5
+	ld_obj_frameset WormwouldFrameset_69721, WormwouldFrameset_696e5
 	call SetObjectFramesetPtr
 	ld a, WORMWOULD_HURT_DURATION
 	ld [hli], a
@@ -351,7 +351,7 @@ WormwouldFunc:
 	ret
 
 .hurt
-	ld bc, Data_60dd0
+	ld bc, WormwouldData_60dd0
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -375,10 +375,10 @@ WormwouldFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_542c5
-	ld de, Frameset_69726
+	ld de, WormwouldFrameset_69726
 	jp SetObjectFramesetPtr
 .asm_542c5
-	ld de, Frameset_696ea
+	ld de, WormwouldFrameset_696ea
 	jp SetObjectFramesetPtr
 
 .burrowing
@@ -469,7 +469,7 @@ WormwouldFunc:
 	inc l
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6972f, Frameset_696f3
+	ld_obj_frameset WormwouldFrameset_6972f, WormwouldFrameset_696f3
 	call SetObjectFramesetPtr
 	ld a, 30
 	ld [hli], a ; wCurObjStateDuration
@@ -568,10 +568,10 @@ RollingRockFunc:
 	ld a, [wCurObjVar1]
 	and a
 	jr nz, .low_rock
-	ld bc, Data_608b0
+	ld bc, WormwouldData_608b0
 	jr .got_y_movement
 .low_rock
-	ld bc, Data_60900
+	ld bc, WormwouldData_60900
 .got_y_movement
 	ld a, [wCurObjState]
 	and a

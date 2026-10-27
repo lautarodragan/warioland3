@@ -36,14 +36,14 @@ RoboMouseFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	jp SetObjectFramesetPtr
 .asm_4891f
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	jp SetObjectFramesetPtr
 
 .Update:
@@ -150,7 +150,7 @@ RoboMouseFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69200, Frameset_691fb
+	ld_obj_frameset RoboMouseFrameset_69200, RoboMouseFrameset_691fb
 	call SetObjectFramesetPtr
 	ret
 
@@ -201,7 +201,7 @@ RoboMouseFunc:
 	res OBJFLAG_PRIORITY_F, [hl]
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_6920c, Frameset_69205
+	ld_obj_frameset RoboMouseFrameset_6920c, RoboMouseFrameset_69205
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -231,7 +231,7 @@ RoboMouseFunc:
 	jr z, .asm_48aab
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69220, Frameset_691de
+	ld_obj_frameset RoboMouseFrameset_69220, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 .asm_48aab
 	ld l, OBJ_FLAGS
@@ -378,7 +378,7 @@ RoboMouseFunc:
 .asm_48ba7
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_69213
+	ld de, RoboMouseFrameset_69213
 	ld a, [wCurObjFramesetPtr]
 	cp e
 	ret z
@@ -387,7 +387,7 @@ RoboMouseFunc:
 .asm_48bb7
 	ld a, $11
 	ld [wCurObjState], a
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	jp SetObjectFramesetPtr
 
 .asm_48bc2
@@ -455,7 +455,7 @@ RoboMouseFunc:
 .asm_48c32
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_691e5
+	ld de, RoboMouseFrameset_691e5
 	ld a, [wCurObjFramesetPtr]
 	cp e
 	ret z
@@ -464,7 +464,7 @@ RoboMouseFunc:
 .asm_48c42
 	ld a, $11
 	ld [wCurObjState], a
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	jp SetObjectFramesetPtr
 .TurnAroundStart:
 	ld a, $43
@@ -499,7 +499,7 @@ RoboMouseFunc:
 	ld a, $2d
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69227
+	ld de, RoboMouseFrameset_69227
 	jr .asm_48c96
 .asm_48c8a
 	ld a, [hli]
@@ -508,7 +508,7 @@ RoboMouseFunc:
 	ld a, $2e
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_691f2
+	ld de, RoboMouseFrameset_691f2
 .asm_48c96
 	call SetObjectFramesetPtr
 	ld a, $31
@@ -530,7 +530,7 @@ RoboMouseFunc:
 	jr nz, .asm_48c9c
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69220, Frameset_691de
+	ld_obj_frameset RoboMouseFrameset_69220, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -539,7 +539,7 @@ RoboMouseFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_691de
+	ld de, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
 	ld a, $31
 	ld [wCurObjState], a
@@ -549,7 +549,7 @@ RoboMouseFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69220
+	ld de, RoboMouseFrameset_69220
 	call SetObjectFramesetPtr
 	ld a, $31
 	ld [wCurObjState], a

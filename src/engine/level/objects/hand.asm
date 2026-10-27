@@ -71,7 +71,7 @@ HandFunc:
 	ret nz
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_690ab
+	ld de, HandFrameset_690ab
 	call SetObjectFramesetPtr
 	ld a, 41
 	ld [hli], a
@@ -89,7 +89,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690b4
+	ld de, HandFrameset_690b4
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -102,7 +102,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690b7
+	ld de, HandFrameset_690b7
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -118,7 +118,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690ba
+	ld de, HandFrameset_690ba
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -131,7 +131,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690bd
+	ld de, HandFrameset_690bd
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -144,7 +144,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c0
+	ld de, HandFrameset_690c0
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -157,7 +157,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c3
+	ld de, HandFrameset_690c3
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -170,7 +170,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c6
+	ld de, HandFrameset_690c6
 	call SetObjectFramesetPtr
 	ld a, 1
 	ld [hli], a
@@ -183,7 +183,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690c9
+	ld de, HandFrameset_690c9
 	call SetObjectFramesetPtr
 	ld a, 56
 	ld [hli], a
@@ -218,7 +218,7 @@ HandFunc:
 	ld [wCurObjAction], a
 	dec [hl]
 	ret nz
-	ld de, Frameset_690dc
+	ld de, HandFrameset_690dc
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -239,7 +239,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690df
+	ld de, HandFrameset_690df
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -257,7 +257,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e2
+	ld de, HandFrameset_690e2
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -275,7 +275,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e5
+	ld de, HandFrameset_690e5
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -293,7 +293,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690e8
+	ld de, HandFrameset_690e8
 	call SetObjectFramesetPtr
 	ld a, 2
 	ld [hli], a
@@ -310,7 +310,7 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_690eb
+	ld de, HandFrameset_690eb
 	call SetObjectFramesetPtr
 	ld a, 41
 	ld [hli], a

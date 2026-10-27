@@ -26,7 +26,7 @@ SmallOctohonFunc:
 	add $2a
 	cp b
 	jr c, .asm_4a4e9
-	ld de, Frameset_69b2f
+	ld de, OctohonFrameset_69b2f
 	ld b, $00
 	jr .asm_4a4ee
 .asm_4a4e9
@@ -74,7 +74,7 @@ SmallOctohonFunc:
 	jr z, .asm_4a531
 	dec [hl]
 	jr nz, .asm_4a55d
-	ld de, Frameset_69b41
+	ld de, OctohonFrameset_69b41
 	call SetObjectFramesetPtr
 	jr .asm_4a55d
 .asm_4a531
@@ -92,7 +92,7 @@ SmallOctohonFunc:
 	jr z, .asm_4a54f
 	dec [hl]
 	jr nz, .asm_4a55d
-	ld de, Frameset_69b4c
+	ld de, OctohonFrameset_69b4c
 	call SetObjectFramesetPtr
 	jr .asm_4a55d
 .asm_4a54f
@@ -100,7 +100,7 @@ SmallOctohonFunc:
 	ld a, [hl]
 	cp $ee
 	jr nz, .asm_4a55d
-	ld de, Frameset_69b2f
+	ld de, OctohonFrameset_69b2f
 	ld b, $00
 	jr .asm_4a4f7
 .asm_4a55d
@@ -124,7 +124,7 @@ SmallOctohonFunc:
 	ret
 
 .asm_4a57d
-	ld de, Data_4a5a9
+	ld de, OctohonData_4a5a9
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	ld b, d
@@ -164,7 +164,7 @@ SmallOctohonFunc:
 	inc [hl]
 	ret
 
-Data_4a5a9:
+OctohonData_4a5a9:
 	db $02, $01, $01, $01, $01, $01, $00, $01
 	db $00, $01, $00, $01, $00, $01, $00, $01
 	db $01, $00, $01, $00, $00, $01, $00, $00
@@ -227,7 +227,7 @@ BigOctohonFunc:
 	ld hl, wCurObjSubState
 	jr c, .asm_4a6d1
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69b57
+	ld de, OctohonFrameset_69b57
 	jr .asm_4a6d6
 .asm_4a6d1
 	set OBJSUBFLAG_HDIR_F, [hl]
@@ -248,10 +248,10 @@ BigOctohonFunc:
 	jp SetObjectFramesetPtr
 
 .asm_4a6eb
-	ld de, Frameset_69b69
+	ld de, OctohonFrameset_69b69
 	jr .asm_4a6f3
 .asm_4a6f0
-	ld de, Frameset_69b74
+	ld de, OctohonFrameset_69b74
 .asm_4a6f3
 	xor a
 	ld [hl], a
@@ -275,7 +275,7 @@ BigOctohonFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69b7f, Frameset_69b88
+	ld_obj_frameset OctohonFrameset_69b7f, OctohonFrameset_69b88
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -316,13 +316,13 @@ BigOctohonFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_4a766
-	ld de, Frameset_69b57
+	ld de, OctohonFrameset_69b57
 	jp .asm_4a6df
 .asm_4a766
 	ld de, Frameset_69b60
 	jp .asm_4a6df
 .asm_4a76c
-	ld bc, Data_60d50
+	ld bc, OctohonData_60d50
 	call ApplyObjXMovement
 	ld l, OBJ_VAR_1
 .asm_4a774
@@ -402,12 +402,12 @@ BigOctohonFunc:
 	jr nz, .asm_4a7f9
 	cp $40
 	jr nc, .asm_4a823
-	ld de, Frameset_69bc3
+	ld de, OctohonFrameset_69bc3
 	jr .asm_4a800
 .asm_4a7f9
 	cp $c0
 	jr c, .asm_4a823
-	ld de, Frameset_69bce
+	ld de, OctohonFrameset_69bce
 .asm_4a800
 	call SetObjectFramesetPtr
 	ld a, $24
@@ -423,7 +423,7 @@ BigOctohonFunc:
 .asm_4a812
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_69b69, Frameset_69b74
+	ld_obj_frameset OctohonFrameset_69b69, OctohonFrameset_69b74
 	call SetObjectFramesetPtr
 .asm_4a823
 	ld hl, wCurObjYPos
@@ -471,13 +471,13 @@ BigOctohonFunc:
 	ld [hl], a
 	rlca
 	jr c, .asm_4a86f
-	ld de, Frameset_69b57
+	ld de, OctohonFrameset_69b57
 	jp .asm_4a6df
 .asm_4a86f
 	ld de, Frameset_69b60
 	jp .asm_4a6df
 .asm_4a875
-	ld de, Data_4a5a9
+	ld de, OctohonData_4a5a9
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	ld b, d

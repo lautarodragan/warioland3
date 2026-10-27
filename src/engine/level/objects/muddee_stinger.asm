@@ -61,10 +61,10 @@ MuddeeStingerFunc:
 	ld a, [wCurObjId]
 	cp MUDDEE_STINGER2
 	jr z, .asm_4ca7b
-	ld de, Data_4caed
+	ld de, MuddeeStingerData_4caed
 	jr .asm_4ca7e
 .asm_4ca7b
-	ld de, Data_4cb0d
+	ld de, MuddeeStingerData_4cb0d
 .asm_4ca7e
 	ld a, c
 	cp $10
@@ -140,7 +140,7 @@ MuddeeStingerFunc:
 	ld [wCurObjXPos + 1], a
 	ret
 
-Data_4caed:
+MuddeeStingerData_4caed:
 	db  25,   0
 	db  23,  -5
 	db  23,   5
@@ -158,7 +158,7 @@ Data_4caed:
 	db  -5, -10
 	db  18, -10
 
-Data_4cb0d:
+MuddeeStingerData_4cb0d:
 	db  -7,   0
 	db  -6,  -5
 	db  -6,   5

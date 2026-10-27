@@ -44,7 +44,7 @@ OwlFunc:
 	ld [hld], a
 	ld a, LOW(.WakeUp)
 	ld [hld], a
-	ld de, Frameset_69318
+	ld de, OwlFrameset_69318
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -112,11 +112,11 @@ OwlFunc:
 	cp b
 	jr c, .asm_492ac
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6936c
+	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
 .asm_492ac
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69377
+	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 
 .FlyAway:
@@ -157,10 +157,10 @@ OwlFunc:
 	ld [hl], a
 	rla
 	jr c, .asm_49309
-	ld de, Frameset_6936c
+	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
 .asm_49309
-	ld de, Frameset_69377
+	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 
 .despawn

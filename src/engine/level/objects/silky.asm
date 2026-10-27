@@ -126,11 +126,11 @@ SilkyFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_42e12
-	ld de, Frameset_6879e
+	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 .asm_42e12
-	ld de, Frameset_687a7
+	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
@@ -141,11 +141,11 @@ SilkyFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_42e2e
-	ld de, Frameset_6879e
+	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 .asm_42e2e
-	ld de, Frameset_687a7
+	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 
@@ -169,7 +169,7 @@ SilkyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
@@ -183,7 +183,7 @@ SilkyFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -201,12 +201,12 @@ SilkyFunc:
 	jr c, .asm_42e8d
 	xor a
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
 .asm_42e8d
 	xor a
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	jp SetObjectFramesetPtr
 .Special1:
 	ld hl, wCurObjStateDuration
@@ -234,10 +234,10 @@ SilkyFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_42ec4
-	ld de, Frameset_68756
+	ld de, SilkyFrameset_68756
 	jp SetObjectFramesetPtr
 .asm_42ec4
-	ld de, Frameset_6875f
+	ld de, SilkyFrameset_6875f
 	jp SetObjectFramesetPtr
 
 .Land:
@@ -257,7 +257,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $f8
 	ld [hld], a
-	ld de, Frameset_68744
+	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
 .asm_42eea
 	ld l, OBJ_COLLBOX_RIGHT
@@ -265,7 +265,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	ld de, Frameset_6874d
+	ld de, SilkyFrameset_6874d
 	jp SetObjectFramesetPtr
 
 .Walk:
@@ -294,12 +294,12 @@ SilkyFunc:
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr c, .asm_42f2b
 	jr nz, .asm_42f32
-	ld de, Frameset_687b0
+	ld de, SilkyFrameset_687b0
 	jr .asm_42f38
 
 .asm_42f2b
 	jr z, .asm_42f32
-	ld de, Frameset_687bb
+	ld de, SilkyFrameset_687bb
 	jr .asm_42f38
 
 .asm_42f32
@@ -418,7 +418,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -445,7 +445,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -480,12 +480,12 @@ SilkyFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_43065
-	ld de, Frameset_6877a
+	ld de, SilkyFrameset_6877a
 	call SetObjectFramesetPtr
 	jr .asm_4306b
 
 .asm_43065
-	ld de, Frameset_68783
+	ld de, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 .asm_4306b
 	inc l
@@ -512,7 +512,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld a, $64
 	ld [hli], a
@@ -557,7 +557,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68768, Frameset_68771
+	ld_obj_frameset SilkyFrameset_68768, SilkyFrameset_68771
 	call SetObjectFramesetPtr
 	ld a, $23
 	ld [hli], a
@@ -615,7 +615,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6878c, Frameset_68795
+	ld_obj_frameset SilkyFrameset_6878c, SilkyFrameset_68795
 	call SetObjectFramesetPtr
 	ld a, $04
 	ld [hli], a
@@ -713,7 +713,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_687c6
+	ld de, SilkyFrameset_687c6
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -750,7 +750,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -775,7 +775,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6877a, Frameset_68783
+	ld_obj_frameset SilkyFrameset_6877a, SilkyFrameset_68783
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05

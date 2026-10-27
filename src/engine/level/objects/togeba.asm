@@ -9,7 +9,7 @@ TogebaFunc:
 	ld a, $f4
 	ld [hld], a
 .SetUpright:
-	ld de, Frameset_69230
+	ld de, TogebaFrameset_69230
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -40,7 +40,7 @@ TogebaFunc:
 	ret z
 	xor a
 	ld [hl], a
-	ld de, Frameset_6924b
+	ld de, TogebaFrameset_6924b
 	call SetObjectFramesetPtr
 	ld a, $16
 	ld [hli], a
@@ -51,7 +51,7 @@ TogebaFunc:
 .asm_48dda
 	dec [hl]
 	ret nz
-	ld de, Frameset_69230
+	ld de, TogebaFrameset_69230
 	call SetObjectFramesetPtr
 	ret
 
@@ -61,7 +61,7 @@ TogebaFunc:
 	ld [hld], a
 	ld a, LOW(.FlipOver)
 	ld [hld], a
-	ld de, Frameset_69256
+	ld de, TogebaFrameset_69256
 	call SetObjectFramesetPtr
 	ld a, $30
 	ld [hli], a
@@ -75,7 +75,7 @@ TogebaFunc:
 	ret
 
 .FlipOver:
-	ld bc, Data_60760
+	ld bc, TogebaData_60760
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -85,7 +85,7 @@ TogebaFunc:
 	ld [hld], a
 	ld a, LOW(.Flipped)
 	ld [hld], a
-	ld de, Frameset_69263
+	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar3], a
@@ -103,7 +103,7 @@ TogebaFunc:
 	ld [hld], a
 	ld a, LOW(.Recover)
 	ld [hld], a
-	ld de, Frameset_69275
+	ld de, TogebaFrameset_69275
 	call SetObjectFramesetPtr
 	ld a, $10
 	ld [hli], a
@@ -146,7 +146,7 @@ TogebaFunc:
 	jr z, .asm_48e82
 	dec [hl]
 	jr nz, .asm_48e82
-	ld de, Frameset_69263
+	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
 .asm_48e82
 	ld l, OBJ_STATE
@@ -157,7 +157,7 @@ TogebaFunc:
 	jr nz, .asm_48e99
 	xor a
 	ld [hl], a
-	ld de, Frameset_6926c
+	ld de, TogebaFrameset_6926c
 	call SetObjectFramesetPtr
 	ld a, $1b
 	ld [hli], a
@@ -165,7 +165,7 @@ TogebaFunc:
 .asm_48e99
 	xor a
 	ld [hl], a
-	ld de, Frameset_6927c
+	ld de, TogebaFrameset_6927c
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -202,6 +202,6 @@ TogebaFunc:
 	ld [hld], a
 	ld a, LOW(.Flipped)
 	ld [hld], a
-	ld de, Frameset_69263
+	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
 	ret

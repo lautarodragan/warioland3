@@ -10,7 +10,7 @@ UnusedFlowerFunc:
 	ld [hld], a
 	ld a, LOW(.Grow)
 	ld [hld], a
-	ld de, Frameset_6837a
+	ld de, UnusedFlowerFrameset_6837a
 	call SetObjectFramesetPtr
 	ld a, 30
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -36,7 +36,7 @@ UnusedFlowerFunc:
 	ld [hld], a
 	ld a, LOW(.Idle)
 	ld [hld], a
-	ld de, Frameset_6837a
+	ld de, UnusedFlowerFrameset_6837a
 	call SetObjectFramesetPtr
 	ld a, 49
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -64,7 +64,7 @@ UnusedFlowerFunc:
 	ld [hld], a
 	ld a, LOW(.PreparingAttack)
 	ld [hld], a
-	ld de, Frameset_683ac
+	ld de, UnusedFlowerFrameset_683ac
 	call SetObjectFramesetPtr
 	ld a, 68
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -81,7 +81,7 @@ UnusedFlowerFunc:
 	ld [hld], a
 	ld a, LOW(.Attack)
 	ld [hld], a
-	ld de, Frameset_683b1
+	ld de, UnusedFlowerFrameset_683b1
 	call SetObjectFramesetPtr
 	ld a, 35
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -142,7 +142,7 @@ UnusedFlowerProjectileCommonFunc:
 	ld [hld], a
 	ld a, LOW(.Destroy)
 	ld [hld], a
-	ld de, Frameset_68389
+	ld de, UnusedFlowerFrameset_68389
 	call SetObjectFramesetPtr
 	ld a, 8
 	ld [hli], a ; OBJ_STATE_DURATION

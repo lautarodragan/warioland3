@@ -6,7 +6,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.IntroFade1)
 	ld [hld], a
-	ld de, Frameset_69780
+	ld de, YellowBellyFrameset_69780
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -46,7 +46,7 @@ YellowBellyBodyFunc:
 	ld a, LOW(.IntroFade2)
 	ld [hld], a
 	play_sfx SFX_0CA
-	ld hl, Pals_51c81
+	ld hl, YellowBellyPals_51c81
 	jr .asm_513f1
 
 .IntroFade2:
@@ -62,7 +62,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.IntroFade3)
 	ld [hld], a
-	ld hl, Pals_51c99
+	ld hl, YellowBellyPals_51c99
 	jr .asm_513f1
 .IntroFade3:
 	ld a, no_actions_for 1
@@ -77,7 +77,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.StartFight)
 	ld [hld], a
-	ld hl, Pals_51cb1
+	ld hl, YellowBellyPals_51cb1
 .asm_513f1
 	ld de, wTempPals2 palette 4
 	ld c, 4
@@ -120,14 +120,14 @@ YellowBellyBodyFunc:
 	xor a
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51652)
+	ld a, HIGH(.Swim)
 	ld [hld], a
-	ld a, LOW(.Func_51652)
+	ld a, LOW(.Swim)
 	ld [hld], a
 	ld bc, ObjParams_YellowBellyHead
 	jp CreateObjectFromCurObjPos
 
-.asm_51442
+.start_shooting
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.ShootArrows)
 	ld [hld], a
@@ -162,16 +162,16 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_5147e
-	ld de, Frameset_697b0
+	ld de, YellowBellyFrameset_697b0
 	jr .asm_5148c
 .asm_5147e
-	ld de, Frameset_697a1
+	ld de, YellowBellyFrameset_697a1
 	jr .asm_5149d
 .asm_51483
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr z, .asm_5149a
-	ld de, Frameset_697bb
+	ld de, YellowBellyFrameset_697bb
 .asm_5148c
 	call SetObjectFramesetPtr
 	inc l
@@ -183,7 +183,7 @@ YellowBellyBodyFunc:
 	ld [hl], a
 	ret
 .asm_5149a
-	ld de, Frameset_69792
+	ld de, YellowBellyFrameset_69792
 .asm_5149d
 	call SetObjectFramesetPtr
 	ld a, $62
@@ -203,10 +203,10 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_514bf
-	ld de, Frameset_69792
+	ld de, YellowBellyFrameset_69792
 	jr .asm_514c2
 .asm_514bf
-	ld de, Frameset_697a1
+	ld de, YellowBellyFrameset_697a1
 .asm_514c2
 	call SetObjectFramesetPtr
 	ld a, $62
@@ -215,7 +215,7 @@ YellowBellyBodyFunc:
 .asm_514c9
 	dec l
 	dec [hl]
-	jr z, .asm_514eb
+	jr z, .end_shooting
 	ld a, [hl]
 	cp $2f
 	ret nz
@@ -228,14 +228,14 @@ YellowBellyBodyFunc:
 .asm_514e5
 	ld bc, ObjParams_YellowBellyArrowRight
 	jp CreateObjectAtRelativePos
-.asm_514eb
+.end_shooting
 	ld a, [wDollBoyHammerRange]
 	and a
 	jr nz, .asm_51523
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51652)
+	ld a, HIGH(.Swim)
 	ld [hld], a
-	ld a, LOW(.Func_51652)
+	ld a, LOW(.Swim)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -254,16 +254,16 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_5151d
-	ld de, Frameset_697e6
+	ld de, YellowBellyFrameset_697e6
 	jp SetObjectFramesetPtr
 .asm_5151d
-	ld de, Frameset_697eb
+	ld de, YellowBellyFrameset_697eb
 	jp SetObjectFramesetPtr
 .asm_51523
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_515dd)
+	ld a, HIGH(.GuardPump)
 	ld [hld], a
-	ld a, LOW(.Func_515dd)
+	ld a, LOW(.GuardPump)
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	ld a, $03
@@ -278,29 +278,29 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_51548
-	ld de, Frameset_69780
+	ld de, YellowBellyFrameset_69780
 	jp SetObjectFramesetPtr
 .asm_51548
-	ld de, Frameset_69789
+	ld de, YellowBellyFrameset_69789
 	jp SetObjectFramesetPtr
 
-.asm_5154e
+.release_pump
 	stop_sfx
 	ld a, $01
 	ld [wDollBoyHammerRange], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51572)
+	ld a, HIGH(.ReleasePump)
 	ld [hld], a
-	ld a, LOW(.Func_51572)
+	ld a, LOW(.ReleasePump)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_PRIORITY_F, [hl]
 	ld a, $a6
 	ld [wCurObjVar1], a
-	ld de, Frameset_697c6
+	ld de, YellowBellyFrameset_697c6
 	jp SetObjectFramesetPtr
 
-.Func_51572:
+.ReleasePump:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar1]
@@ -330,7 +330,7 @@ YellowBellyBodyFunc:
 .asm_515b7
 	ld hl, wCurObjVar1
 	dec [hl]
-	jp z, .asm_514eb
+	jp z, .end_shooting
 	ld a, [hl]
 	cp $37
 	ret c
@@ -339,30 +339,30 @@ YellowBellyBodyFunc:
 	jr z, .asm_515d0
 	cp $08
 	ret nz
-	ld hl, Pals_51cc9
+	ld hl, YellowBellyPals_51cc9
 	jr .asm_515d3
 .asm_515d0
-	ld hl, Pals_51cb1
+	ld hl, YellowBellyPals_51cb1
 .asm_515d3
 	ld de, wTempPals2 palette 4
 	ld c, 4
 	ld b, 3
 	jp CopyAndApplyOBPals
 
-.Func_515dd:
+.GuardPump:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
 	jr nz, .asm_515eb
 	xor a
 	ld [wDollBoyHammerRange], a
-	jp .asm_514eb
+	jp .end_shooting
 .asm_515eb
 	ld a, [wJamanoSkullsInPlace]
 	and a
 	jp nz, .hit
 	ld a, [wDollBoyHammerRange]
 	and a
-	jp z, .asm_514eb
+	jp z, .end_shooting
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
@@ -424,13 +424,13 @@ YellowBellyBodyFunc:
 	jr nz, .asm_5164b
 	ld a, d
 	cp b
-	jp z, .asm_51442
+	jp z, .start_shooting
 .asm_5164b
 	ld a, $02
 	ld [wCurObjVar2], a
 	jr .asm_5168e
 
-.Func_51652:
+.Swim:
 	ld a, [wDollBoyActiveBarrels]
 	and a
 	jr z, .asm_51662
@@ -457,13 +457,13 @@ YellowBellyBodyFunc:
 	sub b
 	jr c, .asm_51688
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5178c)
+	ld a, HIGH(.Sink)
 	ld [hld], a
-	ld a, LOW(.Func_5178c)
+	ld a, LOW(.Sink)
 	ld [hld], a
 	ret
 .asm_51688
-	ld bc, Data_60950
+	ld bc, YellowBellyData_60950
 	call ApplyObjYMovement_Loop
 .asm_5168e
 	ld hl, wCurObjState
@@ -471,7 +471,7 @@ YellowBellyBodyFunc:
 	and a
 	jr z, .asm_516bf
 	cp $0a
-	jp z, .asm_5154e
+	jp z, .release_pump
 	xor a
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
@@ -520,19 +520,19 @@ YellowBellyBodyFunc:
 	jr z, .asm_516ec
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_516e6
-	ld de, Frameset_697e6
+	ld de, YellowBellyFrameset_697e6
 	jp SetObjectFramesetPtr
 .asm_516e6
-	ld de, Frameset_697eb
+	ld de, YellowBellyFrameset_697eb
 	jp SetObjectFramesetPtr
 .asm_516ec
 	play_sfx SFX_101
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_516fe
-	ld de, Frameset_69780
+	ld de, YellowBellyFrameset_69780
 	jp SetObjectFramesetPtr
 .asm_516fe
-	ld de, Frameset_69789
+	ld de, YellowBellyFrameset_69789
 	jp SetObjectFramesetPtr
 .asm_51704
 	ld l, OBJ_VAR_3
@@ -549,7 +549,7 @@ YellowBellyBodyFunc:
 	jr nc, .asm_51729
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jp z, .asm_51442
+	jp z, .start_shooting
 	play_sfx SFX_0A8
 .asm_51729
 	ld hl, wCurObjYPos
@@ -574,7 +574,7 @@ YellowBellyBodyFunc:
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_51782
-	ld de, Frameset_697b0
+	ld de, YellowBellyFrameset_697b0
 	jr .asm_51774
 .asm_51759
 	ld a, [hli]
@@ -589,7 +589,7 @@ YellowBellyBodyFunc:
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr z, .asm_51782
-	ld de, Frameset_697bb
+	ld de, YellowBellyFrameset_697bb
 .asm_51774
 	call SetObjectFramesetPtr
 	inc l
@@ -608,7 +608,7 @@ YellowBellyBodyFunc:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_5178c:
+.Sink:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenXPos]
@@ -629,7 +629,7 @@ YellowBellyBodyFunc:
 	and $0f
 	dec a
 	jr z, .asm_517bd
-	ld de, Frameset_697d5
+	ld de, YellowBellyFrameset_697d5
 	call SetObjectFramesetPtr
 	ld a, $64
 	ld [hli], a
@@ -638,11 +638,11 @@ YellowBellyBodyFunc:
 	ret
 .asm_517bd
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5184a)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_5184a)
+	ld a, LOW(.Defeated)
 	ld [hld], a
-	ld de, Frameset_69845
+	ld de, YellowBellyFrameset_69845
 	call SetObjectFramesetPtr
 	ld a, $65
 	ld [hli], a
@@ -671,12 +671,12 @@ YellowBellyBodyFunc:
 	jr z, .asm_51812
 	cp $08
 	ret nz
-	ld hl, Pals_51ce1
+	ld hl, YellowBellyPals_51ce1
 	jr .asm_51815
 .asm_5180a
 	play_sfx SFX_0B9
 .asm_51812
-	ld hl, Pals_51cb1
+	ld hl, YellowBellyPals_51cb1
 .asm_51815
 	ld de, wTempPals2 palette 4
 	ld c, 4
@@ -692,7 +692,7 @@ YellowBellyBodyFunc:
 	ret nz
 	xor a
 	ld [wCurObjVar1], a
-	call .asm_514eb
+	call .end_shooting
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $03
@@ -701,10 +701,10 @@ YellowBellyBodyFunc:
 	jr z, .asm_51841
 	ret
 .asm_5183c
-	ld de, OAM_191940
+	ld de, YellowBellyOAM_191940
 	jr .asm_51844
 .asm_51841
-	ld de, OAM_191f04
+	ld de, YellowBellyOAM_191f04
 .asm_51844
 	ld l, OBJ_OAM_PTR
 	ld a, e
@@ -712,7 +712,7 @@ YellowBellyBodyFunc:
 	ld [hl], d
 	ret
 
-.Func_5184a:
+.Defeated:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -724,10 +724,10 @@ YellowBellyBodyFunc:
 	jr z, .asm_51861
 	cp $08
 	ret nz
-	ld hl, Pals_51ce1
+	ld hl, YellowBellyPals_51ce1
 	jr .asm_51864
 .asm_51861
-	ld hl, Pals_51cb1
+	ld hl, YellowBellyPals_51cb1
 .asm_51864
 	ld de, wTempPals2 palette 4
 	ld c, 4
@@ -793,7 +793,7 @@ PumpFunc:
 .Fall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_609e0
+	ld bc, YellowBellyData_609e0
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -852,7 +852,7 @@ PumpFunc:
 	ld [hli], a
 	ldh a, [hYPosHi]
 	ld [hl], a
-	ld de, Frameset_6987f
+	ld de, YellowBellyFrameset_6987f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.OnFloor)
@@ -929,7 +929,7 @@ PumpFunc:
 	and a
 	jr nz, .asm_519bf
 .asm_519b9
-	ld bc, Data_60a00
+	ld bc, YellowBellyData_60a00
 	jp ApplyObjXMovement
 .asm_519bf
 	ld hl, wCurObjSubState
@@ -946,7 +946,7 @@ PumpFunc:
 	and a
 	jr nz, .asm_519dc
 .asm_519d6
-	ld bc, Data_60a10
+	ld bc, YellowBellyData_60a10
 	jp ApplyObjXMovement
 .asm_519dc
 	ld hl, wCurObjSubState
@@ -959,7 +959,7 @@ PumpFunc:
 	ld [wJamanoSkullsInPlace], a
 	xor a
 	ld [wDollBoyHammerRange], a
-	ld de, Frameset_69882
+	ld de, YellowBellyFrameset_69882
 	call SetObjectFramesetPtr
 	ld a, $1d
 	ld [hli], a
@@ -1297,7 +1297,7 @@ YellowBellyPlatformFunc:
 	ld [hld], a
 	ld a, LOW(.WaitForDefeat)
 	ld [hld], a
-	ld de, Frameset_69893
+	ld de, YellowBellyFrameset_69893
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -1315,7 +1315,7 @@ YellowBellyPlatformFunc:
 	ld a, [wCurObjState]
 	cp $2f
 	ret nz
-	ld de, Frameset_69896
+	ld de, YellowBellyFrameset_69896
 	call SetObjectFramesetPtr
 	ld a, $5a
 	ld [hli], a
@@ -1345,7 +1345,7 @@ YellowBellyPlatform_WaitAndDespawn:
 	ld [wCurObjFlags], a
 	ret
 
-Pals_51c81:
+YellowBellyPals_51c81:
 	rgb  0, 25,  1
 	rgb  8,  8,  7
 	rgb  9,  5,  0
@@ -1361,7 +1361,7 @@ Pals_51c81:
 	rgb  9,  5,  0
 	rgb  0,  0,  0
 
-Pals_51c99:
+YellowBellyPals_51c99:
 	rgb  0, 25,  1
 	rgb 17, 17, 17
 	rgb 20, 10,  0
@@ -1377,7 +1377,7 @@ Pals_51c99:
 	rgb 20, 10,  0
 	rgb  0,  0,  0
 
-Pals_51cb1:
+YellowBellyPals_51cb1:
 	rgb  0, 25,  1
 	rgb 31, 31, 28
 	rgb 31, 15,  0
@@ -1393,7 +1393,7 @@ Pals_51cb1:
 	rgb 31, 15,  0
 	rgb  0,  0,  0
 
-Pals_51cc9:
+YellowBellyPals_51cc9:
 	rgb  0, 25,  1
 	rgb 31, 15, 15
 	rgb  0, 15, 31
@@ -1409,7 +1409,7 @@ Pals_51cc9:
 	rgb  0, 15, 31
 	rgb  0,  0,  0
 
-Pals_51ce1:
+YellowBellyPals_51ce1:
 	rgb  0, 25,  1
 	rgb 31, 31, 31
 	rgb 17, 31, 17

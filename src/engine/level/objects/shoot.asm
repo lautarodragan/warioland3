@@ -77,7 +77,7 @@ ShootFunc:
 	ld [hld], a
 	ld a, -8
 	ld [hl], a
-	ld de, Frameset_69f7c
+	ld de, ShootFrameset_69f7c
 	call SetObjectFramesetPtr
 	ld a, SHOOT_TAUNT_DURATION
 	ld [hli], a
@@ -148,7 +148,7 @@ ShootFunc:
 .jump_out_of_ball
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	ld_obj_frameset Frameset_6a022 + $2, Frameset_6a03a + $2
+	ld_obj_frameset ShootFrameset_6a022 + $2, ShootFrameset_6a03a + $2
 	ld a, SHOOT_OUT_OF_BALL_X_SPEED
 	ld [wCurObjVar2], a
 	jp .set_jumping_up
@@ -164,7 +164,7 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_2
 	call MoveObjectUpByVar2
 
-	ld de, Frameset_69ffd
+	ld de, ShootFrameset_69ffd
 	call SetObjectFramesetPtr
 	inc l
 	ld a, SHOOTPHASE_PREKICK_JUMP
@@ -241,11 +241,11 @@ ShootFunc:
 	rlca
 	jr c, .asm_56763
 	res OBJSUBFLAG_VDIR_F, [hl]
-	ld de, Frameset_6a022
+	ld de, ShootFrameset_6a022
 	jr .asm_56768
 .asm_56763
 	set OBJSUBFLAG_VDIR_F, [hl]
-	ld de, Frameset_6a03a
+	ld de, ShootFrameset_6a03a
 .asm_56768
 	call SetObjectFramesetPtr
 	ld a, SHOOT_IDLE_DURATION
@@ -262,7 +262,7 @@ ShootFunc:
 	ret nz ; not finished yet
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_6a02b, Frameset_6a043
+	ld_obj_frameset ShootFrameset_6a02b, ShootFrameset_6a043
 .set_jumping_up
 	call SetObjectFramesetPtr
 	ld a, SHOOT_JUMP_UP_DURATION
@@ -351,30 +351,30 @@ ShootFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_56817
-	ld de, Frameset_6a02e
+	ld de, ShootFrameset_6a02e
 	jp SetObjectFramesetPtr
 .asm_56817
-	ld de, Frameset_6a046
+	ld de, ShootFrameset_6a046
 	jp SetObjectFramesetPtr
 
 .high_32_px
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_56829
-	ld de, Frameset_6a031
+	ld de, ShootFrameset_6a031
 	jp SetObjectFramesetPtr
 .asm_56829
-	ld de, Frameset_6a049
+	ld de, ShootFrameset_6a049
 	jp SetObjectFramesetPtr
 
 .high_16_px
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_5683b
-	ld de, Frameset_6a034
+	ld de, ShootFrameset_6a034
 	jp SetObjectFramesetPtr
 .asm_5683b
-	ld de, Frameset_6a04c
+	ld de, ShootFrameset_6a04c
 	jp SetObjectFramesetPtr
 
 .grounded
@@ -409,7 +409,7 @@ ShootFunc:
 	; else do a jump
 	ld a, [hl] ; OBJ_SUBSTATE
 	rlca
-	ld_obj_frameset Frameset_6a037, Frameset_6a04f
+	ld_obj_frameset ShootFrameset_6a037, ShootFrameset_6a04f
 	call SetObjectFramesetPtr
 
 	; set jumping delay
@@ -431,7 +431,7 @@ ShootFunc:
 .turn_around
 	ld a, [hl]
 	rlca
-	ld_obj_frameset Frameset_69f35, Frameset_69f40
+	ld_obj_frameset ShootFrameset_69f35, ShootFrameset_69f40
 	call SetObjectFramesetPtr
 	ld a, SHOOT_TURN_AROUND_DURATION
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -463,7 +463,7 @@ ShootFunc:
 .PreKickJump:
 	; handle movement in x and y axis
 	call .DoPreKickingXMovement
-	ld bc, Data_54000
+	ld bc, ShootData_54000
 	call DoPreKickingJumpYMovement
 
 	ld hl, wCurObjYPos
@@ -473,7 +473,7 @@ ShootFunc:
 	ret c ; y < 224
 
 	; y >= 224
-	ld de, Frameset_6a000
+	ld de, ShootFrameset_6a000
 	call SetObjectFramesetPtr
 	inc l
 	ld a, SHOOTPHASE_PREKICK_ANIMATION
@@ -514,7 +514,7 @@ ShootFunc:
 	inc l
 	ld a, SHOOTPHASE_KICKING
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_69f54
+	ld de, ShootFrameset_69f54
 	jp SetObjectFramesetPtr
 .frame_6
 	; move Wario 8 pixels right
@@ -540,7 +540,7 @@ ShootFunc:
 	inc l
 	ld a, SHOOTPHASE_SCORE_GOAL
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_6a00b
+	ld de, ShootFrameset_6a00b
 	jp SetObjectFramesetPtr
 .shoot_wario
 	ld a, SHOOTBALL_WARIO_KICKED
@@ -588,7 +588,7 @@ ShootFunc:
 	cp 237
 	jr nc, .ball_wario_inside_net
 ; move Wario right
-	ld bc, Data_54010
+	ld bc, ShootData_54010
 	call ApplyYOffsetOnKickedWarioBall
 	ld b, 3
 	jp MoveWarioRight
@@ -647,7 +647,7 @@ ShootFunc:
 	ret
 
 .stepped_on
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.BallForm)
@@ -775,7 +775,7 @@ ShootFunc:
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	jp SetObjectFramesetPtr
 
 .return_to_regular_form
@@ -825,7 +825,7 @@ ShootFunc:
 	ld a, SHOOT_LAST_GOAL_BALL_DURATION
 .got_ball_form_duration
 	ld [hl], a ; OBJ_VAR_1
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 .Walk:
 	ld a, [wCurObjVar3]
@@ -837,7 +837,7 @@ ShootFunc:
 	ld a, [hl]
 	cp $12
 	jr nz, .asm_56b71
-	ld de, Frameset_69f93
+	ld de, ShootFrameset_69f93
 	call SetObjectFramesetPtr
 	play_sfx SFX_0B7
 	jr .asm_56b90
@@ -845,7 +845,7 @@ ShootFunc:
 	jr c, .asm_56b90
 	cp $64
 	jr nz, .asm_56b7f
-	ld de, Frameset_69f66
+	ld de, ShootFrameset_69f66
 	call SetObjectFramesetPtr
 	jr .asm_56b81
 .asm_56b7f
@@ -855,7 +855,7 @@ ShootFunc:
 	and %1111
 	play_sfx z, SFX_06A
 .asm_56b90
-	ld bc, Data_60e40
+	ld bc, ShootData_60e40
 	jp ApplyObjYMovement_Loop
 
 .VanishTouch:
@@ -881,7 +881,7 @@ ShootFunc:
 	ld a, $39
 .asm_56bc0
 	ld [hld], a ; OBJ_STATE
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -950,7 +950,7 @@ ShootFunc:
 
 .AttackedLeftStart:
 	ld a, $34
-	ld de, Frameset_69f9f
+	ld de, ShootFrameset_69f9f
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
 .asm_56c25
@@ -972,7 +972,7 @@ ShootFunc:
 
 .AttackedRightStart:
 	ld a, $35
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	jr .asm_56c25
@@ -985,17 +985,17 @@ ShootFunc:
 	jr z, .asm_56c5e
 	xor a ; FALSE
 	ld [wShootCanTurnAround], a
-	ld de, Frameset_69f5d
+	ld de, ShootFrameset_69f5d
 	call SetObjectFramesetPtr
 .asm_56c5e
 	call .MoveBetweenWalls
 	ld a, [wCurObjVar2]
 	cp $04
 	jr z, .asm_56c6d
-	ld bc, Data_60e20
+	ld bc, ShootData_60e20
 	jr .asm_56c70
 .asm_56c6d
-	ld bc, Data_60e70
+	ld bc, ShootData_60e70
 .asm_56c70
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -1053,7 +1053,7 @@ ShootFunc:
 	jr nz, .asm_56cd5
 	stop_music2
 .asm_56cd5
-	ld de, Frameset_69f9a
+	ld de, ShootFrameset_69f9a
 	jp SetObjectFramesetPtr
 
 .MoveBetweenWalls:
@@ -1095,7 +1095,7 @@ ShootFunc:
 	ld a, [wShootBallState]
 	cp $04
 	ret nz
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	ld a, $35
@@ -1116,7 +1116,7 @@ ShootFunc:
 	ret
 
 .set_defeated
-	ld de, Frameset_69f8a
+	ld de, ShootFrameset_69f8a
 	call SetObjectFramesetPtr
 	ld a, SHOOT_DEFEAT_RISE_DURATION
 	ld [hli], a
@@ -1147,12 +1147,12 @@ ShootFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .asm_56d99
-	ld bc, Data_60e90
+	ld bc, ShootData_60e90
 	jp ApplyObjYMovement
 .asm_56d99
 	xor a
 	ld [wCurObjVar3], a
-	ld de, Frameset_69f6f
+	ld de, ShootFrameset_69f6f
 	call SetObjectFramesetPtr
 	ld a, SHOOT_DEFEAT_SUSPENDED_DURATION
 	ld [hli], a
@@ -1176,7 +1176,7 @@ ShootFunc:
 	play_sfx SFX_0A3
 	ret
 .fall
-	ld bc, Data_60ea0
+	ld bc, ShootData_60ea0
 	jp ApplyObjYMovement
 
 GKTortoisePlatformFunc:
@@ -1195,7 +1195,7 @@ GKTortoisePlatformFunc:
 	ld [hld], a
 	ld a, -6
 	ld [hld], a
-	ld de, Frameset_69fdc
+	ld de, ShootFrameset_69fdc
 	call SetObjectFramesetPtr
 	ld a, 32
 	ld [hli], a
@@ -1291,7 +1291,7 @@ GKTortoiseFunc:
 	ld [hld], a
 	ld a, -6
 	ld [hld], a
-	ld de, Frameset_69fed
+	ld de, ShootFrameset_69fed
 	call SetObjectFramesetPtr
 	inc l
 	xor a ; GKTORTOISEPHASE_0
@@ -1306,7 +1306,7 @@ GKTortoiseFunc:
 	jp MoveObjectDownByVar2
 
 .set_ducking
-	ld de, Frameset_6a017
+	ld de, ShootFrameset_6a017
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_DUCKING
@@ -1404,7 +1404,7 @@ GKTortoiseFunc:
 	jr nz, .asm_56f7d
 	xor a
 	ld [hl], a ; OBJ_STATE
-	ld de, Frameset_69ff2
+	ld de, ShootFrameset_69ff2
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_9
@@ -1441,7 +1441,7 @@ GKTortoiseFunc:
 .asm_56f7d
 	xor a
 	ld [hl], a
-	ld de, Frameset_69fcf
+	ld de, ShootFrameset_69fcf
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $02
@@ -1454,7 +1454,7 @@ GKTortoiseFunc:
 .asm_56f93
 	ld a, $03
 	ld [wShootBallState], a
-	ld de, Frameset_69fba
+	ld de, ShootFrameset_69fba
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $04
@@ -1464,7 +1464,7 @@ GKTortoiseFunc:
 .asm_56fa3
 	xor a
 	ld [hl], a ; OBJ_STATE
-	ld de, Frameset_69ff2
+	ld de, ShootFrameset_69ff2
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_5
@@ -1492,7 +1492,7 @@ GKTortoiseFunc:
 .asm_56fd2
 	ld a, $07
 	ld [wShootBallState], a
-	ld de, Frameset_69fba
+	ld de, ShootFrameset_69fba
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $06
@@ -1519,7 +1519,7 @@ GKTortoiseFunc:
 	and a
 	ret nz
 .asm_57009
-	ld de, Frameset_69fa9
+	ld de, ShootFrameset_69fa9
 	call SetObjectFramesetPtr
 	inc l
 	ld a, GKTORTOISEPHASE_1
@@ -1611,7 +1611,7 @@ GKTortoiseFunc:
 	ld a, [wWarioGoals]
 	cp NUM_WARIO_GOALS_NEEDED
 	jp nz, .asm_57009
-	ld de, Frameset_6a00e
+	ld de, ShootFrameset_6a00e
 	call SetObjectFramesetPtr
 	ld a, 180
 	ld [hli], a ; OBJ_STATE_DURATION

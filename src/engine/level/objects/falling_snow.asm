@@ -50,7 +50,7 @@ FallingSnowSpawnerFunc:
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_695c0
+	ld de, FallingSnowFrameset_695c0
 	call SetObjectFramesetPtr
 	ld a, $1d
 	ld [hli], a
@@ -92,7 +92,7 @@ FallingSnowFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_6958f
+	ld de, FallingSnowFrameset_6958f
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
@@ -113,7 +113,7 @@ FallingSnowFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_695a6
+	ld de, FallingSnowFrameset_695a6
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Fall)
@@ -134,7 +134,7 @@ FallingSnowFunc:
 	jr z, .asm_49625
 	cp $18
 	jr z, .asm_49666
-	ld de, Frameset_695cb
+	ld de, FallingSnowFrameset_695cb
 	call SetObjectFramesetPtr
 	ld a, $11
 	ld [hli], a
@@ -158,7 +158,7 @@ FallingSnowFunc:
 	ld [hli], a
 	ldh a, [hYPosHi]
 	ld [hl], a
-	ld de, Frameset_695af
+	ld de, FallingSnowFrameset_695af
 	call SetObjectFramesetPtr
 	ld a, $2d
 	ld [hli], a
@@ -180,7 +180,7 @@ FallingSnowFunc:
 	ld [hld], a
 	ld a, LOW(.FallBroken)
 	ld [hld], a
-	ld de, Frameset_695d6
+	ld de, FallingSnowFrameset_695d6
 	jp SetObjectFramesetPtr
 
 .FallBroken:
@@ -204,7 +204,7 @@ FallingSnowFunc:
 	ld [hli], a
 	ldh a, [hYPosHi]
 	ld [hl], a
-	ld de, Frameset_695d9
+	ld de, FallingSnowFrameset_695d9
 	call SetObjectFramesetPtr
 	ld a, $07
 	ld [hli], a

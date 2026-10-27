@@ -1,4 +1,4 @@
-Func_80de0:
+HandleBestTimesInput:
 	xor a
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a

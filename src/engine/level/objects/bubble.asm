@@ -50,7 +50,7 @@ BubbleFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp nz, .Rise
-	ld de, Frameset_690f4
+	ld de, BubbleFrameset_690f4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
@@ -67,7 +67,7 @@ BubbleFunc:
 	ret
 
 .set_burst
-	ld de, Frameset_6910c
+	ld de, BubbleFrameset_6910c
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a
@@ -146,7 +146,7 @@ BubbleFunc:
 	ld hl, wCurObjVar1
 	dec [hl]
 	ld l, OBJ_SUBSTATE
-	jr nz, .asm_47cf4
+	jr nz, .drift
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
@@ -157,10 +157,10 @@ BubbleFunc:
 	ld [hl], a
 	ret
 
-.asm_47cf4
+.drift
 	ld a, [hl]
 	rla
-	jp c, .Func_47d56
+	jp c, .drift_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -223,7 +223,7 @@ BubbleFunc:
 	dec [hl]
 	ret
 
-.Func_47d56:
+.drift_right:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18

@@ -24,7 +24,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, $06
 	ld [hl], a
-	ld de, Frameset_69ce9
+	ld de, JamanoFrameset_69ce9
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -46,7 +46,7 @@ JamanoFunc:
 .asm_54d96
 	dec [hl]
 	ret nz
-	ld de, Frameset_69cdb
+	ld de, JamanoFrameset_69cdb
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -96,14 +96,14 @@ JamanoFunc:
 	inc l
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_69c1c
+	ld de, JamanoFrameset_69c1c
 	jp SetObjectFramesetPtr
 .asm_54dfe
 	set 7, [hl]
 	inc l
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_69ca1
+	ld de, JamanoFrameset_69ca1
 	jp SetObjectFramesetPtr
 
 .Frozen:
@@ -130,7 +130,7 @@ JamanoFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_69ce0
+	ld de, JamanoFrameset_69ce0
 	call SetObjectFramesetPtr
 	ld a, $a0
 	ld [hli], a
@@ -145,10 +145,10 @@ JamanoFunc:
 	jr z, .asm_54eae
 	bit 7, [hl]
 	jr nz, .asm_54e5a
-	ld de, Frameset_69c92
+	ld de, JamanoFrameset_69c92
 	jr .asm_54e5d
 .asm_54e5a
-	ld de, Frameset_69c7a
+	ld de, JamanoFrameset_69c7a
 .asm_54e5d
 	ld l, OBJ_FLAGS
 	res OBJFLAG_INVISIBLE_F, [hl]
@@ -187,7 +187,7 @@ JamanoFunc:
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54ea6
-	ld bc, Data_60c80
+	ld bc, JamanoData_60c80
 	call ApplyObjXMovement_Loop
 	jr .asm_54efb
 .asm_54eae
@@ -218,7 +218,7 @@ JamanoFunc:
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54edc
-	ld bc, Data_60c20
+	ld bc, JamanoData_60c20
 	call ApplyObjXMovement_Loop
 	jr .asm_54efb
 
@@ -254,7 +254,7 @@ JamanoFunc:
 	ld [wCurObjVar3], a
 	jr .asm_54f4f
 .asm_54f1a
-	ld bc, Data_60c80
+	ld bc, JamanoData_60c80
 	jp ApplyObjYMovement_Loop
 .asm_54f20
 	cp $98
@@ -284,7 +284,7 @@ JamanoFunc:
 	ld [wCurObjVar3], a
 	jr .asm_54f1a
 .asm_54f4f
-	ld bc, Data_60c20
+	ld bc, JamanoData_60c20
 	jp ApplyObjYMovement_Loop
 
 .TurnToWario:
@@ -314,13 +314,13 @@ JamanoFunc:
 	rlca
 	ret nc
 	res 7, [hl]
-	ld de, Frameset_69c7a
+	ld de, JamanoFrameset_69c7a
 	jr .asm_54f8e
 .asm_54f87
 	rlca
 	ret c
 	set 7, [hl]
-	ld de, Frameset_69c92
+	ld de, JamanoFrameset_69c92
 .asm_54f8e
 	call SetObjectFramesetPtr
 	ld a, $14
@@ -346,7 +346,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatPose1)
 	ld [hld], a
-	ld de, Frameset_69c40
+	ld de, JamanoFrameset_69c40
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -445,7 +445,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatPose2)
 	ld [hld], a
-	ld de, Frameset_69c45
+	ld de, JamanoFrameset_69c45
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -462,7 +462,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, LOW(.LoseHat)
 	ld [hld], a
-	ld de, Frameset_69c4a
+	ld de, JamanoFrameset_69c4a
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -479,7 +479,7 @@ JamanoFunc:
 	ld [hld], a
 	ld a, LOW(.StartFalling)
 	ld [hld], a
-	ld de, Frameset_69c4f
+	ld de, JamanoFrameset_69c4f
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -514,7 +514,7 @@ JamanoFunc:
 .Fall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60d20
+	ld bc, JamanoData_60d20
 	jp ApplyObjYMovement
 
 JamanoHatFunc:
@@ -572,7 +572,7 @@ HatPlatformFunc:
 	ld [hld], a
 	ld a, $00
 	ld [hl], a
-	ld de, Frameset_69cef
+	ld de, JamanoFrameset_69cef
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a
@@ -769,7 +769,7 @@ SkullFunc:
 	rra
 	jr c, .asm_55303
 .asm_552f2
-	ld bc, Data_60ce0
+	ld bc, JamanoData_60ce0
 	jp ApplyObjYMovement
 .asm_552f8
 	cp SCREEN_WIDTH_PX
@@ -779,7 +779,7 @@ SkullFunc:
 	rra
 	jr nc, .asm_552f2
 .asm_55303
-	ld bc, Data_60d00
+	ld bc, JamanoData_60d00
 	jp ApplyObjYMovement
 .asm_55309
 	ld hl, wCurObjUpdateFunction + 1
@@ -815,7 +815,7 @@ SkullFunc:
 	ld [hld], a
 	ld a, LOW(.InPlace)
 	ld [hld], a
-	ld de, Frameset_69cd6
+	ld de, JamanoFrameset_69cd6
 	jp SetObjectFramesetPtr
 
 .InPlace:
@@ -850,7 +850,7 @@ SkullFunc:
 	ld [hld], a
 	inc a
 	ld [hl], a
-	ld de, Frameset_69cec
+	ld de, JamanoFrameset_69cec
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -947,7 +947,7 @@ Func_55407:
 	ret nz
 	dec [hl]
 	call .AlertJamano
-	ld hl, Pals_555d1
+	ld hl, JamanoPals_555d1
 	jr .asm_55484
 .asm_5542b
 	ld a, b
@@ -955,7 +955,7 @@ Func_55407:
 	ret nz
 	inc [hl]
 	call .AlertJamano
-	ld hl, Pals_55551
+	ld hl, JamanoPals_55551
 	jr .asm_55484
 .asm_55438
 	ld a, b
@@ -963,13 +963,13 @@ Func_55407:
 	jr nz, .asm_55446
 	inc [hl]
 	call .AlertJamano
-	ld hl, Pals_55591
+	ld hl, JamanoPals_55591
 	jr .asm_55484
 .asm_55446
 	and a
 	ret nz
 	dec [hl]
-	ld hl, Pals_55511
+	ld hl, JamanoPals_55511
 	jr .asm_55484
 .asm_5544e
 	ld a, b
@@ -977,14 +977,14 @@ Func_55407:
 	jr nz, .asm_5545c
 	inc [hl]
 	call .AlertJamano
-	ld hl, Pals_555d1
+	ld hl, JamanoPals_555d1
 	jr .asm_55484
 .asm_5545c
 	cp $01
 	ret nz
 	dec [hl]
 	call .AlertJamano
-	ld hl, Pals_55551
+	ld hl, JamanoPals_55551
 	jr .asm_55484
 .asm_55468
 	ld a, b
@@ -1000,7 +1000,7 @@ Func_55407:
 	ret nz
 	dec [hl]
 	call .AlertJamano
-	ld hl, Pals_55591
+	ld hl, JamanoPals_55591
 	jr .asm_55484 ; unnecessary jr
 .asm_55484
 	ld c, 0
@@ -1104,7 +1104,7 @@ Func_554bc:
 	ld [hl], c
 	ret
 
-Pals_55511:
+JamanoPals_55511:
 	rgb 10,  6,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1145,7 +1145,7 @@ Pals_55511:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_55551:
+JamanoPals_55551:
 	rgb  8,  4,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1186,7 +1186,7 @@ Pals_55551:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_55591:
+JamanoPals_55591:
 	rgb  7,  2,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -1227,7 +1227,7 @@ Pals_55591:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-Pals_555d1:
+JamanoPals_555d1:
 	rgb  3,  0,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0

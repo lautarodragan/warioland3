@@ -9,7 +9,7 @@ KeyFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_6804f
+	ld de, KeyFrameset_6804f
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 4

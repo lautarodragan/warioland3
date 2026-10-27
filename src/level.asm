@@ -65,8 +65,8 @@ INCLUDE "engine/level/wario_states_3.asm"
 
 SECTION "Object Functions 1", ROMX
 
-; sequence of y-offsets used in Func_42725
-Data_40000:
+; sequence of y-offsets used in ApplyOmodonHoverBob
+OmodonmekaData_40000:
 	db  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
 INCLUDE "engine/level/objects/spearhead.asm"
@@ -90,7 +90,7 @@ INCLUDE "engine/level/objects/nobiiru.asm"
 
 SECTION "Object Functions 2", ROMX
 
-Data_44000:
+PneumoData_44000:
 	db  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
 Data_44020:
@@ -225,10 +225,10 @@ INCLUDE "engine/level/objects/pesce.asm"
 
 SECTION "Object Functions 6", ROMX
 
-Data_54000:
+ShootData_54000:
 	db -3, -2, -1,  0,  1,  1,  1,  1,  1,  1,  2,  2,  2,  3,  3, $80
 
-Data_54010:
+ShootData_54010:
 	db -4, -3, -3, -2, -2, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, $80
 
 INCLUDE "engine/level/objects/wormwould.asm"

@@ -55,11 +55,11 @@ Prologue:
 	dw .Func_ae169
 	dw Func_ae641
 	dw InitTextPrinting
-	dw Func_aca9e
+	dw PrintTextPageWithHeader
 	dw .Wait30
 	dw LoadCurTextPageBufferPage
-	dw Func_acacd
-	dw Func_acae7
+	dw WaitAButtonAndClearTextbox
+	dw PrintTextPageWithoutHeader
 	dw .Func_ae181
 	dw .Func_ae196
 	dw .Func_ae19e
@@ -182,10 +182,10 @@ Prologue:
 	ld b, BANK(Pals_86a0d)
 	call CopyFarBytes
 
-	ld de, Data_ac9f5
-	call Func_ac9e9
-	ld de, Data_ac9ff
-	call Func_ac9e4
+	ld de, PalConfig_BGFromTempPals1
+	call SetPalConfig1FromDE
+	ld de, PalConfig_OB0FromTempOBPals
+	call SetPalConfig2FromDE
 	jp Prologue_Next
 
 .PrepareCaveScene2:
@@ -305,7 +305,7 @@ Prologue:
 	jp Prologue_Delay
 
 .Func_ae181:
-	call Func_acaf3
+	call NextTextPageOrEnd
 	call .Func_ae188
 	ret
 
@@ -737,8 +737,8 @@ Prologue_WarioSuckedIntoMusicBox:
 	dec b
 	jr nz, .loop_set_pal
 
-	ld de, Data_ac9ff
-	call Func_ac9e4
+	ld de, PalConfig_OB0FromTempOBPals
+	call SetPalConfig2FromDE
 	jp AdvancePrologueStep
 
 .Func_ae435:
@@ -2506,7 +2506,7 @@ _UpdateEpilogue:
 	dw AdvanceEpilogueOWStep
 	dw .Func_af197
 	dw .Func_af19c
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af7af
 	dw .Func_af2d0
 	dw PrologueFade
@@ -2516,21 +2516,21 @@ _UpdateEpilogue:
 	dw .Func_af222
 	dw .Func_af230
 	dw .Func_af23e
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af741
 	dw InitTextPrinting
-	dw Func_aca9e
+	dw PrintTextPageWithHeader
 	dw .Func_af2bc
 	dw LoadCurTextPageBufferPage
-	dw Func_acacd
+	dw WaitAButtonAndClearTextbox
 	dw .Func_af2c1
-	dw Func_acaf3
+	dw NextTextPageOrEnd
 	dw .Func_af670
 	dw .Func_af2d0
 	dw PrologueFade
 	dw .Func_af2df
 	dw .Func_af2f2
-	dw Func_ac9ca
+	dw FadeBGAndOBPalsAndAdvanceStep
 	dw .Func_af436
 	dw .Func_af2d0
 	dw .Func_af34a
@@ -2555,7 +2555,7 @@ _UpdateEpilogue:
 	ld [wPalConfig2TotalSteps], a
 	jp AdvanceEpilogueOWStep
 .Func_af1bd:
-	call Func_aca09
+	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, Pals_86add
 	ld de, wTempPals1
 	ld c, 8 palettes
@@ -2730,7 +2730,7 @@ _UpdateEpilogue:
 	ld [wSceneObj13State], a
 	ld a, $08
 	ld [wCollectionRow], a
-	call Func_aca09
+	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, Pals_869cd
 	ld de, wTempPals1
 	ld c, 8 palettes
@@ -2885,7 +2885,7 @@ _UpdateEpilogue:
 	jp AdvanceEpilogueOWStep
 
 .Func_af41c:
-	farcall Func_84e43
+	farcall FadeBGAndOBPals
 	ld a, [wPalConfig1TotalSteps]
 	and a
 	ret nz
@@ -3061,7 +3061,7 @@ _UpdateEpilogue:
 	jp .asm_af40c
 
 .Func_af55a:
-	call Func_aca63
+	call MoveSceneWarioLeft
 	ld a, [wOWUIObj1XCoord]
 	ld b, a
 	sub $04
@@ -3471,8 +3471,8 @@ _UpdateEpilogue:
 	cp $50
 	ret c
 	play_sfx SFX_0EB
-	call Func_aca09
-	call Func_aca25
+	call CopyTempPalsToBGOBPals_Bank2b1
+	call FillTempPals2White
 	jp .asm_af40c
 
 .Func_af82d:
@@ -3497,8 +3497,8 @@ _UpdateEpilogue:
 	ld a, $48
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
-	call Func_ac9e4
+	ld de, PalConfig_OBFromTempPals2
+	call SetPalConfig2FromDE
 	jp .asm_af40c
 
 .Func_af860:
@@ -3523,8 +3523,8 @@ _UpdateEpilogue:
 	ld a, $58
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
-	call Func_ac9e4
+	ld de, PalConfig_OBFromTempPals2
+	call SetPalConfig2FromDE
 	jp .asm_af40c
 
 .Func_af88e:

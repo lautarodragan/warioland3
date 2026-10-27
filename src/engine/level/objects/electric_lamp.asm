@@ -9,7 +9,7 @@ ElectricLampFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_68cc4
+	ld de, ElectricLampFrameset_68cc4
 	call SetObjectFramesetPtr
 	ret
 
@@ -19,7 +19,7 @@ ElectricLampFunc:
 	ld a, [wGlobalCounter]
 	and a
 	ret nz
-	ld de, Frameset_68ccd
+	ld de, ElectricLampFrameset_68ccd
 	call SetObjectFramesetPtr
 	ld a, 30
 	ld [hli], a ; state duration
@@ -39,7 +39,7 @@ ElectricLampFunc:
 	play_sfx z, SFX_06A
 	dec [hl]
 	ret nz
-	ld de, Frameset_68cc4
+	ld de, ElectricLampFrameset_68cc4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Discharged)
@@ -79,7 +79,7 @@ ElectricLampSparkFunc:
 	ld [hli], a
 	ld a, 5
 	ld [hl], a
-	ld de, Frameset_68ca0
+	ld de, ElectricLampFrameset_68ca0
 	call SetObjectFramesetPtr
 	ld a, [wWarioScreenXPos]
 	add $2a

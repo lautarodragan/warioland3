@@ -190,11 +190,11 @@ ZombieFunc:
 	cp b
 	jr c, .asm_45c01
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68d93
+	ld de, ZombieFrameset_68d93
 	jr .asm_45c06
 .asm_45c01
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68d9c
+	ld de, ZombieFrameset_68d9c
 .asm_45c06
 	call SetObjectFramesetPtr
 	ld a, 20
@@ -263,10 +263,10 @@ ZombieFunc:
 	and $0f
 	cp $3
 	jr z, .asm_45c7d
-	ld de, Frameset_68d1a
+	ld de, ZombieFrameset_68d1a
 	jr .asm_45c80
 .asm_45c7d
-	ld de, Frameset_68d1f
+	ld de, ZombieFrameset_68d1f
 .asm_45c80
 	call SetObjectFramesetPtr
 
@@ -324,10 +324,10 @@ ZombieFunc:
 	ld [hl], a
 	rlca
 	jr c, .asm_45cdc
-	ld de, Frameset_68d81
+	ld de, ZombieFrameset_68d81
 	jp SetObjectFramesetPtr
 .asm_45cdc
-	ld de, Frameset_68d8a
+	ld de, ZombieFrameset_68d8a
 	jp SetObjectFramesetPtr
 
 .CheckWarioNear:
@@ -357,13 +357,13 @@ ZombieFunc:
 	ld a, [hl]
 	rlca
 	jp c, .asm_45dc4
-	ld de, Frameset_68da5
+	ld de, ZombieFrameset_68da5
 	jr .asm_45d1d
 .asm_45d15
 	ld a, [hl]
 	rlca
 	jp nc, .asm_45dc9
-	ld de, Frameset_68dac
+	ld de, ZombieFrameset_68dac
 .asm_45d1d
 	rrca
 	and OBJSUBFLAGS_MASK
@@ -459,10 +459,10 @@ ZombieFunc:
 	jp z, MoveObjectRight_Fast
 	jr .asm_45dc4
 .asm_45dc4
-	ld de, Frameset_68d2b
+	ld de, ZombieFrameset_68d2b
 	jr .asm_45dcc
 .asm_45dc9
-	ld de, Frameset_68d24
+	ld de, ZombieFrameset_68d24
 .asm_45dcc
 	ld hl, wCurObjSubState
 	ld a, [hl]
@@ -569,10 +569,10 @@ ZombieHeadFunc_Left:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	ld de, Frameset_68dda
+	ld de, ZombieFrameset_68dda
 	call SetObjectFramesetPtr
 .asm_45e73
-	ld bc, Data_605a0
+	ld bc, ZombieData_605a0
 	jr ZombieHeadFunc
 
 ZombieHeadFunc_Right:
@@ -593,10 +593,10 @@ ZombieHeadFunc_Right:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	ld de, Frameset_68dd5
+	ld de, ZombieFrameset_68dd5
 	call SetObjectFramesetPtr
 .asm_45e97
-	ld bc, Data_60560
+	ld bc, ZombieData_60560
 ;	fallthrough
 
 ZombieHeadFunc:
@@ -611,7 +611,7 @@ ZombieHeadFunc:
 	jp nc, ZombieFunc.asm_45c83
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68dd5, Frameset_68dda
+	ld_obj_frameset ZombieFrameset_68dd5, ZombieFrameset_68dda
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a

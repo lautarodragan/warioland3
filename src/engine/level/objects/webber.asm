@@ -31,14 +31,14 @@ WebberFunc:
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-	ld de, Frameset_682c2
+	ld de, WebberFrameset_682c2
 	jr .asm_40865
 
 .AttackedRightStart:
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-	ld de, Frameset_682c5
+	ld de, WebberFrameset_682c5
 
 .asm_40865
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -69,7 +69,7 @@ WebberFunc:
 	ld [hld], a
 	xor a
 	ld [hl], a ; OBJ_VAR_3
-	ld de, Frameset_682a9
+	ld de, WebberFrameset_682a9
 	call SetObjectFramesetPtr
 	ld a, 48
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -93,7 +93,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $6
 	ld [hld], a
-	ld de, Frameset_682d1
+	ld de, WebberFrameset_682d1
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -124,7 +124,7 @@ WebberFunc:
 	ld [hld], a
 	ld a, 5
 	ld [hl], a ; OBJ_VAR_3
-	ld de, Frameset_682b2
+	ld de, WebberFrameset_682b2
 	jp SetObjectFramesetPtr
 
 .MoveBackToStartPosition:
@@ -154,7 +154,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $1
 	ld [hld], a
-	ld de, Frameset_682a4
+	ld de, WebberFrameset_682a4
 	jp SetObjectFramesetPtr
 
 .move_up
@@ -209,7 +209,7 @@ WebberFunc:
 	ld [hld], a
 	xor a
 	ld [hl], a ; OBJ_VAR_3
-	ld de, Frameset_682a9
+	ld de, WebberFrameset_682a9
 	call SetObjectFramesetPtr
 	ld a, 48
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -219,7 +219,7 @@ WebberFunc:
 	ld a, [wCurObjVar3]
 	cp 15
 	jr z, .end_shake
-	ld bc, Data_604a0
+	ld bc, WebberData_604a0
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -261,7 +261,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $7
 	ld [hld], a
-	ld de, Frameset_682d6
+	ld de, WebberFrameset_682d6
 	jp SetObjectFramesetPtr
 
 .not_stepped3
@@ -276,7 +276,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $8
 	ld [hld], a ; OBJ_SUBSTATE
-	ld de, Frameset_682e2
+	ld de, WebberFrameset_682e2
 	call SetObjectFramesetPtr
 	ld a, 162
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -340,7 +340,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $2
 	ld [hld], a
-	ld de, Frameset_682b7
+	ld de, WebberFrameset_682b7
 	call SetObjectFramesetPtr
 	ld a, 64
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -388,7 +388,7 @@ WebberFunc:
 	and OBJSUBFLAGS_MASK
 	or $7
 	ld [hld], a
-	ld de, Frameset_682d6
+	ld de, WebberFrameset_682d6
 	jp SetObjectFramesetPtr
 .asm_40aa9
 	ld a, 5
@@ -443,7 +443,7 @@ WebberProjectileFunc:
 	ld [hld], a
 	ld a, LOW(.Destroy)
 	ld [hld], a
-	ld de, Frameset_682db
+	ld de, WebberFrameset_682db
 	call SetObjectFramesetPtr
 	ld a, 24
 	ld [hli], a ; OBJ_STATE_DURATION

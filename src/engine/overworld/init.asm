@@ -197,9 +197,9 @@ InitOWScene:
 	dw InitMapSideForScene_East  ; EAST
 
 UpdateOWScene:
-	call Func_818ad
-	call Func_82bb8
-	call Func_82bda
+	call RunOWScene
+	call DrawUnlockLevelStar
+	call DrawHighlightLevelStar
 	farcall UpdateMapSideOWObjs
 	call LoadCompassSprite
 	call ClearUnusedVirtualOAM
@@ -357,7 +357,7 @@ Func_8065e:
 	ld [wVirtualOAMByteSize], a
 
 	ld a, [wCurMapSide] ; a gets overwritten
-	call Func_81dce
+	call InitOWScenesForMapSide
 	call ShowMissingTreasureIndicators
 	call Func_80bd9
 	call WriteBGMapFromWRAM
@@ -496,7 +496,7 @@ Func_8086f:
 	call Func_80b54
 
 	ld a, [wCurMapSide] ; a gets overwritten
-	call Func_81dce
+	call InitOWScenesForMapSide
 	call WriteBGMapFromWRAM
 
 	ld a, $04
