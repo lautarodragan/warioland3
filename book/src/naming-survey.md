@@ -34,6 +34,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 19 | Sixth pass, RAM: the last address-named RAM labels (scene object scripts, VRAM backup buffers, golf, time attack, envelope, prologue particles) and the cutscene overlay sprites; see "Sixth pass: remaining RAM labels" | 44 |
 | 20 | Sixth pass, objects: 49 `OBJSTATE_*` (+3 aliases), 20 `OBJ_INTERACTION_*`, 9 `OBJACTION_*` and the labels named after their numbers; see "Sixth pass: object states and interactions" | 81 |
 | 21 | Sixth pass, sound effects: 151 `SFX_*` constants, their sound data labels and the code labels named after their numbers; see "Sixth pass: sound effects" | 151 |
+| 22 | Sixth pass, substates and other constants: `SST_*`, audio commands, flags and struct fields, `GRAB_PICK_UP_BLOCKED`, `ROOMTRANSITION_*`, `EVENT_NONE`, `unk` gfx files; see "Sixth pass: substates and other constants" | ~45 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3031,7 +3032,7 @@ is named.
 | `Func_8143d` | `UnreferencedPathPreviewFromLevel` | No references; runs one path preview step (`.RunTracerStep`) from the current level's coordinates, saving and restoring Wario's. | medium |
 | `Func_1c8f56` | `IsGolfXPosOnScreen` | Returns TRUE when `de` is within -$20..+$b0 of `wGolfXScroll` (its comment); used to put golf Wario at the edge when he is off screen. | medium |
 | `Func_7cf` | `UnreferencedFadeToTargetRGB` | No references; for $20 frames, raises every colour component of the palettes in `wTempPals1` (and the $c1xx copy) by one towards `wTargetRed/Green/Blue`, then restores the VBlank function. | medium |
-| `Func_309b6` | `AudioMod_Release` | `AUDIOMOD_UNK` slot of `AudioModFunctionTable`: `AudioModSetValue_Long` on `CHANNEL_RELEASE_VOLUME` and the next byte, `CHANNEL_RELEASE_LENGTH` (the field names are now settled). | high |
+| `Func_309b6` | `AudioMod_Release` | `AUDIOMOD_UNK` (now `AUDIOMOD_RELEASE`) slot of `AudioModFunctionTable`: `AudioModSetValue_Long` on `CHANNEL_RELEASE_VOLUME` and the next byte, `CHANNEL_RELEASE_LENGTH` (the field names are now settled). | high |
 | `Func_ac051` | `LoadSceneObjSprite_CreditsOAM` | `ld b, BANK("Credits OAM") / jp LoadOWSprite`; unlike its neighbours it has no duplicate. | high |
 
 ### 5b. Referenced data and literal pointers (batch 16)
@@ -3591,3 +3592,91 @@ state it sets): `SFX_BIRD_ALERT`, `SFX_BIRD_TAKE_OFF`, `SFX_BARREL_JUMP`,
 `SFX_SCOWLER_STOMPED`, `SFX_JAMANO_DEFEAT_POSE`, `SFX_BOSS_APPEAR`,
 `SFX_WHIRR` (a neutral name for a periodic buzz shared by five objects)
 and `SFX_EAT_FOOD` (also played twice on the musical coin screen).
+
+## Sixth pass: substates and other constants
+
+This pass covers the numbered and `UNK` constants that the SFX, object
+state/interaction and RAM passes don't, plus every identifier in `src/`
+still containing `unk`. Each change went in as it was made (three commits),
+so the tables show the names as they were before this pass. The ROM stays
+byte-identical.
+
+### Substates
+
+Each substate constant names the first entry of a group in its state
+table. Raw `wSubState` values were replaced only where the state table
+shows which entry they pick.
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `SST_OVERWORLD_08` | `SST_OVERWORLD_MAP_SIDE` | overworld/state_table.asm:15: `FadeBGToWhite_Normal`, then `InitMapSide`, `DarkenBGToPal_Normal`, `UpdateMapSide`. The collection, best times, golf building and temple scenes set it when they exit (bank26.asm:463, bank56.asm:1295, bank2b_1.asm:2081, :4072). | high |
+| `SST_OVERWORLD_09` | `SST_OVERWORLD_INIT_MAP_SIDE` | state_table.asm:16 `InitMapSide`. init.asm:97 sets it to show the map without a scene. | high |
+| `SST_OVERWORLD_0B` | `SST_OVERWORLD_UPDATE_MAP_SIDE` | state_table.asm:18 `UpdateMapSide`. tests/game.py waits for it as "map is idle and accepts input". | high |
+| `SST_OVERWORLD_1A` | `SST_OVERWORLD_TEMPLE` | state_table.asm:37: fade, `InitTempleScene`, `UpdateTempleScene`. `HandleEnterLevelInput` sets it at the Temple (bank20.asm:549). | high |
+| `SST_OVERWORLD_1E` | `SST_OVERWORLD_TO_GOLF_BUILDING` | state_table.asm:41 `ExitTempleScene`, followed by a fade and `GolfBuilding` (`SST_OVERWORLD_GOLF_BUILDING`, $20). Only `MapSide_ChangeSide` sets it (bank20.asm:518). The temple scene never reaches it: it sets `SST_OVERWORLD_MAP_SIDE` (bank2b_1.asm:2081) or goes to `ST_LEVEL`. | medium |
+| `SST_PAUSE_18` | `SST_PAUSE_SAVE_AND_CONTINUE` | pause/state_table.asm:33: `InitSaveScreenAndBackupVRAM` .. `Save` .. `TransitionAfterSave` (pause/save/save.asm:587: map, epilogue or game over). `SaveGameOrEnterPerfectScreen` sets it (home/update_level_music.asm:23). | high |
+| `SST_PAUSE_28` | `SST_PAUSE_SAVE_AND_RESET` | pause/state_table.asm:51: the same save sequence, ending in `ResetAfterSave` (`jp Init`, save.asm:627). The perfect screen sets it (perfect/core.asm:112). | high |
+| `$04`, `$05` (title) | `SST_TITLE_INTRO_PHASE2`, `SST_TITLE_INTRO_PHASE3` | title/state_table.asm:15-16. `ScrollIntroClouds` compares against them (title/intro_animation.asm:112-130). | high |
+| `$04` (overworld) | `SST_OVERWORLD_FADE_TO_OW_SCENE` | state_table.asm:9: the `SlowFadeToWhite` before `InitOWScene`. Set when the next scene is on another map side (bank20.asm:1544). | high |
+| `$08`, `$0c` (overworld) | `SST_OVERWORLD_MAP_SIDE`, `SST_OVERWORLD_COLLECTION` | bank26.asm:463/514/619, bank2b_1.asm:4072, bank56.asm:1295. | high |
+| `$02` (level) | `SST_LEVEL_FADE_IN` | level/state_table.asm:7 `SlowFadeFromWhite`. `StartRoom_FromTransition` returns to it (level/start_room.asm:140). | high |
+| `$04`, `$08` (golf building) | `SST_GOLF_BUILDING_HOLE`, `SST_GOLF_BUILDING_EXIT` | golf/building/state_table.asm:9 (fade, `InitGolfHole`) and :13 (`ReturnToMap`). Used in golf/building/building.asm:221/422/532 and golf/hole.asm:2560 (the next hole of a course). They have the same values as `SST_GOLF_HOLE` and `SST_GOLF_EXIT`, so `HandleGolfHole` works in both states. | high |
+| `$08` (golf, hole.asm:2524) | `SST_GOLF_EXIT` | Minigame already cleared: back to the level. | high |
+| `$03` (perfect) | `SST_PERFECT_UPDATE` | perfect/state_table.asm:8 `UpdatePerfectScreen`; perfect/core.asm:65-67. | high |
+
+### Audio
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `AUDIOCMD_UNK_C9` / macro `audiocmd_c9` | `AUDIOCMD_FREQUENCY_OFFSET` / `frequency_offset` | The handler `AudioCmd_SetChannelFrequencyOffset` (audio/engine.asm:1757) stores the signed argument in `CHANNEL_FREQUENCY_OFFSET` and sets `CHANFLAGS_UPDATE_FREQUENCY`. | high |
+| `AUDIOCMD_UNK_CA` / macro `audiocmd_ca` | `AUDIOCMD_SET_UNUSED_1E` / `set_unused_1e` | The handler `AudioCmd_SetChannelUnused1e` (engine.asm:1778) stores into `CHANNEL_UNUSED_1E`, which nothing reads. No sound uses either command. | high |
+| `AUDIOMOD_UNK` | `AUDIOMOD_RELEASE` | Table entry `AudioMod_Release` (engine.asm:1796): `AudioModSetValue_Long` (:901) writes params 1 and 2 to `CHANNEL_RELEASE_VOLUME` and `CHANNEL_RELEASE_LENGTH`. | high |
+| `TRACK_UNK0E` | `TRACK_FREQUENCY_NOTE` | Set to pitch + semitone offset, or to the percussion entry's sixth byte (engine.asm:1933-1941, :2093). `SetFrequency` adds the high byte of `CHANNEL_FREQUENCY` to it and passes the result to `GetNoteFrequency` (:2731). | high |
+| `CHANFLAGS_5` | `CHANFLAGS_LOADED` | Set by `LoadChannelWithSound` (engine.asm:585). `InitChannel` replaces it with `CHANFLAGS_6`. | high |
+| `CHANFLAGS_6` | `CHANFLAGS_INITIALISED` | Set by `InitChannel` (:624). `UpdateChannel` (:996) keeps calling `InitChannel` until it is set. `RefreshChannel` (:985) and `ProcessTrack` both require it. | high |
+| `TRACKFLAGS_7` | `TRACKFLAGS_ACTIVE` | `TickSFXTrack`, `TickMusicTrack` and `ProcessTrack` return when it is clear (:2161, :2226). `StopTrack` zeroes the flags. | high |
+| `TRACKFLAGS_5` | `TRACKFLAGS_HELD` | Set when a note starts (:2052). Cleared by `ReleaseTrack` (:2212) and in the release phase (:2483). Note-off only matches tracks that have it set (:2137). | medium |
+| `TRACKFLAGS_6` | `TRACKFLAGS_START_ENVELOPE` | Set at note start and by `ReleaseTrack`. `ProcessTrack` clears it (:2276) and sets up either the fade-in envelope (when `HELD` is set) or the fade-out one. | medium |
+| `channel_struct` fields `Unk0a`..`Unk3b` | `NoteVolume`, `NoteDuration`, `PitchOffsetMod`, `VolumeMod`, `PitchOffset`, `PitchOffsetMult`, `PitchProduct`, `FrequencyOffset`, `Unused1e`, `VibratoAmplitudeMod`, `VibratoFreqOffset`, `CallDepth`, `ReleaseVolume`, `ReleaseLength`, `LoopCounter`, `EffectiveVolume`, `Unused30`, `Unused31`, `CallStack` (ds 10) | The offsets match the `CHANNEL_*` constants (macros/wram.asm). No code uses the `wChannelN*` labels. The struct size is unchanged ($3c). | high |
+| `track_struct` fields `Unk02`, `Unk03`, `Unk06`, `Unk0d`..`Unk0f`, `Unk14`..`Unk17` | `Owner`, `Note`, `NoteVolume`, `Unused0d`, `FrequencyNote`, `Unused0f`, `Unused14`..`Unused17` | The offsets match the `TRACK_*` constants. | high |
+| comment `CHANNEL_UNK_2E` | `CHANNEL_UNUSED_1E` | engine.asm:670 initialises offset $1e, right after `CHANNEL_FREQUENCY_OFFSET`. | high |
+| sound header byte 3 "unknown" | "unused" | `GetSound` skips it (`inc hl`, engine.asm:567). | high |
+
+`TickTrackDuration` compared the flags of the track's channel against
+`TRACKFLAGS_6 | TRACKFLAGS_7`. It now uses
+`CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE`, which has the same value
+(engine.asm:2195).
+
+### Other constants and identifiers
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `GRAB_UNK_02` | `GRAB_PICK_UP_BLOCKED` | Set when the object being picked up hits a block at the side or above (level/update_objects.asm:1339, :1549, after `ProcessBlock_Side`/`ProcessBlock_UpSide`). `UpdateState_PickingUp` then goes straight to grab idling (wario_states_1.asm:2706-2708, where a raw `cp $02` was replaced). | high |
+| `ROOMTRANSITION_4` | `ROOMTRANSITION_ROOM_EXIT` | Only `BlockFunc_RoomExit*` and `BlockFunc_WaterRoomExit*` set it (block_functions.asm:1014-1047). | medium |
+| `ROOMTRANSITION_5` | `ROOMTRANSITION_LADDER` | Only the ladder room exits set it (block_functions.asm:479, :492). | medium |
+| `ROOMTRANSITION_8` / `UnreferencedBlockFunc_Transition8Door` | `ROOMTRANSITION_UNUSED_DOOR` / `UnreferencedBlockFunc_UnusedDoor` | Only that unreferenced block function sets it, together with the door flags (block_functions.asm:978). | medium |
+| `EVENT_00` / `.event_00` | `EVENT_NONE` / `.event_none` | `GetEventWithTreasure` and `CheckIfTreasureUnlocksEvent` return it when no event matches (overworld/bank20.asm:1465-1484, :1624). Its cutscene entries are `.InvalidCutscene` and `NoInitCutscene`. | high |
+| `SCENEWARIO_GROUP_19` | `SCENEWARIO_GROUP_09` | It is the tenth group: `SetSceneWarioState` counts `b` up through the groups in order (bank2b_1.asm:1343-1382). The other groups are numbered 00-08 and 10-13. | high |
+| `gfx/wario/unk2.png`, `unk3.png`, `unk5.png` | `crash.png`, `music_box.png`, `show_music_boxes.png` | The files of `WarioCrashGfx`, `WarioMusicBoxGfx` and `WarioShowMusicBoxesGfx` (overworld/bank76.asm:253-266). | high |
+| `DebugUnknownTextGfx` / `gfx/debug_unknown_text.png` | `UnreferencedDebugTreasureTextGfx` / `gfx/debug_treasure_text.png` | Nothing references it. The tiles spell "Debug", "GET takara", "ALL GET", "takara zukan". | medium |
+| comments `unk7`, `unk6`, `unk01`, `unk02` | scene obj `MovementStep`, `state`, map ptr lo/hi, `OBJ_MAP_PTR_HI`, `OBJ_ID` | home/overworld.asm:396/405 and bank2b_1.asm:193 (offset 7 of a `scene_obj_struct`); bank2d.asm:1265 (offset 6); block_functions.asm:3232 (`wCurObjMapPtrLo` + 0/1); block_queue.asm:87; home/object_mechanics.asm:6 (`UpdateObjSprite` gets `l` = `wObjNId`, and bits 4-6 pick the OAM bank); doll_boy.asm:1057. | high |
+
+### Left
+
+- `WarioUnk4Gfx` / `gfx/wario/unk4.png` (`SCENEWARIO_GROUP_09`): its
+  animations are `JUMP_AND_BOW`, `SNAP_FINGERS`, `SHOW_MUSIC_BOXES_1`/`_5`,
+  `PANIC_JUMP`, `PANIC` and `BOW`, used by the prologue and temple scenes.
+  No single theme covers them, so the sheet has no name yet.
+- `CHANFLAGS_3`, `TRACKFLAGS_0`..`TRACKFLAGS_3`: no code uses them by name.
+  Raw bit tests weren't checked.
+- `TRACKFLAGS_4`: set at note start and on release, cleared after the first
+  fade-in step (engine.asm:2362). Combined with `HELD` it selects the
+  envelope phase in `ProcessTrack`. The individual phases weren't worked
+  out.
+- `ow_coord`'s `\3`/`\4` "unknown 1/2" (data/overworld/level_coordinates.asm)
+  are comments, not identifiers.
+- Found but not changed: `ExitTempleScene` (overworld/temple/common.asm:9)
+  is the routine for `SST_OVERWORLD_TO_GOLF_BUILDING`, which only
+  `MapSide_ChangeSide` sets. The label is probably wrong, and so is its row
+  in the second-pass table ("the fight"). Renaming labels is outside this
+  pass.

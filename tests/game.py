@@ -23,7 +23,7 @@ ST_LANGUAGE_SELECTION = 0x0e
 ST_DEBUG_MENU = 0x0f
 
 SST_START_MENU = 0x07  # NEW GAME / CONTINUE on the title screen
-SST_OVERWORLD_0B = 0x0b  # map is idle and accepts input
+SST_OVERWORLD_UPDATE_MAP_SIDE = 0x0b  # map is idle and accepts input
 SST_LEVEL_UPDATE = 0x03  # UpdateLevel, i.e. normal gameplay
 SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
 
@@ -215,7 +215,7 @@ class Game:
         # dialogue. The game autosaves and then leaves the map idle.
         self.press_until(
             "a",
-            lambda: self.state == (ST_OVERWORLD, SST_OVERWORLD_0B),
+            lambda: self.state == (ST_OVERWORLD, SST_OVERWORLD_UPDATE_MAP_SIDE),
             what="idle overworld",
         )
         self.tick(60)
@@ -287,7 +287,7 @@ class Game:
         )
         self.press_until(
             "a",
-            lambda: self.state == (ST_OVERWORLD, SST_OVERWORLD_0B),
+            lambda: self.state == (ST_OVERWORLD, SST_OVERWORLD_UPDATE_MAP_SIDE),
             what="map after leaving the level",
         )
         self.tick(60)

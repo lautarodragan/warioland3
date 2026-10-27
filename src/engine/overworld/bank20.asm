@@ -511,11 +511,11 @@ MapSide_ChangeSide:
 	bit 1, a
 	jr nz, .asm_8123a
 .asm_81234
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
 .asm_8123a
-	ld a, SST_OVERWORLD_1E
+	ld a, SST_OVERWORLD_TO_GOLF_BUILDING
 	ld [wSubState], a
 	ret
 
@@ -546,7 +546,7 @@ HandleEnterLevelInput:
 
 .temple
 	play_sfx SFX_SELECTION
-	ld a, SST_OVERWORLD_1A
+	ld a, SST_OVERWORLD_TEMPLE
 	ld [wSubState], a
 	scf
 	ret
@@ -1462,7 +1462,7 @@ GetNextTreasureToCollect:
 ; output:
 ; - c = EVENT_* constant
 GetEventWithTreasure:
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ld hl, EventTreasures
 .loop
 	ld a, [hli]
@@ -1481,7 +1481,7 @@ GetEventWithTreasure:
 .found
 	ret
 .not_found
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ret
 
 RunOWScene:
@@ -1541,7 +1541,7 @@ RunOWScene_NextParams:
 	ret
 .asm_81923
 	stop_sfx
-	ld a, $04
+	ld a, SST_OVERWORLD_FADE_TO_OW_SCENE
 	ld [wSubState], a
 	ret
 
@@ -1593,7 +1593,7 @@ CheckIfTreasureUnlocksEvent:
 	ld a, [wLastTransitionParam]
 	ld b, a
 	xor a
-	ld c, a ; EVENT_00
+	ld c, a ; EVENT_NONE
 	ld [wCurEvent], a
 
 	ld hl, EventTreasures
@@ -1621,7 +1621,7 @@ CheckIfTreasureUnlocksEvent:
 	ret
 
 .no_event_unlocked
-	xor a ; EVENT_00
+	xor a ; EVENT_NONE
 	ld [wCurEvent], a
 	ret
 
@@ -1698,7 +1698,7 @@ LoadEventTreasures:
 EventTreasures:
 	table_width 3
 
-; EVENT_00
+; EVENT_NONE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
@@ -2209,7 +2209,7 @@ ENDM
 
 OWSceneParams:
 	table_width 2
-	dw .event_00                        ; EVENT_00
+	dw .event_none                      ; EVENT_NONE
 	dw .event_prologue                  ; EVENT_PROLOGUE
 	dw .event_cut_tree                  ; EVENT_CUT_TREE
 	dw .event_open_north_gate           ; EVENT_OPEN_NORTH_GATE
@@ -2302,7 +2302,7 @@ OWSceneParams:
 	dw .event_epilogue                  ; EVENT_EPILOGUE
 	assert_table_length NUM_EVENTS
 
-.event_00
+.event_none
 	ow_scene_end
 
 .event_prologue
@@ -3650,7 +3650,7 @@ UpdateTopBar:
 	xor a
 	ld [wOWStep], a
 	ld [wOWStepCounter], a
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 
 .wait_next_map

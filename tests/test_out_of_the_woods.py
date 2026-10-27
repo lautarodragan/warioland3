@@ -1,6 +1,6 @@
 """Play through Out of the Woods (N1) from a new game, inputs only."""
 
-from game import ST_CLEAR, ST_OVERWORLD, SST_OVERWORLD_0B
+from game import ST_CLEAR, ST_OVERWORLD, SST_OVERWORLD_UPDATE_MAP_SIDE
 from routes.out_of_the_woods import TO_GREY_CHEST, TO_GREY_KEY
 
 # wKeyAndTreasureFlags bits, src/constants/level_constants.asm
@@ -32,7 +32,7 @@ def test_out_of_the_woods(game, golden):
         "a", lambda: game.read("wState") == ST_OVERWORLD, what="overworld"
     )
     game.wait_until(
-        lambda: game.state == (ST_OVERWORLD, SST_OVERWORLD_0B),
+        lambda: game.state == (ST_OVERWORLD, SST_OVERWORLD_UPDATE_MAP_SIDE),
         timeout=60 * 120,
         what="idle overworld",
     )

@@ -109,9 +109,9 @@ ScrollIntroClouds:
 	cp 176
 	jr c, .incr_x1
 	ld a, [wSubState]
-	cp $05
+	cp SST_TITLE_INTRO_PHASE3
 	jr nc, .asm_4d66
-	cp $04
+	cp SST_TITLE_INTRO_PHASE2
 	jr c, .incr_x1
 	ld a, [wPlaneWarioVar]
 	and a
@@ -125,9 +125,9 @@ ScrollIntroClouds:
 	cp 176
 	jr c, .incr_x2
 	ld a, [wSubState]
-	cp $05
+	cp SST_TITLE_INTRO_PHASE3
 	ret nc
-	cp $04
+	cp SST_TITLE_INTRO_PHASE2
 	jr c, .incr_x2
 	ld a, [wPlaneWarioVar]
 	and a

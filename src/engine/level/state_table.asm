@@ -4,7 +4,7 @@ _LevelStateTable::
 
 	dw SlowFadeToWhite
 	dw InitLevel
-	dw SlowFadeFromWhite
+	dw SlowFadeFromWhite ; SST_LEVEL_FADE_IN
 	dw UpdateLevel
 	dw DoorTransition
 	dw SlowFadeToWhite

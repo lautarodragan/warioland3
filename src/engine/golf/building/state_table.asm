@@ -6,8 +6,8 @@ _GolfBuildingStateTable::
 	dw InitGolfCourseMenu
 	dw SlowFadeFromWhite
 	dw UpdateGolfCourseMenu
-	dw SlowFadeToWhite
+	dw SlowFadeToWhite ; SST_GOLF_BUILDING_HOLE
 	dw InitGolfHole
 	dw SlowFadeFromWhite
 	dw HandleGolfHole
-	dw ReturnToMap
+	dw ReturnToMap ; SST_GOLF_BUILDING_EXIT

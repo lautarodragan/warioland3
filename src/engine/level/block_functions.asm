@@ -476,7 +476,7 @@ BlockFunc_LadderRoomExit_ReloadObjects:
 	jp z, BlockFunc_Free
 	ld a, LADDER_COLLISION
 	ld [wLadderInteraction], a
-	ld a, ROOMTRANSITION_5 | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld a, ROOMTRANSITION_LADDER | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
@@ -489,7 +489,7 @@ UnreferencedBlockFunc_LadderRoomExit:
 	jp z, BlockFunc_Free
 	ld a, LADDER_COLLISION
 	ld [wLadderInteraction], a
-	ld a, ROOMTRANSITION_5
+	ld a, ROOMTRANSITION_LADDER
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
@@ -959,7 +959,7 @@ BlockFunc_UnderwaterDoor_NoReload:
 	jp BlockFunc_Free
 
 ; unreferenced
-UnreferencedBlockFunc_Transition8Door:
+UnreferencedBlockFunc_UnusedDoor:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Free
@@ -975,7 +975,7 @@ UnreferencedBlockFunc_Transition8Door:
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
 	jr z, .asm_1877b
-	ld a, ROOMTRANSITION_8 | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS | ROOMTRANSITIONF_DELAY
+	ld a, ROOMTRANSITION_UNUSED_DOOR | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS | ROOMTRANSITIONF_DELAY
 	ld [wRoomTransitionParam], a
 .asm_1877b
 	jp BlockFunc_Free
@@ -1011,7 +1011,7 @@ BlockFunc_RoomExit_ReloadObjects:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
-	ld a, ROOMTRANSITION_4 | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld a, ROOMTRANSITION_ROOM_EXIT | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
@@ -1022,7 +1022,7 @@ BlockFunc_RoomExit:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
-	ld a, ROOMTRANSITION_4
+	ld a, ROOMTRANSITION_ROOM_EXIT
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Free
 
@@ -1033,7 +1033,7 @@ BlockFunc_WaterRoomExit_ReloadObjects:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
-	ld a, ROOMTRANSITION_4 | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld a, ROOMTRANSITION_ROOM_EXIT | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Water
 
@@ -1044,7 +1044,7 @@ BlockFunc_WaterRoomExit:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
-	ld a, ROOMTRANSITION_4
+	ld a, ROOMTRANSITION_ROOM_EXIT
 	ld [wRoomTransitionParam], a
 	jp BlockFunc_Water
 
@@ -3229,8 +3229,8 @@ BreakBlock:
 
 	ld hl, wCurObjMapPtrLo
 	xor a
-	ld [hli], a ; flags
-	ld [hli], a ; unk01
+	ld [hli], a ; map ptr lo
+	ld [hli], a ; map ptr hi
 	ldh a, [hYPosLo]
 	ld [hli], a
 	ldh a, [hYPosHi]

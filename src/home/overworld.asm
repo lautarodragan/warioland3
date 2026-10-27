@@ -393,7 +393,7 @@ StoreOWMovementX::
 	or c
 	ld c, a
 	xor a
-	ld [bc], a ; unk7
+	ld [bc], a ; scene obj MovementStep
 	ret
 
 ApplyOWMovementY:
@@ -402,7 +402,7 @@ ApplyOWMovementY:
 	ld a, $07
 	or l
 	ld l, a
-	ld a, [hl] ; unk7
+	ld a, [hl] ; scene obj MovementStep
 	inc [hl]
 	add a ; *2
 	ld l, a

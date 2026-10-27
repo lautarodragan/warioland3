@@ -84,7 +84,7 @@ SetObjectMapEntryAndSpawn:
 	pop_wram
 	ret
 
-; hl = obj unk02
+; hl = obj map ptr hi (OBJ_MAP_PTR_HI)
 DespawnObject:
 	push_wram BANK("Level Objects WRAM")
 	ld a, [hl] ; OBJ_MAP_PTR_HI

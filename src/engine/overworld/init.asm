@@ -92,9 +92,9 @@ InitOverworld:
 .load_map_without_scene
 	; simply loads and shows the overworld map
 	; for player to navigate
-	xor a ; EVENT_00
+	xor a ; EVENT_NONE
 	ld [wCurEvent], a
-	ld a, SST_OVERWORLD_09
+	ld a, SST_OVERWORLD_INIT_MAP_SIDE
 	ld [wSubState], a
 	call SaveGameOnReturnFromLevel
 	ret

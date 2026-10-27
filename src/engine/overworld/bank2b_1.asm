@@ -190,13 +190,13 @@ UpdateEpilogueSceneObj:
 	jp .draw
 .PlaySFXEvery30Frames:
 	inc c
-	ld a, [bc] ; unk7
+	ld a, [bc] ; scene obj MovementStep, used as a frame counter
 	inc a
 	ld [bc], a
 	cp 30
 	ret c ; < 30
 	xor a
-	ld [bc], a ; unk7
+	ld [bc], a ; scene obj MovementStep
 	play_sfx SFX_138
 	ret
 
@@ -1367,7 +1367,7 @@ SetSceneWarioState:
 	cp SCENEWARIO_GROUP_08
 	jr c, .update_state_group
 	inc b
-	cp SCENEWARIO_GROUP_19
+	cp SCENEWARIO_GROUP_09
 	jr c, .update_state_group
 	inc b
 	cp SCENEWARIO_GROUP_10
@@ -1453,7 +1453,7 @@ ENDM
 	scene_wario_gfx SceneWarioOAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
 	scene_wario_gfx SceneWarioOAM_aa934,  WarioMusicBoxGfx  ; SCENEWARIO_GROUP_07
 	scene_wario_gfx SceneWarioOAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
-	scene_wario_gfx SceneWarioOAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_19
+	scene_wario_gfx SceneWarioOAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_09
 	scene_wario_gfx SceneWarioOAM_ab0c5,  WarioShowMusicBoxesGfx  ; SCENEWARIO_GROUP_10
 	scene_wario_gfx WarioGetTreasureOAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
 	scene_wario_gfx WarioOnFireOAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12
@@ -2078,7 +2078,7 @@ _UpdateTempleScene:
 	stop_sfx
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	scf
 	ret
@@ -4069,7 +4069,7 @@ _UpdateGolfBuilding:
 	stop_sfx
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
-	ld a, $08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	scf
 	ret

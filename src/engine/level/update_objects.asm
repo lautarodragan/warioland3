@@ -1336,7 +1336,7 @@ _ObjState_PickedUpLeft::
 	ld a, [wCurObjInteractionType]
 	and HEAVY_OBJ
 	jp nz, .drop_obj
-	or GRAB_UNK_02
+	or GRAB_PICK_UP_BLOCKED
 	ld [wGrabState], a
 	ld a, OBJSTATE_GRABBED_RIGHT_START
 	ld [wCurObjState], a
@@ -1546,7 +1546,7 @@ _ObjState_PickedUpRight::
 	ld a, [wCurObjInteractionType]
 	and HEAVY_OBJ
 	jp nz, .drop_obj
-	or GRAB_UNK_02
+	or GRAB_PICK_UP_BLOCKED
 	ld [wGrabState], a
 	ld a, OBJSTATE_GRABBED_LEFT_START
 	ld [wCurObjState], a
