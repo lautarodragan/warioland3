@@ -742,7 +742,7 @@ WolfenbossPlatformFunc:
 .Disappear:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jp nz, Func_3326
+	jp nz, ObjState_AttackedLeft
 ;	fallthrough
 
 Func_56326:
@@ -750,7 +750,7 @@ Func_56326:
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 
 IgaguriFunc:
@@ -835,7 +835,7 @@ IgaguriFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .do_horizontal_movement
 
@@ -913,7 +913,7 @@ IgaguriFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .do_horizontal_movement
 
@@ -1010,7 +1010,7 @@ KuriFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z ; not yet reach the floor
 	ld hl, wCurObjYPos

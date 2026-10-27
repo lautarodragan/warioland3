@@ -169,7 +169,7 @@ AnonsterFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	ld de, Frameset_69446
@@ -181,7 +181,7 @@ AnonsterFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 	ld de, Frameset_69512
@@ -405,7 +405,7 @@ AnonsterFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
 	jr .asm_50316
@@ -416,7 +416,7 @@ AnonsterFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
 .asm_50316
@@ -466,7 +466,7 @@ AnonsterFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_5036e
 .asm_50368
@@ -726,7 +726,7 @@ AnonsterFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	ld de, Frameset_69573
@@ -743,7 +743,7 @@ AnonsterFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jp nz, MoveObjectRight
 	ld de, Frameset_69568
@@ -926,7 +926,7 @@ AnonsterFunc:
 	ret nz
 	ld hl, wCurObjUnk02
 	ld e, $05
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -968,7 +968,7 @@ AnonsterFunc:
 .Func_50705:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60180
+	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
 	rlca
@@ -1052,7 +1052,7 @@ AnonsterSilkFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_507ae
 	ld hl, wCurObjUpdateFunction + 1
@@ -1089,7 +1089,7 @@ AnonsterSilkFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_507ed
 	ld hl, wCurObjUpdateFunction + 1
@@ -1146,7 +1146,7 @@ AnonsterSilkFunc:
 	adc $00
 	ldh [hXPosHi], a
 .asm_5083c
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_5084e
 	ld a, [wCurObjVar2]
@@ -1182,7 +1182,7 @@ AnonsterSilkFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld de, Frameset_694f5
@@ -1281,8 +1281,8 @@ AnonsterSilkFunc:
 	dw .Func_50898
 	dw .Func_50898
 	dw .Func_50898
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_509ef
 	dw .Func_509dd
 	dw .Func_50898
@@ -1295,12 +1295,12 @@ AnonsterSilkFunc:
 	dw .Func_50898
 	dw .Func_50898
 	dw .Func_50898
-	dw Func_3326
-	dw Func_3317
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_AttackedLeft
+	dw ObjState_AttackedRight
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Func_50898
 	dw .Func_50898
 	dw .Func_50898
@@ -1309,30 +1309,30 @@ AnonsterSilkFunc:
 	dw .Func_509bb
 	dw .Func_50898
 	dw .Func_50898
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_50898
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_50898
 	dw .Func_50898
 	dw .Func_50a68
 	dw .Func_50a4e
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
-	dw Func_33f8
-	dw Func_3407
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw ObjState_HitByObjLeft
+	dw ObjState_HitByObjRight
 
 .Func_50995:
 	ld hl, wCurObjState
@@ -1366,17 +1366,17 @@ AnonsterSilkFunc:
 	jp z, .destroy
 	ld a, [hl]
 	cp $3c
-	jp nc, Func_32ea
+	jp nc, ObjCheckFloorOrDrop
 	ld l, OBJ_FLAGS
 	ld a, [wGlobalCounter]
 	and %111
 	cp $04
 	jr c, .asm_509d8
 	res OBJFLAG_INVISIBLE_F, [hl]
-	jp Func_32ea
+	jp ObjCheckFloorOrDrop
 .asm_509d8
 	set OBJFLAG_INVISIBLE_F, [hl]
-	jp Func_32ea
+	jp ObjCheckFloorOrDrop
 
 .Func_509dd:
 	ld a, [wCurObjScreenYPos]
@@ -1431,7 +1431,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 
 .Func_50a31:
 	ld hl, wCurObjState
@@ -1444,7 +1444,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_50a44:
 	ld hl, wCurObjState
@@ -1455,7 +1455,7 @@ AnonsterSilkFunc:
 .Func_50a4e:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
@@ -1470,7 +1470,7 @@ AnonsterSilkFunc:
 .Func_50a68:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR

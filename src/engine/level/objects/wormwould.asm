@@ -432,7 +432,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld hl, wCurObjUnk02
 	ld e, $05
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_0A7
 	ret
 
@@ -527,7 +527,7 @@ WormwouldFunc:
 .DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60180
+	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
 	rlca
@@ -589,7 +589,7 @@ RollingRockFunc:
 .Hit:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60180
+	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
 	rlca

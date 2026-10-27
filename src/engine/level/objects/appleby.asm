@@ -174,23 +174,23 @@ ApplebyFunc:
 .asm_47ad5
 	jp VanishObject
 .asm_47ad8
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_47af6
 .asm_47ae0
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_47af6
 .asm_47ae8
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	jr .asm_47af6
 .asm_47af0
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 .asm_47af6
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -343,5 +343,5 @@ AppleFunc:
 .asm_47bdb
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement

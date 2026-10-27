@@ -79,26 +79,26 @@ PneumoFunc:
 	dw .Func_45934
 
 .asm_456c7
-	jp Func_3173
+	jp VanishAndDespawnObject
 
 .asm_456ca
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_456e8
 .asm_456d2
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_456e8
 .asm_456da
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	jr .asm_456e8
 .asm_456e2
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 .asm_456e8
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -259,7 +259,7 @@ PneumoFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_457e7
 	ld a, [wHitFloorBlock]
@@ -318,7 +318,7 @@ PneumoFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_45854
 	jp MoveObjectLeftByVar2
@@ -330,7 +330,7 @@ PneumoFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRightByVar2
 .asm_45854
@@ -355,7 +355,7 @@ PneumoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp nz, .asm_4581d
 	ld hl, wCurObjVar1
@@ -420,7 +420,7 @@ PneumoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jr nz, .asm_458ed
 	ld bc, Data_60600
@@ -442,7 +442,7 @@ PneumoFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
 	ld hl, wCurObjSubState
@@ -456,7 +456,7 @@ PneumoFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
 	ld hl, wCurObjSubState
@@ -498,7 +498,7 @@ PneumoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp nz, .Func_4589d
 	jp MoveObjectUp
@@ -520,7 +520,7 @@ PneumoFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_4599f
 	ld a, [wHitFloorBlock]

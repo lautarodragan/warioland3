@@ -28,15 +28,15 @@ WebberFunc:
 	jp .set_fire_projectile
 
 .AttackedLeftStart:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	ld de, Frameset_682c2
 	jr .asm_40865
 
 .AttackedRightStart:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	ld de, Frameset_682c5
 
@@ -230,7 +230,7 @@ WebberFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -319,7 +319,7 @@ WebberFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld a, [wEffectivePowerUp]
@@ -428,7 +428,7 @@ WebberProjectileFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos

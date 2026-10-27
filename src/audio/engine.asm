@@ -509,13 +509,13 @@ _PlayNewMusic_SetNoise::
 ; same as wLoadedMusic
 	ld a, [wActiveChannels]
 	and MUSIC_CHANNELS
-	jr z, Func_302e4
+	jr z, ReactivateMusicChannels
 	jp ReturnFromAudioJump
 
 ; loops through all music channels and
 ; if either CHANFLAGS_5 or CHANFLAGS_6 are set
 ; then set it as active
-Func_302e4::
+ReactivateMusicChannels::
 	xor a
 	ld [wMusicChannelsDeactivated], a
 	call SetMusicChannels
@@ -765,7 +765,7 @@ DeactivateMusicChannels:
 	jr nz, .loop_chs
 	ret
 
-Func_30438::
+_GetActiveChannels::
 	ld a, [wActiveChannels]
 	and SFX_CHANNELS
 	ld d, a

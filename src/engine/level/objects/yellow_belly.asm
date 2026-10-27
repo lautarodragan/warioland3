@@ -568,7 +568,7 @@ YellowBellyBodyFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeftByVar2
 	ld hl, wCurObjSubState
@@ -583,7 +583,7 @@ YellowBellyBodyFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRightByVar2
 	ld hl, wCurObjSubState
@@ -811,7 +811,7 @@ PumpFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_51927
 .asm_518f0
@@ -831,7 +831,7 @@ PumpFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectLeft_Slow
@@ -842,7 +842,7 @@ PumpFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectRight_Slow
@@ -925,7 +925,7 @@ PumpFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_519bf
 .asm_519b9
@@ -942,7 +942,7 @@ PumpFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_519dc
 .asm_519d6
@@ -978,7 +978,7 @@ PumpFunc:
 	dec [hl]
 	ret
 .asm_51a10
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement
 
 .asm_51a16
@@ -1334,7 +1334,7 @@ YellowBellyPlatformFunc:
 Func_51c62:
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 
 Func_51c77:

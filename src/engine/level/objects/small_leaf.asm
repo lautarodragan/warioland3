@@ -56,7 +56,7 @@ SmallLeafFunc:
 	ret
 
 .asm_43747
-	jp Func_3173
+	jp VanishAndDespawnObject
 
 .Update2:
 	ld hl, wCurObjState

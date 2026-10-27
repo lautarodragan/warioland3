@@ -274,7 +274,7 @@ HaridamaFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jr nz, .asm_490d5
 	ld a, [wIsInWaterOrSand]
@@ -293,7 +293,7 @@ HaridamaFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp z, MoveObjectUp_Slow
 .asm_490d5
@@ -425,7 +425,7 @@ HaridamaFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret
 
@@ -443,6 +443,6 @@ HaridamaFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret

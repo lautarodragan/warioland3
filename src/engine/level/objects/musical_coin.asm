@@ -27,5 +27,5 @@ MusicalCoinFunc:
 	xor a
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
-	farcall Func_bb2d
+	farcall ClearObjectMapEntry
 	ret

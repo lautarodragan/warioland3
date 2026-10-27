@@ -116,7 +116,7 @@ BubbleFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jp nz, .set_burst
 	ld a, [wIsInWaterOrSand]
@@ -133,7 +133,7 @@ BubbleFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret nz ; still underwater
@@ -174,7 +174,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_47d2b
 	ld hl, wCurObjYPos
@@ -184,7 +184,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_47d38
 .asm_47d2b
@@ -237,7 +237,7 @@ BubbleFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_47d88
 	ld hl, wCurObjYPos
@@ -247,7 +247,7 @@ BubbleFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr z, .asm_47d95
 .asm_47d88

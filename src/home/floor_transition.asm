@@ -48,7 +48,7 @@ HandleDownwardsFloorTransition::
 	ret
 
 ; unreferenced?
-Func_1180::
+HandleFloorTransition::
 	ld a, [wCameraConfigFlags]
 	and CAM_SCROLLING_MASK
 	cp CAM_TRANSITIONS

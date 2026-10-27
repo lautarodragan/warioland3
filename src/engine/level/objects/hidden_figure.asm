@@ -1693,14 +1693,14 @@ HiddenFigureRightHandFunc:
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_4d844
 	dw .Func_4d83a
 	dw .Func_4d7dc
@@ -1715,10 +1715,10 @@ HiddenFigureRightHandFunc:
 	dw ObjState_BumpRight
 	dw .Func_4d7dc
 	dw .Func_4d7dc
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
@@ -1727,28 +1727,28 @@ HiddenFigureRightHandFunc:
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw ObjState_StandingFall
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_4d7dc
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_4d87d
 	dw .Func_4d88b
 	dw .Func_4d8f0
 	dw .Func_4d8d8
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
@@ -1971,7 +1971,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -1980,7 +1980,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -1998,7 +1998,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 
 .Func_4d8b1:
 	ld a, $01
@@ -2013,7 +2013,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_4d8c9:
 	ld a, $01
@@ -2026,7 +2026,7 @@ HiddenFigureRightHandFunc:
 .Func_4d8d8:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	jr .Func_4d8e1
 .Func_4d8e1:
 	ld a, $01
@@ -2039,5 +2039,5 @@ HiddenFigureRightHandFunc:
 .Func_4d8f0:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	jp .Func_4d8c9

@@ -435,7 +435,7 @@ UpdateState_OwlSlow:
 	jr nz, .go_down
 
 ; go left
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
@@ -451,7 +451,7 @@ UpdateState_OwlSlow:
 	jp UpdateWarioOwlDirection
 
 .go_right
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
@@ -606,7 +606,7 @@ UpdateState_OwlFast:
 	ld a, [wJoypadDown]
 	and PAD_LEFT
 	jp z, HandleWarioOwlInput
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
@@ -621,7 +621,7 @@ UpdateState_OwlFast:
 	ld a, [wJoypadDown]
 	and PAD_RIGHT
 	jp z, HandleWarioOwlInput
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
@@ -1658,7 +1658,7 @@ UpdateState_SplitKnockedBack:
 	and a
 	jr nz, .play_sfx
 	farcall HandleWalk
-	call Func_1762
+	call LimitAirWalkVelocity
 	jp TriggerDownwardsFloorTransition
 
 .play_sfx
@@ -3267,7 +3267,7 @@ Func_1edf01:
 	ret
 
 Func_1edf2b:
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wIsInAirCurrent]
 	and a
 	jp z, SetState_FanSpinning
@@ -3284,7 +3284,7 @@ Func_1edf47:
 	jp nz, SetState_FanTurning
 	bit B_PAD_LEFT, a
 	ret z
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -3297,7 +3297,7 @@ Func_1edf47:
 	jp nz, SetState_FanTurning
 	bit B_PAD_RIGHT, a
 	ret z
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	ret nz

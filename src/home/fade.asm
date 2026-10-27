@@ -173,7 +173,7 @@ FadeBGToWhite::
 	ret
 
 ; unreferenced
-Func_54e:
+UnreferencedSlowFadeBGToBlack:
 	ld a, [wPalFadeCounter]
 	cp $02
 	jr nc, .asm_568

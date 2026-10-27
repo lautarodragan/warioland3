@@ -268,7 +268,7 @@ ProcessMultiBlock:
 	jr nz, .continue_loop
 	jp .break ; can be jr
 .continue_loop
-	call Func_bb85
+	call ProcessBlockRedrawQueue
 	jp .loop
 
 .break
@@ -488,7 +488,7 @@ Func_896f:
 	dec de
 	ld a, [de]
 	ld [hl], a
-	call Func_cc0
+	call GetObjectMapPtr
 
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
@@ -588,9 +588,9 @@ Func_896f:
 .spawn
 	push de
 	push bc
-	call Func_cf8
+	call GetObjectMapPtrPos
 	push hl
-	call Func_d81
+	call ObjectMapPtrToBlockPtr
 	ld d, h
 	ld e, l
 	push_wram BANK("Level Objects WRAM")
@@ -614,7 +614,7 @@ SetWarioPositionToSpawn:
 	and $f0
 	swap a
 	ld [hl], a ; hYPosHi
-	call Func_cc0
+	call GetObjectMapPtr
 
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
@@ -672,7 +672,7 @@ SetWarioPositionToSpawn:
 
 .found_spawn_block
 	ld c, a
-	call Func_cf8
+	call GetObjectMapPtrPos
 	update_pos
 
 	ld a, [wCameraConfigFlags]

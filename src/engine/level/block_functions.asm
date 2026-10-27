@@ -45,7 +45,7 @@ BlockFunc_Solid:
 	and a
 	jr z, .snap_y_pos
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr z, .snap_y_pos
 	xor a
 	ld [wUnused_c18d], a
@@ -117,7 +117,7 @@ BlockFunc_180b5:
 	jp z, BlockFunc_Solid
 .asm_180c3
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
 	ldh a, [hYPosLo]
 	sub $10
@@ -129,10 +129,10 @@ BlockFunc_180b5:
 
 BlockFunc_RightSlope:
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints] ; unnecessary
-	bit COLLISION_UNK1_F, a
+	bit COLLISION_LANDING_F, a
 	jr z, RightSlopeCollision
 
 	; if x + y < $10, then it means that
@@ -185,7 +185,7 @@ RightSlopeCollision:
 	; yPos += top + c
 
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jr z, .asm_18126
 	ld a, [wBlockFuncWarioFlag]
 	and a
@@ -220,7 +220,7 @@ BlockFunc_1813f:
 	jp z, BlockFunc_Solid
 .asm_1814d
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
 	ldh a, [hYPosLo]
 	sub $10
@@ -232,9 +232,9 @@ BlockFunc_1813f:
 
 BlockFunc_LeftSlope:
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
-	bit COLLISION_UNK1_F, a
+	bit COLLISION_LANDING_F, a
 	jr z, LeftSlopeCollision
 
 	; if x >= y, then it means that
@@ -270,7 +270,7 @@ BlockFunc_LeftSlope:
 
 LeftSlopeCollision:
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1
+	and COLLISION_DOWN | COLLISION_LANDING
 	jr z, .asm_181a9
 
 	ldh a, [hXPosLo]
@@ -307,7 +307,7 @@ BlockFunc_Water:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, SUBMERSIBLE_WATER
 	ld [wWaterInteraction], a
@@ -315,7 +315,7 @@ BlockFunc_Water:
 
 BlockFunc_RightCurrent:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, CURRENT_RIGHT
 	ld [wWaterCurrent], a
@@ -323,7 +323,7 @@ BlockFunc_RightCurrent:
 
 BlockFunc_UpCurrent:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, CURRENT_UP
 	ld [wWaterCurrent], a
@@ -331,7 +331,7 @@ BlockFunc_UpCurrent:
 
 BlockFunc_LeftCurrent:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, CURRENT_LEFT
 	ld [wWaterCurrent], a
@@ -339,7 +339,7 @@ BlockFunc_LeftCurrent:
 
 BlockFunc_DownCurrent:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, CURRENT_DOWN
 	ld [wWaterCurrent], a
@@ -351,9 +351,9 @@ BlockFunc_Floor:
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jr nz, .asm_18228
-	bit COLLISION_UNK2_F, a
+	bit COLLISION_DOWN_SIDES_F, a
 	jr nz, .asm_18228
-	and COLLISION_UNK3 | COLLISION_UNK4 | COLLISION_UNK5 | COLLISION_UNK7
+	and COLLISION_UP_SIDES | COLLISION_SIDE | COLLISION_UP | COLLISION_ENV
 	jp nz, BlockFunc_Free
 	ldh a, [hYPosLo]
 	and $0f
@@ -373,13 +373,13 @@ BlockFunc_Floor:
 
 BlockFunc_WaterSurface:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK1_F, a
+	bit COLLISION_LANDING_F, a
 	jr nz, .asm_18257
 	ldh a, [hYPosLo]
 	and $0e
 	jp nz, BlockFunc_Water
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK2
+	and COLLISION_DOWN | COLLISION_DOWN_SIDES
 	jr nz, .asm_1825a
 	jp BlockFunc_Water
 .asm_18257
@@ -398,9 +398,9 @@ BlockFunc_18262:
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
 	jp nz, BlockFunc_Solid
-	bit COLLISION_UNK2_F, a
+	bit COLLISION_DOWN_SIDES_F, a
 	jp nz, BlockFunc_Solid
-	and COLLISION_UNK3 | COLLISION_UNK4 | COLLISION_UNK5 | COLLISION_UNK7
+	and COLLISION_UP_SIDES | COLLISION_SIDE | COLLISION_UP | COLLISION_ENV
 	jp nz, BlockFunc_Free
 	ldh a, [hYPosLo]
 	and $0f
@@ -413,7 +413,7 @@ BlockFunc_Switch:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK3 | COLLISION_UNK5
+	and COLLISION_UP_SIDES | COLLISION_UP
 	jp z, BlockFunc_Solid
 	ld hl, wBlockPtr
 	ld a, [hli]
@@ -423,7 +423,7 @@ BlockFunc_Switch:
 	ld [wSwitchState], a
 	xor $8
 	ld [hl], a
-	call Func_e31
+	call QueueBlockRedraw
 	ld a, [wSwitchStateUpdated]
 	xor 1
 	ld [wSwitchStateUpdated], a
@@ -437,7 +437,7 @@ BlockFunc_Ladder:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jr nz, .set_ladder_interaction
 	jp BlockFunc_Free
 .set_ladder_interaction
@@ -459,7 +459,7 @@ BlockFunc_LadderTop:
 
 Func_182ec:
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jr nz, .asm_182f6
 	jp BlockFunc_Floor
 .asm_182f6
@@ -472,7 +472,7 @@ BlockFunc_182fe:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, LADDER_COLLISION
 	ld [wLadderInteraction], a
@@ -485,7 +485,7 @@ Func_1831a:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, LADDER_COLLISION
 	ld [wLadderInteraction], a
@@ -691,7 +691,7 @@ BlockFunc_UpPipe_Left:
 	jp nz, BlockFunc_Solid
 .asm_1850f
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK5
+	and COLLISION_UP
 	jp z, BlockFunc_Solid
 	ld a, [wJoypadDown]
 	bit B_PAD_UP, a
@@ -717,7 +717,7 @@ BlockFunc_UpPipe_Right:
 	jp nz, BlockFunc_Solid
 .asm_18546
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK5
+	and COLLISION_UP
 	jp z, BlockFunc_Solid
 	ld a, [wJoypadDown]
 	bit B_PAD_UP, a
@@ -773,7 +773,7 @@ BlockFunc_Door:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
@@ -801,7 +801,7 @@ BlockFunc_MinigameDoor:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
@@ -822,7 +822,7 @@ Func_18624:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
@@ -843,7 +843,7 @@ Func_1864e:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
@@ -923,7 +923,7 @@ BlockFunc_UnderwaterDoor:
 	jp nz, BlockFunc_Water
 .asm_1870b
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, SUBMERSIBLE_WATER
 	ld [wWaterInteraction], a
@@ -946,7 +946,7 @@ BlockFunc_18727:
 	jp nz, BlockFunc_Water
 .asm_18739
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, SUBMERSIBLE_WATER
 	ld [wWaterInteraction], a
@@ -970,7 +970,7 @@ Func_18755:
 	jp nz, BlockFunc_Free
 .asm_18767
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
@@ -1009,7 +1009,7 @@ BlockFunc_187b0:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, ROOMTRANSITION_4 | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
@@ -1020,7 +1020,7 @@ Func_187c7:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, ROOMTRANSITION_4
 	ld [wRoomTransitionParam], a
@@ -1031,7 +1031,7 @@ BlockFunc_187de:
 	and a
 	jp z, BlockFunc_Water
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, ROOMTRANSITION_4 | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
@@ -1042,7 +1042,7 @@ Func_187f5:
 	and a
 	jp z, BlockFunc_Water
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
 	ld a, ROOMTRANSITION_4
 	ld [wRoomTransitionParam], a
@@ -1080,7 +1080,7 @@ BlockFunc_Sand:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, TRUE
 	ld [wIsInSand], a
@@ -1094,7 +1094,7 @@ BlockFunc_18868:
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jp nz, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Solid
 	ld a, [wWarioXPos + 1]
 	and $08
@@ -1137,7 +1137,7 @@ BlockFunc_NonSubmersibleWater:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, NON_SUBMERSIBLE_WATER
 	ld [wWaterInteraction], a
@@ -1148,7 +1148,7 @@ BlockFunc_Fire:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	and COLLISION_DOWN | COLLISION_UNK1 | COLLISION_UNK2 | COLLISION_UNK6
+	and COLLISION_DOWN | COLLISION_LANDING | COLLISION_DOWN_SIDES | COLLISION_LANDING_SIDES
 	jp nz, BlockFunc_Free
 	ld a, [wInvincibleCounter]
 	and a
@@ -1179,7 +1179,7 @@ BlockFunc_Fence:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jr nz, .set_near_fence
 	jp BlockFunc_Free
 .set_near_fence
@@ -1192,7 +1192,7 @@ BlockFunc_AirCurrent:
 	and a
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK7_F, a
+	bit COLLISION_ENV_F, a
 	jr nz, .asm_1895e
 	jp BlockFunc_Free
 .asm_1895e
@@ -1306,13 +1306,13 @@ CrackedBlockWithColourCoinCollision:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18a36
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18a45
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18a45
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18a5c
 	jp BlockFunc_Solid
 
@@ -1347,7 +1347,7 @@ CrackedBlockWithColourCoinCollision:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlockWithColourCoin
 	ld a, [wIsRolling]
@@ -1736,13 +1736,13 @@ CrackedBlockCollision:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18cfc
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18d0b
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18d0b
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18d22
 	jp BlockFunc_Solid
 .asm_18cfc
@@ -1774,7 +1774,7 @@ CrackedBlockCollision:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	ld a, [wIsRolling]
@@ -1844,19 +1844,19 @@ NonCrackedBlockCollision:
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18dcb
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18dda
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18dda
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18dc1
 	jp BlockFunc_Solid
 
 .fat_wario
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, Func_18df1
 	jp BlockFunc_Solid
 
@@ -1897,7 +1897,7 @@ Func_18df1:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	ld a, [wIsRolling]
@@ -1957,13 +1957,13 @@ Func_18e2c:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18e64
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18e73
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18e73
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18e8a
 	jp BlockFunc_Solid
 .asm_18e64
@@ -2051,13 +2051,13 @@ Func_18ec0:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18ef8
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18f07
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18f07
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18f1e
 	jp BlockFunc_Solid
 .asm_18ef8
@@ -2113,7 +2113,7 @@ Func_18f32:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	jp BlockFunc_Free
@@ -2172,13 +2172,13 @@ Func_18f7d:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_18fb5
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_18fc4
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_18fc4
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_18fdb
 	jp BlockFunc_Solid
 .asm_18fb5
@@ -2266,13 +2266,13 @@ Func_19011:
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_19049
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_19058
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_19058
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_1906f
 	jp BlockFunc_Solid
 .asm_19049
@@ -2330,7 +2330,7 @@ Func_19086:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	ld a, [wIsRolling]
@@ -2411,18 +2411,18 @@ Func_190fe:
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_1914f
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_1915e
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_1915e
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_19175
 	jp BlockFunc_Solid
 .asm_19145
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_1917d
 	jp BlockFunc_Solid
 .asm_1914f
@@ -2520,18 +2520,18 @@ Func_191b3:
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_19204
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_19213
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_19213
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_1922a
 	jp BlockFunc_Solid
 .asm_191fa
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_19232
 	jp BlockFunc_Solid
 .asm_19204
@@ -2591,7 +2591,7 @@ Func_19246:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	jp BlockFunc_Free
@@ -2655,18 +2655,18 @@ Func_19291:
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_192e2
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_192f1
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_192f1
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_19308
 	jp BlockFunc_Solid
 .asm_192d8
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_19310
 	jp BlockFunc_Solid
 .asm_192e2
@@ -2764,18 +2764,18 @@ Func_19346:
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	bit COLLISION_UNK4_F, a
+	bit COLLISION_SIDE_F, a
 	jr nz, .asm_19397
-	bit COLLISION_UNK5_F, a
+	bit COLLISION_UP_F, a
 	jr nz, .asm_193a6
-	bit COLLISION_UNK3_F, a
+	bit COLLISION_UP_SIDES_F, a
 	jr nz, .asm_193a6
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_193bd
 	jp BlockFunc_Solid
 .asm_1938d
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .asm_193c5
 	jp BlockFunc_Solid
 .asm_19397
@@ -2878,7 +2878,7 @@ Func_19423:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e2b
+	call QueueBlockRedraw_IfObjOnScreen
 	pop hl
 	ld a, [wCurObjFlags]
 	bit OBJFLAG_ON_SCREEN_F, a
@@ -2945,7 +2945,7 @@ Func_19481:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	jp BlockFunc_Free
@@ -2994,7 +2994,7 @@ DoughnutBlockCollision:
 	cp TRANSFORMATION_FAT_WARIO
 	jp nz, BlockFunc_Solid
 	ld a, [wCollisionPoints]
-	and COLLISION_UNK1 | COLLISION_UNK6
+	and COLLISION_LANDING | COLLISION_LANDING_SIDES
 	jr nz, .break
 	jp BlockFunc_Solid
 .break
@@ -3007,7 +3007,7 @@ DoughnutBlockCollision:
 	or b
 	ld [hl], a
 	push hl
-	call Func_e31
+	call QueueBlockRedraw
 	pop hl
 	call BreakBlock
 	jp BlockFunc_Solid

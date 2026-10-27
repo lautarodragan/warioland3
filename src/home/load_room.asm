@@ -184,7 +184,7 @@ LoadRoom::
 	ld [wRoomObjMapLeftX], a
 	ret
 
-Func_298d::
+LoadRoomBlockTiles::
 	ld a, [wRoomBlockFunctionTable]
 	add a
 	ld e, a

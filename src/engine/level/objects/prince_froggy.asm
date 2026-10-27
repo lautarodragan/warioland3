@@ -41,20 +41,20 @@ RedPrinceFroggyFunc:
 
 PrinceFroggyFunc:
 .Func_440c4:
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	jr .asm_440da
 .Func_440ca:
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_440da
 .Func_440d0:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	jr .asm_440da
 .Func_440d6:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 .asm_440da
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
@@ -252,7 +252,7 @@ PrinceFroggyFunc:
 .Func_44220:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]

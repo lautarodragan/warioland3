@@ -157,7 +157,7 @@ UpdateLevel:
 	ld a, BANK("SRAM1")
 	sramswitch
 	call Func_8ed9
-	call Func_bb85
+	call ProcessBlockRedrawQueue
 	di
 	call SetTileQueueProcessingFunctions
 	ei

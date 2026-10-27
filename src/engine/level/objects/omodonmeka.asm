@@ -62,23 +62,23 @@ OmodonmekaFunc:
 	jr .asm_42249
 
 .asm_421dc
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_421fa
 .asm_421e4
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_421fa
 .asm_421ec
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	jr .asm_421fa
 .asm_421f4
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 .asm_421fa
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -98,7 +98,7 @@ OmodonmekaFunc:
 	ret
 
 .asm_42215
-	jp Func_3173
+	jp VanishAndDespawnObject
 
 .Func_42218:
 	ld hl, wCurObjState
@@ -199,7 +199,7 @@ OmodonmekaFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and $0f
 	jr nz, .asm_422d0
 	ld hl, wCurObjVar1
@@ -373,7 +373,7 @@ OmodonmekaFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -469,7 +469,7 @@ OmodonmekaWithOmodon1Func:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	call Func_3444
+	call CountCurObjTransientChildren
 	ld a, e
 	and a
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
@@ -499,7 +499,7 @@ OmodonmekaWithOmodon2Func:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	call Func_3444
+	call CountCurObjTransientChildren
 	ld a, e
 	and a
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
@@ -1061,7 +1061,7 @@ Func_4279c:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos

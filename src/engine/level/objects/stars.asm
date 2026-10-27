@@ -1,4 +1,4 @@
-Func_4c860:
+StarsFunc_Despawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

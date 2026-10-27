@@ -1318,7 +1318,7 @@ Func_20a6f:
 	jp z, ProcessInteractions.next_obj
 	ld a, INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_20acf
@@ -1335,7 +1335,7 @@ Func_20a6f:
 	jp nz, ProcessInteractions.next_obj
 	ld a, INTERACTION_LEFT
 	ld [wInteractionSide], a
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_20acf
@@ -1933,11 +1933,11 @@ ObjInteraction_Richtertoffen:
 	ld a, [wLadderInteraction]
 	cp LADDER_UNDERNEATH
 	jr z, .asm_20fdb
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_20fdb
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_20fdb

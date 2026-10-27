@@ -4,7 +4,7 @@
 ; - l = x block
 ; - h = y block
 ; - b = 1 if even object, 0 if odd object
-Func_cc0::
+GetObjectMapPtr::
 	; [hl] = y pos
 	ld a, [hli]
 	ld d, a
@@ -51,7 +51,7 @@ Func_cc0::
 	ld h, c
 	ret
 
-Func_cf8::
+GetObjectMapPtrPos::
 	push hl
 	ld a, h
 	sub HIGH(STARTOF(SRAM))
@@ -99,7 +99,7 @@ Func_cf8::
 	pop hl
 	ret
 
-Func_d3e::
+GetBlockPtrPos::
 	ld a, h
 	sub HIGH(STARTOF(SRAM))
 	ld d, a
@@ -140,7 +140,7 @@ Func_d3e::
 	ld [wUnused_ObjectParity], a
 	ret
 
-Func_d81::
+ObjectMapPtrToBlockPtr::
 	ld a, l
 	sub $b0
 	add a
@@ -151,7 +151,7 @@ Func_d81::
 	ld l, a
 	ret
 
-Func_d8c::
+BlockPtrToObjectMapPtr::
 	ld a, [wBlockPtrBank]
 	ld [wObjectMapBank], a
 	ld b, $01

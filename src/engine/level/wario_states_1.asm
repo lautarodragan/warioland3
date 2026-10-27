@@ -98,7 +98,7 @@ UpdateState_Idling:
 	bit B_PAD_DOWN, a
 	jr z, .not_pressing_down
 ; pressing down, handle what state to change to
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wWarioState]
 	cp WST_IDLING
 	ret nz ; not idling
@@ -384,7 +384,7 @@ UpdateState_Airborne:
 	cp WST_AIRBORNE
 	ret nz ; not airborne anymore
 
-	farcall Func_19afb
+	farcall UpdateEnvStateAtHead
 	ld a, [wIsNearFence]
 	and a
 	jr z, .handle_input
@@ -2136,7 +2136,7 @@ UpdateState_WaterStung:
 	ld a, b
 	and a
 	jr nz, .asm_1d3ed
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wWaterInteraction]
 	and a
 	jr z, .asm_1d404
@@ -3457,7 +3457,7 @@ UpdateState_Sliding:
 	cp WST_SLIDING
 	ret nz ; not sliding anymore
 
-	farcall Func_198c7
+	farcall CheckDownCollisionAtWario
 	ld a, b
 	and a
 	jp z, Func_1e174
@@ -3807,7 +3807,7 @@ UpdateState_GroundShakeStunned:
 	ret z
 	call ApplyJumpVelocity
 	farcall HandleWalk
-	call Func_1762
+	call LimitAirWalkVelocity
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
 	jr nc, .asm_1e395
@@ -3940,7 +3940,7 @@ ApplyWaterCurrentMovement:
 	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_RIGHT, a
 	ret nz
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -3968,7 +3968,7 @@ ApplyWaterCurrentMovement:
 	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_LEFT, a
 	ret nz
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -4071,7 +4071,7 @@ ApplyLastWaterCurrentMovement:
 	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_RIGHT, a
 	jr nz, .reset_last_water_current
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .reset_last_water_current
@@ -4092,7 +4092,7 @@ ApplyLastWaterCurrentMovement:
 	ld a, [wWaterCurrentBlockedDir]
 	bit B_PAD_LEFT, a
 	jr nz, .reset_last_water_current
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .reset_last_water_current
@@ -4625,7 +4625,7 @@ HandleBumpMovement:
 ; d-left
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .start_fall
@@ -4636,7 +4636,7 @@ HandleBumpMovement:
 .d_right
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .start_fall
@@ -4655,7 +4655,7 @@ HandleBumpMovement:
 ; dir left
 	ld b, 1
 	call MoveWarioLeft
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr z, .handle_vertical
@@ -4665,7 +4665,7 @@ HandleBumpMovement:
 .dir_right
 	ld b, 1
 	call MoveWarioRight
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr z, .handle_vertical
@@ -5368,11 +5368,11 @@ HandleInput_Airborne:
 
 .d_right
 	call WalkRight
-	jp Func_1762
+	jp LimitAirWalkVelocity
 
 .d_left
 	call WalkLeft
-	jp Func_1762
+	jp LimitAirWalkVelocity
 
 WalkRight:
 	xor a
@@ -5505,7 +5505,7 @@ Func_1f1a9:
 	ld a, b
 	and a
 	jr nz, .asm_1f246
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wWaterInteraction]
 	and a
 	jp z, SurfaceFromUnderwater
@@ -5698,7 +5698,7 @@ Func_1f3d9:
 	ld a, b
 	and a
 	ret nz
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wWaterInteraction]
 	and a
 	jp z, SurfaceFromUnderwater
@@ -5724,7 +5724,7 @@ HandleWaterSurfaceInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_UP, a
 	ret nz
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wWaterInteraction]
 	cp NON_SUBMERSIBLE_WATER
 	jp z, SetState_TryingSubmerge
@@ -5739,7 +5739,7 @@ HandleWaterSurfaceInput:
 	ld a, [wPowerUpLevel]
 	cp SWIMMING_FLIPPERS
 	jp c, SetState_TryingSubmerge
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wWaterInteraction]
 	cp NON_SUBMERSIBLE_WATER
 	jp z, SetState_TryingSubmerge
@@ -5786,7 +5786,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wWarioState]
 	cp WST_WATER_STUNG
 	ret z
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jp nz, SetState_SwimKnockBack_SwitchDirection
@@ -5819,7 +5819,7 @@ HandleUnderwaterThrustingInput:
 	ld a, [wWarioState]
 	cp WST_WATER_STUNG
 	ret z
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jp nz, SetState_SwimKnockBack_SwitchDirection
@@ -5854,7 +5854,7 @@ HandleUnderwaterThrustingInput:
 	ld a, b
 	and a
 	jr nz, .asm_1f593
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wWaterInteraction]
 	and a
 	jp z, SurfaceFromUnderwater
@@ -5912,7 +5912,7 @@ HandleUnderwaterThrustingInput:
 	ld a, b
 	and a
 	jr nz, .asm_1f642
-	farcall Func_19acd
+	farcall UpdateEnvStateAtChest
 	ld a, [wWaterInteraction]
 	and a
 	jp z, SurfaceFromUnderwater

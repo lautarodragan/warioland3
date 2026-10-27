@@ -238,7 +238,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_51ed4
 	ld a, [wGlobalCounter]
@@ -284,7 +284,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr z, .asm_51f46
@@ -316,7 +316,7 @@ PesceFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
 	jr .asm_51f7d
@@ -327,7 +327,7 @@ PesceFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
 .asm_51f7d
@@ -416,7 +416,7 @@ PesceFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 	jr .asm_52060
@@ -464,7 +464,7 @@ PesceFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_52060
@@ -699,7 +699,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 	ld hl, wCurObjInteractionType
@@ -711,7 +711,7 @@ PesceFunc:
 	ld [wCurObjVar1], a
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, $01
 	ld [wDollBoyHammerRange], a
 	ret
@@ -736,7 +736,7 @@ PesceFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown_Slow
 	ld a, [wCurObjSubState]
@@ -838,7 +838,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
 	ld e, $08
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -1145,7 +1145,7 @@ FlySpawnerFunc:
 	ret z
 	ld hl, wCurObjUnk02
 	ld e, $09
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	xor a
 	ld [wCurObjFlags], a
 	ret
@@ -1222,12 +1222,12 @@ FlyFunc:
 	add $2a
 	cp b
 	jr c, .asm_525a5
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_525a9
 .asm_525a5
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 .asm_525a9
 	ld hl, wCurObjUpdateFunction + 1
 	ld [hld], a
@@ -1310,7 +1310,7 @@ CheeseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water

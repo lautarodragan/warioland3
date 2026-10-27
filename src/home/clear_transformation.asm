@@ -59,7 +59,7 @@ ENDR
 	ret
 
 ; unreferenced
-Func_10fc:
+UnreferencedConvertToBCD:
 	ld a, c
 	ld b, $00
 	ld hl, 0
@@ -84,7 +84,7 @@ Func_10fc:
 	ret
 
 ; unreferenced
-Func_111e:
+UnreferencedConvertBCDToBinary:
 	push hl
 	ld a, h
 	ld hl, 0

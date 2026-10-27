@@ -3179,7 +3179,7 @@ VBlank_1c9ffa:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wGoldBuildingCourseAttrMap
-	call Func_2c30
+	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a
 	ld a, HIGH(wVirtualOAM)
@@ -3200,7 +3200,7 @@ VBlank_1ca033:
 	ld a, [wSCX]
 	ldh [rSCX], a
 	ld hl, wGolfPals
-	call Func_2c46
+	call SetGolfBGPals
 	ld a, HIGH(wVirtualOAM)
 	jp hTransferVirtualOAM
 .end
@@ -3228,7 +3228,7 @@ VBlank_1ca056:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wGolfPinFlagTiles
-	call Func_2c30
+	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a
 	ld a, HIGH(wVirtualOAM)

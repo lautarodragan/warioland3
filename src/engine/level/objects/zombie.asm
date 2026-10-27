@@ -58,7 +58,7 @@ ZombieFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_45b27
 	xor a
@@ -90,7 +90,7 @@ ZombieFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_45b61
 	call MoveObjectLeft
@@ -125,7 +125,7 @@ ZombieFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_45b61
 	call MoveObjectRight
@@ -287,10 +287,10 @@ ZombieFunc:
 	add $2a
 	cp b
 	jr c, .asm_45ca9
-	ld bc, Func_3407
+	ld bc, ObjState_HitByObjRight
 	jr .asm_45cac
 .asm_45ca9
-	ld bc, Func_33f8
+	ld bc, ObjState_HitByObjLeft
 .asm_45cac
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, b
@@ -301,7 +301,7 @@ ZombieFunc:
 .asm_45cb2
 	ld a, [hl]
 	cp $0a
-	jp z, Func_3173
+	jp z, VanishAndDespawnObject
 	jr .asm_45c70
 .asm_45cba
 	xor a
@@ -385,7 +385,7 @@ ZombieFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_45d56
 	ld a, $30
@@ -427,7 +427,7 @@ ZombieFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
 	jr .asm_45dc9
@@ -454,7 +454,7 @@ ZombieFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
 	jr .asm_45dc4

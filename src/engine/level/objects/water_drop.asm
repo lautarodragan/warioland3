@@ -107,7 +107,7 @@ WaterDropFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_49e26
 	ld a, [wIsInWaterOrSand]

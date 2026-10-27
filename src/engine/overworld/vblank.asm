@@ -190,7 +190,7 @@ VBlank_OWScene:
 	push af
 	ld a, b
 	bankswitch
-	call Func_3c03
+	call StartOWHDMA
 	pop af
 	bankswitch
 

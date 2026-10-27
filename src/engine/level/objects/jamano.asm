@@ -179,7 +179,7 @@ JamanoFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_54ea6
 .asm_54e9f
@@ -210,7 +210,7 @@ JamanoFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_54edc
 .asm_54ed5
@@ -274,7 +274,7 @@ JamanoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_54f4f
 	ld hl, wCurObjSubState
@@ -371,7 +371,7 @@ JamanoFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_55001
 	play_sfx SFX_BUMP
@@ -393,7 +393,7 @@ JamanoFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_5502e
 	play_sfx SFX_BUMP
@@ -426,7 +426,7 @@ JamanoFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown
 	ld hl, wCurObjSubState
@@ -547,7 +547,7 @@ JamanoHatFunc:
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
 	ld e, $06
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -678,7 +678,7 @@ SkullSpawnerFunc:
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 .asm_5525b
 	call Func_55407
@@ -864,13 +864,13 @@ SkullFunc:
 .Func_55396:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jp nz, Func_3317
+	jp nz, ObjState_AttackedRight
 	jr .asm_553a8
 
 .Func_553a0:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jp nz, Func_3326
+	jp nz, ObjState_AttackedLeft
 
 .asm_553a8
 	ld a, no_actions_for 1

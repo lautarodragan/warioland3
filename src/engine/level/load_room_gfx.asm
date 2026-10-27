@@ -36,7 +36,7 @@ LoadRoomGfx::
 	ld a, BANK("Level Data 1")
 	add b
 	ld [wRoomBlockFunctionTableBank], a
-	call Func_298d
+	call LoadRoomBlockTiles
 	call LoadBlockFunctionTable
 	ld a, [wRoomBlockFunctionTableBank]
 	ld [wRoomTileMapBank], a

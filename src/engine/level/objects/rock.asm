@@ -35,7 +35,7 @@ RockFunc:
 	dw .Func_4aa66
 	dw .Func_4aa27
 	dw .Func_4aa2f
-	dw Func_3173
+	dw VanishAndDespawnObject
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -79,8 +79,8 @@ RockFunc:
 	dw ObjState_BumpRight
 	dw .Destroy
 	dw .Destroy
-	dw Func_3335
-	dw Func_3344
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -91,20 +91,20 @@ RockFunc:
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Destroy
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Destroy
 	dw .Destroy
 	dw .Func_4aa9d
 	dw .Func_4aa83
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw .Func_4aabb
 	dw .Func_4aac3
-	dw Func_339e
-	dw Func_33ad
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
 	dw .Destroy
 	dw .Destroy
 	dw .Destroy
@@ -185,7 +185,7 @@ RockFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 .Func_4aa66:
 	ld hl, wCurObjState
 	ld a, $37
@@ -197,7 +197,7 @@ RockFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_4aa79:
 	ld a, $49
@@ -207,7 +207,7 @@ RockFunc:
 .Func_4aa83:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
@@ -222,7 +222,7 @@ RockFunc:
 .Func_4aa9d:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
@@ -251,23 +251,23 @@ RockFunc:
 	jp ObjState_FullThrowRight
 
 .Func_4aacb:
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_4aae9
 .Func_4aad3:
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_4aae9
 .Func_4aadb:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	jr .asm_4aae9
 .Func_4aae3:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 .asm_4aae9
 	ld hl, wCurObjUpdateFunction + 1

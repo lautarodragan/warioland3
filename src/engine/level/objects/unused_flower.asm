@@ -160,7 +160,7 @@ UnusedFlowerProjectileCommonFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .set_destroy
 	ld hl, wCurObjYPos
@@ -172,7 +172,7 @@ UnusedFlowerProjectileCommonFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	ret nz
 	ld a, OBJSTATE_SPECIAL_2
@@ -198,7 +198,7 @@ UnusedFlowerProjectileCommonFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos

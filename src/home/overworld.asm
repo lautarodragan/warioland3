@@ -342,7 +342,7 @@ ApplyPalConfig::
 	jr nz, .loop
 	ret
 
-Func_3c03::
+StartOWHDMA::
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wHDMAVRAM1
@@ -369,19 +369,19 @@ Func_3c03::
 ; hl = OW obj
 ; de = relative positions
 ApplyOWMovement_Mirrored::
-	call Func_3c35
+	call ApplyOWMovementY
 	sub e
-	jr Func_3c29
+	jr StoreOWMovementX
 
 ; hl = OW obj
 ; de = relative positions
 ; returns z if movement has finished
 ApplyOWMovement::
-	call Func_3c35
+	call ApplyOWMovementY
 	add e
 ;	fallthrough
 
-Func_3c29::
+StoreOWMovementX::
 	ld [bc], a
 
 	; reset if reached the end
@@ -396,7 +396,7 @@ Func_3c29::
 	ld [bc], a ; unk7
 	ret
 
-Func_3c35:
+ApplyOWMovementY:
 	ld c, l
 	ld b, h
 	ld a, $07

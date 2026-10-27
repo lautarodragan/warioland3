@@ -762,7 +762,7 @@ UpdateState_FlatJumping:
 	jp nz, TriggerRoomTransition
 	call ApplyJumpVelocity
 	call Func_2b17a
-	call Func_1762
+	call LimitAirWalkVelocity
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
 	jr nc, SetState_FlatFalling
@@ -3105,7 +3105,7 @@ SetState_ZombieLanding:
 	ld [wWarioStateCounter], a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
-	farcall Func_19a77
+	farcall CheckStandingOnFloorBlocks
 	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_29d43
@@ -3433,7 +3433,7 @@ SetState_BouncyStart::
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	ret z
@@ -5342,7 +5342,7 @@ Func_2b1cc:
 	jr nz, .asm_2b1f1
 	ld b, $02
 	call MoveWarioLeft
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 
 	ld a, b
 	and a
@@ -5353,7 +5353,7 @@ Func_2b1cc:
 .asm_2b1f1
 	ld b, $02
 	call MoveWarioRight
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr z, .asm_2b20e
@@ -5484,7 +5484,7 @@ Func_2b2c2:
 	jp nz, SetState_PuffyTurning
 	bit B_PAD_LEFT, a
 	ret z
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -5498,7 +5498,7 @@ Func_2b2c2:
 	jp nz, SetState_PuffyTurning
 	bit B_PAD_RIGHT, a
 	ret z
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -5660,7 +5660,7 @@ Func_2b42b:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_2b47c
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b4cd
@@ -5669,7 +5669,7 @@ Func_2b42b:
 	ret
 
 .asm_2b47c
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b4cd
@@ -5681,7 +5681,7 @@ Func_2b42b:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_2b4b4
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b4cd
@@ -5690,7 +5690,7 @@ Func_2b42b:
 	ret
 
 .asm_2b4b4
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b4cd
@@ -5821,7 +5821,7 @@ Func_2b56f:
 	ret
 
 .asm_2b607
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b5f7
@@ -5829,7 +5829,7 @@ Func_2b56f:
 	call MoveWarioRight
 	jr .asm_2b602
 .asm_2b621
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_2b5f7

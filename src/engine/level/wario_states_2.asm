@@ -2071,7 +2071,7 @@ SetState_FenceMovingHorizontal:
 	ret
 
 UpdateState_FenceMovingHorizontal:
-	farcall Func_19afb
+	farcall UpdateEnvStateAtHead
 	ld a, [wIsNearFence]
 	and a
 	jr nz, .asm_1b034
@@ -2214,7 +2214,7 @@ Func_1b168:
 	jp SetState_FenceIdling
 
 .d_up
-	farcall Func_19ae4 ; unnecessary farcall
+	farcall UpdateEnvStateAboveHead ; unnecessary farcall
 	ld a, [wIsNearFence]
 	and a
 	ret z
@@ -2229,7 +2229,7 @@ Func_1b168:
 	ld a, b
 	and a
 	jr nz, .asm_1b1ff
-	farcall Func_19afb
+	farcall UpdateEnvStateAtHead
 	ld a, [wIsNearFence]
 	and a
 	ret nz
@@ -2447,7 +2447,7 @@ HandleLadderInput:
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
@@ -2470,7 +2470,7 @@ HandleLadderInput:
 	jp StartDownwardsFloorTransition
 
 .asm_1b42b
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wLadderInteraction]
 	and a
 	jr z, .no_more_ladder_interaction
@@ -2521,7 +2521,7 @@ Func_1b480:
 	jr nz, .asm_1b4d3
 	ld a, -16
 	ld [wCollisionBoxLeft], a
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_1b4eb
@@ -2535,7 +2535,7 @@ Func_1b480:
 .asm_1b4d3
 	ld a, 16
 	ld [wCollisionBoxRight], a
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr z, .asm_1b4c6

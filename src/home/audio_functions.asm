@@ -10,7 +10,7 @@ AudioFunc_PlaySFX:
 	call PrepareAudioJump_NoCallback
 	jp _PlaySFX
 
-Func_3f12:
+AudioFunc_PlayMusic:
 	call PrepareAudioJump_NoCallback
 	jp PlayMusic
 
@@ -26,13 +26,13 @@ AudioFunc_TurnMusicOff:
 	call PrepareAudioJump_NoCallback
 	jp _TurnMusicOff
 
-Func_3f2a:
+AudioFunc_ReactivateMusicChannels:
 	call PrepareAudioJump_NoCallback
-	jp Func_302e4
+	jp ReactivateMusicChannels
 
-Func_3f30:
+AudioFunc_GetActiveChannels:
 	call PrepareAudioJump_NoCallback
-	jp Func_30438
+	jp _GetActiveChannels
 
 AudioFunc_ExecuteAudioMod:
 	call PrepareAudioJump_NoCallback

@@ -373,7 +373,7 @@ DollBoyFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ld bc, FallingYVel_Light
 	jp z, ApplyObjYMovement
@@ -501,7 +501,7 @@ DollBoyFunc:
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld l, OBJ_UNK_02
 	ld e, $05
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	stop_music2
 	ld de, Frameset_6967f
 	jp SetObjectFramesetPtr
@@ -639,7 +639,7 @@ DollBoyFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .turn_right
 	ld a, [wCurObjFramesetOffset]
@@ -668,7 +668,7 @@ DollBoyFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .turn_left
 	ld a, [wCurObjFramesetOffset]
@@ -715,7 +715,7 @@ DollBoyFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ld bc, FallingYVel_Light
 	jp z, ApplyObjYMovement
@@ -1009,9 +1009,9 @@ DollBoyBarrelFunc:
 	ld de, Frameset_6969f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
 	ld [hld], a
-	ld a, LOW(Func_3317)
+	ld a, LOW(ObjState_AttackedRight)
 	ld [hld], a
 	play_sfx SFX_017
 	ld hl, wDollBoyActiveBarrels
@@ -1160,7 +1160,7 @@ DollBoyHammerFunc:
 .hit_fall
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement
 
 HammerPlatformSpawnerFunc:

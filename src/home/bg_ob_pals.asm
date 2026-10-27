@@ -61,7 +61,7 @@ FillWhiteOBPal::
 	ret
 
 ; unreferenced
-Func_1ae2:
+UnreferencedFillTempPalsWhite:
 	ld hl, PalsWhite
 	ld de, wTempBGPals
 	ld b, 8 palettes

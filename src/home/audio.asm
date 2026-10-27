@@ -19,9 +19,9 @@ PlaySFX::
 	ret
 
 ; unreferenced
-Func_fd8:
+UnreferencedPlayMusic:
 	push_wram BANK("Audio RAM")
-	call Func_3f12
+	call AudioFunc_PlayMusic
 	pop_wram
 	ret
 
@@ -52,16 +52,16 @@ TurnMusicOff::
 	ret
 
 ; unreferenced
-Func_1010:
+UnreferencedReactivateMusic:
 	push_wram BANK("Audio RAM")
-	call Func_3f2a
+	call AudioFunc_ReactivateMusicChannels
 	pop_wram
 	ret
 
 ; unreferenced
-Func_101e:
+UnreferencedGetActiveChannels:
 	push_wram BANK("Audio RAM")
-	call Func_3f30
+	call AudioFunc_GetActiveChannels
 	pop_wram
 	ret
 
