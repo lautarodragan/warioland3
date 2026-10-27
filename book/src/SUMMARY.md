@@ -13,6 +13,15 @@
 - [The debug menu](debug-menu.md)
 - [The debug owl](debug-owl.md)
 
+# Game systems
+
+- [Game states and the main loop](game-states.md)
+- [Levels, rooms and doors](levels-and-rooms.md)
+- [Objects](objects.md)
+- [Wario](wario.md)
+- [Camera and scrolling](camera.md)
+- [Graphics and memory map](memory-map.md)
+
 # What was done
 
 - [History of the fork](history.md)
