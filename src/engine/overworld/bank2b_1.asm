@@ -451,7 +451,7 @@ UpdateTempleSceneObjs_Front:
 	ld bc, wSceneObj2State
 	jp UpdateTempleSceneObjAnimation
 
-UpdateTempleSceneObjs:
+UpdateTempleSceneObjs_Back:
 	ld bc, wSceneObj3State
 	call UpdateTempleSceneObjAnimation
 	ld bc, wSceneObj4State
@@ -1957,7 +1957,7 @@ _UpdateTempleScene:
 	call .UpdateScene
 	call UpdateTempleSceneObjs_Front
 	call UpdateSceneWario
-	call UpdateTempleSceneObjs
+	call UpdateTempleSceneObjs_Back
 	call ClearUnusedVirtualOAM
 	ret
 

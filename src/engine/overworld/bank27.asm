@@ -2584,7 +2584,7 @@ MusicBoxCutsceneFunc:
 
 Cutscene02Func:
 	call .PlayCutscene
-	jp OWCutTree
+	jp UpdateCutsceneObjs_CutTree
 
 .PlayCutscene:
 	ld a, [wOWStep]
@@ -7628,7 +7628,7 @@ UpdateCutsceneObjs_MusicBox:
 	dw MusicBoxCutsceneFrameset_bcf6d
 	dw MusicBoxCutsceneFrameset_bcf70
 
-OWCutTree:
+UpdateCutsceneObjs_CutTree:
 .start
 	ld de, wSceneObj2
 	call DrawCutsceneOverlayFrame5

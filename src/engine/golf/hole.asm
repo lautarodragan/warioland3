@@ -3178,7 +3178,7 @@ VBlank_1c9ffa:
 	ldh [rSCX], a
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld hl, wGoldBuildingCourseAttrMap
+	ld hl, wGolfBuildingCourseAttrMap
 	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a

@@ -469,7 +469,7 @@ Func_1c8837:
 	ld [wGolfCourse], a
 	call Func_1c87db
 	ld hl, GolfBuildingCourseScrollingAttrmap
-	ld de, wGoldBuildingCourseAttrMap
+	ld de, wGolfBuildingCourseAttrMap
 	ld bc, 7 * TILEMAP_WIDTH
 	call FarCopyHLToDE_BC2
 	jp GetGolfCourseTargetSCX

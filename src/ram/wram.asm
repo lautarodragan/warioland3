@@ -1186,7 +1186,7 @@ ENDU
 
 	ds $20
 
-wGoldBuildingCourseAttrMap::
+wGolfBuildingCourseAttrMap::
 	ds $100
 
 wGolfPals::

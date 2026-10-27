@@ -2447,18 +2447,18 @@ NOWFunc_CutTree:
 	jumptable
 
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait4_1
 	dw .SetTreeFall
 	dw .WaitFall
 	dw .WaitDisappear
-	dw .Wait2
+	dw .Wait4_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait4_1:
 	ld a, 4
 	jp WaitOWFunc
 
-.Wait2:
+.Wait4_2:
 	ld a, 4
 	jp WaitOWFunc
 
@@ -2485,17 +2485,17 @@ NOWFunc_OpenGate:
 	jumptable
 
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait4_1
 	dw .OpenDoor
 	dw .WaitAnim
-	dw .Wait2
+	dw .Wait4_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait4_1:
 	ld a, $04
 	jp WaitOWFunc
 
-.Wait2:
+.Wait4_2:
 	ld a, $04
 	jp WaitOWFunc
 
@@ -2517,19 +2517,19 @@ NOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -2556,7 +2556,7 @@ NOWFunc_MagicSeed:
 	ld b, $09
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -2577,7 +2577,7 @@ NOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait8
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -2587,7 +2587,7 @@ NOWFunc_SummonSnake:
 	dw .WaitSnakeComeIn
 	dw EndOWFunc
 
-.Wait1:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -2643,23 +2643,23 @@ NOWFunc_FallLeaves:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .SetObj7State14
 	dw .StartLeaf1MovementAndPlaySFX
-	dw .Wait2
+	dw .Wait8
 	dw .StartLeaf3Movement
 	dw .WaitLeafMovement
-	dw .Wait3
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait3:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -2675,7 +2675,7 @@ NOWFunc_FallLeaves:
 	play_sfx SFX_08E
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -2994,12 +2994,12 @@ NOWFunc_PlayMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBox
-	dw .Wait2
+	dw .Wait254
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3013,7 +3013,7 @@ NOWFunc_PlayMusicBox:
 	play_sfx SFX_122
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait254:
 	ld a, 254
 	jp WaitOWFunc
 
@@ -3021,25 +3021,25 @@ NOWFunc_Crayon:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20_1
 	dw .PlayFallSFX
 	dw .CrayonFall
-	dw .Wait2
+	dw .Wait4
 	dw .CrayonLift
 	dw .WaitCrayonLift
-	dw .Wait3
+	dw .Wait10
 	dw .Scribble
 	dw .AdvanceIfCollectedAllCrayons
 	dw .LoadNewOWPal
 	dw .FadePal
-	dw .Wait4
+	dw .Wait20_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait20_1:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait4:
+.Wait20_2:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3064,7 +3064,7 @@ NOWFunc_Crayon:
 	play_sfx SFX_014
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait4:
 	ld a, 4
 	jp WaitOWFunc
 
@@ -3079,7 +3079,7 @@ NOWFunc_Crayon:
 	ld hl, wSceneObj5State
 	jp WaitOWObjState
 
-.Wait3:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
@@ -3133,22 +3133,22 @@ NOWFunc_BottomBar:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait40
 	dw .LoadBottomBarPal
 	dw .RaiseBBtnIndicator
-	dw .Wait2
+	dw .Wait45
 	dw .BlinkBBtnIndicator
 	dw .StartOpenBottomBar
-	dw .Wait3
+	dw .Wait10
 	dw .OpenBottomBar
-	dw .Wait4
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Wait4:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3183,7 +3183,7 @@ NOWFunc_BottomBar:
 	play_sfx SFX_113
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait45:
 	ld a, 45
 	jp WaitOWFunc
 
@@ -3210,7 +3210,7 @@ NOWFunc_BottomBar:
 	play_sfx SFX_113
 	jp AdvanceOWFunc
 
-.Wait3:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
@@ -3236,11 +3236,11 @@ NOWFunc_DayNightSpell:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw WaitOWSceneLevelNameFadeIn
 	dw .StartOpenTopBar
 	dw .OpenTopBar
-	dw .Wait2
+	dw .Wait40
 	dw .SetButtonVisible
 	dw .SetButtonInvisible
 	dw .SetButtonVisible
@@ -3252,14 +3252,14 @@ NOWFunc_DayNightSpell:
 	dw .WaitAndPressNightButton
 	dw .WaitNightButtonPress
 	dw .DayNightTransition
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3276,7 +3276,7 @@ NOWFunc_DayNightSpell:
 	ret nz
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -3655,14 +3655,14 @@ WOWFunc_Rain:
 	jumptable
 	dw AdvanceOWFunc
 	dw .InitPalConfig
-	dw .Wait1
+	dw .Wait180
 	dw .ShowRainClouds
 	dw .WaitRainClouds
 	dw .FillPool
-	dw .Wait2
+	dw .Wait120
 	dw .WaitRainAndHideClouds
 	dw .WaitCloudsDisappear
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
 .PlayThunderSFX:
@@ -3679,7 +3679,7 @@ WOWFunc_Rain:
 	ld [hl], a
 	ret
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3690,7 +3690,7 @@ WOWFunc_Rain:
 	ld [w2d13f], a
 	jp AdvanceOWFunc
 
-.Wait1:
+.Wait180:
 	ld a, 180
 	jp WaitOWFunc
 
@@ -3714,7 +3714,7 @@ WOWFunc_Rain:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait120:
 	ld a, 120
 	jp WaitOWFunc
 
@@ -3799,10 +3799,10 @@ WOWFunc_ClearTornado:
 	dw .ShowTornado
 	dw .ClearTornado
 	dw .HideTornado
-	dw .Wait1
+	dw .Wait20
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3851,12 +3851,12 @@ WOWFunc_ElevatorWorking:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .SetElevatorWorking
-	dw .Wait2
+	dw .Wait200
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3866,7 +3866,7 @@ WOWFunc_ElevatorWorking:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait200:
 	ld a, 200
 	jp WaitOWFunc
 
@@ -3874,19 +3874,19 @@ WOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3913,7 +3913,7 @@ WOWFunc_MagicSeed:
 	ld b, $0c
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -3934,7 +3934,7 @@ WOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait8
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -3943,7 +3943,7 @@ WOWFunc_SummonSnake:
 	dw .WaitSnakeComeOut
 	dw EndOWFunc
 
-.Wait1:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -3991,7 +3991,7 @@ WOWFunc_Earthquake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -4003,7 +4003,7 @@ WOWFunc_Earthquake:
 	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -4140,7 +4140,7 @@ WOWFunc_VulcanoEruption:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait60
 	dw .StartShake
 	dw .Wait58
 	dw .SetObj11State1f
@@ -4162,7 +4162,7 @@ WOWFunc_VulcanoEruption:
 	dw .Wait24
 	dw EndOWFunc
 
-.Wait1:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -4635,7 +4635,7 @@ WOWFunc_RedMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBoxSFX
 	dw .Wait254
 	dw .SetObj6State20AndPatchTiles
@@ -4661,7 +4661,7 @@ WOWFunc_RedMusicBox:
 	ld [hl], a
 	ret
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -5359,7 +5359,7 @@ SOWFunc_SendSeeds:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw .ShowSeed1
 	dw .WaitShowSeed
 	dw .ShowSeed2
@@ -5368,14 +5368,14 @@ SOWFunc_SendSeeds:
 	dw .WaitShowSeed
 	dw .PlayFlyingSFX
 	dw .MoveSeeds
-	dw .Wait2
+	dw .Wait10
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait2:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
@@ -5500,19 +5500,19 @@ SOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -5539,7 +5539,7 @@ SOWFunc_MagicSeed:
 	ld b, $03
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -5559,19 +5559,19 @@ SOWFunc_YellowMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBoxSFX
 	dw .WaitMusic
 	dw .LowerBridge
 	dw .ShowLoweredBridge
-	dw .Wait2
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -5929,24 +5929,24 @@ SOWFunc_RaiseTower:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw .StartDust
-	dw .Wait2
+	dw .Wait45
 	dw .RaiseTower
 	dw .RaiseTower
 	dw .RaiseTower
 	dw .FinishRaiseTower
 	dw .SettleTower
-	dw .Wait3
+	dw .Wait40_1
 	dw .HideObjsAndPatchTiles
-	dw .Wait4
+	dw .Wait40_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait4:
+.Wait40_2:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -5957,7 +5957,7 @@ SOWFunc_RaiseTower:
 	play_sfx SFX_11B
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait45:
 	ld a, 45
 	jp WaitOWFunc
 
@@ -6020,7 +6020,7 @@ SOWFunc_RaiseTower:
 	inc [hl]
 	ret
 
-.Wait3:
+.Wait40_1:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -6266,7 +6266,7 @@ SOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -6275,7 +6275,7 @@ SOWFunc_SummonSnake:
 	dw .WaitSnakeComeOut
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -6400,19 +6400,19 @@ SOWFunc_GreenMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBoxSFX
 	dw .WaitMusic
 	dw .BlowUpCave
 	dw .HideSmoke
-	dw .Wait2
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -6575,18 +6575,18 @@ SOWFunc_FullMoon:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait40
 	dw .PlayGongSFX
-	dw .Wait2
+	dw .Wait30
 	dw .MoveMoon
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -6594,7 +6594,7 @@ SOWFunc_FullMoon:
 	play_sfx SFX_105
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
