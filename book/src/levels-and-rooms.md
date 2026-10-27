@@ -197,11 +197,11 @@ block function as Wario touches a block:
 | `ROOMTRANSITION_PIPE` | `EnterPipeDown`, `EnterPipeUp` (`src/engine/level/block_functions.asm`) |
 | `ROOMTRANSITION_DOOR` | `BlockFunc_Door`; also `ReturnToLevelFromGolf` |
 | `ROOMTRANSITION_GOLF` | `BlockFunc_MinigameDoor` |
-| `ROOMTRANSITION_4` | room exits (`BlockFunc_RoomExit`, `BlockFunc_WaterRoomExit`) |
-| `ROOMTRANSITION_5` | ladder blocks (`BlockFunc_LadderRoomExit_ReloadObjects`) |
+| `ROOMTRANSITION_ROOM_EXIT` | room exits (`BlockFunc_RoomExit`, `BlockFunc_WaterRoomExit`) |
+| `ROOMTRANSITION_LADDER` | ladder blocks (`BlockFunc_LadderRoomExit_ReloadObjects`) |
 | `ROOMTRANSITION_UNDERWATER_DOOR` | underwater doors (UP in deep water) |
 | `ROOMTRANSITION_TELEPORT` | `ObjInteraction_WaterTeleporting`, `ObjInteraction_Jamano` |
-| `ROOMTRANSITION_8` | only `UnreferencedBlockFunc_Transition8Door` |
+| `ROOMTRANSITION_UNUSED_DOOR` | only `UnreferencedBlockFunc_UnusedDoor` |
 
 Flags in the high bits: `ROOMTRANSITIONF_DOOR` plays the door effect,
 `ROOMTRANSITIONF_RELOAD_OBJECTS` resets the level's objects (below),

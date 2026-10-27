@@ -2703,8 +2703,8 @@ UpdateState_PickingUp:
 	ld a, [wGrabState]
 	and a
 	jp z, SetState_Idling
-	and $0f
-	cp $02
+	and GRAB_STATE_MASK
+	cp GRAB_PICK_UP_BLOCKED
 	jp z, SetState_GrabIdling
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a

@@ -1262,7 +1262,7 @@ SetOWObjStateIfAnimFinished:
 	ld [hli], a ; duration
 	ld [hli], a ; frameset offset
 	ld a, b
-	ld [hl], a ; unk6
+	ld [hl], a ; state
 	ld b, h
 	ld c, l
 	ret

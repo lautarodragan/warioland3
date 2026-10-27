@@ -1462,7 +1462,7 @@ GetNextTreasureToCollect:
 ; output:
 ; - c = EVENT_* constant
 GetEventWithTreasure:
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ld hl, EventTreasures
 .loop
 	ld a, [hli]
@@ -1481,7 +1481,7 @@ GetEventWithTreasure:
 .found
 	ret
 .not_found
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ret
 
 RunOWScene:
@@ -1593,7 +1593,7 @@ CheckIfTreasureUnlocksEvent:
 	ld a, [wLastTransitionParam]
 	ld b, a
 	xor a
-	ld c, a ; EVENT_00
+	ld c, a ; EVENT_NONE
 	ld [wCurEvent], a
 
 	ld hl, EventTreasures
@@ -1621,7 +1621,7 @@ CheckIfTreasureUnlocksEvent:
 	ret
 
 .no_event_unlocked
-	xor a ; EVENT_00
+	xor a ; EVENT_NONE
 	ld [wCurEvent], a
 	ret
 
@@ -1698,7 +1698,7 @@ LoadEventTreasures:
 EventTreasures:
 	table_width 3
 
-; EVENT_00
+; EVENT_NONE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
@@ -2209,7 +2209,7 @@ ENDM
 
 OWSceneParams:
 	table_width 2
-	dw .event_00                        ; EVENT_00
+	dw .event_none                      ; EVENT_NONE
 	dw .event_prologue                  ; EVENT_PROLOGUE
 	dw .event_cut_tree                  ; EVENT_CUT_TREE
 	dw .event_open_north_gate           ; EVENT_OPEN_NORTH_GATE
@@ -2302,7 +2302,7 @@ OWSceneParams:
 	dw .event_epilogue                  ; EVENT_EPILOGUE
 	assert_table_length NUM_EVENTS
 
-.event_00
+.event_none
 	ow_scene_end
 
 .event_prologue

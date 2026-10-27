@@ -1249,7 +1249,7 @@ DoCutsceneFunc:
 
 .table
 	table_width 2
-	dw .InvalidCutscene ; EVENT_00
+	dw .InvalidCutscene ; EVENT_NONE
 	dw PrologueFunc ; EVENT_PROLOGUE
 	dw Cutscene02Func ; EVENT_CUT_TREE
 	dw Cutscene03Func ; EVENT_OPEN_NORTH_GATE

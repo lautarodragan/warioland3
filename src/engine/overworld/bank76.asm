@@ -251,10 +251,10 @@ CopyCommonOWAnimTilesToVRAM:
 	ds $39e, $00
 
 WarioCrashGfx:
-INCBIN "gfx/wario/unk2.2bpp"
+INCBIN "gfx/wario/crash.2bpp"
 
 WarioMusicBoxGfx:
-INCBIN "gfx/wario/unk3.2bpp"
+INCBIN "gfx/wario/music_box.2bpp"
 
 WarioUnk4Gfx:
 INCBIN "gfx/wario/unk4.2bpp"
@@ -263,4 +263,4 @@ WarioSleepGfx::
 INCBIN "gfx/wario/sleep.2bpp"
 
 WarioShowMusicBoxesGfx:
-INCBIN "gfx/wario/unk5.2bpp"
+INCBIN "gfx/wario/show_music_boxes.2bpp"
