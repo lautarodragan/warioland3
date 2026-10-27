@@ -1,12 +1,12 @@
 ; unreferenced
-Func_1c8957:
+UnreferencedGolfHoleStateTable:
 	ld a, [wSubState]
 	jumptable
 	dw FastFadeToWhite
 	dw InitGolfHole
 	dw SlowFadeFromWhite
 	dw HandleGolfHole
-	dw Func_1c8fb7
+	dw UnreferencedGolfHoleState_DoNothing
 
 InitGolfHole:
 	call DisableLCD
@@ -68,12 +68,12 @@ InitGolfHole:
 	ld [wGolfWX], a
 
 	call .SetUpGolfHole
-	call Func_1c9cf9
+	call SetGolfHoleVBlankFunc
 
 	play_music2 MUSIC_GOLF
 
 	; setting the LCDC here is unnecessary since we
-	; already set the correct configuration in Func_1c9cf9
+	; already set the correct configuration in SetGolfHoleVBlankFunc
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
 
@@ -403,7 +403,7 @@ HandleGolfHole:
 	call UpdateGolfWario
 	call ClearUnusedVirtualOAM
 	call LoadGolfWarioStateGfx
-	jp Func_1c9cf9
+	jp SetGolfHoleVBlankFunc
 
 UpdateGolfHoleUI:
 	ld a, $30
@@ -847,7 +847,7 @@ LoadGolfWarioStateGfx:
 	dw WarioIdleGfx     ; GOLF_WARIO_GOING_IN_PIPE
 	dw WarioIdleGfx     ; GOLF_WARIO_TURNING
 
-Func_1c8fb7:
+UnreferencedGolfHoleState_DoNothing:
 	ret
 
 GolfHoleStateTable:
@@ -2856,7 +2856,7 @@ Compare16Bit:
 	pop de
 	ret
 
-Func_1c9cf9:
+SetGolfHoleVBlankFunc:
 	ld a, [wGolfDisplayMode]
 	cp GOLF_DISPLAY_SPLIT
 	jr z, .split
@@ -2875,12 +2875,12 @@ Func_1c9cf9:
 
 	ld a, [wGolfVBlankMode]
 	jumptable
-	dw VBlank_1c9d1d
-	dw VBlank_1c9e8d
-	dw VBlank_1c9eb3
-	dw VBlank_1c9ef1
+	dw VBlank_GolfHole_PinFlag
+	dw VBlank_GolfHole_SetAttr
+	dw VBlank_GolfHole_WarioTiles
+	dw VBlank_GolfHole_StrokeNumber
 
-VBlank_1c9d1d:
+VBlank_GolfHole_PinFlag:
 	call .UpdatePinFlagTiles
 	ld hl, .Func
 	ld de, wVBlankFunc
@@ -2948,7 +2948,7 @@ VBlank_1c9d1d:
 
 GolfPinFlagGfx: INCBIN "gfx/golf/golf_pin_flag.2bpp"
 
-VBlank_1c9e8d:
+VBlank_GolfHole_SetAttr:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -2969,7 +2969,7 @@ VBlank_1c9e8d:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1c9eb3:
+VBlank_GolfHole_WarioTiles:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3002,7 +3002,7 @@ VBlank_1c9eb3:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1c9ef1:
+VBlank_GolfHole_StrokeNumber:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3040,10 +3040,10 @@ VBlank_1c9ef1:
 GolfLobbyVBlank:
 	ld a, [wGolfVBlankMode]
 	jumptable
-	dw VBlank_1c9f36
-	dw VBlank_1c9f7a
+	dw VBlank_GolfLobby_Coins
+	dw VBlank_GolfLobby_WarioTiles
 
-VBlank_1c9f36:
+VBlank_GolfLobby_Coins:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3080,7 +3080,7 @@ VBlank_1c9f36:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1c9f7a:
+VBlank_GolfLobby_WarioTiles:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3110,16 +3110,16 @@ VBlank_1c9f7a:
 	jp hTransferVirtualOAM
 .end
 
-Func_1c9fae:
-	call Func_1c9fbd
+SetGolfCourseMenuVBlankFunc:
+	call SetGolfCoinDigitSprites
 	ld a, [wGolfVBlankMode]
 	jumptable
-	dw VBlank_1c9fe1
-	dw VBlank_1c9ffa
-	dw VBlank_1ca033
-	dw VBlank_1ca056
+	dw VBlank_GolfCourseMenu
+	dw VBlank_GolfCourseMenu_ScrollAttrs
+	dw VBlank_GolfCourseMenu_Pals
+	dw VBlank_GolfCourseMenu_CourseAttrs
 
-Func_1c9fbd:
+SetGolfCoinDigitSprites:
 	ld a, [wGolfNumCoins + 0]
 	add a
 	add $a0
@@ -3141,7 +3141,7 @@ Func_1c9fbd:
 	ld [hl], a
 	ret
 
-VBlank_1c9fe1:
+VBlank_GolfCourseMenu:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3156,7 +3156,7 @@ VBlank_1c9fe1:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1c9ffa:
+VBlank_GolfCourseMenu_ScrollAttrs:
 	ld a, HIGH(v1BGMap0 + 6 * TILEMAP_WIDTH) - $80
 	ld [wGolfHDMADest + 0], a
 	ld a, LOW(v1BGMap0 + 6 * TILEMAP_WIDTH)
@@ -3186,7 +3186,7 @@ VBlank_1c9ffa:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1ca033:
+VBlank_GolfCourseMenu_Pals:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func
@@ -3205,7 +3205,7 @@ VBlank_1ca033:
 	jp hTransferVirtualOAM
 .end
 
-VBlank_1ca056:
+VBlank_GolfCourseMenu_CourseAttrs:
 	ld a, HIGH(v1BGMap0 + 6 * TILEMAP_WIDTH) - $80
 	ld [wGolfHDMADest + 0], a
 	ld a, LOW(v1BGMap0 + 6 * TILEMAP_WIDTH)

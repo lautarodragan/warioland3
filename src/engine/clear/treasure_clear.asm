@@ -54,7 +54,7 @@ InitClearScreen:
 	call LoadCollectedTreasurePal_ClearScreen
 	farcall LoadClearScreenGfx
 	farcall LoadLevelTreasureData
-	farcall Func_1e0045
+	farcall LoadTreasureClearScreenBGMaps
 
 	hlbgcoord 6, 16
 	farcall PrintNumberCoins
@@ -103,7 +103,7 @@ InitClearScreen:
 	ld a, $04
 	ld [wSCY], a
 	ldh [rSCY], a
-	farcall Func_1e015b
+	farcall InitTreasureClearScreenObjs
 
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_LEVEL_CLEAR

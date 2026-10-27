@@ -59,7 +59,7 @@ InitActionHelp:
 	farcall LoadActionHelpPowerUpPals
 	farcall LoadActionHelpGfx
 	farcall LoadActionHelpBGMaps
-	call VBlank_1fb6b7
+	call VBlank_ActionHelp
 
 	xor a
 	ldh [rSCX], a

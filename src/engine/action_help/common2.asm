@@ -133,7 +133,7 @@ LoadActionHelpBGMaps:
 	hlbgcoord 18, 16, v0BGMap1
 .asm_1e498a
 	push hl
-	call .Func_1e499c
+	call .draw_locked_slot
 	pop hl
 	dec hl
 	dec hl
@@ -146,7 +146,7 @@ LoadActionHelpBGMaps:
 	hlbgcoord 18, 16, v0BGMap1
 	jr .asm_1e498a
 
-.Func_1e499c:
+.draw_locked_slot:
 	ld de, TILEMAP_WIDTH
 	push hl
 	ld a, BANK("VRAM1")

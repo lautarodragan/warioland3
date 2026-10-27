@@ -251,7 +251,7 @@ IntroSequencePhase1:
 	and a
 	jp nz, StartTitleScreen
 	call PlayIntroSFXPlane_Close
-	call Func_4d45
+	call ScrollIntroClouds
 
 	ld a, [wPlaneWarioVar]
 	dec a
@@ -433,7 +433,7 @@ IntroSequencePhase1:
 ; phase 2 of Intro sequence, where Wario's plane
 ; comes into the centre while far away from the foreground
 IntroSequencePhase2:
-	call Func_4d45
+	call ScrollIntroClouds
 	call PlayIntroSFXPlane_Far
 
 	ld a, [wPlaneWarioVar]
@@ -549,7 +549,7 @@ IntroSequencePhase2:
 ; phase 3 of the Intro sequence where Wario's plane
 ; starts wobbling and then explodes, making it nosedive
 IntroSequencePhase3:
-	call Func_4d45
+	call ScrollIntroClouds
 
 	ld a, [wPlaneWarioVar]
 	dec a

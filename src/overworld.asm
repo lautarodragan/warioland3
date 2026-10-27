@@ -136,7 +136,7 @@ TextJP_HiddenFigureHeadFor:
 INCBIN "text/jp/hidden_figure_head_for.tilemap.rle"
 
 ; unreferenced
-Text_b2107:
+TextJP_HiddenFigureHeadFor_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -144,7 +144,7 @@ TextEN_HiddenFigureHeadFor:
 INCBIN "text/en/hidden_figure_head_for.tilemap.rle"
 
 ; unreferenced
-Text_b231c:
+TextEN_HiddenFigureHeadFor_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -152,7 +152,7 @@ TextJP_HiddenFigureReplenishPower:
 INCBIN "text/jp/hidden_figure_replenish_power.tilemap.rle"
 
 ; unreferenced
-Text_b2411:
+TextJP_HiddenFigureReplenishPower_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -160,7 +160,7 @@ TextEN_HiddenFigureReplenishPower:
 INCBIN "text/en/hidden_figure_replenish_power.tilemap.rle"
 
 ; unreferenced
-Text_b2533:
+TextEN_HiddenFigureReplenishPower_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -184,7 +184,7 @@ TextJP_HiddenFigureAreYouAware:
 INCBIN "text/jp/hidden_figure_are_you_aware.tilemap.rle"
 
 ; unreferenced
-Text_b37e6:
+TextJP_HiddenFigureAreYouAware_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -192,7 +192,7 @@ TextEN_HiddenFigureAreYouAware:
 INCBIN "text/en/hidden_figure_are_you_aware.tilemap.rle"
 
 ; unreferenced
-Text_b39f0:
+TextEN_HiddenFigureAreYouAware_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
@@ -375,13 +375,13 @@ EpilogueTransformationAttrmap: INCBIN "data/overworld/epilogue/bgmaps/epilogue_t
 TextJP_OldManThankYou: INCBIN "text/jp/old_man_thank_you.tilemap.rle"
 
 ; unreferenced
-Text_15e212:
+TextJP_OldManThankYou_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"
 
 TextEN_OldManThankYou: INCBIN "text/en/old_man_thank_you.tilemap.rle"
 
 ; unreferenced
-Text_15e437:
+TextEN_OldManThankYou_Unused:
 	db "@グ@グ@グ@グ@グ@グ@グ@グ"
 	db "ギグ:"

@@ -460,7 +460,7 @@ CheckUpCollision:
 	ret
 
 CheckAirborneCollision:
-	call .Func_19a53
+	call .process_landing_block
 	and a
 	ret nz
 
@@ -533,7 +533,7 @@ CheckAirborneCollision:
 	ld b, a
 	ret
 
-.Func_19a53:
+.process_landing_block:
 	xor a
 	ld [wWarioSlopeInteraction], a
 	ld a, [wIsSmashAttacking]

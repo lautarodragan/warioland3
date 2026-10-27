@@ -257,7 +257,7 @@ HandleTempleHintInput:
 	bit MODE_GAME_CLEARED_F, a
 	ret nz
 .asm_81092
-	call Func_3c76
+	call ClearUnused_2d0c0
 	ld a, OWWARIO_UP
 	call SetOWWarioOAM
 	play_sfx SFX_113
@@ -608,7 +608,7 @@ MapSideInitialLevels:
 	db LEVEL_THE_STAGNANT_SWAMP ; EAST
 
 ; unreferenced
-Func_812b0:
+UnreferencedGetMapSideLastLevel:
 	ld hl, .data
 	ld a, [wNextMapSide]
 	ld b, $00
@@ -4199,7 +4199,7 @@ ApplyTopBarButtonAttributes:
 	ret
 
 ; unreferenced
-UnreferencedLCD_82729:
+UnreferencedLCDFunc_SetBGMap1:
 	ld hl, .func
 	ld de, wLCDFunc
 	ld b, .func_end - .func
@@ -4230,7 +4230,7 @@ ENDL
 .func_end
 
 ; unreferenced
-UnreferencedLCD_82754:
+UnreferencedLCDFunc_Reti:
 	ld hl, .func
 	ld de, wLCDFunc
 	ld b, .func_end - .func

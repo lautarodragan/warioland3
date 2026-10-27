@@ -49,7 +49,7 @@ PrinceFrogsGlovesActionHelp_End:
 .asm_1fad50
 	and $3f
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 

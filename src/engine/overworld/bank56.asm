@@ -1223,7 +1223,7 @@ _InitBestTimeList:
 
 	ld a, $02
 	ldh [rWBK], a
-	call .VBlank_158a14
+	call .VBlank_BestTimeList
 	call .clear_ram
 
 	ld hl, BestTimeListPals
@@ -1247,7 +1247,7 @@ _InitBestTimeList:
 	call WriteAToHL_BCTimes
 	ret
 
-.VBlank_158a14:
+.VBlank_BestTimeList:
 	ld hl, .func
 	ld de, wVBlankFunc
 	ld b, .func_end - .func

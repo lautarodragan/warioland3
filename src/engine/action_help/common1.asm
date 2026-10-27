@@ -133,7 +133,7 @@ ActionHelp_Init:
 	inc [hl]
 	ret
 
-VBlank_1fb6b7:
+VBlank_ActionHelp:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func

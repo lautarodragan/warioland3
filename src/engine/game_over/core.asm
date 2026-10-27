@@ -5,7 +5,7 @@ InitGameOverScreen:
 
 	call LoadGameOverPals
 	call LoadGameOverGfx
-	call Func_db4cf
+	call LoadGameOverBGMaps
 	call VBlank_GameOver
 
 	xor a
@@ -51,7 +51,7 @@ InitGameOverScreen:
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj1
-	call Func_db4e9
+	call LoadGameOverSpriteWithScroll
 
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
@@ -139,21 +139,21 @@ UpdateGameOverScreen:
 	ld a, [wObjAnimWasReset]
 	ld [wGameOverWarioAnimationEnded], a
 	and a
-	call nz, .Func_db3db
+	call nz, .PlaySnoreSFX
 	ld hl, wGameOverWario
 	call LoadGameOverSprite
 	ld hl, wMenuObj1FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj1
-	call Func_db4e9
+	call LoadGameOverSpriteWithScroll
 	call ClearUnusedVirtualOAM
 	ret
 
-.Func_db3db:
+.PlaySnoreSFX:
 	play_sfx SFX_SNORE
 	ret
 
-Func_db3e4:
+WaitGameOverWarioAnim:
 	ld hl, wGameOverWarioFramesetPtr + 1
 	farcall BANK(SceneWarioFrameset_aaccb), UpdateObjAnim
 
@@ -164,7 +164,7 @@ Func_db3e4:
 	ld hl, wMenuObj1FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj1
-	call Func_db4e9
+	call LoadGameOverSpriteWithScroll
 	call ClearUnusedVirtualOAM
 	ld a, [wGameOverWarioAnimationEnded]
 	and a

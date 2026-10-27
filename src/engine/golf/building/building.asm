@@ -1,4 +1,4 @@
-Func_1c8586:
+InitGolfCourseMenu:
 	call DisableLCD
 	call ClearVirtualOAM
 	ld a, $08
@@ -35,7 +35,7 @@ Func_1c8586:
 	call CheckHasAllMusicalCoinFlags
 	ld [wHasAllMusicalCoinFlags], a
 
-	call Func_1c8604
+	call LoadGolfCourseMenuScreen
 	ld hl, wGolfPals
 	call LoadPalsToTempPals1
 	ld hl, GolfOBPals_1ca34f
@@ -46,8 +46,8 @@ Func_1c8586:
 	ld a, [wNumCoins + 1]
 	ld [wGolfNumCoins + 1], a
 
-	call Func_1c86f8
-	call Func_1c9fae
+	call DrawGolfCourseMenuObjs
+	call SetGolfCourseMenuVBlankFunc
 
 	ld bc, MUSIC_GOLF_LOBBY
 	call PlayNewMusic
@@ -64,7 +64,7 @@ Func_1c8586:
 	inc [hl]
 	ret
 
-Func_1c8604:
+LoadGolfCourseMenuScreen:
 	ld a, BANK(GolfMenuGfx)
 	ld [wTempBank], a
 	xor a
@@ -83,7 +83,7 @@ Func_1c8604:
 
 	ld a, [wGolfMenuOption]
 	ld [wGolfCourse], a
-	call Func_1c87db
+	call LoadGolfCourseAttrsAndPals
 	call GetGolfCourseTargetSCX
 	ld hl, wGolfCourseTileMap
 	debgcoord 0, 6
@@ -213,19 +213,19 @@ Func_1c8604:
 	ld [de], a
 	jr .got_digits
 
-Func_1c86dd:
-	call Func_1c882b
-	call Func_1c86f8
+UpdateGolfCourseMenu:
+	call HandleGolfCourseMenu
+	call DrawGolfCourseMenuObjs
 	call ClearUnusedVirtualOAM
 	ld a, [wSubState]
 	cp $08
-	jp nz, Func_1c9fae
+	jp nz, SetGolfCourseMenuVBlankFunc
 	xor a
 	ld [wGolfMode], a
 	ld [wGolfMenuOption], a
-	jp Func_1c9fae
+	jp SetGolfCourseMenuVBlankFunc
 
-Func_1c86f8:
+DrawGolfCourseMenuObjs:
 	ld a, HIGH(GolfCourseMenuOAM_1cb3e0)
 	ld [wGolfOAMPtr + 0], a
 	ld a, LOW(GolfCourseMenuOAM_1cb3e0)
@@ -325,7 +325,7 @@ Func_1c86f8:
 ; loads attribute map to wGolfCourseTileMap
 ; and palettes to wGolfPals
 ; depending on value in wGolfCourse
-Func_1c87db:
+LoadGolfCourseAttrsAndPals:
 	ld a, BANK("Golf Gfx 2")
 	ld [wTempBank], a
 	ld hl, .data
@@ -377,15 +377,15 @@ GetGolfCourseTargetSCX:
 	db $4c ; GOLF_COURSE_3
 	db $8c ; GOLF_COURSE_4
 
-Func_1c882b:
+HandleGolfCourseMenu:
 	ld a, [wGolfBuildingState]
 	jumptable
-	dw Func_1c8837
-	dw Func_1c88dc
-	dw Func_1c8907
-	dw Func_1c8911
+	dw GolfCourseMenu_Input
+	dw GolfCourseMenu_Scroll
+	dw GolfCourseMenu_EndScroll
+	dw GolfCourseMenu_PayCoins
 
-Func_1c8837:
+GolfCourseMenu_Input:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr nz, .a_btn
@@ -467,14 +467,14 @@ Func_1c8837:
 	ld [wGolfVBlankMode], a
 	ld a, [hl]
 	ld [wGolfCourse], a
-	call Func_1c87db
+	call LoadGolfCourseAttrsAndPals
 	ld hl, GolfBuildingCourseScrollingAttrmap
 	ld de, wGolfBuildingCourseAttrMap
 	ld bc, 7 * TILEMAP_WIDTH
 	call FarCopyHLToDE_BC2
 	jp GetGolfCourseTargetSCX
 
-Func_1c88dc:
+GolfCourseMenu_Scroll:
 	ld a, [wGolfMenuTargetSCX]
 	ld c, a
 	ld a, [wGolfMenuScrollingDir]
@@ -501,14 +501,14 @@ Func_1c88dc:
 	ld [wGolfVBlankMode], a
 	ret
 
-Func_1c8907:
+GolfCourseMenu_EndScroll:
 	xor a
 	ld [wGolfBuildingState], a
 	ld a, $03
 	ld [wGolfVBlankMode], a
 	ret
 
-Func_1c8911:
+GolfCourseMenu_PayCoins:
 	ld hl, wGolfCounter
 	ld a, [hl]
 	cp $32 ; aka GOLF_BUILDING_PRICE in hex

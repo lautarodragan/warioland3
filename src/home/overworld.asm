@@ -468,7 +468,7 @@ GetByteFromPointerInHL::
 	ld a, [hl]
 	ret
 
-Func_3c76::
+ClearUnused_2d0c0::
 	xor a
 	ld hl, wUnused_2d0c0
 	ld bc, $10

@@ -1774,7 +1774,7 @@ ObjInteraction_FrontBump:
 ObjInteraction_BumpOff:
 	jp BumpOffObject
 
-Func_20e63:
+AttackOrBumpOffNoActions:
 	ld a, [wAttackCounter]
 	and a
 	jp nz, AttackObject
@@ -3595,7 +3595,7 @@ ObjInteraction_Shoot:
 	jr nz, .interaction_down
 	bit INTERACTION_UP_F, a
 	jp nz, StepOnObject
-	jp Func_20e63
+	jp AttackOrBumpOffNoActions
 
 .interaction_down
 	ld a, [wInvincibleCounter]

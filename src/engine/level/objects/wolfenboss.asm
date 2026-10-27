@@ -532,7 +532,7 @@ WolfenbossFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [wIsBossBattle], a
-	call Func_56326
+	call ClearObjAndSetObjMapEntry7
 
 	; search for Platform's object struct
 	ld a, LOW(wObj1)
@@ -745,7 +745,7 @@ WolfenbossPlatformFunc:
 	jp nz, ObjState_AttackedLeft
 ;	fallthrough
 
-Func_56326:
+ClearObjAndSetObjMapEntry7:
 	xor a
 	ld [wCurObjFlags], a
 	ld hl, wCurObjMapPtrHi

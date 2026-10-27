@@ -103,7 +103,7 @@ GrabGloveActionHelp_End:
 .asm_1f9577
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -813,7 +813,7 @@ GrabGloveActionHelp_Step19:
 	ld [wMenuObj4XCoord], a
 	cp b
 	push hl
-	call nc, .Func_1f9a25
+	call nc, .show_debris_and_pillar
 	pop hl
 	ld a, [hl]
 	cp $03
@@ -886,7 +886,7 @@ GrabGloveActionHelp_Step19:
 	inc [hl]
 	ret
 
-.Func_1f9a25:
+.show_debris_and_pillar:
 	ld b, $00
 	call ActionHelp_ShowBlockDebrisWithYOffset
 	ld a, [wMenuObj6]

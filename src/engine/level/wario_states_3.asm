@@ -1010,7 +1010,7 @@ UpdateState_FlatSinking:
 	jp nz, TriggerRoomTransition
 	ld a, [wGlobalCounter]
 	and %1111
-	call z, .Func_2899a
+	call z, .CreateBubbles
 
 	ld a, [wGlobalCounter]
 	and %1
@@ -1021,9 +1021,9 @@ UpdateState_FlatSinking:
 	ld a, b
 	and a
 	ret z
-	jr Func_289c5
+	jr SetState_FlatStretchingUnderwater
 
-.Func_2899a:
+.CreateBubbles:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -1045,7 +1045,7 @@ UpdateState_FlatSinking:
 	farcall CreateParticle
 	ret
 
-Func_289c5:
+SetState_FlatStretchingUnderwater:
 	ld hl, wWarioXPos + 1
 	ld de, hXPosLo
 	ld a, [hld]
@@ -1381,7 +1381,7 @@ UpdateState_BallOStringKnockBack:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b1cc
+	call MoveWarioForwardBy2
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
 	jr nc, .asm_28d22
@@ -1536,7 +1536,7 @@ UpdateState_FatEating:
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_2926a
+	jp nz, SetState_FatSinking
 	ld a, [wJumpVelTable]
 	and a
 	jr z, .asm_28ecd
@@ -1804,7 +1804,7 @@ UpdateState_FatAirborne:
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_2926a
+	jp nz, SetState_FatSinking
 	call DecrementTransformationDuration
 	ld hl, wTransformationDuration
 	ld a, [hli]
@@ -1930,7 +1930,7 @@ UpdateState_FatLanding:
 	ret nz
 	jp SetState_FatIdling
 
-Func_2926a:
+SetState_FatSinking:
 	get_pos
 	ldh a, [hYPosLo]
 	and $f0
@@ -1977,7 +1977,7 @@ UpdateState_FatSinking:
 	hcall UpdateWarioAnimation
 	ld a, [wGlobalCounter]
 	and %1111
-	call z, Func_29317
+	call z, CreateFatSinkingBubbles
 	ld b, $01
 	call MoveWarioDown
 	farcall CheckCentreCollision
@@ -1987,7 +1987,7 @@ UpdateState_FatSinking:
 	call RecoverFromTransformation_Underwater
 	ret
 
-Func_29317:
+CreateFatSinkingBubbles:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_29338
@@ -3504,7 +3504,7 @@ UpdateState_BouncyFloor:
 	ld hl, wTransformationDuration
 	ld a, [hli]
 	or [hl]
-	jp z, Func_2a2e7
+	jp z, StartBouncyLastBounce
 	call BlinkPalIfTransformationEnding
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
@@ -3528,14 +3528,14 @@ StartBouncyJump:
 StartBouncyJump_High:
 	ld a, JUMP_VEL_BOUNCY_HIGH_JUMP
 	ld [wJumpVelTable], a
-	jr Func_2a0c7
+	jr StartBouncyJump_Common
 
 StartBouncyJump_Normal:
 	ld a, JUMP_VEL_BOUNCY_JUMP
 	ld [wJumpVelTable], a
 ;	fallthrough
 
-Func_2a0c7:
+StartBouncyJump_Common:
 	xor a
 	ld [wJumpVelIndex], a
 ;	fallthrough
@@ -3750,7 +3750,7 @@ UpdateState_BouncyUpsideLanding:
 	ret z
 ;	fallthrough
 
-Func_2a2e7:
+StartBouncyLastBounce:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wTouchState], a
 	ld a, TOUCH_PASS_THROUGH
@@ -4643,7 +4643,7 @@ SetState_BatFlying:
 	ld [wJumpVelIndex], a
 	inc a
 	ld [wJumpVelTable], a
-	jp Func_2abc1
+	jp SetBatTurningFrameset
 
 UpdateState_BatFlying:
 	farcall CheckTopBlockInteraction
@@ -4698,7 +4698,7 @@ UpdateState_BatFlying:
 	ret z
 ;	fallthrough
 
-Func_2abc1:
+SetBatTurningFrameset:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -4760,7 +4760,7 @@ UpdateState_BatFalling:
 .asm_2ac50
 	ld a, [wIsTurning]
 	and a
-	call nz, Func_2abc1
+	call nz, SetBatTurningFrameset
 	farcall CheckAirborneCollision
 	ld a, [wWarioState]
 	cp WST_BAT_FALLING
@@ -5336,7 +5336,7 @@ HandleWalk:
 	farcall WalkRight
 	ret
 
-Func_2b1cc:
+MoveWarioForwardBy2:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_2b1f1

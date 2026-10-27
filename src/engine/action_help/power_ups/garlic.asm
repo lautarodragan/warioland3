@@ -114,7 +114,7 @@ GarlicActionHelp_End:
 .asm_1f9cf5
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 

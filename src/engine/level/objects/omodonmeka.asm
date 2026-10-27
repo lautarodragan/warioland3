@@ -963,7 +963,7 @@ Omodon_Idle:
 	cp TRANSFORMATION_FLAT_WARIO
 	jr nz, .asm_4277f
 	call ApplyOmodonHoverBob
-	call OmodonFunc.Func_42894
+	call OmodonFunc.pass_stepped_flag_to_omodonmeka
 	ld hl, wCurObjFlags
 	res OBJFLAG_STEPPED_F, [hl]
 	ret
@@ -997,7 +997,7 @@ OmodonFunc:
 	ld a, LOW(.Update)
 	ld [hld], a
 .Update:
-	call .Func_42935
+	call .check_omodonmeka_linked
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -1016,7 +1016,7 @@ OmodonFunc:
 	ld [hl], a
 	jr Omodon_Idle
 .carried
-	call .Func_42894
+	call .pass_stepped_flag_to_omodonmeka
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $33
@@ -1128,7 +1128,7 @@ OmodonFunc:
 	jr .asm_4283c
 
 
-.Func_42894:
+.pass_stepped_flag_to_omodonmeka:
 	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
@@ -1257,7 +1257,7 @@ OmodonFunc:
 	ret nz
 	jp Omodon_Idle.asm_4277f
 
-.Func_42935:
+.check_omodonmeka_linked:
 	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
