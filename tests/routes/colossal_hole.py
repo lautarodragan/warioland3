@@ -19,9 +19,9 @@ WAKE_AND_GRAB_OWL = [
 # Wario's right: bash it awake, then jump up and grab it.
 WAKE_AND_GRAB_DEBUG_OWL = [('right+b', 120), ('left+up', 30), ('left+b', 12), ('', 10), ('right+a', 35), ('', 15)]
 
-# SELECT, down to OWL, RIGHT to spawn an owl next to Wario, B to close. (The
+# SELECT, down to OWL, A to spawn an owl next to Wario, B to close. (The
 # wait stands for a fourth DOWN from when OWL was one row further down.)
-DEBUG_MENU_SPAWN_OWL = [('select', 4), ('', 90), ('down', 4), ('', 10), ('down', 4), ('', 10), ('down', 4), ('', 10), ('', 15), ('right', 4), ('', 10), ('b', 4), ('', 90)]
+DEBUG_MENU_SPAWN_OWL = [('select', 4), ('', 90), ('down', 4), ('', 10), ('down', 4), ('', 10), ('down', 4), ('', 10), ('', 15), ('a', 4), ('', 10), ('b', 4), ('', 90)]
 
 # From TO_SLEEPING_OWL plus a second's wait and DEBUG_MENU_SPAWN_OWL, i.e.
 # past the robot guarding the start pocket: grab the spawned owl.

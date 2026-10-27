@@ -46,7 +46,7 @@ def spawn_owl(game):
     game.open_debug_menu()
     game.menu_press("down", CURSOR_OWL)
     assert game.read("wDebugMenuCursor") == CURSOR_OWL
-    game.menu_press("right")
+    game.menu_press("a")
 
 
 def test_steep_canyon_before_owl_spawn(game, golden):

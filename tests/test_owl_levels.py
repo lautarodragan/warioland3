@@ -273,7 +273,7 @@ def test_debug_owl_fills_slots_without_owl(game, golden):
     game.menu_press("down", CURSOR_OWL)
     statuses = []
     for _ in range(3):
-        game.menu_press("right")
+        game.menu_press("a")
         statuses.append(game.read("wDebugMenuOwlStatus"))
     assert statuses == [OWL_STATUS_SPAWNED] * 2 + [OWL_STATUS_FAILED]
     assert len(game.objects()) == NUM_OBJECTS

@@ -40,6 +40,13 @@ DEF DEBUG_MENU_GOLF_Y     EQU 9
 DEF DEBUG_MENU_OWL_Y      EQU 11
 DEF DEBUG_MENU_TREASURE_Y EQU 13
 DEF DEBUG_MENU_TREASURE_VALUE_X EQU 5 ; on the row below its label
+; the selected FORM/POWER row shows ◀ value ▶
+DEF DEBUG_MENU_LEFT_ARROW_X  EQU DEBUG_MENU_VALUE_X - 1
+DEF DEBUG_MENU_FORM_RIGHT_ARROW_X  EQU DEBUG_MENU_VALUE_X + 5 ; after the widest name
+DEF DEBUG_MENU_POWER_RIGHT_ARROW_X EQU DEBUG_MENU_VALUE_X + 1
+; font tiles the arrows are loaded into (blank in the font)
+DEF DEBUG_MENU_LEFT_ARROW  EQU $5e
+DEF DEBUG_MENU_RIGHT_ARROW EQU $5f
 
 ; Strings for menu values (temple charmap)
 ; level codes, 2 bytes per level, in level order
@@ -54,6 +61,8 @@ DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrOk:     db "OK "              ; 3 bytes
 DebugMenuStrNo:     db "NO "              ; 3 bytes
+DebugMenuStrOpen:   db "OPEN  "           ; 6 bytes, chests
+DebugMenuStrClosed: db "CLOSED"           ; 6 bytes
 
 SETCHARMAP main
 
@@ -527,6 +536,25 @@ DebugMenu_DrawCursor:
 	ret
 
 ; -----------------------------------------------------------------------
+; Write ◀ to hl and ▶ b cells to its right if item c is selected, spaces
+; otherwise: LEFT/RIGHT change that row's value.
+; Clobbers: A, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_DrawArrows:
+	ld a, [wDebugMenuCursor]
+	cp c
+	ld de, DEBUG_MENU_LEFT_ARROW | DEBUG_MENU_RIGHT_ARROW << 8
+	jr z, .got_chars
+	ld de, $7e7e ; spaces
+.got_chars
+	ld [hl], e
+	ld a, l
+	add b
+	ld l, a
+	ld [hl], d
+	ret
+
+; -----------------------------------------------------------------------
 ; The items, in two halves: redrawing all of them takes longer than one
 ; V-Blank, and VRAM can't be written while the LCD draws.
 ; -----------------------------------------------------------------------
@@ -550,6 +578,10 @@ DebugMenu_DrawItems1:
 	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_FORM_Y
 	ld b, 5
 	call DebugMenu_DrawString
+	ld c, DEBUG_MENU_FORM
+	ld b, DEBUG_MENU_FORM_RIGHT_ARROW_X - DEBUG_MENU_LEFT_ARROW_X
+	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_FORM_Y
+	call DebugMenu_DrawArrows
 
 	; POWER: a digit
 	ld c, DEBUG_MENU_POWER
@@ -558,6 +590,10 @@ DebugMenu_DrawItems1:
 	ld a, [wPowerUpLevel]
 	add $30 ; digit in temple charmap ($30-$39)
 	ldcoord_a DEBUG_MENU_VALUE_X, DEBUG_MENU_POWER_Y
+	ld c, DEBUG_MENU_POWER
+	ld b, DEBUG_MENU_POWER_RIGHT_ARROW_X - DEBUG_MENU_LEFT_ARROW_X
+	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_POWER_Y
+	call DebugMenu_DrawArrows
 
 	; GOLF: ON or OFF
 	ld c, DEBUG_MENU_GOLF
@@ -632,11 +668,11 @@ DebugMenu_DrawItems2:
 	push hl
 	call DebugMenu_IsTreasureCollected
 	pop hl
-	ld de, DebugMenuStrOn
+	ld de, DebugMenuStrOpen
 	jr c, .draw_treasure_status
-	ld de, DebugMenuStrOff
+	ld de, DebugMenuStrClosed
 .draw_treasure_status
-	ld b, 3
+	ld b, 6
 	jp DebugMenu_DrawString
 
 ; -----------------------------------------------------------------------
@@ -646,6 +682,10 @@ DebugMenu_DrawItems2:
 ; -----------------------------------------------------------------------
 DebugMenu_LoadScreen:
 	farcall LoadFontTiles
+	ld hl, DebugMenuArrowTiles
+	ld de, v0Tiles2 tile DEBUG_MENU_LEFT_ARROW
+	ld b, 2 tiles
+	call CopyHLToDE_Short
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PauseMenuGfx
@@ -665,6 +705,26 @@ DebugMenu_LoadScreen:
 	ld de, wTempPals1
 	ld b, 8 palettes
 	jp CopyHLToDE_Short
+
+; ◀ and ▶, in the font's style (glyph in colour 0 on colour 3), like its ▼
+DebugMenuArrowTiles:
+	dw `33333333
+	dw `33330333
+	dw `33300333
+	dw `33000333
+	dw `30000333
+	dw `33000333
+	dw `33300333
+	dw `33330333
+
+	dw `33333333
+	dw `30333333
+	dw `30033333
+	dw `30003333
+	dw `30000333
+	dw `30003333
+	dw `30033333
+	dw `30333333
 
 DebugMenuTilemap: INCBIN "data/bgmaps/debug_menu.tilemap.rle"
 DebugMenuAttrmap: INCBIN "data/bgmaps/debug_menu.attrmap.rle"
@@ -708,7 +768,7 @@ DebugMenuPals:
 	rgb 21, 21, 21
 	rgb 10, 10, 10
 	rgb 11,  0,  1
-	; 7: instructions, white on dark blue
+	; 7: unused (was the instructions line), white on dark blue
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 10, 10, 10
@@ -786,6 +846,9 @@ InitDebugMenu:
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
 
+	; the pause menu's music (DebugMenu_Exit gives the level's back)
+	play_music MUSIC_PAUSE_MENU
+
 	ld hl, wSubState
 	inc [hl]
 	ret
@@ -797,8 +860,8 @@ UpdateDebugMenu:
 	ld a, [wJoypadPressed]
 	ld b, a                ; save joypad
 
-	; B button → exit
-	bit B_PAD_B, a
+	; B or SELECT: exit
+	and PAD_B | PAD_SELECT
 	jp nz, .exit
 
 	; Check for any actionable input
@@ -843,22 +906,9 @@ UpdateDebugMenu:
 	jr z, .change_form_fwd
 	cp DEBUG_MENU_POWER
 	jr z, .change_power_fwd
-	cp DEBUG_MENU_OWL
-	jr z, .spawn_owl_r
 	cp DEBUG_MENU_TREASURE
-	jr z, .treasure_fwd
-	; else DEBUG_MENU_GOLF: toggle golf win
-	ld a, [wIsMinigameCleared]
-	xor TRUE
-	ld [wIsMinigameCleared], a
-	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
-	ld [wRoomTransitionParam], a
-	ld c, 1
-	jr .not_right
-.spawn_owl_r:
-	call DebugMenu_SpawnOwl
-	ld c, 1
-	jr .not_right
+	jr nz, .not_right ; OWL and GOLF take A
+;	fallthrough
 .treasure_fwd:
 	ld a, [wDebugMenuTreasureIdx]
 	inc a
@@ -904,22 +954,9 @@ UpdateDebugMenu:
 	jr z, .change_form_bwd
 	cp DEBUG_MENU_POWER
 	jr z, .change_power_bwd
-	cp DEBUG_MENU_OWL
-	jr z, .spawn_owl_l
 	cp DEBUG_MENU_TREASURE
-	jr z, .treasure_bwd
-	; else DEBUG_MENU_GOLF: toggle golf win (same as right)
-	ld a, [wIsMinigameCleared]
-	xor TRUE
-	ld [wIsMinigameCleared], a
-	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
-	ld [wRoomTransitionParam], a
-	ld c, 1
-	jr .check_redraw
-.spawn_owl_l:
-	call DebugMenu_SpawnOwl
-	ld c, 1
-	jr .check_redraw
+	jr nz, .not_left ; OWL and GOLF take A
+;	fallthrough
 .treasure_bwd:
 	ld a, [wDebugMenuTreasureIdx]
 	and a
@@ -959,13 +996,29 @@ UpdateDebugMenu:
 	jr .check_redraw
 
 .not_left:
-	; A: give or take the selected treasure
+	; A: spawn an owl, toggle the golf win, or give or take the treasure
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .check_redraw
 	ld a, [wDebugMenuCursor]
+	cp DEBUG_MENU_OWL
+	jr z, .spawn_owl
 	cp DEBUG_MENU_TREASURE
+	jr z, .toggle_treasure
+	cp DEBUG_MENU_GOLF
 	jr nz, .check_redraw
+	ld a, [wIsMinigameCleared]
+	xor TRUE
+	ld [wIsMinigameCleared], a
+	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
+	ld [wRoomTransitionParam], a
+	ld c, 1
+	jr .check_redraw
+.spawn_owl
+	call DebugMenu_SpawnOwl
+	ld c, 1
+	jr .check_redraw
+.toggle_treasure
 	call DebugMenu_ToggleTreasure
 	ld c, 1
 

@@ -8,14 +8,14 @@ The frame is made of pause menu pieces, read from the pause menu's own maps:
 its gem columns, the checkered top of its title band, and the ornate yellow
 frame around its treasure display. Their tiles go into VRAM1 (the debug menu
 loads PauseMenuGfx there), so their attributes get the VRAM1 bit; the text is
-the font in VRAM0. Fixed text (title, instructions, labels) is in the map;
-debug_menu.asm draws the cursor and the values.
+the font in VRAM0. Fixed text (title, labels) is in the map; debug_menu.asm
+draws the cursor, the values and the selected row's ◀ ▶ arrows.
 
 Palettes (DebugMenuPals): 1-4 are the pause menu's, for its pieces; the font
 draws its glyphs in colour 0 on colour 3, so each text palette is a text
 colour on the colour of what's behind it:
   0: title, yellow on dark blue     5: labels, white on dark red
-  7: instructions, white on blue    6: cursor and values, yellow on dark red
+                                    6: cursor and values, yellow on dark red
 """
 
 from pathlib import Path
@@ -30,7 +30,7 @@ CHARS.update({str(d): 0x30 + d for d in range(10)})
 CHARS.update({chr(ord("A") + i): 0x40 + i for i in range(26)})
 BLANK = 0x7F  # all colour 3: a flat cell of the text's background
 
-PAL_TITLE, PAL_LABEL, PAL_VALUE, PAL_INSTR = 0, 5, 6, 7
+PAL_TITLE, PAL_LABEL, PAL_VALUE = 0, 5, 6
 
 # Rows and columns, shared with debug_menu.asm (DEBUG_MENU_*)
 ITEM_ROWS = {"FORM": 5, "POWER": 7, "GOLF": 9, "OWL": 11, "TREASURE": 13}
@@ -75,9 +75,9 @@ for row in range(18):
         for col in range(2, 18):
             put(row, col, pause(0, 2))
         put(row, 18, pause(0, 18))
-    elif row in (1, 2):  # title and instructions
+    elif row in (1, 2):  # title band
         put(row, 1, pause(1, 1))
-        blank(row, 2, 17, PAL_TITLE if row == 1 else PAL_INSTR)
+        blank(row, 2, 17, PAL_TITLE)
         put(row, 18, pause(1, 18))
     else:  # the yellow frame (rows 8-12 of the pause menu), and inside it
         frame_row = 8 if row == 3 else 12 if row == 17 else 9
@@ -90,12 +90,13 @@ for row in range(18):
             blank(row, 2, 17, PAL_LABEL)
 
 text(1, 5, "DEBUG MENU", PAL_TITLE)
-text(2, 2, "LR:CYCLE  B:EXIT", PAL_INSTR)
 for label, row in ITEM_ROWS.items():
     put(row, CURSOR_COL, (CHARS[" "], PAL_VALUE))
     text(row, LABEL_COL, label, PAL_LABEL)
     blank(row, VALUE_COL, 17, PAL_VALUE)
 blank(TREASURE_VALUE_ROW, TREASURE_VALUE_COL, 17, PAL_VALUE)
+for label in ("FORM", "POWER"):  # their ◀, left of the value
+    put(ITEM_ROWS[label], VALUE_COL - 1, (BLANK, PAL_VALUE))
 
 (BGMAPS / "debug_menu.tilemap").write_bytes(tiles)
 (BGMAPS / "debug_menu.attrmap").write_bytes(attrs)

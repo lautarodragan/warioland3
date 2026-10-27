@@ -8,7 +8,11 @@ from game import ST_DEBUG_MENU, ST_LEVEL
 # Debug menu rows, top to bottom (wDebugMenuCursor)
 CURSOR_FORM = 0
 CURSOR_POWER = 1
+CURSOR_GOLF = 2
+CURSOR_OWL = 3
 CURSOR_TREASURE = 4
+MUSIC_PAUSE_MENU = 0x25
+OWL_STATUS_SPAWNED = 1
 
 # src/constants/treasure_constants.asm
 FOOT_OF_STONE = 0x3F  # N5 The Tidal Coast, red chest
@@ -95,3 +99,40 @@ def test_debug_menu_treasure(game, golden):
     # LEFT from the first treasure wraps to the last one (E7 BLU).
     game.menu_press("left", 4 * 4 + 1 + 1)
     assert game.read("wDebugMenuTreasureIdx") == 25 * 4 - 1
+
+
+def test_debug_menu_controls(game, golden):
+    # The pause menu's music while it's open; OWL and GOLF apply with A
+    # (LEFT/RIGHT do nothing there); SELECT closes it, like B.
+    game.new_game_to_overworld()
+    game.enter_level()
+    music = []
+    game.pb.hook_register(
+        None,
+        "PlayNewMusic_SetNoise",
+        lambda _: music.append(game.pb.register_file.B << 8 | game.pb.register_file.C),
+        None,
+    )
+    game.open_debug_menu()
+    assert music == [MUSIC_PAUSE_MENU]
+
+    # FORM and POWER show ◀ ▶ around the value while selected.
+    game.menu_press("down", CURSOR_POWER)
+    golden("debug_menu_power_selected", game.screenshot())
+
+    game.menu_press("down", CURSOR_OWL - CURSOR_POWER)
+    game.menu_press("right")
+    game.menu_press("left")
+    assert game.read("wDebugMenuOwlStatus") == 0
+    game.menu_press("up", CURSOR_OWL - CURSOR_GOLF)
+    game.menu_press("right")
+    assert not game.read("wIsMinigameCleared")
+    game.menu_press("down", CURSOR_OWL - CURSOR_GOLF)
+    game.menu_press("a")
+    assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
+
+    game.press("select")
+    game.wait_until(lambda: game.state[0] == ST_LEVEL, what="level after SELECT")
+    game.tick(60)
+    assert game.state[0] == ST_LEVEL
+    assert music[-1] != MUSIC_PAUSE_MENU  # the level's music again

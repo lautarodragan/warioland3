@@ -166,7 +166,7 @@ def test_debug_owl_fills_object_slots(game, golden):
     game.menu_press("down", CURSOR_OWL)
     statuses = []
     for _ in range(free + 2):
-        game.menu_press("right")
+        game.menu_press("a")
         statuses.append(game.read("wDebugMenuOwlStatus"))
     # One owl per free slot, then NO.
     assert statuses == [OWL_STATUS_SPAWNED] * free + [OWL_STATUS_FAILED] * 2
