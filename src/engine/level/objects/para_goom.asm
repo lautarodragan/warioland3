@@ -23,31 +23,31 @@ ParaGoomFunc:
 	jumptable
 
 	dw .Default
-	dw .Func_41567
-	dw .Func_416b0
-	dw .Func_416b8
-	dw .Func_419a6
-	dw .Func_419b0
-	dw .Func_419d5
-	dw .Func_419e8
-	dw .Func_41912
-	dw .Func_4191c
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_41954
-	dw .Func_4195b
-	dw .Func_41904
+	dw .State0b
+	dw .State0c
+	dw .State0d
 	dw .Default
-	dw .Func_417a2
-	dw .Func_417cb
-	dw .Func_414c0
-	dw .Func_41a64
-	dw .Func_4188b
-	dw .Func_41767
-	dw .Func_4176f
-	dw .Func_416fb
-	dw .Func_41731
-	dw .Func_41a2f
-	dw .Func_419fb
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
@@ -62,16 +62,16 @@ ParaGoomFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_4199c
-	dw .Func_41992
+	dw .State28
+	dw .State29
 	dw .Default
 	dw .Default
 	dw .Default
-	dw .Func_4152f
-	dw .Func_41517
+	dw .Special1
+	dw .Special2
 	dw .Default
 	dw ObjState_Fall
-	dw .Func_41598
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -81,25 +81,25 @@ ParaGoomFunc:
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
 	dw .Default
-	dw .Func_4196c
-	dw .Func_4197f
+	dw .State3b
+	dw .State3c
 	dw .Default
 	dw .Default
-	dw .Func_417b1
-	dw .Func_417e8
-	dw .Func_414fb
+	dw .State3f
+	dw .State40
+	dw .StandingFall
 	dw ObjState_Drop
-	dw .Func_418c4
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_41723
-	dw .Func_41759
-	dw .Func_41a53
-	dw .Func_41a1f
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
-	dw .Func_41439
-	dw .Func_41447
+	dw .FullThrowLeftStart
+	dw .FullThrowRightStart
 	dw ObjState_ThrowLeft
 	dw ObjState_ThrowRight
 	dw ObjState_Bounce1Left
@@ -112,21 +112,21 @@ ParaGoomFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_4181c
-	dw .Func_41830
-	dw .Func_4186f
+	dw .State5a
+	dw .State5b
+	dw .State5c
 	dw .Default
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
 
-.Func_41439:
+.FullThrowLeftStart:
 	ld a, $5e
 	ld [wCurObjState], a
 	ld de, Frameset_684a1
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
-.Func_41447:
+.FullThrowRightStart:
 	ld a, $5f
 	ld [wCurObjState], a
 	ld de, Frameset_684a1
@@ -198,7 +198,7 @@ ParaGoomFunc:
 	ld [wCurObjStateDuration], a
 	jr .asm_41505
 
-.Func_414c0:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -242,11 +242,11 @@ ParaGoomFunc:
 	ld [hld], a
 	ret
 
-.Func_414fb:
+.StandingFall:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jp z, .Func_41830
+	jp z, .State5b
 	dec [hl]
 	ret nz
 .asm_41505
@@ -261,7 +261,7 @@ ParaGoomFunc:
 	ld [hl], a
 	ret
 
-.Func_41517:
+.Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41528
@@ -278,7 +278,7 @@ ParaGoomFunc:
 	ret nz
 	jr .asm_41570
 
-.Func_4152f:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41540
@@ -312,7 +312,7 @@ ParaGoomFunc:
 	ld [hl], a
 	ret
 
-.Func_41567:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -346,7 +346,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ret
 
-.Func_41598:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_415a9
@@ -515,13 +515,13 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_416b0:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_416be
 
-.Func_416b8:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -561,7 +561,7 @@ ParaGoomFunc:
 	ld de, Frameset_68454
 	jr .asm_416d1
 
-.Func_416fb:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -581,7 +581,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ld a, $f4
 	ld [hl], a
-.Func_41723:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -590,7 +590,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_41731:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -610,7 +610,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ld a, $f4
 	ld [hl], a
-.Func_41759:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -619,13 +619,13 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_41767:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_41775
 
-.Func_4176f:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -661,14 +661,14 @@ ParaGoomFunc:
 	ld [hl], a
 	ret
 
-.Func_417a2:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_417b1:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_417be
@@ -684,7 +684,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_417cb:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -702,7 +702,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ld a, $ef
 	ld [hl], a
-.Func_417e8:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .asm_4180d
@@ -731,7 +731,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ret
 
-.Func_4181c:
+.State5a:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -745,7 +745,7 @@ ParaGoomFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_41830:
+.State5b:
 	call MoveObjectDown_Slow
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -783,7 +783,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ret
 
-.Func_4186f:
+.State5c:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_41880
@@ -802,7 +802,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4188b:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -840,7 +840,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ret
 
-.Func_418c4:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_418d5
@@ -883,22 +883,22 @@ ParaGoomFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_41904:
+.State0d:
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .Func_4191c
-.Func_41912:
+	jr c, .WobbleRightStart
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_41924
 
-.Func_4191c:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -937,12 +937,12 @@ ParaGoomFunc:
 	ld [hl], a
 	ret
 
-.Func_41954:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
 	jr .asm_41960
 
-.Func_4195b:
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
 .asm_41960
@@ -954,7 +954,7 @@ ParaGoomFunc:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_4196c:
+.State3b:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -967,7 +967,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4197f:
+.State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -980,28 +980,28 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_41992:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_419b8
 
-.Func_4199c:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_419b8
 
-.Func_419a6:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_419b8
 
-.Func_419b0:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -1024,7 +1024,7 @@ ParaGoomFunc:
 .asm_419cf
 	ld de, Frameset_684af
 	jp SetObjectFramesetPtr
-.Func_419d5:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -1037,7 +1037,7 @@ ParaGoomFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_419e8:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -1050,7 +1050,7 @@ ParaGoomFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_419fb:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -1072,7 +1072,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_41a1f:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -1080,9 +1080,9 @@ ParaGoomFunc:
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_41a2f
+	jr .State18
 
-.Func_41a2f:
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -1104,7 +1104,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_41a53:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1112,8 +1112,8 @@ ParaGoomFunc:
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_419fb
-.Func_41a64:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

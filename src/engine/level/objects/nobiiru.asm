@@ -3,9 +3,9 @@ NobiiruFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4380e)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4380e)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -34,26 +34,26 @@ NobiiruFunc:
 	ld [hl], a
 	ret
 
-.Func_4380e:
+.Update:
 	ld a, [wCurObjVar1]
 	jumptable
 
-	dw .Func_4382e
+	dw .Wait
 	dw .Func_43876
 	dw .Func_438a0
 	dw .Func_438c5
 	dw .Func_438ea
-	dw .Func_43910
-	dw .Func_43936
-	dw .Func_43956
+	dw .Extend1
+	dw .Bite1
+	dw .Bite2
 	dw .Func_4396e
 	dw .Func_43994
 	dw .Func_439ba
 	dw .Func_439e0
-	dw .Func_43a06
-	dw .Func_43a2c
+	dw .Retract1
+	dw .RetractEnd
 
-.Func_4382e:
+.Wait:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -189,7 +189,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_43910:
+.Extend1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -211,7 +211,7 @@ NobiiruFunc:
 	ld b, $14
 	jp .SetCollisionAndFrameset
 
-.Func_43936:
+.Bite1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -226,7 +226,7 @@ NobiiruFunc:
 	ld b, $08
 	jp .SetFrameset
 
-.Func_43956:
+.Bite2:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -324,7 +324,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_43a06:
+.Retract1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -346,7 +346,7 @@ NobiiruFunc:
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
-.Func_43a2c:
+.RetractEnd:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz

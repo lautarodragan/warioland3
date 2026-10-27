@@ -16,44 +16,44 @@ HammerBotFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_4434f
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_4434f
-	dw .Func_4446c
-	dw .Func_445c1
-	dw .Func_445c9
-	dw .Func_447d5
-	dw .Func_447f9
-	dw .Func_44839
-	dw .Func_4484c
-	dw .Func_4472f
-	dw .Func_44739
-	dw .Func_44317
-	dw .Func_4476b
-	dw .Func_44778
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_44692
-	dw .Func_446bb
-	dw .Func_4438b
-	dw .Func_448c2
-	dw .Func_446d6
-	dw .Func_4465d
-	dw .Func_44665
-	dw .Func_445f7
-	dw .Func_4462a
-	dw .Func_44890
-	dw .Func_4485f
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
+	dw .VanishTouch
+	dw .State0b
+	dw .State0c
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_4434f
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,16 +62,16 @@ HammerBotFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_447cb
-	dw .Func_447c1
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_443a7
-	dw .Func_443bf
-	dw .Func_4434f
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_4448c
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -80,22 +80,22 @@ HammerBotFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_4434f
-	dw .Func_4479d
-	dw .Func_447af
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_446a1
-	dw .Func_446c9
+	dw .Default
+	dw .State3b
+	dw .State3c
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_44703
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_4461c
-	dw .Func_4464f
-	dw .Func_448b1
-	dw .Func_44880
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ HammerBotFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_4434f
-	dw .Func_4434f
-	dw .Func_4434f
+	dw .Default
+	dw .Default
+	dw .Default
 
-.Func_44317:
+.VanishTouch:
 	ld a, [wCurObjAction]
 	and a
 	jp z, VanishObject2
@@ -136,10 +136,10 @@ HammerBotFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jp nc, .Func_4472f
-	jp .Func_44739
+	jp nc, .WobbleLeftStart
+	jp .WobbleRightStart
 
-.Func_4434f:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -177,7 +177,7 @@ HammerBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_4438b:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -197,7 +197,7 @@ HammerBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_443a7:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_443b4
@@ -213,7 +213,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_443bf:
+.Special2:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $0f
@@ -311,7 +311,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4446c:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -332,7 +332,7 @@ HammerBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_4448c:
+.Walk:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	jr z, .asm_444a3
@@ -513,12 +513,12 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_445c1:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_445cf
-.Func_445c9:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -543,7 +543,7 @@ HammerBotFunc:
 	ld [hld], a
 	ret
 
-.Func_445f7:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -561,7 +561,7 @@ HammerBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4461c:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -570,7 +570,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4462a:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -588,7 +588,7 @@ HammerBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4464f:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -597,12 +597,12 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4465d:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_4466b
-.Func_44665:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -629,14 +629,14 @@ HammerBotFunc:
 	ld [hld], a
 	ret
 
-.Func_44692:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_446a1:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_446ae
@@ -652,7 +652,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_446bb:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -661,7 +661,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_446c9:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
@@ -669,7 +669,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_446d6:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -693,7 +693,7 @@ HammerBotFunc:
 	set OBJFLAG_PRIORITY_F, [hl]
 	ret
 
-.Func_44703:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44710
@@ -725,14 +725,14 @@ HammerBotFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_4472f:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_44741
 
-.Func_44739:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -762,13 +762,13 @@ HammerBotFunc:
 	ld [hld], a
 	ret
 
-.Func_4476b:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsLeft
 	ld de, Frameset_68b5e
 	jr .asm_44783
-.Func_44778:
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsRight
@@ -784,7 +784,7 @@ HammerBotFunc:
 	play_sfx SFX_049
 	jp CreateObjectAtRelativePos
 
-.Func_4479d:
+.State3b:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -796,7 +796,7 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_447af:
+.State3c:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -808,21 +808,21 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_447c1:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_4481b
 
-.Func_447cb:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_4481b
 
-.Func_447d5:
+.AttackedLeftStart:
 	ld a, [wTransformation]
 	and a
 	jr nz, .asm_447ef
@@ -843,7 +843,7 @@ HammerBotFunc:
 	ld b, $01
 	jr .asm_4481b
 
-.Func_447f9:
+.AttackedRightStart:
 	ld a, [wTransformation]
 	and a
 	jr nz, .asm_44813
@@ -882,7 +882,7 @@ HammerBotFunc:
 	ld de, Frameset_68b45
 	jp SetObjectFramesetPtr
 
-.Func_44839:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -895,7 +895,7 @@ HammerBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_4484c:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -908,7 +908,7 @@ HammerBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_4485f:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -923,7 +923,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_44880:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -931,9 +931,9 @@ HammerBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_44890
+	jr .State18
 
-.Func_44890:
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -948,7 +948,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_448b1:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -956,9 +956,9 @@ HammerBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_4485f
+	jp .State19
 
-.Func_448c2:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

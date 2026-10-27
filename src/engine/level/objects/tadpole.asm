@@ -1,8 +1,8 @@
 TadpoleSpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49e4b)
+	ld a, HIGH(.WaitForWario)
 	ld [hld], a
-	ld a, LOW(.Func_49e4b)
+	ld a, LOW(.WaitForWario)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -12,7 +12,7 @@ TadpoleSpawnerFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.Func_49e4b:
+.WaitForWario:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld a, 2
@@ -33,14 +33,14 @@ TadpoleSpawnerFunc:
 	cp $28
 	ret c
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49e7f)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_49e7f)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ld bc, ObjParams_Tadpole
 	jp CreateObjectAtRelativePos
 
-.Func_49e7f:
+.WaitAndDespawn:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld a, 2
@@ -56,15 +56,15 @@ TadpoleFunc:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49eb3)
+	ld a, HIGH(.WaitOnScreen)
 	ld [hld], a
-	ld a, LOW(.Func_49eb3)
+	ld a, LOW(.WaitOnScreen)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_INVISIBLE_F, [hl]
 	ret
 
-.Func_49eb3:
+.WaitOnScreen:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
@@ -72,14 +72,14 @@ TadpoleFunc:
 	ret z
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49ece)
+	ld a, HIGH(.Appear)
 	ld [hld], a
-	ld a, LOW(.Func_49ece)
+	ld a, LOW(.Appear)
 	ld [hld], a
 	ld de, Frameset_69a33
 	jp SetObjectFramesetPtr
 
-.Func_49ece:
+.Appear:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -98,9 +98,9 @@ TadpoleFunc:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49f34)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49f34)
+	ld a, LOW(.Update)
 	ld [hld], a
 	play_sfx SFX_07F
 	ret
@@ -142,7 +142,7 @@ TadpoleFunc:
 	ld de, Frameset_69a30
 	jp SetObjectFramesetPtr
 
-.Func_49f34:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -193,9 +193,9 @@ TadpoleFunc:
 	ld a, $09
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49fb5)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_49fb5)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ret
 
@@ -217,7 +217,7 @@ TadpoleFunc:
 	ld de, Frameset_69a1d
 	jp SetObjectFramesetPtr
 
-.Func_49fb5:
+.WaitAndDespawn:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

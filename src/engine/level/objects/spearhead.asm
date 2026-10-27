@@ -652,12 +652,12 @@ SpearheadFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_44
 	ld [hld], a
-	jr .Func_40478
+	jr .set_fall
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_45
 	ld [hld], a
-.Func_40478:
+.set_fall:
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
 	jr c, .asm_40484
@@ -810,13 +810,13 @@ SpearheadFunc:
 	ld a, 15 | (1 << 7)
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .Func_4057d
+	jr .set_wobble_state
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, 15 | (1 << 7)
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.Func_4057d:
+.set_wobble_state:
 	ld [hld], a ; OBJ_STATE
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
@@ -851,11 +851,11 @@ SpearheadFunc:
 .State0b:
 	ld a, OBJSTATE_3B
 	ld [wCurObjState], a
-	jr .Func_405b6
+	jr .reset_animation
 .State0c:
 	ld a, OBJSTATE_3C
 	ld [wCurObjState], a
-.Func_405b6:
+.reset_animation:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a

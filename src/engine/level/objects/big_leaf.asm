@@ -190,9 +190,9 @@ BigLeaf2Func:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_42d0e)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_42d0e)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ld de, Frameset_6873b
 	call SetObjectFramesetPtr
@@ -208,7 +208,7 @@ BigLeaf2Func:
 	play_sfx SFX_08F
 	ret
 
-.Func_42d0e:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

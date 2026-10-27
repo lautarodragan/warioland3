@@ -16,7 +16,7 @@ GreyPrinceFroggyFunc:
 	ld a, $00
 	ld [hld], a
 	ld l, OBJ_STATE
-	jp PrinceFroggyFunc.Func_441dc
+	jp PrinceFroggyFunc.StartTurnAround
 
 RedPrinceFroggyFunc:
 	ld hl, wCurObjFlags
@@ -40,19 +40,19 @@ RedPrinceFroggyFunc:
 	ret
 
 PrinceFroggyFunc:
-.Func_440c4:
+.SetHitByObjLeft:
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	jr .asm_440da
-.Func_440ca:
+.SetHitByObjRight:
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_440da
-.Func_440d0:
+.SetAttackedLeft:
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	jr .asm_440da
-.Func_440d6:
+.SetAttackedRight:
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 .asm_440da
@@ -103,13 +103,13 @@ PrinceFroggyFunc:
 	cp $3b
 	jr z, .asm_44161
 	cp $28
-	jr z, .Func_440c4
+	jr z, .SetHitByObjLeft
 	cp $29
-	jr z, .Func_440ca
+	jr z, .SetHitByObjRight
 	cp $04
-	jr z, .Func_440d0
+	jr z, .SetAttackedLeft
 	cp $05
-	jr z, .Func_440d6
+	jr z, .SetAttackedRight
 	cp $0a
 	jp z, .asm_4420a
 	jr .asm_44172
@@ -121,7 +121,7 @@ PrinceFroggyFunc:
 	ld a, LOW(.Update_Sitting)
 	ld [hld], a
 	ld l, OBJ_STATE
-	jp .Func_441dc
+	jp .StartTurnAround
 
 .asm_44151
 	ld a, $41
@@ -192,22 +192,22 @@ PrinceFroggyFunc:
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $28
-	jp z, .Func_440c4
+	jp z, .SetHitByObjLeft
 	cp $29
-	jp z, .Func_440ca
+	jp z, .SetHitByObjRight
 	cp $04
-	jp z, .Func_440d0
+	jp z, .SetAttackedLeft
 	cp $05
-	jp z, .Func_440d6
+	jp z, .SetAttackedRight
 	cp $13
-	jr z, .Func_441dc
+	jr z, .StartTurnAround
 	cp $43
 	jr z, .asm_441f8
 	cp $0a
 	jr z, .asm_4420a
 	xor a
 	ld [hl], a
-.Func_441dc:
+.StartTurnAround:
 	ld a, $43
 	ld [hl], a
 	ld de, Frameset_68b01
@@ -237,9 +237,9 @@ PrinceFroggyFunc:
 
 .asm_4420a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_44220)
+	ld a, HIGH(.HopAndVanish)
 	ld [hld], a
-	ld a, LOW(.Func_44220)
+	ld a, LOW(.HopAndVanish)
 	ld [hld], a
 	ld de, Frameset_68ae6
 	call SetObjectFramesetPtr
@@ -249,7 +249,7 @@ PrinceFroggyFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_44220:
+.HopAndVanish:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, DropYVel_Light

@@ -43,7 +43,7 @@ BirdFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_432c2:
+.Idle:
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	ret z
@@ -120,7 +120,7 @@ BirdFunc:
 	ld [hli], a
 	ret
 
-.Func_43342:
+.Special3:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
@@ -130,7 +130,7 @@ BirdFunc:
 	play_sfx SFX_070
 	ret
 
-.Func_43353:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 .asm_43358
@@ -143,9 +143,9 @@ BirdFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jp z, .Func_432c2
+	jp z, .Idle
 	cp $2f
-	jr z, .Func_43342
+	jr z, .Special3
 	cp $0b
 	jr z, .asm_4338f
 	cp $0c
@@ -188,15 +188,15 @@ BirdFunc:
 	ld a, [wCurObjId]
 	cp BLUE_BIRD
 	jr z, .blue_bird
-	ld a, HIGH(.Func_43353)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_43353)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	jp CreateObjectAtRelativePos
 .blue_bird
-	ld a, HIGH(.Func_4340b)
+	ld a, HIGH(.BlueBirdWait)
 	ld [hld], a
-	ld a, LOW(.Func_4340b)
+	ld a, LOW(.BlueBirdWait)
 	ld [hld], a
 	ld a, $14
 	ld [wCurObjStateDuration], a
@@ -249,7 +249,7 @@ BirdFunc:
 	ld de, Frameset_687fa
 	jp SetObjectFramesetPtr
 
-.Func_4340b:
+.BlueBirdWait:
 	ld hl, wCurObjAction
 	ld a, $81
 	ld [hld], a
@@ -261,19 +261,19 @@ BirdFunc:
 	ld a, $0c
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_43427)
+	ld a, HIGH(.BlueBirdLand)
 	ld [hld], a
-	ld a, LOW(.Func_43427)
+	ld a, LOW(.BlueBirdLand)
 	ld [hld], a
 	ret
 
-.Func_43427:
+.BlueBirdLand:
 	ld hl, wCurObjAction
 	ld a, $81
 	ld [hld], a
 	ld a, [hl]
 	and a
-	jp nz, .Func_43342
+	jp nz, .Special3
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz

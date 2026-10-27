@@ -43,24 +43,24 @@ HandFunc:
 	ld a, [wCurObjVar1]
 	jumptable
 
-	dw .Func_477b2
-	dw .Func_477de
+	dw .Hidden
+	dw .Emerge
 	dw .Func_477f3
 	dw .Func_4780e
 	dw .Func_47825
 	dw .Func_4783c
 	dw .Func_47853
-	dw .Func_4786a
-	dw .Func_47881
-	dw .Func_47896
+	dw .Rise1
+	dw .Reach
+	dw .Grab
 	dw .Func_478e1
 	dw .Func_47903
 	dw .Func_47925
-	dw .Func_47947
-	dw .Func_47966
+	dw .Sink1
+	dw .Retract
 	dw .Invisible
 
-.Func_477b2:
+.Hidden:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -83,7 +83,7 @@ HandFunc:
 	ld [hl], a
 	ret
 
-.Func_477de:
+.Emerge:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -164,7 +164,7 @@ HandFunc:
 	inc [hl]
 	jp MoveObjectUpByVar2
 
-.Func_4786a:
+.Rise1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -177,7 +177,7 @@ HandFunc:
 	inc [hl]
 	jp MoveObjectUpByVar2
 
-.Func_47881:
+.Reach:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -190,7 +190,7 @@ HandFunc:
 	inc [hl]
 	ret
 
-.Func_47896:
+.Grab:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 49
@@ -287,7 +287,7 @@ HandFunc:
 	ld b, 8
 	jp .ApplyOffsetToWario
 
-.Func_47947:
+.Sink1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -304,7 +304,7 @@ HandFunc:
 	ld b, 0
 	jp .ApplyOffsetToWario
 
-.Func_47966:
+.Retract:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

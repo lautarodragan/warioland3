@@ -311,9 +311,9 @@ ZombieFunc:
 	and $0f
 	jumptable
 
-	dw .Func_45ce2
-	dw .Func_45ce2
-	dw .Func_45ddc
+	dw .CheckWarioNear
+	dw .CheckWarioNear
+	dw .TurnAround
 	dw .ThrowHead
 
 .asm_45cca
@@ -330,7 +330,7 @@ ZombieFunc:
 	ld de, Frameset_68d8a
 	jp SetObjectFramesetPtr
 
-.Func_45ce2:
+.CheckWarioNear:
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -474,7 +474,7 @@ ZombieFunc:
 	ld [hli], a
 	ret
 
-.Func_45ddc:
+.TurnAround:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 20

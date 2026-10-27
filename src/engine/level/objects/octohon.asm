@@ -3,9 +3,9 @@ SmallOctohonFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4a4d4)
+	ld a, HIGH(.Start)
 	ld [hld], a
-	ld a, LOW(.Func_4a4d4)
+	ld a, LOW(.Start)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -18,7 +18,7 @@ SmallOctohonFunc:
 	ld [hl], a
 	ret
 
-.Func_4a4d4:
+.Start:
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -34,9 +34,9 @@ SmallOctohonFunc:
 	ld b, $01
 .asm_4a4ee
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4a50f)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4a50f)
+	ld a, LOW(.Update)
 	ld [hld], a
 .asm_4a4f7
 	ld hl, wCurObjStateDuration
@@ -56,7 +56,7 @@ SmallOctohonFunc:
 .asm_4a50c
 	jp SetObjectFramesetPtr
 
-.Func_4a50f:
+.Update:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjVar1
@@ -202,9 +202,9 @@ BigOctohonFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4a6b9)
+	ld a, HIGH(.Start)
 	ld [hld], a
-	ld a, LOW(.Func_4a6b9)
+	ld a, LOW(.Start)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -217,7 +217,7 @@ BigOctohonFunc:
 	ld [hl], a
 	ret
 
-.Func_4a6b9:
+.Start:
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -234,9 +234,9 @@ BigOctohonFunc:
 	ld de, Frameset_69b60
 .asm_4a6d6
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4a729)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4a729)
+	ld a, LOW(.Update)
 	ld [hld], a
 .asm_4a6df
 	ld hl, wCurObjStateDuration
@@ -283,7 +283,7 @@ BigOctohonFunc:
 	ld [hl], a
 	ret
 
-.Func_4a729:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a

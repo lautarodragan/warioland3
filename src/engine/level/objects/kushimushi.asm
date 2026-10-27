@@ -169,7 +169,7 @@ KushimushiVerticalFunc:
 	ld [hl], a
 	jp SetObjectFramesetPtr
 
-.Func_42acf:
+.Update_42acf:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -279,9 +279,9 @@ KushimushiHorizontalFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(KushimushiVerticalFunc.Func_42acf)
+	ld a, HIGH(KushimushiVerticalFunc.Update_42acf)
 	ld [hld], a
-	ld a, LOW(KushimushiVerticalFunc.Func_42acf)
+	ld a, LOW(KushimushiVerticalFunc.Update_42acf)
 	ld [hld], a
 	ld de, Frameset_68611
 	call SetObjectFramesetPtr

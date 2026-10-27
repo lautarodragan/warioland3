@@ -227,14 +227,14 @@ HebariiFunc:
 
 	dw .Vanish ; OBJSTATE_00
 	dw .Vanish ; OBJSTATE_LAND
-	dw .Func_4a26d ; OBJSTATE_BUMP_LEFT_START
-	dw .Func_4a277 ; OBJSTATE_BUMP_RIGHT_START
+	dw .BumpLeftStart ; OBJSTATE_BUMP_LEFT_START
+	dw .BumpRightStart ; OBJSTATE_BUMP_RIGHT_START
 	dw .AttackedLeftStart ; OBJSTATE_ATTACKED_LEFT_START
 	dw .AttackedRightStart ; OBJSTATE_ATTACKED_RIGHT_START
 	dw .PickedUpLeftStart ; OBJSTATE_PICKED_UP_LEFT_START
 	dw .PickedUpRightStart ; OBJSTATE_PICKED_UP_RIGHT_START
-	dw .Func_4a26d ; OBJSTATE_WOBBLE_LEFT_START
-	dw .Func_4a277 ; OBJSTATE_WOBBLE_RIGHT_START
+	dw .BumpLeftStart ; OBJSTATE_WOBBLE_LEFT_START
+	dw .BumpRightStart ; OBJSTATE_WOBBLE_RIGHT_START
 	dw .Vanish ; OBJSTATE_VANISH_TOUCH
 	dw .Vanish ; OBJSTATE_0B
 	dw .Vanish ; OBJSTATE_0C
@@ -244,7 +244,7 @@ HebariiFunc:
 	dw .Vanish ; OBJSTATE_10
 	dw .Vanish ; OBJSTATE_STANDING_FALL_START
 	dw .State12 ; OBJSTATE_12
-	dw .Func_4a224 ; OBJSTATE_TURN_AROUND_START
+	dw .TurnAroundStart ; OBJSTATE_TURN_AROUND_START
 	dw .State14 ; OBJSTATE_14
 	dw .State15 ; OBJSTATE_15
 	dw .StunLeftStart ; OBJSTATE_STUN_LEFT_START
@@ -274,7 +274,7 @@ HebariiFunc:
 	dw .Vanish ; OBJSTATE_SPECIAL_2
 	dw .Vanish ; OBJSTATE_SPECIAL_3
 	dw .Vanish ; OBJSTATE_FALL
-	dw .Func_4a224 ; OBJSTATE_WALK
+	dw .TurnAroundStart ; OBJSTATE_WALK
 	dw ObjState_BumpLeft ; OBJSTATE_BUMP_LEFT
 	dw ObjState_BumpRight ; OBJSTATE_BUMP_RIGHT
 	dw .Vanish ; OBJSTATE_ATTACKED_LEFT
@@ -363,7 +363,7 @@ HebariiFunc:
 	ld [hli], a
 	ret
 
-.Func_4a224:
+.TurnAroundStart:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .no_shake2
@@ -399,13 +399,13 @@ HebariiFunc:
 	farcall DespawnObject
 	ret
 
-.Func_4a26d:
+.BumpLeftStart:
 	ld hl, wCurObjAction
 	ld a, 15 | (1 << 7)
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_4a27f
-.Func_4a277:
+.BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, 15 | (1 << 7)
 	ld [hld], a

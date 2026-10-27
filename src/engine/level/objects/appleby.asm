@@ -22,7 +22,7 @@ ApplebyFunc:
 	ld [hld], a
 	ret
 
-.Func_479e0:
+.Hidden:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_FLAGS
@@ -45,9 +45,9 @@ ApplebyFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .Func_479e0
+	jr z, .Hidden
 	cp $2a
-	jp c, .Func_47ab0
+	jp c, .HandleHit
 	cp $5a
 	jr z, .asm_47a1e
 	cp $5b
@@ -149,7 +149,7 @@ ApplebyFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_47ab0:
+.HandleHit:
 	cp $0a
 	jr z, .asm_47ad5
 	cp $04
@@ -322,10 +322,10 @@ AppleFunc:
 	add $2a
 	cp b
 	jr c, .asm_47bc5
-	ld bc, .Func_47bd8
+	ld bc, .HopRight
 	jr .asm_47bc8
 .asm_47bc5
-	ld bc, .Func_47bd3
+	ld bc, .HopLeft
 .asm_47bc8
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, b
@@ -335,10 +335,10 @@ AppleFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_47bd3:
+.HopLeft:
 	call MoveObjectLeft
 	jr .asm_47bdb
-.Func_47bd8:
+.HopRight:
 	call MoveObjectRight
 .asm_47bdb
 	ld a, no_actions_for 1

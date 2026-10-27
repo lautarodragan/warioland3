@@ -16,44 +16,44 @@ BeamBotFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_46691
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_46691
-	dw .Func_46748
-	dw .Func_46874
-	dw .Func_4687c
-	dw .Func_46a32
-	dw .Func_46a3c
-	dw .Func_46a62
-	dw .Func_46a75
-	dw .Func_469e2
-	dw .Func_469ec
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46945
-	dw .Func_4696e
-	dw .Func_466cb
-	dw .Func_46aeb
-	dw .Func_46989
-	dw .Func_46910
-	dw .Func_46918
-	dw .Func_468aa
-	dw .Func_468dd
-	dw .Func_46ab9
-	dw .Func_46a88
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,16 +62,16 @@ BeamBotFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_46a28
-	dw .Func_46a1e
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_466e7
-	dw .Func_4672c
-	dw .Func_46691
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_46769
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -80,22 +80,22 @@ BeamBotFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46954
-	dw .Func_4697c
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_469b2
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_468cf
-	dw .Func_46902
-	dw .Func_46ada
-	dw .Func_46aa9
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ BeamBotFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_46691
-	dw .Func_46691
-	dw .Func_46691
+	dw .Default
+	dw .Default
+	dw .Default
 
-.Func_46691:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -150,7 +150,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld de, Frameset_68e80
 	jp SetObjectFramesetPtr
-.Func_466cb:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -169,7 +169,7 @@ BeamBotFunc:
 	ld de, Frameset_68e80
 	call SetObjectFramesetPtr
 	ret
-.Func_466e7:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_466f8
@@ -206,7 +206,7 @@ BeamBotFunc:
 	ld a, 50
 	ld [hli], a
 	ret
-.Func_4672c:
+.Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_4673d
@@ -224,7 +224,7 @@ BeamBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46748:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -240,7 +240,7 @@ BeamBotFunc:
 	ld a, 100
 	ld [hli], a
 	ret
-.Func_46769:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_4677a
@@ -401,12 +401,12 @@ BeamBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46874:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_46882
-.Func_4687c:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -430,7 +430,7 @@ BeamBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_468aa:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -448,7 +448,7 @@ BeamBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_468cf:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -456,7 +456,7 @@ BeamBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_468dd:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -474,7 +474,7 @@ BeamBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_46902:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -482,12 +482,12 @@ BeamBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_46910:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_4691e
-.Func_46918:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -513,14 +513,14 @@ BeamBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_46945:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_46954:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46961
@@ -535,7 +535,7 @@ BeamBotFunc:
 	ld a, $10
 	ld [wCurObjState], a
 	ret
-.Func_4696e:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -544,14 +544,14 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_4697c:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $00
 	ld [wCurObjState], a
 	ret
-.Func_46989:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -572,7 +572,7 @@ BeamBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_469b2:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_469c3
@@ -606,13 +606,13 @@ BeamBotFunc:
 .asm_469df
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.Func_469e2:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_469f4
-.Func_469ec:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -641,25 +641,25 @@ BeamBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_46a1e:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_46a44
-.Func_46a28:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_46a44
-.Func_46a32:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_46a44
-.Func_46a3c:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -683,7 +683,7 @@ BeamBotFunc:
 .asm_46a5c
 	ld de, Frameset_68ece
 	jp SetObjectFramesetPtr
-.Func_46a62:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -695,7 +695,7 @@ BeamBotFunc:
 	ld a, $01
 	ld [hld], a
 	jp ObjState_PickedUpLeft
-.Func_46a75:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -708,7 +708,7 @@ BeamBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_46a88:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -723,7 +723,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_46aa9:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -731,8 +731,8 @@ BeamBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_46ab9
-.Func_46ab9:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -747,7 +747,7 @@ BeamBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_46ada:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -755,8 +755,8 @@ BeamBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_46a88
-.Func_46aeb:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

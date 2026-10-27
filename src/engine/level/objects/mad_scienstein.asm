@@ -16,44 +16,44 @@ MadSciensteinFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_44fd9
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_44fd9
-	dw .Func_45034
-	dw .Func_45140
-	dw .Func_45186
-	dw .Func_45342
-	dw .Func_45366
-	dw .Func_453a6
-	dw .Func_453b9
-	dw .Func_452f7
-	dw .Func_45301
-	dw .Func_44e18
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_4526b
-	dw .Func_45294
-	dw .Func_45018
-	dw .Func_45425
-	dw .Func_452af
-	dw .Func_4523b
-	dw .Func_45243
-	dw .Func_451e5
-	dw .Func_45210
-	dw .Func_453f8
-	dw .Func_453cc
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
+	dw .VanishTouch
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,40 +62,40 @@ MadSciensteinFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_45338
-	dw .Func_4532e
-	dw .Func_44fd9
-	dw .Func_44eaa
-	dw .Func_44f89
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .State2b
+	dw .State2c
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_45054
-	dw .Func_4515d
-	dw .Func_451bc
+	dw .Walk
+	dw .BumpLeft
+	dw .BumpRight
 	dw ObjState_AttackedLeft
 	dw ObjState_AttackedRight
 	dw ObjState_PickedUpLeft
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_44fd9
-	dw .Func_4527a
-	dw .Func_452a2
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_452cb
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_45202
-	dw .Func_4522d
-	dw .Func_45414
-	dw .Func_453e8
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ MadSciensteinFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_44e50
-	dw .Func_44eda
-	dw .Func_44fbf
+	dw .State5a
+	dw .State5b
+	dw .State5c
 
-.Func_44e18:
+.VanishTouch:
 	ld a, [wCurObjAction]
 	and a
 	jp z, VanishObject2
@@ -136,10 +136,10 @@ MadSciensteinFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jp nc, .Func_452f7
-	jp .Func_45301
+	jp nc, .WobbleLeftStart
+	jp .WobbleRightStart
 
-.Func_44e50:
+.State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44e5d
@@ -191,7 +191,7 @@ MadSciensteinFunc:
 	ld bc, ObjParams_InvisibilityPotionRight
 	jp CreateObjectAtRelativePos
 
-.Func_44eaa:
+.State2b:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $08
@@ -226,7 +226,7 @@ MadSciensteinFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_44eda:
+.State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44ee7
@@ -328,7 +328,7 @@ MadSciensteinFunc:
 	ld [hli], a
 	ret
 
-.Func_44f89:
+.State2c:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $08
@@ -367,7 +367,7 @@ MadSciensteinFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_44fbf:
+.State5c:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44fcc
@@ -383,7 +383,7 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44fd9:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -423,7 +423,7 @@ MadSciensteinFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_45018:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -443,7 +443,7 @@ MadSciensteinFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_45034:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -464,7 +464,7 @@ MadSciensteinFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_45054:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_45061
@@ -610,7 +610,7 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_45140:
+.BumpLeftStart:
 	ld a, [wCurObjFrame]
 	cp $19
 	jr nc, .asm_45155
@@ -627,7 +627,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	jr .asm_451a1
 
-.Func_4515d:
+.BumpLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -655,7 +655,7 @@ MadSciensteinFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_45186:
+.BumpRightStart:
 	ld a, [wCurObjFrame]
 	cp $19
 	jr nc, .asm_4519b
@@ -687,7 +687,7 @@ MadSciensteinFunc:
 	ld [wCurObjVar2], a
 	ret
 
-.Func_451bc:
+.BumpRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -715,7 +715,7 @@ MadSciensteinFunc:
 	ld [hli], a
 	ret
 
-.Func_451e5:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -728,7 +728,7 @@ MadSciensteinFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_45202:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -737,7 +737,7 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_45210:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -750,7 +750,7 @@ MadSciensteinFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4522d:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -759,13 +759,13 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4523b:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_45249
 
-.Func_45243:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -793,14 +793,14 @@ MadSciensteinFunc:
 	ld [hld], a
 	ret
 
-.Func_4526b:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_4527a:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_45287
@@ -816,7 +816,7 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_45294:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -825,7 +825,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_452a2:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
@@ -833,7 +833,7 @@ MadSciensteinFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_452af:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -851,7 +851,7 @@ MadSciensteinFunc:
 	ld [hli], a
 	ret
 
-.Func_452cb:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_452d8
@@ -883,13 +883,13 @@ MadSciensteinFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_452f7:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_45309
-.Func_45301:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -920,21 +920,21 @@ MadSciensteinFunc:
 	ld [hld], a
 	ret
 
-.Func_4532e:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_45388
 
-.Func_45338:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_45388
 
-.Func_45342:
+.AttackedLeftStart:
 	ld a, [wTransformation]
 	and a
 	jr nz, .asm_4535c
@@ -955,7 +955,7 @@ MadSciensteinFunc:
 	ld b, $01
 	jr .asm_45388
 
-.Func_45366:
+.AttackedRightStart:
 	ld a, [wTransformation]
 	and a
 	jr nz, .asm_45380
@@ -994,7 +994,7 @@ MadSciensteinFunc:
 	ld de, Frameset_68c14
 	jp SetObjectFramesetPtr
 
-.Func_453a6:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -1007,7 +1007,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_453b9:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -1020,7 +1020,7 @@ MadSciensteinFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_453cc:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -1036,7 +1036,7 @@ MadSciensteinFunc:
 .asm_453e4
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_453e8:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -1044,9 +1044,9 @@ MadSciensteinFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_453f8
+	jr .State18
 
-.Func_453f8:
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -1062,7 +1062,7 @@ MadSciensteinFunc:
 .asm_45410
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_45414:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1070,9 +1070,9 @@ MadSciensteinFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_453cc
+	jp .State19
 
-.Func_45425:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

@@ -16,44 +16,44 @@ SpearBotFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_45fbf
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_45fbf
-	dw .Func_461db
-	dw .Func_462e3
-	dw .Func_462eb
-	dw .Func_464e7
-	dw .Func_464f1
-	dw .Func_46517
-	dw .Func_4652a
-	dw .Func_46451
-	dw .Func_4645b
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_4648d
-	dw .Func_46494
-	dw .Func_45fbf
-	dw .Func_45fbf
-	dw .Func_463b4
-	dw .Func_463dd
-	dw .Func_45ffb
-	dw .Func_465a0
-	dw .Func_463f8
-	dw .Func_4637f
-	dw .Func_46387
-	dw .Func_46319
-	dw .Func_4634c
-	dw .Func_4656e
-	dw .Func_4653d
+	dw .State0b
+	dw .State0c
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
-	dw .Func_45fbf
-	dw .Func_45fbf
-	dw .Func_45fbf
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,16 +62,16 @@ SpearBotFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_464dd
-	dw .Func_464d3
-	dw .Func_45fbf
-	dw .Func_45fbf
-	dw .Func_45fbf
-	dw .Func_4605f
-	dw .Func_460a6
-	dw .Func_45fbf
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_461fb
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -80,22 +80,22 @@ SpearBotFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_45fbf
-	dw .Func_464a5
-	dw .Func_464b7
-	dw .Func_45fbf
-	dw .Func_45fbf
-	dw .Func_463c3
-	dw .Func_463eb
-	dw .Func_46043
+	dw .Default
+	dw .State3b
+	dw .State3c
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
+	dw .StandingFall
 	dw ObjState_Drop
-	dw .Func_46421
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_4633e
-	dw .Func_46371
-	dw .Func_4658f
-	dw .Func_4655e
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ SpearBotFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_4618c
-	dw .Func_46170
-	dw .Func_45fbf
+	dw .State5a
+	dw .State5b
+	dw .Default
 
-.Func_45fbf:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -153,7 +153,7 @@ SpearBotFunc:
 	ld de, Frameset_68de8
 	call SetObjectFramesetPtr
 	ret
-.Func_45ffb:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -202,7 +202,7 @@ SpearBotFunc:
 	xor a
 	ld [hl], a
 	ret
-.Func_46043:
+.StandingFall:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -217,7 +217,7 @@ SpearBotFunc:
 .asm_46059
 	ld de, Frameset_68de8
 	jp SetObjectFramesetPtr
-.Func_4605f:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46070
@@ -263,7 +263,7 @@ SpearBotFunc:
 	or OBJ_INTERACTION_FRONT_STING
 	ld [hld], a
 	ret
-.Func_460a6:
+.Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_460b7
@@ -382,7 +382,7 @@ SpearBotFunc:
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_46170:
+.State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46181
@@ -400,7 +400,7 @@ SpearBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_4618c:
+.State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_4619d
@@ -451,7 +451,7 @@ SpearBotFunc:
 	ld a, $f6
 	ld [hld], a
 	ret
-.Func_461db:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -471,7 +471,7 @@ SpearBotFunc:
 	ld de, Frameset_68de8
 	call SetObjectFramesetPtr
 	ret
-.Func_461fb:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_4620c
@@ -614,12 +614,12 @@ SpearBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_462e3:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_462f1
-.Func_462eb:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -643,7 +643,7 @@ SpearBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_46319:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -661,7 +661,7 @@ SpearBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4633e:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -669,7 +669,7 @@ SpearBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_4634c:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -687,7 +687,7 @@ SpearBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_46371:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -695,12 +695,12 @@ SpearBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_4637f:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_4638d
-.Func_46387:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -726,14 +726,14 @@ SpearBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_463b4:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_463c3:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_463d0
@@ -748,7 +748,7 @@ SpearBotFunc:
 	ld a, $10
 	ld [wCurObjState], a
 	ret
-.Func_463dd:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -757,14 +757,14 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_463eb:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $00
 	ld [wCurObjState], a
 	ret
-.Func_463f8:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -785,7 +785,7 @@ SpearBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_46421:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46432
@@ -819,13 +819,13 @@ SpearBotFunc:
 .asm_4644e
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.Func_46451:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_46463
-.Func_4645b:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -854,11 +854,11 @@ SpearBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_4648d:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
 	jr .asm_46499
-.Func_46494:
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
 .asm_46499
@@ -869,7 +869,7 @@ SpearBotFunc:
 	ld a, $02
 	ld [wCurObjVar2], a
 	ret
-.Func_464a5:
+.State3b:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -880,7 +880,7 @@ SpearBotFunc:
 	jp nz, ObjState_BumpSlideRight
 	ld de, Frameset_68dff
 	jr .asm_464c7
-.Func_464b7:
+.State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -897,25 +897,25 @@ SpearBotFunc:
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_464d3:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_464f9
-.Func_464dd:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_464f9
-.Func_464e7:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_464f9
-.Func_464f1:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -939,7 +939,7 @@ SpearBotFunc:
 .asm_46511
 	ld de, Frameset_68e2e
 	jp SetObjectFramesetPtr
-.Func_46517:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -951,7 +951,7 @@ SpearBotFunc:
 	ld a, $01
 	ld [hld], a
 	jp ObjState_PickedUpLeft
-.Func_4652a:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -964,7 +964,7 @@ SpearBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_4653d:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -979,7 +979,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4655e:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -987,8 +987,8 @@ SpearBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_4656e
-.Func_4656e:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -1003,7 +1003,7 @@ SpearBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_4658f:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1011,9 +1011,9 @@ SpearBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_4653d
+	jp .State19
 
-.Func_465a0:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

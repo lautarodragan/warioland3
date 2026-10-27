@@ -16,44 +16,44 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_46c42
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_46c42
-	dw .Func_46e6f
-	dw .Func_46f7c
-	dw .Func_46f84
-	dw .Func_47180
-	dw .Func_4718a
-	dw .Func_471b0
-	dw .Func_471c3
-	dw .Func_470ea
-	dw .Func_470f4
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_47126
-	dw .Func_4712d
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_4704d
-	dw .Func_47076
-	dw .Func_46c7e
-	dw .Func_47239
-	dw .Func_47091
-	dw .Func_47018
-	dw .Func_47020
-	dw .Func_46fb2
-	dw .Func_46fe5
-	dw .Func_47207
-	dw .Func_471d6
+	dw .State0b
+	dw .State0c
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw Func_3263
 	dw Func_3272
 	dw ObjState_StartRandomWobble
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46c42
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,16 +62,16 @@ FireBotFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_47176
-	dw .Func_4716c
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46ce4
-	dw .Func_46d38
-	dw .Func_46c42
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_46e8d
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -80,22 +80,22 @@ FireBotFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_46c42
-	dw .Func_4713e
-	dw .Func_47150
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_4705c
-	dw .Func_47084
-	dw .Func_46cc6
+	dw .Default
+	dw .State3b
+	dw .State3c
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
+	dw .StandingFall
 	dw ObjState_Drop
-	dw .Func_470ba
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_46fd7
-	dw .Func_4700a
-	dw .Func_47228
-	dw .Func_471f7
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ FireBotFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_46e1e
-	dw .Func_46e02
-	dw .Func_46c42
+	dw .State5a
+	dw .State5b
+	dw .Default
 
-.Func_46c42:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -153,7 +153,7 @@ FireBotFunc:
 	ld de, Frameset_68946
 	call SetObjectFramesetPtr
 	ret
-.Func_46c7e:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -202,7 +202,7 @@ FireBotFunc:
 	xor a
 	ld [hl], a
 	ret
-.Func_46cc6:
+.StandingFall:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -220,7 +220,7 @@ FireBotFunc:
 	ld de, Frameset_68946
 	call SetObjectFramesetPtr
 	ret
-.Func_46ce4:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46cf5
@@ -270,7 +270,7 @@ FireBotFunc:
 	ret z
 	play_sfx SFX_073
 	ret
-.Func_46d38:
+.Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46d49
@@ -389,7 +389,7 @@ FireBotFunc:
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_46e02:
+.State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46e13
@@ -407,7 +407,7 @@ FireBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46e1e:
+.State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46e2f
@@ -462,7 +462,7 @@ FireBotFunc:
 	ld a, $f6
 	ld [hld], a
 	ret
-.Func_46e6f:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -479,7 +479,7 @@ FireBotFunc:
 .asm_46e87
 	ld de, Frameset_68946
 	jp SetObjectFramesetPtr
-.Func_46e8d:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_46e9e
@@ -625,12 +625,12 @@ FireBotFunc:
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46f7c:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
 	jr .asm_46f8a
-.Func_46f84:
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
@@ -654,7 +654,7 @@ FireBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_46fb2:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -672,7 +672,7 @@ FireBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_46fd7:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -680,7 +680,7 @@ FireBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_46fe5:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -698,7 +698,7 @@ FireBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_00
 	ld [hld], a
-.Func_4700a:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -706,12 +706,12 @@ FireBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_47018:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_47026
-.Func_47020:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -737,14 +737,14 @@ FireBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_4704d:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_4705c:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_47069
@@ -759,7 +759,7 @@ FireBotFunc:
 	ld a, $10
 	ld [wCurObjState], a
 	ret
-.Func_47076:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -768,14 +768,14 @@ FireBotFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_47084:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $00
 	ld [wCurObjState], a
 	ret
-.Func_47091:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -796,7 +796,7 @@ FireBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_470ba:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_470cb
@@ -830,13 +830,13 @@ FireBotFunc:
 .asm_470e7
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.Func_470ea:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
 	jr .asm_470fc
-.Func_470f4:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
@@ -865,11 +865,11 @@ FireBotFunc:
 	or OBJ_INTERACTION_00
 	ld [hld], a
 	ret
-.Func_47126:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
 	jr .asm_47132
-.Func_4712d:
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
 .asm_47132
@@ -880,7 +880,7 @@ FireBotFunc:
 	ld a, $02
 	ld [wCurObjVar2], a
 	ret
-.Func_4713e:
+.State3b:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -891,7 +891,7 @@ FireBotFunc:
 	jp nz, ObjState_BumpSlideRight
 	ld de, Frameset_68969
 	jr .asm_47160
-.Func_47150:
+.State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -908,25 +908,25 @@ FireBotFunc:
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_4716c:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
 	jr .asm_47192
-.Func_47176:
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
 	jr .asm_47192
-.Func_47180:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_47192
-.Func_4718a:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -950,7 +950,7 @@ FireBotFunc:
 .asm_471aa
 	ld de, Frameset_689a0
 	jp SetObjectFramesetPtr
-.Func_471b0:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -962,7 +962,7 @@ FireBotFunc:
 	ld a, $01
 	ld [hld], a
 	jp ObjState_PickedUpLeft
-.Func_471c3:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -975,7 +975,7 @@ FireBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_471d6:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -990,7 +990,7 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_471f7:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -998,8 +998,8 @@ FireBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_47207
-.Func_47207:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -1014,7 +1014,7 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_47228:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1022,8 +1022,8 @@ FireBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_471d6
-.Func_47239:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

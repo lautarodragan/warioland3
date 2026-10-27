@@ -1,8 +1,8 @@
 FallingSnowSpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49544)
+	ld a, HIGH(.WaitAndSpawn)
 	ld [hld], a
-	ld a, LOW(.Func_49544)
+	ld a, LOW(.WaitAndSpawn)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -12,7 +12,7 @@ FallingSnowSpawnerFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_49544:
+.WaitAndSpawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, 2
@@ -25,14 +25,14 @@ FallingSnowSpawnerFunc:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49566)
+	ld a, HIGH(.ShowWarning)
 	ld [hld], a
-	ld a, LOW(.Func_49566)
+	ld a, LOW(.ShowWarning)
 	ld [hld], a
 	ld bc, ObjParams_FallingSnow
 	jp CreateObjectFromCurObjPos
 
-.Func_49566:
+.ShowWarning:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, 2
@@ -44,9 +44,9 @@ FallingSnowSpawnerFunc:
 	ld [wCurObjVar2], a
 	call MoveObjectUpByVar2
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4959d)
+	ld a, HIGH(.HideWarning)
 	ld [hld], a
-	ld a, LOW(.Func_4959d)
+	ld a, LOW(.HideWarning)
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
@@ -61,7 +61,7 @@ FallingSnowSpawnerFunc:
 	ld [hl], a
 	jp MoveObjectLeftByVar2
 
-.Func_4959d:
+.HideWarning:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -78,9 +78,9 @@ FallingSnowSpawnerFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49544)
+	ld a, HIGH(.WaitAndSpawn)
 	ld [hld], a
-	ld a, LOW(.Func_49544)
+	ld a, LOW(.WaitAndSpawn)
 	ld [hld], a
 	ret
 
@@ -97,9 +97,9 @@ FallingSnowFunc:
 	ld a, $20
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_495ef)
+	ld a, HIGH(.StartFall)
 	ld [hld], a
-	ld a, LOW(.Func_495ef)
+	ld a, LOW(.StartFall)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
@@ -107,7 +107,7 @@ FallingSnowFunc:
 	play_sfx SFX_080
 	ret
 
-.Func_495ef:
+.StartFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -116,9 +116,9 @@ FallingSnowFunc:
 	ld de, Frameset_695a6
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49610)
+	ld a, HIGH(.Fall)
 	ld [hld], a
-	ld a, LOW(.Func_49610)
+	ld a, LOW(.Fall)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hl]
@@ -128,7 +128,7 @@ FallingSnowFunc:
 	inc [hl]
 	ret
 
-.Func_49610:
+.Fall:
 	ld a, [wCurObjState]
 	and a
 	jr z, .asm_49625
@@ -164,9 +164,9 @@ FallingSnowFunc:
 	ld [hli], a
 .asm_49650
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_496ae)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_496ae)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
@@ -176,14 +176,14 @@ FallingSnowFunc:
 
 .asm_49666
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49675)
+	ld a, HIGH(.FallBroken)
 	ld [hld], a
-	ld a, LOW(.Func_49675)
+	ld a, LOW(.FallBroken)
 	ld [hld], a
 	ld de, Frameset_695d6
 	jp SetObjectFramesetPtr
 
-.Func_49675:
+.FallBroken:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjYPos
@@ -209,13 +209,13 @@ FallingSnowFunc:
 	ld a, $07
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_496ae)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_496ae)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ret
 
-.Func_496ae:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration

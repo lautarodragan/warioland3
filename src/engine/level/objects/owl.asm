@@ -94,9 +94,9 @@ OwlFunc:
 	ld a, 30
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_492b4)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_492b4)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -119,7 +119,7 @@ OwlFunc:
 	ld de, Frameset_69377
 	jp SetObjectFramesetPtr
 
-.Func_492b4:
+.FlyAway:
 	ld a, [wCurObjState]
 	cp $18
 	jr z, .despawn

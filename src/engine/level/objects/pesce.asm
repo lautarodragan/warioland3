@@ -2,9 +2,9 @@ StrongWaterCurrentFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51d2d)
+	ld a, HIGH(.DoNothing)
 	ld [hld], a
-	ld a, LOW(.Func_51d2d)
+	ld a, LOW(.DoNothing)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -25,16 +25,16 @@ StrongWaterCurrentFunc:
 	ld [wCurObjVar2], a
 	jp MoveObjectLeftByVar2
 
-.Func_51d2d:
+.DoNothing:
 	ret
 
 PesceFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51e28)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_51e28)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -97,9 +97,9 @@ PesceFunc:
 	ld a, $e6
 	ld [wCurObjCollBoxTop], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_521d0)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_521d0)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -152,7 +152,7 @@ PesceFunc:
 	ld [wIsTurning], a
 	ret
 
-.Func_51e28:
+.Update:
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
 	ld l, OBJ_STATE
@@ -380,7 +380,7 @@ PesceFunc:
 	cp b
 	jp nc, .asm_520c5
 .asm_51fcb
-	call .Func_521a5
+	call .FindBait
 	ld a, d
 	cp $d0
 	jr z, .asm_51ff1
@@ -428,7 +428,7 @@ PesceFunc:
 	cp b
 	jp c, .asm_520c5
 .asm_5201c
-	call .Func_521a5
+	call .FindBait
 	ld a, d
 	cp $d0
 	jr z, .asm_52042
@@ -634,7 +634,7 @@ PesceFunc:
 .asm_521a2
 	jp SetObjectFramesetPtr
 
-.Func_521a5:
+.FindBait:
 	xor a
 	ld b, a
 	ld h, HIGH(wObj1)
@@ -671,7 +671,7 @@ PesceFunc:
 	ld e, d
 	ret
 
-.Func_521d0:
+.Defeated:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
@@ -756,9 +756,9 @@ PesceFunc:
 
 DragonflySpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52282)
+	ld a, HIGH(.Wait)
 	ld [hld], a
-	ld a, LOW(.Func_52282)
+	ld a, LOW(.Wait)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -768,7 +768,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_52282:
+.Wait:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -777,13 +777,13 @@ DragonflySpawnerFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5229a)
+	ld a, HIGH(.SpawnDragonfly)
 	ld [hld], a
-	ld a, LOW(.Func_5229a)
+	ld a, LOW(.SpawnDragonfly)
 	ld [hld], a
 	ret
 
-.Func_5229a:
+.SpawnDragonfly:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -820,13 +820,13 @@ DragonflySpawnerFunc:
 
 .asm_522cf
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_522d9)
+	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
-	ld a, LOW(.Func_522d9)
+	ld a, LOW(.WaitForFightEnd)
 	ld [hld], a
 	ret
 
-.Func_522d9:
+.WaitForFightEnd:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -852,13 +852,13 @@ DragonflySpawnerFunc:
 
 Dragonfly1Func:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52321)
+	ld a, HIGH(.Descend)
 	ld [hld], a
-	ld a, LOW(.Func_52321)
+	ld a, LOW(.Descend)
 	ld [hld], a
 	ret
 
-.Func_52321:
+.Descend:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -869,13 +869,13 @@ Dragonfly1Func:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5233b)
+	ld a, HIGH(.Fly)
 	ld [hld], a
-	ld a, LOW(.Func_5233b)
+	ld a, LOW(.Fly)
 	ld [hld], a
 	ret
 
-.Func_5233b:
+.Fly:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjVar1
 	ld a, [hl]
@@ -934,15 +934,15 @@ Dragonfly1Func:
 	jp SetObjectFramesetPtr
 .asm_523a3
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_523b1)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_523b1)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_523b1:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjSubState]
@@ -956,9 +956,9 @@ Dragonfly2Func:
 	ld a, $28
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_523f2)
+	ld a, HIGH(.WaitToAppear)
 	ld [hld], a
-	ld a, LOW(.Func_523f2)
+	ld a, LOW(.WaitToAppear)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -977,7 +977,7 @@ Dragonfly2Func:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_523f2:
+.WaitToAppear:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -988,15 +988,15 @@ Dragonfly2Func:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5240f)
+	ld a, HIGH(.Fly)
 	ld [hld], a
-	ld a, LOW(.Func_5240f)
+	ld a, LOW(.Fly)
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ret
 
-.Func_5240f:
+.Fly:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -1047,9 +1047,9 @@ Dragonfly2Func:
 
 FlySpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52475)
+	ld a, HIGH(.WaitOnScreen)
 	ld [hld], a
-	ld a, LOW(.Func_52475)
+	ld a, LOW(.WaitOnScreen)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -1059,7 +1059,7 @@ FlySpawnerFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_52475:
+.WaitOnScreen:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -1071,15 +1071,15 @@ FlySpawnerFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_52497)
+	ld a, HIGH(.SpawnFly)
 	ld [hld], a
-	ld a, LOW(.Func_52497)
+	ld a, LOW(.SpawnFly)
 	ld [hld], a
 	xor a
 	ld [wDollBoyActiveBarrels], a
 	ret
 
-.Func_52497:
+.SpawnFly:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -1125,9 +1125,9 @@ FlySpawnerFunc:
 	jp CreateObjectAtRelativePos
 .asm_524dc
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_524eb)
+	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
-	ld a, LOW(.Func_524eb)
+	ld a, LOW(.WaitForFightEnd)
 	ld [hld], a
 	ret
 .deactivate
@@ -1135,7 +1135,7 @@ FlySpawnerFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.Func_524eb:
+.WaitForFightEnd:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, $02
@@ -1152,9 +1152,9 @@ FlySpawnerFunc:
 
 FlyFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_52533)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_52533)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -1164,7 +1164,7 @@ FlyFunc:
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
 
-.Func_52533:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $5a

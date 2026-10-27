@@ -5,13 +5,13 @@ MuddeeStingerFunc:
 	ld l, OBJ_SUBSTATE
 	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4ca2a)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_4ca2a)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ret
 
-.Func_4ca2a:
+.Update:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, [wCurObjState]

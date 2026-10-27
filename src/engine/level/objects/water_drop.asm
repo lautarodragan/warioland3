@@ -1,8 +1,8 @@
 WaterDropFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49d83)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49d83)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -17,7 +17,7 @@ WaterDropFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	jp .asm_49ddd
 
-.Func_49d83:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a

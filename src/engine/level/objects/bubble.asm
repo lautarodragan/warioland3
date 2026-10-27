@@ -49,7 +49,7 @@ BubbleFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jp nz, .Func_47c88
+	jp nz, .Rise
 	ld de, Frameset_690f4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -63,7 +63,7 @@ BubbleFunc:
 	ld a, [wCurObjState]
 	and a
 	jr nz, .destroy
-	call .Func_47c88
+	call .Rise
 	ret
 
 .set_burst
@@ -90,7 +90,7 @@ BubbleFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.Func_47c88:
+.Rise:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	jr z, .asm_47c96

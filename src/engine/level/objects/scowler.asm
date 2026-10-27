@@ -2,9 +2,9 @@ ScowlerFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54520)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_54520)
+	ld a, LOW(.StartFight)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -34,23 +34,23 @@ ScowlerFunc:
 	ld [wJamanoSkullsInPlace], a
 	ret
 
-.Func_54520:
+.StartFight:
 	ld a, TRUE
 	ld [wIsBossBattle], a
 	ld a, BOSS_REGULAR
 	ld [wBossState], a
 	call UpdateLevelMusic
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5458a)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_5458a)
+	ld a, LOW(.Main)
 	ld [hld], a
 	ld bc, ObjParams_ScrowlerTentacleRight
 	call CreateObjectFromCurObjPos
 	ld bc, ObjParams_ScrowlerTentacleLeft
 	jp CreateObjectFromCurObjPos
 
-.Func_54542:
+.CatchWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -72,9 +72,9 @@ ScowlerFunc:
 
 .asm_54563
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_54542)
+	ld a, HIGH(.CatchWario)
 	ld [hld], a
-	ld a, LOW(.Func_54542)
+	ld a, LOW(.CatchWario)
 	ld [hld], a
 	ld a, $1e
 	ld [wCurObjStateDuration], a
@@ -87,8 +87,8 @@ ScowlerFunc:
 	stop_music2
 	ret
 
-.Func_5458a:
-	call Func_54c07
+.Main:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $2a
@@ -240,7 +240,7 @@ ScowlerFunc:
 	ret z
 	jr nc, .Func_546bd
 
-.Func_5469d:
+.Fall:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $05
@@ -280,7 +280,7 @@ ScowlerFunc:
 	ret
 
 .Func_546e0:
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $05
@@ -361,7 +361,7 @@ ScowlerFunc:
 	jr .asm_54782
 
 .Func_54770:
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -385,7 +385,7 @@ ScowlerFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr z, .asm_547a7
-	call .Func_5469d
+	call .Fall
 	jr .asm_547aa
 .asm_547a7
 	call .Func_546bd
@@ -439,14 +439,14 @@ ScowlerFunc:
 	or OBJ_INTERACTION_07
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5487d)
+	ld a, HIGH(.Recover)
 	ld [hld], a
-	ld a, LOW(.Func_5487d)
+	ld a, LOW(.Recover)
 	ld [hld], a
 	ret
 
 .Func_54806:
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -488,7 +488,7 @@ ScowlerFunc:
 	ret
 
 .Func_54853:
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr z, .asm_547e9
@@ -510,8 +510,8 @@ ScowlerFunc:
 	ld bc, Data_60a70
 	jp ApplyObjYMovement
 
-.Func_5487d:
-	call Func_54c07
+.Recover:
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -521,9 +521,9 @@ ScowlerFunc:
 	or OBJ_INTERACTION_SCOWLER
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5458a)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_5458a)
+	ld a, LOW(.Main)
 	ld [hld], a
 
 .asm_54895
@@ -556,7 +556,7 @@ ScowlerFunc:
 .Func_548c5:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -582,17 +582,17 @@ ScowlerFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5490b)
+	ld a, HIGH(.DefeatedSink)
 	ld [hld], a
-	ld a, LOW(.Func_5490b)
+	ld a, LOW(.DefeatedSink)
 	ld [hld], a
 	play_sfx SFX_0AC
 	ret
 
-.Func_5490b:
+.DefeatedSink:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	call MoveObjectDown_Slow
 	ld bc, Data_60a80
 	call ApplyObjXMovement
@@ -604,16 +604,16 @@ ScowlerFunc:
 	xor a
 	ld [wCurObjVar2], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54931)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_54931)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ret
 
-.Func_54931:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_54c07
+	call UpdateScowlerInkBlackout
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -645,31 +645,31 @@ ScowlerFunc:
 
 FloatingRingSpawnerFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_54997)
+	ld a, HIGH(.WaitAndSpawn)
 	ld [hld], a
-	ld a, LOW(.Func_54997)
+	ld a, LOW(.WaitAndSpawn)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $40
 	ld [wCurObjStateDuration], a
-	jr .Func_549ab
+	jr .DoNothing
 
-.Func_54997:
+.WaitAndSpawn:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr nz, .Func_549ab
+	jr nz, .DoNothing
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_549ab)
+	ld a, HIGH(.DoNothing)
 	ld [hld], a
-	ld a, LOW(.Func_549ab)
+	ld a, LOW(.DoNothing)
 	ld [hld], a
 	ld bc, ObjParams_FloatingRing
 	call CreateObjectAtRelativePos
 ;	fallthrough
 
-.Func_549ab:
+.DoNothing:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
@@ -680,13 +680,13 @@ FloatingRingFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_549c7)
+	ld a, HIGH(.Rise)
 	ld [hld], a
-	ld a, LOW(.Func_549c7)
+	ld a, LOW(.Rise)
 	ld [hld], a
 	jp MoveObjectLeftByVar2
 
-.Func_549c7:
+.Rise:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wGlobalCounter]
@@ -698,9 +698,9 @@ FloatingRingFunc:
 	ld a, $3c
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_549ee)
+	ld a, HIGH(.WaitForWario)
 	ld [hld], a
-	ld a, LOW(.Func_549ee)
+	ld a, LOW(.WaitForWario)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -709,20 +709,20 @@ FloatingRingFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_549ee:
+.WaitForWario:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a02)
+	ld a, HIGH(.RiseWithWario)
 	ld [hld], a
-	ld a, LOW(.Func_54a02)
+	ld a, LOW(.RiseWithWario)
 	ld [hld], a
 	ret
 
-.Func_54a02:
+.RiseWithWario:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -740,13 +740,13 @@ FloatingRingFunc:
 	jp MoveObjectUp
 .asm_54a24
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a2d)
+	ld a, HIGH(.Return)
 	ld [hld], a
-	ld a, LOW(.Func_54a2d)
+	ld a, LOW(.Return)
 	ld [hld], a
 	ret
 
-.Func_54a2d:
+.Return:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjVar2
 	ld b, [hl]
@@ -776,9 +776,9 @@ FloatingRingFunc:
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54a02)
+	ld a, HIGH(.RiseWithWario)
 	ld [hld], a
-	ld a, LOW(.Func_54a02)
+	ld a, LOW(.RiseWithWario)
 	ld [hld], a
 	ld a, $3c
 	ld [wCurObjStateDuration], a
@@ -1028,13 +1028,13 @@ InkFunc:
 	ld a, $19
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_54bf8)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_54bf8)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	ret
 
-.Func_54bf8:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1044,7 +1044,7 @@ InkFunc:
 	ld [wCurObjFlags], a
 	ret
 
-Func_54c07:
+UpdateScowlerInkBlackout:
 	ld hl, wJamanoSkullsInPlace
 	ld a, [hl]
 	and a

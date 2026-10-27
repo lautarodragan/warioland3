@@ -2,9 +2,9 @@ YellowBellyBodyFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5139d)
+	ld a, HIGH(.IntroFade1)
 	ld [hld], a
-	ld a, LOW(.Func_5139d)
+	ld a, LOW(.IntroFade1)
 	ld [hld], a
 	ld de, Frameset_69780
 	call SetObjectFramesetPtr
@@ -32,7 +32,7 @@ YellowBellyBodyFunc:
 	stop_music2
 	ret
 
-.Func_5139d:
+.IntroFade1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -41,15 +41,15 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513bf)
+	ld a, HIGH(.IntroFade2)
 	ld [hld], a
-	ld a, LOW(.Func_513bf)
+	ld a, LOW(.IntroFade2)
 	ld [hld], a
 	play_sfx SFX_0CA
 	ld hl, Pals_51c81
 	jr .asm_513f1
 
-.Func_513bf:
+.IntroFade2:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -58,13 +58,13 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513d9)
+	ld a, HIGH(.IntroFade3)
 	ld [hld], a
-	ld a, LOW(.Func_513d9)
+	ld a, LOW(.IntroFade3)
 	ld [hld], a
 	ld hl, Pals_51c99
 	jr .asm_513f1
-.Func_513d9:
+.IntroFade3:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -73,9 +73,9 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513fb)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_513fb)
+	ld a, LOW(.StartFight)
 	ld [hld], a
 	ld hl, Pals_51cb1
 .asm_513f1
@@ -84,7 +84,7 @@ YellowBellyBodyFunc:
 	ld b, 3
 	jp CopyAndApplyOBPals
 
-.Func_513fb:
+.StartFight:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -93,16 +93,16 @@ YellowBellyBodyFunc:
 	ld a, $20
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51419)
+	ld a, HIGH(.RiseAndSpawnHead)
 	ld [hld], a
-	ld a, LOW(.Func_51419)
+	ld a, LOW(.RiseAndSpawnHead)
 	ld [hld], a
 	ld a, BOSS_REGULAR
 	ld [wBossState], a
 	call UpdateLevelMusic
 	ret
 
-.Func_51419:
+.RiseAndSpawnHead:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -129,9 +129,9 @@ YellowBellyBodyFunc:
 
 .asm_51442
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_514a4)
+	ld a, HIGH(.ShootArrows)
 	ld [hld], a
-	ld a, LOW(.Func_514a4)
+	ld a, LOW(.ShootArrows)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
@@ -190,10 +190,10 @@ YellowBellyBodyFunc:
 	ld [hli], a
 	ret
 
-.Func_514a4:
+.ShootArrows:
 	ld a, [wJamanoSkullsInPlace]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
@@ -359,7 +359,7 @@ YellowBellyBodyFunc:
 .asm_515eb
 	ld a, [wJamanoSkullsInPlace]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld a, [wDollBoyHammerRange]
 	and a
 	jp z, .asm_514eb
@@ -442,7 +442,7 @@ YellowBellyBodyFunc:
 .asm_51662
 	ld a, [wJamanoSkullsInPlace]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld hl, wCurObjVar1
 	ld a, [hli]
 	and a
@@ -616,13 +616,13 @@ YellowBellyBodyFunc:
 	ret nc
 	jp MoveObjectDown
 
-.asm_5179a
+.hit
 	xor a
 	ld [wJamanoSkullsInPlace], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_517ee)
+	ld a, HIGH(.HitFlash)
 	ld [hld], a
-	ld a, LOW(.Func_517ee)
+	ld a, LOW(.HitFlash)
 	ld [hld], a
 	call DecrementRemainingBossHits
 	ld a, [hl]
@@ -657,7 +657,7 @@ YellowBellyBodyFunc:
 	stop_music2
 	ret
 
-.Func_517ee:
+.HitFlash:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -784,13 +784,13 @@ YellowBellyBodyFunc:
 
 PumpFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_518c6)
+	ld a, HIGH(.Fall)
 	ld [hld], a
-	ld a, LOW(.Func_518c6)
+	ld a, LOW(.Fall)
 	ld [hld], a
 	ld a, [wGlobalCounter]
 	ld [wCurObjVar1], a
-.Func_518c6:
+.Fall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, Data_609e0
@@ -855,9 +855,9 @@ PumpFunc:
 	ld de, Frameset_6987f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51947)
+	ld a, HIGH(.OnFloor)
 	ld [hld], a
-	ld a, LOW(.Func_51947)
+	ld a, LOW(.OnFloor)
 	ld [hld], a
 	xor a
 	ld [wCurObjState], a
@@ -865,7 +865,7 @@ PumpFunc:
 	res OBJFLAG_PRIORITY_F, [hl]
 	ret
 
-.Func_51947:
+.OnFloor:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $31
@@ -1038,19 +1038,19 @@ PumpFunc:
 YellowBellyArrowFunc:
 .Left:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51a7d)
+	ld a, HIGH(.FlyLeft)
 	ld [hld], a
-	ld a, LOW(.Func_51a7d)
+	ld a, LOW(.FlyLeft)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr z, .Func_51a7d
+	jr z, .FlyLeft
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
 	ld a, $02
 	ld [wCurObjVar2], a
-.Func_51a7d:
-	call .Func_51b4b
+.FlyLeft:
+	call .CheckPastWario
 	ld a, [wCurObjState]
 	cp $28
 	jr z, .asm_51a9b
@@ -1065,14 +1065,14 @@ YellowBellyArrowFunc:
 	jp MoveObjectLeft
 .asm_51a9b
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51aaa)
+	ld a, HIGH(.KnockedAwayRight)
 	ld [hld], a
-	ld a, LOW(.Func_51aaa)
+	ld a, LOW(.KnockedAwayRight)
 	ld [hld], a
 	ld a, $04
 	ld [wCurObjVar2], a
 	ret
-.Func_51aaa:
+.KnockedAwayRight:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
@@ -1087,19 +1087,19 @@ YellowBellyArrowFunc:
 
 .Right:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51ad9)
+	ld a, HIGH(.FlyRight)
 	ld [hld], a
-	ld a, LOW(.Func_51ad9)
+	ld a, LOW(.FlyRight)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr z, .Func_51ad9
+	jr z, .FlyRight
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
 	ld a, $02
 	ld [wCurObjVar2], a
-.Func_51ad9:
-	call .Func_51b4b
+.FlyRight:
+	call .CheckPastWario
 	ld a, [wCurObjState]
 	cp $28
 	jr z, .asm_51b25
@@ -1116,16 +1116,16 @@ YellowBellyArrowFunc:
 	ld a, $1e
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51b16)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_51b16)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	stop_music2
 	xor a
 	ld [wBossState], a
 	ret
 
-.Func_51b16:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1136,15 +1136,15 @@ YellowBellyArrowFunc:
 	ret
 .asm_51b25
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51b34)
+	ld a, HIGH(.KnockedAwayLeft)
 	ld [hld], a
-	ld a, LOW(.Func_51b34)
+	ld a, LOW(.KnockedAwayLeft)
 	ld [hld], a
 	ld a, $04
 	ld [wCurObjVar2], a
 	ret
 
-.Func_51b34:
+.KnockedAwayLeft:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
@@ -1157,7 +1157,7 @@ YellowBellyArrowFunc:
 	call MoveObjectUpByVar2
 	jp MoveObjectLeft_Fast
 
-.Func_51b4b:
+.CheckPastWario:
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
@@ -1184,11 +1184,11 @@ YellowBellyHeadFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51b7b)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_51b7b)
+	ld a, LOW(.Update)
 	ld [hld], a
-.Func_51b7b:
+.Update:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
 	jr nz, .asm_51b87
@@ -1293,9 +1293,9 @@ YellowBellyPlatformFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set 3, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51c3f)
+	ld a, HIGH(.WaitForDefeat)
 	ld [hld], a
-	ld a, LOW(.Func_51c3f)
+	ld a, LOW(.WaitForDefeat)
 	ld [hld], a
 	ld de, Frameset_69893
 	call SetObjectFramesetPtr
@@ -1311,7 +1311,7 @@ YellowBellyPlatformFunc:
 	ld [hl], a
 	ret
 
-.Func_51c3f:
+.WaitForDefeat:
 	ld a, [wCurObjState]
 	cp $2f
 	ret nz
@@ -1320,9 +1320,9 @@ YellowBellyPlatformFunc:
 	ld a, $5a
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(Func_51c77)
+	ld a, HIGH(YellowBellyPlatform_WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(Func_51c77)
+	ld a, LOW(YellowBellyPlatform_WaitAndDespawn)
 	ld [hld], a
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
@@ -1337,7 +1337,7 @@ Func_51c62:
 	farcall SetObjectMapEntryAndSpawn
 	ret
 
-Func_51c77:
+YellowBellyPlatform_WaitAndDespawn:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz

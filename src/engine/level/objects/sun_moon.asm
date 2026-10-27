@@ -24,9 +24,9 @@ SunFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_472a6)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_472a6)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [wWarioScreenXPos]
@@ -52,20 +52,20 @@ SunFunc:
 	ld [hl], a ; var2
 	ret
 
-.Func_472a6:
+.Update:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar1]
 	jumptable
 
-	dw .Func_4731e
-	dw .Func_47378
-	dw .Func_4739c
-	dw .Func_47388
-	dw .Func_473ac
-	dw .Func_472bb
+	dw .Idle
+	dw .StartTurnRight
+	dw .StartTurnLeft
+	dw .TurnRight
+	dw .TurnLeft
+	dw .Drop
 
-.Func_472bb:
+.Drop:
 	call SunMoon_XMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -119,7 +119,7 @@ SunFunc:
 	ld de, Frameset_68f6b
 	jp SetObjectFramesetPtr
 
-.Func_4731e:
+.Idle:
 	call SunMoon_GeneralMovement
 	ld a, [wJoypadPressed]
 	and $ff ^ (PAD_SELECT | PAD_START)
@@ -175,7 +175,7 @@ SunFunc:
 	ld de, Frameset_68f8f
 	jp SetObjectFramesetPtr
 
-.Func_47378:
+.StartTurnRight:
 	call SunMoon_GeneralMovement
 	ld de, Frameset_68fc0
 	call SetObjectFramesetPtr
@@ -185,7 +185,7 @@ SunFunc:
 	ld [hl], a ; var1
 	ret
 
-.Func_47388:
+.TurnRight:
 	call SunMoon_GeneralMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -198,7 +198,7 @@ SunFunc:
 	ld [hl], a
 	ret
 
-.Func_4739c:
+.StartTurnLeft:
 	call SunMoon_GeneralMovement
 	ld de, Frameset_68fb7
 	call SetObjectFramesetPtr
@@ -208,7 +208,7 @@ SunFunc:
 	ld [hl], a
 	ret
 
-.Func_473ac:
+.TurnLeft:
 	call SunMoon_GeneralMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]

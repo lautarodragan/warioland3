@@ -39,7 +39,7 @@ HaridamaFunc:
 	ld de, Frameset_69290
 	jp SetObjectFramesetPtr
 
-.Func_48f28:
+.Patrol:
 	ld c, $2a
 	ld a, [wCurObjSubState]
 	rlca
@@ -66,7 +66,7 @@ HaridamaFunc:
 	ld de, Frameset_692c7
 	jr .asm_48fa2
 .asm_48f55
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft_Slow
 	ld de, Frameset_692a1
 	jr .asm_48f8e
@@ -93,7 +93,7 @@ HaridamaFunc:
 	ld de, Frameset_692ce
 	jr .asm_48fa2
 .asm_48f85
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight_Slow
 	ld de, Frameset_692aa
 .asm_48f8e
@@ -117,7 +117,7 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_48fae:
+.Uncurl:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -143,11 +143,11 @@ HaridamaFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jp z, .Func_48f28
+	jp z, .Patrol
 	cp $5a
 	jr z, .asm_4903e
 	cp $5b
-	jr z, .Func_48fae
+	jr z, .Uncurl
 	cp $02
 	jr z, .asm_49013
 	cp $03
@@ -190,12 +190,12 @@ HaridamaFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49032
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft_Fast
 	ld de, Frameset_692a1
 	jp .asm_48f8e
 .asm_49032
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight_Fast
 	ld de, Frameset_692aa
 	jp .asm_48f8e
@@ -298,9 +298,9 @@ HaridamaFunc:
 	jp z, MoveObjectUp_Slow
 .asm_490d5
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_490e8)
+	ld a, HIGH(.UpdateRolling)
 	ld [hld], a
-	ld a, LOW(.Func_490e8)
+	ld a, LOW(.UpdateRolling)
 	ld [hld], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -308,7 +308,7 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_490e8:
+.UpdateRolling:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -316,7 +316,7 @@ HaridamaFunc:
 	cp $32
 	jr z, .asm_4916a
 	cp $33
-	jp z, .Func_49184
+	jp z, .RollRight
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -347,11 +347,11 @@ HaridamaFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49131
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft
 	jr .asm_49137
 .asm_49131
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight
 .asm_49137
 	ld hl, wCurObjSubState
@@ -386,7 +386,7 @@ HaridamaFunc:
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .asm_4917f
-	call .Func_49199
+	call .CheckWallLeft
 	jp z, MoveObjectLeft
 	ld hl, wCurObjState
 	ld a, $33
@@ -399,11 +399,11 @@ HaridamaFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_49184:
+.RollRight:
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .asm_4917f
-	call .Func_491b6
+	call .CheckWallRight
 	jp z, MoveObjectRight
 	ld hl, wCurObjState
 	ld a, $32
@@ -411,7 +411,7 @@ HaridamaFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_49199:
+.CheckWallLeft:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $08
@@ -429,7 +429,7 @@ HaridamaFunc:
 	and $0f
 	ret
 
-.Func_491b6:
+.CheckWallRight:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $08

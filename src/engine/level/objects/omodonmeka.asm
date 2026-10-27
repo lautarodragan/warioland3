@@ -2,9 +2,9 @@ OmodonmekaFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_42218)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_42218)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -20,9 +20,9 @@ OmodonmekaFunc:
 	ld [hli], a
 	ld a, [wCurObjYPos + 1]
 	ld [hli], a
-	jp .Func_42432
+	jp .ResetToIdle
 
-.Func_42199:
+.Activate:
 	xor a
 	ld [hl], a
 	ld de, Frameset_68f14
@@ -100,13 +100,13 @@ OmodonmekaFunc:
 .asm_42215
 	jp VanishAndDespawnObject
 
-.Func_42218:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
 	jr z, .asm_42249
 	cp $2a
-	jp z, .Func_42199
+	jp z, .Activate
 	cp $04
 	jr z, .asm_421ec
 	cp $05
@@ -134,10 +134,10 @@ OmodonmekaFunc:
 	and $0f
 	jumptable
 
-	dw .Func_42321
-	dw .Func_42321
-	dw .Func_423e1
-	dw .Func_42420
+	dw .Hover
+	dw .Hover
+	dw .Fall
+	dw .ReturnToStartY
 	dw .Func_4244c
 	dw .Func_42291
 	dw .Func_422fc
@@ -259,7 +259,7 @@ OmodonmekaFunc:
 	ld [wWarioYPos + 0], a
 	ret
 
-.Func_42321:
+.Hover:
 	ld bc, Data_604c0
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjFlags
@@ -361,7 +361,7 @@ OmodonmekaFunc:
 	play_sfx SFX_088
 	ret
 
-.Func_423e1:
+.Fall:
 	ld bc, Data_60500
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -397,7 +397,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	ret
 
-.Func_42420:
+.ReturnToStartY:
 	ld hl, wCurObjVar1
 	ld e, [hl]
 	inc l
@@ -410,7 +410,7 @@ OmodonmekaFunc:
 	cp e
 	jp nz, MoveObjectUp
 
-.Func_42432:
+.ResetToIdle:
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -450,7 +450,7 @@ OmodonmekaFunc:
 	ret nz
 	ld a, $f9
 	ld [wCurObjCollBoxBottom], a
-	jr .Func_42432
+	jr .ResetToIdle
 
 OmodonmekaWithOmodon1Func:
 	ld hl, wCurObjFlags

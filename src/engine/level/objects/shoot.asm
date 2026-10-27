@@ -673,38 +673,38 @@ ShootFunc:
 .asm_56a2c
 	ld a, [wCurObjState]
 	jumptable
-	dw .Func_56b20
-	dw .Func_56b2a
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56c1b
-	dw .Func_56c3d
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56b96
-	dw .Func_56bae
-	dw .Func_56bb8
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56bd1
-	dw .Func_56bd1
-	dw .Func_56b20
-	dw .Func_56bdb
-	dw .Func_56be3
-	dw .Func_56bf1
-	dw .Func_56bf8
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .Default
+	dw .Default
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .VanishTouch
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .StandingFallStart
+	dw .StandingFallStart
+	dw .Default
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -713,46 +713,46 @@ ShootFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_56af0
-	dw .Func_56af0
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56d1c
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .State28
+	dw .State28
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_56b47
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw .Func_56c49
-	dw .Func_56c49
+	dw .AttackedLeft
+	dw .AttackedLeft
 	dw ObjState_PickedUpLeft
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_56b20
+	dw .Default
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_56bff
-	dw .Func_56c0d
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .StunLeft
+	dw .StunRight
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1Left
 	dw ObjState_Bounce1Right
 	dw ObjState_Bounce2Left
@@ -761,16 +761,16 @@ ShootFunc:
 	dw ObjState_Bounce3Right
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
-	dw .Func_56b20
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 
-.Func_56af0:
+.State28:
 	ld a, $2d
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
@@ -799,7 +799,7 @@ ShootFunc:
 	ld [hl], a
 	ret
 
-.Func_56b20:
+.Default:
 	ld hl, wCurObjState
 	ld a, $30
 	ld [hld], a
@@ -808,7 +808,7 @@ ShootFunc:
 	ld [hld], a
 	ret
 
-.Func_56b2a:
+.Land:
 	ld hl, wCurObjState
 	ld a, $31
 	ld [hld], a
@@ -827,7 +827,7 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_1
 	ld de, Frameset_69f5d
 	call SetObjectFramesetPtr
-.Func_56b47:
+.Walk:
 	ld a, [wCurObjVar3]
 	cp $22
 	play_sfx z, SFX_075
@@ -858,7 +858,7 @@ ShootFunc:
 	ld bc, Data_60e40
 	jp ApplyObjYMovement_Loop
 
-.Func_56b96:
+.VanishTouch:
 	play_sfx SFX_014
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -866,15 +866,15 @@ ShootFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr nc, .Func_56bae
-	jr .Func_56bb8
-.Func_56bae:
+	jr nc, .BumpLeftStart
+	jr .BumpRightStart
+.BumpLeftStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $38
 	jr .asm_56bc0
-.Func_56bb8:
+.BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
@@ -892,7 +892,7 @@ ShootFunc:
 	ld [hli], a
 	ret
 
-.Func_56bd1:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
@@ -901,12 +901,12 @@ ShootFunc:
 	ld [hld], a
 	ret
 
-.Func_56bdb:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_56be9
-.Func_56be3:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -918,19 +918,19 @@ ShootFunc:
 	ld [hli], a
 	ret
 
-.Func_56bf1:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
 	ret
 
-.Func_56bf8:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
 	ret
 
-.Func_56bff:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -939,7 +939,7 @@ ShootFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_56c0d:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -948,7 +948,7 @@ ShootFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_56c1b:
+.AttackedLeftStart:
 	ld a, $34
 	ld de, Frameset_69f9f
 	ld hl, wCurObjSubState
@@ -970,14 +970,14 @@ ShootFunc:
 	ld [hld], a
 	jp SetObjectFramesetPtr
 
-.Func_56c3d:
+.AttackedRightStart:
 	ld a, $35
 	ld de, Frameset_69fa4
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	jr .asm_56c25
 
-.Func_56c49:
+.AttackedLeft:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wShootCanTurnAround]
@@ -988,7 +988,7 @@ ShootFunc:
 	ld de, Frameset_69f5d
 	call SetObjectFramesetPtr
 .asm_56c5e
-	call .Func_56cdb
+	call .MoveBetweenWalls
 	ld a, [wCurObjVar2]
 	cp $04
 	jr z, .asm_56c6d
@@ -1056,7 +1056,7 @@ ShootFunc:
 	ld de, Frameset_69f9a
 	jp SetObjectFramesetPtr
 
-.Func_56cdb:
+.MoveBetweenWalls:
 	ld a, [wCurObjSubState]
 	rlca
 	rlca
@@ -1087,7 +1087,7 @@ ShootFunc:
 	jp c, MoveObjectRightByVar2
 	ret
 
-.Func_56d1c:
+.Special1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
@@ -1334,18 +1334,18 @@ GKTortoiseFunc:
 .no_kicked_wario
 	ld a, [wCurObjVar1]
 	jumptable
-	dw .Func_56f27 ; GKTORTOISEPHASE_0
-	dw .Func_56f2e ; GKTORTOISEPHASE_1
-	dw .Func_56fef ; GKTORTOISEPHASE_2
-	dw .Func_57021 ; GKTORTOISEPHASE_3
-	dw .Func_5707b ; GKTORTOISEPHASE_4
-	dw .Func_57039 ; GKTORTOISEPHASE_5
-	dw .Func_57198 ; GKTORTOISEPHASE_6
+	dw .Idle ; GKTORTOISEPHASE_0
+	dw .Guard ; GKTORTOISEPHASE_1
+	dw .Phase2 ; GKTORTOISEPHASE_2
+	dw .Phase3 ; GKTORTOISEPHASE_3
+	dw .KickWarioBall ; GKTORTOISEPHASE_4
+	dw .CatchWarioBall ; GKTORTOISEPHASE_5
+	dw .ThrowShootBall ; GKTORTOISEPHASE_6
 	dw .Ducking ; GKTORTOISEPHASE_DUCKING
-	dw .Func_56edd ; GKTORTOISEPHASE_8
-	dw .Func_5710f ; GKTORTOISEPHASE_9
+	dw .Defeated ; GKTORTOISEPHASE_8
+	dw .CatchShootBall ; GKTORTOISEPHASE_9
 
-.Func_56edd:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1383,11 +1383,11 @@ GKTortoiseFunc:
 	ret nz
 	jp .asm_56fd2
 
-.Func_56f27:
+.Idle:
 	ld a, [wShootBallState]
 	and a
 	jp nz, .asm_57009
-.Func_56f2e:
+.Guard:
 	ld a, [wShootBallState]
 	cp $02
 	jr z, .asm_56f93
@@ -1412,7 +1412,7 @@ GKTortoiseFunc:
 	ld a, $03
 	ld [wShootBallState], a
 	play_sfx SFX_FAT_WALK
-	call .Func_57170
+	call .FindShoot
 
 .set_shoot_pos_11x_16y
 	call .GetShootPosPtr
@@ -1502,7 +1502,7 @@ GKTortoiseFunc:
 	play_sfx SFX_FAT_WALK
 	ret
 
-.Func_56fef:
+.Phase2:
 	ld a, [wShootBallState]
 	cp $02
 	jr z, .asm_56fff
@@ -1532,7 +1532,7 @@ GKTortoiseFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.Func_57021:
+.Phase3:
 	ld hl, wCurObjFlags
 	res 3, [hl]
 	ld l, OBJ_STATE
@@ -1548,7 +1548,7 @@ GKTortoiseFunc:
 	ret nz
 	jr .asm_57009
 
-.Func_57039:
+.CatchWarioBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1590,7 +1590,7 @@ GKTortoiseFunc:
 	play_sfx SFX_067
 	ret
 
-.Func_5707b:
+.KickWarioBall:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_FRAME_DURATION
@@ -1682,7 +1682,7 @@ GKTortoiseFunc:
 	ld [hli], a
 	ret
 
-.Func_5710f:
+.CatchShootBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1756,7 +1756,7 @@ GKTortoiseFunc:
 	inc l
 	ret
 
-.Func_57170:
+.FindShoot:
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
@@ -1788,7 +1788,7 @@ GKTortoiseFunc:
 	ld [hl], a
 	ret
 
-.Func_57198:
+.ThrowShootBall:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a
@@ -1918,7 +1918,7 @@ ApplyYOffsetOnKickedWarioBall:
 	jp HandleDownwardsFloorTransition
 
 ; unreferenced
-Func_5725b:
+UnreferencedMoveWarioUpByNegB:
 	xor a
 	sub b
 	ld b, a

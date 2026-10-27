@@ -13,11 +13,11 @@ AnonsterFunc:
 	ld a, $28
 	ld [wCurObjStateDuration], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50024)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_50024)
+	ld a, LOW(.StartFight)
 	ld [hld], a
-.Func_50024:
+.StartFight:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -1166,7 +1166,7 @@ AnonsterSilkFunc:
 	and a
 	jr z, .asm_50861
 	cp $0b
-	jr c, .Func_50898
+	jr c, .Default
 	jr .destroy
 .asm_50861
 	ld a, [wGlobalCounter]
@@ -1201,7 +1201,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	ret
 
-.Func_50898:
+.Default:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
@@ -1238,85 +1238,85 @@ AnonsterSilkFunc:
 	cp $b0
 	jr c, .asm_508dd
 	cp $c0
-	jr c, .Func_50898
+	jr c, .Default
 .asm_508dd
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_509ab
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a01
-	dw .Func_50a0b
-	dw .Func_50a1e
-	dw .Func_50a31
-	dw .Func_50898
-	dw .Func_50898
+	dw .State00
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .Default
+	dw .Default
 	dw VanishObject2
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_509ab
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a79
-	dw .Func_50898
-	dw .Func_50995
-	dw .Func_5099d
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a5e
-	dw .Func_50a44
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State00
+	dw .Default
+	dw .Default
+	dw .State12
+	dw .Default
+	dw .State14
+	dw .State15
+	dw .Default
+	dw .Default
+	dw .State18
+	dw .State19
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_509ef
-	dw .Func_509dd
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_AttackedLeft
 	dw ObjState_AttackedRight
 	dw ObjState_PickedUpLeft
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_509bb
-	dw .Func_50898
-	dw .Func_50898
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .Default
+	dw .Default
 	dw ObjState_Drop
-	dw .Func_50898
+	dw .Default
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a68
-	dw .Func_50a4e
+	dw .Default
+	dw .Default
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -1334,12 +1334,12 @@ AnonsterSilkFunc:
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
 
-.Func_50995:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
 	jr .asm_509a3
-.Func_5099d:
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
@@ -1351,7 +1351,7 @@ AnonsterSilkFunc:
 	ld [hli], a
 	ret
 
-.Func_509ab:
+.State00:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
@@ -1360,7 +1360,7 @@ AnonsterSilkFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_509bb:
+.State3f:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp z, .destroy
@@ -1378,7 +1378,7 @@ AnonsterSilkFunc:
 	set OBJFLAG_INVISIBLE_F, [hl]
 	jp ObjCheckFloorOrDrop
 
-.Func_509dd:
+.State29:
 	ld a, [wCurObjScreenYPos]
 	cp $50
 	jp c, VanishObject2
@@ -1388,7 +1388,7 @@ AnonsterSilkFunc:
 	ld b, $02
 	jr .asm_50a13
 
-.Func_509ef:
+.State28:
 	ld a, [wCurObjScreenYPos]
 	cp $50
 	jp c, VanishObject2
@@ -1398,14 +1398,14 @@ AnonsterSilkFunc:
 	ld b, $02
 	jr .asm_50a13
 
-.Func_50a01:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
 	jr .asm_50a13
 
-.Func_50a0b:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
@@ -1420,7 +1420,7 @@ AnonsterSilkFunc:
 	ld [wCurObjAction], a
 	ret
 
-.Func_50a1e:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -1433,7 +1433,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_50a31:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -1446,13 +1446,13 @@ AnonsterSilkFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_50a44:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_50a4e:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -1460,14 +1460,14 @@ AnonsterSilkFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_50a5e
-.Func_50a5e:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_50a68:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1475,8 +1475,8 @@ AnonsterSilkFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_50a44
-.Func_50a79:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 31
 	ld [hld], a
