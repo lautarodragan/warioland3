@@ -1,16 +1,24 @@
 name: build-and-test
 
+# Changes to the book alone don't touch the ROM or the tests (book.yml
+# builds the book).
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - 'book/**'
+      - '.github/workflows/book.yml'
   pull_request:
+    paths-ignore:
+      - 'book/**'
+      - '.github/workflows/book.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v7
 
       - name: Install rgbds
         # Use the official prebuilt binary instead of building from source.
@@ -32,7 +40,7 @@ jobs:
           fi
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'
 
@@ -44,7 +52,7 @@ jobs:
 
       - name: Upload screenshots
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-screenshots
           path: tests/output/

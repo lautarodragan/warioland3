@@ -35,6 +35,6 @@ to a Wario Land 3 ROM with SHA1 `bb7877309834441fd03adb7fa65738e5d5b2d7ba`.
 
 | Workflow | When | What |
 |---|---|---|
-| `build-and-test.yml` | push to master, pull requests | builds with `DEBUG=1`, fails if the build changed tracked files, runs `make test`, uploads `tests/output/` on failure |
+| `build-and-test.yml` | push to master, pull requests (not when only `book/` changed) | builds with `DEBUG=1`, fails if the build changed tracked files, runs `make test`, uploads `tests/output/` on failure |
 | `release.yml` | a `v*` tag, or by hand | builds the IPS patch and publishes a GitHub Release with only the patch (never the ROM) |
 | `book.yml` | push to master touching `book/` | builds this book and publishes it to GitHub Pages |
