@@ -56,6 +56,16 @@ MACRO ow_path_tracer_struct
 	ds 8
 ENDM
 
+; a column of tiles copied into wTilemap and wAttrmap,
+; one row per call (EOWFunc_FreezeSea, CopyOWTileColumn1-3)
+MACRO ow_tile_column_copy_struct
+\1Counter::  db ; 0 = inactive, else counts 1-5 (a column every 4 frames)
+\1ListPtr::  dw ; next entry of the scene's column list
+\1RowsLeft:: db
+\1Dest::     dw ; in wTilemap (the attribute goes $300 bytes lower)
+\1Source::   dw ; tiles (attributes are $a0 bytes after them)
+ENDM
+
 MACRO golf_obj_struct
 \1State::          db
 \1Duration::       db

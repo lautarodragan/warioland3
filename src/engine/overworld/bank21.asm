@@ -1895,7 +1895,7 @@ Tilemap_85928: INCBIN "data/bgmaps/map_85928.tilemap" ; unreferenced
 
 CopyOWTileColumn1:
 .asm_85a68
-	ld hl, wOWUIObj1Duration
+	ld hl, wOWTileColumnCopy1Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1913,11 +1913,11 @@ CopyOWTileColumn1:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWTileColumnCopy1RowsLeft]
 	dec a
-	ld [wOWUIObj1Attributes], a
+	ld [wOWTileColumnCopy1RowsLeft], a
 	ret z
-	ld de, wOWUIObj1Duration
+	ld de, wOWTileColumnCopy1Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .asm_85a68
@@ -1941,7 +1941,7 @@ AddTilemapRowToPtrAtDE:
 
 CopyOWTileColumn2:
 .asm_85aa2
-	ld hl, wOWUIObj2Duration
+	ld hl, wOWTileColumnCopy2Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1959,18 +1959,18 @@ CopyOWTileColumn2:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wOWUIObj2Attributes]
+	ld a, [wOWTileColumnCopy2RowsLeft]
 	dec a
-	ld [wOWUIObj2Attributes], a
+	ld [wOWTileColumnCopy2RowsLeft], a
 	ret z
-	ld de, wOWUIObj2Duration
+	ld de, wOWTileColumnCopy2Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .asm_85aa2
 
 CopyOWTileColumn3:
 .asm_85acb
-	ld hl, wd154
+	ld hl, wOWTileColumnCopy3Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1988,11 +1988,11 @@ CopyOWTileColumn3:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wd153]
+	ld a, [wOWTileColumnCopy3RowsLeft]
 	dec a
-	ld [wd153], a
+	ld [wOWTileColumnCopy3RowsLeft], a
 	ret z
-	ld de, wd154
+	ld de, wOWTileColumnCopy3Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .asm_85acb

@@ -3526,7 +3526,7 @@ NOWFunc_Prologue:
 	cp 60
 	ret c
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
@@ -3542,11 +3542,11 @@ NOWFunc_Prologue:
 	cp 134
 	ret c
 	ld a, $04
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	jp AdvanceOWFunc
 
 .WaitShake5ThenShowObj1:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wOWSceneShakeState]
 	cp $05
 	ret nz
 	ld a, $2b
@@ -3556,7 +3556,7 @@ NOWFunc_Prologue:
 	jp AdvanceOWFunc
 
 .WaitShakeEnd:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wOWSceneShakeState]
 	and a
 	ret nz
 	ld hl, w2d03e
@@ -3578,7 +3578,7 @@ NOWFunc_Prologue:
 	ret c
 	ld a, $01
 	ld [w2d150], a
-	ld [wOWUIObj2Attributes], a
+	ld [wOWSceneSFXLoopActive], a
 	jp AdvanceOWFunc
 
 .StartObj3Particles:
@@ -3613,14 +3613,14 @@ NOWFunc_Prologue:
 
 .StopSFXLoop:
 	xor a
-	ld [wOWUIObj2Attributes], a
+	ld [wOWSceneSFXLoopActive], a
 	jp EndOWFunc
 
 .PlaySFX08EEvery48Frames:
-	ld a, [wOWUIObj2Attributes]
+	ld a, [wOWSceneSFXLoopActive]
 	and a
 	ret z
-	ld hl, wOWUIObj2Duration
+	ld hl, wOWSceneSFXLoopCounter
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4013,9 +4013,9 @@ WOWFunc_Earthquake:
 
 .StartShake:
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $01
-	ld [wOWUIObj1Duration], a
+	ld [wOWSceneRocksStep], a
 	ld a, $17
 	ld hl, wSceneObj11State
 	call SetSceneObjState
@@ -4038,9 +4038,9 @@ WOWFunc_Earthquake:
 
 .StopShake:
 	xor a
-	ld [wOWUIObj1Duration], a
+	ld [wOWSceneRocksStep], a
 	ld a, $03
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $18
 	ld hl, wSceneObj11State
 	call SetSceneObjState
@@ -4070,7 +4070,7 @@ WOWFunc_Earthquake:
 	jp AdvanceOWFunc
 
 .UpdateFallingRocks:
-	ld hl, wOWUIObj1Duration
+	ld hl, wOWSceneRocksStep
 	ld a, [hli]
 	and a
 	ret z
@@ -4093,7 +4093,7 @@ WOWFunc_Earthquake:
 	call SetSceneObjState
 .next_rock
 	xor a
-	ld hl, wOWUIObj1FramesetOffset
+	ld hl, wOWSceneRocksCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -4117,14 +4117,14 @@ WOWFunc_Earthquake:
 	jr .next_rock
 
 .RockWait10:
-	ld a, [wOWUIObj1FramesetOffset]
+	ld a, [wOWSceneRocksCounter]
 	cp $0a
 	ret c
 	jr .next_rock
 
 .RocksRestart:
 	ld a, $01
-	ld hl, wOWUIObj1Duration
+	ld hl, wOWSceneRocksStep
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -4172,7 +4172,7 @@ WOWFunc_VulcanoEruption:
 
 .StartShake:
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $17
 	ld hl, wSceneObj11State
 	call SetSceneObjState
@@ -4225,7 +4225,7 @@ WOWFunc_VulcanoEruption:
 	cp 6
 	ret c
 	ld a, $04
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	jp AdvanceOWFunc
 
 .Flash:
@@ -4282,7 +4282,7 @@ WOWFunc_VulcanoEruption:
 	ld [hli], a
 
 	ld a, $01
-	ld [wOWUIObj2Attributes], a
+	ld [wOWSceneSFXLoopActive], a
 	jp AdvanceOWFunc
 
 .EruptAndPatchTiles:
@@ -4385,7 +4385,7 @@ WOWFunc_VulcanoEruption:
 
 .StartShake2:
 	ld a, $08
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $19
 	ld hl, wSceneObj10State
 	call SetSceneObjState
@@ -4400,7 +4400,7 @@ WOWFunc_VulcanoEruption:
 	jp AdvanceOWFunc
 
 .StopShakeAtStep1b:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	cp $1b
 	ret nz
 	ld a, $1a
@@ -4416,7 +4416,7 @@ WOWFunc_VulcanoEruption:
 	jp AdvanceOWFunc
 
 .WaitShakeEnd:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wOWSceneShakeState]
 	and a
 	ret nz
 	jp AdvanceOWFunc
@@ -4617,10 +4617,10 @@ WOWFunc_VulcanoEruption:
 	ret
 
 PlayVolcanoRumbleSFX:
-	ld a, [wOWUIObj2Attributes]
+	ld a, [wOWSceneSFXLoopActive]
 	and a
 	ret z
-	ld hl, wOWUIObj2Duration
+	ld hl, wOWSceneSFXLoopCounter
 	inc [hl]
 	ld a, [hl]
 	cp $1a
@@ -6345,7 +6345,7 @@ SOWFunc_Earthquake:
 
 .StartShake:
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $01
 	ld [wOWSeaGfxVariant], a
 	ld a, $03
@@ -6386,7 +6386,7 @@ SOWFunc_Earthquake:
 
 .StopShake:
 	ld a, $03
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld hl, w2d03e
 	ld a, $0e
 	ld [hli], a
@@ -6777,8 +6777,8 @@ EOWFunc_FreezeSea:
 
 .StartTileColumns3:
 	ld a, $01
-	ld [w2d150], a
-	ld hl, w2d151
+	ld [wOWTileColumnCopy3Counter], a
+	ld hl, wOWTileColumnCopy3ListPtr
 	play_sfx SFX_11C
 	jr .asm_b6f31
 
@@ -6787,8 +6787,8 @@ EOWFunc_FreezeSea:
 	cp $04
 	ret nz
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
-	ld hl, wOWUIObj1XCoord
+	ld [wOWTileColumnCopy1Counter], a
+	ld hl, wOWTileColumnCopy1ListPtr
 .asm_b6f31
 	ld de, .data
 	ld [hl], e
@@ -6801,8 +6801,8 @@ EOWFunc_FreezeSea:
 	cp $04
 	ret nz
 	ld a, $01
-	ld [wOWUIObj2YCoord], a
-	ld hl, wOWUIObj2XCoord
+	ld [wOWTileColumnCopy2Counter], a
+	ld hl, wOWTileColumnCopy2ListPtr
 	jr .asm_b6f31
 
 .WaitObj1Done:
@@ -6873,135 +6873,135 @@ EOWFunc_FreezeSea:
 	ret
 
 .UpdateTileColumns1:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wOWTileColumnCopy1Counter]
 	and a
 	ret z
-	ld hl, wOWUIObj1YCoord
+	ld hl, wOWTileColumnCopy1Counter
 	inc [hl]
 	ld a, [hl]
 	cp $05
 	ret c
 	ld a, $01
 	ld [hli], a
-	ld hl, wOWUIObj1XCoord
+	ld hl, wOWTileColumnCopy1ListPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	ld a, [hli]
 	cp $80
 	jr z, .asm_b6ff9
-	ld [wOWUIObj1Attributes], a
+	ld [wOWTileColumnCopy1RowsLeft], a
 	ld a, [hli]
-	ld [wOWUIObj1Duration], a
+	ld [wOWTileColumnCopy1Dest], a
 	ld a, [hli]
-	ld [wOWUIObj1FramesetOffset], a
+	ld [wOWTileColumnCopy1Dest + 1], a
 	ld a, [hli]
-	ld [wOWUIObj1State], a
+	ld [wOWTileColumnCopy1Source], a
 	ld a, [hli]
-	ld [wOWUIObj1MovementStep], a
+	ld [wOWTileColumnCopy1Source + 1], a
 	ld a, l
-	ld [wOWUIObj1XCoord], a
+	ld [wOWTileColumnCopy1ListPtr], a
 	ld a, h
-	ld [wOWUIObj1Frame], a
+	ld [wOWTileColumnCopy1ListPtr + 1], a
 	farcall CopyOWTileColumn1
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
 .asm_b6ff9
 	xor a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWTileColumnCopy1Counter], a
 	ret
 
 .UpdateTileColumns2:
-	ld a, [wOWUIObj2YCoord]
+	ld a, [wOWTileColumnCopy2Counter]
 	and a
 	ret z
-	ld hl, wOWUIObj2YCoord
+	ld hl, wOWTileColumnCopy2Counter
 	inc [hl]
 	ld a, [hl]
 	cp $05
 	ret c
 	ld a, $01
 	ld [hli], a
-	ld hl, wOWUIObj2XCoord
+	ld hl, wOWTileColumnCopy2ListPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	ld a, [hli]
 	cp $80
 	jr z, .asm_b7051
-	ld [wOWUIObj2Attributes], a
+	ld [wOWTileColumnCopy2RowsLeft], a
 	ld a, [hli]
-	ld [wOWUIObj2Duration], a
+	ld [wOWTileColumnCopy2Dest], a
 	ld a, [hli]
-	ld [wOWUIObj2FramesetOffset], a
+	ld [wOWTileColumnCopy2Dest + 1], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
 	ld a, l
-	ld [wOWUIObj2XCoord], a
+	ld [wOWTileColumnCopy2ListPtr], a
 	ld a, h
-	ld [wOWUIObj2Frame], a
+	ld [wOWTileColumnCopy2ListPtr + 1], a
 	ld hl, $140
 	add hl, de
 	ld a, l
-	ld [wOWUIObj2State], a
+	ld [wOWTileColumnCopy2Source], a
 	ld a, h
-	ld [wOWUIObj2MovementStep], a
+	ld [wOWTileColumnCopy2Source + 1], a
 	farcall CopyOWTileColumn2
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
 .asm_b7051
 	xor a
-	ld [wOWUIObj2YCoord], a
+	ld [wOWTileColumnCopy2Counter], a
 	ret
 
 .UpdateTileColumns3:
-	ld a, [w2d150]
+	ld a, [wOWTileColumnCopy3Counter]
 	and a
 	ret z
-	ld hl, w2d150
+	ld hl, wOWTileColumnCopy3Counter
 	inc [hl]
 	ld a, [hl]
 	cp $05
 	ret c
 	ld a, $01
 	ld [hli], a
-	ld hl, w2d151
+	ld hl, wOWTileColumnCopy3ListPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	ld a, [hli]
 	cp $80
 	jr z, .asm_b70a9
-	ld [wd153], a
+	ld [wOWTileColumnCopy3RowsLeft], a
 	ld a, [hli]
-	ld [wd154], a
+	ld [wOWTileColumnCopy3Dest], a
 	ld a, [hli]
-	ld [wd155], a
+	ld [wOWTileColumnCopy3Dest + 1], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
 	ld a, l
-	ld [w2d151], a
+	ld [wOWTileColumnCopy3ListPtr], a
 	ld a, h
-	ld [wd152], a
+	ld [wOWTileColumnCopy3ListPtr + 1], a
 	ld hl, $280
 	add hl, de
 	ld a, l
-	ld [wd156 + 0], a
+	ld [wOWTileColumnCopy3Source], a
 	ld a, h
-	ld [wd156 + 1], a
+	ld [wOWTileColumnCopy3Source + 1], a
 	farcall CopyOWTileColumn3
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
 .asm_b70a9
 	xor a
-	ld [w2d150], a
+	ld [wOWTileColumnCopy3Counter], a
 	ret
 
 .data
@@ -7090,7 +7090,7 @@ EOWFunc_Earthquake:
 
 .StartShake:
 	ld a, $01
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $06
 	ld hl, wSceneObj15State
 	call SetSceneObjState
@@ -7141,7 +7141,7 @@ EOWFunc_Earthquake:
 
 .StopShake:
 	ld a, $03
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $07
 	ld hl, wSceneObj15State
 	call SetSceneObjState
@@ -7169,7 +7169,7 @@ EOWFunc_Earthquake:
 
 UpdateOWSceneScreenShake:
 	call .RunShakeScript
-	ld hl, wOWUIObj1YCoord
+	ld hl, wOWSceneShakeState
 	ld a, [hli]
 	and a
 	ret z
@@ -7194,26 +7194,26 @@ UpdateOWSceneScreenShake:
 .StartScript01:
 	ld a, $01
 .start_script
-	ld [wOWUIObj1Frame], a
+	ld [wOWSceneShakeStep], a
 	xor a
-	ld [wOWUIObj1Attributes], a
-	ld hl, wOWUIObj1YCoord
+	ld [wOWSceneShakeStepCounter], a
+	ld hl, wOWSceneShakeState
 	inc [hl]
 	xor a
-	ld [wOWUIObj1XCoord], a
+	ld [wOWSceneShakeStateCounter], a
 	ret
 
 .WaitStep01ThenStop:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	cp $01
 	ret nz
 	xor a
-	ld [wOWUIObj1Frame], a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeStep], a
+	ld [wOWSceneShakeState], a
 	ret
 
 .WaitStep01ThenStart11:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	cp $01
 	ret nz
 .StartScript11:
@@ -7221,12 +7221,12 @@ UpdateOWSceneScreenShake:
 	jr .start_script
 
 .WaitStep11ThenStop:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	cp $11
 	ret nz
 	xor a
-	ld [wOWUIObj1Frame], a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeStep], a
+	ld [wOWSceneShakeState], a
 	ret
 
 .StartScript15:
@@ -7234,11 +7234,11 @@ UpdateOWSceneScreenShake:
 	jr .start_script
 
 .WaitScriptEnd_1:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	and a
 	ret nz
 	xor a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ret
 
 .StartScript1e:
@@ -7246,15 +7246,15 @@ UpdateOWSceneScreenShake:
 	jr .start_script
 
 .WaitScriptEnd_2:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	and a
 	ret nz
 	xor a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ret
 
 .RunShakeScript:
-	ld hl, wOWUIObj1Frame
+	ld hl, wOWSceneShakeStep
 	ld a, [hli]
 	and a
 	ret z
@@ -7301,30 +7301,30 @@ UpdateOWSceneScreenShake:
 	dw .Right1End
 
 .Hold3:
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWSceneShakeStepCounter]
 	cp $03
 	ret c
 	jr .next_step
 .Hold3Loop:
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWSceneShakeStepCounter]
 	cp $03
 	ret c
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	sub $04
-	ld [wOWUIObj1Frame], a
+	ld [wOWSceneShakeStep], a
 	jr .next_step
 .Hold1:
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWSceneShakeStepCounter]
 	cp $01
 	ret c
 	jr .next_step
 .Hold1Loop:
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWSceneShakeStepCounter]
 	cp $01
 	ret c
-	ld a, [wOWUIObj1Frame]
+	ld a, [wOWSceneShakeStep]
 	sub $10
-	ld [wOWUIObj1Frame], a
+	ld [wOWSceneShakeStep], a
 	jr .next_step
 .Up1SFX:
 	play_sfx SFX_01F
@@ -7333,7 +7333,7 @@ UpdateOWSceneScreenShake:
 	dec [hl]
 .next_step
 	xor a
-	ld hl, wOWUIObj1Attributes
+	ld hl, wOWSceneShakeStepCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -7387,7 +7387,7 @@ UpdateOWSceneScreenShake:
 .Right4End:
 	call .Right4
 	xor a
-	ld [wOWUIObj1Frame], a
+	ld [wOWSceneShakeStep], a
 	ret
 
 ; unreachable
@@ -7413,7 +7413,7 @@ UpdateOWSceneScreenShake:
 .Right1End:
 	call .right_1
 	xor a
-	ld [wOWUIObj1Frame], a
+	ld [wOWSceneShakeStep], a
 	ret
 
 .Left8:
@@ -7506,14 +7506,14 @@ EOWFunc_FormCastle:
 	and $03
 	ret z
 	ld a, $01
-	ld [wOWUIObj2YCoord], a
+	ld [wOWScenePalFadeStep], a
 	ret
 
 .asm_b7410
 	ld a, [wOWFuncCounter]
 	and $03
 	ret z
-	ld hl, wOWUIObj2Frame
+	ld hl, wOWScenePalFadeIndex
 	inc [hl]
 	ret
 
@@ -7609,15 +7609,15 @@ EOWFunc_FormCastle:
 	cp $21
 	ret nz
 	ld a, $04
-	ld [wOWUIObj2YCoord], a
+	ld [wOWScenePalFadeStep], a
 	jp AdvanceOWFunc
 .asm_b74c6
-	ld hl, wOWUIObj2Frame
+	ld hl, wOWScenePalFadeIndex
 	dec [hl]
 	ret
 
 .UpdatePalFade:
-	ld hl, wOWUIObj2YCoord
+	ld hl, wOWScenePalFadeStep
 	ld a, [hli]
 	and a
 	ret z
@@ -7660,7 +7660,7 @@ EOWFunc_FormCastle:
 
 .asm_b750a
 	xor a
-	ld hl, wOWUIObj2XCoord
+	ld hl, wOWScenePalFadeCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -7668,7 +7668,7 @@ EOWFunc_FormCastle:
 .asm_b7511
 	call .get_fade_delays
 	ld b, [hl]
-	ld a, [wOWUIObj2XCoord]
+	ld a, [wOWScenePalFadeCounter]
 	cp b
 	ret c
 	ld hl, wPalConfig1
@@ -7679,14 +7679,14 @@ EOWFunc_FormCastle:
 	call .get_fade_delays
 	inc hl
 	ld b, [hl]
-	ld a, [wOWUIObj2XCoord]
+	ld a, [wOWScenePalFadeCounter]
 	cp b
 	ret c
 	ld hl, wPalConfig2
 	ld a, LOW(rBGPI)
 	ld [hli], a
 	xor a
-	ld hl, wOWUIObj2XCoord
+	ld hl, wOWScenePalFadeCounter
 	ld [hld], a
 	dec [hl]
 	ret
@@ -7696,11 +7696,11 @@ EOWFunc_FormCastle:
 	ld a, LOW(rBGPI)
 	ld [hli], a
 	xor a
-	ld [wOWUIObj2YCoord], a
+	ld [wOWScenePalFadeStep], a
 	ret
 
 .get_fade_delays:
-	ld a, [wOWUIObj2Frame]
+	ld a, [wOWScenePalFadeIndex]
 	add a
 	ld e, a
 	ld d, $00
@@ -7762,7 +7762,7 @@ EOWFunc_VulcanoEruption:
 
 .StartRumbleSFX:
 	ld a, $01
-	ld [wOWUIObj2Attributes], a
+	ld [wOWSceneSFXLoopActive], a
 	jp AdvanceOWFunc
 
 .Wait180:
@@ -7771,13 +7771,13 @@ EOWFunc_VulcanoEruption:
 
 .StartShakeAndRocks:
 	ld a, $0a
-	ld [wOWUIObj1YCoord], a
+	ld [wOWSceneShakeState], a
 	ld a, $01
-	ld [wOWUIObj1State], a
+	ld [wOWSceneRockLauncherStep], a
 	jp AdvanceOWFunc
 
 .WaitShakeEnd:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wOWSceneShakeState]
 	and a
 	ret nz
 	jp AdvanceOWFunc
@@ -8034,7 +8034,7 @@ EOWFunc_VulcanoEruption:
 .UpdateRockLauncher:
 	call WOWFunc_VulcanoEruption.UpdateLeftRock
 	call WOWFunc_VulcanoEruption.UpdateRightRock
-	ld hl, wOWUIObj1State
+	ld hl, wOWSceneRockLauncherStep
 	ld a, [hli]
 	and a
 	ret z
@@ -8048,14 +8048,14 @@ EOWFunc_VulcanoEruption:
 
 .rock_sfx_and_next:
 	play_sfx SFX_TEMPLE_ROCK
-	ld hl, wSceneWarioMovementStep
+	ld hl, wOWSceneRockLauncherCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 .LaunchLeftRock1:
-	ld a, [wSceneWarioMovementStep]
+	ld a, [wOWSceneRockLauncherCounter]
 	cp $50
 	ret c
 	ld a, $05
@@ -8063,7 +8063,7 @@ EOWFunc_VulcanoEruption:
 	jr .rock_sfx_and_next
 
 .LaunchRightRock:
-	ld a, [wSceneWarioMovementStep]
+	ld a, [wOWSceneRockLauncherCounter]
 	cp $3c
 	ret c
 	ld a, $07
@@ -8071,7 +8071,7 @@ EOWFunc_VulcanoEruption:
 	jr .rock_sfx_and_next
 
 .LaunchLeftRock2:
-	ld a, [wSceneWarioMovementStep]
+	ld a, [wOWSceneRockLauncherCounter]
 	cp $50
 	ret c
 	ld a, $07
@@ -8079,7 +8079,7 @@ EOWFunc_VulcanoEruption:
 	jr .rock_sfx_and_next
 
 ; unreachable
-	ld a, [wSceneWarioMovementStep]
+	ld a, [wOWSceneRockLauncherCounter]
 	cp $3c
 	ret c
 	ld a, $05
@@ -8087,7 +8087,7 @@ EOWFunc_VulcanoEruption:
 	jr .rock_sfx_and_next
 .StopLauncher:
 	xor a
-	ld [wOWUIObj1State], a
+	ld [wOWSceneRockLauncherStep], a
 	ret
 
 EOWFunc_BurnVines:

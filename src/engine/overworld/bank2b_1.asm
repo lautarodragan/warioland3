@@ -1609,13 +1609,13 @@ ApplySceneWarioMovementRight:
 	ret
 
 MoveSceneWarioLeft:
-	ld hl, wOWUIObj1XCoord
+	ld hl, wSceneWarioXCoord
 	dec [hl]
 	ret
 
 ; unreferenced
 UnreferencedMoveSceneWarioRight:
-	ld hl, wOWUIObj1XCoord
+	ld hl, wSceneWarioXCoord
 	inc [hl]
 	ret
 
@@ -3857,7 +3857,7 @@ _GolfBuilding:
 	cp ALL_CRAYONS
 	jr z, .all_crayons
 .place_wario_by_map_side:
-	ld de, wOWUIObj1YCoord
+	ld de, wSceneWarioYCoord
 	ld a, $58
 	ld [de], a
 	inc e
@@ -3874,7 +3874,7 @@ _GolfBuilding:
 	ld a, [hl]
 	ld [wPalFade6Colour2GreenCurrent], a
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	xor a
 	call SetSceneWarioState
 	ret
@@ -3888,7 +3888,7 @@ _GolfBuilding:
 	ld a, [wOWLevel]
 	cp LEVEL_GOLF_BUILDING
 	jr nz, .asm_ada97
-	ld de, wOWUIObj1YCoord
+	ld de, wSceneWarioYCoord
 	ld a, $58
 	ld [de], a
 	inc e
@@ -3897,7 +3897,7 @@ _GolfBuilding:
 	ld a, $04
 	ld [wPalFade6Colour2GreenCurrent], a
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	ld a, $01
 	call SetSceneWarioState
 	ret
@@ -4101,7 +4101,7 @@ _UpdateGolfBuilding:
 .exit
 	stop_sfx
 	ld a, $01
-	ld [wOWUIObj2Duration], a
+	ld [wSceneWarioSFXCounter], a
 	ld a, $08
 	ld [wSubState], a
 	scf
@@ -4265,7 +4265,7 @@ _UpdateGolfBuilding:
 	dw .StartWalkRightAndExit
 
 .WaitLookFront:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $01
 	ret nz
 	jp .next_step
@@ -4323,7 +4323,7 @@ _UpdateGolfBuilding:
 	jp .next_step
 
 .WaitLookBack:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $02
 	ret nz
 	jp .next_step
@@ -4341,7 +4341,7 @@ _UpdateGolfBuilding:
 	ret
 
 .WaitIdleLeft:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0c
 	ret nz
 	jp .next_step
@@ -4354,7 +4354,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .WaitIdleRight:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0d
 	ret nz
 	jp .next_step

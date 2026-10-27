@@ -2014,6 +2014,35 @@ wOWUIObj6:: scene_obj_struct wOWUIObj6
 wOWUIObj7:: scene_obj_struct wOWUIObj7
 wOWUIObj8:: scene_obj_struct wOWUIObj8
 
+NEXTU
+
+; map-side scenes (bank2d OW functions)
+; UpdateOWSceneScreenShake
+wOWSceneShakeState::        db
+wOWSceneShakeStateCounter:: db
+wOWSceneShakeStep::         db
+wOWSceneShakeStepCounter::  db
+; WOWFunc_Earthquake's falling rocks
+wOWSceneRocksStep::         db
+wOWSceneRocksCounter::      db
+; the east volcano's rock launcher
+wOWSceneRockLauncherStep::    db
+wOWSceneRockLauncherCounter:: db
+; EOWFunc_FormCastle's palette fade
+wOWScenePalFadeStep::       db
+wOWScenePalFadeCounter::    db
+wOWScenePalFadeIndex::      db
+; a looping sound effect (PlayVolcanoRumbleSFX, ...)
+wOWSceneSFXLoopActive::     db
+wOWSceneSFXLoopCounter::    db
+
+NEXTU
+
+; EOWFunc_FreezeSea
+wOWTileColumnCopy1:: ow_tile_column_copy_struct wOWTileColumnCopy1
+wOWTileColumnCopy2:: ow_tile_column_copy_struct wOWTileColumnCopy2
+wOWTileColumnCopy3:: ow_tile_column_copy_struct wOWTileColumnCopy3
+
 ENDU
 
 wCurSceneObj:: scene_obj_struct wCurSceneObj

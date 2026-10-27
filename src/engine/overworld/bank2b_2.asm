@@ -2420,12 +2420,12 @@ UnreferencedInitEpilogue:
 	decompress_attrmap EpilogueCrowdAttrmap, v1BGMap0
 	decompress_tilemap EpilogueCrowdTilemap, v0BGMap0
 
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $60
 	ld [hli], a
 	ld [hl], $5c
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 
 	ld a, $0c
 	call SetSceneWarioState
@@ -2630,12 +2630,12 @@ _UpdateEpilogue:
 	xor a
 	ldh [rSCY], a
 	ld [wSCY], a
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $60
 	ld [hli], a
 	ld [hl], $5c
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	ld a, $0c
 	call SetSceneWarioState
 
@@ -2716,7 +2716,7 @@ _UpdateEpilogue:
 	ld a, $13
 	ld hl, wSceneObj9State
 	call SetSceneObjState
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $3c
 	ld [hli], a
 	ld a, $c8
@@ -2861,7 +2861,7 @@ _UpdateEpilogue:
 	jr .asm_af3ea
 
 .wait_wario_state
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp b
 	ret nz
 	jr .next_scene_step
@@ -2995,7 +2995,7 @@ _UpdateEpilogue:
 	ld a, [wSceneObj9MovementStep]
 	cp $80
 	ret nz
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0a
 	ret nz
 	jp .next_scene_step
@@ -3014,10 +3014,10 @@ _UpdateEpilogue:
 	ld e, $fa
 .asm_af50a
 	ld hl, wSceneObj9
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	add d
 	ld [hli], a
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	add e
 	ld [hl], a
 	ret
@@ -3040,7 +3040,7 @@ _UpdateEpilogue:
 	jp .next_scene_step
 
 .SnapSFX:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wSceneWarioFrame]
 	cp $0b
 	ret nz
 	play_sfx SFX_106
@@ -3062,7 +3062,7 @@ _UpdateEpilogue:
 
 .WalkLeftOffScreen:
 	call MoveSceneWarioLeft
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	ld b, a
 	sub $04
 	ld [wSceneObj9XCoord], a
@@ -3070,7 +3070,7 @@ _UpdateEpilogue:
 	cp b
 	ret nz
 	xor a
-	ld [wOWUIObj1State], a
+	ld [wSceneWarioState], a
 	ld [wSceneObj9State], a
 	jp .next_scene_step
 
@@ -3088,7 +3088,7 @@ _UpdateEpilogue:
 	and $03
 	jr z, .asm_af597
 	ld de, PrologueWarioFallMovement
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	call ApplyOWMovement_Mirrored
 	jr nz, .asm_af597
 	xor a
@@ -3125,7 +3125,7 @@ _UpdateEpilogue:
 	ret
 
 .WarioFall_Land:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	cp $60
 	ret nz
 	ld a, $1b
@@ -3142,7 +3142,7 @@ _UpdateEpilogue:
 	jr .asm_af5bc
 
 .WarioFall_WaitStunned:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $1c
 	ret nz
 	jr .asm_af5bc
@@ -3285,10 +3285,10 @@ _UpdateEpilogue:
 	ld a, $80
 	ld [w2d150], a
 	ld hl, wCurSceneObj
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	sub $04
 	ld [hli], a
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	ld [hl], a
 	ld a, $11
 	ld hl, wCurSceneObjState
