@@ -130,7 +130,7 @@ spawned owl against a real one in The Colossal Hole.
 Once Wario grabs an owl, the owl object despawns (from then on it's drawn as
 part of Owl Wario): `OwlFunc`'s `.despawn` calls `DespawnObject`, which sets
 bit 7 of the object's entry in the level's object map, at the address in
-`OBJ_UNK_02:OBJ_UNK_01`. Objects spawned from the map have that pointer into
+`OBJ_MAP_PTR_HI:OBJ_MAP_PTR_LO`. Objects spawned from the map have that pointer into
 SRAM; the debug owl had it zeroed, so `DespawnObject` wrote
 `[$0000] | $80` to `$0000`. On MBC5 that's the RAM enable register, and any
 value other than `$0A` switches cartridge RAM off. The level's block and
@@ -142,9 +142,10 @@ None of the earlier hypotheses (camera mode, `LoadWarioGfx`, the owl's wake
 up) were it; replacing the update function with a bare `ret` didn't help
 because the despawn happens on Wario's side of the grab.
 
-Fix: `DespawnObject` treats `OBJ_UNK_02 == 0` as "no map entry" and only
-clears the object, the same convention the offscreen-despawn path in
-`update_objects.asm` already follows.
+Fix: `DespawnObject` treats `OBJ_MAP_PTR_HI == 0` as "no map entry" and
+only clears the object. (The offscreen despawn in `CheckObjectOnScreen`
+decides differently: a low nibble of 0 in `OBJ_SUBSTATE` means "just free
+the slot", which `_VanishObject` sets; see [Despawning](objects.md#despawning).)
 
 ### Broken graphics in non-owl levels
 
