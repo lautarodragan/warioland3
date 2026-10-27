@@ -91,7 +91,7 @@ StartDownwardsFloorTransition::
 .set_timer
 	ld [wFloorTransitionTimer], a
 	play_sfx SFX_PIPE_EXIT
-	ld a, FLOOR_TRANSITION_UP
+	ld a, FLOOR_TRANSITION_DOWN
 	ld [wFloorTransitionDir], a
 	ld a, TRUE
 	ld [wIsFloorTransition], a
@@ -104,7 +104,7 @@ StartUpwardsFloorTransition::
 	ld a, c
 	ld [wFloor], a
 	play_sfx SFX_PIPE_EXIT
-	ld a, FLOOR_TRANSITION_DOWN
+	ld a, FLOOR_TRANSITION_UP
 	ld [wFloorTransitionDir], a
 	ld a, TRUE
 	ld [wIsFloorTransition], a

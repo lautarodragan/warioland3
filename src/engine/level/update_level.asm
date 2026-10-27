@@ -83,7 +83,7 @@ UpdateLevel:
 	call ClearUnusedVirtualOAM
 
 	ld a, [wFloorTransitionDir]
-	and FLOOR_TRANSITION_DOWN | FLOOR_TRANSITION_UP
+	and FLOOR_TRANSITION_UP | FLOOR_TRANSITION_DOWN
 	jr z, .no_floor_transition
 	ld a, [wIsDMATransferPending]
 	and a
@@ -94,9 +94,9 @@ UpdateLevel:
 	ld [wPrevWarioScreenYPos], a
 
 	ld a, [wFloorTransitionDir]
-	bit FLOOR_TRANSITION_UP_F, a
-	jr nz, .transition_up
-; transition down
+	bit FLOOR_TRANSITION_DOWN_F, a
+	jr nz, .transition_down
+; transition up
 	ld b, 4
 	ld a, [wCameraYDelta]
 	sub b
@@ -106,11 +106,11 @@ UpdateLevel:
 	ld [wFloorTransitionTimer], a
 	jr nz, .scroll_vertically
 	ld hl, wFloorTransitionDir
-	res FLOOR_TRANSITION_DOWN_F, [hl]
+	res FLOOR_TRANSITION_UP_F, [hl]
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
 	jr .scroll_vertically
-.transition_up
+.transition_down
 	ld b, 4
 	ld a, [wCameraYDelta]
 	add b
@@ -126,7 +126,7 @@ UpdateLevel:
 	ld [wFloorTransitionTimer], a
 .end_up_transition
 	ld hl, wFloorTransitionDir
-	res FLOOR_TRANSITION_UP_F, [hl]
+	res FLOOR_TRANSITION_DOWN_F, [hl]
 	xor a ; FALSE
 	ld [wIsFloorTransition], a
 
