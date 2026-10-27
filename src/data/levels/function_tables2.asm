@@ -437,16 +437,16 @@ BlockFunctionTable66:
 	dw BlockFunc_LadderTop ; $26
 	dw BlockFunc_Free ; $27
 	dw BlockFunc_Solid ; $28
-	dw BlockFunc_1900f ; $29
-	dw BlockFunc_18f7b ; $2a
+	dw BlockFunc_LargeCrackedBlockUp_78 ; $29
+	dw BlockFunc_LargeCrackedBlockLeft_78 ; $2a
 	dw BlockFunc_Solid ; $2b
 	dw BlockFunc_Water ; $2c
 	dw BlockFunc_Free ; $2d
 	dw BlockFunc_Ladder ; $2e
 	dw BlockFunc_Door ; $2f
 	dw BlockFunc_Solid ; $30
-	dw BlockFunc_18e2a ; $31
-	dw BlockFunc_18ebe ; $32
+	dw BlockFunc_LargeCrackedBlockRight_78 ; $31
+	dw BlockFunc_LargeCrackedBlockDown_78 ; $32
 	dw BlockFunc_Solid ; $33
 	dw BlockFunc_Water ; $34
 	dw BlockFunc_Floor ; $35
@@ -569,16 +569,16 @@ BlockFunctionTable67:
 	dw BlockFunc_LadderTop ; $26
 	dw BlockFunc_Free ; $27
 	dw BlockFunc_Solid ; $28
-	dw BlockFunc_1900f ; $29
-	dw BlockFunc_18f7b ; $2a
+	dw BlockFunc_LargeCrackedBlockUp_78 ; $29
+	dw BlockFunc_LargeCrackedBlockLeft_78 ; $2a
 	dw BlockFunc_Solid ; $2b
 	dw BlockFunc_Water ; $2c
 	dw BlockFunc_Free ; $2d
 	dw BlockFunc_Ladder ; $2e
 	dw BlockFunc_Door ; $2f
 	dw BlockFunc_Solid ; $30
-	dw BlockFunc_18e2a ; $31
-	dw BlockFunc_18ebe ; $32
+	dw BlockFunc_LargeCrackedBlockRight_78 ; $31
+	dw BlockFunc_LargeCrackedBlockDown_78 ; $32
 	dw BlockFunc_Solid ; $33
 	dw BlockFunc_Water ; $34
 	dw BlockFunc_Floor ; $35
@@ -1098,16 +1098,16 @@ BlockFunctionTable71:
 	dw BlockFunc_Solid ; $27
 	dw BlockFunc_EnemyBlock_78 ; $28
 	dw BlockFunc_EnemyBlock_79 ; $29
-	dw BlockFunc_1900f ; $2a
-	dw BlockFunc_18f7b ; $2b
+	dw BlockFunc_LargeCrackedBlockUp_78 ; $2a
+	dw BlockFunc_LargeCrackedBlockLeft_78 ; $2b
 	dw BlockFunc_Solid ; $2c
 	dw BlockFunc_Free ; $2d
 	dw BlockFunc_LeftCurrent ; $2e
 	dw BlockFunc_Water ; $2f
 	dw BlockFunc_BonfireBlock_78 ; $30
 	dw BlockFunc_BonfireBlock_79 ; $31
-	dw BlockFunc_18e2a ; $32
-	dw BlockFunc_18ebe ; $33
+	dw BlockFunc_LargeCrackedBlockRight_78 ; $32
+	dw BlockFunc_LargeCrackedBlockDown_78 ; $33
 	dw BlockFunc_Free ; $34
 	dw BlockFunc_187b0 ; $35
 	dw BlockFunc_187b0 ; $36
@@ -1230,16 +1230,16 @@ BlockFunctionTable72:
 	dw BlockFunc_CrackedBlock_78 ; $27
 	dw BlockFunc_EnemyBlock_78 ; $28
 	dw BlockFunc_EnemyBlock_79 ; $29
-	dw BlockFunc_1900f ; $2a
-	dw BlockFunc_18f7b ; $2b
+	dw BlockFunc_LargeCrackedBlockUp_78 ; $2a
+	dw BlockFunc_LargeCrackedBlockLeft_78 ; $2b
 	dw BlockFunc_Solid ; $2c
 	dw BlockFunc_Free ; $2d
 	dw BlockFunc_LeftCurrent ; $2e
 	dw BlockFunc_Water ; $2f
 	dw BlockFunc_BonfireBlock_78 ; $30
 	dw BlockFunc_BonfireBlock_79 ; $31
-	dw BlockFunc_18e2a ; $32
-	dw BlockFunc_18ebe ; $33
+	dw BlockFunc_LargeCrackedBlockRight_78 ; $32
+	dw BlockFunc_LargeCrackedBlockDown_78 ; $33
 	dw BlockFunc_Free ; $34
 	dw BlockFunc_187b0 ; $35
 	dw BlockFunc_187b0 ; $36
@@ -1360,16 +1360,16 @@ BlockFunctionTable73:
 	dw BlockFunc_Water ; $25
 	dw BlockFunc_Water ; $26
 	dw BlockFunc_Water ; $27
-	dw BlockFunc_18fff ; $28
-	dw BlockFunc_18f6b ; $29
+	dw BlockFunc_LargeCrackedBlockUp_7c ; $28
+	dw BlockFunc_LargeCrackedBlockLeft_7c ; $29
 	dw BlockFunc_Water ; $2a
 	dw BlockFunc_Water ; $2b
 	dw BlockFunc_Solid ; $2c
 	dw BlockFunc_Water ; $2d
 	dw BlockFunc_Water ; $2e
 	dw BlockFunc_187de ; $2f
-	dw BlockFunc_18e1a ; $30
-	dw BlockFunc_18eae ; $31
+	dw BlockFunc_LargeCrackedBlockRight_7c ; $30
+	dw BlockFunc_LargeCrackedBlockDown_7c ; $31
 	dw BlockFunc_Water ; $32
 	dw BlockFunc_Water ; $33
 	dw BlockFunc_Free ; $34
@@ -1492,16 +1492,16 @@ BlockFunctionTable74:
 	dw BlockFunc_Water ; $25
 	dw BlockFunc_Water ; $26
 	dw BlockFunc_Water ; $27
-	dw BlockFunc_18fff ; $28
-	dw BlockFunc_18f6b ; $29
+	dw BlockFunc_LargeCrackedBlockUp_7c ; $28
+	dw BlockFunc_LargeCrackedBlockLeft_7c ; $29
 	dw BlockFunc_Water ; $2a
 	dw BlockFunc_Water ; $2b
 	dw BlockFunc_Solid ; $2c
 	dw BlockFunc_Water ; $2d
 	dw BlockFunc_Water ; $2e
 	dw BlockFunc_187de ; $2f
-	dw BlockFunc_18e1a ; $30
-	dw BlockFunc_18eae ; $31
+	dw BlockFunc_LargeCrackedBlockRight_7c ; $30
+	dw BlockFunc_LargeCrackedBlockDown_7c ; $31
 	dw BlockFunc_Water ; $32
 	dw BlockFunc_Water ; $33
 	dw BlockFunc_Free ; $34
@@ -2379,8 +2379,8 @@ BlockFunctionTable81:
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
 	dw BlockFunc_Solid ; $02
-	dw BlockFunc_1900f ; $03
-	dw BlockFunc_18f7b ; $04
+	dw BlockFunc_LargeCrackedBlockUp_78 ; $03
+	dw BlockFunc_LargeCrackedBlockLeft_78 ; $04
 	dw BlockFunc_Floor ; $05
 	dw BlockFunc_Floor ; $06
 	dw BlockFunc_Floor ; $07
@@ -2409,8 +2409,8 @@ BlockFunctionTable81:
 	dw BlockFunc_Fire ; $1e
 	dw BlockFunc_Fire ; $1f
 	dw BlockFunc_Solid ; $20
-	dw BlockFunc_18e2a ; $21
-	dw BlockFunc_18ebe ; $22
+	dw BlockFunc_LargeCrackedBlockRight_78 ; $21
+	dw BlockFunc_LargeCrackedBlockDown_78 ; $22
 	dw BlockFunc_Free ; $23
 	dw BlockFunc_Free ; $24
 	dw BlockFunc_Free ; $25
@@ -2435,23 +2435,23 @@ BlockFunctionTable81:
 	dw BlockFunc_EnemyBlock_78 ; $38
 	dw BlockFunc_EnemyBlock_79 ; $39
 	dw BlockFunc_YarnBlock_78 ; $3a
-	dw BlockFunc_19599 ; $3b
+	dw BlockFunc_YarnBlockLeft_78 ; $3b
 	dw BlockFunc_YarnBlock_79 ; $3c
-	dw BlockFunc_1958d ; $3d
+	dw BlockFunc_YarnBlockLeft_79 ; $3d
 	dw BlockFunc_DownPipe_Left ; $3e
 	dw BlockFunc_DownPipe_Right ; $3f
 	dw BlockFunc_BonfireBlock_78 ; $40
 	dw BlockFunc_BonfireBlock_79 ; $41
-	dw BlockFunc_19520 ; $42
-	dw BlockFunc_1955e ; $43
-	dw BlockFunc_19520 ; $44
+	dw BlockFunc_YarnBlockRight_78 ; $42
+	dw BlockFunc_YarnBlockDown_78 ; $43
+	dw BlockFunc_YarnBlockRight_78 ; $44
 	dw BlockFunc_CrackedBlockWithColourCoin_78 ; $45
 	dw BlockFunc_Solid ; $46
 	dw BlockFunc_Solid ; $47
 	dw BlockFunc_CrackedBlock_78 ; $48
 	dw BlockFunc_CrackedBlock_79 ; $49
 	dw BlockFunc_YarnBlock_79 ; $4a
-	dw BlockFunc_1958d ; $4b
+	dw BlockFunc_YarnBlockLeft_79 ; $4b
 	dw BlockFunc_Solid ; $4c
 	dw BlockFunc_Solid ; $4d
 	dw BlockFunc_UpPipe_Left ; $4e
@@ -2459,7 +2459,7 @@ BlockFunctionTable81:
 	dw BlockFunc_NonCrackedBlock_78 ; $50
 	dw BlockFunc_CrackedBlock_78 ; $51
 	dw BlockFunc_SmallGap ; $52
-	dw BlockFunc_1955e ; $53
+	dw BlockFunc_YarnBlockDown_78 ; $53
 	dw BlockFunc_Solid ; $54
 	dw BlockFunc_Solid ; $55
 	dw BlockFunc_18262 ; $56
@@ -2473,18 +2473,18 @@ BlockFunctionTable81:
 	dw BlockFunc_Free ; $5e
 	dw BlockFunc_Free ; $5f
 	dw BlockFunc_YarnBlock_78 ; $60
-	dw BlockFunc_19599 ; $61
+	dw BlockFunc_YarnBlockLeft_78 ; $61
 	dw BlockFunc_CrackedBlock_78 ; $62
 	dw BlockFunc_YarnBlock_79 ; $63
-	dw BlockFunc_1958d ; $64
+	dw BlockFunc_YarnBlockLeft_79 ; $64
 	dw BlockFunc_Free ; $65
 	dw BlockFunc_Free ; $66
 	dw BlockFunc_LightSource ; $67
-	dw BlockFunc_19520 ; $68
-	dw BlockFunc_1955e ; $69
+	dw BlockFunc_YarnBlockRight_78 ; $68
+	dw BlockFunc_YarnBlockDown_78 ; $69
 	dw BlockFunc_CrackedBlock_78 ; $6a
-	dw BlockFunc_190fc ; $6b
-	dw BlockFunc_1928f ; $6c
+	dw BlockFunc_LargeNonCrackedBlockRight_78 ; $6b
+	dw BlockFunc_LargeNonCrackedBlockLeft_78 ; $6c
 	dw BlockFunc_Free ; $6d
 	dw BlockFunc_CrackedBlock_78 ; $6e
 	dw BlockFunc_Free ; $6f

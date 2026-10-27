@@ -1652,7 +1652,7 @@ UpdateState_Submerged:
 	cp WST_SUBMERGED
 	ret nz
 	call ApplyWaterCurrentMovement
-	call Func_1f1a9
+	call HandleSubmergedInput
 	ret
 
 SurfaceFromUnderwater:
@@ -2224,7 +2224,7 @@ UpdateState_Crouching:
 	ld a, [wWaterInteraction]
 	and a
 	jp nz, DiveFromSurface
-	call Func_1eb46
+	call HandleCrouchingInput
 	ld a, [wWarioState]
 	cp WST_CROUCHING
 	ret nz ; not crouching anymore
@@ -2259,7 +2259,7 @@ UpdateState_CrouchWalking:
 	ld a, [wWaterInteraction]
 	and a
 	jp nz, DiveFromSurface
-	call Func_1ec6c
+	call HandleCrouchWalkingInput
 	ld a, [wWarioState]
 	cp WST_CROUCH_WALKING
 	ret nz ; not crouch walking anymore
@@ -2394,7 +2394,7 @@ UpdateState_Stung:
 	ret
 
 .asm_1d65a
-	call Func_1f6c2
+	call BlinkWarioPal
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2522,7 +2522,7 @@ UpdateState_Stung:
 	ret
 
 UpdateState_StungRecovery:
-	call Func_1f6c2
+	call BlinkWarioPal
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2699,7 +2699,7 @@ UpdateState_SmashAttacking:
 UpdateState_PickingUp:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_1dd78
+	jp nz, DropObjectAndJump
 	ld a, [wGrabState]
 	and a
 	jp z, SetState_Idling
@@ -2726,7 +2726,7 @@ UpdateState_GrabIdling:
 	ld a, [wGrabState]
 	and a
 	jp z, SetState_Idling
-	call Func_1ee88
+	call HandleGrabIdlingInput
 	ld a, [wWarioState]
 	cp WST_GRAB_IDLING
 	ret nz ; done not grab idling anymore
@@ -2738,7 +2738,7 @@ UpdateState_GrabIdling:
 
 	ld a, b
 	and a
-	jp z, Func_1edd3
+	jp z, SetState_GrabAirborne_Fall
 	update_pos_y
 	ret
 
@@ -2766,7 +2766,7 @@ UpdateState_GrabWalking:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_1eefc
+	call HandleGrabWalkingInput
 	ld a, [wWarioState]
 	cp WST_GRAB_WALKING
 	ret nz ; not grab walking anymore
@@ -2774,7 +2774,7 @@ UpdateState_GrabWalking:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_1edd3
+	jp z, SetState_GrabAirborne_Fall
 	update_pos_y
 	ret
 
@@ -3111,9 +3111,9 @@ UpdateState_ThrowCharging:
 	jp z, SetState_Idling
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
-	jp z, Func_1de3f
+	jp z, StartThrow
 	bit B_PAD_A, a
-	jp nz, Func_1dd78
+	jp nz, DropObjectAndJump
 	bit B_PAD_DOWN, a
 	jp nz, CrouchOrSlide
 
@@ -3166,7 +3166,7 @@ UpdateState_ThrowCharging:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_1dd78:
+DropObjectAndJump:
 	xor a
 	ld [wGrabState], a
 	jp StartJump_FromInput
@@ -3225,7 +3225,7 @@ UpdateState_ThrowFullyCharged:
 	bit B_PAD_B, a
 	jr z, .asm_1de01
 	bit B_PAD_A, a
-	jp nz, Func_1dd78
+	jp nz, DropObjectAndJump
 	bit B_PAD_DOWN, a
 	jp nz, CrouchOrSlide
 	ret
@@ -3258,7 +3258,7 @@ UpdateState_ThrowFullyCharged:
 	ld [wGrabState], a
 	jr SetState_Throwing
 
-Func_1de3f:
+StartThrow:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -3452,7 +3452,7 @@ UpdateState_Sliding:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_1f825
+	call HandleSlidingInput
 	ld a, [wWarioState]
 	cp WST_SLIDING
 	ret nz ; not sliding anymore
@@ -3460,7 +3460,7 @@ UpdateState_Sliding:
 	farcall CheckDownCollisionAtWario
 	ld a, b
 	and a
-	jp z, Func_1e174
+	jp z, SetState_RollingAirborne_Fall
 
 	update_pos
 	farcall CheckFrontCollision
@@ -3557,7 +3557,7 @@ UpdateState_Rolling:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_1e174
+	jp z, SetState_RollingAirborne_Fall
 
 	update_pos_y
 
@@ -3577,16 +3577,16 @@ UpdateState_Rolling:
 	update_pos_y
 	ld a, [wWarioSlopeInteraction]
 	and a
-	jp z, Func_1e1e3
+	jp z, SetState_RollingAirborne_Jump
 	and $0f
 	dec a
 	ld b, a
 	ld a, [wDirection]
 	xor b
 	jp nz, DoBumpWithSmallBackOffset
-	jp Func_1e1e3
+	jp SetState_RollingAirborne_Jump
 
-Func_1e174:
+SetState_RollingAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 ;	fallthrough
@@ -3636,7 +3636,7 @@ SetState_RollingAirborne:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_1e1e3:
+SetState_RollingAirborne_Jump:
 	xor a
 	ld [wJumpVelIndex], a
 	jr SetState_RollingAirborne
@@ -4217,7 +4217,7 @@ SetState_Walking:
 	ld [wWarioStateCycles], a
 ;	fallthrough
 
-Func_1e6ea:
+SetWarioWalkAnimation:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -4701,12 +4701,12 @@ HandleBumpMovement:
 .done
 	ret
 
-Func_1eb46:
+HandleCrouchingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_1ec19
+	jp nz, CrouchJump
 	bit B_PAD_B, a
-	jp nz, Func_1ec4b
+	jp nz, StandUpAndAttack
 	ld a, [wJoypadDown]
 	bit B_PAD_DOWN, a
 	jr nz, .asm_1eb79
@@ -4796,7 +4796,7 @@ SetState_CrouchWalking:
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1ebfd
 
-Func_1ec19:
+CrouchJump:
 	ld a, JUMP_VEL_KNOCK_BACK
 	ld [wJumpVelTable], a
 	ld a, -27
@@ -4819,7 +4819,7 @@ Func_1ec19:
 	ld [wCollisionBoxTop], a
 	ret
 
-Func_1ec4b:
+StandUpAndAttack:
 	ld a, -27
 	ld [wCollisionBoxTop], a
 	farcall CheckUpCollision
@@ -4832,12 +4832,12 @@ Func_1ec4b:
 	ld [wCollisionBoxTop], a
 	ret
 
-Func_1ec6c:
+HandleCrouchWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr nz, Func_1ec19
+	jr nz, CrouchJump
 	bit B_PAD_B, a
-	jr nz, Func_1ec4b
+	jr nz, StandUpAndAttack
 	ld a, [wJoypadDown]
 	bit B_PAD_DOWN, a
 	jr nz, .asm_1ec9d
@@ -4991,7 +4991,7 @@ SetState_CrouchAirborne:
 	call MoveWarioUp
 	ret
 
-Func_1edd3:
+SetState_GrabAirborne_Fall:
 	ld a, [wGrabState]
 	and GRAB_FLAGS_MASK
 	add GRAB_IDLE
@@ -5003,7 +5003,7 @@ Func_1edd3:
 	jr SetState_GrabAirborne
 ;	fallthrough
 
-Func_1ede9:
+SetState_GrabAirborne_Jump:
 	play_sfx SFX_JUMP
 	xor a
 	ld [wJumpVelIndex], a
@@ -5073,10 +5073,10 @@ SetState_GrabAirborne:
 	call UpdateState_GrabAirborne
 	ret
 
-Func_1ee88:
+HandleGrabIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_1ede9
+	jp nz, SetState_GrabAirborne_Jump
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jp nz, SetState_ThrowCharging
@@ -5125,12 +5125,12 @@ Func_1ee88:
 	ld [wWarioFramesetPtr + 1], a
 	jr .asm_1eedb
 
-Func_1eefc:
+HandleGrabWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jp nz, SetState_ThrowCharging
 	bit B_PAD_A, a
-	jp nz, Func_1ede9
+	jp nz, SetState_GrabAirborne_Jump
 	bit B_PAD_DOWN, a
 	jp nz, .asm_1efaf
 	ld a, [wJoypadDown]
@@ -5459,7 +5459,7 @@ HandleDivingHorizontalMovement:
 	call MoveWarioLeft
 	ret
 
-Func_1f1a9:
+HandleSubmergedInput:
 	ld a, [wWaterInteraction]
 	cp NON_SUBMERSIBLE_WATER
 	jr z, .asm_1f1f5
@@ -5473,7 +5473,7 @@ Func_1f1a9:
 	jp nz, StartUpwardsUnderwaterThrusting
 	ld a, [wJoypadDown]
 	and PAD_CTRL_PAD
-	jp nz, Func_1f24c
+	jp nz, HandleSwimming
 
 	ld a, [wWarioStateCycles]
 	and a
@@ -5526,7 +5526,7 @@ Func_1f1a9:
 	ld [wWaterCurrentBlockedDir], a
 	ret
 
-Func_1f24c:
+HandleSwimming:
 	ld a, [wSFXLoopCounter]
 	sub 1
 	ld [wSFXLoopCounter], a
@@ -5574,9 +5574,9 @@ Func_1f24c:
 .asm_1f2b2
 	ld a, [wJoypadDown]
 	bit B_PAD_UP, a
-	jp nz, Func_1f3d9
+	jp nz, SwimUp
 	bit B_PAD_DOWN, a
-	jp nz, Func_1f3a7
+	jp nz, SwimDown
 	ret
 
 .asm_1f2c0
@@ -5591,7 +5591,7 @@ Func_1f24c:
 	ret z
 	ld a, [wDirection]
 	and a
-	jr nz, Func_1f310
+	jr nz, SwimForward
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
 	xor a
@@ -5606,7 +5606,7 @@ Func_1f24c:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_1f310:
+SwimForward:
 	farcall CheckFrontCollision
 	ld a, b
 	and a
@@ -5658,7 +5658,7 @@ Func_1f357:
 	ret z
 	ld a, [wDirection]
 	and a
-	jr z, Func_1f310
+	jr z, SwimForward
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 	xor a
@@ -5673,7 +5673,7 @@ Func_1f357:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_1f3a7:
+SwimDown:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -5693,7 +5693,7 @@ Func_1f3a7:
 	call MoveWarioDown
 	ret
 
-Func_1f3d9:
+SwimUp:
 	farcall CheckUpCollision
 	ld a, b
 	and a
@@ -6002,7 +6002,7 @@ HandleInvincibility:
 	ld [wInvisibleFrame], a
 	ret
 
-Func_1f6c2:
+BlinkWarioPal:
 	ld a, [wGlobalCounter]
 	and %111
 	jr z, .set_invisible_pal
@@ -6182,7 +6182,7 @@ SetState_LadderShakeStunned:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_1f825:
+HandleSlidingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr nz, .a_btn
@@ -6220,7 +6220,7 @@ Func_1f825:
 	ld [wIsRolling], a
 	jp StartJump_FromInput
 
-Func_1f863:
+MoveWarioUpBySwimVel:
 	ld hl, SwimStraightVelTable
 	add hl, de
 	ld b, [hl]

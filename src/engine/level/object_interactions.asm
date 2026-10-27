@@ -660,7 +660,7 @@ StepOnObject:
 	jr .asm_204e8
 
 .grabbing
-	farcall Func_1ede9
+	farcall SetState_GrabAirborne_Jump
 
 .asm_204e8
 	ld a,TRUE
@@ -706,7 +706,7 @@ StepOnObject:
 	ld a, [wJumpVelTable]
 	and a
 	jr z, .asm_20578
-	farcall Func_1edd3
+	farcall SetState_GrabAirborne_Fall
 	jr .asm_20578
 
 .crouching_2
@@ -762,7 +762,7 @@ StepOnObject:
 	ld a, [wTouchState]
 	cp TOUCH_PASS_THROUGH
 	ret z
-	farcall Func_2a0b2
+	farcall StartBouncyJump
 	ret
 
 VanishObjectAndKnockBackIfZombie:
@@ -790,7 +790,7 @@ JumpOffVanishingObject:
 	farcall StartJump_FromInput
 	jr .asm_20639
 .asm_2062a
-	farcall Func_1ede9
+	farcall SetState_GrabAirborne_Jump
 .asm_20639
 	ld a, TRUE
 	ld [wDoFullJump], a
@@ -1369,7 +1369,7 @@ PushAgainstSolidObject:
 	ld a, [wTransformationProgress]
 	cp 1
 	ret nz
-	farcall Func_28bd5
+	farcall BallOStringBounceOffWall
 	ret
 
 .hot
@@ -1383,7 +1383,7 @@ PushAgainstSolidObject:
 	ld a, [wWarioState]
 	cp WST_ICE_SKATIN_CRASH
 	ret z
-	farcall Func_1ec215
+	farcall IceSkatinCrashIntoWall
 	ret
 
 BumpOffObjectWithAction12:
@@ -1517,7 +1517,7 @@ ObjInteraction_Grabbable:
 	jr z, .asm_20c31
 	jr .step_on_obj
 .asm_20c31
-	farcall Func_1edd3
+	farcall SetState_GrabAirborne_Fall
 	ret
 
 .step_on_obj
@@ -2920,7 +2920,7 @@ ObjInteraction_Bubble:
 	ld [wStingTouchState], a
 	ld a, $01
 	ld [wSpikeTouchState], a
-	farcall Func_2ac7d
+	farcall SetState_InBubble
 	ret
 
 ObjInteraction_Ice:
@@ -3227,7 +3227,7 @@ ObjInteraction_RollingRock:
 	ret nz
 	ld a, [wObjDirection]
 	ld [wDirection], a
-	farcall Func_1e174
+	farcall SetState_RollingAirborne_Fall
 	ret
 
 ObjInteraction_Wormwould:

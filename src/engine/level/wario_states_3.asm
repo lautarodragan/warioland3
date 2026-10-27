@@ -136,7 +136,7 @@ UpdateState_OnFire:
 	jr nz, .continue
 	jr SetState_Hot
 .continue
-	call Func_2ae8a
+	call HandleOnFireInput
 
 	ld a, [wWarioState]
 	cp WST_ON_FIRE
@@ -145,7 +145,7 @@ UpdateState_OnFire:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_2af75
+	jp z, SetState_OnFireAirborne_Fall
 	update_pos_y
 	ret
 
@@ -214,7 +214,7 @@ UpdateState_OnFireAirborne:
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_2ade4
+	jp nz, RecoverFromTransformation_InWater
 	ld a, [wWarioStateCounter]
 	and a
 	jr nz, .asm_2820b
@@ -242,7 +242,7 @@ UpdateState_OnFireAirborne:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2af9c
+	call HandleOnFireAirborneMovement
 	ld a, [wWarioState]
 	cp WST_ON_FIRE_AIRBORNE
 	ret nz ; done if not on fire and airborne
@@ -258,7 +258,7 @@ UpdateState_OnFireAirborne:
 	cp WST_ON_FIRE_AIRBORNE
 	ret nz ; done if not on fire and airborne
 
-	jp Func_2af75
+	jp SetState_OnFireAirborne_Fall
 .asm_28245
 	farcall CheckAirborneCollision
 	ld a, b
@@ -333,7 +333,7 @@ UpdateState_Hot:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_28380
+	jp z, SetState_HotAirborne_FallAligned
 	update_pos_y
 	ret
 
@@ -382,14 +382,14 @@ UpdateState_Hot:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_28380:
+SetState_HotAirborne_FallAligned:
 	ld a, [wWarioXPos + 1]
 	and $f0
 	add $08
 	ld [wWarioXPos + 1], a
 ;	fallthrough
 
-Func_2838a:
+SetState_HotAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 	ld a, JUMP_VEL_NORMAL
@@ -407,11 +407,11 @@ UpdateState_HotAirborne:
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_2ade4
+	jp nz, RecoverFromTransformation_InWater
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b027
+	call HandleHotAirborneMovement
 	ld a, [wWarioState]
 	cp WST_HOT_AIRBORNE
 	ret nz ; done if not hot airborne anymore
@@ -428,7 +428,7 @@ UpdateState_HotAirborne:
 	ld a, [wWarioState]
 	cp WST_HOT_AIRBORNE
 	ret nz ; done if not hot airborne anymore
-	jp Func_2838a
+	jp SetState_HotAirborne_Fall
 
 .falling
 	farcall CheckAirborneCollision
@@ -652,7 +652,7 @@ UpdateState_FlatIdling:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b10a
+	call HandleFlatIdlingInput
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -710,7 +710,7 @@ UpdateState_FlatWalking:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b11b
+	call HandleFlatWalkingInput
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -761,7 +761,7 @@ UpdateState_FlatJumping:
 	and a
 	jp nz, TriggerRoomTransition
 	call ApplyJumpVelocity
-	call Func_2b17a
+	call WalkFromInput
 	call LimitAirWalkVelocity
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
@@ -1105,7 +1105,7 @@ UpdateState_FlatStretchingUnderwater:
 	ld a, [wWarioAnimationEnded]
 	and a
 	ret z
-	jp Func_2ad6a
+	jp RecoverFromTransformation_Underwater
 
 SetState_FlatSquished:
 	ld a, WST_FLAT_SQUISHED
@@ -1163,7 +1163,7 @@ UpdateState_GettingWrappedInString:
 
 	ld a, b
 	and a
-	jp z, Func_28c15
+	jp z, SetState_BallOStringAirborne_Fall
 ;	fallthrough
 
 SetState_BallOString::
@@ -1245,11 +1245,11 @@ UpdateState_BallOString:
 	farcall CheckFrontCollision
 	ld a, b
 	and $0f
-	jr nz, Func_28bd5
+	jr nz, BallOStringBounceOffWall
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_28c15
+	jp z, SetState_BallOStringAirborne_Fall
 
 	update_pos_y
 	ld a, [wWarioSlopeInteraction]
@@ -1260,10 +1260,10 @@ UpdateState_BallOString:
 	ld b, a
 	ld a, [wDirection]
 	xor b
-	jr nz, Func_28bd5
+	jr nz, BallOStringBounceOffWall
 	ret
 
-Func_28bd5:
+BallOStringBounceOffWall:
 	ld a, [wDirection]
 	xor $1 ; switch direction
 	ld [wDirection], a
@@ -1294,7 +1294,7 @@ Func_28bd5:
 .asm_28c12
 	jp SetState_BallOStringKnockBack
 
-Func_28c15:
+SetState_BallOStringAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 	ld a, JUMP_VEL_HIGH_JUMP
@@ -1318,7 +1318,7 @@ UpdateState_BallOStringAirborne:
 	farcall CheckFrontCollision
 	ld a, b
 	and $0f
-	jp nz, Func_28bd5
+	jp nz, BallOStringBounceOffWall
 	call ApplyJumpVelocity
 	call HandleWalk
 	ld a, [wWalkVelIndex]
@@ -1607,7 +1607,7 @@ UpdateState_FatIdling:
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
-	call Func_28f6d
+	call HandleFatIdlingInput
 	ld a, [wWarioState]
 	cp WST_FAT_IDLING
 	ret nz ; done if not fat idling anymore
@@ -1615,13 +1615,13 @@ UpdateState_FatIdling:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_290d6
+	jp z, SetState_FatAirborne_Fall
 	ret
 
-Func_28f6d:
+HandleFatIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_290a1
+	jp nz, SetState_FatAirborne_Jump
 	ld a, [wJoypadDown]
 	and PAD_RIGHT | PAD_LEFT
 	jr nz, SetState_FatWalking
@@ -1683,7 +1683,7 @@ UpdateState_FatWalking:
 	jp nc, SetState_FatRecovering
 	or [hl]
 	jp z, SetState_FatRecovering
-	call Func_2b239
+	call HandleFatWalkingInput
 	ld a, [wWarioState]
 	cp WST_FAT_WALKING
 	ret nz ; done if not fat walking anymore
@@ -1691,7 +1691,7 @@ UpdateState_FatWalking:
 
 	ld a, b
 	and a
-	jp z, Func_290d6
+	jp z, SetState_FatAirborne_Fall
 	update_pos_y
 	ret
 
@@ -1730,13 +1730,13 @@ UpdateState_FatTurning:
 	hcall UpdateWarioAnimation
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr nz, Func_290a1
+	jr nz, SetState_FatAirborne_Jump
 	ld a, [wWarioAnimationEnded]
 	and a
 	ret z
 	jp SetState_FatWalking
 
-Func_290a1:
+SetState_FatAirborne_Jump:
 	play_sfx SFX_JUMP
 
 	xor a
@@ -1761,7 +1761,7 @@ Func_290a1:
 .asm_290d4
 	jr SetState_FatAirborne
 
-Func_290d6:
+SetState_FatAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 	ld a, TRUE
@@ -1845,7 +1845,7 @@ UpdateState_FatAirborne:
 	hcall UpdateWarioAnimation
 
 .asm_2919d
-	call Func_2b2a4
+	call HandleFatAirborneMovement
 	ld a, [wWarioState]
 	cp WST_FAT_AIRBORNE
 	ret nz ; done if not fat airborne anymore
@@ -1860,7 +1860,7 @@ UpdateState_FatAirborne:
 	ld a, [wWarioState]
 	cp WST_FAT_AIRBORNE
 	ret nz ; done if not fat airborne anymore
-	jp Func_290d6
+	jp SetState_FatAirborne_Fall
 
 .asm_291c8
 	farcall CheckAirborneCollision
@@ -1984,7 +1984,7 @@ UpdateState_FatSinking:
 	ld a, b
 	and a
 	ret z
-	call Func_2ad6a
+	call RecoverFromTransformation_Underwater
 	ret
 
 Func_29317:
@@ -2628,7 +2628,7 @@ UpdateState_PuffyRising:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b2c2
+	call HandlePuffyRising
 	ret
 
 SetState_PuffyTurning:
@@ -2667,7 +2667,7 @@ UpdateState_PuffyTurning:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b342
+	call MoveWarioUpSlowly
 	farcall CheckUpCollision
 
 	ld a, [wWarioState]
@@ -2845,12 +2845,12 @@ UpdateState_ZombieIdling:
 
 	ld a, b
 	and a
-	jp z, Func_29bb9
+	jp z, SetState_ZombieAirborne_Fall
 	update_pos_y
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b34e
+	call HandleZombieIdlingInput
 	ret
 
 SetState_ZombieWalking:
@@ -2903,7 +2903,7 @@ UpdateState_ZombieWalking:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b381
+	call HandleZombieWalkingInput
 
 	ld a, [wWarioState]
 	cp WST_ZOMBIE_WALKING
@@ -2912,7 +2912,7 @@ UpdateState_ZombieWalking:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jr z, Func_29bb9
+	jr z, SetState_ZombieAirborne_Fall
 
 	update_pos_y
 	ret
@@ -2952,7 +2952,7 @@ UpdateState_ZombieTurning:
 	ret z
 	jp SetState_ZombieWalking
 
-Func_29bb9:
+SetState_ZombieAirborne_Fall:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_29bcb
@@ -2974,7 +2974,7 @@ Func_29bb9:
 	ld [wJumpVelIndex], a
 	jr SetState_ZombieAirborne
 
-Func_29be1:
+SetState_ZombieAirborne_Jump:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_29bf3
@@ -3022,7 +3022,7 @@ UpdateState_ZombieAirborne:
 	cp WST_ZOMBIE_AIRBORNE
 	ret nz ; done if not zombie airborne anymore
 
-	call Func_2b3dd
+	call HandleZombieAirborneMovement
 	ld a, [wWarioState]
 	cp WST_ZOMBIE_AIRBORNE
 	ret nz ; done if not zombie airborne anymore
@@ -3070,7 +3070,7 @@ UpdateState_ZombieAirborne:
 	ld a, [wWarioState]
 	cp WST_ZOMBIE_AIRBORNE
 	ret nz ; done if not zombie airborne anymore
-	jp Func_29bb9
+	jp SetState_ZombieAirborne_Fall
 
 .asm_29cbf
 	farcall CheckAirborneCollision
@@ -3205,7 +3205,7 @@ UpdateState_ZombieSlippingThroughFloor:
 	cp WST_ZOMBIE_SLIPPING_THROUGH_FLOOR
 	ret nz ; done if not slipping through floor anymore
 
-	call Func_2b3dd
+	call HandleZombieAirborneMovement
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -3505,7 +3505,7 @@ UpdateState_BouncyFloor:
 	ld a, [hli]
 	or [hl]
 	jp z, Func_2a2e7
-	call Func_2ae3b
+	call BlinkPalIfTransformationEnding
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -3516,21 +3516,21 @@ UpdateState_BouncyFloor:
 
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jr nz, Func_2a0bb
-	jr Func_2a0c2
+	jr nz, StartBouncyJump_High
+	jr StartBouncyJump_Normal
 
-Func_2a0b2:
+StartBouncyJump:
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jr nz, Func_2a0bb
-	jr Func_2a0c2
+	jr nz, StartBouncyJump_High
+	jr StartBouncyJump_Normal
 
-Func_2a0bb:
+StartBouncyJump_High:
 	ld a, JUMP_VEL_BOUNCY_HIGH_JUMP
 	ld [wJumpVelTable], a
 	jr Func_2a0c7
 
-Func_2a0c2:
+StartBouncyJump_Normal:
 	ld a, JUMP_VEL_BOUNCY_JUMP
 	ld [wJumpVelTable], a
 ;	fallthrough
@@ -3589,9 +3589,9 @@ UpdateState_BouncyAirborne:
 	ld a, [hli]
 	or [hl]
 	jp z, SetState_BouncyUpsideDown
-	call Func_2ae3b
+	call BlinkPalIfTransformationEnding
 	call ApplyJumpVelocity
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_2a17a
@@ -3658,7 +3658,7 @@ UpdateState_BouncyCeiling:
 	ld a, [hli]
 	or [hl]
 	jr z, SetState_BouncyUpsideDown
-	call Func_2ae3b
+	call BlinkPalIfTransformationEnding
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -4079,7 +4079,7 @@ UpdateState_Crazy:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_2b3f9
+	call HandleCrazyInput
 	ld a, [wWarioState]
 	cp WST_CRAZY
 	ret nz ; done if not crazy any more
@@ -4087,7 +4087,7 @@ UpdateState_Crazy:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jr z, Func_2a67b
+	jr z, SetState_CrazyAirborne_Fall
 	ret
 
 SetState_CrazyTurning:
@@ -4124,18 +4124,18 @@ UpdateState_CrazyTurning:
 	hcall UpdateWarioAnimation
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr nz, Func_2a675
+	jr nz, SetState_CrazyAirborne_Jump
 	ld a, [wWarioAnimationEnded]
 	and a
 	ret z
 	jp SetState_Crazy
 
-Func_2a675:
+SetState_CrazyAirborne_Jump:
 	xor a
 	ld [wJumpVelIndex], a
 	jr SetState_CrazyAirborne
 
-Func_2a67b:
+SetState_CrazyAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 ;	fallthrough
@@ -4247,11 +4247,11 @@ UpdateState_VampireIdling:
 
 	ld a, b
 	and a
-	jp z, Func_2a8a7
+	jp z, SetState_VampireAirborne_Fall
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b4f3
+	call HandleVampireIdlingInput
 	ret
 
 SetState_VampireWalking:
@@ -4309,7 +4309,7 @@ UpdateState_VampireWalking:
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b509
+	call HandleVampireWalkingInput
 	ld a, [wWarioState]
 	cp WST_VAMPIRE_WALKING
 	ret nz ; done if not vampire walking any more
@@ -4323,7 +4323,7 @@ UpdateState_VampireWalking:
 	ld a, b
 	and a
 	ret nz
-	jp Func_2a8a7
+	jp SetState_VampireAirborne_Fall
 
 SetState_VampireTurning:
 	ld a, WST_VAMPIRE_TURNING
@@ -4363,12 +4363,12 @@ UpdateState_VampireTurning:
 	ret z
 	jp SetState_VampireWalking
 
-Func_2a8a7:
+SetState_VampireAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 	jr SetState_VampireAirborne
 
-Func_2a8ae:
+SetState_VampireAirborne_Jump:
 	play_sfx SFX_01D
 	xor a
 	ld [wJumpVelIndex], a
@@ -4401,7 +4401,7 @@ UpdateState_VampireAirborne:
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b55c
+	call HandleVampireAirborneMovement
 	ld a, [wWarioState]
 	cp WST_VAMPIRE_AIRBORNE
 	ret nz ; done if not vampire airborne any more
@@ -4417,7 +4417,7 @@ UpdateState_VampireAirborne:
 	ld a, b
 	and a
 	ret z
-	jp Func_2a8a7
+	jp SetState_VampireAirborne_Fall
 .asm_2a92f
 	farcall CheckAirborneCollision
 	ld a, b
@@ -4677,7 +4677,7 @@ UpdateState_BatFlying:
 	ld a, b
 	and a
 	jr nz, SetState_BatFalling
-	call Func_2b63b
+	call HandleBatFlyingInput
 	ld a, [wWarioState]
 	cp WST_BAT_FLYING
 	ret nz ; done if not bat flying any more
@@ -4686,7 +4686,7 @@ UpdateState_BatFlying:
 	; transitions, the camera has to follow the bat up a floor.
 	call HandleUpwardsFloorTransition
 
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_2abbc
@@ -4750,7 +4750,7 @@ UpdateState_BatFalling:
 	bit B_PAD_A, a
 	jp nz, SetState_BatFlying
 	call ApplyJumpVelocity
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_2ac50
@@ -4773,7 +4773,7 @@ UpdateState_BatFalling:
 	call TriggerFloorTransition
 	jp SetState_BatIdling
 
-Func_2ac7d:
+SetState_InBubble:
 	ld a, WST_IN_BUBBLE
 	ld [wWarioState], a
 
@@ -4848,7 +4848,7 @@ UpdateState_InBubble:
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_2b56f
+	call HandleInBubble
 	ret
 
 .asm_2ad45
@@ -4857,7 +4857,7 @@ UpdateState_InBubble:
 	farcall CreateParticle
 	jp RecoverFromTransformation
 
-Func_2ad6a:
+RecoverFromTransformation_Underwater:
 	call ClearTransformationValues
 	ld a, $10
 	ld [wInvincibleCounter], a
@@ -4904,7 +4904,7 @@ Func_2ad6a:
 	hcall UpdateWarioAnimation
 	jp PlayRecoverySFX
 
-Func_2ade4:
+RecoverFromTransformation_InWater:
 	call ClearTransformationValues
 	ld a, $10
 	ld [wInvincibleCounter], a
@@ -4929,8 +4929,8 @@ DecrementTransformationDuration:
 	ld [hl], a
 	ret
 
-Func_2ae3b:
-	call Func_2ae5c
+BlinkPalIfTransformationEnding:
+	call IsTransformationEnding
 	ret nc
 	ld de, $0
 	ld a, [wWarioStateCycles]
@@ -4948,7 +4948,7 @@ Func_2ae3b:
 	call SetWarioPal
 	ret
 
-Func_2ae5c:
+IsTransformationEnding:
 	ld hl, wTransformationDuration
 	ld a, [hli]
 	cp $02
@@ -4983,7 +4983,7 @@ Func_2ae5c:
 	ccf
 	ret
 
-Func_2ae8a:
+HandleOnFireInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .asm_2aea7
@@ -4991,7 +4991,7 @@ Func_2ae8a:
 	ld a, b
 	and a
 	jr nz, .asm_2aea7
-	jp Func_2af81
+	jp SetState_OnFireAirborne_Jump
 .asm_2aea7
 	ld a, [wDirection]
 	and a
@@ -5075,14 +5075,14 @@ Func_2ae8a:
 	jp nz, SetState_Hot_ResetDuration
 	ret
 
-Func_2af75:
+SetState_OnFireAirborne_Fall:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 	ld a, JUMP_VEL_HIGH_JUMP
 	ld [wJumpVelTable], a
 	jr SetState_OnFireAirborne
 
-Func_2af81:
+SetState_OnFireAirborne_Jump:
 	play_sfx SFX_JUMP
 
 	xor a
@@ -5098,7 +5098,7 @@ SetState_OnFireAirborne:
 	ld [wWarioState], a
 	ret
 
-Func_2af9c:
+HandleOnFireAirborneMovement:
 	call ApplyJumpVelocity
 	call HandleWalk
 	ld a, [wWalkVelIndex]
@@ -5161,7 +5161,7 @@ Func_2afc5:
 	hcall UpdateWarioAnimation
 	ret
 
-Func_2b027:
+HandleHotAirborneMovement:
 	call ApplyJumpVelocity
 	ld hl, wWarioStateCounter
 	ld a, [hl]
@@ -5171,7 +5171,7 @@ Func_2b027:
 	ret
 
 .asm_2b033
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_2b042
@@ -5262,7 +5262,7 @@ HandleHotWarioInput:
 	call MoveWarioRight
 	ret
 
-Func_2b10a:
+HandleFlatIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_FlatJumping
@@ -5271,7 +5271,7 @@ Func_2b10a:
 	jp nz, SetState_FlatWalking
 	ret
 
-Func_2b11b:
+HandleFlatWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_FlatJumping
@@ -5312,7 +5312,7 @@ Func_2b11b:
 .asm_2b179
 	ret
 
-Func_2b17a:
+WalkFromInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_RIGHT, a
 	jr nz, .right
@@ -5390,10 +5390,10 @@ Func_2b1cc:
 .asm_2b238
 	ret
 
-Func_2b239:
+HandleFatWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_290a1
+	jp nz, SetState_FatAirborne_Jump
 	ld a, [wJoypadDown]
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_2b24f
@@ -5436,9 +5436,9 @@ Func_2b239:
 	ld [wDirection], a
 	jp SetState_FatTurning
 
-Func_2b2a4:
+HandleFatAirborneMovement:
 	call ApplyJumpVelocity
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_2b2b6
@@ -5452,8 +5452,8 @@ Func_2b2a4:
 	ld [wIsSmashAttacking], a
 	ret
 
-Func_2b2c2:
-	call Func_2b342
+HandlePuffyRising:
+	call MoveWarioUpSlowly
 	farcall CheckUpCollision
 	ld a, [wWarioState]
 	cp WST_PUFFY_RISING
@@ -5506,7 +5506,7 @@ Func_2b2c2:
 	call MoveWarioRight
 	ret
 
-Func_2b342:
+MoveWarioUpSlowly:
 	ld a, [wGlobalCounter]
 	and %1
 	ret nz
@@ -5514,17 +5514,17 @@ Func_2b342:
 	call MoveWarioUp
 	ret
 
-Func_2b34e:
+HandleZombieIdlingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jp nz, Func_29be1
+	jp nz, SetState_ZombieAirborne_Jump
 	and PAD_RIGHT | PAD_LEFT
 	jp nz, SetState_ZombieWalking
 
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_29bb9
+	jp z, SetState_ZombieAirborne_Fall
 
 	ld hl, wWarioStateCounter
 	ld a, [hl]
@@ -5539,10 +5539,10 @@ Func_2b34e:
 
 	ret ; unnecessary
 
-Func_2b381:
+HandleZombieWalkingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jp nz, Func_29be1
+	jp nz, SetState_ZombieAirborne_Jump
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_2b394
 	bit B_PAD_LEFT, a
@@ -5578,7 +5578,7 @@ Func_2b381:
 	ld [wDirection], a
 	jp SetState_ZombieTurning
 
-Func_2b3dd:
+HandleZombieAirborneMovement:
 	call ApplyJumpVelocity
 	ld hl, wWarioStateCycles
 	ld a, [hl]
@@ -5588,7 +5588,7 @@ Func_2b3dd:
 	ret
 
 .asm_2b3e9
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $04
 	jr c, .asm_2b3f8
@@ -5597,10 +5597,10 @@ Func_2b3dd:
 .asm_2b3f8
 	ret
 
-Func_2b3f9:
+HandleCrazyInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_2a675
+	jp nz, SetState_CrazyAirborne_Jump
 	call Func_2b42b
 	ld a, [wWarioState]
 	cp WST_CRAZY
@@ -5633,19 +5633,19 @@ Func_2b42b:
 	ld a, [hl]
 	cp $06
 	jr c, .asm_2b495
-	jp z, Func_2b4d0
+	jp z, CreateDustParticleAtWario
 	cp $09
 	ret c
 	cp $12
 	jr c, .asm_2b495
-	jp z, Func_2b4d0
+	jp z, CreateDustParticleAtWario
 	cp $15
 	ret c
 	cp $18
 	jr c, .asm_2b495
 	cp $22
 	jr c, .asm_2b45d
-	jp z, Func_2b4d0
+	jp z, CreateDustParticleAtWario
 	cp $25
 	ret c
 	cp $2c
@@ -5700,29 +5700,29 @@ Func_2b42b:
 .asm_2b4cd
 	jp SetState_CrazyTurning
 
-Func_2b4d0:
+CreateDustParticleAtWario:
 	get_pos
 	ld b, PARTICLE_DUST
 	farcall CreateParticle
 	ret
 
-Func_2b4f3:
+HandleVampireIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
 	jp nz, SetState_BatTransforming
 	bit B_PAD_A, a
-	jp nz, Func_2a8ae
+	jp nz, SetState_VampireAirborne_Jump
 	ld a, [wJoypadDown]
 	and PAD_RIGHT | PAD_LEFT
 	jp nz, SetState_VampireWalking
 	ret
 
-Func_2b509:
+HandleVampireWalkingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jp nz, SetState_BatTransforming
 	bit B_PAD_A, a
-	jp nz, Func_2a8ae
+	jp nz, SetState_VampireAirborne_Jump
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_2b521
 	bit B_PAD_LEFT, a
@@ -5749,9 +5749,9 @@ Func_2b509:
 .asm_2b55b
 	ret
 
-Func_2b55c:
+HandleVampireAirborneMovement:
 	call ApplyJumpVelocity
-	call Func_2b17a
+	call WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $10
 	jr c, .asm_2b56e
@@ -5760,7 +5760,7 @@ Func_2b55c:
 .asm_2b56e
 	ret
 
-Func_2b56f:
+HandleInBubble:
 	ld a, [wGlobalCounter]
 	and %1
 	jr z, .asm_2b5b2
@@ -5837,7 +5837,7 @@ Func_2b56f:
 	call MoveWarioLeft
 	jr .asm_2b602
 
-Func_2b63b:
+HandleBatFlyingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
 	jp z, SetState_BatFalling
@@ -5854,7 +5854,7 @@ Func_2b63b:
 .asm_2b651
 	ld e, a
 	ld d, $00
-	farcall Func_1f863
+	farcall MoveWarioUpBySwimVel
 	ret
 
 Data_2b664:

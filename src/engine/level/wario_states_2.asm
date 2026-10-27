@@ -207,7 +207,7 @@ UpdateState_Slipping:
 	ld a, [wJoypadDown]
 	bit B_PAD_DOWN, a
 	jr z, .asm_19de6
-	jp Func_19e89
+	jp SetState_CrouchSlipping_KeepCounter
 
 .asm_19de6
 	farcall CheckCentreCollision
@@ -280,7 +280,7 @@ SetState_CrouchSlipping:
 	ld [wWarioStateCycles], a
 ;	fallthrough
 
-Func_19e89:
+SetState_CrouchSlipping_KeepCounter:
 	ld a, WST_CROUCH_SLIPPING
 	ld [wWarioState], a
 	xor a
@@ -600,7 +600,7 @@ Func_1a14b:
 	ret
 
 UpdateState_SandFalling:
-	call Func_1b2c0
+	call HandleSandFallingInput
 	ld a, [wWarioState]
 	cp WST_SAND_FALLING
 	ret nz ; done if not falling in sand any more
@@ -635,7 +635,7 @@ UpdateState_SandJumping:
 
 .in_sand
 	call ApplyJumpVelocity
-	farcall Func_2b17a
+	farcall WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $04
 	jr c, .asm_1a208
@@ -706,7 +706,7 @@ SetState_SandIdling:
 	ret
 
 UpdateState_SandIdling:
-	call Func_1b322
+	call HandleSandIdlingInput
 	ret
 
 SetState_SandWalking:
@@ -736,7 +736,7 @@ SetState_SandWalking:
 	ld [wSFXLoopCounter], a
 	ld [wJumpVelIndex], a
 	ld [wJumpVelTable], a
-	farcall Func_1e6ea
+	farcall SetWarioWalkAnimation
 	ret
 
 UpdateState_SandWalking:
@@ -752,7 +752,7 @@ UpdateState_SandWalking:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b333
+	call HandleSandWalkingInput
 	ld a, [wWarioState]
 	cp WST_SAND_WALKING
 	ret nz ; done if not walking in sand any more
@@ -973,7 +973,7 @@ UpdateState_LadderIdling:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b480
+	call HandleLadderIdlingInput
 	ret
 
 UpdateState_LadderShakeSlipping:
@@ -1218,7 +1218,7 @@ UpdateState_GrabSlipping:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .asm_1a819
-	farcall Func_1ede9
+	farcall SetState_GrabAirborne_Jump
 	ret
 
 .asm_1a819
@@ -1229,7 +1229,7 @@ UpdateState_GrabSlipping:
 	ld a, b
 	and a
 	jr nz, .asm_1a842
-	farcall Func_1edd3
+	farcall SetState_GrabAirborne_Fall
 	ret
 
 .asm_1a842
@@ -1316,7 +1316,7 @@ SetNextGetTreasureState:
 	inc [hl]
 	xor a
 	ld [wWarioStateCycles], a
-	farcall Func_1e6ea
+	farcall SetWarioWalkAnimation
 	ret
 
 UpdateState_GetTreasureWalk:
@@ -1961,7 +1961,7 @@ UpdateState_FenceMovingVertical:;1aed0 (6:6ed0)
 	ld b, PARTICLE_DUST
 	farcall CreateParticle
 .asm_1af1e
-	call Func_1b168
+	call HandleFenceMovingVerticalInput
 	ret
 
 SetState_FenceIdling:
@@ -2019,7 +2019,7 @@ UpdateState_FenceIdling:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b21a
+	call HandleFenceIdlingInput
 	ret
 
 SetState_FenceMovingHorizontal:
@@ -2090,7 +2090,7 @@ UpdateState_FenceMovingHorizontal:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b24f
+	call HandleFenceMovingHorizontalInput
 	ret
 
 SetState_FenceSliding:
@@ -2183,7 +2183,7 @@ UpdateState_FenceSliding:
 	farcall DoGroundPound
 	ret
 
-Func_1b168:
+HandleFenceMovingVerticalInput:
 	ld a, [wJoypadDown]
 	and PAD_B | PAD_DOWN
 	cp PAD_B | PAD_DOWN
@@ -2241,7 +2241,7 @@ Func_1b168:
 	farcall SetState_Idling
 	ret
 
-Func_1b21a:
+HandleFenceIdlingInput:
 	ld a, [wJumpingUpwards]
 	and a
 	jr nz, .asm_1b237
@@ -2264,7 +2264,7 @@ Func_1b21a:
 	jp nz, SetState_FenceMovingHorizontal
 	ret
 
-Func_1b24f:
+HandleFenceMovingHorizontalInput:
 	ld a, [wJumpingUpwards]
 	and a
 	jr nz, .asm_1b26c
@@ -2310,17 +2310,17 @@ Func_1b24f:
 	call MoveWarioLeft
 	ret
 
-Func_1b2c0:
+HandleSandFallingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
-	call Func_1b302
+	call SinkInSand
 
 	farcall CheckFrontCollision
 	ld a, b
 	and a
 	ret nz
-	farcall Func_2b17a
+	farcall WalkFromInput
 
 	ld a, [wWalkVelIndex]
 	cp $04
@@ -2335,7 +2335,7 @@ Func_1b2c0:
 .asm_1b301
 	ret
 
-Func_1b302:
+SinkInSand:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -2350,7 +2350,7 @@ Func_1b302:
 	call MoveWarioDown
 	ret
 
-Func_1b322:
+HandleSandIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
@@ -2359,7 +2359,7 @@ Func_1b322:
 	jp nz, SetState_SandWalking
 	ret
 
-Func_1b333:
+HandleSandWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
@@ -2492,7 +2492,7 @@ HandleLadderInput:
 	farcall StartFall
 	ret
 
-Func_1b480:
+HandleLadderIdlingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jr z, .asm_1b48e

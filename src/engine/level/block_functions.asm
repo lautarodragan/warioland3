@@ -445,11 +445,11 @@ BlockFunc_Ladder:
 	ld [wLadderInteraction], a
 	jp Func_1808c
 
-BlockFunc_182dc:
+BlockFunc_SolidLadderTop:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
-	jr Func_182ec
+	jr LadderTopCollision
 
 BlockFunc_LadderTop:
 	ld a, [wBlockFuncWarioFlag]
@@ -457,7 +457,7 @@ BlockFunc_LadderTop:
 	jp z, BlockFunc_Floor
 ;	fallthrough
 
-Func_182ec:
+LadderTopCollision:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jr nz, .asm_182f6
@@ -1288,7 +1288,7 @@ BlockFunc_CrackedBlockWithColourCoin_7c:
 	jr CrackedBlockWithColourCoinCollision
 
 ; unreferenced
-Func_18a0f:
+BlockFunc_CrackedBlockWithColourCoin_7d:
 	ld b, $7d
 	jr CrackedBlockWithColourCoinCollision
 
@@ -1297,7 +1297,7 @@ BlockFunc_CrackedBlockWithColourCoin_7e:
 	jr CrackedBlockWithColourCoinCollision
 
 ; unreferenced
-Func_18a17:
+BlockFunc_CrackedBlockWithColourCoin_7f:
 	ld b, $7f
 ;	fallthrough
 
@@ -1369,20 +1369,20 @@ CrackedBlockWithColourCoinCollision:
 	jp c, BlockFunc_Solid
 	jp BlockFunc_Free
 
-Func_18a9a:
+BlockFunc_SnowballBlockRight_79:
 	ld b, $79
-	jr Func_18aa8
-Func_18a9e:
+	jr SnowballBlockRightCollision
+BlockFunc_SnowballBlockRight_7a:
 	ld b, $7a
-	jr Func_18aa8
-Func_18aa2:
+	jr SnowballBlockRightCollision
+BlockFunc_SnowballBlockRight_7b:
 	ld b, $7b
-	jr Func_18aa8
-BlockFunc_18aa6:
+	jr SnowballBlockRightCollision
+BlockFunc_SnowballBlockRight_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18aa8:
+SnowballBlockRightCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1400,25 +1400,25 @@ Func_18aa8:
 	jp c, BlockFunc_Solid ; not in snowball
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18ad6
 	or $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-Func_18ade:
+BlockFunc_SnowballBlockDown_79:
 	ld b, $79
-	jr Func_18aec
-Func_18ae2:
+	jr SnowballBlockDownCollision
+BlockFunc_SnowballBlockDown_7a:
 	ld b, $7a
-	jr Func_18aec
-Func_18ae6:
+	jr SnowballBlockDownCollision
+BlockFunc_SnowballBlockDown_7b:
 	ld b, $7b
-	jr Func_18aec
-BlockFunc_18aea:
+	jr SnowballBlockDownCollision
+BlockFunc_SnowballBlockDown_78:
 	ld b, $78
 ;	fallthrough
-Func_18aec:
+SnowballBlockDownCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1439,27 +1439,27 @@ Func_18aec:
 .asm_18b17
 	or $03
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18b1f:
+BlockFunc_SnowballBlockLeft_79:
 	ld b, $79
-	jr Func_18b2d
+	jr SnowballBlockLeftCollision
 
-BlockFunc_18b23:
+BlockFunc_SnowballBlockLeft_7a:
 	ld b, $7a
-	jr Func_18b2d
+	jr SnowballBlockLeftCollision
 
 ; unreferenced
-Func_18b27:
+BlockFunc_SnowballBlockLeft_7b:
 	ld b, $7b
-	jr Func_18b2d
+	jr SnowballBlockLeftCollision
 
-BlockFunc_18b2b:
+BlockFunc_SnowballBlockLeft_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18b2d:
+SnowballBlockLeftCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1477,31 +1477,31 @@ Func_18b2d:
 	jp c, BlockFunc_Solid ; not in snowball
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18b5b
 	or $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18b63:
+BlockFunc_SnowballBlockUp_79:
 	ld b, $79
-	jr Func_18b71
+	jr SnowballBlockUpCollision
 
-BlockFunc_18b67:
+BlockFunc_SnowballBlockUp_7a:
 	ld b, $7a
-	jr Func_18b71
+	jr SnowballBlockUpCollision
 
 ; unreferenced
-Func_18b6b:
+BlockFunc_SnowballBlockUp_7b:
 	ld b, $7b
-	jr Func_18b71
+	jr SnowballBlockUpCollision
 
-BlockFunc_18b6f:
+BlockFunc_SnowballBlockUp_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18b71:
+SnowballBlockUpCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1519,32 +1519,32 @@ Func_18b71:
 	jp c, BlockFunc_Solid ; not in snowball
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18b9f
 	or $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18ba7:
+BlockFunc_BigSnowballBlockRight_79:
 	ld b, $79
-	jr Func_18bb5
+	jr BigSnowballBlockRightCollision
 
 ; unreferenced
-Func_18bab:
+BlockFunc_BigSnowballBlockRight_7a:
 	ld b, $7a
-	jr Func_18bb5
+	jr BigSnowballBlockRightCollision
 
 ; unreferenced
-Func_18baf:
+BlockFunc_BigSnowballBlockRight_7b:
 	ld b, $7b
-	jr Func_18bb5
+	jr BigSnowballBlockRightCollision
 
-BlockFunc_18bb3:
+BlockFunc_BigSnowballBlockRight_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18bb5:
+BigSnowballBlockRightCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1562,32 +1562,32 @@ Func_18bb5:
 	jp nz, BlockFunc_Solid ; not big snowball
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18be3
 	or $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18beb:
+BlockFunc_BigSnowballBlockDown_79:
 	ld b, $79
-	jr Func_18bf9
+	jr BigSnowballBlockDownCollision
 
 ; unreferenced
-Func_18bef:
+BlockFunc_BigSnowballBlockDown_7a:
 	ld b, $7a
-	jr Func_18bf9
+	jr BigSnowballBlockDownCollision
 
 ; unreferenced
-Func_18bf3:
+BlockFunc_BigSnowballBlockDown_7b:
 	ld b, $7b
-	jr Func_18bf9
+	jr BigSnowballBlockDownCollision
 
-BlockFunc_18bf7:
+BlockFunc_BigSnowballBlockDown_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18bf9:
+BigSnowballBlockDownCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1608,27 +1608,27 @@ Func_18bf9:
 .asm_18c24
 	or $03
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18c2c:
+BlockFunc_BigSnowballBlockLeft_79:
 	ld b, $79
-	jr Func_18c3a
+	jr BigSnowballBlockLeftCollision
 
-BlockFunc_18c30:
+BlockFunc_BigSnowballBlockLeft_7a:
 	ld b, $7a
-	jr Func_18c3a
+	jr BigSnowballBlockLeftCollision
 
 ; unreferenced
-Func_18c34:
+BlockFunc_BigSnowballBlockLeft_7b:
 	ld b, $7b
-	jr Func_18c3a
+	jr BigSnowballBlockLeftCollision
 
-BlockFunc_18c38:
+BlockFunc_BigSnowballBlockLeft_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18c3a:
+BigSnowballBlockLeftCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1646,31 +1646,31 @@ Func_18c3a:
 	jp nz, BlockFunc_Solid ; not big snowball
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18c68
 	or $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 ; unreferenced
-Func_18c70:
+BlockFunc_BigSnowballBlockUp_79:
 	ld b, $79
-	jr Func_18c7e
+	jr BigSnowballBlockUpCollision
 
-BlockFunc_18c74:
+BlockFunc_BigSnowballBlockUp_7a:
 	ld b, $7a
-	jr Func_18c7e
+	jr BigSnowballBlockUpCollision
 
 ; unreferenced
-Func_18c78:
+BlockFunc_BigSnowballBlockUp_7b:
 	ld b, $7b
-	jr Func_18c7e
+	jr BigSnowballBlockUpCollision
 
-BlockFunc_18c7c:
+BlockFunc_BigSnowballBlockUp_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18c7e:
+BigSnowballBlockUpCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1688,11 +1688,11 @@ Func_18c7e:
 	jp nz, BlockFunc_Solid ; not big snowball
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18cac
 	or $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 BlockFunc_CrackedBlock_78:
 	ld b, $78
@@ -1857,22 +1857,22 @@ NonCrackedBlockCollision:
 .fat_wario
 	ld a, [wCollisionPoints]
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, Func_18df1
+	jr nz, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
 .asm_18dc1
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
-	jr nc, Func_18df1
+	jr nc, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
 .asm_18dcb
 	ld a, [wAttackCounter]
 	and a
-	jr nz, Func_18df1
+	jr nz, BreakBlock_SolidUnlessRolling
 	ld a, [wIsRolling]
 	and a
-	jr nz, Func_18df1
+	jr nz, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
 .asm_18dda
@@ -1881,13 +1881,13 @@ NonCrackedBlockCollision:
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, Func_18df1
+	jr nz, BreakBlock_SolidUnlessRolling
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, Func_18df1
+	jr nz, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
-Func_18df1:
+BreakBlock_SolidUnlessRolling:
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -1905,43 +1905,43 @@ Func_18df1:
 	jp nz, BlockFunc_Free
 	jp BlockFunc_Solid
 
-BlockFunc_18e0e:
+BlockFunc_LargeCrackedBlockRight_79:
 	ld b, $79
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
 ; unreferenced
-Func_18e12:
+BlockFunc_LargeCrackedBlockRight_7a:
 	ld b, $7a
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
 ; unreferenced
-Func_18e16:
+BlockFunc_LargeCrackedBlockRight_7b:
 	ld b, $7b
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
-BlockFunc_18e1a:
+BlockFunc_LargeCrackedBlockRight_7c:
 	ld b, $7c
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
 ; unreferenced
-Func_18e1e:
+BlockFunc_LargeCrackedBlockRight_7d:
 	ld b, $7d
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
 ; unreferenced
-Func_18e22:
+BlockFunc_LargeCrackedBlockRight_7e:
 	ld b, $7e
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
-BlockFunc_18e26:
+BlockFunc_LargeCrackedBlockRight_7f:
 	ld b, $7f
-	jr Func_18e2c
+	jr LargeCrackedBlockRightCollision
 
-BlockFunc_18e2a:
+BlockFunc_LargeCrackedBlockRight_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18e2c:
+LargeCrackedBlockRightCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -1988,54 +1988,54 @@ Func_18e2c:
 .asm_18e8a
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_19086
+	jp StartMultiBlockBreak_Wario
 .asm_18e92
 	or $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18e9a
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-BlockFunc_18ea2:
+BlockFunc_LargeCrackedBlockDown_79:
 	ld b, $79
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
 ; unreferenced
-Func_18ea6:
+BlockFunc_LargeCrackedBlockDown_7a:
 	ld b, $7a
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
 ; unreferenced
-Func_18eaa:
+BlockFunc_LargeCrackedBlockDown_7b:
 	ld b, $7b
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
-BlockFunc_18eae:
+BlockFunc_LargeCrackedBlockDown_7c:
 	ld b, $7c
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
 ; unreferenced
-Func_18eb2:
+BlockFunc_LargeCrackedBlockDown_7d:
 	ld b, $7d
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
 ; unreferenced
-Func_18eb6:
+BlockFunc_LargeCrackedBlockDown_7e:
 	ld b, $7e
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
 ; unreferenced
-Func_18eba:
+BlockFunc_LargeCrackedBlockDown_7f:
 	ld b, $7f
-	jr Func_18ec0
+	jr LargeCrackedBlockDownCollision
 
-BlockFunc_18ebe:
+BlockFunc_LargeCrackedBlockDown_78:
 	ld b, $78
 ;	fallthrough
 
-Func_18ec0:
+LargeCrackedBlockDownCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -2082,17 +2082,17 @@ Func_18ec0:
 .asm_18f1e
 	ld a, $03
 	ld [wMultiBlockParam], a
-	jp Func_19086
+	jp StartMultiBlockBreak_Wario
 .asm_18f26
 	or $03
 	ld [wMultiBlockParam], a
-	jr Func_18f32
+	jr StartMultiBlockBreak
 .asm_18f2d
 	ld a, $03
 	ld [wMultiBlockParam], a
 ;	fallthrough
 
-Func_18f32:
+StartMultiBlockBreak:
 	ld a, [wSRAMBank]
 	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
@@ -2118,45 +2118,45 @@ Func_18f32:
 	call BreakBlock
 	jp BlockFunc_Free
 
-BlockFunc_18f5f:
+BlockFunc_LargeCrackedBlockLeft_79:
 	ld b, $79
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
 ; unreferenced
-Func_18f63:
+BlockFunc_LargeCrackedBlockLeft_7a:
 	ld b, $7a
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
 ; unreferenced
-Func_18f67:
+BlockFunc_LargeCrackedBlockLeft_7b:
 	ld b, $7b
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
-BlockFunc_18f6b:
+BlockFunc_LargeCrackedBlockLeft_7c:
 	ld b, $7c
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
 ; unreferenced
-Func_18f6f:
+BlockFunc_LargeCrackedBlockLeft_7d:
 	ld b, $7d
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
 ; unreferenced
-Func_18f73:
+BlockFunc_LargeCrackedBlockLeft_7e:
 	ld b, $7e
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
 ; unreferenced
-Func_18f77:
+BlockFunc_LargeCrackedBlockLeft_7f:
 	ld b, $7f
-	jr Func_18f7d
+	jr LargeCrackedBlockLeftCollision
 
-BlockFunc_18f7b:
+BlockFunc_LargeCrackedBlockLeft_78:
 	ld b, $78
 ;	fallthrough
 
-; same as Func_19011 but outputs $02 in wMultiBlockParam
-Func_18f7d:
+; same as LargeCrackedBlockUpCollision but outputs $02 in wMultiBlockParam
+LargeCrackedBlockLeftCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -2203,54 +2203,54 @@ Func_18f7d:
 .asm_18fdb
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_19086
+	jp StartMultiBlockBreak_Wario
 .asm_18fe3
 	or $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_18feb
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-BlockFunc_18ff3:
+BlockFunc_LargeCrackedBlockUp_79:
 	ld b, $79
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
 ; unreferenced
-Func_18ff7:
+BlockFunc_LargeCrackedBlockUp_7a:
 	ld b, $7a
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
 ; unreferenced
-Func_18ffb:
+BlockFunc_LargeCrackedBlockUp_7b:
 	ld b, $7b
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
-BlockFunc_18fff:
+BlockFunc_LargeCrackedBlockUp_7c:
 	ld b, $7c
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
 ; unreferenced
-Func_19003:
+BlockFunc_LargeCrackedBlockUp_7d:
 	ld b, $7d
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
-BlockFunc_19007:
+BlockFunc_LargeCrackedBlockUp_7e:
 	ld b, $7e
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
 ; unreferenced
-Func_1900b:
+BlockFunc_LargeCrackedBlockUp_7f:
 	ld b, $7f
-	jr Func_19011
+	jr LargeCrackedBlockUpCollision
 
-BlockFunc_1900f:
+BlockFunc_LargeCrackedBlockUp_78:
 	ld b, $78
 ;	fallthrough
 
-; same as Func_18f7d but outputs $04 in wMultiBlockParam
-Func_19011:
+; same as LargeCrackedBlockLeftCollision but outputs $04 in wMultiBlockParam
+LargeCrackedBlockUpCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -2297,17 +2297,17 @@ Func_19011:
 .asm_1906f
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jr Func_19086
+	jr StartMultiBlockBreak_Wario
 .asm_19076
 	or $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_1907e
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-Func_19086:
+StartMultiBlockBreak_Wario:
 	ld a, [wSRAMBank]
 	ld [wMultiBlockOriginBank], a
 	ld hl, wBlockPtr
@@ -2353,43 +2353,43 @@ Func_19086:
 	jp BlockFunc_Free
 
 ; unreferenced
-Func_190e0:
+BlockFunc_LargeNonCrackedBlockRight_79:
 	ld b, $79
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
-BlockFunc_190e4:
+BlockFunc_LargeNonCrackedBlockRight_7a:
 	ld b, $7a
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
-BlockFunc_190e8:
+BlockFunc_LargeNonCrackedBlockRight_7b:
 	ld b, $7b
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
 ; unreferenced
-Func_190ec:
+BlockFunc_LargeNonCrackedBlockRight_7c:
 	ld b, $7c
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
 ; unreferenced
-Func_190f0:
+BlockFunc_LargeNonCrackedBlockRight_7d:
 	ld b, $7d
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
 ; unreferenced
-Func_190f4:
+BlockFunc_LargeNonCrackedBlockRight_7e:
 	ld b, $7e
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
 ; unreferenced
-Func_190f8:
+BlockFunc_LargeNonCrackedBlockRight_7f:
 	ld b, $7f
-	jr Func_190fe
+	jr LargeNonCrackedBlockRightCollision
 
-BlockFunc_190fc:
+BlockFunc_LargeNonCrackedBlockRight_78:
 	ld b, $78
 ;	fallthrough
 
-Func_190fe:
+LargeNonCrackedBlockRightCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Solid
@@ -2462,43 +2462,43 @@ Func_190fe:
 	jp Func_19246
 
 ; unreferenced
-Func_19195:
+BlockFunc_LargeNonCrackedBlockDown_79:
 	ld b, $79
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
-BlockFunc_19199:
+BlockFunc_LargeNonCrackedBlockDown_7a:
 	ld b, $7a
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
-BlockFunc_1919d:
+BlockFunc_LargeNonCrackedBlockDown_7b:
 	ld b, $7b
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
 ; unreferenced
-Func_191a1:
+BlockFunc_LargeNonCrackedBlockDown_7c:
 	ld b, $7c
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
 ; unreferenced
-Func_191a5:
+BlockFunc_LargeNonCrackedBlockDown_7d:
 	ld b, $7d
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
 ; unreferenced
-Func_191a9:
+BlockFunc_LargeNonCrackedBlockDown_7e:
 	ld b, $7e
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
 ; unreferenced
-Func_191ad:
+BlockFunc_LargeNonCrackedBlockDown_7f:
 	ld b, $7f
-	jr Func_191b3
+	jr LargeNonCrackedBlockDownCollision
 
-BlockFunc_191b1:
+BlockFunc_LargeNonCrackedBlockDown_78:
 	ld b, $78
 ;	fallthrough
 
-Func_191b3:
+LargeNonCrackedBlockDownCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Solid
@@ -2597,43 +2597,43 @@ Func_19246:
 	jp BlockFunc_Free
 
 ; unreferenced
-Func_19273:
+BlockFunc_LargeNonCrackedBlockLeft_79:
 	ld b, $79
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
-BlockFunc_19277:
+BlockFunc_LargeNonCrackedBlockLeft_7a:
 	ld b, $7a
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
-BlockFunc_1927b:
+BlockFunc_LargeNonCrackedBlockLeft_7b:
 	ld b, $7b
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
 ; unreferenced
-Func_1927f:
+BlockFunc_LargeNonCrackedBlockLeft_7c:
 	ld b, $7c
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
 ; unreferenced
-Func_19283:
+BlockFunc_LargeNonCrackedBlockLeft_7d:
 	ld b, $7d
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
 ; unreferenced
-Func_19287:
+BlockFunc_LargeNonCrackedBlockLeft_7e:
 	ld b, $7e
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
 ; unreferenced
-Func_1928b:
+BlockFunc_LargeNonCrackedBlockLeft_7f:
 	ld b, $7f
-	jr Func_19291
+	jr LargeNonCrackedBlockLeftCollision
 
-BlockFunc_1928f:
+BlockFunc_LargeNonCrackedBlockLeft_78:
 	ld b, $78
 ;	fallthrough
 
-Func_19291:
+LargeNonCrackedBlockLeftCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Solid
@@ -2706,43 +2706,43 @@ Func_19291:
 	jp Func_19246
 
 ; unreferenced
-Func_19328:
+BlockFunc_LargeNonCrackedBlockUp_79:
 	ld b, $79
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
-BlockFunc_1932c:
+BlockFunc_LargeNonCrackedBlockUp_7a:
 	ld b, $7a
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
-BlockFunc_19330:
+BlockFunc_LargeNonCrackedBlockUp_7b:
 	ld b, $7b
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
 ; unreferenced
-Func_19334:
+BlockFunc_LargeNonCrackedBlockUp_7c:
 	ld b, $7c
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
 ; unreferenced
-Func_19338:
+BlockFunc_LargeNonCrackedBlockUp_7d:
 	ld b, $7d
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
 ; unreferenced
-Func_1933c:
+BlockFunc_LargeNonCrackedBlockUp_7e:
 	ld b, $7e
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
 ; unreferenced
-Func_19340:
+BlockFunc_LargeNonCrackedBlockUp_7f:
 	ld b, $7f
-	jr Func_19346
+	jr LargeNonCrackedBlockUpCollision
 
-BlockFunc_19344:
+BlockFunc_LargeNonCrackedBlockUp_78:
 	ld b, $78
 ;	fallthrough
 
-Func_19346:
+LargeNonCrackedBlockUpCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Solid
@@ -2828,7 +2828,7 @@ Func_193dc:
 	ld [wUnused_cedf], a
 	ld a, TRUE
 	ld [wIsFloorTransition], a
-	jp Func_18df1
+	jp BreakBlock_SolidUnlessRolling
 
 BlockFunc_EnemyBlock_78:
 	ld b, $78
@@ -2918,7 +2918,7 @@ BlockFunc_BonfireBlock_7e:
 	jr BonfireBlockCollision
 
 ; unreferenced
-Func_19467:
+BlockFunc_BonfireBlock_7f:
 	ld b, $7f
 ;	fallthrough
 
@@ -2967,22 +2967,22 @@ BlockFunc_DoughnutBlock_7b:
 	jr DoughnutBlockCollision
 
 ; unreferenced
-Func_194a7:
+BlockFunc_DoughnutBlock_7c:
 	ld b, $7c
 	jr DoughnutBlockCollision
 
 ; unreferenced
-Func_194ab:
+BlockFunc_DoughnutBlock_7d:
 	ld b, $7d
 	jr DoughnutBlockCollision
 
 ; unreferenced
-Func_194af:
+BlockFunc_DoughnutBlock_7e:
 	ld b, $7e
 	jr DoughnutBlockCollision
 
 ; unreferenced
-Func_194b3:
+BlockFunc_DoughnutBlock_7f:
 	ld b, $7f
 ;	fallthrough
 
@@ -3013,46 +3013,46 @@ DoughnutBlockCollision:
 	jp BlockFunc_Solid
 
 ; unreferenced
-Func_194e4:
+BlockFunc_SmallYarnBlock_78:
 	ld b, $78
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194e8:
+BlockFunc_SmallYarnBlock_79:
 	ld b, $79
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194ec:
+BlockFunc_SmallYarnBlock_7a:
 	ld b, $7a
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194f0:
+BlockFunc_SmallYarnBlock_7b:
 	ld b, $7b
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194f4:
+BlockFunc_SmallYarnBlock_7c:
 	ld b, $7c
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194f8:
+BlockFunc_SmallYarnBlock_7d:
 	ld b, $7d
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_194fc:
+BlockFunc_SmallYarnBlock_7e:
 	ld b, $7e
-	jr Func_19502
+	jr SmallYarnBlockCollision
 
 ; unreferenced
-Func_19500:
+BlockFunc_SmallYarnBlock_7f:
 	ld b, $7f
 ;	fallthrough
 
-Func_19502:
+SmallYarnBlockCollision:
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -3062,24 +3062,24 @@ Func_19502:
 	jp BlockFunc_Solid
 
 ; unreferenced
-Func_19514:
+BlockFunc_YarnBlockRight_79:
 	ld b, $79
-	jr Func_19522
+	jr YarnBlockRightCollision
 
-BlockFunc_19518:
+BlockFunc_YarnBlockRight_7a:
 	ld b, $7a
-	jr Func_19522
+	jr YarnBlockRightCollision
 
 ; unreferenced
-Func_1951c:
+BlockFunc_YarnBlockRight_7b:
 	ld b, $7b
-	jr Func_19522
+	jr YarnBlockRightCollision
 
-BlockFunc_19520:
+BlockFunc_YarnBlockRight_78:
 	ld b, $78
 ;	fallthrough
 
-Func_19522:
+YarnBlockRightCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -3096,30 +3096,30 @@ Func_19522:
 .asm_19542
 	ld a, $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_1954a
 	or $01
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-BlockFunc_19552:
+BlockFunc_YarnBlockDown_79:
 	ld b, $79
-	jr Func_19560
+	jr YarnBlockDownCollision
 
-BlockFunc_19556:
+BlockFunc_YarnBlockDown_7a:
 	ld b, $7a
-	jr Func_19560
+	jr YarnBlockDownCollision
 
 ; unreferenced
-Func_1955a:
+BlockFunc_YarnBlockDown_7b:
 	ld b, $7b
-	jr Func_19560
+	jr YarnBlockDownCollision
 
-BlockFunc_1955e:
+BlockFunc_YarnBlockDown_78:
 	ld b, $78
 ;	fallthrough
 
-Func_19560:
+YarnBlockDownCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -3139,27 +3139,27 @@ Func_19560:
 .asm_19585
 	or $03
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
-BlockFunc_1958d:
+BlockFunc_YarnBlockLeft_79:
 	ld b, $79
-	jr Func_1959b
+	jr YarnBlockLeftCollision
 
 ; unreferenced
-Func_19591:
+BlockFunc_YarnBlockLeft_7a:
 	ld b, $7a
-	jr Func_1959b
+	jr YarnBlockLeftCollision
 
 ; unreferenced
-Func_19595:
+BlockFunc_YarnBlockLeft_7b:
 	ld b, $7b
-	jr Func_1959b
+	jr YarnBlockLeftCollision
 
-BlockFunc_19599:
+BlockFunc_YarnBlockLeft_78:
 	ld b, $78
 ;	fallthrough
 
-Func_1959b:
+YarnBlockLeftCollision:
 	ld a, [wMultiBlockParam]
 	and $07
 	jp nz, BlockFunc_Free
@@ -3176,23 +3176,23 @@ Func_1959b:
 .asm_195bb
 	ld a, $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_195c3
 	or $02
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 BlockFunc_YarnBlock_79:
 	ld b, $79
 	jr YarnBlockCollision
 
 ; unreferenced
-Func_195cf:
+BlockFunc_YarnBlock_7a:
 	ld b, $7a
 	jr YarnBlockCollision
 
 ; unreferenced
-Func_195d3:
+BlockFunc_YarnBlock_7b:
 	ld b, $7b
 	jr YarnBlockCollision
 
@@ -3217,11 +3217,11 @@ YarnBlockCollision:
 .asm_195f9
 	ld a, $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 .asm_19601
 	or $04
 	ld [wMultiBlockParam], a
-	jp Func_18f32
+	jp StartMultiBlockBreak
 
 BreakBlock:
 	; temporarily store hPos
