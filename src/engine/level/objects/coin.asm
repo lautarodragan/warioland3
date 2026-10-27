@@ -717,8 +717,8 @@ CoinFunc:
 .State15:
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, $40
-	add $40
+	ld b, HIGH(DropYVel_Light)
+	add LOW(DropYVel_Light)
 	ld c, a
 	ld a, [bc]
 	cp $80

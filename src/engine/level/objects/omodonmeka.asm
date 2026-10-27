@@ -906,8 +906,8 @@ OmodonmekaWithOmodonFunc:
 ApplyOmodonHoverBob:
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(OmodonmekaData_40000)
-	add LOW(OmodonmekaData_40000)
+	ld b, HIGH(OmodonHoverBobYOffsets)
+	add LOW(OmodonHoverBobYOffsets)
 	ld c, a
 	ld a, [bc]
 	cp $80

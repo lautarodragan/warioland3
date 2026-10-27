@@ -200,8 +200,8 @@ BubbleFunc:
 .asm_47d38
 	ld hl, wCurObjVar2
 	ld a, [hl]
-	ld b, $40
-	add $20
+	ld b, HIGH(BubbleDriftLeftX)
+	add LOW(BubbleDriftLeftX)
 	ld c, a
 	ld a, [bc]
 	cp $80
@@ -263,8 +263,8 @@ BubbleFunc:
 .asm_47d95
 	ld hl, wCurObjVar2
 	ld a, [hl]
-	ld b, $40
-	add $50
+	ld b, HIGH(BubbleDriftRightX)
+	add LOW(BubbleDriftRightX)
 	ld c, a
 	ld a, [bc]
 	cp $80

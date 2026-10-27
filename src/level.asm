@@ -66,7 +66,7 @@ INCLUDE "engine/level/wario_states_3.asm"
 SECTION "Object Functions 1", ROMX
 
 ; sequence of y-offsets used in ApplyOmodonHoverBob
-OmodonmekaData_40000:
+OmodonHoverBobYOffsets:
 	db  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
 INCLUDE "engine/level/objects/spearhead.asm"
@@ -93,10 +93,10 @@ SECTION "Object Functions 2", ROMX
 PneumoData_44000:
 	db  0,  0,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
-Data_44020:
+BubbleDriftLeftX:
 	db  0,  0,  0,  0,  0,  0,  0, -1,  0,  0, -1,  0, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0,  0, -1,  0,  0, $80
 
-Data_44050:
+BubbleDriftRightX:
 	db 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, $80
 
 INCLUDE "engine/level/objects/prince_froggy.asm"
