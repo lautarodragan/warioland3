@@ -1,6 +1,6 @@
 """Debug menu (SELECT during a level), inputs only.
 
-GOLF is left out: it reloads the room and is known to soft-lock sometimes.
+GOLF has its own tests, in test_debug_menu_golf.py.
 """
 
 from game import ST_DEBUG_MENU, ST_LEVEL
@@ -8,6 +8,7 @@ from game import ST_DEBUG_MENU, ST_LEVEL
 # Debug menu rows, top to bottom (wDebugMenuCursor)
 CURSOR_FORM = 0
 CURSOR_POWER = 1
+CURSOR_GOLF = 2
 CURSOR_TREASURE = 4
 
 # src/constants/treasure_constants.asm
