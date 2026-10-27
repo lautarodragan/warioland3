@@ -135,3 +135,4 @@ GKTortoisePlatformData:    object_data GK_TORTOISE_PLATFORM,    OAM_196583, OBJ_
 WallCrackClosedData:       object_data WALL_CRACK_CLOSED,       OAM_18c806, OBJ_INTERACTION_0B,                           0, WallCrackClosedFunc,       $0
 WallCrackOpenData:         object_data WALL_CRACK_OPEN,         OAM_18c806, OBJ_INTERACTION_0B,                           0, WallCrackOpenFunc,         $0
 HiddenFigureData:          object_data HIDDEN_FIGURE,           OAM_18c88a, OBJ_INTERACTION_0B,                           0, HiddenFigureFunc,          $0
+RefusedObjectData:         object_data DUMMY_OBJECT,            OAM_18007b, OBJ_INTERACTION_00,                           0, RefusedObjectFunc,         $0

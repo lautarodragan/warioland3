@@ -68,6 +68,7 @@ DrawWario::
 RelocateOwlSprites::
 	ld h, HIGH(wVirtualOAM)
 	ld a, [wOwlTileOffset]
+	and OWL_SLOT_MASK
 	ld d, a
 	rlca
 	rlca
@@ -101,6 +102,86 @@ RelocateOwlSprites::
 .next
 	inc l
 	jr .loop
+
+; Adds to b the enemy graphics slots (bit n for slot n + 1) that the
+; current frame of an object draws from (its VRAM1 sprites), going through
+; its OAM data like UpdateObjSprite.
+; input:
+; - hl = OBJ_ID of the object (WRAM bank "Level Objects WRAM")
+GetObjFrameSlots::
+	ld a, l
+	add OBJ_FRAME - OBJ_ID
+	ld e, a
+	ld d, h
+	ld a, [de] ; OBJ_FRAME
+	add a ; *2
+	ld c, a
+	inc e
+	ld a, [de] ; OBJ_OAM_PTR
+	push af
+	inc e
+	ld a, [de]
+	ld d, a
+	ld a, [hl] ; OBJ_ID
+	ld h, d
+	pop de
+	ld l, d
+	ld e, c
+;	fallthrough
+
+; Adds to b the enemy graphics slots (bit n for slot n + 1) that a frame of
+; an object's OAM data draws from.
+; input:
+; - a = object ID (which picks the OAM data's bank)
+; - hl = OAM data
+; - e = frame * 2
+GetOAMFrameSlots::
+	push af
+	ld a, [wROMBank]
+	ld c, a
+	pop af
+	push bc
+	swap a
+	and %111
+	or BANK("Objects OAM 1")
+	bankswitch
+	ld d, $00
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop bc
+	ld a, c
+	push af ; ROM bank
+.loop
+	ld a, [hli] ; y
+	cp $80
+	jr z, .done
+	inc hl ; x
+	ld a, [hli] ; tile
+	ld c, a
+	ld a, [hli] ; attributes
+	bit B_OAM_BANK1, a
+	jr z, .loop
+	ld a, c
+	rlca
+	rlca
+	and %11
+	inc a
+	ld c, a ; slot
+	xor a
+	scf
+.shift
+	rla
+	dec c
+	jr nz, .shift
+	or b
+	ld b, a
+	jr .loop
+.done
+	pop af
+	bankswitch
+	ret
 
 ; hl = OAM data pointer
 ; given an OAM pointer and a frame index in wCurSpriteFrame

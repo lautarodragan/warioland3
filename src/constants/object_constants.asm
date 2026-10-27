@@ -686,3 +686,17 @@ DEF no_actions_for EQUS "(1 << NO_ACTIONS_F) |"
 DEF NUM_OBJECT_GROUPS EQU const_value
 	const_def 240
 	const OBJECT_GROUP_HIDDEN_FIGURE ; $f0
+
+; wOwlTileOffset: where the debug menu's owl has its graphics
+DEF OWL_SLOT_MASK         EQU %11000000 ; tile offset of the enemy graphics slot
+DEF OWL_SLOT_BORROWED_F   EQU 0 ; the slot belongs to one of the room's enemies
+DEF OWL_SLOT_BORROWED     EQU 1 << OWL_SLOT_BORROWED_F
+
+; wOwlSlotRestore, while OWL_SLOT_BORROWED is set
+DEF OWL_SLOT_SAVE_PENDING_F EQU 7 ; the slot's own graphics aren't saved yet
+DEF OWL_SLOT_SAVE_PENDING   EQU 1 << OWL_SLOT_SAVE_PENDING_F
+; the rest counts the slot's chunks given back: 0 while the owl is around,
+; then 1 + the chunk the next V-Blank copies
+DEF OWL_SLOT_RESTORE_MASK   EQU %00000111
+DEF OWL_SLOT_CHUNK_SIZE     EQU $100 ; bytes copied in one V-Blank
+DEF OWL_SLOT_NUM_CHUNKS     EQU ($40 tiles) / OWL_SLOT_CHUNK_SIZE

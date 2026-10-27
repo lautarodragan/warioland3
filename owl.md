@@ -179,18 +179,14 @@ debug menu) when Wario is Owl Wario and the group has no owl. In rooms whose
 group has the owl (all the ones a real owl is grabbed in, at least), it does
 nothing.
 
-### Trade-off (now only when every slot is taken)
+### Rooms that use all four slots
 
-Slot 1 and palette 4 belong to one of the room's own enemies (a spearhead in
-the room below The Steep Canyon's cracked column), which draws with the
-owl's tiles while they're loaded. After a
-spawn, the next room change fixes it, and the spawned owl is gone by then.
-After flying into a room, it lasts until the room is reloaded. Hitting that
-enemy releases the owl as usual.
-
-That's now only the fallback, for rooms whose object group uses all four
-enemy graphics slots (like the room below the cracked column, or Out of the
-Woods' start room). Otherwise the owl goes into a slot the room doesn't use:
+Slot 1 and palette 4 used to be simply taken from one of the room's own
+enemies (a spearhead in the room below The Steep Canyon's cracked column),
+which drew with the owl's tiles until the room was reloaded. Now the owl
+goes into a slot the room doesn't use if there is one (next section), and
+otherwise borrows one and gives it back
+([Borrowing a slot](#borrowing-a-slot-when-all-four-are-used)).
 
 ### Using a free enemy graphics slot
 
@@ -228,7 +224,7 @@ slot free.
 **Design.** `wOwlTileOffset` (WRAM0) says where the owl's graphics are, as a
 tile offset: `$00` for slot 1 / palette 4 (the default, and always the case
 in rooms whose group has the owl), `$40`/`$80`/`$c0` for slots 2-4 / palettes
-5-7. `LoadObjectGroupData` resets it to `$00` on every room load. It's set
+5-7 (plus a flag for a borrowed slot, see below). `LoadObjectGroupData` resets it to `$00` on every room load. It's set
 by `_DebugSpawnOwlFromROM` (after a spawn in a room without the owl) and by
 `LoadOwlGfxForOwlWario` (Owl Wario flying into such a room), and
 `LoadOwlGfx` loads the owl's graphics and palette at that offset.
@@ -269,9 +265,157 @@ start room (group 023: spearheads in slot 1, hands in slot 3, slots 2 and 4
 free) and checks that the owl's tiles land in slot 2 with slot 1 untouched,
 that the sprites on screen draw the owl from slot 2 in palette 5 and the
 spearhead from slot 1 in palette 4, through the spawn, the grab, the flight
-to a spearhead and letting go; plus the fallback in Out of the Woods. The
-Steep Canyon tests cover both cases: its start room leaves slot 2 free, the
-room below the cracked column uses all four slots.
+to a spearhead and letting go; plus borrowing a slot in Out of the Woods
+(below). The Steep Canyon tests cover both cases: its start room leaves slot
+2 free, the room below the cracked column uses all four slots.
+
+### Borrowing a slot when all four are used
+
+40 of the 118 object groups use all four enemy graphics slots (Out of the
+Woods' start room, the room below The Steep Canyon's cracked column, The
+Stagnant Swamp's zip line room...). There the owl's graphics have to go over
+some enemy's. Before this, slot 1's enemy drew with the owl's tiles (and
+palette) from the spawn until the next room load: during the flight, and
+after the owl was gone.
+
+**What was measured.** Frame by frame, on the build before this and this
+one (a throwaway script over the test routes, not committed): a "glitch
+frame" is one where an active object other than the owl, flagged on screen
+(`OBJFLAG_ON_SCREEN`), has a current frame drawing VRAM1 tiles from a slot
+that holds the owl's tiles; "visible" when its screen position is also
+inside the screen.
+
+| Route (Out of the Woods' start room) | before | after |
+|---|---|---|
+| `test_debug_owl_floor_transitions`, then 600 frames walking after letting go (1631 frames) | 457 glitch frames, 6 visible | 0 |
+| the old fallback test's grab, a flight, letting go, 300 frames walking (844 frames) | 403, 183 visible (the spearhead) | 0 |
+
+The owl's tiles stay loaded for the whole of both routes before; now they're
+gone about 40 frames after the owl flies off (1028 and 466 frames).
+
+**Options looked at.**
+
+- *Free tiles elsewhere: no.* The owl's object OAM (`OAM_188e16`) uses all 32
+  8x16 tile pairs of its slot (64 tiles), Owl Wario's frames (`OAM_1fddb4`)
+  25 pairs (50 tiles: `$08`-`$09` and `$10`-`$3f`), the released owl
+  (`OAM_d763`) 6 pairs. Sprites can only use `$8000`-`$8fff` of either VRAM
+  bank. VRAM0 `$8000`-`$87ff` is Wario's: `LoadWarioGfx` DMAs all 128 tiles
+  on every form change, and Owl Wario's own tiles go up to `$58`. VRAM0
+  `$8800`-`$8fff` is `LevelsCommonGfx` (HUD, particles, coins; it's also the
+  background's tiles `$80`-`$ff`), 114 of its 128 tiles drawn. VRAM1
+  `$8000`-`$8fff` is the four slots. There's no range of 50 free tiles, let
+  alone 64.
+- *Borrow a slot nothing active draws from: yes.* `SetOwlTileOffset` looks
+  at every active object's current frame (`GetObjFrameSlots`, home bank: the
+  object's OAM data, in the bank its ID picks, as `UpdateObjSprite` reads
+  it) and takes the first slot none draws from, or slot 1. A first version
+  went by the group's object list instead (entry n is slot n's object: a
+  slot was idle if no active object had that entry's ID). That's wrong for
+  groups like The Stagnant Swamp's zip lines (group 033, five zip line
+  entries in a group whose graphics are RoboMouse's and Spear-Bot's), where
+  it took the zip lines' own slot and they drew as owl pieces
+  (`test_debug_owl_at_night_without_owl` caught it). In Out of the Woods'
+  start room the spearhead (slot 1) is active when the owl is spawned, so it
+  goes into slot 2, the Applebys'. When Owl Wario flies into such a room
+  nothing is active yet, so it's slot 1, as before.
+- *An enemy of that slot spawning while the owl is around: refused (put
+  off).* Choosing a slot alone only moves the problem: in Out of the Woods the
+  glitch went from the spearhead to an Appleby that came into view on the
+  second floor (573 glitch frames instead of 457 on the first route).
+  Putting such spawns off costs nothing when there's no owl:
+  `RefuseBorrowedSlotObjects` replaces the slot's objects' entries in
+  `wObjDataPtr01`-`13` (those whose first frame draws from the slot) with
+  `RefusedObjectData`, whose update function despawns it before it's drawn
+  and leaves it in the object map (`DespawnObject`), like an object that went
+  offscreen. Once the owl is gone the entries are put back
+  (`wOwlSlotObjDataBackup`, in an unused part of WRAM bank 1), and those
+  objects spawn again as Wario comes across them, the way the game spawns
+  everything. Accepting the glitch was the alternative; refusing means one
+  kind of enemy is missing while the debug owl is around, which seems the
+  better deal for a cheat. A check in `SpawnObject` would have cost cycles in
+  every spawn of the original game. Objects already active keep the slot's
+  tiles until they go, which is why the slot choice prefers an idle slot.
+  Bosses (the menu refuses the owl in boss battles) keep spawning their
+  parts.
+- *Give the slot back once the owl is gone: yes.* "Gone" is: no active owl
+  object, Wario isn't Owl Wario, and no owl particle (the released owl flying
+  off). `LoadOwlGfx` saves the slot's 64 tiles and its palette
+  (`wOwlSlotTilesBackup`, an unused part of WRAM bank 3) before loading the
+  owl's, while the LCD is off anyway. Giving them back happens with the LCD
+  on: the level's V-Blank function is redirected to
+  `OwlSlotRestoreVBlankFunc` (home bank, in the same page as
+  `LevelVBlankFunc`, so that only the low byte of the jump in `wVBlankFunc`
+  changes and a V-Blank can't catch it half written), which copies 256 bytes
+  per V-Blank with a general purpose DMA (four V-Blanks), then the palette,
+  clears `wOwlTileOffset` and puts the jump back. Why 256 bytes: V-Blank is
+  4560 dots; a GDMA takes 32 dots per 16 bytes (512 for 256 bytes), and the
+  level's own V-Blank work can take about 2600 dots (OAM DMA, and up to 52
+  background tiles per VRAM bank from its tile queue, about 22 dots each in
+  double speed). 1 KB at once (2048 dots) could overrun V-Blank with a full
+  queue; Wario's own 2 KB DMA skips the queue that frame, which isn't an
+  option here. If Wario's graphics are pending (`wIsDMATransferPending`),
+  the chunk waits for the next V-Blank. Decompressing the slot's graphics
+  again instead of saving them would need the buffer anyway, plus a frame's
+  worth of CPU right then.
+
+**How the state is kept.** `wOwlTileOffset` gets a flag, `OWL_SLOT_BORROWED`
+(bit 0: a borrowed slot 1 reads `$01`, so the existing `wOwlTileOffset != 0`
+checks in the draw loops take the owl's path, and there's no new check where
+there's no owl; `RelocateOwlSprites` and `LoadOwlGfx` mask it off).
+`wOwlSlotRestore` (WRAM0, from the padding after `wOwlCameraDisplaced`) has
+`OWL_SLOT_SAVE_PENDING` until `LoadOwlGfx` has saved the slot, and the count
+of chunks given back. `LoadObjectGroupData` already clears `wOwlTileOffset`
+on every room load, which ends a borrow (the new room's graphics and object
+data are loaded anyway); the redirected V-Blank function checks the flag and
+puts the jump back by itself. `UpdateBorrowedOwlSlot` (Update Objects bank)
+runs once a frame from `DrawObjects_NoPriority`'s owl path: it sees the owl
+go, starts giving the slot back, and redirects the V-Blank function again
+after a menu or the pause menu (they install their own, then
+`LevelVBlankFunc` again, and back up and restore VRAM, so the chunks copied
+so far survive). A new owl spawned while the slot is being given back takes
+it over (`SetOwlTileOffset`): same slot, its objects refused again, the
+backup kept, and `LoadOwlGfx` writes the owl's tiles over what was copied
+back.
+
+**Cost.** Nothing is added where there's no debug owl: the new code runs only
+behind the existing `wOwlTileOffset` checks or from the debug menu's owl
+paths. About 570 bytes of ROM (212 in the home bank), 1 byte of WRAM0, and
+$426 bytes in unused parts of WRAM banks 1 and 3 (no code addresses them,
+and they stay empty through a playthrough of Out of the Woods). While a slot
+is borrowed, about 150 cycles a frame for the "gone" check; at the end, a
+512 dot DMA in four V-Blanks.
+
+**Timing.** Some of the new work happens with the LCD off (the menu's exit
+draws the level's objects once, `LoadOwlGfx` saves 1 KB), which moves the
+frame timing against `DIV` after a debug owl spawn, even into a free slot:
+in `test_steep_canyon_debug_owl_to_next_room`, `DIV` reads one higher at the
+same frame from the menu's exit on, so a coin comes out where it didn't
+(`steep_canyon_column_debug_owl_grabbed`), and loading the room below the
+column, with the slot saved, takes a frame longer (Owl Wario is a frame
+behind in `steep_canyon_debug_owl_next_room`). Tests without a debug owl
+are unchanged.
+
+**Tests.** In `tests/test_owl_free_slot.py`:
+`test_debug_owl_borrows_an_idle_slot` (Out of the Woods: slot 2 borrowed
+because the spearhead is active, Applebys refused, the owl drawn from slot
+2, and after letting go every slot's tiles, palettes 4-7, `wObjDataPtr01`-`13`
+and the V-Blank jump exactly as the room loaded them),
+`test_owl_slot_given_back_after_select` (SELECT turns Owl Wario back into
+Wario, with no owl flying off), `test_owl_slot_given_back_across_the_menu`
+(the debug menu opened halfway through giving it back) and
+`test_new_owl_takes_the_slot_over` (a new owl spawned then, grabbed and let
+go). `test_debug_owl_floor_transitions` checks that the Appleby on the
+second floor isn't spawned while Owl Wario is up there (and that the
+spearhead at the bottom right is drawn right, where it was owl pieces), and
+that the slot's given back after he lets go;
+`test_steep_canyon_debug_owl_to_next_room` that the room below the cracked
+column lends slot 1 and refuses its spearheads.
+
+**Left as it is.** Objects active when the owl borrows a slot they draw
+from (all four slots in use by active objects: slot 1) keep the owl's tiles
+until they go; objects that other objects spawn (projectiles) aren't
+refused; and the enemies on screen when Owl Wario flies into such a room
+are refused at once and only come back when Wario passes their spot again.
 
 ### Any level
 
