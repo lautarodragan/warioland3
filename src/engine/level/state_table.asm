@@ -2,12 +2,12 @@ _LevelStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitLevel
 	dw SlowFadeFromWhite
 	dw UpdateLevel
 	dw DoorTransition
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw StartRoom_FromTransition
 
 	dw ProcessMultiBlock ; SST_LEVEL_MULTI_BLOCK

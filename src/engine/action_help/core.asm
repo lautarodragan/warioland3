@@ -59,7 +59,7 @@ InitActionHelp:
 	farcall LoadActionHelpPowerUpPals
 	farcall LoadActionHelpGfx
 	farcall LoadActionHelpBGMaps
-	call VBlank_1fb6b7
+	call VBlank_ActionHelp
 
 	xor a
 	ldh [rSCX], a
@@ -206,7 +206,7 @@ UpdateActionHelp:
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_TITLE_SCREEN | ACTION_HELP_LEVEL_CLEAR
 	jr nz, .asm_1f81d9
-	call Func_1fb6f7
+	call HandleActionHelpPowerUpSelection
 .asm_1f81d9
 	call ExecuteMainPowerUpActionHelp
 

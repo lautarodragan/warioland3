@@ -44,27 +44,27 @@ SuperJumpSlamOverallsActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1fa4e5
-	dw Func_1fa526
-	dw Func_1fa54c
+	dw SuperJumpSlamOverallsActionHelp_WaitToStart
+	dw SuperJumpSlamOverallsActionHelp_Step02
+	dw SuperJumpSlamOverallsActionHelp_Step03
 	dw ActionHelp_FlashDDownInput
-	dw Func_1fa574
-	dw Func_1fa5a8
-	dw Func_1fa602
-	dw Func_1fa653
-	dw Func_1fa698
-	dw Func_1fa6bf
-	dw Func_1fa6d2
-	dw Func_1fa6ed
-	dw Func_1fa735
-	dw Func_1fa745
-	dw Func_1fa76e
-	dw Func_1fa796
-	dw Func_1fa7d0
-	dw Func_1fa80b
-	dw Func_1fa837
+	dw SuperJumpSlamOverallsActionHelp_Step05
+	dw SuperJumpSlamOverallsActionHelp_Step06
+	dw SuperJumpSlamOverallsActionHelp_Step07
+	dw SuperJumpSlamOverallsActionHelp_Step08
+	dw SuperJumpSlamOverallsActionHelp_Step09
+	dw SuperJumpSlamOverallsActionHelp_Step0A
+	dw SuperJumpSlamOverallsActionHelp_Step0B
+	dw SuperJumpSlamOverallsActionHelp_Step0C
+	dw SuperJumpSlamOverallsActionHelp_Step0D
+	dw SuperJumpSlamOverallsActionHelp_Step0E
+	dw SuperJumpSlamOverallsActionHelp_Step0F
+	dw SuperJumpSlamOverallsActionHelp_Step10
+	dw SuperJumpSlamOverallsActionHelp_Step11
+	dw SuperJumpSlamOverallsActionHelp_Step12
+	dw SuperJumpSlamOverallsActionHelp_Step13
 
-Func_1fa4b2:
+SuperJumpSlamOverallsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1fa4c0
@@ -74,7 +74,7 @@ Func_1fa4b2:
 .asm_1fa4c0
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -83,13 +83,13 @@ Func_1fa4b2:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1fa4ea
+	jr SuperJumpSlamOverallsActionHelp_Start
 
-Func_1fa4e5:
+SuperJumpSlamOverallsActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1fa4ea:
+SuperJumpSlamOverallsActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowParaGoomWalk
@@ -123,7 +123,7 @@ Func_1fa4ea:
 	inc [hl]
 	ret
 
-Func_1fa526:
+SuperJumpSlamOverallsActionHelp_Step02:
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld a, [hl]
@@ -148,7 +148,7 @@ Func_1fa526:
 	inc [hl]
 	ret
 
-Func_1fa54c:
+SuperJumpSlamOverallsActionHelp_Step03:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -172,7 +172,7 @@ Func_1fa54c:
 	inc [hl]
 	ret
 
-Func_1fa574:
+SuperJumpSlamOverallsActionHelp_Step05:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld hl, wActionHelpWarioVar
@@ -200,7 +200,7 @@ Func_1fa574:
 	inc [hl]
 	ret
 
-Func_1fa5a8:
+SuperJumpSlamOverallsActionHelp_Step06:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -258,7 +258,7 @@ Func_1fa5a8:
 	inc [hl]
 	ret
 
-Func_1fa602:
+SuperJumpSlamOverallsActionHelp_Step07:
 	ld a, [wMenuObj5XCoord]
 	cp $40
 	jr z, .asm_1fa624
@@ -301,7 +301,7 @@ Func_1fa602:
 	inc [hl]
 	ret
 
-Func_1fa653:
+SuperJumpSlamOverallsActionHelp_Step08:
 	ld hl, wMenuObj4XCoord
 	ld a, [hl]
 	cp $40
@@ -340,7 +340,7 @@ Func_1fa653:
 	inc [hl]
 	ret
 
-Func_1fa698:
+SuperJumpSlamOverallsActionHelp_Step09:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -364,7 +364,7 @@ Func_1fa698:
 	inc [hl]
 	ret
 
-Func_1fa6bf:
+SuperJumpSlamOverallsActionHelp_Step0A:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
 	ret z
@@ -377,7 +377,7 @@ Func_1fa6bf:
 	inc [hl]
 	ret
 
-Func_1fa6d2:
+SuperJumpSlamOverallsActionHelp_Step0B:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -396,7 +396,7 @@ Func_1fa6d2:
 	inc [hl]
 	ret
 
-Func_1fa6ed:
+SuperJumpSlamOverallsActionHelp_Step0C:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -437,7 +437,7 @@ Func_1fa6ed:
 	inc [hl]
 	ret
 
-Func_1fa735:
+SuperJumpSlamOverallsActionHelp_Step0D:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -449,7 +449,7 @@ Func_1fa735:
 	inc [hl]
 	ret
 
-Func_1fa745:
+SuperJumpSlamOverallsActionHelp_Step0E:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -473,7 +473,7 @@ Func_1fa745:
 	inc [hl]
 	ret
 
-Func_1fa76e:
+SuperJumpSlamOverallsActionHelp_Step0F:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -497,7 +497,7 @@ Func_1fa76e:
 	inc [hl]
 	ret
 
-Func_1fa796:
+SuperJumpSlamOverallsActionHelp_Step10:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -530,7 +530,7 @@ Func_1fa796:
 	inc [hl]
 	ret
 
-Func_1fa7d0:
+SuperJumpSlamOverallsActionHelp_Step11:
 	ld a, [wMenuObj5AnimationEnded]
 	and a
 	jr z, .asm_1fa7d9
@@ -569,7 +569,7 @@ Func_1fa7d0:
 	inc [hl]
 	ret
 
-Func_1fa80b:
+SuperJumpSlamOverallsActionHelp_Step12:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -594,8 +594,8 @@ Func_1fa80b:
 	inc [hl]
 	ret
 
-Func_1fa837:
+SuperJumpSlamOverallsActionHelp_Step13:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-	jp Func_1fa4b2
+	jp SuperJumpSlamOverallsActionHelp_End

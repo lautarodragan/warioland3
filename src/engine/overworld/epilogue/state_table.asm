@@ -9,9 +9,9 @@ EpilogueStateTable:
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
-	call FastFadeToWhite
+	call SlowFadeToWhite
 	ret
 
 .Func_473c:
-	farcall Func_4628
+	farcall ReturnToOverworld
 	ret

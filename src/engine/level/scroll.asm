@@ -20,7 +20,7 @@ GetNextLevelRoomID:
 	ld [wLevelRoomID], a
 	ret
 
-Func_8ed9:
+UpdateLevelEdges:
 	ld a, [wLevelEdgeUpdateFlags]
 	and a
 	ret z
@@ -59,7 +59,7 @@ Func_8ed9:
 
 .right
 	call .Func_8fec
-	call Func_a0e2
+	call QueueEdgeColumn
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_RIGHT_F, [hl]
 	farcall SpawnRowEdgeObjects
@@ -72,7 +72,7 @@ Func_8ed9:
 
 .left
 	call .Func_9039
-	call Func_a0e2
+	call QueueEdgeColumn
 	ld hl, wLevelEdgeUpdateFlags
 	res LEVEL_EDGE_UPDATE_LEFT_F, [hl]
 	farcall SpawnRowEdgeObjects
@@ -780,7 +780,7 @@ ENDR
 	pop_wram
 	ret
 
-Func_a0e2:
+QueueEdgeColumn:
 	call GetBlockBGPtr
 	ld a, [wBGMapAddressQueueSize]
 	ld b, a
@@ -817,26 +817,26 @@ ENDR
 	and $08
 	jr z, .asm_a290
 	push hl
-	call Func_a2aa
+	call AddColumnRightTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call Func_a79e
+	call AddColumnRightAttributes
 	jr .asm_a2a1
 .asm_a290
 	push hl
-	call Func_aca6
+	call AddColumnLeftTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
-	call Func_b182
+	call AddColumnLeftAttributes
 .asm_a2a1
 	ld a, [wBGMapTileQueueSize]
 	add 23
 	ld [wBGMapTileQueueSize], a
 	ret
 
-Func_a2aa:
+AddColumnRightTiles:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
@@ -992,7 +992,7 @@ ENDR
 	pop hl
 	ret
 
-Func_a79e:
+AddColumnRightAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
@@ -1152,7 +1152,7 @@ ENDR
 	pop_wram
 	ret
 
-Func_aca6:
+AddColumnLeftTiles:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
@@ -1303,7 +1303,7 @@ ENDR
 	pop hl
 	ret
 
-Func_b182:
+AddColumnLeftAttributes:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)

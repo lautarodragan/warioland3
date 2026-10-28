@@ -148,7 +148,7 @@ TorchFunc:
 	jp CreateObjectFromCurObjPos
 
 ; unreferenced?
-Func_40c19:
+UnreferencedTorchEmberFunc_FollowWario:
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -203,7 +203,7 @@ TorchEmberCommonFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos

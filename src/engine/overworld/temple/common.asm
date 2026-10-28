@@ -6,7 +6,7 @@ UpdateTempleScene:
 	farcall _UpdateTempleScene
 	ret
 
-Func_80e33:
+EnterGolfBuildingUnlessB:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jr nz, .b_btn

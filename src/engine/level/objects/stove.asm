@@ -44,7 +44,7 @@ StoveFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -87,7 +87,7 @@ StoveFunc:
 .VanishTouch:
 	ld a, [wTransformation]
 	and a
-	jp nz, Func_3173
+	jp nz, VanishAndDespawnObject
 	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
 	ld de, StoveFrameset_69625
@@ -128,7 +128,7 @@ StoveFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jp z, MoveObjectRightByVar2
 
@@ -169,7 +169,7 @@ StoveFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jp z, MoveObjectLeftByVar2
 	jr .set_land
@@ -184,7 +184,7 @@ StoveFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -199,7 +199,7 @@ StoveFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -209,7 +209,7 @@ StoveFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, OBJSTATE_DEFAULT

@@ -432,7 +432,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld hl, wCurObjUnk02
 	ld e, $05
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_WORMWOULD_HURT
 	ret
 

@@ -98,7 +98,7 @@ SetState_Slipping:
 	ret
 
 UpdateState_Slipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -207,7 +207,7 @@ UpdateState_Slipping:
 	ld a, [wJoypadDown]
 	bit B_PAD_DOWN, a
 	jr z, .asm_19de6
-	jp Func_19e89
+	jp SetState_CrouchSlipping_KeepCounter
 
 .asm_19de6
 	farcall CheckCentreCollision
@@ -280,7 +280,7 @@ SetState_CrouchSlipping:
 	ld [wWarioStateCycles], a
 ;	fallthrough
 
-Func_19e89:
+SetState_CrouchSlipping_KeepCounter:
 	ld a, WST_CROUCH_SLIPPING
 	ld [wWarioState], a
 	xor a
@@ -326,7 +326,7 @@ Func_19e89:
 	ret
 
 UpdateState_CrouchSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -560,7 +560,7 @@ SetState_SandFalling:
 	call SetWarioPal
 ;	fallthrough
 
-Func_1a12a:
+SetWarioSandAirborneAnimation:
 	ld a, BANK(WarioAirborneGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioAirborneGfx)
@@ -576,7 +576,7 @@ Func_1a12a:
 	ld [wWarioOAMPtr + 1], a
 ;	fallthrough
 
-Func_1a14b:
+SetWarioSandAirborneFrameset:
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -600,7 +600,7 @@ Func_1a14b:
 	ret
 
 UpdateState_SandFalling:
-	call Func_1b2c0
+	call HandleSandFallingInput
 	ld a, [wWarioState]
 	cp WST_SAND_FALLING
 	ret nz ; done if not falling in sand any more
@@ -622,10 +622,10 @@ SetState_SandJumping:
 	ld [wWarioStateCycles], a
 	inc a
 	ld [wJumpVelTable], a
-	jp Func_1a12a
+	jp SetWarioSandAirborneAnimation
 
 UpdateState_SandJumping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInSand]
 	and a
 	jr nz, .in_sand
@@ -635,7 +635,7 @@ UpdateState_SandJumping:
 
 .in_sand
 	call ApplyJumpVelocity
-	farcall Func_2b17a
+	farcall WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $04
 	jr c, .asm_1a208
@@ -645,7 +645,7 @@ UpdateState_SandJumping:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1a211
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 
 .asm_1a211
 	ld a, [wJoypadDown]
@@ -706,7 +706,7 @@ SetState_SandIdling:
 	ret
 
 UpdateState_SandIdling:
-	call Func_1b322
+	call HandleSandIdlingInput
 	ret
 
 SetState_SandWalking:
@@ -736,7 +736,7 @@ SetState_SandWalking:
 	ld [wSFXLoopCounter], a
 	ld [wJumpVelIndex], a
 	ld [wJumpVelTable], a
-	farcall Func_1e6ea
+	farcall SetWarioWalkAnimation
 	ret
 
 UpdateState_SandWalking:
@@ -752,12 +752,12 @@ UpdateState_SandWalking:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b333
+	call HandleSandWalkingInput
 	ld a, [wWarioState]
 	cp WST_SAND_WALKING
 	ret nz ; done if not walking in sand any more
 
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -877,7 +877,7 @@ SetState_LadderClimbing:
 	ret
 
 UpdateState_LadderClimbing:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -960,7 +960,7 @@ SetState_LadderIdling:
 	jr .asm_1a501
 
 UpdateState_LadderIdling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -973,11 +973,11 @@ UpdateState_LadderIdling:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b480
+	call HandleLadderIdlingInput
 	ret
 
 UpdateState_LadderShakeSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1064,7 +1064,7 @@ UpdateState_GettingOffLadder:
 	call MoveWarioRight
 
 .asm_1a640
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
@@ -1105,7 +1105,7 @@ SetState_LadderSliding:
 	ret
 
 UpdateState_LadderSliding:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1204,7 +1204,7 @@ SetState_GrabSlipping:
 	ret
 
 UpdateState_GrabSlipping:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1218,7 +1218,7 @@ UpdateState_GrabSlipping:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .asm_1a819
-	farcall Func_1ede9
+	farcall SetState_GrabAirborne_Jump
 	ret
 
 .asm_1a819
@@ -1229,7 +1229,7 @@ UpdateState_GrabSlipping:
 	ld a, b
 	and a
 	jr nz, .asm_1a842
-	farcall Func_1edd3
+	farcall SetState_GrabAirborne_Fall
 	ret
 
 .asm_1a842
@@ -1316,7 +1316,7 @@ SetNextGetTreasureState:
 	inc [hl]
 	xor a
 	ld [wWarioStateCycles], a
-	farcall Func_1e6ea
+	farcall SetWarioWalkAnimation
 	ret
 
 UpdateState_GetTreasureWalk:
@@ -1961,7 +1961,7 @@ UpdateState_FenceMovingVertical:;1aed0 (6:6ed0)
 	ld b, PARTICLE_DUST
 	farcall CreateParticle
 .asm_1af1e
-	call Func_1b168
+	call HandleFenceMovingVerticalInput
 	ret
 
 SetState_FenceIdling:
@@ -2019,7 +2019,7 @@ UpdateState_FenceIdling:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b21a
+	call HandleFenceIdlingInput
 	ret
 
 SetState_FenceMovingHorizontal:
@@ -2071,7 +2071,7 @@ SetState_FenceMovingHorizontal:
 	ret
 
 UpdateState_FenceMovingHorizontal:
-	farcall Func_19afb
+	farcall UpdateEnvStateAtHead
 	ld a, [wIsNearFence]
 	and a
 	jr nz, .asm_1b034
@@ -2090,7 +2090,7 @@ UpdateState_FenceMovingHorizontal:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1b24f
+	call HandleFenceMovingHorizontalInput
 	ret
 
 SetState_FenceSliding:
@@ -2125,7 +2125,7 @@ SetState_FenceSliding:
 	ret
 
 UpdateState_FenceSliding:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2183,7 +2183,7 @@ UpdateState_FenceSliding:
 	farcall DoGroundPound
 	ret
 
-Func_1b168:
+HandleFenceMovingVerticalInput:
 	ld a, [wJoypadDown]
 	and PAD_B | PAD_DOWN
 	cp PAD_B | PAD_DOWN
@@ -2214,7 +2214,7 @@ Func_1b168:
 	jp SetState_FenceIdling
 
 .d_up
-	farcall Func_19ae4 ; unnecessary farcall
+	farcall UpdateEnvStateAboveHead ; unnecessary farcall
 	ld a, [wIsNearFence]
 	and a
 	ret z
@@ -2229,7 +2229,7 @@ Func_1b168:
 	ld a, b
 	and a
 	jr nz, .asm_1b1ff
-	farcall Func_19afb
+	farcall UpdateEnvStateAtHead
 	ld a, [wIsNearFence]
 	and a
 	ret nz
@@ -2241,7 +2241,7 @@ Func_1b168:
 	farcall SetState_Idling
 	ret
 
-Func_1b21a:
+HandleFenceIdlingInput:
 	ld a, [wJumpingUpwards]
 	and a
 	jr nz, .asm_1b237
@@ -2264,7 +2264,7 @@ Func_1b21a:
 	jp nz, SetState_FenceMovingHorizontal
 	ret
 
-Func_1b24f:
+HandleFenceMovingHorizontalInput:
 	ld a, [wJumpingUpwards]
 	and a
 	jr nz, .asm_1b26c
@@ -2310,17 +2310,17 @@ Func_1b24f:
 	call MoveWarioLeft
 	ret
 
-Func_1b2c0:
+HandleSandFallingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
-	call Func_1b302
+	call SinkInSand
 
 	farcall CheckFrontCollision
 	ld a, b
 	and a
 	ret nz
-	farcall Func_2b17a
+	farcall WalkFromInput
 
 	ld a, [wWalkVelIndex]
 	cp $04
@@ -2331,11 +2331,11 @@ Func_1b2c0:
 	ld a, [wIsTurning]
 	and a
 	jr z, .asm_1b301
-	call Func_1a14b
+	call SetWarioSandAirborneFrameset
 .asm_1b301
 	ret
 
-Func_1b302:
+SinkInSand:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
@@ -2350,7 +2350,7 @@ Func_1b302:
 	call MoveWarioDown
 	ret
 
-Func_1b322:
+HandleSandIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
@@ -2359,7 +2359,7 @@ Func_1b322:
 	jp nz, SetState_SandWalking
 	ret
 
-Func_1b333:
+HandleSandWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SandJumping
@@ -2447,7 +2447,7 @@ HandleLadderInput:
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wLadderInteraction]
 	and a
 	ret nz
@@ -2470,7 +2470,7 @@ HandleLadderInput:
 	jp StartDownwardsFloorTransition
 
 .asm_1b42b
-	farcall Func_19b12
+	farcall UpdateEnvStateAtFeet
 	ld a, [wLadderInteraction]
 	and a
 	jr z, .no_more_ladder_interaction
@@ -2492,7 +2492,7 @@ HandleLadderInput:
 	farcall StartFall
 	ret
 
-Func_1b480:
+HandleLadderIdlingInput:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jr z, .asm_1b48e
@@ -2521,7 +2521,7 @@ Func_1b480:
 	jr nz, .asm_1b4d3
 	ld a, -16
 	ld [wCollisionBoxLeft], a
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	jr nz, .asm_1b4eb
@@ -2535,7 +2535,7 @@ Func_1b480:
 .asm_1b4d3
 	ld a, 16
 	ld [wCollisionBoxRight], a
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	jr z, .asm_1b4c6

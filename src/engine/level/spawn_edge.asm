@@ -16,7 +16,7 @@ SpawnRowEdgeObjects:
 	bit 7, [hl]
 	jr z, .next_row
 	push hl
-	call Func_d8c
+	call BlockPtrToObjectMapPtr
 	ld a, [hl]
 	bit 0, b
 	jr z, .skip_swap
@@ -28,7 +28,7 @@ SpawnRowEdgeObjects:
 	jr z, .next_row
 	push de
 	push bc
-	call Func_d3e
+	call GetBlockPtrPos
 	ld d, h
 	ld e, l
 	push hl
@@ -71,7 +71,7 @@ SpawnColEdgeObjects:
 	bit 7, [hl]
 	jr z, .next_col
 	push hl
-	call Func_d8c
+	call BlockPtrToObjectMapPtr
 	ld a, [hl]
 	bit 0, b
 	jr z, .skip_swap
@@ -83,7 +83,7 @@ SpawnColEdgeObjects:
 	jr z, .next_col
 	push de
 	push bc
-	call Func_d3e
+	call GetBlockPtrPos
 	ld d, h
 	ld e, l
 	push hl

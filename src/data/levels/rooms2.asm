@@ -1,4 +1,4 @@
-LevelHeaders_c4000:
+TheGrasslandsNight1RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -75,7 +75,7 @@ LevelHeaders_c4000:
 .room_29
 	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_SHARED_1, ANIMATED_TILES_GROUP_SHARED_9,  0, ROOM_SHARED_3
 
-LevelHeaders_c40ec:
+TheGrasslandsNight2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -152,7 +152,7 @@ LevelHeaders_c40ec:
 .room_29
 	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_SHARED_1, ANIMATED_TILES_GROUP_SHARED_9,  0, ROOM_SHARED_3
 
-LevelHeaders_c41d8:
+TheGrasslandsNight3To4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -229,7 +229,7 @@ LevelHeaders_c41d8:
 .room_29
 	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_SHARED_1, ANIMATED_TILES_GROUP_SHARED_9,  0, ROOM_SHARED_3
 
-LevelHeaders_c42c4:
+TheBigBridgeDay1To3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -286,7 +286,7 @@ LevelHeaders_c42c4:
 .room_25
 	room_header  1,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_BIG_BRIDGE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_BIG_BRIDGE_1_DAY
 
-LevelHeaders_c4360:
+TheBigBridgeDay4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -343,7 +343,7 @@ LevelHeaders_c4360:
 .room_25
 	room_header  1,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_BIG_BRIDGE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_BIG_BRIDGE_3_DAY
 
-LevelHeaders_c43fc:
+TheBigBridgeNight1To3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -400,7 +400,7 @@ LevelHeaders_c43fc:
 .room_25
 	room_header  1,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_BIG_BRIDGE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_BIG_BRIDGE_1_NIGHT
 
-LevelHeaders_c4498:
+TheBigBridgeNight4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -457,7 +457,7 @@ LevelHeaders_c4498:
 .room_25
 	room_header  1,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_BIG_BRIDGE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_BIG_BRIDGE_3_NIGHT
 
-LevelHeaders_c4534:
+TowerOfRevivalDay1RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -520,7 +520,7 @@ LevelHeaders_c4534:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_1_DAY
 
-LevelHeaders_c45e8:
+TowerOfRevivalDay2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -583,7 +583,7 @@ LevelHeaders_c45e8:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_4_DAY
 
-LevelHeaders_c469c:
+TowerOfRevivalDay3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -646,7 +646,7 @@ LevelHeaders_c469c:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_4_DAY
 
-LevelHeaders_c4750:
+TowerOfRevivalDay4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -709,7 +709,7 @@ LevelHeaders_c4750:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_4_DAY
 
-LevelHeaders_c4804:
+TowerOfRevivalNight1RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -772,7 +772,7 @@ LevelHeaders_c4804:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_1_NIGHT
 
-LevelHeaders_c48b8:
+TowerOfRevivalNight2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -835,7 +835,7 @@ LevelHeaders_c48b8:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_7_NIGHT
 
-LevelHeaders_c496c:
+TowerOfRevivalNight3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -898,7 +898,7 @@ LevelHeaders_c496c:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_7_NIGHT
 
-LevelHeaders_c4a20:
+TowerOfRevivalNight4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -961,7 +961,7 @@ LevelHeaders_c4a20:
 .room_29
 	room_header  7,  0,  0,  2,  6,  8, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_TOWER_OF_REVIVAL_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_TOWER_OF_REVIVAL_7_NIGHT
 
-LevelHeaders_c4ad4:
+TheSteepCanyonDay1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1022,7 +1022,7 @@ LevelHeaders_c4ad4:
 .room_29
 	room_header  9,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_SHARED_22, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STEEP_CANYON_1_DAY
 
-LevelHeaders_c4b80:
+TheSteepCanyonDay4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1083,7 +1083,7 @@ LevelHeaders_c4b80:
 .room_29
 	room_header  9,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_SHARED_22, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STEEP_CANYON_2_DAY
 
-LevelHeaders_c4c2c:
+TheSteepCanyonNight1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1144,7 +1144,7 @@ LevelHeaders_c4c2c:
 .room_29
 	room_header  9,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_SHARED_22, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STEEP_CANYON_1_NIGHT
 
-LevelHeaders_c4cd8:
+TheSteepCanyonNight4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1205,7 +1205,7 @@ LevelHeaders_c4cd8:
 .room_29
 	room_header  9,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_SHARED_22, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STEEP_CANYON_2_NIGHT
 
-LevelHeaders_c4d84:
+CaveOfFlames1To2RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1276,7 +1276,7 @@ LevelHeaders_c4d84:
 .room_28
 	room_header  7,  2,  0,  3,  7, 10, CAM_FREE, OBJECT_GROUP_SHARED_32, ANIMATED_TILES_GROUP_SHARED_5,  2, ROOM_CAVE_OF_FLAMES_1
 
-LevelHeaders_c4e58:
+CaveOfFlames3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1347,7 +1347,7 @@ LevelHeaders_c4e58:
 .room_28
 	room_header  7,  2,  0,  3,  7, 10, CAM_FREE, OBJECT_GROUP_SHARED_32, ANIMATED_TILES_GROUP_SHARED_5,  2, ROOM_CAVE_OF_FLAMES_3
 
-LevelHeaders_c4f2c:
+CaveOfFlames4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1418,7 +1418,7 @@ LevelHeaders_c4f2c:
 .room_28
 	room_header  7,  2,  0,  3,  7, 10, CAM_FREE, OBJECT_GROUP_SHARED_32, ANIMATED_TILES_GROUP_SHARED_5,  2, ROOM_CAVE_OF_FLAMES_4
 
-LevelHeaders_c5000:
+AboveTheCloudsDay1To2RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1486,7 +1486,7 @@ LevelHeaders_c5000:
 .room_29
 	room_header  6,  1,  0,  3,  5,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_ABOVE_THE_CLOUDS_2, ANIMATED_TILES_GROUP_WATER,  3, ROOM_ABOVE_THE_CLOUDS_1_DAY
 
-LevelHeaders_c50c4:
+AboveTheCloudsDay3To4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1554,7 +1554,7 @@ LevelHeaders_c50c4:
 .room_29
 	room_header  6,  1,  0,  3,  5,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_ABOVE_THE_CLOUDS_2, ANIMATED_TILES_GROUP_WATER,  3, ROOM_ABOVE_THE_CLOUDS_4_DAY
 
-LevelHeaders_c5188:
+AboveTheCloudsNight1To2RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1622,7 +1622,7 @@ LevelHeaders_c5188:
 .room_29
 	room_header  6,  1,  0,  3,  5,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_ABOVE_THE_CLOUDS_2, ANIMATED_TILES_GROUP_WATER,  6, ROOM_ABOVE_THE_CLOUDS_1_NIGHT
 
-LevelHeaders_c524c:
+AboveTheCloudsNight3To4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw .room_02
@@ -1690,7 +1690,7 @@ LevelHeaders_c524c:
 .room_29
 	room_header  6,  1,  0,  3,  5,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_ABOVE_THE_CLOUDS_2, ANIMATED_TILES_GROUP_WATER,  6, ROOM_ABOVE_THE_CLOUDS_4_NIGHT
 
-LevelHeaders_c5310:
+TheStagnantSwampDay1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1753,7 +1753,7 @@ LevelHeaders_c5310:
 .room_27
 	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_SHARED_2, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STAGNANT_SWAMP_2
 
-LevelHeaders_c53c4:
+TheStagnantSwampDay4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1816,7 +1816,7 @@ LevelHeaders_c53c4:
 .room_27
 	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_SHARED_2, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STAGNANT_SWAMP_4
 
-LevelHeaders_c5478:
+TheStagnantSwampNight1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1879,7 +1879,7 @@ LevelHeaders_c5478:
 .room_27
 	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_SHARED_2, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STAGNANT_SWAMP_2
 
-LevelHeaders_c552c:
+TheStagnantSwampNight4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -1942,7 +1942,7 @@ LevelHeaders_c552c:
 .room_27
 	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_SHARED_2, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_STAGNANT_SWAMP_4
 
-LevelHeaders_c55e0:
+TheFrigidSeaDay1To2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -2011,7 +2011,7 @@ LevelHeaders_c55e0:
 .room_26
 	room_header  5,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_FRIGID_SEA_1, ANIMATED_TILES_GROUP_THE_FRIGID_SEA,  0, ROOM_THE_FRIGID_SEA_1_DAY
 
-LevelHeaders_c56ac:
+TheFrigidSeaDay3To4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -2080,7 +2080,7 @@ LevelHeaders_c56ac:
 .room_26
 	room_header  5,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_FRIGID_SEA_1, ANIMATED_TILES_GROUP_THE_FRIGID_SEA,  0, ROOM_THE_FRIGID_SEA_3_DAY
 
-LevelHeaders_c5778:
+TheFrigidSeaNight1To2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -2149,7 +2149,7 @@ LevelHeaders_c5778:
 .room_26
 	room_header  5,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_FRIGID_SEA_1, ANIMATED_TILES_GROUP_THE_FRIGID_SEA,  0, ROOM_THE_FRIGID_SEA_1_NIGHT
 
-LevelHeaders_c5844:
+TheFrigidSeaNight3To4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -2218,7 +2218,7 @@ LevelHeaders_c5844:
 .room_26
 	room_header  5,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_THE_FRIGID_SEA_1, ANIMATED_TILES_GROUP_THE_FRIGID_SEA,  0, ROOM_THE_FRIGID_SEA_3_NIGHT
 
-LevelHeaders_c5910:
+CastleOfIllusionsDay1To3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2293,7 +2293,7 @@ LevelHeaders_c5910:
 .room_28
 	room_header  4,  1,  0,  2,  4,  7, CAM_FREE | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_CASTLE_OF_ILLUSIONS_2, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_CASTLE_OF_ILLUSIONS_1_DAY
 
-LevelHeaders_c59f4:
+CastleOfIllusionsDay4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2368,7 +2368,7 @@ LevelHeaders_c59f4:
 .room_28
 	room_header  4,  1,  0,  2,  4,  7, CAM_FREE | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_CASTLE_OF_ILLUSIONS_2, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_CASTLE_OF_ILLUSIONS_4_DAY
 
-LevelHeaders_c5ad8:
+CastleOfIllusionsNight1To3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2443,7 +2443,7 @@ LevelHeaders_c5ad8:
 .room_28
 	room_header  4,  1,  0,  2,  4,  7, CAM_FREE | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_CASTLE_OF_ILLUSIONS_2, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_CASTLE_OF_ILLUSIONS_1_NIGHT
 
-LevelHeaders_c5bbc:
+CastleOfIllusionsNight4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2518,7 +2518,7 @@ LevelHeaders_c5bbc:
 .room_28
 	room_header  4,  1,  0,  2,  4,  7, CAM_FREE | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_CASTLE_OF_ILLUSIONS_2, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_CASTLE_OF_ILLUSIONS_4_NIGHT
 
-LevelHeaders_c5ca0:
+TheColossalHoleDay1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -2583,7 +2583,7 @@ LevelHeaders_c5ca0:
 .room_27
 	room_header  3,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_UP | CAM_BORDER_DOWN, OBJECT_GROUP_THE_COLOSSAL_HOLE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_COLOSSAL_HOLE_1_DAY
 
-LevelHeaders_c5d5c:
+TheColossalHoleDay4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -2648,7 +2648,7 @@ LevelHeaders_c5d5c:
 .room_27
 	room_header  3,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_UP | CAM_BORDER_DOWN, OBJECT_GROUP_THE_COLOSSAL_HOLE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_COLOSSAL_HOLE_2_DAY
 
-LevelHeaders_c5e18:
+TheColossalHoleNight1To3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -2713,7 +2713,7 @@ LevelHeaders_c5e18:
 .room_27
 	room_header  3,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_UP | CAM_BORDER_DOWN, OBJECT_GROUP_THE_COLOSSAL_HOLE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_COLOSSAL_HOLE_1_NIGHT
 
-LevelHeaders_c5ed4:
+TheColossalHoleNight4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -2778,7 +2778,7 @@ LevelHeaders_c5ed4:
 .room_27
 	room_header  3,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_UP | CAM_BORDER_DOWN, OBJECT_GROUP_THE_COLOSSAL_HOLE_1, ANIMATED_TILES_GROUP_WATER,  0, ROOM_THE_COLOSSAL_HOLE_2_NIGHT
 
-LevelHeaders_c5f90:
+TheWarpedVoid1RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2855,7 +2855,7 @@ LevelHeaders_c5f90:
 .room_28
 	room_header  5,  2,  2,  3,  4,  6, CAM_FREE, OBJECT_GROUP_SHARED_7, ANIMATED_TILES_GROUP_THE_WARPED_VOID,  8, ROOM_THE_WARPED_VOID_1
 
-LevelHeaders_c605c:
+TheWarpedVoid2To3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -2932,7 +2932,7 @@ LevelHeaders_c605c:
 .room_28
 	room_header  5,  2,  2,  3,  4,  6, CAM_FREE, OBJECT_GROUP_SHARED_7, ANIMATED_TILES_GROUP_THE_WARPED_VOID,  8, ROOM_THE_WARPED_VOID_5
 
-LevelHeaders_c6128:
+TheWarpedVoid4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw .room_02
@@ -3009,7 +3009,7 @@ LevelHeaders_c6128:
 .room_28
 	room_header  5,  2,  2,  3,  4,  6, CAM_FREE, OBJECT_GROUP_SHARED_7, ANIMATED_TILES_GROUP_THE_WARPED_VOID,  8, ROOM_THE_WARPED_VOID_6
 
-LevelHeaders_c61f4:
+TheEastCraterDay1RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3068,7 +3068,7 @@ LevelHeaders_c61f4:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_DAY
 
-LevelHeaders_c6298:
+TheEastCraterDay2RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3127,7 +3127,7 @@ LevelHeaders_c6298:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_DAY
 
-LevelHeaders_c633c:
+TheEastCraterDay3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3186,7 +3186,7 @@ LevelHeaders_c633c:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_DAY
 
-LevelHeaders_c63e0:
+TheEastCraterDay4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3245,7 +3245,7 @@ LevelHeaders_c63e0:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_6, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_4_DAY
 
-LevelHeaders_c6484:
+TheEastCraterNight1RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3304,7 +3304,7 @@ LevelHeaders_c6484:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_NIGHT
 
-LevelHeaders_c6528:
+TheEastCraterNight2RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3363,7 +3363,7 @@ LevelHeaders_c6528:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_NIGHT
 
-LevelHeaders_c65cc:
+TheEastCraterNight3RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3422,7 +3422,7 @@ LevelHeaders_c65cc:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_1, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_1_NIGHT
 
-LevelHeaders_c6670:
+TheEastCraterNight4RoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL
@@ -3481,7 +3481,7 @@ LevelHeaders_c6670:
 .room_24
 	room_header  1,  1,  0,  3,  1,  4, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_UP, OBJECT_GROUP_THE_EAST_CRATER_6, ANIMATED_TILES_GROUP_SHARED_5,  0, ROOM_THE_EAST_CRATER_4_NIGHT
 
-LevelHeaders_c6714:
+ForestOfFearDay1To2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3536,7 +3536,7 @@ LevelHeaders_c6714:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_1_DAY
 
-LevelHeaders_c67a8:
+ForestOfFearDay3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3591,7 +3591,7 @@ LevelHeaders_c67a8:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_2_DAY
 
-LevelHeaders_c683c:
+ForestOfFearDay4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3646,7 +3646,7 @@ LevelHeaders_c683c:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_2_DAY
 
-LevelHeaders_c68d0:
+ForestOfFearNight1To2RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3701,7 +3701,7 @@ LevelHeaders_c68d0:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_1_NIGHT
 
-LevelHeaders_c6964:
+ForestOfFearNight3RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3756,7 +3756,7 @@ LevelHeaders_c6964:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_2_NIGHT
 
-LevelHeaders_c69f8:
+ForestOfFearNight4RoomHeaders:
 	dw .room_00
 	dw .room_01
 	dw NULL
@@ -3811,7 +3811,7 @@ LevelHeaders_c69f8:
 .room_24
 	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_FOREST_OF_FEAR_1, ANIMATED_TILES_GROUP_SHARED_6,  0, ROOM_FOREST_OF_FEAR_2_NIGHT
 
-LevelHeaders_c6a8c:
+TheTempleRoomHeaders:
 	dw .room_00
 	dw NULL
 	dw NULL

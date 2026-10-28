@@ -207,7 +207,7 @@ _LoadCloudAndSeaGfx:
 	ldh [rVBK], a
 	ret
 
-Func_1d8c2c:
+CopyCommonOWAnimTilesToVRAM:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld c, LOW(rVDMA_SRC_HIGH)

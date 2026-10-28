@@ -14,7 +14,7 @@ IncrementSaveCounter:
 	ld [wSaveCounter + 0], a
 	ret
 
-Func_1f0b5b:
+CalculateWRAMDataChecksumAtHL:
 	ld de, 0
 	ld b, $ca
 	call CalculateChecksum

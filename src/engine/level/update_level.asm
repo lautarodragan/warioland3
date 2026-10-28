@@ -71,13 +71,13 @@ UpdateLevel:
 	pop_wram
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 
 	call ClearUnusedVirtualOAM
@@ -154,8 +154,8 @@ UpdateLevel:
 	push af
 	ld a, BANK("SRAM1")
 	sramswitch
-	call Func_8ed9
-	call Func_bb85
+	call UpdateLevelEdges
+	call ProcessBlockRedrawQueue
 	di
 	call SetTileQueueProcessingFunctions
 	ei
@@ -310,13 +310,13 @@ UpdateLevel:
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 
 	call ClearUnusedVirtualOAM
@@ -351,13 +351,13 @@ UpdateLevel:
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 
 	call ClearUnusedVirtualOAM

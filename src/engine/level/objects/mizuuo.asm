@@ -171,13 +171,13 @@ MizzouProjectileFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_488b5
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_4888b
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_488b5
 	ld a, [wIsInWaterOrSand]

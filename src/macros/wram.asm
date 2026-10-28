@@ -36,12 +36,12 @@ MACRO scene_obj_struct
 \1End::
 ENDM
 
-MACRO ow_unk_struct_sub
+MACRO ow_path_tracer_head_struct
 	ds $9
 ENDM
 
-MACRO ow_unk_struct
-	ow_unk_struct_sub \1
+MACRO ow_path_tracer_struct
+	ow_path_tracer_head_struct \1
 	ds $17
 ENDM
 

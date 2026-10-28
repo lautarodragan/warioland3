@@ -64,8 +64,8 @@ ValidateSaveData::
 	jr .asm_1f0d20 ; useless jump
 
 .asm_1f0d20
-	call Func_1f0d60
-	call Func_1f1246
+	call ValidateSaveChecksums
+	call LoadNewestValidSave
 	pop af
 	sramswitch
 	ret
@@ -114,7 +114,7 @@ CheckSaveVals2:
 	scf
 	ret
 
-Func_1f0d60:
+ValidateSaveChecksums:
 	xor a
 	ld [wValidSaves], a
 	ld hl, sCheckVals
@@ -342,7 +342,7 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sSaveCounter
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
 	jr nz, .asm_1f0f00
@@ -415,7 +415,7 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup1WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
 	jr nz, .asm_1f0f83
@@ -543,7 +543,7 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup2WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
 	jr nz, .asm_1f1074
@@ -615,7 +615,7 @@ Func_1f0d60:
 	call .GetMatchingChecksum
 
 	ld hl, sBackup3WRAMData
-	call Func_1f0b5b
+	call CalculateWRAMDataChecksumAtHL
 	ld a, [wChecksum + 0]
 	cp d
 	jr nz, .asm_1f10f5
@@ -864,7 +864,7 @@ CalculateGameDataChecksum:
 	pop_wram
 	ret
 
-Func_1f1246:
+LoadNewestValidSave:
 	xor a
 	ld [wRestoredSave], a
 	ld a, [wValidSaves]
@@ -1187,7 +1187,7 @@ Func_1f1246:
 	ld [sSaveProgressEcho2], a
 	ret
 
-Func_1f14c6:
+BackupLevelMap:
 	ld a, $70
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a

@@ -27,7 +27,7 @@ InitPauseMenu_SkipBackupVRAM:
 
 	farcall LoadPauseMenuPals
 	farcall LoadPauseMenuGfx
-	farcall Func_1f403f
+	farcall LoadPauseMenuTilemap
 
 	call PrintNumberMusicCoins
 	hlbgcoord 14, 15, v0BGMap1

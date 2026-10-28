@@ -228,7 +228,7 @@ DayNightTransition:
 	ld [wOWPalTransitionDelay], a
 	ret
 
-Func_84b97:
+DaytimeTransition:
 	ld hl, wOWPalTransitionCounter
 	inc [hl]
 	ld a, [wOWPalTransitionState]
@@ -299,7 +299,7 @@ Func_84b97:
 	ld [wOWPalTransitionCounter], a
 	ret
 
-Func_84c0d:
+DayNightSpellTransition:
 	ld hl, wOWPalTransitionCounter
 	inc [hl]
 	ld a, [wOWPalTransitionState]
@@ -582,12 +582,12 @@ VBlank_OWPalTransition:
 	add WX_OFS
 	ldh [rWX], a
 
-	ld b, BANK(Func_1d8c2c)
+	ld b, BANK(CopyCommonOWAnimTilesToVRAM)
 	ld a, [wROMBank]
 	push af
 	ld a, b
 	bankswitch
-	call Func_1d8c2c
+	call CopyCommonOWAnimTilesToVRAM
 	pop af
 	bankswitch
 
@@ -708,7 +708,7 @@ GreyOWPalsPointers:
 	dw EastOWGreyPals ; EAST
 	dw EastOWGreyNoIcePals ; EAST (no Ice)
 
-Func_84e43:
+FadeBGAndOBPals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_84e77
@@ -734,8 +734,8 @@ Func_84e43:
 	ret
 
 .asm_84e77
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -787,8 +787,8 @@ _PrologueFade:
 	ret
 
 .do_fade
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -901,7 +901,7 @@ _PrologueFade:
 	ret
 
 ; unreferenced
-Func_84fd5:
+UnreferencedClearBGOBPals:
 	xor a
 	ld hl, wTempBGPals
 	ld bc, 8 palettes
@@ -923,7 +923,7 @@ ClearTempPals_Bank21:
 	call WriteAToHL_BCTimes
 	ret
 
-Func_84fff:
+_CutsceneFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85033
@@ -949,8 +949,8 @@ Func_84fff:
 	ret
 
 .asm_85033
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -959,7 +959,7 @@ Func_84fff:
 	inc [hl]
 	ret
 
-Func_85046:
+_CutsceneFadeToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp 1
 	jr nc, .asm_850a6
@@ -1002,8 +1002,8 @@ Func_85046:
 	ret
 
 .asm_850a6
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1012,7 +1012,7 @@ Func_85046:
 	inc [hl]
 	ret
 
-Func_850b9:
+_CutsceneFadeOBToWhite:
 	ld a, [wPalConfig2TotalSteps]
 	cp $01
 	jr nc, .asm_850ef
@@ -1037,7 +1037,7 @@ Func_850b9:
 	ret
 
 .asm_850ef
-	call Func_851d1
+	call StepOBPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig2TotalSteps], a
@@ -1046,7 +1046,7 @@ Func_850b9:
 	inc [hl]
 	ret
 
-Func_850ff:
+_CutsceneFadeBGToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85135
@@ -1071,7 +1071,7 @@ Func_850ff:
 	ret
 
 .asm_85135
-	call Func_851bc
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1080,7 +1080,7 @@ Func_850ff:
 	inc [hl]
 	ret
 
-Func_85145:
+_OWFuncFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .asm_85179
@@ -1105,8 +1105,8 @@ Func_85145:
 	ret
 
 .asm_85179
-	call Func_851d1
-	call Func_851bc
+	call StepOBPalConfigFade
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1115,7 +1115,7 @@ Func_85145:
 	inc [hl]
 	ret
 
-Func_8518c:
+_OWFuncFadeBGPals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
 	jr nc, .fade
@@ -1132,7 +1132,7 @@ Func_8518c:
 	ret
 
 .fade
-	call Func_851bc
+	call StepBGPalConfigFade
 	ret c
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -1141,7 +1141,7 @@ Func_8518c:
 	inc [hl]
 	ret
 
-Func_851bc:
+StepBGPalConfigFade:
 	ld a, LOW(rBGPI)
 	ld [wPalConfig1Register], a
 	xor a
@@ -1152,7 +1152,7 @@ Func_851bc:
 	call FadePalConfig
 	ret
 
-Func_851d1:
+StepOBPalConfigFade:
 	ld a, LOW(rOBPI)
 	ld [wPalConfig2Register], a
 	ld a, 1
@@ -1315,7 +1315,7 @@ TempleHintLevelNamePals:
 	rgb 14, 14, 14
 	rgb  0,  0,  0
 
-Func_852e5:
+FadeOutLevelName:
 	ld a, [wLevelNameFadeState]
 	xor $03
 	ret nz
@@ -1694,7 +1694,7 @@ ApplyPalConfig_Bank21:
 	jr nz, .loop
 	ret
 
-Func_854ee:
+_ApplyOWTilemapPatches:
 .start
 	ld a, [hli]
 	and a
@@ -1893,7 +1893,7 @@ OWSceneFreezeSeaAttrmap: INCBIN "data/bgmaps/overworld/ow_scene_freeze_sea.attrm
 
 Tilemap_85928: INCBIN "data/bgmaps/map_85928.tilemap" ; unreferenced
 
-Func_85a68:
+CopyOWTileColumn1:
 .asm_85a68
 	ld hl, wOWUIObj1Duration
 	ld a, [hli]
@@ -1918,11 +1918,11 @@ Func_85a68:
 	ld [wOWUIObj1Attributes], a
 	ret z
 	ld de, wOWUIObj1Duration
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85a68
 
-Func_85a91:
+AddTilemapRowToPtrAtDE:
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1939,7 +1939,7 @@ Func_85a91:
 	inc de
 	ret
 
-Func_85aa2:
+CopyOWTileColumn2:
 .asm_85aa2
 	ld hl, wOWUIObj2Duration
 	ld a, [hli]
@@ -1964,11 +1964,11 @@ Func_85aa2:
 	ld [wOWUIObj2Attributes], a
 	ret z
 	ld de, wOWUIObj2Duration
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85aa2
 
-Func_85acb:
+CopyOWTileColumn3:
 .asm_85acb
 	ld hl, wd154
 	ld a, [hli]
@@ -1993,8 +1993,8 @@ Func_85acb:
 	ld [wd153], a
 	ret z
 	ld de, wd154
-	call Func_85a91
-	call Func_85a91
+	call AddTilemapRowToPtrAtDE
+	call AddTilemapRowToPtrAtDE
 	jr .asm_85acb
 
 EOWTilemapPatch_FormCastle1:

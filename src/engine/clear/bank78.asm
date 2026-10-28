@@ -5,7 +5,7 @@ LoadClearScreenPals:
 	call LoadPalsToTempPals2
 	ret
 
-Func_1e000d:
+LoadTimeAttackClearScreenPals:
 	ld hl, TimeAttackClearScreenBGPals
 	call LoadPalsToTempPals1
 	ld hl, TimeAttackClearScreenOBPals
@@ -33,7 +33,7 @@ LoadClearScreenGfx:
 	call FarCopyHLToDE_BC
 	ret
 
-Func_1e0045:
+LoadTreasureClearScreenBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, ClearScreenTreasureAttrmap
@@ -47,7 +47,7 @@ Func_1e0045:
 	call Decompress
 	ret
 
-Func_1e005f:
+LoadTimeAttackClearScreenBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, ClearScreenTimeAttackAttrmap
@@ -199,7 +199,7 @@ Func_1e005f:
 	ld [wTimeAttackResult], a
 	ret
 
-Func_1e015b:
+InitTreasureClearScreenObjs:
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_LEVEL_CLEAR
 	jr z, .no_power_up
@@ -419,7 +419,7 @@ Func_1e015b:
 	db $80 ; x
 	bigdw ClearScreenFrameset_d5054 ; frameset
 
-Func_1e028a:
+InitTimeAttackClearScreenObjs:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
 	jr nz, .asm_1e02a5

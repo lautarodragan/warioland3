@@ -33,7 +33,7 @@ LoadPauseMenuGfx:
 	call CopyHLToDE_BC
 	ret
 
-Func_1f403f:
+LoadPauseMenuTilemap:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	jr nz, .asm_1f4060

@@ -127,7 +127,7 @@ HandleTempleScreenShake:
 	ld [hl], a
 	ret
 
-Func_1580c8:
+WaitTempleRockRespawn:
 	ld a, [bc]
 	cp [hl]
 	ret c
@@ -256,7 +256,7 @@ ENDC
 
 .Reset:
 	ld hl, wTempleRock\1RespawnTime
-	jp Func_1580c8
+	jp WaitTempleRockRespawn
 ENDM
 
 HandleTempleRock1Fall:
@@ -385,7 +385,7 @@ BounceTempleRockLeft:
 	ld de, NOWPrologueParticleArc2
 	jp ApplyOWMovement
 
-Func_15848a:
+UpdateTransformationSparkles:
 	call .Func_15849a
 	call .Func_1584da
 	call .Func_158529
@@ -718,7 +718,7 @@ Func_15848a:
 .data_2
 	db -1, -1, -1, -1, -2, -1, -2, -1, -2, -2, -2, -2, -2, -2, -2, -2, $80
 
-Func_15868e:
+UpdateNOWPrologueParticles:
 	call .Func_1586a1
 	call .Func_158785
 	call .Func_1586ed

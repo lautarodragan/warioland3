@@ -183,7 +183,7 @@ BigLeaf2Func:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z

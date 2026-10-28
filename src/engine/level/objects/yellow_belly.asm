@@ -568,7 +568,7 @@ YellowBellyBodyFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeftByVar2
 	ld hl, wCurObjSubState
@@ -583,7 +583,7 @@ YellowBellyBodyFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRightByVar2
 	ld hl, wCurObjSubState
@@ -780,7 +780,7 @@ YellowBellyBodyFunc:
 	ld l, a
 	ld a, $2f
 	ld [hl], a
-	jp Func_51c62
+	jp SetObjMapEntry7_YellowBelly
 
 PumpFunc:
 	ld hl, wCurObjUpdateFunction + 1
@@ -811,7 +811,7 @@ PumpFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_51927
 .asm_518f0
@@ -831,7 +831,7 @@ PumpFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectLeft_Slow
@@ -842,7 +842,7 @@ PumpFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectRight_Slow
@@ -925,7 +925,7 @@ PumpFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_519bf
 .asm_519b9
@@ -942,7 +942,7 @@ PumpFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_519dc
 .asm_519d6
@@ -1320,9 +1320,9 @@ YellowBellyPlatformFunc:
 	ld a, $5a
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(Func_51c77)
+	ld a, HIGH(YellowBellyPlatform_WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(Func_51c77)
+	ld a, LOW(YellowBellyPlatform_WaitAndDespawn)
 	ld [hld], a
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
@@ -1331,13 +1331,13 @@ YellowBellyPlatformFunc:
 	ld [wIsBossBattle], a
 ;	fallthrough
 
-Func_51c62:
+SetObjMapEntry7_YellowBelly:
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 
-Func_51c77:
+YellowBellyPlatform_WaitAndDespawn:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz

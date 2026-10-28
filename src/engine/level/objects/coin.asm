@@ -210,7 +210,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .set_fall_right
 	ld hl, wCurObjStateDuration
@@ -245,7 +245,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .set_fall_left
 	ld hl, wCurObjStateDuration
@@ -307,7 +307,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_63680
 	ld a, [wIsInWaterOrSand]
@@ -328,7 +328,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld a, $0d
@@ -417,7 +417,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .asm_63729
 	ld a, [wIsInWaterOrSand]
@@ -438,7 +438,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld a, $0c
@@ -506,7 +506,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_637dd
 	call MoveObjectLeftByVar2
@@ -519,7 +519,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -534,7 +534,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -544,7 +544,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, $0c
@@ -582,7 +582,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	jr nz, .asm_63861
 	call MoveObjectRightByVar2
@@ -595,7 +595,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	cp $10
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
@@ -610,7 +610,7 @@ CoinFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld hl, wCurObjXPos
@@ -620,7 +620,7 @@ CoinFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_35a3
+	call ProcessBlock_DownSide
 	and a
 	ret nz
 	ld a, $0d
@@ -658,7 +658,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	ret nz
 	ld a, $14
@@ -754,7 +754,7 @@ CoinFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_6392d
 	ld hl, wCurObjYPos

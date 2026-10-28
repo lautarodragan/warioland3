@@ -1,4 +1,4 @@
-Func_d47f1:
+ColourMusicalCoinLevels:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wMusicalCoinFlags

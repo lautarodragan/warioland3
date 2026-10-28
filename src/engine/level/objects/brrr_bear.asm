@@ -55,20 +55,20 @@ BrrrBearFunc:
 	dw .Func_48301
 	dw .Func_484d3
 	dw .Func_484b4
-	dw Func_3263
-	dw Func_3272
-	dw Func_3281
+	dw ObjState_HopStart
+	dw ObjState_Hop
+	dw ObjState_StartRandomWobble
 	dw .Func_4811f
 	dw .Func_4811f
 	dw .Func_4811f
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_4842a
 	dw .Func_48420
 	dw .Func_4811f
@@ -81,12 +81,12 @@ BrrrBearFunc:
 	dw .Func_481ca
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw Func_3326
-	dw Func_3317
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_AttackedLeft
+	dw ObjState_AttackedRight
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Func_4811f
 	dw .Func_4811f
 	dw .Func_4811f
@@ -95,30 +95,30 @@ BrrrBearFunc:
 	dw .Func_48350
 	dw .Func_48399
 	dw ObjState_StandingFall
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_483c5
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_482f3
 	dw .Func_48314
 	dw .Func_484e2
 	dw .Func_484c3
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
-	dw Func_33f8
-	dw Func_3407
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
+	dw ObjState_HitByObjLeft
+	dw ObjState_HitByObjRight
 	dw .Func_4811f
 	dw .Func_4811f
 	dw .Func_4811f
@@ -319,7 +319,7 @@ BrrrBearFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr nz, .asm_4823d
 	ld a, $11
@@ -356,7 +356,7 @@ BrrrBearFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
 .asm_48278
@@ -387,7 +387,7 @@ BrrrBearFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_482ac
@@ -434,7 +434,7 @@ BrrrBearFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -453,7 +453,7 @@ BrrrBearFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -498,7 +498,7 @@ BrrrBearFunc:
 .asm_4835d
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_32ea
+	jp nz, ObjCheckFloorOrDrop
 	ld a, $10
 	ld [wCurObjState], a
 	ret
@@ -573,7 +573,7 @@ BrrrBearFunc:
 	cp $06
 	jr z, .asm_483e8
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret
@@ -696,7 +696,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 .Func_484a1:
 	ld hl, wCurObjState
 	ld a, $37
@@ -708,7 +708,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_484b4:
 	ld a, $49
@@ -720,7 +720,7 @@ BrrrBearFunc:
 .Func_484c3:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
@@ -737,7 +737,7 @@ BrrrBearFunc:
 .Func_484e2:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80

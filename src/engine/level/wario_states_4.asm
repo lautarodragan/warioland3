@@ -40,10 +40,10 @@ UpdateWarioStates_Group4:
 	dw UpdateState_Splitting         ; WST_SPLITTING
 	dw UpdateState_SplittingAirborne ; WST_SPLITTING_AIRBORNE
 	dw UpdateState_FanStart          ; WST_FAN_START
-	dw UpdateStart_FanLifting        ; WST_FAN_LIFTING
-	dw UpdateStart_FanTurning        ; WST_FAN_TURNING
+	dw UpdateState_FanLifting        ; WST_FAN_LIFTING
+	dw UpdateState_FanTurning        ; WST_FAN_TURNING
 	dw UpdateState_FanSpinning       ; WST_FAN_SPINNING
-	dw UpdateStart_FanRecovering     ; WST_FAN_RECOVERING
+	dw UpdateState_FanRecovering     ; WST_FAN_RECOVERING
 	dw InvalidWarioStateReset        ; WST_UNUSED_D9
 	dw InvalidWarioStateReset        ; WST_UNUSED_DA
 	dw InvalidWarioStateReset        ; WST_UNUSED_DB
@@ -179,14 +179,14 @@ SetState_IceSkatin:
 	ret
 
 UpdateState_IceSkatin:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
 	farcall CheckFrontCollision
 	ld a, b
 	and a
-	jr nz, Func_1ec215
+	jr nz, IceSkatinCrashIntoWall
 
 	ld a, [wSFXLoopCounter]
 	sub 1
@@ -232,7 +232,7 @@ UpdateState_IceSkatin:
 	ld [wJumpVelTable], a
 	ret
 
-Func_1ec215:
+IceSkatinCrashIntoWall:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1ec223
@@ -245,7 +245,7 @@ Func_1ec215:
 	jp SetState_IceSkatinCrash
 
 UpdateState_IceSkatinAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -256,7 +256,7 @@ UpdateState_IceSkatinAirborne:
 	farcall CheckFrontCollision
 	ld a, b
 	and a
-	jr nz, Func_1ec215
+	jr nz, IceSkatinCrashIntoWall
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -401,14 +401,14 @@ SetState_OwlWario:
 UpdateState_OwlSlow:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
-	jp nz, Func_1ec64d
-	farcall Func_19b25
+	jp nz, SetState_ReleasingOwl
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_1ec64d
+	jp nz, SetState_ReleasingOwl
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
@@ -435,7 +435,7 @@ UpdateState_OwlSlow:
 	jr nz, .go_down
 
 ; go left
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
@@ -451,7 +451,7 @@ UpdateState_OwlSlow:
 	jp UpdateWarioOwlDirection
 
 .go_right
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_SLOW
 	ret nz
@@ -568,14 +568,14 @@ HandleWarioOwlInput:
 UpdateState_OwlFast:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
-	jp nz, Func_1ec64d
-	farcall Func_19b25
+	jp nz, SetState_ReleasingOwl
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
 	ld a, [wWaterInteraction]
 	and a
-	jp nz, Func_1ec64d
+	jp nz, SetState_ReleasingOwl
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
@@ -605,7 +605,7 @@ UpdateState_OwlFast:
 	ld a, [wJoypadDown]
 	and PAD_LEFT
 	jp z, HandleWarioOwlInput
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
@@ -620,7 +620,7 @@ UpdateState_OwlFast:
 	ld a, [wJoypadDown]
 	and PAD_RIGHT
 	jp z, HandleWarioOwlInput
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, [wWarioState]
 	cp WST_OWL_FAST
 	ret nz
@@ -670,7 +670,7 @@ UpdateState_OwlFast:
 	call MoveWarioDown
 	ret
 
-Func_1ec64d:
+SetState_ReleasingOwl:
 	ld a, WST_RELEASING_OWL
 	ld [wWarioState], a
 	call ReleaseOwl
@@ -708,7 +708,7 @@ UpdateState_ReleasingOwl:
 	ret
 
 UpdateState_FallingFromOwl:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -716,7 +716,7 @@ UpdateState_FallingFromOwl:
 	and a
 	jp nz, RecoverFromTransformation
 	call ApplyJumpVelocity
-	farcall Func_2b17a
+	farcall WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_1ec6e3
@@ -761,10 +761,10 @@ UpdateState_HangingRail:
 	bit B_PAD_B, a
 	jp nz, RecoverFromTransformation_WithoutInvincibility
 	bit B_PAD_A, a
-	jp nz, Func_1ede4d
+	jp nz, LeaveRailAndJump
 	ld a, [wAutoMoveState]
 	and a
-	jp z, Func_1ede69
+	jp z, LeaveRailAndFall
 	ret
 
 SetState_TurningIntoSnowman:
@@ -841,7 +841,7 @@ SetState_TurningIntoSnowman:
 	ret
 
 UpdateState_SnowmanStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -900,7 +900,7 @@ SetState_SnowmanIdle:
 	ret
 
 UpdateState_SnowmanIdle:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -954,7 +954,7 @@ SetState_SnowmanWalking:
 	ret
 
 UpdateState_SnowmanWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -969,7 +969,7 @@ UpdateState_SnowmanWalking:
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1ede96
+	call HandleSnowmanWalkingInput
 	ld a, [wWarioState]
 	cp WST_SNOWMAN_WALKING
 	ret nz
@@ -1015,7 +1015,7 @@ SetState_SnowmanTurning:
 	ret
 
 UpdateState_SnowmanTurning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1091,7 +1091,7 @@ SetState_SnowmanAirborne:
 	ret
 
 UpdateState_SnowmanAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1130,7 +1130,7 @@ UpdateState_SnowmanAirborne:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 .asm_1ecadd
-	call Func_1edf01
+	call HandleSnowmanAirborneMovement
 	ld a, [wWarioState]
 	cp WST_SNOWMAN_AIRBORNE
 	ret nz
@@ -1297,7 +1297,7 @@ SetState_SnowballRolling:
 	ret
 
 UpdateState_SnowballRolling:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1421,7 +1421,7 @@ UpdateState_SnowballRolling:
 	ret
 
 UpdateState_SnowballAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1616,7 +1616,7 @@ UpdateState_SplitHit:
 	ret
 
 UpdateState_SplitKnockedBack:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1629,7 +1629,7 @@ UpdateState_SplitKnockedBack:
 	and a
 	jr nz, .play_sfx
 	farcall HandleWalk
-	call Func_1762
+	call LimitAirWalkVelocity
 	jp TriggerDownwardsFloorTransition
 
 .play_sfx
@@ -1673,7 +1673,7 @@ UpdateState_Splitting:
 	hcall UpdateWarioAnimation
 	ld a, [wWarioAnimationEnded]
 	and a
-	jr nz, Func_1ed09b
+	jr nz, TurnAndRecoverFromTransformation
 
 	farcall CheckCentreCollision
 	ld a, b
@@ -1690,7 +1690,7 @@ UpdateState_Splitting:
 	ret
 
 UpdateState_SplittingAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -1702,7 +1702,7 @@ UpdateState_SplittingAirborne:
 	hcall UpdateWarioAnimation
 	ld a, [wWarioAnimationEnded]
 	and a
-	jr nz, Func_1ed09b
+	jr nz, TurnAndRecoverFromTransformation
 	call ApplyJumpVelocity
 	farcall CheckAirborneCollision
 	ld a, b
@@ -1710,7 +1710,7 @@ UpdateState_SplittingAirborne:
 	jp nz, SetState_Splitting
 	jp TriggerDownwardsFloorTransition
 
-Func_1ed09b:
+TurnAndRecoverFromTransformation:
 	ld a, [wDirection]
 	xor $1 ; switch direction
 	ld [wDirection], a
@@ -1778,7 +1778,7 @@ SetState_FanStart:
 	ret
 
 UpdateState_FanStart:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wSFXLoopCounter]
 	sub 1
 	ld [wSFXLoopCounter], a
@@ -1822,8 +1822,8 @@ SetState_FanLifting:
 	hcall UpdateWarioAnimation
 	ret
 
-UpdateStart_FanLifting:
-	farcall Func_19b25
+UpdateState_FanLifting:
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInAirCurrent]
 	and a
 	jp z, SetState_FanRecovering
@@ -1838,11 +1838,11 @@ UpdateStart_FanLifting:
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1edf2b
+	call RiseInAirCurrent
 	ld a, [wWarioState]
 	cp WST_FAN_LIFTING
 	ret nz
-	call Func_1edf47
+	call HandleFanInput
 	ret
 
 SetState_FanTurning:
@@ -1876,8 +1876,8 @@ SetState_FanTurning:
 	hcall UpdateWarioAnimation
 	ret
 
-UpdateStart_FanTurning:
-	call Func_1edf2b
+UpdateState_FanTurning:
+	call RiseInAirCurrent
 	ld a, [wWarioState]
 	cp WST_FAN_TURNING
 	ret nz
@@ -1916,7 +1916,7 @@ SetState_FanSpinning:
 	ret
 
 UpdateState_FanSpinning:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wIsInAirCurrent]
 	and a
 	jr z, SetState_FanRecovering
@@ -1931,7 +1931,7 @@ UpdateState_FanSpinning:
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1edf47
+	call HandleFanInput
 	ret
 
 SetState_FanRecovering:
@@ -1959,7 +1959,7 @@ SetState_FanRecovering:
 	hcall UpdateWarioAnimation
 	ret
 
-UpdateStart_FanRecovering:
+UpdateState_FanRecovering:
 	ld a, BANK("Wario OAM 3")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2041,7 +2041,7 @@ UpdateState_BlindIdling:
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
-	call Func_1edf93
+	call HandleBlindIdlingInput
 	ld a, [wWarioState]
 	cp WST_BLIND_IDLING
 	ret nz ; done if not blind idling any more
@@ -2049,7 +2049,7 @@ UpdateState_BlindIdling:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_1ed548
+	jp z, SetState_BlindAirborne_Fall
 	ret
 
 SetState_BlindWalking:
@@ -2105,7 +2105,7 @@ SetState_BlindWalking:
 	ret
 
 UpdateState_BlindWalking:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2121,7 +2121,7 @@ UpdateState_BlindWalking:
 	ld a, b
 	and a
 	jp nz, RecoverFromTransformation
-	call Func_1edfa4
+	call HandleBlindWalkingInput
 	ld a, [wWarioState]
 	cp WST_BLIND_WALKING
 	ret nz ; done if not blind walking any more
@@ -2129,7 +2129,7 @@ UpdateState_BlindWalking:
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jp z, Func_1ed548
+	jp z, SetState_BlindAirborne_Fall
 	update_pos_y
 	ret
 
@@ -2179,13 +2179,13 @@ UpdateState_BlindTurning:
 	hcall UpdateWarioAnimation
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr nz, Func_1ed558
+	jr nz, SetState_BlindAirborne_Jump
 	ld a, [wWarioAnimationEnded]
 	and a
 	ret z
 	jp SetState_BlindWalking
 
-Func_1ed548:
+SetState_BlindAirborne_Fall:
 	xor a
 	ld [wJumpingUpwards], a
 	ld a, FALLING_JUMP_VEL_INDEX
@@ -2194,7 +2194,7 @@ Func_1ed548:
 	ld [wJumpVelTable], a
 	jr SetState_BlindAirborne
 
-Func_1ed558:
+SetState_BlindAirborne_Jump:
 	play_sfx SFX_JUMP
 
 	xor a
@@ -2260,7 +2260,7 @@ SetState_BlindAirborne:
 	ret
 
 UpdateState_BlindAirborne:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2275,7 +2275,7 @@ UpdateState_BlindAirborne:
 	ld a, b
 	and a
 	jp nz, RecoverFromTransformation
-	call Func_1ee00f
+	call HandleBlindAirborneMovement
 	ld a, [wWarioState]
 	cp WST_BLIND_AIRBORNE
 	ret nz ; done if not blind airborne any more
@@ -2290,7 +2290,7 @@ UpdateState_BlindAirborne:
 	ld a, [wWarioState]
 	cp WST_BLIND_AIRBORNE
 	ret nz ; done if not blind airborne any more
-	jp Func_1ed548
+	jp SetState_BlindAirborne_Fall
 
 .asm_1ed644
 	farcall CheckAirborneCollision
@@ -2478,7 +2478,7 @@ SetState_Launched:
 	ret
 
 UpdateState_Launched:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	ld a, [wRoomTransitionParam]
 	and a
 	jp nz, TriggerRoomTransition
@@ -2541,7 +2541,7 @@ UpdateState_LaunchCrash:
 	ld a, [wWarioAnimationEnded]
 	and a
 	ret z
-	farcall Func_2ad6a
+	farcall RecoverFromTransformation_Underwater
 	ret
 
 SetState_MagicRising:
@@ -2635,7 +2635,7 @@ SetState_MagicRising:
 	ret
 
 UpdateState_MagicRising:
-	farcall Func_19b25
+	farcall CheckTopBlockInteraction
 	farcall CheckUpCollision
 	ld a, b
 	and a
@@ -2731,7 +2731,7 @@ SetState_BallStart:
 
 	ld a, [wJumpVelTable]
 	and a
-	jr z, Func_1edaca
+	jr z, LandFromBallStart
 
 	ld a, WST_BALL_START
 	ld [wWarioState], a
@@ -2773,7 +2773,7 @@ UpdateState_BallStart:
 	ld [de], a
 ;	fallthrough
 
-Func_1edaca:
+LandFromBallStart:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edae4
@@ -2784,7 +2784,7 @@ Func_1edaca:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_1dd316)
 	ld [wWarioFramesetPtr + 1], a
-	jr Func_1edd24
+	jr SetState_BallBouncing
 .asm_1edae4
 	ld a, [wJoypadDown]
 	bit B_PAD_LEFT, a
@@ -2793,9 +2793,9 @@ Func_1edaca:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_1dd323)
 	ld [wWarioFramesetPtr + 1], a
-	jr Func_1edd24
+	jr SetState_BallBouncing
 
-Func_1edaf8:
+LandFromBallAirborne:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edb12
@@ -2806,7 +2806,7 @@ Func_1edaf8:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_1dd230)
 	ld [wWarioFramesetPtr + 1], a
-	jr Func_1edd24
+	jr SetState_BallBouncing
 .asm_1edb12
 	ld a, [wJoypadDown]
 	bit B_PAD_LEFT, a
@@ -2817,7 +2817,7 @@ Func_1edaf8:
 	ld [wWarioFramesetPtr + 1], a
 ;	fallthrough
 
-Func_1edd24:
+SetState_BallBouncing:
 	xor a
 	ld [wJumpVelTable], a
 	ld [wJumpVelIndex], a
@@ -2877,7 +2877,7 @@ UpdateState_BallAirborne:
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 
-	call Func_1ee02e
+	call HandleBallAirborneMovement
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
 	ret c
@@ -2886,7 +2886,7 @@ UpdateState_BallAirborne:
 	and a
 	ret z
 	update_pos_y
-	jp Func_1edaf8
+	jp LandFromBallAirborne
 
 SetState_BallShot:
 	ld a, WST_BALL_SHOT
@@ -3046,7 +3046,7 @@ UpdateState_BallThrown:
 	cp 3
 	jr z, .asm_1edd3c
 	pop_wram
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	ret
 
 .asm_1edd3c
@@ -3109,7 +3109,7 @@ UpdateState_BallSentUpwards:
 	ld [wIsIntangible], a
 	ld [wJumpVelIndex], a
 	ld [wJumpVelTable], a
-	farcall Func_206eb
+	farcall EndTransformationAndSting
 	ret
 
 SetState_BallTurning:
@@ -3153,7 +3153,7 @@ UpdateState_BallTurning:
 	ret z
 	jp SetState_BallAirborne
 
-Func_1ede4d:
+LeaveRailAndJump:
 	call ClearTransformationValues
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal
@@ -3161,12 +3161,12 @@ Func_1ede4d:
 	farcall StartJump_FromInput
 	ret
 
-Func_1ede69:
+LeaveRailAndFall:
 	call ClearTransformationValues
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal
 	call SetWarioPal
-	farcall Func_1e174
+	farcall SetState_RollingAirborne_Fall
 	ret
 
 HandleSnowmanInput:
@@ -3178,7 +3178,7 @@ HandleSnowmanInput:
 	jp nz, SetState_SnowmanWalking
 	ret
 
-Func_1ede96:
+HandleSnowmanWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jp nz, SetState_SnowmanAirborne_Jump
@@ -3221,9 +3221,9 @@ Func_1ede96:
 	ld [wDirection], a
 	jp SetState_SnowmanTurning
 
-Func_1edf01:
+HandleSnowmanAirborneMovement:
 	call ApplyJumpVelocity
-	farcall Func_2b17a
+	farcall WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $08
 	jr c, .asm_1edf1f
@@ -3237,8 +3237,8 @@ Func_1edf01:
 	ld [wIsSmashAttacking], a
 	ret
 
-Func_1edf2b:
-	farcall Func_19acd
+RiseInAirCurrent:
+	farcall UpdateEnvStateAtChest
 	ld a, [wIsInAirCurrent]
 	and a
 	jp z, SetState_FanSpinning
@@ -3246,7 +3246,7 @@ Func_1edf2b:
 	call MoveWarioUp
 	ret
 
-Func_1edf47:
+HandleFanInput:
 	ld a, [wDirection]
 	and a
 	jr nz, .asm_1edf70
@@ -3255,7 +3255,7 @@ Func_1edf47:
 	jp nz, SetState_FanTurning
 	bit B_PAD_LEFT, a
 	ret z
-	farcall Func_197b1
+	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -3268,7 +3268,7 @@ Func_1edf47:
 	jp nz, SetState_FanTurning
 	bit B_PAD_RIGHT, a
 	ret z
-	farcall Func_19741
+	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
 	ret nz
@@ -3276,19 +3276,19 @@ Func_1edf47:
 	call MoveWarioRight
 	ret
 
-Func_1edf93:
+HandleBlindIdlingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_1ed558
+	jp nz, SetState_BlindAirborne_Jump
 	ld a, [wJoypadDown]
 	and PAD_RIGHT | PAD_LEFT
 	jp nz, SetState_BlindWalking
 	ret
 
-Func_1edfa4:
+HandleBlindWalkingInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jp nz, Func_1ed558
+	jp nz, SetState_BlindAirborne_Jump
 	ld a, [wJoypadDown]
 	bit B_PAD_RIGHT, a
 	jr nz, .asm_1edfba
@@ -3332,9 +3332,9 @@ Func_1edfa4:
 	ld [wDirection], a
 	jp SetState_BlindTurning
 
-Func_1ee00f:
+HandleBlindAirborneMovement:
 	call ApplyJumpVelocity
-	farcall Func_2b17a
+	farcall WalkFromInput
 	ld a, [wWalkVelIndex]
 	cp $10
 	jr c, .asm_1ee02d
@@ -3343,7 +3343,7 @@ Func_1ee00f:
 .asm_1ee02d
 	ret
 
-Func_1ee02e:
+HandleBallAirborneMovement:
 	call ApplyJumpVelocity
 	farcall HandleWalk
 	ld a, [wWalkVelIndex]

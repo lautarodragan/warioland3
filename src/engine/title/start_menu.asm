@@ -171,7 +171,7 @@ StartOverworldState::
 	ld [wSubState], a
 	ret
 
-Func_4628::
+ReturnToOverworld::
 	xor a
 	ld [wAnimatedTilesFrameDuration], a
 	ld [wAnimatedTilesGfx], a

@@ -70,8 +70,8 @@ RoboMouseFunc:
 	dw .Func_48b21
 	dw .Func_48b13
 	dw .Func_48c4d
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_48c4d
 	dw .Func_48c4d
 	dw .Func_48b13
@@ -82,8 +82,8 @@ RoboMouseFunc:
 	dw .Func_48b13
 	dw .Func_48b13
 	dw .Func_48b13
-	dw Func_3191
-	dw Func_31af
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
 	dw .Func_48a17
 	dw .Func_48a23
 	dw .Func_489ff
@@ -130,8 +130,8 @@ RoboMouseFunc:
 	dw .Func_48b13
 	dw .Func_48b13
 	dw .Func_48b13
-	dw Func_31a0
-	dw Func_31be
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
 	dw .Func_48a1d
 	dw .Func_48a29
 	dw .Func_48a05
@@ -159,40 +159,40 @@ RoboMouseFunc:
 
 .Func_489ff:
 	call .Func_48cec
-	jp Func_3209
+	jp ObjState_Bounce3LeftStart
 .Func_48a05:
 	call .Func_48cec
-	jp Func_3218
+	jp ObjState_Bounce3Left
 .Func_48a0b:
 	call .asm_48d3d
-	jp Func_3227
+	jp ObjState_Bounce3RightStart
 .Func_48a11:
 	call .asm_48d3d
-	jp Func_3236
+	jp ObjState_Bounce3Right
 .Func_48a17:
 	call .Func_48cec
-	jp Func_31cd
+	jp ObjState_Bounce2LeftStart
 .Func_48a1d:
 	call .Func_48cec
-	jp Func_31dc
+	jp ObjState_Bounce2Left
 .Func_48a23:
 	call .asm_48d3d
-	jp Func_31eb
+	jp ObjState_Bounce2RightStart
 .Func_48a29:
 	call .asm_48d3d
-	jp Func_31fa
+	jp ObjState_Bounce2Right
 .Func_48a2f:
 	call .Func_48cec
-	jp Func_3245
+	jp ObjState_FallLeftStart
 .Func_48a35:
 	call .Func_48cec
-	jp Func_32cc
+	jp ObjState_FallLeft
 .Func_48a3b:
 	call .asm_48d3d
-	jp Func_3254
+	jp ObjState_FallRightStart
 .Func_48a41:
 	call .asm_48d3d
-	jp Func_32db
+	jp ObjState_FallRight
 .Func_48a47:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_NO_COLLISION_F, [hl]
@@ -272,7 +272,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld a, [wCurObjInteractionType]
@@ -324,7 +324,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jp z, .asm_48bb7
 	cp $10
@@ -340,7 +340,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .asm_48ba2
 	call .asm_48ce8
@@ -359,7 +359,7 @@ RoboMouseFunc:
 	ldh [hXPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_FREE
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld hl, wCurObjYPos
@@ -401,7 +401,7 @@ RoboMouseFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jp z, .asm_48c42
 	cp $10
@@ -417,7 +417,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .asm_48c2d
 	call .asm_48d39
@@ -436,7 +436,7 @@ RoboMouseFunc:
 	ldh [hXPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_FREE
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	and $0f
 	ret z
 	ld hl, wCurObjYPos
@@ -479,7 +479,7 @@ RoboMouseFunc:
 .Func_48c60:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, Func_3308
+	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_X_POS
 	ld a, [hli]
 	ld e, a
@@ -577,7 +577,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $14
@@ -587,7 +587,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $24
@@ -597,7 +597,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	jp Func_3513
+	jp ProcessBlock_Side
 
 .asm_48d39
 	ld b, $0b
@@ -621,7 +621,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $14
@@ -631,7 +631,7 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	call Func_3513
+	call ProcessBlock_Side
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $24
@@ -641,4 +641,4 @@ RoboMouseFunc:
 	ldh [hYPosHi], a
 	ld a, COLLISION_ROBO_MOUSE_BREAK
 	ld [wBlockFuncSpecialCollision], a
-	jp Func_3513
+	jp ProcessBlock_Side

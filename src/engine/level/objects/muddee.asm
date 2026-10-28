@@ -242,7 +242,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water
@@ -296,7 +296,7 @@ MuddeeFunc:
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld hl, wCurObjUnk02
 	ld e, $07
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	stop_music2
 	ld a, 2
 	ld [wMuddeeAmbushState], a
@@ -323,7 +323,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jr nz, .asm_5589e
 	call .Func_55c2b
@@ -382,7 +382,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .asm_55910
@@ -442,7 +442,7 @@ MuddeeFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_5597a
 	call .Func_55be7
@@ -489,7 +489,7 @@ MuddeeFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_559d4
 	call .Func_55be7
@@ -540,7 +540,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jp z, MoveObjectDown
 	ld a, $06
@@ -574,7 +574,7 @@ MuddeeFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectRight_Slow
@@ -585,7 +585,7 @@ MuddeeFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectLeft_Slow
@@ -706,7 +706,7 @@ MuddeeFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_55b4c
 	call MoveObjectLeft_Slow
@@ -718,7 +718,7 @@ MuddeeFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_55b4c
 	call MoveObjectRight_Slow
@@ -746,7 +746,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	jr nz, .asm_55b9a
 	jp MoveObjectUp_Slow
@@ -762,7 +762,7 @@ MuddeeFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .asm_55b9a
@@ -925,7 +925,7 @@ Turtle1Func:
 
 .Func_55c91:
 	call SetOneWayPlatformAction
-	call Func_55e33
+	call PlayTurtleSwimSFX
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
@@ -937,7 +937,7 @@ Turtle1Func:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	ld a, b
 	and a
 	ret nz
@@ -1014,7 +1014,7 @@ Turtle1Func:
 	ld [hld], a
 	ld hl, wCurObjUnk02
 	ld e, $06
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ret
 
 .Func_55d4c:
@@ -1062,7 +1062,7 @@ TurtleCommonFunc:
 
 .Func_55d90:
 	call SetOneWayPlatformAction
-	call Func_55e33
+	call PlayTurtleSwimSFX
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
@@ -1077,7 +1077,7 @@ TurtleCommonFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_55dd6
 	call MoveObjectRight
@@ -1085,7 +1085,7 @@ TurtleCommonFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	ld a, b
 	and a
 	ret nz
@@ -1154,7 +1154,7 @@ Turtle2Func:
 	ld [wCurObjFlags], a
 	ret
 
-Func_55e33:
+PlayTurtleSwimSFX:
 	ld hl, wCurObjFrameDuration
 	ld a, [hli]
 	and a

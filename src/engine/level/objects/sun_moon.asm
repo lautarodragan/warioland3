@@ -78,7 +78,7 @@ SunFunc:
 	ldh [hXPosHi], a
 	xor a
 	ld [wHitFloorBlock], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_472dd
 	ld a, [wHitFloorBlock]
@@ -378,7 +378,7 @@ SunMoon_MoveRight:
 	ld a, [hli]
 	adc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	ld hl, wCurObjYPos
@@ -388,7 +388,7 @@ SunMoon_MoveRight:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectRightByVar2
@@ -407,7 +407,7 @@ SunMoon_MoveLeft:
 	ld a, [hli]
 	sbc 0
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	ld hl, wCurObjYPos
@@ -417,7 +417,7 @@ SunMoon_MoveLeft:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret nz
 	jp MoveObjectLeftByVar2
@@ -434,7 +434,7 @@ SunMoon_MoveDown:
 	ldh [hXPosHi], a
 	xor a
 	ld [wHitFloorBlock], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_4751a
 	ld a, [wHitFloorBlock]
@@ -455,7 +455,7 @@ SunMoon_MoveUp:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and a
 	ret nz
 	jp MoveObjectUpByVar2
@@ -573,7 +573,7 @@ MoonFunc:
 	ldh [hXPosHi], a
 	xor a
 	ld [wHitFloorBlock], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr z, .asm_475fe
 	ld a, [wHitFloorBlock]

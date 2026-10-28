@@ -26,5 +26,5 @@ UpdateCutscene:
 	stop_sfx
 	ret
 
-Func_80db1:
+ReturnFromCutscene:
 	jp InitOverworld.after_cutscene

@@ -44,40 +44,40 @@ NoPowerUpActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1f8395
-	dw Func_1f83ba
-	dw Func_1f83d5
-	dw Func_1f842e
-	dw Func_1f847a
+	dw NoPowerUpActionHelp_WaitToStart
+	dw NoPowerUpActionHelp_Step02
+	dw NoPowerUpActionHelp_Step03
+	dw NoPowerUpActionHelp_Step04
+	dw NoPowerUpActionHelp_Step05
 	dw ActionHelp_FlashBInput
-	dw Func_1f848c
-	dw Func_1f84d7
-	dw Func_1f8522
-	dw Func_1f853a
-	dw Func_1f8588
-	dw Func_1f85c3
-	dw Func_1f85d3
-	dw Func_1f85eb
-	dw Func_1f8638
-	dw Func_1f8673
-	dw Func_1f8683
-	dw Func_1f86b5
-	dw Func_1f86ee
-	dw Func_1f8708
-	dw Func_1f8730
-	dw Func_1f8778
-	dw Func_1f8788
+	dw NoPowerUpActionHelp_Step07
+	dw NoPowerUpActionHelp_Step08
+	dw NoPowerUpActionHelp_Step09
+	dw NoPowerUpActionHelp_Step0A
+	dw NoPowerUpActionHelp_Step0B
+	dw NoPowerUpActionHelp_Step0C
+	dw NoPowerUpActionHelp_Step0D
+	dw NoPowerUpActionHelp_Step0E
+	dw NoPowerUpActionHelp_Step0F
+	dw NoPowerUpActionHelp_Step10
+	dw NoPowerUpActionHelp_Step11
+	dw NoPowerUpActionHelp_Step12
+	dw NoPowerUpActionHelp_Step13
+	dw NoPowerUpActionHelp_Step14
+	dw NoPowerUpActionHelp_Step15
+	dw NoPowerUpActionHelp_Step16
+	dw NoPowerUpActionHelp_Step17
 	dw ActionHelp_FlashDDownInput
-	dw Func_1f87a1
-	dw Func_1f87bd
-	dw Func_1f87d6
-	dw Func_1f87fb
-	dw Func_1f883c
-	dw Func_1f884c
-	dw Func_1f886b
-	dw Func_1f88a4
+	dw NoPowerUpActionHelp_Step19
+	dw NoPowerUpActionHelp_Step1A
+	dw NoPowerUpActionHelp_Step1B
+	dw NoPowerUpActionHelp_Step1C
+	dw NoPowerUpActionHelp_Step1D
+	dw NoPowerUpActionHelp_Step1E
+	dw NoPowerUpActionHelp_Step1F
+	dw NoPowerUpActionHelp_Step20
 
-Func_1f8362:
+NoPowerUpActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1f8370
@@ -88,7 +88,7 @@ Func_1f8362:
 .asm_1f8370
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -97,13 +97,13 @@ Func_1f8362:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1f839a
+	jr NoPowerUpActionHelp_Start
 
-Func_1f8395:
+NoPowerUpActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1f839a:
+NoPowerUpActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowParaGoomWalk
@@ -114,7 +114,7 @@ Func_1f839a:
 	inc [hl]
 	ret
 
-Func_1f83ba:
+NoPowerUpActionHelp_Step02:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -133,7 +133,7 @@ Func_1f83ba:
 	inc [hl]
 	ret
 
-Func_1f83d5:
+NoPowerUpActionHelp_Step03:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 
@@ -185,7 +185,7 @@ Func_1f83d5:
 	inc [hl]
 	ret
 
-Func_1f842e:
+NoPowerUpActionHelp_Step04:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 
@@ -231,7 +231,7 @@ Func_1f842e:
 	inc [hl]
 	ret
 
-Func_1f847a:
+NoPowerUpActionHelp_Step05:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -244,7 +244,7 @@ Func_1f847a:
 	inc [hl]
 	ret
 
-Func_1f848c:
+NoPowerUpActionHelp_Step07:
 	play_sfx_rept 6, SFX_ATTACK
 
 	ld hl, wActionHelpWarioVar
@@ -275,7 +275,7 @@ Func_1f848c:
 	inc [hl]
 	ret
 
-Func_1f84d7:
+NoPowerUpActionHelp_Step08:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	inc [hl]
@@ -327,7 +327,7 @@ Func_1f84d7:
 	inc [hl]
 	ret
 
-Func_1f8522:
+NoPowerUpActionHelp_Step09:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -343,7 +343,7 @@ Func_1f8522:
 	inc [hl]
 	ret
 
-Func_1f853a:
+NoPowerUpActionHelp_Step0A:
 	play_sfx_rept 6, SFX_ATTACK
 
 	ld hl, wActionHelpWarioVar
@@ -376,7 +376,7 @@ Func_1f853a:
 	inc [hl]
 	ret
 
-Func_1f8588:
+NoPowerUpActionHelp_Step0B:
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -410,7 +410,7 @@ Func_1f8588:
 	inc [hl]
 	ret
 
-Func_1f85c3:
+NoPowerUpActionHelp_Step0C:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -422,7 +422,7 @@ Func_1f85c3:
 	inc [hl]
 	ret
 
-Func_1f85d3:
+NoPowerUpActionHelp_Step0D:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
@@ -438,7 +438,7 @@ Func_1f85d3:
 	inc [hl]
 	ret
 
-Func_1f85eb:
+NoPowerUpActionHelp_Step0E:
 	play_sfx_rept 6, SFX_ATTACK
 
 	ld hl, wActionHelpWarioVar
@@ -470,7 +470,7 @@ Func_1f85eb:
 	inc [hl]
 	ret
 
-Func_1f8638:
+NoPowerUpActionHelp_Step0F:
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -504,7 +504,7 @@ Func_1f8638:
 	inc [hl]
 	ret
 
-Func_1f8673:
+NoPowerUpActionHelp_Step10:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -516,7 +516,7 @@ Func_1f8673:
 	inc [hl]
 	ret
 
-Func_1f8683:
+NoPowerUpActionHelp_Step11:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -550,7 +550,7 @@ Func_1f8683:
 	inc [hl]
 	ret
 
-Func_1f86b5:
+NoPowerUpActionHelp_Step12:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -585,7 +585,7 @@ Func_1f86b5:
 	inc [hl]
 	ret
 
-Func_1f86ee:
+NoPowerUpActionHelp_Step13:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -602,7 +602,7 @@ Func_1f86ee:
 	inc [hl]
 	ret
 
-Func_1f8708:
+NoPowerUpActionHelp_Step14:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -630,7 +630,7 @@ Func_1f8708:
 	inc [hl]
 	ret
 
-Func_1f8730:
+NoPowerUpActionHelp_Step15:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -673,7 +673,7 @@ Func_1f8730:
 	inc [hl]
 	ret
 
-Func_1f8778:
+NoPowerUpActionHelp_Step16:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -685,7 +685,7 @@ Func_1f8778:
 	inc [hl]
 	ret
 
-Func_1f8788:
+NoPowerUpActionHelp_Step17:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -703,7 +703,7 @@ Func_1f8788:
 	inc [hl]
 	ret
 
-Func_1f87a1:
+NoPowerUpActionHelp_Step19:
 	ld hl, wActionHelpWarioYCoord
 	ld a, [hl]
 	cp $40
@@ -723,7 +723,7 @@ Func_1f87a1:
 	inc [hl]
 	ret
 
-Func_1f87bd:
+NoPowerUpActionHelp_Step1A:
 	ld hl, wActionHelpWarioYCoord
 	ld a, [hl]
 	cp $40
@@ -741,7 +741,7 @@ Func_1f87bd:
 	inc [hl]
 	ret
 
-Func_1f87d6:
+NoPowerUpActionHelp_Step1B:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -762,7 +762,7 @@ Func_1f87d6:
 	inc [hl]
 	ret
 
-Func_1f87fb:
+NoPowerUpActionHelp_Step1C:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -800,7 +800,7 @@ Func_1f87fb:
 	inc [hl]
 	ret
 
-Func_1f883c:
+NoPowerUpActionHelp_Step1D:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -812,7 +812,7 @@ Func_1f883c:
 	inc [hl]
 	ret
 
-Func_1f884c:
+NoPowerUpActionHelp_Step1E:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -835,7 +835,7 @@ Func_1f884c:
 	inc [hl]
 	ret
 
-Func_1f886b:
+NoPowerUpActionHelp_Step1F:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
@@ -871,10 +871,10 @@ Func_1f886b:
 	inc [hl]
 	ret
 
-Func_1f88a4:
+NoPowerUpActionHelp_Step20:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
 	cp $e8
 	ret c
-	jp Func_1f8362
+	jp NoPowerUpActionHelp_End

@@ -306,7 +306,7 @@ ShootFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .grounded
 
@@ -318,7 +318,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_16_px
 
@@ -330,7 +330,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_32_px
 
@@ -342,7 +342,7 @@ ShootFunc:
 	ld a, [hli]
 	adc 0
 	ldh [hYPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .high_48_px
 	ret
@@ -705,14 +705,14 @@ ShootFunc:
 	dw .Func_56b20
 	dw .Func_56b20
 	dw .Func_56b20
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_56af0
 	dw .Func_56af0
 	dw .Func_56b20
@@ -727,10 +727,10 @@ ShootFunc:
 	dw ObjState_BumpRight
 	dw .Func_56c49
 	dw .Func_56c49
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Func_56b20
 	dw .Func_56b20
 	dw .Func_56b20
@@ -739,10 +739,10 @@ ShootFunc:
 	dw .Func_56b20
 	dw .Func_56b20
 	dw ObjState_StandingFall
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_56b20
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_56bff
 	dw .Func_56c0d
 	dw .Func_56b20
@@ -753,14 +753,14 @@ ShootFunc:
 	dw .Func_56b20
 	dw .Func_56b20
 	dw .Func_56b20
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_56b20
 	dw .Func_56b20
 	dw .Func_56b20
@@ -934,7 +934,7 @@ ShootFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -943,7 +943,7 @@ ShootFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -1137,7 +1137,7 @@ ShootFunc:
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld hl, wCurObjUnk02
 	ld e, $09
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_BOSS_DEFEATED
 	ret
 
@@ -1355,7 +1355,7 @@ GKTortoiseFunc:
 	ld [wCurObjFlags], a
 	ld hl, wCurObjUnk02
 	ld e, $08
-	farcall Func_ba42
+	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -1918,7 +1918,7 @@ ApplyYOffsetOnKickedWarioBall:
 	jp HandleDownwardsFloorTransition
 
 ; unreferenced
-Func_5725b:
+UnreferencedMoveWarioUpByNegB:
 	xor a
 	sub b
 	ld b, a

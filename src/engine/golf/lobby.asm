@@ -590,7 +590,7 @@ InitGolfClearCutscene:
 	ld a, $70
 	ld [wGolfObj1YCoord], a
 	call UpdateGolfClearCutsceneAnimation
-	call VBlank_1c84e0
+	call VBlank_GolfLobbyScroll
 
 	xor a
 	ldh [rSCY], a
@@ -632,7 +632,7 @@ InitGolfClearCutscene:
 	ld bc, v0BGMap0
 	jp FarDecompress
 
-VBlank_1c84e0:
+VBlank_GolfLobbyScroll:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func

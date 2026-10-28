@@ -127,7 +127,7 @@ TogebaFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .Func_48e2b
 	ld hl, wCurObjXPos
@@ -137,7 +137,7 @@ TogebaFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	jr nz, .Func_48e2b
 	ld hl, wCurObjStateDuration

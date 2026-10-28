@@ -2,11 +2,11 @@ _GolfBuildingStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
-	dw Func_1c8586
+	dw SlowFadeToWhite
+	dw InitGolfCourseMenu
 	dw SlowFadeFromWhite
-	dw Func_1c86dd
-	dw FastFadeToWhite
+	dw UpdateGolfCourseMenu
+	dw SlowFadeToWhite
 	dw InitGolfHole
 	dw SlowFadeFromWhite
 	dw HandleGolfHole

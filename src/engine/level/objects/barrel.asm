@@ -60,7 +60,7 @@ Barrel1Func:
 
 .asm_434b4
 	ld bc, BarrelData_60a50
-	jp Func_34fc
+	jp ApplyObjYMovement_Platform
 
 Barrel2Func:
 	ld hl, wCurObjFlags
@@ -99,7 +99,7 @@ Barrel2Func:
 	dw .Func_43624
 	dw .Func_435df
 	dw .Func_435e7
-	dw Func_3173
+	dw VanishAndDespawnObject
 	dw .Func_435a6
 	dw .Func_435a6
 	dw .Func_435a6
@@ -143,8 +143,8 @@ Barrel2Func:
 	dw ObjState_BumpRight
 	dw .Func_435a6
 	dw .Func_435a6
-	dw Func_3335
-	dw Func_3344
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
 	dw .Func_435a6
 	dw .Func_435a6
 	dw .Func_435a6
@@ -155,20 +155,20 @@ Barrel2Func:
 	dw .Func_435a6
 	dw .Func_435a6
 	dw .Func_435a6
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_435a6
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_435a6
 	dw .Func_435a6
 	dw .Func_4366b
 	dw .Func_4364c
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw .Func_43689
 	dw .Func_43697
-	dw Func_339e
-	dw Func_33ad
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
 	dw .Func_435a6
 	dw .Func_435a6
 	dw .Func_435a6
@@ -253,7 +253,7 @@ Barrel2Func:
 	ld [hld], a
 	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 .Func_43624:
 	ld hl, wCurObjState
 	ld a, $37
@@ -267,7 +267,7 @@ Barrel2Func:
 	ld [hld], a
 	ld de, BarrelFrameset_68a78
 	call SetObjectFramesetPtr
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_4363d:
 	ld a, $49
@@ -279,7 +279,7 @@ Barrel2Func:
 .Func_4364c:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
@@ -296,7 +296,7 @@ Barrel2Func:
 .Func_4366b:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor $80
@@ -329,32 +329,32 @@ Barrel2Func:
 .Func_436a5:
 	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_436db
 
 .Func_436b3:
 	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_436db
 
 .Func_436c1:
 	ld de, BarrelFrameset_68a6f
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 	jr .asm_436db
 
 .Func_436cf:
 	ld de, BarrelFrameset_68a66
 	call SetObjectFramesetPtr
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 .asm_436db
 	ld l, OBJ_UPDATE_FUNCTION + 1

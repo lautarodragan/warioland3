@@ -118,7 +118,7 @@ wCameraConfigFlags::
 	db
 
 ; holds LEVEL_EDGE_UPDATE_* flags
-; used in Func_8ed9 to know which
+; used in UpdateLevelEdges to know which
 ; edge in the level screen to update
 wLevelEdgeUpdateFlags::
 	db
@@ -2035,10 +2035,10 @@ SECTION "WRAM2 2", WRAMX
 
 UNION
 
-w2d800:: ow_unk_struct w2d800
-wOWPathTracer2:: ow_unk_struct wOWPathTracer2
-wOWPathTracer3:: ow_unk_struct wOWPathTracer3
-wOWPathTracer4:: ow_unk_struct wOWPathTracer4
+w2d800:: ow_path_tracer_struct w2d800
+wOWPathTracer2:: ow_path_tracer_struct wOWPathTracer2
+wOWPathTracer3:: ow_path_tracer_struct wOWPathTracer3
+wOWPathTracer4:: ow_path_tracer_struct wOWPathTracer4
 
 w2d880::
 	ds $9

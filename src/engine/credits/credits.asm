@@ -7,8 +7,8 @@ InitCredits:
 
 	call LoadCreditsPals
 	call LoadCreditsGfx
-	call Func_16041f
-	call VBlank_160439
+	call LoadCreditsBGMaps
+	call VBlank_Credits
 
 	ld a, $04
 	ldh [rSCX], a
@@ -206,7 +206,7 @@ ShowCredits:
 	inc [hl]
 	ret
 
-Func_160190:
+Credits_MoveMusicBox:
 	ld a, [wCreditsMusicBoxVar]
 	and a
 	jr nz, .stopped_moving
@@ -327,7 +327,7 @@ Func_160190:
 	inc [hl]
 	jp .update_anims
 
-Func_16026c:
+Credits_ShowCloseUp:
 	ld hl, wTimer
 	dec [hl]
 	jr z, .close_up
@@ -378,7 +378,7 @@ Func_16026c:
 	ld [wCreditsMusicBoxOAMPtr + 1], a
 	ld a, BANK(PrologueSceneObjOAM_15e44a)
 	ld [wCreditsMusicBoxOAMBank], a
-	call Func_1603be
+	call LoadCreditsCloseUpPals
 
 	ld a, $2 | (1 << 7)
 	ld [wBGUpdateRequest], a
@@ -398,7 +398,7 @@ Func_16026c:
 	call ClearUnusedVirtualOAM
 	ret
 
-Func_1602ee:
+Credits_LoadFinalPals:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -408,12 +408,12 @@ Func_1602ee:
 	ld hl, wCreditsMusicBox
 	call LoadCreditsMusicBoxSprite
 	call ClearUnusedVirtualOAM
-	call Func_1603cb
+	call LoadCreditsFinalPals
 	ld hl, wSubState
 	inc [hl]
 	ret
 
-Func_160318:
+Credits_FadeIn:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -445,7 +445,7 @@ Func_160318:
 	ld [wTimer], a
 	ret
 
-Func_160365:
+Credits_WaitEnd:
 	ld hl, wCreditsMusicBoxFramesetPtr + 1
 	ld a, [wCreditsMusicBoxOAMBank]
 	ld [wTempBank], a
@@ -484,14 +484,14 @@ LoadCreditsPals:
 	call LoadPalsToTempPals2
 	ret
 
-Func_1603be:
+LoadCreditsCloseUpPals:
 	ld hl, CreditsCloseUpBGPals
 	call LoadPalsToTempPals1
 	ld hl, CreditsCloseUpOBPals
 	call LoadPalsToTempPals2
 	ret
 
-Func_1603cb:
+LoadCreditsFinalPals:
 	ld hl, CreditsFinalBGPals
 	call LoadPalsToTempPals1
 	ld hl, CreditsFinalOBPals
@@ -522,7 +522,7 @@ LoadCreditsGfx:
 	call Decompress
 	ret
 
-Func_16041f:
+LoadCreditsBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, CreditsAttrmap
@@ -535,7 +535,7 @@ Func_16041f:
 	call Decompress
 	ret
 
-VBlank_160439:
+VBlank_Credits:
 	ld hl, .Func
 	ld de, wVBlankFunc
 	ld b, .end - .Func

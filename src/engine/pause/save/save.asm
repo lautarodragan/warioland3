@@ -288,7 +288,7 @@ SaveLevel:
 	ld a, e
 	ld [sBackup2WRAMChecksumEcho2 + 1], a
 
-	call Func_1f14c6
+	call BackupLevelMap
 	ld a, $80
 	ld [sSaveProgress], a
 	ld [sSaveProgressEcho1], a

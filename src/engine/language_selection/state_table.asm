@@ -8,7 +8,7 @@ LanguageSelectionStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitLanguageSelection
 	dw SlowFadeFromWhite
 	dw LanguageSelection

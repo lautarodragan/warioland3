@@ -19,26 +19,26 @@ PrinceFrogsGlovesActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1fad75
-	dw Func_1fadea
-	dw Func_1fadfa
-	dw Func_1fae0f
-	dw Func_1fae3d
-	dw Func_1fae4d
-	dw Func_1fae7f
-	dw Func_1faeba
-	dw Func_1faef0
+	dw PrinceFrogsGlovesActionHelp_WaitToStart
+	dw PrinceFrogsGlovesActionHelp_Step02
+	dw PrinceFrogsGlovesActionHelp_Step03
+	dw PrinceFrogsGlovesActionHelp_Step04
+	dw PrinceFrogsGlovesActionHelp_Step05
+	dw PrinceFrogsGlovesActionHelp_Step06
+	dw PrinceFrogsGlovesActionHelp_Step07
+	dw PrinceFrogsGlovesActionHelp_Step08
+	dw PrinceFrogsGlovesActionHelp_Step09
 	dw ActionHelp_FlashBInput
-	dw Func_1faf19
-	dw Func_1faf4e
-	dw Func_1faf7a
-	dw Func_1fafb1
-	dw Func_1faff5
-	dw Func_1fb023
-	dw Func_1fb061
-	dw Func_1fb078
+	dw PrinceFrogsGlovesActionHelp_Step0B
+	dw PrinceFrogsGlovesActionHelp_Step0C
+	dw PrinceFrogsGlovesActionHelp_Step0D
+	dw PrinceFrogsGlovesActionHelp_Step0E
+	dw PrinceFrogsGlovesActionHelp_Step0F
+	dw PrinceFrogsGlovesActionHelp_Step10
+	dw PrinceFrogsGlovesActionHelp_Step11
+	dw PrinceFrogsGlovesActionHelp_Step12
 
-Func_1fad42:
+PrinceFrogsGlovesActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1fad50
@@ -49,7 +49,7 @@ Func_1fad42:
 .asm_1fad50
 	and $3f
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -58,13 +58,13 @@ Func_1fad42:
 	call ActionHelp_ClearButtonsInput
 	ld a, $01
 	ld [wActionHelpState], a
-	jr Func_1fad7a
+	jr PrinceFrogsGlovesActionHelp_Start
 
-Func_1fad75:
+PrinceFrogsGlovesActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1fad7a:
+PrinceFrogsGlovesActionHelp_Start:
 	ld a, BANK(WarioIdleGfx)
 	ld [wPendingDMASourceBank], a
 	ld a, HIGH(WarioIdleGfx)
@@ -117,7 +117,7 @@ Func_1fad7a:
 	inc [hl]
 	ret
 
-Func_1fadea:
+PrinceFrogsGlovesActionHelp_Step02:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -129,7 +129,7 @@ Func_1fadea:
 	inc [hl]
 	ret
 
-Func_1fadfa:
+PrinceFrogsGlovesActionHelp_Step03:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld a, [hl]
@@ -144,7 +144,7 @@ Func_1fadfa:
 	inc [hl]
 	ret
 
-Func_1fae0f:
+PrinceFrogsGlovesActionHelp_Step04:
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
 	ld hl, wActionHelpWarioVar
@@ -171,7 +171,7 @@ Func_1fae0f:
 	inc [hl]
 	ret
 
-Func_1fae3d:
+PrinceFrogsGlovesActionHelp_Step05:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -183,7 +183,7 @@ Func_1fae3d:
 	inc [hl]
 	ret
 
-Func_1fae4d:
+PrinceFrogsGlovesActionHelp_Step06:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld a, [wActionHelpCounter]
@@ -203,7 +203,7 @@ Func_1fae4d:
 	inc [hl]
 	ret
 
-Func_1fae7f:
+PrinceFrogsGlovesActionHelp_Step07:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
@@ -230,7 +230,7 @@ Func_1fae7f:
 	inc [hl]
 	ret
 
-Func_1faeba:
+PrinceFrogsGlovesActionHelp_Step08:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
@@ -255,7 +255,7 @@ Func_1faeba:
 	inc [hl]
 	ret
 
-Func_1faef0:
+PrinceFrogsGlovesActionHelp_Step09:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
@@ -271,7 +271,7 @@ Func_1faef0:
 	inc [hl]
 	ret
 
-Func_1faf19:
+PrinceFrogsGlovesActionHelp_Step0B:
 	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
@@ -294,7 +294,7 @@ Func_1faf19:
 	inc [hl]
 	ret
 
-Func_1faf4e:
+PrinceFrogsGlovesActionHelp_Step0C:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
@@ -311,7 +311,7 @@ Func_1faf4e:
 	inc [hl]
 	ret
 
-Func_1faf7a:
+PrinceFrogsGlovesActionHelp_Step0D:
 	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
@@ -335,7 +335,7 @@ Func_1faf7a:
 	inc [hl]
 	ret
 
-Func_1fafb1:
+PrinceFrogsGlovesActionHelp_Step0E:
 	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wTimer
@@ -367,7 +367,7 @@ Func_1fafb1:
 	inc [hl]
 	ret
 
-Func_1faff5:
+PrinceFrogsGlovesActionHelp_Step0F:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
@@ -385,7 +385,7 @@ Func_1faff5:
 	inc [hl]
 	ret
 
-Func_1fb023:
+PrinceFrogsGlovesActionHelp_Step10:
 	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
@@ -413,7 +413,7 @@ Func_1fb023:
 	inc [hl]
 	ret
 
-Func_1fb061:
+PrinceFrogsGlovesActionHelp_Step11:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -428,7 +428,7 @@ Func_1fb061:
 	inc [hl]
 	ret
 
-Func_1fb078:
+PrinceFrogsGlovesActionHelp_Step12:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $18
@@ -455,4 +455,4 @@ Func_1fb078:
 	ld [wActionHelpWarioYCoord], a
 	xor a
 	ld [wActionHelpWarioVar], a
-	jp Func_1fad42
+	jp PrinceFrogsGlovesActionHelp_End

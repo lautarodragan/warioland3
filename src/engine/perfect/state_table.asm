@@ -2,7 +2,7 @@ _PerfectStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw InitPerfectScreen
 	dw DarkenBGToPal_Fast
 	dw UpdatePerfectScreen

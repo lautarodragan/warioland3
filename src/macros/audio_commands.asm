@@ -181,7 +181,7 @@ ENDM
 	const AUDIOCMD_UNUSED_C8
 
 	const AUDIOCMD_FREQUENCY_OFFSET
-MACRO? audiocmd_c9
+MACRO? frequency_offset
 	db AUDIOCMD_FREQUENCY_OFFSET
 	db (\1 + $80) >> 1
 ENDM

@@ -64,7 +64,7 @@ ElectricLampSparkFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 
@@ -129,7 +129,7 @@ ElectricLampSparkFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3543
+	call ProcessBlock_Down
 	and a
 	jr z, .destroy
 	ld hl, wCurObjYPos
@@ -139,7 +139,7 @@ ElectricLampSparkFunc:
 	ld a, [hli]
 	sbc 0
 	ldh [hYPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	ret z
 .destroy

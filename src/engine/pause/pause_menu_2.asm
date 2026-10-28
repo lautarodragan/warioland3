@@ -27,13 +27,13 @@ DrawLevelObjectsAfterLevelReturn::
 	farcall SetTileQueueProcessingFunctions
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_NoPriority
+	farcall DrawObjects_WithPriority
 	pop_wram
 
 	call DrawWario
 
 	push_wram BANK("Level Objects WRAM")
-	farcall DrawObjects_WithPriority
+	farcall DrawObjects_NoPriority
 	pop_wram
 
 	ret

@@ -1,7 +1,7 @@
 ; b = PARTICLE_* constant
 ; hl = block
 CreateParticleInBlock:
-	call Func_ce3e
+	call GetBlockPtrBottomCentrePos
 ;	fallthrough
 
 ; b = PARTICLE_* constant
@@ -975,7 +975,7 @@ ParticleFunc_MagicStop:
 	dec [hl]
 	ret
 
-Func_ce3e:
+GetBlockPtrBottomCentrePos:
 	ld a, h
 	sub $a0
 	ld h, a

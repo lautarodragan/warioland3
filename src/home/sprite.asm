@@ -93,13 +93,13 @@ LoadSprite::
 	inc de
 	jr .loop
 
-Func_e2b::
+QueueBlockRedraw_IfObjOnScreen::
 	ld a, [wCurObjFlags]
 	bit OBJFLAG_ON_SCREEN_F, a
 	ret z
 ;	fallthrough
 
-Func_e31::
+QueueBlockRedraw::
 	ld a, [wBlockPtrBank]
 	dec a
 	add a

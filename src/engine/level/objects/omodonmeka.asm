@@ -62,23 +62,23 @@ OmodonmekaFunc:
 	jr .asm_42249
 
 .asm_421dc
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_421fa
 .asm_421e4
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 	jr .asm_421fa
 .asm_421ec
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	jr .asm_421fa
 .asm_421f4
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
 .asm_421fa
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -98,7 +98,7 @@ OmodonmekaFunc:
 	ret
 
 .asm_42215
-	jp Func_3173
+	jp VanishAndDespawnObject
 
 .Func_42218:
 	ld hl, wCurObjState
@@ -199,7 +199,7 @@ OmodonmekaFunc:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_358b
+	call ProcessBlock_UpSide
 	and $0f
 	jr nz, .asm_422d0
 	ld hl, wCurObjVar1
@@ -373,7 +373,7 @@ OmodonmekaFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -469,7 +469,7 @@ OmodonmekaWithOmodon1Func:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	call Func_3444
+	call CountCurObjTransientChildren
 	ld a, e
 	and a
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
@@ -499,7 +499,7 @@ OmodonmekaWithOmodon2Func:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	call Func_3444
+	call CountCurObjTransientChildren
 	ld a, e
 	and a
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
@@ -559,7 +559,7 @@ OmodonmekaWithOmodonFunc:
 .Func_42535:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jp z, Func_42725
+	jp z, ApplyOmodonHoverBob
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -903,7 +903,7 @@ OmodonmekaWithOmodonFunc:
 	ld bc, JitterXVel
 	jp ApplyObjXMovement_Loop
 
-Func_42725:
+ApplyOmodonHoverBob:
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	ld b, HIGH(OmodonHoverBobYOffsets)
@@ -943,7 +943,7 @@ Func_42725:
 	dec [hl]
 	ret
 
-Func_42754:
+Omodon_Landed:
 	ld hl, wCurObjFlags
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_STATE_DURATION
@@ -956,13 +956,13 @@ Func_42754:
 	call SetObjectFramesetPtr
 	ret
 
-Func_42767:
+Omodon_Idle:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
 	jr nz, .asm_4277f
-	call Func_42725
+	call ApplyOmodonHoverBob
 	call Func_4279c.Func_42894
 	ld hl, wCurObjFlags
 	res OBJFLAG_STEPPED_F, [hl]
@@ -1001,20 +1001,20 @@ Func_4279c:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, Func_42767
+	jr z, Omodon_Idle
 	cp $2d
 	jr z, .asm_427cd
 	cp $2e
 	jr z, .asm_427fe
 	cp $2f
-	jr z, Func_42754
+	jr z, Omodon_Landed
 	cp $2a
 	jp z, .Func_4284d
 	cp $5a
 	jp z, .Func_4286b
 	xor a
 	ld [hl], a
-	jr Func_42767
+	jr Omodon_Idle
 .asm_427cd
 	call .Func_42894
 	ld hl, wCurObjStateDuration
@@ -1061,7 +1061,7 @@ Func_4279c:
 	ldh [hXPosLo], a
 	ld a, [hli]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	and a
 	ret z
 	ld hl, wCurObjYPos
@@ -1255,7 +1255,7 @@ Func_4279c:
 	ld a, [hl]
 	cp $3a
 	ret nz
-	jp Func_42767.asm_4277f
+	jp Omodon_Idle.asm_4277f
 
 .Func_42935:
 	ld hl, wCurObjUnk01

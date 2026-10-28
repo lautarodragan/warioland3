@@ -55,44 +55,44 @@ GrabGloveActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1f959c
-	dw Func_1f95de
-	dw Func_1f95f9
-	dw Func_1f963f
-	dw Func_1f9685
-	dw Func_1f9695
-	dw Func_1f96bf
-	dw Func_1f96fb
+	dw GrabGloveActionHelp_WaitToStart
+	dw GrabGloveActionHelp_Step02
+	dw GrabGloveActionHelp_Step03
+	dw GrabGloveActionHelp_Step04
+	dw GrabGloveActionHelp_Step05
+	dw GrabGloveActionHelp_Step06
+	dw GrabGloveActionHelp_Step07
+	dw GrabGloveActionHelp_Step08
 	dw ActionHelp_FlashBInput
-	dw Func_1f9708
-	dw Func_1f9720
-	dw Func_1f97a2
-	dw Func_1f97b2
-	dw Func_1f97dc
-	dw Func_1f981a
+	dw GrabGloveActionHelp_Step0A
+	dw GrabGloveActionHelp_Step0B
+	dw GrabGloveActionHelp_Step0C
+	dw GrabGloveActionHelp_Step0D
+	dw GrabGloveActionHelp_Step0E
+	dw GrabGloveActionHelp_Step0F
 	dw ActionHelp_FlashDUpInput
-	dw Func_1f9824
-	dw Func_1f9847
-	dw Func_1f98db
-	dw Func_1f98eb
-	dw Func_1f9915
-	dw Func_1f9953
-	dw Func_1f9963
-	dw Func_1f9981
-	dw Func_1f9999
-	dw Func_1f9a3a
-	dw Func_1f9a53
-	dw Func_1f9a7d
-	dw Func_1f9abb
-	dw Func_1f9acb
-	dw Func_1f9aee
-	dw Func_1f9afb
-	dw Func_1f9b2c
-	dw Func_1f9b56
-	dw Func_1f9b7a
-	dw Func_1f9b8f
+	dw GrabGloveActionHelp_Step11
+	dw GrabGloveActionHelp_Step12
+	dw GrabGloveActionHelp_Step13
+	dw GrabGloveActionHelp_Step14
+	dw GrabGloveActionHelp_Step15
+	dw GrabGloveActionHelp_Step16
+	dw GrabGloveActionHelp_Step17
+	dw GrabGloveActionHelp_Step18
+	dw GrabGloveActionHelp_Step19
+	dw GrabGloveActionHelp_Step1A
+	dw GrabGloveActionHelp_Step1B
+	dw GrabGloveActionHelp_Step1C
+	dw GrabGloveActionHelp_Step1D
+	dw GrabGloveActionHelp_Step1E
+	dw GrabGloveActionHelp_Step1F
+	dw GrabGloveActionHelp_Step20
+	dw GrabGloveActionHelp_Step21
+	dw GrabGloveActionHelp_Step22
+	dw GrabGloveActionHelp_Step23
+	dw GrabGloveActionHelp_Step24
 
-Func_1f9569:
+GrabGloveActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1f9577
@@ -103,7 +103,7 @@ Func_1f9569:
 .asm_1f9577
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -112,13 +112,13 @@ Func_1f9569:
 	call ActionHelp_ClearButtonsInput
 	ld a, $1
 	ld [wActionHelpState], a
-	jr Func_1f95a1
+	jr GrabGloveActionHelp_Start
 
-Func_1f959c:
+GrabGloveActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1f95a1:
+GrabGloveActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowParaGoomWalk
@@ -151,7 +151,7 @@ Func_1f95a1:
 	inc [hl]
 	ret
 
-Func_1f95de:
+GrabGloveActionHelp_Step02:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -170,7 +170,7 @@ Func_1f95de:
 	inc [hl]
 	ret
 
-Func_1f95f9:
+GrabGloveActionHelp_Step03:
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -207,7 +207,7 @@ Func_1f95f9:
 	inc [hl]
 	ret
 
-Func_1f963f:
+GrabGloveActionHelp_Step04:
 	ld hl, wMenuObj4XCoord
 	inc [hl]
 	ld a, [wActionHelpCounter]
@@ -247,7 +247,7 @@ Func_1f963f:
 	inc [hl]
 	ret
 
-Func_1f9685:
+GrabGloveActionHelp_Step05:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -259,7 +259,7 @@ Func_1f9685:
 	inc [hl]
 	ret
 
-Func_1f9695:
+GrabGloveActionHelp_Step06:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -287,7 +287,7 @@ Func_1f9695:
 	inc [hl]
 	ret
 
-Func_1f96bf:
+GrabGloveActionHelp_Step07:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -329,7 +329,7 @@ Func_1f96bf:
 	ld [de], a
 	ret
 
-Func_1f96fb:
+GrabGloveActionHelp_Step08:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -340,7 +340,7 @@ Func_1f96fb:
 	inc [hl]
 	ret
 
-Func_1f9708:
+GrabGloveActionHelp_Step0A:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -356,7 +356,7 @@ Func_1f9708:
 	inc [hl]
 	ret
 
-Func_1f9720:
+GrabGloveActionHelp_Step0B:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1f9729
@@ -442,7 +442,7 @@ Func_1f9720:
 	inc [hl]
 	ret
 
-Func_1f97a2:
+GrabGloveActionHelp_Step0C:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -454,7 +454,7 @@ Func_1f97a2:
 	inc [hl]
 	ret
 
-Func_1f97b2:
+GrabGloveActionHelp_Step0D:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -482,7 +482,7 @@ Func_1f97b2:
 	inc [hl]
 	ret
 
-Func_1f97dc:
+GrabGloveActionHelp_Step0E:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -526,7 +526,7 @@ Func_1f97dc:
 	inc [hl]
 	ret
 
-Func_1f981a:
+GrabGloveActionHelp_Step0F:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -534,7 +534,7 @@ Func_1f981a:
 	inc [hl]
 	ret
 
-Func_1f9824:
+GrabGloveActionHelp_Step11:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -557,7 +557,7 @@ Func_1f9824:
 	call ActionHelp_ShowBInput
 	ret
 
-Func_1f9847:
+GrabGloveActionHelp_Step12:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1f9850
@@ -662,7 +662,7 @@ Func_1f9847:
 	inc [hl]
 	ret
 
-Func_1f98db:
+GrabGloveActionHelp_Step13:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -674,7 +674,7 @@ Func_1f98db:
 	inc [hl]
 	ret
 
-Func_1f98eb:
+GrabGloveActionHelp_Step14:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -702,7 +702,7 @@ Func_1f98eb:
 	inc [hl]
 	ret
 
-Func_1f9915:
+GrabGloveActionHelp_Step15:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -747,7 +747,7 @@ Func_1f9915:
 	inc [hl]
 	ret
 
-Func_1f9953:
+GrabGloveActionHelp_Step16:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -759,7 +759,7 @@ Func_1f9953:
 	inc [hl]
 	ret
 
-Func_1f9963:
+GrabGloveActionHelp_Step17:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -779,7 +779,7 @@ Func_1f9963:
 	inc [hl]
 	ret
 
-Func_1f9981:
+GrabGloveActionHelp_Step18:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -795,7 +795,7 @@ Func_1f9981:
 	inc [hl]
 	ret
 
-Func_1f9999:
+GrabGloveActionHelp_Step19:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1f99a2
@@ -896,7 +896,7 @@ Func_1f9999:
 	call ActionHelp_ShowOverheadPillar
 	ret
 
-Func_1f9a3a:
+GrabGloveActionHelp_Step1A:
 	ld a, [wMenuObj5AnimationEnded]
 	and a
 	jr z, .asm_1f9a43
@@ -913,7 +913,7 @@ Func_1f9a3a:
 	inc [hl]
 	ret
 
-Func_1f9a53:
+GrabGloveActionHelp_Step1B:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -941,7 +941,7 @@ Func_1f9a53:
 	inc [hl]
 	ret
 
-Func_1f9a7d:
+GrabGloveActionHelp_Step1C:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -985,7 +985,7 @@ Func_1f9a7d:
 	inc [hl]
 	ret
 
-Func_1f9abb:
+GrabGloveActionHelp_Step1D:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -997,7 +997,7 @@ Func_1f9abb:
 	inc [hl]
 	ret
 
-Func_1f9acb:
+GrabGloveActionHelp_Step1E:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -1019,7 +1019,7 @@ Func_1f9acb:
 	inc [hl]
 	ret
 
-Func_1f9aee:
+GrabGloveActionHelp_Step1F:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -1030,7 +1030,7 @@ Func_1f9aee:
 	inc [hl]
 	ret
 
-Func_1f9afb:
+GrabGloveActionHelp_Step20:
 	play_sfx_rept 30, SFX_FULLY_CHARGED_THROW
 
 	ld a, [wActionHelpWarioAnimationEnded]
@@ -1048,7 +1048,7 @@ Func_1f9afb:
 	inc [hl]
 	ret
 
-Func_1f9b2c:
+GrabGloveActionHelp_Step21:
 	play_sfx_rept 30, SFX_FULLY_CHARGED_THROW
 
 	ld hl, wTimer
@@ -1063,7 +1063,7 @@ Func_1f9b2c:
 	inc [hl]
 	ret
 
-Func_1f9b56:
+GrabGloveActionHelp_Step22:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1f9b5f
@@ -1085,7 +1085,7 @@ Func_1f9b56:
 	inc [hl]
 	ret
 
-Func_1f9b7a:
+GrabGloveActionHelp_Step23:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
 	ret z
@@ -1098,7 +1098,7 @@ Func_1f9b7a:
 	inc [hl]
 	ret
 
-Func_1f9b8f:
+GrabGloveActionHelp_Step24:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -1109,4 +1109,4 @@ Func_1f9b8f:
 	ld a, [hl]
 	cp $e8
 	ret c
-	jp Func_1f9569
+	jp GrabGloveActionHelp_End

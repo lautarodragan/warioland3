@@ -157,7 +157,7 @@ ZipLineFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_4947b
 	call .Func_494cb
@@ -181,7 +181,7 @@ ZipLineFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr nz, .asm_4947b
 	call .Func_494af
@@ -224,7 +224,7 @@ ZipLineFunc:
 	dec a
 	ret nz
 	call MoveWarioLeft
-	farcall Func_19713
+	farcall CheckCarriedWarioLeftCollision
 	jr .asm_49518
 
 .Func_494cb:
@@ -233,7 +233,7 @@ ZipLineFunc:
 	dec a
 	ret nz
 	call MoveWarioRight
-	farcall Func_19706
+	farcall CheckCarriedWarioRightCollision
 	jr .asm_49518
 .asm_494e7
 	call MoveObjectUpByVar2

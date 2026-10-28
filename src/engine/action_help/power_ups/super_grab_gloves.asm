@@ -44,32 +44,32 @@ SuperGrabGloveActionHelp:
 	jumptable
 
 	dw ActionHelp_Init
-	dw Func_1fb1ac
-	dw Func_1fb1d4
-	dw Func_1fb1f6
-	dw Func_1fb248
-	dw Func_1fb25d
-	dw Func_1fb270
-	dw Func_1fb2f2
-	dw Func_1fb302
-	dw Func_1fb324
-	dw Func_1fb376
-	dw Func_1fb385
-	dw Func_1fb397
-	dw Func_1fb3aa
-	dw Func_1fb43e
-	dw Func_1fb44e
-	dw Func_1fb470
-	dw Func_1fb4c2
-	dw Func_1fb4d2
-	dw Func_1fb4ed
-	dw Func_1fb4fa
-	dw Func_1fb52b
-	dw Func_1fb555
-	dw Func_1fb579
-	dw Func_1fb58e
+	dw SuperGrabGloveActionHelp_WaitToStart
+	dw SuperGrabGloveActionHelp_Step02
+	dw SuperGrabGloveActionHelp_Step03
+	dw SuperGrabGloveActionHelp_Step04
+	dw SuperGrabGloveActionHelp_Step05
+	dw SuperGrabGloveActionHelp_Step06
+	dw SuperGrabGloveActionHelp_Step07
+	dw SuperGrabGloveActionHelp_Step08
+	dw SuperGrabGloveActionHelp_Step09
+	dw SuperGrabGloveActionHelp_Step0A
+	dw SuperGrabGloveActionHelp_Step0B
+	dw SuperGrabGloveActionHelp_Step0C
+	dw SuperGrabGloveActionHelp_Step0D
+	dw SuperGrabGloveActionHelp_Step0E
+	dw SuperGrabGloveActionHelp_Step0F
+	dw SuperGrabGloveActionHelp_Step10
+	dw SuperGrabGloveActionHelp_Step11
+	dw SuperGrabGloveActionHelp_Step12
+	dw SuperGrabGloveActionHelp_Step13
+	dw SuperGrabGloveActionHelp_Step14
+	dw SuperGrabGloveActionHelp_Step15
+	dw SuperGrabGloveActionHelp_Step16
+	dw SuperGrabGloveActionHelp_Step17
+	dw SuperGrabGloveActionHelp_Step18
 
-Func_1fb179:
+SuperGrabGloveActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
 	jr nz, .asm_1fb187
@@ -80,7 +80,7 @@ Func_1fb179:
 .asm_1fb187
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
-	farcall Func_4628
+	farcall ReturnToOverworld
 	call ResumeNormalVolume
 	ret
 
@@ -89,13 +89,13 @@ Func_1fb179:
 	call ActionHelp_ClearButtonsInput
 	ld a, $01
 	ld [wActionHelpState], a
-	jr Func_1fb1b1
+	jr SuperGrabGloveActionHelp_Start
 
-Func_1fb1ac:
+SuperGrabGloveActionHelp_WaitToStart:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
-Func_1fb1b1:
+SuperGrabGloveActionHelp_Start:
 	call ActionHelp_ShowInitialWarioWalk
 	call ActionHelp_ShowDRightInput
 	call ActionHelp_ShowCountRichtertoffIdle
@@ -107,7 +107,7 @@ Func_1fb1b1:
 	inc [hl]
 	ret
 
-Func_1fb1d4:
+SuperGrabGloveActionHelp_Step02:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -130,7 +130,7 @@ Func_1fb1d4:
 	inc [hl]
 	ret
 
-Func_1fb1f6:
+SuperGrabGloveActionHelp_Step03:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -189,7 +189,7 @@ Func_1fb1f6:
 	inc [hl]
 	ret
 
-Func_1fb248:
+SuperGrabGloveActionHelp_Step04:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -203,7 +203,7 @@ Func_1fb248:
 	inc [hl]
 	ret
 
-Func_1fb25d:
+SuperGrabGloveActionHelp_Step05:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -216,7 +216,7 @@ Func_1fb25d:
 	inc [hl]
 	ret
 
-Func_1fb270:
+SuperGrabGloveActionHelp_Step06:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1fb279
@@ -304,7 +304,7 @@ Func_1fb270:
 	inc [hl]
 	ret
 
-Func_1fb2f2:
+SuperGrabGloveActionHelp_Step07:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -316,7 +316,7 @@ Func_1fb2f2:
 	inc [hl]
 	ret
 
-Func_1fb302:
+SuperGrabGloveActionHelp_Step08:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -339,7 +339,7 @@ Func_1fb302:
 	inc [hl]
 	ret
 
-Func_1fb324:
+SuperGrabGloveActionHelp_Step09:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -398,7 +398,7 @@ Func_1fb324:
 	inc [hl]
 	ret
 
-Func_1fb376:
+SuperGrabGloveActionHelp_Step0A:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -410,7 +410,7 @@ Func_1fb376:
 	inc [hl]
 	ret
 
-Func_1fb385:
+SuperGrabGloveActionHelp_Step0B:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -423,7 +423,7 @@ Func_1fb385:
 	inc [hl]
 	ret
 
-Func_1fb397:
+SuperGrabGloveActionHelp_Step0C:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -436,7 +436,7 @@ Func_1fb397:
 	inc [hl]
 	ret
 
-Func_1fb3aa:
+SuperGrabGloveActionHelp_Step0D:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1fb3b3
@@ -543,7 +543,7 @@ Func_1fb3aa:
 	inc [hl]
 	ret
 
-Func_1fb43e:
+SuperGrabGloveActionHelp_Step0E:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -555,7 +555,7 @@ Func_1fb43e:
 	inc [hl]
 	ret
 
-Func_1fb44e:
+SuperGrabGloveActionHelp_Step0F:
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -578,7 +578,7 @@ Func_1fb44e:
 	inc [hl]
 	ret
 
-Func_1fb470:
+SuperGrabGloveActionHelp_Step10:
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
@@ -637,7 +637,7 @@ Func_1fb470:
 	inc [hl]
 	ret
 
-Func_1fb4c2:
+SuperGrabGloveActionHelp_Step11:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -649,7 +649,7 @@ Func_1fb4c2:
 	inc [hl]
 	ret
 
-Func_1fb4d2:
+SuperGrabGloveActionHelp_Step12:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld a, [hl]
@@ -666,7 +666,7 @@ Func_1fb4d2:
 	inc [hl]
 	ret
 
-Func_1fb4ed:
+SuperGrabGloveActionHelp_Step13:
 	ld hl, wTimer
 	dec [hl]
 	ret nz
@@ -677,7 +677,7 @@ Func_1fb4ed:
 	inc [hl]
 	ret
 
-Func_1fb4fa:
+SuperGrabGloveActionHelp_Step14:
 	play_sfx_rept 30, SFX_FULLY_CHARGED_THROW
 
 	ld a, [wActionHelpWarioAnimationEnded]
@@ -695,7 +695,7 @@ Func_1fb4fa:
 	inc [hl]
 	ret
 
-Func_1fb52b:
+SuperGrabGloveActionHelp_Step15:
 	play_sfx_rept 30, SFX_FULLY_CHARGED_THROW
 
 	ld hl, wTimer
@@ -710,7 +710,7 @@ Func_1fb52b:
 	inc [hl]
 	ret
 
-Func_1fb555:
+SuperGrabGloveActionHelp_Step16:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	jr z, .asm_1fb55e
@@ -732,7 +732,7 @@ Func_1fb555:
 	inc [hl]
 	ret
 
-Func_1fb579:
+SuperGrabGloveActionHelp_Step17:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
 	ret z
@@ -745,7 +745,7 @@ Func_1fb579:
 	inc [hl]
 	ret
 
-Func_1fb58e:
+SuperGrabGloveActionHelp_Step18:
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -756,4 +756,4 @@ Func_1fb58e:
 	ld a, [hl]
 	cp $e8
 	ret c
-	jp Func_1fb179
+	jp SuperGrabGloveActionHelp_End

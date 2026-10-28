@@ -41,20 +41,20 @@ RedPrinceFroggyFunc:
 
 PrinceFroggyFunc:
 .Func_440c4:
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	jr .asm_440da
 .Func_440ca:
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	jr .asm_440da
 .Func_440d0:
-	ld a, HIGH(Func_3326)
-	ld c, LOW(Func_3326)
+	ld a, HIGH(ObjState_AttackedLeft)
+	ld c, LOW(ObjState_AttackedLeft)
 	jr .asm_440da
 .Func_440d6:
-	ld a, HIGH(Func_3317)
-	ld c, LOW(Func_3317)
+	ld a, HIGH(ObjState_AttackedRight)
+	ld c, LOW(ObjState_AttackedRight)
 .asm_440da
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
@@ -91,7 +91,7 @@ PrinceFroggyFunc:
 
 .asm_44113
 	cp $1b
-	jp z, Func_3272
+	jp z, ObjState_Hop
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $13
@@ -188,7 +188,7 @@ PrinceFroggyFunc:
 	cp $11
 	jr z, .asm_44151
 	cp $1b
-	jp z, Func_3272
+	jp z, ObjState_Hop
 	cp $41
 	jp z, ObjState_StandingFall
 	cp $28

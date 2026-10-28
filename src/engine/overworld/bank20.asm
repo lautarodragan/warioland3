@@ -2,23 +2,23 @@ GolfBuilding:
 	farcall _GolfBuilding
 	ret
 
-Func_80e55:
-	farcall Func_adbfe
+UpdateGolfBuilding:
+	farcall _UpdateGolfBuilding
 	ret
 
 InitEpilogue:
 	farcall _InitEpilogue
 	ret
 
-Func_80e75:
-	farcall Func_af13c
+UpdateEpilogue:
+	farcall _UpdateEpilogue
 	ret
 
-Func_80e85:
-	call Func_803e6
+SaveGameAfterEpilogue:
+	call SaveGameOnReturnFromLevel
 	ret
 
-Func_80e89:
+HandleMapSide:
 	call ProcessDPadRepeat
 	farcall UpdateMapSideOWAnimations
 	farcall UpdateCommonOWAnimations
@@ -26,31 +26,31 @@ Func_80e89:
 	call UpdateTopBar
 	ld a, [wOWBarsState]
 	and a
-	jp nz, Func_81055
+	jp nz, UpdateOWObjsAndWario
 
 	call HandleBottomBar
 	call DrawBottomBar
 
-	farcall Func_852e5
+	farcall FadeOutLevelName
 	ld hl, wOWStepCounter
 	inc [hl]
 	ld a, [wOWStep]
 	jumptable
 
-	dw Func_80ee7
-	dw Func_80f0d
-	dw Func_80f3c
-	dw Func_80fb8
-	dw Func_80fd6
-	dw Func_80ff7
-	dw Func_810bb
-	dw Func_8115c
-	dw Func_811cf
-	dw Func_81200
-	dw Func_81346
+	dw MapSide_Init
+	dw MapSide_DayNightTransition
+	dw MapSide_ArriveAtLevel
+	dw MapSide_LoadLevelName
+	dw MapSide_FadeInLevelName
+	dw MapSide_Idle
+	dw MapSide_StartPath
+	dw MapSide_Walk
+	dw MapSide_WalkOffEdge
+	dw MapSide_ChangeSide
+	dw MapSide_TempleHint
 
-Func_80ee7:
-	call Func_8212c
+MapSide_Init:
+	call PlaceOWWarioAtCurLevel
 	call GetOWAllowedDPadInput
 	ld a, [wMapSideLevelID]
 	ld [wLevel2], a
@@ -59,7 +59,7 @@ Func_80ee7:
 	ld [wPalConfig1TotalSteps], a
 	ld [wLevelNameFadeState], a
 	ld [wOWPalTransitionState], a
-	call Func_81055
+	call UpdateOWObjsAndWario
 	ld hl, wOWStepCounter
 	xor a
 	ld [hl], a
@@ -67,18 +67,18 @@ Func_80ee7:
 	inc [hl]
 	ret
 
-Func_80f0d:
+MapSide_DayNightTransition:
 	ld a, [wDayNight]
 	bit 7, a
 	jr nz, .asm_80f1f
 	call PlayOverworldMusic
-	call Func_81055
+	call UpdateOWObjsAndWario
 	ld hl, wOWStep
 	inc [hl]
 	ret
 .asm_80f1f
 	farcall DayNightTransition
-	call Func_81055
+	call UpdateOWObjsAndWario
 	ld a, [wOWPalTransitionState]
 	and a
 	ret nz
@@ -87,10 +87,10 @@ Func_80f0d:
 	ei
 	ret
 
-Func_80f3c:
+MapSide_ArriveAtLevel:
 	xor a
 	ld [wMagnifyingGlassCounter], a
-	call Func_8212c
+	call PlaceOWWarioAtCurLevel
 	call GetOWAllowedDPadInput
 	ld c, $00
 	ld b, $00
@@ -104,7 +104,7 @@ Func_80f3c:
 	jr z, .is_exit
 
 	call LoadMapLevelFromLevelIndex
-	farcall Func_9aab5
+	farcall LoadMapLevelTreasureData
 
 	xor a
 	ld [wOWStepCounter], a
@@ -116,10 +116,10 @@ Func_80f3c:
 	jr z, .not_allowed
 	ld hl, wOWStep
 	ld [hl], $05
-	jp Func_81034
+	jp MapSide_StartWalking
 
 .not_allowed
-	call Func_81055
+	call UpdateOWObjsAndWario
 	xor a
 	ld [wLevelArrowDirections1], a
 	ld [wOWWarioRunCounter], a
@@ -130,8 +130,8 @@ Func_80f3c:
 .is_exit
 	ld a, c
 	ld [wLevelArrowDirections1], a
-	call Func_820e6
-	call Func_81055
+	call SetPathFromArrowDirection
+	call UpdateOWObjsAndWario
 	xor a
 	ld [wOWStepCounter], a
 	ld a, $06
@@ -154,8 +154,8 @@ Func_80f3c:
 	and b
 	ret
 
-Func_80fb8:
-	call Func_81055
+MapSide_LoadLevelName:
+	call UpdateOWObjsAndWario
 	ld a, [wLevelNameFadeState]
 	and a
 	ret nz
@@ -173,8 +173,8 @@ LoadLevelNameIfValid:
 	ret nc
 	jp LoadLevelName
 
-Func_80fd6:
-	call Func_81055
+MapSide_FadeInLevelName:
+	call UpdateOWObjsAndWario
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
 	jr nc, .asm_80ff2
@@ -186,12 +186,12 @@ Func_80fd6:
 	inc [hl]
 	ret
 
-Func_80ff7:
-	call Func_81240
-	jr c, Func_81055
+MapSide_Idle:
+	call HandleEnterLevelInput
+	jr c, UpdateOWObjsAndWario
 	ld a, [wOWPalTransitionState]
 	and a
-	jr nz, Func_81055
+	jr nz, UpdateOWObjsAndWario
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jr nz, .asm_81016
@@ -200,48 +200,48 @@ Func_80ff7:
 	jr z, .asm_81016
 	ld hl, wOWBarsState
 	inc [hl]
-	jr Func_81055
+	jr UpdateOWObjsAndWario
 
 .asm_81016
-	call Func_81477
+	call HandlePathPreview
 	ld a, [wPathPreviewState]
 	and a
-	jr nz, Func_81055
-	call Func_81077
-	jr c, Func_81055
-	call Func_80de0
-	jr c, Func_81055
-	call Func_810a9
+	jr nz, UpdateOWObjsAndWario
+	call HandleTempleHintInput
+	jr c, UpdateOWObjsAndWario
+	call HandleBestTimesInput
+	jr c, UpdateOWObjsAndWario
+	call GetPressedOWDirection
 	ld b, a
 	ld a, [wOWAllowedDPadInput]
 	and b
 	and a
-	jr z, Func_81055
+	jr z, UpdateOWObjsAndWario
 ;	fallthrough
 
-Func_81034:
+MapSide_StartWalking:
 	ld [wLevelArrowDirections1], a
-	call Func_820e6
+	call SetPathFromArrowDirection
 	ld a, [wTargetMapSideLevelID]
 	ld [wLevel2], a
 	ld a, $03
 	ld [wLevelNameFadeState], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	call Func_81055
+	call UpdateOWObjsAndWario
 	xor a
 	ld [wOWStepCounter], a
 	ld hl, wOWStep
 	inc [hl]
 	ret
 
-Func_81055:
-	farcall Func_b4a3d
-	call Func_82041
-	farcall Func_b4aa9
+UpdateOWObjsAndWario:
+	farcall UpdateMapSideOWObjs_Front
+	call UpdateOWWario
+	farcall UpdateMapSideOWObjs_Back
 	ret
 
-Func_81077:
+HandleTempleHintInput:
 	ld hl, wMapSideLevelID
 	ld a, [wNextMapSide]
 	or [hl]
@@ -257,7 +257,7 @@ Func_81077:
 	bit MODE_GAME_CLEARED_F, a
 	ret nz
 .asm_81092
-	call Func_3c76
+	call ClearUnused_2d0c0
 	ld a, OWWARIO_UP
 	call SetOWWarioOAM
 	play_sfx SFX_ACTION_B
@@ -266,7 +266,7 @@ Func_81077:
 	scf
 	ret
 
-Func_810a9:
+GetPressedOWDirection:
 	ld a, [wJoypadPressed]
 	and PAD_CTRL_PAD
 	ld b, a
@@ -281,7 +281,7 @@ Func_810a9:
 	and b
 	ret
 
-Func_810bb:
+MapSide_StartPath:
 	ld a, [wOWYCoord1]
 	ld [wOWYCoord2], a
 	ld a, [wOWXCoord1]
@@ -301,9 +301,9 @@ Func_810bb:
 	ld [wOWPathTargetXCoord], a
 
 	ld bc, wOWPathShape
-	call Func_810fc
-	call Func_821a1
-	call Func_81055
+	call SetNextPathWaypoint
+	call InitOWLineMovement
+	call UpdateOWObjsAndWario
 	xor a
 	ld [wOWStepCounter], a
 	ld hl, wOWStep
@@ -326,7 +326,7 @@ GetMapLevelCoords:
 ; output:
 ; - [wOWYCoord2] = ?
 ; - [wOWXCoord2] = ?
-Func_810fc:
+SetNextPathWaypoint:
 	ld a, [bc]
 	jumptable
 	table_width 2
@@ -384,7 +384,7 @@ Func_810fc:
 	ld [bc], a
 	ret
 
-Func_81142:
+SetOWWarioWalkDirection:
 	ld hl, wOWLineFlags
 	bit 0, [hl]
 	jr nz, .asm_81151
@@ -402,8 +402,8 @@ Func_81142:
 	ld [wLevelArrowDirections1], a
 	ret
 
-Func_8115c:
-	call Func_82208
+MapSide_Walk:
+	call StepOWLineMovement
 	ld hl, wOWWarioRunCounter
 	bit 7, [hl]
 	jr nz, .asm_81177
@@ -419,7 +419,7 @@ Func_8115c:
 .asm_81175
 	bit 7, [hl]
 .asm_81177
-	call nz, Func_82208
+	call nz, StepOWLineMovement
 
 	ld a, [wOWYCoord1]
 	ld [wOWWarioYCoord], a
@@ -429,13 +429,13 @@ Func_8115c:
 	and a
 	jr nz, .asm_8119c
 	ld bc, wOWPathShape
-	call Func_810fc
+	call SetNextPathWaypoint
 	cp $ff
 	jr z, .asm_811a0
-	call Func_821a1
-	call Func_81142
+	call InitOWLineMovement
+	call SetOWWarioWalkDirection
 .asm_8119c
-	call Func_81055
+	call UpdateOWObjsAndWario
 	ret
 
 .asm_811a0
@@ -457,7 +457,7 @@ Func_8115c:
 	inc [hl]
 	jr .asm_8119c
 
-Func_811cf:
+MapSide_WalkOffEdge:
 	ld a, [wOWStepCounter]
 	cp $02
 	jr c, .asm_811fc
@@ -482,11 +482,11 @@ Func_811cf:
 	ld hl, wOWStep
 	inc [hl]
 .asm_811fc
-	call Func_81055
+	call UpdateOWObjsAndWario
 	ret
 
-Func_81200:
-	call Func_81055
+MapSide_ChangeSide:
+	call UpdateOWObjsAndWario
 	ld a, [wMapSideLevelID]
 	ld b, 1
 	cp OW_EXIT_RIGHT
@@ -519,7 +519,7 @@ Func_81200:
 	ld [wSubState], a
 	ret
 
-Func_81240:
+HandleEnterLevelInput:
 	ld a, [wOWPalTransitionState]
 	and a
 	jr nz, .no_carry
@@ -608,7 +608,7 @@ MapSideInitialLevels:
 	db LEVEL_THE_STAGNANT_SWAMP ; EAST
 
 ; unreferenced
-Func_812b0:
+UnreferencedGetMapSideLastLevel:
 	ld hl, .data
 	ld a, [wNextMapSide]
 	ld b, $00
@@ -696,58 +696,58 @@ ShowMissingTreasureIndicators:
 	ld [hl], $0d ; attribute
 	ret
 
-Func_81346:
-	farcall Func_852e5
-	call Func_8137a
-	farcall Func_b4a3d
-	call Func_8208d
-	farcall Func_b4aa9
+MapSide_TempleHint:
+	farcall FadeOutLevelName
+	call UpdateTempleHint
+	farcall UpdateMapSideOWObjs_Front
+	call DrawOWWario
+	farcall UpdateMapSideOWObjs_Back
 	ret
 
-Func_8137a:
+UpdateTempleHint:
 	ld hl, wTempleHintCounter
 	inc [hl]
 	ld a, [wTempleHintState]
 	jumptable
 
-	dw Func_81398
-	dw Func_8139f
-	dw Func_813ad
-	dw Func_813b4
-	dw Func_813ef
-	dw Func_813f6
-	dw Func_813ef
-	dw Func_81413
-	dw Func_8139f
-	dw Func_813ad
-	dw Func_8142d
+	dw AdvanceTempleHint
+	dw TempleHint_WaitThenFadeOutName
+	dw TempleHint_WaitNameFadedOut
+	dw TempleHint_LoadNextTreasureLevelName
+	dw TempleHint_ResetPalFade
+	dw TempleHint_FadeInName
+	dw TempleHint_ResetPalFade
+	dw TempleHint_WaitInput
+	dw TempleHint_WaitThenFadeOutName
+	dw TempleHint_WaitNameFadedOut
+	dw TempleHint_End
 
-Func_81398:
+AdvanceTempleHint:
 	xor a
 	ld hl, wTempleHintCounter
 	ld [hld], a
 	inc [hl] ; wTempleHintState
 	ret
 
-Func_8139f:
+TempleHint_WaitThenFadeOutName:
 	ld hl, wTempleHintCounter
 	ld a, [hl]
 	cp $08
 	ret c
 	ld a, $03
 	ld [wLevelNameFadeState], a
-	jr Func_81398
+	jr AdvanceTempleHint
 
-Func_813ad:
+TempleHint_WaitNameFadedOut:
 	ld a, [wLevelNameFadeState]
 	and a
 	ret nz
-	jr Func_81398
+	jr AdvanceTempleHint
 
-Func_813b4:
+TempleHint_LoadNextTreasureLevelName:
 	call GetMapSideAndLevelForNextTreasure
 	call LoadLevelName
-	jr Func_81398
+	jr AdvanceTempleHint
 
 GetMapSideAndLevelForNextTreasure:
 	ld a, [wNextTreasure]
@@ -772,36 +772,36 @@ GetMapSideAndLevelForNextTreasure:
 	call GetMapLevelID
 	ret
 
-Func_813ef:
+TempleHint_ResetPalFade:
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	jp Func_81398
+	jp AdvanceTempleHint
 
-Func_813f6:
+TempleHint_FadeInName:
 	farcall FadeInLevelName
 	srl c
 	ret c
 	ld a, $1c
 	ld hl, wSceneObj13State
 	call SetSceneObjState
-	jp Func_81398
+	jp AdvanceTempleHint
 
-Func_81413:
+TempleHint_WaitInput:
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_RIGHT | PAD_LEFT | PAD_DOWN
 	jr nz, .asm_81423
 	ld hl, wSceneObj13State
 	ld a, [hl]
 	and a
-	jp z, Func_81398
+	jp z, AdvanceTempleHint
 	ret
 .asm_81423
 	xor a
 	ld hl, wSceneObj13State
 	call SetSceneObjState
-	jp Func_81398
+	jp AdvanceTempleHint
 
-Func_8142d:
+TempleHint_End:
 	ld a, OWWARIO_DOWN
 	call SetOWWarioOAM
 	xor a
@@ -811,7 +811,7 @@ Func_8142d:
 	ret
 
 ; unreferenced
-Func_8143d:
+UnreferencedPathPreviewFromLevel:
 	ld hl, wOWWarioSavedYCoord
 	ld a, [wOWWarioYCoord]
 	ld [hli], a ; wOWWarioSavedYCoord
@@ -836,10 +836,10 @@ Func_8143d:
 .Func_8146f:
 	ld a, [wPathPreviewState]
 	jumptable
-	dw Func_814ec
-	dw Func_8150c
+	dw PathPreview_InitTracers
+	dw PathPreview_RunTracers
 
-Func_81477:
+HandlePathPreview:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
 	jr z, .asm_8148e
@@ -847,10 +847,10 @@ Func_81477:
 	inc [hl]
 	ld a, [wPathPreviewState]
 	jumptable
-	dw Func_814b2
-	dw Func_814c4
-	dw Func_814ec
-	dw Func_8150c
+	dw PathPreview_SaveWarioPos
+	dw PathPreview_Wait
+	dw PathPreview_InitTracers
+	dw PathPreview_RunTracers
 
 .asm_8148e
 	ld a, [wPathPreviewState]
@@ -871,7 +871,7 @@ Func_81477:
 	ld [wPathPreviewState], a
 	ret
 
-Func_814b2:
+PathPreview_SaveWarioPos:
 	ld hl, wOWWarioSavedYCoord
 	ld a, [wOWWarioYCoord]
 	ld [hli], a ; wOWWarioSavedYCoord
@@ -879,14 +879,14 @@ Func_814b2:
 	ld [hl], a ; wOWWarioSavedXCoord
 ;	fallthrough
 
-Func_814bd:
+AdvancePathPreview:
 	xor a
 	ld hl, wPathPreviewCounter
 	ld [hli], a
 	inc [hl] ; wPathPreviewState
 	ret
 
-Func_814c4:
+PathPreview_Wait:
 	ld b, $0a
 	ld a, [wPathPreviewCounter]
 	cp b
@@ -900,9 +900,9 @@ Func_814c4:
 	ld [wOWWarioXCoord], a
 	ld a, OWWARIO_ARROWS
 	call SetOWWarioOAM
-	jr Func_814bd
+	jr AdvancePathPreview
 
-Func_814ec:
+PathPreview_InitTracers:
 	xor a
 	ld hl, w2d800
 	ld bc, $8e
@@ -910,14 +910,14 @@ Func_814ec:
 	ld hl, wOWUIObj1
 	ld bc, $40
 	call WriteAToHL_BCTimes
-	call Func_82111
+	call GetCurLevelPathsPtr
 	ld a, l
 	ld [wPathPreviewPathsPtr + 0], a
 	ld a, h
 	ld [wPathPreviewPathsPtr + 1], a
-	jr Func_814bd
+	jr AdvancePathPreview
 
-Func_8150c:
+PathPreview_RunTracers:
 	ld a, $00
 	call .Func_81576
 	call .Func_81615
@@ -949,7 +949,7 @@ Func_8150c:
 	cp $40
 	ld hl, w2d160 + $6
 	call z, .Func_81609
-	call Func_81714
+	call UpdatePathPreviewAnimations
 
 	ld hl, w2d800 + $7
 	ld c, $04
@@ -1153,12 +1153,12 @@ Func_8150c:
 
 .Func_816b3:
 	ld bc, wOWPathShape
-	call Func_810fc
-	call Func_821a1
+	call SetNextPathWaypoint
+	call InitOWLineMovement
 	jr .asm_8167a
 
 .Func_816be:
-	call Func_82208
+	call StepOWLineMovement
 	ld a, [wOWYCoord1]
 	ld [w2d880 + $0], a
 	ld a, [wOWXCoord1]
@@ -1167,10 +1167,10 @@ Func_8150c:
 	and a
 	ret nz
 	ld bc, wOWPathShape
-	call Func_810fc
+	call SetNextPathWaypoint
 	cp $ff
 	jr z, .asm_816e3
-	call Func_821a1
+	call InitOWLineMovement
 	call .Func_816f6
 	ret
 .asm_816e3
@@ -1211,7 +1211,7 @@ Func_8150c:
 	ld [hl], a
 	ret
 
-Func_81714:
+UpdatePathPreviewAnimations:
 	ld hl, wDayNightTransistionSteps
 	call .Func_8175d
 	ld hl, wPalFade1Colour1BlueUnk3
@@ -1299,7 +1299,7 @@ SetCutsceneButtonSelectable_GotTransitionParam:
 	ret
 
 ; unreferenced
-Func_817b1:
+UnreferencedSetLastEventCutsceneSelectable:
 	ld a, [wGameModeFlags]
 	bit MODE_GAME_CLEARED_F, a
 	ret nz
@@ -1484,7 +1484,7 @@ GetEventWithTreasure:
 	ld c, EVENT_NONE
 	ret
 
-Func_818ad:
+RunOWScene:
 	farcall UpdateCommonOWAnimations
 	farcall UpdateMapSideOWAnimations
 
@@ -1493,43 +1493,43 @@ Func_818ad:
 	jr z, .no_top_bar
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
-	jp nz, Func_81931
+	jp nz, EndOWScene
 .no_top_bar
 	ld hl, wOWStepCounter
 	inc [hl]
 	ld a, [wOWStep]
 	jumptable
-	dw Func_818e7
-	dw Func_818f6
-	dw Func_81900
+	dw RunOWScene_Wait
+	dw RunOWScene_DoAction
+	dw RunOWScene_NextParams
 
-Func_818e7:
+RunOWScene_Wait:
 	ld a, [wOWStepCounter]
 	cp $04
 	ret c
 
-Func_818ed:
+RunOWScene_Next:
 	xor a
 	ld [wOWStepCounter], a
 	ld hl, wOWStep
 	inc [hl]
 	ret
 
-Func_818f6:
-	call Func_8195d
+RunOWScene_DoAction:
+	call DoOWSceneAction
 	ld a, [wOWSceneActionParam]
 	and a
 	ret nz
-	jr Func_818ed
+	jr RunOWScene_Next
 
-Func_81900:
+RunOWScene_NextParams:
 	ld a, [wOWStepCounter]
 	cp $04
 	ret c
 	ld hl, wOWSceneParamsPtr
 	call GetByteFromPointerInHL
 	call GetOWSceneParams_GotPtr
-	jr z, Func_81931
+	jr z, EndOWScene
 	ld a, [wCurMapSide]
 	ld b, a
 	ld a, [wOWSceneMapSide]
@@ -1545,7 +1545,7 @@ Func_81900:
 	ld [wSubState], a
 	ret
 
-Func_81931:
+EndOWScene:
 	stop_sfx
 
 	ld a, [wCurEvent]
@@ -1560,21 +1560,21 @@ Func_81931:
 	jr z, .epilogue
 	ld hl, wSubState
 	inc [hl]
-	call Func_803e6
+	call SaveGameOnReturnFromLevel
 	ret
 .epilogue
 	ld a, SST_OVERWORLD_EPILOGUE
 	ld [wSubState], a
 	ret
 
-Func_8195d:
+DoOWSceneAction:
 	ld a, [wOWSceneAction]
 	jumptable
 
 	dw .InvalidAction
 	dw UnlockLevel ; UNLOCK_LEVEL
 	dw DoOWFunction ; DO_OW_FUNC
-	dw Func_82c33 ; HIGHLIGHT_LEVEL
+	dw HighlightLevel ; HIGHLIGHT_LEVEL
 	dw DoOWFunction ; SPECIAL_ACTION
 
 .InvalidAction:
@@ -1646,7 +1646,7 @@ CheckIfEventIsUnlocked:
 
 ; input:
 ; - a = EVENT_* constant
-Func_819c6:
+IsEventAlreadyUnlocked:
 	call CheckIfEventIsUnlocked
 	and c
 	ret
@@ -2709,7 +2709,7 @@ OWSceneParams:
 	ow_func NORTH, NOWFUNC_PROLOGUE
 	ow_scene_end
 
-Func_81dce:
+InitOWScenesForMapSide:
 	ld a, EVENT_PROLOGUE
 	ld [wTempEvent], a
 	ld a, [wLastTransitionParam]
@@ -2778,13 +2778,13 @@ Func_81dce:
 	ld a, [wOWSceneAction]
 	jumptable
 
-	dw Func_81e44
+	dw InvalidOWSceneInitAction
 	dw DrawUnlockedLevels      ; UNLOCK_LEVEL
 	dw InitOWObjects           ; DO_OW_FUNC
 	dw InitHighlightLevelScene ; HIGHLIGHT_LEVEL
 	dw InitOWObjects           ; SPECIAL_ACTION
 
-Func_81e44:
+InvalidOWSceneInitAction:
 	debug_nop
 
 InitOWObjects:
@@ -2830,7 +2830,7 @@ DrawUnlockedLevels:
 	ld a, TRUE
 	ld [wHighlightOWTile], a
 	push hl
-	call Func_81feb
+	call ApplyHighlightPalToOWTile
 	pop hl
 	ld a, [wTileToPlaceInOW]
 	ld [hl], a
@@ -2861,7 +2861,7 @@ DrawUnlockedLevels:
 	ld a, TRUE
 	ld [wHighlightOWTile], a
 	push hl
-	call Func_81feb
+	call ApplyHighlightPalToOWTile
 	pop hl
 	ld a, [wTileToPlaceInOW]
 	ld [hl], a
@@ -2880,7 +2880,7 @@ DrawUnlockedLevels:
 	ld a, TRUE
 	ld [wHighlightOWTile], a
 	push hl
-	call Func_81feb
+	call ApplyHighlightPalToOWTile
 	pop hl
 	ld a, [wTileToPlaceInOW]
 	ld [hl], a
@@ -2893,7 +2893,7 @@ DrawUnlockedLevels:
 	ld [wHighlightOWTile], a
 	ret
 
-Func_81f21:
+PlacePendingOWTiles:
 	ld a, [wHighlightOWTile]
 	and a
 	jr z, .skip
@@ -3020,7 +3020,7 @@ GetConnectedLevel1CoordsInTilemap:
 
 ; applies palette 7 and bank1 bit to wAttrToPlaceInOW
 ; if wHighlightOWTile is TRUE
-Func_81feb:
+ApplyHighlightPalToOWTile:
 	ld a, [wHighlightOWTile]
 	and a
 	ret z
@@ -3074,11 +3074,11 @@ LoadCompassSprite:
 	call LoadOWSpriteWithScroll
 	ret
 
-PlaySFX_12A:
+PlayStepSFX:
 	play_sfx SFX_STEP
 	ret
 
-Func_82041:
+UpdateOWWario:
 	ld a, [wMapSideLevelID]
 	ld c, a
 	ld a, [wTargetMapSideLevelID]
@@ -3087,7 +3087,7 @@ Func_82041:
 	ld hl, wOWWalkSFXCounter
 	ld a, [hl]
 	and a
-	call z, PlaySFX_12A
+	call z, PlayStepSFX
 	inc [hl]
 	ld a, [wOWWarioRunCounter]
 	rlca
@@ -3107,7 +3107,7 @@ Func_82041:
 	ld b, a
 	ld a, [wLevelArrowDirections1]
 	cp b
-	jr z, Func_8208d
+	jr z, DrawOWWario
 	ld [wOWWarioLastDir], a
 	ld c, OWWARIO_UP
 	bit 6, a
@@ -3123,7 +3123,7 @@ Func_82041:
 	ld a, c
 	call SetOWWarioOAM
 ;	fallthrough
-Func_8208d:
+DrawOWWario:
 	ld a, [wOWWarioSprite]
 	and a
 	ret z
@@ -3183,8 +3183,8 @@ SetOWWarioOAM:
 	dw OWWarioFrameset_aa438
 	dw OWWarioFrameset_aa25e
 
-Func_820e6:
-	call Func_82111
+SetPathFromArrowDirection:
+	call GetCurLevelPathsPtr
 	ld a, [wLevelArrowDirections1]
 	swap a
 	rrca
@@ -3210,7 +3210,7 @@ Func_820e6:
 	ld [wLevelArrowIndex], a
 	ret
 
-Func_82111:
+GetCurLevelPathsPtr:
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
 	jr c, .asm_8211f
@@ -3227,7 +3227,7 @@ Func_82111:
 	call GetCthWordFromAthTable
 	ret
 
-Func_8212c:
+PlaceOWWarioAtCurLevel:
 	ld a, [wMapSideLevelID]
 	ld [wLevel1], a
 	call GetMapLevelCoords
@@ -3310,7 +3310,7 @@ GetOWAllowedDPadInput:
 
 ; input:
 ; - wOW1Coords and wOW2Coords
-Func_821a1:
+InitOWLineMovement:
 	xor a
 	ld [wOWLineFlags], a
 
@@ -3381,7 +3381,7 @@ Func_821a1:
 	ld a, b
 	ret
 
-Func_82208:
+StepOWLineMovement:
 	ld hl, wOWLineStepsLeft
 	ld a, [hl]
 	and a
@@ -3829,35 +3829,35 @@ ShowTopBarSelectedButton:
 	db $60, $05 ; Night Spell
 
 DrawTopBar:
-	call Func_824f1
-	call Func_8250a
+	call DrawTopBarSelectionSprite
+	call DrawTopBarNextMapSprite
 	ret
 
-Func_824f1:
+DrawTopBarSelectionSprite:
 	xor a
 	ld [wOWAnimationFinished], a
 	ld a, [wOWUIObj1State]
 	ld hl, wOWUIObj1Duration
-	call Func_82521
+	call AnimateTopBarSprite
 	ld b, BANK(TopBarOAM_a9fe2)
 	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj1
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_8250a:
+DrawTopBarNextMapSprite:
 	ld a, [wOWUIObj2State]
 	and a
 	ret z
 	ld hl, wOWUIObj2Duration
-	call Func_82521
+	call AnimateTopBarSprite
 	ld b, BANK(TopBarOAM_a9fe2)
 	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj2
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_82521:
+AnimateTopBarSprite:
 	push hl
 	jumptable
 
@@ -3965,7 +3965,7 @@ Func_82521:
 	inc e
 	ld a, b
 	ld [de], a
-	call Func_82521
+	call AnimateTopBarSprite
 	ret
 
 ; waits for A button, then executes
@@ -4062,7 +4062,7 @@ HandleTopBarSelection:
 
 .ApplyPressedButtonAttrs:
 	ld hl, TopBarButton_Pressed
-	call Func_8269f
+	call WriteTopBarButton
 	call ApplyTopBarButtonAttributes
 	ret
 
@@ -4107,15 +4107,15 @@ LoadTopBarButtonAttributes:
 .LoadSelectedAttrs:
 	srl b
 	ret nc
-	jr Func_8269f
+	jr WriteTopBarButton
 
 .LoadSelectableAttrs:
 	srl b
-	jr c, Func_8269f
+	jr c, WriteTopBarButton
 	ld hl, TopBarButton_Unselectable ; non-selectable
 ;	fallthrough
 
-Func_8269f:
+WriteTopBarButton:
 ; loops twice, once for de + (2 * TILEMAP_WIDTH)
 ; and then for the original de
 	push de
@@ -4199,7 +4199,7 @@ ApplyTopBarButtonAttributes:
 	ret
 
 ; unreferenced
-UnreferencedLCD_82729:
+UnreferencedLCDFunc_SetBGMap1:
 	ld hl, .func
 	ld de, wLCDFunc
 	ld b, .func_end - .func
@@ -4230,7 +4230,7 @@ ENDL
 .func_end
 
 ; unreferenced
-UnreferencedLCD_82754:
+UnreferencedLCDFunc_Reti:
 	ld hl, .func
 	ld de, wLCDFunc
 	ld b, .func_end - .func
@@ -4485,7 +4485,7 @@ HandleBottomBar:
 DrawBottomBar:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
-	jp nz, Func_82997
+	jp nz, DrawBottomBarTimeAttack
 
 	ld a, [wLevelGreyTreasurePal]
 	ld c, a
@@ -4614,13 +4614,13 @@ DrawBottomBarButtonPrompt:
 	call LoadOWSpriteWithScroll_GotParams
 	ret
 
-Func_82997:
-	call Func_829a1
+DrawBottomBarTimeAttack:
+	call DrawBottomBarTimeAttackScore
 	call DrawBottomBarButtonPrompt
 	call DrawBottomBar8Coin
 	ret
 
-Func_829a1:
+DrawBottomBarTimeAttackScore:
 	ld a, [w2d0ee]
 	and $f0
 	swap a ; top nybble
@@ -4659,25 +4659,25 @@ UnlockLevel:
 	ld a, [wOWFuncStep]
 	jumptable
 
-	dw Func_82a79
-	dw Func_82a0a
-	dw Func_82a26
-	dw Func_82a2f
-	dw Func_82a4e
-	dw Func_82a62
-	dw Func_82a96
-	dw Func_82a9b
-	dw Func_82aae
-	dw Func_82a9b
-	dw Func_82aea
-	dw Func_82a9b
-	dw Func_82b22
-	dw Func_82b67
-	dw Func_82b7b
-	dw Func_82baa
+	dw UnlockLevel_Init
+	dw OWScene_FadeToGrey
+	dw OWScene_Wait20
+	dw OWScene_LoadLevelName
+	dw OWScene_FadeInLevelName
+	dw OWScene_LoadStarIndicatorPals
+	dw UnlockLevel_GetArrows
+	dw UnlockLevel_WaitHighlight
+	dw UnlockLevel_ShowArrow1
+	dw UnlockLevel_WaitHighlight
+	dw UnlockLevel_ShowArrow2
+	dw UnlockLevel_WaitHighlight
+	dw UnlockLevel_ShowLevelPoint
+	dw UnlockLevel_WaitHighlight30
+	dw UnlockLevel_ShowStar
+	dw UnlockLevel_End
 
 ; fade to grey
-Func_82a0a:
+OWScene_FadeToGrey:
 	farcall OWGreyTransition
 	ld a, [wOWPalTransitionState]
 	and a
@@ -4686,16 +4686,16 @@ Func_82a0a:
 	di
 	call VBlank_OWScene
 	ei
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 
-Func_82a26:
+OWScene_Wait20:
 	ld a, 20
 	ld hl, wOWFuncCounter
 	cp [hl]
 	ret nc
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
-Func_82a2f:
+OWScene_LoadLevelName:
 	ld a, [wOWSceneMapSide]
 	ld b, a ; map side
 	ld a, [wLevel2]
@@ -4705,7 +4705,7 @@ Func_82a2f:
 	call LoadLevelName
 	xor a
 	ld [wPalConfig1TotalSteps], a
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
 .is_exit
 	; skip name fade in
@@ -4717,20 +4717,20 @@ Func_82a2f:
 	ld [hl], a ; wOWFuncCounter
 	ret
 
-Func_82a4e:
+OWScene_FadeInLevelName:
 	farcall FadeInLevelName
 	srl c
 	ret c
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
-Func_82a62:
+OWScene_LoadStarIndicatorPals:
 	ld a, [wOWFuncCounter]
 	cp 16
 	ret c
 	farcall LoadOWStarIndicatorPals
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
-Func_82a79:
+UnlockLevel_Init:
 	call GetUnlockedOWLevelData
 	xor a
 	ld [wOWPathShape], a
@@ -4741,18 +4741,18 @@ Func_82a79:
 	call WriteAToHL_BCTimes
 ;	fallthrough
 
-Func_82a8d:
+AdvanceOWFunc_UnlockLevel:
 	xor a
 	ld [wOWFuncCounter], a
 	ld hl, wOWFuncStep
 	inc [hl]
 	ret
 
-Func_82a96:
+UnlockLevel_GetArrows:
 	call GetUnlockedLevelArrows
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
-Func_82a9b:
+UnlockLevel_WaitHighlight:
 	ld a, [wHighlightOWTile]
 	and a
 	jr z, .asm_82aa6
@@ -4763,11 +4763,11 @@ Func_82a9b:
 	ld a, [wOWFuncCounter]
 	cp 4
 	ret c
-	jr Func_82a8d
+	jr AdvanceOWFunc_UnlockLevel
 
-Func_82aae:
+UnlockLevel_ShowArrow1:
 	call IsLeftExitOrJunction
-	jr z, Func_82a8d
+	jr z, AdvanceOWFunc_UnlockLevel
 	ld a, [wLevelArrowDirections1]
 	call GetConnectedLevel1ArrowCoord
 	call GetConnectedLevel1CoordsInTilemap
@@ -4777,10 +4777,10 @@ Func_82aae:
 	ld a, TRUE
 	ld [wHighlightOWTile], a
 	play_sfx SFX_PATH_ARROW
-Func_82ad2:
-	call Func_81feb
-	call Func_81f21
-	jr Func_82a8d
+UnlockLevel_HighlightTileAndAdvance:
+	call ApplyHighlightPalToOWTile
+	call PlacePendingOWTiles
+	jr AdvanceOWFunc_UnlockLevel
 
 ; return z if 1st connected level is left exit
 ; or if it is North's map side junction
@@ -4796,10 +4796,10 @@ IsLeftExitOrJunction:
 	cp c
 	ret
 
-Func_82aea:
+UnlockLevel_ShowArrow2:
 	ld a, [wLevel2]
 	cp OW_EXIT_RIGHT
-	jr z, Func_82a8d
+	jr z, AdvanceOWFunc_UnlockLevel
 	ld a, [wOWXCoord2]
 	ld [wOWXCoord1], a
 	ld a, [wOWYCoord2]
@@ -4814,19 +4814,19 @@ Func_82aea:
 	ld a, $01
 	ld [wHighlightOWTile], a
 	play_sfx SFX_PATH_ARROW
-	jp Func_82ad2
+	jp UnlockLevel_HighlightTileAndAdvance
 
-Func_82b22:
+UnlockLevel_ShowLevelPoint:
 	ld a, [wLevel2]
 	cp OW_EXIT_RIGHT
-	jp z, Func_82a8d
+	jp z, AdvanceOWFunc_UnlockLevel
 	ld hl, wOWCoords2
 	call GetOWCoordInTilemap
 	ld hl, wAttrToPlaceInOW
 	call ShowLevelPointInOW
 	ld a, $01
 	ld [wHighlightOWTile], a
-	jp Func_82ad2
+	jp UnlockLevel_HighlightTileAndAdvance
 
 ShowLevelPointInOW:
 	ld b, a
@@ -4864,7 +4864,7 @@ ShowLevelArrowInOW:
 	ld [hl], a ; tile
 	ret
 
-Func_82b67:
+UnlockLevel_WaitHighlight30:
 	ld a, [wHighlightOWTile]
 	and a
 	jr z, .asm_82b72
@@ -4875,19 +4875,19 @@ Func_82b67:
 	ld a, [wOWFuncCounter]
 	cp 30
 	ret c
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 
-Func_82b7b:
+UnlockLevel_ShowStar:
 	ld a, [wOWFuncCounter]
 	cp $01
 	jr z, .asm_82b88
 	cp $40
 	ret c
-	jp Func_82a8d
+	jp AdvanceOWFunc_UnlockLevel
 .asm_82b88
 	ld a, [wLevel2]
 	cp OW_EXITS
-	jp nc, Func_82a8d
+	jp nc, AdvanceOWFunc_UnlockLevel
 	ld a, [wOWYCoord2]
 	ld [wCurSceneObjYCoord], a
 	ld a, [wOWXCoord2]
@@ -4897,7 +4897,7 @@ Func_82b7b:
 	play_sfx SFX_LEVEL_STAR
 	ret
 
-Func_82baa:
+UnlockLevel_End:
 	ld a, [wOWFuncCounter]
 	cp 30
 	ret c
@@ -4906,7 +4906,7 @@ Func_82baa:
 	ld [wOWFuncStep], a
 	ret
 
-Func_82bb8:
+DrawUnlockLevelStar:
 	ld a, [wOWSceneAction]
 	cp UNLOCK_LEVEL
 	ret nz
@@ -4923,7 +4923,7 @@ Func_82bb8:
 	call LoadOWSpriteWithScroll
 	ret
 
-Func_82bda:
+DrawHighlightLevelStar:
 	ld a, [wOWSceneAction]
 	cp HIGHLIGHT_LEVEL
 	ret nz
@@ -4959,18 +4959,18 @@ InitHighlightLevelScene:
 	call CopyFarBytes
 	ret
 
-Func_82c1d:
+WaitOWFunc_Bank20:
 	ld hl, wOWFuncCounter
 	cp [hl]
 	ret nc
-Func_82c22:
+AdvanceOWFunc_Bank20:
 	xor a
 	ld hl, wOWFuncCounter
 	ld [hli], a
 	inc [hl] ; wOWFuncStep
 	ret
 
-Func_82c29:
+EndOWFunc_Bank20:
 	xor a
 	ld [wOWSceneActionParam], a
 	ld hl, wOWFuncCounter
@@ -4978,26 +4978,26 @@ Func_82c29:
 	ld [hl], a ; wOWFuncStep
 	ret
 
-Func_82c33:
+HighlightLevel:
 	ld hl, wOWFuncCounter
 	inc [hl]
 	ld a, [wOWFuncStep]
 	jumptable
 	dw .Func_82c55
 	dw .Func_82c8f
-	dw Func_82a0a
-	dw Func_82a26
-	dw Func_82a2f
-	dw Func_82a4e
-	dw Func_82a62
+	dw OWScene_FadeToGrey
+	dw OWScene_Wait20
+	dw OWScene_LoadLevelName
+	dw OWScene_FadeInLevelName
+	dw OWScene_LoadStarIndicatorPals
 	dw .Func_82c93
 	dw .Func_82cb0
 	dw .Func_82c51
-	dw Func_82c29
+	dw EndOWFunc_Bank20
 
 .Func_82c51:
 	ld a, 30
-	jr Func_82c1d
+	jr WaitOWFunc_Bank20
 
 .Func_82c55:
 	ld a, [wCurMapSide]
@@ -5013,7 +5013,7 @@ Func_82c33:
 	cp EVENT_SUPER_GRAB_GLOVES
 	jr z, .asm_82c78
 .asm_82c6e
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20
 
 .asm_82c71
 	ld a, $07
@@ -5030,11 +5030,11 @@ Func_82c33:
 	ld a, MYSTERY_HANDLE
 	call IsTreasureCollected
 	jr nz, .asm_82c6e
-	jr Func_82c29
+	jr EndOWFunc_Bank20
 
 .Func_82c8f:
 	ld a, 12
-	jr Func_82c1d
+	jr WaitOWFunc_Bank20
 
 .Func_82c93:
 	ld a, [wLevel2]
@@ -5045,10 +5045,10 @@ Func_82c33:
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
 	play_sfx SFX_LEVEL_STAR
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20
 
 .Func_82cb0:
 	ld a, [wCurSceneObjState]
 	and a
 	ret nz
-	jp Func_82c22
+	jp AdvanceOWFunc_Bank20

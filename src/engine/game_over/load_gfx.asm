@@ -73,7 +73,7 @@ LoadGameOverGfx:
 	farcall BANK(WarioSleepGfx), CopyHLToDE_BC
 	ret
 
-Func_db4cf:
+LoadGameOverBGMaps:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, GameOverAttrmap
@@ -86,7 +86,7 @@ Func_db4cf:
 	call Decompress
 	ret
 
-Func_db4e9:
+LoadGameOverSpriteWithScroll:
 	ld a, [wSCY]
 	ld b, a
 	ld a, [hli]

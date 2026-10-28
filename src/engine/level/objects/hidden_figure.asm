@@ -220,7 +220,7 @@ HiddenFigureFunc:
 .asm_4ccb3
 	ld bc, HiddenFigureGrab3SCYShake
 .asm_4ccb6
-	call Func_4cf70
+	call ApplyHiddenFigureSCYShakeTable
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -263,9 +263,9 @@ HiddenFigureFunc:
 
 .Func_4ccf6:
 	ld bc, HiddenFigureSwipeSCYShake
-	call Func_4cf70
+	call ApplyHiddenFigureSCYShakeTable
 	ld bc, HiddenFigureLeftSwipeSCX
-	call Func_4cf87
+	call ApplyHiddenFigureSCXTable
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -324,9 +324,9 @@ HiddenFigureFunc:
 
 .Func_4cd59:
 	ld bc, HiddenFigureSwipeSCYShake
-	call Func_4cf70
+	call ApplyHiddenFigureSCYShakeTable
 	ld bc, HiddenFigureRightSwipeSCX
-	call Func_4cf87
+	call ApplyHiddenFigureSCXTable
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -385,7 +385,7 @@ HiddenFigureFunc:
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call Func_4cfe0
+	call FlashHiddenFigurePals
 	ld a, [wHiddenFigureLeftHandStunned]
 	and a
 	ret nz
@@ -431,7 +431,7 @@ HiddenFigureFunc:
 	ret z
 	dec [hl]
 	jr z, .asm_4ce31
-	call Func_4cfe0
+	call FlashHiddenFigurePals
 	ld a, [wCurObjStateDuration]
 	and $03
 	ret nz
@@ -441,9 +441,9 @@ HiddenFigureFunc:
 .asm_4ce31
 	ld a, LVLEND_EPILOGUE
 	ld [wLevelEndScreen], a
-	jp Func_4d005
+	jp SetHiddenFigurePals
 
-Func_4ce39:
+HiddenFigureFace_StartLaugh:
 	ld a, $3c
 	ld [wCurObjStateDuration], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -458,7 +458,7 @@ HiddenFigureFaceFunc:
 	ld hl, wHiddenFigureBodyGrabResult
 	ld a, [hl]
 	cp $80
-	jr z, Func_4ce39
+	jr z, HiddenFigureFace_StartLaugh
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -564,7 +564,7 @@ HiddenFigureFaceFunc:
 	ld a, [hl]
 	cp $2c
 	play_sfx z, SFX_HIDDEN_FIGURE_HIT
-	jp Func_4cfe0
+	jp FlashHiddenFigurePals
 .asm_4cf29
 	xor a
 	ld [wHiddenFigureHandsFlinch], a
@@ -575,7 +575,7 @@ HiddenFigureFaceFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
-	call Func_4d005
+	call SetHiddenFigurePals
 	jp .asm_4ce9d
 
 .Func_4cf3f:
@@ -603,7 +603,7 @@ HiddenFigureFaceFunc:
 	ld de, HiddenFigureFrameset_6a071
 	jp SetObjectFramesetPtr
 
-Func_4cf70:
+ApplyHiddenFigureSCYShakeTable:
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	add c
@@ -623,7 +623,7 @@ Func_4cf70:
 	ld [hl], a
 	ret
 
-Func_4cf87:
+ApplyHiddenFigureSCXTable:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	add c
@@ -643,7 +643,7 @@ Func_4cf87:
 	ld [hl], a
 	ret
 
-Func_4cf9e:
+ApplyCurObjYTable:
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	add c
@@ -673,7 +673,7 @@ Func_4cf9e:
 	dec [hl]
 	ret
 
-Func_4cfbf:
+ApplyCurObjXTable:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	add c
@@ -703,7 +703,7 @@ Func_4cfbf:
 	dec [hl]
 	ret
 
-Func_4cfe0:
+FlashHiddenFigurePals:
 	ld a, [wGlobalCounter]
 	and %1111
 	jr z, .asm_4cfef
@@ -724,7 +724,7 @@ Func_4cfe0:
 	ld b, 6
 	jp SetBGPals
 
-Func_4d005:
+SetHiddenFigurePals:
 	ld a, [wHiddenFigureRemainingHits]
 	cp $02
 	jr c, .asm_4d011
@@ -983,7 +983,7 @@ HiddenFigureLeftHandFunc:
 	ret
 .asm_4d17a
 	ld bc, HiddenFigureHandSlamY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $0a
 	jr nz, .asm_4d194
@@ -1000,7 +1000,7 @@ HiddenFigureLeftHandFunc:
 
 .Func_4d19e:
 	ld bc, HiddenFigureHandFlinchY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $3a
 	ret nz
@@ -1072,7 +1072,7 @@ HiddenFigureLeftHandFunc:
 	cp $08
 	jr z, .asm_4d280
 	ld bc, HiddenFigureLeftHandGrabX
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld a, [wHiddenFigureAttack]
 	cp $07
 	jr z, .asm_4d23e
@@ -1081,7 +1081,7 @@ HiddenFigureLeftHandFunc:
 .asm_4d23e
 	ld bc, HiddenFigureHandGrab2Y
 .asm_4d241
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d251
@@ -1113,9 +1113,9 @@ HiddenFigureLeftHandFunc:
 	jp .asm_4d34c
 .asm_4d280
 	ld bc, HiddenFigureLeftHandGrab3X
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandGrab3Y
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d299
@@ -1190,9 +1190,9 @@ HiddenFigureLeftHandFunc:
 	ld [hl], a
 .asm_4d316
 	ld bc, HiddenFigureLeftHandSwipeX
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandSwipeY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $10
 	jr nz, .asm_4d333
@@ -1396,7 +1396,7 @@ HiddenFigureRightHandFunc:
 	ret
 .asm_4d47b
 	ld bc, HiddenFigureHandSlamY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $0a
 	jr nz, .asm_4d495
@@ -1413,7 +1413,7 @@ HiddenFigureRightHandFunc:
 
 .Func_4d49f:
 	ld bc, HiddenFigureHandFlinchY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $3a
 	ret nz
@@ -1463,7 +1463,7 @@ HiddenFigureRightHandFunc:
 	cp $08
 	jr z, .asm_4d540
 	ld bc, HiddenFigureRightHandGrabX
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld a, [wHiddenFigureAttack]
 	cp $07
 	jr z, .asm_4d508
@@ -1472,7 +1472,7 @@ HiddenFigureRightHandFunc:
 .asm_4d508
 	ld bc, HiddenFigureHandGrab2Y
 .asm_4d50b
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d523
@@ -1495,9 +1495,9 @@ HiddenFigureRightHandFunc:
 	jp .asm_4d5f5
 .asm_4d540
 	ld bc, HiddenFigureRightHandGrab3X
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandGrab3Y
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d561
@@ -1558,9 +1558,9 @@ HiddenFigureRightHandFunc:
 	ld [hl], a
 .asm_4d5bf
 	ld bc, HiddenFigureRightHandSwipeX
-	call Func_4cfbf
+	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandSwipeY
-	call Func_4cf9e
+	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $10
 	jr nz, .asm_4d5dc
@@ -1693,14 +1693,14 @@ HiddenFigureRightHandFunc:
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
-	dw Func_3191
-	dw Func_31af
-	dw Func_31cd
-	dw Func_31eb
-	dw Func_3209
-	dw Func_3227
-	dw Func_3245
-	dw Func_3254
+	dw ObjState_Bounce1LeftStart
+	dw ObjState_Bounce1RightStart
+	dw ObjState_Bounce2LeftStart
+	dw ObjState_Bounce2RightStart
+	dw ObjState_Bounce3LeftStart
+	dw ObjState_Bounce3RightStart
+	dw ObjState_FallLeftStart
+	dw ObjState_FallRightStart
 	dw .Func_4d844
 	dw .Func_4d83a
 	dw .Func_4d7dc
@@ -1715,10 +1715,10 @@ HiddenFigureRightHandFunc:
 	dw ObjState_BumpRight
 	dw .Func_4d7dc
 	dw .Func_4d7dc
-	dw Func_3335
-	dw Func_3344
-	dw Func_31fa
-	dw Func_31dc
+	dw ObjState_PickedUpLeft
+	dw ObjState_PickedUpRight
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce2Left
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
@@ -1727,28 +1727,28 @@ HiddenFigureRightHandFunc:
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw ObjState_StandingFall
-	dw Func_3371
+	dw ObjState_Drop
 	dw .Func_4d7dc
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_4d87d
 	dw .Func_4d88b
 	dw .Func_4d8f0
 	dw .Func_4d8d8
-	dw Func_3380
-	dw Func_338f
+	dw ObjState_GrabbedChargeLeft
+	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
 	dw ObjState_FullThrowRight
-	dw Func_339e
-	dw Func_33ad
-	dw Func_31a0
-	dw Func_31be
-	dw Func_31dc
-	dw Func_31fa
-	dw Func_3218
-	dw Func_3236
-	dw Func_32cc
-	dw Func_32db
+	dw ObjState_ThrowLeft
+	dw ObjState_ThrowRight
+	dw ObjState_Bounce1Left
+	dw ObjState_Bounce1Right
+	dw ObjState_Bounce2Left
+	dw ObjState_Bounce2Right
+	dw ObjState_Bounce3Left
+	dw ObjState_Bounce3Right
+	dw ObjState_FallLeft
+	dw ObjState_FallRight
 	dw .Func_4d7dc
 	dw .Func_4d7dc
 	dw .Func_4d7dc
@@ -1971,7 +1971,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32ae
+	jp nz, ObjState_BumpSlideLeft
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -1980,7 +1980,7 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jp nz, Func_32bd
+	jp nz, ObjState_BumpSlideRight
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
@@ -1998,7 +1998,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3335
+	jp ObjState_PickedUpLeft
 
 .Func_4d8b1:
 	ld a, $01
@@ -2013,7 +2013,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hld], a
-	jp Func_3344
+	jp ObjState_PickedUpRight
 
 .Func_4d8c9:
 	ld a, $01
@@ -2026,7 +2026,7 @@ HiddenFigureRightHandFunc:
 .Func_4d8d8:
 	ld a, [wDirection]
 	and a
-	jp nz, Func_3353
+	jp nz, ObjState_GrabbedRight
 	jr .Func_4d8e1
 .Func_4d8e1:
 	ld a, $01
@@ -2039,5 +2039,5 @@ HiddenFigureRightHandFunc:
 .Func_4d8f0:
 	ld a, [wDirection]
 	and a
-	jp z, Func_3362
+	jp z, ObjState_GrabbedLeft
 	jp .Func_4d8c9

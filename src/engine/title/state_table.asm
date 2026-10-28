@@ -8,7 +8,7 @@ TitleStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw FastFadeToWhite
+	dw SlowFadeToWhite
 	dw InitIntroSequence
 	dw SlowFadeFromWhite
 	dw IntroSequencePhase1
@@ -17,7 +17,7 @@ TitleStateTable::
 	dw EndIntroSequence
 
 	dw StartMenu ; SST_START_MENU
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw InitTimeAttackDescription
 	dw TimeAttackDescription
 

@@ -107,9 +107,9 @@ TadpoleFunc:
 
 .asm_49efe
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
 	ld [hld], a
-	ld a, LOW(Func_3407)
+	ld a, LOW(ObjState_HitByObjRight)
 	ld [hl], a
 	ld l, OBJ_VAR_3
 	xor a
@@ -119,13 +119,13 @@ TadpoleFunc:
 	ret
 
 .asm_49f0e
-	ld a, HIGH(Func_33f8)
-	ld c, LOW(Func_33f8)
+	ld a, HIGH(ObjState_HitByObjLeft)
+	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
 	jr .asm_49f1c
 .asm_49f16
-	ld a, HIGH(Func_3407)
-	ld c, LOW(Func_3407)
+	ld a, HIGH(ObjState_HitByObjRight)
+	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
 .asm_49f1c
 	ld l, OBJ_FLAGS
@@ -158,7 +158,7 @@ TadpoleFunc:
 	cp $29
 	jr z, .asm_49f16
 	cp $0a
-	jp z, Func_3173
+	jp z, VanishAndDespawnObject
 	cp $04
 	jr z, .asm_49f16
 	cp $05
@@ -179,7 +179,7 @@ TadpoleFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_352b
+	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .asm_49f85

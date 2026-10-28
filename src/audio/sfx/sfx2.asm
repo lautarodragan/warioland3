@@ -1,4 +1,4 @@
-Sfx_02e_Ch1:
+Sfx_IceSkatinCrash_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -15,9 +15,9 @@ Sfx_02e_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_02e:
+Sfx_IceSkatinCrash:
 	db 1, 0
-	dw Sfx_02e_Ch1
+	dw Sfx_IceSkatinCrash_Ch1
 
 Sfx_Switch_Ch1:
 	semitone_offset 0
@@ -320,7 +320,7 @@ Sfx_GroundPound:
 	db 1, 0
 	dw Sfx_GroundPound_Ch1
 
-Sfx_034_Ch1:
+Sfx_ShootKickWario_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_45
@@ -337,7 +337,7 @@ Sfx_034_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_034_Ch2:
+Sfx_ShootKickWario_Ch2:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -358,12 +358,12 @@ Sfx_034_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_034:
+Sfx_ShootKickWario:
 	db 2, 0
-	dw Sfx_034_Ch1
-	dw Sfx_034_Ch2
+	dw Sfx_ShootKickWario_Ch1
+	dw Sfx_ShootKickWario_Ch2
 
-Sfx_035_Ch1:
+Sfx_ChestOpen_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -378,9 +378,9 @@ Sfx_035_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_035:
+Sfx_ChestOpen:
 	db 1, 0
-	dw Sfx_035_Ch1
+	dw Sfx_ChestOpen_Ch1
 
 Sfx_Sleep_Ch1:
 	semitone_offset 0
@@ -452,7 +452,7 @@ Sfx_Climb:
 	dw Sfx_Climb_Ch1
 	dw Sfx_Climb_Ch2
 
-Sfx_039_Ch1:
+Sfx_BallOStringTransform_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -483,11 +483,11 @@ Sfx_039_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_039:
+Sfx_BallOStringTransform:
 	db 1, 0
-	dw Sfx_039_Ch1
+	dw Sfx_BallOStringTransform_Ch1
 
-Sfx_03a_Ch1:
+Sfx_EatFood_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_36
@@ -522,9 +522,9 @@ Sfx_03a_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_03a:
+Sfx_EatFood:
 	db 1, 0
-	dw Sfx_03a_Ch1
+	dw Sfx_EatFood_Ch1
 
 Sfx_FatWalk_Ch1:
 	semitone_offset 0
@@ -542,7 +542,7 @@ Sfx_FatWalk:
 	db 1, 0
 	dw Sfx_FatWalk_Ch1
 
-Sfx_03c_Ch1:
+Sfx_BallOStringBounce_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -571,11 +571,11 @@ Sfx_03c_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_03c:
+Sfx_BallOStringBounce:
 	db 1, 0
-	dw Sfx_03c_Ch1
+	dw Sfx_BallOStringBounce_Ch1
 
-Sfx_03d_Ch1:
+Sfx_StringUnwrap_Ch1:
 	volume 66
 	semitone_offset 0
 	tempo 74
@@ -640,11 +640,11 @@ Sfx_03d_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_03d:
+Sfx_StringUnwrap:
 	db 1, 0
-	dw Sfx_03d_Ch1
+	dw Sfx_StringUnwrap_Ch1
 
-Sfx_03e_Ch1:
+Sfx_GetTreasureOpen_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -702,11 +702,11 @@ Sfx_03e_Ch1:
 	audio_wait 16
 	audio_end
 
-Sfx_03e:
+Sfx_GetTreasureOpen:
 	db 1, 0
-	dw Sfx_03e_Ch1
+	dw Sfx_GetTreasureOpen_Ch1
 
-Sfx_03f_Ch1:
+Sfx_InvisibleTransform_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -739,7 +739,7 @@ Sfx_03f_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_03f_Ch2:
+Sfx_InvisibleTransform_Ch2:
 	semitone_offset 0
 	wave WAVE_14
 	volume 120
@@ -771,12 +771,12 @@ Sfx_03f_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_03f:
+Sfx_InvisibleTransform:
 	db 2, 0
-	dw Sfx_03f_Ch1
-	dw Sfx_03f_Ch2
+	dw Sfx_InvisibleTransform_Ch1
+	dw Sfx_InvisibleTransform_Ch2
 
-Sfx_040_Ch1:
+Sfx_ElectricShock_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -786,11 +786,11 @@ Sfx_040_Ch1:
 	audio_wait 16
 	audio_end
 
-Sfx_040:
+Sfx_ElectricShock:
 	db 1, 0
-	dw Sfx_040_Ch1
+	dw Sfx_ElectricShock_Ch1
 
-Sfx_041_Ch1:
+Sfx_ElectricLand_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -821,11 +821,11 @@ Sfx_041_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_041:
+Sfx_ElectricLand:
 	db 1, 0
-	dw Sfx_041_Ch1
+	dw Sfx_ElectricLand_Ch1
 
-Sfx_042_Ch1:
+Sfx_CrazySpin_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -864,11 +864,11 @@ Sfx_042_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_042:
+Sfx_CrazySpin:
 	db 1, 0
-	dw Sfx_042_Ch1
+	dw Sfx_CrazySpin_Ch1
 
-Sfx_043_Ch1:
+Sfx_CrazyDizzy_Ch1:
 	volume 66
 	semitone_offset 0
 	tempo 74
@@ -936,11 +936,11 @@ Sfx_043_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_043:
+Sfx_CrazyDizzy:
 	db 1, 0
-	dw Sfx_043_Ch1
+	dw Sfx_CrazyDizzy_Ch1
 
-Sfx_044_Ch1:
+Sfx_SplitLand_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -1039,11 +1039,11 @@ Sfx_044_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_044:
+Sfx_SplitLand:
 	db 1, 0
-	dw Sfx_044_Ch1
+	dw Sfx_SplitLand_Ch1
 
-Sfx_045_Ch1:
+Sfx_VampireTransform_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -1090,7 +1090,7 @@ Sfx_045_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_045_Ch2:
+Sfx_VampireTransform_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	volume 94
@@ -1136,7 +1136,7 @@ Sfx_045_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_045_Ch3:
+Sfx_VampireTransform_Ch3:
 	semitone_offset 0
 	wave WAVE_65
 	volume 113
@@ -1146,13 +1146,13 @@ Sfx_045_Ch3:
 	audio_wait 10
 	audio_end
 
-Sfx_045:
+Sfx_VampireTransform:
 	db 3, 0
-	dw Sfx_045_Ch1
-	dw Sfx_045_Ch2
-	dw Sfx_045_Ch3
+	dw Sfx_VampireTransform_Ch1
+	dw Sfx_VampireTransform_Ch2
+	dw Sfx_VampireTransform_Ch3
 
-Sfx_046_Ch1:
+Sfx_BatTransform_Ch1:
 	semitone_offset 1
 	tempo 74
 	wave WAVE_10
@@ -1201,7 +1201,7 @@ Sfx_046_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_046_Ch2:
+Sfx_BatTransform_Ch2:
 	semitone_offset 1
 	wave WAVE_1A
 	volume 94
@@ -1249,7 +1249,7 @@ Sfx_046_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_046_Ch3:
+Sfx_BatTransform_Ch3:
 	semitone_offset 0
 	wave WAVE_65
 	volume 120
@@ -1260,13 +1260,13 @@ Sfx_046_Ch3:
 	audio_wait 10
 	audio_end
 
-Sfx_046:
+Sfx_BatTransform:
 	db 3, 0
-	dw Sfx_046_Ch1
-	dw Sfx_046_Ch2
-	dw Sfx_046_Ch3
+	dw Sfx_BatTransform_Ch1
+	dw Sfx_BatTransform_Ch2
+	dw Sfx_BatTransform_Ch3
 
-Sfx_047_Ch1:
+Sfx_SnowmanTransform_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3F
@@ -1337,11 +1337,11 @@ Sfx_047_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_047:
+Sfx_SnowmanTransform:
 	db 1, 0
-	dw Sfx_047_Ch1
+	dw Sfx_SnowmanTransform_Ch1
 
-Sfx_048_Ch1:
+Sfx_LaunchCrash_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -1430,7 +1430,7 @@ Sfx_048_Ch1:
 	note E_2
 	audio_end
 
-Sfx_048_Ch2:
+Sfx_LaunchCrash_Ch2:
 	semitone_offset 0
 	volume 94
 	wave WAVE_65
@@ -1457,12 +1457,12 @@ Sfx_048_Ch2:
 	audio_wait 5
 	audio_end
 
-Sfx_048:
+Sfx_LaunchCrash:
 	db 2, 0
-	dw Sfx_048_Ch1
-	dw Sfx_048_Ch2
+	dw Sfx_LaunchCrash_Ch1
+	dw Sfx_LaunchCrash_Ch2
 
-Sfx_049_Ch1:
+Sfx_HammerHit_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_34
@@ -1473,9 +1473,9 @@ Sfx_049_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_049:
+Sfx_HammerHit:
 	db 1, 0
-	dw Sfx_049_Ch1
+	dw Sfx_HammerHit_Ch1
 
 Sfx_CrouchWalk_Ch1:
 	semitone_offset 0
@@ -1546,7 +1546,7 @@ Sfx_ColourCoin:
 	db 1, 0
 	dw Sfx_ColourCoin_Ch1
 
-Sfx_04c_Ch1:
+Sfx_Launched_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_11
@@ -1585,7 +1585,7 @@ Sfx_04c_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_04c_Ch2:
+Sfx_Launched_Ch2:
 	semitone_offset 0
 	wave WAVE_60
 	volume 66
@@ -1624,12 +1624,12 @@ Sfx_04c_Ch2:
 	audio_wait 8
 	audio_end
 
-Sfx_04c:
+Sfx_Launched:
 	db 2, 0
-	dw Sfx_04c_Ch1
-	dw Sfx_04c_Ch2
+	dw Sfx_Launched_Ch1
+	dw Sfx_Launched_Ch2
 
-Sfx_061_Ch1:
+Sfx_Earthquake_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -1650,9 +1650,9 @@ Sfx_061_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_061:
+Sfx_Earthquake:
 	db 1, 0
-	dw Sfx_061_Ch1
+	dw Sfx_Earthquake_Ch1
 
 Sfx_062_Ch1:
 	semitone_offset 0
@@ -1673,7 +1673,7 @@ Sfx_Click:
 	db 1, 0
 	dw Sfx_062_Ch1
 
-Sfx_063_Ch1:
+Sfx_Slam_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -1694,11 +1694,11 @@ Sfx_063_Ch1:
 	audio_wait 9
 	audio_end
 
-Sfx_063:
+Sfx_Slam:
 	db 1, 0
-	dw Sfx_063_Ch1
+	dw Sfx_Slam_Ch1
 
-Sfx_064_Ch1:
+Sfx_Zombie_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -1771,11 +1771,11 @@ Sfx_064_Ch1:
 	note E_2
 	audio_end
 
-Sfx_064:
+Sfx_Zombie:
 	db 1, 0
-	dw Sfx_064_Ch1
+	dw Sfx_Zombie_Ch1
 
-Sfx_065_Ch1:
+Sfx_GolfBunker_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -1787,11 +1787,11 @@ Sfx_065_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_065:
+Sfx_GolfBunker:
 	db 1, 0
-	dw Sfx_065_Ch1
+	dw Sfx_GolfBunker_Ch1
 
-Sfx_066_Ch1:
+Sfx_BallBounce_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_40
@@ -1802,11 +1802,11 @@ Sfx_066_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_066:
+Sfx_BallBounce:
 	db 1, 0
-	dw Sfx_066_Ch1
+	dw Sfx_BallBounce_Ch1
 
-Sfx_067_Ch1:
+Sfx_EnemyThrow_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_43
@@ -1828,11 +1828,11 @@ Sfx_067_Ch1:
 	note E_2
 	audio_end
 
-Sfx_067:
+Sfx_EnemyThrow:
 	db 1, 0
-	dw Sfx_067_Ch1
+	dw Sfx_EnemyThrow_Ch1
 
-Sfx_068_Ch1:
+Sfx_SunShoot_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -1846,11 +1846,11 @@ Sfx_068_Ch1:
 	audio_wait 12
 	audio_end
 
-Sfx_068:
+Sfx_SunShoot:
 	db 1, 0
-	dw Sfx_068_Ch1
+	dw Sfx_SunShoot_Ch1
 
-Sfx_069_Ch1:
+Sfx_BubbleSpawn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3E
@@ -1860,11 +1860,11 @@ Sfx_069_Ch1:
 	audio_wait 16
 	audio_end
 
-Sfx_069:
+Sfx_BubbleSpawn:
 	db 1, 0
-	dw Sfx_069_Ch1
+	dw Sfx_BubbleSpawn_Ch1
 
-Sfx_06a_Ch1:
+Sfx_Whirr_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -1887,11 +1887,11 @@ Sfx_06a_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_06a:
+Sfx_Whirr:
 	db 1, 0
-	dw Sfx_06a_Ch1
+	dw Sfx_Whirr_Ch1
 
-Sfx_06b_Ch1:
+Sfx_ElectricLampDischarge_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_5D
@@ -1906,11 +1906,11 @@ Sfx_06b_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_06b:
+Sfx_ElectricLampDischarge:
 	db 1, 0
-	dw Sfx_06b_Ch1
+	dw Sfx_ElectricLampDischarge_Ch1
 
-Sfx_06c_Ch1:
+Sfx_ElectricSpark_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -2000,11 +2000,11 @@ Sfx_06c_Ch1:
 	note E_2
 	audio_end
 
-Sfx_06c:
+Sfx_ElectricSpark:
 	db 1, 0
-	dw Sfx_06c_Ch1
+	dw Sfx_ElectricSpark_Ch1
 
-Sfx_06d_Ch1:
+Sfx_CartRoll_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -2016,11 +2016,11 @@ Sfx_06d_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_06d:
+Sfx_CartRoll:
 	db 1, 0
-	dw Sfx_06d_Ch1
+	dw Sfx_CartRoll_Ch1
 
-Sfx_06e_Ch1:
+Sfx_MoonShoot_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_11
@@ -2041,11 +2041,11 @@ Sfx_06e_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_06e:
+Sfx_MoonShoot:
 	db 1, 0
-	dw Sfx_06e_Ch1
+	dw Sfx_MoonShoot_Ch1
 
-Sfx_06f_Ch1:
+Sfx_BirdAlert_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -2068,11 +2068,11 @@ Sfx_06f_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_06f:
+Sfx_BirdAlert:
 	db 1, 0
-	dw Sfx_06f_Ch1
+	dw Sfx_BirdAlert_Ch1
 
-Sfx_070_Ch1:
+Sfx_BirdTakeOff_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_36
@@ -2091,9 +2091,9 @@ Sfx_070_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_070:
+Sfx_BirdTakeOff:
 	db 1, 0
-	dw Sfx_070_Ch1
+	dw Sfx_BirdTakeOff_Ch1
 
 Sfx_Flap_Ch1:
 	semitone_offset 0
@@ -2114,7 +2114,7 @@ Sfx_Flap:
 	db 1, 2
 	dw Sfx_Flap_Ch1
 
-Sfx_072_Ch1:
+Sfx_BubblePop_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_36
@@ -2148,11 +2148,11 @@ Sfx_072_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_072:
+Sfx_BubblePop:
 	db 1, 0
-	dw Sfx_072_Ch1
+	dw Sfx_BubblePop_Ch1
 
-Sfx_073_Ch1:
+Sfx_Flame_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -2163,11 +2163,11 @@ Sfx_073_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_073:
+Sfx_Flame:
 	db 1, 0
-	dw Sfx_073_Ch1
+	dw Sfx_Flame_Ch1
 
-Sfx_074_Ch1:
+Sfx_ZombieRise_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0D
@@ -2215,11 +2215,11 @@ Sfx_074_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_074:
+Sfx_ZombieRise:
 	db 1, 0
-	dw Sfx_074_Ch1
+	dw Sfx_ZombieRise_Ch1
 
-Sfx_075_Ch1:
+Sfx_HeavyStep_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_40
@@ -2236,11 +2236,11 @@ Sfx_075_Ch1:
 	audio_wait 6
 	audio_end
 
-Sfx_075:
+Sfx_HeavyStep:
 	db 1, 0
-	dw Sfx_075_Ch1
+	dw Sfx_HeavyStep_Ch1
 
-Sfx_076_Ch1:
+Sfx_Thunder_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -2253,9 +2253,9 @@ Sfx_076_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_076:
+Sfx_Thunder:
 	db 1, 0
-	dw Sfx_076_Ch1
+	dw Sfx_Thunder_Ch1
 
 Sfx_OwlHoot_Ch1:
 	semitone_offset 0
@@ -2288,7 +2288,7 @@ Sfx_OwlHoot:
 	db 1, 0
 	dw Sfx_OwlHoot_Ch1
 
-Sfx_078_Ch1:
+Sfx_StoveRattle_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -2299,11 +2299,11 @@ Sfx_078_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_078:
+Sfx_StoveRattle:
 	db 1, 0
-	dw Sfx_078_Ch1
+	dw Sfx_StoveRattle_Ch1
 
-Sfx_079_Ch1:
+Sfx_NobiiruExtend_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -2347,11 +2347,11 @@ Sfx_079_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_079:
+Sfx_NobiiruExtend:
 	db 1, 0
-	dw Sfx_079_Ch1
+	dw Sfx_NobiiruExtend_Ch1
 
-Sfx_07a_Ch1:
+Sfx_SeeingEyeDoorLook_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -2366,11 +2366,11 @@ Sfx_07a_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_07a:
+Sfx_SeeingEyeDoorLook:
 	db 1, 0
-	dw Sfx_07a_Ch1
+	dw Sfx_SeeingEyeDoorLook_Ch1
 
-Sfx_07b_Ch1:
+Sfx_SeeingEyeDoor_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -2383,11 +2383,11 @@ Sfx_07b_Ch1:
 	audio_wait 9
 	audio_end
 
-Sfx_07b:
+Sfx_SeeingEyeDoor:
 	db 1, 0
-	dw Sfx_07b_Ch1
+	dw Sfx_SeeingEyeDoor_Ch1
 
-Sfx_07c_Ch1:
+Sfx_Beam_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0D
@@ -2477,7 +2477,7 @@ Sfx_07c_Ch1:
 	note E_2
 	audio_end
 
-Sfx_07c_Ch2:
+Sfx_Beam_Ch2:
 	semitone_offset 0
 	wave WAVE_5D
 	volume 94
@@ -2566,12 +2566,12 @@ Sfx_07c_Ch2:
 	note E_2
 	audio_end
 
-Sfx_07c:
+Sfx_Beam:
 	db 2, 0
-	dw Sfx_07c_Ch1
-	dw Sfx_07c_Ch2
+	dw Sfx_Beam_Ch1
+	dw Sfx_Beam_Ch2
 
-Sfx_07d_Ch1:
+Sfx_FanSpin_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -2586,11 +2586,11 @@ Sfx_07d_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_07d:
+Sfx_FanSpin:
 	db 1, 0
-	dw Sfx_07d_Ch1
+	dw Sfx_FanSpin_Ch1
 
-Sfx_07e_Ch1:
+Sfx_EnemyShoot_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -2601,9 +2601,9 @@ Sfx_07e_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_07e:
+Sfx_EnemyShoot:
 	db 1, 0
-	dw Sfx_07e_Ch1
+	dw Sfx_EnemyShoot_Ch1
 
 Sfx_07f_Ch1:
 	semitone_offset 0
@@ -2647,7 +2647,7 @@ Sfx_07f:
 	db 1, 0
 	dw Sfx_07f_Ch1
 
-Sfx_080_Ch1:
+Sfx_FallingSnowDrop_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6D
@@ -2672,11 +2672,11 @@ Sfx_080_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_080:
+Sfx_FallingSnowDrop:
 	db 1, 0
-	dw Sfx_080_Ch1
+	dw Sfx_FallingSnowDrop_Ch1
 
-Sfx_081_Ch1:
+Sfx_HandAppear_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -2773,11 +2773,11 @@ Sfx_081_Ch1:
 	note E_2
 	audio_end
 
-Sfx_081:
+Sfx_HandAppear:
 	db 1, 0
-	dw Sfx_081_Ch1
+	dw Sfx_HandAppear_Ch1
 
-Sfx_082_Ch1:
+Sfx_Teleport_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -2845,7 +2845,7 @@ Sfx_082_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_082_Ch2:
+Sfx_Teleport_Ch2:
 	semitone_offset 0
 	wave WAVE_63
 	vibrato_amplitude 100
@@ -2905,12 +2905,12 @@ Sfx_082_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_082:
+Sfx_Teleport:
 	db 2, 0
-	dw Sfx_082_Ch1
-	dw Sfx_082_Ch2
+	dw Sfx_Teleport_Ch1
+	dw Sfx_Teleport_Ch2
 
-Sfx_083_Ch1:
+Sfx_SmallSplash_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_12
@@ -2945,7 +2945,7 @@ Sfx_083_Ch1:
 	note E_2
 	audio_end
 
-Sfx_083_Ch2:
+Sfx_SmallSplash_Ch2:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -2969,12 +2969,12 @@ Sfx_083_Ch2:
 	audio_wait 5
 	audio_end
 
-Sfx_083:
+Sfx_SmallSplash:
 	db 2, 0
-	dw Sfx_083_Ch1
-	dw Sfx_083_Ch2
+	dw Sfx_SmallSplash_Ch1
+	dw Sfx_SmallSplash_Ch2
 
-Sfx_084_Ch1:
+Sfx_TurtleSwim_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_42
@@ -2995,11 +2995,11 @@ Sfx_084_Ch1:
 	note E_2
 	audio_end
 
-Sfx_084:
+Sfx_TurtleSwim:
 	db 1, 0
-	dw Sfx_084_Ch1
+	dw Sfx_TurtleSwim_Ch1
 
-Sfx_085_Ch1:
+Sfx_MuddeeSwim_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_60
@@ -3012,11 +3012,11 @@ Sfx_085_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_085:
+Sfx_MuddeeSwim:
 	db 1, 0
-	dw Sfx_085_Ch1
+	dw Sfx_MuddeeSwim_Ch1
 
-Sfx_086_Ch1:
+Sfx_BarrelJump_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -3037,11 +3037,11 @@ Sfx_086_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_086:
+Sfx_BarrelJump:
 	db 1, 0
-	dw Sfx_086_Ch1
+	dw Sfx_BarrelJump_Ch1
 
-Sfx_087_Ch1:
+Sfx_OmodonmekaLift_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -3052,11 +3052,11 @@ Sfx_087_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_087:
+Sfx_OmodonmekaLift:
 	db 1, 0
-	dw Sfx_087_Ch1
+	dw Sfx_OmodonmekaLift_Ch1
 
-Sfx_088_Ch1:
+Sfx_Omodonmeka_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0F
@@ -3106,7 +3106,7 @@ Sfx_088_Ch1:
 	note E_2
 	audio_end
 
-Sfx_088_Ch2:
+Sfx_Omodonmeka_Ch2:
 	semitone_offset 0
 	wave WAVE_23
 	volume 66
@@ -3155,12 +3155,12 @@ Sfx_088_Ch2:
 	note E_2
 	audio_end
 
-Sfx_088:
+Sfx_Omodonmeka:
 	db 2, 0
-	dw Sfx_088_Ch1
-	dw Sfx_088_Ch2
+	dw Sfx_Omodonmeka_Ch1
+	dw Sfx_Omodonmeka_Ch2
 
-Sfx_089_Ch1:
+Sfx_SnakeSpitFire_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -3176,11 +3176,11 @@ Sfx_089_Ch1:
 	audio_wait 32
 	audio_end
 
-Sfx_089:
+Sfx_SnakeSpitFire:
 	db 1, 0
-	dw Sfx_089_Ch1
+	dw Sfx_SnakeSpitFire_Ch1
 
-Sfx_08a_Ch1:
+Sfx_SnakePrepareFire_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -3237,7 +3237,7 @@ Sfx_08a_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_08a_Ch2:
+Sfx_SnakePrepareFire_Ch2:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -3294,12 +3294,12 @@ Sfx_08a_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_08a:
+Sfx_SnakePrepareFire:
 	db 2, 0
-	dw Sfx_08a_Ch1
-	dw Sfx_08a_Ch2
+	dw Sfx_SnakePrepareFire_Ch1
+	dw Sfx_SnakePrepareFire_Ch2
 
-Sfx_08b_Ch1:
+Sfx_SnakeSink_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_36
@@ -3320,11 +3320,11 @@ Sfx_08b_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_08b:
+Sfx_SnakeSink:
 	db 1, 0
-	dw Sfx_08b_Ch1
+	dw Sfx_SnakeSink_Ch1
 
-Sfx_08c_Ch1:
+Sfx_RailHum_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -3361,11 +3361,11 @@ Sfx_08c_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_08c:
+Sfx_RailHum:
 	db 1, 0
-	dw Sfx_08c_Ch1
+	dw Sfx_RailHum_Ch1
 
-Sfx_08d_Ch1:
+Sfx_BigOcto1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -3438,11 +3438,11 @@ Sfx_08d_Ch1:
 	note E_2
 	audio_end
 
-Sfx_08d:
+Sfx_BigOcto1:
 	db 1, 0
-	dw Sfx_08d_Ch1
+	dw Sfx_BigOcto1_Ch1
 
-Sfx_08e_Ch1:
+Sfx_Sparkle_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_4A
@@ -3513,11 +3513,11 @@ Sfx_08e_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_08e:
+Sfx_Sparkle:
 	db 1, 0
-	dw Sfx_08e_Ch1
+	dw Sfx_Sparkle_Ch1
 
-Sfx_08f_Ch1:
+Sfx_BigOcto2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -3542,11 +3542,11 @@ Sfx_08f_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_08f:
+Sfx_BigOcto2:
 	db 1, 0
-	dw Sfx_08f_Ch1
+	dw Sfx_BigOcto2_Ch1
 
-Sfx_0a1_Ch1:
+Sfx_WaterDrop_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -3581,11 +3581,11 @@ Sfx_0a1_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0a1:
+Sfx_WaterDrop:
 	db 1, 0
-	dw Sfx_0a1_Ch1
+	dw Sfx_WaterDrop_Ch1
 
-Sfx_0a2_Ch1:
+Sfx_DollBoy_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -3617,7 +3617,7 @@ Sfx_0a2_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0a2_Ch2:
+Sfx_DollBoy_Ch2:
 	semitone_offset 0
 	wave WAVE_60
 	volume 75
@@ -3648,12 +3648,12 @@ Sfx_0a2_Ch2:
 	note E_2
 	audio_end
 
-Sfx_0a2:
+Sfx_DollBoy:
 	db 2, 0
-	dw Sfx_0a2_Ch1
-	dw Sfx_0a2_Ch2
+	dw Sfx_DollBoy_Ch1
+	dw Sfx_DollBoy_Ch2
 
-Sfx_0a3_Ch1:
+Sfx_BossDefeatFall_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3A
@@ -3662,11 +3662,11 @@ Sfx_0a3_Ch1:
 	audio_wait 20
 	audio_end
 
-Sfx_0a3:
+Sfx_BossDefeatFall:
 	db 1, 0
-	dw Sfx_0a3_Ch1
+	dw Sfx_BossDefeatFall_Ch1
 
-Sfx_0a4_Ch1:
+Sfx_DollBoyStunned_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_25
@@ -3705,11 +3705,11 @@ Sfx_0a4_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_0a4:
+Sfx_DollBoyStunned:
 	db 1, 0
-	dw Sfx_0a4_Ch1
+	dw Sfx_DollBoyStunned_Ch1
 
-Sfx_0a5_Ch1:
+Sfx_YellowBellySpawnPump_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_42
@@ -3718,11 +3718,11 @@ Sfx_0a5_Ch1:
 	audio_wait 7
 	audio_end
 
-Sfx_0a5:
+Sfx_YellowBellySpawnPump:
 	db 1, 0
-	dw Sfx_0a5_Ch1
+	dw Sfx_YellowBellySpawnPump_Ch1
 
-Sfx_0a6_Ch1:
+Sfx_WormwouldAttack_Ch1:
 	semitone_offset 250
 	tempo 74
 	wave WAVE_63
@@ -3772,11 +3772,11 @@ Sfx_0a6_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_0a6:
+Sfx_WormwouldAttack:
 	db 1, 0
-	dw Sfx_0a6_Ch1
+	dw Sfx_WormwouldAttack_Ch1
 
-Sfx_0a7_Ch1:
+Sfx_WormwouldHurt_Ch1:
 	semitone_offset 6
 	tempo 74
 	wave WAVE_63
@@ -3850,11 +3850,11 @@ Sfx_0a7_Ch1:
 	note E_1
 	audio_end
 
-Sfx_0a7:
+Sfx_WormwouldHurt:
 	db 1, 0
-	dw Sfx_0a7_Ch1
+	dw Sfx_WormwouldHurt_Ch1
 
-Sfx_0a8_Ch1:
+Sfx_YellowBelly_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -3909,7 +3909,7 @@ Sfx_0a8_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0a8_Ch2:
+Sfx_YellowBelly_Ch2:
 	semitone_offset 0
 	wave WAVE_3A
 	volume 120
@@ -3917,12 +3917,12 @@ Sfx_0a8_Ch2:
 	audio_wait 96
 	audio_end
 
-Sfx_0a8:
+Sfx_YellowBelly:
 	db 2, 0
-	dw Sfx_0a8_Ch1
-	dw Sfx_0a8_Ch2
+	dw Sfx_YellowBelly_Ch1
+	dw Sfx_YellowBelly_Ch2
 
-Sfx_0a9_Ch1:
+Sfx_BossDefeated_Ch1:
 	semitone_offset 3
 	tempo 74
 	wave WAVE_63
@@ -4010,11 +4010,11 @@ Sfx_0a9_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0a9:
+Sfx_BossDefeated:
 	db 1, 0
-	dw Sfx_0a9_Ch1
+	dw Sfx_BossDefeated_Ch1
 
-Sfx_0aa_Ch1:
+Sfx_WolfenbossSmoke_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_45
@@ -4029,7 +4029,7 @@ Sfx_0aa_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0aa_Ch2:
+Sfx_WolfenbossSmoke_Ch2:
 	semitone_offset 0
 	wave WAVE_6A
 	volume 94
@@ -4041,12 +4041,12 @@ Sfx_0aa_Ch2:
 	audio_wait 5
 	audio_end
 
-Sfx_0aa:
+Sfx_WolfenbossSmoke:
 	db 2, 0
-	dw Sfx_0aa_Ch1
-	dw Sfx_0aa_Ch2
+	dw Sfx_WolfenbossSmoke_Ch1
+	dw Sfx_WolfenbossSmoke_Ch2
 
-Sfx_0ab_Ch1:
+Sfx_Scowler_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -4069,11 +4069,11 @@ Sfx_0ab_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0ab:
+Sfx_Scowler:
 	db 1, 0
-	dw Sfx_0ab_Ch1
+	dw Sfx_Scowler_Ch1
 
-Sfx_0ac_Ch1:
+Sfx_ScowlerDefeated_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -4307,11 +4307,11 @@ Sfx_0ac_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0ac:
+Sfx_ScowlerDefeated:
 	db 1, 0
-	dw Sfx_0ac_Ch1
+	dw Sfx_ScowlerDefeated_Ch1
 
-Sfx_0ad_Ch1:
+Sfx_Pesce2_Ch1:
 	semitone_offset 1
 	tempo 74
 	wave WAVE_32
@@ -4324,11 +4324,11 @@ Sfx_0ad_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0ad:
+Sfx_Pesce2:
 	db 1, 0
-	dw Sfx_0ad_Ch1
+	dw Sfx_Pesce2_Ch1
 
-Sfx_0ae_Ch1:
+Sfx_Pesce1_Ch1:
 	semitone_offset 2
 	tempo 74
 	wave WAVE_3B
@@ -4340,11 +4340,11 @@ Sfx_0ae_Ch1:
 	audio_wait 12
 	audio_end
 
-Sfx_0ae:
+Sfx_Pesce1:
 	db 1, 0
-	dw Sfx_0ae_Ch1
+	dw Sfx_Pesce1_Ch1
 
-Sfx_0af_Ch1:
+Sfx_AnonsterWalk_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_44
@@ -4359,11 +4359,11 @@ Sfx_0af_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0af:
+Sfx_AnonsterWalk:
 	db 1, 0
-	dw Sfx_0af_Ch1
+	dw Sfx_AnonsterWalk_Ch1
 
-Sfx_0b0_Ch1:
+Sfx_Anonster1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -4408,7 +4408,7 @@ Sfx_0b0_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0b0_Ch2:
+Sfx_Anonster1_Ch2:
 	semitone_offset 0
 	wave WAVE_40
 	volume 120
@@ -4604,12 +4604,12 @@ Sfx_0b0_Ch2:
 	note 31
 	audio_end
 
-Sfx_0b0:
+Sfx_Anonster1:
 	db 2, 0
-	dw Sfx_0b0_Ch1
-	dw Sfx_0b0_Ch2
+	dw Sfx_Anonster1_Ch1
+	dw Sfx_Anonster1_Ch2
 
-Sfx_0b1_Ch1:
+Sfx_Anonster2_Ch1:
 	semitone_offset 5
 	tempo 74
 	wave WAVE_6F
@@ -4664,9 +4664,9 @@ Sfx_0b1_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0b1:
+Sfx_Anonster2:
 	db 1, 0
-	dw Sfx_0b1_Ch1
+	dw Sfx_Anonster2_Ch1
 
 Sfx_0b2_Ch1:
 	semitone_offset 5
@@ -4810,7 +4810,7 @@ Sfx_0b2:
 	dw Sfx_0b2_Ch1
 	dw Sfx_0b2_Ch2
 
-Sfx_0b3_Ch1:
+Sfx_ScowlerStunned_Ch1:
 	volume 120
 	semitone_offset 0
 	tempo 74
@@ -4849,11 +4849,11 @@ Sfx_0b3_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0b3:
+Sfx_ScowlerStunned:
 	db 1, 0
-	dw Sfx_0b3_Ch1
+	dw Sfx_ScowlerStunned_Ch1
 
-Sfx_0b4_Ch1:
+Sfx_ScowlerStomped_Ch1:
 	semitone_offset 244
 	tempo 74
 	wave WAVE_63
@@ -5020,11 +5020,11 @@ Sfx_0b4_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0b4:
+Sfx_ScowlerStomped:
 	db 1, 0
-	dw Sfx_0b4_Ch1
+	dw Sfx_ScowlerStomped_Ch1
 
-Sfx_0b5_Ch1:
+Sfx_ScowlerInk1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_4B
@@ -5047,7 +5047,7 @@ Sfx_0b5_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0b5_Ch2:
+Sfx_ScowlerInk1_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	vibrato_amplitude 0
@@ -5070,12 +5070,12 @@ Sfx_0b5_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0b5:
+Sfx_ScowlerInk1:
 	db 2, 0
-	dw Sfx_0b5_Ch1
-	dw Sfx_0b5_Ch2
+	dw Sfx_ScowlerInk1_Ch1
+	dw Sfx_ScowlerInk1_Ch2
 
-Sfx_0b6_Ch1:
+Sfx_ScowlerBlackout_Ch1:
 	semitone_offset 255
 	tempo 74
 	wave WAVE_4B
@@ -5098,7 +5098,7 @@ Sfx_0b6_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0b6_Ch2:
+Sfx_ScowlerBlackout_Ch2:
 	semitone_offset 255
 	wave WAVE_1A
 	vibrato_amplitude 0
@@ -5121,10 +5121,10 @@ Sfx_0b6_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0b6:
+Sfx_ScowlerBlackout:
 	db 2, 0
-	dw Sfx_0b6_Ch1
-	dw Sfx_0b6_Ch2
+	dw Sfx_ScowlerBlackout_Ch1
+	dw Sfx_ScowlerBlackout_Ch2
 
 Sfx_0b7_Ch1:
 	semitone_offset 0
@@ -5177,7 +5177,7 @@ Sfx_0b7:
 	dw Sfx_0b7_Ch1
 	dw Sfx_0b7_Ch2
 
-Sfx_0b8_Ch1:
+Sfx_ScowlerInk2_Ch1:
 	semitone_offset 1
 	tempo 74
 	wave WAVE_4B
@@ -5200,7 +5200,7 @@ Sfx_0b8_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_0b8_Ch2:
+Sfx_ScowlerInk2_Ch2:
 	semitone_offset 1
 	wave WAVE_1A
 	volume 56
@@ -5223,12 +5223,12 @@ Sfx_0b8_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_0b8:
+Sfx_ScowlerInk2:
 	db 2, 0
-	dw Sfx_0b8_Ch1
-	dw Sfx_0b8_Ch2
+	dw Sfx_ScowlerInk2_Ch1
+	dw Sfx_ScowlerInk2_Ch2
 
-Sfx_0b9_Ch1:
+Sfx_Pesce3Yb2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_32
@@ -5249,11 +5249,11 @@ Sfx_0b9_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0b9:
+Sfx_Pesce3Yb2:
 	db 1, 0
-	dw Sfx_0b9_Ch1
+	dw Sfx_Pesce3Yb2_Ch1
 
-Sfx_0ba_Ch1:
+Sfx_Pump_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3C
@@ -5262,7 +5262,7 @@ Sfx_0ba_Ch1:
 	audio_wait 12
 	audio_end
 
-Sfx_0ba_Ch2:
+Sfx_Pump_Ch2:
 	semitone_offset 0
 	wave WAVE_69
 	volume 120
@@ -5274,12 +5274,12 @@ Sfx_0ba_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0ba:
+Sfx_Pump:
 	db 2, 0
-	dw Sfx_0ba_Ch1
-	dw Sfx_0ba_Ch2
+	dw Sfx_Pump_Ch1
+	dw Sfx_Pump_Ch2
 
-Sfx_0bb_Ch1:
+Sfx_PesceHit_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -5306,7 +5306,7 @@ Sfx_0bb_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0bb_Ch2:
+Sfx_PesceHit_Ch2:
 	semitone_offset 0
 	wave WAVE_60
 	volume 113
@@ -5332,12 +5332,12 @@ Sfx_0bb_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0bb:
+Sfx_PesceHit:
 	db 2, 0
-	dw Sfx_0bb_Ch1
-	dw Sfx_0bb_Ch2
+	dw Sfx_PesceHit_Ch1
+	dw Sfx_PesceHit_Ch2
 
-Sfx_0bc_Ch1:
+Sfx_JamanoTurn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -5376,11 +5376,11 @@ Sfx_0bc_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_0bc:
+Sfx_JamanoTurn:
 	db 1, 0
-	dw Sfx_0bc_Ch1
+	dw Sfx_JamanoTurn_Ch1
 
-Sfx_0bd_Ch1:
+Sfx_JamanoDefeatPose_Ch1:
 	semitone_offset 2
 	tempo 74
 	wave WAVE_63
@@ -5532,11 +5532,11 @@ Sfx_0bd_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0bd:
+Sfx_JamanoDefeatPose:
 	db 1, 0
-	dw Sfx_0bd_Ch1
+	dw Sfx_JamanoDefeatPose_Ch1
 
-Sfx_0be_Ch1:
+Sfx_PesceFly_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_63
@@ -5573,11 +5573,11 @@ Sfx_0be_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0be:
+Sfx_PesceFly:
 	db 1, 0
-	dw Sfx_0be_Ch1
+	dw Sfx_PesceFly_Ch1
 
-Sfx_0bf_Ch1:
+Sfx_JamanoSkull_Ch1:
 	semitone_offset 12
 	tempo 74
 	wave WAVE_63
@@ -5644,11 +5644,11 @@ Sfx_0bf_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0bf:
+Sfx_JamanoSkull:
 	db 1, 0
-	dw Sfx_0bf_Ch1
+	dw Sfx_JamanoSkull_Ch1
 
-Sfx_0c0_Ch1:
+Sfx_MuddeeHurt_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_63
@@ -5734,11 +5734,11 @@ Sfx_0c0_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0c0:
+Sfx_MuddeeHurt:
 	db 1, 0
-	dw Sfx_0c0_Ch1
+	dw Sfx_MuddeeHurt_Ch1
 
-Sfx_0c1_Ch1:
+Sfx_MuddeeBubble_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_60
@@ -5751,7 +5751,7 @@ Sfx_0c1_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0c1_Ch2:
+Sfx_MuddeeBubble_Ch2:
 	semitone_offset 0
 	wave WAVE_65
 	volume 113
@@ -5759,12 +5759,12 @@ Sfx_0c1_Ch2:
 	audio_wait 8
 	audio_end
 
-Sfx_0c1:
+Sfx_MuddeeBubble:
 	db 2, 0
-	dw Sfx_0c1_Ch1
-	dw Sfx_0c1_Ch2
+	dw Sfx_MuddeeBubble_Ch1
+	dw Sfx_MuddeeBubble_Ch2
 
-Sfx_0c2_Ch1:
+Sfx_MagicSpiralGrow_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -5819,11 +5819,11 @@ Sfx_0c2_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0c2:
+Sfx_MagicSpiralGrow:
 	db 1, 0
-	dw Sfx_0c2_Ch1
+	dw Sfx_MagicSpiralGrow_Ch1
 
-Sfx_0c3_Ch1:
+Sfx_WolfenbossHover_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_44
@@ -5832,9 +5832,9 @@ Sfx_0c3_Ch1:
 	audio_wait 20
 	audio_end
 
-Sfx_0c3:
+Sfx_WolfenbossHover:
 	db 1, 0
-	dw Sfx_0c3_Ch1
+	dw Sfx_WolfenbossHover_Ch1
 
 Sfx_0c4_Ch1:
 	semitone_offset 0
@@ -5849,7 +5849,7 @@ Sfx_0c4:
 	db 1, 0
 	dw Sfx_0c4_Ch1
 
-Sfx_0c5_Ch1:
+Sfx_Igaguri_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -5860,11 +5860,11 @@ Sfx_0c5_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_0c5:
+Sfx_Igaguri:
 	db 1, 0
-	dw Sfx_0c5_Ch1
+	dw Sfx_Igaguri_Ch1
 
-Sfx_0c6_Ch1:
+Sfx_ShootTaunt_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3B
@@ -5879,11 +5879,11 @@ Sfx_0c6_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0c6:
+Sfx_ShootTaunt:
 	db 1, 0
-	dw Sfx_0c6_Ch1
+	dw Sfx_ShootTaunt_Ch1
 
-Sfx_0c7_Ch1:
+Sfx_ShootGoal_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0D
@@ -5936,7 +5936,7 @@ Sfx_0c7_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0c7_Ch2:
+Sfx_ShootGoal_Ch2:
 	semitone_offset 0
 	wave WAVE_5D
 	vibrato_speed 127
@@ -5971,12 +5971,12 @@ Sfx_0c7_Ch2:
 	audio_wait 24
 	audio_end
 
-Sfx_0c7:
+Sfx_ShootGoal:
 	db 2, 0
-	dw Sfx_0c7_Ch1
-	dw Sfx_0c7_Ch2
+	dw Sfx_ShootGoal_Ch1
+	dw Sfx_ShootGoal_Ch2
 
-Sfx_0c8_Ch1:
+Sfx_ShootJump_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_40
@@ -6173,11 +6173,11 @@ Sfx_0c8_Ch1:
 	note 31
 	audio_end
 
-Sfx_0c8:
+Sfx_ShootJump:
 	db 1, 0
-	dw Sfx_0c8_Ch1
+	dw Sfx_ShootJump_Ch1
 
-Sfx_0c9_Ch1:
+Sfx_Shoot_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_34
@@ -6188,11 +6188,11 @@ Sfx_0c9_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0c9:
+Sfx_Shoot:
 	db 1, 0
-	dw Sfx_0c9_Ch1
+	dw Sfx_Shoot_Ch1
 
-Sfx_0ca_Ch1:
+Sfx_BossAppear_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_1A
@@ -6231,7 +6231,7 @@ Sfx_0ca_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0ca_Ch2:
+Sfx_BossAppear_Ch2:
 	semitone_offset 0
 	wave WAVE_10
 	volume 75
@@ -6269,12 +6269,12 @@ Sfx_0ca_Ch2:
 	audio_wait 4
 	audio_end
 
-Sfx_0ca:
+Sfx_BossAppear:
 	db 2, 0
-	dw Sfx_0ca_Ch1
-	dw Sfx_0ca_Ch2
+	dw Sfx_BossAppear_Ch1
+	dw Sfx_BossAppear_Ch2
 
-Sfx_0cb_Ch1:
+Sfx_HiddenFigureHand1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -6318,9 +6318,9 @@ Sfx_0cb_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0cb:
+Sfx_HiddenFigureHand1:
 	db 1, 0
-	dw Sfx_0cb_Ch1
+	dw Sfx_HiddenFigureHand1_Ch1
 
 Sfx_0cc_Ch1:
 	semitone_offset 4
@@ -6520,7 +6520,7 @@ Sfx_0cc:
 	dw Sfx_0cc_Ch1
 	dw Sfx_0cc_Ch2
 
-Sfx_0cd_Ch1:
+Sfx_HiddenFigureGrab_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -6571,7 +6571,7 @@ Sfx_0cd_Ch1:
 	note 0
 	audio_end
 
-Sfx_0cd_Ch2:
+Sfx_HiddenFigureGrab_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	vibrato_amplitude 0
@@ -6622,7 +6622,7 @@ Sfx_0cd_Ch2:
 	note 0
 	audio_end
 
-Sfx_0cd_Ch3:
+Sfx_HiddenFigureGrab_Ch3:
 	semitone_offset 0
 	wave WAVE_60
 	vibrato_amplitude 0
@@ -6673,13 +6673,13 @@ Sfx_0cd_Ch3:
 	note 0
 	audio_end
 
-Sfx_0cd:
+Sfx_HiddenFigureGrab:
 	db 3, 0
-	dw Sfx_0cd_Ch1
-	dw Sfx_0cd_Ch2
-	dw Sfx_0cd_Ch3
+	dw Sfx_HiddenFigureGrab_Ch1
+	dw Sfx_HiddenFigureGrab_Ch2
+	dw Sfx_HiddenFigureGrab_Ch3
 
-Sfx_0ce_Ch1:
+Sfx_HiddenFigureHit_Ch1:
 	semitone_offset 241
 	tempo 74
 	wave WAVE_63
@@ -6742,7 +6742,7 @@ Sfx_0ce_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0ce_Ch2:
+Sfx_HiddenFigureHit_Ch2:
 	semitone_offset 241
 	tempo 74
 	wave WAVE_0A
@@ -6806,12 +6806,12 @@ Sfx_0ce_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0ce:
+Sfx_HiddenFigureHit:
 	db 2, 0
-	dw Sfx_0ce_Ch1
-	dw Sfx_0ce_Ch2
+	dw Sfx_HiddenFigureHit_Ch1
+	dw Sfx_HiddenFigureHit_Ch2
 
-Sfx_0cf_Ch1:
+Sfx_HiddenFigureDefeated_Ch1:
 	semitone_offset 250
 	tempo 74
 	wave WAVE_63
@@ -6899,7 +6899,7 @@ Sfx_0cf_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0cf_Ch2:
+Sfx_HiddenFigureDefeated_Ch2:
 	semitone_offset 0
 	wave WAVE_0A
 	vibrato_amplitude 50
@@ -6986,12 +6986,12 @@ Sfx_0cf_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0cf:
+Sfx_HiddenFigureDefeated:
 	db 2, 0
-	dw Sfx_0cf_Ch1
-	dw Sfx_0cf_Ch2
+	dw Sfx_HiddenFigureDefeated_Ch1
+	dw Sfx_HiddenFigureDefeated_Ch2
 
-Sfx_0d0_Ch1:
+Sfx_HiddenFigureHand2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -7112,11 +7112,11 @@ Sfx_0d0_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0d0:
+Sfx_HiddenFigureHand2:
 	db 1, 0
-	dw Sfx_0d0_Ch1
+	dw Sfx_HiddenFigureHand2_Ch1
 
-Sfx_0d1_Ch1:
+Sfx_HiddenFigureHand3_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_36
@@ -7138,7 +7138,7 @@ Sfx_0d1_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0d1_Ch2:
+Sfx_HiddenFigureHand3_Ch2:
 	semitone_offset 244
 	wave WAVE_6A
 	vibrato_amplitude 0
@@ -7195,10 +7195,10 @@ Sfx_0d1_Ch2:
 	audio_wait 1
 	audio_end
 
-Sfx_0d1:
+Sfx_HiddenFigureHand3:
 	db 2, 0
-	dw Sfx_0d1_Ch1
-	dw Sfx_0d1_Ch2
+	dw Sfx_HiddenFigureHand3_Ch1
+	dw Sfx_HiddenFigureHand3_Ch2
 
 Sfx_PipeExit_Ch1:
 	semitone_offset 0
@@ -7219,7 +7219,7 @@ Sfx_PipeExit:
 	db 1, 0
 	dw Sfx_PipeExit_Ch1
 
-Sfx_0e2_Ch1:
+Sfx_MenuScroll_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3C
@@ -7228,9 +7228,9 @@ Sfx_0e2_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_0e2:
+Sfx_MenuScroll:
 	db 1, 0
-	dw Sfx_0e2_Ch1
+	dw Sfx_MenuScroll_Ch1
 
 Sfx_Selection_Ch1:
 	semitone_offset 0
@@ -7259,7 +7259,7 @@ Sfx_Selection:
 	db 1, 0
 	dw Sfx_Selection_Ch1
 
-Sfx_0e4_Ch1:
+Sfx_Pause_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_63
@@ -7274,11 +7274,11 @@ Sfx_0e4_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0e4:
+Sfx_Pause:
 	db 1, 0
-	dw Sfx_0e4_Ch1
+	dw Sfx_Pause_Ch1
 
-Sfx_0e5_Ch1:
+Sfx_Error_Ch1:
 	semitone_offset 2
 	tempo 74
 	wave WAVE_0D
@@ -7293,7 +7293,7 @@ Sfx_0e5_Ch1:
 	audio_wait 24
 	audio_end
 
-Sfx_0e5_Ch2:
+Sfx_Error_Ch2:
 	semitone_offset 2
 	wave WAVE_5D
 	vibrato_speed 127
@@ -7307,12 +7307,12 @@ Sfx_0e5_Ch2:
 	audio_wait 24
 	audio_end
 
-Sfx_0e5:
+Sfx_Error:
 	db 2, 0
-	dw Sfx_0e5_Ch1
-	dw Sfx_0e5_Ch2
+	dw Sfx_Error_Ch1
+	dw Sfx_Error_Ch2
 
-Sfx_0e6_Ch1:
+Sfx_EnterDoor_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_1B
@@ -7336,11 +7336,11 @@ Sfx_0e6_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0e6:
+Sfx_EnterDoor:
 	db 1, 0
-	dw Sfx_0e6_Ch1
+	dw Sfx_EnterDoor_Ch1
 
-Sfx_0e7_Ch1:
+Sfx_MenuCancel_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7363,11 +7363,11 @@ Sfx_0e7_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_0e7:
+Sfx_MenuCancel:
 	db 1, 0
-	dw Sfx_0e7_Ch1
+	dw Sfx_MenuCancel_Ch1
 
-Sfx_0e8_Ch1:
+Sfx_GolfMiss_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_3C
@@ -7497,11 +7497,11 @@ Sfx_0e8_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0e8:
+Sfx_GolfMiss:
 	db 1, 0
-	dw Sfx_0e8_Ch1
+	dw Sfx_GolfMiss_Ch1
 
-Sfx_0e9_Ch1:
+Sfx_MenuOpen_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7536,11 +7536,11 @@ Sfx_0e9_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0e9:
+Sfx_MenuOpen:
 	db 1, 0
-	dw Sfx_0e9_Ch1
+	dw Sfx_MenuOpen_Ch1
 
-Sfx_0ea_Ch1:
+Sfx_MenuClose_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7575,11 +7575,11 @@ Sfx_0ea_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_0ea:
+Sfx_MenuClose:
 	db 1, 0
-	dw Sfx_0ea_Ch1
+	dw Sfx_MenuClose_Ch1
 
-Sfx_0eb_Ch1:
+Sfx_PageTurn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_11
@@ -7613,7 +7613,7 @@ Sfx_0eb_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0eb_Ch2:
+Sfx_PageTurn_Ch2:
 	semitone_offset 0
 	wave WAVE_52
 	volume 56
@@ -7647,12 +7647,12 @@ Sfx_0eb_Ch2:
 	audio_wait 4
 	audio_end
 
-Sfx_0eb:
+Sfx_PageTurn:
 	db 2, 0
-	dw Sfx_0eb_Ch1
-	dw Sfx_0eb_Ch2
+	dw Sfx_PageTurn_Ch1
+	dw Sfx_PageTurn_Ch2
 
-Sfx_0ec_Ch1:
+Sfx_ActionHelpButton_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_25
@@ -7663,11 +7663,11 @@ Sfx_0ec_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0ec:
+Sfx_ActionHelpButton:
 	db 1, 0
-	dw Sfx_0ec_Ch1
+	dw Sfx_ActionHelpButton_Ch1
 
-Sfx_0ed_Ch1:
+Sfx_GolfChargeShot_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_69
@@ -7698,11 +7698,11 @@ Sfx_0ed_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0ed:
+Sfx_GolfChargeShot:
 	db 1, 0
-	dw Sfx_0ed_Ch1
+	dw Sfx_GolfChargeShot_Ch1
 
-Sfx_0ee_Ch1:
+Sfx_GolfSpecialTerrain2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7757,11 +7757,11 @@ Sfx_0ee_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_0ee:
+Sfx_GolfSpecialTerrain2:
 	db 1, 0
-	dw Sfx_0ee_Ch1
+	dw Sfx_GolfSpecialTerrain2_Ch1
 
-Sfx_0ef_Ch1:
+Sfx_GolfHoleIn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7779,11 +7779,11 @@ Sfx_0ef_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0ef:
+Sfx_GolfHoleIn:
 	db 1, 0
-	dw Sfx_0ef_Ch1
+	dw Sfx_GolfHoleIn_Ch1
 
-Sfx_0f0_Ch1:
+Sfx_GolfSpecialTerrain1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7829,11 +7829,11 @@ Sfx_0f0_Ch1:
 	note E_2
 	audio_end
 
-Sfx_0f0:
+Sfx_GolfSpecialTerrain1:
 	db 1, 0
-	dw Sfx_0f0_Ch1
+	dw Sfx_GolfSpecialTerrain1_Ch1
 
-Sfx_0f1_Ch1:
+Sfx_Tiptoe2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7846,11 +7846,11 @@ Sfx_0f1_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_0f1:
+Sfx_Tiptoe2:
 	db 1, 0
-	dw Sfx_0f1_Ch1
+	dw Sfx_Tiptoe2_Ch1
 
-Sfx_0f2_Ch1:
+Sfx_Tiptoe3_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7861,11 +7861,11 @@ Sfx_0f2_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_0f2:
+Sfx_Tiptoe3:
 	db 1, 0
-	dw Sfx_0f2_Ch1
+	dw Sfx_Tiptoe3_Ch1
 
-Sfx_0f3_Ch1:
+Sfx_Prologue1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -7875,11 +7875,11 @@ Sfx_0f3_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_0f3:
+Sfx_Prologue1:
 	db 1, 0
-	dw Sfx_0f3_Ch1
+	dw Sfx_Prologue1_Ch1
 
-Sfx_0f4_Ch1:
+Sfx_Prologue2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -7896,9 +7896,9 @@ Sfx_0f4_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0f4:
+Sfx_Prologue2:
 	db 1, 0
-	dw Sfx_0f4_Ch1
+	dw Sfx_Prologue2_Ch1
 
 Sfx_Snore_Ch1:
 	semitone_offset 0
@@ -8009,7 +8009,7 @@ Sfx_PlaneExplosion:
 	db 1, 0
 	dw Sfx_PlaneExplosion_Ch1
 
-Sfx_0fa_Ch1:
+Sfx_Success_Ch1:
 	semitone_offset 0
 	tempo 45
 	wave WAVE_4B
@@ -8045,7 +8045,7 @@ Sfx_0fa_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_0fa_Ch2:
+Sfx_Success_Ch2:
 	semitone_offset 0
 	wave WAVE_55
 	volume 113
@@ -8079,7 +8079,7 @@ Sfx_0fa_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_0fa_Ch3:
+Sfx_Success_Ch3:
 	semitone_offset 0
 	wave WAVE_60
 	volume 113
@@ -8113,13 +8113,13 @@ Sfx_0fa_Ch3:
 	audio_wait 2
 	audio_end
 
-Sfx_0fa:
+Sfx_Success:
 	db 3, 0
-	dw Sfx_0fa_Ch1
-	dw Sfx_0fa_Ch2
-	dw Sfx_0fa_Ch3
+	dw Sfx_Success_Ch1
+	dw Sfx_Success_Ch2
+	dw Sfx_Success_Ch3
 
-Sfx_101_Ch1:
+Sfx_ChopTree_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8177,11 +8177,11 @@ Sfx_101_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_101:
+Sfx_ChopTree:
 	db 1, 0
-	dw Sfx_101_Ch1
+	dw Sfx_ChopTree_Ch1
 
-Sfx_102_Ch1:
+Sfx_TreeFall_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -8219,11 +8219,11 @@ Sfx_102_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_102:
+Sfx_TreeFall:
 	db 1, 0
-	dw Sfx_102_Ch1
+	dw Sfx_TreeFall_Ch1
 
-Sfx_103_Ch1:
+Sfx_PathArrow_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8238,11 +8238,11 @@ Sfx_103_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_103:
+Sfx_PathArrow:
 	db 1, 0
-	dw Sfx_103_Ch1
+	dw Sfx_PathArrow_Ch1
 
-Sfx_104_Ch1:
+Sfx_LevelStar_Ch1:
 	semitone_offset 0
 	wave WAVE_4A
 	volume 94
@@ -8304,11 +8304,11 @@ Sfx_104_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_104:
+Sfx_LevelStar:
 	db 1, 0
-	dw Sfx_104_Ch1
+	dw Sfx_LevelStar_Ch1
 
-Sfx_105_Ch1:
+Sfx_Gong_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -8397,7 +8397,7 @@ Sfx_105_Ch1:
 	note E_2
 	audio_end
 
-Sfx_105_Ch2:
+Sfx_Gong_Ch2:
 	semitone_offset 0
 	wave WAVE_65
 	vibrato_amplitude 46
@@ -8529,12 +8529,12 @@ Sfx_105_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_105:
+Sfx_Gong:
 	db 2, 0
-	dw Sfx_105_Ch1
-	dw Sfx_105_Ch2
+	dw Sfx_Gong_Ch1
+	dw Sfx_Gong_Ch2
 
-Sfx_106_Ch1:
+Sfx_Emote_Ch1:
 	semitone_offset 0
 	tempo 74
 	volume 120
@@ -8545,11 +8545,11 @@ Sfx_106_Ch1:
 	audio_wait 16
 	audio_end
 
-Sfx_106:
+Sfx_Emote:
 	db 1, 0
-	dw Sfx_106_Ch1
+	dw Sfx_Emote_Ch1
 
-Sfx_107_Ch1:
+Sfx_HammerBotWalk_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -8562,11 +8562,11 @@ Sfx_107_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_107:
+Sfx_HammerBotWalk:
 	db 1, 0
-	dw Sfx_107_Ch1
+	dw Sfx_HammerBotWalk_Ch1
 
-Sfx_108_Ch1:
+Sfx_GateOpen_Ch1:
 	semitone_offset 0
 	wave WAVE_65
 	volume 113
@@ -8619,11 +8619,11 @@ Sfx_108_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_108:
+Sfx_GateOpen:
 	db 1, 0
-	dw Sfx_108_Ch1
+	dw Sfx_GateOpen_Ch1
 
-Sfx_109_Ch1:
+Sfx_FixElevator1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -8634,7 +8634,7 @@ Sfx_109_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_109_Ch2:
+Sfx_FixElevator1_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	volume 56
@@ -8644,12 +8644,12 @@ Sfx_109_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_109:
+Sfx_FixElevator1:
 	db 2, 0
-	dw Sfx_109_Ch1
-	dw Sfx_109_Ch2
+	dw Sfx_FixElevator1_Ch1
+	dw Sfx_FixElevator1_Ch2
 
-Sfx_10a_Ch1:
+Sfx_FixElevator_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -8673,11 +8673,11 @@ Sfx_10a_Ch1:
 	audio_wait 18
 	audio_end
 
-Sfx_10a:
+Sfx_FixElevator:
 	db 1, 0
-	dw Sfx_10a_Ch1
+	dw Sfx_FixElevator_Ch1
 
-Sfx_10b_Ch1:
+Sfx_FixElevator2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_38
@@ -8686,11 +8686,11 @@ Sfx_10b_Ch1:
 	audio_wait 80
 	audio_end
 
-Sfx_10b:
+Sfx_FixElevator2:
 	db 1, 0
-	dw Sfx_10b_Ch1
+	dw Sfx_FixElevator2_Ch1
 
-Sfx_10c_Ch1:
+Sfx_OpenNorthGate_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8748,9 +8748,9 @@ Sfx_10c_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_10c:
+Sfx_OpenNorthGate:
 	db 1, 0
-	dw Sfx_10c_Ch1
+	dw Sfx_OpenNorthGate_Ch1
 
 Sfx_10d_Ch1:
 	semitone_offset 0
@@ -8878,7 +8878,7 @@ Sfx_10e:
 	dw Sfx_10e_Ch1
 	dw Sfx_10e_Ch2
 
-Sfx_10f_Ch1:
+Sfx_VolcanoEruption1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8891,11 +8891,11 @@ Sfx_10f_Ch1:
 	audio_wait 7
 	audio_end
 
-Sfx_10f:
+Sfx_VolcanoEruption1:
 	db 1, 0
-	dw Sfx_10f_Ch1
+	dw Sfx_VolcanoEruption1_Ch1
 
-Sfx_110_Ch1:
+Sfx_VolcanoEruption2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8908,7 +8908,7 @@ Sfx_110_Ch1:
 	audio_wait 7
 	audio_end
 
-Sfx_110_Ch2:
+Sfx_VolcanoEruption2_Ch2:
 	semitone_offset 0
 	wave WAVE_10
 	vibrato_amplitude 0
@@ -8926,12 +8926,12 @@ Sfx_110_Ch2:
 	audio_wait 2
 	audio_end
 
-Sfx_110:
+Sfx_VolcanoEruption2:
 	db 2, 0
-	dw Sfx_110_Ch1
-	dw Sfx_110_Ch2
+	dw Sfx_VolcanoEruption2_Ch1
+	dw Sfx_VolcanoEruption2_Ch2
 
-Sfx_111_Ch1:
+Sfx_VolcanoEruption3_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8943,11 +8943,11 @@ Sfx_111_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_111:
+Sfx_VolcanoEruption3:
 	db 1, 0
-	dw Sfx_111_Ch1
+	dw Sfx_VolcanoEruption3_Ch1
 
-Sfx_112_Ch1:
+Sfx_ItemRaise_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_11
@@ -8980,7 +8980,7 @@ Sfx_112_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_112_Ch2:
+Sfx_ItemRaise_Ch2:
 	semitone_offset 0
 	wave WAVE_1B
 	volume 66
@@ -9013,7 +9013,7 @@ Sfx_112_Ch2:
 	audio_wait 4
 	audio_end
 
-Sfx_112_Ch3:
+Sfx_ItemRaise_Ch3:
 	semitone_offset 0
 	wave WAVE_60
 	volume 94
@@ -9046,13 +9046,13 @@ Sfx_112_Ch3:
 	audio_wait 4
 	audio_end
 
-Sfx_112:
+Sfx_ItemRaise:
 	db 3, 0
-	dw Sfx_112_Ch1
-	dw Sfx_112_Ch2
-	dw Sfx_112_Ch3
+	dw Sfx_ItemRaise_Ch1
+	dw Sfx_ItemRaise_Ch2
+	dw Sfx_ItemRaise_Ch3
 
-Sfx_113_Ch1:
+Sfx_ActionB_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -9077,11 +9077,11 @@ Sfx_113_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_113:
+Sfx_ActionB:
 	db 1, 0
-	dw Sfx_113_Ch1
+	dw Sfx_ActionB_Ch1
 
-Sfx_114_Ch1:
+Sfx_VolcanoEruption4_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -9093,11 +9093,11 @@ Sfx_114_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_114:
+Sfx_VolcanoEruption4:
 	db 1, 0
-	dw Sfx_114_Ch1
+	dw Sfx_VolcanoEruption4_Ch1
 
-Sfx_115_Ch1:
+Sfx_VolcanoEruption5_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -9109,11 +9109,11 @@ Sfx_115_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_115:
+Sfx_VolcanoEruption5:
 	db 1, 0
-	dw Sfx_115_Ch1
+	dw Sfx_VolcanoEruption5_Ch1
 
-Sfx_116_Ch1:
+Sfx_VolcanoEruption6_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -9125,11 +9125,11 @@ Sfx_116_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_116:
+Sfx_VolcanoEruption6:
 	db 1, 0
-	dw Sfx_116_Ch1
+	dw Sfx_VolcanoEruption6_Ch1
 
-Sfx_117_Ch1:
+Sfx_SummonSnakes_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -9153,7 +9153,7 @@ Sfx_117_Ch1:
 	note NOTE_DURATION_0
 	audio_end
 
-Sfx_117_Ch2:
+Sfx_SummonSnakes_Ch2:
 	semitone_offset 1
 	wave WAVE_14
 	volume 85
@@ -9177,12 +9177,12 @@ Sfx_117_Ch2:
 	note NOTE_DURATION_0
 	audio_end
 
-Sfx_117:
+Sfx_SummonSnakes:
 	db 2, 0
-	dw Sfx_117_Ch1
-	dw Sfx_117_Ch2
+	dw Sfx_SummonSnakes_Ch1
+	dw Sfx_SummonSnakes_Ch2
 
-Sfx_118_Ch1:
+Sfx_Flute_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_46
@@ -9201,7 +9201,7 @@ Sfx_118_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_118_Ch2:
+Sfx_Flute_Ch2:
 	semitone_offset 1
 	wave WAVE_14
 	volume 56
@@ -9220,12 +9220,12 @@ Sfx_118_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_118:
+Sfx_Flute:
 	db 2, 0
-	dw Sfx_118_Ch1
-	dw Sfx_118_Ch2
+	dw Sfx_Flute_Ch1
+	dw Sfx_Flute_Ch2
 
-Sfx_119_Ch1:
+Sfx_ItemFall_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -9274,11 +9274,11 @@ Sfx_119_Ch1:
 	audio_wait 7
 	audio_end
 
-Sfx_119:
+Sfx_ItemFall:
 	db 1, 0
-	dw Sfx_119_Ch1
+	dw Sfx_ItemFall_Ch1
 
-Sfx_11a_Ch1:
+Sfx_BeanstalkGrow_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -9295,11 +9295,11 @@ Sfx_11a_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_11a:
+Sfx_BeanstalkGrow:
 	db 1, 0
-	dw Sfx_11a_Ch1
+	dw Sfx_BeanstalkGrow_Ch1
 
-Sfx_11b_Ch1:
+Sfx_TowerRise_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -9528,7 +9528,7 @@ Sfx_11b_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_11b_Ch2:
+Sfx_TowerRise_Ch2:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -9598,12 +9598,12 @@ Sfx_11b_Ch2:
 	audio_wait 44
 	audio_end
 
-Sfx_11b:
+Sfx_TowerRise:
 	db 2, 0
-	dw Sfx_11b_Ch1
-	dw Sfx_11b_Ch2
+	dw Sfx_TowerRise_Ch1
+	dw Sfx_TowerRise_Ch2
 
-Sfx_11c_Ch1:
+Sfx_SeaFreeze_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -9651,11 +9651,11 @@ Sfx_11c_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_11c:
+Sfx_SeaFreeze:
 	db 1, 0
-	dw Sfx_11c_Ch1
+	dw Sfx_SeaFreeze_Ch1
 
-Sfx_11d_Ch1:
+Sfx_Tornado_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -9750,11 +9750,11 @@ Sfx_11d_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_11d:
+Sfx_Tornado:
 	db 1, 0
-	dw Sfx_11d_Ch1
+	dw Sfx_Tornado_Ch1
 
-Sfx_11e_Ch1:
+Sfx_YellowMusicBox_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_19
@@ -9773,7 +9773,7 @@ Sfx_11e_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_11e_Ch2:
+Sfx_YellowMusicBox_Ch2:
 	semitone_offset 0
 	wave WAVE_0F
 	volume 75
@@ -9791,12 +9791,12 @@ Sfx_11e_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_11e:
+Sfx_YellowMusicBox:
 	db 2, 0
-	dw Sfx_11e_Ch1
-	dw Sfx_11e_Ch2
+	dw Sfx_YellowMusicBox_Ch1
+	dw Sfx_YellowMusicBox_Ch2
 
-Sfx_11f_Ch1:
+Sfx_BlueMusicBox_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_19
@@ -9817,7 +9817,7 @@ Sfx_11f_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_11f_Ch2:
+Sfx_BlueMusicBox_Ch2:
 	semitone_offset 0
 	wave WAVE_0F
 	volume 75
@@ -9837,12 +9837,12 @@ Sfx_11f_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_11f:
+Sfx_BlueMusicBox:
 	db 2, 0
-	dw Sfx_11f_Ch1
-	dw Sfx_11f_Ch2
+	dw Sfx_BlueMusicBox_Ch1
+	dw Sfx_BlueMusicBox_Ch2
 
-Sfx_120_Ch1:
+Sfx_GreenMusicBox_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_19
@@ -9861,7 +9861,7 @@ Sfx_120_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_120_Ch2:
+Sfx_GreenMusicBox_Ch2:
 	semitone_offset 0
 	wave WAVE_0F
 	volume 75
@@ -9879,12 +9879,12 @@ Sfx_120_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_120:
+Sfx_GreenMusicBox:
 	db 2, 0
-	dw Sfx_120_Ch1
-	dw Sfx_120_Ch2
+	dw Sfx_GreenMusicBox_Ch1
+	dw Sfx_GreenMusicBox_Ch2
 
-Sfx_121_Ch1:
+Sfx_RedMusicBox_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_19
@@ -9905,7 +9905,7 @@ Sfx_121_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_121_Ch2:
+Sfx_RedMusicBox_Ch2:
 	semitone_offset 0
 	wave WAVE_0F
 	volume 75
@@ -9927,12 +9927,12 @@ Sfx_121_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_121:
+Sfx_RedMusicBox:
 	db 2, 0
-	dw Sfx_121_Ch1
-	dw Sfx_121_Ch2
+	dw Sfx_RedMusicBox_Ch1
+	dw Sfx_RedMusicBox_Ch2
 
-Sfx_122_Ch1:
+Sfx_GoldMusicBox_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0F
@@ -9957,11 +9957,11 @@ Sfx_122_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_122:
+Sfx_GoldMusicBox:
 	db 1, 0
-	dw Sfx_122_Ch1
+	dw Sfx_GoldMusicBox_Ch1
 
-Sfx_123_Ch1:
+Sfx_BridgeLower_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_39
@@ -9985,11 +9985,11 @@ Sfx_123_Ch1:
 	audio_wait 2
 	audio_end
 
-Sfx_123:
+Sfx_BridgeLower:
 	db 1, 0
-	dw Sfx_123_Ch1
+	dw Sfx_BridgeLower_Ch1
 
-Sfx_124_Ch1:
+Sfx_Lightning_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6B
@@ -10014,11 +10014,11 @@ Sfx_124_Ch1:
 	audio_wait 6
 	audio_end
 
-Sfx_124:
+Sfx_Lightning:
 	db 1, 0
-	dw Sfx_124_Ch1
+	dw Sfx_Lightning_Ch1
 
-Sfx_125_Ch1:
+Sfx_BurnVines1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -10027,11 +10027,11 @@ Sfx_125_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_125:
+Sfx_BurnVines1:
 	db 1, 0
-	dw Sfx_125_Ch1
+	dw Sfx_BurnVines1_Ch1
 
-Sfx_126_Ch1:
+Sfx_BurnVines2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -10040,11 +10040,11 @@ Sfx_126_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_126:
+Sfx_BurnVines2:
 	db 1, 0
-	dw Sfx_126_Ch1
+	dw Sfx_BurnVines2_Ch1
 
-Sfx_127_Ch1:
+Sfx_VolcanoEruption_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_1A
@@ -10061,7 +10061,7 @@ Sfx_127_Ch1:
 	audio_wait 72
 	audio_end
 
-Sfx_127_Ch2:
+Sfx_VolcanoEruption_Ch2:
 	semitone_offset 0
 	wave WAVE_60
 	vibrato_amplitude 50
@@ -10077,12 +10077,12 @@ Sfx_127_Ch2:
 	audio_wait 72
 	audio_end
 
-Sfx_127:
+Sfx_VolcanoEruption:
 	db 2, 0
-	dw Sfx_127_Ch1
-	dw Sfx_127_Ch2
+	dw Sfx_VolcanoEruption_Ch1
+	dw Sfx_VolcanoEruption_Ch2
 
-Sfx_128_Ch1:
+Sfx_WarpedVoidAppear_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -10150,11 +10150,11 @@ Sfx_128_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_128:
+Sfx_WarpedVoidAppear:
 	db 1, 0
-	dw Sfx_128_Ch1
+	dw Sfx_WarpedVoidAppear_Ch1
 
-Sfx_129_Ch1:
+Sfx_Explosion_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -10167,11 +10167,11 @@ Sfx_129_Ch1:
 	audio_wait 6
 	audio_end
 
-Sfx_129:
+Sfx_Explosion:
 	db 1, 0
-	dw Sfx_129_Ch1
+	dw Sfx_Explosion_Ch1
 
-Sfx_12a_Ch1:
+Sfx_Step_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -10186,11 +10186,11 @@ Sfx_12a_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_12a:
+Sfx_Step:
 	db 1, 0
-	dw Sfx_12a_Ch1
+	dw Sfx_Step_Ch1
 
-Sfx_12b_Ch1:
+Sfx_PayCoins_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_60
@@ -10199,11 +10199,11 @@ Sfx_12b_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_12b:
+Sfx_PayCoins:
 	db 1, 0
-	dw Sfx_12b_Ch1
+	dw Sfx_PayCoins_Ch1
 
-Sfx_12c_Ch1:
+Sfx_OpenGoldenSnakeDoor_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -10214,7 +10214,7 @@ Sfx_12c_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_12c_Ch2:
+Sfx_OpenGoldenSnakeDoor_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	volume 120
@@ -10224,12 +10224,12 @@ Sfx_12c_Ch2:
 	audio_wait 3
 	audio_end
 
-Sfx_12c:
+Sfx_OpenGoldenSnakeDoor:
 	db 2, 0
-	dw Sfx_12c_Ch1
-	dw Sfx_12c_Ch2
+	dw Sfx_OpenGoldenSnakeDoor_Ch1
+	dw Sfx_OpenGoldenSnakeDoor_Ch2
 
-Sfx_12d_Ch1:
+Sfx_CrayonScribble_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -10250,11 +10250,11 @@ Sfx_12d_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_12d:
+Sfx_CrayonScribble:
 	db 1, 2
-	dw Sfx_12d_Ch1
+	dw Sfx_CrayonScribble_Ch1
 
-Sfx_12e_Ch1:
+Sfx_CastleForm_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_33
@@ -10284,7 +10284,7 @@ Sfx_12e_Ch1:
 	audio_wait 8
 	audio_end
 
-Sfx_12e_Ch2:
+Sfx_CastleForm_Ch2:
 	semitone_offset 0
 	wave WAVE_1A
 	vibrato_amplitude 50
@@ -10304,7 +10304,7 @@ Sfx_12e_Ch2:
 	audio_wait 96
 	audio_end
 
-Sfx_12e_Ch3:
+Sfx_CastleForm_Ch3:
 	semitone_offset 0
 	wave WAVE_60
 	vibrato_amplitude 50
@@ -10324,7 +10324,7 @@ Sfx_12e_Ch3:
 	audio_wait 96
 	audio_end
 
-Sfx_12e_Ch4:
+Sfx_CastleForm_Ch4:
 	semitone_offset 0
 	wave WAVE_6A
 	vibrato_amplitude 30
@@ -10336,12 +10336,12 @@ Sfx_12e_Ch4:
 	audio_wait 30
 	audio_end
 
-Sfx_12e:
+Sfx_CastleForm:
 	db 4, 0
-	dw Sfx_12e_Ch1
-	dw Sfx_12e_Ch2
-	dw Sfx_12e_Ch3
-	dw Sfx_12e_Ch4
+	dw Sfx_CastleForm_Ch1
+	dw Sfx_CastleForm_Ch2
+	dw Sfx_CastleForm_Ch3
+	dw Sfx_CastleForm_Ch4
 
 Sfx_12f_Ch1:
 	semitone_offset 0
@@ -10363,7 +10363,7 @@ Sfx_12f:
 	db 1, 2
 	dw Sfx_12f_Ch1
 
-Sfx_130_Ch1:
+Sfx_TextPrint_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_6A
@@ -10374,11 +10374,11 @@ Sfx_130_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_130:
+Sfx_TextPrint:
 	db 1, 0
-	dw Sfx_130_Ch1
+	dw Sfx_TextPrint_Ch1
 
-Sfx_131_Ch1:
+Sfx_TreeMouthOpen_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -10389,11 +10389,11 @@ Sfx_131_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_131:
+Sfx_TreeMouthOpen:
 	db 1, 0
-	dw Sfx_131_Ch1
+	dw Sfx_TreeMouthOpen_Ch1
 
-Sfx_132_Ch1:
+Sfx_Turn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -10406,11 +10406,11 @@ Sfx_132_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_132:
+Sfx_Turn:
 	db 1, 0
-	dw Sfx_132_Ch1
+	dw Sfx_Turn_Ch1
 
-Sfx_133_Ch1:
+Sfx_MakeWire_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_64
@@ -10421,11 +10421,11 @@ Sfx_133_Ch1:
 	audio_wait 6
 	audio_end
 
-Sfx_133:
+Sfx_MakeWire:
 	db 1, 0
-	dw Sfx_133_Ch1
+	dw Sfx_MakeWire_Ch1
 
-Sfx_134_Ch1:
+Sfx_GameOver_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_39
@@ -10434,11 +10434,11 @@ Sfx_134_Ch1:
 	audio_wait 80
 	audio_end
 
-Sfx_134:
+Sfx_GameOver:
 	db 1, 0
-	dw Sfx_134_Ch1
+	dw Sfx_GameOver_Ch1
 
-Sfx_135_Ch1:
+Sfx_OpenCraterHole_Ch1:
 	semitone_offset 250
 	tempo 74
 	wave WAVE_6D
@@ -10463,11 +10463,11 @@ Sfx_135_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_135:
+Sfx_OpenCraterHole:
 	db 1, 0
-	dw Sfx_135_Ch1
+	dw Sfx_OpenCraterHole_Ch1
 
-Sfx_136_Ch1:
+Sfx_Tiptoe2BUnused_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_1A
@@ -10480,11 +10480,11 @@ Sfx_136_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_136:
+Sfx_Tiptoe2BUnused:
 	db 1, 0
-	dw Sfx_136_Ch1
+	dw Sfx_Tiptoe2BUnused_Ch1
 
-Sfx_137_Ch1:
+Sfx_SceneWarioRun_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -10495,11 +10495,11 @@ Sfx_137_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_137:
+Sfx_SceneWarioRun:
 	db 1, 0
-	dw Sfx_137_Ch1
+	dw Sfx_SceneWarioRun_Ch1
 
-Sfx_138_Ch1:
+Sfx_EpilogueObj_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -10514,6 +10514,6 @@ Sfx_138_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_138:
+Sfx_EpilogueObj:
 	db 1, 0
-	dw Sfx_138_Ch1
+	dw Sfx_EpilogueObj_Ch1

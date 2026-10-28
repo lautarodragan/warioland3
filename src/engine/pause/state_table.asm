@@ -2,21 +2,21 @@ _PauseMenuStateTable::
 	ld a, [wSubState]
 	jumptable
 
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw InitPauseMenu
 	dw DarkenBGToPal_Fast
 	dw UpdatePauseMenu
 
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw ExitPauseMenu
 	dw DarkenBGToPal_Fast
 	dw ReturnToPendingLevelState
 
-	dw SlowFadeBGToWhite ; SST_PAUSE_MENU_SAVE
+	dw FastFadeBGToWhite ; SST_PAUSE_MENU_SAVE
 	dw InitSaveScreen
 	dw DarkenBGToPal_Fast
 	dw FillSaveScreenBar
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw SaveLevel
 	dw DarkenBGToPal_Fast
 	dw HandleSaveCompleteBox
@@ -30,15 +30,15 @@ _PauseMenuStateTable::
 	dw DebugReset
 	dw DebugReset
 
-	dw SlowFadeBGToWhite ; SST_PAUSE_SAVE_AND_CONTINUE
+	dw FastFadeBGToWhite ; SST_PAUSE_SAVE_AND_CONTINUE
 	dw InitSaveScreenAndBackupVRAM
 	dw DarkenBGToPal_Fast
 	dw FillSaveScreenBar
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw Save
 	dw DarkenBGToPal_Fast
 	dw HandleSaveCompleteBox
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw TransitionAfterSave
 
 	dw DebugReset
@@ -48,15 +48,15 @@ _PauseMenuStateTable::
 	dw DebugReset
 	dw DebugReset
 
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw InitSaveScreenAndBackupVRAM
 	dw DarkenBGToPal_Fast
 	dw FillSaveScreenBar
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw Save
 	dw DarkenBGToPal_Fast
 	dw HandleSaveCompleteBox
-	dw SlowFadeBGToWhite
+	dw FastFadeBGToWhite
 	dw ResetAfterSave
 
 	dw DebugReset

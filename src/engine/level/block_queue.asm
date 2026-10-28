@@ -1,6 +1,6 @@
 ; input:
 ; - e = ?
-Func_ba42:
+SetObjectMapEntryAndSpawn:
 	push_wram BANK("Level Objects WRAM")
 	ld a, [wSRAMBank]
 	push af
@@ -23,7 +23,7 @@ Func_ba42:
 	ld h, a
 	ld a, c
 	ld [wBlockPtrBank], a
-	call Func_d8c
+	call BlockPtrToObjectMapPtr
 	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
@@ -72,7 +72,7 @@ Func_ba42:
 	ld [wBlockPtrBank], a
 	ld h, d
 	ld l, e
-	call Func_d3e
+	call GetBlockPtrPos
 	pop de
 
 	ld c, e
@@ -117,7 +117,7 @@ DespawnObject:
 	pop_wram
 	ret
 
-Func_bb2d:
+ClearObjectMapEntry:
 	push_wram BANK("Level Objects WRAM")
 	ld a, [wSRAMBank]
 	push af
@@ -138,7 +138,7 @@ Func_bb2d:
 	ld h, a
 	ld a, c
 	ld [wBlockPtrBank], a
-	call Func_d8c
+	call BlockPtrToObjectMapPtr
 	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
@@ -160,7 +160,7 @@ Func_bb2d:
 	pop_wram
 	ret
 
-Func_bb85:
+ProcessBlockRedrawQueue:
 	ld a, [wIsDMATransferPending]
 	and a
 	ret nz ; exit if DMA pending

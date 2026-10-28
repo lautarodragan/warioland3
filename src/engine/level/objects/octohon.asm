@@ -116,7 +116,7 @@ SmallOctohonFunc:
 	ldh [hXPosLo], a
 	ld a, [hl]
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_4a57d
 	ld hl, wCurObjVar2
@@ -293,7 +293,7 @@ BigOctohonFunc:
 	cp $0c
 	jr z, .asm_4a6f0
 	cp $0a
-	jp z, Func_3173
+	jp z, VanishAndDespawnObject
 	jr .asm_4a711
 .asm_4a73f
 	ld l, OBJ_VAR_1
@@ -357,7 +357,7 @@ BigOctohonFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
 	jp .asm_4a6eb
@@ -368,7 +368,7 @@ BigOctohonFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
 	jp .asm_4a6f0
@@ -440,7 +440,7 @@ BigOctohonFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_4a875
 	jr .asm_4a854
@@ -451,7 +451,7 @@ BigOctohonFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-	call Func_3513
+	call ProcessBlock_Side
 	and a
 	jr z, .asm_4a875
 .asm_4a854

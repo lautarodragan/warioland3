@@ -3,12 +3,12 @@ FadeBGToWhite_Normal::
 	ld [wFadeSpeed], a
 	jr FadeBGToWhite
 
-SlowFadeBGToWhite::
+FastFadeBGToWhite::
 	ld a, FADE_SPEED_FAST
 	ld [wFadeSpeed], a
 	jr FadeBGToWhite
 
-FastFadeToWhite::
+SlowFadeToWhite::
 	xor a ; FADE_SPEED_SLOW
 	ld [wFadeSpeed], a
 	; fallthrough
@@ -21,13 +21,13 @@ FadeBGToWhite::
 	jr z, .asm_496
 	ld a, $01
 	ld [wUnused_c186], a
-	call VBlank_88d
+	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ret
 
 .asm_496
-	call VBlank_8bf
+	call VBlank_LoadPalsFromWRAM
 
 .lighten
 	ld hl, wCurRGB
@@ -173,7 +173,7 @@ FadeBGToWhite::
 	ret
 
 ; unreferenced
-Func_54e:
+UnreferencedSlowFadeBGToBlack:
 	ld a, [wPalFadeCounter]
 	cp $02
 	jr nc, .asm_568
@@ -181,12 +181,12 @@ Func_54e:
 	jr z, .asm_565
 	ld a, $01
 	ld [wUnused_c186], a
-	call VBlank_88d
+	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ret
 .asm_565
-	call VBlank_8bf
+	call VBlank_LoadPalsFromWRAM
 .asm_568
 	ld hl, wCurRGB
 	ld de, wTempBGPals
@@ -305,13 +305,13 @@ DarkenBGToPal::
 	jr z, .asm_608
 	ld a, $01
 	ld [wUnused_c186], a
-	call VBlank_88d
+	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl] ; set up to begin fade
 	ret
 
 .asm_608
-	call VBlank_8bf
+	call VBlank_LoadPalsFromWRAM
 
 .asm_60b
 	ld hl, wTargetRGB
@@ -512,13 +512,13 @@ SlowFadeInScreen::
 
 	ld a, $01
 	ld [wUnused_c186], a
-	call VBlank_88d
+	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl] ; set up to begin fade
 	ret
 
 .begin_fade
-	call VBlank_8bf
+	call VBlank_LoadPalsFromWRAM
 
 .fade
 	ld hl, wTargetRGB
@@ -676,7 +676,7 @@ SlowFadeInScreen::
 	ret
 
 ; unreferenced
-Func_7cf:
+UnreferencedFadeToTargetRGB:
 	ld a, [wPalFadeCounter]
 	cp $02
 	jr nc, .asm_7e9
@@ -684,12 +684,12 @@ Func_7cf:
 	jr z, .asm_7e6
 	ld a, $01
 	ld [wUnused_c186], a
-	call VBlank_88d
+	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ret
 .asm_7e6
-	call VBlank_8bf
+	call VBlank_LoadPalsFromWRAM
 .asm_7e9
 	ld hl, wTargetRed
 	ld de, wTempPals1
@@ -815,7 +815,7 @@ Func_7cf:
 	inc [hl]
 	ret
 
-VBlank_88d::
+VBlank_StorePals::
 	di
 	ld hl, wVBlankFunc
 	ld de, wBackupVBlankFunc
@@ -846,7 +846,7 @@ VBlank_88d::
 	call hTransferVirtualOAM
 	ret
 
-VBlank_8bf::
+VBlank_LoadPalsFromWRAM::
 	di
 	ld hl, .Func
 	ld de, wVBlankFunc
