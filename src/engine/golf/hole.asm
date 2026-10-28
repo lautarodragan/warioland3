@@ -1251,7 +1251,7 @@ GolfHoleState_SelectShotPower:
 	ld [de], a ; wShotYVel
 	inc de
 	xor a
-	ld [de], a ; w1dc4f
+	ld [de], a ; wShotYVel + 1
 	inc de
 	ld a, [hl]
 	ld [de], a ; wShotXVel
@@ -1495,7 +1495,7 @@ GolfHoleState_Shot:
 	ld [de], a ; wShotYVel
 	inc de
 	xor a
-	ld [de], a ; w1dc4f
+	ld [de], a ; wShotYVel + 1
 	inc de
 	ld a, [hl]
 	ld [de], a ; wShotXVel
@@ -3227,7 +3227,7 @@ VBlank_GolfCourseMenu_CourseAttrs:
 	ldh [rSCX], a
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld hl, wGolfPinFlagTiles
+	ld hl, wGolfCourseTileMap
 	call StartGolfHDMA
 	xor a
 	ldh [rVBK], a

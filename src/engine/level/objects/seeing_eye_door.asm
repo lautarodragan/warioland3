@@ -46,6 +46,8 @@ SeeingEyeDoorFunc:
 	call SetObjectFramesetPtr
 	jr .Default
 
+; until Wario is close enough vertically (and not invisible)
+.WaitForWario:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wTransformation]
@@ -91,9 +93,9 @@ SeeingEyeDoorFunc:
 	ld de, SeeingEyeDoorFrameset_68c36
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, $54
+	ld a, HIGH(.WaitForWario)
 	ld [hld], a
-	ld a, $f6
+	ld a, LOW(.WaitForWario)
 	ld [hld], a
 	ret
 

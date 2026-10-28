@@ -24,9 +24,9 @@ YellowBellyBodyFunc:
 	ld a, $0a
 	ld [hl], a
 	xor a
-	ld [wDollBoyActiveBarrels], a
-	ld [w1d147], a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyHeadHit], a
+	ld [wYellowBellyHitRequest], a
+	ld [wYellowBellyPumpOut], a
 	ld a, TRUE
 	ld [wIsBossBattle], a
 	stop_music2
@@ -133,7 +133,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.ShootArrows)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .aim_at_wario
 	xor a
@@ -191,7 +191,7 @@ YellowBellyBodyFunc:
 	ret
 
 .ShootArrows:
-	ld a, [w1d147]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
 	ld hl, wCurObjVar1
@@ -229,7 +229,7 @@ YellowBellyBodyFunc:
 	ld bc, ObjParams_YellowBellyArrowRight
 	jp CreateObjectAtRelativePos
 .end_shooting
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr nz, .start_guard_pump
 	ld hl, wCurObjUpdateFunction + 1
@@ -287,7 +287,7 @@ YellowBellyBodyFunc:
 .release_pump
 	stop_sfx
 	ld a, $01
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.ReleasePump)
 	ld [hld], a
@@ -354,13 +354,13 @@ YellowBellyBodyFunc:
 	cp TRANSFORMATION_PUFFY_WARIO
 	jr nz, .guard
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	jp .end_shooting
 .guard
-	ld a, [w1d147]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, .end_shooting
 	ld a, LOW(wObj1)
@@ -431,7 +431,7 @@ YellowBellyBodyFunc:
 	jr .check_state
 
 .Swim:
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wYellowBellyHeadHit]
 	and a
 	jr z, .check_hit
 	ld a, no_actions_for 1
@@ -440,7 +440,7 @@ YellowBellyBodyFunc:
 	ld [wCurObjState], a
 	ret
 .check_hit
-	ld a, [w1d147]
+	ld a, [wYellowBellyHitRequest]
 	and a
 	jp nz, .hit
 	ld hl, wCurObjVar1
@@ -515,7 +515,7 @@ YellowBellyBodyFunc:
 	dec [hl]
 .end_turn
 	ld l, OBJ_SUBSTATE
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	dec a
 	jr z, .pump_out_frameset
 	bit OBJSUBFLAG_VDIR_F, [hl]
@@ -618,7 +618,7 @@ YellowBellyBodyFunc:
 
 .hit
 	xor a
-	ld [w1d147], a
+	ld [wYellowBellyHitRequest], a
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.HitFlash)
 	ld [hld], a
@@ -701,7 +701,7 @@ YellowBellyBodyFunc:
 	jr z, .head_oam_2
 	ret
 .head_oam_3
-	ld de, OAM_191940
+	ld de, YellowBellyOAM_191940
 	jr .set_oam
 .head_oam_2
 	ld de, YellowBellyOAM_191f04
@@ -956,9 +956,9 @@ PumpFunc:
 .pressed
 	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
-	ld [w1d147], a
+	ld [wYellowBellyHitRequest], a
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 	ld de, YellowBellyFrameset_69882
 	call SetObjectFramesetPtr
 	ld a, $1d
@@ -985,7 +985,7 @@ PumpFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hl], a
 	xor a
-	ld [wDollBoyHammerRange], a
+	ld [wYellowBellyPumpOut], a
 .knocked
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -1042,7 +1042,7 @@ YellowBellyArrowFunc:
 	ld [hld], a
 	ld a, LOW(.FlyLeft)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .FlyLeft
 	ld l, OBJ_FLAGS
@@ -1059,7 +1059,7 @@ YellowBellyArrowFunc:
 	and a
 	jr nz, .hit_wario
 	call MoveObjectDownByVar2
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, MoveObjectLeftByVar2
 	jp MoveObjectLeft
@@ -1091,7 +1091,7 @@ YellowBellyArrowFunc:
 	ld [hld], a
 	ld a, LOW(.FlyRight)
 	ld [hld], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jr z, .FlyRight
 	ld l, OBJ_FLAGS
@@ -1108,7 +1108,7 @@ YellowBellyArrowFunc:
 	and a
 	jr nz, .hit_wario
 	call MoveObjectDownByVar2
-	ld a, [wDollBoyHammerRange]
+	ld a, [wYellowBellyPumpOut]
 	and a
 	jp z, MoveObjectRightByVar2
 	jp MoveObjectRight
@@ -1204,7 +1204,7 @@ YellowBellyHeadFunc:
 	ld a, $1e
 	ld [wCurObjStateDuration], a
 	ld a, $01
-	ld [wDollBoyActiveBarrels], a
+	ld [wYellowBellyHeadHit], a
 	stop_music2
 	xor a
 	ld [wBossState], a
@@ -1216,7 +1216,7 @@ YellowBellyHeadFunc:
 	dec [hl]
 	jr nz, .find_body
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wYellowBellyHeadHit], a
 .find_body
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
@@ -1332,7 +1332,7 @@ YellowBellyPlatformFunc:
 ;	fallthrough
 
 SetObjMapEntry7_YellowBelly:
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret

@@ -927,7 +927,7 @@ AnonsterFunc:
 	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
 	ret nz
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED

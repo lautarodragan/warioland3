@@ -18,9 +18,9 @@ MuddeeStingerFunc:
 	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .check_hit
 	ld a, $01
-	ld [w1d147], a
+	ld [wMuddeeHitState], a
 .check_hit
-	ld a, [w1d147]
+	ld a, [wMuddeeHitState]
 	and a
 	jr z, .find_muddee
 	xor a

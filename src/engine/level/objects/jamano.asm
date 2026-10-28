@@ -120,7 +120,7 @@ JamanoFunc:
 	ret
 .flicker_on
 	set 4, [hl]
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr nz, .still_dark
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -545,7 +545,7 @@ JamanoHatFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $06
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -657,8 +657,8 @@ SkullSpawnerFunc:
 	ld a, JAMANO_SKULL1 | JAMANO_SKULL2 | JAMANO_SKULL3 | JAMANO_SKULL4
 	ld [wJamanoActiveSkulls], a
 	xor a
-	ld [w1d147], a
-	ld [wDollBoyHammerRange], a
+	ld [wJamanoSkullsInPlace], a
+	ld [wJamanoDarkness], a
 	ld a, $01
 	ld [wJamanoSkullsInactive], a
 	ret
@@ -671,12 +671,12 @@ SkullSpawnerFunc:
 	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .active
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr nz, .active
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret
@@ -789,7 +789,7 @@ SkullFunc:
 	ld [hld], a
 	ld a, $27
 	ld [wCurObjStateDuration], a
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	inc [hl]
 	ret
 
@@ -857,7 +857,7 @@ SkullFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	play_sfx SFX_ATTACK_HIT
-	ld hl, w1d147
+	ld hl, wJamanoSkullsInPlace
 	dec [hl]
 	ret
 
@@ -912,7 +912,7 @@ SkullFunc:
 	ld a, [wJamanoSkullsInactive]
 	and a
 	jr nz, .flicker
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	and a
 	jr z, .despawn
 .flicker
@@ -930,9 +930,9 @@ SkullFunc:
 	ret
 
 UpdateJamanoDarkness:
-	ld a, [w1d147]
+	ld a, [wJamanoSkullsInPlace]
 	ld b, a
-	ld hl, wDollBoyHammerRange
+	ld hl, wJamanoDarkness
 	ld a, [hl]
 	and a
 	jr z, .darkness_0
@@ -1050,7 +1050,7 @@ UpdateJamanoDarkness:
 ;	fallthrough
 
 SetJamanoDarknessFrameset:
-	ld a, [wDollBoyHammerRange]
+	ld a, [wJamanoDarkness]
 	cp $01
 	jr z, .darkness_1
 	cp $02
@@ -1061,42 +1061,42 @@ SetJamanoDarknessFrameset:
 	ret nz
 	bit 7, [hl]
 	jr nz, .darkness_4_facing_right
-	ld b, $5c
-	ld c, $1c
+	ld b, HIGH(JamanoFrameset_69c1c)
+	ld c, LOW(JamanoFrameset_69c1c)
 	jr .set_frameset
 .darkness_4_facing_right
-	ld b, $5c
-	ld c, $a1
+	ld b, HIGH(JamanoFrameset_69ca1)
+	ld c, LOW(JamanoFrameset_69ca1)
 	jr .set_frameset
 .darkness_1
 	bit 7, [hl]
 	jr nz, .darkness_1_facing_right
-	ld b, $5c
-	ld c, $37
+	ld b, HIGH(JamanoFrameset_69c37)
+	ld c, LOW(JamanoFrameset_69c37)
 	jr .set_frameset
 .darkness_1_facing_right
-	ld b, $5c
-	ld c, $bc
+	ld b, HIGH(JamanoFrameset_69cbc)
+	ld c, LOW(JamanoFrameset_69cbc)
 	jr .set_frameset
 .darkness_2
 	bit 7, [hl]
 	jr nz, .darkness_2_facing_right
-	ld b, $5c
-	ld c, $2e
+	ld b, HIGH(JamanoFrameset_69c2e)
+	ld c, LOW(JamanoFrameset_69c2e)
 	jr .set_frameset
 .darkness_2_facing_right
-	ld b, $5c
-	ld c, $b3
+	ld b, HIGH(JamanoFrameset_69cb3)
+	ld c, LOW(JamanoFrameset_69cb3)
 	jr .set_frameset
 .darkness_3
 	bit 7, [hl]
 	jr nz, .darkness_3_facing_right
-	ld b, $5c
-	ld c, $25
+	ld b, HIGH(JamanoFrameset_69c25)
+	ld c, LOW(JamanoFrameset_69c25)
 	jr .set_frameset
 .darkness_3_facing_right
-	ld b, $5c
-	ld c, $aa
+	ld b, HIGH(JamanoFrameset_69caa)
+	ld c, LOW(JamanoFrameset_69caa)
 .set_frameset
 	ld l, e
 	ld a, b

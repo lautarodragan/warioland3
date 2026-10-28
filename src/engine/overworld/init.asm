@@ -614,7 +614,7 @@ InitMapSideForScene_East:
 LoadBGMapsToWRAM:
 	push bc
 	ld a, d
-	ld [w2dfff], a
+	ld [wBGMapsTempBank], a
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld a, e
@@ -627,9 +627,9 @@ LoadBGMapsToWRAM:
 	ldh [rVBK], a
 	pop hl
 
-	ld a, [w2dfff]
+	ld a, [wBGMapsTempBank]
 	ld [wTempBank], a
-	ld bc, w3d500
+	ld bc, wTilemap
 	ld a, [wTempBank]
 	ldh [hCallFuncBank], a
 	hcall Decompress
@@ -747,22 +747,22 @@ WriteBGMapFromWRAM:
 
 InitOWAnimations:
 	ld a, $1e
-	ld [w2d032], a
+	ld [wOWBigCloud1AnimDuration], a
 	ld a, $04
-	ld [w2d035], a
+	ld [wOWBigCloud2AnimDuration], a
 	ld a, $24
-	ld [w2d038], a
-	ld [w2d03b], a
+	ld [wOWBigCloud3AnimDuration], a
+	ld [wOWBigCloud4AnimDuration], a
 	ld a, $0e
-	ld [w2d03e], a
+	ld [wOWSeaAnimDuration], a
 	ld a, $14
-	ld [w2d041], a
+	ld [wOWSmallCloudsAnimDuration], a
 
 	xor a
 	ld [wOWCloudUpdateFlags], a
 	ld [wCloudType], a
 	ld [wOWSeaGfxVariant], a
-	ld [w2d033], a
+	ld [wOWBigCloud1AnimCounter], a
 	ld [wOWBigCloud2AnimCounter], a
 	ld [wOWBigCloud3AnimCounter], a
 	ld [wOWBigCloud4AnimCounter], a
@@ -776,11 +776,11 @@ InitOWAnimations:
 	ld [wOWSmallCloudsAnimFrame], a
 
 	ld a, $10
-	ld [w2d046], a
+	ld [wOWCliffsAnimDuration], a
 
 	xor a
 	ld [wOWCliffsGfxSrc], a
-	ld [w2d047], a
+	ld [wOWCliffsAnimCounter], a
 	ld [wOWCliffsAnimFrame], a
 
 	ld a, [wCurMapSide]
@@ -797,7 +797,7 @@ InitOWAnimations:
 	ret
 .south
 	ld a, $04
-	ld [w2d03b], a
+	ld [wOWBigCloud4AnimDuration], a
 	ret
 
 LoadCloudAndSeaGfx:

@@ -667,7 +667,7 @@ InitChannel:
 	ld [hli], a ; CHANNEL_PITCH_PRODUCT
 	ld [hli], a
 	ld [hli], a ; CHANNEL_FREQUENCY_OFFSET
-	ld [hli], a ; CHANNEL_UNK_2E
+	ld [hli], a ; CHANNEL_UNUSED_1E
 	ld a, $17
 	ld [hli], a ; CHANNEL_VIBRATO_SPEED
 	xor a
@@ -1776,7 +1776,7 @@ SetChannelSignedProperty:
 	jp DoAudioCommand
 
 AudioCmd_SetChannelUnused1e:
-; audiocmd_ca
+; set_unused_1e
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a

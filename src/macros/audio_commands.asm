@@ -187,7 +187,7 @@ MACRO? frequency_offset
 ENDM
 
 	const AUDIOCMD_SET_UNUSED_1E
-MACRO? audiocmd_ca
+MACRO? set_unused_1e
 	db AUDIOCMD_SET_UNUSED_1E
 	db \1
 ENDM

@@ -57,7 +57,7 @@ SmallOctohonFunc:
 	jp SetObjectFramesetPtr
 
 .Update:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjVar1
 	ld a, [hl]
@@ -326,7 +326,7 @@ BigOctohonFunc:
 	call ApplyObjXMovement
 	ld l, OBJ_VAR_1
 .recoil_wait
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	dec l
 	dec [hl]

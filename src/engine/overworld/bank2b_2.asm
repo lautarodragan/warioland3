@@ -76,7 +76,7 @@ Prologue:
 ;	fallthrough
 
 .set_fade_type:
-	ld [w2d880], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -680,7 +680,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld a, $0c
 	call SetSceneObjState
 	ld a, $01
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ret
 
 .Wait120_1:
@@ -711,7 +711,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	and a
 	ret nz
 	ld a, $80
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	jp AdvancePrologueStep
 
 .StartSuckIn:
@@ -885,20 +885,20 @@ Prologue_WarioSuckedIntoMusicBox:
 	jp WaitPrologueStep
 
 CycleSceneWarioPals:
-	ld hl, w2d150
+	ld hl, wSceneWarioPalCycleStep
 	ld a, [hl]
 	and a
 	ret z
 	cp $80
 	jr z, .stop
-	ld hl, w2d151
+	ld hl, wSceneWarioPalCycleCounter
 	inc [hl]
 	ld a, [hl]
 	cp $02
 	ret c
 	xor a
-	ld [hld], a ; w2d151
-	ld c, [hl] ; w2d150
+	ld [hld], a ; wSceneWarioPalCycleCounter
+	ld c, [hl] ; wSceneWarioPalCycleStep
 	inc [hl]
 	ld a, [hl]
 	cp $09
@@ -926,7 +926,7 @@ CycleSceneWarioPals:
 .stop
 	xor a
 	ld [wSceneWarioAttributes], a
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ret
 
 Prologue_WarioWakeUp:
@@ -1083,7 +1083,7 @@ PrologueBow_JumpAndBow:
 	ld a, SCENEWARIO_JUMP_AND_BOW
 	call SetSceneWarioState
 	xor a
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 	jp AdvancePrologueStep
 
 PrologueBow_WaitLookBack:
@@ -1193,7 +1193,7 @@ Prologue_WarioFallFromPlane:
 	play_sfx SFX_THROW
 
 	xor a
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 	ld [wSceneSubStep], a
 	jp AdvancePrologueStep
 
@@ -1205,7 +1205,7 @@ Prologue_WarioFallFromPlane:
 	jp AdvancePrologueStep
 
 .DoBounce:
-	ld a, [w2d894]
+	ld a, [wSceneSubActive]
 	and a
 	jr z, .sub_steps
 	ld a, [wSceneStepCounter]
@@ -1216,7 +1216,7 @@ Prologue_WarioFallFromPlane:
 	call ApplyOWMovement
 	jr nz, .sub_steps
 	xor a
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 .sub_steps
 	ld a, [wSceneSubStep]
 	and a
@@ -1243,7 +1243,7 @@ Prologue_WarioFallFromPlane:
 
 .sub_start
 	ld a, $01
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 .next_sub_step
 	ld hl, wSceneSubStep
 	inc [hl]
@@ -2372,7 +2372,7 @@ _InitEpilogue:
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
 
-	ld a, [wCollectionRow]
+	ld a, [wLCDCFlagsToFlip]
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
@@ -2381,7 +2381,7 @@ _InitEpilogue:
 .set_lcdc
 	ldh [rLCDC], a
 	xor a
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	ld hl, wSubState
 	inc [hl]
 	ret
@@ -2420,12 +2420,12 @@ UnreferencedInitEpilogue:
 	decompress_attrmap EpilogueCrowdAttrmap, v1BGMap0
 	decompress_tilemap EpilogueCrowdTilemap, v0BGMap0
 
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $60
 	ld [hli], a
 	ld [hl], $5c
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 
 	ld a, $0c
 	call SetSceneWarioState
@@ -2463,7 +2463,7 @@ UnreferencedInitEpilogue:
 	ld [wPalConfig2TotalSteps], a
 	ld [wSceneStep], a
 	ld [wSceneStepCounter], a
-	ld a, [wCollectionRow]
+	ld a, [wLCDCFlagsToFlip]
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
@@ -2472,7 +2472,7 @@ UnreferencedInitEpilogue:
 .set_lcdc
 	ldh [rLCDC], a
 	xor a
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceEpilogueOWStep
 
 WaitEpilogueOWStep:
@@ -2630,12 +2630,12 @@ _UpdateEpilogue:
 	xor a
 	ldh [rSCY], a
 	ld [wSCY], a
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $60
 	ld [hli], a
 	ld [hl], $5c
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	ld a, $0c
 	call SetSceneWarioState
 
@@ -2693,7 +2693,7 @@ _UpdateEpilogue:
 	jp AdvanceEpilogueOWStep
 .SetFadeToBlack:
 	ld a, $00
-	ld [w2d880], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -2716,7 +2716,7 @@ _UpdateEpilogue:
 	ld a, $13
 	ld hl, wSceneObj9State
 	call SetSceneObjState
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	ld a, $3c
 	ld [hli], a
 	ld a, $c8
@@ -2729,7 +2729,7 @@ _UpdateEpilogue:
 	ld [wSceneObj12State], a
 	ld [wSceneObj13State], a
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, PrologueBGPals
 	ld de, wTempPals1
@@ -2861,7 +2861,7 @@ _UpdateEpilogue:
 	jr .anim_on_line_a
 
 .wait_wario_state
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp b
 	ret nz
 	jr .next_scene_step
@@ -2923,10 +2923,10 @@ _UpdateEpilogue:
 
 .InitLanding:
 	xor a
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 	ld [wSceneSubStep], a
-	ld [wTempleRock5Action], a
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallStep], a
+	ld [wEpilogueMusicBoxFallActive], a
 	jp .next_scene_step
 
 .DropWario:
@@ -2943,7 +2943,7 @@ _UpdateEpilogue:
 	cp $56
 	ret c
 	ld a, $01
-	ld [wTempleRock5Action], a
+	ld [wEpilogueMusicBoxFallStep], a
 	play_sfx SFX_THROW
 	jp .next_scene_step
 
@@ -2951,7 +2951,7 @@ _UpdateEpilogue:
 	ld a, [wSceneSubStep]
 	cp $80
 	ret nz
-	ld a, [wTempleRock5Action]
+	ld a, [wEpilogueMusicBoxFallStep]
 	cp $80
 	ret nz
 	jp .next_scene_step
@@ -2987,15 +2987,15 @@ _UpdateEpilogue:
 	ld a, $0b
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	play_sfx SFX_GRAB
 	jp .next_scene_step
 
 .WaitWarioCarryIdle:
-	ld a, [wSceneObj9Unk7]
+	ld a, [wSceneObj9MovementStep]
 	cp $80
 	ret nz
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0a
 	ret nz
 	jp .next_scene_step
@@ -3014,10 +3014,10 @@ _UpdateEpilogue:
 	ld e, $fa
 .place_music_box_on_wario
 	ld hl, wSceneObj9
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	add d
 	ld [hli], a
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	add e
 	ld [hl], a
 	ret
@@ -3040,7 +3040,7 @@ _UpdateEpilogue:
 	jp .next_scene_step
 
 .SnapSFX:
-	ld a, [wOWUIObj1Frame]
+	ld a, [wSceneWarioFrame]
 	cp $0b
 	ret nz
 	play_sfx SFX_EMOTE
@@ -3057,12 +3057,12 @@ _UpdateEpilogue:
 	ld a, $09
 	call SetSceneWarioState
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	jp .next_scene_step
 
 .WalkLeftOffScreen:
 	call MoveSceneWarioLeft
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	ld b, a
 	sub $04
 	ld [wSceneObj9XCoord], a
@@ -3070,7 +3070,7 @@ _UpdateEpilogue:
 	cp b
 	ret nz
 	xor a
-	ld [wOWUIObj1State], a
+	ld [wSceneWarioState], a
 	ld [wSceneObj9State], a
 	jp .next_scene_step
 
@@ -3081,18 +3081,18 @@ _UpdateEpilogue:
 	jp .end_scene_steps
 
 .UpdateWarioFall:
-	ld a, [wPalFade2Colour2GreenUnk1]
+	ld a, [wSceneSubActive]
 	and a
 	jr z, .wario_fall_step
 	ld a, [wSceneStepCounter]
 	and $03
 	jr z, .wario_fall_step
 	ld de, PrologueWarioFallMovement
-	ld hl, wOWUIObj1YCoord
+	ld hl, wSceneWarioYCoord
 	call ApplyOWMovement_Mirrored
 	jr nz, .wario_fall_step
 	xor a
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 .wario_fall_step
 	ld a, [wSceneSubStep]
 	cp $80
@@ -3114,9 +3114,9 @@ _UpdateEpilogue:
 
 .WarioFall_Start:
 	ld a, $01
-	ld [wPalFade2Colour2GreenUnk1], a
+	ld [wSceneSubActive], a
 	xor a
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 .next_wario_fall_step
 	ld hl, wSceneSubStep
 	inc [hl]
@@ -3125,7 +3125,7 @@ _UpdateEpilogue:
 	ret
 
 .WarioFall_Land:
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	cp $60
 	ret nz
 	ld a, $1b
@@ -3142,7 +3142,7 @@ _UpdateEpilogue:
 	jr .next_wario_fall_step
 
 .WarioFall_WaitStunned:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $1c
 	ret nz
 	jr .next_wario_fall_step
@@ -3168,7 +3168,7 @@ _UpdateEpilogue:
 	ret
 
 .UpdateMusicBoxFall:
-	ld a, [wPalFade2Colour4GreenSign]
+	ld a, [wEpilogueMusicBoxFallActive]
 	and a
 	jr z, .music_box_fall_step
 	ld hl, wSceneObj9
@@ -3176,9 +3176,9 @@ _UpdateEpilogue:
 	call ApplyOWMovement_Mirrored
 	jr nz, .music_box_fall_step
 	xor a
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallActive], a
 .music_box_fall_step
-	ld a, [wTempleRock5Action]
+	ld a, [wEpilogueMusicBoxFallStep]
 	cp $80
 	ret z
 	jumptable
@@ -3196,14 +3196,14 @@ _UpdateEpilogue:
 
 .MusicBoxFall_Start:
 	ld a, $01
-	ld [wPalFade2Colour4GreenSign], a
+	ld [wEpilogueMusicBoxFallActive], a
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 .next_music_box_fall_step
-	ld hl, wTempleRock5Action
+	ld hl, wEpilogueMusicBoxFallStep
 	inc [hl]
 	xor a
-	ld [wTempleRock5Counter], a
+	ld [wEpilogueMusicBoxFallCounter], a
 	ret
 
 .MusicBoxFall_Land:
@@ -3214,7 +3214,7 @@ _UpdateEpilogue:
 	jr .next_music_box_fall_step
 
 .MusicBoxFall_Delay4:
-	ld hl, wTempleRock5Counter
+	ld hl, wEpilogueMusicBoxFallCounter
 	inc [hl]
 	ld a, [hl]
 	cp $04
@@ -3223,7 +3223,7 @@ _UpdateEpilogue:
 
 .MusicBoxFall_Done:
 	ld a, $80
-	ld [wTempleRock5Action], a
+	ld [wEpilogueMusicBoxFallStep], a
 	ret
 
 .play_music_box_bump_sfx:
@@ -3275,7 +3275,7 @@ _UpdateEpilogue:
 	cp $3c
 	ret c
 	ld a, $01
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	jp .next_scene_step
 
 .StopWarioPalCycle:
@@ -3283,12 +3283,12 @@ _UpdateEpilogue:
 	cp $28
 	ret c
 	ld a, $80
-	ld [w2d150], a
+	ld [wSceneWarioPalCycleStep], a
 	ld hl, wCurSceneObj
-	ld a, [wOWUIObj1YCoord]
+	ld a, [wSceneWarioYCoord]
 	sub $04
 	ld [hli], a
-	ld a, [wOWUIObj1XCoord]
+	ld a, [wSceneWarioXCoord]
 	ld [hl], a
 	ld a, $11
 	ld hl, wCurSceneObjState

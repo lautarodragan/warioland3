@@ -319,11 +319,11 @@ SetState_Airborne:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -596,11 +596,11 @@ DoHardLand:
 	play_sfx SFX_LAND
 	ld a, WST_LANDING
 	ld [wWarioState], a
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]
@@ -645,9 +645,9 @@ DoWarioGroundShake:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -680,9 +680,9 @@ DoGroundPound:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -1158,11 +1158,11 @@ SetState_Bumping:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -1432,11 +1432,11 @@ DiveFromSurface:
 DiveFromSurface_SkipSplash:
 	ld a, -27
 	ld [wCollisionBoxTop], a
-	ld a, BANK(OAM_15254)
+	ld a, BANK(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15254)
+	ld a, HIGH(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15254)
+	ld a, LOW(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 1], a
 	xor a
 	ld [wFrameDuration], a
@@ -1572,11 +1572,11 @@ SetState_Submerged:
 	ld a, LOW(WarioSwimGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15254)
+	ld a, BANK(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15254)
+	ld a, HIGH(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15254)
+	ld a, LOW(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wPowerUpLevel]
@@ -1666,11 +1666,11 @@ SurfaceFromUnderwater:
 	ld a, LOW(WarioSwimGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15254)
+	ld a, BANK(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15254)
+	ld a, HIGH(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15254)
+	ld a, LOW(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 1], a
 ;	fallthrough
 
@@ -3369,11 +3369,11 @@ SetState_Sliding:
 	ld a, LOW(WarioSlideGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1644a)
+	ld a, BANK(WarioOAM_1644a)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1644a)
+	ld a, HIGH(WarioOAM_1644a)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1644a)
+	ld a, LOW(WarioOAM_1644a)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wWarioSlopeInteraction]
 	bit LEFT_SLOPE_F, a
@@ -3608,11 +3608,11 @@ SetState_RollingAirborne:
 	ld a, LOW(WarioSlideGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_1644a)
+	ld a, BANK(WarioOAM_1644a)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_1644a)
+	ld a, HIGH(WarioOAM_1644a)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1644a)
+	ld a, LOW(WarioOAM_1644a)
 	ld [wWarioOAMPtr + 1], a
 	xor a
 	ld [wFrameDuration], a
@@ -4555,11 +4555,11 @@ SetState_Idling::
 	ld a, LOW(WarioIdleGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_14000)
+	ld a, BANK(WarioOAM_14000)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -5044,11 +5044,11 @@ SetState_GrabAirborne:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
@@ -6126,11 +6126,11 @@ HandleGroundShake:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]

@@ -785,6 +785,7 @@ _ProcessBlock_Side::
 	call GetBlockPtr
 	ld a, COLLISION_SIDE
 	ld [wCollisionPoints], a
+; same as ProcessBlockToB
 ProcessBlockToB2:
 	call ProcessBlock
 	ld b, a

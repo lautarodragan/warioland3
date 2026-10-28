@@ -3,7 +3,7 @@
 UpdateObjSprite::
 	ld a, [wROMBank]
 	push af
-	ld a, [hl] ; unk7
+	ld a, [hl] ; OBJ_ID (bits 4-6: OAM bank)
 	swap a
 	and %111
 	or BANK("Objects OAM 1")

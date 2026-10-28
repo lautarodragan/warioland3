@@ -251,7 +251,7 @@ BirdFunc:
 
 .BlueBirdWait:
 	ld hl, wCurObjAction
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -269,7 +269,7 @@ BirdFunc:
 
 .BlueBirdLand:
 	ld hl, wCurObjAction
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [hld], a
 	ld a, [hl]
 	and a

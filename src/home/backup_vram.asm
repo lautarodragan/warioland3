@@ -1,7 +1,7 @@
 SaveBackupVRAM::
 	push_wram BANK("GFX RAM")
 	ld a, [wSCY]
-	ld [w3d500], a
+	ld [wBackupSCY], a
 	ld a, [wSCX]
 	ld [wBackupSCX], a
 	ld hl, wTempPals1
@@ -48,7 +48,7 @@ SaveBackupVRAM::
 
 LoadBackupVRAM::
 	push_wram $03
-	ld a, [w3d500]
+	ld a, [wBackupSCY]
 	ld [wSCY], a
 	ld a, [wBackupSCX]
 	ld [wSCX], a

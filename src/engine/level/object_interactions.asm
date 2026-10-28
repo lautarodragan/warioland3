@@ -212,7 +212,7 @@ ProcessInteractions:
 .table
 	table_width 2
 	dw ObjInteraction_Grabbable               ; OBJ_INTERACTION_GRABBABLE
-	dw ObjInteraction_Touch                        ; OBJ_INTERACTION_TOUCH
+	dw ObjInteraction_Touch                   ; OBJ_INTERACTION_TOUCH
 	dw ObjInteraction_FrontSting              ; OBJ_INTERACTION_FRONT_STING
 	dw ObjInteraction_BackSting               ; OBJ_INTERACTION_BACK_STING
 	dw ObjInteraction_TopSting                ; OBJ_INTERACTION_TOP_STING
@@ -985,11 +985,11 @@ SetState_Stung:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 
 	xor a
@@ -1063,11 +1063,11 @@ SetState_WaterStung:
 	ld a, LOW(WarioAirborneGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 	xor a
 	ld [wFrameDuration], a
@@ -2095,11 +2095,11 @@ GetTreasure:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 
-	ld a, BANK(OAM_14000)
+	ld a, BANK(WarioOAM_14000)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wInteractionSide]
@@ -2182,11 +2182,11 @@ ObjInteraction_Omodonmeka:
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
 
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]

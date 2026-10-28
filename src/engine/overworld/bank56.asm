@@ -437,7 +437,7 @@ UpdateTransformationSparkles:
 	ret
 
 .UpdateSparkle1:
-	ld hl, wTempleMusicBox1
+	ld hl, wTransformationSparkle1Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -452,7 +452,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .sparkle1_next_step
-	ld hl, wTempleMusicBox1Counter
+	ld hl, wTransformationSparkle1Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -486,11 +486,11 @@ UpdateTransformationSparkles:
 .sparkle1_done
 	xor a
 	ld [wSceneObj5State], a
-	ld [wTempleMusicBox1], a
+	ld [wTransformationSparkle1Step], a
 	ret
 
 .UpdateSparkle2:
-	ld hl, wPlanePart2Counter
+	ld hl, wTransformationSparkle2Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -507,7 +507,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .sparkle2_next_step
-	ld hl, wTempleMusicBox3
+	ld hl, wTransformationSparkle2Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -555,11 +555,11 @@ UpdateTransformationSparkles:
 	jr z, .sparkle2_set_step
 	ld a, $02
 .sparkle2_set_step
-	ld [wPlanePart2Counter], a
+	ld [wTransformationSparkle2Step], a
 	ret
 
 .UpdateSparkle3:
-	ld hl, wTempleMusicBox4
+	ld hl, wTransformationSparkle3Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -574,7 +574,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .sparkle3_next_step
-	ld hl, wTempleMusicBox4Counter
+	ld hl, wTransformationSparkle3Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -613,11 +613,11 @@ UpdateTransformationSparkles:
 .sparkle3_done
 	xor a
 	ld [wSceneObj7State], a
-	ld [wTempleMusicBox4], a
+	ld [wTransformationSparkle3Step], a
 	ret
 
 .UpdateSparkle4:
-	ld hl, wTempleMusicBox5Counter
+	ld hl, wTransformationSparkle4Step
 	ld a, [hli]
 	inc [hl]
 	ld b, h
@@ -634,7 +634,7 @@ UpdateTransformationSparkles:
 	and a
 	ret z
 .sparkle4_next_step
-	ld hl, wPalFade2Colour3GreenUnk1
+	ld hl, wTransformationSparkle4Counter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -687,7 +687,7 @@ UpdateTransformationSparkles:
 	jr z, .sparkle4_set_step
 	ld a, $02
 .sparkle4_set_step
-	ld [wTempleMusicBox5Counter], a
+	ld [wTransformationSparkle4Step], a
 	ret
 
 .get_rise_offset_1:
@@ -728,7 +728,7 @@ UpdateNOWPrologueParticles:
 	ret
 
 .UpdateObj2:
-	ld a, [w2d150]
+	ld a, [wNOWPrologueObj2ParticleStep]
 	jumptable
 	dw .Obj2_None
 	dw .Obj2_PlaceUpLeft
@@ -746,7 +746,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj2
 	call .place_center
 .obj2_next_step
-	ld hl, w2d150
+	ld hl, wNOWPrologueObj2ParticleStep
 	inc [hl]
 	ret
 
@@ -778,7 +778,7 @@ UpdateNOWPrologueParticles:
 
 .Obj2_Loop:
 	ld a, $01
-	ld [w2d150], a
+	ld [wNOWPrologueObj2ParticleStep], a
 	ret
 
 .UpdateObj5:
@@ -836,7 +836,7 @@ UpdateNOWPrologueParticles:
 	ret
 
 .UpdateObj9:
-	ld a, [wd154]
+	ld a, [wNOWPrologueObj9ParticleStep]
 	jumptable
 	dw .Obj9_None
 	dw .Obj9_PlaceDownLeft
@@ -854,7 +854,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj9
 	call .place_center
 .obj9_next_step
-	ld hl, wd154
+	ld hl, wNOWPrologueObj9ParticleStep
 	inc [hl]
 	ret
 
@@ -886,11 +886,11 @@ UpdateNOWPrologueParticles:
 
 .Obj9_Loop:
 	ld a, $01
-	ld [wd154], a
+	ld [wNOWPrologueObj9ParticleStep], a
 	ret
 
 .UpdateObj3:
-	ld a, [w2d151]
+	ld a, [wNOWPrologueObj3ParticleStep]
 	jumptable
 	dw .Obj3_None
 	dw .Obj3_PlaceUpRight
@@ -908,7 +908,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj3
 	call .place_center
 .obj3_next_step
-	ld hl, w2d151
+	ld hl, wNOWPrologueObj3ParticleStep
 	inc [hl]
 	ret
 
@@ -940,11 +940,11 @@ UpdateNOWPrologueParticles:
 
 .Obj3_Loop:
 	ld a, $01
-	ld [w2d151], a
+	ld [wNOWPrologueObj3ParticleStep], a
 	ret
 
 .UpdateObj8:
-	ld a, [wd153]
+	ld a, [wNOWPrologueObj8ParticleStep]
 	jumptable
 	dw .Obj8_None
 	dw .Obj8_PlaceCenter
@@ -962,7 +962,7 @@ UpdateNOWPrologueParticles:
 	ld hl, wSceneObj8
 	call .place_center
 .obj8_next_step
-	ld hl, wd153
+	ld hl, wNOWPrologueObj8ParticleStep
 	inc [hl]
 	ret
 
@@ -994,7 +994,7 @@ UpdateNOWPrologueParticles:
 
 .Obj8_Loop:
 	ld a, $01
-	ld [wd153], a
+	ld [wNOWPrologueObj8ParticleStep], a
 	ret
 
 .UpdateObj10:
@@ -1241,7 +1241,7 @@ _InitBestTimeList:
 	ret
 
 .clear_ram:
-	ld hl, wCollectionRow
+	ld hl, wOWSharedRAM
 	ld bc, $800
 	xor a
 	call WriteAToHL_BCTimes
@@ -1268,7 +1268,7 @@ _InitBestTimeList:
 .func_end
 
 _BestTimeList:
-	ld a, [wCollectionRow]
+	ld a, [wBestTimeListAutoScroll]
 	and a
 	jr nz, .auto_scroll
 	ld hl, wSCY
@@ -1279,15 +1279,15 @@ _BestTimeList:
 	jr nz, .d_down
 
 	; no input
-	ld hl, wCollectionCol
+	ld hl, wBestTimeListIdleCounter
 	inc [hl]
 	ld a, [hl]
 	and a
 	jr nz, .check_exit
-	ld hl, wCollectionRow
+	ld hl, wBestTimeListAutoScroll
 	inc [hl]
 	xor a
-	ld [wColourFadeDiff], a
+	ld [wBestTimeListScrollStep], a
 .check_exit
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_START
@@ -1302,7 +1302,7 @@ _BestTimeList:
 	dec [hl]
 .reset_idle
 	xor a
-	ld [wCollectionCol], a
+	ld [wBestTimeListIdleCounter], a
 	ret
 .d_down
 	ld a, [hl]
@@ -1313,7 +1313,7 @@ _BestTimeList:
 .auto_scroll
 	call .StopAutoScrollOnInput
 	ret c
-	ld a, [wColourFadeDiff]
+	ld a, [wBestTimeListScrollStep]
 	and a
 	jr z, .scroll_down
 	dec a
@@ -1333,13 +1333,13 @@ _BestTimeList:
 	ret
 .next_scroll_step
 	xor a
-	ld [wCollectionLinkStateCounter], a
-	ld hl, wColourFadeDiff
+	ld [wBestTimeListScrollCounter], a
+	ld hl, wBestTimeListScrollStep
 	inc [hl]
 	ret
 
 .wait_bottom
-	ld hl, wCollectionLinkStateCounter
+	ld hl, wBestTimeListScrollCounter
 	inc [hl]
 	ld a, [hl]
 	cp $b4
@@ -1354,14 +1354,14 @@ _BestTimeList:
 	ret
 
 .wait_top
-	ld hl, wCollectionLinkStateCounter
+	ld hl, wBestTimeListScrollCounter
 	inc [hl]
 	ld a, [hl]
 	cp $b4
 	ret c
 	xor a
-	ld [wCollectionLinkStateCounter], a
-	ld [wColourFadeDiff], a
+	ld [wBestTimeListScrollCounter], a
+	ld [wBestTimeListScrollStep], a
 	ret
 
 .StopAutoScrollOnInput:
@@ -1369,16 +1369,16 @@ _BestTimeList:
 	and PAD_A | PAD_B | PAD_START | PAD_UP | PAD_DOWN
 	ret z
 	xor a
-	ld [wCollectionRow], a
+	ld [wBestTimeListAutoScroll], a
 	scf
 	ret
 
 PrintBestTimes:
 	xor a ; LEVEL_OUT_OF_THE_WOODS
-	ld [w2dfff], a
+	ld [wBestTimeListCurLevel], a
 .loop_levels
 	call .PrintLevelTime
-	ld hl, w2dfff
+	ld hl, wBestTimeListCurLevel
 	inc [hl]
 	ld a, NUM_LEVELS - 1
 	cp [hl]
@@ -1386,7 +1386,7 @@ PrintBestTimes:
 	jr .loop_levels
 
 .PrintLevelTime:
-	ld a, [w2dfff]
+	ld a, [wBestTimeListCurLevel]
 	ld hl, wLevelTimeAttackScores
 	add a
 	ld c, a
@@ -1417,7 +1417,7 @@ PrintBestTimes:
 	jr .loop_get_tiles
 
 .write_tiles
-	ld a, [w2dfff]
+	ld a, [wBestTimeListCurLevel]
 	ld hl, .bg_map_address_table
 	call GetPointerFromTableDE
 	ld b, $00

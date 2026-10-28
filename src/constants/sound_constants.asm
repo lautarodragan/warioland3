@@ -373,7 +373,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_MAKE_WIRE                    ; 233
 	const SFX_GAME_OVER                    ; 234
 	const SFX_OPEN_CRATER_HOLE             ; 235
-	const SFX_TIPTOE_2_B_UNUSED                          ; 236
+	const SFX_TIPTOE_2_B_UNUSED            ; 236 (unused: SFX_TIPTOE_2 on the second square channel)
 	const SFX_SCENE_WARIO_RUN              ; 237
 	const SFX_EPILOGUE_OBJ                 ; 238
 DEF NUM_SOUNDS EQU const_value

@@ -122,14 +122,14 @@ PillarPlatformFunc:
 	ld [hld], a
 	ld a, LOW(.Lower)
 	ld [hld], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	add $03
 	ld e, a
 	ld c, $2b
 	ld a, $00
 	ld b, $00
 	call .SetLinkedPlatformsState
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	sub $03
 	ld e, a
 	ld a, $00

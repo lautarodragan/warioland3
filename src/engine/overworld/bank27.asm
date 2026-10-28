@@ -1178,9 +1178,9 @@ CutsceneFadePals:
 	ret
 
 CutsceneScreenShake:
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	inc [hl]
-	ld a, [wCollectionLinkStateCounter]
+	ld a, [wCutsceneShakeStep]
 	ld c, $fc
 	and a
 	jr z, .shake_step
@@ -1212,7 +1212,7 @@ CutsceneScreenShake:
 	ld a, c
 	add [hl]
 	ld [hl], a
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -1225,7 +1225,7 @@ CutsceneScreenShake:
 	ld a, c
 	add [hl]
 	ld [hl], a
-	ld hl, wCollectionScrollMode
+	ld hl, wCutsceneShakeCounter
 	xor a
 	ld [hld], a
 	ld [hl], a
@@ -1594,7 +1594,7 @@ Cutscene06Func:
 	cp $03
 	ret nz
 	xor a
-	ld [wColourFadeDiff], a
+	ld [wCutsceneSFXCounter], a
 	jp AdvanceCutsceneFunc
 
 .Wait100:
@@ -1614,7 +1614,7 @@ Cutscene06Func:
 	jp AdvanceCutsceneFunc
 
 .play_sfx_bubble_float_every_14_frames:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0e
@@ -1626,7 +1626,7 @@ Cutscene06Func:
 
 InitCutscene0aObjs:
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	ld hl, wSceneObj2
 	ld a, 130 ; y
 	ld [hli], a
@@ -2001,7 +2001,7 @@ Cutscene11Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2026,10 +2026,10 @@ Cutscene11Func:
 	ld b, BANK(SharedCutsceneBGPals_b8040) ; aka BANK(SharedCutsceneBGPals_b8200)
 	call CopyFarBytes
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	ld [wSceneObj2State], a
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 
 	ld a, HIGH(wTempPals1)
 	ld [wPalConfig1SourceHi], a
@@ -2056,7 +2056,7 @@ Cutscene11Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseObj2Fast:
@@ -2196,7 +2196,7 @@ Cutscene1bFunc:
 	call SetPalConfig2ToTempPals2
 
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .PlaceObj5:
@@ -2459,7 +2459,7 @@ Cutscene09Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2518,7 +2518,7 @@ MusicBoxCutsceneFunc:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseMusicBox:
@@ -2610,7 +2610,7 @@ Cutscene02Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseAxe:
@@ -2645,7 +2645,7 @@ Cutscene02Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .Wait16:
@@ -2690,7 +2690,7 @@ Cutscene0cFunc:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2727,7 +2727,7 @@ Cutscene18Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -2747,7 +2747,7 @@ Cutscene18Func:
 
 .FlipBGMap:
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 Cutscene0dFunc:
@@ -2797,7 +2797,7 @@ Cutscene0dFunc:
 
 .FlipBGMap:
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .Wait60:
@@ -2901,7 +2901,7 @@ Cutscene13Func:
 	ld a, [wSceneObj2XCoord]
 	ld [wSceneObj3XCoord], a
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -3074,7 +3074,7 @@ Cutscene49Func:
 	jp AdvanceCutsceneFunc
 
 .play_sfx_rumble_every_17_frames:
-	ld hl, wSceneObj4Unk7
+	ld hl, wSceneObj4MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $11
@@ -3154,7 +3154,7 @@ Cutscene04Func:
 	xor a
 	ld [wSceneObj3State], a
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 InitCutscene24Objs:
@@ -3542,7 +3542,7 @@ Cutscene37Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $03
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .Wait40:
@@ -3590,7 +3590,7 @@ Cutscene38Func:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ld a, $01
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	call PlayItemRaiseSFX
 	jp AdvanceCutsceneFunc
 
@@ -3929,7 +3929,7 @@ Cutscene3aFunc:
 	cp $8c
 	ret c
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	xor a
 	ld [wSceneObj3State], a
 	ld [wSceneObj2State], a
@@ -4017,7 +4017,7 @@ Cutscene3aFunc:
 	ld a, [wSceneObj7State]
 	cp $03
 	ret nz
-	ld hl, wSceneObj7Unk7
+	ld hl, wSceneObj7MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4349,7 +4349,7 @@ Cutscene3dFunc:
 	cp $3c
 	ret c
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	ld hl, wSceneObj4
 	lb de, $50, $50
 	ld a, $05
@@ -4541,6 +4541,9 @@ Cutscene4cFunc:
 .WaitObj2State03:
 	ld a, [wSceneObj2State]
 	cp $03
+	; bug, missing ret nz: meant to wait for object 2's state 3, it always
+	; advances. Harmless: state 2 is a 6-frame animation and the next step
+	; waits 100 frames, so the fire just goes out about 6 frames early
 	jp AdvanceCutsceneFunc
 
 .WaitThenSetObj3State02:
@@ -4793,7 +4796,7 @@ Cutscene51Func:
 	jp AdvanceCutsceneFunc
 
 .play_sfx_rumble_every_16_frames:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -4873,7 +4876,7 @@ Cutscene56Func:
 	xor a
 	ld [wSceneObj2State], a
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	ld b, BANK(RevealDarkRoomCutscenePals_b8800)
 	ld c, 8 palettes
 	ld hl, RevealDarkRoomCutscenePals_b8800
@@ -5103,7 +5106,7 @@ Cutscene58Func:
 	cp $01
 	ret nz
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
@@ -5400,7 +5403,7 @@ Cutscene44Func:
 	cp $1e
 	ret c
 	ld a, LCDC_BG_9C00
-	ld [wCollectionRow], a
+	ld [wLCDCFlagsToFlip], a
 	jp AdvanceCutsceneFunc
 
 .PlaceObjs2And3:
@@ -5462,7 +5465,7 @@ Cutscene44Func:
 	cp $03
 	ret nz
 	xor a
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	ld [wSceneObj4YCoord], a
 	jp AdvanceCutsceneFunc
 
@@ -5495,7 +5498,7 @@ Cutscene44Func:
 	ret
 
 .move_obj3_right:
-	ld hl, wSceneObj3Unk7
+	ld hl, wSceneObj3MovementStep
 	call .get_obj3_speed
 	ld hl, wSceneObj3XCoord
 	add [hl]
@@ -5576,24 +5579,24 @@ Cutscene14Func:
 	ld a, $03
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld a, $bc
 	ld [hli], a
 	ld [hl], $50
 	ld a, $02
-	ld [wSceneObj1YCoord], a
-	ld hl, wPalFade1
-	ld [hl], $99
+	ld [wCutsceneOverlayType], a
+	ld hl, wCutscene14Obj2WobblePtr
+	ld [hl], LOW(VolcanoEruptionWobbleLoop)
 	inc l
-	ld [hl], $6e
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop)
 	inc l
-	ld [hl], $e7
+	ld [hl], LOW(VolcanoEruptionWobbleLoop_Obj3Start)
 	inc l
-	ld [hl], $6e
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop_Obj3Start)
 	inc l
-	ld [hl], $33
+	ld [hl], LOW(VolcanoEruptionWobbleLoop_Obj4Start)
 	inc l
-	ld [hl], $6f
+	ld [hl], HIGH(VolcanoEruptionWobbleLoop_Obj4Start)
 	jp AdvanceCutsceneFunc
 
 .RaiseItem:
@@ -5607,7 +5610,7 @@ Cutscene14Func:
 	dec [hl]
 	ld hl, wSceneObj4YCoord
 	dec [hl]
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	dec [hl]
 	ld a, [hl]
 	cp $87
@@ -5632,7 +5635,7 @@ Cutscene14Func:
 	inc [hl]
 	ld hl, wSceneObj4YCoord
 	inc [hl]
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	inc [hl]
 	ld a, [hl]
 	cp $82
@@ -5644,30 +5647,30 @@ Cutscene14Func:
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1YCoord
 	inc [hl]
 	ld a, [hl]
 	cp $92
 	ret nz
 	xor a
-	ld [wSceneObj1YCoord], a
+	ld [wCutsceneOverlayType], a
 	jp AdvanceCutsceneFunc
 
 .WaitWobbleThenSwitchTable:
 	call .WobbleObjs2To4
 	ret nc
-	ld hl, wPalFade1
-	ld a, $82
+	ld hl, wCutscene14Obj2WobblePtr
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj2)
 	ld [hli], a
-	ld a, $6f
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj2)
 	ld [hli], a
-	ld a, $e3
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj3)
 	ld [hli], a
-	ld a, $6f
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj3)
 	ld [hli], a
-	ld a, $44
+	ld a, LOW(VolcanoEruptionWobbleOnce_Obj4)
 	ld [hli], a
-	ld a, $70
+	ld a, HIGH(VolcanoEruptionWobbleOnce_Obj4)
 	ld [hli], a
 	jp AdvanceCutsceneFunc
 
@@ -5692,7 +5695,7 @@ Cutscene14Func:
 	ld [wSceneObj2State], a
 	ld [wSceneObj3State], a
 	ld [wSceneObj4State], a
-	ld [wColourFadeDiff], a
+	ld [wCutsceneSFXCounter], a
 	jp AdvanceCutsceneFunc
 
 .Wait120:
@@ -5701,7 +5704,7 @@ Cutscene14Func:
 	jp WaitCutsceneFunc
 
 .play_volcano_sfx_every_10_frames:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5725,7 +5728,7 @@ Cutscene14Func:
 	jp AdvanceCutsceneFunc
 
 .play_obj5_sfx:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5767,7 +5770,7 @@ Cutscene14Func:
 
 .WaitSFXCounter09:
 	call .play_obj5_sfx
-	ld a, [wColourFadeDiff]
+	ld a, [wCutsceneSFXCounter]
 	cp $09
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -5778,7 +5781,7 @@ Cutscene14Func:
 	ret
 
 .play_fade_sfx:
-	ld hl, wColourFadeDiff
+	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $0a
@@ -5803,13 +5806,13 @@ Cutscene14Func:
 	ret
 
 .WobbleObjs2To4:
-	ld bc, wPalFade1Colour1RedUnk1
+	ld bc, wCutscene14Obj4WobblePtr
 	ld hl, wSceneObj4
 	call .apply_wobble
-	ld bc, wPalFade1Colour1RedSign
+	ld bc, wCutscene14Obj3WobblePtr
 	ld hl, wSceneObj3
 	call .apply_wobble
-	ld bc, wPalFade1
+	ld bc, wCutscene14Obj2WobblePtr
 	ld hl, wSceneObj2
 	call .apply_wobble
 	ret
@@ -5832,7 +5835,7 @@ Cutscene14Func:
 	ld a, [de]
 	cp $80
 	jr nz, .store_wobble_ptr
-	ld de, .data_9ee99
+	ld de, VolcanoEruptionWobbleLoop
 	call .store_wobble_ptr
 	scf
 	ret
@@ -5846,13 +5849,21 @@ Cutscene14Func:
 	and a
 	ret
 
-.data_9ee99
-	db  0, -1,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  1,  1,  0,  1,  0,  0,  0,  1,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  1,  1,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  1,  0,  1,  1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1,  0, -1,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0, -1,  0, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
+; y, x steps for the volcano eruption's objects 2-4, looped (.apply_wobble
+; goes back to the start at $80). Each object starts at its own point.
+VolcanoEruptionWobbleLoop:
+	db  0, -1,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  1,  1,  0,  1,  0,  0,  0,  1,  1,  1,  0
+VolcanoEruptionWobbleLoop_Obj3Start:
+	db  0,  1,  1,  0,  0,  1,  1,  0,  1,  1,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  1,  0,  1,  1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  1, -1,  0,  0,  1, -1,  0,  0,  1
+VolcanoEruptionWobbleLoop_Obj4Start:
+	db -1,  0, -1,  1,  0,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1,  0, -1,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0, -1,  0, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
-; unreferenced
+; played once each after .WaitWobbleThenSwitchTable, then back to the loop
 VolcanoEruptionWobbleOnce_Obj2:
 	db  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0, $80
+VolcanoEruptionWobbleOnce_Obj3:
 	db  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0, -1,  1,  0,  0,  0,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0,  0,  0, $80
+VolcanoEruptionWobbleOnce_Obj4:
 	db -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0, -1,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0, -1,  1,  0, $80
 
 GetCutsceneObjFrameset:
@@ -6231,7 +6242,7 @@ UpdateCutsceneObjs_PlaceCartWheels:
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $03
 	call z, .PlayCartRollSFXAtAnimEnd
-	ld de, OAM_188279
+	ld de, CartOAM_188279
 	call _ObjOAM3
 	ret
 
@@ -6420,7 +6431,7 @@ UpdateCutsceneObjs_LeavesFall:
 .PlayFatWalkSFXOnFrame07Or08:
 	ld a, [wSceneObj3Frame]
 	ld c, a
-	ld a, [wSceneObj3Unk7]
+	ld a, [wSceneObj3MovementStep]
 	ld b, a
 	and a
 	jr z, .wait_frame_07
@@ -6435,7 +6446,7 @@ UpdateCutsceneObjs_LeavesFall:
 .toggle_and_play_sfx
 	ld a, b
 	xor $1
-	ld [wSceneObj3Unk7], a
+	ld [wSceneObj3MovementStep], a
 	play_sfx SFX_FAT_WALK
 	ret
 .state_03
@@ -6443,7 +6454,7 @@ UpdateCutsceneObjs_LeavesFall:
 	jr .draw
 
 .PlayThunderSFXEvery26Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6493,7 +6504,7 @@ UpdateCutsceneObjs_MakeWire:
 	jr .draw
 
 .PlayMakeWireSFXEvery12Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6510,7 +6521,7 @@ UpdateCutsceneObjs_MakeWire:
 	jr .draw
 
 .PlayTurnSFXEvery16Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6545,7 +6556,7 @@ UpdateCutsceneObjs_TorchForest:
 	jr .draw
 
 .PlayFireSFXEvery14Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6599,7 +6610,7 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	jr .draw
 
 .PlayElectricShockSFXEvery16Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6652,7 +6663,7 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 .PlayPumpSFXOnFrame03:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	ld a, $03
@@ -6667,7 +6678,7 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 .toggle_flag
 	ld a, b
 	xor $1
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
 UpdateCutsceneObjs_RaisePipe:
@@ -6742,7 +6753,7 @@ UpdateCutsceneObjs_RemoveWarps:
 	jr .draw
 
 .PlaySFX10EEvery72Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6833,7 +6844,7 @@ UpdateCutsceneObjs_PlacePropeller:
 	jr .draw
 
 .PlayFanSpinSFXEvery12Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -6975,7 +6986,7 @@ UpdateCutsceneObjs_ExtinguishFire:
 	jr .draw
 
 .PlayThunderSFXEvery26Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7009,7 +7020,7 @@ UpdateCutsceneLevelObj_ExtinguishFire:
 	jr .draw
 
 .PlayFireSFXEvery14Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7068,7 +7079,7 @@ UpdateCutsceneObjs_SprayIronWall:
 	jr .draw
 
 .PlayThunderSFXEvery26Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7084,7 +7095,7 @@ UpdateCutsceneObjs_SprayIronWall:
 	ret
 
 .PlaySFX0C4Every10Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7118,7 +7129,7 @@ UpdateCutsceneObjs_MixChemicals:
 .state_03
 	ld b, $00
 	call .set_state_when_anim_finished
-	ld hl, wSceneObj2Unk7
+	ld hl, wSceneObj2MovementStep
 	ld a, [hl]
 	and a
 	ret nz
@@ -7175,7 +7186,7 @@ UpdateCutsceneObjs_RevealDarkRoom:
 .PlaySFXOnFrames:
 	ld a, [wSceneObj2Frame]
 	ld c, a
-	ld a, [wSceneObj2Unk7]
+	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
 	jr z, .check_frame
@@ -7204,7 +7215,7 @@ UpdateCutsceneObjs_RevealDarkRoom:
 .toggle_flag
 	ld a, b
 	xor $01
-	ld [wSceneObj2Unk7], a
+	ld [wSceneObj2MovementStep], a
 	ret
 
 UpdateCutsceneObjs_SummonMoon:
@@ -7289,7 +7300,7 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	jr .draw
 
 .PlayOpenCraterHoleSFXEvery27Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7304,7 +7315,7 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	jr .draw
 
 .PlayFallingSnowDropSFXEvery27Frames:
-	ld de, wSceneObj3Unk7
+	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7358,7 +7369,7 @@ UpdateCutsceneObjs_DrillHoles:
 	jr .draw
 
 .PlayPlane1SFXEvery12Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7392,7 +7403,7 @@ UpdateCutsceneObjs_FeedOctohon:
 	jr .draw
 
 .PlaySparkleSFXEvery48Frames:
-	ld de, wSceneObj2Unk7
+	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
 	ld [de], a
@@ -7466,14 +7477,14 @@ UpdateCutsceneLevelObj_FeedOctohon:
 
 DrawCutsceneOverlayFrame0:
 	ld c, $00
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld b, $01
 ;	fallthrough
 
-; b = y coord
+; b = wCutsceneOverlayType to draw for
 ; c = frame
 DrawCutsceneOverlay:
-	ld a, [wSceneObj1YCoord]
+	ld a, [wCutsceneOverlayType]
 	cp b
 	ret nz
 	ld a, [de]
@@ -7497,27 +7508,27 @@ LoadCutsceneOverlaySprite:
 
 DrawCutsceneOverlayFrame1:
 	ld c, $01
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame2:
 	ld c, 2
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame3:
 	ld c, 3
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld b, $01
 	jr DrawCutsceneOverlay
 
 DrawCutsceneOverlayFrame4:
-	ld a, [wSceneObj1YCoord]
+	ld a, [wCutsceneOverlayType]
 	cp $02
 	ret nz
-	ld hl, wCurSceneObjFrame
+	ld hl, wCutsceneOverlaySprite1Frame
 	ld a, $04
 	ld [hli], a
 	xor a
@@ -7526,14 +7537,14 @@ DrawCutsceneOverlayFrame4:
 
 ; de = scene obj
 DrawCutsceneOverlayFrame5:
-	ld hl, wCurSceneObj
+	ld hl, wCutsceneOverlaySprite1
 	ld c, 5
 	ld b, $03
 	jr DrawCutsceneOverlay
 
 ; de = scene obj
 DrawCutsceneOverlayFrame6:
-	ld hl, wCurSceneObjDuration
+	ld hl, wCutsceneOverlaySprite2
 	ld c, 6
 	ld b, $03
 	jr DrawCutsceneOverlay

@@ -103,7 +103,7 @@ MuddeeFunc:
 	ld [wBossState], a
 	call UpdateLevelMusic
 	xor a
-	ld [w1d147], a
+	ld [wMuddeeHitState], a
 .spawn_stingers
 	play_sfx SFX_0B2
 	ld bc, ObjParams_MuddeeStinger1
@@ -170,7 +170,7 @@ MuddeeFunc:
 	or b
 	ld [hl], a
 .check_hit
-	ld a, [w1d147]
+	ld a, [wMuddeeHitState]
 	and a
 	jr z, .dispatch
 	cp $02
@@ -192,7 +192,7 @@ MuddeeFunc:
 .hit
 	play_sfx SFX_VANISH
 	ld a, $02
-	ld [w1d147], a
+	ld [wMuddeeHitState], a
 	ld a, [wCurObjInteractionType]
 	cp OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	jr z, .hit_on_top
@@ -251,7 +251,7 @@ MuddeeFunc:
 
 .in_water
 	xor a
-	ld [w1d147], a
+	ld [wMuddeeHitState], a
 	ld de, MuddeeFrameset_69dc0
 	call SetObjectFramesetPtr
 	ld a, $2c
@@ -294,7 +294,7 @@ MuddeeFunc:
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	stop_music2
@@ -1012,7 +1012,7 @@ Turtle1Func:
 	ld [hld], a
 	ld a, LOW(.Resurface)
 	ld [hld], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $06
 	farcall SetObjectMapEntryAndSpawn
 	ret

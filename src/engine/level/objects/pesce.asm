@@ -49,8 +49,8 @@ PesceFunc:
 	ld de, PesceFrameset_6990a
 	call SetObjectFramesetPtr
 	xor a
-	ld [w1d147], a
-	ld [wDollBoyHammerRange], a
+	ld [wPesceHits], a
+	ld [wPesceFightOver], a
 	ld [hli], a
 	ld [hli], a
 	ld a, $0a
@@ -72,7 +72,7 @@ PesceFunc:
 	ld [hl], a
 	ld [wCurObjStateDuration], a
 	play_sfx SFX_PESCE_HIT
-	ld hl, w1d147
+	ld hl, wPesceHits
 	inc [hl]
 	ld a, [hl]
 	cp $01
@@ -479,7 +479,7 @@ PesceFunc:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .turn_hits_1
 	cp $02
@@ -487,7 +487,7 @@ PesceFunc:
 	cp $03
 	jr z, .turn_hits_3
 	xor a
-	ld [w1d147], a
+	ld [wPesceHits], a
 	ld c, $17
 	sla b
 	jr c, .turn_hits_0_right
@@ -528,13 +528,13 @@ PesceFunc:
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .lunge_hits_1
 	cp $02
 	jr z, .lunge_hits_2
 	xor a
-	ld [w1d147], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .lunge_hits_0_right
 	ld de, PesceFrameset_69911
@@ -560,13 +560,13 @@ PesceFunc:
 	play_sfx SFX_PESCE_2
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .bite_hits_1
 	cp $02
 	jr z, .bite_hits_2
 	xor a
-	ld [w1d147], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .bite_hits_0_right
 	ld de, PesceFrameset_699b2
@@ -596,7 +596,7 @@ PesceFunc:
 .set_swim_frameset
 	ld a, [wCurObjSubState]
 	ld b, a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $01
 	jr z, .swim_hits_1
 	cp $02
@@ -604,7 +604,7 @@ PesceFunc:
 	cp $03
 	jr z, .swim_hits_3
 	xor a
-	ld [w1d147], a
+	ld [wPesceHits], a
 	sla b
 	jr c, .swim_hits_0_right
 	ld de, PesceFrameset_6990a
@@ -709,11 +709,11 @@ PesceFunc:
 	ld [hli], a
 	ld a, $03
 	ld [wCurObjVar1], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ld a, $01
-	ld [wDollBoyHammerRange], a
+	ld [wPesceFightOver], a
 	ret
 .defeated_wait
 	ld l, OBJ_STATE_DURATION
@@ -788,7 +788,7 @@ DragonflySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .start_wait_fight_end
 	xor a
@@ -831,12 +831,12 @@ DragonflySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wPesceFightOver]
 	and a
 	ret z
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -892,7 +892,7 @@ Dragonfly1Func:
 	ld de, PesceFrameset_699d5
 	jp SetObjectFramesetPtr
 .fly
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .fly_away
 	dec l
@@ -1076,7 +1076,7 @@ FlySpawnerFunc:
 	ld a, LOW(.SpawnFly)
 	ld [hld], a
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 
 .SpawnFly:
@@ -1084,10 +1084,10 @@ FlySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [w1d147]
+	ld a, [wPesceHits]
 	cp $03
 	jr z, .start_wait_fight_end
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	ret nz
 	ld a, [wTransformation]
@@ -1140,10 +1140,10 @@ FlySpawnerFunc:
 	ld [wCurObjAction], a
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-	ld a, [wDollBoyHammerRange]
+	ld a, [wPesceFightOver]
 	and a
 	ret z
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
 	farcall SetObjectMapEntryAndSpawn
 	xor a
@@ -1159,7 +1159,7 @@ FlyFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $03
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	play_sfx SFX_PESCE_FLY
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
@@ -1185,12 +1185,12 @@ FlyFunc:
 	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ld a, $01
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 .hover_left
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	jr z, .move_left
 	ld a, [wGlobalCounter]
@@ -1212,7 +1212,7 @@ FlyFunc:
 	jp nz, MoveObjectUp
 	xor a
 	ld [wCurObjFlags], a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 	ret
 .hit
 	ld a, [wWarioScreenXPos]
@@ -1237,7 +1237,7 @@ FlyFunc:
 	ld [hld], a
 	ld a, $01
 	ld [hl], a
-	ld hl, wDollBoyActiveBarrels
+	ld hl, wPesceFlyActive
 	ld a, [hl]
 	and a
 	ret z
@@ -1251,7 +1251,7 @@ CheeseFunc:
 	ld a, [wCurObjState]
 	and a
 	jr nz, .fly_gone
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wPesceFlyActive]
 	and a
 	jr z, .despawn
 	cp $02
@@ -1319,7 +1319,7 @@ CheeseFunc:
 	jp nz, MoveObjectDown_Fast
 .fly_gone
 	xor a
-	ld [wDollBoyActiveBarrels], a
+	ld [wPesceFlyActive], a
 .despawn
 	xor a
 	ld [wCurObjFlags], a

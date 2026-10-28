@@ -463,7 +463,7 @@ SnakeFireFunc:
 	ret
 
 .Update:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -472,11 +472,11 @@ SnakeFireFunc:
 	ld h, HIGH(wObjects)
 
 FOR n, 1, NUM_OBJECTS + 1
-	ld l, LOW(wObj{u:n}Unk02)
-	ld a, [hld] ; unk02
+	ld l, LOW(wObj{u:n}MapPtrHi)
+	ld a, [hld] ; map ptr hi
 	cp b
 	jr nz, :+
-	ld a, [hld] ; unk01
+	ld a, [hld] ; map ptr lo
 	cp c
 	jr nz, :+
 	ld a, [hl]

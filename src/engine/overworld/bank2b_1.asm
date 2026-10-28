@@ -9,6 +9,7 @@ UpdateSceneObjAnim_CreditsOAM:
 	ld a, [bc]
 	ret
 
+; same as UpdateSceneObjAnim_CreditsOAM
 UpdateSceneObjAnim_CreditsOAM2:
 	ld h, b
 	ld l, c
@@ -18,6 +19,7 @@ UpdateSceneObjAnim_CreditsOAM2:
 	ld a, [bc]
 	ret
 
+; same as UpdateSceneObjAnim_CreditsOAM
 UpdateSceneObjAnim_CreditsOAM3:
 	ld h, b
 	ld l, c
@@ -59,10 +61,12 @@ LoadSceneObjSpriteWithScroll_CreditsOAM:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSpriteWithScroll
 
+; same as LoadSceneObjSpriteWithScroll_CreditsOAM
 LoadSceneObjSpriteWithScroll_CreditsOAM2:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSpriteWithScroll
 
+; same as LoadSceneObjSpriteWithScroll_CreditsOAM
 LoadSceneObjSpriteWithScroll_CreditsOAM3:
 	ld b, BANK("Credits OAM")
 	jp LoadOWSpriteWithScroll
@@ -216,13 +220,13 @@ UpdateEpilogueSceneObj:
 	jp .draw
 .PlaySFXEvery30Frames:
 	inc c
-	ld a, [bc] ; unk7
+	ld a, [bc] ; scene obj MovementStep, used as a frame counter
 	inc a
 	ld [bc], a
 	cp 30
 	ret c ; < 30
 	xor a
-	ld [bc], a ; unk7
+	ld [bc], a ; scene obj MovementStep
 	play_sfx SFX_EPILOGUE_OBJ
 	ret
 
@@ -503,7 +507,7 @@ UpdateTempleSceneObjAnimation:
 	call UpdateSceneObjAnim_CreditsOAM
 
 .draw_1:
-	ld de, OAM_1644a
+	ld de, PrologueSceneObjOAM_15e44a
 	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
 .animate_once_1:
@@ -1204,11 +1208,11 @@ UpdateSceneWario:
 	ld a, [wSceneWarioFrame]
 	cp $07
 	ret nz
-	ld a, [wSceneWarioUnk7]
+	ld a, [wSceneWarioMovementStep]
 	and a
 	ret nz
 	xor $1
-	ld [wSceneWarioUnk7], a
+	ld [wSceneWarioMovementStep], a
 	play_sfx SFX_LAND
 	ret
 
@@ -1473,7 +1477,7 @@ ENDM
 	scene_wario_gfx WarioOAM_14a82,  WarioIdleGfx  ; SCENEWARIO_GROUP_00
 	scene_wario_gfx WarioWalkOAM_1426c,  WarioWalkGfx  ; SCENEWARIO_GROUP_01
 	scene_wario_gfx WarioOAM_1606a,  WarioThrowGfx ; SCENEWARIO_GROUP_02
-	scene_wario_gfx OAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
+	scene_wario_gfx WarioOAM_14000,  WarioIdleGfx  ; SCENEWARIO_GROUP_03
 	scene_wario_gfx GolfWarioOAM_d49cc,  WarioClearGfx ; SCENEWARIO_GROUP_04
 	scene_wario_gfx SceneWarioOAM_aa5fe,  WarioClearGfx ; SCENEWARIO_GROUP_05
 	scene_wario_gfx SceneWarioOAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
@@ -1609,16 +1613,17 @@ ApplySceneWarioMovementRight:
 	ret
 
 MoveSceneWarioLeft:
-	ld hl, wOWUIObj1XCoord
+	ld hl, wSceneWarioXCoord
 	dec [hl]
 	ret
 
 ; unreferenced
 UnreferencedMoveSceneWarioRight:
-	ld hl, wOWUIObj1XCoord
+	ld hl, wSceneWarioXCoord
 	inc [hl]
 	ret
 
+; same as AdvanceTempleOWStep
 AdvanceTempleOWStep2:
 	ld hl, wOWStepCounter
 	xor a
@@ -1818,9 +1823,9 @@ _InitTempleScene:
 
 .init_scene_wario
 	ld a, $60
-	ld [w1d140], a
+	ld [wSceneWarioYCoord], a
 	ld a, $e8
-	ld [wDollBoyNoFlashingBarrel], a
+	ld [wSceneWarioXCoord], a
 	ld a, SCENEWARIO_GROUP_NONE
 	ld [wSceneWarioStateGroup], a
 
@@ -2515,7 +2520,7 @@ HiddenFigureRevealScene:
 .SetFadeToDarkness:
 	call HandleTempleShakeAndRocks
 	ld a, $03
-	ld [w2d880], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -2639,7 +2644,7 @@ HiddenFigureRevealScene:
 	ld [wTempleLeftHandMoving], a
 	ld [wTempleRightHandMoving], a
 	ld a, $04
-	ld [w2d880], a
+	ld [wPrologueFadeType], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
@@ -2899,7 +2904,7 @@ HandleHiddenFigureReveal:
 	jp AdvanceTempleStep
 
 .WaitForPanicRunStop:
-	ld a, [w2d894]
+	ld a, [wSceneSubActive]
 	and a
 	ret nz
 	jp AdvanceTempleStep
@@ -3169,7 +3174,7 @@ HandleTempleMusicBoxes:
 
 .DeinitYellowMusicBox:
 	ld de, wTempleMusicBox1
-	ld hl, wSceneObj8Unk7
+	ld hl, wSceneObj8MovementStep
 
 .WaitThenDeinitMusicBox:
 	ld a, [hld]
@@ -3182,22 +3187,22 @@ HandleTempleMusicBoxes:
 
 .DeinitBlueMusicBox:
 	ld de, wTempleMusicBox2
-	ld hl, wSceneObj9Unk7
+	ld hl, wSceneObj9MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitGreenMusicBox:
 	ld de, wTempleMusicBox3
-	ld hl, wSceneObj10Unk7
+	ld hl, wSceneObj10MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitRedMusicBox:
 	ld de, wTempleMusicBox4
-	ld hl, wSceneObj11Unk7
+	ld hl, wSceneObj11MovementStep
 	jr .WaitThenDeinitMusicBox
 
 .DeinitGoldMusicBox:
 	ld de, wTempleMusicBox5
-	ld hl, wSceneObj12Unk7
+	ld hl, wSceneObj12MovementStep
 	jr .WaitThenDeinitMusicBox
 
 ; a = scene obj state
@@ -3576,7 +3581,7 @@ HandleTempleShakeScene:
 	cp 30
 	ret c
 	xor a
-	ld [wSceneObj8Unk7], a
+	ld [wSceneObj8MovementStep], a
 	ld hl, wTempleRock7
 	jr .InitLargeTempleRock
 
@@ -3585,7 +3590,7 @@ HandleTempleShakeScene:
 	cp 8
 	ret c
 	xor a
-	ld [wSceneObj9Unk7], a
+	ld [wSceneObj9MovementStep], a
 	ld hl, wTempleRock8
 	jr .InitLargeTempleRock
 
@@ -3594,7 +3599,7 @@ HandleTempleShakeScene:
 	cp 10
 	ret c
 	xor a
-	ld [wSceneObj10Unk7], a
+	ld [wSceneObj10MovementStep], a
 	ld hl, wTempleRock9
 	jr .InitLargeTempleRock
 
@@ -3603,7 +3608,7 @@ HandleTempleShakeScene:
 	cp 8
 	ret c
 	xor a
-	ld [wSceneObj11Unk7], a
+	ld [wSceneObj11MovementStep], a
 	ld hl, wTempleRock10
 	jr .InitLargeTempleRock
 
@@ -3623,11 +3628,11 @@ HandleTempleShakeScene:
 	cp 8
 	ret c
 	ld a, $01
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 	jp AdvanceTempleStep
 
 HandleTempleWarioPanic:
-	ld a, [w2d894]
+	ld a, [wSceneSubActive]
 	cp $01
 	ret nz
 
@@ -3723,7 +3728,7 @@ HandleTempleWarioPanic:
 	cp SCENEWARIO_LOOK_BACK
 	ret nz
 	xor a
-	ld [w2d894], a
+	ld [wSceneSubActive], a
 	ld [wSceneSubStepCounter], a
 	ld [wSceneSubStep], a
 	ret
@@ -3857,7 +3862,7 @@ _GolfBuilding:
 	cp ALL_CRAYONS
 	jr z, .all_crayons
 .place_wario_by_map_side:
-	ld de, wOWUIObj1YCoord
+	ld de, wSceneWarioYCoord
 	ld a, $58
 	ld [de], a
 	inc e
@@ -3872,9 +3877,9 @@ _GolfBuilding:
 	ld [de], a
 	ld a, [hli] ; useless
 	ld a, [hl]
-	ld [wPalFade6Colour2GreenCurrent], a
+	ld [wOWGolfBuildingScene], a
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	xor a
 	call SetSceneWarioState
 	ret
@@ -3888,23 +3893,23 @@ _GolfBuilding:
 	ld a, [wOWLevel]
 	cp LEVEL_GOLF_BUILDING
 	jr nz, .not_golf_building
-	ld de, wOWUIObj1YCoord
+	ld de, wSceneWarioYCoord
 	ld a, $58
 	ld [de], a
 	inc e
 	ld a, $50
 	ld [de], a
 	ld a, $04
-	ld [wPalFade6Colour2GreenCurrent], a
+	ld [wOWGolfBuildingScene], a
 	ld a, $ff
-	ld [wOWUIObj2YCoord], a
+	ld [wSceneWarioStateGroup], a
 	ld a, $01
 	call SetSceneWarioState
 	ret
 
 .not_golf_building
 	call .place_wario_by_map_side
-	ld hl, wPalFade6Colour2GreenCurrent
+	ld hl, wOWGolfBuildingScene
 	inc [hl]
 	inc [hl]
 	ret
@@ -4089,7 +4094,7 @@ _UpdateGolfBuilding:
 	ret
 
 .CheckExit:
-	ld a, [wPalFade6Colour2GreenCurrent]
+	ld a, [wOWGolfBuildingScene]
 	cp $04
 	jr z, .no_carry
 	ld a, [wJoypadPressed]
@@ -4101,18 +4106,18 @@ _UpdateGolfBuilding:
 .exit
 	stop_sfx
 	ld a, $01
-	ld [wOWUIObj2Duration], a
+	ld [wSceneWarioSFXCounter], a
 	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	scf
 	ret
 
 .RunScene:
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
-	ld a, [wPalFade6Colour2GreenCurrent]
+	ld a, [wOWGolfBuildingScene]
 	jumptable
 	dw .WalkRightAndExit ; $0
 	dw .WalkLeftAndExit ; $1
@@ -4121,22 +4126,22 @@ _UpdateGolfBuilding:
 	dw .AtDoor ; $4
 
 .next_step
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
 .set_scene
-	ld [wPalFade6Colour2GreenCurrent], a
-	ld hl, wPalFade6Colour2GreenSign
+	ld [wOWGolfBuildingScene], a
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], a
 	ret
 
 .WalkRightAndExit:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .walk_right_exit_start
 	dec a
@@ -4165,7 +4170,7 @@ _UpdateGolfBuilding:
 	jr .next_step
 
 .WalkLeftAndExit:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .walk_left_exit_start
 	dec a
@@ -4194,7 +4199,7 @@ _UpdateGolfBuilding:
 	jp .next_step
 
 .WalkRightToDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .walk_right_door_start
 	dec a
@@ -4223,7 +4228,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .WalkLeftToDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	and a
 	jr z, .walk_left_door_start
 	dec a
@@ -4252,7 +4257,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .AtDoor:
-	ld a, [wPalFade6Colour2GreenTarget]
+	ld a, [wOWGolfBuildingStep]
 	jumptable
 	dw .WaitLookFront
 	dw .FaceFront
@@ -4265,7 +4270,7 @@ _UpdateGolfBuilding:
 	dw .StartWalkRightAndExit
 
 .WaitLookFront:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $01
 	ret nz
 	jp .next_step
@@ -4296,7 +4301,7 @@ _UpdateGolfBuilding:
 	ld [wTargetMapSideLevelID], a
 	ld a, $37
 	call SetSceneWarioState
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], $07
@@ -4310,7 +4315,7 @@ _UpdateGolfBuilding:
 	ld [wTargetMapSideLevelID], a
 	ld a, $36
 	call SetSceneWarioState
-	ld hl, wPalFade6Colour2GreenSign
+	ld hl, wOWGolfBuildingStepCounter
 	xor a
 	ld [hld], a
 	ld [hl], $05
@@ -4323,7 +4328,7 @@ _UpdateGolfBuilding:
 	jp .next_step
 
 .WaitLookBack:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $02
 	ret nz
 	jp .next_step
@@ -4341,7 +4346,7 @@ _UpdateGolfBuilding:
 	ret
 
 .WaitIdleLeft:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0c
 	ret nz
 	jp .next_step
@@ -4354,7 +4359,7 @@ _UpdateGolfBuilding:
 	jp .set_scene
 
 .WaitIdleRight:
-	ld a, [wOWUIObj1State]
+	ld a, [wSceneWarioState]
 	cp $0d
 	ret nz
 	jp .next_step

@@ -18,7 +18,7 @@ ScrollIntroBackgroundLayers:
 ; scrolls the intro background layers
 ; until they align to the centre
 FinishIntroBackgroundScroll:
-; only update far layer evert 4 ticks
+; only update far layer every 4 ticks
 	ld a, [wGlobalCounter]
 	and %11
 	jr nz, .centre_layer

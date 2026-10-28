@@ -1059,7 +1059,7 @@ UpdateDollBoyRemainingParts:
 	ld e, a
 	and b
 	ret z
-	; unset flag in unk7 from wDollBoyRemainingParts
+	; unset the flag in the low nybble of OBJ_ID from wDollBoyRemainingParts
 	ld a, b
 	xor $ff
 	and e

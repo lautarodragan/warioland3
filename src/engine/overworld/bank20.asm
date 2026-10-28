@@ -630,7 +630,7 @@ ShowMissingTreasureIndicators:
 	and a
 	ret z ; game not cleared OR all treasures collected
 	ld a, [wOWLevel]
-	ld [w2dffd], a
+	ld [wMissingTreasureSavedOWLevel], a
 	ld a, [wCurMapSide]
 	ld c, a
 	ld b, $00
@@ -652,9 +652,9 @@ ShowMissingTreasureIndicators:
 	ld b, NUM_NORTH_LEVELS
 .got_level_count
 	ld a, b
-	ld [w2dfff], a
+	ld [wMissingTreasureNumLevels], a
 	xor a
-	ld [w2dffe], a
+	ld [wMissingTreasureLevel], a
 
 	; if in North, skip The Temple
 	ld a, [wOWLevel]
@@ -671,17 +671,17 @@ ShowMissingTreasureIndicators:
 	ld a, [wOWLevel]
 	inc a
 	ld [wOWLevel], a
-	ld hl, w2dffe
+	ld hl, wMissingTreasureLevel
 	inc [hl]
 	ld a, [hli]
-	cp [hl] ; w2dfff
+	cp [hl] ; wMissingTreasureNumLevels
 	jr nz, .loop_levels
-	ld a, [w2dffd]
+	ld a, [wMissingTreasureSavedOWLevel]
 	ld [wOWLevel], a
 	ret
 
 .PlaceTreasureMissingIndicator:
-	ld a, [w2dffe]
+	ld a, [wMissingTreasureLevel]
 	call GetMapLevelCoords
 	ld a, [hli]
 	ld [wOWYCoord1], a
@@ -904,7 +904,7 @@ PathPreview_Wait:
 
 PathPreview_InitTracers:
 	xor a
-	ld hl, w2d800
+	ld hl, wOWPathTracers
 	ld bc, $8e
 	call WriteAToHL_BCTimes
 	ld hl, wOWUIObj1
@@ -947,11 +947,11 @@ PathPreview_RunTracers:
 	call z, .clear_tracer_sprites
 	ld a, [wPathPreviewCounter]
 	cp $40
-	ld hl, w2d160 + $6
+	ld hl, wOWUIObj5State
 	call z, .clear_tracer_sprites
 	call UpdatePathPreviewAnimations
 
-	ld hl, w2d800 + $7
+	ld hl, wOWPathTracer1TracerState
 	ld c, $04
 .loop
 	ld a, [hl]
@@ -969,7 +969,7 @@ PathPreview_RunTracers:
 .load_tracer:
 	ld [wCurOWPathTracerIndex], a
 	call .get_tracer_ptr
-	ld de, w2d880
+	ld de, wCurOWPathTracer
 	ld b, $9
 	call CopyHLToDE
 	ld de, wOWLineFlags
@@ -985,7 +985,7 @@ PathPreview_RunTracers:
 	call .get_tracer_ptr
 	ld e, l
 	ld d, h
-	ld hl, w2d880
+	ld hl, wCurOWPathTracer
 	ld b, $9
 	call CopyHLToDE
 	ld hl, wOWLineFlags
@@ -999,18 +999,18 @@ PathPreview_RunTracers:
 ; input:
 ; - a = index
 ; output:
-; - hl = w2d800 struct
+; - hl = wOWPathTracer* struct
 .get_tracer_ptr:
 	rlca
 	swap a ; *32
 	ld e, a
 	ld d, $00
-	ld hl, w2d800
+	ld hl, wOWPathTracers
 	add hl, de
 	ret
 
 .copy_tracer_sprites_1:
-	ld hl, w2d800
+	ld hl, wOWPathTracer1
 	ld de, wOWUIObj1
 	ld b, $08
 	call CopyHLToDE
@@ -1026,8 +1026,8 @@ PathPreview_RunTracers:
 	ret
 
 .copy_tracer_sprites_2:
-	ld hl, w2d800
-	ld de, w2d160
+	ld hl, wOWPathTracer1
+	ld de, wOWUIObj5
 	ld b, $08
 	call CopyHLToDE
 	ld hl, wOWPathTracer2
@@ -1054,7 +1054,7 @@ PathPreview_RunTracers:
 	ret
 
 .UpdateTracer:
-	ld a, [w2d880 + $7]
+	ld a, [wCurOWPathTracerTracerState]
 	jumptable
 	dw .TracerInit ; $0
 	dw .TracerGetTarget ; $1
@@ -1087,16 +1087,16 @@ PathPreview_RunTracers:
 	ld d, a
 .set_tracer_pos
 	ld a, d
-	ld [w2d880 + $0], a
+	ld [wCurOWPathTracerYCoord], a
 	ld [wOWYCoord1], a
 	ld [wOWYCoord2], a
 	ld [wOWPathTargetYCoord], a
 	ld a, e
-	ld [w2d880 + $1], a
+	ld [wCurOWPathTracerXCoord], a
 	ld [wOWXCoord1], a
 	ld [wOWXCoord2], a
 	ld [wOWPathTargetXCoord], a
-	ld hl, w2d880 + $4
+	ld hl, wCurOWPathTracerDuration
 	xor a
 	ld [hli], a
 	ld [hli], a
@@ -1116,15 +1116,15 @@ PathPreview_RunTracers:
 .set_allowed
 	ld [hl], a
 .next_tracer_state
-	ld hl, w2d880 + $7
+	ld hl, wCurOWPathTracerTracerState
 	inc [hl]
 	ret
 
 .TracerGetTarget:
-	ld a, [w2d880 + $6]
+	ld a, [wCurOWPathTracerSpriteState]
 	and a
 	jr z, .tracer_done
-	ld hl, w2d880 + $9
+	ld hl, wPathPreviewPathsPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1148,7 +1148,7 @@ PathPreview_RunTracers:
 	jr .next_tracer_state
 .tracer_done
 	ld a, $05
-	ld [w2d880 + $7], a
+	ld [wCurOWPathTracerTracerState], a
 	ret
 
 .TracerStartLine:
@@ -1160,9 +1160,9 @@ PathPreview_RunTracers:
 .TracerWalk:
 	call StepOWLineMovement
 	ld a, [wOWYCoord1]
-	ld [w2d880 + $0], a
+	ld [wCurOWPathTracerYCoord], a
 	ld a, [wOWXCoord1]
-	ld [w2d880 + $1], a
+	ld [wCurOWPathTracerXCoord], a
 	ld a, [wOWLineStepsLeft]
 	and a
 	ret nz
@@ -1175,11 +1175,11 @@ PathPreview_RunTracers:
 	ret
 .end_of_path
 	xor a
-	ld [w2d880 + $8], a
+	ld [wCurOWPathTracerCounter], a
 	jp .next_tracer_state
 
 .TracerWait8:
-	ld hl, w2d880 + $8
+	ld hl, wCurOWPathTracerCounter
 	inc [hl]
 	ld a, [hl]
 	cp $08
@@ -1204,7 +1204,7 @@ PathPreview_RunTracers:
 .inc_sprite_state
 	inc a
 .set_sprite_state
-	ld hl, w2d880 + $6
+	ld hl, wCurOWPathTracerSpriteState
 	ld [hld], a
 	xor a
 	ld [hld], a
@@ -1212,29 +1212,29 @@ PathPreview_RunTracers:
 	ret
 
 UpdatePathPreviewAnimations:
-	ld hl, wDayNightTransistionSteps
+	ld hl, wOWPathTracer1SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour1BlueUnk3
+	ld hl, wOWPathTracer2SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour3RedUnk3
+	ld hl, wOWPathTracer3SpriteState
 	call .animate_and_draw
-	ld hl, wPalFade1Colour4GreenUnk3
+	ld hl, wOWPathTracer4SpriteState
 	call .animate_and_draw
 	ld hl, wOWUIObj1State
 	call .animate_and_draw
 	ld hl, wOWUIObj2State
 	call .animate_and_draw
-	ld hl, wd156
+	ld hl, wOWUIObj3State
 	call .animate_and_draw
-	ld hl, w2d15e
+	ld hl, wOWUIObj4State
 	call .animate_and_draw
 	ld hl, wOWUIObj5State
 	call .animate_and_draw
-	ld hl, w2d16e
+	ld hl, wOWUIObj6State
 	call .animate_and_draw
 	ld hl, wOWUIObj7State
 	call .animate_and_draw
-	ld hl, w2d17e
+	ld hl, wOWUIObj8State
 	call .animate_and_draw
 	ret
 
@@ -1317,7 +1317,7 @@ UnreferencedSetLastEventCutsceneSelectable:
 .got_event
 	dec a
 	call LoadEventTreasures
-	ld a, [w2dfff]
+	ld a, [wEventTreasure1]
 	ld [wStoredTransitionParam], a
 	jr SetCutsceneButtonSelectable_GotTransitionParam
 
@@ -1634,13 +1634,13 @@ CheckIfTreasureUnlocksEvent:
 CheckIfEventIsUnlocked:
 	call LoadEventTreasures
 	ld c, TRUE
-	ld a, [w2dffd]
+	ld a, [wEventTreasure3]
 	call CheckEventTreasure
 	ret c
-	ld a, [w2dffe]
+	ld a, [wEventTreasure2]
 	call CheckEventTreasure
 	ret c
-	ld a, [w2dfff]
+	ld a, [wEventTreasure1]
 	call CheckEventTreasure
 	ret
 
@@ -1684,15 +1684,15 @@ LoadEventTreasures:
 	rl d
 	ld hl, EventTreasures
 	add hl, de
-	ld de, w2dfff
+	ld de, wEventTreasure1
 	ld a, [hli]
-	ld [de], a ; w2dfff
+	ld [de], a ; wEventTreasure1
 	ld a, [hli]
 	dec e
-	ld [de], a ; w2dffe
+	ld [de], a ; wEventTreasure2
 	ld a, [hl]
 	dec e
-	ld [de], a ; w2dffd
+	ld [de], a ; wEventTreasure3
 	ret
 
 EventTreasures:
@@ -3232,10 +3232,10 @@ PlaceOWWarioAtCurLevel:
 	ld [wLevel1], a
 	call GetMapLevelCoords
 	ld a, [hli]
-	ld [wOWLevelYCoord], a ; level x
+	ld [wOWLevelYCoord], a ; level y
 	ld b, a
 	ld a, [hli]
-	ld [wOWLevelXCoord], a ; level y
+	ld [wOWLevelXCoord], a ; level x
 	ld c, a
 	ld a, [hli]
 	add b
@@ -4474,7 +4474,7 @@ HandleBottomBar:
 	ld [hl], a
 	xor a
 	ld [wCompassObjState], a
-	ld [wCompassObjUnk7], a
+	ld [wCompassObjMovementStep], a
 	xor a ; unnecessary
 	ld [wBottomBarAction], a
 	xor a ; unnecessary
@@ -4621,7 +4621,7 @@ DrawBottomBarTimeAttack:
 	ret
 
 DrawBottomBarTimeAttackScore:
-	ld a, [w2d0ee]
+	ld a, [wOWLevelTimeAttackMinutes]
 	and $f0
 	swap a ; top nybble
 	add $1e
@@ -4629,14 +4629,14 @@ DrawBottomBarTimeAttackScore:
 	ld c, $00
 	ld d, $50
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ee]
+	ld a, [wOWLevelTimeAttackMinutes]
 	and $0f ; bottom nybble
 	add $1e
 	ld e, a
 	ld c, $00
 	ld d, $58
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ef]
+	ld a, [wOWLevelTimeAttackSeconds]
 	and $f0
 	swap a ; top nybble
 	add $1e
@@ -4644,7 +4644,7 @@ DrawBottomBarTimeAttackScore:
 	ld c, $00
 	ld d, $68
 	call LoadSpriteInsideWindow_High
-	ld a, [w2d0ef]
+	ld a, [wOWLevelTimeAttackSeconds]
 	and $0f ; bottom nybbles
 	add $1e
 	ld e, a
@@ -4741,6 +4741,7 @@ UnlockLevel_Init:
 	call WriteAToHL_BCTimes
 ;	fallthrough
 
+; like AdvanceOWFunc_Bank20, for UnlockLevel's steps (in jr range of them)
 AdvanceOWFunc_UnlockLevel:
 	xor a
 	ld [wOWFuncCounter], a
@@ -4959,6 +4960,8 @@ InitHighlightLevelScene:
 	call CopyFarBytes
 	ret
 
+; WaitOWFunc, AdvanceOWFunc and EndOWFunc (bank2d) for bank $20's own
+; scenes: the same code, here so that jr and fallthroughs reach it
 WaitOWFunc_Bank20:
 	ld hl, wOWFuncCounter
 	cp [hl]

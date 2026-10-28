@@ -2564,6 +2564,7 @@ LargeNonCrackedBlockDownCollision:
 	ld [wMultiBlockParam], a
 ;	fallthrough
 
+; same as StartMultiBlockBreak
 StartMultiBlockBreak2:
 	ld a, [wSRAMBank]
 	ld [wMultiBlockOriginBank], a
@@ -3242,15 +3243,15 @@ BreakBlock:
 	ld [wCoinCooldown], a
 
 	; backup CurObj
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld de, hCurObjBackup
 	ld b, OBJ_ID - OBJ_MAP_PTR_LO
 	call CopyHLToDE
 
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	xor a
-	ld [hli], a ; flags
-	ld [hli], a ; unk01
+	ld [hli], a ; map ptr lo
+	ld [hli], a ; map ptr hi
 	ldh a, [hYPosLo]
 	ld [hli], a
 	ldh a, [hYPosHi]
@@ -3264,7 +3265,7 @@ BreakBlock:
 
 	; restore CurObj
 	ld hl, hCurObjBackup
-	ld de, wCurObjUnk01
+	ld de, wCurObjMapPtrLo
 	ld b, OBJ_ID - OBJ_MAP_PTR_LO
 	call CopyHLToDE
 	pop_wram
@@ -3297,12 +3298,12 @@ BreakBlockWithColourCoin:
 	push_wram BANK("Level Objects WRAM")
 
 	; backup CurObj
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld de, hCurObjBackup
 	ld b, OBJ_ID - OBJ_MAP_PTR_LO
 	call CopyHLToDE
 
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	xor a
 	ld [hli], a
 	ld [hli], a
@@ -3319,7 +3320,7 @@ BreakBlockWithColourCoin:
 
 	; restore CurObj
 	ld hl, hCurObjBackup
-	ld de, wCurObjUnk01
+	ld de, wCurObjMapPtrLo
 	ld b, OBJ_ID - OBJ_MAP_PTR_LO
 	call CopyHLToDE
 	pop_wram

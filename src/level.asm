@@ -380,8 +380,8 @@ ATownInChaosObjectMap:   INCBIN "data/levels/object_map/a_town_in_chaos.bin.rle"
 
 BlocksetTiles_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_tiles_the_grasslands_2.bin"
 BlocksetAttributes_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_attributes_the_grasslands_2.bin.rle"
-BlocksetTiles_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_1.bin"
-BlocksetAttributes_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_1.bin.rle"
+BlocksetTiles_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_3.bin"
+BlocksetAttributes_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_3.bin.rle"
 BlocksetTiles_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_2.bin"
 BlocksetAttributes_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_2.bin.rle"
 BlocksetTiles_TowerOfRevival3: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_3.bin"
@@ -490,8 +490,8 @@ TheFrigidSeaObjectMap:      INCBIN "data/levels/object_map/the_frigid_sea.bin.rl
 
 BlocksetTiles_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_tiles_the_grasslands_1.bin"
 BlocksetAttributes_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_attributes_the_grasslands_1.bin.rle"
-BlocksetTiles_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_3.bin"
-BlocksetAttributes_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_3.bin.rle"
+BlocksetTiles_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_1.bin"
+BlocksetAttributes_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_1.bin.rle"
 BlocksetTiles_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_1.bin"
 BlocksetAttributes_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_1.bin.rle"
 BlocksetTiles_TowerOfRevival4: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_4.bin"
@@ -659,36 +659,36 @@ INCLUDE "data/levels/function_tables2.asm"
 
 SECTION "Room Main Tiles 1", ROMX
 
-LevelMainTiles_OutOfTheWoods1:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_1.2bpp"
-LevelMainTiles_OutOfTheWoods2:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_2.2bpp"
-LevelMainTiles_OutOfTheWoods3:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_3.2bpp"
-LevelMainTiles_Shared1:  INCBIN "gfx/levels/main_tiles_shared_1.2bpp"
-LevelMainTiles_ThePeacefulVillage1:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_1.2bpp"
-LevelMainTiles_ThePeacefulVillage3:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_3.2bpp"
-LevelMainTiles_TheVastPlain:  INCBIN "gfx/levels/main_tiles_the_vast_plain.2bpp"
+LevelMainTiles_OutOfTheWoods1: INCBIN "gfx/levels/main_tiles_out_of_the_woods_1.2bpp"
+LevelMainTiles_OutOfTheWoods2: INCBIN "gfx/levels/main_tiles_out_of_the_woods_2.2bpp"
+LevelMainTiles_OutOfTheWoods3: INCBIN "gfx/levels/main_tiles_out_of_the_woods_3.2bpp"
+LevelMainTiles_Shared1: INCBIN "gfx/levels/main_tiles_shared_1.2bpp"
+LevelMainTiles_ThePeacefulVillage1: INCBIN "gfx/levels/main_tiles_the_peaceful_village_1.2bpp"
+LevelMainTiles_ThePeacefulVillage3: INCBIN "gfx/levels/main_tiles_the_peaceful_village_3.2bpp"
+LevelMainTiles_TheVastPlain: INCBIN "gfx/levels/main_tiles_the_vast_plain.2bpp"
 LevelMainTiles_BankOfTheWildRiver:: INCBIN "gfx/levels/main_tiles_bank_of_the_wild_river.2bpp"
 
 
 SECTION "Room Main Tiles 2", ROMX
 
-LevelMainTiles_Shared2:   INCBIN "gfx/levels/main_tiles_shared_2.2bpp"
-LevelMainTiles_TheTidalCoast:   INCBIN "gfx/levels/main_tiles_the_tidal_coast.2bpp"
-LevelMainTiles_Shared3:  INCBIN "gfx/levels/main_tiles_shared_3.2bpp"
+LevelMainTiles_Shared2: INCBIN "gfx/levels/main_tiles_shared_2.2bpp"
+LevelMainTiles_TheTidalCoast: INCBIN "gfx/levels/main_tiles_the_tidal_coast.2bpp"
+LevelMainTiles_Shared3: INCBIN "gfx/levels/main_tiles_shared_3.2bpp"
 LevelMainTiles_SeaTurtleRocks:: INCBIN "gfx/levels/main_tiles_sea_turtle_rocks.2bpp"
-LevelMainTiles_DesertRuins:  INCBIN "gfx/levels/main_tiles_desert_ruins.2bpp"
-LevelMainTiles_Shared4:  INCBIN "gfx/levels/main_tiles_shared_4.2bpp"
+LevelMainTiles_DesertRuins: INCBIN "gfx/levels/main_tiles_desert_ruins.2bpp"
+LevelMainTiles_Shared4: INCBIN "gfx/levels/main_tiles_shared_4.2bpp"
 LevelMainTiles_TheVolcanosBase:: INCBIN "gfx/levels/main_tiles_the_volcanos_base.2bpp"
-LevelMainTiles_ThePoolOfRain:  INCBIN "gfx/levels/main_tiles_the_pool_of_rain.2bpp"
+LevelMainTiles_ThePoolOfRain: INCBIN "gfx/levels/main_tiles_the_pool_of_rain.2bpp"
 
 
 SECTION "Room Main Tiles 3", ROMX
 
-LevelMainTiles_ATownInChaos1:  INCBIN "gfx/levels/main_tiles_a_town_in_chaos_1.2bpp"
-LevelMainTiles_ATownInChaos2:  INCBIN "gfx/levels/main_tiles_a_town_in_chaos_2.2bpp"
-LevelMainTiles_BeneathTheWaves1:  INCBIN "gfx/levels/main_tiles_beneath_the_waves_1.2bpp"
-LevelMainTiles_TheGrasslands:  INCBIN "gfx/levels/main_tiles_the_grasslands.2bpp"
-LevelMainTiles_TheBigBridge1:  INCBIN "gfx/levels/main_tiles_the_big_bridge_1.2bpp"
-LevelMainTiles_TheBigBridge2:  INCBIN "gfx/levels/main_tiles_the_big_bridge_2.2bpp"
+LevelMainTiles_ATownInChaos1: INCBIN "gfx/levels/main_tiles_a_town_in_chaos_1.2bpp"
+LevelMainTiles_ATownInChaos2: INCBIN "gfx/levels/main_tiles_a_town_in_chaos_2.2bpp"
+LevelMainTiles_BeneathTheWaves1: INCBIN "gfx/levels/main_tiles_beneath_the_waves_1.2bpp"
+LevelMainTiles_TheGrasslands: INCBIN "gfx/levels/main_tiles_the_grasslands.2bpp"
+LevelMainTiles_TheBigBridge1: INCBIN "gfx/levels/main_tiles_the_big_bridge_1.2bpp"
+LevelMainTiles_TheBigBridge2: INCBIN "gfx/levels/main_tiles_the_big_bridge_2.2bpp"
 LevelMainTiles_TowerOfRevival:: INCBIN "gfx/levels/main_tiles_tower_of_revival.2bpp"
 LevelMainTiles_TheSteepCanyon:: INCBIN "gfx/levels/main_tiles_the_steep_canyon.2bpp"
 
@@ -696,8 +696,8 @@ LevelMainTiles_TheSteepCanyon:: INCBIN "gfx/levels/main_tiles_the_steep_canyon.2
 SECTION "Room Main Tiles 4", ROMX
 
 LevelMainTiles_AboveTheClouds1:: INCBIN "gfx/levels/main_tiles_above_the_clouds_1.2bpp"
-LevelMainTiles_TheStagnantSwamp:  INCBIN "gfx/levels/main_tiles_the_stagnant_swamp.2bpp"
-LevelMainTiles_TheFrigidSea:  INCBIN "gfx/levels/main_tiles_the_frigid_sea.2bpp"
+LevelMainTiles_TheStagnantSwamp: INCBIN "gfx/levels/main_tiles_the_stagnant_swamp.2bpp"
+LevelMainTiles_TheFrigidSea: INCBIN "gfx/levels/main_tiles_the_frigid_sea.2bpp"
 LevelMainTiles_CastleOfIllusions1:: INCBIN "gfx/levels/main_tiles_castle_of_illusions_1.2bpp"
 LevelMainTiles_TheColossalHole:: INCBIN "gfx/levels/main_tiles_the_colossal_hole.2bpp"
 LevelMainTiles_Craters:: INCBIN "gfx/levels/main_tiles_craters.2bpp"
@@ -707,14 +707,14 @@ LevelMainTiles_ForestOfFear:: INCBIN "gfx/levels/main_tiles_forest_of_fear.2bpp"
 
 SECTION "Room Main Tiles 5", ROMX
 
-LevelMainTiles_CaveOfFlames:  INCBIN "gfx/levels/main_tiles_cave_of_flames.2bpp"
-LevelMainTiles_BeneathTheWaves2:  INCBIN "gfx/levels/main_tiles_beneath_the_waves_2.2bpp"
-LevelMainTiles_CastleOfIllusions2:  INCBIN "gfx/levels/main_tiles_castle_of_illusions_2.2bpp"
-LevelMainTiles_CastleOfIllusions3:  INCBIN "gfx/levels/main_tiles_castle_of_illusions_3.2bpp"
+LevelMainTiles_CaveOfFlames: INCBIN "gfx/levels/main_tiles_cave_of_flames.2bpp"
+LevelMainTiles_BeneathTheWaves2: INCBIN "gfx/levels/main_tiles_beneath_the_waves_2.2bpp"
+LevelMainTiles_CastleOfIllusions2: INCBIN "gfx/levels/main_tiles_castle_of_illusions_2.2bpp"
+LevelMainTiles_CastleOfIllusions3: INCBIN "gfx/levels/main_tiles_castle_of_illusions_3.2bpp"
 LevelMainTiles_ATownInChaos3:: INCBIN "gfx/levels/main_tiles_a_town_in_chaos_3.2bpp"
-LevelMainTiles_TheTemple:  INCBIN "gfx/levels/main_tiles_the_temple.2bpp"
-LevelMainTiles_ThePeacefulVillage2:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_2.2bpp"
-LevelMainTiles_AboveTheClouds2:  INCBIN "gfx/levels/main_tiles_above_the_clouds_2.2bpp"
+LevelMainTiles_TheTemple: INCBIN "gfx/levels/main_tiles_the_temple.2bpp"
+LevelMainTiles_ThePeacefulVillage2: INCBIN "gfx/levels/main_tiles_the_peaceful_village_2.2bpp"
+LevelMainTiles_AboveTheClouds2: INCBIN "gfx/levels/main_tiles_above_the_clouds_2.2bpp"
 
 
 SECTION "Wario States 4", ROMX
@@ -913,27 +913,27 @@ INCLUDE "data/levels/palettes.asm"
 SECTION "Animated Tile Gfx", ROMX
 
 AnimatedTilesGfx:
-AnimatedTiles1Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_1.2bpp"  ; ANIMATED_TILES_GFX_SHARED_1
-AnimatedTiles2Gfx:  INCBIN "gfx/levels/animated/animated_tiles_out_of_the_woods.2bpp"  ; ANIMATED_TILES_GFX_OUT_OF_THE_WOODS
-AnimatedTiles3Gfx:  INCBIN "gfx/levels/animated/animated_tiles_water.2bpp"  ; ANIMATED_TILES_GFX_WATER
-AnimatedTiles4Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_2.2bpp"  ; ANIMATED_TILES_GFX_SHARED_2
-AnimatedTiles5Gfx:  INCBIN "gfx/levels/animated/animated_tiles_desert_ruins.2bpp"  ; ANIMATED_TILES_GFX_DESERT_RUINS
-AnimatedTiles6Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_3.2bpp"  ; ANIMATED_TILES_GFX_SHARED_3
-AnimatedTiles7Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_4.2bpp"  ; ANIMATED_TILES_GFX_SHARED_4
-AnimatedTiles8Gfx:  INCBIN "gfx/levels/animated/animated_tiles_beneath_the_waves.2bpp"  ; ANIMATED_TILES_GFX_BENEATH_THE_WAVES
-AnimatedTiles9Gfx:  INCBIN "gfx/levels/animated/animated_tiles_the_frigid_sea.2bpp"  ; ANIMATED_TILES_GFX_THE_FRIGID_SEA
-AnimatedTiles10Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_5.2bpp" ; ANIMATED_TILES_GFX_SHARED_5
-AnimatedTiles11Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_6.2bpp" ; ANIMATED_TILES_GFX_SHARED_6
-AnimatedTiles12Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_7.2bpp" ; ANIMATED_TILES_GFX_SHARED_7
-AnimatedTiles13Gfx: INCBIN "gfx/levels/animated/animated_tiles_bank_of_the_wild_river.2bpp" ; ANIMATED_TILES_GFX_BANK_OF_THE_WILD_RIVER
-AnimatedTiles14Gfx: INCBIN "gfx/levels/animated/animated_tiles_the_stagnant_swamp.2bpp" ; ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP
-AnimatedTiles15Gfx: INCBIN "gfx/levels/animated/animated_tiles_the_warped_void.2bpp" ; ANIMATED_TILES_GFX_THE_WARPED_VOID
-AnimatedTiles16Gfx: INCBIN "gfx/levels/animated/animated_tiles_menu.2bpp" ; ANIMATED_TILES_GFX_MENU
-AnimatedTiles17Gfx: INCBIN "gfx/levels/animated/animated_tiles_sea_turtle_rocks.2bpp" ; ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS
-AnimatedTiles18Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_8.2bpp" ; ANIMATED_TILES_GFX_SHARED_8
-AnimatedTiles19Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_9.2bpp" ; ANIMATED_TILES_GFX_SHARED_9
-AnimatedTiles20Gfx: INCBIN "gfx/levels/animated/animated_tiles_a_town_in_chaos.2bpp" ; ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS
-AnimatedTiles21Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_20.2bpp" ; ANIMATED_TILES_GFX_UNUSED_20
-AnimatedTiles22Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_21.2bpp" ; ANIMATED_TILES_GFX_UNUSED_21
-AnimatedTiles23Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_22.2bpp" ; ANIMATED_TILES_GFX_UNUSED_22
-AnimatedTiles24Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_23.2bpp" ; ANIMATED_TILES_GFX_UNUSED_23
+AnimatedTilesGfx_Shared1:            INCBIN "gfx/levels/animated/animated_tiles_shared_1.2bpp"               ; ANIMATED_TILES_GFX_SHARED_1
+AnimatedTilesGfx_OutOfTheWoods:      INCBIN "gfx/levels/animated/animated_tiles_out_of_the_woods.2bpp"       ; ANIMATED_TILES_GFX_OUT_OF_THE_WOODS
+AnimatedTilesGfx_Water:              INCBIN "gfx/levels/animated/animated_tiles_water.2bpp"                  ; ANIMATED_TILES_GFX_WATER
+AnimatedTilesGfx_Shared2:            INCBIN "gfx/levels/animated/animated_tiles_shared_2.2bpp"               ; ANIMATED_TILES_GFX_SHARED_2
+AnimatedTilesGfx_DesertRuins:        INCBIN "gfx/levels/animated/animated_tiles_desert_ruins.2bpp"           ; ANIMATED_TILES_GFX_DESERT_RUINS
+AnimatedTilesGfx_Shared3:            INCBIN "gfx/levels/animated/animated_tiles_shared_3.2bpp"               ; ANIMATED_TILES_GFX_SHARED_3
+AnimatedTilesGfx_Shared4:            INCBIN "gfx/levels/animated/animated_tiles_shared_4.2bpp"               ; ANIMATED_TILES_GFX_SHARED_4
+AnimatedTilesGfx_BeneathTheWaves:    INCBIN "gfx/levels/animated/animated_tiles_beneath_the_waves.2bpp"      ; ANIMATED_TILES_GFX_BENEATH_THE_WAVES
+AnimatedTilesGfx_TheFrigidSea:       INCBIN "gfx/levels/animated/animated_tiles_the_frigid_sea.2bpp"         ; ANIMATED_TILES_GFX_THE_FRIGID_SEA
+AnimatedTilesGfx_Shared5:            INCBIN "gfx/levels/animated/animated_tiles_shared_5.2bpp"               ; ANIMATED_TILES_GFX_SHARED_5
+AnimatedTilesGfx_Shared6:            INCBIN "gfx/levels/animated/animated_tiles_shared_6.2bpp"               ; ANIMATED_TILES_GFX_SHARED_6
+AnimatedTilesGfx_Shared7:            INCBIN "gfx/levels/animated/animated_tiles_shared_7.2bpp"               ; ANIMATED_TILES_GFX_SHARED_7
+AnimatedTilesGfx_BankOfTheWildRiver: INCBIN "gfx/levels/animated/animated_tiles_bank_of_the_wild_river.2bpp" ; ANIMATED_TILES_GFX_BANK_OF_THE_WILD_RIVER
+AnimatedTilesGfx_TheStagnantSwamp:   INCBIN "gfx/levels/animated/animated_tiles_the_stagnant_swamp.2bpp"     ; ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP
+AnimatedTilesGfx_TheWarpedVoid:      INCBIN "gfx/levels/animated/animated_tiles_the_warped_void.2bpp"        ; ANIMATED_TILES_GFX_THE_WARPED_VOID
+AnimatedTilesGfx_Menu:               INCBIN "gfx/levels/animated/animated_tiles_menu.2bpp"                   ; ANIMATED_TILES_GFX_MENU
+AnimatedTilesGfx_SeaTurtleRocks:     INCBIN "gfx/levels/animated/animated_tiles_sea_turtle_rocks.2bpp"       ; ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS
+AnimatedTilesGfx_Shared8:            INCBIN "gfx/levels/animated/animated_tiles_shared_8.2bpp"               ; ANIMATED_TILES_GFX_SHARED_8
+AnimatedTilesGfx_Shared9:            INCBIN "gfx/levels/animated/animated_tiles_shared_9.2bpp"               ; ANIMATED_TILES_GFX_SHARED_9
+AnimatedTilesGfx_ATownInChaos:       INCBIN "gfx/levels/animated/animated_tiles_a_town_in_chaos.2bpp"        ; ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS
+AnimatedTilesGfx_Unused20:           INCBIN "gfx/levels/animated/animated_tiles_unused_20.2bpp"              ; ANIMATED_TILES_GFX_UNUSED_20
+AnimatedTilesGfx_Unused21:           INCBIN "gfx/levels/animated/animated_tiles_unused_21.2bpp"              ; ANIMATED_TILES_GFX_UNUSED_21
+AnimatedTilesGfx_Unused22:           INCBIN "gfx/levels/animated/animated_tiles_unused_22.2bpp"              ; ANIMATED_TILES_GFX_UNUSED_22
+AnimatedTilesGfx_Unused23:           INCBIN "gfx/levels/animated/animated_tiles_unused_23.2bpp"              ; ANIMATED_TILES_GFX_UNUSED_23

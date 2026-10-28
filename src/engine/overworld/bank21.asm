@@ -747,7 +747,7 @@ _PrologueFade:
 	cp 1
 	jp nc, .do_fade ; >= 1
 ; init fade
-	ld a, [w2d880]
+	ld a, [wPrologueFadeType]
 	and a
 	jr z, .zero
 	dec a
@@ -1895,7 +1895,7 @@ Tilemap_85928: INCBIN "data/bgmaps/map_85928.tilemap" ; unreferenced
 
 CopyOWTileColumn1:
 .loop_rows
-	ld hl, wOWUIObj1Duration
+	ld hl, wOWTileColumnCopy1Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1913,11 +1913,11 @@ CopyOWTileColumn1:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wOWUIObj1Attributes]
+	ld a, [wOWTileColumnCopy1RowsLeft]
 	dec a
-	ld [wOWUIObj1Attributes], a
+	ld [wOWTileColumnCopy1RowsLeft], a
 	ret z
-	ld de, wOWUIObj1Duration
+	ld de, wOWTileColumnCopy1Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .loop_rows
@@ -1941,7 +1941,7 @@ AddTilemapRowToPtrAtDE:
 
 CopyOWTileColumn2:
 .loop_rows
-	ld hl, wOWUIObj2Duration
+	ld hl, wOWTileColumnCopy2Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1959,18 +1959,18 @@ CopyOWTileColumn2:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wOWUIObj2Attributes]
+	ld a, [wOWTileColumnCopy2RowsLeft]
 	dec a
-	ld [wOWUIObj2Attributes], a
+	ld [wOWTileColumnCopy2RowsLeft], a
 	ret z
-	ld de, wOWUIObj2Duration
+	ld de, wOWTileColumnCopy2Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .loop_rows
 
 CopyOWTileColumn3:
 .loop_rows
-	ld hl, wd154
+	ld hl, wOWTileColumnCopy3Dest
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1988,11 +1988,11 @@ CopyOWTileColumn3:
 	dec d
 	ld a, [hl]
 	ld [de], a
-	ld a, [wd153]
+	ld a, [wOWTileColumnCopy3RowsLeft]
 	dec a
-	ld [wd153], a
+	ld [wOWTileColumnCopy3RowsLeft], a
 	ret z
-	ld de, wd154
+	ld de, wOWTileColumnCopy3Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
 	jr .loop_rows

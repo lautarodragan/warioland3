@@ -166,6 +166,6 @@ OwlFunc:
 .despawn
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	farcall DespawnObject
 	ret

@@ -13,7 +13,7 @@ TadpoleSpawnerFunc:
 	ret
 
 .WaitForWario:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, 2
 	ld [wCurObjFrameDuration], a
@@ -41,7 +41,7 @@ TadpoleSpawnerFunc:
 	jp CreateObjectAtRelativePos
 
 .WaitAndDespawn:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, 2
 	ld [wCurObjFrameDuration], a
@@ -53,7 +53,7 @@ TadpoleSpawnerFunc:
 	ret
 
 TadpoleFunc:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.WaitOnScreen)
@@ -65,7 +65,7 @@ TadpoleFunc:
 	ret
 
 .WaitOnScreen:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
@@ -80,7 +80,7 @@ TadpoleFunc:
 	jp SetObjectFramesetPtr
 
 .Appear:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -137,7 +137,7 @@ TadpoleFunc:
 	xor a
 	ld [hld], a
 	ld [hl], b
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld de, TadpoleFrameset_69a30
 	jp SetObjectFramesetPtr
@@ -218,7 +218,7 @@ TadpoleFunc:
 	jp SetObjectFramesetPtr
 
 .WaitAndDespawn:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]

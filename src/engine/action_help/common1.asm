@@ -508,9 +508,9 @@ ActionHelp_ShowWarioJump:
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -544,9 +544,9 @@ ActionHelp_ShowWarioJumpLeft:
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -639,9 +639,9 @@ ActionHelp_ShowWarioIdle:
 	ld [hli], a
 	ld a, LOW(WarioFrameset_1425f)
 	ld [hl], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -705,9 +705,9 @@ ActionHelp_ShowWarioSwim:
 	ld [hli], a
 	ld a, LOW(WarioWaterFrameset_1555b)
 	ld [hli], a
-	ld a, HIGH(OAM_15254)
+	ld a, HIGH(WarioUnderwaterOAM_15254)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15254)
+	ld a, LOW(WarioUnderwaterOAM_15254)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -1038,9 +1038,9 @@ ActionHelp_ShowWarioBump:
 	ld [hli], a
 	ld a, LOW(WarioFrameset_15f7f)
 	ld [hli], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -1070,9 +1070,9 @@ ActionHelp_ShowWarioSlide:
 	ld [hli], a
 	ld a, LOW(WarioSlidFrameset_1671d)
 	ld [hli], a
-	ld a, HIGH(OAM_1644a)
+	ld a, HIGH(WarioOAM_1644a)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1644a)
+	ld a, LOW(WarioOAM_1644a)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 

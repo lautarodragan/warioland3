@@ -154,7 +154,7 @@ UpdateGolfWarioAnimation::
 	ret
 
 .OAMBanks:
-	db BANK(OAM_14000)
+	db BANK(WarioOAM_14000)
 	db BANK(WarioWalkOAM_1426c)
 	db BANK(WarioOAM_14d1b)
 	db BANK(WarioOAM_14d1b)
@@ -169,7 +169,7 @@ UpdateGolfWarioAnimation::
 
 .OAMTable:
 	; facing right
-	dw OAM_14000
+	dw WarioOAM_14000
 	dw WarioWalkOAM_1426c
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b
@@ -183,7 +183,7 @@ UpdateGolfWarioAnimation::
 	dw WarioGetTreasureOAM_1fc31b
 
 	; facing left
-	dw OAM_14000
+	dw WarioOAM_14000
 	dw WarioWalkOAM_1426c
 	dw WarioOAM_14d1b
 	dw WarioOAM_14d1b

@@ -5624,7 +5624,6 @@ JamanoFrameset_69c1c:
 	db   2, 16
 	db $ff
 
-; unreferenced
 JamanoFrameset_69c25:
 	db   0, 12
 	db   3, 12
@@ -5632,7 +5631,6 @@ JamanoFrameset_69c25:
 	db   4, 12
 	db $ff
 
-; unreferenced
 JamanoFrameset_69c2e:
 	db   5, 10
 	db   6, 10
@@ -5640,7 +5638,6 @@ JamanoFrameset_69c2e:
 	db   7, 10
 	db $ff
 
-; unreferenced
 JamanoFrameset_69c37:
 	db   8,  6
 	db   9,  6
@@ -5728,7 +5725,6 @@ JamanoFrameset_69ca1:
 	db  43, 16
 	db $ff
 
-; unreferenced
 JamanoFrameset_69caa:
 	db  34, 12
 	db  44, 12
@@ -5736,7 +5732,6 @@ JamanoFrameset_69caa:
 	db  45, 12
 	db $ff
 
-; unreferenced
 JamanoFrameset_69cb3:
 	db  46, 10
 	db  47, 10
@@ -5744,7 +5739,6 @@ JamanoFrameset_69cb3:
 	db  48, 10
 	db $ff
 
-; unreferenced
 JamanoFrameset_69cbc:
 	db  49,  6
 	db  50,  6
@@ -6313,12 +6307,12 @@ ShootFrameset_69f9a:
 	db  33,  4
 	db $ff
 
-Frameset_69f9f:
+ShootFrameset_69f9f:
 	db  45,  6
 	db  46,  6
 	db $ff
 
-Frameset_69fa4:
+ShootFrameset_69fa4:
 	db  47,  6
 	db  48,  6
 	db $ff

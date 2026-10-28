@@ -62,7 +62,6 @@ SpearheadData_601c0:
 	db   0,   0,   0
 	db   0
 
-; unreferenced
 CountRichtertoffenData_601d0:
 	db   7, -5, 16,   7, -12, 16,   5, -28,   6,   0,   0,   0,   0,   0,   0,   0
 
@@ -74,7 +73,6 @@ SpearheadData_601e0:
 	db   0,   0,   0
 	db   0
 
-; unreferenced
 CountRichtertoffenData_601f0:
 	db   7,  -5, -17,   7, -12, -17,   5, -28,  -7,   0,   0,   0,   0,   0,   0,   0
 	db  15, -30,  -7,   4, -28,  -8,   4, -16, -16,   0,   0,   0,   0,   0,   0,   0

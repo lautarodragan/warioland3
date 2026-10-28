@@ -30,8 +30,8 @@ ScowlerFunc:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld [wDollBoyActiveBarrels], a
-	ld [w1d147], a
+	ld [wScowlerBlackoutTimer], a
+	ld [wScowlerInkTimer], a
 	ret
 
 .StartFight:
@@ -160,7 +160,7 @@ ScowlerFunc:
 	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 .check_shoot_ink
-	ld a, [w1d147]
+	ld a, [wScowlerInkTimer]
 	and a
 	jr nz, .swim
 	ld l, OBJ_VAR_3
@@ -620,7 +620,7 @@ ScowlerFunc:
 	jr z, .sink
 	dec [hl]
 	jr nz, .sink
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED
@@ -628,7 +628,7 @@ ScowlerFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [wIsBossBattle], a
-	ld hl, w1d147
+	ld hl, wScowlerInkTimer
 	ld a, [hl]
 	and a
 	jr z, .sink
@@ -1021,7 +1021,7 @@ InkFunc:
 	jp MoveObjectUp
 .hit_wario
 	ld a, $01
-	ld [w1d147], a
+	ld [wScowlerInkTimer], a
 .dissolve
 	ld de, ScowlerFrameset_69af5
 	call SetObjectFramesetPtr
@@ -1045,12 +1045,12 @@ InkFunc:
 	ret
 
 UpdateScowlerInkBlackout:
-	ld hl, w1d147
+	ld hl, wScowlerInkTimer
 	ld a, [hl]
 	and a
 	ret z
 	ld b, a
-	ld a, [wDollBoyActiveBarrels]
+	ld a, [wScowlerBlackoutTimer]
 	and a
 	jr nz, .blackout_count_down
 	inc [hl]
@@ -1078,7 +1078,7 @@ UpdateScowlerInkBlackout:
 .blackout
 	play_sfx SFX_SCOWLER_BLACKOUT
 	ld a, $ff
-	ld [wDollBoyActiveBarrels], a
+	ld [wScowlerBlackoutTimer], a
 	ld c, 5
 	ld b, 3
 	call BlackOutOBPals
@@ -1095,7 +1095,7 @@ UpdateScowlerInkBlackout:
 	ld hl, ScowlerPals_54cb7
 	jr WriteScowlerBGPals
 .blackout_count_down
-	ld hl, wDollBoyActiveBarrels
+	ld hl, wScowlerBlackoutTimer
 	dec [hl]
 	ret
 

@@ -1,4 +1,4 @@
-OAM_188000:
+BrrrBearOAM_188000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -246,7 +246,7 @@ OAM_188000:
 	frame_oam -13,  -4, $f4, 7 | OAM_BANK1
 	db $80
 
-OAM_188279::
+CartOAM_188279::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -373,7 +373,7 @@ ZipLineOAM_18834a:
 	frame_oam  -8,  -4, $8a, 6 | OAM_BANK1
 	db $80
 
-OAM_188395:
+MizuuoOAM_188395:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -591,7 +591,7 @@ OAM_188395:
 	frame_oam  -2,  -9, $3c, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_188555:
+RoboMouseOAM_188555:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2334,7 +2334,7 @@ StoveOAM_1896e1:
 	frame_oam -30,   4, $0c, 4 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_189783:
+SnakeOAM_189783:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

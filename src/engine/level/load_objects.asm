@@ -246,7 +246,7 @@ ENDR
 	xor a ; OBJSTATE_DEFAULT
 	ld [de], a ; OBJ_STATE
 	inc e
-	ld a, 2 | (1 << 7)
+	ld a, no_actions_for 2
 	ld [de], a ; OBJ_ACTION
 	inc e
 	inc e
@@ -300,9 +300,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld [hli], a
@@ -326,9 +326,9 @@ ENDR
 .got_obj_slot
 	ld a, OBJFLAG_ACTIVE | OBJFLAG_TRANSIENT
 	ld [hli], a
-	ld a, [wCurObjUnk01]
+	ld a, [wCurObjMapPtrLo]
 	ld [hli], a
-	ld a, [wCurObjUnk02]
+	ld a, [wCurObjMapPtrHi]
 	ld [hli], a
 	ld a, [wCurObjYPos + 0]
 	ld e, a

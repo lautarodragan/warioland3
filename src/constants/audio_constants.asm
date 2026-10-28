@@ -80,25 +80,16 @@ DEF CHANNEL_SO_FLAGS              rb
 DEF CHANNEL_EFFECTIVE_VOLUME      rb
 DEF CHANNEL_UNUSED_30             rb
 DEF CHANNEL_UNUSED_31             rb
-DEF CHANNEL_UNK_32            rb
-DEF CHANNEL_UNK_33            rb
-DEF CHANNEL_UNK_34            rb
-DEF CHANNEL_UNK_35            rb
-DEF CHANNEL_UNK_36            rb
-DEF CHANNEL_UNK_37            rb
-DEF CHANNEL_UNK_38            rb
-DEF CHANNEL_UNK_39            rb
-DEF CHANNEL_UNK_3A            rb
-DEF CHANNEL_UNK_3B            rb
+DEF CHANNEL_CALL_STACK            rb 10 ; AudioCmd_Call's return addresses
 DEF CHANNEL_STRUCT_LENGTH EQU _RS
 
 	const_def
 	const CHANFLAGS_UPDATE_SO_F         ; 0
 	const CHANFLAGS_UPDATE_VOLUME_F     ; 1
 	const CHANFLAGS_UPDATE_FREQUENCY_F  ; 2
-	const CHANFLAGS_UNUSED_3_F                 ; 3
+	const CHANFLAGS_UNUSED_3_F          ; 3 never set or tested
 	const CHANFLAGS_UPDATE_PERCUSSION_F ; 4
-	const CHANFLAGS_LOADED_F                 ; 5
+	const CHANFLAGS_LOADED_F            ; 5 set by LoadChannelWithSound
 	const CHANFLAGS_INITIALISED_F       ; 6 set by InitChannel
 	const CHANFLAGS_ACTIVE_F            ; 7
 
@@ -132,7 +123,7 @@ DEF TRACK_SWEEP             rb
 DEF TRACK_FADE_IN_ENVELOPE  rb
 DEF TRACK_FADE_OUT_ENVELOPE rb
 DEF TRACK_UNUSED_0D         rb
-DEF TRACK_FREQUENCY_NOTE             rb
+DEF TRACK_FREQUENCY_NOTE    rb ; note SetFrequency passes to GetNoteFrequency
 DEF TRACK_UNUSED_0F         rb
 DEF TRACK_VOLUME            rb
 DEF TRACK_VOLUME_ENVELOPE   rb
@@ -144,13 +135,13 @@ DEF TRACK_UNUSED_17         rb
 DEF TRACK_STRUCT_LENGTH EQU _RS
 
 	const_def
-	const TRACKFLAGS_UNUSED_0_F      ; 0
-	const TRACKFLAGS_UNUSED_1_F      ; 1
-	const TRACKFLAGS_UNUSED_2_F      ; 2
-	const TRACKFLAGS_UNUSED_3_F      ; 3
-	const TRACKFLAGS_FADING_F      ; 4
-	const TRACKFLAGS_HELD_F      ; 5
-	const TRACKFLAGS_START_ENVELOPE_F      ; 6
+	const TRACKFLAGS_UNUSED_0_F       ; 0 never set or tested
+	const TRACKFLAGS_UNUSED_1_F       ; 1 never set or tested
+	const TRACKFLAGS_UNUSED_2_F       ; 2 never set or tested
+	const TRACKFLAGS_UNUSED_3_F       ; 3 never set or tested
+	const TRACKFLAGS_FADING_F         ; 4 in the fade-in (HELD) or fade-out envelope phase, else sustain (HELD) or release
+	const TRACKFLAGS_HELD_F           ; 5 note not released yet (ReleaseTrack clears it)
+	const TRACKFLAGS_START_ENVELOPE_F ; 6 ProcessTrack starts the fade-in (HELD) or fade-out envelope
 	const TRACKFLAGS_ACTIVE_F         ; 7
 
 DEF TRACKFLAGS_UNUSED_0       EQU (1 << TRACKFLAGS_UNUSED_0_F)
@@ -193,7 +184,7 @@ DEF RECT_TRACK2 EQU (1 << 3)
 	const WAVEFORM_SQUISHED_SINE       ; $1b (squished sine)
 DEF NUM_WAVEFORMS EQU const_value - $10
 
-DEF NOISE_15STEP EQU 0
+DEF NOISE_15STEP EQU 0 ; SetTimbre copies bit 0 to AUD4POLY_7STEP
 DEF NOISE_7STEP  EQU 1
 DEF NOISE_TRACK EQU (1 << 6)
 
@@ -499,5 +490,10 @@ DEF NUM_WAVES EQU const_value
 	; - wSoundEngineParam4 = SFX channel bitmask
 	const AUDIOMOD_VIBRATO_SPEED     ; $5
 
+	; change SFX or Music release volume and length to values
+	; - wSoundEngineParam1 = release volume (8-bit)
+	; - wSoundEngineParam2 = release length (8-bit)
+	; - wSoundEngineParam3 = music channel bitmask
+	; - wSoundEngineParam4 = SFX channel bitmask
 	const AUDIOMOD_RELEASE           ; $6
 DEF NUM_AUDIOMOD_FUNCTIONS EQU const_value

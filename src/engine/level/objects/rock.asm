@@ -231,7 +231,7 @@ RockFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_DROP
 	ld [hld], a

@@ -1,4 +1,4 @@
-OAM_14000::
+WarioOAM_14000::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1881,7 +1881,7 @@ WarioAttackingAirborneFrameset_15249:
 	db  10,  1
 	db $ff
 
-OAM_15254::
+WarioUnderwaterOAM_15254::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2620,7 +2620,7 @@ WarioLadderShakeStunnedFrameset_15948:
 	db   7,  2
 	db $ff
 
-OAM_15955::
+WarioOAM_15955::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3794,7 +3794,7 @@ WarioThrowFrameset_16441::
 	db  21,  2
 	db $ff
 
-OAM_1644a::
+WarioOAM_1644a::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

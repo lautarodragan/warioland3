@@ -35,7 +35,7 @@ WaterDropFunc:
 	ld [hli], a
 	play_sfx SFX_WATER_DROP
 .splash
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -47,7 +47,7 @@ WaterDropFunc:
 	ld a, $3c
 	ld [wCurObjStateDuration], a
 .return_to_start
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]

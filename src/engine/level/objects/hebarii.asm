@@ -249,8 +249,8 @@ HebariiFunc:
 	dw .State15 ; OBJSTATE_FALL_RIGHT_START
 	dw .StunLeftStart ; OBJSTATE_STUN_LEFT_START
 	dw .StunRightStart ; OBJSTATE_STUN_RIGHT_START
-	dw .State18 ; OBJSTATE_18
-	dw .State19 ; OBJSTATE_19
+	dw .State18 ; OBJSTATE_GRABBED_LEFT_START
+	dw .State19 ; OBJSTATE_GRABBED_RIGHT_START
 	dw .Vanish ; OBJSTATE_HOP_START
 	dw .Vanish ; OBJSTATE_HOP
 	dw .Vanish ; OBJSTATE_RANDOM_WOBBLE_START
@@ -401,13 +401,13 @@ HebariiFunc:
 
 .BumpLeftStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 .BumpRightStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
@@ -538,7 +538,7 @@ HebariiFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE

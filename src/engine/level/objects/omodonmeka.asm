@@ -743,7 +743,7 @@ OmodonmekaWithOmodonFunc:
 	call SetObjectFramesetPtr
 	ld a, $32
 	ld [hli], a
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
@@ -966,7 +966,7 @@ Omodon_Idle:
 	cp TRANSFORMATION_FLAT_WARIO
 	jr nz, .start_fall
 	call ApplyOmodonHoverBob
-	call Func_4279c.pass_stepped_flag_to_omodonmeka
+	call OmodonFunc.pass_stepped_flag_to_omodonmeka
 	ld hl, wCurObjFlags
 	res OBJFLAG_STEPPED_F, [hl]
 	ret
@@ -991,7 +991,7 @@ Omodon_Idle:
 	dec [hl]
 	ret
 
-Func_4279c:
+OmodonFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -1132,7 +1132,7 @@ Func_4279c:
 
 
 .pass_stepped_flag_to_omodonmeka:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -1261,7 +1261,7 @@ Func_4279c:
 	jp Omodon_Idle.start_fall
 
 .check_omodonmeka_linked:
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]

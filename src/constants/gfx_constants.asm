@@ -22,6 +22,5 @@ DEF SPRITE_GFX_LIST_CAPACITY EQU 32 ; see wUsedSprites
 	const COLOURFADESTRUCT_DIFF        ; 3
 	const COLOURFADESTRUCT_ACCUMULATOR ; 4
 	const COLOURFADESTRUCT_CURRENT     ; 5
-	const COLOURFADESTRUCT_UNK_3       ; 6
-	const COLOURFADESTRUCT_UNK_4       ; 7
+	const_skip 2                       ; 6-7: unused
 DEF COLOURFADESTRUCT_LENGTH EQU const_value

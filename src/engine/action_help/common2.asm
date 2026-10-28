@@ -580,11 +580,11 @@ ActionHelp2_ShowWarioIdle:
 	ld [hli], a
 	ld a, LOW(WarioFrameset_1425f)
 	ld [hl], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_14000)
+	ld a, BANK(WarioOAM_14000)
 	ld [wActionHelpWarioOAMBank], a
 	ret
 
@@ -648,11 +648,11 @@ ActionHelp2_ShowWarioJump:
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_15955)
+	ld a, HIGH(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15955)
+	ld a, LOW(WarioOAM_15955)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_15955)
+	ld a, BANK(WarioOAM_15955)
 	ld [wActionHelpWarioOAMBank], a
 	ret
 

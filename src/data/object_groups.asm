@@ -32,6 +32,7 @@ INCLUDE "gfx/pals/count_richtertoffen.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
+; also OBJECT_GROUP_UNUSED_039
 ObjectGroup_Shared1:
 	db $00 ; GFX bank offset
 
@@ -51,6 +52,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/torch.pal"
 
+; also OBJECT_GROUP_OUT_OF_THE_WOODS_2, OBJECT_GROUP_SHARED_13, OBJECT_GROUP_UNUSED_103
 ObjectGroup_Shared2:
 	db $00 ; GFX bank offset
 
@@ -70,6 +72,7 @@ INCLUDE "gfx/pals/count_richtertoffen.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
+; also OBJECT_GROUP_THE_TIDAL_COAST_2
 ObjectGroup_Shared12:
 	db $00 ; GFX bank offset
 
@@ -200,6 +203,7 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
+; also OBJECT_GROUP_SHARED_8
 ObjectGroup_Shared5:
 	db $00 ; GFX bank offset
 
@@ -238,6 +242,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
+; also OBJECT_GROUP_THE_POOL_OF_RAIN_2
 ObjectGroup_OutOfTheWoods1:
 	db $00 ; GFX bank offset
 
@@ -257,6 +262,7 @@ INCLUDE "gfx/pals/webber2.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/small_leaf.pal"
 
+; also OBJECT_GROUP_SHARED_27
 ObjectGroup_Shared6:
 	db $00 ; GFX bank offset
 
@@ -276,6 +282,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/torch.pal"
 
+; also OBJECT_GROUP_BENEATH_THE_WAVES_6
 ObjectGroup_Shared7:
 	db $00 ; GFX bank offset
 
@@ -315,6 +322,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/teruteru.pal"
 
+; also OBJECT_GROUP_THE_POOL_OF_RAIN_4
 ObjectGroup_Shared9:
 	db $00 ; GFX bank offset
 
@@ -442,6 +450,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
+; also OBJECT_GROUP_BENEATH_THE_WAVES_3, OBJECT_GROUP_THE_TIDAL_COAST_3
 ObjectGroup_Shared14:
 	db $00 ; GFX bank offset
 
@@ -461,6 +470,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
+; also OBJECT_GROUP_SHARED_16
 ObjectGroup_Shared15:
 	db $00 ; GFX bank offset
 
@@ -500,6 +510,7 @@ INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/cart.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
+; also OBJECT_GROUP_UNUSED_066
 ObjectGroup_TheVolcanosBase1:
 	db $00 ; GFX bank offset
 
@@ -617,6 +628,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/electric_lamp.pal"
 
+; also OBJECT_GROUP_THE_STAGNANT_SWAMP_1
 ObjectGroup_ThePeacefulVillage4:
 	db $00 ; GFX bank offset
 
@@ -634,6 +646,7 @@ INCLUDE "gfx/pals/robo_mouse.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
+; also OBJECT_GROUP_CASTLE_OF_ILLUSIONS_5
 ObjectGroup_Shared17:
 	db $00 ; GFX bank offset
 
@@ -653,6 +666,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/togeba.pal"
 
+; also OBJECT_GROUP_UNUSED_046, OBJECT_GROUP_THE_BIG_BRIDGE_4
 ObjectGroup_BeneathTheWaves4:
 	db $00 ; GFX bank offset
 
@@ -753,6 +767,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zip_line.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
+; also OBJECT_GROUP_SHARED_21
 ObjectGroup_Shared19:
 	db $00 ; GFX bank offset
 
@@ -786,6 +801,7 @@ ObjectGroup_OutOfTheWoods3:
 
 INCLUDE "gfx/pals/anonster.pal"
 
+; also OBJECT_GROUP_TOWER_OF_REVIVAL_1
 ObjectGroup_Shared20:
 	db $00 ; GFX bank offset
 
@@ -806,6 +822,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/flame_block.pal"
 INCLUDE "gfx/pals/torch.pal"
 
+; also OBJECT_GROUP_FOREST_OF_FEAR_3
 ObjectGroup_TheColossalHole5:
 	db $00 ; GFX bank offset
 
@@ -825,6 +842,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
+; also OBJECT_GROUP_FOREST_OF_FEAR_2, OBJECT_GROUP_FOREST_OF_FEAR_1
 ObjectGroup_CastleOfIllusions2:
 	db $00 ; GFX bank offset
 
@@ -1115,6 +1133,7 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
+; also OBJECT_GROUP_THE_PEACEFUL_VILLAGE_3
 ObjectGroup_TheBigBridge1:
 	db $00 ; GFX bank offset
 
@@ -1435,6 +1454,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/rock.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
+; also OBJECT_GROUP_THE_FRIGID_SEA_2
 ObjectGroup_Shared28:
 	db $00 ; GFX bank offset
 
@@ -1581,6 +1601,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
+; also OBJECT_GROUP_SHARED_33
 ObjectGroup_Shared31:
 	db $00 ; GFX bank offset
 
@@ -1687,6 +1708,7 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
+; also OBJECT_GROUP_THE_FRIGID_SEA_3
 ObjectGroup_Shared32:
 	db $00 ; GFX bank offset
 
@@ -1872,6 +1894,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
+; also OBJECT_GROUP_ABOVE_THE_CLOUDS_2
 ObjectGroup_AboveTheClouds1:
 	db $00 ; GFX bank offset
 

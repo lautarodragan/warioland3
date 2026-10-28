@@ -163,7 +163,7 @@ CoinFunc:
 
 .Init:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $1a
 	ld [hl], a ; OBJ_STATE
@@ -717,8 +717,8 @@ CoinFunc:
 .State15:
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, $40
-	add $40
+	ld b, HIGH(DropYVel_Light)
+	add LOW(DropYVel_Light)
 	ld c, a
 	ld a, [bc]
 	cp $80

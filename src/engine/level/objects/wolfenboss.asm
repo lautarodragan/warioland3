@@ -748,7 +748,7 @@ WolfenbossPlatformFunc:
 ClearObjAndSetObjMapEntry7:
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $07
 	farcall SetObjectMapEntryAndSpawn
 	ret

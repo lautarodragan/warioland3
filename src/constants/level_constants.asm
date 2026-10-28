@@ -93,11 +93,11 @@ DEF TREASURES_MASK EQU GREY_TREASURE | RED_TREASURE | GREEN_TREASURE | BLUE_TREA
 	const ROOMTRANSITION_PIPE            ; 1
 	const ROOMTRANSITION_DOOR            ; 2
 	const ROOMTRANSITION_GOLF            ; 3
-	const ROOMTRANSITION_ROOM_EXIT               ; 4
-	const ROOMTRANSITION_LADDER               ; 5
+	const ROOMTRANSITION_ROOM_EXIT       ; 4 BlockFunc_RoomExit, BlockFunc_WaterRoomExit
+	const ROOMTRANSITION_LADDER          ; 5 BlockFunc_LadderRoomExit_ReloadObjects
 	const ROOMTRANSITION_UNDERWATER_DOOR ; 6
 	const ROOMTRANSITION_TELEPORT        ; 7
-	const ROOMTRANSITION_UNUSED_DOOR               ; 8
+	const ROOMTRANSITION_UNUSED_DOOR     ; 8 only set by UnreferencedBlockFunc_UnusedDoor
 
 	const_def 5
 	const ROOMTRANSITIONF_DOOR_F           ; 5

@@ -6,6 +6,8 @@ UpdateTempleScene:
 	farcall _UpdateTempleScene
 	ret
 
+; from MapSide_ChangeSide (SST_OVERWORLD_TO_GOLF_BUILDING): on to the golf
+; building, or back to the map side if B is held
 EnterGolfBuildingUnlessB:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a

@@ -98,9 +98,9 @@ PrinceFrogsGlovesActionHelp_Start:
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_14000)
+	ld a, HIGH(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14000)
+	ld a, LOW(WarioOAM_14000)
 	ld [wActionHelpWarioOAMPtr + 1], a
 
 	ld a, 6

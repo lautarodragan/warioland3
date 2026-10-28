@@ -6,7 +6,7 @@ OverworldStateTable::
 	dw InitOverworld
 	dw SlowFadeFromWhite
 	dw OverworldWaitAPress
-	dw SlowFadeToWhite
+	dw SlowFadeToWhite      ; SST_OVERWORLD_FADE_TO_OW_SCENE
 
 	dw InitOWScene          ; SST_OVERWORLD_OW_SCENE
 	dw SlowFadeFromWhite
@@ -38,7 +38,7 @@ OverworldStateTable::
 	dw InitTempleScene
 	dw DarkenBGToPal_Normal
 	dw UpdateTempleScene
-	dw EnterGolfBuildingUnlessB
+	dw EnterGolfBuildingUnlessB      ; SST_OVERWORLD_TO_GOLF_BUILDING
 
 	dw FadeBGToWhite_Normal
 	dw GolfBuilding           ; SST_OVERWORLD_GOLF_BUILDING

@@ -1,4 +1,4 @@
-OAM_184000:
+PrinceFroggyOAM_184000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -797,7 +797,7 @@ BeamBotOAM_1845aa:
 	frame_oam -24,  -4, $fe, 7 | OAM_BANK1 | OAM_XFLIP | OAM_YFLIP
 	db $80
 
-OAM_184755:
+FireBotOAM_184755:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2542,7 +2542,7 @@ SunMoonOAM_1854a2:
 	frame_oam -13,   8, $26, 5 | OAM_BANK1
 	db $80
 
-OAM_185788:
+KobattoOAM_185788:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2640,7 +2640,7 @@ OAM_185788:
 	frame_oam -16, -19, $b4, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_185893:
+HandOAM_185893:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

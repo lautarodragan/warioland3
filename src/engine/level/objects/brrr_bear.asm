@@ -592,14 +592,14 @@ BrrrBearFunc:
 
 .WobbleLeftStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
@@ -746,7 +746,7 @@ BrrrBearFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_DROP
 	ld [hld], a

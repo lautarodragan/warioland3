@@ -327,7 +327,7 @@ VBlank_TreasureCollection:
 ; and applies the corresponding palette
 ApplyPageTreasuresPals:
 	xor a
-	ld [w2dffe], a
+	ld [wCollectionCurCell], a
 	ld a, [wCollectionPage]
 	ld c, a
 	inc c
@@ -337,18 +337,18 @@ ApplyPageTreasuresPals:
 	dec c
 	jr nz, .loop
 	inc a
-	ld [w2dfff], a
+	ld [wCollectionCurTreasure], a
 .loop_treasures
-	ld a, [w2dfff]
+	ld a, [wCollectionCurTreasure]
 	call IsTreasureCollected
 	jr z, .not_collected
 	jr .collected
 
 .next_treasure
-	ld hl, w2dffe
+	ld hl, wCollectionCurCell
 	inc [hl]
 	ld a, [hli]
-	inc [hl] ; w2dfff
+	inc [hl] ; wCollectionCurTreasure
 	cp NUM_COLLECTION_CELLS
 	jr nz, .loop_treasures
 	ret
@@ -379,7 +379,7 @@ ApplyPageTreasuresPals:
 	jr .next_treasure
 
 .collected
-	ld a, [w2dfff]
+	ld a, [wCollectionCurTreasure]
 	ld e, a
 	ld d, $00
 	ld hl, TreasureOBPals
@@ -402,10 +402,10 @@ ApplyPageTreasuresPals:
 	jr .next_treasure
 
 ; outputs in hl and de the addresses in wTilemap
-; for the treasure in Cell w2dffe
+; for the treasure in Cell wCollectionCurCell
 ; hl = de + TILEMAP_WIDTH
 .GetAttrmapAddress:
-	ld a, [w2dffe]
+	ld a, [wCollectionCurCell]
 	ld d, HIGH(wTilemap) + $1
 	cp NUM_COLLECTION_COLS
 	jr nc, .got_hi
@@ -1166,7 +1166,7 @@ CheckLevelMusicalCoinsForBottomBar:
 	ld hl, wCompassObjState
 	xor a
 	ld [hli], a
-	ld [hl], a ; wCompassObjUnk7
+	ld [hl], a ; wCompassObjMovementStep
 	ret
 
 ; clears treasure tiles and info in WRAM
@@ -1311,16 +1311,16 @@ GetLevelTimeAttackScore:
 	ret z
 	ld hl, wLevelTimeAttackScores
 	dec a
-	ld de, w2d0ee
+	ld de, wOWLevelTimeAttackScore
 	add a ; *2
 	ld c, a
 	ld b, $00
 	add hl, bc
 	ld a, [hli]
-	ld [de], a ; w2d0ee
+	ld [de], a ; wOWLevelTimeAttackMinutes
 	inc e
 	ld a, [hl]
-	ld [de], a ; w2d0ef
+	ld [de], a ; wOWLevelTimeAttackSeconds
 	ret
 
 ; fills wBottomBarTreasureIDs

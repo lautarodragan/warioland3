@@ -291,8 +291,8 @@ ENDR
 	ld a, [hl]
 	ld [wCurObj + OBJ_STRUCT_LENGTH - 1], a
 
-	; only run update function
-	; on initialised objects
+	; during a floor transition, only run the update function
+	; of objects that are still uninitialised (to set them up)
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_UNINITIALISED_F, [hl]
 	jr z, .skip_update_function
@@ -463,7 +463,7 @@ DoObjectAction:
 
 .Special3:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_SPECIAL_3
 	ld [hl], a ; OBJ_STATE
@@ -476,10 +476,10 @@ DoObjectAction:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .Wobble
-	ld hl, wCurObjUnk1d
+	ld hl, wCurObjActionSide
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .bump_right
 	ld a, OBJSTATE_BUMP_LEFT_START
@@ -497,7 +497,7 @@ DoObjectAction:
 	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .attack_right
 	ld a, OBJSTATE_ATTACKED_LEFT_START
@@ -514,7 +514,7 @@ DoObjectAction:
 	ld a, [wDirection]
 	and a
 	ld l, OBJ_ACTION
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .pick_up_right
 	ld a, OBJSTATE_PICKED_UP_LEFT_START
@@ -531,7 +531,7 @@ DoObjectAction:
 	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .wobble_right
 	ld a, OBJSTATE_WOBBLE_LEFT_START
@@ -547,19 +547,19 @@ DoObjectAction:
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_ACTION
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_VANISH_TOUCH
 	ld [hl], a
 	ret
 
 .HitWarioShort:
-	ld b, 7 | (1 << 7)
+	ld b, no_actions_for 7
 	jr .hit_wario
 .HitWario:
-	ld b, 15 | (1 << 7)
+	ld b, no_actions_for 15
 .hit_wario
-	ld hl, wCurObjUnk1d
+	ld hl, wCurObjActionSide
 	ld a, [hld]
 	ld [hl], b ; OBJ_ACTION
 	dec l
@@ -1072,7 +1072,7 @@ _ObjState_PickedUpLeft::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hld], a ; OBJ_STATE
@@ -1279,7 +1279,7 @@ _ObjState_PickedUpRight::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hld], a ; OBJ_STATE
@@ -1523,7 +1523,7 @@ _ObjState_GrabbedRight::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hl], a ; OBJ_STATE
@@ -1634,7 +1634,7 @@ _ObjState_GrabbedLeft::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hl], a ; OBJ_STATE
@@ -1766,7 +1766,7 @@ ThrowObject_Left:
 	inc l
 	ld a, OBJSTATE_THROW_LEFT
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -1784,7 +1784,7 @@ ThrowObject_Left:
 	inc l
 	ld a, OBJSTATE_FULL_THROW_LEFT_START
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -1912,7 +1912,7 @@ ThrowObject_Right:
 	inc l
 	ld a, OBJSTATE_THROW_RIGHT
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -1930,7 +1930,7 @@ ThrowObject_Right:
 	inc l
 	ld a, OBJSTATE_FULL_THROW_RIGHT_START
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -2037,7 +2037,7 @@ _ObjState_ThrowRight::
 	and a
 	ld a, $03
 	ldh [hTemp], a
-	jp nz, Func_62e0f
+	jp nz, ObjLandRight
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr z, .check_collision
@@ -2251,7 +2251,7 @@ _ObjState_FullThrowRight::
 	and a
 	ld a, $03
 	ldh [hTemp], a
-	jp nz, Func_62e0f
+	jp nz, ObjLandRight
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr z, .check_collision
@@ -3270,7 +3270,7 @@ _ObjState_FallRight::
 	ld [wHitFloorBlock], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, Func_62e0f
+	jr nz, ObjLandRight
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .vanish ; vanish when touching water or sand
@@ -3301,7 +3301,7 @@ _ObjState_FallRight::
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
-Func_62e0f:
+ObjLandRight:
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -3926,7 +3926,7 @@ CheckObjectOnScreen:
 	cp $0 | OBJSUBFLAG_NO_DESPAWN
 	ret nc
 	; OBJSUBFLAG_NO_DESPAWN is not set
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	and a
 	jr z, .clear_obj
 	farcall DespawnObject
@@ -4161,7 +4161,7 @@ _ApplyObjXMovement_Loop::
 	ret
 
 _CountCurObjTransientChildren::
-	ld hl, wCurObjUnk01
+	ld hl, wCurObjMapPtrLo
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]

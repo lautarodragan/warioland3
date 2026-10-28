@@ -2,7 +2,7 @@ MACRO music
 	assert (\4) < CHAN5_F, "Invalid channel for music"
 
 	dab \1 ; sound addr
-	db \2 ; unknown
+	db \2 ; unused (GetSound skips this byte)
 	db \3 ; priority
 	db \4 ; channel start number
 	db \5 ; number of channels used
@@ -13,7 +13,7 @@ MACRO sfx
 	assert (\4) >= CHAN5_F, "Invalid channel for SFX"
 
 	dab \1 ; sound addr
-	db \2 ; unknown
+	db \2 ; unused (GetSound skips this byte)
 	db \3 ; priority
 	db (\4) - CHAN5_F ; channel start number
 	db \5 ; number of channels used
@@ -261,7 +261,7 @@ SoundHeaders:
 	sfx Sfx_BossAppear,                  $00, 240, CHAN5_F, 2 ; SFX_BOSS_APPEAR
 	sfx Sfx_HiddenFigureHand1,           $00, 239, CHAN8_F, 1 ; SFX_HIDDEN_FIGURE_HAND_1
 	sfx Sfx_0cc,                         $00, 220, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_LAUGH
-	sfx Sfx_HiddenFigureGrab,                         $00, 220, CHAN5_F, 3 ; SFX_0CD
+	sfx Sfx_HiddenFigureGrab,            $00, 220, CHAN5_F, 3 ; SFX_HIDDEN_FIGURE_GRAB
 	sfx Sfx_HiddenFigureHit,             $00, 240, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_HIT
 	sfx Sfx_HiddenFigureDefeated,        $00, 220, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_DEFEATED
 	sfx Sfx_HiddenFigureHand2,           $00, 239, CHAN5_F, 1 ; SFX_HIDDEN_FIGURE_HAND_2

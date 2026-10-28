@@ -961,8 +961,6 @@ wObjDataPtr12::          dw
 wObjDataPtr13::          dw
 wObjDataPointersEnd::
 
-w1d140::
-
 ; if non-0, the Flame Block puzzle
 ; has already been cleared for the level
 wFlameBlockCleared::
@@ -1034,10 +1032,12 @@ NEXTU
 wJamanoActiveSkulls::
 	db
 
-w1d147::
+wJamanoSkullsInPlace::
 	db
 
-	ds $1
+; BG palette darkness step, raised as skulls get in place
+wJamanoDarkness::
+	db
 
 wJamanoSkullsInactive::
 	db
@@ -1045,6 +1045,47 @@ wJamanoSkullsInactive::
 NEXTU
 
 wMuddeeAmbushState::
+	db
+
+; 0 = normal, 1 = hit by a stinger, 2 = hurt
+wMuddeeHitState::
+	db
+
+NEXTU
+
+; TRUE while a fly is on screen
+wPesceFlyActive::
+	db
+
+wPesceHits::
+	db
+
+; set when Pesce is defeated
+wPesceFightOver::
+	db
+
+NEXTU
+
+; counts down from $ff once the ink blacks out the screen
+wScowlerBlackoutTimer::
+	db
+
+; counts up after ink touches Wario
+wScowlerInkTimer::
+	db
+
+NEXTU
+
+; TRUE for a while after the head is hit
+wYellowBellyHeadHit::
+	db
+
+; set to $3a by the pump when it is stomped
+wYellowBellyHitRequest::
+	db
+
+; TRUE while the pump is out
+wYellowBellyPumpOut::
 	db
 
 ENDU
@@ -1244,6 +1285,9 @@ wGolfNumCoins::
 wGolfOutOfStrokes::
 	db
 
+; set when Wario starts walking to the ball (GolfHoleState_Walk);
+; if he is off screen, UpdateGolfWario moves him just outside the
+; screen edge he walks in from, then clears it
 wGolfWarioSnapToEdge::
 	db
 
@@ -1356,11 +1400,9 @@ wShotSpin::
 	db
 
 wGolfWarioYVel::
+; 16-bit, little-endian (UpdateGolfParaGoomYPos)
 wShotYVel::
-	db
-
-w1dc4f::
-	db
+	dw
 
 wShotXVel::
 	db
@@ -1490,71 +1532,18 @@ wCloudType::
 wOWCloudUpdateFlags::
 	db
 
-w2d032::
-	db
-
-w2d033::
-	db
-
-wOWBigCloud1AnimFrame::
-	db
-
-w2d035::
-	db
-
-wOWBigCloud2AnimCounter::
-	db
-
-wOWBigCloud2AnimFrame::
-	db
-
-w2d038::
-	db
-
-wOWBigCloud3AnimCounter::
-	db
-
-wOWBigCloud3AnimFrame::
-	db
-
-w2d03b::
-	db
-
-wOWBigCloud4AnimCounter::
-	db
-
-wOWBigCloud4AnimFrame::
-	db
-
-w2d03e::
-	db
-
-wOWSeaAnimCounter::
-	db
-
-wOWSeaAnimFrame::
-	db
-
-w2d041::
-	db
-
-wOWSmallCloudsAnimCounter::
-	db
-
-wOWSmallCloudsAnimFrame::
-	db
+; animations of the overworld map's tiles (UpdateCommonOWAnimations)
+wOWBigCloud1Anim::   ow_anim_struct wOWBigCloud1Anim
+wOWBigCloud2Anim::   ow_anim_struct wOWBigCloud2Anim
+wOWBigCloud3Anim::   ow_anim_struct wOWBigCloud3Anim
+wOWBigCloud4Anim::   ow_anim_struct wOWBigCloud4Anim
+wOWSeaAnim::         ow_anim_struct wOWSeaAnim
+wOWSmallCloudsAnim:: ow_anim_struct wOWSmallCloudsAnim
 
 wOWCliffsGfxSrc::
 	ds $2
 
-w2d046::
-	db
-
-w2d047::
-	db
-
-wOWCliffsAnimFrame::
-	db
+wOWCliffsAnim:: ow_anim_struct wOWCliffsAnim
 
 wOWSeaGfxVariant::
 	db
@@ -1663,9 +1652,13 @@ wAccessibleMapSides::
 wIsCollectionOpen::
 	db
 
+; the day/night state a transition goes to (0 = day, 1 = night),
+; set before wOWIsNight changes (MoveSouthOWObj14Diagonally)
 wOWIsNightTarget::
 	db
 
+; MoveSouthOWObj14Diagonally: set once the object has started its
+; movement for the current wOWIsNightTarget
 wSouthOWObj14MoveStarted::
 	db
 
@@ -1772,11 +1765,11 @@ wTempleHintCounter::
 
 	ds $8
 
-w2d0ee::
-	db
-
-w2d0ef::
-	db
+; wLevelTimeAttackScores entry of wOWLevel (GetLevelTimeAttackScore),
+; drawn in the bottom bar (DrawBottomBarTimeAttackScore)
+wOWLevelTimeAttackScore::
+wOWLevelTimeAttackMinutes:: db
+wOWLevelTimeAttackSeconds:: db
 
 wLevelTreasureIDs::
 wLevelGreyTreasureID::  db
@@ -1845,92 +1838,29 @@ wCurSceneObjPtr::
 
 	ds $1
 
+; written by EOWFunc_FormCastle, never read
 wUnused_2d121::
 	db
 
-wSceneObj1ScriptStep::
-	db
-
-w2d123::
-	ds $1
-
-wSceneObj2ScriptStep::
-	db
-
-wSceneObj2ScriptCounter::
-	db
-
-wSceneObj3ScriptStep::
-	db
-
-wSceneObj3ScriptCounter::
-	db
-
-	ds $1
-
-wSceneObj4ScriptCounter::
-	db
-
-wSceneObj5ScriptStep::
-	db
-
-wSceneObj5ScriptCounter::
-	db
-
-wSceneObj6ScriptStep::
-	db
-
-wSceneObj6ScriptCounter::
-	db
-
-wSceneObj7ScriptStep::
-	db
-
-wSceneObj7ScriptCounter::
-	db
-
-wSceneObj8ScriptStep::
-	db
-
-	ds $1
-
-wSceneObj9ScriptStep::
-	db
-
-w2d133::
-	db
-
-wSceneObj10ScriptStep::
-	db
-
-wSceneObj10ScriptCounter::
-	db
-
-	ds $2
-
-wSceneObj12ScriptStep::
-	db
-
-wSceneObj12ScriptCounter::
-	db
-
-wSceneObj13ScriptStep::
-	db
-
-wSceneObj13ScriptCounter::
-	db
-
-wSceneObj14ScriptStep::
-	db
-
-wSceneObj14ScriptCounter::
-	db
-
-wSceneObj15ScriptStep::
-	db
-
-wSceneObj15ScriptCounter::
-	db
+; a (step, counter) pair for each of wSceneObj1-15, used by the
+; map-side scenes and object animations of bank2d.asm; the step is
+; usually a 1-based jumptable index (0 = inactive)
+wSceneObjScripts::
+wSceneObj1Script::   scene_obj_script_struct wSceneObj1Script
+wSceneObj2Script::   scene_obj_script_struct wSceneObj2Script
+wSceneObj3Script::   scene_obj_script_struct wSceneObj3Script
+wSceneObj4Script::   scene_obj_script_struct wSceneObj4Script
+wSceneObj5Script::   scene_obj_script_struct wSceneObj5Script
+wSceneObj6Script::   scene_obj_script_struct wSceneObj6Script
+wSceneObj7Script::   scene_obj_script_struct wSceneObj7Script
+wSceneObj8Script::   scene_obj_script_struct wSceneObj8Script
+wSceneObj9Script::   scene_obj_script_struct wSceneObj9Script
+wSceneObj10Script::  scene_obj_script_struct wSceneObj10Script
+wSceneObj11Script::  scene_obj_script_struct wSceneObj11Script
+wSceneObj12Script::  scene_obj_script_struct wSceneObj12Script
+wSceneObj13Script::  scene_obj_script_struct wSceneObj13Script
+wSceneObj14Script::  scene_obj_script_struct wSceneObj14Script
+wSceneObj15Script::  scene_obj_script_struct wSceneObj15Script
 
 UNION
 
@@ -1950,64 +1880,91 @@ wSceneWarioAnimFinished::
 
 	ds $1
 
+UNION
+; CycleSceneWarioPals: 0 = off, 1-8 = palette step, $80 = stop
+wSceneWarioPalCycleStep::    db
+wSceneWarioPalCycleCounter:: db
 NEXTU
-
-wOWUIObj1:: scene_obj_struct wOWUIObj1
-wOWUIObj2:: scene_obj_struct wOWUIObj2
-
+; UpdateNOWPrologueParticles: jumptable index for each particle object
+wNOWPrologueObj2ParticleStep::  db
+wNOWPrologueObj3ParticleStep::  db
+wNOWPrologueObj5ParticleStep::  db
+wNOWPrologueObj8ParticleStep::  db
+wNOWPrologueObj9ParticleStep::  db
+wNOWPrologueObj10ParticleStep:: db
+NEXTU
+	ds $2
+wDebugSceneWarioState:: db
 ENDU
 
-w2d150::
-	db
-
-w2d151::
-	db
-
-wNOWPrologueObj5ParticleStep::
-wDebugSceneWarioState::
-	db
-
-wd153::
-	db
-
-wd154::
-	db
-
-wNOWPrologueObj10ParticleStep::
-	db
-
-wd156::
 	ds $2
 
 wHDMADestVRAMBank::
 	db
 
-	ds $5
+	ds $27
 
-w2d15e::
-	db
+NEXTU
 
-	ds $1
+; the B-button path preview's sprites
+; (PathPreview_RunTracers)
+wOWUIObjs::
+wOWUIObj1:: scene_obj_struct wOWUIObj1
+wOWUIObj2:: scene_obj_struct wOWUIObj2
+wOWUIObj3:: scene_obj_struct wOWUIObj3
+wOWUIObj4:: scene_obj_struct wOWUIObj4
+wOWUIObj5:: scene_obj_struct wOWUIObj5
+wOWUIObj6:: scene_obj_struct wOWUIObj6
+wOWUIObj7:: scene_obj_struct wOWUIObj7
+wOWUIObj8:: scene_obj_struct wOWUIObj8
 
-w2d160::
-	ds $6
+NEXTU
 
-wOWUIObj5State::
-	ds $8
+; map-side scenes (bank2d OW functions)
+; UpdateOWSceneScreenShake
+wOWSceneShakeState::        db
+wOWSceneShakeStateCounter:: db
+wOWSceneShakeStep::         db
+wOWSceneShakeStepCounter::  db
+; WOWFunc_Earthquake's falling rocks
+wOWSceneRocksStep::         db
+wOWSceneRocksCounter::      db
+; the east volcano's rock launcher
+wOWSceneRockLauncherStep::    db
+wOWSceneRockLauncherCounter:: db
+; EOWFunc_FormCastle's palette fade
+wOWScenePalFadeStep::       db
+wOWScenePalFadeCounter::    db
+wOWScenePalFadeIndex::      db
+; a looping sound effect (PlayVolcanoRumbleSFX, ...)
+wOWSceneSFXLoopActive::     db
+wOWSceneSFXLoopCounter::    db
 
-w2d16e::
-	ds $8
+NEXTU
 
-wOWUIObj7State::
-	ds $8
+; EOWFunc_FreezeSea
+wOWTileColumnCopy1:: ow_tile_column_copy_struct wOWTileColumnCopy1
+wOWTileColumnCopy2:: ow_tile_column_copy_struct wOWTileColumnCopy2
+wOWTileColumnCopy3:: ow_tile_column_copy_struct wOWTileColumnCopy3
 
-w2d17e::
-	ds $2
+ENDU
 
+UNION
 wCurSceneObj:: scene_obj_struct wCurSceneObj
+NEXTU
+; the two sprites DrawCutsceneOverlay draws (in bank27 cutscenes)
+wCutsceneOverlaySprite1:: sprite_oam_struct wCutsceneOverlaySprite1
+wCutsceneOverlaySprite2:: sprite_oam_struct wCutsceneOverlaySprite2
+ENDU
 
 wSceneObjs::
+UNION
 wSceneObj1::  scene_obj_struct wSceneObj1
+NEXTU
+; cutscenes that leave scene object 1 unused:
+; which overlay DrawCutsceneOverlay draws (0 = none)
+wCutsceneOverlayType:: db
+ENDU
 wSceneObj2::  scene_obj_struct wSceneObj2
 wSceneObj3::  scene_obj_struct wSceneObj3
 wSceneObj4::  scene_obj_struct wSceneObj4
@@ -2033,15 +1990,25 @@ wTilemap::
 
 SECTION "WRAM2 2", WRAMX
 
+; $800 bytes shared by the overworld's screens and scenes
+; (cleared as a whole by _InitBestTimeList)
+wOWSharedRAM::
 UNION
 
-w2d800:: ow_path_tracer_struct w2d800
+wOWPathTracers::
+wOWPathTracer1:: ow_path_tracer_struct wOWPathTracer1
 wOWPathTracer2:: ow_path_tracer_struct wOWPathTracer2
 wOWPathTracer3:: ow_path_tracer_struct wOWPathTracer3
 wOWPathTracer4:: ow_path_tracer_struct wOWPathTracer4
 
-w2d880::
-	ds $9
+UNION
+wCurOWPathTracer:: ow_path_tracer_head_struct wCurOWPathTracer
+NEXTU
+; prologue and temple scenes: which fade
+; _PrologueFade starts (0-6)
+wPrologueFadeType::
+	db
+ENDU
 
 wPathPreviewPathsPtr::
 	ds $2
@@ -2066,7 +2033,7 @@ wSceneSubStep::
 wSceneSubStepCounter::
 	db
 
-w2d894::
+wSceneSubActive::
 	db
 
 	ds $1
@@ -2110,6 +2077,29 @@ wTempleRock10:: temple_rock_struct wTempleRock10
 
 NEXTU
 
+; UpdateTransformationSparkles
+wTransformationSparkle1Step::    db
+wTransformationSparkle1Counter:: db
+	ds $1
+wTransformationSparkle2Step::    db
+wTransformationSparkle2Counter:: db
+	ds $1
+wTransformationSparkle3Step::    db
+wTransformationSparkle3Counter:: db
+	ds $1
+wTransformationSparkle4Step::    db
+wTransformationSparkle4Counter:: db
+
+NEXTU
+
+; epilogue: the music box falling with Wario
+	ds $1e
+wEpilogueMusicBoxFallStep::    db
+wEpilogueMusicBoxFallCounter:: db
+wEpilogueMusicBoxFallActive::  db
+
+NEXTU
+
 wPlaneParts::
 wPlanePart1::  plane_part_struct wPlanePart1
 wPlanePart2::  plane_part_struct wPlanePart2
@@ -2118,6 +2108,7 @@ wPlanePart4::  plane_part_struct wPlanePart4
 
 	ds $6
 
+; UpdateMusicBoxSparkle (prologue)
 wMusicBoxSparkleStep::
 	db
 
@@ -2206,17 +2197,33 @@ wBestTimeDigitTiles::
 wCheckedEvent::
 	db
 
-w2dffd::
+; the last 3 bytes are temporaries of several routines
+
+; LoadEventTreasures: the event's treasures (3, 2, 1)
+wEventTreasure3::
+; ShowMissingTreasureIndicators: wOWLevel saved
+wMissingTreasureSavedOWLevel::
 	db
 
-w2dffe::
+wEventTreasure2::
+; ShowMissingTreasureIndicators: index of the map side's level
+wMissingTreasureLevel::
+; ApplyPageTreasuresPals: cell in the page
+wCollectionCurCell::
 	db
 
+wEventTreasure1::
 ; if TRUE, current OW scene
 ; unlocks a connection to map side exit
 wOWExitUnlocked::
-
-w2dfff::
+; ShowMissingTreasureIndicators: number of the map side's levels
+wMissingTreasureNumLevels::
+; ApplyPageTreasuresPals: treasure in the cell
+wCollectionCurTreasure::
+; PrintBestTimes: LEVEL_* being printed
+wBestTimeListCurLevel::
+; LoadBGMapsToWRAM: bank of the tilemap
+wBGMapsTempBank::
 	db
 
 NEXTU
@@ -2267,6 +2274,37 @@ wCollectionScrollMode::       db
 ; linked together
 wCollectionLinkedCells::
 	ds $7
+
+NEXTU
+
+; best time list
+wBestTimeListAutoScroll::     db ; TRUE while scrolling by itself
+wBestTimeListIdleCounter::    db ; frames without input, autoscroll at 256
+wBestTimeListScrollStep::     db
+wBestTimeListScrollCounter::  db
+
+NEXTU
+
+; cutscenes
+	ds $2
+; a sound effect timer of some cutscene steps
+wCutsceneSFXCounter::   db
+; CutsceneScreenShake
+wCutsceneShakeStep::    db
+wCutsceneShakeCounter:: db
+	ds $b
+; Cutscene14's wobble data pointers
+wCutscene14Obj2WobblePtr:: dw
+wCutscene14Obj3WobblePtr:: dw
+wCutscene14Obj4WobblePtr:: dw
+
+NEXTU
+
+; the overworld golf building scene (_UpdateGolfBuilding)
+	ds $210
+wOWGolfBuildingScene::       db
+wOWGolfBuildingStep::        db
+wOWGolfBuildingStepCounter:: db
 
 ENDU
 
@@ -2333,6 +2371,9 @@ wAudioCmdPtr::
 wCurChannelFlags::
 	db
 
+; counts 14..0 and wraps every frame; when it is 0, ProcessTrack
+; advances the envelope tick (TRACK_FREQUENCY low byte) twice,
+; so the envelopes run 16 ticks per 15 frames (64 Hz, like the hardware)
 wEnvelopeFrameCycle::
 	db
 
@@ -2425,7 +2466,7 @@ wBackupPals::
 wRoomBlockAttributes::
 	ds $4 * $80
 
-w3d500::
+wBackupSCY::
 	db
 
 wBackupSCX::
@@ -2531,22 +2572,27 @@ wMenuObj9::  menu_obj_struct wMenuObj9
 wMenuObj10:: menu_obj_struct wMenuObj10
 wMenuObj11:: menu_obj_struct wMenuObj11
 
+
 SECTION "WRAM4", WRAMX
 
+; SaveBackupVRAM's copy of v0Tiles0
 wBackupV0Tiles0::
 	ds $1000
 
 SECTION "WRAM5", WRAMX
 
+; SaveBackupVRAM's copy of v0Tiles2 (and the BG map area)
 wBackupV0Tiles2::
 	ds $1000
 
 SECTION "WRAM6", WRAMX
 
+; SaveBackupVRAM's copy of v1Tiles0
 wBackupV1Tiles0::
 	ds $1000
 
 SECTION "WRAM7", WRAMX
 
+; SaveBackupVRAM's copy of v1Tiles2 (and the BG map area)
 wBackupV1Tiles2::
 	ds $1000

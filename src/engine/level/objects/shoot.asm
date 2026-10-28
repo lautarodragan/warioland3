@@ -950,7 +950,7 @@ ShootFunc:
 
 .AttackedLeftStart:
 	ld a, OBJSTATE_ATTACKED_LEFT
-	ld de, Frameset_69f9f
+	ld de, ShootFrameset_69f9f
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
 .set_attacked
@@ -972,7 +972,7 @@ ShootFunc:
 
 .AttackedRightStart:
 	ld a, OBJSTATE_ATTACKED_RIGHT
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	jr .set_attacked
@@ -1095,7 +1095,7 @@ ShootFunc:
 	ld a, [wShootBallState]
 	cp $04
 	ret nz
-	ld de, Frameset_69fa4
+	ld de, ShootFrameset_69fa4
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_ATTACKED_RIGHT
@@ -1135,7 +1135,7 @@ ShootFunc:
 	ld [hl], a ; OBJ_VAR_3
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $09
 	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_BOSS_DEFEATED
@@ -1353,7 +1353,7 @@ GKTortoiseFunc:
 	ret nz
 	xor a
 	ld [wCurObjFlags], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $08
 	farcall SetObjectMapEntryAndSpawn
 	ld a, BOSS_DEFEATED

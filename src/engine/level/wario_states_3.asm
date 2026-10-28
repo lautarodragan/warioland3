@@ -4865,11 +4865,11 @@ RecoverFromTransformation_Underwater:
 	ld a, LOW(WarioSwimGfx)
 	ld [wDMASourcePtr + 1], a
 	call LoadWarioGfx
-	ld a, BANK(OAM_15254)
+	ld a, BANK(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMBank], a
-	ld a, HIGH(OAM_15254)
+	ld a, HIGH(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 0], a
-	ld a, LOW(OAM_15254)
+	ld a, LOW(WarioUnderwaterOAM_15254)
 	ld [wWarioOAMPtr + 1], a
 
 	ld a, [wDirection]

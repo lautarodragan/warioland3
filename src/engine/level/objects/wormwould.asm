@@ -435,7 +435,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedRaise)
 	ld [hld], a
-	ld hl, wCurObjUnk02
+	ld hl, wCurObjMapPtrHi
 	ld e, $05
 	farcall SetObjectMapEntryAndSpawn
 	play_sfx SFX_WORMWOULD_HURT

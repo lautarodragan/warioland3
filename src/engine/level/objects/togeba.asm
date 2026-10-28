@@ -57,9 +57,9 @@ TogebaFunc:
 
 .start_flip_over
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, $4e
+	ld a, HIGH(.FlipOver)
 	ld [hld], a
-	ld a, $02
+	ld a, LOW(.FlipOver)
 	ld [hld], a
 	ld de, TogebaFrameset_69256
 	call SetObjectFramesetPtr
@@ -99,9 +99,9 @@ TogebaFunc:
 
 .StartRecover:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, $4e
+	ld a, HIGH(.Recover)
 	ld [hld], a
-	ld a, $3e
+	ld a, LOW(.Recover)
 	ld [hld], a
 	ld de, TogebaFrameset_69275
 	call SetObjectFramesetPtr
@@ -169,7 +169,7 @@ TogebaFunc:
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
-	ld a, [wCurObjUnk1d]
+	ld a, [wCurObjActionSide]
 	rla
 	jr nc, .sink
 	ld l, OBJ_UPDATE_FUNCTION + 1
