@@ -39,6 +39,10 @@ jobs:
             exit 1
           fi
 
+      - name: Check the book's names
+        # a rename in the code can leave the book naming something that's gone
+        run: python3 tools/check_book_names.py
+
       - name: Set up Python
         uses: actions/setup-python@v7
         with:

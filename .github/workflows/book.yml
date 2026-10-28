@@ -7,6 +7,7 @@ on:
     branches: [ master ]
     paths:
       - 'book/**'
+      - 'tools/check_book_names.py'
       - '.github/workflows/book.yml'
   workflow_dispatch:
 
@@ -34,6 +35,10 @@ jobs:
           curl -fsSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
             | tar -xz -C "$HOME/mdbook"
           echo "$HOME/mdbook" >> "$GITHUB_PATH"
+
+      - name: Check names
+        # every label, constant and path the book names must exist in the code
+        run: python3 tools/check_book_names.py
 
       - name: Build
         run: mdbook build book

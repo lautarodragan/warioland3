@@ -43,3 +43,8 @@ The book is built with [mdBook](https://rust-lang.github.io/mdBook/) from
 `book/` and published to GitHub Pages by `.github/workflows/book.yml` whenever
 `book/` changes on master. To preview it locally, run `mdbook serve book`.
 When a change to the code makes a page wrong, fix the page in the same commit.
+`make check-book` (`tools/check_book_names.py`) checks that every label,
+constant, RAM name and path the book writes in backticks still exists, and
+CI runs it on every push. A page that names something gone on purpose (an
+old name next to its new one, history) lists it in `book/names-ignore.txt`.
+The naming survey is a record of old names, so it isn't checked.

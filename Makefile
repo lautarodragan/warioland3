@@ -38,7 +38,7 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all warioland3 patch ips clean tidy tools test
+.PHONY: all warioland3 patch ips clean tidy tools test check-book
 
 all: $(rom)
 warioland3: $(rom)
@@ -60,6 +60,10 @@ tidy:
 
 test: $(rom)
 	python3 -m pytest tests
+
+# the book (book/) only names labels, constants and paths that exist
+check-book:
+	python3 tools/check_book_names.py
 
 tools:
 	$(MAKE) -C tools/

@@ -41,7 +41,7 @@ To generate the patch yourself:
 make ips
 ```
 
-This builds the modified ROM, reconstructs the *original* ROM from the pre-debug-menu commit (verifying it against `rom.sha1`), diffs the two, and writes `warioland3-debug-menu.ips`. No extra dependencies beyond RGBDS and Python 3 — the IPS is produced by `tools/make_ips.py`.
+This builds the modified ROM, reconstructs the *original* ROM from the pre-debug-menu commit (verifying it against that commit's `rom.sha1`), diffs the two, and writes `warioland3-debug-menu.ips`. No extra dependencies beyond RGBDS and Python 3 — the IPS is produced by `tools/make_ips.py`.
 
 To **play the patch**, apply `warioland3-debug-menu.ips` to a Wario Land 3 ROM whose SHA1 is `bb7877309834441fd03adb7fa65738e5d5b2d7ba`, using any IPS patcher ([Floating IPS / flips](https://github.com/Alcaro/Flips), or a web tool like [rompatcher.js](https://www.marcrobledo.com/RomPatcher.js/)).
 

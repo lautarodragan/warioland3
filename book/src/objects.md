@@ -29,7 +29,7 @@ write `wCurObj...`, often as `ld l, OBJ_...` with `h` already pointing at
 | `$07` | `OBJ_ID` | object type; the high nibble also picks banks (below) |
 | `$08` | `OBJ_INTERACTION_TYPE` | what touching it does to Wario; bit 7 is `HEAVY_OBJ` |
 | `$09` | `OBJ_COLLBOX_TOP`/`BOTTOM`/`LEFT`/`RIGHT` | collision box, relative to the position |
-| `$0d` | `OBJ_SCREEN_Y_POS`/`X_POS` | computed every frame from the camera |
+| `$0d` | `OBJ_SCREEN_Y_POS`/`OBJ_SCREEN_X_POS` | computed every frame from the camera |
 | `$0f` | `OBJ_FRAME` | current OAM frame |
 | `$10` | `OBJ_OAM_PTR` | the object's OAM frame table |
 | `$12` | `OBJ_FRAMESET_PTR` | current frameset |

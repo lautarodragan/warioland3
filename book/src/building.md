@@ -12,8 +12,9 @@ make DEBUG=1    # the same, assembled with -E (every label exported)
 The tests look symbols up by name in `warioland3.sym`. CI builds with
 `make DEBUG=1`.
 
-This fork changes the game, so its ROM no longer matches the original's SHA1
-(`rom.sha1`, used by `make ips`). To check that a change didn't alter the ROM,
+This fork changes the game, so its ROM no longer matches the original's SHA1,
+and the repo no longer has the `compare` target or `rom.sha1` (only the
+commit `make ips` rebuilds the original from does). To check that a change didn't alter the ROM,
 compare against a ROM you built before the change (see
 [Changing the code safely](working-with-the-code.md)).
 
@@ -27,7 +28,8 @@ make ips
 ```
 
 This builds the modified ROM, rebuilds the *original* ROM from the commit
-before the debug menu (checking it against `rom.sha1`), diffs the two and
+before the debug menu (`base_ref` in the Makefile; that commit's own
+`make compare` checks it against its `rom.sha1`), diffs the two and
 writes `warioland3-debug-menu.ips` with `tools/make_ips.py`. The patch applies
 to a Wario Land 3 ROM with SHA1 `bb7877309834441fd03adb7fa65738e5d5b2d7ba`.
 

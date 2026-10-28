@@ -33,7 +33,8 @@ overmatches:
 - Two locals in the same routine can't share a name.
 
 [Naming the disassembly](renames.md) describes the tooling used for the big
-renames.
+renames. After a rename, run `make check-book`: it lists every page that
+still names the old label.
 
 ## Addresses written as numbers
 

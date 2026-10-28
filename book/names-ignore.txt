@@ -1,0 +1,33 @@
+# Names the book mentions on purpose although the code no longer has them:
+# old names next to their new ones, history, and made-up examples.
+# tools/check_book_names.py skips these.
+
+# old names, as examples of what the survey replaced
+Func_9e52a
+Data_60320
+w2d0b5
+w2d0b5SourceHi
+.Func_4d7dc
+w1d
+w2d
+Frameset_
+Pals_
+w2d150
+w2d122
+w2d13f
+LevelRooms_
+LevelHeaders_
+
+# the first, reverted owl attempt (debug-owl.md)
+wDebugOwlActive
+Func_20a63
+DebugOwlFunc
+
+# placeholders in examples
+.foo
+Routine.foo
+FOO_F
+.diff.png
+
+# only in the commit make ips rebuilds the original game from
+rom.sha1
