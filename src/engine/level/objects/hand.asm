@@ -27,11 +27,11 @@ HandFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_4778e
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	jr z, .asm_4778e
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr nz, .asm_4778c
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hl], a
 	ld b, 11
 	call .ApplyOffsetToWario
@@ -208,7 +208,7 @@ HandFunc:
 
 .asm_478b0
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	jr nz, .asm_478be
 	ld b, 7
 	call .ApplyOffsetToWario
@@ -228,7 +228,7 @@ HandFunc:
 	ld [hl], a
 	call MoveObjectDownByVar2
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	ld b, 9
 	jp .ApplyOffsetToWario
@@ -246,7 +246,7 @@ HandFunc:
 	inc [hl]
 	call MoveObjectDownByVar2
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	ld b, 8
 	jp .ApplyOffsetToWario
@@ -264,7 +264,7 @@ HandFunc:
 	inc [hl]
 	call MoveObjectDownByVar2
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	ld b, 6
 	jp .ApplyOffsetToWario
@@ -282,7 +282,7 @@ HandFunc:
 	inc [hl]
 	call MoveObjectDownByVar2
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	ld b, 8
 	jp .ApplyOffsetToWario
@@ -299,7 +299,7 @@ HandFunc:
 	ld [hli], a
 	inc [hl]
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	ld b, 0
 	jp .ApplyOffsetToWario
@@ -316,7 +316,7 @@ HandFunc:
 	ld [hli], a
 	inc [hl]
 	ld a, [wCurObjState]
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	ret nz
 	xor a
 	ld [wAutoMoveState], a

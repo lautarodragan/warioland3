@@ -121,7 +121,7 @@ OwlFunc:
 
 .FlyAway:
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, .despawn
 	ld hl, wCurObjStateDuration
 	dec [hl]

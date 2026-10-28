@@ -464,7 +464,7 @@ HiddenFigureFaceFunc:
 	and a
 	jr z, .asm_4ce63
 	and $fe
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START ; or OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_4ceba
 	xor a
 	ld [hl], a
@@ -1047,14 +1047,14 @@ HiddenFigureLeftHandFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_4d225
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr nz, .asm_4d20f
 	play_sfx SFX_HIDDEN_FIGURE_GRAB
 	ld a, $80
 	jr .asm_4d217
 .asm_4d20f
 	and $fe
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr nz, .asm_4d223
 	ld a, $0a
 .asm_4d217
@@ -1151,9 +1151,9 @@ HiddenFigureLeftHandFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_4d316
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .asm_4d30f
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -1446,7 +1446,7 @@ HiddenFigureRightHandFunc:
 	and a
 	jr z, .asm_4d4ef
 	and $fe
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr nz, .asm_4d4ed
 	ld a, $0a
 	ld [wHiddenFigureBodyGrabResult], a
@@ -1519,9 +1519,9 @@ HiddenFigureRightHandFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_4d5bf
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .asm_4d5b8
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -1653,7 +1653,7 @@ HiddenFigureRightHandFunc:
 	ld [wSCX], a
 	ld a, [wCurObjState]
 	ld e, a
-	cp $2d
+	cp OBJSTATE_SPECIAL_1
 	jr z, .asm_4d67c
 	ld a, [wGlobalCounter]
 	and %1111
@@ -1865,7 +1865,7 @@ HiddenFigureRightHandFunc:
 
 .Default_4d7dc:
 	ld hl, wCurObjState
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -1874,7 +1874,7 @@ HiddenFigureRightHandFunc:
 
 .Land:
 	ld hl, wCurObjState
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [wHiddenFigureHandWasGrabbed]
 	cp $01
@@ -1895,7 +1895,7 @@ HiddenFigureRightHandFunc:
 	xor a
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld l, OBJ_STATE
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1919,13 +1919,13 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_4d84c
 .Default_4d844:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_4d84c
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
@@ -1940,12 +1940,12 @@ HiddenFigureRightHandFunc:
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .asm_4d867
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .asm_4d867
 	ld l, OBJ_VAR_2
@@ -1957,13 +1957,13 @@ HiddenFigureRightHandFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ret
 
@@ -1972,7 +1972,7 @@ HiddenFigureRightHandFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -1981,7 +1981,7 @@ HiddenFigureRightHandFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -1989,7 +1989,7 @@ HiddenFigureRightHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -2004,7 +2004,7 @@ HiddenFigureRightHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -2019,7 +2019,7 @@ HiddenFigureRightHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set 2, [hl]
@@ -2032,7 +2032,7 @@ HiddenFigureRightHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set 2, [hl]

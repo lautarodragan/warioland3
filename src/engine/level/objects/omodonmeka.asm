@@ -1,3 +1,6 @@
+; Omodon's own state (see OmodonFunc.Update)
+DEF OBJSTATE_OMODON_PRESS_WARIO EQU OBJSTATE_5A
+
 OmodonmekaFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
@@ -93,7 +96,7 @@ OmodonmekaFunc:
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [wCurObjState], a
 	ret
 
@@ -105,17 +108,17 @@ OmodonmekaFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_42249
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jp z, .Activate
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .attacked_right
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .hit_by_obj_right
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .vanish_touch
 	xor a
 	ld [hld], a
@@ -517,17 +520,17 @@ OmodonmekaWithOmodonFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_42525
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jp z, OmodonmekaFunc.attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jp z, OmodonmekaFunc.attacked_right
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jp z, OmodonmekaFunc.hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jp z, OmodonmekaFunc.hit_by_obj_right
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, OmodonmekaFunc.vanish_touch
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hld], a
 	dec l
 	xor a
@@ -970,7 +973,7 @@ Omodon_Idle:
 
 .asm_4277f
 	ld hl, wCurObjState
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hld], a
 	dec l
 	xor a
@@ -1002,15 +1005,15 @@ OmodonFunc:
 	ld a, [hl]
 	and a
 	jr z, Omodon_Idle
-	cp $2d
+	cp OBJSTATE_SPECIAL_1
 	jr z, .carried
-	cp $2e
+	cp OBJSTATE_SPECIAL_2
 	jr z, .fall
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr z, Omodon_Landed
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jp z, .StartPressWario
-	cp $5a
+	cp OBJSTATE_OMODON_PRESS_WARIO
 	jp z, .PressWario
 	xor a
 	ld [hl], a
@@ -1084,7 +1087,7 @@ OmodonFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_SOLID
 	ld [hld], a
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	ret
 
@@ -1093,7 +1096,7 @@ OmodonFunc:
 	call SetObjectFramesetPtr
 	ld a, $14
 	ld [hli], a
-	ld a, $5a
+	ld a, OBJSTATE_OMODON_PRESS_WARIO
 	ld [wCurObjState], a
 	ld hl, wCurObjYPos
 	ld a, [wWarioYPos + 1]

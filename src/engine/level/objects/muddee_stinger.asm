@@ -15,7 +15,7 @@ MuddeeStingerFunc:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, [wCurObjState]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .asm_4ca3b
 	ld a, $01
 	ld [wMuddeeHitState], a

@@ -143,7 +143,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44e5d
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -155,7 +155,7 @@ MadSciensteinFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -180,7 +180,7 @@ MadSciensteinFunc:
 	play_sfx nz, SFX_ENEMY_THROW
 
 	ld l, OBJ_STATE
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -199,7 +199,7 @@ MadSciensteinFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -230,7 +230,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44ee7
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -247,7 +247,7 @@ MadSciensteinFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .asm_44f02
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -285,7 +285,7 @@ MadSciensteinFunc:
 	and a
 	jp z, MoveObjectLeft
 .asm_44f3d
-	ld a, $2c
+	ld a, OBJSTATE_2C
 	ld [wCurObjState], a
 	ld de, MadSciensteinFrameset_68c25
 	call SetObjectFramesetPtr
@@ -320,7 +320,7 @@ MadSciensteinFunc:
 	and a
 	jp z, MoveObjectRight
 .asm_44f7a
-	ld a, $2c
+	ld a, OBJSTATE_2C
 	ld [wCurObjState], a
 	ld de, MadSciensteinFrameset_68c2c
 	call SetObjectFramesetPtr
@@ -336,7 +336,7 @@ MadSciensteinFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -371,7 +371,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44fcc
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -379,7 +379,7 @@ MadSciensteinFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -397,7 +397,7 @@ MadSciensteinFunc:
 	ld a, $ff
 	ld [hl], a
 	ld l, OBJ_STATE
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -425,7 +425,7 @@ MadSciensteinFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -450,7 +450,7 @@ MadSciensteinFunc:
 	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -468,7 +468,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_45061
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -499,7 +499,7 @@ MadSciensteinFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_4509b
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68bed
 	call SetObjectFramesetPtr
@@ -508,7 +508,7 @@ MadSciensteinFunc:
 	ret
 
 .asm_4509b
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [hl], a
 	ret
 
@@ -516,7 +516,7 @@ MadSciensteinFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_4509b
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68bf6
 	call SetObjectFramesetPtr
@@ -537,7 +537,7 @@ MadSciensteinFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .asm_450cb
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -575,7 +575,7 @@ MadSciensteinFunc:
 	and a
 	jp z, MoveObjectLeft_Slow
 .asm_45106
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -606,7 +606,7 @@ MadSciensteinFunc:
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_4513a
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -623,7 +623,7 @@ MadSciensteinFunc:
 	call CreateObjectAtRelativePos
 .asm_45155
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	jr .asm_451a1
 
@@ -640,7 +640,7 @@ MadSciensteinFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_4517c
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68c25
 	call SetObjectFramesetPtr
@@ -649,7 +649,7 @@ MadSciensteinFunc:
 	ret
 
 .asm_4517c
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68bda
 	call SetObjectFramesetPtr
@@ -668,7 +668,7 @@ MadSciensteinFunc:
 	call CreateObjectAtRelativePos
 .asm_4519b
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 .asm_451a1
 	ld a, [hld]
@@ -700,14 +700,14 @@ MadSciensteinFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_451d8
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68bd1
 	call SetObjectFramesetPtr
 	ret
 
 .asm_451d8
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hl], a
 	ld de, MadSciensteinFrameset_68c2c
 	call SetObjectFramesetPtr
@@ -717,7 +717,7 @@ MadSciensteinFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -733,13 +733,13 @@ MadSciensteinFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -755,19 +755,19 @@ MadSciensteinFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .asm_45249
 
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .asm_45249
 	ld a, [hld]
@@ -794,7 +794,7 @@ MadSciensteinFunc:
 	ret
 
 .State0f:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -804,7 +804,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_45287
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -812,13 +812,13 @@ MadSciensteinFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -829,13 +829,13 @@ MadSciensteinFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ApplyObjHopYVel
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .TurnAroundStart:
 	ld hl, wCurObjState
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -855,7 +855,7 @@ MadSciensteinFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_452d8
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -866,7 +866,7 @@ MadSciensteinFunc:
 	jr z, .asm_452ea
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -885,15 +885,15 @@ MadSciensteinFunc:
 
 .WobbleLeftStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_45309
 .WobbleRightStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_45309
 	ld [hld], a
 	ld a, [hld]
@@ -922,14 +922,14 @@ MadSciensteinFunc:
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .asm_45388
 
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_45388
@@ -944,13 +944,13 @@ MadSciensteinFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .asm_4535c
-	ld a, $08
+	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [wCurObjState], a
 	ret
 
 .asm_4535c
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $01
 	jr .asm_45388
@@ -965,13 +965,13 @@ MadSciensteinFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .asm_45380
-	ld a, $09
+	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [wCurObjState], a
 	ret
 
 .asm_45380
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $01
 .asm_45388
@@ -996,7 +996,7 @@ MadSciensteinFunc:
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1009,7 +1009,7 @@ MadSciensteinFunc:
 
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1022,7 +1022,7 @@ MadSciensteinFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1048,7 +1048,7 @@ MadSciensteinFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1074,9 +1074,9 @@ MadSciensteinFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a
@@ -1097,7 +1097,7 @@ InvisibilityPotionFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, DestroyInvisibilityPotion
 	ld bc, SmallHopYVel2
 	jp ApplyObjYMovement
@@ -1131,14 +1131,14 @@ InvisibilityPotionFunc_Drop:
 	ld a, LOW(.Update)
 	ld [hld], a
 	dec l
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 
 .Update:
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, DestroyInvisibilityPotion
 	ld bc, JumpArcYVel
 	call ApplyObjYMovement

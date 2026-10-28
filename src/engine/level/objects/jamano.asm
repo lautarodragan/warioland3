@@ -94,14 +94,14 @@ JamanoFunc:
 	jr c, .asm_54dfe
 	res 7, [hl]
 	inc l
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, JamanoFrameset_69c1c
 	jp SetObjectFramesetPtr
 .asm_54dfe
 	set 7, [hl]
 	inc l
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, JamanoFrameset_69ca1
 	jp SetObjectFramesetPtr
@@ -139,9 +139,9 @@ JamanoFunc:
 .asm_54e46
 	ld l, OBJ_STATE
 	ld a, [hld]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_54e78
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .asm_54eae
 	bit 7, [hl]
 	jr nz, .asm_54e5a
@@ -183,7 +183,7 @@ JamanoFunc:
 	and a
 	jr z, .asm_54ea6
 .asm_54e9f
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54ea6
@@ -214,7 +214,7 @@ JamanoFunc:
 	and a
 	jr z, .asm_54edc
 .asm_54ed5
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	jr .asm_54efb
 .asm_54edc
@@ -354,9 +354,9 @@ JamanoFunc:
 	ret
 .asm_54fcd
 	ld a, [wCurObjState]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_54fd9
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .asm_55006
 	ret
 .asm_54fd9
@@ -375,7 +375,7 @@ JamanoFunc:
 	and a
 	jr z, .asm_55001
 	play_sfx SFX_BUMP
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	jr .asm_55031
 .asm_55001
@@ -397,7 +397,7 @@ JamanoFunc:
 	and a
 	jr z, .asm_5502e
 	play_sfx SFX_BUMP
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	jr .asm_55031
 .asm_5502e
@@ -829,9 +829,9 @@ SkullFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld a, [wCurObjState]
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .asm_5536c
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_55366
 	ret
 .asm_55366

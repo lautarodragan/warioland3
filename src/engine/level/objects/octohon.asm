@@ -57,7 +57,7 @@ SmallOctohonFunc:
 	jp SetObjectFramesetPtr
 
 .Update:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjVar1
 	ld a, [hl]
@@ -288,11 +288,11 @@ BigOctohonFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_4a73f
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .asm_4a6eb
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jr z, .asm_4a6f0
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
 	jr .asm_4a711
 .asm_4a73f
@@ -326,7 +326,7 @@ BigOctohonFunc:
 	call ApplyObjXMovement
 	ld l, OBJ_VAR_1
 .asm_4a774
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	dec l
 	dec [hl]

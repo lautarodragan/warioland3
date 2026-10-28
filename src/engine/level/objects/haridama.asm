@@ -1,3 +1,6 @@
+; Haridama's own state (see HaridamaFunc.Update)
+DEF OBJSTATE_HARIDAMA_UNCURL EQU OBJSTATE_5B
+
 HaridamaFunc:
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Init)
@@ -100,7 +103,7 @@ HaridamaFunc:
 	call SetObjectFramesetPtr
 	ld a, $1b
 	ld [hli], a
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -113,7 +116,7 @@ HaridamaFunc:
 	call SetObjectFramesetPtr
 	ld a, $12
 	ld [hli], a
-	ld a, $5b
+	ld a, OBJSTATE_HARIDAMA_UNCURL
 	ld [wCurObjState], a
 	ret
 
@@ -127,7 +130,7 @@ HaridamaFunc:
 	or OBJ_INTERACTION_HARIDAMA
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -144,20 +147,20 @@ HaridamaFunc:
 	ld a, [hl]
 	and a
 	jp z, .Patrol
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_4903e
-	cp $5b
+	cp OBJSTATE_HARIDAMA_UNCURL
 	jr z, .Uncurl
-	cp $02
+	cp OBJSTATE_BUMP_LEFT_START
 	jr z, .asm_49013
-	cp $03
+	cp OBJSTATE_BUMP_RIGHT_START
 	jr z, .asm_49006
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jr z, .asm_49069
-	cp $32
+	cp OBJSTATE_BUMP_LEFT
 	jr z, .asm_49020
-	cp $38
+	cp OBJSTATE_WOBBLE_LEFT
 	jp z, .RiseInWater
 .asm_48ff6
 	ld a, [wCurObjSubState]
@@ -169,7 +172,7 @@ HaridamaFunc:
 	ld de, HaridamaFrameset_692aa
 	jr .asm_48f8e
 .asm_49006
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -178,7 +181,7 @@ HaridamaFunc:
 	jp SetObjectFramesetPtr
 
 .asm_49013
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -248,7 +251,7 @@ HaridamaFunc:
 	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -313,9 +316,9 @@ HaridamaFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_49118
-	cp $32
+	cp OBJSTATE_BUMP_LEFT
 	jr z, .asm_4916a
-	cp $33
+	cp OBJSTATE_BUMP_RIGHT
 	jp z, .RollRight
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -324,12 +327,12 @@ HaridamaFunc:
 	add $2a
 	cp b
 	jr nc, .asm_4910d
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
 	jr .asm_49112
 .asm_4910d
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
 .asm_49112
@@ -389,7 +392,7 @@ HaridamaFunc:
 	call .CheckWallLeft
 	jp z, MoveObjectLeft
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
@@ -406,7 +409,7 @@ HaridamaFunc:
 	call .CheckWallRight
 	jp z, MoveObjectRight
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
