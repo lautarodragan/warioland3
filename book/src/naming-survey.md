@@ -3809,3 +3809,70 @@ labels yet. No object writes `1D`-`1F`, `3D`, `3E` or `5D`.
   Fly then goes through `5A`, `5B` and `5C` as its own sequence
   (`obj/pesce.asm:1170`), and Tadpole's `.Update` never checks for `5A`.
   So `5A` doesn't mean the same thing in every object.
+
+## Jump labels: other screens
+
+All 360 `.asm_xxxxx` local labels outside `engine/level/`,
+`engine/overworld/`, `home/` and `audio/` now have names. None are left.
+No `Routine.asm_xxxxx` reference to them existed outside their own file,
+so only the defining files changed. The ROM is byte-identical.
+
+| Area | Labels | Files |
+| --- | --- | --- |
+| action_help | 213 | grab_gloves 61, super_grab_gloves 40, garlic 34, super_jump_slam_overalls 18, vampire 12, none 9, prince_frogs_gloves 9, high_jump_boots 8, swimming_flippers 7, common2 6, owl 2, lead_overalls 2, common1 2, head_smash_helmet 1, rail 1, core 1 |
+| golf | 62 | hole 47, lobby 14, building 1 |
+| pause | 28 | save/validate_save 20, pause_menu_2 7, pause_menu_1 1 |
+| clear | 22 | bank78 11, time_attack_clear 5, treasure_clear 3, vblank 2, musical_coins 1 |
+| title | 19 | time_attack_jp_adjustment 6, start_menu 4, start_menu_selection 4, intro_animation 3, load_gfx 1, intro 1 |
+| perfect, game_over, credits, language_selection | 6, 5, 4, 1 | core, core, credits, vblank |
+
+**Conventions.** Labels use the lowercase snake_case that these files
+already use for locals. The action help step routines repeat a few
+patterns, so the same names come back in each power-up file:
+
+- `.skip_dec` / `.skip_inc` (with `_x` where needed) for the "move one
+  more pixel on odd frames" step, as `lead_overalls.asm` already did.
+- `.got_vel_index` after the `JumpVelTable` index is capped at `$27`.
+- `.return_to_overworld` in every `*ActionHelp_End` for the
+  `ACTION_HELP_LEVEL_CLEAR_F` branch, next to the existing
+  `.restart_action_help`.
+- Thrown enemy arcs (Grab Glove, Super Grab Glove): `.fall_2px`,
+  `.fall_1px`, `.fall_fast`, then `.bounce` with `.rise_3px` ...
+  `.rise_1px`, `.skip_ahead` (the counter jumps forward) and `.land`.
+  These are fallthrough chains of `inc [hl]` / `dec [hl]`, so the
+  number is how many pixels the entry point moves.
+- Grabbing: `.lift_to_waist`, `.lift_to_chest`, `.lift_overhead`,
+  then `.wait_grab_anim` / `.begin_grab`.
+- Countdowns before a move: `.countdown`, `.timer_expired`.
+- Screen shake (Super Jump Slam Overalls): `.shake_screen`,
+  `.shake_down`, `.shake_up`, `.shake_done`.
+
+Elsewhere names describe the branch: `.on_screen`, `.hole_to_left`,
+`.respawn_from_water`, `.respawn_at_last_pos` (golf);
+`.loop_compare_counters`, `.compare_save2`-`6`, `.load_backup2_wram_data`
+(`LoadNewestValidSave`); `.four_music_boxes` ... `.no_music_boxes`
+(clear screen fallthrough); `.wait_line_2f` ... `.wait_line_6c`
+(Japanese Time Attack window raster splits). Where the file already
+used numbered pairs (`.owl_1`/`.owl_2` in `pause_menu_2.asm`), the new
+labels follow them (`.got_frameset_1`/`_2`).
+
+**Findings:**
+
+- `LoadNewestValidSave` (`pause/save/validate_save.asm`) picks the
+  newest of the valid saves by shifting the six 32-bit save counters
+  left together, one bit at a time, and keeping only the saves that have
+  a 1 where the others have one. It stops when one save is left or after
+  32 bits. If several saves tie, the first set bit wins, in the order
+  game data, backup game data, WRAM data, backup 1, 2, 3.
+- `VBlank_MusicalCoinsScreen` (`clear/vblank.asm`, `.vram1_tile`) sets
+  `rVBK` to VRAM1 to write one attribute byte and doesn't set it back to
+  0. The credits VBlank resets it in the same situation. Whether this
+  matters depends on what writes VRAM next; not checked.
+- `FinishIntroBackgroundScroll` (`title/intro_animation.asm`)
+  already had a label `.far_layer` that handles `wIntroBGXOffsetNear`.
+  That name is wrong but was not part of this pass.
+- `PrinceFrogsGlovesActionHelp_End` masks with `and $3f` where the other
+  power-ups use `and POWER_UP_MASK` (same value).
+- Grab Glove and Super Grab Glove repeat the same lift and thrown-arc
+  code three times each with different constants. They could be shared
+  routines.

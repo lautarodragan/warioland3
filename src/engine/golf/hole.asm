@@ -243,13 +243,13 @@ ShowGolfHoleFlagAndPar:
 ; then the number of strokes can exceed the par
 	ld a, [wGolfMode]
 	cp $02
-	jr z, .asm_1c8ba3
+	jr z, .golf_building
 	ld a, [wGolfPar]
 	add MAX_GOLF_COURSE_STROKES
 	ld [wGolfMaxStrokes], a
 	ld a, [wGolfCourseHole]
 	jr .got_max_strokes
-.asm_1c8ba3
+.golf_building
 	ld a, [wGolfPar]
 	ld [wGolfMaxStrokes], a
 	ld a, [wGolfPar]
@@ -496,10 +496,10 @@ UpdateGolfParaGoom:
 	push de
 	call IsGolfXPosOnScreen
 	and a
-	jr nz, .asm_1c8d96 ; if true
+	jr nz, .on_screen ; if true
 	pop de
 	ret
-.asm_1c8d96
+.on_screen
 	pop de
 	; calculate ParaGoom's coordinates in the screen
 	ld a, [wSCX]
@@ -514,9 +514,9 @@ UpdateGolfParaGoom:
 	cp GOLF_PARAGOOM_8
 	ret nc
 	cp GOLF_PARAGOOM_5
-	jr nz, .asm_1c8db1
+	jr nz, .got_y_offset
 	ld b, $13
-.asm_1c8db1
+.got_y_offset
 	ld hl, wGolfParaGoomYPos
 	ld a, [hli]
 	ld d, [hl]
@@ -553,12 +553,12 @@ UpdateGolfParaGoom:
 	jr nz, .add_sprite
 	ld a, [wGolfParaGoomFramesetOffset]
 	cp $1e
-	jr z, .asm_1c8e01
+	jr z, .play_error_sfx
 	cp $14
 	jr nz, .add_sprite
 	play_sfx SFX_UNDERWATER_THRUST
 	jr .add_sprite
-.asm_1c8e01
+.play_error_sfx
 	play_sfx SFX_ERROR
 .add_sprite
 	ld a, [wGolfParaGoomCurrentFrame]
@@ -583,12 +583,12 @@ UnreferencedGolfParaGoomFrameset_1c8e21:
 HandleGolfParaGoomRespawn:
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_2
-	jr z, .asm_1c8e32
+	jr z, .respawn_from_water
 	cp GOLF_PARAGOOM_3
-	jr z, .asm_1c8e7c
+	jr z, .respawn_at_last_pos
 	ret
 
-.asm_1c8e32
+.respawn_from_water
 	ld hl, wLastGolfParaGoomYPos
 	ld a, LOW(PARAGOOM_GROUND_LEVEL)
 	ld [hli], a
@@ -632,7 +632,7 @@ HandleGolfParaGoomRespawn:
 	ld [wGolfParaGoomState], a
 	jr SetGolfParaGoomRespawnYPosIfEnoughStrokes
 
-.asm_1c8e7c
+.respawn_at_last_pos
 	ld hl, wGolfParaGoomYPos
 	xor a
 	ld [hli], a
@@ -675,7 +675,7 @@ UpdateGolfWario:
 	push de
 	call IsGolfXPosOnScreen
 	and a
-	jr nz, .asm_1c8f02
+	jr nz, .on_screen
 	pop de
 	ld a, [wGolfWarioSnapToEdge]
 	and a
@@ -685,7 +685,7 @@ UpdateGolfWario:
 
 	ld a, [wGolfWarioDir]
 	and a
-	jr nz, .asm_1c8ee5
+	jr nz, .snap_to_right_edge
 	ld hl, wGolfXScroll
 	ld a, [hli]
 	ld d, [hl]
@@ -700,8 +700,8 @@ UpdateGolfWario:
 	ld a, d
 	sbc 0
 	ld d, a
-	jr .asm_1c8efb
-.asm_1c8ee5
+	jr .set_x_pos
+.snap_to_right_edge
 	ld hl, wGolfXScroll
 	ld a, [hli]
 	ld d, [hl]
@@ -716,14 +716,14 @@ UpdateGolfWario:
 	ld a, d
 	adc HIGH(680)
 	ld d, a
-.asm_1c8efb
+.set_x_pos
 	ld hl, wGolfWarioXPos
 	ld a, e
 	ld [hli], a
 	ld [hl], d
 	ret
 
-.asm_1c8f02
+.on_screen
 	xor a
 	ld [wGolfWarioSnapToEdge], a
 	pop de
@@ -924,11 +924,11 @@ GolfHoleState_WaitInput:
 .d_right
 	ld a, d
 	and a
-	jr z, .asm_1c9041
+	jr z, .scroll_right
 	ld a, e
 	cp LOW(MAX_GOLF_X_SCROLL)
 	ret nc ; can't scroll right
-.asm_1c9041
+.scroll_right
 	xor a ; right
 	jr .begin_scroll
 
@@ -969,24 +969,24 @@ GolfHoleState_Scroll:
 	cp GOLF_TERRAIN_BUNKER
 	jr z, .bunker
 	ld b, $a0
-	jr .asm_1c9083
+	jr .got_ghost_distance
 .rough
 	ld b, $80
-	jr .asm_1c9083
+	jr .got_ghost_distance
 .bunker
 	ld b, $50
-.asm_1c9083
+.got_ghost_distance
 	ld a, [wGolfHoleDirection]
 	and a
-	jr nz, .asm_1c9092
+	jr nz, .hole_to_left
 	ld a, e
 	add b
 	ld e, a
 	ld a, d
 	adc 0
 	ld d, a
-	jr .asm_1c9099
-.asm_1c9092
+	jr .check_on_screen
+.hole_to_left
 	ld a, e
 	sub b
 	ld e, a
@@ -994,7 +994,7 @@ GolfHoleState_Scroll:
 	sbc 0
 	ld d, a
 
-.asm_1c9099
+.check_on_screen
 	push de
 	call IsGolfXPosOnScreen
 	and a
@@ -1041,11 +1041,11 @@ GolfHoleState_Scroll:
 	jr z, .no_directional_input
 	ld a, d
 	and a
-	jr z, .asm_1c90ee
+	jr z, .scroll_right
 	ld a, e
 	cp LOW(MAX_GOLF_X_SCROLL)
 	ret nc ; can't scroll right
-.asm_1c90ee
+.scroll_right
 	inc de
 	jr .apply_scroll
 
@@ -1699,11 +1699,11 @@ UpdateGolfParaGoomYPos:
 	ld a, [wGolfTerrain]
 	and GOLF_TERRAIN_MASK
 	ld d, a
-	jr z, .asm_1c9521
+	jr z, .check_bounce
 	cp GOLF_TERRAIN_OB
-	jr nc, .asm_1c9521
+	jr nc, .check_bounce
 	ld [wGolfParaGoomLeftTeeBox], a
-.asm_1c9521
+.check_bounce
 	xor a
 	ld [wGolfShotXDecelCounter], a
 	ld a, d
@@ -1839,24 +1839,24 @@ AlignGolfXScrollWithParaGoom:
 	cp $2
 	jr nc, .cap_x_scroll
 	and a
-	jr nz, .asm_1c9634
+	jr nz, .x_ge_256
 	ld a, e
 	cp $50
-	jr nc, .asm_1c962e
+	jr nc, .x_lt_256
 	xor a
 	ld [hli], a
 	ld [hl], a
 	ret
-.asm_1c962e
+.x_lt_256
 	sub $50
 	ld [hli], a
 	xor a
 	ld [hl], a
 	ret
-.asm_1c9634
+.x_ge_256
 	ld a, e
 	cp $b0
-	jr c, .asm_1c9640
+	jr c, .center_on_paragoom
 
 .cap_x_scroll
 	ld a, $60
@@ -1864,7 +1864,7 @@ AlignGolfXScrollWithParaGoom:
 	ld a, $01
 	ld [hl], a
 	ret
-.asm_1c9640
+.center_on_paragoom
 	sub $50
 	ld [hli], a
 	ld a, d
@@ -1902,26 +1902,26 @@ GolfHoleState_SpecialTerrain:
 
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_4
-	jp z, .asm_1c9743
+	jp z, .drop_to_last_y
 	ld de, GolfHoleFrameset_1cb016
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
 	and a
-	jr nz, .asm_1c96ba
+	jr nz, .respawn_at_last_x
 	ld a, [wGolfOverlayTextFramesetOffset]
 	cp $2
-	jr nz, .asm_1c96ae
+	jr nz, .load_overlay_sprite
 	ld a, [wGolfOverlayTextDuration]
 	cp 1
 	play_sfx z, SFX_ERROR
-.asm_1c96ae
+.load_overlay_sprite
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
 	ld hl, wGolfOverlayTextSprite
 	jp LoadGolfSprite
 
-.asm_1c96ba
+.respawn_at_last_x
 	ld hl, wGolfParaGoomYPos
 	xor a
 	ld [hli], a
@@ -1945,11 +1945,11 @@ GolfHoleState_SpecialTerrain:
 	call UpdateGolfObjectAnimation
 	ld a, c
 	and a
-	jp nz, .asm_1c976f
+	jp nz, .start_walk
 	ld a, [wGolfOverlayTextFramesetOffset]
 	cp $0a
-	jr nz, .asm_1c9716
-	jr .asm_1c9708
+	jr nz, .load_terrain_overlay_sprite
+	jr .play_terrain_sfx
 
 .Bunker:
 	ld de, GolfHoleFrameset_1cb068
@@ -1957,16 +1957,16 @@ GolfHoleState_SpecialTerrain:
 	call UpdateGolfObjectAnimation
 	ld a, c
 	and a
-	jr nz, .asm_1c976f
+	jr nz, .start_walk
 	ld a, [wGolfOverlayTextFramesetOffset]
 	cp $06
-	jr nz, .asm_1c9716
+	jr nz, .load_terrain_overlay_sprite
 
-.asm_1c9708
+.play_terrain_sfx
 	ld a, [wGolfOverlayTextDuration]
 	and a
 	play_sfx z, SFX_GOLF_SPECIAL_TERRAIN_1
-.asm_1c9716
+.load_terrain_overlay_sprite
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
 	ld hl, wGolfOverlayTextSprite
@@ -1975,7 +1975,7 @@ GolfHoleState_SpecialTerrain:
 .Water:
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_4
-	jr z, .asm_1c9743
+	jr z, .drop_to_last_y
 	cp GOLF_PARAGOOM_6
 	ret nz
 	ld hl, wGolfParaGoomYPos
@@ -1992,7 +1992,7 @@ GolfHoleState_SpecialTerrain:
 	ld a, GOLF_TERRAIN_PLAIN
 	ld [wStrokeGolfTerrain], a
 	ret
-.asm_1c9743
+.drop_to_last_y
 	ld hl, wGolfParaGoomYPos
 	ld a, [hli]
 	or [hl]
@@ -2015,13 +2015,13 @@ GolfHoleState_SpecialTerrain:
 	ld a, [wStrokeGolfTerrain]
 	ld [wGolfTerrain], a
 
-.asm_1c976f
+.start_walk
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_5
-	jr z, .asm_1c977a
+	jr z, .skip_reset_state
 	xor a ; GOLF_PARAGOOM_0
 	ld [wGolfParaGoomState], a
-.asm_1c977a
+.skip_reset_state
 	xor a
 	ld [wGolfCounter], a
 	ld [wGolfParaGoomDuration], a
@@ -2038,9 +2038,9 @@ GolfHoleState_SpecialTerrain:
 .Ob:
 	ld a, [wGolfParaGoomState]
 	cp GOLF_PARAGOOM_4
-	jr z, .asm_1c9743
+	jr z, .drop_to_last_y
 	cp GOLF_PARAGOOM_6
-	jr nz, .asm_1c97b5
+	jr nz, .animate_ob_text
 	ld hl, wGolfParaGoomYPos
 	ld a, [hl]
 	cp $a0
@@ -2051,25 +2051,25 @@ GolfHoleState_SpecialTerrain:
 .done_sinking_ob
 	ld a, GOLF_PARAGOOM_3
 	ld [wGolfParaGoomState], a
-.asm_1c97b5
+.animate_ob_text
 	ld de, GolfHoleFrameset_1cb016
 	ld hl, wGolfOverlayTextDuration
 	call UpdateGolfObjectAnimation
 	ld a, c
 	and a
-	jr nz, .asm_1c97e4
+	jr nz, .ob_respawn
 	ld a, [wGolfOverlayTextFramesetOffset]
 	cp $2
-	jr nz, .asm_1c97d8
+	jr nz, .load_ob_overlay_sprite
 	ld a, [wGolfOverlayTextDuration]
 	cp 1
 	play_sfx z, SFX_ERROR
-.asm_1c97d8
+.load_ob_overlay_sprite
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
 	ld hl, wGolfOverlayTextSprite
 	jp LoadGolfSprite
-.asm_1c97e4
+.ob_respawn
 	ld a, GOLF_PARAGOOM_4
 	ld [wGolfParaGoomState], a
 	call AlignGolfXScrollWithParaGoom
@@ -2137,24 +2137,24 @@ GolfHoleState_SpecialTerrain:
 	jr nc, .over_par
 ; under par
 	play_music2 MUSIC_GOLF_CLEAR
-	jr .asm_1c9863
+	jr .cleared
 .par
 	play_music2 MUSIC_GOLF_CLEAR
 	ld a, GOLFRESULT_PAR
 	ld [wGolfResult], a
-.asm_1c9863
+.cleared
 	ld a, GOLFHOLESTATE_CLEARED
 	ld [wGolfNextHoleState], a
-	jp .asm_1c976f
+	jp .start_walk
 .over_par
 	ld a, GOLFRESULT_OVER_PAR
 	ld [wGolfResult], a
 	ld a, [wGolfMode]
 	cp $01
-	jr z, .asm_1c9863
+	jr z, .cleared
 	ld a, GOLFHOLESTATE_GAME_OVER
 	ld [wGolfNextHoleState], a
-	jp .asm_1c976f
+	jp .start_walk
 
 .HoleXPosOffsetSigns:
 	db $0
@@ -2240,7 +2240,7 @@ GolfHoleState_Walk:
 	cp $19
 	jr nc, .walk
 	cp $18
-	jr nc, .asm_1c98e1
+	jr nc, .leave_tee_box
 	inc [hl]
 	and a
 	ret nz
@@ -2249,7 +2249,7 @@ GolfHoleState_Walk:
 	ld [wGolfWarioSnapToEdge], a
 	jp PrintGolfStrokeNumber
 
-.asm_1c98e1
+.leave_tee_box
 	ld a, [wGolfParaGoomLeftTeeBox]
 	and a
 	jr z, .move_x_pos
@@ -2366,22 +2366,22 @@ GolfHoleState_Walk:
 	ld hl, wGolfNextHoleState
 	ld a, [hl]
 	cp GOLFHOLESTATE_CLEARED
-	jr z, .asm_1c99a4
+	jr z, .cleared
 	cp GOLFHOLESTATE_GAME_OVER
-	jr z, .asm_1c99bb
+	jr z, .game_over
 	ld a, GOLF_WARIO_IDLING
-	jr .asm_1c99bd
-.asm_1c99a4
+	jr .set_wario_state
+.cleared
 	ld a, [wGolfResult]
 	cp GOLFRESULT_OVER_PAR
-	jr nc, .asm_1c99af
+	jr nc, .over_par
 	ld a, GOLF_WARIO_CLEARED
-	jr .asm_1c99bd
-.asm_1c99af
+	jr .set_wario_state
+.over_par
 	play_music2 MUSIC_GOLF_GAME_OVER
-.asm_1c99bb
+.game_over
 	ld a, GOLF_WARIO_LOST
-.asm_1c99bd
+.set_wario_state
 	ld [wGolfWarioState], a
 	ld a, $02
 	ld [wGolfVBlankMode], a
@@ -2483,7 +2483,7 @@ GolfHoleState_BetweenShots:
 GolfHoleState_Cleared:
 	ld a, [wGolfMode]
 	cp $01
-	jr z, .asm_1c9ac2
+	jr z, .course_mode
 	ld a, $50
 	ld [wGolfOverlayTextYCoord], a
 	ld a, $58
@@ -2514,33 +2514,33 @@ GolfHoleState_Cleared:
 	ld [wGolfMenuOption], a
 	ld a, [wIsMinigameCleared]
 	and a
-	jr nz, .asm_1c9abc
+	jr nz, .already_cleared
 	ld a, TRUE
 	ld [wIsMinigameCleared], a
 	ld a, SST_GOLF_CLEAR
 	ld [wSubState], a
 	ret
-.asm_1c9abc
+.already_cleared
 	ld a, SST_GOLF_EXIT
 	ld [wSubState], a
 	ret
 
-.asm_1c9ac2
+.course_mode
 	call ShowGolfResultOverlayText
 	call ShowGolfScore
 	ld b, $50
 	ld a, [wGolfWarioState]
 	cp $06
-	jr z, .asm_1c9ad3
+	jr z, .got_input_delay
 	ld b, $70
-.asm_1c9ad3
+.got_input_delay
 	ld hl, wGolfCounter
 	ld a, [hl]
 	cp b
-	jr nc, .asm_1c9adc
+	jr nc, .course_input_allowed
 	inc [hl]
 	ret
-.asm_1c9adc
+.course_input_allowed
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
@@ -2573,14 +2573,14 @@ GolfHoleState_Cleared:
 
 	ld a, [wGolfCourseScore]
 	cp golf_score 1
-	jr nc, .asm_1c9b24
+	jr nc, .course_over_par
 	ld a, GOLFRESULT_COURSE_UNDER_PAR
 	ld [wGolfResult], a
-	jr .asm_1c9b29
-.asm_1c9b24
+	jr .check_best_score
+.course_over_par
 	ld a, GOLFRESULT_COURSE_OVER_PAR
 	ld [wGolfResult], a
-.asm_1c9b29
+.check_best_score
 	ld hl, wGolfBestScores
 	ld a, [wGolfCourse]
 	ld d, $00
@@ -2588,15 +2588,15 @@ GolfHoleState_Cleared:
 	add hl, de
 	ld a, [wGolfCourseScore]
 	cp [hl]
-	jr nc, .asm_1c9b48
+	jr nc, .not_new_best
 	play_sfx SFX_SUCCESS
 	ld a, GOLF_WARIO_CLEARED
 	ld [wGolfWarioState], a
-	jr .asm_1c9b4d
-.asm_1c9b48
+	jr .show_result
+.not_new_best
 	ld a, GOLF_WARIO_LOST
 	ld [wGolfWarioState], a
-.asm_1c9b4d
+.show_result
 	ld a, GOLFHOLESTATE_RESULT
 	ld [wGolfHoleState], a
 	ret
@@ -2681,19 +2681,19 @@ GolfHoleState_GameOver:
 	ld hl, wGolfCounter
 	ld a, [hl]
 	cp $50
-	jr nc, .asm_1c9be5
+	jr nc, .input_allowed
 	inc [hl]
 	ret
-.asm_1c9be5
+.input_allowed
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
 	ld a, [wGolfMode]
 	cp $02
-	jr nz, .asm_1c9bf7
+	jr nz, .exit
 	ld a, $01
 	ld [wGolfMenuOption], a
-.asm_1c9bf7
+.exit
 	xor a
 	ld [wSubState], a
 	ret
@@ -2713,22 +2713,22 @@ GolfHoleState_Pause:
 
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr nz, .asm_1c9c27
+	jr nz, .a_btn
 	bit B_PAD_B, a
-	jr nz, .asm_1c9c40
+	jr nz, .b_btn
 	ret
-.asm_1c9c27
+.a_btn
 	ld a, [wGolfMode]
 	cp $01
-	jr z, .asm_1c9c33
+	jr z, .quit
 	ld a, $01
 	ld [wGolfMenuOption], a
-.asm_1c9c33
+.quit
 	play_sfx SFX_SELECTION
 	xor a
 	ld [wSubState], a
 	ret
-.asm_1c9c40
+.b_btn
 	play_sfx SFX_MENU_CANCEL
 	xor a
 	ld [wGolfObj3Duration], a

@@ -93,10 +93,10 @@ LoadActionHelpBGMaps:
 	ld a, [wActionHelpPowerUp]
 	and POWER_UP_MASK
 	cp NUM_MAIN_POWER_UPS
-	jr nc, .asm_1e4995
+	jr nc, .special_power_up
 	ld a, [wPowerUpLevel]
 	and POWER_UP_MASK
-	jr z, .asm_1e4979
+	jr z, .draw_locked_slots
 	ld c, a
 
 	ld a, BANK("VRAM1")
@@ -104,7 +104,7 @@ LoadActionHelpBGMaps:
 	hlbgcoord 0, 16, v1BGMap1
 	ld de, TILEMAP_WIDTH
 	ld b, $00
-.asm_1e4969
+.loop_unlocked_slots
 	push hl
 	ld a, $03
 	ld [hli], a
@@ -118,9 +118,9 @@ LoadActionHelpBGMaps:
 	inc b
 	ld a, b
 	cp c
-	jr c, .asm_1e4969
+	jr c, .loop_unlocked_slots
 
-.asm_1e4979
+.draw_locked_slots
 	xor a
 	ldh [rVBK], a
 	ld a, [wPowerUpLevel]
@@ -131,20 +131,20 @@ LoadActionHelpBGMaps:
 	ret z
 	ld b, a
 	hlbgcoord 18, 16, v0BGMap1
-.asm_1e498a
+.loop_locked_slots
 	push hl
 	call .draw_locked_slot
 	pop hl
 	dec hl
 	dec hl
 	dec b
-	jr nz, .asm_1e498a
+	jr nz, .loop_locked_slots
 	ret
 
-.asm_1e4995
+.special_power_up
 	ld b, $0a
 	hlbgcoord 18, 16, v0BGMap1
-	jr .asm_1e498a
+	jr .loop_locked_slots
 
 .draw_locked_slot:
 	ld de, TILEMAP_WIDTH
@@ -248,7 +248,7 @@ LoadActionHelpPowerUpIconPals:
 	ld a, [wPowerUpLevel]
 	and POWER_UP_MASK
 	cp b
-	jr nc, .asm_1e4a6f
+	jr nc, .unlocked
 	xor a
 	ld hl, wTempPals2 palette 4
 	ld b, 1 palettes
@@ -257,8 +257,8 @@ LoadActionHelpPowerUpIconPals:
 	ld b, 1 palettes
 	call WriteAToHL_BTimes
 	ld hl, wTempPals2 palette 4
-	jr .asm_1e4a84
-.asm_1e4a6f
+	jr .load_pals
+.unlocked
 	push hl
 	ld de, wTempPals2 palette 4
 	ld b, 1 palettes
@@ -269,7 +269,7 @@ LoadActionHelpPowerUpIconPals:
 	call CopyHLToDE_Short
 	pop hl
 
-.asm_1e4a84
+.load_pals
 	ld a, OBPI_AUTOINC | palette 4
 	ldh [rOBPI], a
 	ld c, LOW(rOBPD)

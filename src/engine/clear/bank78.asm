@@ -183,14 +183,14 @@ LoadTimeAttackClearScreenBGMaps:
 	add hl, de
 	ld a, [wLevelTime + 0]
 	cp [hl]
-	jr c, .asm_1e014d
+	jr c, .new_high_score
 	ret nz
 	inc hl
 	ld a, [wLevelTime + 1]
 	cp [hl]
 	ret nc
 	dec hl
-.asm_1e014d
+.new_high_score
 	ld a, [wLevelTime + 0]
 	ld [hli], a
 	ld a, [wLevelTime + 1]
@@ -232,19 +232,19 @@ InitTreasureClearScreenObjs:
 	ld [wClearScreenWarioVar], a
 	ld a, [wTransitionParam]
 	cp TRANSITION_RETURN_TO_MAP
-	jr z, .asm_1e0196
+	jr z, .returning_to_map
 	ld a, HIGH(ClearScreenFrameset_d4d18)
 	ld [hli], a
 	ld a, LOW(ClearScreenFrameset_d4d18)
 	ld [hl], a
-	jr .asm_1e019c
-.asm_1e0196
+	jr .got_wario_frameset
+.returning_to_map
 	ld a, HIGH(ClearScreenFrameset_d4d58)
 	ld [hli], a
 	ld a, LOW(ClearScreenFrameset_d4d58)
 	ld [hl], a
 
-.asm_1e019c
+.got_wario_frameset
 	ld hl, wMenuObj1
 	ld a, [wLevelEndScreen]
 	cp LVLEND_GREY_TREASURE
@@ -308,15 +308,15 @@ InitTreasureClearScreenObjs:
 	ld [hl], a
 	ld a, [wNumMusicBoxes]
 	and a
-	jp z, .asm_1e0279
+	jp z, .no_music_boxes
 	dec a
-	jr z, .asm_1e0265
+	jr z, .one_music_box
 	dec a
-	jr z, .asm_1e0251
+	jr z, .two_music_boxes
 	dec a
-	jr z, .asm_1e023d
+	jr z, .three_music_boxes
 	dec a
-	jr z, .asm_1e0229
+	jr z, .four_music_boxes
 
 	ld hl, wMenuObj3
 	ld a, $79
@@ -333,7 +333,7 @@ InitTreasureClearScreenObjs:
 	ld a, LOW(ClearScreenFrameset_d5068)
 	ld [hl], a
 
-.asm_1e0229
+.four_music_boxes
 	ld hl, wMenuObj4
 	ld a, $8d
 	ld [hli], a
@@ -349,7 +349,7 @@ InitTreasureClearScreenObjs:
 	ld a, LOW(ClearScreenFrameset_d5065)
 	ld [hl], a
 
-.asm_1e023d
+.three_music_boxes
 	ld hl, wMenuObj5
 	ld a, $8c
 	ld [hli], a
@@ -365,7 +365,7 @@ InitTreasureClearScreenObjs:
 	ld a, LOW(ClearScreenFrameset_d5062)
 	ld [hl], a
 
-.asm_1e0251
+.two_music_boxes
 	ld hl, wMenuObj6
 	ld a, $79
 	ld [hli], a
@@ -381,7 +381,7 @@ InitTreasureClearScreenObjs:
 	ld a, LOW(ClearScreenFrameset_d505f)
 	ld [hl], a
 
-.asm_1e0265
+.one_music_box
 	ld hl, wMenuObj7
 	ld a, $67
 	ld [hli], a
@@ -396,7 +396,7 @@ InitTreasureClearScreenObjs:
 	ld [hli], a
 	ld a, LOW(ClearScreenFrameset_d505c)
 	ld [hl], a
-.asm_1e0279
+.no_music_boxes
 	ret
 
 .GreyTreasureParams:
@@ -422,7 +422,7 @@ InitTreasureClearScreenObjs:
 InitTimeAttackClearScreenObjs:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
-	jr nz, .asm_1e02a5
+	jr nz, .init_wario
 	ld hl, wMenuObj8
 	ld a, $60
 	ld [hli], a
@@ -438,7 +438,7 @@ InitTimeAttackClearScreenObjs:
 	ld a, LOW(ClearScreenFrameset_d5080)
 	ld [hl], a
 
-.asm_1e02a5
+.init_wario
 	ld hl, wClearScreenWario
 	ld a, SCREEN_HEIGHT_PX
 	ld [hli], a
@@ -452,20 +452,20 @@ InitTimeAttackClearScreenObjs:
 	ld [wActionHelpWarioVar], a
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
-	jr nz, .asm_1e02cd
+	jr nz, .no_high_score
 	play_music MUSIC_LEVEL_CLEAR_GOT_TREASURE
 	ld a, HIGH(ClearScreenFrameset_d4d18)
 	ld [hli], a
 	ld a, LOW(ClearScreenFrameset_d4d18)
 	ld [hl], a
-	jr .asm_1e02db
-.asm_1e02cd
+	jr .got_wario_frameset
+.no_high_score
 	play_music MUSIC_LEVEL_CLEAR_NO_TREASURE
 	ld a, HIGH(ClearScreenFrameset_d4d58)
 	ld [hli], a
 	ld a, LOW(ClearScreenFrameset_d4d58)
 	ld [hl], a
-.asm_1e02db
+.got_wario_frameset
 	stop_sfx
 
 	ld hl, wMenuObj2

@@ -80,12 +80,12 @@ LeadOverallsActionHelp:
 LeadOverallsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1f8996
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1f8996
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -272,9 +272,9 @@ LeadOverallsActionHelp_Step0A:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1f8adb
+	jr z, .skip_dec
 	dec [hl]
-.asm_1f8adb
+.skip_dec
 	ld a, [wActionHelpWarioXCoord]
 	cp [hl]
 	ret c

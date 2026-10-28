@@ -147,7 +147,7 @@ OwlActionHelp_Step03:
 	dec [hl]
 	ld a, [hl]
 	cp $34
-	jr z, .asm_1e4162
+	jr z, .release_dpad
 	cp $20
 	ret nc
 
@@ -155,7 +155,7 @@ OwlActionHelp_Step03:
 	inc [hl]
 	ret
 
-.asm_1e4162
+.release_dpad
 	jp ActionHelp2_ClearDPadInput
 
 OwlActionHelp_Step04:
@@ -187,7 +187,7 @@ OwlActionHelp_Step05:
 	dec [hl]
 	ld a, [hl]
 	cp $5c
-	jr z, .asm_1e41c6
+	jr z, .release_dpad
 	cp $10
 	ret nc
 
@@ -197,7 +197,7 @@ OwlActionHelp_Step05:
 	inc [hl]
 	ret
 
-.asm_1e41c6
+.release_dpad
 	jp ActionHelp2_ClearDPadInput
 
 OwlActionHelp_Step06:

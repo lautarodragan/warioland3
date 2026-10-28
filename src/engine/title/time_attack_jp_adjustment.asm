@@ -3,50 +3,50 @@ AdjustJapaneseTimeAttackDescriptionWindow:
 	and a
 	ret nz ; return if English
 
-.asm_4d84
+.wait_line_2f
 	ldh a, [rLY]
 	cp $2f
-	jr c, .asm_4d84
+	jr c, .wait_line_2f
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07
 	ldh [rSCY], a
-.asm_4d93
+.wait_line_38
 	ldh a, [rLY]
 	cp $38
-	jr c, .asm_4d93
+	jr c, .wait_line_38
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07
 	ldh [rSCY], a
-.asm_4da2
+.wait_line_41
 	ldh a, [rLY]
 	cp $41
-	jr c, .asm_4da2
+	jr c, .wait_line_41
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07
 	ldh [rSCY], a
-.asm_4db1
+.wait_line_5a
 	ldh a, [rLY]
 	cp $5a
-	jr c, .asm_4db1
+	jr c, .wait_line_5a
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07
 	ldh [rSCY], a
-.asm_4dc0
+.wait_line_63
 	ldh a, [rLY]
 	cp $63
-	jr c, .asm_4dc0
+	jr c, .wait_line_63
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07
 	ldh [rSCY], a
-.asm_4dcf
+.wait_line_6c
 	ldh a, [rLY]
 	cp $6c
-	jr c, .asm_4dcf
+	jr c, .wait_line_6c
 	call WaitNextHBlank
 	ldh a, [rSCY]
 	add $07

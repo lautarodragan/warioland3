@@ -13,19 +13,19 @@ StartMenu:
 
 	ld a, [wRestoredSave]
 	and a
-	jr z, .asm_453e
+	jr z, .no_save
 
 	ld a, [wGlobalCounter]
 	and %111
-	jr nz, .asm_4538
+	jr nz, .skip_blink
 	ld a, [wMenuObj2Attributes]
 	xor %11
 	ld [wMenuObj2Attributes], a
-.asm_4538
+.skip_blink
 	ld hl, wMenuObj2
 	call LoadStartMenuSprite
 
-.asm_453e
+.no_save
 	call ClearUnusedVirtualOAM
 	ld hl, wStartMenuSelection
 	bit STARTMENUF_SELECT_F, [hl]
@@ -93,7 +93,7 @@ StartMenu:
 	ld bc, StartMenuFrameset_6d1e
 .got_frameset
 	ld a, STARTMENU_CONTINUE
-	jr .asm_45c5
+	jr .set_selection
 
 .ClearData:
 	ld a, $81
@@ -105,7 +105,7 @@ StartMenu:
 	ld bc, StartMenuFrameset_6cec
 	ld a, STARTMENU_CLEAR_DATA_NO
 
-.asm_45c5
+.set_selection
 	ld [wStartMenuSelection], a
 	ld hl, wMenuObj1FramesetOffset
 	xor a
@@ -140,9 +140,9 @@ StartMenu:
 	jr nz, .TimeAttack
 	ld a, [wRestoredSave]
 	and %111100
-	jr nz, .asm_45fd
+	jr nz, .continue_in_level
 	jr StartOverworldState
-.asm_45fd
+.continue_in_level
 	ld a, ST_LEVEL
 	ld [wState], a
 	xor a

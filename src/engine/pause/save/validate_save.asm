@@ -869,8 +869,8 @@ LoadNewestValidSave:
 	ld [wRestoredSave], a
 	ld a, [wValidSaves]
 	and $3f
-	jr nz, .asm_1f1266
-.asm_1f1251
+	jr nz, .has_valid_save
+.no_valid_save
 	ld hl, wLevelTimeAttackScores
 	ld b, 2 * NUM_LEVELS
 	ld a, (10 << $4) | 10
@@ -881,22 +881,22 @@ LoadNewestValidSave:
 	call WriteAToHL_BTimes
 	ret
 
-.asm_1f1266
+.has_valid_save
 	ld b, a
 	ld a, $3f
 	and b
 	ld [wRestoredSave], a
 	ld bc, $600
-.asm_1f1270
+.loop_count_valid
 	rrca
-	jr nc, .asm_1f1274
+	jr nc, .next_valid_bit
 	inc c
-.asm_1f1274
+.next_valid_bit
 	dec b
-	jr nz, .asm_1f1270
+	jr nz, .loop_count_valid
 	ld a, c
 	dec a
-	jp z, .asm_1f1389
+	jp z, .load_restored_save
 
 	ld hl, sGameData
 	ld de, sSaveCounterCompare1
@@ -929,14 +929,14 @@ LoadNewestValidSave:
 	call CopyHLToDE
 
 	ld e, $21
-.asm_1f12c0
+.loop_compare_counters
 	dec e
-	jp z, .asm_1f1389
+	jp z, .load_restored_save
 	xor a
 	ld [sSaveCounterCompareBits], a
 	ld a, [wRestoredSave]
 	bit 0, a
-	jr z, .asm_1f12e4
+	jr z, .compare_save2
 	ld hl, sSaveCounterCompare1 + $3
 	sla [hl]
 	dec l
@@ -945,13 +945,13 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f12e4
+	jr nc, .compare_save2
 	ld hl, sSaveCounterCompareBits
 	set 0, [hl]
-.asm_1f12e4
+.compare_save2
 	ld a, [wRestoredSave]
 	bit 1, a
-	jr z, .asm_1f1300
+	jr z, .compare_save3
 	ld hl, sSaveCounterCompare2 + $3
 	sla [hl]
 	dec l
@@ -960,13 +960,13 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f1300
+	jr nc, .compare_save3
 	ld hl, sSaveCounterCompareBits
 	set 1, [hl]
-.asm_1f1300
+.compare_save3
 	ld a, [wRestoredSave]
 	bit 2, a
-	jr z, .asm_1f131c
+	jr z, .compare_save4
 	ld hl, sSaveCounterCompare3 + $3
 	sla [hl]
 	dec l
@@ -975,13 +975,13 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f131c
+	jr nc, .compare_save4
 	ld hl, sSaveCounterCompareBits
 	set 2, [hl]
-.asm_1f131c
+.compare_save4
 	ld a, [wRestoredSave]
 	bit 3, a
-	jr z, .asm_1f1338
+	jr z, .compare_save5
 	ld hl, sSaveCounterCompare4 + $3
 	sla [hl]
 	dec l
@@ -990,13 +990,13 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f1338
+	jr nc, .compare_save5
 	ld hl, sSaveCounterCompareBits
 	set 3, [hl]
-.asm_1f1338
+.compare_save5
 	ld a, [wRestoredSave]
 	bit 4, a
-	jr z, .asm_1f1354
+	jr z, .compare_save6
 	ld hl, sSaveCounterCompare5 + $3
 	sla [hl]
 	dec l
@@ -1005,13 +1005,13 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f1354
+	jr nc, .compare_save6
 	ld hl, sSaveCounterCompareBits
 	set 4, [hl]
-.asm_1f1354
+.compare_save6
 	ld a, [wRestoredSave]
 	bit 5, a
-	jr z, .asm_1f1370
+	jr z, .check_compare_bits
 	ld hl, sSaveCounterCompare6 + $3
 	sla [hl]
 	dec l
@@ -1020,63 +1020,63 @@ LoadNewestValidSave:
 	rl [hl]
 	dec l
 	rl [hl]
-	jr nc, .asm_1f1370
+	jr nc, .check_compare_bits
 	ld hl, sSaveCounterCompareBits
 	set 5, [hl]
 
-.asm_1f1370
+.check_compare_bits
 	ld a, [sSaveCounterCompareBits]
 	and a
-	jp z, .asm_1f12c0
+	jp z, .loop_compare_counters
 	ld [wRestoredSave], a
 	ld bc, $600
-.asm_1f137d
+.loop_count_newest
 	rrca
-	jr nc, .asm_1f1381
+	jr nc, .next_newest_bit
 	inc c
-.asm_1f1381
+.next_newest_bit
 	dec b
-	jr nz, .asm_1f137d
+	jr nz, .loop_count_newest
 	ld a, c
 	dec a
-	jp nz, .asm_1f12c0
-.asm_1f1389
+	jp nz, .loop_compare_counters
+.load_restored_save
 	ld a, [wRestoredSave]
 	bit 0, a
-	jr nz, .asm_1f13a7
+	jr nz, .load_game_data
 	bit 1, a
-	jr nz, .asm_1f13ae
+	jr nz, .load_backup_game_data
 	bit 2, a
-	jr nz, .asm_1f13b5
+	jr nz, .load_wram_data
 	bit 3, a
-	jr nz, .asm_1f13bc
+	jr nz, .load_backup1_wram_data
 	bit 4, a
-	jr nz, .asm_1f13c3
+	jr nz, .load_backup2_wram_data
 	bit 5, a
-	jr nz, .asm_1f13cd
-	jp .asm_1f1251
-.asm_1f13a7
+	jr nz, .load_backup3_wram_data
+	jp .no_valid_save
+.load_game_data
 	ld hl, sGameData
 	call .LoadGameData
 	ret
-.asm_1f13ae
+.load_backup_game_data
 	ld hl, sBackupGameData
 	call .LoadGameData
 	ret
-.asm_1f13b5
+.load_wram_data
 	ld hl, sSaveCounter
 	call .LoadWRAMData
 	ret
-.asm_1f13bc
+.load_backup1_wram_data
 	ld hl, sBackup1WRAMData
 	call .LoadWRAMData
 	ret
-.asm_1f13c3
+.load_backup2_wram_data
 	ld hl, sBackup2WRAMData
 	call .LoadWRAMData
 	call .RestoreLevelMapFromBackup
 	ret
-.asm_1f13cd
+.load_backup3_wram_data
 	ld hl, sBackup3WRAMData
 	call .LoadWRAMData
 	call .RestoreLevelMapFromBackup

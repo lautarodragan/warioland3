@@ -41,12 +41,12 @@ PrinceFrogsGlovesActionHelp:
 PrinceFrogsGlovesActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1fad50
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1fad50
+.return_to_overworld
 	and $3f
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -209,11 +209,11 @@ PrinceFrogsGlovesActionHelp_Step07:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1fae9f
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1fae9f
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and $01
 	ret nz
@@ -236,10 +236,10 @@ PrinceFrogsGlovesActionHelp_Step08:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1faeda
+	jr z, .timer_expired
 	dec [hl]
 	ret
-.asm_1faeda
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %11
 	ret nz
@@ -277,11 +277,11 @@ PrinceFrogsGlovesActionHelp_Step0B:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $58
-	jr c, .asm_1faf3e
+	jr c, .move_right
 	ld a, [wActionHelpCounter]
 	and $01
 	ret nz
-.asm_1faf3e
+.move_right
 	inc [hl]
 	ld a, [hl]
 	cp $6c
@@ -317,11 +317,11 @@ PrinceFrogsGlovesActionHelp_Step0D:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $3c
-	jr c, .asm_1faf9f
+	jr c, .move_right
 	ld a, [wActionHelpCounter]
 	and $01
 	ret nz
-.asm_1faf9f
+.move_right
 	inc [hl]
 	ld a, [hl]
 	cp $4c
@@ -341,20 +341,20 @@ PrinceFrogsGlovesActionHelp_Step0E:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1fafd7
+	jr z, .timer_expired
 	dec [hl]
 	ret nz
 	call ActionHelp_ShowWarioUnderwaterStopped
 	call ActionHelp_ShowBInput
-.asm_1fafd7
+.timer_expired
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $58
-	jr c, .asm_1fafe5
+	jr c, .move_right
 	ld a, [wActionHelpCounter]
 	and $01
 	ret nz
-.asm_1fafe5
+.move_right
 	inc [hl]
 	ld a, [hl]
 	cp $6c
@@ -391,10 +391,10 @@ PrinceFrogsGlovesActionHelp_Step10:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1fb043
+	jr z, .timer_expired
 	dec [hl]
 	ret
-.asm_1fb043
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %11
 	ret nz
@@ -432,9 +432,9 @@ PrinceFrogsGlovesActionHelp_Step12:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $18
-	jr z, .asm_1fb081
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fb081
+.skip_dec
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]

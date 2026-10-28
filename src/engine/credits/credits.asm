@@ -426,12 +426,12 @@ Credits_FadeIn:
 	ld hl, wMenuObj1
 	ld a, [hl]
 	cp $80
-	jr z, .asm_160347
+	jr z, .skip_dec
 	ld a, [wGlobalCounter]
 	and %1
-	jr nz, .asm_160347
+	jr nz, .skip_dec
 	dec [hl]
-.asm_160347
+.skip_dec
 	ld hl, wMenuObj1FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj1
@@ -458,9 +458,9 @@ Credits_WaitEnd:
 	ld hl, wMenuObj1
 	ld a, [hl]
 	cp $80
-	jr z, .asm_16038d
+	jr z, .skip_dec
 	dec [hl]
-.asm_16038d
+.skip_dec
 	ld hl, wMenuObj1FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj1
@@ -554,7 +554,7 @@ VBlank_Credits:
 	dec a
 	jr z, .write_text ; $1
 	dec a
-	jr z, .asm_160499 ; $2
+	jr z, .apply_pals ; $2
 
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
@@ -588,19 +588,19 @@ VBlank_Credits:
 .loop
 	ld a, [hli]
 	cp '\n'
-	jr z, .asm_1604a6
+	jr z, .done_bg_update
 	ld [de], a
 	inc e
 	jr .loop
 
-.asm_160499
+.apply_pals
 	call ApplyTempPals1ToBGPals
 	call ApplyTempPals2ToOBPals
 	ld hl, rLCDC
 	ld a, [hl]
 	or LCDC_WIN_ON | LCDC_WIN_9C00
 	ld [hl], a
-.asm_1604a6
+.done_bg_update
 	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .dma_transfer

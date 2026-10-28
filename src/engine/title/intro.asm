@@ -91,7 +91,7 @@ InitIntroSequence:
 
 	ld a, STARTMENU_NEW_GAME
 	ld [wStartMenuSelection], a
-	jp .asm_41a8
+	jp .init_obj3
 
 .no_intro
 	ld hl, wPlaneWario
@@ -217,7 +217,7 @@ InitIntroSequence:
 	ld a, STARTMENU_CONTINUE
 	ld [wStartMenuSelection], a
 
-.asm_41a8
+.init_obj3
 	ld hl, wMenuObj3
 	ld a, 36
 	ld [hli], a ; y coord

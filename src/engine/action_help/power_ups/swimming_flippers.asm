@@ -44,12 +44,12 @@ SwimmingFlippersActionHelp:
 SwimmingFlippersActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1f8e3f
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1f8e3f
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -210,11 +210,11 @@ SwimmingFlippersActionHelp_Step08:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1f8f8b
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1f8f8b
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %1
 	ret nz
@@ -237,11 +237,11 @@ SwimmingFlippersActionHelp_Step09:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1f8fc6
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1f8fc6
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %11
 	ret nz
@@ -279,11 +279,11 @@ SwimmingFlippersActionHelp_Step0B:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1f902a
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1f902a
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %11
 	ret nz
@@ -306,11 +306,11 @@ SwimmingFlippersActionHelp_Step0D:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $58
-	jr c, .asm_1f9068
+	jr c, .move_right
 	ld a, [wActionHelpCounter]
 	and %1
 	ret nz
-.asm_1f9068
+.move_right
 	inc [hl]
 	ld a, [hl]
 	cp $6c
@@ -332,11 +332,11 @@ SwimmingFlippersActionHelp_Step0E:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1f90a0
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1f90a0
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and %11
 	ret nz
@@ -409,11 +409,11 @@ SwimmingFlippersActionHelp_Step12:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_1f915c
+	jr z, .timer_expired
 	dec [hl]
 	ret
 
-.asm_1f915c
+.timer_expired
 	ld a, [wActionHelpCounter]
 	and $03
 	ret nz

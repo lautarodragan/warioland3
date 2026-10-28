@@ -106,12 +106,12 @@ GarlicActionHelp:
 GarlicActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1f9cf5
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1f9cf5
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -219,12 +219,12 @@ GarlicActionHelp_Step04:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1f9dcd
+	jr z, .skip_dec
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
 	dec [hl]
-.asm_1f9dcd
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -270,9 +270,9 @@ GarlicActionHelp_Step05:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1f9e2e
+	jr z, .skip_dec
 	dec [hl]
-.asm_1f9e2e
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -313,11 +313,11 @@ GarlicActionHelp_Step06:
 
 	ld a, [wMenuObj5AnimationEnded]
 	and a
-	jr z, .asm_1f9e88
+	jr z, .countdown
 	call ActionHelp_HideObj5BlockDebris
 	ld hl, wMenuObj7
 	call ActionHelp_HideBlockDebris
-.asm_1f9e88
+.countdown
 	ld hl, wActionHelpWarioVar
 	dec [hl]
 	ret nz
@@ -362,12 +362,12 @@ GarlicActionHelp_Step08:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1f9eed
+	jr z, .skip_dec
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
 	dec [hl]
-.asm_1f9eed
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -416,9 +416,9 @@ GarlicActionHelp_Step09:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1f9f41
+	jr z, .skip_dec
 	dec [hl]
-.asm_1f9f41
+.skip_dec
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -487,10 +487,10 @@ GarlicActionHelp_Step0C:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1f9fcc
+	jr z, .skip_dec
 	ld hl, wMenuObj4XCoord
 	dec [hl]
-.asm_1f9fcc
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -516,9 +516,9 @@ GarlicActionHelp_Step0D:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa000
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa000
+.skip_dec
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -563,19 +563,19 @@ GarlicActionHelp_Step0F:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1fa052
+	jr z, .move_enemy
 	inc [hl]
 	ld a, [hl]
 	cp $40
 	ret c
-.asm_1fa052
+.move_enemy
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa05e
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa05e
+.skip_dec
 	ld a, [hl]
 	cp $58
 	ret nc
@@ -601,10 +601,10 @@ GarlicActionHelp_Step10:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa0a0
+	jr z, .skip_dec
 	ld hl, wMenuObj4XCoord
 	dec [hl]
-.asm_1fa0a0
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -626,17 +626,17 @@ GarlicActionHelp_Step11:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1fa0ce
+	jr c, .got_vel_index
 	ld a, $27
 	ld [hl], a
-.asm_1fa0ce
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
 	add hl, de
 	ld a, [wActionHelpWarioVar]
 	cp $18
-	jr nc, .asm_1fa0fc
+	jr nc, .falling
 	ld a, [wActionHelpWarioYCoord]
 	add [hl]
 	ld [wActionHelpWarioYCoord], a
@@ -650,15 +650,15 @@ GarlicActionHelp_Step11:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa0fb
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa0fb
+.skip_dec
 	ret
 
-.asm_1fa0fc
+.falling
 	ld a, [wActionHelpWarioYCoord]
 	cp $40
-	jr z, .asm_1fa122
+	jr z, .wario_landed
 	add [hl]
 	ld [wActionHelpWarioYCoord], a
 	ld a, [wMenuObj4YCoord]
@@ -675,7 +675,7 @@ GarlicActionHelp_Step11:
 	call ActionHelp_ShowWarioIdle
 	ret
 
-.asm_1fa122
+.wario_landed
 	ld a, [wMenuObj4YCoord]
 	add [hl]
 	ld [wMenuObj4YCoord], a
@@ -711,19 +711,19 @@ GarlicActionHelp_Step13:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1fa162
+	jr z, .move_enemy
 	inc [hl]
 	ld a, [hl]
 	cp $40
 	ret c
-.asm_1fa162
+.move_enemy
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa16e
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa16e
+.skip_dec
 	ld a, [hl]
 	cp $60
 	ret nc
@@ -750,9 +750,9 @@ GarlicActionHelp_Step14:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa19c
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa19c
+.skip_dec
 	ld a, [wActionHelpWarioXCoord]
 	cp [hl]
 	ret c
@@ -795,12 +795,12 @@ GarlicActionHelp_Step16:
 	cp $39
 	ret nc
 	cp $30
-	jr c, .asm_1fa1e6
+	jr c, .start_slide
 	ld hl, wActionHelpWario
 	inc [hl]
 	ret
 
-.asm_1fa1e6
+.start_slide
 	call ActionHelp_ShowWarioSlide
 
 	ld hl, wActionHelpState
@@ -811,9 +811,9 @@ GarlicActionHelp_Step18:
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $40
-	jr nc, .asm_1fa1f7
+	jr nc, .skip_inc
 	inc [hl]
-.asm_1fa1f7
+.skip_inc
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -831,9 +831,9 @@ GarlicActionHelp_Step19:
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $40
-	jr nc, .asm_1fa213
+	jr nc, .skip_inc
 	inc [hl]
-.asm_1fa213
+.skip_inc
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [hl]
@@ -851,9 +851,9 @@ GarlicActionHelp_Step1A:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa22f
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa22f
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -872,10 +872,10 @@ GarlicActionHelp_Step1B:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1fa254
+	jr c, .got_vel_index
 	ld a, $27
 	ld [hl], a
-.asm_1fa254
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
@@ -926,19 +926,19 @@ GarlicActionHelp_Step1C:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa2af
+	jr z, .skip_dec
 	ld hl, wMenuObj6XCoord
 	dec [hl]
 	ld hl, wMenuObj4XCoord
 	dec [hl]
-.asm_1fa2af
+.skip_dec
 	ld a, [hl]
 	and $fe
 	cp $48
-	jr z, .asm_1fa2b7
+	jr z, .reached_x48
 	ret
 
-.asm_1fa2b7
+.reached_x48
 	ld [hl], $48
 	ld b, $00
 	call ActionHelp_ShowBlockDebrisWithYOffset
@@ -958,25 +958,25 @@ GarlicActionHelp_Step1D:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa2e0
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa2e0
+.skip_dec
 	ld a, [hl]
 	and $fe
 	cp $58
-	jr z, .asm_1fa2ec
+	jr z, .reached_x58
 	cp $48
-	jr z, .asm_1fa2f7
+	jr z, .reached_x48
 	ret
 
-.asm_1fa2ec
+.reached_x58
 	ld [hl], $58
 	ld b, $00
 	call ActionHelp_ShowBlockDebrisWithYOffset
 	call ActionHelp_ShowSingleSolidBlock
 	ret
 
-.asm_1fa2f7
+.reached_x48
 	ld b, $00
 	call ActionHelp_ShowBlockDebrisWithYOffset
 	ld hl, wMenuObj4
@@ -1001,16 +1001,16 @@ GarlicActionHelp_Step1D:
 GarlicActionHelp_Step1E:
 	ld a, [wMenuObj5AnimationEnded]
 	and a
-	jr z, .asm_1fa31e
+	jr z, .move_enemy
 	call ActionHelp_HideObj5BlockDebris
-.asm_1fa31e
+.move_enemy
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa32a
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa32a
+.skip_dec
 	ld a, [hl]
 	cp $50
 	ret nc
@@ -1037,9 +1037,9 @@ GarlicActionHelp_Step1F:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa35a
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa35a
+.skip_dec
 	ld a, [wActionHelpWarioVar]
 	cp $18
 	ret c
@@ -1075,10 +1075,10 @@ GarlicActionHelp_Step21:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1fa396
+	jr z, .skip_inc
 	inc [hl]
 	ld a, [hl]
-.asm_1fa396
+.skip_inc
 	ld b, a
 	ld hl, wMenuObj4XCoord
 	dec [hl]
@@ -1098,9 +1098,9 @@ GarlicActionHelp_Step22:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1fa3b4
+	jr z, .skip_inc
 	inc [hl]
-.asm_1fa3b4
+.skip_inc
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -1112,12 +1112,12 @@ GarlicActionHelp_Step22:
 	add [hl]
 	ld [wActionHelpWarioYCoord], a
 	cp $40
-	jr nc, .asm_1fa3d0
+	jr nc, .landed
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ret
 
-.asm_1fa3d0
+.landed
 	xor a
 	ld [wActionHelpWarioVar], a
 	ld a, $40
