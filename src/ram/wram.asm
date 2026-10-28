@@ -319,8 +319,8 @@ wWarioAnimationEnded::
 wFloorTransitionTimer::
 	db
 
-; bit 2 set = transitioning downwards
-; bit 3 set = transitioning upwards
+; bit 2 set = transitioning upwards (FLOOR_TRANSITION_UP: the camera scrolls up)
+; bit 3 set = transitioning downwards (FLOOR_TRANSITION_DOWN: it scrolls down)
 wFloorTransitionDir::
 	db
 
