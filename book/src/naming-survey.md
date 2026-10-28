@@ -3551,7 +3551,7 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0B7`: level/objects/shoot.asm:842 (`ShootFunc.Walk`), level/objects/scowler.asm:1068 (`UpdateScowlerInkBlackout.ink_again`)
 - `SFX_0B8`: level/objects/scowler.asm:1090 (`UpdateScowlerInkBlackout.end_ink`)
 - `SFX_0B9`: level/objects/yellow_belly.asm:677 (`YellowBellyBodyFunc.asm_5180a`), level/objects/pesce.asm:253 (`PesceFunc.asm_51ed4`)
-- `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.asm_553a8`)
+- `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.offscreen_count_down`)
 - `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.hatch_spawn_kuri`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.play_sfx_0c4`)
 - `SFX_0C5`: level/objects/wolfenboss.asm:975 (`IgaguriFunc.hatch_shake`)
 - `SFX_0C9`: level/objects/shoot.asm:135 (`ShootFunc.hit_wario_below`)
