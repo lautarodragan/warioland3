@@ -136,14 +136,14 @@ BeamBotFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_466c0
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
 	ld [hld], a
 	ld de, BeamBotFrameset_68e77
 	jp SetObjectFramesetPtr
-.asm_466c0
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -156,14 +156,14 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_466de
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, BeamBotFrameset_68e77
 	call SetObjectFramesetPtr
 	ret
 
-.asm_466de
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, BeamBotFrameset_68e80
@@ -172,7 +172,7 @@ BeamBotFunc:
 .Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_466f8
+	jr c, .shooting
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -180,22 +180,22 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_466f8
+.shooting
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_46714
+	jr z, .end_shoot
 	ld a, [hl]
 	cp $19
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4670e
+	jr c, .beam_right
 	ld bc, ObjParams_BeamLeft
 	jp CreateObjectAtRelativePos
-.asm_4670e
+.beam_right
 	ld bc, ObjParams_BeamRight
 	jp CreateObjectAtRelativePos
-.asm_46714
+.end_shoot
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_2
 	ld [hld], a
@@ -209,7 +209,7 @@ BeamBotFunc:
 .Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_4673d
+	jr c, .after_shot
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -217,7 +217,7 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4673d
+.after_shot
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -243,7 +243,7 @@ BeamBotFunc:
 .Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_4677a
+	jr c, .walking
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -251,13 +251,13 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4677a
+.walking
 	ld a, [wTransformation]
 	cp TRANSFORMATION_SPLIT
-	jr z, .asm_467cf
+	jr z, .walk_on
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr z, .asm_467cf
+	jr z, .walk_on
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -266,10 +266,10 @@ BeamBotFunc:
 	add c
 	sub b
 	cp $1c
-	jr c, .asm_4679c
+	jr c, .in_y_range
 	cp $e4
-	jr c, .asm_467cf
-.asm_4679c
+	jr c, .walk_on
+.in_y_range
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -278,25 +278,25 @@ BeamBotFunc:
 	add c
 	sub b
 	cp $b8
-	jr nc, .asm_467be
+	jr nc, .wario_to_right
 	cp $48
-	jr nc, .asm_467cf
+	jr nc, .walk_on
 	ld a, [hli]
 	rlca
-	jr c, .asm_467ba
+	jr c, .turn_to_wario
 	ld de, BeamBotFrameset_68e89
-	jr .asm_467c5
-.asm_467ba
+	jr .start_shoot
+.turn_to_wario
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [hl], a
 	ret
 
-.asm_467be
+.wario_to_right
 	ld a, [hli]
 	rlca
-	jr nc, .asm_467ba
+	jr nc, .turn_to_wario
 	ld de, BeamBotFrameset_68e96
-.asm_467c5
+.start_shoot
 	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a
 	call SetObjectFramesetPtr
@@ -304,7 +304,7 @@ BeamBotFunc:
 	ld [hli], a
 	ret
 
-.asm_467cf
+.walk_on
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -316,12 +316,12 @@ BeamBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_467ea
+	jr nz, .on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_467ea
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -329,15 +329,15 @@ BeamBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4682b
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $06
-	jr nc, .asm_46807
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_4685f
-.asm_46807
+	jr z, .at_ledge
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -358,16 +358,16 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4682b
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $05
 	cp $10
-	jr c, .asm_4683b
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_4685f
-.asm_4683b
+	jr z, .at_ledge
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -388,13 +388,13 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4685f
+.at_ledge
 	ld a, [wGlobalCounter]
 	rra
-	jr c, .asm_46869
+	jr c, .ledge_count_down
 	ld hl, wCurObjFrameDuration
 	inc [hl]
-.asm_46869
+.ledge_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -405,12 +405,12 @@ BeamBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_46882
+	jr .set_bump
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_46882
+.set_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset BeamBotFrameset_68eb1, BeamBotFrameset_68eb4
@@ -486,12 +486,12 @@ BeamBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_4691e
+	jr .set_fall
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_4691e
+.set_fall
 	ld a, [hld]
 	rlca
 	ld_obj_frameset BeamBotFrameset_68eb7, BeamBotFrameset_68ec0
@@ -523,12 +523,12 @@ BeamBotFunc:
 .State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46961
+	jr c, .count_down
 	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
-.asm_46961
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -575,7 +575,7 @@ BeamBotFunc:
 .TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_469c3
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -583,27 +583,27 @@ BeamBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_469c3
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $06
-	jr z, .asm_469d5
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
-.asm_469d5
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_469df
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_469df
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 .WobbleLeftStart:
@@ -611,13 +611,13 @@ BeamBotFunc:
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_469f4
+	jr .set_wobble
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_469f4
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -646,25 +646,25 @@ BeamBotFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_46a44
+	jr .set_knocked_back
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_46a44
+	jr .set_knocked_back
 .AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_46a44
+	jr .set_knocked_back
 .AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
-.asm_46a44
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl]
@@ -677,10 +677,10 @@ BeamBotFunc:
 	ld [hld], a
 	ld a, c
 	rlca
-	jr c, .asm_46a5c
+	jr c, .knocked_back_facing_right
 	ld de, BeamBotFrameset_68ec9
 	jp SetObjectFramesetPtr
-.asm_46a5c
+.knocked_back_facing_right
 	ld de, BeamBotFrameset_68ece
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
