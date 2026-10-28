@@ -3809,3 +3809,94 @@ labels yet. No object writes `1D`-`1F`, `3D`, `3E` or `5D`.
   Fly then goes through `5A`, `5B` and `5C` as its own sequence
   (`obj/pesce.asm:1170`), and Tadpole's `.Update` never checks for `5A`.
   So `5A` doesn't mean the same thing in every object.
+
+## Jump labels: overworld, home and audio
+
+All 558 address-named local jump labels (`.asm_xxxxx`) in
+`src/engine/overworld/` (all subdirectories), `src/home/` and `src/audio/`
+were named from the code at each label and its callers. Each batch was
+built and compared with the ROM from `origin/master`: byte-identical
+every time. None are left.
+
+| File | Labels |
+|---|---|
+| overworld/bank27.asm | 151 |
+| overworld/bank2d.asm | 107 |
+| overworld/bank20.asm | 52 |
+| overworld/bank2b_2.asm | 51 |
+| audio/engine.asm | 46 |
+| overworld/bank2b_1.asm | 42 |
+| overworld/bank56.asm | 35 |
+| home/fade.asm | 19 |
+| overworld/init.asm | 11 |
+| overworld/bank21.asm | 11 |
+| overworld/bank26.asm | 11 |
+| overworld/vblank.asm | 5 |
+| home/load_level.asm, home/clear_transformation.asm | 4 each |
+| home/wario_mechanics2.asm | 3 |
+| home/object_pos.asm, object_mechanics.asm, load_golf_sprite.asm, door_transition.asm; overworld/bank76.asm, cutscene/prologue/init.asm | 1 each |
+
+The only qualified reference was `InitCutscene15.init_window` (from the
+golden snake door init in bank27); the label references in this survey's
+sound-effect lists were updated to the new names.
+
+**Conventions:**
+
+- Lowercase snake_case throughout, as the files already use for
+  helpers (CamelCase stays for jump-table steps).
+- Cutscene object animation routines (`UpdateCutsceneObjs_*`,
+  `UpdateCutsceneLevelObj_*`) all have the same shape, and all get the
+  same names: `.update_obj` (the per-object entry, also the target after
+  a state change), `.draw`, `.state_NN` for the branch taken when the
+  frameset index (the `cp $NN` before it) matches, and
+  `.set_state_when_finished` where several states share the call. This
+  follows the earlier `AnimateNorthOWObj2.draw` /
+  `.set_state_when_finished` and the existing `.update_obj` locals.
+- bank2d's `Init?OWObjects_*` routines branch on `c`, the event unlock
+  state ($80 = the scene plays now, 1 = already happened, 0 = locked):
+  `.pending`, `.done`, `.apply_patch` (the tilemap patch for the
+  finished scene) and `.init_objN` for the shared "place object N"
+  tail.
+- Sound branches are `.play_<sound>_sfx` (`.play_tornado_sfx`,
+  `.yellow_sfx` .. `.gold_sfx` in `MusicBoxCutsceneFunc`); "wait for
+  frame N, play once" helpers use `.wait_frame_NN` and `.toggle_flag`.
+- Step advances are `.next_step`, `.objN_next_step`,
+  `.next_sub_step`, `.next_script_step`; the identical palette-fade
+  tails in bank21 are all `.step_fade`.
+- Numbers appear only where they are data: cell, frame, step or line
+  indices (`ProcessCollectionLinkState.check_cell_1` .. `_6`,
+  `UpdateEpilogueSceneObj.pick_up_frame_0` .. `_2`,
+  `_UpdateEpilogue.lift_step_4`/`_6`/`_7`, `EOWFunc_FormCastle.fade_step_1`
+  .. `_4`), and in `_UpdateEpilogue`'s old man talk table
+  (`.anim_0c_line_1`: set animation state $0c when the text reaches line
+  1), where the state values have no names.
+- The audio envelope code (`ProcessTrack`) is named after the envelope
+  phase: `.fade_in_step`, `.sustain_step`, `.fade_out_step`,
+  `.start_release`, `.release_countdown`, `.stop_track`, then
+  `.update_volume` / `.update_registers`.
+
+**Findings:**
+
+- `_PlaySFX.fill_free_channels_first` (fill inactive channels first,
+  then replace lower-priority ones) is only reached when bit 7 of
+  `wStartChannel` is set, which never happens (the code already says
+  "jump never taken").
+- `UpdateCutsceneObjs_Rainstorm`: the `jr z, .update_obj` after
+  `SetSceneObjStateWhenAnimFinished` can't be taken (existing comment).
+- `UpdateEpilogueSceneObj.unreferenced_draw` sits between two
+  "unreachable" blocks and is reached only from them (the first falls
+  through into it, the second jumps back to it), so all of it is dead.
+- `ProcessTrack` has an unreachable `dec hl` just before
+  `.start_release`; `UpdateVibrato.vibrato_done`,
+  `UpdatePlaneParts.advance_aux_step` and
+  `MoveSouthOWObj14Diagonally.move_to_night_pos` are each reached by a
+  jump to the next line.
+- `SetGolfBGPals.load_pals` is shared with an unlabeled, unreachable
+  `ld de, rOBPI` / `ld c, 4` entry right after the `jr`: an OB palette
+  version with no caller.
+- `UpdateCutsceneObjs_OpenParaGoomCage.state_02` and `.state_04` are two
+  identical blocks (both set state 0); `Prologue_WarioFallFromPlane`
+  uses `.sub_wait4` for sub-steps 2 and 5.
+- `_UpdateEpilogue`'s old man talk animation is keyed by text page and
+  differs between languages: on page 5 the Japanese text switches at
+  line 2 (`.anim_0d_line_2`), the English at line 1 (`.anim_0d_line_1`).
