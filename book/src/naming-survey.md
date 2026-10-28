@@ -3531,7 +3531,7 @@ origin/master at the time of the pass (the renames did not move lines).
 sound stands for (an animation frame, a cutscene step or a boss state
 with no clearer meaning), so these keep their numbers:
 
-- `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.asm_ac730`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.asm_9f295`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f978`)
+- `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.look_up_play_tiptoe_1`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.asm_9f295`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f978`)
 - `SFX_064`: level/objects/zombie.asm:375 (`ZombieFunc.asm_45d1d`)
 - `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.asm_455ba`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.asm_4561e`)
 - `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.asm_49ee2`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.asm_b6675`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.asm_b6696`)
@@ -3561,8 +3561,8 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.asm_811b1`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.page_turned`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
 - `SFX_0EE`: golf/hole.asm:1999 (`GolfHoleState_SpecialTerrain.asm_1c9743`)
 - `SFX_0F0`: golf/hole.asm:1968 (`GolfHoleState_SpecialTerrain.asm_1c9708`)
-- `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.asm_ac688`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f982`)
-- `SFX_0F2`: overworld/bank2b_1.asm:1101 (`UpdateSceneWario.asm_ac722`)
+- `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.look_play_sfx`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f982`)
+- `SFX_0F2`: overworld/bank2b_1.asm:1101 (`UpdateSceneWario.look_up_play_tiptoe_3`)
 - `SFX_0F3`: overworld/bank2b_1.asm:703 (`UpdatePrologueSceneObj.State0a`)
 - `SFX_0F4`: overworld/bank2b_1.asm:716 (`UpdatePrologueSceneObj.State0c`)
 - `SFX_101`: level/objects/yellow_belly.asm:529 (`YellowBellyBodyFunc.asm_516ec`), level/objects/wolfenboss.asm:791 (`IgaguriFunc.done_grow`), overworld/bank27.asm:2663 (`Cutscene02Func.ShowCut`)
