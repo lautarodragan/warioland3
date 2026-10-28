@@ -202,7 +202,7 @@ ProcessFrontBlockAbove_Break:
 CheckFrontBlockAbove:
 	ld a, [wIsCrouching]
 	and a
-	jp nz, .asm_198c1
+	jp nz, .no_collision
 	ld a, [wCollisionBoxTop]
 	ld b, a
 	ld a, [wWarioYPos + 1]
@@ -212,7 +212,7 @@ CheckFrontBlockAbove:
 	ld b, a
 	ld a, [wFrontCollisionBlockY]
 	cp b
-	jp z, .asm_198c1
+	jp z, .no_collision
 	ld a, TRUE
 	ld [wBlockFuncBreakFlag], a
 	call ProcessBlockAbove
@@ -252,17 +252,17 @@ CheckFrontBlockAbove:
 	ld b, 2
 	call MoveWarioLeft
 	farcall CrouchOrSlide
-	jr .asm_198c1
+	jr .no_collision
 .add_offset
 	ld b, 2
 	call MoveWarioRight
 	farcall CrouchOrSlide
-	jr .asm_198c1
+	jr .no_collision
 
 .done
 	ret
 
-.asm_198c1
+.no_collision
 	xor a
 	ld [wUnused_c18d], a
 	ld b, a
@@ -495,11 +495,11 @@ CheckAirborneCollision:
 	ret nz
 	ld a, [wIsOnSteppableObject]
 	and a
-	jr z, .asm_19a22
+	jr z, .check_right_side
 	ld b, a
 	ret
 
-.asm_19a22
+.check_right_side
 	ld a, [wIsSmashAttacking]
 	and a
 	jr z, .no_smash_attack_2
@@ -571,12 +571,12 @@ CheckStandingOnFloorBlocks:
 	ld [de], a
 	call UpdateEnvState
 	and a
-	jr z, .asm_19aa2
+	jr z, .check_right_side
 	ld a, [wHitFloorBlock]
 	and a
 	ret z
 
-.asm_19aa2
+.check_right_side
 	xor a ; FALSE
 	ld [wHitFloorBlock], a
 	ld a, [wCollisionBoxRight]
@@ -599,9 +599,9 @@ CheckStandingOnFloorBlocks:
 	ld [de], a
 	call UpdateEnvState
 	and a
-	jr z, .asm_19ac7
+	jr z, .set_hit_floor
 	ret
-.asm_19ac7
+.set_hit_floor
 	ld a, TRUE
 	ld [wHitFloorBlock], a
 	ret
@@ -792,14 +792,14 @@ ProcessBlockAbove:
 	dec [hl]
 	ld a, [hl]
 	cp $a0 - 1
-	jr nz, .asm_19be6
+	jr nz, .same_bank
 	ld a, [wBlockPtrBank]
 	dec a
 	ld [wBlockPtrBank], a
 	ld a, $c0 - 1
 	ld [hl], a
 
-.asm_19be6
+.same_bank
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a

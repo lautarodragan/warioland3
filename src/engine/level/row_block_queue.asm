@@ -14,7 +14,7 @@ QueueBlockTilesAlongRow_OddColumn:
 	and $08
 	jr nz, .odd_row
 	ld b, $10
-.asm_21f69
+.loop
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -41,14 +41,14 @@ QueueBlockTilesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_21f9f
+	jr nz, .same_bank
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_21f9f
+.same_bank
 	dec b
-	jr nz, .asm_21f69
+	jr nz, .loop
 	ret
 
 .odd_row
@@ -76,14 +76,14 @@ QueueBlockTilesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_21fd6
+	jr nz, .first_done
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_21fd6
+.first_done
 	ld b, $10
-.asm_21fd8
+.loop_odd
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -110,14 +110,14 @@ QueueBlockTilesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_2200e
+	jr nz, .same_bank_odd
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_2200e
+.same_bank_odd
 	dec b
-	jr nz, .asm_21fd8
+	jr nz, .loop_odd
 	ret
 
 ; queues up all the attributes related to the
@@ -135,9 +135,9 @@ QueueBlockAttributesAlongRow_OddColumn:
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_2208a
+	jp nz, .odd_row
 	ld b, $10
-.asm_22032
+.loop
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -164,14 +164,14 @@ QueueBlockAttributesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_22068
+	jr nz, .same_bank
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_22068
+.same_bank
 	dec b
-	jr nz, .asm_22032
+	jr nz, .loop
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -192,7 +192,7 @@ QueueBlockAttributesAlongRow_OddColumn:
 	pop_wram
 	ret
 
-.asm_2208a
+.odd_row
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -218,14 +218,14 @@ QueueBlockAttributesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_220bd
+	jr nz, .first_done
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_220bd
+.first_done
 	ld b, $10
-.asm_220bf
+.loop_odd
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -252,14 +252,14 @@ QueueBlockAttributesAlongRow_OddColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_220f5
+	jr nz, .same_bank_odd
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_220f5
+.same_bank_odd
 	dec b
-	jr nz, .asm_220bf
+	jr nz, .loop_odd
 	pop_wram
 	ret
 
@@ -279,7 +279,7 @@ QueueBlockTilesAlongRow_EvenColumn:
 	and $08
 	jp nz, .odd_row
 	ld b, $10
-.asm_22115
+.loop
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -305,14 +305,14 @@ QueueBlockTilesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_2214a
+	jr nz, .same_bank
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_2214a
+.same_bank
 	dec b
-	jr nz, .asm_22115
+	jr nz, .loop
 	ret
 
 .odd_row
@@ -339,14 +339,14 @@ QueueBlockTilesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_22180
+	jr nz, .first_done
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_22180
+.first_done
 	ld b, $10
-.asm_22182
+.loop_odd
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -372,14 +372,14 @@ QueueBlockTilesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_221b7
+	jr nz, .same_bank_odd
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_221b7
+.same_bank_odd
 	dec b
-	jr nz, .asm_22182
+	jr nz, .loop_odd
 	ret
 
 ; queues up all the attributes related to the
@@ -397,9 +397,9 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_22217
+	jp nz, .odd_row
 	ld b, $10
-.asm_221db
+.loop
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -425,18 +425,18 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_22210
+	jr nz, .same_bank
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_22210
+.same_bank
 	dec b
-	jr nz, .asm_221db
+	jr nz, .loop
 	pop_wram
 	ret
 
-.asm_22217
+.odd_row
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -460,14 +460,14 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_22249
+	jr nz, .first_done
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_22249
+.first_done
 	ld b, $10
-.asm_2224b
+.loop_odd
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -493,13 +493,13 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_22280
+	jr nz, .same_bank_odd
 	ld h, $a0
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_22280
+.same_bank_odd
 	dec b
-	jr nz, .asm_2224b
+	jr nz, .loop_odd
 	pop_wram
 	ret
