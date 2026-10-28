@@ -72,12 +72,12 @@ SuperGrabGloveActionHelp:
 SuperGrabGloveActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1fb187
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1fb187
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -135,17 +135,17 @@ SuperGrabGloveActionHelp_Step03:
 	inc [hl]
 	ld a, [hl]
 	cp $07
-	jr z, .asm_1fb20e
+	jr z, .lift_to_waist
 	cp $0d
-	jr z, .asm_1fb21e
+	jr z, .lift_to_chest
 	cp $0f
-	jr z, .asm_1fb22e
+	jr z, .lift_overhead
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr nz, .asm_1fb23e
+	jr nz, .begin_grab
 	ret
 
-.asm_1fb20e
+.lift_to_waist
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -157,7 +157,7 @@ SuperGrabGloveActionHelp_Step03:
 	ld [de], a
 	ret
 
-.asm_1fb21e
+.lift_to_chest
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -169,7 +169,7 @@ SuperGrabGloveActionHelp_Step03:
 	ld [de], a
 	ret
 
-.asm_1fb22e
+.lift_overhead
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -181,7 +181,7 @@ SuperGrabGloveActionHelp_Step03:
 	ld [de], a
 	ret
 
-.asm_1fb23e
+.begin_grab
 	ld [hl], $30
 	call ActionHelp_ShowWarioBeginGrab
 
@@ -219,14 +219,14 @@ SuperGrabGloveActionHelp_Step05:
 SuperGrabGloveActionHelp_Step06:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr z, .asm_1fb279
+	jr z, .move_richtertoff
 	call ActionHelp_ShowWarioIdle
-.asm_1fb279
+.move_richtertoff
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
 	cp $10
-	jr nc, .asm_1fb2ad
+	jr nc, .bounce
 	ld a, [wMenuObj4XCoord]
 	add $02
 	ld [wMenuObj4XCoord], a
@@ -235,18 +235,18 @@ SuperGrabGloveActionHelp_Step06:
 	ret c
 	ld hl, wMenuObj4YCoord
 	cp $06
-	jr c, .asm_1fb29c
+	jr c, .fall_1px
 	cp $0a
-	jr c, .asm_1fb29b
-	jr .asm_1fb29e
+	jr c, .fall_2px
+	jr .fall_fast
 
-.asm_1fb29b
+.fall_2px
 	inc [hl]
-.asm_1fb29c
+.fall_1px
 	inc [hl]
 	ret
 
-.asm_1fb29e
+.fall_fast
 	ld a, [hl]
 	add $03
 	ld [hl], a
@@ -257,37 +257,37 @@ SuperGrabGloveActionHelp_Step06:
 	ld [wTimer], a
 	ret
 
-.asm_1fb2ad
+.bounce
 	ld a, [wMenuObj4XCoord]
 	add $01
 	ld [wMenuObj4XCoord], a
 	ld a, [hl]
 	ld hl, wMenuObj4YCoord
 	cp $12
-	jr c, .asm_1fb2cf
+	jr c, .rise_3px
 	cp $14
-	jr c, .asm_1fb2d0
+	jr c, .rise_2px
 	cp $15
-	jr c, .asm_1fb2d1
+	jr c, .rise_1px
 	cp $16
-	jr c, .asm_1fb2d3
+	jr c, .skip_ahead
 	cp $27
-	jr c, .asm_1fb29c
-	jr .asm_1fb2d9
-.asm_1fb2cf
+	jr c, .fall_1px
+	jr .land
+.rise_3px
 	dec [hl]
-.asm_1fb2d0
+.rise_2px
 	dec [hl]
-.asm_1fb2d1
+.rise_1px
 	dec [hl]
 	ret
 
-.asm_1fb2d3
+.skip_ahead
 	ld a, $20
 	ld [wTimer], a
 	ret
 
-.asm_1fb2d9
+.land
 	ld a, [hl]
 	add $02
 	ld [hl], a
@@ -344,17 +344,17 @@ SuperGrabGloveActionHelp_Step09:
 	inc [hl]
 	ld a, [hl]
 	cp $07
-	jr z, .asm_1fb33c
+	jr z, .lift_to_waist
 	cp $0d
-	jr z, .asm_1fb34c
+	jr z, .lift_to_chest
 	cp $0f
-	jr z, .asm_1fb35c
+	jr z, .lift_overhead
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr nz, .asm_1fb36c
+	jr nz, .begin_grab
 	ret
 
-.asm_1fb33c
+.lift_to_waist
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -366,7 +366,7 @@ SuperGrabGloveActionHelp_Step09:
 	ld [de], a
 	ret
 
-.asm_1fb34c
+.lift_to_chest
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -378,7 +378,7 @@ SuperGrabGloveActionHelp_Step09:
 	ld [de], a
 	ret
 
-.asm_1fb35c
+.lift_overhead
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -390,7 +390,7 @@ SuperGrabGloveActionHelp_Step09:
 	ld [de], a
 	ret
 
-.asm_1fb36c
+.begin_grab
 	ld [hl], $30
 	call ActionHelp_ShowWarioBeginGrab
 
@@ -439,55 +439,55 @@ SuperGrabGloveActionHelp_Step0C:
 SuperGrabGloveActionHelp_Step0D:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr z, .asm_1fb3b3
+	jr z, .move_richtertoff
 	call ActionHelp_ShowWarioIdle
-.asm_1fb3b3
+.move_richtertoff
 	ld hl, wTimer
 	inc [hl]
 	ld a, [hl]
 	cp $30
-	jr nc, .asm_1fb401
+	jr nc, .bounce
 	ld a, [wMenuObj4XCoord]
 	add $01
 	ld [wMenuObj4XCoord], a
 	ld a, [hl]
 	ld hl, wMenuObj4YCoord
 	cp $07
-	jr c, .asm_1fb3e9
+	jr c, .rise_4px
 	cp $0d
-	jr c, .asm_1fb3ea
+	jr c, .rise_3px
 	cp $0f
-	jr c, .asm_1fb3eb
+	jr c, .rise_2px
 	cp $11
-	jr c, .asm_1fb3ec
+	jr c, .rise_1px
 	cp $14
 	ret c
 	cp $17
-	jr c, .asm_1fb3f0
+	jr c, .fall_1px
 	cp $1a
-	jr c, .asm_1fb3ef
+	jr c, .fall_2px
 	cp $1d
-	jr c, .asm_1fb3ee
-	jr .asm_1fb3f2
-.asm_1fb3e9
+	jr c, .fall_3px
+	jr .fall_fast
+.rise_4px
 	dec [hl]
-.asm_1fb3ea
+.rise_3px
 	dec [hl]
-.asm_1fb3eb
+.rise_2px
 	dec [hl]
-.asm_1fb3ec
+.rise_1px
 	dec [hl]
 	ret
 
-.asm_1fb3ee
+.fall_3px
 	inc [hl]
-.asm_1fb3ef
+.fall_2px
 	inc [hl]
-.asm_1fb3f0
+.fall_1px
 	inc [hl]
 	ret
 
-.asm_1fb3f2
+.fall_fast
 	ld a, [hl]
 	add $04
 	ld [hl], a
@@ -498,35 +498,35 @@ SuperGrabGloveActionHelp_Step0D:
 	ld [wTimer], a
 	ret
 
-.asm_1fb401
+.bounce
 	ld a, [hl]
 	ld hl, wMenuObj4YCoord
 	cp $32
-	jr c, .asm_1fb41b
+	jr c, .bounce_rise_3px
 	cp $34
-	jr c, .asm_1fb41c
+	jr c, .bounce_rise_2px
 	cp $35
-	jr c, .asm_1fb41d
+	jr c, .bounce_rise_1px
 	cp $36
-	jr c, .asm_1fb41f
+	jr c, .skip_ahead
 	cp $47
-	jr c, .asm_1fb3f0
-	jr .asm_1fb425
+	jr c, .fall_1px
+	jr .land
 
-.asm_1fb41b
+.bounce_rise_3px
 	dec [hl]
-.asm_1fb41c
+.bounce_rise_2px
 	dec [hl]
-.asm_1fb41d
+.bounce_rise_1px
 	dec [hl]
 	ret
 
-.asm_1fb41f
+.skip_ahead
 	ld a, $40
 	ld [wTimer], a
 	ret
 
-.asm_1fb425
+.land
 	ld a, [hl]
 	add $02
 	ld [hl], a
@@ -583,17 +583,17 @@ SuperGrabGloveActionHelp_Step10:
 	inc [hl]
 	ld a, [hl]
 	cp $07
-	jr z, .asm_1fb488
+	jr z, .lift_to_waist
 	cp $0d
-	jr z, .asm_1fb498
+	jr z, .lift_to_chest
 	cp $0f
-	jr z, .asm_1fb4a8
+	jr z, .lift_overhead
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr nz, .asm_1fb4b8
+	jr nz, .begin_grab
 	ret
 
-.asm_1fb488
+.lift_to_waist
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -605,7 +605,7 @@ SuperGrabGloveActionHelp_Step10:
 	ld [de], a
 	ret
 
-.asm_1fb498
+.lift_to_chest
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -617,7 +617,7 @@ SuperGrabGloveActionHelp_Step10:
 	ld [de], a
 	ret
 
-.asm_1fb4a8
+.lift_overhead
 	ld hl, wActionHelpWarioYCoord
 	ld de, wMenuObj4YCoord
 	ld a, [hli]
@@ -629,7 +629,7 @@ SuperGrabGloveActionHelp_Step10:
 	ld [de], a
 	ret
 
-.asm_1fb4b8
+.begin_grab
 	ld [hl], $30
 	call ActionHelp_ShowWarioBeginGrab
 
@@ -713,9 +713,9 @@ SuperGrabGloveActionHelp_Step15:
 SuperGrabGloveActionHelp_Step16:
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
-	jr z, .asm_1fb55e
+	jr z, .move_richtertoff
 	call ActionHelp_ShowWarioIdle
-.asm_1fb55e
+.move_richtertoff
 	ld a, [wMenuObj6XCoord]
 	sub $10
 	ld b, a
@@ -750,9 +750,9 @@ SuperGrabGloveActionHelp_Step18:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1fb59a
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fb59a
+.skip_dec
 	ld a, [hl]
 	cp $e8
 	ret c

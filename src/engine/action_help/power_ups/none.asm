@@ -80,12 +80,12 @@ NoPowerUpActionHelp:
 NoPowerUpActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1f8370
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1f8370
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -284,10 +284,10 @@ NoPowerUpActionHelp_Step08:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1f84e8
+	jr c, .got_vel_index
 	ld a, $27
 	ld [hl], a
-.asm_1f84e8
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
@@ -520,12 +520,12 @@ NoPowerUpActionHelp_Step11:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1f8690
+	jr z, .move_enemy
 	inc [hl]
 	ld a, [hl]
 	cp $40
 	ret c
-.asm_1f8690
+.move_enemy
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
@@ -554,9 +554,9 @@ NoPowerUpActionHelp_Step12:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1f86be
+	jr z, .skip_inc
 	inc [hl]
-.asm_1f86be
+.skip_inc
 	ld hl, wActionHelpWarioEnd
 	inc [hl]
 	ld a, [hl]
@@ -568,12 +568,12 @@ NoPowerUpActionHelp_Step12:
 	add [hl]
 	ld [wActionHelpWarioYCoord], a
 	cp $40
-	jr nc, .asm_1f86da
+	jr nc, .landed
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ret
 
-.asm_1f86da
+.landed
 	xor a
 	ld [wActionHelpWarioEnd], a
 	ld a, $40
@@ -606,19 +606,19 @@ NoPowerUpActionHelp_Step14:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1f8715
+	jr z, .move_enemy
 	inc [hl]
 	ld a, [hl]
 	cp $40
 	ret c
-.asm_1f8715
+.move_enemy
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1f8721
+	jr z, .skip_dec
 	dec [hl]
-.asm_1f8721
+.skip_dec
 	ld a, [hl]
 	cp $60
 	ret nc
@@ -816,10 +816,10 @@ NoPowerUpActionHelp_Step1E:
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1f8856
+	jr z, .skip_inc
 	inc [hl]
 	ld a, [hl]
-.asm_1f8856
+.skip_inc
 	ld b, a
 	ld hl, wMenuObj4XCoord
 	dec [hl]
@@ -853,12 +853,12 @@ NoPowerUpActionHelp_Step1F:
 	add [hl]
 	ld [wActionHelpWarioYCoord], a
 	cp $40
-	jr nc, .asm_1f8890
+	jr nc, .landed
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ret
 
-.asm_1f8890
+.landed
 	xor a
 	ld [wActionHelpWarioVar], a
 	ld a, $40
