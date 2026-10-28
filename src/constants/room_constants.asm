@@ -352,46 +352,46 @@ DEF NUM_BLOCK_FUNCTION_TABLES EQU const_value
 
 ; wRoomMainTiles constants
 	const_def
-	const MAIN_TILES_00 ; $00
-	const MAIN_TILES_01 ; $01
-	const MAIN_TILES_02 ; $02
-	const MAIN_TILES_03 ; $03
-	const MAIN_TILES_04 ; $04
-	const MAIN_TILES_05 ; $05
-	const MAIN_TILES_06 ; $06
-	const MAIN_TILES_07 ; $07
-	const MAIN_TILES_08 ; $08
-	const MAIN_TILES_09 ; $09
-	const MAIN_TILES_10 ; $0a
-	const MAIN_TILES_11 ; $0b
-	const MAIN_TILES_12 ; $0c
-	const MAIN_TILES_13 ; $0d
-	const MAIN_TILES_14 ; $0e
-	const MAIN_TILES_15 ; $0f
-	const MAIN_TILES_16 ; $10
-	const MAIN_TILES_17 ; $11
-	const MAIN_TILES_18 ; $12
-	const MAIN_TILES_19 ; $13
-	const MAIN_TILES_20 ; $14
-	const MAIN_TILES_21 ; $15
-	const MAIN_TILES_22 ; $16
-	const MAIN_TILES_23 ; $17
-	const MAIN_TILES_24 ; $18
-	const MAIN_TILES_25 ; $19
-	const MAIN_TILES_26 ; $1a
-	const MAIN_TILES_27 ; $1b
-	const MAIN_TILES_28 ; $1c
-	const MAIN_TILES_29 ; $1d
-	const MAIN_TILES_30 ; $1e
-	const MAIN_TILES_31 ; $1f
-	const MAIN_TILES_32 ; $20
-	const MAIN_TILES_33 ; $21
-	const MAIN_TILES_34 ; $22
-	const MAIN_TILES_35 ; $23
-	const MAIN_TILES_36 ; $24
-	const MAIN_TILES_37 ; $25
-	const MAIN_TILES_38 ; $26
-	const MAIN_TILES_39 ; $27
+	const MAIN_TILES_OUT_OF_THE_WOODS_1 ; $00
+	const MAIN_TILES_OUT_OF_THE_WOODS_2 ; $01
+	const MAIN_TILES_OUT_OF_THE_WOODS_3 ; $02
+	const MAIN_TILES_SHARED_1 ; $03: OUT_OF_THE_WOODS, THE_GRASSLANDS
+	const MAIN_TILES_THE_PEACEFUL_VILLAGE_1 ; $04
+	const MAIN_TILES_THE_PEACEFUL_VILLAGE_3 ; $05
+	const MAIN_TILES_THE_VAST_PLAIN ; $06
+	const MAIN_TILES_BANK_OF_THE_WILD_RIVER ; $07: also overworld InitCutscene30
+	const MAIN_TILES_SHARED_2 ; $08: BANK_OF_THE_WILD_RIVER, THE_GRASSLANDS
+	const MAIN_TILES_THE_TIDAL_COAST ; $09
+	const MAIN_TILES_SHARED_3 ; $0a: THE_TIDAL_COAST, THE_VOLCANOS_BASE
+	const MAIN_TILES_SEA_TURTLE_ROCKS ; $0b: also overworld InitCutscene56
+	const MAIN_TILES_DESERT_RUINS ; $0c
+	const MAIN_TILES_SHARED_4 ; $0d: THE_VAST_PLAIN, THE_STEEP_CANYON
+	const MAIN_TILES_THE_VOLCANOS_BASE ; $0e: also overworld InitCutscene27
+	const MAIN_TILES_THE_POOL_OF_RAIN ; $0f
+	const MAIN_TILES_A_TOWN_IN_CHAOS_1 ; $10
+	const MAIN_TILES_A_TOWN_IN_CHAOS_2 ; $11
+	const MAIN_TILES_BENEATH_THE_WAVES_1 ; $12
+	const MAIN_TILES_THE_GRASSLANDS ; $13
+	const MAIN_TILES_THE_BIG_BRIDGE_1 ; $14
+	const MAIN_TILES_THE_BIG_BRIDGE_2 ; $15
+	const MAIN_TILES_TOWER_OF_REVIVAL ; $16: also overworld InitCutscene21
+	const MAIN_TILES_THE_STEEP_CANYON ; $17: also overworld InitCutscene4f
+	const MAIN_TILES_ABOVE_THE_CLOUDS_1 ; $18: also overworld InitCutscene54
+	const MAIN_TILES_THE_STAGNANT_SWAMP ; $19
+	const MAIN_TILES_THE_FRIGID_SEA ; $1a
+	const MAIN_TILES_CASTLE_OF_ILLUSIONS_1 ; $1b: also overworld InitCutscene4e
+	const MAIN_TILES_THE_COLOSSAL_HOLE ; $1c: also overworld InitCutscene1b
+	const MAIN_TILES_CRATERS ; $1d: also overworld InitCutscene4c, InitCutscene58, InitCutscene55
+	const MAIN_TILES_THE_WARPED_VOID ; $1e: also overworld InitCutscene3a; overworld InitCutscene3d
+	const MAIN_TILES_FOREST_OF_FEAR ; $1f: also overworld InitCutscene3c
+	const MAIN_TILES_CAVE_OF_FLAMES ; $20
+	const MAIN_TILES_BENEATH_THE_WAVES_2 ; $21
+	const MAIN_TILES_CASTLE_OF_ILLUSIONS_2 ; $22
+	const MAIN_TILES_CASTLE_OF_ILLUSIONS_3 ; $23
+	const MAIN_TILES_A_TOWN_IN_CHAOS_3 ; $24: also overworld InitCutscene43
+	const MAIN_TILES_THE_TEMPLE ; $25
+	const MAIN_TILES_THE_PEACEFUL_VILLAGE_2 ; $26
+	const MAIN_TILES_ABOVE_THE_CLOUDS_2 ; $27
 
 ; wRoomSpecialTiles constants
 	const_def

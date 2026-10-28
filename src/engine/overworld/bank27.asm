@@ -218,8 +218,8 @@ InitCutscene1b:
 
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld b, BANK(LevelMainTiles28)
-	ld hl, LevelMainTiles28
+	ld b, BANK(LevelMainTiles_TheColossalHole)
+	ld hl, LevelMainTiles_TheColossalHole
 	call LoadFarTiles
 	xor a
 	ldh [rVBK], a
@@ -279,8 +279,8 @@ InitCutscene24:
 	jp InitCutscene24Objs
 
 InitCutscene27:
-	ld b, BANK(LevelMainTiles14)
-	ld hl, LevelMainTiles14
+	ld b, BANK(LevelMainTiles_TheVolcanosBase)
+	ld hl, LevelMainTiles_TheVolcanosBase
 	call LoadFarTiles
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
@@ -355,8 +355,8 @@ InitCutscene21:
 	ld hl, MakeWireCutscenePals_b8300
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes8And5Gfx_Vram1
-	ld b, BANK(LevelMainTiles22)
-	ld hl, LevelMainTiles22
+	ld b, BANK(LevelMainTiles_TowerOfRevival)
+	ld hl, LevelMainTiles_TowerOfRevival
 	call LoadFarTiles
 	jp LoadCutsceneBGMaps31
 
@@ -381,8 +381,8 @@ InitCutscene38:
 	jp LoadCutsceneBGMaps03
 
 InitCutscene30:
-	ld b, BANK(LevelMainTiles7)
-	ld hl, LevelMainTiles7
+	ld b, BANK(LevelMainTiles_BankOfTheWildRiver)
+	ld hl, LevelMainTiles_BankOfTheWildRiver
 	call LoadFarTiles
 	call LoadCutscenes8And5Gfx_Vram1
 	call LoadCutsceneBGMaps26
@@ -401,8 +401,8 @@ InitCutscene39:
 InitCutscene3a:
 	call ClearTempPals_Bank27
 	call LoadCutscenes9Gfx_Vram1
-	ld b, BANK(LevelMainTiles30)
-	ld hl, LevelMainTiles30
+	ld b, BANK(LevelMainTiles_TheWarpedVoid)
+	ld hl, LevelMainTiles_TheWarpedVoid
 	call LoadFarTiles
 	call LoadCutsceneBGMaps37
 	call LoadCutsceneBGMaps38
@@ -416,8 +416,8 @@ InitCutscene3c:
 	ld hl, CollectDemonsBloodCutscenePals_b84c0
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes8And5Gfx_Vram1
-	ld b, BANK(LevelMainTiles31)
-	ld hl, LevelMainTiles31
+	ld b, BANK(LevelMainTiles_ForestOfFear)
+	ld hl, LevelMainTiles_ForestOfFear
 	call LoadFarTiles
 	call LoadCutsceneBGMaps23
 	jp SetBGPriorityOnTopRows_Vram1
@@ -429,15 +429,15 @@ InitCutscene43:
 	ld b, BANK(PlacePropellerCutscenePals_b8440)
 	ld hl, PlacePropellerCutscenePals_b8440
 	call LoadFarPalsToTempPals2
-	ld b, BANK(LevelMainTiles36)
-	ld hl, LevelMainTiles36
+	ld b, BANK(LevelMainTiles_ATownInChaos3)
+	ld hl, LevelMainTiles_ATownInChaos3
 	call LoadFarTiles
 	jp LoadCutsceneBGMaps20
 
 InitCutscene54:
 	call LoadCutscenes9Gfx_Vram1
-	ld b, BANK(LevelMainTiles24)
-	ld hl, LevelMainTiles24
+	ld b, BANK(LevelMainTiles_AboveTheClouds1)
+	ld hl, LevelMainTiles_AboveTheClouds1
 	call LoadFarTiles
 	call LoadCutsceneBGMaps36
 	call ClearTempPals_Bank27
@@ -456,8 +456,8 @@ InitCutscene3d:
 
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld b, BANK(LevelMainTiles30)
-	ld hl, LevelMainTiles30
+	ld b, BANK(LevelMainTiles_TheWarpedVoid)
+	ld hl, LevelMainTiles_TheWarpedVoid
 	call LoadFarTiles
 	xor a
 	ldh [rVBK], a
@@ -481,15 +481,15 @@ InitCutscene4c:
 
 	decompress_tiles1 FireGfx, v1Tiles1
 
-	call LoadLevelMainTiles29_Vram1
+	call LoadLevelMainTiles_Craters_Vram1
 	call LoadCutsceneBGMaps32
 	jp InitCutscene4cObjs
 
 InitCutscene4e:
 	call ClearTempPals_Bank27
 	call LoadCutscenes1Gfx_Vram1
-	ld b, BANK(LevelMainTiles27)
-	ld hl, LevelMainTiles27
+	ld b, BANK(LevelMainTiles_CastleOfIllusions1)
+	ld hl, LevelMainTiles_CastleOfIllusions1
 	call LoadFarTiles
 	jp LoadCutsceneBGMaps30
 
@@ -500,8 +500,8 @@ InitCutscene4f:
 	ld b, BANK(SprayIronWallCutscenePals_b8480)
 	ld hl, SprayIronWallCutscenePals_b8480
 	call LoadFarPalsToTempPals2
-	ld b, BANK(LevelMainTiles23)
-	ld hl, LevelMainTiles23
+	ld b, BANK(LevelMainTiles_TheSteepCanyon)
+	ld hl, LevelMainTiles_TheSteepCanyon
 	call LoadFarTiles
 	call LoadCutsceneBGMaps22
 	jp InitCutscene4fObjs
@@ -521,8 +521,8 @@ InitCutscene51:
 
 InitCutscene56:
 	call ClearTempPals_Bank27
-	ld b, BANK(LevelMainTiles11)
-	ld hl, LevelMainTiles11
+	ld b, BANK(LevelMainTiles_SeaTurtleRocks)
+	ld hl, LevelMainTiles_SeaTurtleRocks
 	call LoadFarTiles
 	call LoadCutscenes8And10Gfx_Vram1
 	call LoadCutsceneBGMaps24
@@ -542,14 +542,14 @@ InitCutscene58:
 
 	decompress_tiles1 WallCrackGfx, v1Tiles1
 
-	call LoadLevelMainTiles29_Vram1
+	call LoadLevelMainTiles_Craters_Vram1
 	call LoadCutsceneBGMaps39
 	call LoadCutsceneBGMaps040
 	jp InitCutscene58Objs
 
 InitCutscene55:
 	call ClearTempPals_Bank27
-	call LoadLevelMainTiles29_Vram0
+	call LoadLevelMainTiles_Craters_Vram0
 	call LoadCutscenes7Gfx_Vram1
 	call LoadCutsceneBGMaps27
 	jp InitCutscene55Objs
@@ -650,19 +650,19 @@ LoadCutscenes10Gfx_Vram0:
 	decompress_tiles0 Cutscenes10Gfx, v0Tiles2
 	ret
 
-LoadLevelMainTiles29_Vram1:
+LoadLevelMainTiles_Craters_Vram1:
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld b, BANK(LevelMainTiles29)
-	ld hl, LevelMainTiles29
+	ld b, BANK(LevelMainTiles_Craters)
+	ld hl, LevelMainTiles_Craters
 	call LoadFarTiles
 	xor a
 	ldh [rVBK], a
 	ret
 
-LoadLevelMainTiles29_Vram0:
-	ld b, BANK(LevelMainTiles29)
-	ld hl, LevelMainTiles29
+LoadLevelMainTiles_Craters_Vram0:
+	ld b, BANK(LevelMainTiles_Craters)
+	ld hl, LevelMainTiles_Craters
 	call LoadFarTiles
 	ret
 
