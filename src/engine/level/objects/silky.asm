@@ -125,11 +125,11 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_42e12
+	jr c, .full_throw_left_facing_right
 	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
-.asm_42e12
+.full_throw_left_facing_right
 	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
@@ -140,11 +140,11 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_42e2e
+	jr c, .full_throw_right_facing_right
 	ld de, SilkyFrameset_6879e
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
-.asm_42e2e
+.full_throw_right_facing_right
 	ld de, SilkyFrameset_687a7
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
@@ -164,7 +164,7 @@ SilkyFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_42e67
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -178,7 +178,7 @@ SilkyFunc:
 	ld [hld], a
 	ret
 
-.asm_42e67
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -198,12 +198,12 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_42e8d
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
-.asm_42e8d
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, SilkyFrameset_6874d
@@ -212,10 +212,10 @@ SilkyFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jp z, .asm_42f44
+	jp z, .walk_on
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_42eae
+	jr c, .count_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -223,7 +223,7 @@ SilkyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_42eae
+.count_down
 	dec [hl]
 	ret nz
 	ld l, OBJ_INTERACTION_TYPE
@@ -233,10 +233,10 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_42ec4
+	jr c, .attack_facing_right
 	ld de, SilkyFrameset_68756
 	jp SetObjectFramesetPtr
-.asm_42ec4
+.attack_facing_right
 	ld de, SilkyFrameset_6875f
 	jp SetObjectFramesetPtr
 
@@ -251,7 +251,7 @@ SilkyFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_42eea
+	jr c, .land_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
 	ld [hld], a
@@ -259,7 +259,7 @@ SilkyFunc:
 	ld [hld], a
 	ld de, SilkyFrameset_68744
 	jp SetObjectFramesetPtr
-.asm_42eea
+.land_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
 	ld [hld], a
@@ -271,7 +271,7 @@ SilkyFunc:
 .Walk:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr z, .asm_42f44
+	jr z, .walk_on
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -280,10 +280,10 @@ SilkyFunc:
 	add c
 	sub b
 	cp $0f
-	jr c, .asm_42f13
+	jr c, .in_y_range
 	cp $f1
-	jr c, .asm_42f44
-.asm_42f13
+	jr c, .walk_on
+.in_y_range
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -292,22 +292,22 @@ SilkyFunc:
 	cp b
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr c, .asm_42f2b
-	jr nz, .asm_42f32
+	jr c, .wario_to_right
+	jr nz, .turn_to_wario
 	ld de, SilkyFrameset_687b0
-	jr .asm_42f38
+	jr .start_attack
 
-.asm_42f2b
-	jr z, .asm_42f32
+.wario_to_right
+	jr z, .turn_to_wario
 	ld de, SilkyFrameset_687bb
-	jr .asm_42f38
+	jr .start_attack
 
-.asm_42f32
+.turn_to_wario
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_42f38
+.start_attack
 	call SetObjectFramesetPtr
 	ld a, $23
 	ld [hli], a
@@ -315,10 +315,10 @@ SilkyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_42f44
+.walk_on
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_42f55
+	jr c, .check_floor
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -326,7 +326,7 @@ SilkyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_42f55
+.check_floor
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -338,12 +338,12 @@ SilkyFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_42f70
+	jr nz, .on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_42f70
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -351,15 +351,15 @@ SilkyFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_42fb1
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $08
-	jr nc, .asm_42f8d
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_42fab
-.asm_42f8d
+	jr z, .turn_at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -376,21 +376,21 @@ SilkyFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_42fab
+.turn_at_edge_left
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_42fb1
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $07
 	cp $10
-	jr c, .asm_42fc1
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_42fdf
-.asm_42fc1
+	jr z, .turn_at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -407,7 +407,7 @@ SilkyFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_42fdf
+.turn_at_edge_right
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
@@ -470,24 +470,24 @@ SilkyFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_43059
+	jr .set_fall
 
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_43059
+.set_fall
 	ld a, [hld]
 	rlca
-	jr c, .asm_43065
+	jr c, .fall_facing_right
 	ld de, SilkyFrameset_6877a
 	call SetObjectFramesetPtr
-	jr .asm_4306b
+	jr .set_fall_vars
 
-.asm_43065
+.fall_facing_right
 	ld de, SilkyFrameset_68783
 	call SetObjectFramesetPtr
-.asm_4306b
+.set_fall_vars
 	inc l
 	inc l
 	ld a, $02
@@ -521,12 +521,12 @@ SilkyFunc:
 .State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_430ad
+	jr c, .stunned_count_down
 	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
-.asm_430ad
+.stunned_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -571,7 +571,7 @@ SilkyFunc:
 .TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_43107
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -579,20 +579,20 @@ SilkyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_43107
+.turning
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4311d
+	jr c, .turn_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_LAND
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_4311d
+.turn_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_LAND
 	ld [hld], a
@@ -604,14 +604,14 @@ SilkyFunc:
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_43138
+	jr .set_wobble
 
 .BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_43138
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -639,12 +639,12 @@ SilkyFunc:
 .State0b:
 	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
-	jr .asm_4316e
+	jr .set_hit_wario
 
 .State0c:
 	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
-.asm_4316e
+.set_hit_wario
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -684,28 +684,28 @@ SilkyFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_431c6
+	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_431c6
+	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_431c6
+	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
-.asm_431c6
+.set_knocked_back
 	ld a, [hl]
 	and $f0
 	ld [hld], a

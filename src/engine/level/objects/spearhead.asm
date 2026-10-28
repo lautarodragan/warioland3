@@ -130,11 +130,11 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_40140
+	jr c, .full_throw_left_facing_right
 	ld de, SpearheadFrameset_68292
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
-.asm_40140
+.full_throw_left_facing_right
 	ld de, SpearheadFrameset_6829b
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
@@ -145,11 +145,11 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_4015c
+	jr c, .full_throw_right_facing_right
 	ld de, SpearheadFrameset_68292
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
-.asm_4015c
+.full_throw_right_facing_right
 	ld de, SpearheadFrameset_6829b
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
@@ -186,10 +186,10 @@ SpearheadFunc:
 	jr c, .on_left1
 ; on right
 	set OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_40199
+	jr .check_wario_near
 .on_left1
 	res OBJSUBFLAG_HDIR_F, [hl]
-.asm_40199
+.check_wario_near
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -198,10 +198,10 @@ SpearheadFunc:
 	add c
 	sub b
 	cp 32
-	jr c, .asm_401ad
+	jr c, .in_y_range
 	cp -32
 	jr c, .check_shake
-.asm_401ad
+.in_y_range
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -254,17 +254,17 @@ SpearheadFunc:
 	rlca
 	ld a, OBJSTATE_SPECIAL_3
 	ld [hl], a ; OBJ_STATE
-	jr c, .asm_40201
+	jr c, .wake_facing_right
 	ld de, SpearheadFrameset_6827c
-	jr .asm_4020c
-.asm_40201
+	jr .set_wake_frameset
+.wake_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 9
 	ld [hld], a
 	ld a, -7
 	ld [hld], a ; OBJ_COLLBOX_LEFT
 	ld de, SpearheadFrameset_68287
-.asm_4020c
+.set_wake_frameset
 	call SetObjectFramesetPtr
 	ld a, 32
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -330,13 +330,13 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_40270
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a ; OBJ_VAR_3
 	ld de, SpearheadFrameset_681d2
 	call SetObjectFramesetPtr
 	ret
-.asm_40270
+.standing_fall_right
 	xor a
 	ld [hld], a ; OBJ_VAR_3
 	ld de, SpearheadFrameset_681db
@@ -354,22 +354,22 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_40298
+	jr c, .sting_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 6
 	ld [hld], a
 	ld a, -10
 	ld [hld], a
 	ld de, SpearheadFrameset_68208
-	jr .asm_402a3
-.asm_40298
+	jr .set_sting_frameset
+.sting_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 9
 	ld [hld], a
 	ld a, -7
 	ld [hld], a
 	ld de, SpearheadFrameset_68213
-.asm_402a3
+.set_sting_frameset
 	call SetObjectFramesetPtr
 
 	ld a, 32
@@ -418,22 +418,22 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_402fd
+	jr c, .land_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 6
 	ld [hld], a
 	ld a, -10
 	ld [hld], a
 	ld de, SpearheadFrameset_681d2
-	jr .asm_40308
-.asm_402fd
+	jr .set_land_frameset
+.land_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 9
 	ld [hld], a
 	ld a, -7
 	ld [hld], a
 	ld de, SpearheadFrameset_681db
-.asm_40308
+.set_land_frameset
 	call SetObjectFramesetPtr
 
 	ld a, 10
@@ -496,11 +496,11 @@ SpearheadFunc:
 	ld a, [hl] ; x lo
 	and $f
 	sub 10
-	jr nc, .asm_4036a
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $f
 	jr z, .turn_around1
-.asm_4036a
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -527,11 +527,11 @@ SpearheadFunc:
 	and $f
 	add 9
 	cp 16
-	jr c, .asm_4039e
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $f
 	jr z, .turn_around2
-.asm_4039e
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -559,12 +559,12 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_403d1
+	jr c, .bump_left_facing_right
 	ld de, SpearheadFrameset_6826e
-	jr .asm_403e8
-.asm_403d1
+	jr .set_bump
+.bump_left_facing_right
 	ld de, SpearheadFrameset_681f6
-	jr .asm_403e8
+	jr .set_bump
 
 .BumpRightStart:
 	ld hl, wCurObjState
@@ -573,7 +573,7 @@ SpearheadFunc:
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
 	ld_obj_frameset SpearheadFrameset_681ff, SpearheadFrameset_68265
-.asm_403e8
+.set_bump
 	call SetObjectFramesetPtr
 
 	ld a, 12
@@ -660,14 +660,14 @@ SpearheadFunc:
 .set_fall:
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_40484
+	jr c, .fall_facing_right
 	ld de, SpearheadFrameset_681e4
 	call SetObjectFramesetPtr
-	jr .asm_4048a
-.asm_40484
+	jr .set_fall_vars
+.fall_facing_right
 	ld de, SpearheadFrameset_681ed
 	call SetObjectFramesetPtr
-.asm_4048a
+.set_fall_vars
 	inc l
 	inc l
 	ld a, $02
@@ -733,14 +733,14 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_404fd
+	jr c, .turn_facing_right
 	ld de, SpearheadFrameset_6824f
 	call SetObjectFramesetPtr
-	jr .asm_40503
-.asm_404fd
+	jr .set_turn_duration
+.turn_facing_right
 	ld de, SpearheadFrameset_6825a
 	call SetObjectFramesetPtr
-.asm_40503
+.set_turn_duration
 	ld a, 48
 	ld [hli], a ; OBJ_STATE_DURATION
 	ld a, $1c
@@ -762,7 +762,7 @@ SpearheadFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_4054e
+	jr z, .wait_after_turn
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_COLLBOX_RIGHT
@@ -777,28 +777,28 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_40545
+	jr c, .turned_frameset_right
 	ld de, SpearheadFrameset_6821e
 	call SetObjectFramesetPtr
 	jp ObjCheckFloorOrStandingFall
-.asm_40545
+.turned_frameset_right
 	ld de, SpearheadFrameset_68229
 	call SetObjectFramesetPtr
 	jp ObjCheckFloorOrStandingFall
 
-.asm_4054e
+.wait_after_turn
 	inc l
 	dec [hl] ; OBJ_VAR_1
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_40562
+	jr c, .face_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_LAND
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
 	ret
-.asm_40562
+.face_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_LAND
 	ld [hld], a
@@ -820,15 +820,15 @@ SpearheadFunc:
 	ld [hld], a ; OBJ_STATE
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_4058a
+	jr c, .wobble_facing_right
 	ld de, SpearheadFrameset_681e4
 	call SetObjectFramesetPtr
-	jr .asm_40590
-.asm_4058a
+	jr .set_wobble_vars
+.wobble_facing_right
 	ld de, SpearheadFrameset_681ed
 	call SetObjectFramesetPtr
 
-.asm_40590
+.set_wobble_vars
 	ld a, 4
 	ld [hli], a ; OBJ_STATE_DURATION
 	inc l
@@ -895,21 +895,21 @@ SpearheadFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_4060e
+	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_4060e
+	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_4060e
+	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
@@ -917,7 +917,7 @@ SpearheadFunc:
 	ld [hld], a
 	ld b, $02
 
-.asm_4060e
+.set_knocked_back
 	ld a, [hl] ; OBJ_SUBSTATE
 	and OBJSUBFLAGS_MASK
 	ld [hld], a
@@ -961,15 +961,15 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_40658
+	jr c, .grabbed_right_facing_right
 	ld de, SpearheadFrameset_681e4
 	call SetObjectFramesetPtr
-	jr .asm_4065e
-.asm_40658
+	jr .set_grabbed_right
+.grabbed_right_facing_right
 	ld de, SpearheadFrameset_681ed
 	call SetObjectFramesetPtr
 
-.asm_4065e
+.set_grabbed_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -993,15 +993,15 @@ SpearheadFunc:
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
-	jr c, .asm_4068c
+	jr c, .grabbed_left_facing_right
 	ld de, SpearheadFrameset_681e4
 	call SetObjectFramesetPtr
-	jr .asm_40692
-.asm_4068c
+	jr .set_grabbed_left
+.grabbed_left_facing_right
 	ld de, SpearheadFrameset_681ed
 	call SetObjectFramesetPtr
 
-.asm_40692
+.set_grabbed_left
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
