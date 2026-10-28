@@ -40,11 +40,11 @@ PillarPlatformFunc:
 	ld [hl], a
 	ld a, [wDayNight]
 	rra
-	jr c, .asm_49cbc
+	jr c, .night
 	ld de, PillarPlatformFrameset_6975b
 	jp SetObjectFramesetPtr
 
-.asm_49cbc
+.night
 	ld de, PillarPlatformFrameset_6975e
 	jp SetObjectFramesetPtr
 
@@ -53,13 +53,13 @@ PillarPlatformFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectUp_Fast
-	jr .asm_49cd8
+	jr .stop_moving
 .Lower:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectDown_Fast
-.asm_49cd8
+.stop_moving
 	xor a
 	ld [wCurObjState], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -76,23 +76,23 @@ PillarPlatformFunc:
 	and a
 	ret z
 	cp OBJSTATE_2B
-	jr z, .asm_49cf9
+	jr z, .raise_requested
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_49d13
+	jr z, .lower_requested
 	xor a
 	ld [hl], a
 	ret
 
-.asm_49cf9
+.raise_requested
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	cp $02
-	jr c, .asm_49d05
+	jr c, .start_rise
 	xor a
 	ld [wCurObjState], a
 	ret
 
-.asm_49d05
+.start_rise
 	inc [hl]
 	dec l
 	ld a, $09
@@ -104,15 +104,15 @@ PillarPlatformFunc:
 	ld [hld], a
 	ret
 
-.asm_49d13
+.lower_requested
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jr nz, .asm_49d1d
+	jr nz, .start_lower
 	ld [wCurObjState], a
 	ret
 
-.asm_49d1d
+.start_lower
 	dec [hl]
 	dec l
 	ld a, $09
@@ -136,27 +136,27 @@ PillarPlatformFunc:
 	ld b, $00
 .SetLinkedPlatformsState:
 	ld h, HIGH(wObjects)
-.asm_49d45
+.loop
 	ld l, OBJ_MAP_PTR_LO
 	add l
 	ld l, a
 	ld a, [hl]
 	cp e
-	jr nz, .asm_49d5b
+	jr nz, .next_obj
 	ld a, l
 	add $06
 	ld l, a
 	ld a, [hl]
 	cp $20
-	jr nz, .asm_49d5b
+	jr nz, .next_obj
 	ld a, l
 	add $14
 	ld l, a
 	ld [hl], c
-.asm_49d5b
+.next_obj
 	ld a, b
 	cp $e0
 	ret z
 	add $20
 	ld b, a
-	jr .asm_49d45
+	jr .loop

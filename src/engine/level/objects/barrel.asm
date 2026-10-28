@@ -25,7 +25,7 @@ Barrel1Func:
 .Update1:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
-	jr z, .asm_4349c
+	jr z, .not_stepped
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -43,7 +43,7 @@ Barrel1Func:
 	ld [wCurObjVar3], a
 	ret
 
-.asm_4349c
+.not_stepped
 	ld a, $0a
 	ld [wCurObjStateDuration], a
 	ret
@@ -52,13 +52,13 @@ Barrel1Func:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_434b4
+	jr z, .jump
 	dec [hl]
 	ret nz
 	play_sfx SFX_BARREL_JUMP
 	ret
 
-.asm_434b4
+.jump
 	ld bc, BarrelData_60a50
 	jp ApplyObjYMovement_Platform
 
@@ -213,13 +213,13 @@ Barrel2Func:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_435ed
+	jr .set_bump
 
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_435ed
+.set_bump
 	ld a, $0c
 	ld [wCurObjStateDuration], a
 	ld a, $02
@@ -228,11 +228,11 @@ Barrel2Func:
 
 .State14:
 	ld a, OBJSTATE_FALL_LEFT
-	jr .asm_435fe
+	jr .set_fall
 
 .State15:
 	ld a, OBJSTATE_FALL_RIGHT
-.asm_435fe
+.set_fall
 	ld [wCurObjState], a
 	xor a
 	ld [wCurObjVar3], a
@@ -332,7 +332,7 @@ Barrel2Func:
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_436db
+	jr .set_update_func
 
 .State29:
 	ld de, BarrelFrameset_68a66
@@ -340,7 +340,7 @@ Barrel2Func:
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_436db
+	jr .set_update_func
 
 .AttackedRightStart:
 	ld de, BarrelFrameset_68a6f
@@ -348,7 +348,7 @@ Barrel2Func:
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-	jr .asm_436db
+	jr .set_update_func
 
 .AttackedLeftStart:
 	ld de, BarrelFrameset_68a66
@@ -356,7 +356,7 @@ Barrel2Func:
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-.asm_436db
+.set_update_func
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
