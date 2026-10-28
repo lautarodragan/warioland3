@@ -85,12 +85,12 @@ TadpoleFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_49ee2
+	jr z, .start_swim
 	dec [hl]
 	ret nz
 	ld de, TadpoleFrameset_69a3d
 	jp SetObjectFramesetPtr
-.asm_49ee2
+.start_swim
 	ld de, TadpoleFrameset_69a1a
 	call SetObjectFramesetPtr
 	ld a, $20
@@ -105,7 +105,7 @@ TadpoleFunc:
 	play_sfx SFX_07F
 	ret
 
-.asm_49efe
+.hit_wario
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld [hld], a
@@ -118,16 +118,16 @@ TadpoleFunc:
 	ld [hl], a
 	ret
 
-.asm_49f0e
+.hit_from_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_49f1c
-.asm_49f16
+	jr .set_hit
+.hit_from_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-.asm_49f1c
+.set_hit
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -146,30 +146,30 @@ TadpoleFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_49f5e
+	jr z, .move
 	cp OBJSTATE_HIT_WARIO_RIGHT_START
-	jr z, .asm_49efe
+	jr z, .hit_wario
 	cp OBJSTATE_WOBBLE_LEFT_START
-	jr z, .asm_49f16
+	jr z, .hit_from_right
 	cp OBJSTATE_WOBBLE_RIGHT_START
-	jr z, .asm_49f0e
+	jr z, .hit_from_left
 	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
-	jr z, .asm_49f0e
+	jr z, .hit_from_left
 	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
-	jr z, .asm_49f16
+	jr z, .hit_from_right
 	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
 	cp OBJSTATE_ATTACKED_LEFT_START
-	jr z, .asm_49f16
+	jr z, .hit_from_right
 	cp OBJSTATE_ATTACKED_RIGHT_START
-	jr z, .asm_49f0e
+	jr z, .hit_from_left
 	xor a
 	ld [hl], a
-.asm_49f5e
+.move
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jr z, .asm_49f97
+	jr z, .jump_up
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -182,12 +182,12 @@ TadpoleFunc:
 	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr nz, .asm_49f85
+	jr nz, .splash
 	ld bc, TadpoleData_60a40
 	call ApplyObjYMovement
 	jp MoveObjectLeft_Fast
 
-.asm_49f85
+.splash
 	ld de, TadpoleFrameset_69a26
 	call SetObjectFramesetPtr
 	ld a, $09
@@ -199,17 +199,17 @@ TadpoleFunc:
 	ld [hld], a
 	ret
 
-.asm_49f97
+.jump_up
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_49fa7
+	jr z, .start_falling
 	dec [hl]
 	ld bc, TadpoleData_60a20
 	call ApplyObjYMovement
 	jp MoveObjectLeft_Fast
 
-.asm_49fa7
+.start_falling
 	xor a
 	ld [wCurObjVar3], a
 	inc a

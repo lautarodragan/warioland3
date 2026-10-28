@@ -23,18 +23,18 @@ BigLeafSpawnerFunc:
 	add 22
 	ld e, a
 	ld a, [hl]
-	jr nc, .asm_42bd4
+	jr nc, .no_carry
 	inc a
-.asm_42bd4
+.no_carry
 	ld d, a
 	ld a, [wWarioXPos + 0]
 	cp d
-	jr c, .asm_42be1
+	jr c, .in_range
 	ret nz
 	ld a, [wWarioXPos + 1]
 	cp e
 	ret nc
-.asm_42be1
+.in_range
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
@@ -123,7 +123,7 @@ BigLeaf2Func:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_42c9a
+	jr z, .drift
 	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishObject2
 	cp OBJSTATE_HIT_WARIO_RIGHT_START
@@ -134,30 +134,30 @@ BigLeaf2Func:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_42c93
+	jr c, .hit_from_right
 	ld a, $01
-	jr .asm_42c95
-.asm_42c93
+	jr .set_drift
+.hit_from_right
 	ld a, $02
-.asm_42c95
+.set_drift
 	ld [wCurObjStateDuration], a
 	xor a
 	ld [hl], a
-.asm_42c9a
+.drift
 	ld a, [wCurObjStateDuration]
 	and a
-	jr z, .asm_42cab
+	jr z, .sink
 	dec a
-	jr nz, .asm_42ca8
+	jr nz, .drift_left
 	call MoveObjectRight
-	jr .asm_42cab
+	jr .sink
 
-.asm_42ca8
+.drift_left
 	call MoveObjectLeft
-.asm_42cab
+.sink
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
-	jr z, .asm_42cc5
+	jr z, .not_stepped
 	res OBJFLAG_STEPPED_F, [hl]
 	ld a, [wGlobalCounter]
 	rra
@@ -166,14 +166,14 @@ BigLeaf2Func:
 	call MoveWarioDown
 	call HandleDownwardsFloorTransition
 	call MoveObjectDown
-	jr .asm_42ccd
+	jr .check_water
 
-.asm_42cc5
+.not_stepped
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
 	call MoveObjectDown
-.asm_42ccd
+.check_water
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
