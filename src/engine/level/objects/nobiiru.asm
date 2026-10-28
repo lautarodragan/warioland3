@@ -14,11 +14,11 @@ NobiiruFunc:
 	jr nz, .left_variant
 ; right variant
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_437f7
+	jr .reset
 .left_variant
 	set OBJSUBFLAG_HDIR_F, [hl]
 
-.asm_437f7
+.reset
 	ld l, OBJ_COLLBOX_BOTTOM
 	ld a, $fc
 	ld [hli], a
@@ -64,19 +64,19 @@ NobiiruFunc:
 	ld [wCurObjVar2], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43857
+	jr c, .wait_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698d8
 	ld a, $ff
 	ld c, $02
-	jr .asm_43861
+	jr .wait_done
 
-.asm_43857
+.wait_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698b1
 	ld a, $fd
 	ld c, $00
-.asm_43861
+.wait_done
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -107,19 +107,19 @@ NobiiruFunc:
 	ld [wCurObjVar2], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43892
+	jr c, .extend1_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698db
 	ld a, $fc
 	ld c, $07
-	jr .asm_4389c
+	jr .extend1_done
 
-.asm_43892
+.extend1_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698b4
 	ld a, $f8
 	ld c, $03
-.asm_4389c
+.extend1_done
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
@@ -129,19 +129,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_438b7
+	jr c, .extend2_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698de
 	ld a, $f8
 	ld c, $0b
-	jr .asm_438c1
+	jr .extend2_done
 
-.asm_438b7
+.extend2_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698b7
 	ld a, $f4
 	ld c, $07
-.asm_438c1
+.extend2_done
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
@@ -151,19 +151,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_438dc
+	jr c, .extend3_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698e1
 	ld a, $f4
 	ld c, $0f
-	jr .asm_438e6
+	jr .extend3_done
 
-.asm_438dc
+.extend3_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698ba
 	ld a, $f0
 	ld c, $0b
-.asm_438e6
+.extend3_done
 	ld b, $02
 	jr .SetCollisionAndFrameset
 
@@ -173,19 +173,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43901
+	jr c, .extend4_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698e4
 	ld a, $f0
 	ld c, $13
-	jr .asm_4390b
+	jr .extend4_done
 
-.asm_43901
+.extend4_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698bd
 	ld a, $ec
 	ld c, $0f
-.asm_4390b
+.extend4_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -195,19 +195,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43927
+	jr c, .extend5_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698e7
 	ld a, $ec
 	ld c, $17
-	jr .asm_43931
+	jr .extend5_done
 
-.asm_43927
+.extend5_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698c0
 	ld a, $e8
 	ld c, $13
-.asm_43931
+.extend5_done
 	ld b, $14
 	jp .SetCollisionAndFrameset
 
@@ -242,19 +242,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43985
+	jr c, .retract1_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698f0
 	ld a, $f0
 	ld c, $13
-	jr .asm_4398f
+	jr .retract1_done
 
-.asm_43985
+.retract1_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698c9
 	ld a, $ec
 	ld c, $0f
-.asm_4398f
+.retract1_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -264,19 +264,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_439ab
+	jr c, .retract2_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698f3
 	ld a, $f4
 	ld c, $0f
-	jr .asm_439b5
+	jr .retract2_done
 
-.asm_439ab
+.retract2_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698cc
 	ld a, $f0
 	ld c, $0b
-.asm_439b5
+.retract2_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -286,19 +286,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_439d1
+	jr c, .retract3_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698f6
 	ld a, $f8
 	ld c, $0b
-	jr .asm_439db
+	jr .retract3_done
 
-.asm_439d1
+.retract3_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698cf
 	ld a, $f4
 	ld c, $07
-.asm_439db
+.retract3_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -308,19 +308,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_439f7
+	jr c, .retract4_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698f9
 	ld a, $fc
 	ld c, $07
-	jr .asm_43a01
+	jr .retract4_done
 
-.asm_439f7
+.retract4_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698d2
 	ld a, $f8
 	ld c, $03
-.asm_43a01
+.retract4_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -330,19 +330,19 @@ NobiiruFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43a1d
+	jr c, .retract5_right
 	call MoveObjectRightByVar2
 	ld de, NobiiruFrameset_698fc
 	ld a, $ff
 	ld c, $02
-	jr .asm_43a27
+	jr .retract5_done
 
-.asm_43a1d
+.retract5_right
 	call MoveObjectLeftByVar2
 	ld de, NobiiruFrameset_698d5
 	ld a, $fd
 	ld c, $00
-.asm_43a27
+.retract5_done
 	ld b, $02
 	jp .SetCollisionAndFrameset
 
@@ -354,9 +354,9 @@ NobiiruFunc:
 	ld [wCurObjVar2], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_43a42
+	jr c, .retract_end_right
 	call MoveObjectRightByVar2
-	jp .asm_437f7
-.asm_43a42
+	jp .reset
+.retract_end_right
 	call MoveObjectLeftByVar2
-	jp .asm_437f7
+	jp .reset
