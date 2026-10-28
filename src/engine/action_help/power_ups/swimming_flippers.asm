@@ -108,7 +108,7 @@ SwimmingFlippersActionHelp_Start:
 
 	ld a, 6
 	ld [wAnimatedTilesFrameDuration], a
-	ld a, ANIMATED_TILES_GFX_02
+	ld a, ANIMATED_TILES_GFX_WATER
 	ld [wAnimatedTilesGfx], a
 	ld a, TRUE
 	ld [wRoomAnimatedTilesEnabled], a

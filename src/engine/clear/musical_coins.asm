@@ -42,7 +42,7 @@ InitMusicalCoinScreen:
 
 	ld a, 8
 	ld [wAnimatedTilesFrameDuration], a
-	ld a, ANIMATED_TILES_GFX_15
+	ld a, ANIMATED_TILES_GFX_MENU
 	ld [wAnimatedTilesGfx], a
 	xor a
 	ld [wAnimatedTilesFrameCount], a

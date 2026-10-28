@@ -3,7 +3,7 @@ InitGolfCourseMenu:
 	call ClearVirtualOAM
 	ld a, $08
 	ld [wAnimatedTilesFrameDuration], a
-	ld a, $0f
+	ld a, ANIMATED_TILES_GFX_MENU
 	ld [wAnimatedTilesGfx], a
 	xor a
 	ld [wAnimatedTilesFrameCount], a
