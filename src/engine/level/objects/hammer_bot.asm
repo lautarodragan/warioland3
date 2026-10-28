@@ -129,7 +129,7 @@ HammerBotFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -217,7 +217,7 @@ HammerBotFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $0f
-	play_sfx z, SFX_107
+	play_sfx z, SFX_HAMMER_BOT_WALK
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_443dc
@@ -339,7 +339,7 @@ HammerBotFunc:
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $1f
-	play_sfx z, SFX_107
+	play_sfx z, SFX_HAMMER_BOT_WALK
 .asm_444a3
 	ld a, [wGroundShakeCounter]
 	cp $10
@@ -559,7 +559,7 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_4461c:
 	ld hl, wCurObjVar2
@@ -586,7 +586,7 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_4464f:
 	ld hl, wCurObjVar2
@@ -625,7 +625,7 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -758,7 +758,7 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -781,7 +781,7 @@ HammerBotFunc:
 	ld [wCurObjVar2], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_PRIORITY_F, [hl]
-	play_sfx SFX_049
+	play_sfx SFX_HAMMER_HIT
 	jp CreateObjectAtRelativePos
 
 .Func_4479d:
@@ -970,6 +970,6 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret

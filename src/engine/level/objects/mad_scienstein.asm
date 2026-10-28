@@ -129,7 +129,7 @@ MadSciensteinFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jp z, VanishObject2
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -177,7 +177,7 @@ MadSciensteinFunc:
 	dec [hl]
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	play_sfx nz, SFX_067
+	play_sfx nz, SFX_ENEMY_THROW
 
 	ld l, OBJ_STATE
 	ld a, $5a
@@ -726,7 +726,7 @@ MadSciensteinFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_45202:
 	ld hl, wCurObjVar2
@@ -748,7 +748,7 @@ MadSciensteinFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_4522d:
 	ld hl, wCurObjVar2
@@ -789,7 +789,7 @@ MadSciensteinFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -916,7 +916,7 @@ MadSciensteinFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -1084,7 +1084,7 @@ MadSciensteinFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 

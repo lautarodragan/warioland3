@@ -96,7 +96,7 @@ UpdateState_OnFire:
 	jr nc, .skip_sfx
 	ld a, 14
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 .skip_sfx
 
 	ld a, [wWarioStateCounter]
@@ -290,7 +290,7 @@ UpdateState_Hot:
 	jr nc, .skip_sfx
 	ld a, 16
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 .skip_sfx
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
@@ -338,7 +338,7 @@ UpdateState_Hot:
 	ret
 
 .burnt
-	play_sfx SFX_022
+	play_sfx SFX_BURNT
 
 	ld a, WST_BURNT
 	ld [wWarioState], a
@@ -494,7 +494,7 @@ SetState_FlatAirborne:
 
 	ld a, TRANSFORMATION_FLAT_WARIO
 	ld [wTransformation], a
-	play_sfx SFX_01B
+	play_sfx SFX_FLATTEN
 	call UpdateLevelMusic
 
 	ld a, TOUCH_BUMP
@@ -720,7 +720,7 @@ UpdateState_FlatWalking:
 	ret
 
 SetState_FlatJumping:
-	play_sfx SFX_01D
+	play_sfx SFX_FLAT_JUMP
 
 	ld a, WST_FLAT_JUMPING
 	ld [wWarioState], a
@@ -948,7 +948,7 @@ UpdateState_FlatFalling:
 	jr nz, .asm_288d7
 	jp TriggerDownwardsFloorTransition
 .asm_288d7
-	play_sfx SFX_020
+	play_sfx SFX_FLAT_FALL
 	call TriggerFloorTransition
 	jp SetState_FlatIdling
 
@@ -1399,7 +1399,7 @@ UpdateState_BallOStringKnockBack:
 	xor $1 ; switch direction
 	ld [wDirection], a
 	call TriggerFloorTransition
-	play_sfx SFX_03C
+	play_sfx SFX_BALL_O_STRING_BOUNCE
 
 	ld a, WST_GETTING_UNWRAPPED_IN_STRING
 	ld [wWarioState], a
@@ -1438,7 +1438,7 @@ UpdateState_GettingUnwrappedInString:
 	and a
 	ret z
 
-	play_sfx SFX_03D
+	play_sfx SFX_STRING_UNWRAP
 	ld a, WST_BALL_O_STRING_DIZZY
 	ld [wWarioState], a
 	ld a, -1
@@ -1881,7 +1881,7 @@ UpdateState_FatAirborne:
 	ld a, [wFloorTransitionDir]
 	and a
 	jr nz, SetState_FatLanding
-	play_sfx SFX_024
+	play_sfx SFX_FAT_LAND
 ;	fallthrough
 
 SetState_FatLanding:
@@ -2309,7 +2309,7 @@ UpdateState_Electric:
 	ret
 
 .asm_295d8
-	play_sfx SFX_041
+	play_sfx SFX_ELECTRIC_LAND
 
 	ld a, [wDirection]
 	and a
@@ -2397,7 +2397,7 @@ UpdateState_ElectricDizzy:
 	jp RecoverFromTransformation
 
 SetState_TurningInvisible:
-	play_sfx SFX_03F
+	play_sfx SFX_INVISIBLE_TRANSFORM
 
 	xor a
 	ld [wWarioStateCounter], a
@@ -2497,7 +2497,7 @@ SetState_PuffyInflating:
 	ld a, $01
 	ld [wSpikeTouchState], a
 
-	play_sfx SFX_025
+	play_sfx SFX_PUFFY_INFLATE
 
 	ld a, WST_PUFFY_INFLATING
 	ld [wWarioState], a
@@ -2686,7 +2686,7 @@ UpdateState_PuffyTurning:
 	jp SetState_PuffyRising
 
 SetState_PuffyDeflating:
-	play_sfx SFX_027
+	play_sfx SFX_PUFFY_DEFLATE
 
 	ld a, WST_PUFFY_DEFLATING
 	ld [wWarioState], a
@@ -3086,7 +3086,7 @@ UpdateState_ZombieAirborne:
 ;	fallthrough
 
 SetState_ZombieLanding:
-	play_sfx SFX_02A
+	play_sfx SFX_ZOMBIE_LAND
 
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
@@ -3543,7 +3543,7 @@ Func_2a0c7:
 SetState_BouncyAirborne:
 	ld a, WST_BOUNCY_AIRBORNE
 	ld [wWarioState], a
-	play_sfx SFX_02B
+	play_sfx SFX_BOUNCY_BOUNCE
 
 	xor a
 	ld [wFrameDuration], a
@@ -3865,7 +3865,7 @@ UpdateState_BouncyLastBounce:
 	jp RecoverFromTransformation
 
 SetState_CrazySpinning:
-	play_sfx SFX_042
+	play_sfx SFX_CRAZY_SPIN
 	ld a, WST_CRAZY_SPINNING
 	ld [wWarioState], a
 	ld a, -1
@@ -3969,7 +3969,7 @@ UpdateState_CrazySpinning:
 	ret c
 	ld [hl], $00
 
-	play_sfx SFX_043
+	play_sfx SFX_CRAZY_DIZZY
 	ld a, WST_CRAZY_DIZZY
 	ld [wWarioState], a
 
@@ -4015,7 +4015,7 @@ UpdateState_CrazyDizzy:
 ;	fallthrough
 
 SetState_Crazy:
-	play_sfx SFX_043
+	play_sfx SFX_CRAZY_DIZZY
 	ld a, WST_CRAZY
 	ld [wWarioState], a
 
@@ -4369,7 +4369,7 @@ Func_2a8a7:
 	jr SetState_VampireAirborne
 
 Func_2a8ae:
-	play_sfx SFX_01D
+	play_sfx SFX_FLAT_JUMP
 	xor a
 	ld [wJumpVelIndex], a
 ;	fallthrough
@@ -4433,7 +4433,7 @@ UpdateState_VampireAirborne:
 	jp SetState_VampireIdling
 
 SetState_BatTransforming:
-	play_sfx SFX_046
+	play_sfx SFX_BAT_TRANSFORM
 	ld a, WST_BAT_TRANSFORMING
 	ld [wWarioState], a
 
@@ -4555,11 +4555,11 @@ UpdateState_BatIdling:
 	jr z, SetState_VampireTransforming
 	ld a, -15
 	ld [wCollisionBoxTop], a
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ret
 
 SetState_VampireTransforming:
-	play_sfx SFX_045
+	play_sfx SFX_VAMPIRE_TRANSFORM
 
 	ld a, WST_VAMPIRE_TRANSFORMING
 	ld [wWarioState], a
@@ -4830,7 +4830,7 @@ UpdateState_InBubble:
 	jr nc, .skip_sfx
 	ld a, $0e
 	ld [wSFXLoopCounter], a
-	play_sfx SFX_023
+	play_sfx SFX_BUBBLE_FLOAT
 .skip_sfx
 	ld a, BANK("Wario OAM 2")
 	ldh [hCallFuncBank], a

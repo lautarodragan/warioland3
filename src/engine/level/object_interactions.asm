@@ -34,7 +34,7 @@ ProcessInteractions:
 
 .is_visible
 	push hl
-	ld e, OBJ_UNK_1D
+	ld e, OBJ_ACTION_SIDE
 	ld d, $00
 	add hl, de
 	ld a, [hld]
@@ -211,18 +211,18 @@ ProcessInteractions:
 
 .table
 	table_width 2
-	dw Func_20b6b                        ; OBJ_INTERACTION_00
+	dw Func_20b6b                        ; OBJ_INTERACTION_GRABBABLE
 	dw Func_20d1d                        ; OBJ_INTERACTION_01
 	dw ObjInteraction_FrontSting         ; OBJ_INTERACTION_FRONT_STING
 	dw ObjInteraction_BackSting          ; OBJ_INTERACTION_BACK_STING
 	dw ObjInteraction_TopSting           ; OBJ_INTERACTION_TOP_STING
 	dw ObjInteraction_FullSting          ; OBJ_INTERACTION_FULL_STING
-	dw Func_20d81                        ; OBJ_INTERACTION_06
-	dw Func_20d8c                        ; OBJ_INTERACTION_07
-	dw Func_20deb                        ; OBJ_INTERACTION_08
-	dw Func_20e39                        ; OBJ_INTERACTION_09
-	dw Func_20e60                        ; OBJ_INTERACTION_0A
-	dw Func_20e6a                        ; OBJ_INTERACTION_0B
+	dw Func_20d81                        ; OBJ_INTERACTION_WATER_BUMP
+	dw Func_20d8c                        ; OBJ_INTERACTION_WATER_KNOCK_BACK
+	dw Func_20deb                        ; OBJ_INTERACTION_WATER_FRONT_STING
+	dw Func_20e39                        ; OBJ_INTERACTION_FRONT_BUMP
+	dw Func_20e60                        ; OBJ_INTERACTION_BUMP_OFF
+	dw Func_20e6a                        ; OBJ_INTERACTION_BUMP_OFF_PAUSE
 	dw ObjInteraction_Walkable           ; OBJ_INTERACTION_WALKABLE
 	dw ObjInteraction_MusicalCoin        ; OBJ_INTERACTION_MUSICAL_COIN
 	dw ObjInteraction_Fire               ; OBJ_INTERACTION_FIRE
@@ -260,17 +260,17 @@ ProcessInteractions:
 	dw ObjInteraction_UnlitTorch         ; OBJ_INTERACTION_UNLIT_TORCH
 	dw ObjInteraction_Stove              ; OBJ_INTERACTION_STOVE
 	dw ObjInteraction_RoboMouse          ; OBJ_INTERACTION_ROBO_MOUSE
-	dw Func_21af1                        ; OBJ_INTERACTION_31
+	dw Func_21af1                        ; OBJ_INTERACTION_SOLID_PLATFORM
 	dw ObjInteraction_DollBoyHammer      ; OBJ_INTERACTION_DOLL_BOY_HAMMER
 	dw ObjInteraction_RollingRock        ; OBJ_INTERACTION_ROLLING_ROCK
 	dw ObjInteraction_Wormwould          ; OBJ_INTERACTION_WORMWOULD
 	dw ObjInteraction_Beam               ; OBJ_INTERACTION_BEAM
-	dw Func_21b78                        ; OBJ_INTERACTION_36
+	dw Func_21b78                        ; OBJ_INTERACTION_SMASHABLE_TOP
 	dw ObjInteraction_YellowBellyArrow   ; OBJ_INTERACTION_YELLOW_BELLY_ARROW
 	dw ObjInteraction_Teruteru           ; OBJ_INTERACTION_TERUTERU
 	dw ObjInteraction_WaterDrop          ; OBJ_INTERACTION_WATER_DROP
 	dw ObjInteraction_Pesce              ; OBJ_INTERACTION_PESCE
-	dw Func_21c56                        ; OBJ_INTERACTION_3B
+	dw Func_21c56                        ; OBJ_INTERACTION_GRABBABLE_WALKABLE
 	dw ObjInteraction_Tadpole            ; OBJ_INTERACTION_TADPOLE
 	dw ObjInteraction_Hebarii            ; OBJ_INTERACTION_HEBARII
 	dw ObjInteraction_PrinceFroggy       ; OBJ_INTERACTION_PRINCE_FROGGY
@@ -278,22 +278,22 @@ ProcessInteractions:
 	dw ObjInteraction_WaterTeleporting   ; OBJ_INTERACTION_WATER_TELEPORTING
 	dw ObjInteraction_Scowler            ; OBJ_INTERACTION_SCOWLER
 	dw ObjInteraction_Ink                ; OBJ_INTERACTION_INK
-	dw Func_207ed                        ; OBJ_INTERACTION_43
+	dw Func_207ed                        ; OBJ_INTERACTION_WATER_FULL_STING
 	dw ObjInteraction_Jamano             ; OBJ_INTERACTION_JAMANO
 	dw ObjInteraction_Turtle             ; OBJ_INTERACTION_TURTLE
-	dw Func_21d3b                        ; OBJ_INTERACTION_46
-	dw Func_21d64                        ; OBJ_INTERACTION_47
-	dw Func_21d6f                        ; OBJ_INTERACTION_48
-	dw Func_21d88                        ; OBJ_INTERACTION_49
+	dw Func_21d3b                        ; OBJ_INTERACTION_FRONT_STING_BUMP_OFF
+	dw Func_21d64                        ; OBJ_INTERACTION_TOP_STING_BUMP_OFF
+	dw Func_21d6f                        ; OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
+	dw Func_21d88                        ; OBJ_INTERACTION_WATER_FRONT_LAUNCH
 	dw ObjInteraction_ColourCoin         ; OBJ_INTERACTION_COLOUR_COIN
 	dw ObjInteraction_MagicalSpiral      ; OBJ_INTERACTION_MAGICAL_SPIRAL
 	dw ObjInteraction_BottomSting        ; OBJ_INTERACTION_BOTTOM_STING
 	dw ObjInteraction_Shoot              ; OBJ_INTERACTION_SHOOT
 	dw Func_21e9c                        ; OBJ_INTERACTION_GK_TORTOISE
-	dw Func_21ea6                        ; OBJ_INTERACTION_4F
-	dw Func_21ecd                        ; OBJ_INTERACTION_50
-	dw Func_21f01                        ; OBJ_INTERACTION_51
-	dw Func_21f28                        ; OBJ_INTERACTION_52
+	dw Func_21ea6                        ; OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
+	dw Func_21ecd                        ; OBJ_INTERACTION_FRONT_DRAG_DOWN
+	dw Func_21f01                        ; OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
+	dw Func_21f28                        ; OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
 	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_1
 	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_2
 	dw ObjInteraction_None               ; OBJ_INTERACTION_UNUSED_3
@@ -481,7 +481,7 @@ SetState_EnemyBumping:
 ; routine called when an object is attacked
 ; whether by Wario's B attack, Fat Wario bump, rolling, etc.
 AttackObject:
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	ld a, [wWarioScreenXPos]
 	ld b, a
 	ld a, [wObjScreenXPos]
@@ -719,7 +719,7 @@ StepOnObject:
 .no_input
 	call Func_20939
 .asm_20578
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	jp SetObjAction
 
@@ -749,7 +749,7 @@ StepOnObject:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_205b7
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
 	ld a, [wTransformation]
@@ -820,7 +820,7 @@ SetObjAction:
 	inc l
 	ld a, [wInteractionSide]
 	ld b, a
-	ld a, [hl] ; OBJ_UNK_1D
+	ld a, [hl] ; OBJ_ACTION_SIDE
 	and $0f
 	or b
 	ld [hl], a
@@ -882,7 +882,7 @@ Func_20670:
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 .asm_206d7
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wInvincibleCounter]
 	cp $01
@@ -1031,7 +1031,7 @@ Func_207ed:
 	ret
 
 .asm_20808
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 ;	fallthrough
 
@@ -1119,7 +1119,7 @@ Func_20899:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_208ca
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
 	ld a, [wTransformation]
@@ -1177,7 +1177,7 @@ Func_20939:
 	ld a, [wTouchState]
 	and a
 	jp nz, Func_2023b
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wInvincibleCounter]
 	cp $01
@@ -1297,12 +1297,12 @@ Func_209ca:
 	jp ProcessInteractions.next_obj
 
 Func_20a63:
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 	ret
 
 Func_20a69:
-	ld b, OBJACTION_0D
+	ld b, OBJACTION_NO_EFFECT
 	call SetObjAction
 	ret
 
@@ -1405,7 +1405,7 @@ Func_20b41:
 	and a
 	ret nz
 	call Func_20939
-	ld b, OBJACTION_12
+	ld b, OBJACTION_HIT_WARIO_SHORT
 	jp SetObjAction
 
 Func_20b6b:
@@ -1785,7 +1785,7 @@ Func_20e6a:
 	ld a, [wTouchState]
 	and a
 	ret nz
-	ld b, OBJACTION_0A
+	ld b, OBJACTION_PAUSE
 	jp SetObjAction
 
 ObjInteraction_Walkable:
@@ -1804,7 +1804,7 @@ ObjInteraction_MusicalCoin:
 	jp CollectMusicalCoin
 
 ObjInteraction_Fire:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -1955,7 +1955,7 @@ ObjInteraction_Richtertoffen:
 
 ; unreferenced?
 Func_20fe8:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_GreyKey:
@@ -2136,7 +2136,7 @@ ObjInteraction_Omodonmeka:
 	and a
 	jp nz, Func_2022c
 
-	ld b, OBJACTION_0C
+	ld b, OBJACTION_PICK_UP_WARIO
 	call SetObjAction
 
 	ld a, [wTransformation]
@@ -2274,7 +2274,7 @@ Func_2126a:
 	jp Func_2022c
 
 .asm_21290
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -2297,7 +2297,7 @@ Func_2126a:
 	ld [wDirection], a
 
 .set_ball_o_string
-	play_sfx SFX_039
+	play_sfx SFX_BALL_O_STRING_TRANSFORM
 
 	ld a, TRANSFORMATION_BALL_O_STRING_WARIO
 	ld [wTransformation], a
@@ -2410,7 +2410,7 @@ ObjInteraction_Food:
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 .asm_213bb
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 	call UpdateLevelMusic
 
 	ld a, WST_FAT_EATING
@@ -2497,7 +2497,7 @@ ObjInteraction_Electric:
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
 .asm_21471
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, [wInvincibleCounter]
@@ -2519,7 +2519,7 @@ ObjInteraction_Electric:
 	ld [wDirection], a
 
 .asm_21497
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 
 	xor a
 	ld [wWarioStateCounter], a
@@ -2627,7 +2627,7 @@ ObjInteraction_YellowBellyArrow:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_OWL_WARIO
 	call z, ReleaseOwl
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	farcall SetState_PuffyInflating
 	ret
@@ -2642,10 +2642,10 @@ ObjInteraction_ZombieHead:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, Func_20a69
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
-	play_sfx SFX_028
+	play_sfx SFX_ZOMBIE_TRANSFORM
 
 	ld a, TRANSFORMATION_ZOMBIE_WARIO
 	ld [wTransformation], a
@@ -2679,7 +2679,7 @@ Func_2160a:
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
@@ -2867,7 +2867,7 @@ ObjInteraction_OrangeBird:
 	cp TRANSFORMATION_CRAZY_WARIO
 	jp z, Func_2022c
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_CRAZY_WARIO
@@ -2889,7 +2889,7 @@ ObjInteraction_Vampire:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	ret nz
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_VAMPIRE_WARIO
@@ -2909,7 +2909,7 @@ ObjInteraction_Bubble:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	ret nz
 
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
 	ld a, TRANSFORMATION_BUBBLE
@@ -2944,10 +2944,10 @@ ObjInteraction_Ice:
 	ret
 
 .asm_218b6
-	ld b, OBJACTION_07
+	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
-	play_sfx SFX_028
+	play_sfx SFX_ZOMBIE_TRANSFORM
 	ld a, TRANSFORMATION_ICE_SKATIN
 	ld [wTransformation], a
 	ld a, TOUCH_ATTACK
@@ -3043,7 +3043,7 @@ ObjInteraction_Rail:
 	cp TRANSFORMATION_RAIL
 	ret z
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	play_sfx SFX_HANG_GRAB
@@ -3150,7 +3150,7 @@ ObjInteraction_UnlitTorch:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_HOT_WARIO
 	ret nz
-	ld b, OBJACTION_0E
+	ld b, OBJACTION_LIGHT_TORCH
 	jp SetObjAction
 
 ObjInteraction_Stove:
@@ -3220,7 +3220,7 @@ ObjInteraction_DollBoyHammer:
 	jp Func_2160a
 
 ObjInteraction_RollingRock:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wIsRolling]
 	and a
@@ -3252,7 +3252,7 @@ ObjInteraction_Beam:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, Func_2022c
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_SPLIT
@@ -3288,7 +3288,7 @@ ObjInteraction_Teruteru:
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, Func_2022c
 
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_BLIND
@@ -3333,7 +3333,7 @@ ENDR
 	ret
 
 ObjInteraction_WaterDrop:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wTransformation]
 	and a
@@ -3354,7 +3354,7 @@ ObjInteraction_Pesce:
 	jr nz, .asm_21c41
 	jp Func_207ed
 .asm_21c41
-	ld b, OBJACTION_11
+	ld b, OBJACTION_SWALLOW
 	call SetObjAction
 	farcall SetState_Swallowed
 	ret
@@ -3414,7 +3414,7 @@ ObjInteraction_Hand:
 ;	fallthrough
 
 Func_21cc9:
-	ld b, OBJACTION_13
+	ld b, OBJACTION_SPECIAL_3
 	call SetObjAction
 	ret
 
@@ -3437,7 +3437,7 @@ ObjInteraction_Scowler:
 	jp Func_208f2
 
 ObjInteraction_Ink:
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_Jamano:
@@ -3528,7 +3528,7 @@ Func_21dac:
 	ld a, [wObjDirection]
 	ld [wDirection], a
 	farcall SetState_Launched
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	jp SetObjAction
 
 ObjInteraction_ColourCoin:
@@ -3563,7 +3563,7 @@ ObjInteraction_MagicalSpiral:
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	jp nz, Func_2022c
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
 	ld a, TRANSFORMATION_MAGIC
@@ -3606,7 +3606,7 @@ ObjInteraction_Shoot:
 	jp nz, Func_2022c
 
 	; turn Wario into ball form
-	ld b, OBJACTION_06
+	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, TRANSFORMATION_BALL
 	ld [wTransformation], a

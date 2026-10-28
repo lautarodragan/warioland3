@@ -45,7 +45,7 @@ YellowBellyBodyFunc:
 	ld [hld], a
 	ld a, LOW(.Func_513bf)
 	ld [hld], a
-	play_sfx SFX_0CA
+	play_sfx SFX_BOSS_APPEAR
 	ld hl, Pals_51c81
 	jr .asm_513f1
 
@@ -219,7 +219,7 @@ YellowBellyBodyFunc:
 	ld a, [hl]
 	cp $2f
 	ret nz
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_514e5
@@ -311,12 +311,12 @@ YellowBellyBodyFunc:
 .asm_51588
 	cp $88
 	jr nz, .asm_51596
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	jr .asm_515a8
 .asm_51596
 	cp $25
 	jr nz, .asm_515ab
-	play_sfx SFX_0A5
+	play_sfx SFX_YELLOW_BELLY_SPAWN_PUMP
 	ld bc, ObjParams_Pump
 	call CreateObjectFromCurObjPos
 .asm_515a8
@@ -526,7 +526,7 @@ YellowBellyBodyFunc:
 	ld de, Frameset_697eb
 	jp SetObjectFramesetPtr
 .asm_516ec
-	play_sfx SFX_101
+	play_sfx SFX_CHOP_TREE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_516fe
 	ld de, Frameset_69780
@@ -550,7 +550,7 @@ YellowBellyBodyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp z, .asm_51442
-	play_sfx SFX_0A8
+	play_sfx SFX_YELLOW_BELLY
 .asm_51729
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -651,9 +651,9 @@ YellowBellyBodyFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	stop_music2
 	ret
 
@@ -674,7 +674,7 @@ YellowBellyBodyFunc:
 	ld hl, Pals_51ce1
 	jr .asm_51815
 .asm_5180a
-	play_sfx SFX_0B9
+	play_sfx SFX_PESCE_3_YB_2
 .asm_51812
 	ld hl, Pals_51cb1
 .asm_51815
@@ -740,7 +740,7 @@ YellowBellyBodyFunc:
 	jr nz, .asm_51880
 	ld a, [hld]
 	and a
-	play_sfx z, SFX_0AA
+	play_sfx z, SFX_WOLFENBOSS_SMOKE
 .asm_51880
 	ld l, OBJ_FRAMESET_OFFSET
 	ld a, [hld]
@@ -965,7 +965,7 @@ PumpFunc:
 	ld [hli], a
 	xor a
 	ld [wCurObjVar3], a
-	play_sfx SFX_0BA
+	play_sfx SFX_PUMP
 	ret
 
 .asm_51a03
@@ -1301,7 +1301,7 @@ YellowBellyPlatformFunc:
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
 	ld [hld], a

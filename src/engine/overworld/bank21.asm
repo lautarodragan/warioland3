@@ -60,7 +60,7 @@ DayNightTransition:
 
 .FadeColours:
 	ld a, [wSubState]
-	cp SST_OVERWORLD_0B
+	cp SST_OVERWORLD_UPDATE_MAP_SIDE
 	jr nz, .no_skip
 
 	; if B button is pressed

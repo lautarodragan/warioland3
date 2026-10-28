@@ -14,6 +14,6 @@ Func_80e33:
 	inc [hl]
 	ret
 .b_btn
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret

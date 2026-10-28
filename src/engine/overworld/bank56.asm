@@ -61,7 +61,7 @@ HandleTempleScreenShake:
 	ret
 
 .SlowScrollLeftWithSFX:
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 .SlowScrollLeft:
 	ld a, [bc]
 	cp 2
@@ -93,7 +93,7 @@ HandleTempleScreenShake:
 	ret
 
 .FastScrollRightWithSFX:
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 .FastScrollRight:
 	ld a, [bc]
 	cp 2

@@ -114,7 +114,7 @@ DEF HOT_WARIO_TRANSITION_DURATION EQU 300
 	const_def
 	const GRAB_NONE                ; $0
 	const GRAB_PICK_UP             ; $1
-	const GRAB_UNK_02              ; $2
+	const GRAB_PICK_UP_BLOCKED              ; $2
 	const GRAB_IDLE                ; $3
 	const GRAB_CHARGE_THROW        ; $4
 	const GRAB_THROW_FULLY_CHARGED ; $5

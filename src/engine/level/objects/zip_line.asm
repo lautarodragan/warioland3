@@ -212,7 +212,7 @@ ZipLineFunc:
 	dec a
 	jr nz, .asm_494ab
 	ld [wAutoMoveState], a
-	play_sfx SFX_129
+	play_sfx SFX_EXPLOSION
 .asm_494ab
 	ld a, $03
 	ld [hl], a
@@ -265,5 +265,5 @@ ZipLineFunc:
 	ld a, [wGlobalCounter]
 	and %11111
 	ret nz
-	play_sfx SFX_08C
+	play_sfx SFX_RAIL_HUM
 	ret

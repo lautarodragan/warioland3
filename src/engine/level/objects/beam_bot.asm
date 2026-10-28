@@ -446,7 +446,7 @@ BeamBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_468cf:
 	ld hl, wCurObjVar2
@@ -472,7 +472,7 @@ BeamBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_46902:
 	ld hl, wCurObjVar2
@@ -510,7 +510,7 @@ BeamBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 .Func_46945:
@@ -638,7 +638,7 @@ BeamBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 .Func_46a1e:
@@ -768,7 +768,7 @@ BeamBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -780,7 +780,7 @@ BeamFunc_Left:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 .Update:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -802,7 +802,7 @@ BeamFunc_Right:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_07C
+	play_sfx SFX_BEAM
 .Update:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -823,6 +823,6 @@ BeamFunc:
 	jr z, .apply_movement
 	xor a
 	ld [hl], a
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 .apply_movement
 	jp ApplyObjXMovement

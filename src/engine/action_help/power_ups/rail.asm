@@ -143,7 +143,7 @@ Func_1e4329:
 	ret
 
 Func_1e43a0:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -160,7 +160,7 @@ Func_1e43a0:
 	ret
 
 Func_1e43cb:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]
@@ -273,7 +273,7 @@ Func_1e4483:
 	ret
 
 Func_1e4490:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -290,7 +290,7 @@ Func_1e4490:
 	ret
 
 Func_1e44bb:
-	play_sfx_rept 30, SFX_08C
+	play_sfx_rept 30, SFX_RAIL_HUM
 
 	ld hl, wActionHelpWarioXCoord
 	inc [hl]

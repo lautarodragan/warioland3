@@ -505,7 +505,7 @@ UpdateState_Teleporting:
 	jp TriggerRoomTransition
 
 PlayTeleportingSFX:
-	play_sfx SFX_082
+	play_sfx SFX_TELEPORT
 	ret
 
 UpdateState_WaterTeleporting:
@@ -1470,7 +1470,7 @@ UpdateState_GetTreasureTurnBack:
 	ret z
 	ld a, WST_GET_TREASURE_OPEN
 	ld [wWarioState], a
-	play_sfx SFX_03E
+	play_sfx SFX_GET_TREASURE_OPEN
 	xor a
 	ld [wSFXLoopCounter], a
 	ld [wWarioStateCounter], a

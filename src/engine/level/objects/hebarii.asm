@@ -120,9 +120,9 @@ HebariiFunc:
 	jr z, .StartAttackedLeftStart
 	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .StartAttackedRightStart
-	cp OBJSTATE_28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .StartState28
-	cp OBJSTATE_29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .StartState29
 	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishObject2
@@ -225,7 +225,7 @@ HebariiFunc:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Vanish ; OBJSTATE_00
+	dw .Vanish ; OBJSTATE_DEFAULT
 	dw .Vanish ; OBJSTATE_LAND
 	dw .Func_4a26d ; OBJSTATE_BUMP_LEFT_START
 	dw .Func_4a277 ; OBJSTATE_BUMP_RIGHT_START
@@ -236,37 +236,37 @@ HebariiFunc:
 	dw .Func_4a26d ; OBJSTATE_WOBBLE_LEFT_START
 	dw .Func_4a277 ; OBJSTATE_WOBBLE_RIGHT_START
 	dw .Vanish ; OBJSTATE_VANISH_TOUCH
-	dw .Vanish ; OBJSTATE_0B
-	dw .Vanish ; OBJSTATE_0C
-	dw .Vanish ; OBJSTATE_0D
-	dw .Vanish ; OBJSTATE_0E
-	dw .State0f ; OBJSTATE_0F
-	dw .Vanish ; OBJSTATE_10
+	dw .Vanish ; OBJSTATE_HIT_WARIO_RIGHT_START
+	dw .Vanish ; OBJSTATE_HIT_WARIO_LEFT_START
+	dw .Vanish ; OBJSTATE_HIT_WARIO_UP_START
+	dw .Vanish ; OBJSTATE_HIT_WARIO_DOWN_START
+	dw .State0f ; OBJSTATE_STUNNED_START
+	dw .Vanish ; OBJSTATE_RECOVER_START
 	dw .Vanish ; OBJSTATE_STANDING_FALL_START
-	dw .State12 ; OBJSTATE_12
+	dw .State12 ; OBJSTATE_DROP_START
 	dw .Func_4a224 ; OBJSTATE_TURN_AROUND_START
-	dw .State14 ; OBJSTATE_14
-	dw .State15 ; OBJSTATE_15
+	dw .State14 ; OBJSTATE_FALL_LEFT_START
+	dw .State15 ; OBJSTATE_FALL_RIGHT_START
 	dw .StunLeftStart ; OBJSTATE_STUN_LEFT_START
 	dw .StunRightStart ; OBJSTATE_STUN_RIGHT_START
 	dw .State18 ; OBJSTATE_18
 	dw .State19 ; OBJSTATE_19
-	dw .Vanish ; OBJSTATE_1A
-	dw .Vanish ; OBJSTATE_1B
-	dw .Vanish ; OBJSTATE_1C
+	dw .Vanish ; OBJSTATE_HOP_START
+	dw .Vanish ; OBJSTATE_HOP
+	dw .Vanish ; OBJSTATE_RANDOM_WOBBLE_START
 	dw .Vanish ; OBJSTATE_1D
 	dw .Vanish ; OBJSTATE_1E
 	dw .Vanish ; OBJSTATE_1F
-	dw Func_3191 ; OBJSTATE_20
-	dw Func_31af ; OBJSTATE_21
-	dw Func_31cd ; OBJSTATE_22
-	dw Func_31eb ; OBJSTATE_23
-	dw Func_3209 ; OBJSTATE_24
-	dw Func_3227 ; OBJSTATE_25
-	dw Func_3245 ; OBJSTATE_26
-	dw Func_3254 ; OBJSTATE_27
-	dw .State28 ; OBJSTATE_28
-	dw .State29 ; OBJSTATE_29
+	dw Func_3191 ; OBJSTATE_BOUNCE_1_LEFT_START
+	dw Func_31af ; OBJSTATE_BOUNCE_1_RIGHT_START
+	dw Func_31cd ; OBJSTATE_BOUNCE_2_LEFT_START
+	dw Func_31eb ; OBJSTATE_BOUNCE_2_RIGHT_START
+	dw Func_3209 ; OBJSTATE_BOUNCE_3_LEFT_START
+	dw Func_3227 ; OBJSTATE_BOUNCE_3_RIGHT_START
+	dw Func_3245 ; OBJSTATE_BOUNCE_FALL_LEFT_START
+	dw Func_3254 ; OBJSTATE_BOUNCE_FALL_RIGHT_START
+	dw .State28 ; OBJSTATE_HIT_BY_OBJ_LEFT_START
+	dw .State29 ; OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	dw .Vanish ; OBJSTATE_ACTIVATE
 	dw .Vanish ; OBJSTATE_2B
 	dw .Vanish ; OBJSTATE_2C
@@ -283,38 +283,38 @@ HebariiFunc:
 	dw Func_3344 ; OBJSTATE_PICKED_UP_RIGHT
 	dw Func_31fa ; OBJSTATE_WOBBLE_LEFT
 	dw Func_31dc ; OBJSTATE_WOBBLE_RIGHT
-	dw .Vanish ; OBJSTATE_3A
-	dw .Vanish ; OBJSTATE_3B
-	dw .Vanish ; OBJSTATE_3C
+	dw .Vanish ; OBJSTATE_RESIST_VANISH
+	dw .Vanish ; OBJSTATE_HIT_WARIO_RIGHT
+	dw .Vanish ; OBJSTATE_HIT_WARIO_LEFT
 	dw .Vanish ; OBJSTATE_3D
 	dw .Vanish ; OBJSTATE_3E
-	dw .State3f ; OBJSTATE_3F
-	dw .Vanish ; OBJSTATE_40
+	dw .State3f ; OBJSTATE_STUNNED
+	dw .Vanish ; OBJSTATE_RECOVER
 	dw .Vanish ; OBJSTATE_STANDING_FALL
-	dw Func_3371 ; OBJSTATE_42
+	dw Func_3371 ; OBJSTATE_DROP
 	dw .Vanish ; OBJSTATE_TURN_AROUND
-	dw Func_32cc ; OBJSTATE_44
-	dw Func_32db ; OBJSTATE_45
+	dw Func_32cc ; OBJSTATE_FALL_LEFT
+	dw Func_32db ; OBJSTATE_FALL_RIGHT
 	dw .StunLeft ; OBJSTATE_STUN_LEFT
 	dw .StunRight ; OBJSTATE_STUN_RIGHT
-	dw .State48 ; OBJSTATE_48
-	dw .State49 ; OBJSTATE_49
-	dw Func_3380 ; OBJSTATE_4A
-	dw Func_338f ; OBJSTATE_4B
+	dw .State48 ; OBJSTATE_GRABBED_LEFT
+	dw .State49 ; OBJSTATE_GRABBED_RIGHT
+	dw Func_3380 ; OBJSTATE_GRABBED_CHARGE_LEFT
+	dw Func_338f ; OBJSTATE_GRABBED_CHARGE_RIGHT
 	dw .FullThrowLeftStart ; OBJSTATE_FULL_THROW_LEFT_START
 	dw .FullThrowRightStart ; OBJSTATE_FULL_THROW_RIGHT_START
-	dw Func_339e ; OBJSTATE_4E
-	dw Func_33ad ; OBJSTATE_4F
-	dw Func_31a0 ; OBJSTATE_50
-	dw Func_31be ; OBJSTATE_51
-	dw Func_31dc ; OBJSTATE_52
-	dw Func_31fa ; OBJSTATE_53
-	dw Func_3218 ; OBJSTATE_54
-	dw Func_3236 ; OBJSTATE_55
-	dw Func_32cc ; OBJSTATE_56
-	dw Func_32db ; OBJSTATE_57
-	dw .Vanish ; OBJSTATE_58
-	dw .Vanish ; OBJSTATE_59
+	dw Func_339e ; OBJSTATE_THROW_LEFT
+	dw Func_33ad ; OBJSTATE_THROW_RIGHT
+	dw Func_31a0 ; OBJSTATE_BOUNCE_1_LEFT
+	dw Func_31be ; OBJSTATE_BOUNCE_1_RIGHT
+	dw Func_31dc ; OBJSTATE_BOUNCE_2_LEFT
+	dw Func_31fa ; OBJSTATE_BOUNCE_2_RIGHT
+	dw Func_3218 ; OBJSTATE_BOUNCE_3_LEFT
+	dw Func_3236 ; OBJSTATE_BOUNCE_3_RIGHT
+	dw Func_32cc ; OBJSTATE_BOUNCE_FALL_LEFT
+	dw Func_32db ; OBJSTATE_BOUNCE_FALL_RIGHT
+	dw .Vanish ; OBJSTATE_HIT_BY_OBJ_LEFT
+	dw .Vanish ; OBJSTATE_HIT_BY_OBJ_RIGHT
 	dw .Vanish ; OBJSTATE_5A
 	dw .Vanish ; OBJSTATE_5B
 	dw .Vanish ; OBJSTATE_5C
@@ -359,7 +359,7 @@ HebariiFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hli], a
 	ret
 
@@ -381,7 +381,7 @@ HebariiFunc:
 .State0f:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a ; redundant, already done below
-	ld a, OBJSTATE_3F
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld de, Frameset_68430
 	call SetObjectFramesetPtr
@@ -395,7 +395,7 @@ HebariiFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ret
 
@@ -424,7 +424,7 @@ HebariiFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -439,7 +439,7 @@ HebariiFunc:
 	ld a, [hl]
 	and a
 	jp nz, Func_32ae
-	ld a, OBJSTATE_0F
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -454,15 +454,15 @@ HebariiFunc:
 	ld a, [hl]
 	and a
 	jp nz, Func_32bd
-	ld a, OBJSTATE_0F
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
-	ld a, OBJSTATE_44
+	ld a, OBJSTATE_FALL_LEFT
 	jr .asm_4a2d2
 .State15:
-	ld a, OBJSTATE_45
+	ld a, OBJSTATE_FALL_RIGHT
 .asm_4a2d2
 	ld [wCurObjState], a
 	xor a
@@ -502,7 +502,7 @@ HebariiFunc:
 	jp Func_3344
 
 .State19:
-	ld a, OBJSTATE_49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [wCurObjState], a
 	ld de, Frameset_683fb
 	call SetObjectFramesetPtr
@@ -520,7 +520,7 @@ HebariiFunc:
 	jr .State18 ; useless jump
 
 .State18:
-	ld a, OBJSTATE_48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [wCurObjState], a
 	ld de, Frameset_683fb
 	call SetObjectFramesetPtr
@@ -540,7 +540,7 @@ HebariiFunc:
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_42
+	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE
 	dec l
 	xor a

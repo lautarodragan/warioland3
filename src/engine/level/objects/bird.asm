@@ -110,7 +110,7 @@ BirdFunc:
 	ld [hli], a
 	ld a, $2f
 	ld [wCurObjState], a
-	play_sfx SFX_06F
+	play_sfx SFX_BIRD_ALERT
 	ret
 
 .asm_43338
@@ -127,7 +127,7 @@ BirdFunc:
 	jr z, .asm_43358
 	dec [hl]
 	ret nz
-	play_sfx SFX_070
+	play_sfx SFX_BIRD_TAKE_OFF
 	ret
 
 .Func_43353:

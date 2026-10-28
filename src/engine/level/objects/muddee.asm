@@ -8,7 +8,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $05
@@ -224,7 +224,7 @@ MuddeeFunc:
 	and a
 	jr z, .asm_557cf
 	cp $28
-	play_sfx z, SFX_0C0
+	play_sfx z, SFX_MUDDEE_HURT
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
@@ -258,7 +258,7 @@ MuddeeFunc:
 	ld [hli], a
 	ld a, $04
 	ld [hl], a
-	play_sfx SFX_083
+	play_sfx SFX_SMALL_SPLASH
 	ret
 
 .asm_55806
@@ -792,7 +792,7 @@ MuddeeFunc:
 	jr z, .asm_55bc6
 	dec [hl]
 	ret nz
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 .asm_55bc6
 	ld bc, Data_60180
@@ -810,7 +810,7 @@ MuddeeFunc:
 	ld a, [wGlobalCounter]
 	and %1111
 	ret nz
-	play_sfx SFX_0C1
+	play_sfx SFX_MUDDEE_BUBBLE
 	ret
 
 .Func_55be7:
@@ -836,7 +836,7 @@ MuddeeFunc:
 	and $07
 	ret nz
 .asm_55c08
-	play_sfx SFX_085
+	play_sfx SFX_MUDDEE_SWIM
 	ret
 
 .Func_55c11:
@@ -894,7 +894,7 @@ Turtle1Func:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0a
 	ld [hld], a
@@ -953,7 +953,7 @@ Turtle1Func:
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
-	play_sfx SFX_0CA
+	play_sfx SFX_BOSS_APPEAR
 	ret
 
 .Func_55cdd:
@@ -1162,7 +1162,7 @@ Func_55e33:
 	ld a, [hl]
 	cp $04
 	ret nz
-	play_sfx SFX_084
+	play_sfx SFX_TURTLE_SWIM
 	ret
 
 Pals_55e46:

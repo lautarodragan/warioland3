@@ -38,7 +38,7 @@ ChestFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld de, Frameset_68000
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
@@ -73,7 +73,7 @@ ChestFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 73
-	play_sfx z, SFX_035
+	play_sfx z, SFX_CHEST_OPEN
 	dec [hl]
 	ret nz
 	ld de, Frameset_68060

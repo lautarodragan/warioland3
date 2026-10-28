@@ -42,7 +42,7 @@ InitMusicalCoinScreen:
 
 	ld a, 8
 	ld [wAnimatedTilesFrameDuration], a
-	ld a, ANIMATED_TILES_GFX_15
+	ld a, ANIMATED_TILES_GFX_MENU
 	ld [wAnimatedTilesGfx], a
 	xor a
 	ld [wAnimatedTilesFrameCount], a
@@ -110,7 +110,7 @@ Func_d4472:
 	inc a
 	jp z, Func_d45e1
 
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 
 	ld hl, wMenuObj1
 	ld a, $42
@@ -148,7 +148,7 @@ Func_d4507:
 
 	xor a
 	ld [wTimer], a
-	play_sfx SFX_03A
+	play_sfx SFX_EAT_FOOD
 	ld hl, wSubState
 	inc [hl]
 	ret

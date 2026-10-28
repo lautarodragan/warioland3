@@ -27,7 +27,7 @@ SpearheadFunc:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Default ; OBJSTATE_00
+	dw .Default ; OBJSTATE_DEFAULT
 	dw .Land ; OBJSTATE_LAND
 	dw .BumpLeftStart ; OBJSTATE_BUMP_LEFT_START
 	dw .BumpRightStart ; OBJSTATE_BUMP_RIGHT_START
@@ -38,37 +38,37 @@ SpearheadFunc:
 	dw .WobbleLeftStart ; OBJSTATE_WOBBLE_LEFT_START
 	dw .WobbleRightStart ; OBJSTATE_WOBBLE_RIGHT_START
 	dw VanishObject2 ; OBJSTATE_VANISH_TOUCH
-	dw .State0b ; OBJSTATE_0B
-	dw .State0c ; OBJSTATE_0C
-	dw .Default ; OBJSTATE_0D
-	dw .Default ; OBJSTATE_0E
-	dw .State0f ; OBJSTATE_0F
-	dw .State10 ; OBJSTATE_10
+	dw .State0b ; OBJSTATE_HIT_WARIO_RIGHT_START
+	dw .State0c ; OBJSTATE_HIT_WARIO_LEFT_START
+	dw .Default ; OBJSTATE_HIT_WARIO_UP_START
+	dw .Default ; OBJSTATE_HIT_WARIO_DOWN_START
+	dw .State0f ; OBJSTATE_STUNNED_START
+	dw .State10 ; OBJSTATE_RECOVER_START
 	dw .StandingFallStart ; OBJSTATE_STANDING_FALL_START
-	dw .State12 ; OBJSTATE_12
+	dw .State12 ; OBJSTATE_DROP_START
 	dw .TurnAroundStart ; OBJSTATE_TURN_AROUND_START
-	dw .State14 ; OBJSTATE_14
-	dw .State15 ; OBJSTATE_15
+	dw .State14 ; OBJSTATE_FALL_LEFT_START
+	dw .State15 ; OBJSTATE_FALL_RIGHT_START
 	dw .StunLeftStart ; OBJSTATE_STUN_LEFT_START
 	dw .StunRightStart ; OBJSTATE_STUN_RIGHT_START
 	dw .State18 ; OBJSTATE_18
 	dw .State19 ; OBJSTATE_19
-	dw Func_3263 ; OBJSTATE_1A
-	dw Func_3272 ; OBJSTATE_1B
-	dw Func_3281 ; OBJSTATE_1C
+	dw Func_3263 ; OBJSTATE_HOP_START
+	dw Func_3272 ; OBJSTATE_HOP
+	dw Func_3281 ; OBJSTATE_RANDOM_WOBBLE_START
 	dw .Default ; OBJSTATE_1D
 	dw .Default ; OBJSTATE_1E
 	dw .Default ; OBJSTATE_1F
-	dw Func_3191 ; OBJSTATE_20
-	dw Func_31af ; OBJSTATE_21
-	dw Func_31cd ; OBJSTATE_22
-	dw Func_31eb ; OBJSTATE_23
-	dw Func_3209 ; OBJSTATE_24
-	dw Func_3227 ; OBJSTATE_25
-	dw Func_3245 ; OBJSTATE_26
-	dw Func_3254 ; OBJSTATE_27
-	dw .State28 ; OBJSTATE_28
-	dw .State29 ; OBJSTATE_29
+	dw Func_3191 ; OBJSTATE_BOUNCE_1_LEFT_START
+	dw Func_31af ; OBJSTATE_BOUNCE_1_RIGHT_START
+	dw Func_31cd ; OBJSTATE_BOUNCE_2_LEFT_START
+	dw Func_31eb ; OBJSTATE_BOUNCE_2_RIGHT_START
+	dw Func_3209 ; OBJSTATE_BOUNCE_3_LEFT_START
+	dw Func_3227 ; OBJSTATE_BOUNCE_3_RIGHT_START
+	dw Func_3245 ; OBJSTATE_BOUNCE_FALL_LEFT_START
+	dw Func_3254 ; OBJSTATE_BOUNCE_FALL_RIGHT_START
+	dw .State28 ; OBJSTATE_HIT_BY_OBJ_LEFT_START
+	dw .State29 ; OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	dw .Default ; OBJSTATE_ACTIVATE
 	dw .Default ; OBJSTATE_2B
 	dw .Default ; OBJSTATE_2C
@@ -85,38 +85,38 @@ SpearheadFunc:
 	dw Func_3344 ; OBJSTATE_PICKED_UP_RIGHT
 	dw Func_31fa ; OBJSTATE_WOBBLE_LEFT
 	dw Func_31dc ; OBJSTATE_WOBBLE_RIGHT
-	dw .Default ; OBJSTATE_3A
-	dw .State3b ; OBJSTATE_3B
-	dw .State3c ; OBJSTATE_3C
+	dw .Default ; OBJSTATE_RESIST_VANISH
+	dw .State3b ; OBJSTATE_HIT_WARIO_RIGHT
+	dw .State3c ; OBJSTATE_HIT_WARIO_LEFT
 	dw .Default ; OBJSTATE_3D
 	dw .Default ; OBJSTATE_3E
-	dw .State3f ; OBJSTATE_3F
-	dw .State40 ; OBJSTATE_40
+	dw .State3f ; OBJSTATE_STUNNED
+	dw .State40 ; OBJSTATE_RECOVER
 	dw ObjState_StandingFall ; OBJSTATE_STANDING_FALL
-	dw Func_3371 ; OBJSTATE_42
+	dw Func_3371 ; OBJSTATE_DROP
 	dw .TurnAround ; OBJSTATE_TURN_AROUND
-	dw Func_32cc ; OBJSTATE_44
-	dw Func_32db ; OBJSTATE_45
+	dw Func_32cc ; OBJSTATE_FALL_LEFT
+	dw Func_32db ; OBJSTATE_FALL_RIGHT
 	dw .StunLeft ; OBJSTATE_STUN_LEFT
 	dw .StunRight ; OBJSTATE_STUN_RIGHT
-	dw .State48 ; OBJSTATE_48
-	dw .State49 ; OBJSTATE_49
-	dw Func_3380 ; OBJSTATE_4A
-	dw Func_338f ; OBJSTATE_4B
+	dw .State48 ; OBJSTATE_GRABBED_LEFT
+	dw .State49 ; OBJSTATE_GRABBED_RIGHT
+	dw Func_3380 ; OBJSTATE_GRABBED_CHARGE_LEFT
+	dw Func_338f ; OBJSTATE_GRABBED_CHARGE_RIGHT
 	dw .FullThrowLeftStart ; OBJSTATE_FULL_THROW_LEFT_START
 	dw .FullThrowRightStart ; OBJSTATE_FULL_THROW_RIGHT_START
-	dw Func_339e ; OBJSTATE_4E
-	dw Func_33ad ; OBJSTATE_4F
-	dw Func_31a0 ; OBJSTATE_50
-	dw Func_31be ; OBJSTATE_51
-	dw Func_31dc ; OBJSTATE_52
-	dw Func_31fa ; OBJSTATE_53
-	dw Func_3218 ; OBJSTATE_54
-	dw Func_3236 ; OBJSTATE_55
-	dw Func_32cc ; OBJSTATE_56
-	dw Func_32db ; OBJSTATE_57
-	dw Func_33f8 ; OBJSTATE_58
-	dw Func_3407 ; OBJSTATE_59
+	dw Func_339e ; OBJSTATE_THROW_LEFT
+	dw Func_33ad ; OBJSTATE_THROW_RIGHT
+	dw Func_31a0 ; OBJSTATE_BOUNCE_1_LEFT
+	dw Func_31be ; OBJSTATE_BOUNCE_1_RIGHT
+	dw Func_31dc ; OBJSTATE_BOUNCE_2_LEFT
+	dw Func_31fa ; OBJSTATE_BOUNCE_2_RIGHT
+	dw Func_3218 ; OBJSTATE_BOUNCE_3_LEFT
+	dw Func_3236 ; OBJSTATE_BOUNCE_3_RIGHT
+	dw Func_32cc ; OBJSTATE_BOUNCE_FALL_LEFT
+	dw Func_32db ; OBJSTATE_BOUNCE_FALL_RIGHT
+	dw Func_33f8 ; OBJSTATE_HIT_BY_OBJ_LEFT
+	dw Func_3407 ; OBJSTATE_HIT_BY_OBJ_RIGHT
 	dw .Default ; OBJSTATE_5A
 	dw .Default ; OBJSTATE_5B
 	dw .Default ; OBJSTATE_5C
@@ -609,14 +609,14 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
 	jp nz, Func_32ae
-	ld a, OBJSTATE_0F
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -637,25 +637,25 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
 	jp nz, Func_32bd
-	ld a, OBJSTATE_0F
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .Func_40478
 .State15:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .Func_40478:
 	ld a, [hld] ; OBJ_SUBSTATE
@@ -682,12 +682,12 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
 .State0f:
-	ld a, OBJSTATE_3F
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, 100
 	ld [wCurObjStateDuration], a
@@ -697,20 +697,20 @@ SpearheadFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .no_shake4
-	ld a, OBJSTATE_1C
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 .no_shake4
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, Func_32ea
-	ld a, OBJSTATE_10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -721,7 +721,7 @@ SpearheadFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, Func_32f9
-	ld a, OBJSTATE_00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ld a, $ff
 	ld [wCurObjVar1], a
@@ -844,16 +844,16 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00 ; unnecessary
+	or OBJ_INTERACTION_GRABBABLE ; unnecessary
 	ld [hld], a
 	ret
 
 .State0b:
-	ld a, OBJSTATE_3B
+	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	jr .Func_405b6
 .State0c:
-	ld a, OBJSTATE_3C
+	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
 .Func_405b6:
 	ld hl, wCurObjFrameDuration
@@ -892,14 +892,14 @@ SpearheadFunc:
 
 .State29:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .asm_4060e
 
 .State28:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_4060e
@@ -957,7 +957,7 @@ SpearheadFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
@@ -989,7 +989,7 @@ SpearheadFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, OBJSTATE_48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld] ; OBJ_SUBSTATE
 	rlca
@@ -1023,7 +1023,7 @@ SpearheadFunc:
 	ld hl, wCurObjAction
 	ld a, 31 | (1 << 7)
 	ld [hld], a
-	ld a, OBJSTATE_42
+	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE
 	dec l
 	xor a
@@ -1031,6 +1031,6 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00 ; unnecessary
+	or OBJ_INTERACTION_GRABBABLE ; unnecessary
 	ld [hld], a
 	ret

@@ -83,7 +83,7 @@ ScowlerFunc:
 .asm_54572
 	ld a, $5a
 	ld [hl], a
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
 	ret
 
@@ -119,14 +119,14 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Func_546e0)
 	ld [hld], a
 	ld a, LOW(.Func_546e0)
 	ld [hld], a
-	play_sfx SFX_0B3
+	play_sfx SFX_SCOWLER_STUNNED
 	ret
 .asm_545d3
 	ld hl, wCurObjStateDuration
@@ -135,7 +135,7 @@ ScowlerFunc:
 	ld a, [hl]
 	cp $20
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_545f2
@@ -310,7 +310,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Func_54770)
@@ -336,7 +336,7 @@ ScowlerFunc:
 	ld a, [wCurObjScreenYPos]
 	cp b
 	jr nc, .asm_54765
-	play_sfx SFX_0B4
+	play_sfx SFX_SCOWLER_STOMPED
 	ld de, Frameset_69abc
 	call SetObjectFramesetPtr
 	ld a, $1e
@@ -349,7 +349,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	jp DecrementRemainingBossHits
 .asm_54765
@@ -374,7 +374,7 @@ ScowlerFunc:
 .asm_54782
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_0AB
+	play_sfx z, SFX_SCOWLER
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr nz, .asm_5479c
@@ -436,7 +436,7 @@ ScowlerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_07
+	or OBJ_INTERACTION_WATER_KNOCK_BACK
 	ld [hld], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Func_5487d)
@@ -586,7 +586,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, LOW(.Func_5490b)
 	ld [hld], a
-	play_sfx SFX_0AC
+	play_sfx SFX_SCOWLER_DEFEATED
 	ret
 
 .Func_5490b:
@@ -651,7 +651,7 @@ FloatingRingSpawnerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $40
 	ld [wCurObjStateDuration], a
 	jr .Func_549ab
@@ -797,7 +797,7 @@ ScrowlerTentacleFunc:
 .asm_54a7f
 	ld a, $5a
 	ld [hl], a
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
 	ret
 
@@ -868,7 +868,7 @@ ScrowlerTentacleFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_43
+	or OBJ_INTERACTION_WATER_FULL_STING
 	ld [hli], a
 	ld a, $fd
 	ld [hli], a
@@ -1068,7 +1068,7 @@ Func_54c07:
 	play_sfx SFX_0B7
 	jr .asm_54c39
 .asm_54c31
-	play_sfx SFX_0B5
+	play_sfx SFX_SCOWLER_INK_1
 .asm_54c39
 	ld hl, Pals_54c9f
 	call WriteScowlerOBPals
@@ -1076,7 +1076,7 @@ Func_54c07:
 	jr WriteScowlerBGPals
 
 .asm_54c44
-	play_sfx SFX_0B6
+	play_sfx SFX_SCOWLER_BLACKOUT
 	ld a, $ff
 	ld [wDollBoyActiveBarrels], a
 	ld c, 5
@@ -1087,7 +1087,7 @@ Func_54c07:
 	jp BlackOutBGPals
 
 .asm_54c5f
-	play_sfx SFX_0B8
+	play_sfx SFX_SCOWLER_INK_2
 	xor a
 	ld [hl], a
 	ld hl, Pals_54c87

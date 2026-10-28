@@ -1,5 +1,5 @@
 	const_def
-	const EVENT_00                        ; $00
+	const EVENT_NONE                        ; $00
 	const EVENT_PROLOGUE                  ; $01
 	const EVENT_CUT_TREE                  ; $02
 	const EVENT_OPEN_NORTH_GATE           ; $03
@@ -157,7 +157,7 @@ DEF SCENEWARIO_GROUP_08 EQU const_value
 	const SCENEWARIO_PANIC_JUMP              ; $2a
 	const SCENEWARIO_PANIC                   ; $2b
 	const SCENEWARIO_BOW                     ; $2c
-DEF SCENEWARIO_GROUP_19 EQU const_value
+DEF SCENEWARIO_GROUP_09 EQU const_value
 ; WarioUnk5Gfx
 	const SCENEWARIO_SHOW_MUSIC_BOXES_2      ; $2d
 	const SCENEWARIO_SHOW_MUSIC_BOXES_3      ; $2e

@@ -176,7 +176,7 @@ Func_1f83d5:
 	ret
 
 .step_on_paragoom
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, $0a
 	ld [wActionHelpWarioVar], a
 	call ActionHelp_ShowParaGoomStun
@@ -263,7 +263,7 @@ Func_1f848c:
 	cp $4c
 	ret nc
 
-	play_sfx SFX_017
+	play_sfx SFX_ATTACK_HIT
 	call ActionHelp_ClearButtonsInput
 	xor a
 	ld [wActionHelpWarioVar], a

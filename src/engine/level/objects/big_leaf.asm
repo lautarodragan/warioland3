@@ -205,7 +205,7 @@ BigLeaf2Func:
 	ld a, [hl]
 	cp $b8
 	ret nc
-	play_sfx SFX_08F
+	play_sfx SFX_BIG_OCTO_2
 	ret
 
 .Func_42d0e:

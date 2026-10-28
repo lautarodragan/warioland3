@@ -57,7 +57,7 @@ StoveFunc:
 	ld a, [wCurObjVar1]
 	and a
 	ret z
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, 24
 	jp DoGroundShake
 
@@ -80,7 +80,7 @@ StoveFunc:
 	jr z, .State05
 	cp OBJSTATE_VANISH_TOUCH
 	jr z, .VanishTouch
-	cp OBJSTATE_3A
+	cp OBJSTATE_RESIST_VANISH
 	jr z, .State3a
 	jp .set_fall
 
@@ -88,7 +88,7 @@ StoveFunc:
 	ld a, [wTransformation]
 	and a
 	jp nz, Func_3173
-	ld a, OBJSTATE_3A
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
 	ld de, Frameset_69625
 	call SetObjectFramesetPtr
@@ -111,7 +111,7 @@ StoveFunc:
 	ld a, [wGlobalCounter]
 	and %111
 	jr nz, .asm_497e8
-	play_sfx SFX_078
+	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
 .asm_497e8
@@ -152,7 +152,7 @@ StoveFunc:
 	ld a, [wGlobalCounter]
 	and %111
 	jr nz, .asm_49833
-	play_sfx SFX_078
+	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
 .asm_49833
@@ -212,7 +212,7 @@ StoveFunc:
 	call Func_35a3
 	and a
 	ret nz
-	ld a, OBJSTATE_00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	inc a ; $1
 	ld [wCurObjVar1], a

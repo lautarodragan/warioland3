@@ -513,7 +513,7 @@ _PlayNewMusic_SetNoise::
 	jp ReturnFromAudioJump
 
 ; loops through all music channels and
-; if either CHANFLAGS_5 or CHANFLAGS_6 are set
+; if either CHANFLAGS_LOADED or CHANFLAGS_INITIALISED are set
 ; then set it as active
 Func_302e4::
 	xor a
@@ -525,7 +525,7 @@ Func_302e4::
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
 	ld a, [hl]
-	and CHANFLAGS_5 | CHANFLAGS_6 ; CHANNEL_FLAGS
+	and CHANFLAGS_LOADED | CHANFLAGS_INITIALISED ; CHANNEL_FLAGS
 	jr z, .next_ch
 	set CHANFLAGS_ACTIVE_F, [hl]
 .next_ch
@@ -587,7 +587,7 @@ LoadChannelWithSound:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld a, CHANFLAGS_5 | CHANFLAGS_ACTIVE
+	ld a, CHANFLAGS_LOADED | CHANFLAGS_ACTIVE
 	ld [hli], a ; CHANNEL_FLAGS
 	inc hl
 	ld a, [wAudioCmdPtr + 0]
@@ -622,7 +622,7 @@ SkipLoadingChannel:
 	ret
 
 InitChannel:
-	ld a, CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	ld a, CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	ld [hli], a ; CHANNEL_FLAGS
 	xor a
 	ld [hli], a ; CHANNEL_DURATION
@@ -640,8 +640,8 @@ InitChannel:
 	add hl, bc
 	xor a
 	ld [hli], a ; CHANNEL_PITCH
-	ld [hli], a ; CHANNEL_UNK_0A
-	ld [hli], a ; CHANNEL_UNK_0B
+	ld [hli], a ; CHANNEL_NOTE_VOLUME
+	ld [hli], a ; CHANNEL_NOTE_DURATION
 	ld [hli], a ; CHANNEL_TIMBRE
 	ld [hli], a ; CHANNEL_LENGTH
 	ld [hli], a ; CHANNEL_SWEEP
@@ -666,29 +666,29 @@ InitChannel:
 	xor a
 	ld [hli], a ; CHANNEL_PITCH_PRODUCT
 	ld [hli], a
-	ld [hli], a ; CHANNEL_UNK_1D
+	ld [hli], a ; CHANNEL_FREQUENCY_OFFSET
 	ld [hli], a ; CHANNEL_UNK_2E
 	ld a, $17
 	ld [hli], a ; CHANNEL_VIBRATO_SPEED
 	xor a
-	ld [hli], a ; CHANNEL_UNK_VIBRATO_VALUE
+	ld [hli], a ; CHANNEL_VIBRATO_PHASE
 	ld [hli], a ; CHANNEL_VIBRATO_AMPLITUDE
 	ld [hli], a ; CHANNEL_VIBRATO_AMPLITUDE_MOD
 	ld [hli], a ; CHANNEL_VIBRATO_DISABLED
-	ld [hli], a ; CHANNEL_UNK_24
+	ld [hli], a ; CHANNEL_VIBRATO_FREQ_OFFSET
 	ld [hli], a
-	ld [hli], a ; CHANNEL_UNK_26
-	ld [hli], a ; CHANNEL_UNK_27
-	ld [hli], a ; CHANNEL_UNK_28
-	ld [hli], a ; CHANNEL_UNK_29
+	ld [hli], a ; CHANNEL_CALL_DEPTH
+	ld [hli], a ; CHANNEL_RELEASE_VOLUME
+	ld [hli], a ; CHANNEL_RELEASE_LENGTH
+	ld [hli], a ; CHANNEL_LOOP_COUNTER
 	ld [hli], a ; CHANNEL_VIBRATO_DELAY
 	ld [hli], a ; CHANNEL_VIBRATO_COUNTER
 	ld [hli], a ; CHANNEL_FREQUENCY
 	ld [hli], a
 	ld [hli], a ; CHANNEL_SO_FLAGS
-	ld [hli], a ; CHANNEL_UNK_2F
+	ld [hli], a ; CHANNEL_EFFECTIVE_VOLUME
 	ld a, $ff
-	ld [hli], a ; CHANNEL_UNK_30
+	ld [hli], a ; CHANNEL_UNUSED_30
 	ret
 
 ; only ever used to switch SFX off (SOUND_OFF)
@@ -833,7 +833,7 @@ AudioModFunctionTable:
 	dw AudioMod_Pan              ; AUDIOMOD_PAN
 	dw AudioMod_VibratoAmplitude ; AUDIOMOD_VIBRATO_AMPLITUDE
 	dw AudioMod_VibratoSpeed     ; AUDIOMOD_VIBRATO_SPEED
-	dw Func_309b6                ; AUDIOMOD_UNK
+	dw Func_309b6                ; AUDIOMOD_RELEASE
 	assert_table_length NUM_AUDIOMOD_FUNCTIONS
 
 ; input:
@@ -988,7 +988,7 @@ Func_30547:
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
 	ld a, [hl] ; CHANNEL_FLAGS
-	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	ret c ; both flags not set
 	ld [wCurChannelFlags], a
 	jp Func_30651
@@ -1094,7 +1094,7 @@ UpdateVibrato:
 	jr z, .counter_done
 	; still counting down vibrato delay
 	dec [hl]
-	ld bc, CHANNEL_UNK_VIBRATO_VALUE - CHANNEL_VIBRATO_COUNTER
+	ld bc, CHANNEL_VIBRATO_PHASE - CHANNEL_VIBRATO_COUNTER
 	add hl, bc
 	ld a, $40
 	jr .write_vibrato_value
@@ -1102,16 +1102,16 @@ UpdateVibrato:
 	ld bc, CHANNEL_VIBRATO_SPEED - CHANNEL_VIBRATO_COUNTER
 	add hl, bc
 	ld a, [hli]
-	add [hl] ; CHANNEL_UNK_VIBRATO_VALUE
+	add [hl] ; CHANNEL_VIBRATO_PHASE
 .write_vibrato_value
-	ld [hl], a ; CHANNEL_UNK_VIBRATO_VALUE
+	ld [hl], a ; CHANNEL_VIBRATO_PHASE
 	sla a
 	jr nc, .got_vibrato_value
 	cpl
 .got_vibrato_value
 	ld [wVibratoValue], a
 
-	ld bc, CHANNEL_VIBRATO_AMPLITUDE - CHANNEL_UNK_VIBRATO_VALUE
+	ld bc, CHANNEL_VIBRATO_AMPLITUDE - CHANNEL_VIBRATO_PHASE
 	add hl, bc
 	ld a, [hli]
 	add [hl] ; CHANNEL_VIBRATO_AMPLITUDE_MOD
@@ -1156,7 +1156,7 @@ UpdateVibrato:
 	ld b, a ; *8
 .check_change_in_freq_lo
 	ld a, c
-	cp [hl] ; CHANNEL_UNK_24
+	cp [hl] ; CHANNEL_VIBRATO_FREQ_OFFSET
 	jr z, .check_change_in_freq_hi
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
@@ -1188,7 +1188,7 @@ UpdateVibrato:
 Func_30651:
 	bit CHANFLAGS_UPDATE_FREQUENCY_F, a
 	jr z, .skip_frequency
-	ld bc, CHANNEL_UNK_1D
+	ld bc, CHANNEL_FREQUENCY_OFFSET
 	add hl, bc
 	ld e, [hl]
 	ld a, 0
@@ -1196,7 +1196,7 @@ Func_30651:
 	sbc a
 	ld d, a ; (e > $80) ? $ff : $00
 
-	ld bc, CHANNEL_PITCH_PRODUCT - CHANNEL_UNK_1D
+	ld bc, CHANNEL_PITCH_PRODUCT - CHANNEL_FREQUENCY_OFFSET
 	add hl, bc
 	ld a, [hli]
 	add e
@@ -1219,7 +1219,7 @@ Func_30651:
 	ld a, [hli]
 	cp FALSE
 	jr nz, .no_vibrato
-	ld a, [hli] ; CHANNEL_UNK_24
+	ld a, [hli] ; CHANNEL_VIBRATO_FREQ_OFFSET
 	add e
 	ld e, a
 	ld a, [hld]
@@ -1228,7 +1228,7 @@ Func_30651:
 
 .no_vibrato
 	; de = final frequency value
-	ld bc, CHANNEL_FREQUENCY - CHANNEL_UNK_24
+	ld bc, CHANNEL_FREQUENCY - CHANNEL_VIBRATO_FREQ_OFFSET
 	add hl, bc
 	ld a, e
 	ld [hli], a
@@ -1271,10 +1271,10 @@ Func_30651:
 	rlca
 	rlca
 	ld e, a ; *4
-	ld bc, CHANNEL_UNK_2F - CHANNEL_VOLUME_MOD
+	ld bc, CHANNEL_EFFECTIVE_VOLUME - CHANNEL_VOLUME_MOD
 	add hl, bc
 	ld [hl], e
-	ld bc, -CHANNEL_UNK_2F
+	ld bc, -CHANNEL_EFFECTIVE_VOLUME
 	add hl, bc
 
 	ld a, [wCurChannelFlags]
@@ -1307,8 +1307,8 @@ PointerTable_306d1:
 	dw AudioCmd_SetChannelVibratoDisabled ; AUDIOCMD_VIBRATO_DISABLED
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C7
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C8
-	dw AudioCmd_SetChannelUnk1d           ; AUDIOCMD_UNK_C9
-	dw AudioCmd_SetChannelUnk1e           ; AUDIOCMD_UNK_CA
+	dw AudioCmd_SetChannelUnk1d           ; AUDIOCMD_FREQUENCY_OFFSET
+	dw AudioCmd_SetChannelUnk1e           ; AUDIOCMD_SET_UNUSED_1E
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_CB
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_UNUSED_CC
 	dw Func_30727                         ; cd
@@ -1373,7 +1373,7 @@ AudioCmd_Call:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld bc, CHANNEL_UNK_26
+	ld bc, CHANNEL_CALL_DEPTH
 	add hl, bc
 	ld a, [hl]
 	cp $0a
@@ -1408,7 +1408,7 @@ AudioCmd_Ret:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld bc, CHANNEL_UNK_26
+	ld bc, CHANNEL_CALL_DEPTH
 	add hl, bc
 	ld a, [hl]
 	and a
@@ -1432,7 +1432,7 @@ AudioCmd_Loop:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld bc, CHANNEL_UNK_29
+	ld bc, CHANNEL_LOOP_COUNTER
 	add hl, bc
 	ld a, [wAudioCmdArg]
 	inc de
@@ -1440,7 +1440,7 @@ AudioCmd_Loop:
 	jr z, AudioCmd_Jump ; if arg == 0
 	inc [hl]
 	cp [hl]
-	jr nz, AudioCmd_Jump ; if arg != CHANNEL_UNK_29 + 1
+	jr nz, AudioCmd_Jump ; if arg != CHANNEL_LOOP_COUNTER + 1
 	xor a
 	ld [hl], a
 	inc de
@@ -1662,7 +1662,7 @@ AudioCmd_SetVibratoSpeed:
 	ccf
 	rra
 	rra
-	ld [hl], a ; CHANNEL_UNK_VIBRATO_VALUE
+	ld [hl], a ; CHANNEL_VIBRATO_PHASE
 .asm_308ee
 	jp DoAudioCommand
 
@@ -1678,7 +1678,7 @@ AudioMod_VibratoSpeed:
 	rra
 	xor $40
 	ld [wSoundEngineParam2], a
-	ld bc, CHANNEL_VIBRATO_SPEED ; and CHANNEL_UNK_VIBRATO_VALUE
+	ld bc, CHANNEL_VIBRATO_SPEED ; and CHANNEL_VIBRATO_PHASE
 	jp AudioModSetValue_Long
 
 AudioCmd_SetVibratoDelay:
@@ -1759,7 +1759,7 @@ AudioCmd_SetChannelUnk1d:
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a
-	ld bc, CHANNEL_UNK_1D
+	ld bc, CHANNEL_FREQUENCY_OFFSET
 ;	fallthrough
 
 Func_3098b:
@@ -1780,21 +1780,21 @@ AudioCmd_SetChannelUnk1e:
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a
-	ld bc, CHANNEL_UNK_1E
+	ld bc, CHANNEL_UNUSED_1E
 	jr SetChannelProperty
 
 AudioCmd_SetChannelUnk27:
 ; audiocmd_d6
-	ld bc, CHANNEL_UNK_27
+	ld bc, CHANNEL_RELEASE_VOLUME
 	jr SetChannelProperty
 
 AudioCmd_SetChannelUnk28:
 ; audiocmd_d7
-	ld bc, CHANNEL_UNK_28
+	ld bc, CHANNEL_RELEASE_LENGTH
 	jr SetChannelProperty
 
 Func_309b6:
-	ld bc, CHANNEL_UNK_27
+	ld bc, CHANNEL_RELEASE_VOLUME
 	jp AudioModSetValue_Long
 
 AudioCmd_SetChannelTimbre:
@@ -1885,7 +1885,7 @@ Func_30a1f:
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
 	ld a, b
-	ld bc, CHANNEL_UNK_0B
+	ld bc, CHANNEL_NOTE_DURATION
 	add hl, bc
 	ld [hld], a
 	ld b, $00
@@ -1907,7 +1907,7 @@ Func_30a1f:
 	jr nz, .done_args
 	set 5, b
 	inc hl
-	add [hl] ; CHANNEL_UNK_0B
+	add [hl] ; CHANNEL_NOTE_DURATION
 	ld [hld], a
 	jr .loop_args
 
@@ -1927,7 +1927,7 @@ Func_30a1f:
 	rlca
 	rlca
 	or %111
-	ld [hl], a ; CHANNEL_UNK_0A
+	ld [hl], a ; CHANNEL_NOTE_VOLUME
 	jr .loop_args
 
 .done_args
@@ -2025,7 +2025,7 @@ Func_30a1f:
 	ld a, [hli] ; TRACK_FLAGS
 	and a
 	jr z, .UpdateTrack
-	bit TRACKFLAGS_5_F, a
+	bit TRACKFLAGS_HELD_F, a
 	jr nz, .asm_30af7
 	jr .UpdateTrack
 
@@ -2035,7 +2035,7 @@ Func_30a1f:
 	jr c, .UpdateTrack
 	jr nz, .skip
 	ld a, e
-	cp [hl] ; TRACK_UNK02
+	cp [hl] ; TRACK_OWNER
 	jr c, .skip
 
 .UpdateTrack:
@@ -2049,28 +2049,28 @@ Func_30a1f:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 
-	ld a, TRACKFLAGS_4 | TRACKFLAGS_5 | TRACKFLAGS_6 | TRACKFLAGS_7
+	ld a, TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_6 | TRACKFLAGS_7
 	ld [hli], a ; TRACK_FLAGS
 	ld a, [wTempTrackPriority]
 	ld [hli], a ; TRACK_PRIORITY
 	ld a, [wTempTrackOwner]
-	ld [hli], a ; TRACK_UNK02
+	ld [hli], a ; TRACK_OWNER
 	ld a, [wSoundEngineParam3]
-	ld [hli], a ; TRACK_UNK03
+	ld [hli], a ; TRACK_NOTE
 	ld a, e
 	ld [hli], a ; TRACK_CHANNEL_PTR
 	ld a, d
 	ld [hli], a
-	ld a, CHANNEL_UNK_0A
+	ld a, CHANNEL_NOTE_VOLUME
 	add e
 	ld e, a
 	ld a, 0
 	adc d
 	ld d, a
-	ld a, [de] ; CHANNEL_UNK_0A
-	ld [hli], a ; TRACK_UNK06
+	ld a, [de] ; CHANNEL_NOTE_VOLUME
+	ld [hli], a ; TRACK_NOTE_VOLUME
 	inc de
-	ld a, [de] ; CHANNEL_UNK_0B
+	ld a, [de] ; CHANNEL_NOTE_DURATION
 	ld [hli], a ; TRACK_DURATION
 	inc de
 	ld a, [de] ; CHANNEL_TIMBRE
@@ -2088,9 +2088,9 @@ Func_30a1f:
 	ld a, [de] ; CHANNEL_FADE_OUT_ENVELOPE
 	ld [hli], a ; TRACK_FADE_OUT_ENVELOPE
 	xor a
-	ld [hli], a ; TRACK_UNK0D
+	ld [hli], a ; TRACK_UNUSED_0D
 	ld a, [wSoundEngineParam4]
-	ld [hl], a ; TRACK_UNK0E
+	ld [hl], a ; TRACK_FREQUENCY_NOTE
 .skip
 	pop de
 	jp DoAudioCommand
@@ -2134,16 +2134,16 @@ Func_30b4d:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 	ld a, [hli] ; TRACK_FLAGS
-	bit TRACKFLAGS_5_F, a
+	bit TRACKFLAGS_HELD_F, a
 	jr z, .next_track
 	inc hl
-	ld a, [hli] ; TRACK_UNK02
+	ld a, [hli] ; TRACK_OWNER
 	cp e
 	jr nz, .next_track
-	ld a, [hl] ; TRACK_UNK03
+	ld a, [hl] ; TRACK_NOTE
 	cp d
 	jr nz, .next_track
-	ld bc, TRACK_DURATION - TRACK_UNK03
+	ld bc, TRACK_DURATION - TRACK_NOTE
 	add hl, bc
 	ld a, [hl]
 	and a
@@ -2163,11 +2163,11 @@ Func_30bb0:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	bit TRACKFLAGS_7_F, [hl] ; TRACK_FLAGS
+	bit TRACKFLAGS_ACTIVE_F, [hl] ; TRACK_FLAGS
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_UNK02
+	bit 7, [hl] ; TRACK_OWNER
 	ret z
 	jr Func_30bd2
 
@@ -2176,11 +2176,11 @@ Func_30bc2:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	bit TRACKFLAGS_7_F, [hl] ; TRACK_FLAGS
+	bit TRACKFLAGS_ACTIVE_F, [hl] ; TRACK_FLAGS
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_UNK02
+	bit 7, [hl] ; TRACK_OWNER
 	ret nz
 	; fallthrough
 
@@ -2206,10 +2206,10 @@ Func_30be3:
 	ld bc, TRACK_FLAGS - TRACK_DURATION
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	bit TRACKFLAGS_6_F, a
+	bit TRACKFLAGS_START_ENVELOPE_F, a
 	jr nz, Func_30bf6
-	or TRACKFLAGS_4 | TRACKFLAGS_6
-	and $ff ^ TRACKFLAGS_5
+	or TRACKFLAGS_FADING | TRACKFLAGS_6
+	and $ff ^ TRACKFLAGS_HELD
 	ld [hl], a
 	ret
 
@@ -2229,7 +2229,7 @@ Func_30bfb:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 	ld a, [hl] ; TRACK_FLAGS
-	bit TRACKFLAGS_7_F, a
+	bit TRACKFLAGS_ACTIVE_F, a
 	ret z
 
 	ld b, a
@@ -2243,7 +2243,7 @@ Func_30bfb:
 	ld [wCurChannelPtr + 1], a
 	ld d, a
 	ld a, [de]
-	cp CHANFLAGS_6 | CHANFLAGS_ACTIVE
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
 	jr nc, .asm_30c1f
 	pop hl
 	jr Func_30bf6
@@ -2261,20 +2261,20 @@ Func_30bfb:
 .asm_30c31
 	inc [hl]
 	pop hl
-	bit TRACKFLAGS_5_F, b
+	bit TRACKFLAGS_HELD_F, b
 	jr z, .asm_30c3e
-	bit TRACKFLAGS_4_F, b
+	bit TRACKFLAGS_FADING_F, b
 	jr nz, .asm_30c95
 	jp .asm_30ce9
 .asm_30c3e
-	bit TRACKFLAGS_4_F, b
+	bit TRACKFLAGS_FADING_F, b
 	jp nz, .asm_30d22
 	jp .asm_30d70
 
 .asm_30c46
 	pop hl
-	res TRACKFLAGS_6_F, [hl]
-	bit TRACKFLAGS_5_F, [hl]
+	res TRACKFLAGS_START_ENVELOPE_F, [hl]
+	bit TRACKFLAGS_HELD_F, [hl]
 	jr z, .fade_out
 
 	push hl
@@ -2359,7 +2359,7 @@ Func_30bfb:
 	push bc
 	ld bc, TRACK_FLAGS - TRACK_VOLUME
 	add hl, bc
-	res TRACKFLAGS_4_F, [hl]
+	res TRACKFLAGS_FADING_F, [hl]
 	call .Func_30deb
 	ld d, a
 	ld bc, TRACK_VOLUME_ENVELOPE
@@ -2449,19 +2449,19 @@ Func_30bfb:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld bc, CHANNEL_UNK_2F
+	ld bc, CHANNEL_EFFECTIVE_VOLUME
 	add hl, bc
 	ld b, [hl]
-	ld de, CHANNEL_UNK_27 - CHANNEL_UNK_2F
+	ld de, CHANNEL_RELEASE_VOLUME - CHANNEL_EFFECTIVE_VOLUME
 	add hl, de
 	ld a, [hli]
 	ld c, a
-	ld d, [hl] ; CHANNEL_UNK_28
+	ld d, [hl] ; CHANNEL_RELEASE_LENGTH
 	pop hl
 
-	; b = CHANNEL_UNK_2F
-	; c = CHANNEL_UNK_27
-	; d = CHANNEL_UNK_28
+	; b = CHANNEL_EFFECTIVE_VOLUME
+	; c = CHANNEL_RELEASE_VOLUME
+	; d = CHANNEL_RELEASE_LENGTH
 
 	ld a, b
 	and a
@@ -2480,7 +2480,7 @@ Func_30bfb:
 	ld bc, TRACK_FLAGS - TRACK_FREQUENCY
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	and $ff ^ (TRACKFLAGS_4 | TRACKFLAGS_5 | TRACKFLAGS_6)
+	and $ff ^ (TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_6)
 	ld [hl], a
 	jr .asm_30d95
 
@@ -2541,14 +2541,14 @@ Func_30bfb:
 
 .Func_30dc6:
 	push hl
-	ld bc, TRACK_UNK06
+	ld bc, TRACK_NOTE_VOLUME
 	add hl, bc
 	ld c, [hl]
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld de, CHANNEL_UNK_2F
+	ld de, CHANNEL_EFFECTIVE_VOLUME
 	add hl, de
 	ld b, [hl]
 	call MultiplyBByC_Short
@@ -2567,7 +2567,7 @@ Func_30bfb:
 	ld bc, TRACK_FADE_OUT_ENVELOPE
 	add hl, bc
 	ld b, [hl]
-	ld de, TRACK_UNK06 - TRACK_FADE_OUT_ENVELOPE
+	ld de, TRACK_NOTE_VOLUME - TRACK_FADE_OUT_ENVELOPE
 	add hl, de
 	ld c, [hl]
 	call MultiplyBByC_Short
@@ -2577,7 +2577,7 @@ Func_30bfb:
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-	ld de, CHANNEL_UNK_2F
+	ld de, CHANNEL_EFFECTIVE_VOLUME
 	add hl, de
 	ld b, [hl]
 	call MultiplyBByC_Short
@@ -2728,7 +2728,7 @@ SetFrequency:
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
-	ld de, TRACK_UNK0E
+	ld de, TRACK_FREQUENCY_NOTE
 	add hl, de
 	ld a, [hl]
 	add b
@@ -2781,7 +2781,7 @@ SetFrequency:
 	ld a, b
 .skip_length
 	pop hl
-	ld bc, TRACK_FREQUENCY + 1 - TRACK_UNK0E
+	ld bc, TRACK_FREQUENCY + 1 - TRACK_FREQUENCY_NOTE
 	add hl, bc
 	or AUD1HIGH_RESTART ; AUD2HIGH_RESTART/AUD3HIGH_RESTART/AUD4GO_RESTART
 	ld [hl], a

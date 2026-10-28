@@ -2466,14 +2466,14 @@ NOWFunc_CutTree:
 	ld a, $02
 	ld hl, wSceneObj8State
 	call SetSceneObjState
-	play_sfx SFX_102
+	play_sfx SFX_TREE_FALL
 	jp AdvanceOWFunc
 
 .WaitFall:
 	ld a, [wSceneObj8Frame]
 	cp $07
 	ret nz
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	jp AdvanceOWFunc
 
 .WaitDisappear:
@@ -2503,7 +2503,7 @@ NOWFunc_OpenGate:
 	ld a, $04
 	ld hl, wSceneObj10State
 	call SetSceneObjState
-	play_sfx SFX_108
+	play_sfx SFX_GATE_OPEN
 	jp AdvanceOWFunc
 
 .WaitAnim:
@@ -2534,7 +2534,7 @@ NOWFunc_MagicSeed:
 	jp WaitOWFunc
 
 .PlayFallSFX:
-	play_sfx SFX_119
+	play_sfx SFX_ITEM_FALL
 	jp AdvanceOWFunc
 
 .SeedFall:
@@ -2548,7 +2548,7 @@ NOWFunc_MagicSeed:
 	ld a, $08
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	jp AdvanceOWFunc
 
 .WaitSeedFall:
@@ -2564,7 +2564,7 @@ NOWFunc_MagicSeed:
 	ld a, $0a
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	jp AdvanceOWFunc
 
 .WaitGrowStalk:
@@ -2594,7 +2594,7 @@ NOWFunc_SummonSnake:
 .PlayFluteSFX:
 	ld a, $01
 	ld [wSceneObj1Unk7], a
-	play_sfx SFX_118
+	play_sfx SFX_FLUTE
 	jp AdvanceOWFunc
 
 .WaitNotesAndShowSnake:
@@ -2672,7 +2672,7 @@ NOWFunc_FallLeaves:
 .StartLeaf1MovementAndPlaySFX:
 	ld a, $01
 	ld [wSceneObj6ScriptStep], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -2790,7 +2790,7 @@ REPT 6
 	inc a
 ENDR
 	ld [wSceneObj9XCoord], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 .blow_away_leaf3
@@ -3007,10 +3007,10 @@ NOWFunc_PlayMusicBox:
 	ld a, [wOWSceneActionParam]
 	cp NOWFUNC_GOLD_MUSIC_BOX
 	jr z, .gold_music_box
-	play_sfx SFX_11F
+	play_sfx SFX_BLUE_MUSIC_BOX
 	jp AdvanceOWFunc
 .gold_music_box
-	play_sfx SFX_122
+	play_sfx SFX_GOLD_MUSIC_BOX
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -3044,7 +3044,7 @@ NOWFunc_Crayon:
 	jp WaitOWFunc
 
 .PlayFallSFX:
-	play_sfx SFX_119
+	play_sfx SFX_ITEM_FALL
 	jp AdvanceOWFunc
 
 .CrayonFall:
@@ -3061,7 +3061,7 @@ NOWFunc_Crayon:
 	ret c
 	xor a
 	ld [wSceneObj1State], a
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -3094,7 +3094,7 @@ NOWFunc_Crayon:
 	ret nz
 	jp AdvanceOWFunc
 .play_scribble_sfx
-	play_sfx SFX_12D
+	play_sfx SFX_CRAYON_SCRIBBLE
 	ret
 
 .AdvanceIfCollectedAllCrayons:
@@ -3180,7 +3180,7 @@ NOWFunc_BottomBar:
 	ld a, [hl]
 	cp $94
 	ret nz
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -3207,7 +3207,7 @@ NOWFunc_BottomBar:
 	ret c
 	ld a, $23
 	ld [wSceneObj1State], a
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
 .Wait3:
@@ -3264,7 +3264,7 @@ NOWFunc_DayNightSpell:
 	jp WaitOWFunc
 
 .StartOpenTopBar:
-	play_sfx SFX_0E9
+	play_sfx SFX_MENU_OPEN
 	call AdvanceOWFunc
 ;	fallthrough
 .OpenTopBar:
@@ -3552,7 +3552,7 @@ NOWFunc_Prologue:
 	ld a, $2b
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	jp AdvanceOWFunc
 
 .Func_b598c:
@@ -3631,7 +3631,7 @@ NOWFunc_Prologue:
 	ld [hl], a
 	ret
 .asm_b59f9
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 WestOWFunctions:
@@ -3674,7 +3674,7 @@ WOWFunc_Rain:
 	ld a, [hl]
 	cp $1b
 	ret c
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ld a, $01
 	ld [hl], a
 	ret
@@ -3815,7 +3815,7 @@ WOWFunc_ClearTornado:
 	ret nz
 	jp AdvanceOWFunc
 .play_tornado_sfx
-	play_sfx SFX_11D
+	play_sfx SFX_TORNADO
 	ret
 
 .ClearTornado:
@@ -3844,7 +3844,7 @@ UpdateOWTornado:
 	ld a, [wOWBarsState]
 	and a
 	ret nz
-	play_sfx SFX_11D
+	play_sfx SFX_TORNADO
 	ret
 
 WOWFunc_ElevatorWorking:
@@ -3891,7 +3891,7 @@ WOWFunc_MagicSeed:
 	jp WaitOWFunc
 
 .PlayFallSFX:
-	play_sfx SFX_119
+	play_sfx SFX_ITEM_FALL
 	jp AdvanceOWFunc
 
 .SeedFall:
@@ -3905,7 +3905,7 @@ WOWFunc_MagicSeed:
 	ld a, $0b
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	jp AdvanceOWFunc
 
 .WaitSeedFall:
@@ -3921,7 +3921,7 @@ WOWFunc_MagicSeed:
 	ld a, $0d
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	jp AdvanceOWFunc
 
 .WaitGrowStalk:
@@ -3950,7 +3950,7 @@ WOWFunc_SummonSnake:
 .PlayFluteSFX:
 	ld a, $01
 	ld [wSceneObj1Unk7], a
-	play_sfx SFX_118
+	play_sfx SFX_FLUTE
 	jp AdvanceOWFunc
 
 .WaitNotesAndShowSnake:
@@ -4066,7 +4066,7 @@ WOWFunc_Earthquake:
 	call SetSceneObjState
 	ld hl, Data_85549
 	call Func_b5868
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	jp AdvanceOWFunc
 
 .Func_b5d0a:
@@ -4627,7 +4627,7 @@ Func_b6055:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 WOWFunc_RedMusicBox:
@@ -4652,7 +4652,7 @@ WOWFunc_RedMusicBox:
 	and a
 	ret z
 	cp $01
-	play_sfx z, SFX_076
+	play_sfx z, SFX_THUNDER
 	inc [hl]
 	ld a, [hl]
 	cp $1b
@@ -4666,7 +4666,7 @@ WOWFunc_RedMusicBox:
 	jp WaitOWFunc
 
 .Func_b60aa:
-	play_sfx SFX_121
+	play_sfx SFX_RED_MUSIC_BOX
 	jp AdvanceOWFunc
 
 .Func_b60b5:
@@ -5517,7 +5517,7 @@ SOWFunc_MagicSeed:
 	jp WaitOWFunc
 
 .PlayFallSFX:
-	play_sfx SFX_119
+	play_sfx SFX_ITEM_FALL
 	jp AdvanceOWFunc
 
 .SeedFall:
@@ -5531,7 +5531,7 @@ SOWFunc_MagicSeed:
 	ld a, $06
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	jp AdvanceOWFunc
 
 .WaitSeedFall:
@@ -5547,7 +5547,7 @@ SOWFunc_MagicSeed:
 	ld a, $02
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	jp AdvanceOWFunc
 
 .WaitGrowStalk:
@@ -5576,7 +5576,7 @@ SOWFunc_YellowMusicBox:
 	jp WaitOWFunc
 
 .PlayMusicBoxSFX:
-	play_sfx SFX_11E
+	play_sfx SFX_YELLOW_MUSIC_BOX
 	jp AdvanceOWFunc
 
 .WaitMusic:
@@ -5584,7 +5584,7 @@ SOWFunc_YellowMusicBox:
 	jp WaitOWFunc
 
 .LowerBridge:
-	play_sfx SFX_123
+	play_sfx SFX_BRIDGE_LOWER
 	ld a, $08
 	ld hl, wSceneObj6State
 	call SetSceneObjState
@@ -5638,7 +5638,7 @@ SOWFunc_CanyonThunder:
 	ld a, $01
 	ld [wPalConfig1TotalSteps], a
 	call .Func_b6879
-	play_sfx SFX_124
+	play_sfx SFX_LIGHTNING
 	jp AdvanceOWFunc
 
 .Func_b67ec:
@@ -5815,7 +5815,7 @@ SOWFunc_CanyonThunder:
 	ld [wPalConfig1TotalSteps], a
 	call .Func_b6869
 .asm_b6908
-	play_sfx SFX_124
+	play_sfx SFX_LIGHTNING
 .asm_b6910
 	ld hl, wSceneObj2ScriptStep
 	inc [hl]
@@ -5954,7 +5954,7 @@ SOWFunc_RaiseTower:
 	ld a, $0b
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_11B
+	play_sfx SFX_TOWER_RISE
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -6282,7 +6282,7 @@ SOWFunc_SummonSnake:
 .PlayFluteSFX:
 	ld a, $01
 	ld [wSceneObj7Unk7], a
-	play_sfx SFX_118
+	play_sfx SFX_FLUTE
 	jp AdvanceOWFunc
 
 .WaitNotesAndShowSnake:
@@ -6363,7 +6363,7 @@ SOWFunc_Earthquake:
 .Func_b6c78:
 	ld hl, Data_855f9
 	call Func_b5868
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 .asm_b6c86
 	ld a, $1b
 	ld hl, wSceneObj2State
@@ -6417,7 +6417,7 @@ SOWFunc_GreenMusicBox:
 	jp WaitOWFunc
 
 .PlayMusicBoxSFX:
-	play_sfx SFX_120
+	play_sfx SFX_GREEN_MUSIC_BOX
 	jp AdvanceOWFunc
 
 .WaitMusic:
@@ -6430,7 +6430,7 @@ SOWFunc_GreenMusicBox:
 	ld a, $1b
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_129
+	play_sfx SFX_EXPLOSION
 	jp AdvanceOWFunc
 
 .HideSmoke:
@@ -6497,7 +6497,7 @@ EOWFunc_Explosives:
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 .asm_b6d62
-	play_sfx SFX_129
+	play_sfx SFX_EXPLOSION
 	jp AdvanceOWFunc
 
 .Func_b6d6d:
@@ -6591,7 +6591,7 @@ SOWFunc_FullMoon:
 	jp WaitOWFunc
 
 .PlayGongSFX:
-	play_sfx SFX_105
+	play_sfx SFX_GONG
 	jp AdvanceOWFunc
 
 .Wait2:
@@ -6613,7 +6613,7 @@ SOWFunc_FullMoon:
 	ret nz
 	jp AdvanceOWFunc
 .asm_b6e2c
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 LoadOWSceneLevelName:
@@ -6779,7 +6779,7 @@ EOWFunc_FreezeSea:
 	ld a, $01
 	ld [w2d150], a
 	ld hl, w2d151
-	play_sfx SFX_11C
+	play_sfx SFX_SEA_FREEZE
 	jr .asm_b6f31
 
 .Func_b6f23:
@@ -7327,7 +7327,7 @@ Func_b71fc:
 	ld [wOWUIObj1Frame], a
 	jr .asm_b7304
 .Func_b72f8:
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 .Func_b7300:
 	ld hl, wSCY
 	dec [hl]
@@ -7349,7 +7349,7 @@ Func_b71fc:
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 	jr .asm_b7304
 
 .Func_b7322:
@@ -7375,7 +7375,7 @@ Func_b71fc:
 	jr .asm_b7304
 
 .Func_b733b:
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 .Func_b7343:
 	ld hl, wSCX
 	inc [hl]
@@ -7404,7 +7404,7 @@ Func_b71fc:
 	jr .asm_b7304
 
 .Func_b7363:
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 .asm_b736b
 	ld hl, wSCX
 	inc [hl]
@@ -7478,7 +7478,7 @@ EOWFunc_FormCastle:
 	ld a, $10
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	play_sfx SFX_12E
+	play_sfx SFX_CASTLE_FORM
 	jp AdvanceOWFunc
 
 .Func_b73e1:
@@ -7787,7 +7787,7 @@ EOWFunc_VulcanoEruption:
 	jp WaitOWFunc
 
 .Func_b75dd:
-	play_sfx SFX_127
+	play_sfx SFX_VOLCANO_ERUPTION
 	ld a, $01
 	ld [wSceneObj10ScriptStep], a
 	jp AdvanceOWFunc
@@ -8126,13 +8126,13 @@ EOWFunc_BurnVines:
 	jr z, .asm_b77e8
 	ret
 .asm_b77e8
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 	ret
 .asm_b77f1
-	play_sfx SFX_125
+	play_sfx SFX_BURN_VINES_1
 	ret
 .asm_b77fa
-	play_sfx SFX_126
+	play_sfx SFX_BURN_VINES_2
 	ret
 
 .Func_b7803:
@@ -8214,7 +8214,7 @@ EOWFunc_ShowWarpedVoid:
 	ld a, $1b
 	ld hl, wSceneObj5State
 	call SetSceneObjState
-	play_sfx SFX_128
+	play_sfx SFX_WARPED_VOID_APPEAR
 	jp AdvanceOWFunc
 
 .Func_b788a:

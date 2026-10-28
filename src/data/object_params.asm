@@ -775,7 +775,7 @@ ObjParams_SilkPlatform1:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -792,7 +792,7 @@ ObjParams_SilkPlatform2:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -809,7 +809,7 @@ ObjParams_SilkPlatform3:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
@@ -869,7 +869,7 @@ ObjParams_HammerPlatform:
 	db -60 ; y
 	db  64 ; x
 	db HAMMER_PLATFORM ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -10, -1, -5, 4 ; collision box
 	dw OAM_19105c ; OAM
 	dw Frameset_696b1 ; frameset
@@ -877,7 +877,7 @@ ObjParams_HammerPlatform:
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw HammerPlatformFunc
 	db OBJFLAG_PRIORITY ; obj flags
@@ -955,7 +955,7 @@ ObjParams_PalmTreeShort:
 	db 16 ; y
 	db 16 ; x
 	db PALM_TREE_SHORT ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -6, -2, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
 	dw Frameset_69746 ; frameset
@@ -963,7 +963,7 @@ ObjParams_PalmTreeShort:
 	db $1a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -972,7 +972,7 @@ ObjParams_PalmTreeMedium:
 	db 28 ; y
 	db 72 ; x
 	db PALM_TREE_MEDIUM ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -14, -10, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
 	dw Frameset_6974d ; frameset
@@ -980,7 +980,7 @@ ObjParams_PalmTreeMedium:
 	db $30 ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -989,7 +989,7 @@ ObjParams_PalmTreeTall:
 	db  39 ; y
 	db 127 ; x
 	db PALM_TREE_TALL ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -30, -26, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
 	dw Frameset_69754 ; frameset
@@ -997,7 +997,7 @@ ObjParams_PalmTreeTall:
 	db $4a ; var1
 	db $1f ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
@@ -1125,7 +1125,7 @@ ObjParams_FloatingRing:
 	db 64 ; y
 	db  0 ; x
 	db FLOATING_RING ; id
-	db OBJ_INTERACTION_31 ; interaction type
+	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -1, 4, -5, 4 ; collision box
 	dw OAM_194895 ; OAM
 	dw Frameset_69b0d ; frameset
@@ -1133,7 +1133,7 @@ ObjParams_FloatingRing:
 	db $00 ; var1
 	db $14 ; var2
 	db $00 ; var3
-	db OBJSUBFLAG_UNK_4 ; substate
+	db OBJSUBFLAG_NO_DESPAWN ; substate
 	db $00 ; state
 	dw FloatingRingFunc
 	db $0 ; obj flags
@@ -1210,7 +1210,7 @@ ObjParams_JamanoHat:
 	db -12 ; y
 	db   0 ; x
 	db JAMANO_HAT ; id
-	db OBJ_INTERACTION_0B ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -4, 0, -6, 5 ; collision box
 	dw OAM_19501c ; OAM
 	dw Frameset_69cef ; frameset
@@ -1312,7 +1312,7 @@ ObjParams_HiddenFigureLeftHand:
 	db  18 ; y
 	db -40 ; x
 	db HIDDEN_FIGURE_LEFT_HAND ; id
-	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw OAM_18c88a ; OAM
 	dw Frameset_6a128 ; frameset
@@ -1329,7 +1329,7 @@ ObjParams_HiddenFigureRightHand:
 	db 18 ; y
 	db 56 ; x
 	db HIDDEN_FIGURE_RIGHT_HAND ; id
-	db OBJ_INTERACTION_0B | HEAVY_OBJ ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
 	dw OAM_18c88a ; OAM
 	dw Frameset_6a131 ; frameset
@@ -1577,7 +1577,7 @@ ObjParams_YellowBellyHead:
 
 ObjParams_Pump:
 	db PUMP ; id
-	db OBJ_INTERACTION_36 ; interaction type
+	db OBJ_INTERACTION_SMASHABLE_TOP ; interaction type
 	db -13, -1, -6, 5 ; collision box
 	dw OAM_1926dc ; OAM
 	dw Frameset_6987a ; frameset
@@ -1592,7 +1592,7 @@ ObjParams_Pump:
 
 ObjParams_Cheese:
 	db CHEESE ; id
-	db OBJ_INTERACTION_0B ; interaction type
+	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -12, -5, -6, 5 ; collision box
 	dw OAM_1927d5 ; OAM
 	dw Frameset_69a00 ; frameset

@@ -16,7 +16,7 @@ WormwouldFunc:
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
-	or (WORMWOULD_NUM_HITS + 1) | OBJSUBFLAG_UNK_4 | OBJSUBFLAG_HDIR
+	or (WORMWOULD_NUM_HITS + 1) | OBJSUBFLAG_NO_DESPAWN | OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 7
@@ -138,7 +138,7 @@ WormwouldFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_WORMWOULD
 	ld [hli], a
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 .DoNothing:
@@ -209,7 +209,7 @@ WormwouldFunc:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	cp 16
-	play_sfx z, SFX_0A6
+	play_sfx z, SFX_WORMWOULD_ATTACK
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
@@ -339,7 +339,7 @@ WormwouldFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hli], a
 	ld a, -16
 	ld [hl], a ; OBJ_COLLBOX_TOP
@@ -356,7 +356,7 @@ WormwouldFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 30
-	play_sfx z, SFX_0A7
+	play_sfx z, SFX_WORMWOULD_HURT
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
@@ -433,7 +433,7 @@ WormwouldFunc:
 	ld hl, wCurObjUnk02
 	ld e, $05
 	farcall Func_ba42
-	play_sfx SFX_0A7
+	play_sfx SFX_WORMWOULD_HURT
 	ret
 
 .Underground:
@@ -502,7 +502,7 @@ WormwouldFunc:
 .asm_543a9
 	set OBJSUBFLAG_HDIR_F, [hl]
 .asm_543ab
-	res OBJSUBFLAG_UNK_4_F, [hl]
+	res OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and $80
 	ld [hld], a
@@ -523,7 +523,7 @@ WormwouldFunc:
 	ld [hld], a
 	ld a, LOW(.DefeatedFall)
 	ld [hld], a
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 .DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -583,7 +583,7 @@ RollingRockFunc:
 	ld [hld], a
 	ld a, LOW(.Hit)
 	ld [hld], a
-	play_sfx SFX_016
+	play_sfx SFX_THROWN_OBJECT_HIT
 	ret
 
 .Hit:
@@ -604,7 +604,7 @@ PalmTreeSpawnerFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, 240
 	ld [wCurObjStateDuration], a
 	jr .Wait

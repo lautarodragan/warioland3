@@ -276,7 +276,7 @@ HandleGolfLobbyStates:
 	cp $38
 	ret nz
 
-	play_sfx SFX_0E6
+	play_sfx SFX_ENTER_DOOR
 
 	xor a
 	ld [wGolfWarioDir], a
@@ -330,7 +330,7 @@ HandleGolfLobbyStates:
 	ld a, [wGolfObj4State]
 	and a
 	jr z, .enough_coins
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ld a, COININFO_SHOW_MESSAGE
 	ld [wGolfObj4State], a
 	xor a
@@ -657,7 +657,7 @@ UpdateGolfClearCutscene:
 	jr z, .asm_1c8525
 	ld a, [hl]
 	and $0f
-	play_sfx z, SFX_01F
+	play_sfx z, SFX_RUMBLE
 	inc [hl]
 	ld a, [hl]
 	and $03

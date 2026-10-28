@@ -397,7 +397,7 @@ Func_ae1de:
 	ld a, $0e
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	jp Func_ae1ce
 
 .Wait10:
@@ -484,7 +484,7 @@ Prologue_WarioEnterCave:
 	ld a, $11
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp Func_ae1ce
 
 .WaitEmoteAnimation:
@@ -1010,7 +1010,7 @@ Func_ae5dc:
 	ret c
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jp Func_ae1ce
 
 Func_ae5f0:
@@ -1116,7 +1116,7 @@ Func_ae68b:
 	ld a, [wSceneWarioFrame]
 	cp $0f
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp Func_ae1ce
 
 Func_ae69c:
@@ -1318,7 +1318,7 @@ Prologue_WarioFallFromPlane:
 	ret c
 	ld a, SCENEWARIO_IDLE_RIGHT
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
@@ -1423,7 +1423,7 @@ Prologue_WarioWalkToCaveEntrance:
 	ld a, $11
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp Func_ae1ce
 
 .WaitEmoteAnimation:
@@ -1553,7 +1553,7 @@ Func_ae924:
 	dw .Func_ae9c5
 
 .Func_ae948:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 
 .Func_ae950:
 	ld hl, wPlanePart1Counter
@@ -1563,7 +1563,7 @@ Func_ae924:
 	ld a, [wSceneObj3YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart1Action
 	inc [hl]
 	ret
@@ -1686,7 +1686,7 @@ Func_ae9ee:
 	dw .Func_aeae4
 
 .Func_aea16:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .Func_aea1e:
 	ld hl, wPlanePart2Counter
 	jp Func_ae915
@@ -1695,7 +1695,7 @@ Func_ae9ee:
 	ld a, [wSceneObj4YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart2Action
 	inc [hl]
 	ret
@@ -1769,7 +1769,7 @@ Func_ae9ee:
 	ld a, $10
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart2Action
 	inc [hl]
 	ret
@@ -1854,7 +1854,7 @@ Func_aeb0d:
 	dw .Func_aec00
 
 .Func_aeb35:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .Func_aeb3d:
 	ld hl, wPlanePart3Counter
 	jp Func_ae915
@@ -1863,7 +1863,7 @@ Func_aeb0d:
 	ld a, [wSceneObj5YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart3Action
 	inc [hl]
 	ret
@@ -1900,7 +1900,7 @@ Func_aeb0d:
 	ld a, $10
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart3Action
 	inc [hl]
 	ret
@@ -2008,7 +2008,7 @@ Func_aec1f:
 	dw .Func_aece7
 
 .Func_aec3f:
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 .Func_aec47:
 	ld hl, wPlanePart4Counter
 	jp Func_ae915
@@ -2017,7 +2017,7 @@ Func_aec1f:
 	ld a, [wSceneObj9YCoord]
 	cp $62
 	ret nz
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart4Action
 	inc [hl]
 	ret
@@ -2084,7 +2084,7 @@ Func_aec1f:
 	ld a, $10
 	ld hl, wSceneObj8State
 	call SetSceneObjState
-	play_sfx SFX_006
+	play_sfx SFX_PLANE_DEBRIS_LAND
 	ld hl, wPlanePart4Action
 	inc [hl]
 	ret
@@ -3043,7 +3043,7 @@ Func_af13c:
 	ld a, [wOWUIObj1Frame]
 	cp $0b
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp .asm_af40c
 
 .Func_af545:
@@ -3155,7 +3155,7 @@ Func_af13c:
 	ret c
 	ld a, $0c
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jr .asm_af5bc
 
 .Func_af5fe:
@@ -3470,7 +3470,7 @@ Func_af13c:
 	ld a, [wSceneObj1YCoord]
 	cp $50
 	ret c
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	call Func_aca09
 	call Func_aca25
 	jp .asm_af40c

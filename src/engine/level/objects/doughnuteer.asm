@@ -154,7 +154,7 @@ DoughnuteerFunc:
 	dec [hl]
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	play_sfx nz, SFX_067
+	play_sfx nz, SFX_ENEMY_THROW
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_41ba8
@@ -690,7 +690,7 @@ DoughnuteerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_41ef4:
 	ld hl, wCurObjVar2
@@ -712,7 +712,7 @@ DoughnuteerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 .Func_41f1f:
 	ld hl, wCurObjVar2
@@ -754,7 +754,7 @@ DoughnuteerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -884,7 +884,7 @@ DoughnuteerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -1024,7 +1024,7 @@ DoughnuteerFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 

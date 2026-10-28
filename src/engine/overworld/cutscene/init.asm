@@ -83,7 +83,7 @@ InitEventCutscene:
 
 CutsceneInitFunctions:
 	table_width 2
-	dw NoInitCutscene  ; EVENT_00
+	dw NoInitCutscene  ; EVENT_NONE
 	dw InitPrologue ; EVENT_PROLOGUE
 	dw InitCutscene02 ; EVENT_CUT_TREE
 	dw InitCutscene03 ; EVENT_OPEN_NORTH_GATE

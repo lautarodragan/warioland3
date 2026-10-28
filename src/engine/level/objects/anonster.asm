@@ -152,7 +152,7 @@ AnonsterFunc:
 	inc l
 	ld a, [hl]
 	dec a
-	play_sfx z, SFX_0B0
+	play_sfx z, SFX_ANONSTER_1
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -255,7 +255,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_501e7
@@ -284,7 +284,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50223
@@ -313,7 +313,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $18
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_50260
@@ -340,7 +340,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, LOW(.Func_50293)
 	ld [hld], a
-	play_sfx SFX_0B1
+	play_sfx SFX_ANONSTER_2
 .Func_50293:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -440,7 +440,7 @@ AnonsterFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48 | HEAVY_OBJ
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP | HEAVY_OBJ
 	ld [hli], a
 	ld a, $e8
 	ld [hli], a
@@ -537,7 +537,7 @@ AnonsterFunc:
 	ret
 
 .asm_503d3
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	ld b, $18
 	jp DoGroundShake
 
@@ -548,7 +548,7 @@ AnonsterFunc:
 	ld a, [hl]
 	cp $2b
 	ret nz
-	play_sfx SFX_07E
+	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_503fd
@@ -614,7 +614,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_48
+	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hli], a
 	call SetObjectFramesetPtr
 	xor a
@@ -708,7 +708,7 @@ AnonsterFunc:
 .asm_504ef
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_0AF
+	play_sfx z, SFX_ANONSTER_WALK
 .asm_504fe
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -771,7 +771,7 @@ AnonsterFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hld], a
 	play_sfx SFX_VANISH
 	call DecrementRemainingBossHits
@@ -814,7 +814,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $4e
-	play_sfx z, SFX_0B1
+	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
@@ -921,7 +921,7 @@ AnonsterFunc:
 	and a
 	jr z, .asm_506f5
 	cp $a4
-	play_sfx z, SFX_0B1
+	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
 	ret nz
 	ld hl, wCurObjUnk02
@@ -964,7 +964,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, LOW(.Func_50705)
 	ld [hld], a
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 .Func_50705:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -983,7 +983,7 @@ SilkPlatformsFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $28
 	ld [wCurObjStateDuration], a
 	jr .asm_50746
@@ -1197,7 +1197,7 @@ AnonsterSilkFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_00
+	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
 
@@ -1216,7 +1216,7 @@ AnonsterSilkFunc:
 	ld l, OBJ_FLAGS
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	ret
 
 .Func_508be:

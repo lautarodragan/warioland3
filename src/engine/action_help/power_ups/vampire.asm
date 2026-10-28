@@ -140,7 +140,7 @@ Func_1e465e:
 	ret
 
 .asm_1e4676
-	play_sfx SFX_046
+	play_sfx SFX_BAT_TRANSFORM
 	ld a, $01
 	ld [wTimer], a
 	ret

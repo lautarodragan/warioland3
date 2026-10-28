@@ -734,7 +734,7 @@ IncrementBlockPtr:
 Func_19b7b::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK1
+	ld a, COLLISION_LANDING
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
@@ -743,7 +743,7 @@ Func_19b7b::
 Func_19b8b::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK2
+	ld a, COLLISION_DOWN_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
@@ -752,7 +752,7 @@ Func_19b8b::
 Func_19b9b::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK3
+	ld a, COLLISION_UP_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
@@ -783,7 +783,7 @@ Func_19bb7:
 Func_19bc3::
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK4
+	ld a, COLLISION_SIDE
 	ld [wCollisionPoints], a
 Func_19bce:
 	call ProcessBlock
@@ -811,7 +811,7 @@ Func_19bd3:
 Func_19beb:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK5
+	ld a, COLLISION_UP
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
@@ -820,7 +820,7 @@ Func_19beb:
 Func_19bfb:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK6
+	ld a, COLLISION_LANDING_SIDES
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a
@@ -829,7 +829,7 @@ Func_19bfb:
 Func_19c0b:
 	ld hl, hPos
 	call GetBlockPtr
-	ld a, COLLISION_UNK7
+	ld a, COLLISION_ENV
 	ld [wCollisionPoints], a
 	call ProcessBlock
 	ld b, a

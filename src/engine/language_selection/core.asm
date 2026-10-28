@@ -30,7 +30,7 @@ LanguageSelection:
 	ld [wLanguage], a
 	add $80
 	ld [wBGUpdateRequest], a
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 
 .update_anim
 	ld hl, wMenuObj1End - 1

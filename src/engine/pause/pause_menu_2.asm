@@ -175,7 +175,7 @@ HandlePauseMenuInput:
 	ld [hl], a
 
 .play_sfx
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	ret
 
 .highlight_return_button
@@ -217,7 +217,7 @@ HandlePauseMenuInput:
 
 	ld hl, wPauseMenuSelection
 	set PAUSEMENUF_B_PAD_SELECT, [hl]
-	play_sfx SFX_0E7
+	play_sfx SFX_MENU_CANCEL
 	ret
 
 .Save:

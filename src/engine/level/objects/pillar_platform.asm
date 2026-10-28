@@ -137,7 +137,7 @@ PillarPlatformFunc:
 .Func_49d43:
 	ld h, HIGH(wObjects)
 .asm_49d45
-	ld l, OBJ_UNK_01
+	ld l, OBJ_MAP_PTR_LO
 	add l
 	ld l, a
 	ld a, [hl]

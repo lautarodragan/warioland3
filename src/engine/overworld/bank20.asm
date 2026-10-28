@@ -260,7 +260,7 @@ Func_81077:
 	call Func_3c76
 	ld a, OWWARIO_UP
 	call SetOWWarioOAM
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	ld a, $0a
 	ld [wOWStep], a
 	scf
@@ -449,7 +449,7 @@ Func_8115c:
 
 .asm_811b1
 	stop_music2
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 
 	xor a
 	ld [wOWStepCounter], a
@@ -511,11 +511,11 @@ Func_81200:
 	bit 1, a
 	jr nz, .asm_8123a
 .asm_81234
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
 .asm_8123a
-	ld a, SST_OVERWORLD_1E
+	ld a, SST_OVERWORLD_TO_GOLF_BUILDING
 	ld [wSubState], a
 	ret
 
@@ -546,7 +546,7 @@ Func_81240:
 
 .temple
 	play_sfx SFX_SELECTION
-	ld a, SST_OVERWORLD_1A
+	ld a, SST_OVERWORLD_TEMPLE
 	ld [wSubState], a
 	scf
 	ret
@@ -891,7 +891,7 @@ Func_814c4:
 	ld a, [wPathPreviewCounter]
 	cp b
 	ret c
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	ld a, [wOWLevelYCoord]
 	ld [wOWYCoord1], a
 	ld [wOWWarioYCoord], a
@@ -1462,7 +1462,7 @@ GetNextTreasureToCollect:
 ; output:
 ; - c = EVENT_* constant
 GetEventWithTreasure:
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ld hl, EventTreasures
 .loop
 	ld a, [hli]
@@ -1481,7 +1481,7 @@ GetEventWithTreasure:
 .found
 	ret
 .not_found
-	ld c, EVENT_00
+	ld c, EVENT_NONE
 	ret
 
 Func_818ad:
@@ -1593,7 +1593,7 @@ CheckIfTreasureUnlocksEvent:
 	ld a, [wLastTransitionParam]
 	ld b, a
 	xor a
-	ld c, a ; EVENT_00
+	ld c, a ; EVENT_NONE
 	ld [wCurEvent], a
 
 	ld hl, EventTreasures
@@ -1621,7 +1621,7 @@ CheckIfTreasureUnlocksEvent:
 	ret
 
 .no_event_unlocked
-	xor a ; EVENT_00
+	xor a ; EVENT_NONE
 	ld [wCurEvent], a
 	ret
 
@@ -1698,7 +1698,7 @@ LoadEventTreasures:
 EventTreasures:
 	table_width 3
 
-; EVENT_00
+; EVENT_NONE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
 	db INVALID_TREASURE
@@ -2209,7 +2209,7 @@ ENDM
 
 OWSceneParams:
 	table_width 2
-	dw .event_00                        ; EVENT_00
+	dw .event_00                        ; EVENT_NONE
 	dw .event_prologue                  ; EVENT_PROLOGUE
 	dw .event_cut_tree                  ; EVENT_CUT_TREE
 	dw .event_open_north_gate           ; EVENT_OPEN_NORTH_GATE
@@ -3075,7 +3075,7 @@ LoadCompassSprite:
 	ret
 
 PlaySFX_12A:
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	ret
 
 Func_82041:
@@ -3466,7 +3466,7 @@ UpdateTopBar:
 	ret nz
 
 	; bottom bar was closed
-	play_sfx SFX_0E9
+	play_sfx SFX_MENU_OPEN
 
 	; init top bar flags
 	xor a
@@ -3533,7 +3533,7 @@ UpdateTopBar:
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_SELECT
 	jr z, .done_input
-	play_sfx SFX_0EA
+	play_sfx SFX_MENU_CLOSE
 	ld hl, wOWBarsState
 	inc [hl]
 .done_input
@@ -3650,7 +3650,7 @@ UpdateTopBar:
 	xor a
 	ld [wOWStep], a
 	ld [wOWStepCounter], a
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 
 .wait_next_map
@@ -3749,7 +3749,7 @@ HandleTopBarDPad:
 	call ShowTopBarSelectedButton
 	call LoadTopBarButtonAttributes
 	call ApplyTopBarButtonAttributes
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 	scf
 	ret
 
@@ -4776,7 +4776,7 @@ Func_82aae:
 	call ShowLevelArrowInOW
 	ld a, TRUE
 	ld [wHighlightOWTile], a
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 Func_82ad2:
 	call Func_81feb
 	call Func_81f21
@@ -4813,7 +4813,7 @@ Func_82aea:
 	call ShowLevelArrowInOW
 	ld a, $01
 	ld [wHighlightOWTile], a
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 	jp Func_82ad2
 
 Func_82b22:
@@ -4894,7 +4894,7 @@ Func_82b7b:
 	ld [wCurSceneObjXCoord], a
 	ld a, $01
 	ld [wCurSceneObjState], a
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	ret
 
 Func_82baa:
@@ -5044,7 +5044,7 @@ Func_82c33:
 	ld a, $02
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_104
+	play_sfx SFX_LEVEL_STAR
 	jp Func_82c22
 
 .Func_82cb0:

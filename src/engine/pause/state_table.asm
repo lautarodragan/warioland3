@@ -30,7 +30,7 @@ _PauseMenuStateTable::
 	dw DebugReset
 	dw DebugReset
 
-	dw SlowFadeBGToWhite ; SST_PAUSE_18
+	dw SlowFadeBGToWhite ; SST_PAUSE_SAVE_AND_CONTINUE
 	dw InitSaveScreenAndBackupVRAM
 	dw DarkenBGToPal_Fast
 	dw FillSaveScreenBar

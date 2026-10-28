@@ -65,7 +65,7 @@ ShootFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $5
@@ -107,7 +107,7 @@ ShootFunc:
 	; play SFX every 16 frames
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_0C6
+	play_sfx z, SFX_SHOOT_TAUNT
 
 	; wait for this state to finish
 	ld hl, wCurObjStateDuration
@@ -132,7 +132,7 @@ ShootFunc:
 	jp .set_standing
 
 .asm_566a9
-	play_sfx SFX_0C9
+	play_sfx SFX_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr nc, .asm_566bd
@@ -272,7 +272,7 @@ ShootFunc:
 	inc l
 	xor a
 	ld [hl], a ; OBJ_VAR_3
-	play_sfx SFX_0C8
+	play_sfx SFX_SHOOT_JUMP
 	ret
 
 .JumpingUp:
@@ -549,7 +549,7 @@ ShootFunc:
 	ld [wCurObjVar3], a
 	ld a, $2 | (1 << 7)
 	ld [wAutoMoveState], a
-	play_sfx SFX_034
+	play_sfx SFX_SHOOT_KICK_WARIO
 	ret
 
 .ScoreGoal:
@@ -565,7 +565,7 @@ ShootFunc:
 .no_goal_increment
 	ld a, $1 | (1 << 7)
 	ld [wAutoMoveState], a
-	play_sfx SFX_0C7
+	play_sfx SFX_SHOOT_GOAL
 	ld a, TRUE
 	ld [wShootCanTurnAround], a
 	ld hl, wCurObjSubState
@@ -627,7 +627,7 @@ ShootFunc:
 ; moving left
 	cp 27
 	jp nc, MoveObjectLeftByVar2
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -636,7 +636,7 @@ ShootFunc:
 .moving_right
 	cp 219
 	jp c, MoveObjectRightByVar2
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -830,7 +830,7 @@ ShootFunc:
 .Func_56b47:
 	ld a, [wCurObjVar3]
 	cp $22
-	play_sfx z, SFX_075
+	play_sfx z, SFX_HEAVY_STEP
 	ld hl, wCurObjVar1
 	dec [hl]
 	jr z, .return_to_regular_form
@@ -853,13 +853,13 @@ ShootFunc:
 .asm_56b81
 	ld a, [wGlobalCounter]
 	and %1111
-	play_sfx z, SFX_06A
+	play_sfx z, SFX_WHIRR
 .asm_56b90
 	ld bc, Data_60e40
 	jp ApplyObjYMovement_Loop
 
 .Func_56b96:
-	play_sfx SFX_014
+	play_sfx SFX_STOMP
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -1041,7 +1041,7 @@ ShootFunc:
 	ld a, $02
 	ld [wShootBallState], a
 
-	play_sfx SFX_0C7
+	play_sfx SFX_SHOOT_GOAL
 
 	ld hl, wWarioGoals
 	ld a, [hl]
@@ -1079,7 +1079,7 @@ ShootFunc:
 .asm_56d05
 	ld a, TRUE
 	ld [wShootCanTurnAround], a
-	play_sfx SFX_01A
+	play_sfx SFX_OBJECT_HIT_WALL
 	ret
 .asm_56d13
 	ld a, [wCurObjXPos]
@@ -1138,7 +1138,7 @@ ShootFunc:
 	ld hl, wCurObjUnk02
 	ld e, $09
 	farcall Func_ba42
-	play_sfx SFX_0A9
+	play_sfx SFX_BOSS_DEFEATED
 	ret
 
 .DefeatRise:
@@ -1173,7 +1173,7 @@ ShootFunc:
 ; still supsended in air
 	dec [hl]
 	ret nz
-	play_sfx SFX_0A3
+	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 .fall
 	ld bc, Data_60ea0
@@ -1189,7 +1189,7 @@ GKTortoisePlatformFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -1285,7 +1285,7 @@ GKTortoiseFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, 5
 	ld [hld], a
@@ -1587,7 +1587,7 @@ GKTortoiseFunc:
 	ld [wAutoMoveState], a
 	ld a, no_actions_for 15
 	ld [wCurObjAction], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .Func_5707b:
@@ -1624,7 +1624,7 @@ GKTortoiseFunc:
 .asm_570b3
 	ld a, $04
 	ld [wShootBallState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .asm_570c1
@@ -1724,7 +1724,7 @@ GKTortoiseFunc:
 .asm_5713f
 	ld a, $04
 	ld [wShootBallState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 
 .GetShootPosPtr:
@@ -1810,7 +1810,7 @@ GKTortoiseFunc:
 	ld [wShootBallState], a
 	xor a
 	ld [wAutoMoveState], a
-	play_sfx SFX_067
+	play_sfx SFX_ENEMY_THROW
 	ret
 .asm_571c7
 	ld hl, wCurObjYPos
@@ -1933,7 +1933,7 @@ ShootGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c
@@ -1980,7 +1980,7 @@ WarioGoalCounterFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $3c

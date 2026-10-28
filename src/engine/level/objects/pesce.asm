@@ -8,7 +8,7 @@ StrongWaterCurrentFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -38,7 +38,7 @@ PesceFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $0f
 	ld [hld], a
@@ -71,7 +71,7 @@ PesceFunc:
 	xor a
 	ld [hl], a
 	ld [wCurObjStateDuration], a
-	play_sfx SFX_0BB
+	play_sfx SFX_PESCE_HIT
 	ld hl, w1d147
 	inc [hl]
 	ld a, [hl]
@@ -104,7 +104,7 @@ PesceFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_51
+	or OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
 	ld [hld], a
 	stop_music2
 	jp .asm_51e67
@@ -250,7 +250,7 @@ PesceFunc:
 .asm_51ed4
 	xor a
 	ld [wAutoMoveState], a
-	play_sfx SFX_0B9
+	play_sfx SFX_PESCE_3_YB_2
 	ld hl, wCurObjVar1
 	ld a, $04
 	ld [hli], a
@@ -271,7 +271,7 @@ PesceFunc:
 	jr nz, .asm_51f12
 	ld a, [wCurObjFrameDuration]
 	cp $01
-	play_sfx z, SFX_0AE
+	play_sfx z, SFX_PESCE_1
 .asm_51f12
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -557,7 +557,7 @@ PesceFunc:
 	jp SetObjectFramesetPtr
 
 .asm_52108
-	play_sfx SFX_0AD
+	play_sfx SFX_PESCE_2
 	ld a, [wCurObjSubState]
 	ld b, a
 	ld a, [w1d147]
@@ -705,7 +705,7 @@ PesceFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_51
+	or OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
 	ld [hli], a
 	ld a, $03
 	ld [wCurObjVar1], a
@@ -962,7 +962,7 @@ Dragonfly2Func:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	set OBJSUBFLAG_UNK_4_F, [hl]
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
 	ld [hld], a
@@ -1160,7 +1160,7 @@ FlyFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, $03
 	ld [wDollBoyActiveBarrels], a
-	play_sfx SFX_0BE
+	play_sfx SFX_PESCE_FLY
 	ld bc, ObjParams_Cheese
 	jp CreateObjectFromCurObjPos
 

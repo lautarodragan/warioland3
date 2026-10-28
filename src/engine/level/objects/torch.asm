@@ -5,8 +5,8 @@ FlameBlockTorchUpdate:
 	ret z
 	xor a
 	ld [hld], a
-	set OBJSUBFLAG_UNK_4_F, [hl] ; OBJ_SUBSTATE
-	play_sfx SFX_073
+	set OBJSUBFLAG_NO_DESPAWN_F, [hl] ; OBJ_SUBSTATE
+	play_sfx SFX_FLAME
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
 	ld [hld], a
@@ -29,7 +29,7 @@ FlameBlockTorchUpdate:
 	ld a, [hl]
 	cp NUM_FLAME_BLOCK_TORCHES
 	ret nz
-	play_sfx SFX_0FA
+	play_sfx SFX_SUCCESS
 	ret
 
 .Update:
@@ -46,7 +46,7 @@ FlameBlockTorchUpdate:
 	ld [hli], a ; aka $100
 	ld a, $02
 	ld [hl], a ; OBJ_VAR_1
-	play_sfx SFX_073
+	play_sfx SFX_FLAME
 .asm_40b6f
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -54,7 +54,7 @@ FlameBlockTorchUpdate:
 	inc l
 	dec [hl] ; OBJ_VAR_1
 	ret nz
-	ld l, OBJ_UNK_02
+	ld l, OBJ_MAP_PTR_HI
 	farcall DespawnObject
 	ld hl, wNumLitTorches
 	dec [hl]
@@ -144,7 +144,7 @@ TorchFunc:
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	play_sfx nz, SFX_073
+	play_sfx nz, SFX_FLAME
 	jp CreateObjectFromCurObjPos
 
 ; unreferenced?

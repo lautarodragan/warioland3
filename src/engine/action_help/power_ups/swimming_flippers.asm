@@ -108,7 +108,7 @@ Func_1f8e69:
 
 	ld a, 6
 	ld [wAnimatedTilesFrameDuration], a
-	ld a, ANIMATED_TILES_GFX_02
+	ld a, ANIMATED_TILES_GFX_WATER
 	ld [wAnimatedTilesGfx], a
 	ld a, TRUE
 	ld [wRoomAnimatedTilesEnabled], a
@@ -186,7 +186,7 @@ Func_1f8f2c:
 	ret
 
 Func_1f8f39:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld a, [wActionHelpCounter]
 	and %11
@@ -205,7 +205,7 @@ Func_1f8f39:
 	ret
 
 Func_1f8f6b:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -232,7 +232,7 @@ Func_1f8f6b:
 	ret
 
 Func_1f8fa6:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -257,7 +257,7 @@ Func_1f8fa6:
 	ret
 
 Func_1f8fdc:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -274,7 +274,7 @@ Func_1f8fdc:
 	ret
 
 Func_1f900a:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -301,7 +301,7 @@ Func_1f900a:
 	ret
 
 Func_1f9043:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wActionHelpWarioXCoord
 	ld a, [hl]
@@ -327,7 +327,7 @@ Func_1f9043:
 	ret
 
 Func_1f9080:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]
@@ -353,7 +353,7 @@ Func_1f9080:
 	ret
 
 Func_1f90b6:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -369,7 +369,7 @@ Func_1f90b6:
 	ret
 
 Func_1f90e2:
-	play_sfx_rept 15, SFX_00F
+	play_sfx_rept 15, SFX_UNDERWATER_THRUST
 
 	ld hl, wTimer
 	inc [hl]
@@ -386,7 +386,7 @@ Func_1f90e2:
 	ret
 
 Func_1f910e:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
@@ -404,7 +404,7 @@ Func_1f910e:
 	ret
 
 Func_1f913c:
-	play_sfx_rept 37, SFX_00E
+	play_sfx_rept 37, SFX_SWIM
 
 	ld hl, wTimer
 	ld a, [hl]

@@ -509,7 +509,7 @@ HandleTreasureCollectionInput:
 .asm_9a68d
 	ld [hl], $04
 .asm_9a68f
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	stop_music2
 	ld a, $0c
 	ld [wSubState], a
@@ -567,7 +567,7 @@ HandleTreasureCollectionInput:
 	sub NUM_COLLECTION_COLS
 .got_target_cell
 	ld [wCollectionCell], a
-	play_sfx SFX_0E2
+	play_sfx SFX_MENU_SCROLL
 
 	xor a
 	ld [wSceneObj2State], a
@@ -586,7 +586,7 @@ HandleTreasureCollectionInput:
 	jr GetCollectionCellCoords
 
 .cant_scroll
-	play_sfx SFX_0E5
+	play_sfx SFX_ERROR
 	ret
 
 .page_right
@@ -615,7 +615,7 @@ HandleTreasureCollectionInput:
 	ld [hl], NUM_COLLECTION_PAGES - 1
 
 .change_page
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	ld a, $0c
 	ld [wSubState], a
 	ret

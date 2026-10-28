@@ -231,7 +231,7 @@ OmodonmekaFunc:
 .asm_422e2
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_087
+	play_sfx z, SFX_OMODONMEKA_LIFT
 
 	ld b, $01
 	call MoveWarioUp
@@ -294,13 +294,13 @@ OmodonmekaFunc:
 	and $f0
 	or $08
 	ld [hld], a
-	play_sfx SFX_08C
+	play_sfx SFX_RAIL_HUM
 	ret
 
 .Func_42369:
 	ld a, [wGlobalCounter]
 	and %11111
-	play_sfx z, SFX_08C
+	play_sfx z, SFX_RAIL_HUM
 
 	ld bc, Data_604c0
 	call ApplyObjYMovement_Loop
@@ -358,7 +358,7 @@ OmodonmekaFunc:
 	ld [hl], a
 	ld a, $00
 	ld [wCurObjCollBoxBottom], a
-	play_sfx SFX_088
+	play_sfx SFX_OMODONMEKA
 	ret
 
 .Func_423e1:
@@ -594,7 +594,7 @@ OmodonmekaWithOmodonFunc:
 	ld a, [hl]
 	cp $28
 	jp nz, .asm_42635
-	ld l, OBJ_UNK_01
+	ld l, OBJ_MAP_PTR_LO
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
@@ -1071,7 +1071,7 @@ Func_4279c:
 	ldh a, [hYPosHi]
 	sbc $00
 	ld [hl], a
-	play_sfx SFX_063
+	play_sfx SFX_SLAM
 	ld b, $18
 	call DoGroundShake
 	ld de, Frameset_68f45

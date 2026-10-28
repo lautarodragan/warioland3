@@ -1232,7 +1232,7 @@ Func_9cdcd:
 	jp AdvanceCutsceneFunc
 
 Func_9ce1f:
-	play_sfx SFX_112
+	play_sfx SFX_ITEM_RAISE
 	ret
 
 DoCutsceneFunc:
@@ -1249,7 +1249,7 @@ DoCutsceneFunc:
 
 .table
 	table_width 2
-	dw .InvalidCutscene ; EVENT_00
+	dw .InvalidCutscene ; EVENT_NONE
 	dw PrologueFunc ; EVENT_PROLOGUE
 	dw Cutscene02Func ; EVENT_CUT_TREE
 	dw Cutscene03Func ; EVENT_OPEN_NORTH_GATE
@@ -1436,7 +1436,7 @@ Cutscene03Func:
 	ld a, $05
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 
 .Func_9cfad:
@@ -1494,7 +1494,7 @@ Cutscene03Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9d00a:
-	play_sfx SFX_10C
+	play_sfx SFX_OPEN_NORTH_GATE
 	jp AdvanceCutsceneFunc
 
 .Wait30_4:
@@ -1549,7 +1549,7 @@ Cutscene06Func:
 	ret c
 	jp AdvanceCutsceneFunc
 .asm_9d068
-	play_sfx SFX_102
+	play_sfx SFX_TREE_FALL
 	ret
 
 .Func_9d071:
@@ -1621,7 +1621,7 @@ Cutscene06Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_023
+	play_sfx SFX_BUBBLE_FLOAT
 	ret
 
 Func_9d0e6:
@@ -1684,7 +1684,7 @@ Cutscene0aFunc:
 
 .Func_9d145:
 	call .Func_9d133
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 .Func_9d153:
 	ld c, 30
@@ -1797,7 +1797,7 @@ Cutscene07Func:
 	ld a, [wSceneObj2Frame]
 	and a
 	ret nz
-	play_sfx SFX_109
+	play_sfx SFX_FIX_ELEVATOR_1
 	jp AdvanceCutsceneFunc
 
 .Func_9d22c:
@@ -1824,7 +1824,7 @@ Cutscene07Func:
 	ld a, $08
 	ld hl, wSceneObj4State
 	call SetSceneObjState
-	play_sfx SFX_035
+	play_sfx SFX_CHEST_OPEN
 	jp AdvanceCutsceneFunc
 
 .Func_9d25c:
@@ -1838,7 +1838,7 @@ Cutscene07Func:
 	jp WaitCutsceneFunc
 
 .Func_9d269:
-	play_sfx SFX_10B
+	play_sfx SFX_FIX_ELEVATOR_2
 	jp AdvanceCutsceneFunc
 
 .Func_9d274:
@@ -1901,7 +1901,7 @@ Cutscene19Func:
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_073
+	play_sfx SFX_FLAME
 	jp AdvanceCutsceneFunc
 
 .Func_9d2e4:
@@ -2102,7 +2102,7 @@ Cutscene11Func:
 	jp AdvanceCutsceneFunc
 
 .asm_9d438
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	ret
 
 Cutscene1bFunc:
@@ -2376,14 +2376,14 @@ Cutscene22Func:
 	ld a, $01
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_103
+	play_sfx SFX_PATH_ARROW
 	jp AdvanceCutsceneFunc
 
 .Func_9d631:
 	ld a, [wSceneObj2Frame]
 	cp $05
 	ret nz
-	play_sfx SFX_107
+	play_sfx SFX_HAMMER_BOT_WALK
 	jp AdvanceCutsceneFunc
 
 .Func_9d642:
@@ -2563,19 +2563,19 @@ Func_9d6f0:
 	jr z, .asm_9d789
 	ret
 .asm_9d765
-	play_sfx SFX_11E
+	play_sfx SFX_YELLOW_MUSIC_BOX
 	ret
 .asm_9d76e
-	play_sfx SFX_11F
+	play_sfx SFX_BLUE_MUSIC_BOX
 	ret
 .asm_9d777
-	play_sfx SFX_120
+	play_sfx SFX_GREEN_MUSIC_BOX
 	ret
 .asm_9d780
-	play_sfx SFX_121
+	play_sfx SFX_RED_MUSIC_BOX
 	ret
 .asm_9d789
-	play_sfx SFX_122
+	play_sfx SFX_GOLD_MUSIC_BOX
 	ret
 
 .Func_9d792:
@@ -2660,7 +2660,7 @@ Cutscene02Func:
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_101
+	play_sfx SFX_CHOP_TREE
 	jp AdvanceCutsceneFunc
 
 .WaitCutAnimation:
@@ -2812,7 +2812,7 @@ Cutscene0dFunc:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_117
+	play_sfx SFX_SUMMON_SNAKES
 	jp AdvanceCutsceneFunc
 
 .Func_9d929:
@@ -2947,7 +2947,7 @@ Cutscene13Func:
 	ld a, [hl]
 	cp $b0
 	ret c
-	play_sfx SFX_061
+	play_sfx SFX_EARTHQUAKE
 	jp AdvanceCutsceneFunc
 
 Func_9da0e:
@@ -3030,7 +3030,7 @@ Cutscene49Func:
 	ld a, [wSceneObj2Duration]
 	and a
 	ret nz
-	play_sfx SFX_12C
+	play_sfx SFX_OPEN_GOLDEN_SNAKE_DOOR
 	ret
 .asm_9daa6
 	ld a, $02
@@ -3081,7 +3081,7 @@ Cutscene49Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 	ret
 
 Cutscene04Func:
@@ -3144,7 +3144,7 @@ Cutscene04Func:
 	call .Func_9db43
 	cp $4a
 	ret nz
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceCutsceneFunc
 
 .Func_9db71:
@@ -3208,7 +3208,7 @@ Cutscene24Func:
 	ld [wSceneObj3State], a
 	jp AdvanceCutsceneFunc
 .asm_9dbdc
-	play_sfx SFX_128
+	play_sfx SFX_WARPED_VOID_APPEAR
 	ret
 
 .Func_9dbe5:
@@ -3310,7 +3310,7 @@ Cutscene1fFunc:
 	ret nz
 	jp AdvanceCutsceneFunc
 .asm_9dcc1
-	play_sfx SFX_11D
+	play_sfx SFX_TORNADO
 	ret
 
 .Func_9dcca:
@@ -3619,7 +3619,7 @@ Cutscene38Func:
 	ld a, [wSceneObj2Frame]
 	cp $05
 	ret nz
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp AdvanceCutsceneFunc
 
 .Func_9debf:
@@ -3746,7 +3746,7 @@ Cutscene30Func:
 .asm_9df90
 	ld a, $04
 	ld [hl], a
-	play_sfx SFX_00F
+	play_sfx SFX_UNDERWATER_THRUST
 	ret
 
 .asm_9df9c
@@ -4028,7 +4028,7 @@ Cutscene3aFunc:
 	ld [hl], a
 	ret
 .asm_9e168
-	play_sfx SFX_080
+	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
 Cutscene3cFunc:
@@ -4099,7 +4099,7 @@ Cutscene3cFunc:
 	ld a, $05
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	jp AdvanceCutsceneFunc
 
 .Func_9e1f4:
@@ -4133,7 +4133,7 @@ Cutscene3cFunc:
 	lb de, $58, $50
 	ld a, $06
 	call Func_9ccf9
-	play_sfx SFX_074
+	play_sfx SFX_ZOMBIE_RISE
 	jp AdvanceCutsceneFunc
 
 .Func_9e253:
@@ -4373,7 +4373,7 @@ Cutscene3dFunc:
 	ld a, [bc]
 	cp $04
 	ret c
-	play_sfx SFX_07A
+	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	jp AdvanceCutsceneFunc
 
 .Func_9e402:
@@ -4395,7 +4395,7 @@ Cutscene3dFunc:
 	ld a, [bc]
 	cp $14
 	ret c
-	play_sfx SFX_0AC
+	play_sfx SFX_SCOWLER_DEFEATED
 	jp AdvanceCutsceneFunc
 
 .Func_9e429:
@@ -4463,7 +4463,7 @@ Cutscene4aFunc:
 	ld a, [wSceneObj2Frame]
 	cp $06
 	ret nz
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	jp AdvanceCutsceneFunc
 
 .Func_9e4a5:
@@ -4767,7 +4767,7 @@ Cutscene51Func:
 	ld a, [wSceneObj2Frame]
 	cp $04
 	ret nz
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 	jp AdvanceCutsceneFunc
 
 .Func_9e6b8:
@@ -4804,7 +4804,7 @@ Cutscene51Func:
 	ld [hl], a
 	ret
 .asm_9e6e6
-	play_sfx SFX_01F
+	play_sfx SFX_RUMBLE
 	ret
 
 Func_9e6ef:
@@ -4975,7 +4975,7 @@ Cutscene57Func:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_105
+	play_sfx SFX_GONG
 	jp AdvanceCutsceneFunc
 
 .Func_9e827:
@@ -5095,7 +5095,7 @@ Cutscene58Func:
 	ld a, $01
 	ld [wSceneObj12YCoord], a
 	ld [wSceneObj12XCoord], a
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	jp AdvanceCutsceneFunc
 
 .Func_9e905:
@@ -5454,7 +5454,7 @@ Cutscene44Func:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	jp AdvanceCutsceneFunc
 
 .Func_9eb8a:
@@ -5483,7 +5483,7 @@ Cutscene44Func:
 	ld a, [bc]
 	cp $2d
 	ret c
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	jp AdvanceCutsceneFunc
 
 .Func_9ebbc:
@@ -5708,7 +5708,7 @@ Cutscene14Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_10F
+	play_sfx SFX_VOLCANO_ERUPTION_1
 	ret
 
 .Func_9edb7:
@@ -5735,10 +5735,10 @@ Cutscene14Func:
 	ld a, [wSceneObj5Frame]
 	cp $09
 	jr nc, .asm_9ede8
-	play_sfx SFX_110
+	play_sfx SFX_VOLCANO_ERUPTION_2
 	ret
 .asm_9ede8
-	play_sfx SFX_111
+	play_sfx SFX_VOLCANO_ERUPTION_3
 	ret
 
 .Func_9edf1:
@@ -5789,13 +5789,13 @@ Cutscene14Func:
 	jr z, .asm_9ee4e
 	ret
 .asm_9ee3c
-	play_sfx SFX_114
+	play_sfx SFX_VOLCANO_ERUPTION_4
 	ret
 .asm_9ee45
-	play_sfx SFX_115
+	play_sfx SFX_VOLCANO_ERUPTION_5
 	ret
 .asm_9ee4e
-	play_sfx SFX_116
+	play_sfx SFX_VOLCANO_ERUPTION_6
 	ret
 
 .Func_9ee57:
@@ -6038,7 +6038,7 @@ Func_9f174:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_10A
+	play_sfx SFX_FIX_ELEVATOR
 	ret
 
 .framesets
@@ -6171,7 +6171,7 @@ Func_9f244:
 	ret nz
 	xor a
 	ld [de], a
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	ret
 
 Func_9f2a2:
@@ -6239,7 +6239,7 @@ Func_9f2f3:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_06D
+	play_sfx SFX_CART_ROLL
 	ret
 
 .framesets
@@ -6383,7 +6383,7 @@ Func_9f3ee:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_131
+	play_sfx SFX_TREE_MOUTH_OPEN
 	ret
 
 Func_9f423:
@@ -6455,7 +6455,7 @@ Func_9f423:
 	ld [de], a
 	ret
 .asm_9f493
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 Func_9f49c:
@@ -6501,7 +6501,7 @@ Func_9f49c:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_133
+	play_sfx SFX_MAKE_WIRE
 	ret
 
 .asm_9f4ec
@@ -6518,7 +6518,7 @@ Func_9f49c:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	ret
 
 Func_9f508:
@@ -6557,7 +6557,7 @@ Func_9f508:
 	ld [de], a
 	ret
 .asm_9f53e
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 	ret
 
 Func_9f547:
@@ -6611,7 +6611,7 @@ Func_9f547:
 	ld [de], a
 	ret
 .asm_9f597
-	play_sfx SFX_040
+	play_sfx SFX_ELECTRIC_SHOCK
 	ret
 
 Func_9f5a0:
@@ -6663,7 +6663,7 @@ Func_9f5a0:
 .asm_9f5f6
 	cp c
 	ret nz
-	play_sfx SFX_0BA
+	play_sfx SFX_PUMP
 .asm_9f600
 	ld a, b
 	xor $1
@@ -6696,7 +6696,7 @@ Func_9f607:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_085
+	play_sfx SFX_MUDDEE_SWIM
 	ret
 
 Func_9f638:
@@ -6845,7 +6845,7 @@ Func_9f6f8:
 	ld [de], a
 	ret
 .asm_9f732
-	play_sfx SFX_07D
+	play_sfx SFX_FAN_SPIN
 	ret
 
 Func_9f73b:
@@ -6983,7 +6983,7 @@ Func_9f7dc:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 Func_9f821:
@@ -7017,7 +7017,7 @@ Func_9f821:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_01E
+	play_sfx SFX_FIRE
 	ret
 
 Func_9f857:
@@ -7080,7 +7080,7 @@ Func_9f86a:
 	ld [de], a
 	ret
 .asm_9f8b8
-	play_sfx SFX_076
+	play_sfx SFX_THUNDER
 	ret
 
 .Func_9f8c1:
@@ -7197,10 +7197,10 @@ Func_9f91f:
 	jr z, .asm_9f982
 	ret nz
 .asm_9f978
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	jr .asm_9f98a
 .asm_9f982
-	play_sfx SFX_0F1
+	play_sfx SFX_TIPTOE_2
 .asm_9f98a
 	ld a, b
 	xor $01
@@ -7297,7 +7297,7 @@ Func_9f9f5:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_135
+	play_sfx SFX_OPEN_CRATER_HOLE
 	ret
 .asm_9fa2f
 	call .Func_9fa34
@@ -7312,7 +7312,7 @@ Func_9f9f5:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_080
+	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
 Func_9fa48:
@@ -7400,7 +7400,7 @@ Func_9fab4:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 Func_9faea:
@@ -7445,7 +7445,7 @@ Func_9faea:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_08F
+	play_sfx SFX_BIG_OCTO_2
 	ret
 
 .asm_9fb33
@@ -7461,7 +7461,7 @@ Func_9faea:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_083
+	play_sfx SFX_SMALL_SPLASH
 	ret
 
 Func_9fb4c:

@@ -223,7 +223,7 @@ Func_ac0b6:
 	ret c ; < 30
 	xor a
 	ld [bc], a ; unk7
-	play_sfx SFX_138
+	play_sfx SFX_EPILOGUE_OBJ
 	ret
 
 .Func_ac15f:
@@ -315,7 +315,7 @@ Func_ac0b6:
 	ret c
 	xor a
 	ld [bc], a
-	play_sfx SFX_08E
+	play_sfx SFX_SPARKLE
 	ret
 
 .Func_ac1fb:
@@ -337,7 +337,7 @@ Func_ac0b6:
 	ld [bc], a
 	ret
 .asm_ac215
-	play_sfx SFX_11A
+	play_sfx SFX_BEANSTALK_GROW
 	ret
 
 .Func_ac21e:
@@ -726,7 +726,7 @@ Func_ac409:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_0F3
+	play_sfx SFX_PROLOGUE_1
 	ret
 
 .Func_ac48e:
@@ -739,7 +739,7 @@ Func_ac409:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_0F4
+	play_sfx SFX_PROLOGUE_2
 	ret
 
 .Func_ac4a8:
@@ -798,7 +798,7 @@ Func_ac4fa:
 	ld hl, wSceneWarioSFXCounter
 	ld a, [hl]
 	and a
-	play_sfx z, SFX_12A
+	play_sfx z, SFX_STEP
 	inc [hl]
 	ld c, $24
 	ld a, [hl]
@@ -817,7 +817,7 @@ Func_ac515:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_137
+	play_sfx SFX_SCENE_WARIO_RUN
 	ret
 
 UpdateSceneWario:
@@ -1034,7 +1034,7 @@ UpdateSceneWario:
 	jr z, .asm_ac688
 	ret
 .asm_ac688
-	play_sfx SFX_0F1
+	play_sfx SFX_TIPTOE_2
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
 	ret
@@ -1124,13 +1124,13 @@ UpdateSceneWario:
 	jr z, .asm_ac722
 	ret
 .asm_ac722
-	play_sfx SFX_0F2
+	play_sfx SFX_TIPTOE_3
 	ld a, $01
 .asm_ac72c
 	ld [wSceneWarioSFXCounter], a
 	ret
 .asm_ac730
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	ld a, $02
 	jr .asm_ac72c
 
@@ -1393,7 +1393,7 @@ SetSceneWarioState:
 	cp SCENEWARIO_GROUP_08
 	jr c, .update_state_group
 	inc b
-	cp SCENEWARIO_GROUP_19
+	cp SCENEWARIO_GROUP_09
 	jr c, .update_state_group
 	inc b
 	cp SCENEWARIO_GROUP_10
@@ -1479,7 +1479,7 @@ ENDM
 	scene_wario_gfx OAM_aa6e7,  WarioUnk2Gfx  ; SCENEWARIO_GROUP_06
 	scene_wario_gfx OAM_aa934,  WarioUnk3Gfx  ; SCENEWARIO_GROUP_07
 	scene_wario_gfx OAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
-	scene_wario_gfx OAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_19
+	scene_wario_gfx OAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_09
 	scene_wario_gfx OAM_ab0c5,  WarioUnk5Gfx  ; SCENEWARIO_GROUP_10
 	scene_wario_gfx OAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
 	scene_wario_gfx OAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12
@@ -2111,7 +2111,7 @@ _UpdateTempleScene:
 	stop_sfx
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
-	ld a, SST_OVERWORLD_08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	scf
 	ret
@@ -2309,7 +2309,7 @@ PrintText:
 	ld [wPendingCharDest + 1], a
 	ld a, [wPendingCharTile]
 	cp ' '
-	play_sfx nz, SFX_130
+	play_sfx nz, SFX_TEXT_PRINT
 	ld hl, wCurTextLinePos
 	inc [hl]
 	ld a, [hl]
@@ -3467,7 +3467,7 @@ HandleTempleShakeScene:
 	ld a, $02
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	play_sfx SFX_106
+	play_sfx SFX_EMOTE
 	jp Func_ad335
 
 .WaitExclamationMark:
@@ -4319,7 +4319,7 @@ Func_adbfe:
 .a_btn_or_d_up
 	ld a, $30
 	call SetSceneWarioState
-	play_sfx SFX_12A
+	play_sfx SFX_STEP
 	jp .asm_adc43
 
 .Func_add8a:

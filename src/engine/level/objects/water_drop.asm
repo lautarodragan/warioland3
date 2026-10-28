@@ -33,7 +33,7 @@ WaterDropFunc:
 	call SetObjectFramesetPtr
 	ld a, $18
 	ld [hli], a
-	play_sfx SFX_0A1
+	play_sfx SFX_WATER_DROP
 .asm_49da6
 	ld a, $81
 	ld [wCurObjAction], a

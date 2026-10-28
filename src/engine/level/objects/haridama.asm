@@ -105,7 +105,7 @@ HaridamaFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ret
 
@@ -233,7 +233,7 @@ HaridamaFunc:
 	jp SetObjectFramesetPtr
 
 .asm_49069
-	ld l, OBJ_UNK_1D
+	ld l, OBJ_ACTION_SIDE
 	bit 7, [hl]
 	jr nz, .asm_49077
 	ld l, OBJ_SUBSTATE
@@ -245,7 +245,7 @@ HaridamaFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_06
+	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
 	ld l, OBJ_STATE
 	ld a, $38

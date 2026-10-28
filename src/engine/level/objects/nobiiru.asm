@@ -59,7 +59,7 @@ NobiiruFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	play_sfx SFX_079
+	play_sfx SFX_NOBIIRU_EXTEND
 	ld a, $0c
 	ld [wCurObjVar2], a
 	ld a, [wCurObjSubState]
@@ -221,7 +221,7 @@ NobiiruFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_0B
+	or OBJ_INTERACTION_BUMP_OFF_PAUSE
 	ld [hld], a
 	ld b, $08
 	jp .SetFrameset
