@@ -3544,7 +3544,7 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0AB`: level/objects/scowler.asm:377 (`ScowlerFunc.vulnerable_swim`)
 - `SFX_0AD`: level/objects/pesce.asm:560 (`PesceFunc.asm_52108`)
 - `SFX_0AE`: level/objects/pesce.asm:274 (`PesceFunc.asm_51efc`)
-- `SFX_0B0`: level/objects/anonster.asm:155 (`AnonsterFunc.asm_50118`)
+- `SFX_0B0`: level/objects/anonster.asm:155 (`AnonsterFunc.walk_move`)
 - `SFX_0B1`: level/objects/anonster.asm:343 (`AnonsterFunc.StartRise`), level/objects/anonster.asm:817 (`AnonsterFunc.Hurt`), level/objects/anonster.asm:924 (`AnonsterFunc.Defeated`)
 - `SFX_0B2`: level/objects/anonster.asm:865 (`AnonsterFunc.Recover2`), level/objects/muddee.asm:108 (`MuddeeFunc.spawn_stingers`)
 - `SFX_0B5`: level/objects/scowler.asm:1071 (`UpdateScowlerInkBlackout.start_ink`)
