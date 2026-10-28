@@ -1261,16 +1261,16 @@ Func_81714:
 	ld a, $f8
 	and l
 	ld l, a
-	ld de, OAM_aa0cf
-	ld b, BANK(OAM_aa0cf)
+	ld de, OWUIOAM_aa0cf
+	ld b, BANK(OWUIOAM_aa0cf)
 	call LoadOWSpriteWithScroll
 	ret
 
 .framesets
-	dw Frameset_aa26a
-	dw Frameset_aa267
-	dw Frameset_aa261
-	dw Frameset_aa264
+	dw PathPreviewFrameset_aa26a
+	dw PathPreviewFrameset_aa267
+	dw PathPreviewFrameset_aa261
+	dw PathPreviewFrameset_aa264
 
 SetDayNightSpellSelectable:
 	ld a, DAY_OR_NIGHT_SPELL
@@ -3064,13 +3064,13 @@ SetCompassSprite:
 	db $14, $14
 
 ; unreferenced
-Data_82026:
+UnreferencedCompassCoords:
 	db $14, $14, $14, $14, $14, $14
 
 LoadCompassSprite:
 	ld hl, wCompassObj
-	ld de, OAM_aa580
-	ld b, BANK(OAM_aa580)
+	ld de, CompassOAM_aa580
+	ld b, BANK(CompassOAM_aa580)
 	call LoadOWSpriteWithScroll
 	ret
 
@@ -3149,10 +3149,10 @@ SetOWWarioOAM:
 	ld [wOWWarioSprite], a
 	and a
 	ret z
-	ld bc, OAM_aa329
+	ld bc, OWWarioOAM_aa329
 	cp $05
 	jr c, .got_oam
-	ld bc, OAM_aa0cf
+	ld bc, OWUIOAM_aa0cf
 .got_oam
 	dec a
 	add a ; *2
@@ -3177,11 +3177,11 @@ SetOWWarioOAM:
 	ret
 
 .framesets
-	dw Frameset_aa405
-	dw Frameset_aa416
-	dw Frameset_aa427
-	dw Frameset_aa438
-	dw Frameset_aa25e
+	dw OWWarioFrameset_aa405
+	dw OWWarioFrameset_aa416
+	dw OWWarioFrameset_aa427
+	dw OWWarioFrameset_aa438
+	dw OWWarioFrameset_aa25e
 
 Func_820e6:
 	call Func_82111
@@ -3502,10 +3502,10 @@ UpdateTopBar:
 	ld [wOWUIObj2XCoord], a
 	call DrawTopBar
 
-	ld hl, Pals_84a20
+	ld hl, TopBarOBPals
 	ld de, wTempPals2 palette 4
 	ld c, 4 palettes
-	ld b, BANK(Pals_84a20)
+	ld b, BANK(TopBarOBPals)
 	call CopyFarBytes
 	ret
 
@@ -3550,7 +3550,7 @@ UpdateTopBar:
 	xor a
 	ld [wOWStep], a
 	ld [wOWBarsState], a ; OWBARS_NONE
-	ld hl, Pals_84900 palette 4
+	ld hl, NorthOWOBPals palette 4
 	ld de, 8 palettes
 	ld a, [wCurMapSide]
 	inc a
@@ -3562,7 +3562,7 @@ UpdateTopBar:
 .got_pal
 	ld de, wTempPals2 palette 4
 	ld c, 4 palettes
-	ld b, BANK(Pals_84900)
+	ld b, BANK(NorthOWOBPals)
 	call CopyFarBytes
 	ld a, LOW(rOBPI)
 	ld [wPalConfig1Register], a
@@ -3839,8 +3839,8 @@ Func_824f1:
 	ld a, [wOWUIObj1State]
 	ld hl, wOWUIObj1Duration
 	call Func_82521
-	ld b, BANK(OAM_a9fe2)
-	ld de, OAM_a9fe2
+	ld b, BANK(TopBarOAM_a9fe2)
+	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj1
 	call LoadOWSpriteWithScroll
 	ret
@@ -3851,8 +3851,8 @@ Func_8250a:
 	ret z
 	ld hl, wOWUIObj2Duration
 	call Func_82521
-	ld b, BANK(OAM_a9fe2)
-	ld de, OAM_a9fe2
+	ld b, BANK(TopBarOAM_a9fe2)
+	ld de, TopBarOAM_a9fe2
 	ld hl, wOWUIObj2
 	call LoadOWSpriteWithScroll
 	ret
@@ -3882,65 +3882,65 @@ Func_82521:
 	ret
 
 .Func_82543:
-	ld de, Frameset_aa091
+	ld de, TopBarFrameset_aa091
 	jr .UpdateAnimation_PopHL
 
 .Func_82548:
-	ld de, Frameset_aa094
+	ld de, TopBarFrameset_aa094
 	jr .UpdateAnimation_PopHL
 
 .Func_8254d:
-	ld de, Frameset_aa097
+	ld de, TopBarFrameset_aa097
 	jr .UpdateAnimation_PopHL
 
 .Func_82552:
-	ld de, Frameset_aa09a
+	ld de, TopBarFrameset_aa09a
 	jr .UpdateAnimation_PopHL
 
 .Func_82557:
-	ld de, Frameset_aa09d
+	ld de, TopBarFrameset_aa09d
 	jr .UpdateAnimation_PopHL
 
 .Func_8255c:
-	ld de, Frameset_aa0bc
+	ld de, TopBarFrameset_aa0bc
 	pop hl
 	call .UpdateAnimation
 	ld b, $07
 	jr .Func_8259a
 
 .Func_82567:
-	ld de, Frameset_aa0a3
+	ld de, TopBarFrameset_aa0a3
 	jr .UpdateAnimation_PopHL
 
 .Func_8256c:
-	ld de, Frameset_aa0c1
+	ld de, TopBarFrameset_aa0c1
 	pop hl
 	call .UpdateAnimation
 	ld b, $05
 	jr .Func_8259a
 
 .Func_82577:
-	ld de, Frameset_aa0a9
+	ld de, TopBarFrameset_aa0a9
 	jr .UpdateAnimation_PopHL
 
 .Func_8257c:
-	ld de, Frameset_aa0ae
+	ld de, TopBarFrameset_aa0ae
 	jr .UpdateAnimation_PopHL
 
 .Func_82581:
-	ld de, Frameset_aa0b1
+	ld de, TopBarFrameset_aa0b1
 	jr .UpdateAnimation_PopHL
 
 .Func_82586:
-	ld de, Frameset_aa0c6
+	ld de, TopBarFrameset_aa0c6
 	jr .UpdateAnimation_PopHL
 
 .Func_8258b:
-	ld de, Frameset_aa0b4
+	ld de, TopBarFrameset_aa0b4
 	jr .UpdateAnimation_PopHL
 
 .Func_82590:
-	ld de, Frameset_aa0b9
+	ld de, TopBarFrameset_aa0b9
 ;	fallthrough
 
 .UpdateAnimation_PopHL:
@@ -4061,7 +4061,7 @@ HandleTopBarSelection:
 	ret
 
 .ApplyPressedButtonAttrs:
-	ld hl, Data_826ee
+	ld hl, TopBarButton_Pressed
 	call Func_8269f
 	call ApplyTopBarButtonAttributes
 	ret
@@ -4071,17 +4071,17 @@ LoadTopBarButtonAttributes:
 	ld b, a
 
 	; Day/Night Spell
-	ld hl, Data_826c6
+	ld hl, TopBarButton_DayNight
 	debgcoord 11, 19, wAttrmap
 	call .LoadSelectableAttrs
 
 	; Cutscene
-	ld hl, Data_826ce
+	ld hl, TopBarButton_Cutscene
 	debgcoord 9, 19, wAttrmap
 	call .LoadSelectableAttrs
 
 	; Collection
-	ld hl, Data_826d6
+	ld hl, TopBarButton_Collection
 	debgcoord 7, 19, wAttrmap
 	call .LoadSelectableAttrs
 
@@ -4089,17 +4089,17 @@ LoadTopBarButtonAttributes:
 	ld b, a
 
 	; Day/Night Spell
-	ld hl, Data_826de
+	ld hl, TopBarButton_Selected
 	debgcoord 11, 19, wAttrmap
 	call .LoadSelectedAttrs
 
 	; Cutscene
-	ld hl, Data_826de
+	ld hl, TopBarButton_Selected
 	debgcoord 9, 19, wAttrmap
 	call .LoadSelectedAttrs
 
 	; Collection
-	ld hl, Data_826e6
+	ld hl, TopBarButton_CollectionSelected
 	debgcoord 7, 19, wAttrmap
 	call .LoadSelectedAttrs ; can be fallthrough
 	ret
@@ -4112,7 +4112,7 @@ LoadTopBarButtonAttributes:
 .LoadSelectableAttrs:
 	srl b
 	jr c, Func_8269f
-	ld hl, Data_826be ; non-selectable
+	ld hl, TopBarButton_Unselectable ; non-selectable
 ;	fallthrough
 
 Func_8269f:
@@ -4146,31 +4146,31 @@ Func_8269f:
 	pop de
 	jr .loop
 
-Data_826be:
+TopBarButton_Unselectable:
 	db $3c, $3c, $3d, $3d
 	db $0f, $2f, $0f, $2f
 
-Data_826c6:
+TopBarButton_DayNight:
 	db $3e, $3e, $3f, $3f
 	db $0f, $2f, $0f, $2f
 
-Data_826ce:
+TopBarButton_Cutscene:
 	db $3a, $3a, $3b, $3b
 	db $0f, $2f, $0f, $2f
 
-Data_826d6:
+TopBarButton_Collection:
 	db $38, $38, $39, $39
 	db $0f, $2f, $0f, $2f
 
-Data_826de:
+TopBarButton_Selected:
 	db $34, $35, $36, $37
 	db $0f, $0f, $0f, $0f
 
-Data_826e6:
+TopBarButton_CollectionSelected:
 	db $30, $31, $32, $33
 	db $0f, $0f, $0f, $0f
 
-Data_826ee:
+TopBarButton_Pressed:
 	db $48, $49, $4a, $4b
 	db $0f, $0f, $0f, $0f
 
@@ -4562,8 +4562,8 @@ LoadSpriteInsideWindow:
 	ld [wCurSpriteFrame], a
 	ld a, c
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_aa0cf
-	ld b, BANK(OAM_aa0cf)
+	ld hl, OWUIOAM_aa0cf
+	ld b, BANK(OWUIOAM_aa0cf)
 	call LoadOWSpriteWithScroll_GotParams
 	ret
 
@@ -4572,8 +4572,8 @@ DrawBottomBar8Coin:
 	bit 7, a
 	ret z
 	ld hl, wCompassObjState
-	ld de, Frameset_aa2fb
-	ld b, BANK(Frameset_aa2fb)
+	ld de, BottomBarFrameset_aa2fb
+	ld b, BANK(BottomBarFrameset_aa2fb)
 	call UpdateOWAnimation
 	ld d, $90
 	ld hl, wCompassObjDuration
@@ -4609,8 +4609,8 @@ DrawBottomBarButtonPrompt:
 	ld [wCurSpriteXCoord], a
 	ld a, $00
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_aa580
-	ld b, BANK(OAM_aa580)
+	ld hl, CompassOAM_aa580
+	ld b, BANK(CompassOAM_aa580)
 	call LoadOWSpriteWithScroll_GotParams
 	ret
 
@@ -4913,13 +4913,13 @@ Func_82bb8:
 	ld a, [wCurSceneObjState]
 	and a
 	ret z
-	ld de, Frameset_aa544
+	ld de, UnlockLevelStarFrameset_aa544
 	ld hl, wCurSceneObjDuration
-	ld b, BANK(Frameset_aa544)
+	ld b, BANK(UnlockLevelStarFrameset_aa544)
 	call UpdateOWAnimation
 	ld hl, wCurSceneObj
-	ld de, OAM_aa445
-	ld b, BANK(OAM_aa445)
+	ld de, LevelStarOAM_aa445
+	ld b, BANK(LevelStarOAM_aa445)
 	call LoadOWSpriteWithScroll
 	ret
 
@@ -4931,15 +4931,15 @@ Func_82bda:
 	and a
 	ret z
 	ld hl, wCurSceneObjDuration
-	ld de, Frameset_aa555
-	ld b, BANK(Frameset_aa555)
+	ld de, HighlightLevelStarFrameset_aa555
+	ld b, BANK(HighlightLevelStarFrameset_aa555)
 	call UpdateOWAnimation
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	jr z, .asm_82c03
 	ld hl, wCurSceneObj
-	ld de, OAM_aa445
-	ld b, BANK(OAM_aa445)
+	ld de, LevelStarOAM_aa445
+	ld b, BANK(LevelStarOAM_aa445)
 	call LoadOWSpriteWithScroll
 	ret
 .asm_82c03
@@ -4952,10 +4952,10 @@ InitHighlightLevelScene:
 	ld a, [wEventUnlockState]
 	cp $80
 	ret nz
-	ld hl, Pals_848e0
+	ld hl, OWStarIndicatorPals
 	ld de, wTempPals2 palette 4
 	ld c, 2 palettes
-	ld b, BANK(Pals_848e0)
+	ld b, BANK(OWStarIndicatorPals)
 	call CopyFarBytes
 	ret
 

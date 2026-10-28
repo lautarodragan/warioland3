@@ -95,18 +95,18 @@ Func_1e409a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fed7c)
+	ld a, HIGH(WarioOwlFrameset_1fed7c)
 	ld [hli], a
-	ld a, LOW(Frameset_1fed7c)
+	ld a, LOW(WarioOwlFrameset_1fed7c)
 	ld [hli], a
 	xor a
 	ld [hl], a
 	ld [wSFXTimer], a
-	ld a, HIGH(OAM_1fddb4)
+	ld a, HIGH(WarioOwlOAM_1fddb4)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fddb4)
+	ld a, LOW(WarioOwlOAM_1fddb4)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_1fddb4)
+	ld a, BANK(WarioOwlOAM_1fddb4)
 	ld [wActionHelpWarioOAMBank], a
 
 	ld hl, wMenuObj4

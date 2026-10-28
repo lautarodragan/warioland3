@@ -137,14 +137,14 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41b84
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
 	ret
 
 .asm_41b84
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -179,10 +179,10 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41bc9
-	ld de, Frameset_68574
+	ld de, DoughnuteerFrameset_68574
 	jp SetObjectFramesetPtr
 .asm_41bc9
-	ld de, Frameset_6857d
+	ld de, DoughnuteerFrameset_6857d
 	jp SetObjectFramesetPtr
 .asm_41bcf
 	dec [hl]
@@ -258,7 +258,7 @@ DoughnuteerFunc:
 .asm_41c3f
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -293,7 +293,7 @@ DoughnuteerFunc:
 .asm_41c7c
 	ld a, $2c
 	ld [wCurObjState], a
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -312,14 +312,14 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41caa
-	ld de, Frameset_685c4
+	ld de, DoughnuteerFrameset_685c4
 	call SetObjectFramesetPtr
 	ld a, $37
 	ld [hli], a
 	ret
 
 .asm_41caa
-	ld de, Frameset_685d7
+	ld de, DoughnuteerFrameset_685d7
 	call SetObjectFramesetPtr
 	ld a, $37
 	ld [hli], a
@@ -381,7 +381,7 @@ DoughnuteerFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
@@ -390,7 +390,7 @@ DoughnuteerFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
@@ -403,14 +403,14 @@ DoughnuteerFunc:
 	jr c, .asm_41d2d
 	xor a
 	ld [hld], a
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
 .asm_41d2d
 	xor a
 	ld [hld], a
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
@@ -426,12 +426,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41d4f
-	ld de, Frameset_68562
+	ld de, DoughnuteerFrameset_68562
 	call SetObjectFramesetPtr
 	ret
 
 .asm_41d4f
-	ld de, Frameset_6856b
+	ld de, DoughnuteerFrameset_6856b
 	call SetObjectFramesetPtr
 	ret
 
@@ -470,7 +470,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_41d95
-	ld de, Frameset_68586
+	ld de, DoughnuteerFrameset_68586
 	jr .asm_41da0
 
 .asm_41d95
@@ -482,7 +482,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_41d95
-	ld de, Frameset_68597
+	ld de, DoughnuteerFrameset_68597
 .asm_41da0
 	ld a, $5a
 	ld [hl], a
@@ -607,7 +607,7 @@ DoughnuteerFunc:
 	jr c, .asm_41e72
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_685fe
+	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -616,7 +616,7 @@ DoughnuteerFunc:
 .asm_41e72
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_6857d
+	ld de, DoughnuteerFrameset_6857d
 	call SetObjectFramesetPtr
 	ret
 
@@ -637,12 +637,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41e9f
-	ld de, Frameset_685a8
+	ld de, DoughnuteerFrameset_685a8
 	call SetObjectFramesetPtr
 	jr .asm_41ea5
 
 .asm_41e9f
-	ld de, Frameset_685ad
+	ld de, DoughnuteerFrameset_685ad
 	call SetObjectFramesetPtr
 .asm_41ea5
 	ld a, $0c
@@ -666,14 +666,14 @@ DoughnuteerFunc:
 	jr c, .asm_41eca
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_68574
+	ld de, DoughnuteerFrameset_68574
 	call SetObjectFramesetPtr
 	ret
 
 .asm_41eca
 	ld a, $2b
 	ld [hl], a
-	ld de, Frameset_68605
+	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
 	ld a, $1a
 	ld [hli], a
@@ -685,7 +685,7 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_685b2, Frameset_685bb
+	ld_obj_frameset DoughnuteerFrameset_685b2, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -707,7 +707,7 @@ DoughnuteerFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_685b2, Frameset_685bb
+	ld_obj_frameset DoughnuteerFrameset_685b2, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -737,12 +737,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41f47
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_41f4d
 
 .asm_41f47
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_41f4d
 	inc l
@@ -805,12 +805,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41fb3
-	ld de, Frameset_685f0
+	ld de, DoughnuteerFrameset_685f0
 	call SetObjectFramesetPtr
 	jr .asm_41fb9
 
 .asm_41fb3
-	ld de, Frameset_685f7
+	ld de, DoughnuteerFrameset_685f7
 	call SetObjectFramesetPtr
 .asm_41fb9
 	ld a, $1a
@@ -866,12 +866,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_42008
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_4200e
 
 .asm_42008
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_4200e
 	ld a, $04
@@ -928,10 +928,10 @@ DoughnuteerFunc:
 	ld a, c
 	rlca
 	jr c, .asm_4205e
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	jp SetObjectFramesetPtr
 .asm_4205e
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	jp SetObjectFramesetPtr
 .Func_42064:
 	ld hl, wCurObjState
@@ -965,12 +965,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4209c
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_420a2
 
 .asm_4209c
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_420a2
 	ld l, OBJ_FLAGS
@@ -992,12 +992,12 @@ DoughnuteerFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_420c8
-	ld de, Frameset_685b2
+	ld de, DoughnuteerFrameset_685b2
 	call SetObjectFramesetPtr
 	jr .asm_420ce
 
 .asm_420c8
-	ld de, Frameset_685bb
+	ld de, DoughnuteerFrameset_685bb
 	call SetObjectFramesetPtr
 .asm_420ce
 	ld l, OBJ_FLAGS
@@ -1041,7 +1041,7 @@ DoughnutFunc_LeftRight:
 	jr z, DoughnutFunc_Destroy
 	cp $19
 	jr z, DoughnutFunc
-	ld bc, Data_60510
+	ld bc, SmallHopYVel2
 	jp ApplyObjYMovement
 DoughnutFunc_Up:
 	ld hl, wCurObjUpdateFunction + 1
@@ -1060,7 +1060,7 @@ DoughnutFunc_Up:
 	jr z, DoughnutFunc_Destroy
 	cp $19
 	jr z, DoughnutFunc
-	ld bc, Data_60540
+	ld bc, JumpArcYVel
 	jp ApplyObjYMovement
 DoughnutFunc_Destroy:
 	xor a
@@ -1094,5 +1094,5 @@ DoughnutFunc:
 .asm_42165
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement

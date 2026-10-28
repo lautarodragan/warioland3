@@ -190,11 +190,11 @@ CoinFunc:
 	ret
 
 	; move left
-	move_coin $0a, 6, Data_60300
+	move_coin $0a, 6, Bounce3YVel_Light
 	jp .asm_63502
-	move_coin $02, 4, Data_602c0
+	move_coin $02, 4, Bounce1YVel_Light
 	jr .asm_63502
-	move_coin $06, 5, Data_602e0
+	move_coin $06, 5, Bounce2YVel_Light
 .asm_63502
 	call MoveObjectLeftByVar2
 	ld hl, wCurObjYPos
@@ -225,11 +225,11 @@ CoinFunc:
 	ret
 
 	; move right
-	move_coin $0b, 6, Data_60300
+	move_coin $0b, 6, Bounce3YVel_Light
 	jp .asm_635db
-	move_coin $03, 4, Data_602c0
+	move_coin $03, 4, Bounce1YVel_Light
 	jr .asm_635db
-	move_coin $07, 5, Data_602e0
+	move_coin $07, 5, Bounce2YVel_Light
 .asm_635db
 	call MoveObjectRightByVar2
 	ld hl, wCurObjYPos

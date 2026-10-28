@@ -1,4 +1,4 @@
-OAM_d20e::
+ParticleOAM_d20e::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -358,7 +358,7 @@ OAM_d20e::
 	frame_oam -11, -13, $c2, 2 | OAM_XFLIP
 	db $80
 
-Frameset_d49a::
+ParticleDebrisFrameset::
 	db   0,  2
 	db   1,  3
 	db   2,  3
@@ -366,7 +366,7 @@ Frameset_d49a::
 	db  10,  2
 	db $ff
 
-Frameset_d4a5::
+ActionHelpEnemyVanishFrameset::
 	db  53,  2
 	db  54,  1
 	db  55,  2
@@ -379,7 +379,7 @@ Frameset_d4a5::
 	db  59,  2
 	db $ff
 
-Frameset_d4ba:
+ParticleSplashFrameset:
 	db  11,  4
 	db  12,  4
 	db  13,  6
@@ -387,7 +387,7 @@ Frameset_d4ba:
 	db  15,  4
 	db $ff
 
-Frameset_d4c5:
+ParticleDustFrameset:
 	db  16,  2
 	db  17,  3
 	db  18,  6
@@ -395,41 +395,41 @@ Frameset_d4c5:
 	db $ff
 
 ; unreferenced
-Frameset_d4ce:
+UnreferencedParticleFrameset_d4ce:
 	db  20,  3
 	db  21,  3
 	db  22,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4d5:
+UnreferencedParticleFrameset_d4d5:
 	db  23,  3
 	db  24,  3
 	db  25,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4dc:
+UnreferencedParticleFrameset_d4dc:
 	db  26,  3
 	db  27,  3
 	db  28,  3
 	db $ff
 
 ; unreferenced
-Frameset_d4e3:
+UnreferencedParticleFrameset_d4e3:
 	db  29,  3
 	db  30,  3
 	db  31,  3
 	db $ff
 
-Frameset_d4ea:
+ParticleSmokeSmallFrameset:
 	db  32,  9
 	db  33,  8
 	db  34,  7
 	db  35,  7
 	db $ff
 
-Frameset_d4f3:
+ParticleSmokeLargeFrameset:
 	db  11,  4
 	db  12,  4
 	db  36,  6
@@ -439,14 +439,14 @@ Frameset_d4f3:
 	db  35,  7
 	db $ff
 
-Frameset_d502:
+ParticleBubblesFrameset_d502:
 	db  39,  6
 	db  40,  6
 	db  41,  6
 	db  42,  6
 	db $ff
 
-Frameset_d50b:
+ParticleBubblesFrameset_d50b:
 	db  43,  6
 	db  44,  6
 	db  45,  6
@@ -454,32 +454,32 @@ Frameset_d50b:
 	db $ff
 
 ; unreferenced
-Frameset_d514:
+UnreferencedParticleFrameset_d514:
 	db  47,  3
 	db  48,  3
 	db $ff
 
 ; unreferenced
-Frameset_d519:
+UnreferencedParticleFrameset_d519:
 	db  49,  4
 	db $ff
 
 ; unreferenced
-Frameset_d51c:
+UnreferencedParticleFrameset_d51c:
 	db  50,  4
 	db $ff
 
 ; unreferenced
-Frameset_d51f:
+UnreferencedParticleFrameset_d51f:
 	db  51,  4
 	db $ff
 
 ; unreferenced
-Frameset_d522:
+UnreferencedParticleFrameset_d522:
 	db  52,  4
 	db $ff
 
-Frameset_d525:
+ParticleStarsFrameset:
 	db   3,  1
 	db   4,  1
 	db   5,  2
@@ -488,7 +488,7 @@ Frameset_d525:
 	db   8,  1
 	db $ff
 
-OAM_d532:
+ParticleBouncyJumpOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -543,7 +543,7 @@ OAM_d532:
 	frame_oam -16,   0, $70, 1
 	db $80
 
-Frameset_d591:
+ParticleBouncyJumpFrameset:
 	db   0,  2
 	db   1,  2
 	db   2,  1
@@ -560,7 +560,7 @@ Frameset_d591:
 	db   7,  1
 	db $ff
 
-OAM_d5ae:
+ParticleBubbleBurstOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -604,14 +604,14 @@ OAM_d5ae:
 	frame_oam   0, -12, $ac, 6 | OAM_BANK1 | OAM_YFLIP
 	db $80
 
-Frameset_d622:
+ParticleBubbleBurstFrameset:
 	db   0,  2
 	db   1,  3
 	db   2,  5
 	db   3,  3
 	db $ff
 
-OAM_d62b:
+ParticleIceOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -682,7 +682,7 @@ OAM_d62b:
 	frame_oam -41, -36, $b2, 0
 	db $80
 
-Frameset_d6e4:
+ParticleIceFrameset_d6e4:
 	db   0,  2
 	db   1,  2
 	db   2,  2
@@ -697,7 +697,7 @@ Frameset_d6e4:
 	db   1,  8
 	db $ff
 
-Frameset_d6fd:
+ParticleIceFrameset_d6fd:
 	db   3,  2
 	db   1,  2
 	db   4,  2
@@ -712,7 +712,7 @@ Frameset_d6fd:
 	db   1,  8
 	db $ff
 
-OAM_d716:
+ParticleTreasureGlowOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -744,14 +744,14 @@ OAM_d716:
 	frame_oam -32,  12, $5a, 0
 	db $80
 
-Frameset_d75a:
+ParticleTreasureGlowFrameset:
 	db   0,  1
 	db   1,  1
 	db   2,  1
 	db   3,  1
 	db $ff
 
-OAM_d763::
+ParticleOwlOAM::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -783,14 +783,14 @@ OAM_d763::
 	frame_oam -25,   0, $12, 4 | OAM_BANK1
 	db $80
 
-Frameset_d7b4::
+ParticleOwlFrameset::
 	db   0,  2
 	db   2,  2
 	db   1,  2
 	db   2,  2
 	db $ff
 
-OAM_d7bd:
+ParticleSnowOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -820,13 +820,13 @@ OAM_d7bd:
 	frame_oam -37,  34, $b2, 2
 	db $80
 
-Frameset_d806:
+ParticleSnowFrameset:
 	db   0,  4
 	db   1,  4
 	db   2,  4
 	db $ff
 
-OAM_d80d:
+ParticleOAM_d80d:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

@@ -6,7 +6,7 @@ PneumoFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68c5c
+	ld de, PneumoFrameset_68c5c
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -109,14 +109,14 @@ PneumoFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_68c89
+	ld de, PneumoFrameset_68c89
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
 .Func_456fe:
-	ld de, Frameset_68c5c
+	ld de, PneumoFrameset_68c5c
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -153,9 +153,9 @@ PneumoFunc:
 .asm_45739
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld d, HIGH(Data_44000)
+	ld d, HIGH(PneumoData_44000)
 .asm_4573f
-	add LOW(Data_44000)
+	add LOW(PneumoData_44000)
 	ld e, a
 	ld a, [de]
 	cp $80
@@ -189,7 +189,7 @@ PneumoFunc:
 .asm_45777
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68c7f
+	ld de, PneumoFrameset_68c7f
 	ld c, $03
 	jr .asm_457ae
 .asm_45782
@@ -202,7 +202,7 @@ PneumoFunc:
 .asm_4578d
 	ld l, OBJ_SUBSTATE
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68c84
+	ld de, PneumoFrameset_68c84
 	ld c, $03
 	jr .asm_457ae
 .asm_45798
@@ -399,7 +399,7 @@ PneumoFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68c8e
+	ld de, PneumoFrameset_68c8e
 	call SetObjectFramesetPtr
 	ld a, 27
 	ld [hli], a
@@ -423,7 +423,7 @@ PneumoFunc:
 	call Func_358b
 	and a
 	jr nz, .asm_458ed
-	ld bc, Data_60600
+	ld bc, PneumoData_60600
 	call ApplyObjYMovement
 .asm_458ed
 	ld hl, wCurObjYPos

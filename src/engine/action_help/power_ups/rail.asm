@@ -99,18 +99,18 @@ Func_1e4329:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1feeb4)
+	ld a, HIGH(WarioRailFrameset_1feeb4)
 	ld [hli], a
-	ld a, LOW(Frameset_1feeb4)
+	ld a, LOW(WarioRailFrameset_1feeb4)
 	ld [hli], a
 	xor a
 	ld [hl], a
 	ld [wSFXTimer], a
-	ld a, HIGH(OAM_1fee05)
+	ld a, HIGH(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fee05)
+	ld a, LOW(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_1fee05)
+	ld a, BANK(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMBank], a
 
 	ld hl, wMenuObj4
@@ -123,15 +123,15 @@ Func_1e4329:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6fc2)
+	ld a, HIGH(ActionHelpFrameset_1e6fc2)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6fc2)
+	ld a, LOW(ActionHelpFrameset_1e6fc2)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6f86)
+	ld a, HIGH(ActionHelpOAM_1e6f86)
 	ld [hli], a
-	ld a, LOW(OAM_1e6f86)
+	ld a, LOW(ActionHelpOAM_1e6f86)
 	ld [hli], a
-	ld a, BANK(OAM_1e6f86)
+	ld a, BANK(ActionHelpOAM_1e6f86)
 	ld [hli], a
 	xor a
 	ld [hl], a

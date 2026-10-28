@@ -141,7 +141,7 @@ FireBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_6893d
+	ld de, FireBotFrameset_6893d
 	call SetObjectFramesetPtr
 	ret
 
@@ -150,7 +150,7 @@ FireBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68946
+	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	ret
 .Func_46c7e:
@@ -168,14 +168,14 @@ FireBotFunc:
 	jr nz, .asm_46c9e
 	ld a, $fa
 	ld [hl], a
-	ld de, Frameset_689db
+	ld de, FireBotFrameset_689db
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a
 	ret
 
 .asm_46c9e
-	ld de, Frameset_6893d
+	ld de, FireBotFrameset_6893d
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -190,14 +190,14 @@ FireBotFunc:
 	jr nz, .asm_46cbd
 	ld a, $05
 	ld [hl], a
-	ld de, Frameset_689e2
+	ld de, FireBotFrameset_689e2
 	call SetObjectFramesetPtr
 	ld a, 14
 	ld [hli], a
 	ret
 
 .asm_46cbd
-	ld de, Frameset_68946
+	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -212,12 +212,12 @@ FireBotFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_46cdd
-	ld de, Frameset_6893d
+	ld de, FireBotFrameset_6893d
 	call SetObjectFramesetPtr
 	ret
 
 .asm_46cdd
-	ld de, Frameset_68946
+	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	ret
 .Func_46ce4:
@@ -246,7 +246,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
-	ld de, Frameset_689c9
+	ld de, FireBotFrameset_689c9
 	jr .asm_46d1b
 .asm_46d10
 	ld l, OBJ_COLLBOX_RIGHT
@@ -254,7 +254,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, $fa
 	ld [hld], a
-	ld de, Frameset_689d2
+	ld de, FireBotFrameset_689d2
 .asm_46d1b
 	call SetObjectFramesetPtr
 	inc l
@@ -335,10 +335,10 @@ FireBotFunc:
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_46daa
-	ld de, Frameset_689b3
+	ld de, FireBotFrameset_689b3
 	jr .asm_46de6
 .asm_46daa
-	ld de, Frameset_68969
+	ld de, FireBotFrameset_68969
 	jr .asm_46df6
 .asm_46daf
 	ld a, [hl]
@@ -370,7 +370,7 @@ FireBotFunc:
 	ld a, [wCurObjVar1]
 	and a
 	jr z, .asm_46df3
-	ld de, Frameset_689be
+	ld de, FireBotFrameset_689be
 .asm_46de6
 	call SetObjectFramesetPtr
 	ld a, 36
@@ -381,7 +381,7 @@ FireBotFunc:
 	ret
 
 .asm_46df3
-	ld de, Frameset_68976
+	ld de, FireBotFrameset_68976
 .asm_46df6
 	call SetObjectFramesetPtr
 	ld a, 61
@@ -431,12 +431,12 @@ FireBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_46e4b
-	ld de, Frameset_689c9
+	ld de, FireBotFrameset_689c9
 	call SetObjectFramesetPtr
 	ret
 
 .asm_46e4b
-	ld de, Frameset_689d2
+	ld de, FireBotFrameset_689d2
 	call SetObjectFramesetPtr
 	ret
 
@@ -474,10 +474,10 @@ FireBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_46e87
-	ld de, Frameset_6893d
+	ld de, FireBotFrameset_6893d
 	jp SetObjectFramesetPtr
 .asm_46e87
-	ld de, Frameset_68946
+	ld de, FireBotFrameset_68946
 	jp SetObjectFramesetPtr
 .Func_46e8d:
 	ld a, [wGroundShakeCounter]
@@ -520,7 +520,7 @@ FireBotFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_46ed7
-	ld de, Frameset_6894f
+	ld de, FireBotFrameset_6894f
 	jr .asm_46ee2
 .asm_46ed7
 	ld a, $13
@@ -531,7 +531,7 @@ FireBotFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_46ed7
-	ld de, Frameset_6895c
+	ld de, FireBotFrameset_6895c
 .asm_46ee2
 	ld a, $2d
 	ld [hl], a
@@ -637,7 +637,7 @@ FireBotFunc:
 .asm_46f8a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68983, Frameset_68986
+	ld_obj_frameset FireBotFrameset_68983, FireBotFrameset_68986
 	call SetObjectFramesetPtr
 	ld a, 12
 	ld [hld], a
@@ -660,7 +660,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -686,7 +686,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -718,7 +718,7 @@ FireBotFunc:
 .asm_47026
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -781,7 +781,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_689a5, Frameset_689ac
+	ld_obj_frameset FireBotFrameset_689a5, FireBotFrameset_689ac
 	call SetObjectFramesetPtr
 	ld a, 26
 	ld [hli], a
@@ -845,7 +845,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -889,7 +889,7 @@ FireBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, Func_32bd
-	ld de, Frameset_68969
+	ld de, FireBotFrameset_68969
 	jr .asm_47160
 .Func_47150:
 	ld hl, wCurObjFrameDuration
@@ -900,7 +900,7 @@ FireBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, Func_32ae
-	ld de, Frameset_68976
+	ld de, FireBotFrameset_68976
 .asm_47160
 	call SetObjectFramesetPtr
 	ld a, 61
@@ -945,10 +945,10 @@ FireBotFunc:
 	ld a, c
 	rlca
 	jr c, .asm_471aa
-	ld de, Frameset_6899b
+	ld de, FireBotFrameset_6899b
 	jp SetObjectFramesetPtr
 .asm_471aa
-	ld de, Frameset_689a0
+	ld de, FireBotFrameset_689a0
 	jp SetObjectFramesetPtr
 .Func_471b0:
 	ld hl, wCurObjState
@@ -981,7 +981,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -1005,7 +1005,7 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68989, Frameset_68992
+	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05

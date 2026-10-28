@@ -32,11 +32,11 @@ HaridamaFunc:
 	cp b
 	jr c, .asm_48f20
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_6927f
+	ld de, HaridamaFrameset_6927f
 	jp SetObjectFramesetPtr
 .asm_48f20
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69290
+	ld de, HaridamaFrameset_69290
 	jp SetObjectFramesetPtr
 
 .Func_48f28:
@@ -63,12 +63,12 @@ HaridamaFunc:
 	sub b
 	cp $40
 	jr nc, .asm_48f55
-	ld de, Frameset_692c7
+	ld de, HaridamaFrameset_692c7
 	jr .asm_48fa2
 .asm_48f55
 	call .Func_49199
 	jp z, MoveObjectLeft_Slow
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jr .asm_48f8e
 .asm_48f60
 	ld a, [wWarioScreenYPos]
@@ -90,12 +90,12 @@ HaridamaFunc:
 	sub b
 	cp $c0
 	jr c, .asm_48f85
-	ld de, Frameset_692ce
+	ld de, HaridamaFrameset_692ce
 	jr .asm_48fa2
 .asm_48f85
 	call .Func_491b6
 	jp z, MoveObjectRight_Slow
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 .asm_48f8e
 	call SetObjectFramesetPtr
 	ld a, $1b
@@ -132,11 +132,11 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_48fc9
-	ld de, Frameset_692bd
+	ld de, HaridamaFrameset_692bd
 	jp SetObjectFramesetPtr
 
 .asm_48fc9
-	ld de, Frameset_692c2
+	ld de, HaridamaFrameset_692c2
 	jp SetObjectFramesetPtr
 
 .Update:
@@ -163,10 +163,10 @@ HaridamaFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_49001
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jr .asm_48f8e
 .asm_49001
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jr .asm_48f8e
 .asm_49006
 	ld a, $32
@@ -174,7 +174,7 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_48ff6
-	ld de, Frameset_692b3
+	ld de, HaridamaFrameset_692b3
 	jp SetObjectFramesetPtr
 
 .asm_49013
@@ -183,7 +183,7 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr nc, .asm_48ff6
-	ld de, Frameset_692b8
+	ld de, HaridamaFrameset_692b8
 	jp SetObjectFramesetPtr
 
 .asm_49020
@@ -192,12 +192,12 @@ HaridamaFunc:
 	jr c, .asm_49032
 	call .Func_49199
 	jp z, MoveObjectLeft_Fast
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jp .asm_48f8e
 .asm_49032
 	call .Func_491b6
 	jp z, MoveObjectRight_Fast
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jp .asm_48f8e
 .asm_4903e
 	ld l, OBJ_STATE_DURATION
@@ -225,11 +225,11 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_49063
-	ld de, Frameset_6927f
+	ld de, HaridamaFrameset_6927f
 	jp SetObjectFramesetPtr
 
 .asm_49063
-	ld de, Frameset_69290
+	ld de, HaridamaFrameset_69290
 	jp SetObjectFramesetPtr
 
 .asm_49069
@@ -253,11 +253,11 @@ HaridamaFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4908e
-	ld de, Frameset_692d5
+	ld de, HaridamaFrameset_692d5
 	jp SetObjectFramesetPtr
 
 .asm_4908e
-	ld de, Frameset_692de
+	ld de, HaridamaFrameset_692de
 	jp SetObjectFramesetPtr
 
 .Func_49094:
@@ -374,13 +374,13 @@ HaridamaFunc:
 	cp $1a
 	jp c, .asm_49054
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_692aa
+	ld de, HaridamaFrameset_692aa
 	jp .asm_48f8e
 .asm_4915d
 	cp $1a
 	jp nc, .asm_49054
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_692a1
+	ld de, HaridamaFrameset_692a1
 	jp .asm_48f8e
 .asm_4916a
 	ld hl, wCurObjVar1

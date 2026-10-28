@@ -17,7 +17,7 @@ FlameBlockTorchUpdate:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FIRE
 	ld [hld], a
-	ld de, Frameset_68360
+	ld de, TorchFrameset_68360
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -66,7 +66,7 @@ FlameBlockTorchFunc:
 	ld [hld], a
 	ld a, LOW(FlameBlockTorchUpdate)
 	ld [hld], a
-	ld de, Frameset_68369
+	ld de, TorchFrameset_68369
 	call SetObjectFramesetPtr
 	jr TorchFunc.got_frameset
 
@@ -88,7 +88,7 @@ TorchFunc:
 	ld a, LOW(.Update)
 	ld [hld], a
 .got_update_func
-	ld de, Frameset_68360
+	ld de, TorchFrameset_68360
 	call SetObjectFramesetPtr
 .got_frameset
 	xor a
@@ -161,12 +161,12 @@ Func_40c19:
 .asm_40c2c
 	call MoveObjectRight
 .asm_40c2f
-	ld bc, Data_60320
+	ld bc, SmallHopYVel
 	call ApplyObjYMovement
 	jr TorchEmberCommonFunc
 
 ; unreferenced?
-	ld de, Data_60ec9
+	ld de, KobattoSetMovement
 	call ApplyObjSetMovement
 	jr TorchEmberCommonFunc
 
@@ -187,7 +187,7 @@ TorchEmberRight2Func:
 ;	fallthrough
 
 TorchEmberCommonFunc:
-	ld bc, Data_60320
+	ld bc, SmallHopYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
@@ -218,7 +218,7 @@ TorchEmberCommonFunc:
 	ld [hld], a
 	ld a, LOW(.Destroy)
 	ld [hld], a
-	ld de, Frameset_68359
+	ld de, TorchFrameset_68359
 	call SetObjectFramesetPtr
 	ld a, 24
 	ld [hli], a ; OBJ_STATE_DURATION

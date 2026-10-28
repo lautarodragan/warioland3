@@ -1,4 +1,4 @@
-Pals_dc173:
+PerfectPals_dc173:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 31, 26,  2
@@ -39,7 +39,7 @@ Pals_dc173:
 	rgb  0, 14, 31
 	rgb  0,  6, 17
 
-Pals_dc1b3:
+PerfectPals_dc1b3:
 	rgb  0,  0,  0
 	rgb 14, 27, 14
 	rgb  0, 22,  0
@@ -55,7 +55,7 @@ Pals_dc1b3:
 	rgb  0, 22,  0
 	rgb  1, 13,  1
 
-Pals_dc1cb:
+PerfectPals_dc1cb:
 	rgb  0,  0,  0
 	rgb  0, 27, 27
 	rgb  0, 18, 28
@@ -71,7 +71,7 @@ Pals_dc1cb:
 	rgb  0, 18, 28
 	rgb  0,  6, 26
 
-Pals_dc1e3:
+PerfectPals_dc1e3:
 	rgb  0,  0,  0
 	rgb 27, 17, 26
 	rgb 26,  0, 24
@@ -87,7 +87,7 @@ Pals_dc1e3:
 	rgb 26,  0, 24
 	rgb 15,  0, 25
 
-Pals_dc1fb:
+PerfectOBPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 23, 23, 23

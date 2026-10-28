@@ -50,7 +50,7 @@ BubbleFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp nz, .Func_47c88
-	ld de, Frameset_690f4
+	ld de, BubbleFrameset_690f4
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update)
@@ -67,7 +67,7 @@ BubbleFunc:
 	ret
 
 .set_burst
-	ld de, Frameset_6910c
+	ld de, BubbleFrameset_6910c
 	call SetObjectFramesetPtr
 	ld a, 16
 	ld [hli], a

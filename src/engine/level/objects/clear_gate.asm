@@ -1,11 +1,11 @@
 ClearGate3Func:
-	ld de, Frameset_698ae
+	ld de, ClearGateFrameset_698ae
 	jr ClearGateFunc
 ClearGate2Func:
-	ld de, Frameset_698ab
+	ld de, ClearGateFrameset_698ab
 	jr ClearGateFunc
 ClearGate1Func:
-	ld de, Frameset_698a8
+	ld de, ClearGateFrameset_698a8
 ;	fallthrough
 ClearGateFunc:
 	call SetObjectFramesetPtr

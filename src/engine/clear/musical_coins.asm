@@ -32,9 +32,9 @@ InitMusicalCoinScreen:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cd4)
+	ld a, HIGH(PauseMenuFrameset_1f1cd4)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cd4)
+	ld a, LOW(PauseMenuFrameset_1f1cd4)
 	ld [hl], a
 	farcall $7c, UpdateObjAnim
 	ld hl, wMenuObj3
@@ -122,9 +122,9 @@ Func_d4472:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d65f0)
+	ld a, HIGH(MusicalCoinScreenFrameset_d65f0)
 	ld [hli], a
-	ld a, LOW(Frameset_d65f0)
+	ld a, LOW(MusicalCoinScreenFrameset_d65f0)
 	ld [hl], a
 	call UpdateObjAnim
 
@@ -266,9 +266,9 @@ ExitClearScreen:
 	ret
 
 Func_d464e:
-	ld hl, Pals_d50a4
+	ld hl, MusicalCoinScreenBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_d50e4
+	ld hl, MusicalCoinScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 

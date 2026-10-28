@@ -11,7 +11,7 @@ SeeingEyeDoorFunc:
 	ld a, 24
 	ld [wCurObjVar2], a
 	call MoveObjectDownByVar2
-	ld de, Frameset_68c47
+	ld de, SeeingEyeDoorFrameset_68c47
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $02
@@ -36,11 +36,11 @@ SeeingEyeDoorFunc:
 	cp b
 	jr c, .asm_454e9
 	ld a, $5a
-	ld de, Frameset_68c47
+	ld de, SeeingEyeDoorFrameset_68c47
 	jr .asm_454ee
 .asm_454e9
 	ld a, $2e
-	ld de, Frameset_68c59
+	ld de, SeeingEyeDoorFrameset_68c59
 .asm_454ee
 	ld [wCurObjVar1], a
 	call SetObjectFramesetPtr
@@ -72,7 +72,7 @@ SeeingEyeDoorFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	ld_obj_frameset Frameset_68c4a, Frameset_68c56
+	ld_obj_frameset SeeingEyeDoorFrameset_68c4a, SeeingEyeDoorFrameset_68c56
 	call SetObjectFramesetPtr
 	ld a, 8
 	ld [hli], a
@@ -88,7 +88,7 @@ SeeingEyeDoorFunc:
 	dec [hl]
 	ret nz
 .asm_45545
-	ld de, Frameset_68c36
+	ld de, SeeingEyeDoorFrameset_68c36
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, $54
@@ -145,11 +145,11 @@ SeeingEyeDoorFunc:
 	cp d
 	ret c
 	ld a, $5b
-	ld de, Frameset_68c4a
+	ld de, SeeingEyeDoorFrameset_68c4a
 	jr .asm_455ae
 .asm_455a9
 	ld a, $2d
-	ld de, Frameset_68c56
+	ld de, SeeingEyeDoorFrameset_68c56
 .asm_455ae
 	ld [hl], a
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
@@ -167,14 +167,14 @@ SeeingEyeDoorFunc:
 	play_sfx SFX_SEEING_EYE_DOOR
 	ld a, $5c
 	ld [hl], a
-	ld de, Frameset_68c50
+	ld de, SeeingEyeDoorFrameset_68c50
 	jp SetObjectFramesetPtr
 
 .asm_455d6
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	ld a, $2e
 	ld [hl], a
-	ld de, Frameset_68c59
+	ld de, SeeingEyeDoorFrameset_68c59
 	jp SetObjectFramesetPtr
 
 .asm_455e7
@@ -187,7 +187,7 @@ SeeingEyeDoorFunc:
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	ld a, $2d
 	ld [hl], a
-	ld de, Frameset_68c56
+	ld de, SeeingEyeDoorFrameset_68c56
 	jp SetObjectFramesetPtr
 
 .asm_45602
@@ -202,14 +202,14 @@ SeeingEyeDoorFunc:
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_68c47
+	ld de, SeeingEyeDoorFrameset_68c47
 	jp SetObjectFramesetPtr
 
 .asm_4561e
 	play_sfx SFX_SEEING_EYE_DOOR
 	ld a, $5c
 	ld [hl], a
-	ld de, Frameset_68c50
+	ld de, SeeingEyeDoorFrameset_68c50
 	jp SetObjectFramesetPtr
 
 .asm_4562f
@@ -222,5 +222,5 @@ SeeingEyeDoorFunc:
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	ld a, $5b
 	ld [hl], a
-	ld de, Frameset_68c4a
+	ld de, SeeingEyeDoorFrameset_68c4a
 	jp SetObjectFramesetPtr

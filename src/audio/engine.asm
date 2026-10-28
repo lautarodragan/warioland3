@@ -1058,7 +1058,7 @@ DoAudioCommand:
 	jp nc, Func_30a14 ; if >= $d0
 	sub $b1
 	jp c, Func_3073f
-	ld bc, PointerTable_306d1
+	ld bc, AudioCommandTable
 	; fallthrough
 
 ; bc = pointer table
@@ -1282,7 +1282,7 @@ Func_30651:
 	ld [hl], a
 	ret
 
-PointerTable_306d1:
+AudioCommandTable:
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_END
 	dw AudioCmd_Jump                      ; AUDIOCMD_JUMP
 	dw AudioCmd_Call                      ; AUDIOCMD_CALL
@@ -1315,7 +1315,7 @@ PointerTable_306d1:
 	dw Func_30a10                         ; ce
 	dw Func_30b4d                         ; cf
 
-PointerTable_3070f:
+AudioSpecialCommandTable:
 	dw AudioCmd_ClearFlags                ; AUDIOCMDSPECIAL_UNUSED_0
 	dw AudioCmd_SetChannelTimbre          ; AUDIOCMDSPECIAL_TIMBRE
 	dw AudioCmd_SetChannelFadeInEnvelope  ; AUDIOCMDSPECIAL_FADE_IN_ENVELOPE
@@ -1339,17 +1339,17 @@ Func_30727:
 	ld a, c
 	ld [wAudioCmdArg], a
 	ld a, b
-	ld bc, PointerTable_3070f
+	ld bc, AudioSpecialCommandTable
 	jp JumpToPointerInTable
 
 Func_3073f:
 	add $31
 	jp z, DoAudioCommand ; $80
 
-	add LOW(Data_3102b)
+	add LOW(AudioCmdDurations)
 	ld l, a
 	ld a, 0
-	adc HIGH(Data_3102b)
+	adc HIGH(AudioCmdDurations)
 	ld h, a
 	ld b, [hl]
 	dec b
@@ -1871,10 +1871,10 @@ Func_30a10:
 
 Func_30a14:
 	sub $cf
-	add LOW(Data_3102b)
+	add LOW(AudioCmdDurations)
 	ld l, a
 	ld a, 0
-	adc HIGH(Data_3102b)
+	adc HIGH(AudioCmdDurations)
 	ld h, a
 	ld b, [hl]
 ;	fallthrough
@@ -3006,7 +3006,7 @@ ENDR
 	add c
 	ret
 
-Data_3102b:
+AudioCmdDurations:
 	db  0 ; 80 | cf
 	db  1 ; 81 | d0
 	db  2 ; 82 | d1

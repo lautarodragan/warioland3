@@ -1,4 +1,4 @@
-OAM_1ca6cf:
+GolfHoleOAM_1ca6cf:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -942,7 +942,7 @@ OAM_1ca6cf:
 	frame_oam -16,  32, $5e, 6 | OAM_BANK1
 	db $80
 
-Frameset_1caf6f:
+GolfHoleFrameset_1caf6f:
 	db   0,  5
 	db   1,  5
 	db   2,  5
@@ -950,30 +950,30 @@ Frameset_1caf6f:
 	db $ff
 
 ; unreferenced
-Frameset_1caf78:
+UnreferencedGolfHoleFrameset_1caf78:
 	db   4,  5
 	db   5,  5
 	db   6,  5
 	db   7,  5
 	db $ff
 
-Frameset_1caf81:
+GolfHoleFrameset_1caf81:
 	db   8,  4
 	db $ff
 
-Frameset_1caf84:
+GolfHoleFrameset_1caf84:
 	db   9,  4
 	db $ff
 
-Frameset_1caf87:
+GolfHoleFrameset_1caf87:
 	db  10,  4
 	db $ff
 
-Frameset_1caf8a:
+GolfHoleFrameset_1caf8a:
 	db  11,  4
 	db $ff
 
-Frameset_1caf8d:
+GolfHoleFrameset_1caf8d:
 	db  12, 10
 	db  13,  4
 	db  14,  4
@@ -985,7 +985,7 @@ Frameset_1caf8d:
 	db  20,  4
 	db $ff
 
-Frameset_1cafa0:
+GolfHoleFrameset_1cafa0:
 	db  21,  8
 	db  22,  4
 	db  23,  8
@@ -996,12 +996,12 @@ Frameset_1cafa0:
 	db  24,  4
 	db $ff
 
-Frameset_1cafb1:
+GolfHoleFrameset_1cafb1:
 	db  26,  8
 	db  27,  8
 	db $ff
 
-Frameset_1cafb6:
+GolfHoleFrameset_1cafb6:
 	db  28,  3
 	db  29,  3
 	db  30,  3
@@ -1012,7 +1012,7 @@ Frameset_1cafb6:
 	db  35,  3
 	db $ff
 
-Frameset_1cafc7:
+GolfHoleFrameset_1cafc7:
 	db  36,  6
 	db  37,  6
 	db  38,  6
@@ -1031,7 +1031,7 @@ Frameset_1cafc7:
 	db  46, 100
 	db $ff
 
-Frameset_1cafe8:
+GolfHoleFrameset_1cafe8:
 	db  50,  4
 	db  51,  4
 	db  52,  4
@@ -1048,7 +1048,7 @@ Frameset_1cafe8:
 	db  59, 50
 	db $ff
 
-Frameset_1cb005:
+GolfHoleFrameset_1cb005:
 	db  61,  4
 	db  62,  6
 	db  63,  6
@@ -1059,7 +1059,7 @@ Frameset_1cb005:
 	db  67,  6
 	db $ff
 
-Frameset_1cb016:
+GolfHoleFrameset_1cb016:
 	db  68, 50
 	db  69,  2
 	db  70,  2
@@ -1077,7 +1077,7 @@ Frameset_1cb016:
 	db  78, 50
 	db $ff
 
-Frameset_1cb035:
+GolfHoleFrameset_1cb035:
 	db  81,  4
 	db  82,  4
 	db  83,  4
@@ -1105,7 +1105,7 @@ Frameset_1cb035:
 	db  81, 20
 	db $ff
 
-Frameset_1cb068:
+GolfHoleFrameset_1cb068:
 	db  88, 20
 	db  89,  2
 	db  90,  2
@@ -1124,7 +1124,7 @@ Frameset_1cb068:
 	db  89,  2
 	db $ff
 
-Frameset_1cb089:
+GolfHoleFrameset_1cb089:
 	db  97,  8
 	db  98,  8
 	db  99,  8
@@ -1140,12 +1140,12 @@ Frameset_1cb089:
 	db  97,  2
 	db $ff
 
-Frameset_1cb0a4:
+GolfHoleFrameset_1cb0a4:
 	db 101,  8
 	db 102,  8
 	db $ff
 
-Frameset_1cb0a9:
+GolfHoleFrameset_1cb0a9:
 	db 103, 20
 	db 106,  4
 	db 107,  4
@@ -1160,7 +1160,7 @@ Frameset_1cb0a9:
 	db 110, 20
 	db $ff
 
-Frameset_1cb0c2:
+GolfHoleFrameset_1cb0c2:
 	db 104, 20
 	db 111,  4
 	db 112,  4
@@ -1173,15 +1173,15 @@ Frameset_1cb0c2:
 	db 104, 20
 	db $ff
 
-Frameset_1cb0d7:
+GolfHoleFrameset_1cb0d7:
 	db 105,  4
 	db $ff
 
-Frameset_1cb0da:
+GolfHoleFrameset_1cb0da:
 	db 119,  4
 	db $ff
 
-OAM_1cb0dd::
+GolfWarioOAM_1cb0dd::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1341,7 +1341,7 @@ OAM_1cb0dd::
 	frame_oam -31, -12, $56, 0 | OAM_XFLIP
 	db $80
 
-Frameset_1cb285::
+GolfWarioFrameset_1cb285::
 	db   0,  4
 	db   1,  3
 	db   2,  6
@@ -1363,7 +1363,7 @@ Frameset_1cb285::
 	db   7,  8
 	db $ff
 
-Frameset_1cb2ac::
+GolfWarioFrameset_1cb2ac::
 	db   8,  4
 	db   9,  3
 	db  10,  6
@@ -1385,7 +1385,7 @@ Frameset_1cb2ac::
 	db  15,  8
 	db $ff
 
-OAM_1cb2d3:
+GolfLobbyOAM_1cb2d3:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1495,7 +1495,7 @@ OAM_1cb2d3:
 	frame_oam -16,  -4, $be, 7 | OAM_XFLIP
 	db $80
 
-Frameset_1cb3b3:
+GolfLobbyFrameset_1cb3b3:
 	db   0, 24
 	db   1,  4
 	db   2,  4
@@ -1506,7 +1506,7 @@ Frameset_1cb3b3:
 	db   1,  4
 	db $ff
 
-Frameset_1cb3c4:
+GolfLobbyFrameset_1cb3c4:
 	db   5,  8
 	db   6,  6
 	db   7,  4
@@ -1515,22 +1515,22 @@ Frameset_1cb3c4:
 	db   9,  6
 	db $ff
 
-Frameset_1cb3d1:
+GolfLobbyFrameset_1cb3d1:
 	db  10, 64
 	db $ff
 
-Frameset_1cb3d4:
+GolfLobbyFrameset_1cb3d4:
 	db  11, 64
 	db $ff
 
-Frameset_1cb3d7:
+GolfLobbyFrameset_1cb3d7:
 	db  12, 12
 	db  13,  8
 	db  14, 12
 	db  15,  8
 	db $ff
 
-OAM_1cb3e0:
+GolfCourseMenuOAM_1cb3e0:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1707,19 +1707,19 @@ OAM_1cb3e0:
 	frame_oam -32,   4, $5e, 2
 	db $80
 
-Frameset_1cb598:
+GolfCourseMenuFrameset_1cb598:
 	db   0,  4
 	db $ff
 
-Frameset_1cb59b:
+GolfCourseMenuFrameset_1cb59b:
 	db   1,  4
 	db $ff
 
-Frameset_1cb59e:
+GolfCourseMenuFrameset_1cb59e:
 	db   2,  4
 	db $ff
 
-Frameset_1cb5a1:
+GolfCourseMenuFrameset_1cb5a1:
 	db   4, 50
 	db   3,  4
 	db   5,  4
@@ -1735,50 +1735,50 @@ Frameset_1cb5a1:
 	db $ff
 
 ; unreferenced
-Frameset_1cb5ba:
+UnreferencedGolfCourseMenuFrameset_1cb5ba:
 	db   4,  4
 	db $ff
 
 ; unreferenced
-Frameset_1cb5bd:
+UnreferencedGolfCourseMenuFrameset_1cb5bd:
 	db   5,  4
 	db $ff
 
 ; unreferenced
-Frameset_1cb5c0:
+UnreferencedGolfCourseMenuFrameset_1cb5c0:
 	db   6,  4
 	db $ff
 
-Frameset_1cb5c3:
+GolfCourseMenuFrameset_1cb5c3:
 	db   7,  4
 	db   8,  4
 	db   9,  4
 	db   8,  4
 	db $ff
 
-Frameset_1cb5cc:
+GolfLobbyFrameset_1cb5cc:
 	db  10,  4
 	db $ff
 
-Frameset_1cb5cf:
+GolfLobbyFrameset_1cb5cf:
 	db  10,  2
 	db  11,  2
 	db  10,  2
 	db  12,  2
 	db $ff
 
-Frameset_1cb5d8:
+GolfCourseMenuFrameset_1cb5d8:
 	db  16,  4
 	db $ff
 
-Frameset_1cb5db:
+GolfCourseMenuFrameset_1cb5db:
 	db  17,  4
 	db $ff
 
-Frameset_1cb5de:
+GolfCourseMenuFrameset_1cb5de:
 	db  18,  4
 	db $ff
 
-Frameset_1cb5e1:
+GolfCourseMenuFrameset_1cb5e1:
 	db  19,  4
 	db $ff

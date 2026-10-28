@@ -1,4 +1,4 @@
-Pals_db509:
+GameOverBGPals:
 	rgb  0,  0,  0
 	rgb 31, 31, 31
 	rgb 31,  3,  0
@@ -39,7 +39,7 @@ Pals_db509:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 
-Pals_db549:
+GameOverOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10

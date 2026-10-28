@@ -7,7 +7,7 @@ CartFunc:
 	ld [hld], a
 	ld a, LOW(.Waiting)
 	ld [hld], a
-	ld de, Frameset_69199
+	ld de, CartFrameset_69199
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -31,7 +31,7 @@ CartFunc:
 	ld [hld], a
 	ld a, LOW(.Moving)
 	ld [hld], a
-	ld de, Frameset_6919e
+	ld de, CartFrameset_6919e
 	call SetObjectFramesetPtr
 	ret
 
@@ -104,7 +104,7 @@ CartFunc:
 	ld b, $01
 	jp MoveWarioRight
 .asm_48613
-	ld de, Frameset_69199
+	ld de, CartFrameset_69199
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(CartStoppedFunc)
@@ -121,11 +121,11 @@ CartVariableFunc:
 	ld a, TRUCK_WHEEL
 	call IsTreasureCollected
 	jr nz, .asm_4863b
-	ld de, Frameset_691a7
+	ld de, CartFrameset_691a7
 	ld bc, CartStoppedFunc
 	jr .asm_48641
 .asm_4863b
-	ld de, Frameset_691bf
+	ld de, CartFrameset_691bf
 	ld bc, .Waiting
 .asm_48641
 	pop_wram
@@ -161,10 +161,10 @@ CartVariableFunc:
 	ld a, [wCurObjId]
 	cp CART_VARIABLE_RIGHT
 	jr z, .asm_48682
-	ld de, Frameset_691b3
+	ld de, CartFrameset_691b3
 	jp SetObjectFramesetPtr
 .asm_48682
-	ld de, Frameset_691aa
+	ld de, CartFrameset_691aa
 	jp SetObjectFramesetPtr
 
 .Moving:
@@ -234,7 +234,7 @@ CartVariableFunc:
 	ld b, $01
 	jp MoveWarioRight
 .asm_48721
-	ld de, Frameset_691bf
+	ld de, CartFrameset_691bf
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(CartStoppedFunc)

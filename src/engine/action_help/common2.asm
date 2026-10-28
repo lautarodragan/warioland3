@@ -1,7 +1,7 @@
 LoadActionHelpPalsWithWater:
 	xor a
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4e6f
+	ld hl, ActionHelpPals_1e4e6f
 	call LoadActionHelpBGPals
 	call LoadActionHelpOBPals
 	ret
@@ -9,7 +9,7 @@ LoadActionHelpPalsWithWater:
 LoadActionHelpPalsWithoutWater:
 	xor a
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4eaf
+	ld hl, ActionHelpPals_1e4eaf
 	call LoadActionHelpBGPals
 	call LoadActionHelpOBPals
 	ret
@@ -17,14 +17,14 @@ LoadActionHelpPalsWithoutWater:
 Func_1e48bc:
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4eef
+	ld hl, ActionHelpBlackedOutBGPals
 	call LoadActionHelpBGPals
 	ret
 
 LoadActionHelpCommonPals:
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
-	ld hl, Pals_1e4eef
+	ld hl, ActionHelpBlackedOutBGPals
 	call LoadPalsToTempPals1
 	ret
 
@@ -35,24 +35,24 @@ LoadActionHelpPowerUpPals:
 	jr c, .main_power_up
 
 ; special power-up
-	ld hl, Pals_1e4f7f
+	ld hl, ActionHelpPowerUpOBPals
 	call LoadPalsToTempPals2
 	ld a, [wActionHelpPowerUp]
 	cp POWER_UP_VAMPIRE
 	ret nz
-	ld hl, Pals_1e4fbf
+	ld hl, ActionHelpPals_1e4fbf
 	ld de, wTempPals2
 	ld b, 2 palettes
 	call CopyHLToDE_Short
 	ret
 
 .main_power_up
-	ld hl, Pals_1e4f2f
+	ld hl, ActionHelpOBPals
 	call LoadPalsToTempPals2
 	ld a, [wActionHelpPowerUp]
 	cp GARLIC
 	ret c
-	ld hl, Pals_1e4f6f
+	ld hl, ActionHelpPals_1e4f6f
 	ld de, wTempPals2
 	ld b, 2 palettes
 	call CopyHLToDE_Short
@@ -195,7 +195,7 @@ ENDR
 	ret
 
 LoadActionHelpOBPals:
-	ld hl, Pals_1e4f2f
+	ld hl, ActionHelpOBPals
 	ld a, [wActionHelpPowerUp]
 	cp NUM_MAIN_POWER_UPS
 	ret nc ; quit if is a special Power-Up
@@ -239,7 +239,7 @@ ENDR
 	ret
 
 Func_1e4a47:
-	ld hl, Pals_1e4f2f palette 4
+	ld hl, ActionHelpOBPals palette 4
 	ld a, [wActionHelpPowerUp]
 	cp NUM_MAIN_POWER_UPS
 	ret nc
@@ -263,7 +263,7 @@ Func_1e4a47:
 	ld de, wTempPals2 palette 4
 	ld b, 1 palettes
 	call CopyHLToDE_Short
-	ld hl, Pals_1e4f2f palette 7
+	ld hl, ActionHelpOBPals palette 7
 	ld de, wTempPals2 palette 7
 	ld b, 1 palettes
 	call CopyHLToDE_Short
@@ -376,7 +376,7 @@ LoadActionHelpSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_1e697c
+	ld hl, ActionHelpOAM_1e697c
 	call LoadSprite
 	ret
 
@@ -395,7 +395,7 @@ Func_1e4b6d:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_1e6bab
+	ld hl, ActionHelpEnemyOAM_1e6bab
 	call LoadSprite
 	ret
 
@@ -416,9 +416,9 @@ ActionHelp2_ClearDPadInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b76)
+	ld a, HIGH(ActionHelpNoDPadInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b76)
+	ld a, LOW(ActionHelpNoDPadInputFrameset)
 	ld [hl], a
 	ret
 
@@ -427,9 +427,9 @@ ActionHelp2_ShowDLeftInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b82)
+	ld a, HIGH(ActionHelpDLeftInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b82)
+	ld a, LOW(ActionHelpDLeftInputFrameset)
 	ld [hl], a
 	ret
 
@@ -438,9 +438,9 @@ ActionHelp2_ShowDRightInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b7c)
+	ld a, HIGH(ActionHelpDRightInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b7c)
+	ld a, LOW(ActionHelpDRightInputFrameset)
 	ld [hl], a
 	ret
 
@@ -449,9 +449,9 @@ ActionHelp2_ShowDUpInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b79)
+	ld a, HIGH(ActionHelpDUpInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b79)
+	ld a, LOW(ActionHelpDUpInputFrameset)
 	ld [hl], a
 	ret
 
@@ -460,9 +460,9 @@ ActionHelp2_ClearButtonsInput:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b6d)
+	ld a, HIGH(ActionHelpNoButtonInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b6d)
+	ld a, LOW(ActionHelpNoButtonInputFrameset)
 	ld [hl], a
 	ret
 
@@ -471,9 +471,9 @@ ActionHelp2_ShowAInput:
 	ld hl, wMenuObj3FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b70)
+	ld a, HIGH(ActionHelpAInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b70)
+	ld a, LOW(ActionHelpAInputFrameset)
 	ld [hl], a
 	ret
 
@@ -482,9 +482,9 @@ ActionHelp2_ShowBInput:
 	ld hl, wMenuObj3FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b73)
+	ld a, HIGH(ActionHelpBInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b73)
+	ld a, LOW(ActionHelpBInputFrameset)
 	ld [hl], a
 	ret
 
@@ -493,9 +493,9 @@ ActionHelp_ShowWarioHangVertical:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fedd0)
+	ld a, HIGH(WarioOwlFrameset_1fedd0)
 	ld [hli], a
-	ld a, LOW(Frameset_1fedd0)
+	ld a, LOW(WarioOwlFrameset_1fedd0)
 	ld [hl], a
 	ret
 
@@ -504,9 +504,9 @@ ActionHelp_ShowWarioHangHorizontal:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fed7c)
+	ld a, HIGH(WarioOwlFrameset_1fed7c)
 	ld [hli], a
-	ld a, LOW(Frameset_1fed7c)
+	ld a, LOW(WarioOwlFrameset_1fed7c)
 	ld [hl], a
 	ret
 
@@ -515,9 +515,9 @@ ActionHelp_ShowWarioHangOwlRight:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fed91)
+	ld a, HIGH(WarioOwlFrameset_1fed91)
 	ld [hli], a
-	ld a, LOW(Frameset_1fed91)
+	ld a, LOW(WarioOwlFrameset_1fed91)
 	ld [hl], a
 	ret
 
@@ -526,9 +526,9 @@ ActionHelp_ShowWarioOwlMoveHang:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1feda6)
+	ld a, HIGH(WarioOwlFrameset_1feda6)
 	ld [hli], a
-	ld a, LOW(Frameset_1feda6)
+	ld a, LOW(WarioOwlFrameset_1feda6)
 	ld [hl], a
 	ret
 
@@ -537,9 +537,9 @@ ActionHelp_ShowWarioOwlMoveHangRight:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fedbb)
+	ld a, HIGH(WarioOwlFrameset_1fedbb)
 	ld [hli], a
-	ld a, LOW(Frameset_1fedbb)
+	ld a, LOW(WarioOwlFrameset_1fedbb)
 	ld [hl], a
 	ret
 
@@ -548,9 +548,9 @@ ActionHelp_ShowWarioHangDrop:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fedfe)
+	ld a, HIGH(WarioOwlFrameset_1fedfe)
 	ld [hli], a
-	ld a, LOW(Frameset_1fedfe)
+	ld a, LOW(WarioOwlFrameset_1fedfe)
 	ld [hl], a
 	ret
 
@@ -576,9 +576,9 @@ ActionHelp2_ShowWarioIdle:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1425f)
+	ld a, HIGH(WarioFrameset_1425f)
 	ld [hli], a
-	ld a, LOW(Frameset_1425f)
+	ld a, LOW(WarioFrameset_1425f)
 	ld [hl], a
 	ld a, HIGH(OAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
@@ -610,13 +610,13 @@ ActionHelp2_ShowWarioWalk:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_149c5)
+	ld a, HIGH(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, LOW(Frameset_149c5)
+	ld a, LOW(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -642,9 +642,9 @@ ActionHelp2_ShowWarioJump:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15f97)
+	ld a, HIGH(WarioBlindFrameset_15f97)
 	ld [hli], a
-	ld a, LOW(Frameset_15f97)
+	ld a, LOW(WarioBlindFrameset_15f97)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -678,17 +678,17 @@ ActionHelp_ShowWarioHangStopped:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1feec4)
+	ld a, HIGH(WarioRailFrameset_1feec4)
 	ld [hli], a
-	ld a, LOW(Frameset_1feec4)
+	ld a, LOW(WarioRailFrameset_1feec4)
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_1fee05)
+	ld a, HIGH(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fee05)
+	ld a, LOW(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_1fee05)
+	ld a, BANK(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMBank], a
 	ret
 
@@ -714,17 +714,17 @@ ActionHelp_ShowWarioHangRailRight:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1feeb4)
+	ld a, HIGH(WarioRailFrameset_1feeb4)
 	ld [hli], a
-	ld a, LOW(Frameset_1feeb4)
+	ld a, LOW(WarioRailFrameset_1feeb4)
 	ld [hli], a
 	xor a
 	ld [hl], a
-	ld a, HIGH(OAM_1fee05)
+	ld a, HIGH(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fee05)
+	ld a, LOW(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMPtr + 1], a
-	ld a, BANK(OAM_1fee05)
+	ld a, BANK(WarioRailOAM_1fee05)
 	ld [wActionHelpWarioOAMBank], a
 	ret
 
@@ -750,13 +750,13 @@ ActionHelp_ShowWarioBatTransform:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fd479)
+	ld a, HIGH(WarioBatFrameset_1fd479)
 	ld [hli], a
-	ld a, LOW(Frameset_1fd479)
+	ld a, LOW(WarioBatFrameset_1fd479)
 	ld [hl], a
-	ld a, HIGH(OAM_1fd031)
+	ld a, HIGH(WarioOAM_1fd031)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1fd031)
+	ld a, LOW(WarioOAM_1fd031)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -766,9 +766,9 @@ ActionHelp_ShowWarioBatRight:
 	ld [hli], a
 	ld [hli], a
 	ld [wSFXTimer], a
-	ld a, HIGH(Frameset_1fd46c)
+	ld a, HIGH(WarioBatFrameset_1fd46c)
 	ld [hli], a
-	ld a, LOW(Frameset_1fd46c)
+	ld a, LOW(WarioBatFrameset_1fd46c)
 	ld [hl], a
 	ret
 
@@ -778,9 +778,9 @@ ActionHelp_ShowWarioBatLeft:
 	ld [hli], a
 	ld [hli], a
 	ld [wSFXTimer], a
-	ld a, HIGH(Frameset_1fd42c)
+	ld a, HIGH(WarioBatFrameset_1fd42c)
 	ld [hli], a
-	ld a, LOW(Frameset_1fd42c)
+	ld a, LOW(WarioBatFrameset_1fd42c)
 	ld [hl], a
 	ret
 
@@ -791,9 +791,9 @@ ActionHelp_ShowWarioVampireTransform:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1fd439)
+	ld a, HIGH(WarioVampireFrameset_1fd439)
 	ld [hli], a
-	ld a, LOW(Frameset_1fd439)
+	ld a, LOW(WarioVampireFrameset_1fd439)
 	ld [hl], a
 	ret
 
@@ -802,9 +802,9 @@ ActionHelp_ShowRailRotateRight:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6fcb)
+	ld a, HIGH(ActionHelpRailRotateRightFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6fcb)
+	ld a, LOW(ActionHelpRailRotateRightFrameset)
 	ld [hli], a
 	ret
 
@@ -813,9 +813,9 @@ ActionHelp_ShowRailRotateLeft:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6fc2)
+	ld a, HIGH(ActionHelpFrameset_1e6fc2)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6fc2)
+	ld a, LOW(ActionHelpFrameset_1e6fc2)
 	ld [hli], a
 	ret
 
@@ -832,15 +832,15 @@ ActionHelp_ShowOwlFlyUp:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d7b4)
+	ld a, HIGH(ParticleOwlFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_d7b4)
+	ld a, LOW(ParticleOwlFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_d763)
+	ld a, HIGH(ParticleOwlOAM)
 	ld [hli], a
-	ld a, LOW(OAM_d763)
+	ld a, LOW(ParticleOwlOAM)
 	ld [hli], a
-	ld a, BANK(OAM_d763)
+	ld a, BANK(ParticleOwlOAM)
 	ld [hli], a
 	xor a
 	ld [hl], a

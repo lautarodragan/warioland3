@@ -281,9 +281,9 @@ ActionHelp_ClearDPadInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b76)
+	ld a, HIGH(ActionHelpNoDPadInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b76)
+	ld a, LOW(ActionHelpNoDPadInputFrameset)
 	ld [hl], a
 	ret
 
@@ -292,9 +292,9 @@ ActionHelp_ShowDRightInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b7c)
+	ld a, HIGH(ActionHelpDRightInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b7c)
+	ld a, LOW(ActionHelpDRightInputFrameset)
 	ld [hl], a
 	ret
 
@@ -303,9 +303,9 @@ ActionHelp_ShowDLeftInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b82)
+	ld a, HIGH(ActionHelpDLeftInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b82)
+	ld a, LOW(ActionHelpDLeftInputFrameset)
 	ld [hl], a
 	ret
 
@@ -314,9 +314,9 @@ ActionHelp_ShowDDownInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b7f)
+	ld a, HIGH(ActionHelpDDownInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b7f)
+	ld a, LOW(ActionHelpDDownInputFrameset)
 	ld [hl], a
 	ret
 
@@ -325,9 +325,9 @@ ActionHelp_ShowDUpInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b79)
+	ld a, HIGH(ActionHelpDUpInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b79)
+	ld a, LOW(ActionHelpDUpInputFrameset)
 	ld [hl], a
 	ret
 
@@ -336,9 +336,9 @@ ActionHelp_ShowDRightAndDDownInput:
 	ld hl, wMenuObj2FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6ba8)
+	ld a, HIGH(ActionHelpDRightAndDDownInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6ba8)
+	ld a, LOW(ActionHelpDRightAndDDownInputFrameset)
 	ld [hl], a
 	ret
 
@@ -347,9 +347,9 @@ ActionHelp_ClearButtonsInput:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b6d)
+	ld a, HIGH(ActionHelpNoButtonInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b6d)
+	ld a, LOW(ActionHelpNoButtonInputFrameset)
 	ld [hl], a
 	ret
 
@@ -358,9 +358,9 @@ ActionHelp_ShowAInput:
 	ld hl, wMenuObj3FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b70)
+	ld a, HIGH(ActionHelpAInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b70)
+	ld a, LOW(ActionHelpAInputFrameset)
 	ld [hl], a
 	ret
 
@@ -369,9 +369,9 @@ ActionHelp_ShowBInput:
 	ld hl, wMenuObj3FramesetOffset
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b73)
+	ld a, HIGH(ActionHelpBInputFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b73)
+	ld a, LOW(ActionHelpBInputFrameset)
 	ld [hl], a
 	ret
 
@@ -387,15 +387,15 @@ ActionHelp_HideBlockDebris:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b64)
+	ld a, HIGH(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b64)
+	ld a, LOW(ActionHelpFrameset_1e6b64)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -423,15 +423,15 @@ ActionHelp_ShowBlockDebris:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d49a)
+	ld a, HIGH(ParticleDebrisFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_d49a)
+	ld a, LOW(ParticleDebrisFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_d20e)
+	ld a, HIGH(ParticleOAM_d20e)
 	ld [hli], a
-	ld a, LOW(OAM_d20e)
+	ld a, LOW(ParticleOAM_d20e)
 	ld [hli], a
-	ld a, BANK(OAM_d20e)
+	ld a, BANK(ParticleOAM_d20e)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -465,16 +465,16 @@ ActionHelp_ShowInitialWarioWalk:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_149c5)
+	ld a, HIGH(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, LOW(Frameset_149c5)
+	ld a, LOW(WarioFrameset_149c5)
 	ld [hli], a
 	xor a
 	ld [hl], a ; wActionHelpWarioVar
 	ld [wSFXTimer], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -502,9 +502,9 @@ ActionHelp_ShowWarioJump:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15f97)
+	ld a, HIGH(WarioBlindFrameset_15f97)
 	ld [hli], a
-	ld a, LOW(Frameset_15f97)
+	ld a, LOW(WarioBlindFrameset_15f97)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -538,9 +538,9 @@ ActionHelp_ShowWarioJumpLeft:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15f94)
+	ld a, HIGH(WarioAirborneFrameset_15f94)
 	ld [hli], a
-	ld a, LOW(Frameset_15f94)
+	ld a, LOW(WarioAirborneFrameset_15f94)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -558,18 +558,18 @@ ActionHelp_ShowWarioSmashAttack:
 	ld a, [wActionHelpPowerUp]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jr nc, .got_super_jump_slam
-	ld a, HIGH(Frameset_15f91)
+	ld a, HIGH(WarioFrameset_15f91)
 	ld [hli], a
-	ld a, LOW(Frameset_15f91)
+	ld a, LOW(WarioFrameset_15f91)
 	ld [hli], a
 	ld a, $18
 	ld [hl], a ; wActionHelpWarioVar
 	ret
 
 .got_super_jump_slam
-	ld a, HIGH(Frameset_16055)
+	ld a, HIGH(WarioFrameset_16055)
 	ld [hli], a
-	ld a, LOW(Frameset_16055)
+	ld a, LOW(WarioFrameset_16055)
 	ld [hli], a
 	ld a, $18
 	ld [hl], a ; wActionHelpWarioVar
@@ -581,9 +581,9 @@ ActionHelp_ShowWarioGroundPound:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_16009)
+	ld a, HIGH(WarioFrameset_16009)
 	ld [hli], a
-	ld a, LOW(Frameset_16009)
+	ld a, LOW(WarioFrameset_16009)
 	ld [hl], a
 	ret
 
@@ -594,9 +594,9 @@ ActionHelp_ShowWarioGroundShake:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15fc5)
+	ld a, HIGH(WarioFrameset_15fc5)
 	ld [hli], a
-	ld a, LOW(Frameset_15fc5)
+	ld a, LOW(WarioFrameset_15fc5)
 	ld [hl], a
 	ret
 
@@ -607,9 +607,9 @@ ActionHelp_ShowWarioLand:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15fa1)
+	ld a, HIGH(WarioFrameset_15fa1)
 	ld [hli], a
-	ld a, LOW(Frameset_15fa1)
+	ld a, LOW(WarioFrameset_15fa1)
 	ld [hl], a
 	ret
 
@@ -635,9 +635,9 @@ ActionHelp_ShowWarioIdle:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1425f)
+	ld a, HIGH(WarioFrameset_1425f)
 	ld [hli], a
-	ld a, LOW(Frameset_1425f)
+	ld a, LOW(WarioFrameset_1425f)
 	ld [hl], a
 	ld a, HIGH(OAM_14000)
 	ld [wActionHelpWarioOAMPtr + 0], a
@@ -667,13 +667,13 @@ ActionHelp_ShowWarioWalk:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_149c5)
+	ld a, HIGH(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, LOW(Frameset_149c5)
+	ld a, LOW(WarioFrameset_149c5)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -701,9 +701,9 @@ ActionHelp_ShowWarioSwim:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1555b)
+	ld a, HIGH(WarioWaterFrameset_1555b)
 	ld [hli], a
-	ld a, LOW(Frameset_1555b)
+	ld a, LOW(WarioWaterFrameset_1555b)
 	ld [hli], a
 	ld a, HIGH(OAM_15254)
 	ld [wActionHelpWarioOAMPtr + 0], a
@@ -716,9 +716,9 @@ ActionHelp_ShowWarioSwimLeft:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15554)
+	ld a, HIGH(WarioWaterFrameset_15554)
 	ld [hli], a
-	ld a, LOW(Frameset_15554)
+	ld a, LOW(WarioWaterFrameset_15554)
 	ld [hli], a
 	ret
 
@@ -727,9 +727,9 @@ ActionHelp_ShowWarioSubmerge:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1558b)
+	ld a, HIGH(WarioSwimFrameset_1558b)
 	ld [hli], a
-	ld a, LOW(Frameset_1558b)
+	ld a, LOW(WarioSwimFrameset_1558b)
 	ld [hli], a
 
 	xor a
@@ -741,9 +741,9 @@ ActionHelp_ShowWarioUnderwaterThrust:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_155c5)
+	ld a, HIGH(WarioUnderwaterFrameset_155c5)
 	ld [hli], a
-	ld a, LOW(Frameset_155c5)
+	ld a, LOW(WarioUnderwaterFrameset_155c5)
 	ld [hli], a
 
 	xor a
@@ -755,9 +755,9 @@ ActionHelp_ShowWarioUnderwaterStopped:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1556c)
+	ld a, HIGH(WarioUnderwaterFrameset_1556c)
 	ld [hli], a
-	ld a, LOW(Frameset_1556c)
+	ld a, LOW(WarioUnderwaterFrameset_1556c)
 	ld [hli], a
 	ret
 
@@ -785,13 +785,13 @@ ActionHelp_ShowWarioGrab:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1640c)
+	ld a, HIGH(WarioGrabFrameset_1640c)
 	ld [hli], a
-	ld a, LOW(Frameset_1640c)
+	ld a, LOW(WarioGrabFrameset_1640c)
 	ld [hli], a
-	ld a, HIGH(OAM_1606a)
+	ld a, HIGH(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1606a)
+	ld a, LOW(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -819,13 +819,13 @@ ActionHelp_ShowWarioSlowGrab:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_16415)
+	ld a, HIGH(WarioGrabFrameset_16415)
 	ld [hli], a
-	ld a, LOW(Frameset_16415)
+	ld a, LOW(WarioGrabFrameset_16415)
 	ld [hli], a
-	ld a, HIGH(OAM_1606a)
+	ld a, HIGH(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1606a)
+	ld a, LOW(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -851,13 +851,13 @@ ActionHelp_ShowWarioBeginGrab:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_14a23)
+	ld a, HIGH(WarioGrabFrameset_14a23)
 	ld [hli], a
-	ld a, LOW(Frameset_14a23)
+	ld a, LOW(WarioGrabFrameset_14a23)
 	ld [hli], a
-	ld a, HIGH(OAM_1426c)
+	ld a, HIGH(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1426c)
+	ld a, LOW(WarioWalkOAM_1426c)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -866,9 +866,9 @@ ActionHelp_ShowWarioGrabWalk:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_14a0f)
+	ld a, HIGH(WarioGrabFrameset_14a0f)
 	ld [hli], a
-	ld a, LOW(Frameset_14a0f)
+	ld a, LOW(WarioGrabFrameset_14a0f)
 	ld [hli], a
 	ret
 
@@ -896,13 +896,13 @@ ActionHelp_ShowWarioBeginThrow:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1642f)
+	ld a, HIGH(WarioThrowFrameset_1642f)
 	ld [hli], a
-	ld a, LOW(Frameset_1642f)
+	ld a, LOW(WarioThrowFrameset_1642f)
 	ld [hli], a
-	ld a, HIGH(OAM_1606a)
+	ld a, HIGH(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_1606a)
+	ld a, LOW(WarioOAM_1606a)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -911,9 +911,9 @@ ActionHelp_ShowWarioThrow:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1641e)
+	ld a, HIGH(WarioThrowFrameset_1641e)
 	ld [hli], a
-	ld a, LOW(Frameset_1641e)
+	ld a, LOW(WarioThrowFrameset_1641e)
 	ld [hli], a
 	ret
 
@@ -922,9 +922,9 @@ ActionHelp_ShowWarioChargeThrow:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_16435)
+	ld a, HIGH(WarioThrowFrameset_16435)
 	ld [hli], a
-	ld a, LOW(Frameset_16435)
+	ld a, LOW(WarioThrowFrameset_16435)
 	ld [hli], a
 	xor a
 	ld [wSFXTimer], a
@@ -935,9 +935,9 @@ ActionHelp_ShowWarioFullyChargedGrab:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_16441)
+	ld a, HIGH(WarioThrowFrameset_16441)
 	ld [hli], a
-	ld a, LOW(Frameset_16441)
+	ld a, LOW(WarioThrowFrameset_16441)
 	ld [hli], a
 	ret
 
@@ -946,9 +946,9 @@ ActionHelp_ShowWarioFullyChargedThrow:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_16423)
+	ld a, HIGH(WarioThrowFrameset_16423)
 	ld [hli], a
-	ld a, LOW(Frameset_16423)
+	ld a, LOW(WarioThrowFrameset_16423)
 	ld [hli], a
 	ret
 
@@ -978,24 +978,24 @@ ActionHelp_ShowWarioAttack:
 	ld a, [wActionHelpPowerUp]
 	cp GARLIC
 	jr nc, .has_garlic_power_up
-	ld a, HIGH(Frameset_151fd)
+	ld a, HIGH(WarioFrameset_151fd)
 	ld [hli], a
-	ld a, LOW(Frameset_151fd)
+	ld a, LOW(WarioFrameset_151fd)
 	ld [hli], a
-	ld a, HIGH(OAM_14d1b)
+	ld a, HIGH(WarioOAM_14d1b)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14d1b)
+	ld a, LOW(WarioOAM_14d1b)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
 .has_garlic_power_up
-	ld a, HIGH(Frameset_1522d)
+	ld a, HIGH(WarioFrameset_1522d)
 	ld [hli], a
-	ld a, LOW(Frameset_1522d)
+	ld a, LOW(WarioFrameset_1522d)
 	ld [hli], a
-	ld a, HIGH(OAM_14d1b)
+	ld a, HIGH(WarioOAM_14d1b)
 	ld [wActionHelpWarioOAMPtr + 0], a
-	ld a, LOW(OAM_14d1b)
+	ld a, LOW(WarioOAM_14d1b)
 	ld [wActionHelpWarioOAMPtr + 1], a
 	ret
 
@@ -1004,9 +1004,9 @@ ActionHelp_ShowWarioRoll:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_166f7)
+	ld a, HIGH(WarioRollFrameset_166f7)
 	ld [hli], a
-	ld a, LOW(Frameset_166f7)
+	ld a, LOW(WarioRollFrameset_166f7)
 	ld [hli], a
 	ret
 
@@ -1034,9 +1034,9 @@ ActionHelp_ShowWarioBump:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_15f7f)
+	ld a, HIGH(WarioFrameset_15f7f)
 	ld [hli], a
-	ld a, LOW(Frameset_15f7f)
+	ld a, LOW(WarioFrameset_15f7f)
 	ld [hli], a
 	ld a, HIGH(OAM_15955)
 	ld [wActionHelpWarioOAMPtr + 0], a
@@ -1066,9 +1066,9 @@ ActionHelp_ShowWarioSlide:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1671d)
+	ld a, HIGH(WarioSlidFrameset_1671d)
 	ld [hli], a
-	ld a, LOW(Frameset_1671d)
+	ld a, LOW(WarioSlidFrameset_1671d)
 	ld [hli], a
 	ld a, HIGH(OAM_1644a)
 	ld [wActionHelpWarioOAMPtr + 0], a
@@ -1087,15 +1087,15 @@ ActionHelp_ShowParaGoomWalk:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f36)
+	ld a, HIGH(ActionHelpParaGoomWalkFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f36)
+	ld a, LOW(ActionHelpParaGoomWalkFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -1106,9 +1106,9 @@ ActionHelp_ShowParaGoomStun:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f48)
+	ld a, HIGH(ActionHelpParaGoomStunFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f48)
+	ld a, LOW(ActionHelpParaGoomStunFrameset)
 	ld [hli], a
 	ret
 
@@ -1117,9 +1117,9 @@ ActionHelp_ShowParaGoomThrown:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f3f)
+	ld a, HIGH(ActionHelpParaGoomThrownFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f3f)
+	ld a, LOW(ActionHelpParaGoomThrownFrameset)
 	ld [hli], a
 	ret
 
@@ -1129,15 +1129,15 @@ ActionHelp_ShowEnemyVanish:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_d4a5)
+	ld a, HIGH(ActionHelpEnemyVanishFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_d4a5)
+	ld a, LOW(ActionHelpEnemyVanishFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_d20e)
+	ld a, HIGH(ParticleOAM_d20e)
 	ld [hli], a
-	ld a, LOW(OAM_d20e)
+	ld a, LOW(ParticleOAM_d20e)
 	ld [hli], a
-	ld a, BANK(OAM_d20e)
+	ld a, BANK(ParticleOAM_d20e)
 	ld [hl], a
 
 	play_sfx SFX_VANISH
@@ -1148,9 +1148,9 @@ ActionHelp_ShowFutamoguAngry:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f78)
+	ld a, HIGH(ActionHelpFutamoguAngryFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f78)
+	ld a, LOW(ActionHelpFutamoguAngryFrameset)
 	ld [hli], a
 	ret
 
@@ -1159,9 +1159,9 @@ ActionHelp_ShowFutamoguHappy:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f66)
+	ld a, HIGH(ActionHelpFrameset_1e6f66)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f66)
+	ld a, LOW(ActionHelpFrameset_1e6f66)
 	ld [hli], a
 	ret
 
@@ -1176,15 +1176,15 @@ ActionHelp_ShowCountRichtertoffIdle:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f4d)
+	ld a, HIGH(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f4d)
+	ld a, LOW(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	ret
 
@@ -1193,9 +1193,9 @@ ActionHelp_ShowCountRichtertoffStun:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f5e)
+	ld a, HIGH(ActionHelpCountRichtertoffStunFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f5e)
+	ld a, LOW(ActionHelpCountRichtertoffStunFrameset)
 	ld [hli], a
 	ret
 
@@ -1204,9 +1204,9 @@ ActionHelp_ShowCountRichtertoffThrown:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f55)
+	ld a, HIGH(ActionHelpCountRichtertoffThrownFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f55)
+	ld a, LOW(ActionHelpCountRichtertoffThrownFrameset)
 	ld [hli], a
 	ret
 
@@ -1215,9 +1215,9 @@ ActionHelp_ShowSingleSolidBlock:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b67)
+	ld a, HIGH(ActionHelpFrameset_1e6b67)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b67)
+	ld a, LOW(ActionHelpFrameset_1e6b67)
 	ld [hli], a
 	ret
 
@@ -1232,15 +1232,15 @@ ActionHelp_ShowVerticalBlockPair:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b93)
+	ld a, HIGH(ActionHelpVerticalBlockPairFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b93)
+	ld a, LOW(ActionHelpVerticalBlockPairFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hl], a
 	ret
 
@@ -1255,15 +1255,15 @@ ActionHelp_ShowSlide:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b88)
+	ld a, HIGH(ActionHelpSlideFrameset)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b88)
+	ld a, LOW(ActionHelpSlideFrameset)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hl], a
 	ret
 
@@ -1278,14 +1278,14 @@ ActionHelp_ShowOverheadPillar:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b85)
+	ld a, HIGH(ActionHelpFrameset_1e6b85)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b85)
+	ld a, LOW(ActionHelpFrameset_1e6b85)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	ret

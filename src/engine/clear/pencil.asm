@@ -12,7 +12,7 @@ LoadPencilSprite:
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_d65e1
+	ld hl, MusicalCoinScreenOAM_d65e1
 	call LoadSprite
 	ret
 

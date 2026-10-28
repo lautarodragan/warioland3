@@ -91,7 +91,7 @@ BigLeaf1Func:
 	ld [hld], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_68732
+	ld de, BigLeafFrameset_68732
 	call SetObjectFramesetPtr
 	ret
 
@@ -109,7 +109,7 @@ BigLeaf2Func:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_68729
+	ld de, BigLeafFrameset_68729
 	call SetObjectFramesetPtr
 	ret
 
@@ -194,7 +194,7 @@ BigLeaf2Func:
 	ld [hld], a
 	ld a, LOW(.Func_42d0e)
 	ld [hld], a
-	ld de, Frameset_6873b
+	ld de, BigLeafFrameset_6873b
 	call SetObjectFramesetPtr
 	ld a, $14
 	ld [hli], a

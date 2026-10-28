@@ -1,48 +1,48 @@
-Frameset_d5045:
+ClearScreenFrameset_d5045:
 	db   0,  3
 	db   1,  3
 	db $ff
 
-Frameset_d504a:
+ClearScreenFrameset_d504a:
 	db   2,  3
 	db   3,  3
 	db $ff
 
-Frameset_d504f:
+ClearScreenFrameset_d504f:
 	db   4,  3
 	db   5,  3
 	db $ff
 
-Frameset_d5054:
+ClearScreenFrameset_d5054:
 	db   6,  3
 	db   7,  3
 	db $ff
 
-Frameset_d5059:
+ClearScreenFrameset_d5059:
 	db   8,  4
 	db $ff
 
-Frameset_d505c:
+ClearScreenFrameset_d505c:
 	db   9,  4
 	db $ff
 
-Frameset_d505f:
+ClearScreenFrameset_d505f:
 	db  10,  4
 	db $ff
 
-Frameset_d5062:
+ClearScreenFrameset_d5062:
 	db  11,  4
 	db $ff
 
-Frameset_d5065:
+ClearScreenFrameset_d5065:
 	db  12,  4
 	db $ff
 
-Frameset_d5068:
+ClearScreenFrameset_d5068:
 	db  13,  4
 	db $ff
 
-Frameset_d506b:
+ClearScreenFrameset_d506b:
 	db  14,  4
 	db  15,  4
 	db  16,  4
@@ -55,7 +55,7 @@ Frameset_d506b:
 	db  17,  4
 	db $ff
 
-Frameset_d5080:
+ClearScreenFrameset_d5080:
 	db  19,  4
 	db  20,  4
 	db  21,  4
@@ -68,22 +68,22 @@ Frameset_d5080:
 	db  22,  4
 	db $ff
 
-Frameset_d5095:
+ClearScreenFrameset_d5095:
 	db  24,  4
 	db $ff
 
-Frameset_d5098:
+ClearScreenFrameset_d5098:
 	db  25,  4
 	db $ff
 
-Frameset_d509b:
+ClearScreenFrameset_d509b:
 	db  26,  4
 	db $ff
 
-Frameset_d509e:
+ClearScreenFrameset_d509e:
 	db  27,  4
 	db $ff
 
-Frameset_d50a1:
+ClearScreenFrameset_d50a1:
 	db  28,  4
 	db $ff

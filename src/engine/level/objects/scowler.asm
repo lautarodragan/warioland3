@@ -24,7 +24,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, $f8
 	ld [hl], a
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a
@@ -57,7 +57,7 @@ ScowlerFunc:
 	ret z
 	dec [hl]
 	ret nz
-	ld de, Frameset_69b03
+	ld de, ScowlerFrameset_69b03
 	call SetObjectFramesetPtr
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -107,7 +107,7 @@ ScowlerFunc:
 	jr z, .asm_545ab
 	ret
 .asm_545ab
-	ld de, Frameset_69a95
+	ld de, ScowlerFrameset_69a95
 	call SetObjectFramesetPtr
 	ld a, $44
 	ld [hli], a
@@ -154,10 +154,10 @@ ScowlerFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_5460f
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	jp SetObjectFramesetPtr
 .asm_5460f
-	ld de, Frameset_69a68
+	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 .asm_54615
 	ld a, [w1d147]
@@ -180,7 +180,7 @@ ScowlerFunc:
 	jr c, .asm_54646
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_69a7a
+	ld de, ScowlerFrameset_69a7a
 	call SetObjectFramesetPtr
 	ld a, $48
 	ld [hli], a
@@ -219,7 +219,7 @@ ScowlerFunc:
 	and a
 	jp z, MoveObjectRight
 .asm_5467d
-	ld de, Frameset_69a71
+	ld de, ScowlerFrameset_69a71
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $2b
@@ -294,12 +294,12 @@ ScowlerFunc:
 	ldh [hXPosHi], a
 	call Func_352b
 	and a
-	ld bc, Data_60a60
+	ld bc, ScowlerData_60a60
 	call z, ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69ab3
+	ld de, ScowlerFrameset_69ab3
 	call SetObjectFramesetPtr
 	ld a, $ff
 	ld [hli], a
@@ -337,7 +337,7 @@ ScowlerFunc:
 	cp b
 	jr nc, .asm_54765
 	play_sfx SFX_SCOWLER_STOMPED
-	ld de, Frameset_69abc
+	ld de, ScowlerFrameset_69abc
 	call SetObjectFramesetPtr
 	ld a, $1e
 	ld [hli], a
@@ -427,7 +427,7 @@ ScowlerFunc:
 	ld [hl], a
 	ret
 .asm_547e9
-	ld de, Frameset_69aa8
+	ld de, ScowlerFrameset_69aa8
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -462,7 +462,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, LOW(.Func_54853)
 	ld [hld], a
-	ld de, Frameset_69b08
+	ld de, ScowlerFrameset_69b08
 	call SetObjectFramesetPtr
 	ld a, $78
 	ld [hli], a
@@ -476,7 +476,7 @@ ScowlerFunc:
 	ld [hld], a
 	ld a, LOW(.Func_548c5)
 	ld [hld], a
-	ld de, Frameset_69ac3
+	ld de, ScowlerFrameset_69ac3
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $ff
@@ -507,7 +507,7 @@ ScowlerFunc:
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z
-	ld bc, Data_60a70
+	ld bc, ScowlerData_60a70
 	jp ApplyObjYMovement
 
 .Func_5487d:
@@ -546,11 +546,11 @@ ScowlerFunc:
 	cp b
 	jr c, .asm_548bd
 	res 7, [hl]
-	ld de, Frameset_69a5f
+	ld de, ScowlerFrameset_69a5f
 	jp SetObjectFramesetPtr
 .asm_548bd
 	set 7, [hl]
-	ld de, Frameset_69a68
+	ld de, ScowlerFrameset_69a68
 	jp SetObjectFramesetPtr
 
 .Func_548c5:
@@ -571,7 +571,7 @@ ScowlerFunc:
 	call Func_358b
 	ld a, [wIsInWaterOrSand]
 	and a
-	ld bc, Data_60a70
+	ld bc, ScowlerData_60a70
 	jp nz, ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	ld a, $0f
@@ -594,7 +594,7 @@ ScowlerFunc:
 	ld [wCurObjAction], a
 	call Func_54c07
 	call MoveObjectDown_Slow
-	ld bc, Data_60a80
+	ld bc, ScowlerData_60a80
 	call ApplyObjXMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -634,13 +634,13 @@ ScowlerFunc:
 	jr z, .asm_54978
 	xor a
 	ld [hl], a
-	ld hl, Pals_54c87
+	ld hl, ScowlerPals_54c87
 	call WriteScowlerOBPals
-	ld hl, Pals_54cb7
+	ld hl, ScowlerPals_54cb7
 	call WriteScowlerBGPals
 .asm_54978
 	call MoveObjectDown_Slow
-	ld bc, Data_60a90
+	ld bc, ScowlerData_60a90
 	jp ApplyObjXMovement_Loop
 
 FloatingRingSpawnerFunc:
@@ -1023,7 +1023,7 @@ InkFunc:
 	ld a, $01
 	ld [w1d147], a
 .asm_54be6
-	ld de, Frameset_69af5
+	ld de, ScowlerFrameset_69af5
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a
@@ -1070,9 +1070,9 @@ Func_54c07:
 .asm_54c31
 	play_sfx SFX_SCOWLER_INK_1
 .asm_54c39
-	ld hl, Pals_54c9f
+	ld hl, ScowlerPals_54c9f
 	call WriteScowlerOBPals
-	ld hl, Pals_54cf7
+	ld hl, ScowlerPals_54cf7
 	jr WriteScowlerBGPals
 
 .asm_54c44
@@ -1090,9 +1090,9 @@ Func_54c07:
 	play_sfx SFX_SCOWLER_INK_2
 	xor a
 	ld [hl], a
-	ld hl, Pals_54c87
+	ld hl, ScowlerPals_54c87
 	call WriteScowlerOBPals
-	ld hl, Pals_54cb7
+	ld hl, ScowlerPals_54cb7
 	jr WriteScowlerBGPals
 .asm_54c74
 	ld hl, wDollBoyActiveBarrels
@@ -1109,7 +1109,7 @@ WriteScowlerBGPals:
 	ld b, 8
 	jp SetBGPals
 
-Pals_54c87:
+ScowlerPals_54c87:
 	rgb  0, 20,  0
 	rgb 31, 27,  0
 	rgb  0, 17, 31
@@ -1125,7 +1125,7 @@ Pals_54c87:
 	rgb  0, 28,  0
 	rgb  0,  0,  0
 
-Pals_54c9f:
+ScowlerPals_54c9f:
 	rgb  0, 10,  0
 	rgb 31, 13,  0
 	rgb 16, 24, 15
@@ -1141,7 +1141,7 @@ Pals_54c9f:
 	rgb  0, 14,  0
 	rgb  0,  0,  0
 
-Pals_54cb7:
+ScowlerPals_54cb7:
 	rgb  1, 11, 23
 	rgb  2,  8, 19
 	rgb  0,  6, 15
@@ -1182,7 +1182,7 @@ Pals_54cb7:
 	rgb 10,  0,  6
 	rgb  2,  0,  0
 
-Pals_54cf7:
+ScowlerPals_54cf7:
 	rgb  1,  5, 13
 	rgb  0,  3,  8
 	rgb  0,  1,  5

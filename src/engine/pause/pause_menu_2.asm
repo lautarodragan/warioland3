@@ -9,7 +9,7 @@ LoadPauseMenuSprite::
 	ld [wCurSpriteFrame], a
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
-	ld hl, OAM_1f156c
+	ld hl, PauseMenuOAM_1f156c
 	call LoadSprite
 	ret
 
@@ -113,9 +113,9 @@ HandlePauseMenuInput:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c9c)
+	ld a, HIGH(PauseMenuFrameset_1f1c9c)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c9c)
+	ld a, LOW(PauseMenuFrameset_1f1c9c)
 	ld [hl], a
 	jr .play_sfx
 
@@ -139,16 +139,16 @@ HandlePauseMenuInput:
 	jr z, .rail_1
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jr z, .vampire_1
-	ld bc, Frameset_1f1c50
+	ld bc, PauseMenuFrameset_1f1c50
 	jr .asm_1f0a79
 .owl_1
-	ld bc, Frameset_1f1cf9
+	ld bc, PauseMenuFrameset_1f1cf9
 	jr .asm_1f0a79
 .rail_1
-	ld bc, Frameset_1f1d1b
+	ld bc, PauseMenuFrameset_1f1d1b
 	jr .asm_1f0a79
 .vampire_1
-	ld bc, Frameset_1f1d41
+	ld bc, PauseMenuFrameset_1f1d41
 .asm_1f0a79
 	ld a, b
 	ld [hli], a
@@ -169,9 +169,9 @@ HandlePauseMenuInput:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c74)
+	ld a, HIGH(PauseMenuFrameset_1f1c74)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c74)
+	ld a, LOW(PauseMenuFrameset_1f1c74)
 	ld [hl], a
 
 .play_sfx
@@ -191,9 +191,9 @@ HandlePauseMenuInput:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cb8)
+	ld a, HIGH(PauseMenuFrameset_1f1cb8)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cb8)
+	ld a, LOW(PauseMenuFrameset_1f1cb8)
 	ld [hl], a
 	jr .play_sfx
 
@@ -210,9 +210,9 @@ HandlePauseMenuInput:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cbb)
+	ld a, HIGH(PauseMenuFrameset_1f1cbb)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cbb)
+	ld a, LOW(PauseMenuFrameset_1f1cbb)
 	ld [hl], a
 
 	ld hl, wPauseMenuSelection
@@ -225,9 +225,9 @@ HandlePauseMenuInput:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c9f)
+	ld a, HIGH(PauseMenuFrameset_1f1c9f)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c9f)
+	ld a, LOW(PauseMenuFrameset_1f1c9f)
 	ld [hl], a
 	jr .do_selection
 
@@ -243,16 +243,16 @@ HandlePauseMenuInput:
 	jr z, .rail_2
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jr z, .vampire_2
-	ld bc, Frameset_1f1c69
+	ld bc, PauseMenuFrameset_1f1c69
 	jr .asm_1f0b18
 .owl_2
-	ld bc, Frameset_1f1d0a
+	ld bc, PauseMenuFrameset_1f1d0a
 	jr .asm_1f0b18
 .rail_2
-	ld bc, Frameset_1f1d20
+	ld bc, PauseMenuFrameset_1f1d20
 	jr .asm_1f0b18
 .vampire_2
-	ld bc, Frameset_1f1d4c
+	ld bc, PauseMenuFrameset_1f1d4c
 .asm_1f0b18
 	ld a, b
 	ld [hli], a
@@ -265,9 +265,9 @@ HandlePauseMenuInput:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c77)
+	ld a, HIGH(PauseMenuFrameset_1f1c77)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c77)
+	ld a, LOW(PauseMenuFrameset_1f1c77)
 	ld [hl], a
 	jr .do_selection ; useless jump
 

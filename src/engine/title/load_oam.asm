@@ -15,7 +15,7 @@ LoadStartMenuSprite:
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
 
-	ld hl, OAM_6b5f
+	ld hl, StartMenuOAM_6b5f
 	call LoadSprite
 	ret
 
@@ -36,6 +36,6 @@ LoadIntroSprite:
 	ld a, [hl]
 	ld [wCurSpriteAttributes], a
 
-	ld hl, OAM_6d21
+	ld hl, TitleOAM_6d21
 	call LoadSprite
 	ret

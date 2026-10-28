@@ -164,7 +164,7 @@ HammerBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
@@ -173,7 +173,7 @@ HammerBotFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b17
+	ld de, HammerBotFrameset_68b17
 	call SetObjectFramesetPtr
 	ret
 
@@ -186,14 +186,14 @@ HammerBotFunc:
 	jr c, .asm_4439e
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
 .asm_4439e
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b17
+	ld de, HammerBotFrameset_68b17
 	call SetObjectFramesetPtr
 	ret
 
@@ -323,12 +323,12 @@ HammerBotFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44485
-	ld de, Frameset_68b12
+	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
 .asm_44485
-	ld de, Frameset_68b17
+	ld de, HammerBotFrameset_68b17
 	call SetObjectFramesetPtr
 	ret
 
@@ -394,7 +394,7 @@ HammerBotFunc:
 	sub b
 	cp $40
 	jr nc, .asm_4451c
-	ld de, Frameset_68b1c
+	ld de, HammerBotFrameset_68b1c
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a
@@ -463,7 +463,7 @@ HammerBotFunc:
 	sub b
 	cp $c0
 	jr c, .asm_4458d
-	ld de, Frameset_68b25
+	ld de, HammerBotFrameset_68b25
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a
@@ -525,7 +525,7 @@ HammerBotFunc:
 .asm_445cf
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b58, Frameset_68b5b
+	ld_obj_frameset HammerBotFrameset_68b58, HammerBotFrameset_68b5b
 	call SetObjectFramesetPtr
 	ld a, 12
 	ld [hld], a
@@ -549,7 +549,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -576,7 +576,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -609,7 +609,7 @@ HammerBotFunc:
 .asm_4466b
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -675,7 +675,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b4a, Frameset_68b51
+	ld_obj_frameset HammerBotFrameset_68b4a, HammerBotFrameset_68b51
 	call SetObjectFramesetPtr
 	ld a, 26
 	ld [hli], a
@@ -741,7 +741,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -766,13 +766,13 @@ HammerBotFunc:
 	ld a, $3b
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsLeft
-	ld de, Frameset_68b5e
+	ld de, HammerBotFrameset_68b5e
 	jr .asm_44783
 .Func_44778:
 	ld a, $3c
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsRight
-	ld de, Frameset_68b61
+	ld de, HammerBotFrameset_68b61
 .asm_44783
 	call SetObjectFramesetPtr
 	ld a, 20
@@ -876,10 +876,10 @@ HammerBotFunc:
 	ld a, c
 	rlca
 	jr c, .asm_44833
-	ld de, Frameset_68b40
+	ld de, HammerBotFrameset_68b40
 	jp SetObjectFramesetPtr
 .asm_44833
-	ld de, Frameset_68b45
+	ld de, HammerBotFrameset_68b45
 	jp SetObjectFramesetPtr
 
 .Func_44839:
@@ -914,7 +914,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -939,7 +939,7 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b2e, Frameset_68b37
+	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07

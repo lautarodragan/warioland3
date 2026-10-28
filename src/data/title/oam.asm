@@ -1,4 +1,4 @@
-OAM_6b5f:
+StartMenuOAM_6b5f:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -127,23 +127,23 @@ OAM_6b5f:
 	frame_oam -18, -16, $0a, 0
 	db $80
 
-Frameset_6ce6:
+IntroFrameset_6ce6:
 	db 0, 4
 	db $ff
 
-Frameset_6ce9:
+StartMenuFrameset_6ce9:
 	db 1, 4
 	db $ff
 
-Frameset_6cec:
+StartMenuFrameset_6cec:
 	db 2, 4
 	db $ff
 
-Frameset_6cef:
+StartMenuFrameset_6cef:
 	db 3, 4
 	db $ff
 
-Frameset_6cf2:
+StartMenuFrameset_6cf2:
 	db 4, 30
 	db 2,  3
 	db 4,  3
@@ -155,7 +155,7 @@ Frameset_6cf2:
 	db 4,  3
 	db $ff
 
-Frameset_6d05:
+StartMenuFrameset_6d05:
 	db 5, 30
 	db 3,  3
 	db 5,  3
@@ -167,19 +167,19 @@ Frameset_6d05:
 	db 5,  3
 	db $ff
 
-Frameset_6d18:
+IntroFrameset_6d18:
 	db 6, 4
 	db $ff
 
-Frameset_6d1b:
+IntroFrameset_6d1b:
 	db 7, 4
 	db $ff
 
-Frameset_6d1e:
+StartMenuFrameset_6d1e:
 	db 8, 4
 	db $ff
 
-OAM_6d21:
+TitleOAM_6d21:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -573,7 +573,7 @@ OAM_6d21:
 	frame_oam   0,   8, $5e, 5 | OAM_BANK1
 	db $80
 
-Frameset_712c:
+IntroFrameset_712c:
 	db 0, 2
 	db 1, 2
 	db 2, 2
@@ -584,13 +584,13 @@ Frameset_712c:
 	db 7, 2
 	db $ff
 
-Frameset_713d:
+IntroFrameset_713d:
 	db  8, 3
 	db  9, 3
 	db 10, 3
 	db $ff
 
-Frameset_7144:
+IntroFrameset_7144:
 	db  8, 3
 	db  9, 3
 	db 10, 3
@@ -609,7 +609,7 @@ Frameset_7144:
 	db 11, 4
 	db $ff
 
-Frameset_7165:
+IntroFrameset_7165:
 	db 13,  6
 	db 14,  6
 	db 13,  6
@@ -618,28 +618,28 @@ Frameset_7165:
 	db 16, 40
 	db $ff
 
-Frameset_7172:
+IntroFrameset_7172:
 	db 17, 2
 	db 18, 2
 	db 19, 2
 	db 20, 2
 	db $ff
 
-Frameset_717b:
+IntroFrameset_717b:
 	db 21, 2
 	db 22, 2
 	db 23, 2
 	db 24, 2
 	db $ff
 
-Frameset_7184:
+IntroFrameset_7184:
 	db 25, 2
 	db 26, 2
 	db 27, 2
 	db 28, 2
 	db $ff
 
-Frameset_718d:
+IntroFrameset_718d:
 	db 29, 9
 	db 30, 9
 	db 31, 9
@@ -647,22 +647,22 @@ Frameset_718d:
 	db 33, 9
 	db $ff
 
-Frameset_7198:
+IntroFrameset_7198:
 	db 34, 9
 	db 35, 9
 	db 36, 9
 	db 37, 9
 	db $ff
 
-Frameset_71a1:
+IntroFrameset_71a1:
 	db 39, 4
 	db $ff
 
-Frameset_71a4:
+IntroFrameset_71a4:
 	db 40, 4
 	db $ff
 
-Frameset_71a7:
+IntroFrameset_71a7:
 	db 0, 2
 	db 1, 2
 	db 2, 2

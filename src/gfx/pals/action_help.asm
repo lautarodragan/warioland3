@@ -1,4 +1,4 @@
-Pals_1e4e6f:
+ActionHelpPals_1e4e6f:
 	rgb 31, 31, 31
 	rgb  9,  7, 31
 	rgb  9, 25, 31
@@ -39,7 +39,7 @@ Pals_1e4e6f:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_1e4eaf:
+ActionHelpPals_1e4eaf:
 	rgb 31, 31, 31
 	rgb  9,  7, 31
 	rgb  9, 25, 31
@@ -80,7 +80,7 @@ Pals_1e4eaf:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_1e4eef:
+ActionHelpBlackedOutBGPals:
 	rgb  0,  0,  0
 	rgb  0,  0,  0
 	rgb  0,  0,  0
@@ -121,7 +121,7 @@ Pals_1e4eef:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-Pals_1e4f2f:
+ActionHelpOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -162,7 +162,7 @@ Pals_1e4f2f:
 	rgb 21, 21, 21
 	rgb  0,  0,  0
 
-Pals_1e4f6f:
+ActionHelpPals_1e4f6f:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -173,7 +173,7 @@ Pals_1e4f6f:
 	rgb 31, 30, 12
 	rgb  6,  5, 26
 
-Pals_1e4f7f:
+ActionHelpPowerUpOBPals:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10
@@ -214,7 +214,7 @@ Pals_1e4f7f:
 	rgb 21, 21, 21
 	rgb  0,  0,  0
 
-Pals_1e4fbf:
+ActionHelpPals_1e4fbf:
 	rgb 18, 18, 18
 	rgb 31, 31,  4
 	rgb 18, 12, 31

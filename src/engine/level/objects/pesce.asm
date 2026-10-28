@@ -16,7 +16,7 @@ StrongWaterCurrentFunc:
 	ld [hld], a
 	ld a, $fe
 	ld [hl], a
-	ld de, Frameset_69965
+	ld de, PesceFrameset_69965
 	call SetObjectFramesetPtr
 	ld a, $2a
 	ld [wCurObjVar2], a
@@ -46,7 +46,7 @@ PesceFunc:
 	ld [hld], a
 	ld a, $fe
 	ld [hl], a
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	call SetObjectFramesetPtr
 	xor a
 	ld [w1d147], a
@@ -130,7 +130,7 @@ PesceFunc:
 	ld a, [hl]
 	sbc $00
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_6992d
+	ld de, PesceFrameset_6992d
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -142,7 +142,7 @@ PesceFunc:
 	ld [wWarioXPos + 1], a
 	ld a, [hl]
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_69a15
+	ld de, PesceFrameset_69a15
 	call SetObjectFramesetPtr
 	ld a, $0d
 	ld [hli], a
@@ -203,7 +203,7 @@ PesceFunc:
 	ld a, [hl]
 	sbc $00
 	ld [wWarioXPos + 0], a
-	ld de, Frameset_6992d
+	ld de, PesceFrameset_6992d
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -259,10 +259,10 @@ PesceFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_51ef6
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	jp SetObjectFramesetPtr
 .asm_51ef6
-	ld de, Frameset_69942
+	ld de, PesceFrameset_69942
 	jp SetObjectFramesetPtr
 
 .asm_51efc
@@ -491,33 +491,33 @@ PesceFunc:
 	ld c, $17
 	sla b
 	jr c, .asm_5208d
-	ld de, Frameset_69981
+	ld de, PesceFrameset_69981
 	jr .asm_520c0
 .asm_5208d
-	ld de, Frameset_6997a
+	ld de, PesceFrameset_6997a
 	jr .asm_520c0
 .asm_52092
 	ld c, $1b
 	sla b
 	jr c, .asm_5209d
-	ld de, Frameset_6998f
+	ld de, PesceFrameset_6998f
 	jr .asm_520c0
 .asm_5209d
-	ld de, Frameset_69988
+	ld de, PesceFrameset_69988
 	jr .asm_520c0
 .asm_520a2
 	ld c, $1f
 	sla b
 	jr c, .asm_520ad
-	ld de, Frameset_6999d
+	ld de, PesceFrameset_6999d
 	jr .asm_520c0
 .asm_520ad
-	ld de, Frameset_69996
+	ld de, PesceFrameset_69996
 	jr .asm_520c0
 .asm_520b2
 	ld c, $25
 	sla b
-	ld_obj_frameset Frameset_699ab, Frameset_699a4
+	ld_obj_frameset PesceFrameset_699ab, PesceFrameset_699a4
 .asm_520c0
 	call SetObjectFramesetPtr
 	ld [hl], c
@@ -537,22 +537,22 @@ PesceFunc:
 	ld [w1d147], a
 	sla b
 	jr c, .asm_520e6
-	ld de, Frameset_69911
+	ld de, PesceFrameset_69911
 	jr .asm_52105
 .asm_520e6
-	ld de, Frameset_69949
+	ld de, PesceFrameset_69949
 	jr .asm_52105
 .asm_520eb
 	sla b
 	jr c, .asm_520f4
-	ld de, Frameset_69934
+	ld de, PesceFrameset_69934
 	jr .asm_52105
 .asm_520f4
-	ld de, Frameset_6996c
+	ld de, PesceFrameset_6996c
 	jr .asm_52105
 .asm_520f9
 	sla b
-	ld_obj_frameset Frameset_6993b, Frameset_69973
+	ld_obj_frameset PesceFrameset_6993b, PesceFrameset_69973
 .asm_52105
 	jp SetObjectFramesetPtr
 
@@ -569,22 +569,22 @@ PesceFunc:
 	ld [w1d147], a
 	sla b
 	jr c, .asm_5212c
-	ld de, Frameset_699b2
+	ld de, PesceFrameset_699b2
 	jr .asm_5214b
 .asm_5212c
-	ld de, Frameset_699c1
+	ld de, PesceFrameset_699c1
 	jr .asm_5214b
 .asm_52131
 	sla b
 	jr c, .asm_5213a
-	ld de, Frameset_699b7
+	ld de, PesceFrameset_699b7
 	jr .asm_5214b
 .asm_5213a
-	ld de, Frameset_699c6
+	ld de, PesceFrameset_699c6
 	jr .asm_5214b
 .asm_5213f
 	sla b
-	ld_obj_frameset Frameset_699bc, Frameset_699cb
+	ld_obj_frameset PesceFrameset_699bc, PesceFrameset_699cb
 .asm_5214b
 	call SetObjectFramesetPtr
 	ld a, $3c
@@ -607,30 +607,30 @@ PesceFunc:
 	ld [w1d147], a
 	sla b
 	jr c, .asm_52175
-	ld de, Frameset_6990a
+	ld de, PesceFrameset_6990a
 	jr .asm_521a2
 .asm_52175
-	ld de, Frameset_69942
+	ld de, PesceFrameset_69942
 	jr .asm_521a2
 .asm_5217a
 	sla b
 	jr c, .asm_52183
-	ld de, Frameset_69918
+	ld de, PesceFrameset_69918
 	jr .asm_521a2
 .asm_52183
-	ld de, Frameset_69950
+	ld de, PesceFrameset_69950
 	jr .asm_521a2
 .asm_52188
 	sla b
 	jr c, .asm_52191
-	ld de, Frameset_6991f
+	ld de, PesceFrameset_6991f
 	jr .asm_521a2
 .asm_52191
-	ld de, Frameset_69957
+	ld de, PesceFrameset_69957
 	jr .asm_521a2
 .asm_52196
 	sla b
-	ld_obj_frameset Frameset_69926, Frameset_6995e
+	ld_obj_frameset PesceFrameset_69926, PesceFrameset_6995e
 .asm_521a2
 	jp SetObjectFramesetPtr
 
@@ -722,7 +722,7 @@ PesceFunc:
 	inc l
 	ld a, $02
 	ld [hl], a
-	ld de, Frameset_6995e
+	ld de, PesceFrameset_6995e
 	jp SetObjectFramesetPtr
 .asm_52239
 	ld l, OBJ_Y_POS
@@ -742,7 +742,7 @@ PesceFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_52265
-	ld de, Frameset_699a4
+	ld de, PesceFrameset_699a4
 	call SetObjectFramesetPtr
 	ld a, $25
 	ld [hli], a
@@ -886,10 +886,10 @@ Dragonfly1Func:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_52353
-	ld de, Frameset_699d0
+	ld de, PesceFrameset_699d0
 	jp SetObjectFramesetPtr
 .asm_52353
-	ld de, Frameset_699d5
+	ld de, PesceFrameset_699d5
 	jp SetObjectFramesetPtr
 .asm_52359
 	ld a, [w1d147]
@@ -927,10 +927,10 @@ Dragonfly1Func:
 	ld [hl], a
 	rlca
 	jr c, .asm_5239d
-	ld de, Frameset_699df
+	ld de, PesceFrameset_699df
 	jp SetObjectFramesetPtr
 .asm_5239d
-	ld de, Frameset_699da
+	ld de, PesceFrameset_699da
 	jp SetObjectFramesetPtr
 .asm_523a3
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -951,7 +951,7 @@ Dragonfly1Func:
 	jp MoveObjectLeft_Fast
 
 Dragonfly2Func:
-	ld de, Frameset_699d0
+	ld de, PesceFrameset_699d0
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -1188,7 +1188,7 @@ FlyFunc:
 	ld [wDollBoyActiveBarrels], a
 	ret
 .asm_5255e
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld a, [wDollBoyActiveBarrels]
 	and a

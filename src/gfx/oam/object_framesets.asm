@@ -1,8 +1,8 @@
-Frameset_68000:
+ChestsFrameset_68000:
 	db   0,  4
 	db $ff
 
-Frameset_68003:
+ChestsFrameset_68003:
 	db   0, 12
 	db  17,  3
 	db   1,  6
@@ -30,7 +30,7 @@ Frameset_68003:
 	db  61,  2
 	db $ff
 
-Frameset_68036:
+MusicalCoinFrameset_68036:
 	db   4, 10
 	db   5,  9
 	db   6,  8
@@ -45,7 +45,7 @@ Frameset_68036:
 	db   5,  9
 	db $ff
 
-Frameset_6804f:
+KeyFrameset_6804f:
 	db  11,  6
 	db  12,  8
 	db  13, 10
@@ -56,13 +56,13 @@ Frameset_6804f:
 	db  12,  8
 	db $ff
 
-Frameset_68060:
+ChestsFrameset_68060:
 	db  62,  3
 	db  63,  3
 	db $ff
 
 ; unreferenced
-Frameset_68065:
+UnreferencedChestsFrameset_68065:
 	db  18,  1
 	db  19,  1
 	db  20,  2
@@ -71,7 +71,7 @@ Frameset_68065:
 	db  23,  1
 	db $ff
 
-Frameset_68072:
+MuddeeStingerFrameset_68072:
 	db  24,  4
 	db  25,  4
 	db  26,  4
@@ -81,7 +81,7 @@ Frameset_68072:
 	db $ff
 
 ; unreferenced
-Frameset_6807f:
+UnreferencedStarsFrameset_6807f:
 	db  30,  3
 	db  31,  2
 	db  32,  1
@@ -92,7 +92,7 @@ Frameset_6807f:
 	db $ff
 
 ; unreferenced
-Frameset_6808e:
+UnreferencedStarsFrameset_6808e:
 	db  33,  3
 	db  32,  2
 	db  31,  2
@@ -106,7 +106,7 @@ Frameset_6808e:
 	db  30,  2
 	db $ff
 
-Frameset_680a5:
+StarsFrameset_680a5:
 	db  30,  3
 	db  31,  2
 	db  32,  1
@@ -117,7 +117,7 @@ Frameset_680a5:
 	db  40,  2
 	db $ff
 
-Frameset_680b6:
+StarsFrameset_680b6:
 	db  37,  2
 	db  38,  2
 	db  39,  2
@@ -127,7 +127,7 @@ Frameset_680b6:
 	db  43,  1
 	db $ff
 
-Frameset_680c5:
+StarsFrameset_680c5:
 	db  31,  2
 	db  32,  1
 	db  33,  2
@@ -140,7 +140,7 @@ Frameset_680c5:
 	db  40,  2
 	db $ff
 
-Frameset_680da:
+ChestsFrameset_680da:
 	db  64,  3
 	db  65,  3
 	db  64,  3
@@ -171,7 +171,7 @@ Frameset_680da:
 	db  67,  3
 	db $ff
 
-Frameset_68113:
+ChestsFrameset_68113:
 	db  64,  3
 	db  65,  3
 	db  64,  3
@@ -202,7 +202,7 @@ Frameset_68113:
 	db  69,  3
 	db $ff
 
-Frameset_6814c:
+ChestsFrameset_6814c:
 	db  64,  3
 	db  65,  3
 	db  64,  3
@@ -233,7 +233,7 @@ Frameset_6814c:
 	db  71,  3
 	db $ff
 
-Frameset_68185:
+ChestsFrameset_68185:
 	db  64,  3
 	db  65,  3
 	db  64,  3
@@ -264,69 +264,69 @@ Frameset_68185:
 	db  73,  3
 	db $ff
 
-Frameset_681be:
+ChestsFrameset_681be:
 	db  66,  3
 	db  67,  3
 	db $ff
 
-Frameset_681c3:
+ChestsFrameset_681c3:
 	db  68,  3
 	db  69,  3
 	db $ff
 
-Frameset_681c8:
+ChestsFrameset_681c8:
 	db  70,  3
 	db  71,  3
 	db $ff
 
-Frameset_681cd:
+ChestsFrameset_681cd:
 	db  72,  3
 	db  73,  3
 	db $ff
 
-Frameset_681d2::
+SpearheadFrameset_681d2::
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_681db:
+SpearheadFrameset_681db:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_681e4:
+SpearheadFrameset_681e4:
 	db   6,  8
 	db   7,  8
 	db   6,  8
 	db   8,  8
 	db $ff
 
-Frameset_681ed:
+SpearheadFrameset_681ed:
 	db   9,  8
 	db  10,  8
 	db   9,  8
 	db  11,  8
 	db $ff
 
-Frameset_681f6:
+SpearheadFrameset_681f6:
 	db  14,  6
 	db   7,  6
 	db  12,  6
 	db  13,  6
 	db $ff
 
-Frameset_681ff:
+SpearheadFrameset_681ff:
 	db  17,  6
 	db  10,  6
 	db  15,  6
 	db  16,  6
 	db $ff
 
-Frameset_68208:
+SpearheadFrameset_68208:
 	db   0,  4
 	db  25,  6
 	db  26,  8
@@ -334,7 +334,7 @@ Frameset_68208:
 	db   0,  4
 	db $ff
 
-Frameset_68213:
+SpearheadFrameset_68213:
 	db   3,  4
 	db  27,  6
 	db  28,  8
@@ -342,7 +342,7 @@ Frameset_68213:
 	db   3,  4
 	db $ff
 
-Frameset_6821e:
+SpearheadFrameset_6821e:
 	db   0,  4
 	db  18,  4
 	db  19,  8
@@ -350,7 +350,7 @@ Frameset_6821e:
 	db   3,  4
 	db $ff
 
-Frameset_68229:
+SpearheadFrameset_68229:
 	db   3,  4
 	db  20,  4
 	db  19,  8
@@ -358,7 +358,7 @@ Frameset_68229:
 	db   0,  4
 	db $ff
 
-Frameset_68234:
+SpearheadFrameset_68234:
 	db  21, 35
 	db  22, 10
 	db  30, 35
@@ -366,7 +366,7 @@ Frameset_68234:
 	db $ff
 
 ; unreferenced
-Frameset_6823d:
+UnreferencedSpearheadFrameset_6823d:
 	db   0,  2
 	db   1,  2
 	db   0,  2
@@ -374,14 +374,14 @@ Frameset_6823d:
 	db $ff
 
 ; unreferenced
-Frameset_68246:
+UnreferencedSpearheadFrameset_68246:
 	db   3,  2
 	db   4,  2
 	db   3,  2
 	db   5,  2
 	db $ff
 
-Frameset_6824f:
+SpearheadFrameset_6824f:
 	db   0,  8
 	db  23,  4
 	db   0,  8
@@ -389,7 +389,7 @@ Frameset_6824f:
 	db   0,  8
 	db $ff
 
-Frameset_6825a:
+SpearheadFrameset_6825a:
 	db   3,  8
 	db  24,  4
 	db   3,  8
@@ -397,26 +397,26 @@ Frameset_6825a:
 	db   3,  8
 	db $ff
 
-Frameset_68265:
+SpearheadFrameset_68265:
 	db  12,  6
 	db   7,  6
 	db  14,  6
 	db  13,  6
 	db $ff
 
-Frameset_6826e:
+SpearheadFrameset_6826e:
 	db  15,  6
 	db  10,  6
 	db  17,  6
 	db  16,  6
 	db $ff
 
-Frameset_68277:
+SpearheadFrameset_68277:
 	db  29,  6
 	db  31,  6
 	db $ff
 
-Frameset_6827c:
+SpearheadFrameset_6827c:
 	db  30,  4
 	db  32,  6
 	db  19,  8
@@ -424,7 +424,7 @@ Frameset_6827c:
 	db   0,  4
 	db $ff
 
-Frameset_68287:
+SpearheadFrameset_68287:
 	db  30,  4
 	db  32,  6
 	db  19,  8
@@ -432,38 +432,38 @@ Frameset_68287:
 	db   3,  4
 	db $ff
 
-Frameset_68292:
+SpearheadFrameset_68292:
 	db  12,  3
 	db  13,  3
 	db  14,  3
 	db   7,  3
 	db $ff
 
-Frameset_6829b:
+SpearheadFrameset_6829b:
 	db  15,  3
 	db  16,  3
 	db  17,  3
 	db  10,  3
 	db $ff
 
-Frameset_682a4:
+WebberFrameset_682a4:
 	db   3, 20
 	db   1, 20
 	db $ff
 
-Frameset_682a9:
+WebberFrameset_682a9:
 	db   2,  6
 	db  12,  4
 	db  13,  4
 	db   7, 10
 	db $ff
 
-Frameset_682b2:
+WebberFrameset_682b2:
 	db   0,  8
 	db   3,  8
 	db $ff
 
-Frameset_682b7:
+WebberFrameset_682b7:
 	db   0,  5
 	db   4,  5
 	db   0,  5
@@ -471,38 +471,38 @@ Frameset_682b7:
 	db   1, 40
 	db $ff
 
-Frameset_682c2:
+WebberFrameset_682c2:
 	db   5, 100
 	db $ff
 
-Frameset_682c5:
+WebberFrameset_682c5:
 	db   6, 100
 	db $ff
 
-Frameset_682c8:
+WebberFrameset_682c8:
 	db   8,  6
 	db   9,  6
 	db  10,  6
 	db  11,  6
 	db $ff
 
-Frameset_682d1:
+WebberFrameset_682d1:
 	db   0, 16
 	db  17, 16
 	db $ff
 
-Frameset_682d6:
+WebberFrameset_682d6:
 	db   0, 20
 	db  18, 20
 	db $ff
 
-Frameset_682db:
+WebberFrameset_682db:
 	db  14,  8
 	db  15,  8
 	db  16,  8
 	db $ff
 
-Frameset_682e2:
+WebberFrameset_682e2:
 	db  41,  2
 	db  19,  6
 	db  20,  8
@@ -532,7 +532,7 @@ Frameset_682e2:
 	db  41,  2
 	db $ff
 
-Frameset_68319:
+FutamoguFrameset_68319:
 	db   1, 24
 	db   0, 24
 	db   1, 24
@@ -549,7 +549,7 @@ Frameset_68319:
 	db  11,  8
 	db $ff
 
-Frameset_68336:
+FutamoguFrameset_68336:
 	db   2,  8
 	db  14,  4
 	db  15,  4
@@ -558,41 +558,41 @@ Frameset_68336:
 	db  17,  4
 	db $ff
 
-Frameset_68343:
+FutamoguFrameset_68343:
 	db   4, 40
 	db   5, 40
 	db $ff
 
-Frameset_68348:
+FutamoguFrameset_68348:
 	db   6,  6
 	db   8,  4
 	db   9,  4
 	db  10,  6
 	db $ff
 
-Frameset_68351:
+FutamoguFrameset_68351:
 	db   7,  1
 	db $ff
 
-Frameset_68354:
+TorchFrameset_68354:
 	db   0,  8
 	db   1,  8
 	db $ff
 
-Frameset_68359:
+TorchFrameset_68359:
 	db   2,  8
 	db   3,  8
 	db   4,  8
 	db $ff
 
-Frameset_68360:
+TorchFrameset_68360:
 	db   5,  8
 	db   6,  8
 	db   7,  8
 	db   8,  8
 	db $ff
 
-Frameset_68369:
+TorchFrameset_68369:
 	db   9,  6
 	db  10,  3
 	db  11,  4
@@ -603,7 +603,7 @@ Frameset_68369:
 	db  10,  3
 	db $ff
 
-Frameset_6837a:
+UnusedFlowerFrameset_6837a:
 	db   0,  6
 	db   1,  6
 	db   2,  6
@@ -613,18 +613,18 @@ Frameset_6837a:
 	db   6,  6
 	db $ff
 
-Frameset_68389:
+UnusedFlowerFrameset_68389:
 	db   7, 16
 	db $ff
 
-Frameset_6838c:
+UnusedFlowerFrameset_6838c:
 	db   8,  6
 	db   9,  6
 	db  10,  6
 	db  11,  6
 	db $ff
 
-Frameset_68395:
+UnusedFlowerFrameset_68395:
 	db   8,  6
 	db  11,  6
 	db  10,  6
@@ -632,25 +632,25 @@ Frameset_68395:
 	db $ff
 
 ; unreferenced
-Frameset_6839e:
+UnreferencedUnusedFlowerFrameset_6839e:
 	db  12, 16
 	db  13, 16
 	db $ff
 
 ; unreferenced
-Frameset_683a3:
+UnreferencedUnusedFlowerFrameset_683a3:
 	db  12,  8
 	db  14,  8
 	db  15,  8
 	db  16,  8
 	db $ff
 
-Frameset_683ac:
+UnusedFlowerFrameset_683ac:
 	db  17,  8
 	db  18,  8
 	db $ff
 
-Frameset_683b1:
+UnusedFlowerFrameset_683b1:
 	db   4,  6
 	db   3,  6
 	db   2,  6
@@ -658,60 +658,60 @@ Frameset_683b1:
 	db   0,  6
 	db $ff
 
-Frameset_683bc:
+CountRichtertoffenFrameset_683bc:
 	db   0, 10
 	db   1, 10
 	db $ff
 
-Frameset_683c1:
+CountRichtertoffenFrameset_683c1:
 	db   2, 100
 	db $ff
 
-Frameset_683c4:
+CountRichtertoffenFrameset_683c4:
 	db   3, 100
 	db $ff
 
-Frameset_683c7:
+CountRichtertoffenFrameset_683c7:
 	db   4, 100
 	db $ff
 
-Frameset_683ca:
+CountRichtertoffenFrameset_683ca:
 	db   5, 10
 	db  10, 10
 	db $ff
 
 ; unreferenced
-Frameset_683cf:
+UnreferencedCountRichtertoffenFrameset_683cf:
 	db   5, 10
 	db  10, 10
 	db $ff
 
-Frameset_683d4:
+CountRichtertoffenFrameset_683d4:
 	db   8,  8
 	db   9, 16
 	db $ff
 
-Frameset_683d9:
+CountRichtertoffenFrameset_683d9:
 	db   6, 12
 	db   7, 12
 	db $ff
 
-Frameset_683de:
+CountRichtertoffenFrameset_683de:
 	db   5, 100
 	db $ff
 
-Frameset_683e1:
+CountRichtertoffenFrameset_683e1:
 	db  11, 100
 	db $ff
 
-Frameset_683e4:
+HebariiFrameset_683e4:
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_683ed:
+HebariiFrameset_683ed:
 	db   0,  4
 	db   3,  8
 	db   4, 12
@@ -719,11 +719,11 @@ Frameset_683ed:
 	db   0,  4
 	db $ff
 
-Frameset_683f8:
+HebariiFrameset_683f8:
 	db  19, 100
 	db $ff
 
-Frameset_683fb:
+HebariiFrameset_683fb:
 	db   5, 24
 	db   6, 24
 	db   5,  8
@@ -732,12 +732,12 @@ Frameset_683fb:
 	db   6,  8
 	db $ff
 
-Frameset_68408:
+HebariiFrameset_68408:
 	db  10,  4
 	db  11,  4
 	db $ff
 
-Frameset_6840d:
+HebariiFrameset_6840d:
 	db  10,  4
 	db  12,  4
 	db  13,  4
@@ -745,64 +745,64 @@ Frameset_6840d:
 	db  21,  4
 	db $ff
 
-Frameset_68418:
+HebariiFrameset_68418:
 	db   5,  3
 	db  16,  3
 	db  17,  3
 	db  18,  3
 	db $ff
 
-Frameset_68421:
+HebariiFrameset_68421:
 	db   5,  3
 	db  18,  3
 	db  17,  3
 	db  16,  3
 	db $ff
 
-Frameset_6842a:
+HebariiFrameset_6842a:
 	db  15, 100
 	db $ff
 
-Frameset_6842d:
+HebariiFrameset_6842d:
 	db  14, 100
 	db $ff
 
-Frameset_68430:
+HebariiFrameset_68430:
 	db   6,  8
 	db   7,  8
 	db   8,  8
 	db   9,  8
 	db $ff
 
-Frameset_68439::
+ParaGoomFrameset_68439::
 	db   0,  8
 	db   1, 12
 	db   2,  8
 	db   3, 12
 	db $ff
 
-Frameset_68442:
+ParaGoomFrameset_68442:
 	db   4,  8
 	db   5, 12
 	db   6,  8
 	db   7, 12
 	db $ff
 
-Frameset_6844b:
+ParaGoomFrameset_6844b:
 	db   8,  8
 	db   9, 12
 	db  10,  8
 	db  11, 12
 	db $ff
 
-Frameset_68454:
+ParaGoomFrameset_68454:
 	db  12,  8
 	db  13, 12
 	db  14,  8
 	db  15, 12
 	db $ff
 
-Frameset_6845d:
+ParaGoomFrameset_6845d:
 	db   0, 30
 	db  16,  8
 	db  17, 30
@@ -813,7 +813,7 @@ Frameset_6845d:
 	db   8, 30
 	db $ff
 
-Frameset_6846e:
+ParaGoomFrameset_6846e:
 	db   8, 30
 	db  20,  8
 	db  19, 30
@@ -824,7 +824,7 @@ Frameset_6846e:
 	db   0, 30
 	db $ff
 
-Frameset_6847f:
+ParaGoomFrameset_6847f:
 	db   4, 30
 	db  21,  8
 	db  22, 30
@@ -835,7 +835,7 @@ Frameset_6847f:
 	db  12, 30
 	db $ff
 
-Frameset_68490:
+ParaGoomFrameset_68490:
 	db  12, 30
 	db  25,  8
 	db  24, 30
@@ -846,32 +846,32 @@ Frameset_68490:
 	db   4, 30
 	db $ff
 
-Frameset_684a1:
+ParaGoomFrameset_684a1:
 	db  26,  3
 	db  27,  3
 	db  28,  3
 	db  29,  3
 	db $ff
 
-Frameset_684aa:
+ParaGoomFrameset_684aa:
 	db  45,  8
 	db  46,  8
 	db $ff
 
-Frameset_684af:
+ParaGoomFrameset_684af:
 	db  47,  8
 	db  48,  8
 	db $ff
 
-Frameset_684b4:
+ParaGoomFrameset_684b4:
 	db  30,  1
 	db $ff
 
-Frameset_684b7:
+ParaGoomFrameset_684b7:
 	db  31,  4
 	db $ff
 
-Frameset_684ba::
+ParaGoomFrameset_684ba::
 	db  32,  4
 	db  33,  6
 	db  34,  6
@@ -882,31 +882,31 @@ Frameset_684ba::
 	db  51,  6
 	db $ff
 
-Frameset_684cb:
+ParaGoomFrameset_684cb:
 	db   0, 30
 	db  44,  6
 	db   4, 30
 	db $ff
 
-Frameset_684d2:
+ParaGoomFrameset_684d2:
 	db   4, 30
 	db  44,  6
 	db   0, 30
 	db $ff
 
-Frameset_684d9:
+ParaGoomFrameset_684d9:
 	db   8, 30
 	db  44,  6
 	db  12, 30
 	db $ff
 
-Frameset_684e0:
+ParaGoomFrameset_684e0:
 	db  12, 30
 	db  44,  6
 	db   8, 30
 	db $ff
 
-Frameset_684e7:
+ParaGoomFrameset_684e7:
 	db   0,  2
 	db   1,  3
 	db   2,  2
@@ -926,7 +926,7 @@ Frameset_684e7:
 	db  31,  2
 	db $ff
 
-Frameset_6850a:
+ParaGoomFrameset_6850a:
 	db   4,  2
 	db   5,  3
 	db   6,  2
@@ -946,7 +946,7 @@ Frameset_6850a:
 	db  31,  2
 	db $ff
 
-Frameset_6852d:
+ParaGoomFrameset_6852d:
 	db   8,  2
 	db   9,  3
 	db  10,  2
@@ -961,7 +961,7 @@ Frameset_6852d:
 	db  11,  3
 	db $ff
 
-Frameset_68546:
+ParaGoomFrameset_68546:
 	db  12,  2
 	db  13,  3
 	db  14,  2
@@ -976,39 +976,39 @@ Frameset_68546:
 	db  15,  3
 	db $ff
 
-Frameset_6855f:
+ParaGoomFrameset_6855f:
 	db  44, 127
 	db $ff
 
-Frameset_68562::
+DoughnuteerFrameset_68562::
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_6856b:
+DoughnuteerFrameset_6856b:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_68574:
+DoughnuteerFrameset_68574:
 	db   6,  6
 	db   7,  6
 	db   6,  6
 	db   8,  6
 	db $ff
 
-Frameset_6857d:
+DoughnuteerFrameset_6857d:
 	db   9,  6
 	db  10,  6
 	db   9,  6
 	db  11,  6
 	db $ff
 
-Frameset_68586:
+DoughnuteerFrameset_68586:
 	db   0,  4
 	db  36,  6
 	db  37,  6
@@ -1019,7 +1019,7 @@ Frameset_68586:
 	db   6,  4
 	db $ff
 
-Frameset_68597:
+DoughnuteerFrameset_68597:
 	db   3,  4
 	db  39,  6
 	db  40,  6
@@ -1030,31 +1030,31 @@ Frameset_68597:
 	db   9,  4
 	db $ff
 
-Frameset_685a8:
+DoughnuteerFrameset_685a8:
 	db  16, 10
 	db  17, 10
 	db $ff
 
-Frameset_685ad:
+DoughnuteerFrameset_685ad:
 	db  18, 10
 	db  19, 10
 	db $ff
 
-Frameset_685b2:
+DoughnuteerFrameset_685b2:
 	db  20,  8
 	db  21,  8
 	db  20,  8
 	db  22,  8
 	db $ff
 
-Frameset_685bb:
+DoughnuteerFrameset_685bb:
 	db  23,  8
 	db  24,  8
 	db  23,  8
 	db  25,  8
 	db $ff
 
-Frameset_685c4:
+DoughnuteerFrameset_685c4:
 	db   6, 16
 	db  12,  2
 	db  13,  8
@@ -1066,7 +1066,7 @@ Frameset_685c4:
 	db   0, 16
 	db $ff
 
-Frameset_685d7:
+DoughnuteerFrameset_685d7:
 	db   9, 16
 	db  14,  2
 	db  15,  8
@@ -1078,79 +1078,79 @@ Frameset_685d7:
 	db   3, 16
 	db $ff
 
-Frameset_685ea:
+DoughnuteerFrameset_685ea:
 	db  32,  1
 	db $ff
 
-Frameset_685ed:
+DoughnuteerFrameset_685ed:
 	db  33,  1
 	db $ff
 
-Frameset_685f0:
+DoughnuteerFrameset_685f0:
 	db   0,  8
 	db  34,  8
 	db   3,  8
 	db $ff
 
-Frameset_685f7:
+DoughnuteerFrameset_685f7:
 	db   3,  8
 	db  34,  8
 	db   0,  8
 	db $ff
 
-Frameset_685fe:
+DoughnuteerFrameset_685fe:
 	db   6,  8
 	db  35,  8
 	db   9,  8
 	db $ff
 
-Frameset_68605:
+DoughnuteerFrameset_68605:
 	db   9,  8
 	db  35,  8
 	db   6,  8
 	db $ff
 
-Frameset_6860c:
+KushimushiFrameset_6860c:
 	db   0, 12
 	db   1, 12
 	db $ff
 
-Frameset_68611:
+KushimushiFrameset_68611:
 	db   3, 12
 	db   2, 12
 	db $ff
 
-Frameset_68616:
+KushimushiFrameset_68616:
 	db   5, 12
 	db   4, 12
 	db $ff
 
-Frameset_6861b:
+KushimushiFrameset_6861b:
 	db   7, 12
 	db   6, 12
 	db $ff
 
-Frameset_68620:
+KushimushiFrameset_68620:
 	db   9,  8
 	db   8,  8
 	db $ff
 
-Frameset_68625:
+KushimushiFrameset_68625:
 	db  11,  8
 	db  10,  8
 	db $ff
 
-Frameset_6862a:
+KushimushiFrameset_6862a:
 	db  13,  8
 	db  12,  8
 	db $ff
 
-Frameset_6862f:
+KushimushiFrameset_6862f:
 	db  15,  8
 	db  14,  8
 	db $ff
 
-Frameset_68634:
+KushimushiFrameset_68634:
 	db  18,  8
 	db  17,  8
 	db  16,  8
@@ -1158,7 +1158,7 @@ Frameset_68634:
 	db  22,  8
 	db $ff
 
-Frameset_6863f:
+KushimushiFrameset_6863f:
 	db  22,  8
 	db  21,  8
 	db  20,  8
@@ -1166,7 +1166,7 @@ Frameset_6863f:
 	db  18,  8
 	db $ff
 
-Frameset_6864a:
+KushimushiFrameset_6864a:
 	db  16,  8
 	db  17,  8
 	db  18,  8
@@ -1174,7 +1174,7 @@ Frameset_6864a:
 	db  20,  8
 	db $ff
 
-Frameset_68655:
+KushimushiFrameset_68655:
 	db  20,  8
 	db  19,  8
 	db  18,  8
@@ -1183,74 +1183,74 @@ Frameset_68655:
 	db $ff
 
 ; unreferenced
-Frameset_68660:
+UnreferencedKushimushiFrameset_68660:
 	db  18,  8
 	db  17,  8
 	db  16,  8
 	db $ff
 
 ; unreferenced
-Frameset_68667:
+UnreferencedKushimushiFrameset_68667:
 	db  16,  8
 	db  23,  8
 	db  22,  8
 	db $ff
 
 ; unreferenced
-Frameset_6866e:
+UnreferencedKushimushiFrameset_6866e:
 	db  22,  8
 	db  21,  8
 	db  20,  8
 	db $ff
 
 ; unreferenced
-Frameset_68675:
+UnreferencedKushimushiFrameset_68675:
 	db  20,  8
 	db  19,  8
 	db  18,  8
 	db $ff
 
 ; unreferenced
-Frameset_6867c:
+UnreferencedKushimushiFrameset_6867c:
 	db  18,  8
 	db  19,  8
 	db  20,  8
 	db $ff
 
 ; unreferenced
-Frameset_68683:
+UnreferencedKushimushiFrameset_68683:
 	db  20,  8
 	db  21,  8
 	db  22,  8
 	db $ff
 
 ; unreferenced
-Frameset_6868a:
+UnreferencedKushimushiFrameset_6868a:
 	db  22,  8
 	db  23,  8
 	db  16,  8
 	db $ff
 
 ; unreferenced
-Frameset_68691:
+UnreferencedKushimushiFrameset_68691:
 	db  16,  8
 	db  17,  8
 	db  18,  8
 	db $ff
 
-Frameset_68698:
+KushimushiFrameset_68698:
 	db  24, 100
 	db $ff
 
 ; unreferenced
-Frameset_6869b:
+UnreferencedKushimushiFrameset_6869b:
 	db  25,  4
 	db  26,  4
 	db  25,  4
 	db  27,  4
 	db $ff
 
-Frameset_686a4:
+MizuuoFrameset_686a4:
 	db   0,  4
 	db  22,  4
 	db   1,  8
@@ -1263,7 +1263,7 @@ Frameset_686a4:
 	db   0,  4
 	db $ff
 
-Frameset_686b9:
+MizuuoFrameset_686b9:
 	db   2,  4
 	db  24,  4
 	db   3,  8
@@ -1276,69 +1276,69 @@ Frameset_686b9:
 	db   2,  4
 	db $ff
 
-Frameset_686ce:
+MizuuoFrameset_686ce:
 	db   6, 16
 	db  26, 17
 	db $ff
 
-Frameset_686d3:
+MizuuoFrameset_686d3:
 	db   7, 16
 	db  27, 17
 	db $ff
 
-Frameset_686d8:
+MizuuoFrameset_686d8:
 	db   8, 100
 	db $ff
 
-Frameset_686db:
+MizuuoFrameset_686db:
 	db   9, 100
 	db $ff
 
-Frameset_686de:
+MizuuoFrameset_686de:
 	db  10,  8
 	db  11,  7
 	db  12,  6
 	db $ff
 
-Frameset_686e5:
+MizuuoFrameset_686e5:
 	db  13, 12
 	db  14, 12
 	db $ff
 
-Frameset_686ea:
+MizuuoFrameset_686ea:
 	db  15, 12
 	db  16, 12
 	db $ff
 
-Frameset_686ef:
+MizuuoFrameset_686ef:
 	db  28,  4
 	db  18,  6
 	db  19,  6
 	db   0,  6
 	db $ff
 
-Frameset_686f8:
+MizuuoFrameset_686f8:
 	db  29,  4
 	db  20,  6
 	db  21,  6
 	db   2,  6
 	db $ff
 
-Frameset_68701:
+MizuuoFrameset_68701:
 	db   0,  6
 	db  19,  6
 	db  18,  6
 	db  28,  4
 	db $ff
 
-Frameset_6870a:
+MizuuoFrameset_6870a:
 	db   2,  6
 	db  21,  6
 	db  20,  6
 	db  29,  4
 	db $ff
 
-Frameset_68713:
+MizuuoFrameset_68713:
 	db  13,  6
 	db  30,  6
 	db  17,  6
@@ -1346,7 +1346,7 @@ Frameset_68713:
 	db  15,  6
 	db $ff
 
-Frameset_6871e:
+MizuuoFrameset_6871e:
 	db  15,  6
 	db  31,  6
 	db  17,  6
@@ -1354,112 +1354,112 @@ Frameset_6871e:
 	db  13,  6
 	db $ff
 
-Frameset_68729:
+BigLeafFrameset_68729:
 	db   0,  8
 	db   1, 32
 	db   0,  8
 	db   2, 32
 	db $ff
 
-Frameset_68732:
+BigLeafFrameset_68732:
 	db   5,  4
 	db   4,  4
 	db   3,  4
 	db   0,  4
 	db $ff
 
-Frameset_6873b:
+BigLeafFrameset_6873b:
 	db   0,  4
 	db   3,  4
 	db   4,  4
 	db   5,  4
 	db $ff
 
-Frameset_68744:
+SilkyFrameset_68744:
 	db   0,  8
 	db   1,  8
 	db   2,  8
 	db   1,  8
 	db $ff
 
-Frameset_6874d:
+SilkyFrameset_6874d:
 	db   3,  8
 	db   4,  8
 	db   5,  8
 	db   4,  8
 	db $ff
 
-Frameset_68756:
+SilkyFrameset_68756:
 	db   6,  4
 	db   7,  4
 	db   8,  4
 	db   7,  4
 	db $ff
 
-Frameset_6875f:
+SilkyFrameset_6875f:
 	db   9,  4
 	db  10,  4
 	db  11,  4
 	db  10,  4
 	db $ff
 
-Frameset_68768:
+SilkyFrameset_68768:
 	db   0,  8
 	db  12,  8
 	db  13,  8
 	db   3,  8
 	db $ff
 
-Frameset_68771:
+SilkyFrameset_68771:
 	db   3,  8
 	db  13,  8
 	db  12,  8
 	db   0,  8
 	db $ff
 
-Frameset_6877a:
+SilkyFrameset_6877a:
 	db  14, 24
 	db  15, 24
 	db  14,  8
 	db  15,  8
 	db $ff
 
-Frameset_68783:
+SilkyFrameset_68783:
 	db  16, 24
 	db  17, 24
 	db  16,  8
 	db  17,  8
 	db $ff
 
-Frameset_6878c:
+SilkyFrameset_6878c:
 	db  14,  6
 	db  18,  6
 	db  19,  6
 	db  20,  6
 	db $ff
 
-Frameset_68795:
+SilkyFrameset_68795:
 	db  16,  6
 	db  21,  6
 	db  22,  6
 	db  23,  6
 	db $ff
 
-Frameset_6879e:
+SilkyFrameset_6879e:
 	db  14,  3
 	db  18,  3
 	db  19,  3
 	db  20,  3
 	db $ff
 
-Frameset_687a7:
+SilkyFrameset_687a7:
 	db  16,  3
 	db  21,  3
 	db  22,  3
 	db  23,  3
 	db $ff
 
-Frameset_687b0:
+SilkyFrameset_687b0:
 	db   0,  5
 	db  24,  8
 	db  25, 10
@@ -1467,7 +1467,7 @@ Frameset_687b0:
 	db   0,  5
 	db $ff
 
-Frameset_687bb:
+SilkyFrameset_687bb:
 	db   3,  5
 	db  27,  8
 	db  28, 10
@@ -1475,21 +1475,21 @@ Frameset_687bb:
 	db   3,  5
 	db $ff
 
-Frameset_687c6:
+SilkyFrameset_687c6:
 	db  30,  1
 	db $ff
 
-Frameset_687c9:
+BirdFrameset_687c9:
 	db   0,  6
 	db   1,  6
 	db $ff
 
-Frameset_687ce:
+BirdFrameset_687ce:
 	db   2,  6
 	db   3,  6
 	db $ff
 
-Frameset_687d3:
+BirdFrameset_687d3:
 	db   4,  6
 	db   5,  6
 	db  12,  6
@@ -1500,7 +1500,7 @@ Frameset_687d3:
 	db  15,  6
 	db $ff
 
-Frameset_687e4:
+BirdFrameset_687e4:
 	db   6,  6
 	db   7,  6
 	db  16,  6
@@ -1511,22 +1511,22 @@ Frameset_687e4:
 	db  19,  6
 	db $ff
 
-Frameset_687f5:
+BirdFrameset_687f5:
 	db   4,  6
 	db   8,  6
 	db $ff
 
-Frameset_687fa:
+BirdFrameset_687fa:
 	db   6,  6
 	db   9,  6
 	db $ff
 
-Frameset_687ff:
+BirdFrameset_687ff:
 	db  10,  6
 	db  11,  6
 	db $ff
 
-Frameset_68804:
+SnakeFrameset_68804:
 	db   0,  6
 	db   1,  6
 	db   2,  6
@@ -1541,7 +1541,7 @@ Frameset_68804:
 	db   5,  6
 	db $ff
 
-Frameset_6881d:
+SnakeFrameset_6881d:
 	db   9,  6
 	db  10,  6
 	db  11,  6
@@ -1556,31 +1556,31 @@ Frameset_6881d:
 	db  14,  6
 	db $ff
 
-Frameset_68836:
+SnakeFrameset_68836:
 	db   0, 30
 	db  18,  6
 	db   9, 30
 	db $ff
 
-Frameset_6883d:
+SnakeFrameset_6883d:
 	db   9, 30
 	db  18,  6
 	db   0, 30
 	db $ff
 
-Frameset_68844:
+SnakeFrameset_68844:
 	db  19, 30
 	db  20,  6
 	db  21, 30
 	db $ff
 
-Frameset_6884b:
+SnakeFrameset_6884b:
 	db  21, 30
 	db  20,  6
 	db  19, 30
 	db $ff
 
-Frameset_68852:
+SnakeFrameset_68852:
 	db  19,  6
 	db  22,  2
 	db  23,  2
@@ -1597,7 +1597,7 @@ Frameset_68852:
 	db  34,  6
 	db $ff
 
-Frameset_6886f:
+SnakeFrameset_6886f:
 	db  19,  6
 	db  22,  2
 	db  23,  2
@@ -1614,7 +1614,7 @@ Frameset_6886f:
 	db  38,  6
 	db $ff
 
-Frameset_6888c:
+SnakeFrameset_6888c:
 	db  39,  6
 	db  40,  2
 	db  41,  2
@@ -1631,7 +1631,7 @@ Frameset_6888c:
 	db  52,  6
 	db $ff
 
-Frameset_688a9:
+SnakeFrameset_688a9:
 	db  53,  6
 	db  54,  2
 	db  55,  2
@@ -1648,7 +1648,7 @@ Frameset_688a9:
 	db  34,  6
 	db $ff
 
-Frameset_688c6:
+SnakeFrameset_688c6:
 	db  21,  6
 	db  57,  2
 	db  58,  2
@@ -1665,7 +1665,7 @@ Frameset_688c6:
 	db  69,  6
 	db $ff
 
-Frameset_688e3:
+SnakeFrameset_688e3:
 	db  21,  6
 	db  57,  2
 	db  58,  2
@@ -1682,7 +1682,7 @@ Frameset_688e3:
 	db  73,  6
 	db $ff
 
-Frameset_68900:
+SnakeFrameset_68900:
 	db  74,  6
 	db  75,  2
 	db  76,  2
@@ -1699,7 +1699,7 @@ Frameset_68900:
 	db  87,  6
 	db $ff
 
-Frameset_6891d:
+SnakeFrameset_6891d:
 	db  88,  6
 	db  89,  2
 	db  90,  2
@@ -1716,25 +1716,25 @@ Frameset_6891d:
 	db  69,  6
 	db $ff
 
-Frameset_6893a:
+SnakeFrameset_6893a:
 	db  92,  4
 	db $ff
 
-Frameset_6893d:
+FireBotFrameset_6893d:
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_68946:
+FireBotFrameset_68946:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_6894f:
+FireBotFrameset_6894f:
 	db  18,  5
 	db  12,  5
 	db  20,  2
@@ -1743,7 +1743,7 @@ Frameset_6894f:
 	db  22,  2
 	db $ff
 
-Frameset_6895c:
+FireBotFrameset_6895c:
 	db  19,  5
 	db  13,  5
 	db  23,  2
@@ -1752,7 +1752,7 @@ Frameset_6895c:
 	db  25,  2
 	db $ff
 
-Frameset_68969:
+FireBotFrameset_68969:
 	db  20,  8
 	db  21,  8
 	db  20,  8
@@ -1761,7 +1761,7 @@ Frameset_68969:
 	db  18, 12
 	db $ff
 
-Frameset_68976:
+FireBotFrameset_68976:
 	db  23,  8
 	db  24,  8
 	db  23,  8
@@ -1770,51 +1770,51 @@ Frameset_68976:
 	db  19, 12
 	db $ff
 
-Frameset_68983:
+FireBotFrameset_68983:
 	db  34,  1
 	db $ff
 
-Frameset_68986:
+FireBotFrameset_68986:
 	db  35,  1
 	db $ff
 
-Frameset_68989:
+FireBotFrameset_68989:
 	db  26,  8
 	db  14,  8
 	db  26,  8
 	db  15,  8
 	db $ff
 
-Frameset_68992:
+FireBotFrameset_68992:
 	db  27,  8
 	db  16,  8
 	db  27,  8
 	db  17,  8
 	db $ff
 
-Frameset_6899b:
+FireBotFrameset_6899b:
 	db  28,  6
 	db  26,  6
 	db $ff
 
-Frameset_689a0:
+FireBotFrameset_689a0:
 	db  29,  6
 	db  27,  6
 	db $ff
 
-Frameset_689a5:
+FireBotFrameset_689a5:
 	db   0,  8
 	db  30,  8
 	db   3,  8
 	db $ff
 
-Frameset_689ac:
+FireBotFrameset_689ac:
 	db   3,  8
 	db  30,  8
 	db   0,  8
 	db $ff
 
-Frameset_689b3:
+FireBotFrameset_689b3:
 	db   6,  8
 	db  31,  4
 	db  32,  8
@@ -1822,7 +1822,7 @@ Frameset_689b3:
 	db   9,  8
 	db $ff
 
-Frameset_689be:
+FireBotFrameset_689be:
 	db   9,  8
 	db  33,  4
 	db  32,  8
@@ -1830,33 +1830,33 @@ Frameset_689be:
 	db   6,  8
 	db $ff
 
-Frameset_689c9:
+FireBotFrameset_689c9:
 	db   6,  4
 	db   7,  4
 	db  36,  4
 	db   8,  4
 	db $ff
 
-Frameset_689d2:
+FireBotFrameset_689d2:
 	db   9,  4
 	db  10,  4
 	db  37,  4
 	db  11,  4
 	db $ff
 
-Frameset_689db:
+FireBotFrameset_689db:
 	db  12,  4
 	db  18,  4
 	db   0,  4
 	db $ff
 
-Frameset_689e2:
+FireBotFrameset_689e2:
 	db  13,  4
 	db  19,  4
 	db   3,  4
 	db $ff
 
-Frameset_689e9:
+ApplebyFrameset_689e9:
 	db  10,  4
 	db  11,  4
 	db  12,  4
@@ -1870,21 +1870,21 @@ Frameset_689e9:
 	db  10,  4
 	db $ff
 
-Frameset_68a00:
+ApplebyFrameset_68a00:
 	db  13,  4
 	db   0,  6
 	db   1,  8
 	db   4,  8
 	db $ff
 
-Frameset_68a09:
+ApplebyFrameset_68a09:
 	db   4,  8
 	db   1,  8
 	db   0,  6
 	db  13,  4
 	db $ff
 
-Frameset_68a12:
+ApplebyFrameset_68a12:
 	db   1, 24
 	db   2, 32
 	db   1,  6
@@ -1893,7 +1893,7 @@ Frameset_68a12:
 	db   4, 28
 	db $ff
 
-Frameset_68a1f:
+ApplebyFrameset_68a1f:
 	db  19,  4
 	db   5,  8
 	db  17, 12
@@ -1909,7 +1909,7 @@ Frameset_68a1f:
 	db   7,  6
 	db $ff
 
-Frameset_68a3a:
+ApplebyFrameset_68a3a:
 	db  20,  4
 	db   6,  8
 	db  18, 12
@@ -1926,7 +1926,7 @@ Frameset_68a3a:
 	db $ff
 
 ; unreferenced
-Frameset_68a55:
+UnreferencedApplebyFrameset_68a55:
 	db   7,  6
 	db   8, 10
 	db   9, 14
@@ -1934,37 +1934,37 @@ Frameset_68a55:
 	db   7,  6
 	db $ff
 
-Frameset_68a60:
+ApplebyFrameset_68a60:
 	db  16,  1
 	db $ff
 
-Frameset_68a63:
+ApplebyFrameset_68a63:
 	db  21,  1
 	db $ff
 
-Frameset_68a66:
+BarrelFrameset_68a66:
 	db   1,  3
 	db   2,  3
 	db   3,  3
 	db   0,  3
 	db $ff
 
-Frameset_68a6f:
+BarrelFrameset_68a6f:
 	db   3,  3
 	db   2,  3
 	db   1,  3
 	db   0,  3
 	db $ff
 
-Frameset_68a78:
+BarrelFrameset_68a78:
 	db   0, 100
 	db $ff
 
-Frameset_68a7b:
+BarrelFrameset_68a7b:
 	db   4, 100
 	db $ff
 
-Frameset_68a7e:
+BarrelFrameset_68a7e:
 	db   5,  3
 	db   4,  2
 	db   6,  3
@@ -1973,14 +1973,14 @@ Frameset_68a7e:
 	db   4, 127
 	db $ff
 
-Frameset_68a8b:
+BarrelFrameset_68a8b:
 	db   7,  4
 	db   8,  4
 	db   9,  4
 	db $ff
 
 ; unreferenced
-Frameset_68a92:
+UnreferencedBarrelFrameset_68a92:
 	db   4, 150
 	db  10,  2
 	db  11,  4
@@ -1989,14 +1989,14 @@ Frameset_68a92:
 	db  14,  2
 	db $ff
 
-Frameset_68a9f:
+SmallLeafFrameset_68a9f:
 	db   0,  8
 	db   7, 32
 	db   0,  8
 	db   8, 32
 	db $ff
 
-Frameset_68aa8:
+SmallLeafFrameset_68aa8:
 	db   0,  2
 	db   1,  4
 	db   0,  2
@@ -2008,7 +2008,7 @@ Frameset_68aa8:
 	db   6,  4
 	db $ff
 
-Frameset_68abb:
+SmallLeafFrameset_68abb:
 	db   6,  8
 	db   5,  8
 	db   4,  8
@@ -2016,7 +2016,7 @@ Frameset_68abb:
 	db   0,  4
 	db $ff
 
-Frameset_68ac6:
+PrinceFroggyFrameset_68ac6:
 	db   0, 12
 	db   1,  4
 	db   2, 12
@@ -2030,25 +2030,25 @@ Frameset_68ac6:
 	db   0, 24
 	db $ff
 
-Frameset_68add:
+PrinceFroggyFrameset_68add:
 	db   1, 12
 	db   0, 24
 	db   3, 48
 	db   0, 24
 	db $ff
 
-Frameset_68ae6:
+PrinceFroggyFrameset_68ae6:
 	db   4, 100
 	db $ff
 
-Frameset_68ae9:
+PrinceFroggyFrameset_68ae9:
 	db   5, 32
 	db   6, 12
 	db   7, 32
 	db   6, 12
 	db $ff
 
-Frameset_68af2:
+PrinceFroggyFrameset_68af2:
 	db   0,  2
 	db   8,  2
 	db   9,  4
@@ -2058,7 +2058,7 @@ Frameset_68af2:
 	db   0,  2
 	db $ff
 
-Frameset_68b01:
+PrinceFroggyFrameset_68b01:
 	db  11,  2
 	db   5,  4
 	db  12, 12
@@ -2069,263 +2069,263 @@ Frameset_68b01:
 	db   5,  8
 	db $ff
 
-Frameset_68b12::
+HammerBotFrameset_68b12::
 	db   0, 20
 	db   1, 20
 	db $ff
 
-Frameset_68b17:
+HammerBotFrameset_68b17:
 	db   2, 20
 	db   3, 20
 	db $ff
 
-Frameset_68b1c:
+HammerBotFrameset_68b1c:
 	db   0, 12
 	db  14,  4
 	db   4, 12
 	db  14,  4
 	db $ff
 
-Frameset_68b25:
+HammerBotFrameset_68b25:
 	db   2, 12
 	db  15,  4
 	db   5, 12
 	db  15,  4
 	db $ff
 
-Frameset_68b2e:
+HammerBotFrameset_68b2e:
 	db   6, 20
 	db   8, 20
 	db   6,  8
 	db   8,  8
 	db $ff
 
-Frameset_68b37:
+HammerBotFrameset_68b37:
 	db   7, 20
 	db   9, 20
 	db   7,  8
 	db   9,  8
 	db $ff
 
-Frameset_68b40:
+HammerBotFrameset_68b40:
 	db  11,  8
 	db  13,  8
 	db $ff
 
-Frameset_68b45:
+HammerBotFrameset_68b45:
 	db  10,  8
 	db  12,  8
 	db $ff
 
-Frameset_68b4a:
+HammerBotFrameset_68b4a:
 	db   0,  8
 	db  16,  8
 	db   2,  8
 	db $ff
 
-Frameset_68b51:
+HammerBotFrameset_68b51:
 	db   2,  8
 	db  16,  8
 	db   0,  8
 	db $ff
 
-Frameset_68b58:
+HammerBotFrameset_68b58:
 	db   6,  1
 	db $ff
 
-Frameset_68b5b:
+HammerBotFrameset_68b5b:
 	db   7,  1
 	db $ff
 
-Frameset_68b5e:
+HammerBotFrameset_68b5e:
 	db   4, 127
 	db $ff
 
-Frameset_68b61:
+HammerBotFrameset_68b61:
 	db   5, 127
 	db $ff
 
-Frameset_68b64:
+TeruteruFrameset_68b64:
 	db   0,  8
 	db   1,  8
 	db   2,  8
 	db   1,  8
 	db $ff
 
-Frameset_68b6d:
+TeruteruFrameset_68b6d:
 	db   3,  8
 	db   4,  8
 	db   5,  8
 	db   4,  8
 	db $ff
 
-Frameset_68b76:
+TeruteruFrameset_68b76:
 	db   0,  8
 	db   6,  8
 	db   3,  8
 	db $ff
 
-Frameset_68b7d:
+TeruteruFrameset_68b7d:
 	db   3,  8
 	db   6,  8
 	db   0,  8
 	db $ff
 
-Frameset_68b84:
+TeruteruFrameset_68b84:
 	db   6, 12
 	db   7,  6
 	db   8, 20
 	db $ff
 
-Frameset_68b8b:
+TeruteruFrameset_68b8b:
 	db   8, 12
 	db  16, 12
 	db $ff
 
-Frameset_68b90:
+TeruteruFrameset_68b90:
 	db   6,  6
 	db   9,  6
 	db  10,  6
 	db   9,  6
 	db $ff
 
-Frameset_68b99:
+TeruteruFrameset_68b99:
 	db   6,  8
 	db  11,  8
 	db  12,  8
 	db  11,  8
 	db $ff
 
-Frameset_68ba2:
+TeruteruFrameset_68ba2:
 	db  13,  1
 	db $ff
 
-Frameset_68ba5:
+TeruteruFrameset_68ba5:
 	db  14, 24
 	db  15, 24
 	db  14, 10
 	db  15, 10
 	db $ff
 
-Frameset_68bae:
+TeruteruFrameset_68bae:
 	db   8,  6
 	db   7,  6
 	db   6,  6
 	db $ff
 
-Frameset_68bb5:
+MadSciensteinFrameset_68bb5:
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_68bbe:
+MadSciensteinFrameset_68bbe:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_68bc7:
+MadSciensteinFrameset_68bc7:
 	db   6, 12
 	db   7,  8
 	db $ff
 
-Frameset_68bcc:
+MadSciensteinFrameset_68bcc:
 	db   8, 12
 	db   9,  8
 	db $ff
 
-Frameset_68bd1:
+MadSciensteinFrameset_68bd1:
 	db  10,  8
 	db  11,  8
 	db  10,  8
 	db  12,  8
 	db $ff
 
-Frameset_68bda:
+MadSciensteinFrameset_68bda:
 	db  13,  8
 	db  14,  8
 	db  13,  8
 	db  15,  8
 	db $ff
 
-Frameset_68be3:
+MadSciensteinFrameset_68be3:
 	db  16, 24
 	db  17, 24
 	db $ff
 
-Frameset_68be8:
+MadSciensteinFrameset_68be8:
 	db  18, 24
 	db  19, 24
 	db $ff
 
-Frameset_68bed:
+MadSciensteinFrameset_68bed:
 	db  20, 12
 	db   0, 12
 	db  20, 12
 	db  29, 24
 	db $ff
 
-Frameset_68bf6:
+MadSciensteinFrameset_68bf6:
 	db  21, 12
 	db   3, 12
 	db  21, 12
 	db  30, 24
 	db $ff
 
-Frameset_68bff:
+MadSciensteinFrameset_68bff:
 	db  10, 12
 	db  27, 12
 	db  10, 12
 	db   0, 24
 	db $ff
 
-Frameset_68c08:
+MadSciensteinFrameset_68c08:
 	db  13, 12
 	db  28, 12
 	db  13, 12
 	db   3, 24
 	db $ff
 
-Frameset_68c11:
+MadSciensteinFrameset_68c11:
 	db  22, 100
 	db $ff
 
-Frameset_68c14:
+MadSciensteinFrameset_68c14:
 	db  23, 100
 	db $ff
 
-Frameset_68c17:
+MadSciensteinFrameset_68c17:
 	db   0,  8
 	db  24, 10
 	db   3,  8
 	db $ff
 
-Frameset_68c1e:
+MadSciensteinFrameset_68c1e:
 	db   3,  8
 	db  24, 10
 	db   0,  8
 	db $ff
 
-Frameset_68c25:
+MadSciensteinFrameset_68c25:
 	db  10,  8
 	db  25, 10
 	db  13,  8
 	db $ff
 
-Frameset_68c2c:
+MadSciensteinFrameset_68c2c:
 	db  13,  8
 	db  25, 10
 	db  10,  8
 	db $ff
 
-Frameset_68c33:
+MadSciensteinFrameset_68c33:
 	db  26, 100
 	db $ff
 
-Frameset_68c36:
+SeeingEyeDoorFrameset_68c36:
 	db  31,  8
 	db  32,  2
 	db  33, 36
@@ -2336,37 +2336,37 @@ Frameset_68c36:
 	db  34,  2
 	db $ff
 
-Frameset_68c47:
+SeeingEyeDoorFrameset_68c47:
 	db  33, 100
 	db $ff
 
-Frameset_68c4a:
+SeeingEyeDoorFrameset_68c4a:
 	db  36, 100
 	db $ff
 
 ; unreferenced
-Frameset_68c4d:
+UnreferencedSeeingEyeDoorFrameset_68c4d:
 	db  37, 100
 	db $ff
 
-Frameset_68c50:
+SeeingEyeDoorFrameset_68c50:
 	db  38, 100
 	db $ff
 
 ; unreferenced
-Frameset_68c53:
+UnreferencedSeeingEyeDoorFrameset_68c53:
 	db  39, 100
 	db $ff
 
-Frameset_68c56:
+SeeingEyeDoorFrameset_68c56:
 	db  40, 100
 	db $ff
 
-Frameset_68c59:
+SeeingEyeDoorFrameset_68c59:
 	db  35, 100
 	db $ff
 
-Frameset_68c5c:
+PneumoFrameset_68c5c:
 	db   0, 28
 	db   1, 10
 	db   2, 15
@@ -2378,7 +2378,7 @@ Frameset_68c5c:
 	db $ff
 
 ; unreferenced
-Frameset_68c6d:
+UnreferencedPneumoFrameset_68c6d:
 	db   0,  6
 	db   1,  3
 	db   2,  6
@@ -2386,43 +2386,43 @@ Frameset_68c6d:
 	db $ff
 
 ; unreferenced
-Frameset_68c76:
+UnreferencedPneumoFrameset_68c76:
 	db   0,  6
 	db   3,  3
 	db   4,  6
 	db   3,  3
 	db $ff
 
-Frameset_68c7f:
+PneumoFrameset_68c7f:
 	db   5,  8
 	db   6,  8
 	db $ff
 
-Frameset_68c84:
+PneumoFrameset_68c84:
 	db   7,  8
 	db   8,  8
 	db $ff
 
-Frameset_68c89:
+PneumoFrameset_68c89:
 	db   9,  8
 	db  10,  8
 	db $ff
 
-Frameset_68c8e:
+PneumoFrameset_68c8e:
 	db  11,  8
 	db  12,  8
 	db  13,  8
 	db  12,  8
 	db $ff
 
-Frameset_68c97:
+ElectricLampFrameset_68c97:
 	db   0,  2
 	db   1,  2
 	db   2,  2
 	db   3,  2
 	db $ff
 
-Frameset_68ca0:
+ElectricLampFrameset_68ca0:
 	db   4,  2
 	db   5,  2
 	db   6,  2
@@ -2430,7 +2430,7 @@ Frameset_68ca0:
 	db $ff
 
 ; unreferenced
-Frameset_68ca9:
+UnreferencedElectricLampFrameset_68ca9:
 	db   6,  2
 	db   7,  2
 	db   8,  2
@@ -2438,7 +2438,7 @@ Frameset_68ca9:
 	db $ff
 
 ; unreferenced
-Frameset_68cb2:
+UnreferencedElectricLampFrameset_68cb2:
 	db   8,  2
 	db   9,  2
 	db  10,  2
@@ -2446,21 +2446,21 @@ Frameset_68cb2:
 	db $ff
 
 ; unreferenced
-Frameset_68cbb:
+UnreferencedElectricLampFrameset_68cbb:
 	db  12,  3
 	db  13,  3
 	db  14,  3
 	db  15,  3
 	db $ff
 
-Frameset_68cc4:
+ElectricLampFrameset_68cc4:
 	db  18,  6
 	db  16,  6
 	db  17,  6
 	db  18,  6
 	db $ff
 
-Frameset_68ccd:
+ElectricLampFrameset_68ccd:
 	db  19,  3
 	db  20,  3
 	db  19,  3
@@ -2472,7 +2472,7 @@ Frameset_68ccd:
 	db $ff
 
 ; unreferenced
-Frameset_68cde:
+UnreferencedZombieFrameset_68cde:
 	db   0, 20
 	db   1, 20
 	db   0, 20
@@ -2480,7 +2480,7 @@ Frameset_68cde:
 	db $ff
 
 ; unreferenced
-Frameset_68ce7:
+UnreferencedZombieFrameset_68ce7:
 	db   4, 20
 	db   5, 20
 	db   4, 20
@@ -2488,32 +2488,32 @@ Frameset_68ce7:
 	db $ff
 
 ; unreferenced
-Frameset_68cf0:
+UnreferencedZombieFrameset_68cf0:
 	db   0, 24
 	db   3, 24
 	db  19, 64
 	db $ff
 
 ; unreferenced
-Frameset_68cf7:
+UnreferencedZombieFrameset_68cf7:
 	db   4, 24
 	db   7, 24
 	db  20, 64
 	db $ff
 
 ; unreferenced
-Frameset_68cfe:
+UnreferencedZombieFrameset_68cfe:
 	db   8, 20
 	db   9,  8
 	db $ff
 
 ; unreferenced
-Frameset_68d03:
+UnreferencedZombieFrameset_68d03:
 	db  10, 20
 	db  11,  8
 	db $ff
 
-Frameset_68d08:
+UnreferencedZombieFrameset_68d08:
 	db  23, 24
 	db  12, 24
 	db  13, 24
@@ -2521,37 +2521,37 @@ Frameset_68d08:
 	db $ff
 
 ; unreferenced
-Frameset_68d11:
+UnreferencedZombieFrameset_68d11:
 	db  24, 24
 	db  14, 24
 	db  15, 24
 	db   4, 20
 	db $ff
 
-Frameset_68d1a:
+ZombieFrameset_68d1a:
 	db  16,  8
 	db  17,  8
 	db $ff
 
-Frameset_68d1f:
+ZombieFrameset_68d1f:
 	db  21,  8
 	db  22,  8
 	db $ff
 
-Frameset_68d24:
+ZombieFrameset_68d24:
 	db   0, 10
 	db  18, 10
 	db   4, 10
 	db $ff
 
-Frameset_68d2b:
+ZombieFrameset_68d2b:
 	db   4, 10
 	db  18, 10
 	db   0, 10
 	db $ff
 
 ; unreferenced
-Frameset_68d32:
+UnreferencedZombieFrameset_68d32:
 	db  30,  6
 	db  25,  6
 	db  26,  6
@@ -2561,7 +2561,7 @@ Frameset_68d32:
 	db $ff
 
 ; unreferenced
-Frameset_68d3f:
+UnreferencedZombieFrameset_68d3f:
 	db   0, 20
 	db  13, 24
 	db  12, 24
@@ -2569,7 +2569,7 @@ Frameset_68d3f:
 	db $ff
 
 ; unreferenced
-Frameset_68d48:
+UnreferencedZombieFrameset_68d48:
 	db   4, 20
 	db  15, 24
 	db  14, 24
@@ -2577,21 +2577,21 @@ Frameset_68d48:
 	db $ff
 
 ; unreferenced
-Frameset_68d51:
+UnreferencedZombieFrameset_68d51:
 	db   9,  8
 	db  25,  6
 	db  11,  8
 	db $ff
 
 ; unreferenced
-Frameset_68d58:
+UnreferencedZombieFrameset_68d58:
 	db  11,  8
 	db  25,  6
 	db   9,  8
 	db $ff
 
 ; unreferenced
-Frameset_68d5f:
+UnreferencedZombieFrameset_68d5f:
 	db   8, 16
 	db   9,  5
 	db  25,  6
@@ -2603,7 +2603,7 @@ Frameset_68d5f:
 	db $ff
 
 ; unreferenced
-Frameset_68d70:
+UnreferencedZombieFrameset_68d70:
 	db  10, 16
 	db  11,  5
 	db  25,  6
@@ -2614,47 +2614,47 @@ Frameset_68d70:
 	db  11,  5
 	db $ff
 
-Frameset_68d81:
+ZombieFrameset_68d81:
 	db   0,  4
 	db   1,  4
 	db   0,  4
 	db   2,  4
 	db $ff
 
-Frameset_68d8a:
+ZombieFrameset_68d8a:
 	db   4,  4
 	db   5,  4
 	db   4,  4
 	db   6,  4
 	db $ff
 
-Frameset_68d93:
+ZombieFrameset_68d93:
 	db  23,  6
 	db  12,  6
 	db  13,  6
 	db   0,  4
 	db $ff
 
-Frameset_68d9c:
+ZombieFrameset_68d9c:
 	db  24,  6
 	db  14,  6
 	db  15,  6
 	db   4,  4
 	db $ff
 
-Frameset_68da5:
+ZombieFrameset_68da5:
 	db   0, 16
 	db   3, 16
 	db  19, 64
 	db $ff
 
-Frameset_68dac:
+ZombieFrameset_68dac:
 	db   4, 16
 	db   7, 16
 	db  20, 64
 	db $ff
 
-Frameset_68db3:
+ZombieFrameset_68db3:
 	db   9,  8
 	db   8,  8
 	db   9,  8
@@ -2665,7 +2665,7 @@ Frameset_68db3:
 	db  10, 127
 	db $ff
 
-Frameset_68dc4:
+ZombieFrameset_68dc4:
 	db  11,  8
 	db  10,  8
 	db  11,  8
@@ -2676,101 +2676,101 @@ Frameset_68dc4:
 	db   8, 127
 	db $ff
 
-Frameset_68dd5:
+ZombieFrameset_68dd5:
 	db   8,  8
 	db   9,  8
 	db $ff
 
-Frameset_68dda:
+ZombieFrameset_68dda:
 	db  10,  8
 	db  11,  8
 	db $ff
 
-Frameset_68ddf:
+SpearBotFrameset_68ddf:
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_68de8:
+SpearBotFrameset_68de8:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_68df1:
+SpearBotFrameset_68df1:
 	db   0,  6
 	db  18,  6
 	db  12,  6
 	db $ff
 
-Frameset_68df8:
+SpearBotFrameset_68df8:
 	db   3,  6
 	db  19,  6
 	db  13,  6
 	db $ff
 
-Frameset_68dff:
+SpearBotFrameset_68dff:
 	db   6, 12
 	db  12, 12
 	db  18, 12
 	db   0, 24
 	db $ff
 
-Frameset_68e08:
+SpearBotFrameset_68e08:
 	db   9, 12
 	db  13, 12
 	db  19, 12
 	db   3, 24
 	db $ff
 
-Frameset_68e11:
+SpearBotFrameset_68e11:
 	db  28,  1
 	db $ff
 
-Frameset_68e14:
+SpearBotFrameset_68e14:
 	db  29,  1
 	db $ff
 
-Frameset_68e17:
+SpearBotFrameset_68e17:
 	db  30,  8
 	db  14,  8
 	db  30,  8
 	db  15,  8
 	db $ff
 
-Frameset_68e20:
+SpearBotFrameset_68e20:
 	db  31,  8
 	db  16,  8
 	db  31,  8
 	db  17,  8
 	db $ff
 
-Frameset_68e29:
+SpearBotFrameset_68e29:
 	db  23,  6
 	db  24,  6
 	db $ff
 
-Frameset_68e2e:
+SpearBotFrameset_68e2e:
 	db  25,  6
 	db  26,  6
 	db $ff
 
-Frameset_68e33:
+SpearBotFrameset_68e33:
 	db   0,  8
 	db  27,  8
 	db   3,  8
 	db $ff
 
-Frameset_68e3a:
+SpearBotFrameset_68e3a:
 	db   3,  8
 	db  27,  8
 	db   0,  8
 	db $ff
 
-Frameset_68e41:
+SpearBotFrameset_68e41:
 	db   6,  8
 	db  20,  4
 	db  21,  8
@@ -2778,7 +2778,7 @@ Frameset_68e41:
 	db   9,  8
 	db $ff
 
-Frameset_68e4c:
+SpearBotFrameset_68e4c:
 	db   9,  8
 	db  22,  4
 	db  21,  8
@@ -2786,47 +2786,47 @@ Frameset_68e4c:
 	db   6,  8
 	db $ff
 
-Frameset_68e57:
+SpearBotFrameset_68e57:
 	db   6,  4
 	db   7,  4
 	db   6,  4
 	db   8,  4
 	db $ff
 
-Frameset_68e60:
+SpearBotFrameset_68e60:
 	db   9,  4
 	db  10,  4
 	db   9,  4
 	db  11,  4
 	db $ff
 
-Frameset_68e69:
+SpearBotFrameset_68e69:
 	db  12,  4
 	db  18,  4
 	db   0,  4
 	db $ff
 
-Frameset_68e70:
+SpearBotFrameset_68e70:
 	db  13,  4
 	db  19,  4
 	db   3,  4
 	db $ff
 
-Frameset_68e77:
+BeamBotFrameset_68e77:
 	db   0, 12
 	db   1, 12
 	db   0, 12
 	db   2, 12
 	db $ff
 
-Frameset_68e80:
+BeamBotFrameset_68e80:
 	db   3, 12
 	db   4, 12
 	db   3, 12
 	db   5, 12
 	db $ff
 
-Frameset_68e89:
+BeamBotFrameset_68e89:
 	db  10,  4
 	db  11,  4
 	db  27,  4
@@ -2835,7 +2835,7 @@ Frameset_68e89:
 	db  11,  4
 	db $ff
 
-Frameset_68e96:
+BeamBotFrameset_68e96:
 	db  12,  4
 	db  13,  4
 	db  29,  4
@@ -2844,150 +2844,150 @@ Frameset_68e96:
 	db  13,  4
 	db $ff
 
-Frameset_68ea3:
+BeamBotFrameset_68ea3:
 	db  11, 12
 	db  10, 12
 	db   0, 24
 	db $ff
 
-Frameset_68eaa:
+BeamBotFrameset_68eaa:
 	db  13, 12
 	db  12, 12
 	db   3, 24
 	db $ff
 
-Frameset_68eb1:
+BeamBotFrameset_68eb1:
 	db  25, 100
 	db $ff
 
-Frameset_68eb4:
+BeamBotFrameset_68eb4:
 	db  26, 100
 	db $ff
 
-Frameset_68eb7:
+BeamBotFrameset_68eb7:
 	db  31,  8
 	db   6,  8
 	db  31,  8
 	db   7,  8
 	db $ff
 
-Frameset_68ec0:
+BeamBotFrameset_68ec0:
 	db  32,  8
 	db   8,  8
 	db  32,  8
 	db   9,  8
 	db $ff
 
-Frameset_68ec9:
+BeamBotFrameset_68ec9:
 	db  20,  6
 	db  21,  6
 	db $ff
 
-Frameset_68ece:
+BeamBotFrameset_68ece:
 	db  22,  6
 	db  23,  6
 	db $ff
 
-Frameset_68ed3:
+BeamBotFrameset_68ed3:
 	db   0,  5
 	db  24,  5
 	db   3,  5
 	db $ff
 
-Frameset_68eda:
+BeamBotFrameset_68eda:
 	db   3,  5
 	db  24,  5
 	db   0,  5
 	db $ff
 
-Frameset_68ee1:
+BeamBotFrameset_68ee1:
 	db  14,  6
 	db  15,  3
 	db  18,  3
 	db  33,  3
 	db $ff
 
-Frameset_68eea:
+BeamBotFrameset_68eea:
 	db  16,  6
 	db  17,  3
 	db  19,  3
 	db  35,  3
 	db $ff
 
-Frameset_68ef3:
+BeamBotFrameset_68ef3:
 	db  33,  4
 	db  34,  4
 	db $ff
 
-Frameset_68ef8:
+BeamBotFrameset_68ef8:
 	db  35,  4
 	db  36,  4
 	db $ff
 
 ; unreferenced
-Frameset_68efd:
+UnreferencedBeamBotFrameset_68efd:
 	db  11,  4
 	db  10,  4
 	db   0,  4
 	db $ff
 
 ; unreferenced
-Frameset_68f04:
+UnreferencedBeamBotFrameset_68f04:
 	db  13,  4
 	db  12,  4
 	db   3,  4
 	db $ff
 
-Frameset_68f0b:
+OmodonmekaFrameset_68f0b:
 	db   0,  4
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db $ff
 
-Frameset_68f14:
+OmodonmekaFrameset_68f14:
 	db   2,  4
 	db   3,  4
 	db   4,  4
 	db   5,  4
 	db $ff
 
-Frameset_68f1d:
+OmodonmekaFrameset_68f1d:
 	db   6,  4
 	db   7,  4
 	db   8,  4
 	db   9,  4
 	db $ff
 
-Frameset_68f26:
+OmodonmekaFrameset_68f26:
 	db   6,  4
 	db  10,  4
 	db $ff
 
-Frameset_68f2b:
+OmodonmekaFrameset_68f2b:
 	db  11,  4
 	db  12,  4
 	db  13,  4
 	db  14,  4
 	db $ff
 
-Frameset_68f34:
+OmodonmekaFrameset_68f34:
 	db  15,  6
 	db  16,  6
 	db  17,  6
 	db  18,  6
 	db $ff
 
-Frameset_68f3d:
+OmodonmekaFrameset_68f3d:
 	db  19,  6
 	db  20,  6
 	db $ff
 
-Frameset_68f42:
+OmodonmekaFrameset_68f42:
 	db   0,  1
 	db $ff
 
-Frameset_68f45:
+OmodonmekaFrameset_68f45:
 	db   0,  4
 	db   1,  4
 	db   2,  8
@@ -2995,7 +2995,7 @@ Frameset_68f45:
 	db   0,  4
 	db $ff
 
-Frameset_68f50:
+OmodonmekaFrameset_68f50:
 	db   0,  4
 	db   3,  8
 	db   4, 24
@@ -3011,14 +3011,14 @@ Frameset_68f50:
 	db   0, 64
 	db $ff
 
-Frameset_68f6b:
+SunMoonFrameset_68f6b:
 	db   4,  8
 	db  13,  8
 	db   1,  8
 	db  13,  8
 	db $ff
 
-Frameset_68f74:
+SunMoonFrameset_68f74:
 	db   6,  8
 	db  14,  8
 	db   3,  8
@@ -3026,7 +3026,7 @@ Frameset_68f74:
 	db $ff
 
 ; unreferenced
-Frameset_68f7d:
+UnreferencedSunMoonFrameset_68f7d:
 	db   0,  8
 	db  15,  8
 	db   1,  8
@@ -3034,14 +3034,14 @@ Frameset_68f7d:
 	db $ff
 
 ; unreferenced
-Frameset_68f86:
+UnreferencedSunMoonFrameset_68f86:
 	db   2,  8
 	db  16,  8
 	db   3,  8
 	db  16,  8
 	db $ff
 
-Frameset_68f8f:
+SunMoonFrameset_68f8f:
 	db  21,  8
 	db  17,  4
 	db   5,  8
@@ -3051,7 +3051,7 @@ Frameset_68f8f:
 	db   5, 24
 	db $ff
 
-Frameset_68f9e:
+SunMoonFrameset_68f9e:
 	db  22,  8
 	db  18,  4
 	db   7,  8
@@ -3061,44 +3061,44 @@ Frameset_68f9e:
 	db   7, 24
 	db $ff
 
-Frameset_68fad:
+SunMoonFrameset_68fad:
 	db   8,  6
 	db   9,  6
 	db $ff
 
-Frameset_68fb2:
+SunMoonFrameset_68fb2:
 	db  23,  6
 	db  24,  6
 	db $ff
 
-Frameset_68fb7:
+SunMoonFrameset_68fb7:
 	db   1,  8
 	db  19,  8
 	db  20,  8
 	db   3,  8
 	db $ff
 
-Frameset_68fc0:
+SunMoonFrameset_68fc0:
 	db   3,  8
 	db  20,  8
 	db  19,  8
 	db   1,  8
 	db $ff
 
-Frameset_68fc9:
+SunMoonFrameset_68fc9:
 	db  10,  6
 	db  11,  6
 	db  12,  6
 	db $ff
 
-Frameset_68fd0:
+SunMoonFrameset_68fd0:
 	db   0,  8
 	db  15,  8
 	db   1,  8
 	db  15,  8
 	db $ff
 
-Frameset_68fd9:
+SunMoonFrameset_68fd9:
 	db   2,  8
 	db  16,  8
 	db   3,  8
@@ -3106,7 +3106,7 @@ Frameset_68fd9:
 	db $ff
 
 ; unreferenced
-Frameset_68fe2:
+UnreferencedSunMoonFrameset_68fe2:
 	db   1,  8
 	db  17,  8
 	db   4,  8
@@ -3114,14 +3114,14 @@ Frameset_68fe2:
 	db $ff
 
 ; unreferenced
-Frameset_68feb:
+UnreferencedSunMoonFrameset_68feb:
 	db   3,  8
 	db  18,  8
 	db   6,  8
 	db  18,  8
 	db $ff
 
-Frameset_68ff4:
+SunMoonFrameset_68ff4:
 	db  25,  8
 	db  19,  4
 	db   5,  8
@@ -3131,7 +3131,7 @@ Frameset_68ff4:
 	db   5, 24
 	db $ff
 
-Frameset_69003:
+SunMoonFrameset_69003:
 	db  24,  8
 	db  20,  4
 	db   7,  8
@@ -3141,27 +3141,27 @@ Frameset_69003:
 	db   7, 24
 	db $ff
 
-Frameset_69012:
+SunMoonFrameset_69012:
 	db   8,  3
 	db  10,  3
 	db  11,  3
 	db   9,  3
 	db $ff
 
-Frameset_6901b:
+SunMoonFrameset_6901b:
 	db   8,  3
 	db   9,  3
 	db  11,  3
 	db  10,  3
 	db $ff
 
-Frameset_69024:
+SunMoonFrameset_69024:
 	db  14,  4
 	db  12,  4
 	db  13,  4
 	db $ff
 
-Frameset_6902b:
+SunMoonFrameset_6902b:
 	db   1,  6
 	db  21,  8
 	db  23,  8
@@ -3169,7 +3169,7 @@ Frameset_6902b:
 	db   3,  6
 	db $ff
 
-Frameset_69036:
+SunMoonFrameset_69036:
 	db   3,  6
 	db  22,  8
 	db  23,  8
@@ -3177,7 +3177,7 @@ Frameset_69036:
 	db   1,  6
 	db $ff
 
-Frameset_69041:
+KobattoFrameset_69041:
 	db   0,  8
 	db   1,  8
 	db   2,  8
@@ -3196,7 +3196,7 @@ Frameset_69041:
 	db $ff
 
 ; unreferenced
-Frameset_69060:
+UnreferencedHandFrameset_69060:
 	db  11,  2
 	db  12,  2
 	db  13,  2
@@ -3236,42 +3236,42 @@ Frameset_69060:
 	db  10, 30
 	db $ff
 
-Frameset_690ab:
+HandFrameset_690ab:
 	db  11,  2
 	db  12,  2
 	db  13,  2
 	db  10,  4
 	db $ff
 
-Frameset_690b4:
+HandFrameset_690b4:
 	db   0,  4
 	db $ff
 
-Frameset_690b7:
+HandFrameset_690b7:
 	db   1,  4
 	db $ff
 
-Frameset_690ba:
+HandFrameset_690ba:
 	db   2,  4
 	db $ff
 
-Frameset_690bd:
+HandFrameset_690bd:
 	db   3,  4
 	db $ff
 
-Frameset_690c0:
+HandFrameset_690c0:
 	db   4,  4
 	db $ff
 
-Frameset_690c3:
+HandFrameset_690c3:
 	db   5,  4
 	db $ff
 
-Frameset_690c6:
+HandFrameset_690c6:
 	db   6,  4
 	db $ff
 
-Frameset_690c9:
+HandFrameset_690c9:
 	db   7,  2
 	db   8,  2
 	db   9,  7
@@ -3283,34 +3283,34 @@ Frameset_690c9:
 	db  22,  7
 	db $ff
 
-Frameset_690dc:
+HandFrameset_690dc:
 	db  14,  4
 	db $ff
 
-Frameset_690df:
+HandFrameset_690df:
 	db  15,  4
 	db $ff
 
-Frameset_690e2:
+HandFrameset_690e2:
 	db  16,  4
 	db $ff
 
-Frameset_690e5:
+HandFrameset_690e5:
 	db  17,  4
 	db $ff
 
-Frameset_690e8:
+HandFrameset_690e8:
 	db  18,  4
 	db $ff
 
-Frameset_690eb:
+HandFrameset_690eb:
 	db  11,  3
 	db  12,  3
 	db  13,  3
 	db  10, 30
 	db $ff
 
-Frameset_690f4:
+BubbleFrameset_690f4:
 	db   0,  4
 	db   1,  4
 	db   2,  4
@@ -3321,20 +3321,20 @@ Frameset_690f4:
 	db   1,  4
 	db $ff
 
-Frameset_69105:
+BubbleFrameset_69105:
 	db   4,  8
 	db   5, 10
 	db   6, 12
 	db $ff
 
-Frameset_6910c:
+BubbleFrameset_6910c:
 	db   7,  2
 	db   8,  3
 	db   9,  5
 	db  10,  3
 	db $ff
 
-Frameset_69115:
+BrrrBearFrameset_69115:
 	db   0,  3
 	db   1, 12
 	db   0,  3
@@ -3345,7 +3345,7 @@ Frameset_69115:
 	db  15,  6
 	db $ff
 
-Frameset_69126:
+BrrrBearFrameset_69126:
 	db   3,  3
 	db   4, 12
 	db   3,  3
@@ -3356,15 +3356,15 @@ Frameset_69126:
 	db  16,  6
 	db $ff
 
-Frameset_69137:
+BrrrBearFrameset_69137:
 	db   6, 100
 	db $ff
 
-Frameset_6913a:
+BrrrBearFrameset_6913a:
 	db   7, 100
 	db $ff
 
-Frameset_6913d:
+BrrrBearFrameset_6913d:
 	db   0,  8
 	db   8, 12
 	db  17,  6
@@ -3374,7 +3374,7 @@ Frameset_6913d:
 	db   0, 10
 	db $ff
 
-Frameset_6914c:
+BrrrBearFrameset_6914c:
 	db   3,  8
 	db  10, 12
 	db  11,  6
@@ -3384,42 +3384,42 @@ Frameset_6914c:
 	db   3, 10
 	db $ff
 
-Frameset_6915b:
+BrrrBearFrameset_6915b:
 	db  12, 12
 	db  13, 12
 	db  12, 12
 	db  14, 12
 	db $ff
 
-Frameset_69164:
+BrrrBearFrameset_69164:
 	db  19,  6
 	db  20,  6
 	db $ff
 
-Frameset_69169:
+BrrrBearFrameset_69169:
 	db  21,  6
 	db  22,  6
 	db $ff
 
-Frameset_6916e:
+BrrrBearFrameset_6916e:
 	db  22,  4
 	db  23,  4
 	db  24,  2
 	db $ff
 
-Frameset_69175:
+BrrrBearFrameset_69175:
 	db   0,  6
 	db  25,  8
 	db   3,  6
 	db $ff
 
-Frameset_6917c:
+BrrrBearFrameset_6917c:
 	db   3,  6
 	db  25,  8
 	db   0,  6
 	db $ff
 
-Frameset_69183:
+BrrrBearFrameset_69183:
 	db  12,  4
 	db  26, 10
 	db  12,  8
@@ -3427,7 +3427,7 @@ Frameset_69183:
 	db   0,  4
 	db $ff
 
-Frameset_6918e:
+BrrrBearFrameset_6918e:
 	db  12,  4
 	db  26, 10
 	db  12,  8
@@ -3435,75 +3435,75 @@ Frameset_6918e:
 	db   3,  4
 	db $ff
 
-Frameset_69199:
+CartFrameset_69199:
 	db   0, 24
 	db   3, 24
 	db $ff
 
-Frameset_6919e:
+CartFrameset_6919e:
 	db   0,  8
 	db   1,  8
 	db   0,  8
 	db   2,  8
 	db $ff
 
-Frameset_691a7::
+CartFrameset_691a7::
 	db   4, 100
 	db $ff
 
-Frameset_691aa:
+CartFrameset_691aa:
 	db   5,  6
 	db   6,  6
 	db   7,  6
 	db   8,  6
 	db $ff
 
-Frameset_691b3:
+CartFrameset_691b3:
 	db   5,  6
 	db   8,  6
 	db   7,  6
 	db   6,  6
 	db $ff
 
-Frameset_691bc::
+PlaceCartWheelsCutsceneFrameset_691bc::
 	db   9, 100
 	db $ff
 
-Frameset_691bf::
+CartFrameset_691bf::
 	db   5, 24
 	db  10, 24
 	db $ff
 
-Frameset_691c4:
+ZipLineFrameset_691c4:
 	db   0, 18
 	db   1, 18
 	db $ff
 
-Frameset_691c9:
+ZipLineFrameset_691c9:
 	db   1,  3
 	db   2,  3
 	db   3,  4
 	db   4,  3
 	db $ff
 
-Frameset_691d2:
+ZipLineFrameset_691d2:
 	db   1,  3
 	db   4,  3
 	db   3,  4
 	db   2,  3
 	db $ff
 
-Frameset_691db:
+ZipLineFrameset_691db:
 	db   0, 127
 	db $ff
 
-Frameset_691de:
+RoboMouseFrameset_691de:
 	db   0,  7
 	db   1,  7
 	db   2,  7
 	db $ff
 
-Frameset_691e5:
+RoboMouseFrameset_691e5:
 	db   0,  7
 	db   3, 10
 	db   4, 10
@@ -3512,36 +3512,36 @@ Frameset_691e5:
 	db   6, 10
 	db $ff
 
-Frameset_691f2:
+RoboMouseFrameset_691f2:
 	db   0, 15
 	db   7,  8
 	db   8,  8
 	db   9, 15
 	db $ff
 
-Frameset_691fb:
+RoboMouseFrameset_691fb:
 	db  10, 10
 	db  11, 10
 	db $ff
 
-Frameset_69200:
+RoboMouseFrameset_69200:
 	db  12, 10
 	db  13, 10
 	db $ff
 
-Frameset_69205:
+RoboMouseFrameset_69205:
 	db  14,  5
 	db  23,  5
 	db  24,  5
 	db $ff
 
-Frameset_6920c:
+RoboMouseFrameset_6920c:
 	db  15,  5
 	db  25,  5
 	db  26,  5
 	db $ff
 
-Frameset_69213:
+RoboMouseFrameset_69213:
 	db  16,  7
 	db  17, 10
 	db  18, 10
@@ -3550,20 +3550,20 @@ Frameset_69213:
 	db  20, 10
 	db $ff
 
-Frameset_69220:
+RoboMouseFrameset_69220:
 	db  16,  7
 	db  21,  7
 	db  22,  7
 	db $ff
 
-Frameset_69227:
+RoboMouseFrameset_69227:
 	db   9, 15
 	db   8,  8
 	db   7,  8
 	db   0, 15
 	db $ff
 
-Frameset_69230:
+TogebaFrameset_69230:
 	db   0,  8
 	db   1, 16
 	db   0,  8
@@ -3579,7 +3579,7 @@ Frameset_69230:
 	db   0, 16
 	db $ff
 
-Frameset_6924b:
+TogebaFrameset_6924b:
 	db   0,  2
 	db   5,  4
 	db   6,  6
@@ -3587,7 +3587,7 @@ Frameset_6924b:
 	db   0,  2
 	db $ff
 
-Frameset_69256:
+TogebaFrameset_69256:
 	db   0,  2
 	db   7,  4
 	db   8,  4
@@ -3596,31 +3596,31 @@ Frameset_69256:
 	db  13, 127
 	db $ff
 
-Frameset_69263:
+TogebaFrameset_69263:
 	db   8,  6
 	db   9,  2
 	db  10,  6
 	db   9,  2
 	db $ff
 
-Frameset_6926c:
+TogebaFrameset_6926c:
 	db  10,  9
 	db  11,  3
 	db  12,  9
 	db  11,  3
 	db $ff
 
-Frameset_69275:
+TogebaFrameset_69275:
 	db   8,  6
 	db   7,  6
 	db   0,  2
 	db $ff
 
-Frameset_6927c:
+TogebaFrameset_6927c:
 	db  15, 100
 	db $ff
 
-Frameset_6927f:
+HaridamaFrameset_6927f:
 	db   0, 10
 	db   1, 10
 	db   4, 10
@@ -3631,7 +3631,7 @@ Frameset_6927f:
 	db   7, 10
 	db $ff
 
-Frameset_69290:
+HaridamaFrameset_69290:
 	db   2, 10
 	db   3, 10
 	db   8, 10
@@ -3642,67 +3642,67 @@ Frameset_69290:
 	db  11, 10
 	db $ff
 
-Frameset_692a1:
+HaridamaFrameset_692a1:
 	db   0,  6
 	db  12,  6
 	db  13,  6
 	db   2,  6
 	db $ff
 
-Frameset_692aa:
+HaridamaFrameset_692aa:
 	db   2,  6
 	db  13,  6
 	db  12,  6
 	db   0,  6
 	db $ff
 
-Frameset_692b3:
+HaridamaFrameset_692b3:
 	db  14,  6
 	db  15,  6
 	db $ff
 
-Frameset_692b8:
+HaridamaFrameset_692b8:
 	db  16,  6
 	db  17,  6
 	db $ff
 
-Frameset_692bd:
+HaridamaFrameset_692bd:
 	db  18,  4
 	db  19,  4
 	db $ff
 
-Frameset_692c2:
+HaridamaFrameset_692c2:
 	db  20,  4
 	db  21,  4
 	db $ff
 
-Frameset_692c7:
+HaridamaFrameset_692c7:
 	db   0,  4
 	db  22,  8
 	db  18,  4
 	db $ff
 
-Frameset_692ce:
+HaridamaFrameset_692ce:
 	db   2,  4
 	db  23,  8
 	db  20,  4
 	db $ff
 
-Frameset_692d5:
+HaridamaFrameset_692d5:
 	db  24, 24
 	db  25, 24
 	db  24,  6
 	db  25,  6
 	db $ff
 
-Frameset_692de:
+HaridamaFrameset_692de:
 	db  26, 24
 	db  27, 24
 	db  26,  6
 	db  27,  6
 	db $ff
 
-Frameset_692e7::
+OwlFrameset_692e7::
 	db   1, 17
 	db   2, 20
 	db   3, 20
@@ -3729,7 +3729,7 @@ Frameset_692e7::
 	db   2,  8
 	db $ff
 
-Frameset_69318:
+OwlFrameset_69318:
 	db   0,  1
 	db   1,  2
 	db   4,  2
@@ -3746,7 +3746,7 @@ Frameset_69318:
 	db   7,  2
 	db $ff
 
-Frameset_69335::
+OwlFrameset_69335::
 	db   8,  5
 	db   9,  5
 	db  10,  5
@@ -3755,7 +3755,7 @@ Frameset_69335::
 	db $ff
 
 ; unreferenced
-Frameset_69340:
+UnreferencedOwlFrameset_69340:
 	db  13,  5
 	db  14,  5
 	db  15,  5
@@ -3764,7 +3764,7 @@ Frameset_69340:
 	db $ff
 
 ; unreferenced
-Frameset_6934b:
+UnreferencedOwlFrameset_6934b:
 	db  18,  2
 	db  19,  2
 	db  20,  2
@@ -3773,7 +3773,7 @@ Frameset_6934b:
 	db $ff
 
 ; unreferenced
-Frameset_69356:
+UnreferencedOwlFrameset_69356:
 	db  18,  2
 	db   8,  3
 	db  14,  3
@@ -3783,14 +3783,14 @@ Frameset_69356:
 	db $ff
 
 ; unreferenced
-Frameset_69363:
+UnreferencedOwlFrameset_69363:
 	db  23,  2
 	db  25,  2
 	db  24,  2
 	db  25,  2
 	db $ff
 
-Frameset_6936c:
+OwlFrameset_6936c:
 	db  26,  5
 	db  27,  5
 	db  28,  5
@@ -3798,7 +3798,7 @@ Frameset_6936c:
 	db  30,  5
 	db $ff
 
-Frameset_69377:
+OwlFrameset_69377:
 	db  31,  5
 	db  32,  5
 	db  33,  5
@@ -3807,7 +3807,7 @@ Frameset_69377:
 	db $ff
 
 ; unreferenced
-Frameset_69382:
+UnreferencedOwlFrameset_69382:
 	db  36,  5
 	db  37,  5
 	db  38,  5
@@ -3816,7 +3816,7 @@ Frameset_69382:
 	db $ff
 
 ; unreferenced
-Frameset_6938d:
+UnreferencedOwlFrameset_6938d:
 	db  41,  5
 	db  42,  5
 	db  43,  5
@@ -3825,7 +3825,7 @@ Frameset_6938d:
 	db $ff
 
 ; unreferenced
-Frameset_69398:
+UnreferencedOwlFrameset_69398:
 	db  46,  5
 	db  47,  5
 	db  48,  5
@@ -3834,7 +3834,7 @@ Frameset_69398:
 	db $ff
 
 ; unreferenced
-Frameset_693a3:
+UnreferencedOwlFrameset_693a3:
 	db  51,  5
 	db  52,  5
 	db  53,  5
@@ -3843,7 +3843,7 @@ Frameset_693a3:
 	db $ff
 
 ; unreferenced
-Frameset_693ae:
+UnreferencedOwlFrameset_693ae:
 	db  46,  3
 	db  37,  3
 	db  38,  3
@@ -3852,7 +3852,7 @@ Frameset_693ae:
 	db $ff
 
 ; unreferenced
-Frameset_693b9:
+UnreferencedOwlFrameset_693b9:
 	db  51,  3
 	db  42,  3
 	db  43,  3
@@ -3860,7 +3860,7 @@ Frameset_693b9:
 	db  55,  3
 	db $ff
 
-Frameset_693c4:
+AnonsterFrameset_693c4:
 	db   0,  6
 	db   1,  6
 	db   2,  6
@@ -3871,7 +3871,7 @@ Frameset_693c4:
 	db   3,  6
 	db $ff
 
-Frameset_693d5:
+AnonsterFrameset_693d5:
 	db  12,  6
 	db  13,  6
 	db  14,  6
@@ -3882,7 +3882,7 @@ Frameset_693d5:
 	db  15,  6
 	db $ff
 
-Frameset_693e6:
+AnonsterFrameset_693e6:
 	db   0,  6
 	db   3,  6
 	db   4,  6
@@ -3894,14 +3894,14 @@ Frameset_693e6:
 	db   8, 30
 	db $ff
 
-Frameset_693f9:
+AnonsterFrameset_693f9:
 	db   9,  4
 	db  10, 10
 	db   9,  4
 	db   8, 10
 	db $ff
 
-Frameset_69402:
+AnonsterFrameset_69402:
 	db  11,  6
 	db   4,  6
 	db   3,  6
@@ -3911,7 +3911,7 @@ Frameset_69402:
 	db   3,  6
 	db $ff
 
-Frameset_69411:
+AnonsterFrameset_69411:
 	db  12,  6
 	db  15,  6
 	db  16,  6
@@ -3923,14 +3923,14 @@ Frameset_69411:
 	db  20, 30
 	db $ff
 
-Frameset_69424:
+AnonsterFrameset_69424:
 	db  21,  4
 	db  22, 10
 	db  21,  4
 	db  20, 10
 	db $ff
 
-Frameset_6942d:
+AnonsterFrameset_6942d:
 	db  23,  6
 	db  16,  6
 	db  15,  6
@@ -3940,27 +3940,27 @@ Frameset_6942d:
 	db  15,  6
 	db $ff
 
-Frameset_6943c:
+AnonsterFrameset_6943c:
 	db   8,  8
 	db   9,  8
 	db $ff
 
-Frameset_69441:
+AnonsterFrameset_69441:
 	db  20,  8
 	db  21,  8
 	db $ff
 
-Frameset_69446:
+AnonsterFrameset_69446:
 	db   0,  1
 	db  24,  6
 	db  12,  1
 	db $ff
 
-Frameset_6944d:
+AnonsterFrameset_6944d:
 	db  62,  4
 	db $ff
 
-Frameset_69450:
+AnonsterFrameset_69450:
 	db  62,  1
 	db  61,  1
 	db  60,  1
@@ -3970,16 +3970,16 @@ Frameset_69450:
 	db $ff
 
 ; unreferenced
-Frameset_6945d:
+UnreferencedAnonsterFrameset_6945d:
 	db  26,  1
 	db $ff
 
 ; unreferenced
-Frameset_69460:
+UnreferencedAnonsterFrameset_69460:
 	db  42,  1
 	db $ff
 
-Frameset_69463:
+AnonsterFrameset_69463:
 	db  26, 10
 	db  27,  6
 	db  28,  6
@@ -3990,7 +3990,7 @@ Frameset_69463:
 	db  36, 127
 	db $ff
 
-Frameset_69474:
+AnonsterFrameset_69474:
 	db  42, 10
 	db  43,  6
 	db  44,  6
@@ -4001,7 +4001,7 @@ Frameset_69474:
 	db  52, 127
 	db $ff
 
-Frameset_69485:
+AnonsterFrameset_69485:
 	db  29,  5
 	db  30,  5
 	db  31,  5
@@ -4012,7 +4012,7 @@ Frameset_69485:
 	db  35,  5
 	db $ff
 
-Frameset_69496:
+AnonsterFrameset_69496:
 	db  45,  5
 	db  46,  5
 	db  47,  5
@@ -4023,7 +4023,7 @@ Frameset_69496:
 	db  51,  5
 	db $ff
 
-Frameset_694a7:
+AnonsterFrameset_694a7:
 	db  38,  8
 	db  39,  8
 	db  38,  8
@@ -4034,7 +4034,7 @@ Frameset_694a7:
 	db  39,  8
 	db $ff
 
-Frameset_694b8:
+AnonsterFrameset_694b8:
 	db  54,  8
 	db  55,  8
 	db  54,  8
@@ -4045,29 +4045,29 @@ Frameset_694b8:
 	db  55,  8
 	db $ff
 
-Frameset_694c9:
+AnonsterFrameset_694c9:
 	db  58,  1
 	db  82,  3
 	db  42,  1
 	db $ff
 
-Frameset_694d0:
+AnonsterFrameset_694d0:
 	db  58,  1
 	db  81,  3
 	db  26,  1
 	db $ff
 
-Frameset_694d7:
+AnonsterFrameset_694d7:
 	db  40,  8
 	db  41,  8
 	db $ff
 
-Frameset_694dc:
+AnonsterFrameset_694dc:
 	db  56,  8
 	db  57,  8
 	db $ff
 
-Frameset_694e1:
+AnonsterFrameset_694e1:
 	db  58, 20
 	db  59, 12
 	db  58,  2
@@ -4076,17 +4076,17 @@ Frameset_694e1:
 	db  62,  2
 	db $ff
 
-Frameset_694ee:
+AnonsterFrameset_694ee:
 	db  63,  8
 	db  64,  8
 	db  65,  8
 	db $ff
 
-Frameset_694f5:
+AnonsterFrameset_694f5:
 	db  66,  1
 	db $ff
 
-Frameset_694f8:
+AnonsterFrameset_694f8:
 	db  67,  3
 	db  69,  1
 	db  68,  3
@@ -4095,7 +4095,7 @@ Frameset_694f8:
 	db  68,  3
 	db $ff
 
-Frameset_69505:
+AnonsterFrameset_69505:
 	db  71,  3
 	db  73,  1
 	db  72,  3
@@ -4104,18 +4104,18 @@ Frameset_69505:
 	db  72,  3
 	db $ff
 
-Frameset_69512:
+AnonsterFrameset_69512:
 	db  12,  1
 	db  24,  6
 	db   0,  1
 	db $ff
 
-Frameset_69519:
+AnonsterFrameset_69519:
 	db  75,  4
 	db  62,  4
 	db $ff
 
-Frameset_6951e:
+AnonsterFrameset_6951e:
 	db  77,  4
 	db  58,  4
 	db  77,  4
@@ -4131,40 +4131,40 @@ Frameset_6951e:
 	db $ff
 
 ; unreferenced
-Frameset_69537:
+UnreferencedAnonsterFrameset_69537:
 	db  77,  4
 	db  58,  4
 	db $ff
 
-Frameset_6953c:
+AnonsterFrameset_6953c:
 	db  26,  4
 	db  84,  4
 	db  58,  4
 	db $ff
 
-Frameset_69543:
+AnonsterFrameset_69543:
 	db  42,  4
 	db  85,  4
 	db  58,  4
 	db $ff
 
-Frameset_6954a:
+AnonsterFrameset_6954a:
 	db  83,  1
 	db $ff
 
-Frameset_6954d:
+AnonsterFrameset_6954d:
 	db  42,  1
 	db  82,  3
 	db  58,  1
 	db $ff
 
-Frameset_69554:
+AnonsterFrameset_69554:
 	db  26,  1
 	db  81,  3
 	db  58,  1
 	db $ff
 
-Frameset_6955b:
+AnonsterFrameset_6955b:
 	db  86,  4
 	db  87,  4
 	db  88,  4
@@ -4173,7 +4173,7 @@ Frameset_6955b:
 	db  91,  4
 	db $ff
 
-Frameset_69568:
+AnonsterFrameset_69568:
 	db  42,  1
 	db  82,  3
 	db  58,  2
@@ -4181,7 +4181,7 @@ Frameset_69568:
 	db  26,  1
 	db $ff
 
-Frameset_69573:
+AnonsterFrameset_69573:
 	db  26,  1
 	db  81,  3
 	db  58,  2
@@ -4189,7 +4189,7 @@ Frameset_69573:
 	db  42,  1
 	db $ff
 
-Frameset_6957e:
+FallingSnowFrameset_6957e:
 	db   0,  4
 	db   1,  4
 	db   2,  6
@@ -4200,7 +4200,7 @@ Frameset_6957e:
 	db   7, 30
 	db $ff
 
-Frameset_6958f:
+FallingSnowFrameset_6958f:
 	db   8,  2
 	db   7,  3
 	db   8,  3
@@ -4214,14 +4214,14 @@ Frameset_6958f:
 	db   8,  1
 	db $ff
 
-Frameset_695a6:
+FallingSnowFrameset_695a6:
 	db   9,  3
 	db  10,  3
 	db  11,  3
 	db  12, 100
 	db $ff
 
-Frameset_695af:
+FallingSnowFrameset_695af:
 	db  14,  2
 	db  15,  1
 	db  16,  1
@@ -4232,7 +4232,7 @@ Frameset_695af:
 	db  21,  8
 	db $ff
 
-Frameset_695c0:
+FallingSnowFrameset_695c0:
 	db  23,  6
 	db  24,  3
 	db  24,  5
@@ -4240,7 +4240,7 @@ Frameset_695c0:
 	db  26,  5
 	db $ff
 
-Frameset_695cb:
+FallingSnowFrameset_695cb:
 	db  13,  2
 	db  28,  2
 	db  29,  3
@@ -4248,23 +4248,23 @@ Frameset_695cb:
 	db  31,  3
 	db $ff
 
-Frameset_695d6:
+FallingSnowFrameset_695d6:
 	db  32, 127
 	db $ff
 
-Frameset_695d9:
+FallingSnowFrameset_695d9:
 	db  33,  2
 	db  20,  4
 	db $ff
 
-Frameset_695de:
+FlameBlockFrameset_695de:
 	db   0, 30
 	db   1, 10
 	db   2, 15
 	db   1, 10
 	db $ff
 
-Frameset_695e7:
+FlameBlockFrameset_695e7:
 	db   0, 12
 	db   4, 10
 	db   5,  8
@@ -4284,7 +4284,7 @@ Frameset_695e7:
 	db $ff
 
 ; unreferenced
-Frameset_69608:
+UnreferencedFlameBlockFrameset_69608:
 	db   2,  4
 	db   3,  4
 	db   2,  4
@@ -4293,11 +4293,11 @@ Frameset_69608:
 	db   3,  4
 	db $ff
 
-Frameset_69615:
+StoveFrameset_69615:
 	db   0, 127
 	db $ff
 
-Frameset_69618:
+StoveFrameset_69618:
 	db   1,  2
 	db   2,  4
 	db   3,  8
@@ -4306,7 +4306,7 @@ Frameset_69618:
 	db   0,  1
 	db $ff
 
-Frameset_69625:
+StoveFrameset_69625:
 	db   4,  6
 	db   5, 10
 	db   4,  6
@@ -4315,14 +4315,14 @@ Frameset_69625:
 	db   0,  1
 	db $ff
 
-Frameset_69632:
+DollBoyFrameset_69632:
 	db   0, 42
 	db   1,  4
 	db   2, 10
 	db   1,  4
 	db $ff
 
-Frameset_6963b:
+DollBoyFrameset_6963b:
 	db   0, 12
 	db   3,  6
 	db   4, 16
@@ -4330,27 +4330,27 @@ Frameset_6963b:
 	db   0, 12
 	db $ff
 
-Frameset_69646:
+DollBoyFrameset_69646:
 	db   7,  6
 	db   6, 100
 	db   7,  6
 	db $ff
 
-Frameset_6964d:
+DollBoyFrameset_6964d:
 	db   8,  4
 	db   9,  6
 	db   8,  4
 	db  10, 10
 	db $ff
 
-Frameset_69656:
+DollBoyFrameset_69656:
 	db  11,  4
 	db  12,  6
 	db  11,  4
 	db  13, 10
 	db $ff
 
-Frameset_6965f:
+DollBoyFrameset_6965f:
 	db   8,  4
 	db  14,  6
 	db  15,  8
@@ -4358,7 +4358,7 @@ Frameset_6965f:
 	db  11,  4
 	db $ff
 
-Frameset_6966a:
+DollBoyFrameset_6966a:
 	db  11,  4
 	db  16,  6
 	db  15,  8
@@ -4366,22 +4366,22 @@ Frameset_6966a:
 	db   8,  4
 	db $ff
 
-Frameset_69675:
+DollBoyFrameset_69675:
 	db  17,  4
 	db  18,  4
 	db $ff
 
-Frameset_6967a:
+DollBoyFrameset_6967a:
 	db  19,  4
 	db  20,  4
 	db $ff
 
-Frameset_6967f:
+DollBoyFrameset_6967f:
 	db  21, 12
 	db  22, 12
 	db $ff
 
-Frameset_69684:
+DollBoyFrameset_69684:
 	db  23,  4
 	db  24,  4
 	db  25,  4
@@ -4392,184 +4392,184 @@ Frameset_69684:
 	db  30,  4
 	db $ff
 
-Frameset_69695:
+DollBoyFrameset_69695:
 	db   9,  8
 	db  31,  8
 	db $ff
 
-Frameset_6969a:
+DollBoyFrameset_6969a:
 	db  12,  8
 	db  32,  8
 	db $ff
 
-Frameset_6969f:
+DollBoyFrameset_6969f:
 	db  33, 12
 	db  42, 12
 	db  33, 12
 	db  43, 12
 	db $ff
 
-Frameset_696a8:
+DollBoyFrameset_696a8:
 	db  33,  3
 	db  34,  2
 	db  33,  3
 	db  35,  2
 	db $ff
 
-Frameset_696b1:
+DollBoyFrameset_696b1:
 	db  40, 24
 	db  41, 24
 	db $ff
 
-Frameset_696b6:
+DollBoyFrameset_696b6:
 	db  10, 100
 	db $ff
 
-Frameset_696b9:
+DollBoyFrameset_696b9:
 	db  13, 100
 	db $ff
 
-Frameset_696bc:
+WormwouldFrameset_696bc:
 	db  21,  5
 	db  24,  6
 	db  25, 10
 	db  26, 10
 	db $ff
 
-Frameset_696c5:
+WormwouldFrameset_696c5:
 	db   0,  5
 	db   3,  6
 	db   4, 10
 	db   5, 10
 	db $ff
 
-Frameset_696ce:
+WormwouldFrameset_696ce:
 	db   0, 10
 	db   1, 10
 	db   2, 10
 	db   1, 10
 	db $ff
 
-Frameset_696d7:
+WormwouldFrameset_696d7:
 	db   0, 10
 	db   3, 15
 	db   4, 20
 	db   5, 20
 	db $ff
 
-Frameset_696e0:
+WormwouldFrameset_696e0:
 	db   1,  6
 	db   6, 20
 	db $ff
 
-Frameset_696e5:
+WormwouldFrameset_696e5:
 	db   7,  8
 	db   8,  8
 	db $ff
 
-Frameset_696ea:
+WormwouldFrameset_696ea:
 	db   9, 10
 	db  10, 10
 	db  11, 10
 	db  10, 10
 	db $ff
 
-Frameset_696f3:
+WormwouldFrameset_696f3:
 	db  12,  8
 	db  13,  8
 	db $ff
 
-Frameset_696f8:
+WormwouldFrameset_696f8:
 	db  14,  7
 	db  15,  7
 	db  16,  7
 	db  17,  7
 	db $ff
 
-Frameset_69701:
+WormwouldFrameset_69701:
 	db  18, 10
 	db  19, 10
 	db  20, 10
 	db  19, 10
 	db $ff
 
-Frameset_6970a:
+WormwouldFrameset_6970a:
 	db  21, 10
 	db  22, 10
 	db  23, 10
 	db  22, 10
 	db $ff
 
-Frameset_69713:
+WormwouldFrameset_69713:
 	db  21, 10
 	db  24, 15
 	db  25, 20
 	db  26, 20
 	db $ff
 
-Frameset_6971c:
+WormwouldFrameset_6971c:
 	db  22,  6
 	db  27, 20
 	db $ff
 
-Frameset_69721:
+WormwouldFrameset_69721:
 	db  28,  8
 	db  29,  8
 	db $ff
 
-Frameset_69726:
+WormwouldFrameset_69726:
 	db  30, 10
 	db  31, 10
 	db  32, 10
 	db  31, 10
 	db $ff
 
-Frameset_6972f:
+WormwouldFrameset_6972f:
 	db  33,  8
 	db  34,  8
 	db $ff
 
-Frameset_69734:
+WormwouldFrameset_69734:
 	db  35, 10
 	db  36, 10
 	db  37, 10
 	db  36, 10
 	db $ff
 
-Frameset_6973d:
+WormwouldFrameset_6973d:
 	db  17,  7
 	db  16,  7
 	db  15,  7
 	db  14,  7
 	db $ff
 
-Frameset_69746:
+WormwouldFrameset_69746:
 	db  38, 10
 	db  39, 10
 	db  40, 10
 	db $ff
 
-Frameset_6974d:
+WormwouldFrameset_6974d:
 	db  41, 10
 	db  42, 10
 	db  43, 10
 	db $ff
 
-Frameset_69754:
+WormwouldFrameset_69754:
 	db  44, 10
 	db  45, 10
 	db  46, 10
 	db $ff
 
-Frameset_6975b:
+PillarPlatformFrameset_6975b:
 	db   0, 127
 	db $ff
 
-Frameset_6975e:
+PillarPlatformFrameset_6975e:
 	db   1, 127
 	db $ff
 
-Frameset_69761:
+WaterDropFrameset_69761:
 	db   0,  4
 	db   1,  4
 	db   0,  6
@@ -4580,11 +4580,11 @@ Frameset_69761:
 	db   3, 12
 	db $ff
 
-Frameset_69772:
+WaterDropFrameset_69772:
 	db   4, 100
 	db $ff
 
-Frameset_69775:
+WaterDropFrameset_69775:
 	db   5,  4
 	db   6,  4
 	db   7,  4
@@ -4592,21 +4592,21 @@ Frameset_69775:
 	db   9,  4
 	db $ff
 
-Frameset_69780:
+YellowBellyFrameset_69780:
 	db   0, 10
 	db   1, 10
 	db   0, 10
 	db   2, 10
 	db $ff
 
-Frameset_69789:
+YellowBellyFrameset_69789:
 	db   3, 10
 	db   4, 10
 	db   3, 10
 	db   5, 10
 	db $ff
 
-Frameset_69792:
+YellowBellyFrameset_69792:
 	db   0, 20
 	db   6,  6
 	db   7, 15
@@ -4616,7 +4616,7 @@ Frameset_69792:
 	db   0, 20
 	db $ff
 
-Frameset_697a1:
+YellowBellyFrameset_697a1:
 	db   3, 20
 	db  10,  6
 	db  11, 15
@@ -4626,7 +4626,7 @@ Frameset_697a1:
 	db   3, 20
 	db $ff
 
-Frameset_697b0:
+YellowBellyFrameset_697b0:
 	db   0, 20
 	db  14,  8
 	db  15,  8
@@ -4634,7 +4634,7 @@ Frameset_697b0:
 	db   3, 20
 	db $ff
 
-Frameset_697bb:
+YellowBellyFrameset_697bb:
 	db   3, 20
 	db  16,  8
 	db  15,  8
@@ -4642,7 +4642,7 @@ Frameset_697bb:
 	db   0, 20
 	db $ff
 
-Frameset_697c6:
+YellowBellyFrameset_697c6:
 	db  15, 10
 	db  17, 100
 	db  15, 10
@@ -4652,7 +4652,7 @@ Frameset_697c6:
 	db  15, 10
 	db $ff
 
-Frameset_697d5:
+YellowBellyFrameset_697d5:
 	db  25, 100
 	db  20,  4
 	db  26, 20
@@ -4663,18 +4663,18 @@ Frameset_697d5:
 	db  27, 50
 	db $ff
 
-Frameset_697e6:
+YellowBellyFrameset_697e6:
 	db  21,  6
 	db  22,  6
 	db $ff
 
-Frameset_697eb:
+YellowBellyFrameset_697eb:
 	db  23,  6
 	db  24,  6
 	db $ff
 
 ; unreferenced
-Frameset_697f0:
+UnreferencedYellowBellyFrameset_697f0:
 	db   0, 10
 	db   1, 10
 	db   0, 10
@@ -4682,7 +4682,7 @@ Frameset_697f0:
 	db $ff
 
 ; unreferenced
-Frameset_697f9:
+UnreferencedYellowBellyFrameset_697f9:
 	db   3, 10
 	db   4, 10
 	db   3, 10
@@ -4690,7 +4690,7 @@ Frameset_697f9:
 	db $ff
 
 ; unreferenced
-Frameset_69802:
+UnreferencedYellowBellyFrameset_69802:
 	db   0, 20
 	db   6,  6
 	db   7, 15
@@ -4701,7 +4701,7 @@ Frameset_69802:
 	db $ff
 
 ; unreferenced
-Frameset_69811:
+UnreferencedYellowBellyFrameset_69811:
 	db   3, 20
 	db  10,  6
 	db  11, 15
@@ -4712,7 +4712,7 @@ Frameset_69811:
 	db $ff
 
 ; unreferenced
-Frameset_69820:
+UnreferencedYellowBellyFrameset_69820:
 	db   0, 20
 	db  14,  8
 	db  15,  8
@@ -4721,7 +4721,7 @@ Frameset_69820:
 	db $ff
 
 ; unreferenced
-Frameset_6982b:
+UnreferencedYellowBellyFrameset_6982b:
 	db   3, 20
 	db  16,  8
 	db  15,  8
@@ -4730,7 +4730,7 @@ Frameset_6982b:
 	db $ff
 
 ; unreferenced
-Frameset_69836:
+UnreferencedYellowBellyFrameset_69836:
 	db  15, 10
 	db  17, 100
 	db  15, 10
@@ -4740,7 +4740,7 @@ Frameset_69836:
 	db  15, 10
 	db $ff
 
-Frameset_69845:
+YellowBellyFrameset_69845:
 	db  19, 100
 	db  25, 10
 	db  19, 15
@@ -4760,37 +4760,37 @@ Frameset_69845:
 	db $ff
 
 ; unreferenced
-Frameset_69866:
+UnreferencedYellowBellyFrameset_69866:
 	db  21,  6
 	db  22,  6
 	db $ff
 
 ; unreferenced
-Frameset_6986b:
+UnreferencedYellowBellyFrameset_6986b:
 	db  23,  6
 	db  24,  6
 	db $ff
 
-Frameset_69870:
+YellowBellyFrameset_69870:
 	db   0,  3
 	db   1,  3
 	db $ff
 
-Frameset_69875:
+YellowBellyFrameset_69875:
 	db   2,  3
 	db   3,  3
 	db $ff
 
-Frameset_6987a:
+YellowBellyFrameset_6987a:
 	db   4,  4
 	db   5,  4
 	db $ff
 
-Frameset_6987f:
+YellowBellyFrameset_6987f:
 	db   4, 100
 	db $ff
 
-Frameset_69882:
+YellowBellyFrameset_69882:
 	db   4,  2
 	db   6,  2
 	db   7,  2
@@ -4801,11 +4801,11 @@ Frameset_69882:
 	db   4, 100
 	db $ff
 
-Frameset_69893:
+YellowBellyFrameset_69893:
 	db  12, 100
 	db $ff
 
-Frameset_69896:
+YellowBellyFrameset_69896:
 	db  12, 12
 	db  13, 12
 	db  14, 12
@@ -4816,127 +4816,127 @@ Frameset_69896:
 	db $ff
 
 ; unreferenced
-Frameset_698a5:
+UnreferencedClearGateFrameset_698a5:
 	db   0, 100
 	db $ff
 
-Frameset_698a8:
+ClearGateFrameset_698a8:
 	db   1, 100
 	db $ff
 
-Frameset_698ab:
+ClearGateFrameset_698ab:
 	db   2, 100
 	db $ff
 
-Frameset_698ae:
+ClearGateFrameset_698ae:
 	db   3, 100
 	db $ff
 
-Frameset_698b1:
+NobiiruFrameset_698b1:
 	db   0, 100
 	db $ff
 
-Frameset_698b4:
+NobiiruFrameset_698b4:
 	db   1, 100
 	db $ff
 
-Frameset_698b7:
+NobiiruFrameset_698b7:
 	db   2, 100
 	db $ff
 
-Frameset_698ba:
+NobiiruFrameset_698ba:
 	db   3, 100
 	db $ff
 
-Frameset_698bd:
+NobiiruFrameset_698bd:
 	db   4, 100
 	db $ff
 
-Frameset_698c0:
+NobiiruFrameset_698c0:
 	db   5, 100
 	db $ff
 
-Frameset_698c3:
+NobiiruFrameset_698c3:
 	db   6, 100
 	db $ff
 
-Frameset_698c6:
+NobiiruFrameset_698c6:
 	db   7, 100
 	db $ff
 
-Frameset_698c9:
+NobiiruFrameset_698c9:
 	db   8, 100
 	db $ff
 
-Frameset_698cc:
+NobiiruFrameset_698cc:
 	db   9, 100
 	db $ff
 
-Frameset_698cf:
+NobiiruFrameset_698cf:
 	db  10, 100
 	db $ff
 
-Frameset_698d2:
+NobiiruFrameset_698d2:
 	db  11, 100
 	db $ff
 
-Frameset_698d5:
+NobiiruFrameset_698d5:
 	db  12, 100
 	db $ff
 
-Frameset_698d8:
+NobiiruFrameset_698d8:
 	db  13, 100
 	db $ff
 
-Frameset_698db:
+NobiiruFrameset_698db:
 	db  14, 100
 	db $ff
 
-Frameset_698de:
+NobiiruFrameset_698de:
 	db  15, 100
 	db $ff
 
-Frameset_698e1:
+NobiiruFrameset_698e1:
 	db  16, 100
 	db $ff
 
-Frameset_698e4:
+NobiiruFrameset_698e4:
 	db  18, 100
 	db $ff
 
-Frameset_698e7:
+NobiiruFrameset_698e7:
 	db  18, 100
 	db $ff
 
-Frameset_698ea:
+NobiiruFrameset_698ea:
 	db  19, 100
 	db $ff
 
-Frameset_698ed:
+NobiiruFrameset_698ed:
 	db  20, 100
 	db $ff
 
-Frameset_698f0:
+NobiiruFrameset_698f0:
 	db  21, 100
 	db $ff
 
-Frameset_698f3:
+NobiiruFrameset_698f3:
 	db  22, 100
 	db $ff
 
-Frameset_698f6:
+NobiiruFrameset_698f6:
 	db  23, 100
 	db $ff
 
-Frameset_698f9:
+NobiiruFrameset_698f9:
 	db  24, 100
 	db $ff
 
-Frameset_698fc:
+NobiiruFrameset_698fc:
 	db  25, 100
 	db $ff
 
-Frameset_698ff:
+NobiiruFrameset_698ff:
 	db  28,  3
 	db  27,  6
 	db  26, 16
@@ -4944,213 +4944,213 @@ Frameset_698ff:
 	db  28,  3
 	db $ff
 
-Frameset_6990a:
+PesceFrameset_6990a:
 	db   0, 15
 	db   1,  8
 	db   2,  8
 	db $ff
 
-Frameset_69911:
+PesceFrameset_69911:
 	db   2,  6
 	db   3,  6
 	db   4,  6
 	db $ff
 
-Frameset_69918:
+PesceFrameset_69918:
 	db   5, 15
 	db   6, 10
 	db   7, 10
 	db $ff
 
-Frameset_6991f:
+PesceFrameset_6991f:
 	db   8, 20
 	db   9, 12
 	db  10, 12
 	db $ff
 
-Frameset_69926:
+PesceFrameset_69926:
 	db  11, 15
 	db  12, 13
 	db  13, 13
 	db $ff
 
-Frameset_6992d:
+PesceFrameset_6992d:
 	db  22,  5
 	db  23,  5
 	db  24,  5
 	db $ff
 
-Frameset_69934:
+PesceFrameset_69934:
 	db   7,  8
 	db  25,  8
 	db  26,  8
 	db $ff
 
-Frameset_6993b:
+PesceFrameset_6993b:
 	db  10, 10
 	db  27, 10
 	db  28, 10
 	db $ff
 
-Frameset_69942:
+PesceFrameset_69942:
 	db  29, 15
 	db  30,  8
 	db  31,  8
 	db $ff
 
-Frameset_69949:
+PesceFrameset_69949:
 	db  31,  6
 	db  32,  6
 	db  33,  6
 	db $ff
 
-Frameset_69950:
+PesceFrameset_69950:
 	db  34, 15
 	db  35, 10
 	db  36, 10
 	db $ff
 
-Frameset_69957:
+PesceFrameset_69957:
 	db  37, 20
 	db  38, 12
 	db  39, 12
 	db $ff
 
-Frameset_6995e:
+PesceFrameset_6995e:
 	db  40, 15
 	db  41, 13
 	db  42, 13
 	db $ff
 
-Frameset_69965:
+PesceFrameset_69965:
 	db  43,  5
 	db  44,  5
 	db  45,  5
 	db $ff
 
-Frameset_6996c:
+PesceFrameset_6996c:
 	db  36,  8
 	db  46,  8
 	db  47,  8
 	db $ff
 
-Frameset_69973:
+PesceFrameset_69973:
 	db  39, 10
 	db  48, 10
 	db  49, 10
 	db $ff
 
-Frameset_6997a:
+PesceFrameset_6997a:
 	db  14,  6
 	db  15,  6
 	db  29,  9
 	db $ff
 
-Frameset_69981:
+PesceFrameset_69981:
 	db  15,  6
 	db  14,  6
 	db   0,  9
 	db $ff
 
-Frameset_69988:
+PesceFrameset_69988:
 	db  16,  7
 	db  17,  7
 	db  34, 11
 	db $ff
 
-Frameset_6998f:
+PesceFrameset_6998f:
 	db  17,  7
 	db  16,  7
 	db   5, 11
 	db $ff
 
-Frameset_69996:
+PesceFrameset_69996:
 	db  18,  8
 	db  19,  8
 	db  37, 13
 	db $ff
 
-Frameset_6999d:
+PesceFrameset_6999d:
 	db  19,  8
 	db  18,  8
 	db   8, 13
 	db $ff
 
-Frameset_699a4:
+PesceFrameset_699a4:
 	db  20, 10
 	db  21, 10
 	db  44, 15
 	db $ff
 
-Frameset_699ab:
+PesceFrameset_699ab:
 	db  21, 10
 	db  20, 10
 	db  23, 15
 	db $ff
 
-Frameset_699b2:
+PesceFrameset_699b2:
 	db   4,  8
 	db   2,  8
 	db $ff
 
-Frameset_699b7:
+PesceFrameset_699b7:
 	db  26,  8
 	db   7,  8
 	db $ff
 
-Frameset_699bc:
+PesceFrameset_699bc:
 	db  28,  8
 	db  10,  8
 	db $ff
 
-Frameset_699c1:
+PesceFrameset_699c1:
 	db  33,  8
 	db  31,  8
 	db $ff
 
-Frameset_699c6:
+PesceFrameset_699c6:
 	db  47,  8
 	db  36,  8
 	db $ff
 
-Frameset_699cb:
+PesceFrameset_699cb:
 	db  49,  8
 	db  39,  8
 	db $ff
 
-Frameset_699d0:
+PesceFrameset_699d0:
 	db  50,  4
 	db  51,  4
 	db $ff
 
-Frameset_699d5:
+PesceFrameset_699d5:
 	db  54,  4
 	db  55,  4
 	db $ff
 
-Frameset_699da:
+PesceFrameset_699da:
 	db  52,  8
 	db  53,  8
 	db $ff
 
-Frameset_699df:
+PesceFrameset_699df:
 	db  53,  8
 	db  52,  8
 	db $ff
 
-Frameset_699e4:
+PesceFrameset_699e4:
 	db  56,  4
 	db  57,  4
 	db $ff
 
 ; unreferenced
-Frameset_699e9:
+UnreferencedPesceFrameset_699e9:
 	db  58,  4
 	db  59,  4
 	db $ff
 
 ; unreferenced
-Frameset_699ee:
+UnreferencedPesceFrameset_699ee:
 	db  56, 10
 	db  60,  6
 	db  61,  6
@@ -5158,155 +5158,155 @@ Frameset_699ee:
 	db $ff
 
 ; unreferenced
-Frameset_699f7:
+UnreferencedPesceFrameset_699f7:
 	db  58, 10
 	db  61,  6
 	db  60,  6
 	db  57, 10
 	db $ff
 
-Frameset_69a00:
+PesceFrameset_69a00:
 	db  62,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a03:
+UnreferencedPesceFrameset_69a03:
 	db  63,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a06:
+UnreferencedPesceFrameset_69a06:
 	db  64,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a09:
+UnreferencedPesceFrameset_69a09:
 	db  65,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a0c:
+UnreferencedPesceFrameset_69a0c:
 	db  66,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a0f:
+UnreferencedPesceFrameset_69a0f:
 	db  67,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a12:
+UnreferencedPesceFrameset_69a12:
 	db  68,  4
 	db $ff
 
-Frameset_69a15:
+PesceFrameset_69a15:
 	db  21,  6
 	db  20,  6
 	db $ff
 
-Frameset_69a1a:
+TadpoleFrameset_69a1a:
 	db   0, 100
 	db $ff
 
-Frameset_69a1d:
+TadpoleFrameset_69a1d:
 	db   1, 100
 	db $ff
 
 ; unreferenced
-Frameset_69a20:
+UnreferencedTadpoleFrameset_69a20:
 	db   2, 100
 	db $ff
 
 ; unreferenced
-Frameset_69a23:
+UnreferencedTadpoleFrameset_69a23:
 	db   3, 100
 	db $ff
 
-Frameset_69a26:
+TadpoleFrameset_69a26:
 	db   4,  4
 	db   6,  4
 	db $ff
 
 ; unreferenced
-Frameset_69a2b:
+UnreferencedTadpoleFrameset_69a2b:
 	db   5,  4
 	db   6,  4
 	db $ff
 
-Frameset_69a30:
+TadpoleFrameset_69a30:
 	db   7, 100
 	db $ff
 
-Frameset_69a33:
+TadpoleFrameset_69a33:
 	db   8, 17
 	db   9, 15
 	db $ff
 
 ; unreferenced
-Frameset_69a38:
+UnreferencedTadpoleFrameset_69a38:
 	db  10,  8
 	db  11,  8
 	db $ff
 
-Frameset_69a3d:
+TadpoleFrameset_69a3d:
 	db   9, 12
 	db  12, 12
 	db $ff
 
 ; unreferenced
-Frameset_69a42:
+UnreferencedTadpoleFrameset_69a42:
 	db  11, 12
 	db  13, 12
 	db $ff
 
 ; unreferenced
-Frameset_69a47:
+UnreferencedTadpoleFrameset_69a47:
 	db   9,  6
 	db   8,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a4c:
+UnreferencedTadpoleFrameset_69a4c:
 	db  11,  6
 	db  10,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a51:
+UnreferencedTadpoleFrameset_69a51:
 	db   9,  6
 	db  14,  8
 	db  11,  6
 	db $ff
 
 ; unreferenced
-Frameset_69a58:
+UnreferencedTadpoleFrameset_69a58:
 	db  11,  6
 	db  14,  8
 	db   9,  6
 	db $ff
 
-Frameset_69a5f:
+ScowlerFrameset_69a5f:
 	db   0, 10
 	db   1, 10
 	db   0, 10
 	db   2, 10
 	db $ff
 
-Frameset_69a68:
+ScowlerFrameset_69a68:
 	db   3, 10
 	db   4, 10
 	db   3, 10
 	db   5, 10
 	db $ff
 
-Frameset_69a71:
+ScowlerFrameset_69a71:
 	db   6, 10
 	db   7, 10
 	db   6, 10
 	db   8, 10
 	db $ff
 
-Frameset_69a7a:
+ScowlerFrameset_69a7a:
 	db   9,  6
 	db  19,  2
 	db  20,  2
@@ -5322,7 +5322,7 @@ Frameset_69a7a:
 	db   9,  6
 	db $ff
 
-Frameset_69a95:
+ScowlerFrameset_69a95:
 	db   9,  6
 	db  45,  6
 	db  46,  6
@@ -5334,7 +5334,7 @@ Frameset_69a95:
 	db  15,  6
 	db $ff
 
-Frameset_69aa8:
+ScowlerFrameset_69aa8:
 	db  15,  6
 	db  14, 10
 	db  13,  8
@@ -5342,20 +5342,20 @@ Frameset_69aa8:
 	db   9,  6
 	db $ff
 
-Frameset_69ab3:
+ScowlerFrameset_69ab3:
 	db  16,  3
 	db  33,  2
 	db  34,  3
 	db  32,  2
 	db $ff
 
-Frameset_69abc:
+ScowlerFrameset_69abc:
 	db  17,  6
 	db  18, 16
 	db  17,  6
 	db $ff
 
-Frameset_69ac3:
+ScowlerFrameset_69ac3:
 	db  23,  8
 	db  24, 14
 	db  23,  8
@@ -5363,7 +5363,7 @@ Frameset_69ac3:
 	db $ff
 
 ; unreferenced
-Frameset_69acc:
+UnreferencedScowlerFrameset_69acc:
 	db  26, 10
 	db  27, 10
 	db  28, 10
@@ -5377,7 +5377,7 @@ Frameset_69acc:
 	db  26, 10
 	db $ff
 
-Frameset_69ae3:
+ScowlerFrameset_69ae3:
 	db  35,  6
 	db  36,  6
 	db  35,  6
@@ -5385,42 +5385,42 @@ Frameset_69ae3:
 	db $ff
 
 ; unreferenced
-Frameset_69aec:
+UnreferencedScowlerFrameset_69aec:
 	db  38,  6
 	db  39,  6
 	db  38,  6
 	db  40,  6
 	db $ff
 
-Frameset_69af5:
+ScowlerFrameset_69af5:
 	db  37,  8
 	db  41,  8
 	db  42,  8
 	db $ff
 
 ; unreferenced
-Frameset_69afc:
+UnreferencedScowlerFrameset_69afc:
 	db  40,  8
 	db  43,  8
 	db  44,  8
 	db $ff
 
-Frameset_69b03:
+ScowlerFrameset_69b03:
 	db  47,  8
 	db  48,  8
 	db $ff
 
-Frameset_69b08:
+ScowlerFrameset_69b08:
 	db  49, 18
 	db  50, 18
 	db $ff
 
-Frameset_69b0d:
+ScowlerFrameset_69b0d:
 	db  51, 24
 	db  52, 24
 	db $ff
 
-Frameset_69b12:
+WaterSparkFrameset_69b12:
 	db   0,  6
 	db   1,  4
 	db   0,  6
@@ -5428,11 +5428,11 @@ Frameset_69b12:
 	db $ff
 
 ; unreferenced
-Frameset_69b1b:
+UnreferencedWaterSparkFrameset_69b1b:
 	db   3, 100
 	db $ff
 
-Frameset_69b1e:
+WaterSparkFrameset_69b1e:
 	db   4, 10
 	db   5, 10
 	db   4,  2
@@ -5443,21 +5443,21 @@ Frameset_69b1e:
 	db   7, 10
 	db $ff
 
-Frameset_69b2f:
+OctohonFrameset_69b2f:
 	db   0, 10
 	db   1, 14
 	db   0, 10
 	db   2, 14
 	db $ff
 
-Frameset_69b38::
+OctohonFrameset_69b38::
 	db   3, 10
 	db   4, 14
 	db   3, 10
 	db   5, 14
 	db $ff
 
-Frameset_69b41:
+OctohonFrameset_69b41:
 	db   0, 20
 	db   6,  8
 	db   7,  8
@@ -5465,7 +5465,7 @@ Frameset_69b41:
 	db   3, 20
 	db $ff
 
-Frameset_69b4c:
+OctohonFrameset_69b4c:
 	db   3, 20
 	db   8,  8
 	db   7,  8
@@ -5473,21 +5473,21 @@ Frameset_69b4c:
 	db   0, 20
 	db $ff
 
-Frameset_69b57:
+OctohonFrameset_69b57:
 	db   9, 10
 	db  10, 14
 	db   9, 10
 	db  11, 14
 	db $ff
 
-Frameset_69b60::
+OctohonFrameset_69b60::
 	db  12, 10
 	db  13, 14
 	db  12, 10
 	db  14, 14
 	db $ff
 
-Frameset_69b69:
+OctohonFrameset_69b69:
 	db   9, 20
 	db  15,  8
 	db  16,  8
@@ -5495,7 +5495,7 @@ Frameset_69b69:
 	db  12, 20
 	db $ff
 
-Frameset_69b74:
+OctohonFrameset_69b74:
 	db  12, 20
 	db  17,  8
 	db  16,  8
@@ -5503,14 +5503,14 @@ Frameset_69b74:
 	db   9, 20
 	db $ff
 
-Frameset_69b7f:
+OctohonFrameset_69b7f:
 	db  18,  3
 	db  24,  6
 	db  18,  3
 	db  19,  6
 	db $ff
 
-Frameset_69b88:
+OctohonFrameset_69b88:
 	db  20,  3
 	db  25,  6
 	db  20,  3
@@ -5518,7 +5518,7 @@ Frameset_69b88:
 	db $ff
 
 ; unreferenced
-Frameset_69b91:
+UnreferencedOctohonFrameset_69b91:
 	db   0, 20
 	db  22,  8
 	db   1,  8
@@ -5528,7 +5528,7 @@ Frameset_69b91:
 	db   9, 20
 	db $ff
 
-Frameset_69ba0::
+FeedOctohonCutsceneFrameset_69ba0::
 	db   3, 20
 	db  26,  4
 	db   3,  4
@@ -5548,7 +5548,7 @@ Frameset_69ba0::
 	db  12, 20
 	db $ff
 
-Frameset_69bc3:
+OctohonFrameset_69bc3:
 	db   9,  4
 	db  10, 12
 	db   9,  4
@@ -5556,7 +5556,7 @@ Frameset_69bc3:
 	db  11, 100
 	db $ff
 
-Frameset_69bce:
+OctohonFrameset_69bce:
 	db  12,  4
 	db  13, 12
 	db  12,  4
@@ -5564,7 +5564,7 @@ Frameset_69bce:
 	db  14, 100
 	db $ff
 
-Frameset_69bd9:
+SparkFrameset_69bd9:
 	db   0,  3
 	db   1,  6
 	db   0,  3
@@ -5572,7 +5572,7 @@ Frameset_69bd9:
 	db $ff
 
 ; unreferenced
-Frameset_69be2:
+UnreferencedSparkFrameset_69be2:
 	db   0,  4
 	db   3,  4
 	db   4,  6
@@ -5585,39 +5585,39 @@ Frameset_69be2:
 	db $ff
 
 ; unreferenced
-Frameset_69bf5:
+UnreferencedSparkFrameset_69bf5:
 	db   0,  3
 	db   6,  6
 	db   0,  3
 	db   7,  6
 	db $ff
 
-Frameset_69bfe:
+RockFrameset_69bfe:
 	db   0, 100
 	db $ff
 
-Frameset_69c01:
+RockFrameset_69c01:
 	db   0,  4
 	db   1,  6
 	db   2,  6
 	db   3,  6
 	db $ff
 
-Frameset_69c0a::
+FireFrameset_69c0a::
 	db   0,  6
 	db   1,  6
 	db   2,  6
 	db   3,  6
 	db $ff
 
-Frameset_69c13::
+ExtinguishFireCutsceneFrameset_69c13::
 	db   4,  6
 	db   5,  6
 	db   6,  6
 	db   7,  6
 	db $ff
 
-Frameset_69c1c:
+JamanoFrameset_69c1c:
 	db   0, 16
 	db   1, 16
 	db   0, 16
@@ -5625,7 +5625,7 @@ Frameset_69c1c:
 	db $ff
 
 ; unreferenced
-Frameset_69c25:
+JamanoFrameset_69c25:
 	db   0, 12
 	db   3, 12
 	db   0, 12
@@ -5633,7 +5633,7 @@ Frameset_69c25:
 	db $ff
 
 ; unreferenced
-Frameset_69c2e:
+JamanoFrameset_69c2e:
 	db   5, 10
 	db   6, 10
 	db   5, 10
@@ -5641,29 +5641,29 @@ Frameset_69c2e:
 	db $ff
 
 ; unreferenced
-Frameset_69c37:
+JamanoFrameset_69c37:
 	db   8,  6
 	db   9,  6
 	db   8,  6
 	db  10,  6
 	db $ff
 
-Frameset_69c40:
+JamanoFrameset_69c40:
 	db  11,  4
 	db  12,  4
 	db $ff
 
-Frameset_69c45:
+JamanoFrameset_69c45:
 	db  13,  4
 	db  14,  4
 	db $ff
 
-Frameset_69c4a:
+JamanoFrameset_69c4a:
 	db  15,  4
 	db  16,  4
 	db $ff
 
-Frameset_69c4f:
+JamanoFrameset_69c4f:
 	db  17,  3
 	db  18,  3
 	db  19,  3
@@ -5671,7 +5671,7 @@ Frameset_69c4f:
 	db $ff
 
 ; unreferenced
-Frameset_69c58:
+UnreferencedJamanoFrameset_69c58:
 	db  22,  6
 	db  23,  8
 	db  24, 12
@@ -5682,7 +5682,7 @@ Frameset_69c58:
 	db  21,  8
 	db $ff
 
-Frameset_69c69:
+JamanoFrameset_69c69:
 	db  25,  4
 	db  26,  4
 	db  27,  4
@@ -5693,7 +5693,7 @@ Frameset_69c69:
 	db  32,  4
 	db $ff
 
-Frameset_69c7a:
+JamanoFrameset_69c7a:
 	db  34,  5
 	db  35,  5
 	db  36,  5
@@ -5704,14 +5704,14 @@ Frameset_69c7a:
 	db $ff
 
 ; unreferenced
-Frameset_69c89:
+UnreferencedJamanoFrameset_69c89:
 	db  33,  8
 	db  40, 10
 	db  33,  8
 	db  41, 10
 	db $ff
 
-Frameset_69c92:
+JamanoFrameset_69c92:
 	db   0,  5
 	db  39,  5
 	db  38,  5
@@ -5721,7 +5721,7 @@ Frameset_69c92:
 	db  34,  5
 	db $ff
 
-Frameset_69ca1:
+JamanoFrameset_69ca1:
 	db  34, 16
 	db  42, 16
 	db  34, 16
@@ -5729,7 +5729,7 @@ Frameset_69ca1:
 	db $ff
 
 ; unreferenced
-Frameset_69caa:
+JamanoFrameset_69caa:
 	db  34, 12
 	db  44, 12
 	db  34, 12
@@ -5737,7 +5737,7 @@ Frameset_69caa:
 	db $ff
 
 ; unreferenced
-Frameset_69cb3:
+JamanoFrameset_69cb3:
 	db  46, 10
 	db  47, 10
 	db  46, 10
@@ -5745,14 +5745,14 @@ Frameset_69cb3:
 	db $ff
 
 ; unreferenced
-Frameset_69cbc:
+JamanoFrameset_69cbc:
 	db  49,  6
 	db  50,  6
 	db  49,  6
 	db  51,  6
 	db $ff
 
-Frameset_69cc5:
+JamanoFrameset_69cc5:
 	db  25,  4
 	db  32,  4
 	db  31,  4
@@ -5763,64 +5763,64 @@ Frameset_69cc5:
 	db  26,  4
 	db $ff
 
-Frameset_69cd6:
+JamanoFrameset_69cd6:
 	db  52, 10
 	db  53, 10
 	db $ff
 
-Frameset_69cdb:
+JamanoFrameset_69cdb:
 	db  54, 13
 	db  33, 13
 	db $ff
 
-Frameset_69ce0:
+JamanoFrameset_69ce0:
 	db   0,  3
 	db  33,  3
 	db  34,  3
 	db  33,  3
 	db $ff
 
-Frameset_69ce9:
+JamanoFrameset_69ce9:
 	db  54,  4
 	db $ff
 
-Frameset_69cec:
+JamanoFrameset_69cec:
 	db  52,  4
 	db $ff
 
-Frameset_69cef:
+JamanoFrameset_69cef:
 	db  22,  4
 	db $ff
 
-Frameset_69cf2:
+MuddeeFrameset_69cf2:
 	db   0,  6
 	db   1,  8
 	db   0,  6
 	db   2,  8
 	db $ff
 
-Frameset_69cfb:
+MuddeeFrameset_69cfb:
 	db   3,  6
 	db   4,  8
 	db   3,  6
 	db   5,  8
 	db $ff
 
-Frameset_69d04:
+MuddeeFrameset_69d04:
 	db   6,  6
 	db   7,  8
 	db   6,  6
 	db   8,  8
 	db $ff
 
-Frameset_69d0d:
+MuddeeFrameset_69d0d:
 	db   9,  6
 	db  10,  8
 	db   9,  6
 	db  11,  8
 	db $ff
 
-Frameset_69d16:
+MuddeeFrameset_69d16:
 	db   0,  8
 	db   1,  8
 	db  12,  8
@@ -5835,7 +5835,7 @@ Frameset_69d16:
 	db  15,  8
 	db $ff
 
-Frameset_69d2f:
+MuddeeFrameset_69d2f:
 	db   0,  8
 	db   2,  8
 	db  15,  8
@@ -5850,46 +5850,46 @@ Frameset_69d2f:
 	db  12,  8
 	db $ff
 
-Frameset_69d48:
+MuddeeFrameset_69d48:
 	db  16,  8
 	db  17, 10
 	db $ff
 
-Frameset_69d4d:
+MuddeeFrameset_69d4d:
 	db  18,  8
 	db  19, 10
 	db $ff
 
-Frameset_69d52:
+MuddeeFrameset_69d52:
 	db  20,  8
 	db  21, 10
 	db $ff
 
-Frameset_69d57:
+MuddeeFrameset_69d57:
 	db  22,  8
 	db  23, 10
 	db $ff
 
-Frameset_69d5c:
+MuddeeFrameset_69d5c:
 	db  28,  6
 	db  29, 10
 	db  28,  6
 	db  30, 12
 	db $ff
 
-Frameset_69d65:
+MuddeeFrameset_69d65:
 	db  28, 10
 	db  31,  8
 	db $ff
 
-Frameset_69d6a:
+MuddeeFrameset_69d6a:
 	db  24,  5
 	db  25,  5
 	db  26,  5
 	db  27,  5
 	db $ff
 
-Frameset_69d73:
+MuddeeFrameset_69d73:
 	db  32,  7
 	db  33,  7
 	db  32,  7
@@ -5897,21 +5897,21 @@ Frameset_69d73:
 	db $ff
 
 ; unreferenced
-Frameset_69d7c:
+UnreferencedMuddeeFrameset_69d7c:
 	db  35,  7
 	db  36,  7
 	db  35,  7
 	db  37,  7
 	db $ff
 
-Frameset_69d85:
+MuddeeFrameset_69d85:
 	db  38,  7
 	db  39,  7
 	db  38,  7
 	db  40,  7
 	db $ff
 
-Frameset_69d8e:
+MuddeeFrameset_69d8e:
 	db   0,  5
 	db   1,  5
 	db  12,  5
@@ -5926,7 +5926,7 @@ Frameset_69d8e:
 	db  15,  5
 	db $ff
 
-Frameset_69da7:
+MuddeeFrameset_69da7:
 	db   0,  5
 	db   2,  5
 	db  15,  5
@@ -5941,7 +5941,7 @@ Frameset_69da7:
 	db  12,  5
 	db $ff
 
-Frameset_69dc0:
+MuddeeFrameset_69dc0:
 	db  42,  8
 	db  43,  8
 	db  44,  8
@@ -5949,69 +5949,69 @@ Frameset_69dc0:
 	db  46,  8
 	db $ff
 
-Frameset_69dcb:
+WolfenbossFrameset_69dcb:
 	db   0, 15
 	db   1, 15
 	db $ff
 
 ; unreferenced
-Frameset_69dd0:
+UnreferencedWolfenbossFrameset_69dd0:
 	db   2, 15
 	db   3, 15
 	db $ff
 
-Frameset_69dd5:
+WolfenbossFrameset_69dd5:
 	db   0,  8
 	db   4,  8
 	db   2,  8
 	db   5,  8
 	db $ff
 
-Frameset_69dde:
+WolfenbossFrameset_69dde:
 	db   2,  8
 	db   4,  8
 	db   0,  8
 	db   6,  8
 	db $ff
 
-Frameset_69de7:
+WolfenbossFrameset_69de7:
 	db   5,  8
 	db   7,  8
 	db $ff
 
-Frameset_69dec:
+WolfenbossFrameset_69dec:
 	db   6,  8
 	db   8,  8
 	db $ff
 
-Frameset_69df1:
+WolfenbossFrameset_69df1:
 	db   9,  4
 	db  10,  4
 	db $ff
 
-Frameset_69df6:
+WolfenbossFrameset_69df6:
 	db  11,  4
 	db  12,  4
 	db $ff
 
-Frameset_69dfb:
+WolfenbossFrameset_69dfb:
 	db   1,  4
 	db  13, 16
 	db $ff
 
-Frameset_69e00:
+WolfenbossFrameset_69e00:
 	db   2,  4
 	db  14, 16
 	db $ff
 
-Frameset_69e05:
+WolfenbossFrameset_69e05:
 	db  15,  3
 	db  16,  3
 	db  17,  3
 	db  18,  3
 	db $ff
 
-Frameset_69e0e:
+WolfenbossFrameset_69e0e:
 	db   0,  4
 	db   4,  4
 	db   3,  4
@@ -6022,7 +6022,7 @@ Frameset_69e0e:
 	db   6,  4
 	db $ff
 
-Frameset_69e1f:
+WolfenbossFrameset_69e1f:
 	db   3,  4
 	db   4,  4
 	db   0,  4
@@ -6033,46 +6033,46 @@ Frameset_69e1f:
 	db   5,  4
 	db $ff
 
-Frameset_69e30:
+WolfenbossFrameset_69e30:
 	db  22,  2
 	db  23,  2
 	db  24,  2
 	db  25,  2
 	db $ff
 
-Frameset_69e39:
+WolfenbossFrameset_69e39:
 	db  26,  3
 	db  27,  3
 	db  28,  3
 	db  29,  3
 	db $ff
 
-Frameset_69e42:
+WolfenbossFrameset_69e42:
 	db  30,  4
 	db  31,  4
 	db  32,  4
 	db  33,  4
 	db $ff
 
-Frameset_69e4b:
+WolfenbossFrameset_69e4b:
 	db  34,  5
 	db  35,  5
 	db $ff
 
-Frameset_69e50:
+WolfenbossFrameset_69e50:
 	db  36,  3
 	db  38,  3
 	db  37,  3
 	db  38,  3
 	db $ff
 
-Frameset_69e59:
+WolfenbossFrameset_69e59:
 	db  52,  4
 	db  39,  4
 	db  40,  4
 	db $ff
 
-Frameset_69e60:
+WolfenbossFrameset_69e60:
 	db  38,  4
 	db  43,  4
 	db  44,  4
@@ -6080,66 +6080,66 @@ Frameset_69e60:
 	db $ff
 
 ; unreferenced
-Frameset_69e69:
+UnreferencedWolfenbossFrameset_69e69:
 	db  38,  4
 	db  45,  4
 	db  44,  4
 	db  43,  4
 	db $ff
 
-Frameset_69e72:
+WolfenbossFrameset_69e72:
 	db  46,  2
 	db  47,  2
 	db  48,  3
 	db  49,  2
 	db $ff
 
-Frameset_69e7b:
+WolfenbossFrameset_69e7b:
 	db  50,  4
 	db  51,  4
 	db $ff
 
-Frameset_69e80:
+WolfenbossFrameset_69e80:
 	db  52,  4
 	db  53,  4
 	db $ff
 
-Frameset_69e85:
+WolfenbossFrameset_69e85:
 	db  54,  4
 	db  55,  2
 	db  56,  4
 	db  57,  2
 	db $ff
 
-Frameset_69e8e:
+WolfenbossFrameset_69e8e:
 	db  58,  4
 	db  59,  2
 	db  60,  4
 	db  61,  2
 	db $ff
 
-Frameset_69e97:
+WolfenbossFrameset_69e97:
 	db  62,  4
 	db  63,  4
 	db  64,  4
 	db  62,  4
 	db $ff
 
-Frameset_69ea0:
+WolfenbossFrameset_69ea0:
 	db  68,  4
 	db  69,  4
 	db  70,  4
 	db  69,  4
 	db $ff
 
-Frameset_69ea9:
+WolfenbossFrameset_69ea9:
 	db  65,  4
 	db  66,  4
 	db  67,  4
 	db   4,  4
 	db $ff
 
-Frameset_69eb2:
+WolfenbossFrameset_69eb2:
 	db  26,  3
 	db  27,  3
 	db  28,  3
@@ -6151,7 +6151,7 @@ Frameset_69eb2:
 	db $ff
 
 ; unreferenced
-Frameset_69ec3:
+UnreferencedShootFrameset_69ec3:
 	db   0, 11
 	db   1,  7
 	db   2,  3
@@ -6164,7 +6164,7 @@ Frameset_69ec3:
 	db $ff
 
 ; unreferenced
-Frameset_69ed6:
+UnreferencedShootFrameset_69ed6:
 	db   9, 11
 	db  10,  7
 	db  11,  3
@@ -6177,7 +6177,7 @@ Frameset_69ed6:
 	db $ff
 
 ; unreferenced
-Frameset_69ee9:
+UnreferencedShootFrameset_69ee9:
 	db   0,  6
 	db   1,  5
 	db   2,  2
@@ -6190,7 +6190,7 @@ Frameset_69ee9:
 	db $ff
 
 ; unreferenced
-Frameset_69efc:
+UnreferencedShootFrameset_69efc:
 	db   9,  6
 	db  10,  5
 	db  11,  2
@@ -6203,7 +6203,7 @@ Frameset_69efc:
 	db $ff
 
 ; unreferenced
-Frameset_69f0f:
+UnreferencedShootFrameset_69f0f:
 	db   0,  6
 	db   1,  5
 	db   2,  2
@@ -6216,7 +6216,7 @@ Frameset_69f0f:
 	db $ff
 
 ; unreferenced
-Frameset_69f22:
+UnreferencedShootFrameset_69f22:
 	db   9,  6
 	db  10,  5
 	db  11,  2
@@ -6228,7 +6228,7 @@ Frameset_69f22:
 	db  17,  3
 	db $ff
 
-Frameset_69f35:
+ShootFrameset_69f35:
 	db   0, 10
 	db  24,  8
 	db  25,  5
@@ -6236,7 +6236,7 @@ Frameset_69f35:
 	db   9, 10
 	db $ff
 
-Frameset_69f40:
+ShootFrameset_69f40:
 	db   9, 10
 	db  27,  8
 	db  28,  5
@@ -6245,35 +6245,35 @@ Frameset_69f40:
 	db $ff
 
 ; unreferenced
-Frameset_69f4b:
+UnreferencedShootFrameset_69f4b:
 	db   0, 15
 	db  18, 10
 	db  19,  5
 	db  20, 12
 	db $ff
 
-Frameset_69f54:
+ShootFrameset_69f54:
 	db   9, 15
 	db  21, 10
 	db  22,  5
 	db  23, 12
 	db $ff
 
-Frameset_69f5d:
+ShootFrameset_69f5d:
 	db  32,  8
 	db  30,  4
 	db  31,  8
 	db  30,  4
 	db $ff
 
-Frameset_69f66:
+ShootFrameset_69f66:
 	db  32,  6
 	db  33,  6
 	db  31,  6
 	db  33,  6
 	db $ff
 
-Frameset_69f6f:
+ShootFrameset_69f6f:
 	db  34,  3
 	db  35,  2
 	db  36,  3
@@ -6282,33 +6282,33 @@ Frameset_69f6f:
 	db  39,  2
 	db $ff
 
-Frameset_69f7c:
+ShootFrameset_69f7c:
 	db  40,  8
 	db  41,  8
 	db $ff
 
 ; unreferenced
-Frameset_69f81:
+UnreferencedShootFrameset_69f81:
 	db  30, 10
 	db  42, 10
 	db  43,  9
 	db  44,  8
 	db $ff
 
-Frameset_69f8a:
+ShootFrameset_69f8a:
 	db  30,  4
 	db  42,  7
 	db  43,  7
 	db  44, 127
 	db $ff
 
-Frameset_69f93:
+ShootFrameset_69f93:
 	db  30,  4
 	db  42,  6
 	db  43,  6
 	db $ff
 
-Frameset_69f9a:
+ShootFrameset_69f9a:
 	db  30,  4
 	db  33,  4
 	db $ff
@@ -6323,25 +6323,25 @@ Frameset_69fa4:
 	db  48,  6
 	db $ff
 
-Frameset_69fa9:
+ShootFrameset_69fa9:
 	db  49, 15
 	db  50, 15
 	db $ff
 
 ; unreferenced
-Frameset_69fae:
+UnreferencedShootFrameset_69fae:
 	db  51,  6
 	db  50,  6
 	db $ff
 
 ; unreferenced
-Frameset_69fb3:
+UnreferencedShootFrameset_69fb3:
 	db  49,  6
 	db  52, 24
 	db  49,  6
 	db $ff
 
-Frameset_69fba:
+ShootFrameset_69fba:
 	db  49,  8
 	db  53,  8
 	db  54,  8
@@ -6354,7 +6354,7 @@ Frameset_69fba:
 	db  49, 14
 	db $ff
 
-Frameset_69fcf:
+ShootFrameset_69fcf:
 	db  63,  6
 	db  64,  6
 	db  65, 96
@@ -6363,7 +6363,7 @@ Frameset_69fcf:
 	db  63,  6
 	db $ff
 
-Frameset_69fdc:
+ShootFrameset_69fdc:
 	db  65,  3
 	db  66,  3
 	db  67,  3
@@ -6374,12 +6374,12 @@ Frameset_69fdc:
 	db  72,  3
 	db $ff
 
-Frameset_69fed:
+ShootFrameset_69fed:
 	db  49, 16
 	db  58, 12
 	db $ff
 
-Frameset_69ff2:
+ShootFrameset_69ff2:
 	db  58, 16
 	db  50, 14
 	db  58,  8
@@ -6387,11 +6387,11 @@ Frameset_69ff2:
 	db  49, 14
 	db $ff
 
-Frameset_69ffd:
+ShootFrameset_69ffd:
 	db  43, 127
 	db $ff
 
-Frameset_6a000:
+ShootFrameset_6a000:
 	db  25, 16
 	db  24,  8
 	db  25,  5
@@ -6399,18 +6399,18 @@ Frameset_6a000:
 	db   9, 10
 	db $ff
 
-Frameset_6a00b:
+ShootFrameset_6a00b:
 	db   9, 10
 	db $ff
 
-Frameset_6a00e:
+ShootFrameset_6a00e:
 	db  63,  6
 	db  64,  6
 	db  65, 127
 	db  65, 127
 	db $ff
 
-Frameset_6a017:
+ShootFrameset_6a017:
 	db  63,  6
 	db  64,  6
 	db  65,  6
@@ -6418,61 +6418,61 @@ Frameset_6a017:
 	db  63,  6
 	db $ff
 
-Frameset_6a022:
+ShootFrameset_6a022:
 	db   0, 11
 	db   1,  7
 	db   2,  3
 	db   3, 127
 	db $ff
 
-Frameset_6a02b:
+ShootFrameset_6a02b:
 	db   4, 127
 	db $ff
 
-Frameset_6a02e:
+ShootFrameset_6a02e:
 	db   5, 127
 	db $ff
 
-Frameset_6a031:
+ShootFrameset_6a031:
 	db   6, 127
 	db $ff
 
-Frameset_6a034:
+ShootFrameset_6a034:
 	db   7, 127
 	db $ff
 
-Frameset_6a037:
+ShootFrameset_6a037:
 	db   8, 127
 	db $ff
 
-Frameset_6a03a:
+ShootFrameset_6a03a:
 	db   9, 11
 	db  10,  7
 	db  11,  3
 	db  12, 127
 	db $ff
 
-Frameset_6a043:
+ShootFrameset_6a043:
 	db  13, 127
 	db $ff
 
-Frameset_6a046:
+ShootFrameset_6a046:
 	db  14, 127
 	db $ff
 
-Frameset_6a049:
+ShootFrameset_6a049:
 	db  15, 127
 	db $ff
 
-Frameset_6a04c:
+ShootFrameset_6a04c:
 	db  16, 127
 	db $ff
 
-Frameset_6a04f:
+ShootFrameset_6a04f:
 	db  17, 127
 	db $ff
 
-Frameset_6a052::
+WallCrackFrameset_6a052::
 	db   0,  3
 	db   1,  3
 	db   2,  3
@@ -6481,7 +6481,7 @@ Frameset_6a052::
 	db   5,  3
 	db $ff
 
-Frameset_6a05f::
+WallCrackFrameset_6a05f::
 	db   6,  3
 	db   7,  3
 	db   8,  3
@@ -6490,52 +6490,52 @@ Frameset_6a05f::
 	db  11,  3
 	db $ff
 
-Frameset_6a06c:
+HiddenFigureFrameset_6a06c:
 	db   0, 20
 	db   1, 20
 	db $ff
 
-Frameset_6a071:
+HiddenFigureFrameset_6a071:
 	db   0, 10
 	db   2,  4
 	db   3, 10
 	db   4,  4
 	db $ff
 
-Frameset_6a07a:
+HiddenFigureFrameset_6a07a:
 	db   5, 20
 	db   6, 20
 	db $ff
 
-Frameset_6a07f:
+HiddenFigureFrameset_6a07f:
 	db   7, 20
 	db   8, 20
 	db $ff
 
-Frameset_6a084:
+HiddenFigureFrameset_6a084:
 	db   9,  4
 	db  10,  4
 	db   9,  4
 	db  11,  4
 	db $ff
 
-Frameset_6a08d:
+HiddenFigureFrameset_6a08d:
 	db  12, 15
 	db  13, 15
 	db $ff
 
-Frameset_6a092:
+HiddenFigureFrameset_6a092:
 	db  14, 15
 	db  15, 15
 	db $ff
 
-Frameset_6a097:
+HiddenFigureFrameset_6a097:
 	db  16, 15
 	db  17, 15
 	db $ff
 
 ; unreferenced
-Frameset_6a09c:
+UnreferencedHiddenFigureFrameset_6a09c:
 	db  21,  7
 	db  22,  7
 	db  23,  7
@@ -6544,7 +6544,7 @@ Frameset_6a09c:
 	db $ff
 
 ; unreferenced
-Frameset_6a0a7:
+UnreferencedHiddenFigureFrameset_6a0a7:
 	db  36,  7
 	db  37,  7
 	db  38,  7
@@ -6552,187 +6552,187 @@ Frameset_6a0a7:
 	db  40,  7
 	db $ff
 
-Frameset_6a0b2:
+HiddenFigureFrameset_6a0b2:
 	db  52,  4
 	db  32,  4
 	db $ff
 
-Frameset_6a0b7:
+HiddenFigureFrameset_6a0b7:
 	db  53,  4
 	db  47,  4
 	db $ff
 
-Frameset_6a0bc:
+HiddenFigureFrameset_6a0bc:
 	db  18, 10
 	db  28,  6
 	db  27, 254
 	db $ff
 
-Frameset_6a0c3:
+HiddenFigureFrameset_6a0c3:
 	db  28,  6
 	db  18, 127
 	db $ff
 
-Frameset_6a0c8:
+HiddenFigureFrameset_6a0c8:
 	db  33, 10
 	db  43,  6
 	db  42, 254
 	db $ff
 
-Frameset_6a0cf:
+HiddenFigureFrameset_6a0cf:
 	db  43,  6
 	db  33, 127
 	db $ff
 
-Frameset_6a0d4:
+HiddenFigureFrameset_6a0d4:
 	db  18, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0d7:
+UnreferencedHiddenFigureFrameset_6a0d7:
 	db  19, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0da:
+UnreferencedHiddenFigureFrameset_6a0da:
 	db  20, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0dd:
+UnreferencedHiddenFigureFrameset_6a0dd:
 	db  21, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0e0:
+UnreferencedHiddenFigureFrameset_6a0e0:
 	db  22, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0e3:
+UnreferencedHiddenFigureFrameset_6a0e3:
 	db  23, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0e6:
+UnreferencedHiddenFigureFrameset_6a0e6:
 	db  24, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0e9:
+UnreferencedHiddenFigureFrameset_6a0e9:
 	db  25, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0ec:
+UnreferencedHiddenFigureFrameset_6a0ec:
 	db  26, 127
 	db $ff
 
-Frameset_6a0ef:
+HiddenFigureFrameset_6a0ef:
 	db  27, 127
 	db $ff
 
-Frameset_6a0f2:
+HiddenFigureFrameset_6a0f2:
 	db  28, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0f5:
+UnreferencedHiddenFigureFrameset_6a0f5:
 	db  29, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0f8:
+UnreferencedHiddenFigureFrameset_6a0f8:
 	db  30, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a0fb:
+UnreferencedHiddenFigureFrameset_6a0fb:
 	db  31, 127
 	db $ff
 
-Frameset_6a0fe:
+HiddenFigureFrameset_6a0fe:
 	db  33, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a101:
+UnreferencedHiddenFigureFrameset_6a101:
 	db  34, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a104:
+UnreferencedHiddenFigureFrameset_6a104:
 	db  35, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a107:
+UnreferencedHiddenFigureFrameset_6a107:
 	db  36, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a10a:
+UnreferencedHiddenFigureFrameset_6a10a:
 	db  37, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a10d:
+UnreferencedHiddenFigureFrameset_6a10d:
 	db  38, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a110:
+UnreferencedHiddenFigureFrameset_6a110:
 	db  39, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a113:
+UnreferencedHiddenFigureFrameset_6a113:
 	db  40, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a116:
+UnreferencedHiddenFigureFrameset_6a116:
 	db  41, 127
 	db $ff
 
-Frameset_6a119:
+HiddenFigureFrameset_6a119:
 	db  42, 127
 	db $ff
 
-Frameset_6a11c:
+HiddenFigureFrameset_6a11c:
 	db  43, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a11f:
+UnreferencedHiddenFigureFrameset_6a11f:
 	db  44, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a122:
+UnreferencedHiddenFigureFrameset_6a122:
 	db  45, 127
 	db $ff
 
 ; unreferenced
-Frameset_6a125:
+UnreferencedHiddenFigureFrameset_6a125:
 	db  46, 127
 	db $ff
 
-Frameset_6a128:
+HiddenFigureFrameset_6a128:
 	db  48,  6
 	db  49, 10
 	db  48,  6
 	db  18, 10
 	db $ff
 
-Frameset_6a131:
+HiddenFigureFrameset_6a131:
 	db  50,  6
 	db  33, 10
 	db  50,  6
 	db  51, 10
 	db $ff
 
-Frameset_6a13a:
+HiddenFigureFrameset_6a13a:
 	db  31, 14
 	db  19, 44
 	db  20, 10
@@ -6740,7 +6740,7 @@ Frameset_6a13a:
 	db  22, 127
 	db $ff
 
-Frameset_6a145:
+HiddenFigureFrameset_6a145:
 	db  46, 14
 	db  34, 44
 	db  35, 10

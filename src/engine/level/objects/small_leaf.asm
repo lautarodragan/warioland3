@@ -17,7 +17,7 @@ SmallLeafFunc:
 	ld [hld], a
 	ld a, LOW(.Update1)
 	ld [hld], a
-	ld de, Frameset_68a9f
+	ld de, SmallLeafFrameset_68a9f
 	call SetObjectFramesetPtr
 	ret
 
@@ -44,7 +44,7 @@ SmallLeafFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
-	ld de, Frameset_68aa8
+	ld de, SmallLeafFrameset_68aa8
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -97,7 +97,7 @@ SmallLeafFunc:
 	ret nz
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-	ld de, Frameset_68abb
+	ld de, SmallLeafFrameset_68abb
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a

@@ -33,13 +33,13 @@ BirdFunc:
 	cp b
 	jr c, .asm_432b9
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687d3
+	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
 	ret
 
 .asm_432b9
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687e4
+	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
 	ret
 
@@ -58,13 +58,13 @@ BirdFunc:
 	rlca
 	jr c, .asm_432df
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687e4
+	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
 	jr .asm_432e7
 
 .asm_432df
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687d3
+	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
 .asm_432e7
 	ld c, $2a
@@ -93,7 +93,7 @@ BirdFunc:
 	ld a, b
 	cp $70
 	ret nc
-	ld de, Frameset_687c9
+	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
 	jr .asm_43327
 
@@ -103,7 +103,7 @@ BirdFunc:
 	ld a, b
 	cp $90
 	ret c
-	ld de, Frameset_687ce
+	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
 .asm_43327
 	ld a, $23
@@ -114,7 +114,7 @@ BirdFunc:
 	ret
 
 .asm_43338
-	ld de, Frameset_687ff
+	ld de, BirdFrameset_687ff
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hli], a
@@ -243,10 +243,10 @@ BirdFunc:
 	ld a, [hl]
 	rlca
 	jr c, .asm_43405
-	ld de, Frameset_687f5
+	ld de, BirdFrameset_687f5
 	jp SetObjectFramesetPtr
 .asm_43405
-	ld de, Frameset_687fa
+	ld de, BirdFrameset_687fa
 	jp SetObjectFramesetPtr
 
 .Func_4340b:
@@ -256,7 +256,7 @@ BirdFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_687ff
+	ld de, BirdFrameset_687ff
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hli], a
@@ -284,12 +284,12 @@ BirdFunc:
 	rlca
 	jr c, .asm_43448
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687ce
+	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
 	ret
 
 .asm_43448
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_687c9
+	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
 	ret

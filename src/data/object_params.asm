@@ -4,8 +4,8 @@ ObjParams_HebariiProjectile:
 	db HEBARII_PROJECTILE ; id
 	db OBJ_INTERACTION_FULL_STING ; interaction type
 	db -3,  2, -3,  2 ; collision
-	dw OAM_18a703 ; OAM
-	dw Frameset_68408 ; frameset
+	dw HebariiOAM_18a703 ; OAM
+	dw HebariiFrameset_68408 ; frameset
 	db 2 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -22,7 +22,7 @@ ObjParams_WebberProjectile:
 	db OBJ_INTERACTION_ELECTRIC ; interaction type
 	db -7, -3, -4, 3 ; collision
 	dw OAM_180242 ; OAM
-	dw Frameset_682c8 ; frameset
+	dw WebberFrameset_682c8 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -39,7 +39,7 @@ ObjParams_UnusedFlowerProjectileLeft:
 	db OBJ_INTERACTION_FULL_STING
 	db -13, -3, -6, 5 ; collision box
 	dw OAM_180916 ; OAM
-	dw Frameset_6838c ; frameset
+	dw UnusedFlowerFrameset_6838c ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -56,7 +56,7 @@ ObjParams_UnusedFlowerProjectileRight:
 	db OBJ_INTERACTION_FULL_STING ; interaction type
 	db -13, -3, -6, 5 ; collision box
 	dw OAM_180916 ; OAM
-	dw Frameset_68395 ; frameset
+	dw UnusedFlowerFrameset_68395 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -72,8 +72,8 @@ ObjParams_BigLeaf1:
 	db BIG_LEAF1 ; id
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
-	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafOAM_1817b4 ; OAM
+	dw BigLeafFrameset_68732 ; frameset
 	db 80 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -89,8 +89,8 @@ ObjParams_BigLeaf2:
 	db BIG_LEAF2 ; id
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
-	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafOAM_1817b4 ; OAM
+	dw BigLeafFrameset_68732 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -106,8 +106,8 @@ ObjParams_BigLeaf3:
 	db BIG_LEAF3 ; id
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -16, -8, -8, 7 ; collision box
-	dw OAM_1817b4 ; OAM
-	dw Frameset_68732 ; frameset
+	dw BigLeafOAM_1817b4 ; OAM
+	dw BigLeafFrameset_68732 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -123,8 +123,8 @@ ObjParams_DoughnutLeft:
 	db DOUGHNUT_LEFT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_180ea7 ; OAM
-	dw Frameset_685ea ; frameset
+	dw DoughnuteerOAM_180ea7 ; OAM
+	dw DoughnuteerFrameset_685ea ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -140,8 +140,8 @@ ObjParams_DoughnutRight:
 	db DOUGHNUT_RIGHT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_180ea7 ; OAM
-	dw Frameset_685ed ; frameset
+	dw DoughnuteerOAM_180ea7 ; OAM
+	dw DoughnuteerFrameset_685ed ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -157,8 +157,8 @@ ObjParams_DoughnutUpLeft:
 	db DOUGHNUT_UP_LEFT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_180ea7 ; OAM
-	dw Frameset_685ea ; frameset
+	dw DoughnuteerOAM_180ea7 ; OAM
+	dw DoughnuteerFrameset_685ea ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -174,8 +174,8 @@ ObjParams_DoughnutUpRight:
 	db DOUGHNUT_UP_RIGHT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_180ea7 ; OAM
-	dw Frameset_685ed ; frameset
+	dw DoughnuteerOAM_180ea7 ; OAM
+	dw DoughnuteerFrameset_685ed ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -191,8 +191,8 @@ ObjParams_InvisibilityPotionLeft:
 	db INVISIBILITY_POTION_LEFT ; id
 	db OBJ_INTERACTION_INVISIBILITY_POTION ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ab2 ; OAM
-	dw Frameset_68c33 ; frameset
+	dw MadSciensteinOAM_184ab2 ; OAM
+	dw MadSciensteinFrameset_68c33 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -208,8 +208,8 @@ ObjParams_InvisibilityPotionRight:
 	db INVISIBILITY_POTION_RIGHT ; id
 	db OBJ_INTERACTION_INVISIBILITY_POTION ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ab2 ; OAM
-	dw Frameset_68c33 ; frameset
+	dw MadSciensteinOAM_184ab2 ; OAM
+	dw MadSciensteinFrameset_68c33 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -225,8 +225,8 @@ ObjParams_InvisibilityPotionDropLeft:
 	db INVISIBILITY_POTION_DROP_LEFT ; id
 	db OBJ_INTERACTION_INVISIBILITY_POTION ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ab2 ; OAM
-	dw Frameset_68c33 ; frameset
+	dw MadSciensteinOAM_184ab2 ; OAM
+	dw MadSciensteinFrameset_68c33 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -242,8 +242,8 @@ ObjParams_InvisibilityPotionDropRight:
 	db INVISIBILITY_POTION_DROP_RIGHT ; id
 	db OBJ_INTERACTION_INVISIBILITY_POTION ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ab2 ; OAM
-	dw Frameset_68c33 ; frameset
+	dw MadSciensteinOAM_184ab2 ; OAM
+	dw MadSciensteinFrameset_68c33 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -259,8 +259,8 @@ ObjParams_ZombieHeadLeft:
 	db ZOMBIE_HEAD_LEFT ; id
 	db OBJ_INTERACTION_ZOMBIE_HEAD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ffa ; OAM
-	dw Frameset_68db3 ; frameset
+	dw ZombieOAM_184ffa ; OAM
+	dw ZombieFrameset_68db3 ; frameset
 	db 48 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -276,8 +276,8 @@ ObjParams_ZombieHeadRight:
 	db ZOMBIE_HEAD_RIGHT ; id
 	db OBJ_INTERACTION_ZOMBIE_HEAD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_184ffa ; OAM
-	dw Frameset_68dc4 ; frameset
+	dw ZombieOAM_184ffa ; OAM
+	dw ZombieFrameset_68dc4 ; frameset
 	db 48 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -293,8 +293,8 @@ ObjParams_StarsLeft:
 	db STARS_LEFT ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680a5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680a5 ; frameset
 	db 25 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -310,8 +310,8 @@ ObjParams_StarsRight:
 	db STARS_RIGHT ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680a5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680a5 ; frameset
 	db 25 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -327,8 +327,8 @@ ObjParams_BeamLeft:
 	db BEAM_LEFT ; id
 	db OBJ_INTERACTION_BEAM ; interaction type
 	db -14, -3, -2, 1 ; collision box
-	dw OAM_1845aa ; OAM
-	dw Frameset_68ee1 ; frameset
+	dw BeamBotOAM_1845aa ; OAM
+	dw BeamBotFrameset_68ee1 ; frameset
 	db 18 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -344,8 +344,8 @@ ObjParams_BeamRight:
 	db BEAM_RIGHT ; id
 	db OBJ_INTERACTION_BEAM ; interaction type
 	db -14, -3, -2, 1 ; collision box
-	dw OAM_1845aa ; OAM
-	dw Frameset_68eea ; frameset
+	dw BeamBotOAM_1845aa ; OAM
+	dw BeamBotFrameset_68eea ; frameset
 	db 18 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -361,8 +361,8 @@ ObjParams_AppleLeft:
 	db APPLE_LEFT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_185a1c ; OAM
-	dw Frameset_68a60 ; frameset
+	dw ApplebyOAM_185a1c ; OAM
+	dw ApplebyFrameset_68a60 ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $01 ; var2
@@ -378,8 +378,8 @@ ObjParams_AppleRight:
 	db APPLE_RIGHT ; id
 	db OBJ_INTERACTION_FOOD ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_185a1c ; OAM
-	dw Frameset_68a60 ; frameset
+	dw ApplebyOAM_185a1c ; OAM
+	dw ApplebyFrameset_68a60 ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $01 ; var2
@@ -395,8 +395,8 @@ ObjParams_SunFlameLeft:
 	db SUN_FLAME_LEFT ; id
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -10, -2, -5, 4 ; collision box
-	dw OAM_1851df ; OAM
-	dw Frameset_68fb2 ; frameset
+	dw SunMoonOAM_1851df ; OAM
+	dw SunMoonFrameset_68fb2 ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -412,8 +412,8 @@ ObjParams_SunFlameRight:
 	db SUN_FLAME_RIGHT ; id
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -10, -2, -5, 4 ; collision box
-	dw OAM_1851df ; OAM
-	dw Frameset_68fad ; frameset
+	dw SunMoonOAM_1851df ; OAM
+	dw SunMoonFrameset_68fad ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -429,8 +429,8 @@ ObjParams_MoonStarLeft:
 	db MOON_STAR_LEFT ; id
 	db OBJ_INTERACTION_ELECTRIC ; interaction type
 	db -10, -3, -5, 4 ; collision box
-	dw OAM_1854a2 ; OAM
-	dw Frameset_6901b ; frameset
+	dw SunMoonOAM_1854a2 ; OAM
+	dw SunMoonFrameset_6901b ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -446,8 +446,8 @@ ObjParams_MoonStarRight:
 	db MOON_STAR_RIGHT ; id
 	db OBJ_INTERACTION_ELECTRIC ; interaction type
 	db -10, -3, -5, 4 ; collision box
-	dw OAM_1854a2 ; OAM
-	dw Frameset_69012 ; frameset
+	dw SunMoonOAM_1854a2 ; OAM
+	dw SunMoonFrameset_69012 ; frameset
 	db $00 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -463,8 +463,8 @@ ObjParams_BirdStars1:
 	db BIRD_STARS1 ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680b6 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680b6 ; frameset
 	db 17 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -480,8 +480,8 @@ ObjParams_BirdStars2:
 	db BIRD_STARS2 ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680b6 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680b6 ; frameset
 	db 17 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -498,7 +498,7 @@ ObjParams_SnowflakeLeft:
 	db OBJ_INTERACTION_ICE ; interaction type
 	db -12, -5, -6, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_69169 ; frameset
+	dw BrrrBearFrameset_69169 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -515,7 +515,7 @@ ObjParams_SnowflakeRight:
 	db OBJ_INTERACTION_ICE ; interaction type
 	db -12, -5, -6, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_69169 ; frameset
+	dw BrrrBearFrameset_69169 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -532,7 +532,7 @@ ObjParams_MizzouProjectileLeft:
 	db OBJ_INTERACTION_FULL_STING ; interaction type
 	db -7, 0, -4, 3 ; collision box
 	dw OAM_188395 ; OAM
-	dw Frameset_686ce ; frameset
+	dw MizuuoFrameset_686ce ; frameset
 	db 28 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -549,7 +549,7 @@ ObjParams_MizzouProjectileRight:
 	db OBJ_INTERACTION_FULL_STING ; interaction type
 	db -7, 0, -4, 3 ; collision box
 	dw OAM_188395 ; OAM
-	dw Frameset_686d3 ; frameset
+	dw MizuuoFrameset_686d3 ; frameset
 	db 28 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -565,8 +565,8 @@ ObjParams_GreyTreasure:
 	db GREY_TREASURE_O ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680da ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw ChestsFrameset_680da ; frameset
 	db 87 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -582,8 +582,8 @@ ObjParams_RedTreasure:
 	db RED_TREASURE_O ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_68113 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw ChestsFrameset_68113 ; frameset
 	db 87 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -599,8 +599,8 @@ ObjParams_GreenTreasure:
 	db GREEN_TREASURE_O ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_6814c ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw ChestsFrameset_6814c ; frameset
 	db 87 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -616,8 +616,8 @@ ObjParams_BlueTreasure:
 	db BLUE_TREASURE_O ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_68185 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw ChestsFrameset_68185 ; frameset
 	db 87 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -634,7 +634,7 @@ ObjParams_AnonsterSilk1Left:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 32 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -651,7 +651,7 @@ ObjParams_AnonsterSilk1Right:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 32 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -668,7 +668,7 @@ ObjParams_AnonsterSilk2Left:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 24 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -685,7 +685,7 @@ ObjParams_AnonsterSilk2Right:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 24 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -702,7 +702,7 @@ ObjParams_AnonsterSilk3Left:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 16 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -719,7 +719,7 @@ ObjParams_AnonsterSilk3Right:
 	db OBJ_INTERACTION_ANONSTER_SILK ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694ee ; frameset
+	dw AnonsterFrameset_694ee ; frameset
 	db 16 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -736,7 +736,7 @@ ObjParams_AnonsterWaveLeft:
 	db OBJ_INTERACTION_ANONSTER_WAVE ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_694f8 ; frameset
+	dw AnonsterFrameset_694f8 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -753,7 +753,7 @@ ObjParams_AnonsterWaveRight:
 	db OBJ_INTERACTION_ANONSTER_WAVE ; interaction type
 	db -8, -4, -5, 4 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_69505 ; frameset
+	dw AnonsterFrameset_69505 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -770,7 +770,7 @@ ObjParams_SilkPlatform1:
 	db OBJ_INTERACTION_SOLID ; interaction type
 	db -8, -2, -5, 5 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_6954a ; frameset
+	dw AnonsterFrameset_6954a ; frameset
 	db 170 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -787,7 +787,7 @@ ObjParams_SilkPlatform2:
 	db OBJ_INTERACTION_SOLID ; interaction type
 	db -8, -2, -5, 5 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_6954a ; frameset
+	dw AnonsterFrameset_6954a ; frameset
 	db 120 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -804,7 +804,7 @@ ObjParams_SilkPlatform3:
 	db OBJ_INTERACTION_SOLID ; interaction type
 	db -8, -2, -5, 5 ; collision box
 	dw OAM_190000 ; OAM
-	dw Frameset_6954a ; frameset
+	dw AnonsterFrameset_6954a ; frameset
 	db 70 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -821,7 +821,7 @@ ObjParams_SnakeFireLeft:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -8, 0, -4, 3 ; collision box
 	dw OAM_189783 ; OAM
-	dw Frameset_6893a ; frameset
+	dw SnakeFrameset_6893a ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -838,7 +838,7 @@ ObjParams_SnakeFireRight:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -8, 0, -4, 3 ; collision box
 	dw OAM_189783 ; OAM
-	dw Frameset_6893a ; frameset
+	dw SnakeFrameset_6893a ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -854,8 +854,8 @@ ObjParams_DollBoyHammer:
 	db DOLL_BOY_HAMMER ; id
 	db OBJ_INTERACTION_DOLL_BOY_HAMMER ; interaction type
 	db -12, -4, -4, 3 ; collision box
-	dw OAM_19105c ; OAM
-	dw Frameset_69684 ; frameset
+	dw DollBoyOAM_19105c ; OAM
+	dw DollBoyFrameset_69684 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -871,8 +871,8 @@ ObjParams_HammerPlatform:
 	db HAMMER_PLATFORM ; id
 	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -10, -1, -5, 4 ; collision box
-	dw OAM_19105c ; OAM
-	dw Frameset_696b1 ; frameset
+	dw DollBoyOAM_19105c ; OAM
+	dw DollBoyFrameset_696b1 ; frameset
 	db 140 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -889,7 +889,7 @@ ObjParams_HighRollingRockLeft:
 	db OBJ_INTERACTION_ROLLING_ROCK ; interaction type
 	db -10, -4, -4, 3 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_6973d ; frameset
+	dw WormwouldFrameset_6973d ; frameset
 	db 7 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -906,7 +906,7 @@ ObjParams_HighRollingRockRight:
 	db OBJ_INTERACTION_ROLLING_ROCK ; interaction type
 	db -10, -4, -4, 3 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_696f8 ; frameset
+	dw WormwouldFrameset_696f8 ; frameset
 	db 7 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -923,7 +923,7 @@ ObjParams_LowRollingRockLeft:
 	db OBJ_INTERACTION_ROLLING_ROCK ; interaction type
 	db -10, -4, -4, 3 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_6973d ; frameset
+	dw WormwouldFrameset_6973d ; frameset
 	db 7 ; action duration
 	db $1 ; var1
 	db $00 ; var2
@@ -940,7 +940,7 @@ ObjParams_LowRollingRockRight:
 	db OBJ_INTERACTION_ROLLING_ROCK ; interaction type
 	db -10, -4, -4, 3 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_696f8 ; frameset
+	dw WormwouldFrameset_696f8 ; frameset
 	db 7 ; action duration
 	db $1 ; var1
 	db $00 ; var2
@@ -958,7 +958,7 @@ ObjParams_PalmTreeShort:
 	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -6, -2, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_69746 ; frameset
+	dw WormwouldFrameset_69746 ; frameset
 	db 0 ; action duration
 	db $1a ; var1
 	db $1f ; var2
@@ -975,7 +975,7 @@ ObjParams_PalmTreeMedium:
 	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -14, -10, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_6974d ; frameset
+	dw WormwouldFrameset_6974d ; frameset
 	db 0 ; action duration
 	db $30 ; var1
 	db $1f ; var2
@@ -992,7 +992,7 @@ ObjParams_PalmTreeTall:
 	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -30, -26, -7, 6 ; collision box
 	dw OAM_194000 ; OAM
-	dw Frameset_69754 ; frameset
+	dw WormwouldFrameset_69754 ; frameset
 	db 0 ; action duration
 	db $4a ; var1
 	db $1f ; var2
@@ -1008,8 +1008,8 @@ ObjParams_YellowBellyArrowLeft:
 	db YELLOW_BELLY_ARROW_LEFT ; id
 	db OBJ_INTERACTION_YELLOW_BELLY_ARROW ; interaction type
 	db -10, -4, -3, 2 ; collision box
-	dw OAM_1926dc ; OAM
-	dw Frameset_69870 ; frameset
+	dw YellowBellyOAM_1926dc ; OAM
+	dw YellowBellyFrameset_69870 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $1 ; var2
@@ -1025,8 +1025,8 @@ ObjParams_YellowBellyArrowRight:
 	db YELLOW_BELLY_ARROW_RIGHT ; id
 	db OBJ_INTERACTION_YELLOW_BELLY_ARROW ; interaction type
 	db -10, -4, -3, 2 ; collision box
-	dw OAM_1926dc ; OAM
-	dw Frameset_69875 ; frameset
+	dw YellowBellyOAM_1926dc ; OAM
+	dw YellowBellyFrameset_69875 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $1 ; var2
@@ -1042,8 +1042,8 @@ ObjParams_Dragonfly1:
 	db DRAGONFLY1 ; id
 	db OBJ_INTERACTION_WALKABLE ; interaction type
 	db -9, -7, -7, 6 ; collision box
-	dw OAM_1927d5 ; OAM
-	dw Frameset_699d0 ; frameset
+	dw PesceOAM_1927d5 ; OAM
+	dw PesceFrameset_699d0 ; frameset
 	db 36 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1059,8 +1059,8 @@ ObjParams_Fly:
 	db FLY ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db -12, 12, -6, 5 ; collision box
-	dw OAM_1927d5 ; OAM
-	dw Frameset_699e4 ; frameset
+	dw PesceOAM_1927d5 ; OAM
+	dw PesceFrameset_699e4 ; frameset
 	db 40 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1076,8 +1076,8 @@ ObjParams_Tadpole:
 	db TADPOLE ; id
 	db OBJ_INTERACTION_TADPOLE ; interaction type
 	db -12, -4, -5, 4 ; collision box
-	dw OAM_18a642 ; OAM
-	dw Frameset_69a33 ; frameset
+	dw TadpoleOAM_18a642 ; OAM
+	dw TadpoleFrameset_69a33 ; frameset
 	db 28 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1094,7 +1094,7 @@ ObjParams_InkLeft:
 	db OBJ_INTERACTION_INK ; interaction type
 	db -13, -3, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69ae3 ; frameset
+	dw ScowlerFrameset_69ae3 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1111,7 +1111,7 @@ ObjParams_InkRight:
 	db OBJ_INTERACTION_INK ; interaction type
 	db -13, -3, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69ae3 ; frameset
+	dw ScowlerFrameset_69ae3 ; frameset
 	db 20 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1128,7 +1128,7 @@ ObjParams_FloatingRing:
 	db OBJ_INTERACTION_SOLID_PLATFORM ; interaction type
 	db -1, 4, -5, 4 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69b0d ; frameset
+	dw ScowlerFrameset_69b0d ; frameset
 	db 140 ; action duration
 	db $00 ; var1
 	db $14 ; var2
@@ -1144,8 +1144,8 @@ ObjParams_Skull1:
 	db SKULL1 ; id
 	db OBJ_INTERACTION_STOVE ; interaction type
 	db -8, 7, -4, 3 ; collision box
-	dw OAM_19501c ; OAM
-	dw Frameset_69c69 ; frameset
+	dw JamanoOAM_19501c ; OAM
+	dw JamanoFrameset_69c69 ; frameset
 	db 60 ; action duration
 	db $64 ; var1
 	db $00 ; var2
@@ -1161,8 +1161,8 @@ ObjParams_Skull2:
 	db SKULL2 ; id
 	db OBJ_INTERACTION_STOVE ; interaction type
 	db -8, 7, -4, 3 ; collision box
-	dw OAM_19501c ; OAM
-	dw Frameset_69c69 ; frameset
+	dw JamanoOAM_19501c ; OAM
+	dw JamanoFrameset_69c69 ; frameset
 	db 60 ; action duration
 	db $78 ; var1
 	db $00 ; var2
@@ -1178,8 +1178,8 @@ ObjParams_Skull3:
 	db SKULL3 ; id
 	db OBJ_INTERACTION_STOVE ; interaction type
 	db -8, 7, -4, 3 ; collision box
-	dw OAM_19501c ; OAM
-	dw Frameset_69cc5 ; frameset
+	dw JamanoOAM_19501c ; OAM
+	dw JamanoFrameset_69cc5 ; frameset
 	db 60 ; action duration
 	db $8c ; var1
 	db $00 ; var2
@@ -1195,8 +1195,8 @@ ObjParams_Skull4:
 	db SKULL4 ; id
 	db OBJ_INTERACTION_STOVE ; interaction type
 	db -8, 7, -4, 3 ; collision box
-	dw OAM_19501c ; OAM
-	dw Frameset_69cc5 ; frameset
+	dw JamanoOAM_19501c ; OAM
+	dw JamanoFrameset_69cc5 ; frameset
 	db 60 ; action duration
 	db $a0 ; var1
 	db $00 ; var2
@@ -1212,8 +1212,8 @@ ObjParams_JamanoHat:
 	db JAMANO_HAT ; id
 	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -4, 0, -6, 5 ; collision box
-	dw OAM_19501c ; OAM
-	dw Frameset_69cef ; frameset
+	dw JamanoOAM_19501c ; OAM
+	dw JamanoFrameset_69cef ; frameset
 	db 40 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1229,8 +1229,8 @@ ObjParams_MagicSpiralLeft:
 	db MAGIC_SPIRAL_LEFT ; id
 	db OBJ_INTERACTION_MAGICAL_SPIRAL ; interaction type
 	db -4, 3, -4, 3 ; collision box
-	dw OAM_195e06 ; OAM
-	dw Frameset_69e30 ; frameset
+	dw WolfenbossOAM_195e06 ; OAM
+	dw WolfenbossFrameset_69e30 ; frameset
 	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1246,8 +1246,8 @@ ObjParams_MagicSpiralRight:
 	db MAGIC_SPIRAL_RIGHT ; id
 	db OBJ_INTERACTION_MAGICAL_SPIRAL ; interaction type
 	db -4, 3, -4, 3 ; collision box
-	dw OAM_195e06 ; OAM
-	dw Frameset_69e30 ; frameset
+	dw WolfenbossOAM_195e06 ; OAM
+	dw WolfenbossFrameset_69e30 ; frameset
 	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1263,8 +1263,8 @@ ObjParams_IgaguriLeft:
 	db IGAGURI_LEFT ; id
 	db OBJ_INTERACTION_YELLOW_BELLY_ARROW ; interaction type
 	db -16, -4, -5, 4 ; collision box
-	dw OAM_195e06 ; OAM
-	dw Frameset_69e7b ; frameset
+	dw WolfenbossOAM_195e06 ; OAM
+	dw WolfenbossFrameset_69e7b ; frameset
 	db 62 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1280,8 +1280,8 @@ ObjParams_IgaguriRight:
 	db IGAGURI_RIGHT ; id
 	db OBJ_INTERACTION_YELLOW_BELLY_ARROW ; interaction type
 	db -16, -4, -5, 4 ; collision box
-	dw OAM_195e06 ; OAM
-	dw Frameset_69e7b ; frameset
+	dw WolfenbossOAM_195e06 ; OAM
+	dw WolfenbossFrameset_69e7b ; frameset
 	db 62 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1297,8 +1297,8 @@ ObjParams_HiddenFigureFace:
 	db HIDDEN_FIGURE_FACE ; id
 	db OBJ_INTERACTION_FULL_STING | HEAVY_OBJ ; interaction type
 	db -24, -19, -4, 3 ; collision box
-	dw OAM_18c88a ; OAM
-	dw Frameset_6a06c ; frameset
+	dw HiddenFigureOAM_18c88a ; OAM
+	dw HiddenFigureFrameset_6a06c ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1314,8 +1314,8 @@ ObjParams_HiddenFigureLeftHand:
 	db HIDDEN_FIGURE_LEFT_HAND ; id
 	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
-	dw OAM_18c88a ; OAM
-	dw Frameset_6a128 ; frameset
+	dw HiddenFigureOAM_18c88a ; OAM
+	dw HiddenFigureFrameset_6a128 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1331,8 +1331,8 @@ ObjParams_HiddenFigureRightHand:
 	db HIDDEN_FIGURE_RIGHT_HAND ; id
 	db OBJ_INTERACTION_BUMP_OFF_PAUSE | HEAVY_OBJ ; interaction type
 	db -24, -8, -8, 7 ; collision box
-	dw OAM_18c88a ; OAM
-	dw Frameset_6a131 ; frameset
+	dw HiddenFigureOAM_18c88a ; OAM
+	dw HiddenFigureFrameset_6a131 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1348,8 +1348,8 @@ ObjParams_Omodon2:
 	db OMODON2 ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db -16, 11, -17, 0 ; collision box
-	dw OAM_18154f ; OAM
-	dw Frameset_68f50 ; frameset
+	dw OmodonmekaOAM_18154f ; OAM
+	dw OmodonmekaFrameset_68f50 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1365,8 +1365,8 @@ ObjParams_Omodon1:
 	db OMODON1 ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db -26, 11, -17, 0 ; collision box
-	dw OAM_18154f ; OAM
-	dw Frameset_68f50 ; frameset
+	dw OmodonmekaOAM_18154f ; OAM
+	dw OmodonmekaFrameset_68f50 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1382,8 +1382,8 @@ ObjParams_DollBoyHammerStarsLeft:
 	db DOLL_BOY_HAMMER_STARS_LEFT ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680a5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680a5 ; frameset
 	db 25 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1399,8 +1399,8 @@ ObjParams_DollBoyHammerStarsRight:
 	db DOLL_BOY_HAMMER_STARS_RIGHT ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680a5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680a5 ; frameset
 	db 25 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1445,7 +1445,7 @@ ObjParams_TorchEmberLeft1:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -12, -3, -5, 3 ; collision box
 	dw OAM_180838 ; OAM
-	dw Frameset_68354 ; frameset
+	dw TorchFrameset_68354 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1460,7 +1460,7 @@ ObjParams_TorchEmberRight1:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -12, -3, -5, 3 ; collision box
 	dw OAM_180838 ; OAM
-	dw Frameset_68354 ; frameset
+	dw TorchFrameset_68354 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1475,7 +1475,7 @@ ObjParams_TorchEmberLeft2:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -12, -3, -5, 3 ; collision box
 	dw OAM_180838 ; OAM
-	dw Frameset_68354 ; frameset
+	dw TorchFrameset_68354 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1490,7 +1490,7 @@ ObjParams_TorchEmberRight2:
 	db OBJ_INTERACTION_FIRE ; interaction type
 	db -12, -3, -5, 3 ; collision box
 	dw OAM_180838 ; OAM
-	dw Frameset_68354 ; frameset
+	dw TorchFrameset_68354 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1504,8 +1504,8 @@ ObjParams_ElectricLampSpark:
 	db ELECTRIC_LAMP_SPARK ; id
 	db OBJ_INTERACTION_ELECTRIC ; interaction type
 	db -6, -5, -4, 3 ; collision box
-	dw OAM_184eeb ; OAM
-	dw Frameset_68c97 ; frameset
+	dw ElectricLampOAM_184eeb ; OAM
+	dw ElectricLampFrameset_68c97 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1519,8 +1519,8 @@ ObjParams_Bubble:
 	db BUBBLE ; id
 	db OBJ_INTERACTION_BUBBLE ; interaction type
 	db -24, -7, -9, 8 ; collision box
-	dw OAM_185b98 ; OAM
-	dw Frameset_69105 ; frameset
+	dw BubbleOAM_185b98 ; OAM
+	dw BubbleFrameset_69105 ; frameset
 	db 32 ; action duration
 	db $30 ; var1
 	db $00 ; var2
@@ -1534,8 +1534,8 @@ ObjParams_FallingSnow:
 	db FALLING_SNOW ; id
 	db OBJ_INTERACTION_SNOW ; interaction type
 	db -15, -8, -5, 4 ; collision box
-	dw OAM_1893fe ; OAM
-	dw Frameset_6957e ; frameset
+	dw FallingSnowOAM_1893fe ; OAM
+	dw FallingSnowFrameset_6957e ; frameset
 	db 80 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1549,8 +1549,8 @@ ObjParams_StarsAbove:
 	db STARS_ABOVE ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680c5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680c5 ; frameset
 	db 33 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1564,8 +1564,8 @@ ObjParams_YellowBellyHead:
 	db YELLOW_BELLY_HEAD ; id
 	db OBJ_INTERACTION_YELLOW_BELLY_ARROW ; interaction type
 	db -10, -6, -4, 3 ; collision box
-	dw OAM_1926dc ; OAM
-	dw Frameset_6987a ; frameset
+	dw YellowBellyOAM_1926dc ; OAM
+	dw YellowBellyFrameset_6987a ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1579,8 +1579,8 @@ ObjParams_Pump:
 	db PUMP ; id
 	db OBJ_INTERACTION_SMASHABLE_TOP ; interaction type
 	db -13, -1, -6, 5 ; collision box
-	dw OAM_1926dc ; OAM
-	dw Frameset_6987a ; frameset
+	dw YellowBellyOAM_1926dc ; OAM
+	dw YellowBellyFrameset_6987a ; frameset
 	db 16 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1594,8 +1594,8 @@ ObjParams_Cheese:
 	db CHEESE ; id
 	db OBJ_INTERACTION_BUMP_OFF_PAUSE ; interaction type
 	db -12, -5, -6, 5 ; collision box
-	dw OAM_1927d5 ; OAM
-	dw Frameset_69a00 ; frameset
+	dw PesceOAM_1927d5 ; OAM
+	dw PesceFrameset_69a00 ; frameset
 	db 48 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1610,7 +1610,7 @@ ObjParams_ScrowlerTentacleRight:
 	db OBJ_INTERACTION_WATER_TELEPORTING ; interaction type
 	db -10, -2, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69af5 ; frameset
+	dw ScowlerFrameset_69af5 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1625,7 +1625,7 @@ ObjParams_ScrowlerTentacleLeft:
 	db OBJ_INTERACTION_WATER_TELEPORTING ; interaction type
 	db -10, -2, -3, 2 ; collision box
 	dw OAM_194895 ; OAM
-	dw Frameset_69af5 ; frameset
+	dw ScowlerFrameset_69af5 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1639,8 +1639,8 @@ ObjParams_MuddeeStinger1:
 	db MUDDEE_STINGER1 ; id
 	db OBJ_INTERACTION_FULL_STING ; interaction type
 	db -12, 0, -4, 3 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_68072 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw MuddeeStingerFrameset_68072 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1654,8 +1654,8 @@ ObjParams_MuddeeStinger2:
 	db MUDDEE_STINGER2 ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db -12, 0, -4, 3 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_68072 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw MuddeeStingerFrameset_68072 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1669,8 +1669,8 @@ ObjParams_Kuri:
 	db KURI ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db -12, 0, -5, 4 ; collision box
-	dw OAM_195e06 ; OAM
-	dw Frameset_69e50 ; frameset
+	dw WolfenbossOAM_195e06 ; OAM
+	dw WolfenbossFrameset_69e50 ; frameset
 	db 0 ; action duration
 	db $00 ; var1
 	db $00 ; var2
@@ -1684,8 +1684,8 @@ ObjParams_StarsCentre:
 	db STARS_CENTRE ; id
 	db OBJ_INTERACTION_01 ; interaction type
 	db 0, 0, 0, 0 ; collision box
-	dw OAM_18c000 ; OAM
-	dw Frameset_680a5 ; frameset
+	dw ChestsOAM_18c000 ; OAM
+	dw StarsFrameset_680a5 ; frameset
 	db 25 ; action duration
 	db $00 ; var1
 	db $00 ; var2

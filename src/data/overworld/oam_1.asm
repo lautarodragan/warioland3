@@ -1,4 +1,4 @@
-OAM_a8000:
+NorthOWObjOAM_a8000:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -772,7 +772,7 @@ OAM_a8000:
 	frame_oam -16,  -8, $da, 3 | OAM_XFLIP
 	db $80
 
-Frameset_a8590:
+NorthOWObjFrameset_a8590:
 	db   1,  2
 	db   0,  2
 	db   1,  2
@@ -805,15 +805,15 @@ Frameset_a8590:
 	db   9, 60
 	db $ff
 
-Frameset_a85cd:
+NorthOWObjFrameset_a85cd:
 	db   0,  2
 	db $ff
 
-Frameset_a85d0:
+NorthOWObjFrameset_a85d0:
 	db  10,  4
 	db $ff
 
-Frameset_a85d3:
+NorthOWObjFrameset_a85d3:
 	db  12,  2
 	db  22,  4
 	db  13, 30
@@ -859,22 +859,22 @@ Frameset_a85d3:
 	db  21, 60
 	db $ff
 
-Frameset_a862a:
+NorthOWObjFrameset_a862a:
 	db  24,  4
 	db $ff
 
-Frameset_a862d:
+NorthOWObjFrameset_a862d:
 	db  25,  4
 	db  26,  4
 	db  27,  4
 	db  28,  4
 	db $ff
 
-Frameset_a8636:
+NorthOWObjFrameset_a8636:
 	db  29,  4
 	db $ff
 
-Frameset_a8639:
+NorthOWObjFrameset_a8639:
 	db  30,  2
 	db  31,  3
 	db  32,  2
@@ -883,7 +883,7 @@ Frameset_a8639:
 	db  29, 20
 	db $ff
 
-Frameset_a8646:
+NorthOWObjFrameset_a8646:
 	db  33,  8
 	db  34,  8
 	db  35,  8
@@ -892,7 +892,7 @@ Frameset_a8646:
 	db  38, 60
 	db $ff
 
-Frameset_a8653:
+NorthOWObjFrameset_a8653:
 	db  44,  1
 	db  24,  1
 	db  44,  2
@@ -908,7 +908,7 @@ Frameset_a8653:
 	db  43,  2
 	db $ff
 
-Frameset_a866e:
+NorthOWObjFrameset_a866e:
 	db  38, 60
 	db  82,  2
 	db  38,  3
@@ -919,7 +919,7 @@ Frameset_a866e:
 	db  82, 30
 	db $ff
 
-Frameset_a867f:
+NorthOWObjFrameset_a867f:
 	db  60,  4
 	db  61,  4
 	db  62,  4
@@ -967,7 +967,7 @@ Frameset_a867f:
 	db  45,  7
 	db $ff
 
-Frameset_a86da:
+NorthOWObjFrameset_a86da:
 	db  46,  6
 	db  45,  5
 	db  46,  6
@@ -1012,11 +1012,11 @@ Frameset_a86da:
 	db  45,  7
 	db $ff
 
-Frameset_a872f:
+NorthOWObjFrameset_a872f:
 	db  46,  4
 	db $ff
 
-Frameset_a8732:
+NorthOWObjFrameset_a8732:
 	db  63,  5
 	db  64,  5
 	db  65,  5
@@ -1024,7 +1024,7 @@ Frameset_a8732:
 	db  67,  5
 	db $ff
 
-Frameset_a873d:
+NorthOWObjFrameset_a873d:
 	db  45,  5
 	db  46,  4
 	db  47,  4
@@ -1036,7 +1036,7 @@ Frameset_a873d:
 	db  45,  5
 	db $ff
 
-Frameset_a8750:
+NorthOWObjFrameset_a8750:
 	db  68,  6
 	db  69,  4
 	db  70,  4
@@ -1047,11 +1047,11 @@ Frameset_a8750:
 	db  69,  4
 	db $ff
 
-Frameset_a8761:
+NorthOWObjFrameset_a8761:
 	db  70,  4
 	db $ff
 
-Frameset_a8764:
+NorthOWObjFrameset_a8764:
 	db  73,  4
 	db  74,  4
 	db  75,  6
@@ -1059,7 +1059,7 @@ Frameset_a8764:
 	db  77,  4
 	db $ff
 
-Frameset_a876f:
+NorthOWObjFrameset_a876f:
 	db  84,  5
 	db  85,  5
 	db  86,  5
@@ -1067,16 +1067,16 @@ Frameset_a876f:
 	db  88,  5
 	db $ff
 
-Frameset_a877a:
+NorthOWObjFrameset_a877a:
 	db  78,  4
 	db $ff
 
-Frameset_a877d:
+NorthOWObjFrameset_a877d:
 	db  79,  2
 	db  80,  1
 	db $ff
 
-Frameset_a8782:
+NorthOWObjFrameset_a8782:
 	db  81,  4
 	db   9,  4
 	db  81,  4
@@ -1087,18 +1087,18 @@ Frameset_a8782:
 	db  81,  4
 	db $ff
 
-Frameset_a8793:
+NorthOWObjFrameset_a8793:
 	db  83,  6
 	db  81,  4
 	db   9, 60
 	db $ff
 
-Frameset_a879a:
+NorthOWObjFrameset_a879a:
 	db  70,  3
 	db   9,  2
 	db $ff
 
-Frameset_a879f:
+NorthOWObjFrameset_a879f:
 	db  89,  6
 	db  90,  6
 	db  91,  6
@@ -1126,42 +1126,42 @@ Frameset_a879f:
 	db   9, 60
 	db $ff
 
-Frameset_a87d2:
+NorthOWObjFrameset_a87d2:
 	db 109,  6
 	db 110,  6
 	db 111,  6
 	db $ff
 
-Frameset_a87d9:
+NorthOWObjFrameset_a87d9:
 	db 109,  4
 	db $ff
 
-Frameset_a87dc:
+NorthOWObjFrameset_a87dc:
 	db 111,  4
 	db $ff
 
-Frameset_a87df:
+NorthOWObjFrameset_a87df:
 	db 112,  4
 	db 113,  4
 	db 114,  4
 	db 115,  4
 	db $ff
 
-Frameset_a87e8:
+NorthOWObjFrameset_a87e8:
 	db 116,  4
 	db 117,  4
 	db 118,  4
 	db 119,  4
 	db $ff
 
-Frameset_a87f1:
+NorthOWObjFrameset_a87f1:
 	db 120,  4
 	db 121,  4
 	db 122,  4
 	db 123,  4
 	db $ff
 
-OAM_a87fa:
+NorthOWObjOAM_a87fa:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1202,7 +1202,7 @@ OAM_a87fa:
 	frame_oam -27,  -4, $ee, 0 | OAM_XFLIP
 	db $80
 
-Frameset_a883b:
+NorthOWObjFrameset_a883b:
 	db   0,  3
 	db   1,  4
 	db   2,  6
@@ -1212,7 +1212,7 @@ Frameset_a883b:
 	db   6,  5
 	db $ff
 
-OAM_a884a:
+WestOWObjOAM_a884a:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1922,7 +1922,7 @@ OAM_a884a:
 	frame_oam -16,  -5, $c6, 3
 	db $80
 
-Frameset_a8dd1:
+WestOWObjFrameset_a8dd1:
 	db   0, 14
 	db   1, 14
 	db   2, 14
@@ -1933,13 +1933,13 @@ Frameset_a8dd1:
 	db   1, 14
 	db $ff
 
-Frameset_a8de2:
+WestOWObjFrameset_a8de2:
 	db   5,  2
 	db   6,  2
 	db   7,  2
 	db $ff
 
-Frameset_a8de9:
+WestOWObjFrameset_a8de9:
 	db   8,  9
 	db   9,  9
 	db  10,  9
@@ -1949,18 +1949,18 @@ Frameset_a8de9:
 	db  14,  3
 	db $ff
 
-Frameset_a8df8:
+WestOWObjFrameset_a8df8:
 	db  15,  4
 	db  16,  4
 	db  17,  4
 	db  18,  4
 	db $ff
 
-Frameset_a8e01:
+WestOWObjFrameset_a8e01:
 	db  19,  4
 	db $ff
 
-Frameset_a8e04:
+WestOWObjFrameset_a8e04:
 	db  20,  2
 	db  21,  3
 	db  22,  2
@@ -1969,7 +1969,7 @@ Frameset_a8e04:
 	db  19, 20
 	db $ff
 
-Frameset_a8e11:
+WestOWObjFrameset_a8e11:
 	db  23,  8
 	db  24,  8
 	db  25,  8
@@ -1978,7 +1978,7 @@ Frameset_a8e11:
 	db  28, 60
 	db $ff
 
-Frameset_a8e1e:
+WestOWObjFrameset_a8e1e:
 	db  29, 11
 	db  30, 11
 	db  31,  8
@@ -1986,11 +1986,11 @@ Frameset_a8e1e:
 	db  33,  7
 	db $ff
 
-Frameset_a8e29:
+WestOWObjFrameset_a8e29:
 	db  34,  4
 	db $ff
 
-Frameset_a8e2c:
+WestOWObjFrameset_a8e2c:
 	db  34, 60
 	db  35,  6
 	db  36,  4
@@ -2017,7 +2017,7 @@ Frameset_a8e2c:
 	db  35,  7
 	db $ff
 
-Frameset_a8e5d:
+WestOWObjFrameset_a8e5d:
 	db  47,  6
 	db  87,  3
 	db  47,  4
@@ -2027,7 +2027,7 @@ Frameset_a8e5d:
 	db  47, 60
 	db $ff
 
-Frameset_a8e6c:
+WestOWObjFrameset_a8e6c:
 	db  48, 60
 	db  49,  6
 	db  50,  4
@@ -2054,7 +2054,7 @@ Frameset_a8e6c:
 	db  49,  7
 	db $ff
 
-Frameset_a8e9d:
+WestOWObjFrameset_a8e9d:
 	db  56,  3
 	db  57,  3
 	db  58,  3
@@ -2064,7 +2064,7 @@ Frameset_a8e9d:
 	db  62,  8
 	db $ff
 
-Frameset_a8eac:
+WestOWObjFrameset_a8eac:
 	db  58,  3
 	db  59,  5
 	db  60,  5
@@ -2072,7 +2072,7 @@ Frameset_a8eac:
 	db  62,  8
 	db $ff
 
-Frameset_a8eb7:
+WestOWObjFrameset_a8eb7:
 	db  63,  7
 	db  64,  7
 	db  65,  8
@@ -2080,41 +2080,41 @@ Frameset_a8eb7:
 	db  67,  8
 	db $ff
 
-Frameset_a8ec2:
+WestOWObjFrameset_a8ec2:
 	db  68,  2
 	db  69,  2
 	db $ff
 
-Frameset_a8ec7:
+WestOWObjFrameset_a8ec7:
 	db  68,  4
 	db $ff
 
-Frameset_a8eca:
+WestOWObjFrameset_a8eca:
 	db  70,  3
 	db  71,  3
 	db  72,  3
 	db  73,  3
 	db $ff
 
-Frameset_a8ed3:
+WestOWObjFrameset_a8ed3:
 	db  74,  4
 	db  75,  4
 	db  76,  4
 	db $ff
 
-Frameset_a8eda:
+WestOWObjFrameset_a8eda:
 	db  77,  5
 	db  78,  5
 	db  79,  5
 	db $ff
 
-Frameset_a8ee1:
+WestOWObjFrameset_a8ee1:
 	db  80,  5
 	db  81,  5
 	db  82,  5
 	db $ff
 
-Frameset_a8ee8:
+WestOWObjFrameset_a8ee8:
 	db  83,  1
 	db  87,  1
 	db  84,  1
@@ -2140,7 +2140,7 @@ Frameset_a8ee8:
 	db  86,  3
 	db $ff
 
-Frameset_a8f17:
+WestOWObjFrameset_a8f17:
 	db  28, 60
 	db 108,  2
 	db  28,  3
@@ -2151,21 +2151,21 @@ Frameset_a8f17:
 	db 108, 30
 	db $ff
 
-Frameset_a8f28:
+WestOWObjFrameset_a8f28:
 	db  95,  4
 	db  96,  4
 	db  97,  4
 	db  98,  4
 	db $ff
 
-Frameset_a8f31:
+WestOWObjFrameset_a8f31:
 	db  99,  4
 	db 100,  4
 	db 101,  4
 	db 102,  4
 	db $ff
 
-Frameset_a8f3a:
+WestOWObjFrameset_a8f3a:
 	db  89,  3
 	db  90,  3
 	db  91,  3
@@ -2174,7 +2174,7 @@ Frameset_a8f3a:
 	db  94,  3
 	db $ff
 
-Frameset_a8f47:
+WestOWObjFrameset_a8f47:
 	db  89,  2
 	db  90,  2
 	db  91,  2
@@ -2184,11 +2184,11 @@ Frameset_a8f47:
 	db $ff
 
 ; unreferenced
-Frameset_a8f54:
+UnreferencedWestOWObjFrameset_a8f54:
 	db  48,  4
 	db $ff
 
-OAM_a8f57:
+WestOWObjOAM_a8f57:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2343,7 +2343,7 @@ OAM_a8f57:
 	frame_oam -22,  16, $5e, 0
 	db $80
 
-Frameset_a9090:
+WestOWObjFrameset_a9090:
 	db  15,  4
 	db  16,  4
 	db  17,  4
@@ -2391,7 +2391,7 @@ Frameset_a9090:
 	db   0,  7
 	db $ff
 
-Frameset_a90eb:
+WestOWObjFrameset_a90eb:
 	db   1,  6
 	db   0,  5
 	db   1,  6
@@ -2436,11 +2436,11 @@ Frameset_a90eb:
 	db   0,  7
 	db $ff
 
-Frameset_a9140:
+WestOWObjFrameset_a9140:
 	db   1,  4
 	db $ff
 
-Frameset_a9143:
+WestOWObjFrameset_a9143:
 	db  18,  5
 	db  19,  5
 	db  20,  5
@@ -2448,7 +2448,7 @@ Frameset_a9143:
 	db  22,  5
 	db $ff
 
-Frameset_a914e:
+WestOWObjFrameset_a914e:
 	db   0,  5
 	db   1,  4
 	db   2,  4
@@ -2460,7 +2460,7 @@ Frameset_a914e:
 	db   0,  5
 	db $ff
 
-OAM_a9161:
+SouthOWObjOAM_a9161:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -3102,18 +3102,18 @@ OAM_a9161:
 	frame_oam -16,  -5, $3e, 3
 	db $80
 
-Frameset_a9674:
+SouthOWObjFrameset_a9674:
 	db   0,  4
 	db   1,  4
 	db   2,  4
 	db   3,  4
 	db $ff
 
-Frameset_a967d:
+SouthOWObjFrameset_a967d:
 	db   4,  4
 	db $ff
 
-Frameset_a9680:
+SouthOWObjFrameset_a9680:
 	db   5,  2
 	db   6,  3
 	db   7,  2
@@ -3122,7 +3122,7 @@ Frameset_a9680:
 	db   4, 20
 	db $ff
 
-Frameset_a968d:
+SouthOWObjFrameset_a968d:
 	db   8,  8
 	db   9,  8
 	db  10,  8
@@ -3131,34 +3131,34 @@ Frameset_a968d:
 	db  13, 60
 	db $ff
 
-Frameset_a969a:
+SouthOWObjFrameset_a969a:
 	db  14,  3
 	db  15,  3
 	db  16,  3
 	db  17,  3
 	db $ff
 
-Frameset_a96a3:
+SouthOWObjFrameset_a96a3:
 	db  18,  4
 	db $ff
 
-Frameset_a96a6:
+SouthOWObjFrameset_a96a6:
 	db  19,  4
 	db $ff
 
-Frameset_a96a9:
+SouthOWObjFrameset_a96a9:
 	db  20,  4
 	db $ff
 
-Frameset_a96ac:
+SouthOWObjFrameset_a96ac:
 	db  21,  4
 	db $ff
 
-Frameset_a96af:
+SouthOWObjFrameset_a96af:
 	db  26,  8
 	db $ff
 
-Frameset_a96b2:
+SouthOWObjFrameset_a96b2:
 	db  22, 16
 	db  23, 14
 	db  24, 10
@@ -3166,11 +3166,11 @@ Frameset_a96b2:
 	db  24, 60
 	db $ff
 
-Frameset_a96bd:
+SouthOWObjFrameset_a96bd:
 	db  24,  4
 	db $ff
 
-Frameset_a96c0:
+SouthOWObjFrameset_a96c0:
 	db  13, 60
 	db  96,  2
 	db  13,  3
@@ -3181,32 +3181,32 @@ Frameset_a96c0:
 	db  96, 30
 	db $ff
 
-Frameset_a96d1:
+SouthOWObjFrameset_a96d1:
 	db  27,  2
 	db  28,  2
 	db  29,  2
 	db $ff
 
-Frameset_a96d8:
+SouthOWObjFrameset_a96d8:
 	db  30, 20
 	db  31, 20
 	db  32, 20
 	db  33, 20
 	db $ff
 
-Frameset_a96e1:
+SouthOWObjFrameset_a96e1:
 	db  33,  9
 	db  34,  9
 	db  35,  9
 	db  36,  9
 	db $ff
 
-Frameset_a96ea:
+SouthOWObjFrameset_a96ea:
 	db  37,  4
 	db  38,  4
 	db $ff
 
-Frameset_a96ef:
+SouthOWObjFrameset_a96ef:
 	db  54,  4
 	db  55,  4
 	db  56,  4
@@ -3254,7 +3254,7 @@ Frameset_a96ef:
 	db  39,  7
 	db $ff
 
-Frameset_a974a:
+SouthOWObjFrameset_a974a:
 	db  40,  6
 	db  39,  5
 	db  40,  6
@@ -3299,11 +3299,11 @@ Frameset_a974a:
 	db  39,  7
 	db $ff
 
-Frameset_a979f:
+SouthOWObjFrameset_a979f:
 	db  40,  4
 	db $ff
 
-Frameset_a97a2:
+SouthOWObjFrameset_a97a2:
 	db  57,  5
 	db  58,  5
 	db  59,  5
@@ -3311,12 +3311,12 @@ Frameset_a97a2:
 	db  61,  5
 	db $ff
 
-Frameset_a97ad:
+SouthOWObjFrameset_a97ad:
 	db  62,  4
 	db  63,  4
 	db $ff
 
-Frameset_a97b2:
+SouthOWObjFrameset_a97b2:
 	db  39,  5
 	db  40,  4
 	db  41,  4
@@ -3328,7 +3328,7 @@ Frameset_a97b2:
 	db  39,  5
 	db $ff
 
-Frameset_a97c5:
+SouthOWObjFrameset_a97c5:
 	db  54,  3
 	db  64,  4
 	db  65,  6
@@ -3338,7 +3338,7 @@ Frameset_a97c5:
 	db  69,  5
 	db $ff
 
-Frameset_a97d4:
+SouthOWObjFrameset_a97d4:
 	db  75,  2
 	db  70,  4
 	db  71,  4
@@ -3347,7 +3347,7 @@ Frameset_a97d4:
 	db  74,  4
 	db $ff
 
-Frameset_a97e1:
+SouthOWObjFrameset_a97e1:
 	db  79,  3
 	db  80,  3
 	db  81,  4
@@ -3355,11 +3355,11 @@ Frameset_a97e1:
 	db  83,  4
 	db $ff
 
-Frameset_a97ec:
+SouthOWObjFrameset_a97ec:
 	db  74,  4
 	db $ff
 
-Frameset_a97ef:
+SouthOWObjFrameset_a97ef:
 	db  84,  2
 	db  85,  2
 	db  86,  2
@@ -3369,19 +3369,19 @@ Frameset_a97ef:
 	db  90,  2
 	db $ff
 
-Frameset_a97fe:
+SouthOWObjFrameset_a97fe:
 	db  91,  2
 	db  92,  1
 	db $ff
 
-Frameset_a9803:
+SouthOWObjFrameset_a9803:
 	db  93,  1
 	db  95,  1
 	db  94,  1
 	db  95,  1
 	db $ff
 
-OAM_a980c:
+EastOWObjOAM_a980c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4123,7 +4123,7 @@ OAM_a980c:
 	frame_oam  -8,  -4, $a6, 0
 	db $80
 
-Frameset_a9e61:
+EastOWObjFrameset_a9e61:
 	db   0,  2
 	db   1,  2
 	db   2,  2
@@ -4134,23 +4134,23 @@ Frameset_a9e61:
 	db   7,  2
 	db $ff
 
-Frameset_a9e72:
+EastOWObjFrameset_a9e72:
 	db   8,  4
 	db $ff
 
-Frameset_a9e75:
+EastOWObjFrameset_a9e75:
 	db   9,  5
 	db  10,  5
 	db $ff
 
-Frameset_a9e7a:
+EastOWObjFrameset_a9e7a:
 	db  11, 10
 	db   8, 10
 	db   9, 10
 	db $ff
 
 ; unreferenced
-Frameset_a9e81:
+UnreferencedEastOWObjFrameset_a9e81:
 	db  12,  5
 	db  13,  5
 	db  14,  5
@@ -4158,21 +4158,21 @@ Frameset_a9e81:
 	db  16,  5
 	db $ff
 
-Frameset_a9e8c:
+EastOWObjFrameset_a9e8c:
 	db  17,  2
 	db  18,  2
 	db $ff
 
-Frameset_a9e91:
+EastOWObjFrameset_a9e91:
 	db  17,  4
 	db $ff
 
-Frameset_a9e94:
+EastOWObjFrameset_a9e94:
 	db   9,  4
 	db  10,  4
 	db $ff
 
-Frameset_a9e99:
+EastOWObjFrameset_a9e99:
 	db  19,  3
 	db  20,  4
 	db  21,  6
@@ -4183,45 +4183,45 @@ Frameset_a9e99:
 	db  26, 60
 	db $ff
 
-Frameset_a9eaa:
+EastOWObjFrameset_a9eaa:
 	db  27,  4
 	db  28,  4
 	db  29,  4
 	db  30,  4
 	db $ff
 
-Frameset_a9eb3:
+EastOWObjFrameset_a9eb3:
 	db  31,  5
 	db  32,  5
 	db  33,  5
 	db  34,  5
 	db $ff
 
-Frameset_a9ebc:
+EastOWObjFrameset_a9ebc:
 	db  35,  4
 	db  36,  4
 	db  37,  4
 	db  38,  4
 	db $ff
 
-Frameset_a9ec5:
+EastOWObjFrameset_a9ec5:
 	db  39,  4
 	db $ff
 
-Frameset_a9ec8:
+EastOWObjFrameset_a9ec8:
 	db  40,  4
 	db  41,  4
 	db $ff
 
-Frameset_a9ecd:
+EastOWObjFrameset_a9ecd:
 	db  42,  4
 	db $ff
 
-Frameset_a9ed0:
+EastOWObjFrameset_a9ed0:
 	db  43,  4
 	db $ff
 
-Frameset_a9ed3:
+EastOWObjFrameset_a9ed3:
 	db  44,  4
 	db  45,  4
 	db  46,  4
@@ -4230,39 +4230,39 @@ Frameset_a9ed3:
 	db  49,  4
 	db $ff
 
-Frameset_a9ee0:
+EastOWObjFrameset_a9ee0:
 	db  50,  4
 	db $ff
 
-Frameset_a9ee3:
+EastOWObjFrameset_a9ee3:
 	db  51,  4
 	db  52,  4
 	db  53,  4
 	db $ff
 
-Frameset_a9eea:
+EastOWObjFrameset_a9eea:
 	db  54,  4
 	db  55,  4
 	db  56, 30
 	db $ff
 
-Frameset_a9ef1:
+EastOWObjFrameset_a9ef1:
 	db  56,  2
 	db  26,  2
 	db $ff
 
-Frameset_a9ef6:
+EastOWObjFrameset_a9ef6:
 	db  57,  4
 	db  58,  4
 	db  50, 30
 	db $ff
 
-Frameset_a9efd:
+EastOWObjFrameset_a9efd:
 	db  50,  2
 	db  26,  2
 	db $ff
 
-Frameset_a9f02:
+EastOWObjFrameset_a9f02:
 	db  59,  3
 	db  60,  2
 	db  61,  2
@@ -4270,7 +4270,7 @@ Frameset_a9f02:
 	db  60,  2
 	db $ff
 
-Frameset_a9f0d:
+EastOWObjFrameset_a9f0d:
 	db  59,  2
 	db  63,  1
 	db  60,  2
@@ -4293,7 +4293,7 @@ Frameset_a9f0d:
 	db  63,  1
 	db $ff
 
-Frameset_a9f36:
+EastOWObjFrameset_a9f36:
 	db  68,  3
 	db  26,  1
 	db  69,  3
@@ -4304,7 +4304,7 @@ Frameset_a9f36:
 	db  26,  1
 	db $ff
 
-Frameset_a9f47:
+EastOWObjFrameset_a9f47:
 	db  72,  1
 	db  26,  1
 	db  72,  1
@@ -4330,7 +4330,7 @@ Frameset_a9f47:
 	db  77,  1
 	db $ff
 
-Frameset_a9f76:
+EastOWObjFrameset_a9f76:
 	db  78,  1
 	db  26,  1
 	db  79,  1
@@ -4357,11 +4357,11 @@ Frameset_a9f76:
 	db  26,  1
 	db $ff
 
-Frameset_a9fa7:
+EastOWObjFrameset_a9fa7:
 	db  80,  4
 	db $ff
 
-Frameset_a9faa:
+EastOWObjFrameset_a9faa:
 	db  81, 12
 	db  82,  2
 	db  83,  2
@@ -4372,25 +4372,25 @@ Frameset_a9faa:
 	db  85,  2
 	db $ff
 
-Frameset_a9fbb:
+EastOWObjFrameset_a9fbb:
 	db  86,  5
 	db  87,  5
 	db  88,  5
 	db $ff
 
-Frameset_a9fc2:
+EastOWObjFrameset_a9fc2:
 	db  89,  5
 	db  90,  5
 	db  91,  5
 	db $ff
 
-Frameset_a9fc9:
+EastOWObjFrameset_a9fc9:
 	db  92,  4
 	db  93,  4
 	db  94,  4
 	db $ff
 
-Frameset_a9fd0:
+EastOWObjFrameset_a9fd0:
 	db  95,  2
 	db  96,  2
 	db  97,  3
@@ -4400,11 +4400,11 @@ Frameset_a9fd0:
 	db 101,  1
 	db $ff
 
-Frameset_a9fdf:
+EastOWObjFrameset_a9fdf:
 	db 102,  4
 	db $ff
 
-OAM_a9fe2:
+TopBarOAM_a9fe2:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4505,80 +4505,80 @@ OAM_a9fe2:
 	frame_oam -16, -12, $40, 6 | OAM_BANK1
 	db $80
 
-Frameset_aa091:
+TopBarFrameset_aa091:
 	db   0,  4
 	db $ff
 
-Frameset_aa094:
+TopBarFrameset_aa094:
 	db   1,  4
 	db $ff
 
-Frameset_aa097:
+TopBarFrameset_aa097:
 	db   2,  4
 	db $ff
 
-Frameset_aa09a:
+TopBarFrameset_aa09a:
 	db   3,  4
 	db $ff
 
-Frameset_aa09d:
+TopBarFrameset_aa09d:
 	db   4,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa0a0:
+UnreferencedTopBarFrameset_aa0a0:
 	db   5,  4
 	db $ff
 
-Frameset_aa0a3:
+TopBarFrameset_aa0a3:
 	db   6,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa0a6:
+UnreferencedTopBarFrameset_aa0a6:
 	db   7,  4
 	db $ff
 
-Frameset_aa0a9:
+TopBarFrameset_aa0a9:
 	db   8, 10
 	db  13, 10
 	db $ff
 
-Frameset_aa0ae:
+TopBarFrameset_aa0ae:
 	db   9,  4
 	db $ff
 
-Frameset_aa0b1:
+TopBarFrameset_aa0b1:
 	db  10,  4
 	db $ff
 
-Frameset_aa0b4:
+TopBarFrameset_aa0b4:
 	db  11, 10
 	db  14, 10
 	db $ff
 
-Frameset_aa0b9:
+TopBarFrameset_aa0b9:
 	db  12,  4
 	db $ff
 
-Frameset_aa0bc:
+TopBarFrameset_aa0bc:
 	db   5,  8
 	db   6,  8
 	db $ff
 
-Frameset_aa0c1:
+TopBarFrameset_aa0c1:
 	db   7,  8
 	db   4,  8
 	db $ff
 
-Frameset_aa0c6:
+TopBarFrameset_aa0c6:
 	db  15,  4
 	db  16,  1
 	db  10,  4
 	db  16,  1
 	db $ff
 
-OAM_aa0cf:
+OWUIOAM_aa0cf:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -4810,52 +4810,52 @@ OAM_aa0cf:
 	frame_oam -16,   0, $b4, 1 | OAM_BANK1
 	db $80
 
-Frameset_aa252:
+NorthOWObjFrameset_aa252:
 	db   0,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa255:
+UnreferencedOWUIFrameset_aa255:
 	db   1,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa258:
+UnreferencedOWUIFrameset_aa258:
 	db   2,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa25b:
+UnreferencedOWUIFrameset_aa25b:
 	db   3,  4
 	db $ff
 
-Frameset_aa25e:
+OWWarioFrameset_aa25e:
 	db   4,  4
 	db $ff
 
-Frameset_aa261:
+PathPreviewFrameset_aa261:
 	db   5,  4
 	db $ff
 
-Frameset_aa264:
+PathPreviewFrameset_aa264:
 	db   6,  4
 	db $ff
 
-Frameset_aa267:
+PathPreviewFrameset_aa267:
 	db   7,  4
 	db $ff
 
-Frameset_aa26a:
+PathPreviewFrameset_aa26a:
 	db   8,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa26d:
+UnreferencedOWUIFrameset_aa26d:
 	db   9,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa270:
+UnreferencedOWUIFrameset_aa270:
 	db  10,  8
 	db  11,  8
 	db  12,  8
@@ -4887,7 +4887,7 @@ Frameset_aa270:
 	db $ff
 
 ; unreferenced
-Frameset_aa2a9:
+UnreferencedOWUIFrameset_aa2a9:
 	db  19,  8
 	db  22,  8
 	db  20,  8
@@ -4895,7 +4895,7 @@ Frameset_aa2a9:
 	db $ff
 
 ; unreferenced
-Frameset_aa2b2:
+UnreferencedOWUIFrameset_aa2b2:
 	db  19,  8
 	db  22,  8
 	db  20,  8
@@ -4934,7 +4934,7 @@ Frameset_aa2b2:
 	db  10, 12
 	db $ff
 
-Frameset_aa2fb:
+BottomBarFrameset_aa2fb:
 	db  24,  9
 	db  25,  9
 	db  26,  7
@@ -4944,61 +4944,61 @@ Frameset_aa2fb:
 	db $ff
 
 ; unreferenced
-Frameset_aa308:
+UnreferencedOWUIDigitFrameset_aa308:
 	db  30,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa30b:
+UnreferencedOWUIDigitFrameset_aa30b:
 	db  31,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa30e:
+UnreferencedOWUIDigitFrameset_aa30e:
 	db  32,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa311:
+UnreferencedOWUIDigitFrameset_aa311:
 	db  33,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa314:
+UnreferencedOWUIDigitFrameset_aa314:
 	db  34,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa317:
+UnreferencedOWUIDigitFrameset_aa317:
 	db  35,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa31a:
+UnreferencedOWUIDigitFrameset_aa31a:
 	db  36,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa31d:
+UnreferencedOWUIDigitFrameset_aa31d:
 	db  37,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa320:
+UnreferencedOWUIDigitFrameset_aa320:
 	db  38,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa323:
+UnreferencedOWUIDigitFrameset_aa323:
 	db  39,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa326:
+UnreferencedOWUIFrameset_aa326:
 	db  40,  4
 	db $ff
 
-OAM_aa329:
+OWWarioOAM_aa329:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5120,7 +5120,7 @@ OAM_aa329:
 	frame_oam -18,   0, $14, 0 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-Frameset_aa405:
+OWWarioFrameset_aa405:
 	db   0,  6
 	db   1,  4
 	db   2,  3
@@ -5131,7 +5131,7 @@ Frameset_aa405:
 	db   3,  4
 	db $ff
 
-Frameset_aa416:
+OWWarioFrameset_aa416:
 	db   5,  6
 	db   6,  4
 	db   7,  3
@@ -5142,7 +5142,7 @@ Frameset_aa416:
 	db   8,  4
 	db $ff
 
-Frameset_aa427:
+OWWarioFrameset_aa427:
 	db  15,  6
 	db  16,  4
 	db  17,  3
@@ -5153,7 +5153,7 @@ Frameset_aa427:
 	db  18,  4
 	db $ff
 
-Frameset_aa438:
+OWWarioFrameset_aa438:
 	db  11,  5
 	db  12,  5
 	db  11,  5
@@ -5162,7 +5162,7 @@ Frameset_aa438:
 	db  13,  5
 	db $ff
 
-OAM_aa445:
+LevelStarOAM_aa445:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5283,7 +5283,7 @@ OAM_aa445:
 	frame_oam  19,  -8, $2a, 4 | OAM_BANK1 | OAM_XFLIP | OAM_YFLIP
 	db $80
 
-Frameset_aa544:
+UnlockLevelStarFrameset_aa544:
 	db   4,  2
 	db   0,  2
 	db   5,  2
@@ -5294,7 +5294,7 @@ Frameset_aa544:
 	db   3,  2
 	db $ff
 
-Frameset_aa555:
+HighlightLevelStarFrameset_aa555:
 	db   8,  3
 	db   9,  3
 	db  10,  3
@@ -5318,7 +5318,7 @@ Frameset_aa555:
 	db  16,  1
 	db $ff
 
-OAM_aa580:
+CompassOAM_aa580:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5370,39 +5370,39 @@ OAM_aa580:
 	db $80
 
 ; unreferenced
-Frameset_aa5e9:
+UnreferencedCompassFrameset_aa5e9:
 	db   0,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa5ec:
+UnreferencedCompassFrameset_aa5ec:
 	db   1,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa5ef:
+UnreferencedCompassFrameset_aa5ef:
 	db   2,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa5f2:
+UnreferencedCompassFrameset_aa5f2:
 	db   3,  4
 	db $ff
 
-Frameset_aa5f5:
+NorthOWObjFrameset_aa5f5:
 	db   4,  4
 	db $ff
 
-Frameset_aa5f8:
+NorthOWObjFrameset_aa5f8:
 	db   5,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa5fb:
+UnreferencedNorthOWObjFrameset_aa5fb:
 	db   6,  4
 	db $ff
 
-OAM_aa5fe:
+SceneWarioOAM_aa5fe:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5462,7 +5462,7 @@ OAM_aa5fe:
 	frame_oam -21,   9, $14, 0
 	db $80
 
-Frameset_aa6a5:
+SceneWarioFrameset_aa6a5:
 	db   1,  5
 	db   0, 30
 	db   1,  5
@@ -5479,16 +5479,16 @@ Frameset_aa6a5:
 	db   4,  8
 	db $ff
 
-Frameset_aa6c2:
+SceneWarioFrameset_aa6c2:
 	db   3,  5
 	db   2,  4
 	db $ff
 
-Frameset_aa6c7:
+SceneWarioFrameset_aa6c7:
 	db   2,  4
 	db $ff
 
-Frameset_aa6ca:
+SceneWarioFrameset_aa6ca:
 	db   3,  5
 	db   4, 30
 	db   3,  5
@@ -5505,7 +5505,7 @@ Frameset_aa6ca:
 	db   0,  8
 	db $ff
 
-OAM_aa6e7:
+SceneWarioOAM_aa6e7:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5698,14 +5698,14 @@ OAM_aa6e7:
 	frame_oam -16, -11, $3c, 0 | OAM_XFLIP
 	db $80
 
-Frameset_aa8ec:
+SceneWarioFrameset_aa8ec:
 	db   0,  2
 	db   1,  2
 	db   2,  2
 	db   3,  2
 	db $ff
 
-Frameset_aa8f5:
+SceneWarioFrameset_aa8f5:
 	db   4,  2
 	db   5,  2
 	db   4,  2
@@ -5714,7 +5714,7 @@ Frameset_aa8f5:
 	db   6,  4
 	db $ff
 
-Frameset_aa902:
+SceneWarioFrameset_aa902:
 	db   7,  3
 	db   8,  5
 	db   9,  3
@@ -5722,16 +5722,16 @@ Frameset_aa902:
 	db  11,  6
 	db $ff
 
-Frameset_aa90d:
+SceneWarioFrameset_aa90d:
 	db   6,  4
 	db $ff
 
 ; unreferenced
-Frameset_aa910:
+UnreferencedSceneWarioFrameset_aa910:
 	db  12,  4
 	db $ff
 
-Frameset_aa913:
+SceneWarioFrameset_aa913:
 	db  13, 12
 	db  14,  4
 	db  15,  2
@@ -5742,7 +5742,7 @@ Frameset_aa913:
 	db  12, 40
 	db $ff
 
-Frameset_aa924:
+SceneWarioFrameset_aa924:
 	db  16,  2
 	db  17,  2
 	db  16,  2
@@ -5751,11 +5751,11 @@ Frameset_aa924:
 	db  18,  4
 	db $ff
 
-Frameset_aa931:
+SceneWarioFrameset_aa931:
 	db  18,  4
 	db $ff
 
-OAM_aa934:
+SceneWarioOAM_aa934:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -5937,7 +5937,7 @@ OAM_aa934:
 	frame_oam -16,   4, $4c, 0
 	db $80
 
-Frameset_aab27:
+SceneWarioFrameset_aab27:
 	db   0, 20
 	db   1,  6
 	db   2,  2
@@ -5945,7 +5945,7 @@ Frameset_aab27:
 	db   4,  3
 	db $ff
 
-Frameset_aab32:
+SceneWarioFrameset_aab32:
 	db   4,  3
 	db   5,  5
 	db   4,  3
@@ -5954,15 +5954,15 @@ Frameset_aab32:
 	db   7, 60
 	db $ff
 
-Frameset_aab3f:
+SceneWarioFrameset_aab3f:
 	db   4,  4
 	db $ff
 
-Frameset_aab42:
+SceneWarioFrameset_aab42:
 	db   7,  4
 	db $ff
 
-Frameset_aab45:
+SceneWarioFrameset_aab45:
 	db   8,  4
 	db   9,  5
 	db  10, 10
@@ -5976,7 +5976,7 @@ Frameset_aab45:
 	db   8,  6
 	db $ff
 
-OAM_aab5c::
+SceneWarioOAM_aab5c::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6138,7 +6138,7 @@ OAM_aab5c::
 	frame_oam -56, -10, $58, 0
 	db $80
 
-Frameset_aaccb::
+SceneWarioFrameset_aaccb::
 	db   5,  3
 	db   6,  2
 	db   5,  3
@@ -6152,7 +6152,7 @@ Frameset_aaccb::
 	db   6,  2
 	db $ff
 
-Frameset_aace2::
+SceneWarioFrameset_aace2::
 	db   5,  4
 	db   6,  3
 	db   0,  4
@@ -6165,11 +6165,11 @@ Frameset_aace2::
 	db   8, 30
 	db $ff
 
-Frameset_aacf7:
+SceneWarioFrameset_aacf7:
 	db   8,  4
 	db $ff
 
-Frameset_aacfa:
+SceneWarioFrameset_aacfa:
 	db   9, 24
 	db  10,  3
 	db  11,  4
@@ -6180,7 +6180,7 @@ Frameset_aacfa:
 	db  10,  2
 	db $ff
 
-Frameset_aad0b:
+PrologueSceneObjFrameset_aad0b:
 	db  12,  8
 	db  13,  8
 	db  14,  8
@@ -6192,7 +6192,7 @@ Frameset_aad0b:
 	db  20,  8
 	db $ff
 
-OAM_aad1e:
+SceneWarioOAM_aad1e:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6465,7 +6465,7 @@ OAM_aad1e:
 	frame_oam -32,  13, $78, 0
 	db $80
 
-Frameset_ab03c:
+SceneWarioFrameset_ab03c:
 	db   0, 20
 	db   1,  8
 	db   2, 10
@@ -6491,7 +6491,7 @@ Frameset_ab03c:
 	db   8,  5
 	db $ff
 
-Frameset_ab06b:
+SceneWarioFrameset_ab06b:
 	db   0, 60
 	db  10,  5
 	db  11,  3
@@ -6510,7 +6510,7 @@ Frameset_ab06b:
 	db  10, 30
 	db $ff
 
-Frameset_ab08c:
+SceneWarioFrameset_ab08c:
 	db   8, 14
 	db   9, 26
 	db   8, 12
@@ -6518,16 +6518,16 @@ Frameset_ab08c:
 	db $ff
 
 ; unreferenced
-Frameset_ab095:
+UnreferencedSceneWarioFrameset_ab095:
 	db   0, 60
 	db $ff
 
-Frameset_ab098:
+SceneWarioFrameset_ab098:
 	db   7,  8
 	db   0, 60
 	db $ff
 
-Frameset_ab09d:
+SceneWarioFrameset_ab09d:
 	db   3,  2
 	db   4,  4
 	db   5,  2
@@ -6537,7 +6537,7 @@ Frameset_ab09d:
 	db   4,  2
 	db $ff
 
-Frameset_ab0ac:
+SceneWarioFrameset_ab0ac:
 	db   0, 10
 	db   8,  8
 	db   9,  9
@@ -6552,7 +6552,7 @@ Frameset_ab0ac:
 	db   8,  5
 	db $ff
 
-OAM_ab0c5:
+SceneWarioOAM_ab0c5:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -6601,7 +6601,7 @@ OAM_ab0c5:
 	frame_oam -16,   4, $1a, 0 | OAM_XFLIP
 	db $80
 
-Frameset_ab14d:
+SceneWarioFrameset_ab14d:
 	db   0,  4
 	db   1,  2
 	db   0,  3
@@ -6613,11 +6613,11 @@ Frameset_ab14d:
 	db   2,  3
 	db $ff
 
-Frameset_ab160:
+SceneWarioFrameset_ab160:
 	db   3, 60
 	db $ff
 
-Frameset_ab163:
+SceneWarioFrameset_ab163:
 	db   2,  4
 	db   1,  2
 	db   0,  3

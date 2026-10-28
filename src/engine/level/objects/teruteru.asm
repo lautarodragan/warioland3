@@ -171,7 +171,7 @@ TeruteruFunc:
 	ret nz
 	ld a, $2e
 	ld [wCurObjState], a
-	ld de, Frameset_68b8b
+	ld de, TeruteruFrameset_68b8b
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -203,7 +203,7 @@ TeruteruFunc:
 .asm_44a46
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_68bae
+	ld de, TeruteruFrameset_68bae
 	call SetObjectFramesetPtr
 	ld a, 80
 	ld [hli], a
@@ -219,7 +219,7 @@ TeruteruFunc:
 	ld a, [hl]
 	cp $3c
 	jr nz, .asm_44a6b
-	ld de, Frameset_68b90
+	ld de, TeruteruFrameset_68b90
 	call SetObjectFramesetPtr
 .asm_44a6b
 	dec [hl]
@@ -254,7 +254,7 @@ TeruteruFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68b64, Frameset_68b6d
+	ld_obj_frameset TeruteruFrameset_68b64, TeruteruFrameset_68b6d
 	xor a
 	ld [hld], a
 	call SetObjectFramesetPtr
@@ -300,14 +300,14 @@ TeruteruFunc:
 .asm_44aee
 	ld a, $2d
 	ld [wCurObjState], a
-	ld de, Frameset_68b84
+	ld de, TeruteruFrameset_68b84
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a
 	ret
 
 .asm_44afd
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjVar1
 	ld a, [wCurObjSubState]
@@ -317,14 +317,14 @@ TeruteruFunc:
 	ld a, [hl]
 	and a
 	jp nz, MoveObjectLeft
-	ld de, Frameset_68b76
+	ld de, TeruteruFrameset_68b76
 	jr .asm_44b21
 .asm_44b17
 	inc [hl]
 	ld a, [hl]
 	cp $64
 	jp nz, MoveObjectRight
-	ld de, Frameset_68b7d
+	ld de, TeruteruFrameset_68b7d
 .asm_44b21
 	call SetObjectFramesetPtr
 	ld a, 26
@@ -334,7 +334,7 @@ TeruteruFunc:
 	ret
 
 .Func_44b2d:
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -364,10 +364,10 @@ TeruteruFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_44b5b
-	ld de, Frameset_68b64
+	ld de, TeruteruFrameset_68b64
 	jp SetObjectFramesetPtr
 .asm_44b5b
-	ld de, Frameset_68b6d
+	ld de, TeruteruFrameset_68b6d
 	jp SetObjectFramesetPtr
 
 .Func_44b61:
@@ -379,7 +379,7 @@ TeruteruFunc:
 	and $0f
 	dec a
 	jp z, VanishObject2
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -404,7 +404,7 @@ TeruteruFunc:
 	and $0f
 	dec a
 	jp z, VanishObject2
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -428,7 +428,7 @@ TeruteruFunc:
 	ld a, $45
 	ld [wCurObjState], a
 .asm_44bc5
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_VAR_2
 	ld a, $02
@@ -481,7 +481,7 @@ TeruteruFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68b99
+	ld de, TeruteruFrameset_68b99
 	call SetObjectFramesetPtr
 	ld a, 80
 	ld [hli], a
@@ -515,7 +515,7 @@ TeruteruFunc:
 	ld a, $39
 .asm_44c51
 	ld [hld], a
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a
@@ -566,7 +566,7 @@ TeruteruFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_68ba2
+	ld de, TeruteruFrameset_68ba2
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -601,7 +601,7 @@ TeruteruFunc:
 .Func_44cd0:
 	ld a, $49
 	ld [wCurObjState], a
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_TOP
 	ld a, $f9
@@ -628,7 +628,7 @@ TeruteruFunc:
 .Func_44cff:
 	ld a, $48
 	ld [wCurObjState], a
-	ld de, Frameset_68ba5
+	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_TOP
 	ld a, $f9

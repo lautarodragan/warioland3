@@ -122,14 +122,14 @@ ParaGoomFunc:
 .Func_41439:
 	ld a, $5e
 	ld [wCurObjState], a
-	ld de, Frameset_684a1
+	ld de, ParaGoomFrameset_684a1
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
 .Func_41447:
 	ld a, $5f
 	ld [wCurObjState], a
-	ld de, Frameset_684a1
+	ld de, ParaGoomFrameset_684a1
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowRight
 
@@ -157,7 +157,7 @@ ParaGoomFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68439
+	ld de, ParaGoomFrameset_68439
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
@@ -171,7 +171,7 @@ ParaGoomFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68442
+	ld de, ParaGoomFrameset_68442
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
@@ -210,13 +210,13 @@ ParaGoomFunc:
 	jr c, .asm_414d8
 	xor a
 	ld [hld], a
-	ld de, Frameset_684e7
+	ld de, ParaGoomFrameset_684e7
 	jr .asm_414dd
 
 .asm_414d8
 	xor a
 	ld [hld], a
-	ld de, Frameset_6850a
+	ld de, ParaGoomFrameset_6850a
 .asm_414dd
 	call SetObjectFramesetPtr
 	ld a, $38
@@ -229,13 +229,13 @@ ParaGoomFunc:
 	jr c, .asm_414ef
 	xor a
 	ld [hld], a
-	ld de, Frameset_6852d
+	ld de, ParaGoomFrameset_6852d
 	jr .asm_414f4
 
 .asm_414ef
 	xor a
 	ld [hld], a
-	ld de, Frameset_68546
+	ld de, ParaGoomFrameset_68546
 .asm_414f4
 	call SetObjectFramesetPtr
 	ld a, $29
@@ -250,7 +250,7 @@ ParaGoomFunc:
 	dec [hl]
 	ret nz
 .asm_41505
-	ld de, Frameset_684ba
+	ld de, ParaGoomFrameset_684ba
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -299,7 +299,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6844b, Frameset_68454
+	ld_obj_frameset ParaGoomFrameset_6844b, ParaGoomFrameset_68454
 	call SetObjectFramesetPtr
 	xor a
 	ld [hli], a
@@ -330,7 +330,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
-	ld de, Frameset_68439
+	ld de, ParaGoomFrameset_68439
 	jr .asm_41591
 
 .asm_41586
@@ -339,7 +339,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-	ld de, Frameset_68442
+	ld de, ParaGoomFrameset_68442
 .asm_41591
 	call SetObjectFramesetPtr
 	ld a, $0a
@@ -383,7 +383,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6846e, Frameset_68490
+	ld_obj_frameset ParaGoomFrameset_6846e, ParaGoomFrameset_68490
 	call SetObjectFramesetPtr
 	ld a, $a3
 	ld [hli], a
@@ -402,7 +402,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6845d, Frameset_6847f
+	ld_obj_frameset ParaGoomFrameset_6845d, ParaGoomFrameset_6847f
 	call SetObjectFramesetPtr
 	ld a, $a3
 	ld [hli], a
@@ -531,7 +531,7 @@ ParaGoomFunc:
 	jr z, .asm_416ed
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_68439, Frameset_68442
+	ld_obj_frameset ParaGoomFrameset_68439, ParaGoomFrameset_68442
 .asm_416d1
 	call SetObjectFramesetPtr
 	ld a, $0c
@@ -554,11 +554,11 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_416f6
-	ld de, Frameset_6844b
+	ld de, ParaGoomFrameset_6844b
 	jr .asm_416d1
 
 .asm_416f6
-	ld de, Frameset_68454
+	ld de, ParaGoomFrameset_68454
 	jr .asm_416d1
 
 .Func_416fb:
@@ -567,7 +567,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_684aa, Frameset_684af
+	ld_obj_frameset ParaGoomFrameset_684aa, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -596,7 +596,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_684aa, Frameset_684af
+	ld_obj_frameset ParaGoomFrameset_684aa, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -633,12 +633,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41781
-	ld de, Frameset_684aa
+	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
 	jr .asm_41787
 
 .asm_41781
-	ld de, Frameset_684af
+	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 .asm_41787
 	inc l
@@ -691,7 +691,7 @@ ParaGoomFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_684b4
+	ld de, ParaGoomFrameset_684b4
 	call SetObjectFramesetPtr
 	ld a, $08
 	ld [hli], a
@@ -720,12 +720,12 @@ ParaGoomFunc:
 	call Func_358b
 	and $0f
 	jr nz, .asm_4180d
-	ld bc, Data_60530
+	ld bc, ParaGoomData_60530
 	jp ApplyObjYMovement
 .asm_4180d
 	ld a, $5a
 	ld [wCurObjState], a
-	ld de, Frameset_684b7
+	ld de, ParaGoomFrameset_684b7
 	call SetObjectFramesetPtr
 	ld a, $04
 	ld [hli], a
@@ -741,7 +741,7 @@ ParaGoomFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_684ba
+	ld de, ParaGoomFrameset_684ba
 	call SetObjectFramesetPtr
 	ret
 
@@ -777,7 +777,7 @@ ParaGoomFunc:
 	ld l, OBJ_STATE
 	ld a, $5c
 	ld [hld], a
-	ld de, Frameset_6855f
+	ld de, ParaGoomFrameset_6855f
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -812,12 +812,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_418a4
-	ld de, Frameset_684cb
+	ld de, ParaGoomFrameset_684cb
 	call SetObjectFramesetPtr
 	jr .asm_418aa
 
 .asm_418a4
-	ld de, Frameset_684d2
+	ld de, ParaGoomFrameset_684d2
 	call SetObjectFramesetPtr
 .asm_418aa
 	ld a, $44
@@ -828,12 +828,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_418ba
-	ld de, Frameset_684d9
+	ld de, ParaGoomFrameset_684d9
 	call SetObjectFramesetPtr
 	jr .asm_418c0
 
 .asm_418ba
-	ld de, Frameset_684e0
+	ld de, ParaGoomFrameset_684e0
 	call SetObjectFramesetPtr
 .asm_418c0
 	ld a, $44
@@ -908,12 +908,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41931
-	ld de, Frameset_684aa
+	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
 	jr .asm_41937
 
 .asm_41931
-	ld de, Frameset_684af
+	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 .asm_41937
 	ld a, $04
@@ -1019,10 +1019,10 @@ ParaGoomFunc:
 	ld a, c
 	rlca
 	jr c, .asm_419cf
-	ld de, Frameset_684aa
+	ld de, ParaGoomFrameset_684aa
 	jp SetObjectFramesetPtr
 .asm_419cf
-	ld de, Frameset_684af
+	ld de, ParaGoomFrameset_684af
 	jp SetObjectFramesetPtr
 .Func_419d5:
 	ld hl, wCurObjState
@@ -1057,12 +1057,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41a0d
-	ld de, Frameset_684aa
+	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
 	jr .asm_41a13
 
 .asm_41a0d
-	ld de, Frameset_684af
+	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 .asm_41a13
 	ld l, OBJ_COLLBOX_RIGHT
@@ -1089,12 +1089,12 @@ ParaGoomFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_41a41
-	ld de, Frameset_684aa
+	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
 	jr .asm_41a47
 
 .asm_41a41
-	ld de, Frameset_684af
+	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
 .asm_41a47
 	ld l, OBJ_COLLBOX_RIGHT

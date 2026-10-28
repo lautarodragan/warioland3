@@ -197,9 +197,9 @@ _InitTreasureCollection:
 	call GetCurrentCollectionCellRowAndColumn
 	call GetCollectionCellCoords
 
-	ld hl, Pals_9ad45
+	ld hl, TreasureCollectionBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_9ad05
+	ld hl, TreasureCollectionOBPals
 	call LoadPalsToTempPals2
 
 	decompress_tiles0 TreasureCollectionCursorGfx, v0Tiles0
@@ -1065,7 +1065,7 @@ AnimateTreasureCollection:
 Func_9aa56:
 	call Func_9a9ec
 Func_9aa59:
-	ld de, OAM_9ac5d
+	ld de, TreasureCollectionObjOAM
 	call Func_9a9f7
 	ret
 
@@ -1081,19 +1081,19 @@ Func_9aa6c:
 	ret
 
 Func_9aa6d:
-	ld de, Frameset_9ace1
+	ld de, TreasureCollectionObjFrameset1
 	jr Func_9aa56
 
 Func_9aa72:
-	ld de, Frameset_9acea
+	ld de, TreasureCollectionObjFrameset2
 	jr Func_9aa56
 
 Func_9aa77:
-	ld de, Frameset_9acf3
+	ld de, TreasureCollectionObjFrameset3
 	jr Func_9aa56
 
 Func_9aa7c:
-	ld de, Frameset_9acfc
+	ld de, TreasureCollectionObjFrameset4
 	jr Func_9aa56
 
 ; input:
@@ -1438,7 +1438,7 @@ TreasureOBPals:
 	db $03                   ; TREASURE_DUMMY
 	assert_table_length NUM_TREASURES + 1
 
-OAM_9ac5d:
+TreasureCollectionObjOAM:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1512,35 +1512,35 @@ OAM_9ac5d:
 	frame_oam  -8,  -4, $16, 2 | OAM_XFLIP
 	db $80
 
-Frameset_9ace1:
+TreasureCollectionObjFrameset1:
 	db   0,  3
 	db   1,  3
 	db   2,  3
 	db   1,  3
 	db $ff
 
-Frameset_9acea:
+TreasureCollectionObjFrameset2:
 	db   3,  6
 	db   4,  6
 	db   5,  6
 	db   4,  6
 	db $ff
 
-Frameset_9acf3:
+TreasureCollectionObjFrameset3:
 	db   6,  8
 	db   7,  4
 	db   8,  8
 	db   7,  4
 	db $ff
 
-Frameset_9acfc:
+TreasureCollectionObjFrameset4:
 	db   9,  8
 	db  10,  4
 	db  11,  8
 	db  10,  4
 	db $ff
 
-Pals_9ad05:
+TreasureCollectionOBPals:
 	rgb 31, 31, 31
 	rgb 10, 31, 10
 	rgb  0, 20,  0
@@ -1581,7 +1581,7 @@ Pals_9ad05:
 	rgb 15, 15, 15
 	rgb  0,  0,  7
 
-Pals_9ad45:
+TreasureCollectionBGPals:
 	rgb 31, 31, 31
 	rgb 20, 31, 31
 	rgb 10, 20, 31

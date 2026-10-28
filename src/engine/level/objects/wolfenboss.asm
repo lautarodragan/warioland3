@@ -37,7 +37,7 @@ WolfenbossFunc:
 	ld [hld], a
 	ld a, 1
 	ld [hl], a
-	ld de, Frameset_69e97
+	ld de, WolfenbossFrameset_69e97
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_WHISP_WAIT_DURATION
 	ld [hli], a
@@ -62,14 +62,14 @@ WolfenbossFunc:
 	ret z
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	jp nz, ApplyObjXMovement_Loop
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.WhispRising)
 	ld [hld], a
 	ld a, LOW(.WhispRising)
 	ld [hld], a
-	ld de, Frameset_69ea0
+	ld de, WolfenbossFrameset_69ea0
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_WHISP_RISE_DURATION
 	ld [hli], a
@@ -89,7 +89,7 @@ WolfenbossFunc:
 	ld [hld], a
 	ld a, LOW(.SmokeEntrance)
 	ld [hld], a
-	ld de, Frameset_69ea9
+	ld de, WolfenbossFrameset_69ea9
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_SMOKE_ENTRANCE_DURATION
 	ld [hli], a
@@ -108,9 +108,9 @@ WolfenbossFunc:
 	ld a, LOW(.EmergeFromSmoke)
 	ld [hld], a
 	ld l, OBJ_FRAMESET_PTR
-	ld a, LOW(Frameset_69e0e)
+	ld a, LOW(WolfenbossFrameset_69e0e)
 	ld [hli], a
-	ld a, HIGH(Frameset_69e0e)
+	ld a, HIGH(WolfenbossFrameset_69e0e)
 	ld [hli], a
 	xor a
 	ld [hli], a ; OBJ_FRAME_DURATION
@@ -140,7 +140,7 @@ WolfenbossFunc:
 	and a
 	jp nz, MoveObjectUp_Slow
 	; animation is over, continue to next state
-	ld de, Frameset_69dcb
+	ld de, WolfenbossFrameset_69dcb
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_START_DELAY
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -170,7 +170,7 @@ WolfenbossFunc:
 	ld [hld], a
 	ld a, LOW(.Main)
 	ld [hld], a
-	ld de, Frameset_69dec
+	ld de, WolfenbossFrameset_69dec
 	call SetObjectFramesetPtr
 	ret
 
@@ -190,7 +190,7 @@ WolfenbossFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69ea9
+	ld de, WolfenbossFrameset_69ea9
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_SMOKE_EXIT_DURATION
 	ld [hli], a
@@ -205,7 +205,7 @@ WolfenbossFunc:
 .start_disappear
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_69e0e, Frameset_69e1f
+	ld_obj_frameset WolfenbossFrameset_69e0e, WolfenbossFrameset_69e1f
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_DISAPPEAR_DELAY
 	ld [hli], a
@@ -237,7 +237,7 @@ WolfenbossFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69e85, Frameset_69e8e
+	ld_obj_frameset WolfenbossFrameset_69e85, WolfenbossFrameset_69e8e
 	call SetObjectFramesetPtr
 	ld a, WOLFENBOSS_HURT_DURATION
 	ld [hli], a
@@ -276,10 +276,10 @@ WolfenbossFunc:
 	ld [hld], a
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_5601d
-	ld de, Frameset_69e0e
+	ld de, WolfenbossFrameset_69e0e
 	jp SetObjectFramesetPtr
 .asm_5601d
-	ld de, Frameset_69e1f
+	ld de, WolfenbossFrameset_69e1f
 	jp SetObjectFramesetPtr
 
 .restart_attacks_and_movement
@@ -344,10 +344,10 @@ WolfenbossFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_56082
-	ld de, Frameset_69dfb
+	ld de, WolfenbossFrameset_69dfb
 	jp SetObjectFramesetPtr
 .asm_56082
-	ld de, Frameset_69e00
+	ld de, WolfenbossFrameset_69e00
 	jp SetObjectFramesetPtr
 
 .spawn_igugari_or_spiral
@@ -372,7 +372,7 @@ WolfenbossFunc:
 	jp CreateObjectAtRelativePos
 
 .turning
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -390,10 +390,10 @@ WolfenbossFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_560d3
-	ld de, Frameset_69dec
+	ld de, WolfenbossFrameset_69dec
 	jp SetObjectFramesetPtr
 .asm_560d3
-	ld de, Frameset_69de7
+	ld de, WolfenbossFrameset_69de7
 	jp SetObjectFramesetPtr
 .asm_560d9
 	xor a
@@ -406,7 +406,7 @@ WolfenbossFunc:
 	ld a, [wGlobalCounter]
 	and %11111
 	play_sfx z, SFX_WOLFENBOSS_HOVER
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 
 	ld a, [wCurObjSubState]
@@ -425,14 +425,14 @@ WolfenbossFunc:
 	ld [wCurObjVar2], a
 	jr .asm_56122
 .asm_56115
-	ld de, Frameset_69df1
+	ld de, WolfenbossFrameset_69df1
 	jr .start_attack
 .move_left
 	ld a, [wCurObjScreenXPos]
 	cp $18
 	jp nz, MoveObjectLeft_Slow
 .asm_56122
-	ld de, Frameset_69dd5
+	ld de, WolfenbossFrameset_69dd5
 	jr .start_turning
 
 .moving_right
@@ -448,7 +448,7 @@ WolfenbossFunc:
 	ld [wCurObjVar2], a
 	jr .asm_56176
 .asm_5613e
-	ld de, Frameset_69df6
+	ld de, WolfenbossFrameset_69df6
 
 .start_attack
 	call SetObjectFramesetPtr
@@ -488,7 +488,7 @@ WolfenbossFunc:
 	cp $98
 	jp nz, MoveObjectRight_Slow
 .asm_56176
-	ld de, Frameset_69dde
+	ld de, WolfenbossFrameset_69dde
 .start_turning
 	call SetObjectFramesetPtr
 	ld a, 27
@@ -512,7 +512,7 @@ WolfenbossFunc:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	stop_music2
-	ld de, Frameset_69e05
+	ld de, WolfenbossFrameset_69e05
 	jp SetObjectFramesetPtr
 
 .DefeatFall:
@@ -524,7 +524,7 @@ WolfenbossFunc:
 	ld a, [wCurObjVar3]
 	cp $2b
 	play_sfx z, SFX_BOSS_DEFEAT_FALL
-	ld bc, Data_60da0
+	ld bc, WolfenbossData_60da0
 	jp ApplyObjYMovement
 .asm_561ca
 	ld a, BOSS_DEFEATED
@@ -584,12 +584,12 @@ MagicSpiralFunc:
 	ld a, [hl]
 	cp 69
 	jr nz, .asm_5622c
-	ld de, Frameset_69e39
+	ld de, WolfenbossFrameset_69e39
 	jp SetObjectFramesetPtr
 .asm_5622c
 	cp 38
 	ret nz
-	ld de, Frameset_69e42
+	ld de, WolfenbossFrameset_69e42
 	jp SetObjectFramesetPtr
 .done_grow
 	ld a, 8
@@ -661,7 +661,7 @@ MagicSpiralFunc:
 	and $0f
 	ret nz
 .disappear
-	ld de, Frameset_69eb2
+	ld de, WolfenbossFrameset_69eb2
 	call SetObjectFramesetPtr
 	ld a, 27
 	ld [hli], a
@@ -694,7 +694,7 @@ WolfenbossPlatformFunc:
 	ld [hld], a
 	ld a, LOW(.WaitOpen)
 	ld [hld], a
-	ld de, Frameset_69e72
+	ld de, WolfenbossFrameset_69e72
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -765,12 +765,12 @@ IgaguriFunc:
 	ld a, [hl]
 	cp 43
 	jr nz, .asm_56364
-	ld de, Frameset_69e80
+	ld de, WolfenbossFrameset_69e80
 	jp SetObjectFramesetPtr
 .asm_56364
 	cp 24
 	ret nz
-	ld de, Frameset_69e4b
+	ld de, WolfenbossFrameset_69e4b
 	jp SetObjectFramesetPtr
 
 .done_grow
@@ -779,7 +779,7 @@ IgaguriFunc:
 	ld [hld], a
 	ld a, LOW(.Fall)
 	ld [hld], a
-	ld de, Frameset_69e4b
+	ld de, WolfenbossFrameset_69e4b
 	call SetObjectFramesetPtr
 	ld a, 40
 	ld [hli], a
@@ -823,7 +823,7 @@ IgaguriFunc:
 .arc_movement
 	; igaguri is thrown upwards
 	; before falling to the floor
-	ld bc, Data_60d80
+	ld bc, WolfenbossData_60d80
 	call ApplyObjYMovement
 .check_floor
 	ld hl, wCurObjYPos
@@ -902,7 +902,7 @@ IgaguriFunc:
 	ld a, $2
 	ld [wCurObjFrameDuration], a
 
-	ld bc, Data_60e00
+	ld bc, WolfenbossData_60e00
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -979,7 +979,7 @@ IgaguriFunc:
 	ld a, 14
 	ld [hli], a
 	inc [hl] ; OBJ_VAR_1
-	ld de, Frameset_69e59
+	ld de, WolfenbossFrameset_69e59
 	jp SetObjectFramesetPtr
 .asm_564ce
 	ld l, OBJ_STATE_DURATION
@@ -999,7 +999,7 @@ IgaguriFunc:
 KuriFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60d60
+	ld bc, WolfenbossData_60d60
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -1117,11 +1117,11 @@ KuriFunc:
 
 .attacked_left
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69e60
+	ld de, WolfenbossFrameset_69e60
 	jr .asm_565b3
 .attacked_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69e60
+	ld de, WolfenbossFrameset_69e60
 .asm_565b3
 	inc l
 	xor a

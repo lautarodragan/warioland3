@@ -166,7 +166,7 @@ BrrrBearFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_69115
+	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
 .asm_48147
@@ -174,7 +174,7 @@ BrrrBearFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_69126
+	ld de, BrrrBearFrameset_69126
 	call SetObjectFramesetPtr
 	ret
 
@@ -187,14 +187,14 @@ BrrrBearFunc:
 	jr c, .asm_48166
 	xor a
 	ld [hld], a
-	ld de, Frameset_69115
+	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
 
 .asm_48166
 	xor a
 	ld [hld], a
-	ld de, Frameset_69126
+	ld de, BrrrBearFrameset_69126
 	call SetObjectFramesetPtr
 	ret
 
@@ -242,12 +242,12 @@ BrrrBearFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_481c3
-	ld de, Frameset_69115
+	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
 
 .asm_481c3
-	ld de, Frameset_69126
+	ld de, BrrrBearFrameset_69126
 	call SetObjectFramesetPtr
 	ret
 
@@ -289,7 +289,7 @@ BrrrBearFunc:
 	ld a, [hli]
 	rlca
 	jr c, .asm_4820d
-	ld de, Frameset_6913d
+	ld de, BrrrBearFrameset_6913d
 	jr .asm_48218
 .asm_4820d
 	ld a, $13
@@ -300,7 +300,7 @@ BrrrBearFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .asm_4820d
-	ld de, Frameset_6914c
+	ld de, BrrrBearFrameset_6914c
 .asm_48218
 	ld a, $2d
 	ld [hl], a
@@ -407,7 +407,7 @@ BrrrBearFunc:
 .asm_482c0
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69137, Frameset_6913a
+	ld_obj_frameset BrrrBearFrameset_69137, BrrrBearFrameset_6913a
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hld], a
@@ -423,7 +423,7 @@ BrrrBearFunc:
 .Func_482e0:
 	ld a, $46
 	ld [wCurObjState], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -442,7 +442,7 @@ BrrrBearFunc:
 .Func_48301:
 	ld a, $47
 	ld [wCurObjState], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -465,7 +465,7 @@ BrrrBearFunc:
 	ld a, $45
 .asm_48328
 	ld [wCurObjState], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -514,11 +514,11 @@ BrrrBearFunc:
 	add $2a
 	cp b
 	jr c, .asm_48385
-	ld de, Frameset_69183
+	ld de, BrrrBearFrameset_69183
 	res OBJSUBFLAG_HDIR_F, [hl]
 	jr .asm_4838a
 .asm_48385
-	ld de, Frameset_6918e
+	ld de, BrrrBearFrameset_6918e
 	set OBJSUBFLAG_HDIR_F, [hl]
 .asm_4838a
 	call SetObjectFramesetPtr
@@ -545,7 +545,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_69175, Frameset_6917c
+	ld_obj_frameset BrrrBearFrameset_69175, BrrrBearFrameset_6917c
 	call SetObjectFramesetPtr
 	ld a, $16
 	ld [hli], a
@@ -604,7 +604,7 @@ BrrrBearFunc:
 	ld a, $39
 .asm_48407
 	ld [hld], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld a, $04
 	ld [hli], a
@@ -679,7 +679,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_69164
+	ld de, BrrrBearFrameset_69164
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -713,7 +713,7 @@ BrrrBearFunc:
 .Func_484b4:
 	ld a, $49
 	ld [wCurObjState], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -730,7 +730,7 @@ BrrrBearFunc:
 .Func_484d3:
 	ld a, $48
 	ld [wCurObjState], a
-	ld de, Frameset_6915b
+	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -771,7 +771,7 @@ SnowflakeFunc:
 	ld a, [wCurObjState]
 	and a
 	ret z
-	ld de, Frameset_6916e
+	ld de, BrrrBearFrameset_6916e
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hli], a

@@ -168,23 +168,23 @@ Prologue:
 	ld hl, wSceneObj3State
 	call SetSceneObjState
 
-	ld hl, Pals_86a8d
+	ld hl, PrologueOBPals
 	ld de, wTempOBPals
 	ld c, 1 palettes
-	ld b, BANK(Pals_86a8d)
+	ld b, BANK(PrologueOBPals)
 	call CopyFarBytes
-	ld hl, Pals_86a0d
+	ld hl, PrologueMusicBoxBGPals
 	;	fallthrough
 
 .Func_ae0ab:
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_86a0d)
+	ld b, BANK(PrologueMusicBoxBGPals)
 	call CopyFarBytes
 
-	ld de, Data_ac9f5
+	ld de, PalConfig_BGFromTempPals1
 	call Func_ac9e9
-	ld de, Data_ac9ff
+	ld de, PalConfig_OB0FromTempOBPals
 	call Func_ac9e4
 	jp Prologue_Next
 
@@ -216,7 +216,7 @@ Prologue:
 	ld de, wTempOBPals
 	ld b, 1 palettes
 	call CopyHLToDE
-	ld hl, Pals_869cd
+	ld hl, PrologueBGPals
 	jr .Func_ae0ab
 
 .LoadTempleTilemap:
@@ -737,7 +737,7 @@ Prologue_WarioSuckedIntoMusicBox:
 	dec b
 	jr nz, .loop_set_pal
 
-	ld de, Data_ac9ff
+	ld de, PalConfig_OB0FromTempOBPals
 	call Func_ac9e4
 	jp Func_ae1ce
 
@@ -1211,7 +1211,7 @@ Prologue_WarioFallFromPlane:
 	ld a, [wSceneStepCounter]
 	and $03
 	jr z, .asm_ae740
-	ld de, Data_aed06
+	ld de, PrologueWarioFallMovement
 	ld hl, wSceneWario
 	call ApplyOWMovement
 	jr nz, .asm_ae740
@@ -1643,19 +1643,19 @@ Func_ae924:
 	ret
 
 Func_ae9d0:
-	ld de, Data_aee09
+	ld de, PlanePartArcMovement3
 	ld hl, wSceneObj3
 	call ApplyOWMovement
 	ret
 
 Func_ae9da:
-	ld de, Data_aedba
+	ld de, PlanePartArcMovement2
 	ld hl, wSceneObj3
 	call ApplyOWMovement
 	ret
 
 Func_ae9e4:
-	ld de, Data_aed6d
+	ld de, PlanePartArcMovement1
 	ld hl, wSceneObj3
 	call ApplyOWMovement
 	ret
@@ -1811,19 +1811,19 @@ Func_ae9ee:
 	ret
 
 .Func_aeaef:
-	ld de, Data_aed6d
+	ld de, PlanePartArcMovement1
 	ld hl, wSceneObj4
 	call ApplyOWMovement
 	ret
 
 .Func_aeaf9:
-	ld de, Data_aee09
+	ld de, PlanePartArcMovement3
 	ld hl, wSceneObj4
 	call ApplyOWMovement
 	ret
 
 .Func_aeb03:
-	ld de, Data_aee09
+	ld de, PlanePartArcMovement3
 	ld hl, wSceneObj4
 	call ApplyOWMovement
 	ret
@@ -1972,18 +1972,18 @@ Func_aeb0d:
 	ret
 
 .Func_aec0b:
-	ld de, Data_aed6d
+	ld de, PlanePartArcMovement1
 .Func_aec0e:
 	ld hl, wSceneObj5
 	call ApplyOWMovement
 	ret
 
 .Func_aec15:
-	ld de, Data_aee09
+	ld de, PlanePartArcMovement3
 	jr .Func_aec0e
 
 .Func_aec1a:
-	ld de, Data_aedba
+	ld de, PlanePartArcMovement2
 	jr .Func_aec0e
 
 Func_aec1f:
@@ -2106,21 +2106,21 @@ Func_aec1f:
 	ret
 
 .Func_aecf2:
-	ld de, Data_aedba
+	ld de, PlanePartArcMovement2
 .Func_aecf5:
 	ld hl, wSceneObj9
 	call ApplyOWMovement
 	ret
 
 .Func_aecfc:
-	ld de, Data_aed6d
+	ld de, PlanePartArcMovement1
 	jr .Func_aecf5
 
 .Func_aed01:
-	ld de, Data_aee09
+	ld de, PlanePartArcMovement3
 	jr .Func_aecf5
 
-Data_aed06:
+PrologueWarioFallMovement:
 	db  0, 0
 	db  0, 0
 	db  0, 1
@@ -2174,7 +2174,7 @@ Data_aed06:
 	db  2, 1
 	db $80
 
-Data_aed6d:
+PlanePartArcMovement1:
 	db  0, 0
 	db  0, 0
 	db  0, 1
@@ -2215,7 +2215,7 @@ Data_aed6d:
 	db  2, 2
 	db $80
 
-Data_aedba:
+PlanePartArcMovement2:
 	db  0, 0
 	db  0, 0
 	db  0, 1
@@ -2257,7 +2257,7 @@ Data_aedba:
 	db  1, 2
 	db $80
 
-Data_aee09:
+PlanePartArcMovement3:
 	db  0, 0
 	db  0, 0
 	db  0, 0
@@ -2403,15 +2403,15 @@ Func_af01f:
 	ldh [rSCY], a
 	ld [wSCY], a
 
-	ld hl, Pals_86add
+	ld hl, EpilogueBGPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_86add)
+	ld b, BANK(EpilogueBGPals)
 	call CopyFarBytes
-	ld hl, Pals_86b1d
+	ld hl, EpilogueOBPals
 	ld de, wTempPals2
 	ld c, 8 palettes
-	ld b, BANK(Pals_86b1d)
+	ld b, BANK(EpilogueOBPals)
 	call CopyFarBytes
 
 	decompress_tiles1 FontGfx, v1Tiles0
@@ -2556,15 +2556,15 @@ Func_af13c:
 	jp Func_af135
 .Func_af1bd:
 	call Func_aca09
-	ld hl, Pals_86add
+	ld hl, EpilogueBGPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_86add)
+	ld b, BANK(EpilogueBGPals)
 	call CopyFarBytes
-	ld hl, Pals_86b1d
+	ld hl, EpilogueOBPals
 	ld de, wTempPals2
 	ld c, 8 palettes
-	ld b, BANK(Pals_86b1d)
+	ld b, BANK(EpilogueOBPals)
 	call CopyFarBytes
 	ret
 .Func_af1db:
@@ -2656,10 +2656,10 @@ Func_af13c:
 	ld b, $1c
 	call .Func_af2ab
 
-	ld hl, Pals_86add
+	ld hl, EpilogueBGPals
 	ld de, wTempPals1
 	call .Func_af2b5
-	ld hl, Pals_86b1d
+	ld hl, EpilogueOBPals
 	ld de, wTempPals2
 	call .Func_af2b5
 
@@ -2679,7 +2679,7 @@ Func_af13c:
 	jp SetSceneObjState
 .Func_af2b5:
 	ld c, 8 palettes
-	ld b, BANK(Pals_86add) ; aka BANK(Pals_86b1d)
+	ld b, BANK(EpilogueBGPals) ; aka BANK(EpilogueOBPals)
 	jp CopyFarBytes
 .Func_af2bc:
 	ld c, $1e
@@ -2731,15 +2731,15 @@ Func_af13c:
 	ld a, $08
 	ld [wCollectionRow], a
 	call Func_aca09
-	ld hl, Pals_869cd
+	ld hl, PrologueBGPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_869cd)
+	ld b, BANK(PrologueBGPals)
 	call CopyFarBytes
-	ld hl, Pals_86b1d
+	ld hl, EpilogueOBPals
 	ld de, wTempPals2
 	ld c, 8 palettes
-	ld b, BANK(Pals_86b1d)
+	ld b, BANK(EpilogueOBPals)
 	call CopyFarBytes
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -3087,7 +3087,7 @@ Func_af13c:
 	ld a, [wSceneStepCounter]
 	and $03
 	jr z, .asm_af597
-	ld de, Data_aed06
+	ld de, PrologueWarioFallMovement
 	ld hl, wOWUIObj1YCoord
 	call ApplyOWMovement_Mirrored
 	jr nz, .asm_af597
@@ -3172,7 +3172,7 @@ Func_af13c:
 	and a
 	jr z, .asm_af622
 	ld hl, wSceneObj9
-	ld de, Data_aed06
+	ld de, PrologueWarioFallMovement
 	call ApplyOWMovement_Mirrored
 	jr nz, .asm_af622
 	xor a
@@ -3497,7 +3497,7 @@ Func_af13c:
 	ld a, $48
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
+	ld de, PalConfig_OBFromTempPals2
 	call Func_ac9e4
 	jp .asm_af40c
 
@@ -3523,7 +3523,7 @@ Func_af13c:
 	ld a, $58
 	ld [wSceneObj9XCoord], a
 	call .Func_af1db
-	ld de, Data_aca04
+	ld de, PalConfig_OBFromTempPals2
 	call Func_ac9e4
 	jp .asm_af40c
 

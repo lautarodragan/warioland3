@@ -7,7 +7,7 @@ WaterSparkFunc:
 	ld [hld], a
 	ld a, LOW(.Func_4a482)
 	ld [hld], a
-	ld de, Frameset_69b1e
+	ld de, WaterSparkFrameset_69b1e
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -32,7 +32,7 @@ WaterSparkFunc:
 	ld [hld], a
 	ld a, LOW(.Func_4a49d)
 	ld [hld], a
-	ld de, Frameset_69b12
+	ld de, WaterSparkFrameset_69b12
 	call SetObjectFramesetPtr
 	ld a, 100
 	ld [hli], a
@@ -49,5 +49,5 @@ WaterSparkFunc:
 	ld [hld], a
 	ld a, LOW(.Func_4a482)
 	ld [hld], a
-	ld de, Frameset_69b1e
+	ld de, WaterSparkFrameset_69b1e
 	jp SetObjectFramesetPtr

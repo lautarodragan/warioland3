@@ -1,7 +1,7 @@
 LoadPauseMenuPals:
-	ld hl, Pals_1f4182
+	ld hl, PauseMenuBGPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_1f41c2
+	ld hl, PauseMenuOBPals
 	call LoadPalsToTempPals2
 	ret
 
@@ -162,9 +162,9 @@ Func_1f403f:
 	ret
 
 LoadSaveScreenPals:
-	ld hl, Pals_1f628c
+	ld hl, PauseMenuPals_1f628c
 	call LoadPalsToTempPals1
-	ld hl, Pals_1f628c
+	ld hl, PauseMenuPals_1f628c
 	call LoadPalsToTempPals2
 	ret
 
@@ -213,7 +213,7 @@ DrawSaveCompleteBox:
 	call Decompress
 	ret
 
-Pals_1f4182:
+PauseMenuBGPals:
 	rgb 31, 31, 31
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -254,7 +254,7 @@ Pals_1f4182:
 	rgb  9, 10, 31
 	rgb  0,  0,  0
 
-Pals_1f41c2:
+PauseMenuOBPals:
 	rgb  0, 22, 16
 	rgb 21, 21, 19
 	rgb 10, 10,  8
@@ -313,7 +313,7 @@ PauseMenuAttrmap: INCBIN "data/bgmaps/pause_menu.attrmap.rle"
 TimeAttackPauseMenuTilemap: INCBIN "data/bgmaps/time_attack_pause_menu.tilemap.rle"
 TimeAttackPauseMenuAttrmap: INCBIN "data/bgmaps/time_attack_pause_menu.attrmap.rle"
 
-Pals_1f628c:
+PauseMenuPals_1f628c:
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10

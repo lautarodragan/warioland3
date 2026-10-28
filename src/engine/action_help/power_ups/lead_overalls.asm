@@ -476,15 +476,15 @@ Func_1f8bda:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f66)
+	ld a, HIGH(ActionHelpFrameset_1e6f66)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f66)
+	ld a, LOW(ActionHelpFrameset_1e6f66)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -499,15 +499,15 @@ Func_1f8bda:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6b8b)
+	ld a, HIGH(ActionHelpFrameset_1e6b8b)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6b8b)
+	ld a, LOW(ActionHelpFrameset_1e6b8b)
 	ld [hli], a
-	ld a, HIGH(OAM_1e697c)
+	ld a, HIGH(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, LOW(OAM_1e697c)
+	ld a, LOW(ActionHelpOAM_1e697c)
 	ld [hli], a
-	ld a, BANK(OAM_1e697c)
+	ld a, BANK(ActionHelpOAM_1e697c)
 	ld [hli], a
 	xor a
 	ld [hl], a
@@ -602,9 +602,9 @@ Func_1f8cbb:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f7d)
+	ld a, HIGH(ActionHelpFrameset_1e6f7d)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f7d)
+	ld a, LOW(ActionHelpFrameset_1e6f7d)
 	ld [hli], a
 	ld a, $10
 	ld [wTimer], a
@@ -700,9 +700,9 @@ Func_1f8d72:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f6b)
+	ld a, HIGH(ActionHelpFrameset_1e6f6b)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f6b)
+	ld a, LOW(ActionHelpFrameset_1e6f6b)
 
 	ld [hli], a
 	ld hl, wActionHelpState

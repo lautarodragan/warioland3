@@ -709,7 +709,7 @@ Func_80af5:
 	ld a, EVENT_REVEAL_CASTLE
 	call Func_819c6
 	ret z
-	ld hl, Data_8561f
+	ld hl, SOWTilemapPatch_RevealCastle
 	farcall Func_854ee
 	ret
 

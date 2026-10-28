@@ -50,9 +50,9 @@ InitPauseMenu_SkipBackupVRAM:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cb8)
+	ld a, HIGH(PauseMenuFrameset_1f1cb8)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cb8)
+	ld a, LOW(PauseMenuFrameset_1f1cb8)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj2
@@ -68,9 +68,9 @@ InitPauseMenu_SkipBackupVRAM:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1cd4)
+	ld a, HIGH(PauseMenuFrameset_1f1cd4)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cd4)
+	ld a, LOW(PauseMenuFrameset_1f1cd4)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj3
@@ -91,9 +91,9 @@ InitPauseMenu_SkipBackupVRAM:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c4a)
+	ld a, HIGH(PauseMenuFrameset_1f1c4a)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c4a)
+	ld a, LOW(PauseMenuFrameset_1f1c4a)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj4
@@ -115,9 +115,9 @@ InitPauseMenu_SkipBackupVRAM:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c4d)
+	ld a, HIGH(PauseMenuFrameset_1f1c4d)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c4d)
+	ld a, LOW(PauseMenuFrameset_1f1c4d)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj5
@@ -139,9 +139,9 @@ InitPauseMenu_SkipBackupVRAM:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c4a)
+	ld a, HIGH(PauseMenuFrameset_1f1c4a)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c4a)
+	ld a, LOW(PauseMenuFrameset_1f1c4a)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj6
@@ -163,9 +163,9 @@ InitPauseMenu_SkipBackupVRAM:
 	xor a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1f1c4d)
+	ld a, HIGH(PauseMenuFrameset_1f1c4d)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1c4d)
+	ld a, LOW(PauseMenuFrameset_1f1c4d)
 	ld [hl], a
 	call UpdateObjAnim
 	ld hl, wMenuObj7
@@ -187,15 +187,15 @@ InitPauseMenu_SkipBackupVRAM:
 	ld a, [wKeyAndTreasureFlags]
 	bit GREY_TREASURE_F, a
 	jr z, .no_grey_treasure
-	ld a, HIGH(Frameset_1f1cf0)
+	ld a, HIGH(PauseMenuFrameset_1f1cf0)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf0)
+	ld a, LOW(PauseMenuFrameset_1f1cf0)
 	ld [hl], a
 	jr .set_grey_treasure_sprite
 .no_grey_treasure
-	ld a, HIGH(Frameset_1f1ced)
+	ld a, HIGH(PauseMenuFrameset_1f1ced)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1ced)
+	ld a, LOW(PauseMenuFrameset_1f1ced)
 	ld [hl], a
 .set_grey_treasure_sprite
 	call UpdateObjAnim
@@ -217,15 +217,15 @@ InitPauseMenu_SkipBackupVRAM:
 	ld a, [wKeyAndTreasureFlags]
 	bit RED_TREASURE_F, a
 	jr z, .no_red_treasure
-	ld a, HIGH(Frameset_1f1cf6)
+	ld a, HIGH(PauseMenuFrameset_1f1cf6)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf6)
+	ld a, LOW(PauseMenuFrameset_1f1cf6)
 	ld [hl], a
 	jr .set_red_treasure_sprite
 .no_red_treasure
-	ld a, HIGH(Frameset_1f1cf3)
+	ld a, HIGH(PauseMenuFrameset_1f1cf3)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf3)
+	ld a, LOW(PauseMenuFrameset_1f1cf3)
 	ld [hl], a
 .set_red_treasure_sprite
 	call UpdateObjAnim
@@ -247,15 +247,15 @@ InitPauseMenu_SkipBackupVRAM:
 	ld a, [wKeyAndTreasureFlags]
 	bit GREEN_TREASURE_F, a
 	jr z, .no_green_treasure
-	ld a, HIGH(Frameset_1f1cf0)
+	ld a, HIGH(PauseMenuFrameset_1f1cf0)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf0)
+	ld a, LOW(PauseMenuFrameset_1f1cf0)
 	ld [hl], a
 	jr .set_green_treasure_sprite
 .no_green_treasure
-	ld a, HIGH(Frameset_1f1ced)
+	ld a, HIGH(PauseMenuFrameset_1f1ced)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1ced)
+	ld a, LOW(PauseMenuFrameset_1f1ced)
 	ld [hl], a
 .set_green_treasure_sprite
 	call UpdateObjAnim
@@ -277,15 +277,15 @@ InitPauseMenu_SkipBackupVRAM:
 	ld a, [wKeyAndTreasureFlags]
 	bit BLUE_TREASURE_F, a
 	jr z, .no_blue_treasure
-	ld a, HIGH(Frameset_1f1cf6)
+	ld a, HIGH(PauseMenuFrameset_1f1cf6)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf6)
+	ld a, LOW(PauseMenuFrameset_1f1cf6)
 	ld [hl], a
 	jr .set_blue_treasure_sprite
 .no_blue_treasure
-	ld a, HIGH(Frameset_1f1cf3)
+	ld a, HIGH(PauseMenuFrameset_1f1cf3)
 	ld [hli], a
-	ld a, LOW(Frameset_1f1cf3)
+	ld a, LOW(PauseMenuFrameset_1f1cf3)
 	ld [hl], a
 .set_blue_treasure_sprite
 	call UpdateObjAnim

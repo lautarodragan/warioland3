@@ -6,7 +6,7 @@ KushimushiVerticalFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_6861b
+	ld de, KushimushiFrameset_6861b
 	call SetObjectFramesetPtr
 	ld a, $60
 	ld [hli], a
@@ -56,10 +56,10 @@ KushimushiVerticalFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_42a27
-	ld de, Frameset_6862a
+	ld de, KushimushiFrameset_6862a
 	jp SetObjectFramesetPtr
 .asm_42a27
-	ld de, Frameset_6862f
+	ld de, KushimushiFrameset_6862f
 	jp SetObjectFramesetPtr
 .asm_42a2d
 	ld a, HIGH(Func_33f8)
@@ -99,7 +99,7 @@ KushimushiVerticalFunc:
 	ld [hld], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld de, Frameset_68698
+	ld de, KushimushiFrameset_68698
 	jp SetObjectFramesetPtr
 
 .asm_42a68
@@ -131,7 +131,7 @@ KushimushiVerticalFunc:
 .move_down
 	dec [hl] ; OBJ_STATE_DURATION
 	jp nz, MoveObjectDown
-	ld de, Frameset_6863f
+	ld de, KushimushiFrameset_6863f
 	ld b, $1
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
@@ -139,7 +139,7 @@ KushimushiVerticalFunc:
 .turn_around_up
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
-	ld de, Frameset_68616
+	ld de, KushimushiFrameset_68616
 	ld b, $2
 	ld c, OBJ_INTERACTION_TOP_STING
 	ld a, 96
@@ -147,7 +147,7 @@ KushimushiVerticalFunc:
 .move_up
 	dec [hl] ; OBJ_STATE_DURATION
 	jp nz, MoveObjectUp
-	ld de, Frameset_68634
+	ld de, KushimushiFrameset_68634
 	ld b, $3
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
@@ -155,7 +155,7 @@ KushimushiVerticalFunc:
 .turn_around_down
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
-	ld de, Frameset_6861b
+	ld de, KushimushiFrameset_6861b
 	ld b, $0
 	ld c, OBJ_INTERACTION_BOTTOM_STING
 	ld a, 96
@@ -200,10 +200,10 @@ KushimushiVerticalFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_42b0f
-	ld de, Frameset_68620
+	ld de, KushimushiFrameset_68620
 	jp SetObjectFramesetPtr
 .asm_42b0f
-	ld de, Frameset_68625
+	ld de, KushimushiFrameset_68625
 	jp SetObjectFramesetPtr
 .asm_42b15
 	ld l, OBJ_VAR_2
@@ -232,7 +232,7 @@ KushimushiVerticalFunc:
 .move_right
 	dec [hl] ; OBJ_STATE_DURATION
 	jp nz, MoveObjectRight
-	ld de, Frameset_68655
+	ld de, KushimushiFrameset_68655
 	ld b, $1
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
@@ -240,14 +240,14 @@ KushimushiVerticalFunc:
 .turn_around_left
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
-	ld de, Frameset_6860c
+	ld de, KushimushiFrameset_6860c
 	ld b, $2
 	ld c, OBJ_INTERACTION_FRONT_STING
 	jr .flip_direction
 .move_left
 	dec [hl] ; OBJ_STATE_DURATION
 	jp nz, MoveObjectLeft
-	ld de, Frameset_6864a
+	ld de, KushimushiFrameset_6864a
 	ld b, $3
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
@@ -255,7 +255,7 @@ KushimushiVerticalFunc:
 .turn_around_right
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
-	ld de, Frameset_68611
+	ld de, KushimushiFrameset_68611
 	ld b, $0
 	ld c, OBJ_INTERACTION_FRONT_STING
 .flip_direction
@@ -283,7 +283,7 @@ KushimushiHorizontalFunc:
 	ld [hld], a
 	ld a, LOW(KushimushiVerticalFunc.Func_42acf)
 	ld [hld], a
-	ld de, Frameset_68611
+	ld de, KushimushiFrameset_68611
 	call SetObjectFramesetPtr
 	ld a, $60
 	ld [hli], a

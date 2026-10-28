@@ -331,10 +331,10 @@ Func_b4247:
 	xor a
 	ldh [rVBK], a
 
-	ld hl, Pals_84a20
+	ld hl, TopBarOBPals
 	ld de, wTempPals2 palette 4
 	ld c, 4 palettes
-	ld b, BANK(Pals_84a20)
+	ld b, BANK(TopBarOBPals)
 	call CopyFarBytes
 
 	ld hl, wSceneObj5
@@ -391,7 +391,7 @@ Func_b431f:
 	jr z, .asm_b4339
 	and a
 	ret z
-	ld hl, Data_8550b
+	ld hl, WOWTilemapPatch_Rain
 	farcall Func_854ee
 	ret
 .asm_b4339
@@ -495,7 +495,7 @@ Func_b43dd:
 	ret z
 	dec a
 	jr nz, .asm_b43e9
-	ld hl, Data_85549
+	ld hl, WOWTilemapPatch_Earthquake
 	jp Func_b586d
 .asm_b43e9
 	ld hl, wSceneObj11
@@ -552,7 +552,7 @@ Func_b4448:
 	sla a
 	jr c, .asm_b4455
 .asm_b444f
-	ld hl, Data_85536
+	ld hl, WOWTilemapPatch_VulcanoEruption
 	jp Func_b586d
 .asm_b4455
 	ld a, [wOWSceneActionParam]
@@ -579,7 +579,7 @@ Func_b4474:
 	ld a, [wEventUnlockState]
 	add a
 	jr z, .asm_b448f
-	ld hl, Data_8556e
+	ld hl, WOWTilemapPatch_RedMusicBox
 	jp Func_b586d
 .asm_b448f
 	xor a
@@ -676,7 +676,7 @@ Func_b4520:
 	jr z, .asm_b4542
 	dec c
 	ret nz
-	ld hl, Data_855b2
+	ld hl, SOWTilemapPatch_CanyonThunder
 	farcall Func_854ee
 .asm_b4539
 	ld hl, wSceneObj5
@@ -733,7 +733,7 @@ Func_b4567:
 	db $50, $78, $0c
 
 .asm_b459a
-	ld hl, Data_85579
+	ld hl, SOWTilemapPatch_RaiseTower
 	farcall Func_854ee
 	ld a, [wCurEvent]
 	and a
@@ -805,7 +805,7 @@ Func_b461b:
 	ret z
 	sla c
 	jr c, .asm_b4628
-	ld hl, Data_855f9
+	ld hl, SOWTilemapPatch_Earthquake
 	jp Func_b586d
 .asm_b4628
 	ld hl, wSceneObj2
@@ -822,7 +822,7 @@ Func_b4637:
 	ret z
 	sla c
 	jr c, .asm_b4644
-	ld hl, Data_8560e
+	ld hl, SOWTilemapPatch_GreenMusicBox
 	jp Func_b586d
 .asm_b4644
 	ld hl, wSceneObj2
@@ -920,7 +920,7 @@ Func_b46d9:
 	jr z, .asm_b46e7
 	cp $80
 	jr z, .asm_b46f0
-	ld hl, Data_8563e
+	ld hl, EOWTilemapPatch_Earthquake
 	jp Func_b586d
 .asm_b46e7
 	ld hl, wSceneObj6
@@ -954,17 +954,17 @@ Func_b4712:
 	cp c
 	jr z, .asm_b4741
 
-	ld hl, Data_85af4
+	ld hl, EOWTilemapPatch_FormCastle1
 	call Func_b586d
-	ld hl, Data_85afd
+	ld hl, EOWTilemapPatch_FormCastle2
 	call Func_b586d
-	ld hl, Data_85b0a
+	ld hl, EOWTilemapPatch_FormCastle3
 	call Func_b586d
-	ld hl, Data_85b1b
+	ld hl, EOWTilemapPatch_FormCastle4
 	call Func_b586d
-	ld hl, Data_85b2c
+	ld hl, EOWTilemapPatch_FormCastle5
 	call Func_b586d
-	ld hl, Data_85b3d
+	ld hl, EOWTilemapPatch_FormCastle6
 	jp Func_b586d
 
 .asm_b4741
@@ -1046,7 +1046,7 @@ Func_b4792:
 	call LoadOverworldFireGfx
 
 .asm_b47dc
-	ld hl, Data_85b48
+	ld hl, EOWTilemapPatch_VulcanoEruption
 	jp Func_b586d
 
 .data_1
@@ -1478,94 +1478,94 @@ Func_b4ba2:
 	dw Func_b4c11
 
 Func_b4be9:
-	ld de, Frameset_a9e61
+	ld de, EastOWObjFrameset_a9e61
 	jr Func_b4c57
 
 Func_b4bee:
-	ld de, Frameset_a9e72
+	ld de, EastOWObjFrameset_a9e72
 	jr Func_b4c57
 
 Func_b4bf3:
-	ld de, Frameset_a9e75
+	ld de, EastOWObjFrameset_a9e75
 	jr Func_b4c57
 
 Func_b4bf8:
-	ld de, Frameset_a9e94
+	ld de, EastOWObjFrameset_a9e94
 	jr Func_b4c57
 
 Func_b4bfd:
-	ld de, Frameset_a9e7a
+	ld de, EastOWObjFrameset_a9e7a
 	jr Func_b4c60
 
 Func_b4c02:
-	ld de, Frameset_a9e8c
+	ld de, EastOWObjFrameset_a9e8c
 	jr Func_b4c57
 
 Func_b4c07:
-	ld de, Frameset_a9e91
+	ld de, EastOWObjFrameset_a9e91
 	jr Func_b4c57
 
 Func_b4c0c:
-	ld de, Frameset_a9fd0
+	ld de, EastOWObjFrameset_a9fd0
 	jr Func_b4c60
 
 Func_b4c11:
-	ld de, Frameset_a9e99
+	ld de, EastOWObjFrameset_a9e99
 	jr Func_b4c60
 
 Func_b4c16:
-	ld de, Frameset_a9ed3
+	ld de, EastOWObjFrameset_a9ed3
 	jr Func_b4c57
 
 Func_b4c1b:
-	ld de, Frameset_a9eea
+	ld de, EastOWObjFrameset_a9eea
 	call UpdateCurOWObjAnimation
 	ld b, $0b
 	jr Func_b4c65
 
 Func_b4c25:
-	ld de, Frameset_a9ef1
+	ld de, EastOWObjFrameset_a9ef1
 	jr Func_b4c57
 
 Func_b4c2a:
-	ld de, Frameset_a9ee3
+	ld de, EastOWObjFrameset_a9ee3
 	jr Func_b4c57
 
 Func_b4c2f:
-	ld de, Frameset_a9ef6
+	ld de, EastOWObjFrameset_a9ef6
 	call UpdateCurOWObjAnimation
 	ld b, $0e
 	jr Func_b4c65
 
 Func_b4c39:
-	ld de, Frameset_a9efd
+	ld de, EastOWObjFrameset_a9efd
 	jr Func_b4c57
 
 Func_b4c3e:
-	ld de, Frameset_a9ee0
+	ld de, EastOWObjFrameset_a9ee0
 	jr Func_b4c57
 
 Func_b4c43:
-	ld de, Frameset_a9f02
+	ld de, EastOWObjFrameset_a9f02
 	jr Func_b4c57
 
 Func_b4c48:
-	ld de, Frameset_a9f0d
+	ld de, EastOWObjFrameset_a9f0d
 	jr Func_b4c57
 
 Func_b4c4d:
-	ld de, Frameset_a9ecd
+	ld de, EastOWObjFrameset_a9ecd
 	jr Func_b4c57
 
 Func_b4c52:
-	ld de, Frameset_a9ed0
+	ld de, EastOWObjFrameset_a9ed0
 	jr Func_b4c57 ; useless jump
 
 Func_b4c57:
 	call UpdateCurOWObjAnimation
 ;	fallthrough
 Func_b4c5a:
-	ld de, OAM_a980c
+	ld de, EastOWObjOAM_a980c
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b4c60:
@@ -1579,65 +1579,65 @@ Func_b4c65:
 	jr Func_b4c5a
 
 Func_b4c6d:
-	ld de, Frameset_a9eaa
+	ld de, EastOWObjFrameset_a9eaa
 	jr Func_b4c57
 
 Func_b4c72:
-	ld de, Frameset_a9eb3
+	ld de, EastOWObjFrameset_a9eb3
 	jr Func_b4c57
 
 Func_b4c77:
-	ld de, Frameset_a9ebc
+	ld de, EastOWObjFrameset_a9ebc
 	jr Func_b4c57
 
 Func_b4c7c:
-	ld de, Frameset_a9ec5
+	ld de, EastOWObjFrameset_a9ec5
 	jr Func_b4c57
 
 Func_b4c81:
-	ld de, Frameset_a9ec8
+	ld de, EastOWObjFrameset_a9ec8
 	jr Func_b4c60
 
 Func_b4c86:
-	ld de, Frameset_a9f36
+	ld de, EastOWObjFrameset_a9f36
 	jr Func_b4c57
 
 Func_b4c8b:
-	ld de, Frameset_a9f47
+	ld de, EastOWObjFrameset_a9f47
 	call UpdateCurOWObjAnimation
 	ld b, $1b
 	jr Func_b4c65
 
 Func_b4c95:
-	ld de, Frameset_a9f76
+	ld de, EastOWObjFrameset_a9f76
 	call UpdateCurOWObjAnimation
 	ld b, $19
 	jr Func_b4c65
 
 Func_b4c9f:
-	ld de, Frameset_a9fa7
+	ld de, EastOWObjFrameset_a9fa7
 	jr Func_b4c57
 
 Func_b4ca4:
-	ld de, Frameset_a9faa
+	ld de, EastOWObjFrameset_a9faa
 	call UpdateCurOWObjAnimation
 	ld b, $1c
 	jr Func_b4c65
 
 Func_b4cae:
-	ld de, Frameset_a9fc9
+	ld de, EastOWObjFrameset_a9fc9
 	jr Func_b4c57
 
 Func_b4cb3:
-	ld de, Frameset_a9fbb
+	ld de, EastOWObjFrameset_a9fbb
 	jr Func_b4c57
 
 Func_b4cb8:
-	ld de, Frameset_a9fc2
+	ld de, EastOWObjFrameset_a9fc2
 	jr Func_b4c57
 
 Func_b4cbd:
-	ld de, Frameset_a9fdf
+	ld de, EastOWObjFrameset_a9fdf
 	jr Func_b4c57
 
 Func_b4cc2:
@@ -1687,105 +1687,105 @@ Func_b4ccb:
 	dw Func_b4df6
 
 Func_b4d0e:
-	ld de, Frameset_a96c0
+	ld de, SouthOWObjFrameset_a96c0
 	jp Func_b4da0
 
 Func_b4d14:
-	ld de, Frameset_a968d
+	ld de, SouthOWObjFrameset_a968d
 	call UpdateCurOWObjAnimation
 	ld b, $01
 	jp Func_b4dae
 
 Func_b4d1f:
-	ld de, Frameset_a967d
+	ld de, SouthOWObjFrameset_a967d
 	jp Func_b4da0
 
 Func_b4d25:
-	ld de, Frameset_a9680
+	ld de, SouthOWObjFrameset_a9680
 	jp Func_b4da0
 
 Func_b4d2b:
-	ld de, Frameset_a9674
+	ld de, SouthOWObjFrameset_a9674
 	jp Func_b4da0
 
 Func_b4d31:
-	ld de, Frameset_a9680
+	ld de, SouthOWObjFrameset_a9680
 	call UpdateCurOWObjAnimation
 	ld b, $03
 	jp Func_b4dae
 
 Func_b4d3c:
-	ld de, Frameset_a96af
+	ld de, SouthOWObjFrameset_a96af
 	jr Func_b4da0
 
 Func_b4d41:
-	ld de, Frameset_a96b2
+	ld de, SouthOWObjFrameset_a96b2
 	call UpdateCurOWObjAnimation
 	ld b, $09
 	jr Func_b4dae
 
 Func_b4d4b:
-	ld de, Frameset_a96bd
+	ld de, SouthOWObjFrameset_a96bd
 	jr Func_b4da0
 
 Func_b4d50:
-	ld de, Frameset_a96d1
+	ld de, SouthOWObjFrameset_a96d1
 	jr Func_b4da0
 
 Func_b4d55:
-	ld de, Frameset_a969a
+	ld de, SouthOWObjFrameset_a969a
 	jr Func_b4da0
 
 Func_b4d5a:
-	ld de, Frameset_a96a3
+	ld de, SouthOWObjFrameset_a96a3
 	jr Func_b4da0
 
 Func_b4d5f:
-	ld de, Frameset_a96a6
+	ld de, SouthOWObjFrameset_a96a6
 	jr Func_b4da0
 
 Func_b4d64:
-	ld de, Frameset_a96a9
+	ld de, SouthOWObjFrameset_a96a9
 	jr Func_b4da0
 
 Func_b4d69:
-	ld de, Frameset_a96ac
+	ld de, SouthOWObjFrameset_a96ac
 	jr Func_b4da0
 
 Func_b4d6e:
-	ld de, Frameset_a96d8
+	ld de, SouthOWObjFrameset_a96d8
 	jr Func_b4da0
 
 Func_b4d73:
-	ld de, Frameset_a96e1
+	ld de, SouthOWObjFrameset_a96e1
 	jr Func_b4da9
 
 Func_b4d78:
-	ld de, Frameset_a96ea
+	ld de, SouthOWObjFrameset_a96ea
 	jr Func_b4da9
 
 Func_b4d7d:
-	ld de, Frameset_a96ef
+	ld de, SouthOWObjFrameset_a96ef
 	call UpdateCurOWObjAnimation
 	ld b, $15
 	jr Func_b4dae
 
 Func_b4d87:
-	ld de, Frameset_a974a
+	ld de, SouthOWObjFrameset_a974a
 	call UpdateCurOWObjAnimation
 	ld b, $15
 	jr Func_b4dae
 
 Func_b4d91:
-	ld de, Frameset_a979f
+	ld de, SouthOWObjFrameset_a979f
 	jr Func_b4da0
 
 Func_b4d96:
-	ld de, Frameset_a97a2
+	ld de, SouthOWObjFrameset_a97a2
 	jr Func_b4da0
 
 Func_b4d9b:
-	ld de, Frameset_a97ad
+	ld de, SouthOWObjFrameset_a97ad
 	jr Func_b4da9
 
 Func_b4da0:
@@ -1793,7 +1793,7 @@ Func_b4da0:
 ;	fallthrough
 
 Func_b4da3:
-	ld de, OAM_a9161
+	ld de, SouthOWObjOAM_a9161
 	jp LoadCurSceneObjSpriteWithScroll
 ;	fallthrough
 
@@ -1808,20 +1808,20 @@ Func_b4dae:
 	jr Func_b4da3
 
 Func_b4db6:
-	ld de, Frameset_a97e1
+	ld de, SouthOWObjFrameset_a97e1
 	jr Func_b4da0
 
 Func_b4dbb:
-	ld de, Frameset_a97ec
+	ld de, SouthOWObjFrameset_a97ec
 	jr Func_b4da0
 
 Func_b4dc0:
-	ld de, Frameset_a97d4
+	ld de, SouthOWObjFrameset_a97d4
 	call UpdateCurOWObjAnimation
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	call z, Func_b4dd4
-	ld de, OAM_a9161
+	ld de, SouthOWObjOAM_a9161
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b4dd4:
@@ -1829,25 +1829,25 @@ Func_b4dd4:
 	ret
 
 Func_b4ddd:
-	ld de, Frameset_a97c5
+	ld de, SouthOWObjFrameset_a97c5
 	jr Func_b4da9
 
 Func_b4de2:
-	ld de, Frameset_a97ef
+	ld de, SouthOWObjFrameset_a97ef
 	jr Func_b4da9
 
 Func_b4de7:
-	ld de, Frameset_a97b2
+	ld de, SouthOWObjFrameset_a97b2
 	call UpdateCurOWObjAnimation
 	ld b, $15
 	jr Func_b4dae
 
 Func_b4df1:
-	ld de, Frameset_a97fe
+	ld de, SouthOWObjFrameset_a97fe
 	jr Func_b4da0
 
 Func_b4df6:
-	ld de, Frameset_a9803
+	ld de, SouthOWObjFrameset_a9803
 	jr Func_b4da0
 
 Func_b4dfb:
@@ -1904,7 +1904,7 @@ Func_b4e4d:
 ;	fallthrough
 
 Func_b4e50:
-	ld de, OAM_a884a
+	ld de, WestOWObjOAM_a884a
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b4e56:
@@ -1922,7 +1922,7 @@ Func_b4e62:
 ;	fallthrough
 
 Func_b4e65:
-	ld de, OAM_a8f57
+	ld de, WestOWObjOAM_a8f57
 	jp LoadCurSceneObjSpriteWithScroll
 
 ; unreferenced
@@ -1937,24 +1937,24 @@ Func_b4e70:
 	jr Func_b4e65
 
 Func_b4e77:
-	ld de, Frameset_a8de9
+	ld de, WestOWObjFrameset_a8de9
 	jr Func_b4e56
 
 Func_b4e7c:
-	ld de, Frameset_a8de2
+	ld de, WestOWObjFrameset_a8de2
 	jr Func_b4e4d
 
 Func_b4e81:
-	ld de, Frameset_a8dd1
+	ld de, WestOWObjFrameset_a8dd1
 	jr Func_b4e4d
 
 Func_b4e86:
-	ld de, Frameset_a8e1e
+	ld de, WestOWObjFrameset_a8e1e
 	jr Func_b4e56
 
 Func_b4e8b:
 	push bc
-	ld de, Frameset_a8e29
+	ld de, WestOWObjFrameset_a8e29
 	call UpdateCurOWObjAnimation
 	pop hl
 	ld a, [wOWIsNight]
@@ -1969,11 +1969,11 @@ Func_b4e8b:
 	jr Func_b4e50
 
 Func_b4ea4:
-	ld de, Frameset_a8e2c
+	ld de, WestOWObjFrameset_a8e2c
 	jr Func_b4e4d
 
 Func_b4ea9:
-	ld de, Frameset_a8e5d
+	ld de, WestOWObjFrameset_a8e5d
 	call Func_b4e56
 	ld a, [wSceneObj7State]
 	and a
@@ -1984,101 +1984,101 @@ Func_b4ea9:
 	ret
 
 Func_b4ebd:
-	ld de, Frameset_a8e6c
+	ld de, WestOWObjFrameset_a8e6c
 	jr Func_b4e4d
 
 Func_b4ec2:
-	ld de, Frameset_a8df8
+	ld de, WestOWObjFrameset_a8df8
 	jp Func_b4e4d
 
 Func_b4ec8:
-	ld de, Frameset_a8e04
+	ld de, WestOWObjFrameset_a8e04
 	call UpdateCurOWObjAnimation
 	ld b, $0c
 	jr Func_b4e5b
 
 Func_b4ed2:
-	ld de, Frameset_a8e01
+	ld de, WestOWObjFrameset_a8e01
 	jp Func_b4e4d
 
 Func_b4ed8:
-	ld de, Frameset_a8e11
+	ld de, WestOWObjFrameset_a8e11
 	call UpdateCurOWObjAnimation
 	ld b, $0e
 	jp Func_b4e5b
 
 Func_b4ee3:
-	ld de, Frameset_a8f17
+	ld de, WestOWObjFrameset_a8f17
 	jp Func_b4e4d
 
 Func_b4ee9:
-	ld de, Frameset_a9090
+	ld de, WestOWObjFrameset_a9090
 	call UpdateCurOWObjAnimation
 	ld b, $11
 	jp Func_b4e70
 
 Func_b4ef4:
-	ld de, Frameset_a90eb
+	ld de, WestOWObjFrameset_a90eb
 	call UpdateCurOWObjAnimation
 	ld b, $11
 	jp Func_b4e70
 
 Func_b4eff:
-	ld de, Frameset_a9140
+	ld de, WestOWObjFrameset_a9140
 	jp Func_b4e62
 
 Func_b4f05:
-	ld de, Frameset_a9143
+	ld de, WestOWObjFrameset_a9143
 	jp Func_b4e62
 
 Func_b4f0b:
-	ld de, Frameset_a914e
+	ld de, WestOWObjFrameset_a914e
 	call UpdateCurOWObjAnimation
 	ld b, $11
 	jp Func_b4e70
 
 Func_b4f16:
-	ld de, Frameset_a8e9d
+	ld de, WestOWObjFrameset_a8e9d
 	jp Func_b4e56
 
 Func_b4f1c:
-	ld de, Frameset_a8eac
+	ld de, WestOWObjFrameset_a8eac
 	jp Func_b4e56
 
 Func_b4f22:
-	ld de, Frameset_a8eb7
+	ld de, WestOWObjFrameset_a8eb7
 	jp Func_b4e56
 
 Func_b4f28:
-	ld de, Frameset_a8ec2
+	ld de, WestOWObjFrameset_a8ec2
 	jp Func_b4e4d
 
 Func_b4f2e:
-	ld de, Frameset_a8ec7
+	ld de, WestOWObjFrameset_a8ec7
 	jp Func_b4e4d
 
 Func_b4f34:
-	ld de, Frameset_a8eca
+	ld de, WestOWObjFrameset_a8eca
 	jp Func_b4e4d
 
 Func_b4f3a:
-	ld de, Frameset_a8eca
+	ld de, WestOWObjFrameset_a8eca
 	jp Func_b4e56
 
 Func_b4f40:
-	ld de, Frameset_a8ed3
+	ld de, WestOWObjFrameset_a8ed3
 	jp Func_b4e4d
 
 Func_b4f46:
-	ld de, Frameset_a8eda
+	ld de, WestOWObjFrameset_a8eda
 	jp Func_b4e4d
 
 Func_b4f4c:
-	ld de, Frameset_a8ee1
+	ld de, WestOWObjFrameset_a8ee1
 	jp Func_b4e4d
 
 Func_b4f52:
-	ld de, Frameset_a8ee8
+	ld de, WestOWObjFrameset_a8ee8
 	call Func_b4e4d
 ;	fallthrough
 
@@ -2107,24 +2107,24 @@ Func_b4f58:
 	rgb 31,  0, 10
 
 Func_b4f82:
-	ld de, Frameset_a8ee8
+	ld de, WestOWObjFrameset_a8ee8
 	call Func_b4e56
 	jr Func_b4f58
 
 Func_b4f8a:
-	ld de, Frameset_a8f28
+	ld de, WestOWObjFrameset_a8f28
 	jp Func_b4e4d
 
 Func_b4f90:
-	ld de, Frameset_a8f31
+	ld de, WestOWObjFrameset_a8f31
 	jp Func_b4e4d
 
 Func_b4f96:
-	ld de, Frameset_a8f47
+	ld de, WestOWObjFrameset_a8f47
 	jp Func_b4e4d
 
 Func_b4f9c:
-	ld de, Frameset_a8f3a
+	ld de, WestOWObjFrameset_a8f3a
 	jp Func_b4e4d
 
 Func_b4fa2:
@@ -2185,91 +2185,91 @@ Func_b4fab:
 	dw Func_b5136
 
 Func_b5004:
-	ld de, Frameset_a85cd
+	ld de, NorthOWObjFrameset_a85cd
 	jr Func_b507c
 
 Func_b5009:
-	ld de, Frameset_a8590
+	ld de, NorthOWObjFrameset_a8590
 	jr Func_b5085
 
 Func_b500e:
-	ld de, Frameset_a85d0
+	ld de, NorthOWObjFrameset_a85d0
 	jr Func_b507c
 
 Func_b5013:
-	ld de, Frameset_a85d3
+	ld de, NorthOWObjFrameset_a85d3
 	jr Func_b5085
 
 Func_b5018:
-	ld de, Frameset_a862a
+	ld de, NorthOWObjFrameset_a862a
 	jr Func_b507c
 
 Func_b501d:
-	ld de, Frameset_a8653
+	ld de, NorthOWObjFrameset_a8653
 	jr Func_b5085
 
 Func_b5022:
-	ld de, Frameset_a862d
+	ld de, NorthOWObjFrameset_a862d
 	jr Func_b507c
 
 Func_b5027:
-	ld de, Frameset_a8639
+	ld de, NorthOWObjFrameset_a8639
 	call UpdateCurOWObjAnimation
 	ld b, $09
 	jr Func_b508a
 
 Func_b5031:
-	ld de, Frameset_a8636
+	ld de, NorthOWObjFrameset_a8636
 	jr Func_b507c
 
 Func_b5036:
-	ld de, Frameset_a8646
+	ld de, NorthOWObjFrameset_a8646
 	call UpdateCurOWObjAnimation
 	ld b, $0b
 	jr Func_b508a
 
 Func_b5040:
-	ld de, Frameset_a866e
+	ld de, NorthOWObjFrameset_a866e
 	jr Func_b507c
 
 Func_b5045:
-	ld de, Frameset_a867f
+	ld de, NorthOWObjFrameset_a867f
 	call UpdateCurOWObjAnimation
 	ld b, $0e
 	jr Func_b508a
 
 Func_b504f:
-	ld de, Frameset_a86da
+	ld de, NorthOWObjFrameset_a86da
 	call UpdateCurOWObjAnimation
 	ld b, $0e
 	jr Func_b508a
 
 Func_b5059:
-	ld de, Frameset_a872f
+	ld de, NorthOWObjFrameset_a872f
 	jr Func_b507c
 
 Func_b505e:
-	ld de, Frameset_a8732
+	ld de, NorthOWObjFrameset_a8732
 	jr Func_b507c
 
 Func_b5063:
-	ld de, Frameset_a8750
+	ld de, NorthOWObjFrameset_a8750
 	jr Func_b507c
 
 Func_b5068:
-	ld de, Frameset_a8761
+	ld de, NorthOWObjFrameset_a8761
 	jr Func_b507c
 
 Func_b506d:
-	ld de, Frameset_a879a
+	ld de, NorthOWObjFrameset_a879a
 	jr Func_b507c
 
 Func_b5072:
-	ld de, Frameset_a8764
+	ld de, NorthOWObjFrameset_a8764
 	jr Func_b507c
 
 Func_b5077:
-	ld de, Frameset_a876f
+	ld de, NorthOWObjFrameset_a876f
 	jr Func_b507c
 
 Func_b507c:
@@ -2277,7 +2277,7 @@ Func_b507c:
 ;	fallthrough
 
 Func_b507f:
-	ld de, OAM_a8000
+	ld de, NorthOWObjOAM_a8000
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b5085:
@@ -2291,88 +2291,88 @@ Func_b508a:
 	jp Func_b507f
 
 Func_b5093:
-	ld de, Frameset_a8782
+	ld de, NorthOWObjFrameset_a8782
 	call UpdateCurOWObjAnimation
 	ld b, $18
 	jr Func_b508a
 
 Func_b509d:
-	ld de, Frameset_a8793
+	ld de, NorthOWObjFrameset_a8793
 	call UpdateCurOWObjAnimation
 	ld b, $19
 	jr Func_b508a
 
 Func_b50a7:
-	ld de, Frameset_a877a
+	ld de, NorthOWObjFrameset_a877a
 	jr Func_b507c
 
 Func_b50ac:
-	ld de, Frameset_a877d
+	ld de, NorthOWObjFrameset_a877d
 	jr Func_b507c
 
 Func_b50b1:
-	ld de, Frameset_a879f
+	ld de, NorthOWObjFrameset_a879f
 	jr Func_b5085
 
 Func_b50b6:
-	ld de, Frameset_a873d
+	ld de, NorthOWObjFrameset_a873d
 	call UpdateCurOWObjAnimation
 	ld b, $0e
 	jr Func_b508a
 
 Func_b50c0:
-	ld de, Frameset_a87d2
+	ld de, NorthOWObjFrameset_a87d2
 	call UpdateCurOWObjAnimation
 	ld b, $20
 	jr Func_b508a
 
 Func_b50ca:
-	ld de, Frameset_a87d9
+	ld de, NorthOWObjFrameset_a87d9
 	jr Func_b507c
 
 Func_b50cf:
-	ld de, Frameset_a87dc
+	ld de, NorthOWObjFrameset_a87dc
 	jr Func_b507c
 
 Func_b50d4:
-	ld de, Frameset_a87df
+	ld de, NorthOWObjFrameset_a87df
 	jr Func_b507c
 
 Func_b50d9:
-	ld de, Frameset_aa5f5
+	ld de, NorthOWObjFrameset_aa5f5
 	jr Func_b50e1
 
 Func_b50de:
-	ld de, Frameset_aa5f8
+	ld de, NorthOWObjFrameset_aa5f8
 ;	fallthrough
 
 Func_b50e1:
 	call UpdateCurOWObjAnimation
-	ld de, OAM_aa580
+	ld de, CompassOAM_aa580
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b50ea:
-	ld de, Frameset_aa252
+	ld de, NorthOWObjFrameset_aa252
 	call UpdateCurOWObjAnimation
-	ld de, OAM_aa0cf
+	ld de, OWUIOAM_aa0cf
 	jp LoadCurSceneObjSpriteWithScroll
 
 Func_b50f6:
-	ld de, Frameset_aa0a3
+	ld de, TopBarFrameset_aa0a3
 	jr Func_b5114
 
 Func_b50fb:
-	ld de, Frameset_aa0c1
+	ld de, TopBarFrameset_aa0c1
 	call UpdateCurOWObjAnimation
 	ld b, $27
 	jr Func_b5114.asm_b5122
 
 Func_b5105:
-	ld de, Frameset_aa09d
+	ld de, TopBarFrameset_aa09d
 	jr Func_b5114
 
 Func_b510a:
-	ld de, Frameset_aa0bc
+	ld de, TopBarFrameset_aa0bc
 	call UpdateCurOWObjAnimation
 	ld b, $25
 	jr Func_b5114.asm_b5122
@@ -2380,7 +2380,7 @@ Func_b510a:
 Func_b5114:
 	call UpdateCurOWObjAnimation
 .asm_b5117
-	ld de, OAM_a9fe2
+	ld de, TopBarOAM_a9fe2
 	jp LoadCurSceneObjSpriteWithScroll
 
 	call UpdateCurOWObjAnimation
@@ -2391,20 +2391,20 @@ Func_b5114:
 	jr .asm_b5117
 
 Func_b512a:
-	ld de, Frameset_a87e8
+	ld de, NorthOWObjFrameset_a87e8
 	jp Func_b507c
 
 Func_b5130:
-	ld de, Frameset_a87f1
+	ld de, NorthOWObjFrameset_a87f1
 	jp Func_b507c
 
 Func_b5136:
-	ld de, Frameset_a883b
+	ld de, NorthOWObjFrameset_a883b
 	call UpdateCurOWObjAnimation
 	ld b, $00
 	call Func_b4a0d
 	jp z, Func_b4fab
-	ld de, OAM_a87fa
+	ld de, NorthOWObjOAM_a87fa
 	jp LoadCurSceneObjSprite
 
 _DoOWFunction:
@@ -2701,7 +2701,7 @@ NOWFunc_FallLeaves:
 	jp z, .blow_away_leaf1
 	ret
 .lift_leaf1
-	ld de, Data_b6101
+	ld de, FallLeavesLiftMovement
 	ld hl, wSceneObj6
 	call ApplyOWMovement
 	ret nz ; hasn't finished movement
@@ -2733,7 +2733,7 @@ NOWFunc_FallLeaves:
 	ret
 
 .blow_away_leaf1
-	ld de, Data_b6196
+	ld de, FallLeavesBlowAwayMovement
 	ld hl, wSceneObj6
 	call ApplyOWMovement
 	ret nz
@@ -2746,7 +2746,7 @@ NOWFunc_FallLeaves:
 	ld a, [hli]
 	and a
 	ret z
-	ld de, Data_b6239
+	ld de, FallLeavesSplitMovement
 	ld hl, wSceneObj8
 	call ApplyOWMovement
 	ret nz
@@ -2765,7 +2765,7 @@ NOWFunc_FallLeaves:
 	jp z, .blow_away_leaf3
 	ret
 .lift_leaf3
-	ld de, Data_b6101
+	ld de, FallLeavesLiftMovement
 	ld hl, wSceneObj7
 	call ApplyOWMovement
 	ret nz
@@ -2794,7 +2794,7 @@ ENDR
 	ret
 
 .blow_away_leaf3
-	ld de, Data_b6196
+	ld de, FallLeavesBlowAwayMovement
 	ld hl, wSceneObj7
 	call ApplyOWMovement
 	ret nz
@@ -2807,7 +2807,7 @@ ENDR
 	ld a, [hli]
 	and a
 	ret z
-	ld de, Data_b6239
+	ld de, FallLeavesSplitMovement
 	ld hl, wSceneObj9
 	call ApplyOWMovement
 	ret nz
@@ -3084,7 +3084,7 @@ NOWFunc_Crayon:
 	jp WaitOWFunc
 
 .Scribble:
-	ld de, Data_b6294
+	ld de, CrayonScribbleMovement
 	ld hl, wSceneObj5
 	call ApplyOWMovement
 	ld a, [wSceneObj5Unk7]
@@ -3113,10 +3113,10 @@ NOWFunc_Crayon:
 	ld de, wTempBGPals
 	ld b, 8 palettes
 	call CopyHLToDE
-	ld hl, Pals_84500
+	ld hl, NorthOWCrayonsDayPals
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_84500)
+	ld b, BANK(NorthOWCrayonsDayPals)
 	call CopyFarBytes
 	xor a
 	ld [wPalConfig1TotalSteps], a
@@ -3153,9 +3153,9 @@ NOWFunc_BottomBar:
 	jp WaitOWFunc
 
 .LoadBottomBarPal:
-	ld hl, Pals_84000 palette 7
+	ld hl, NorthOWDayPals palette 7
 	ld de, wTempPals1 palette 7
-	ld b, BANK(Pals_84000)
+	ld b, BANK(NorthOWDayPals)
 	ld c, 1 palettes
 	call CopyFarBytes
 	ld hl, wPalConfig1
@@ -3710,7 +3710,7 @@ WOWFunc_Rain:
 	ld a, [wOWFuncCounter]
 	cp 2
 	ret c
-	ld hl, Data_8550b
+	ld hl, WOWTilemapPatch_Rain
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -3767,16 +3767,16 @@ WOWFunc_Rain:
 	ret
 
 .pals_flash1
-	ld hl, Pals_8694d
+	ld hl, OWLightningFlashPals1
 	jr .apply_pals
 .pals_flash2
-	ld hl, Pals_8698d
+	ld hl, OWLightningFlashPals2
 	jr .apply_pals
 .pals_regular
-	ld hl, Pals_84140
+	ld hl, WestOWDayPals
 .apply_pals
 	ld de, wTempPals1
-	ld b, BANK(Pals_84140)
+	ld b, BANK(WestOWDayPals)
 	ld c, 8 palettes
 	call CopyFarBytes
 	ld hl, wPalConfig1
@@ -3819,7 +3819,7 @@ WOWFunc_ClearTornado:
 	ret
 
 .ClearTornado:
-	ld de, Data_b6478
+	ld de, ClearTornadoMovement
 	ld hl, wSceneObj1
 	call ApplyOWMovement
 	ret nz
@@ -3832,7 +3832,7 @@ WOWFunc_ClearTornado:
 	jp AdvanceOWFunc
 
 UpdateOWTornado:
-	ld de, Data_b6337
+	ld de, OWTornadoMovement
 	ld hl, wSceneObj1
 	call ApplyOWMovement
 	ret nz
@@ -4064,7 +4064,7 @@ WOWFunc_Earthquake:
 	ld a, $16
 	ld hl, wSceneObj13State
 	call SetSceneObjState
-	ld hl, Data_85549
+	ld hl, WOWTilemapPatch_Earthquake
 	call Func_b5868
 	play_sfx SFX_EARTHQUAKE
 	jp AdvanceOWFunc
@@ -4297,7 +4297,7 @@ WOWFunc_VulcanoEruption:
 	ld [hli], a
 	ld a, $54
 	ld [hl], a
-	ld hl, Data_85536
+	ld hl, WOWTilemapPatch_VulcanoEruption
 	call Func_b5868
 
 	ld hl, wPalConfig1
@@ -4677,7 +4677,7 @@ WOWFunc_RedMusicBox:
 	ld a, $20
 	ld hl, wSceneObj6State
 	call SetSceneObjState
-	ld hl, Data_8556e
+	ld hl, WOWTilemapPatch_RedMusicBox
 	call Func_b5868
 	ld a, $01
 	ld [wSceneObj6Unk7], a
@@ -4713,7 +4713,7 @@ WOWFunc_RedMusicBox:
 	ld [wSceneObj6Unk7], a
 	jp AdvanceOWFunc
 
-Data_b6101:
+FallLeavesLiftMovement:
 	db  0,  0
 	db -2,  0
 	db -1,  0
@@ -4790,7 +4790,7 @@ Data_b6101:
 	db  0,  0
 	db $80
 
-Data_b6196:
+FallLeavesBlowAwayMovement:
 	db  0,  0
 	db  1,  0
 	db  0,  0
@@ -4874,7 +4874,7 @@ Data_b6196:
 	db  0,  0
 	db $80
 
-Data_b6239:
+FallLeavesSplitMovement:
 	db  0,  0
 	db  1, -1
 	db  0, -1
@@ -4922,7 +4922,7 @@ Data_b6239:
 	db  0,  0
 	db $80
 
-Data_b6294:
+CrayonScribbleMovement:
 	db  0,  0
 	db  0,  0
 	db -1,  1
@@ -5006,7 +5006,7 @@ Data_b6294:
 	db -3,  1
 	db $80
 
-Data_b6337:
+OWTornadoMovement:
 	db  0,  0
 	db  0, -1
 	db  0,  0
@@ -5169,7 +5169,7 @@ Data_b6337:
 	db  0, -1
 	db $80
 
-Data_b6478:
+ClearTornadoMovement:
 	db -1, -1
 	db  0, -1
 	db -1, -1
@@ -5214,7 +5214,7 @@ Data_b6478:
 	db -1,  0
 	db $80
 
-Data_b64cd:
+FormCastleObj1Movement:
 	db  0,  0
 	db  0,  0
 	db  0,  1
@@ -5695,7 +5695,7 @@ SOWFunc_CanyonThunder:
 	ld a, $0a
 	ld hl, wSceneObj5State
 	call SetSceneObjState
-	ld hl, Data_855b2
+	ld hl, SOWTilemapPatch_CanyonThunder
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -5704,14 +5704,14 @@ SOWFunc_CanyonThunder:
 	jp WaitOWFunc
 
 .Func_b684c:
-	ld hl, Pals_84280
+	ld hl, SouthOWDayPals
 	ld de, wTempPals1
-	ld b, BANK(Pals_84280)
+	ld b, BANK(SouthOWDayPals)
 	ld c, 8 palettes
 	call CopyFarBytes
-	ld hl, Pals_84980
+	ld hl, SouthOWOBPals
 	ld de, wTempPals2
-	ld b, BANK(Pals_84980)
+	ld b, BANK(SouthOWOBPals)
 	ld c, 8 palettes
 	call CopyFarBytes
 	jp AdvanceOWFunc
@@ -5742,7 +5742,7 @@ SOWFunc_CanyonThunder:
 	jr z, .asm_b6892
 	ret
 .flash1_pal
-	ld hl, Pals_8698d
+	ld hl, OWLightningFlashPals2
 	jr .got_pal
 .asm_b6892
 	xor a
@@ -5750,10 +5750,10 @@ SOWFunc_CanyonThunder:
 	ld a, [wOWFuncStep]
 	cp $07
 	jr z, .flash1_pal
-	ld hl, Pals_84280
+	ld hl, SouthOWDayPals
 .got_pal
 	ld de, wTempBGPals
-	ld b, BANK(Pals_84280) ; aka BANK(Pals_8698d)
+	ld b, BANK(SouthOWDayPals) ; aka BANK(OWLightningFlashPals2)
 	ld c, 8 palettes
 	call CopyFarBytes
 .apply_pals
@@ -6031,7 +6031,7 @@ SOWFunc_RaiseTower:
 	ld a, $00
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	ld hl, Data_85579
+	ld hl, SOWTilemapPatch_RaiseTower
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -6361,7 +6361,7 @@ SOWFunc_Earthquake:
 	jp WaitOWFunc
 
 .Func_b6c78:
-	ld hl, Data_855f9
+	ld hl, SOWTilemapPatch_Earthquake
 	call Func_b5868
 	play_sfx SFX_EARTHQUAKE
 .asm_b6c86
@@ -6425,7 +6425,7 @@ SOWFunc_GreenMusicBox:
 	jp WaitOWFunc
 
 .BlowUpCave:
-	ld hl, Data_8560e
+	ld hl, SOWTilemapPatch_GreenMusicBox
 	call Func_b5868
 	ld a, $1b
 	ld hl, wSceneObj2State
@@ -6759,7 +6759,7 @@ EOWFunc_FreezeSea:
 	jp WaitOWFunc
 
 .Func_b6ef4:
-	ld hl, Data_85657
+	ld hl, EOWTilemapPatch_FreezeSea
 	call Func_b5868
 	call .Func_b6f52
 	jp AdvanceOWFunc
@@ -6812,10 +6812,10 @@ EOWFunc_FreezeSea:
 	jp AdvanceOWFunc
 
 .Func_b6f52:
-	ld hl, Pals_84480 palette 4
+	ld hl, EastOWNightPals palette 4
 	ld de, wTempPals1 palette 4
 	ld c, 1 palettes
-	ld b, BANK(Pals_84480)
+	ld b, BANK(EastOWNightPals)
 	call CopyFarBytes
 	jr .asm_b6f64
 	call Func_b4874
@@ -7163,7 +7163,7 @@ EOWFunc_Earthquake:
 	ld a, [wOWFuncCounter]
 	cp $09
 	ret c
-	ld hl, Data_8563e
+	ld hl, EOWTilemapPatch_Earthquake
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7521,7 +7521,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	and $03
 	ret z
-	ld de, Data_b64cd
+	ld de, FormCastleObj1Movement
 	ld hl, wSceneObj1YCoord
 	call ApplyOWMovement
 	ret
@@ -7540,7 +7540,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $28
 	ret c
-	ld hl, Data_85b3d
+	ld hl, EOWTilemapPatch_FormCastle6
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7548,7 +7548,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
-	ld hl, Data_85b2c
+	ld hl, EOWTilemapPatch_FormCastle5
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7556,7 +7556,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
-	ld hl, Data_85b1b
+	ld hl, EOWTilemapPatch_FormCastle4
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7564,7 +7564,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
-	ld hl, Data_85b0a
+	ld hl, EOWTilemapPatch_FormCastle3
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7572,7 +7572,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
-	ld hl, Data_85afd
+	ld hl, EOWTilemapPatch_FormCastle2
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7580,7 +7580,7 @@ EOWFunc_FormCastle:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
-	ld hl, Data_85af4
+	ld hl, EOWTilemapPatch_FormCastle1
 	call Func_b5868
 	jp AdvanceOWFunc
 
@@ -7652,10 +7652,10 @@ EOWFunc_FormCastle:
 	ld a, LOW(wTempPals1)
 	ld [hli], a
 
-	ld hl, Pals_84840
+	ld hl, EastOWGreyPals
 	ld de, wTempBGPals
 	ld c, 6 palettes
-	ld b, BANK(Pals_84840)
+	ld b, BANK(EastOWGreyPals)
 	call CopyFarBytes
 
 .asm_b750a

@@ -104,15 +104,15 @@ Func_1fa4ea:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1e6f4d)
+	ld a, HIGH(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, LOW(Frameset_1e6f4d)
+	ld a, LOW(ActionHelpFrameset_1e6f4d)
 	ld [hli], a
-	ld a, HIGH(OAM_1e6bab)
+	ld a, HIGH(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, LOW(OAM_1e6bab)
+	ld a, LOW(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
-	ld a, BANK(OAM_1e6bab)
+	ld a, BANK(ActionHelpEnemyOAM_1e6bab)
 	ld [hli], a
 	xor a
 	ld [hl], a

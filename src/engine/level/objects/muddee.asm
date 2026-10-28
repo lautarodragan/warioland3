@@ -20,7 +20,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld a, $07
 	ld [hl], a
-	ld de, Frameset_69d73
+	ld de, MuddeeFrameset_69d73
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -45,7 +45,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld a, LOW(.Func_55676)
 	ld [hld], a
-	ld hl, Pals_55e46
+	ld hl, MuddeePals_55e46
 	ld de, wTempPals2 palette 6
 	ld c, 6
 	ld b, 1
@@ -63,7 +63,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld a, LOW(.Func_55696)
 	ld [hld], a
-	ld de, Frameset_69d85
+	ld de, MuddeeFrameset_69d85
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar3], a
@@ -93,7 +93,7 @@ MuddeeFunc:
 	ld [hld], a
 	ld a, LOW(.Func_556f0)
 	ld [hld], a
-	ld de, Frameset_69cf2
+	ld de, MuddeeFrameset_69cf2
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar3], a
@@ -117,7 +117,7 @@ MuddeeFunc:
 	ld a, [wCurObjVar3]
 	cp $0e
 	jr z, .asm_55702
-	ld bc, Data_60d30
+	ld bc, MuddeeData_60d30
 	jp ApplyObjYMovement
 .asm_55702
 	ld hl, wCurObjUpdateFunction + 1
@@ -201,16 +201,16 @@ MuddeeFunc:
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_55797
-	ld de, Frameset_69d57
+	ld de, MuddeeFrameset_69d57
 	jr .asm_557a4
 .asm_55797
-	ld de, Frameset_69d52
+	ld de, MuddeeFrameset_69d52
 	jr .asm_557a4
 .asm_5579c
-	ld de, Frameset_69d48
+	ld de, MuddeeFrameset_69d48
 	jr .asm_557a4
 .asm_557a1
-	ld de, Frameset_69d4d
+	ld de, MuddeeFrameset_69d4d
 .asm_557a4
 	call SetObjectFramesetPtr
 	ld a, $3c
@@ -246,13 +246,13 @@ MuddeeFunc:
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water
-	ld bc, Data_60d40
+	ld bc, MuddeeData_60d40
 	jp ApplyObjYMovement
 
 .in_water
 	xor a
 	ld [w1d147], a
-	ld de, Frameset_69dc0
+	ld de, MuddeeFrameset_69dc0
 	call SetObjectFramesetPtr
 	ld a, $2c
 	ld [hli], a
@@ -262,7 +262,7 @@ MuddeeFunc:
 	ret
 
 .asm_55806
-	ld de, Frameset_69d6a
+	ld de, MuddeeFrameset_69d6a
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -309,7 +309,7 @@ MuddeeFunc:
 	jr z, .asm_55870
 	dec [hl]
 	ret nz
-	ld de, Frameset_69d04
+	ld de, MuddeeFrameset_69d04
 	jp SetObjectFramesetPtr
 .asm_55870
 	ld hl, wCurObjYPos
@@ -349,14 +349,14 @@ MuddeeFunc:
 .asm_558b2
 	ld a, $03
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d2f
+	ld de, MuddeeFrameset_69d2f
 	ld c, $0e
 	ld b, $7d
 	jp .Func_55c11
 .asm_558c1
 	ld a, $02
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d16
+	ld de, MuddeeFrameset_69d16
 	ld c, $0e
 	ld b, $7d
 	jp .Func_55c11
@@ -368,7 +368,7 @@ MuddeeFunc:
 	jr z, .asm_558df
 	dec [hl]
 	ret nz
-	ld de, Frameset_69cf2
+	ld de, MuddeeFrameset_69cf2
 	jp SetObjectFramesetPtr
 .asm_558df
 	ld hl, wCurObjYPos
@@ -409,14 +409,14 @@ MuddeeFunc:
 .asm_55924
 	ld a, $03
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d16
+	ld de, MuddeeFrameset_69d16
 	ld c, $02
 	ld b, $7d
 	jp .Func_55c11
 .asm_55933
 	ld a, $02
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d2f
+	ld de, MuddeeFrameset_69d2f
 	ld c, $02
 	ld b, $7d
 	jp .Func_55c11
@@ -428,7 +428,7 @@ MuddeeFunc:
 	jr z, .asm_55951
 	dec [hl]
 	ret nz
-	ld de, Frameset_69d0d
+	ld de, MuddeeFrameset_69d0d
 	jp SetObjectFramesetPtr
 .asm_55951
 	ld hl, wCurObjYPos
@@ -456,14 +456,14 @@ MuddeeFunc:
 	jr c, .asm_5598d
 	xor a
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d2f
+	ld de, MuddeeFrameset_69d2f
 	ld c, $08
 	ld b, $7d
 	jp .Func_55c11
 .asm_5598d
 	ld a, $01
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d16
+	ld de, MuddeeFrameset_69d16
 	ld c, $14
 	ld b, $7d
 	jp .Func_55c11
@@ -475,7 +475,7 @@ MuddeeFunc:
 	jr z, .asm_559ab
 	dec [hl]
 	ret nz
-	ld de, Frameset_69cfb
+	ld de, MuddeeFrameset_69cfb
 	jp SetObjectFramesetPtr
 .asm_559ab
 	ld hl, wCurObjYPos
@@ -503,14 +503,14 @@ MuddeeFunc:
 	jr c, .asm_559e7
 	xor a
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d16
+	ld de, MuddeeFrameset_69d16
 	ld c, $08
 	ld b, $7d
 	jp .Func_55c11
 .asm_559e7
 	ld a, $01
 	ld [wCurObjVar1], a
-	ld de, Frameset_69d2f
+	ld de, MuddeeFrameset_69d2f
 	ld c, $14
 	ld b, $7d
 	jp .Func_55c11
@@ -519,7 +519,7 @@ MuddeeFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69d85
+	ld de, MuddeeFrameset_69d85
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $05
@@ -590,7 +590,7 @@ MuddeeFunc:
 	ret nz
 	jp MoveObjectLeft_Slow
 .asm_55a72
-	ld de, Frameset_69d04
+	ld de, MuddeeFrameset_69d04
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $07
@@ -605,7 +605,7 @@ MuddeeFunc:
 	ld a, [hli]
 	cp $0e
 	jr z, .asm_55a90
-	ld bc, Data_60d30
+	ld bc, MuddeeData_60d30
 	jp ApplyObjYMovement
 .asm_55a90
 	ld a, [hl]
@@ -634,11 +634,11 @@ MuddeeFunc:
 	cp e
 	jr c, .asm_55abd
 .asm_55ab6
-	ld de, Frameset_69da7
+	ld de, MuddeeFrameset_69da7
 	ld a, $01
 	jr .asm_55ac1
 .asm_55abd
-	ld de, Frameset_69d8e
+	ld de, MuddeeFrameset_69d8e
 	xor a
 .asm_55ac1
 	ld [wCurObjVar2], a
@@ -672,7 +672,7 @@ MuddeeFunc:
 	jr nz, .asm_55b00
 	ld a, $ff
 	ld [hl], a
-	ld de, Frameset_69cf2
+	ld de, MuddeeFrameset_69cf2
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hl], a
@@ -795,7 +795,7 @@ MuddeeFunc:
 	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
 .asm_55bc6
-	ld bc, Data_60180
+	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
 	rlca
@@ -902,7 +902,7 @@ Turtle1Func:
 	ld [hld], a
 	ld a, $04
 	ld [hl], a
-	ld de, Frameset_69d5c
+	ld de, MuddeeFrameset_69d5c
 	call SetObjectFramesetPtr
 	ld a, $a0
 	ld [hli], a
@@ -949,7 +949,7 @@ Turtle1Func:
 	ld [hld], a
 	ld a, LOW(.Func_55cdd)
 	ld [hld], a
-	ld de, Frameset_69d65
+	ld de, MuddeeFrameset_69d65
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -1001,7 +1001,7 @@ Turtle1Func:
 	ld a, [wMuddeeAmbushState]
 	cp 2
 	ret nz
-	ld de, Frameset_69d5c
+	ld de, MuddeeFrameset_69d5c
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -1120,7 +1120,7 @@ Turtle2Func:
 	ld [hld], a
 	ld a, $04
 	ld [hl], a
-	ld de, Frameset_69d5c
+	ld de, MuddeeFrameset_69d5c
 	call SetObjectFramesetPtr
 	ld a, $10
 	ld [wCurObjVar2], a
@@ -1165,7 +1165,7 @@ Func_55e33:
 	play_sfx SFX_TURTLE_SWIM
 	ret
 
-Pals_55e46:
+MuddeePals_55e46:
 	rgb 28, 28, 28
 	rgb 31,  7,  6
 	rgb 31, 31,  9

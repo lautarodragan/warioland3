@@ -680,13 +680,13 @@ Func_618b4:
 	ld [wCurObjId], a
 
 	ld hl, wCurObjOAMPtr
-	ld a, LOW(OAM_18c000)
+	ld a, LOW(ChestsOAM_18c000)
 	ld [hli], a ; OBJ_OAM_PTR
-	ld a, HIGH(OAM_18c000)
+	ld a, HIGH(ChestsOAM_18c000)
 	ld [hli], a
-	ld a, LOW(Frameset_680c5)
+	ld a, LOW(StarsFrameset_680c5)
 	ld [hli], a ; OBJ_FRAMESET_PTR
-	ld a, HIGH(Frameset_680c5)
+	ld a, HIGH(StarsFrameset_680c5)
 	ld [hli], a
 	xor a
 	ld [hli], a ; OBJ_FRAME_DURATION
@@ -2100,15 +2100,15 @@ Func_62690:
 	ld a, [hl]
 	dec b
 	jr z, .asm_626d4
-	ld b, HIGH(Data_60080)
-	add LOW(Data_60080)
+	ld b, HIGH(ThrowYVel_Light)
+	add LOW(ThrowYVel_Light)
 .asm_6269a
 	ld c, a
 	ld a, [wCurObjInteractionType]
 	rla
 	jr nc, .not_heavy
 	ld a, c
-	add Data_600a0 - Data_60080
+	add ThrowYVel_Heavy - ThrowYVel_Light
 	ld c, a
 .not_heavy
 	ld a, [bc]
@@ -2146,8 +2146,8 @@ Func_62690:
 	jp HomeJumpRet
 
 .asm_626d4
-	ld b, HIGH(Data_60100)
-	add LOW(Data_60100)
+	ld b, HIGH(ThrowUpYVel_Light)
+	add LOW(ThrowUpYVel_Light)
 	jr .asm_6269a
 
 Func_626da::
@@ -2385,14 +2385,14 @@ Func_6284f:
 .no_overflow
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(Data_60180)
-	add LOW(Data_60180)
+	ld b, HIGH(AttackedYVel_Light)
+	add LOW(AttackedYVel_Light)
 	ld c, a
 	ld a, [wCurObjInteractionType]
 	rla
 	jr nc, .not_heavy
 	ld a, c
-	add Data_601a0 - Data_60180
+	add AttackedYVel_Heavy - AttackedYVel_Light
 	ld c, a
 .not_heavy
 	ld a, [bc]
@@ -2449,14 +2449,14 @@ Func_628a7:
 .asm_628b0
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(Data_60180)
-	add LOW(Data_60180)
+	ld b, HIGH(AttackedYVel_Light)
+	add LOW(AttackedYVel_Light)
 	ld c, a
 	ld a, [wCurObjInteractionType]
 	rla
 	jr nc, .not_heavy
 	ld a, c
-	add Data_601a0 - Data_60180
+	add AttackedYVel_Heavy - AttackedYVel_Light
 	ld c, a
 .not_heavy
 	ld a, [bc]
@@ -2525,14 +2525,14 @@ Func_62908::
 Func_62926::
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(Data_60040)
-	add LOW(Data_60040)
+	ld b, HIGH(DropYVel_Light)
+	add LOW(DropYVel_Light)
 	ld c, a
 	ld a, [wCurObjInteractionType]
 	rla
 	jr nc, .not_heavy
 	ld a, c
-	add Data_60060 - Data_60040
+	add DropYVel_Heavy - DropYVel_Light
 	ld c, a
 .not_heavy
 	ld a, [bc]
@@ -2607,14 +2607,14 @@ Func_62926::
 Func_629a6::
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(Data_602a0)
-	add LOW(Data_602a0)
+	ld b, HIGH(HopYVel_Light)
+	add LOW(HopYVel_Light)
 	ld c, a
 	ld a, [wCurObjInteractionType]
 	rla
 	jr nc, .not_heavy
 	ld a, c
-	add Data_602b0 - Data_602a0
+	add HopYVel_Heavy - HopYVel_Light
 	ld c, a
 .not_heavy
 	ld a, [bc]
@@ -3382,7 +3382,7 @@ Func_62e74::
 ;	fallthrough
 
 Func_62e8a::
-	ld bc, Data_60300
+	ld bc, Bounce3YVel_Light
 	jr Func_62ec3
 
 Func_62e8f::
@@ -3402,7 +3402,7 @@ Func_62e8f::
 ;	fallthrough
 
 Func_62ea5::
-	ld bc, Data_602c0
+	ld bc, Bounce1YVel_Light
 	jr Func_62ec3
 
 Func_62eaa::
@@ -3422,7 +3422,7 @@ Func_62eaa::
 ;	fallthrough
 
 Func_62ec0::
-	ld bc, Data_602e0
+	ld bc, Bounce2YVel_Light
 ;	fallthrough
 
 Func_62ec3:
@@ -3535,7 +3535,7 @@ Func_62f5b::
 ;	fallthrough
 
 Func_62f71::
-	ld bc, Data_60300
+	ld bc, Bounce3YVel_Light
 	jr Func_62faa
 
 Func_62f76::
@@ -3555,7 +3555,7 @@ Func_62f76::
 ;	fallthrough
 
 Func_62f8c::
-	ld bc, Data_602c0
+	ld bc, Bounce1YVel_Light
 	jr Func_62faa
 
 Func_62f91::
@@ -3575,7 +3575,7 @@ Func_62f91::
 ;	fallthrough
 
 Func_62fa7::
-	ld bc, Data_602e0
+	ld bc, Bounce2YVel_Light
 ;	fallthrough
 
 Func_62faa:

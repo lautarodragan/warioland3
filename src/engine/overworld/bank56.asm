@@ -343,7 +343,7 @@ MACRO temple_rock_bounce
 		ENDC
 		ret
 	ELSE ; (\3) == FALSE
-		ld de, Data_158897
+		ld de, NOWPrologueParticleArc1
 		ld hl, \2
 
 		IF (\4) == DIRECTION_LEFT
@@ -378,11 +378,11 @@ HandleTempleRock10Bounce:
 	temple_rock_bounce 10, wSceneObj11, TRUE,  DIRECTION_RIGHT, 128, 136
 
 BounceTempleRockRight:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jp ApplyOWMovement_Mirrored
 
 BounceTempleRockLeft:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jp ApplyOWMovement
 
 Func_15848a:
@@ -761,7 +761,7 @@ Func_15868e:
 	jr .asm_1586bc
 
 .Func_1586d1:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_1586d4
 	ld hl, wSceneObj2
 	call ApplyOWMovement
@@ -769,11 +769,11 @@ Func_15868e:
 	jr .asm_1586bc
 
 .Func_1586dd:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_1586d4
 
 .Func_1586e2:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_1586d4
 
 .Func_1586e7:
@@ -815,7 +815,7 @@ Func_15868e:
 	jr .asm_158708
 
 .Func_15871d:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_158720
 	ld hl, wSceneObj5
 	call ApplyOWMovement
@@ -823,11 +823,11 @@ Func_15868e:
 	jr .asm_158708
 
 .Func_158729:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_158720
 
 .Func_15872e:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_158720
 
 .Func_158733:
@@ -869,7 +869,7 @@ Func_15868e:
 	jr .asm_158754
 
 .Func_158769:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_15876c
 	ld hl, wSceneObj9
 	call ApplyOWMovement
@@ -877,11 +877,11 @@ Func_15868e:
 	jr .asm_158754
 
 .Func_158775:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_15876c
 
 .Func_15877a:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_15876c
 
 .Func_15877f:
@@ -923,7 +923,7 @@ Func_15868e:
 	jr .asm_1587a0
 
 .Func_1587b5:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_1587b8
 	ld hl, wSceneObj3
 	call ApplyOWMovement_Mirrored
@@ -931,11 +931,11 @@ Func_15868e:
 	jr .asm_1587a0
 
 .Func_1587c1:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_1587b8
 
 .Func_1587c6:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_1587b8
 
 .Func_1587cb:
@@ -977,7 +977,7 @@ Func_15868e:
 	jr .asm_1587ec
 
 .Func_158801:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_158804
 	ld hl, wSceneObj8
 	call ApplyOWMovement_Mirrored
@@ -985,11 +985,11 @@ Func_15868e:
 	jr .asm_1587ec
 
 .Func_15880d:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_158804
 
 .Func_158812:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_158804
 
 .Func_158817:
@@ -1031,7 +1031,7 @@ Func_15868e:
 	jr .asm_158838
 
 .Func_15884d:
-	ld de, Data_158897
+	ld de, NOWPrologueParticleArc1
 .asm_158850
 	ld hl, wSceneObj10
 	call ApplyOWMovement_Mirrored
@@ -1039,11 +1039,11 @@ Func_15868e:
 	jr .asm_158838
 
 .Func_158859:
-	ld de, Data_1588de
+	ld de, NOWPrologueParticleArc2
 	jr .asm_158850
 
 .Func_15885e:
-	ld de, Data_158925
+	ld de, NOWPrologueParticleArc3
 	jr .asm_158850
 
 .Func_158863:
@@ -1088,7 +1088,7 @@ Func_15868e:
 	ld a, $51
 	jr .asm_15886e
 
-Data_158897:
+NOWPrologueParticleArc1:
 	db  0,  0
 	db -2,  0
 	db -2, -1
@@ -1126,7 +1126,7 @@ Data_158897:
 	db  0, -2
 	db $80
 
-Data_1588de:
+NOWPrologueParticleArc2:
     db  0,  0
 	db -1,  0
 	db -2,  0
@@ -1164,7 +1164,7 @@ Data_1588de:
 	db -1, -1
 	db $80
 
-Data_158925:
+NOWPrologueParticleArc3:
 	db  0,  0
 	db -1,  0
 	db -2, -1
@@ -1226,7 +1226,7 @@ _InitBestTimeList:
 	call .VBlank_158a14
 	call .Func_158a09
 
-	ld hl, Pals_158b63
+	ld hl, BestTimeListPals
 	call LoadPalsToTempPals1
 
 	decompress_tiles0 BestTimeListGfx, v0Tiles1, $20
@@ -1472,7 +1472,7 @@ PrintBestTimes:
 	dwcoord 14, 29 ; LEVEL_FOREST_OF_FEAR
 	assert_table_length NUM_LEVELS
 
-Pals_158b63:
+BestTimeListPals:
 	rgb 31, 31, 31
 	rgb 31, 20,  0
 	rgb 29,  0,  0

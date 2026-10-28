@@ -1358,7 +1358,7 @@ OAM_194895:
 	frame_oam  -8,   4, $f8, 6 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-OAM_19501c:
+JamanoOAM_19501c:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -2584,7 +2584,7 @@ OAM_195699:
 .frame_46
 	db $80
 
-OAM_195e06:
+WolfenbossOAM_195e06:
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

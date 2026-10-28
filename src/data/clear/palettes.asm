@@ -1,4 +1,4 @@
-Pals_d50a4:
+MusicalCoinScreenBGPals:
 	rgb 31, 31, 31
 	rgb 27, 27, 27
 	rgb 22, 22, 22
@@ -39,7 +39,7 @@ Pals_d50a4:
 	rgb 30,  0,  0
 	rgb  0,  4,  0
 
-Pals_d50e4:
+MusicalCoinScreenOBPals:
 	rgb  0, 22, 16
 	rgb 27, 12,  0
 	rgb 27, 20,  0

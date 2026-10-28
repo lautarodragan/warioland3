@@ -1,4 +1,4 @@
-Frameset_d8e7:
+ParticleMagic1Frameset:
 	db   0,  5
 	db   1,  5
 	db   2,  5
@@ -7,7 +7,7 @@ Frameset_d8e7:
 	db   5,  5
 	db $ff
 
-Frameset_d8f4:
+ParticleMagic2Frameset:
 	db   6,  7
 	db   7,  7
 	db   8,  7
@@ -16,7 +16,7 @@ Frameset_d8f4:
 	db  11,  7
 	db $ff
 
-Frameset_d901:
+ParticleMagicStopFrameset:
 	db  12,  2
 	db  13,  1
 	db  14,  1

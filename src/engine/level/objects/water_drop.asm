@@ -29,7 +29,7 @@ WaterDropFunc:
 .asm_49d92
 	ld a, $5a
 	ld [hl], a
-	ld de, Frameset_69775
+	ld de, WaterDropFrameset_69775
 	call SetObjectFramesetPtr
 	ld a, $18
 	ld [hli], a
@@ -71,7 +71,7 @@ WaterDropFunc:
 	and a
 	ret nz
 .asm_49ddd
-	ld de, Frameset_69761
+	ld de, WaterDropFrameset_69761
 	call SetObjectFramesetPtr
 	ld a, $41
 	ld [hli], a
@@ -94,7 +94,7 @@ WaterDropFunc:
 	jr z, .asm_49e05
 	dec [hl]
 	ret nz
-	ld de, Frameset_69772
+	ld de, WaterDropFrameset_69772
 	jp SetObjectFramesetPtr
 
 .asm_49e05

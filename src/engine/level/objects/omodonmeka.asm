@@ -25,7 +25,7 @@ OmodonmekaFunc:
 .Func_42199:
 	xor a
 	ld [hl], a
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
@@ -89,7 +89,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	ld a, b
 	ld [hld], a
-	ld de, Frameset_68f3d
+	ld de, OmodonmekaFrameset_68f3d
 	call SetObjectFramesetPtr
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -126,7 +126,7 @@ OmodonmekaFunc:
 	xor a
 	ld [hld], a
 	ld [hld], a
-	ld de, Frameset_68f34
+	ld de, OmodonmekaFrameset_68f34
 	call SetObjectFramesetPtr
 .asm_42249
 	ld l, OBJ_SUBSTATE
@@ -224,7 +224,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	xor a
 	ld [hl], a
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ret
 
@@ -248,7 +248,7 @@ OmodonmekaFunc:
 	ret
 
 .asm_4230c
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -260,7 +260,7 @@ OmodonmekaFunc:
 	ret
 
 .Func_42321:
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
@@ -287,7 +287,7 @@ OmodonmekaFunc:
 	add c
 	sub b
 	ret nc
-	ld de, Frameset_68f1d
+	ld de, OmodonmekaFrameset_68f1d
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -302,7 +302,7 @@ OmodonmekaFunc:
 	and %11111
 	play_sfx z, SFX_RAIL_HUM
 
-	ld bc, Data_604c0
+	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld c, $2a
 	ld a, [wWarioScreenXPos]
@@ -325,7 +325,7 @@ OmodonmekaFunc:
 	and $f0
 	or $01
 	ld [hld], a
-	ld de, Frameset_68f0b
+	ld de, OmodonmekaFrameset_68f0b
 	call SetObjectFramesetPtr
 	ret
 
@@ -347,7 +347,7 @@ OmodonmekaFunc:
 	add c
 	sub b
 	ret nc
-	ld de, Frameset_68f2b
+	ld de, OmodonmekaFrameset_68f2b
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -362,7 +362,7 @@ OmodonmekaFunc:
 	ret
 
 .Func_423e1:
-	ld bc, Data_60500
+	ld bc, OmodonmekaData_60500
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -388,7 +388,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [wCurObjCollBoxBottom], a
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -418,7 +418,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	xor a
 	ld [hl], a
-	ld de, Frameset_68f0b
+	ld de, OmodonmekaFrameset_68f0b
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -430,9 +430,9 @@ OmodonmekaFunc:
 .Func_4244c:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_604e0
+	ld bc, OmodonmekaData_604e0
 	call ApplyObjYMovement
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	call ApplyObjXMovement_Loop
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
@@ -475,7 +475,7 @@ OmodonmekaWithOmodon1Func:
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
 	ld bc, ObjParams_Omodon1
 	call CreateObjectAtRelativePos
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld a, $00
 	ld [hli], a
@@ -505,7 +505,7 @@ OmodonmekaWithOmodon2Func:
 	jp nz, OmodonmekaWithOmodonFunc.Func_42559
 	ld bc, ObjParams_Omodon2
 	call CreateObjectAtRelativePos
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld a, $00
 	ld [hli], a
@@ -533,7 +533,7 @@ OmodonmekaWithOmodonFunc:
 	xor a
 	ld [hld], a
 	ld [hld], a
-	ld de, Frameset_68f34
+	ld de, OmodonmekaFrameset_68f34
 	call SetObjectFramesetPtr
 	ld a, $02
 	ld [hli], a
@@ -565,7 +565,7 @@ OmodonmekaWithOmodonFunc:
 	and OBJSUBFLAGS_MASK
 	or $2
 	ld [hld], a
-	ld de, Frameset_68f26
+	ld de, OmodonmekaFrameset_68f26
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -583,7 +583,7 @@ OmodonmekaWithOmodonFunc:
 	and OBJSUBFLAGS_MASK
 	or $3
 	ld [hld], a
-	ld de, Frameset_68f2b
+	ld de, OmodonmekaFrameset_68f2b
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -736,7 +736,7 @@ OmodonmekaWithOmodonFunc:
 	and $f0
 	or $04
 	ld [hld], a
-	ld de, Frameset_68f14
+	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld a, $32
 	ld [hli], a
@@ -898,16 +898,16 @@ OmodonmekaWithOmodonFunc:
 .Func_42714:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_604e0
+	ld bc, OmodonmekaData_604e0
 	call ApplyObjYMovement
-	ld bc, Data_60650
+	ld bc, JitterXVel
 	jp ApplyObjXMovement_Loop
 
 Func_42725:
 	ld hl, wCurObjVar3
 	ld a, [hl]
-	ld b, HIGH(Data_40000)
-	add LOW(Data_40000)
+	ld b, HIGH(OmodonHoverBobYOffsets)
+	add LOW(OmodonHoverBobYOffsets)
 	ld c, a
 	ld a, [bc]
 	cp $80
@@ -952,7 +952,7 @@ Func_42754:
 	ret z
 	dec [hl]
 	ret nz
-	ld de, Frameset_68f50
+	ld de, OmodonmekaFrameset_68f50
 	call SetObjectFramesetPtr
 	ret
 
@@ -975,7 +975,7 @@ Func_42767:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_68f42
+	ld de, OmodonmekaFrameset_68f42
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1035,7 +1035,7 @@ Func_4279c:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp nz, MoveObjectUp
-	ld de, Frameset_68f50
+	ld de, OmodonmekaFrameset_68f50
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	xor a
@@ -1048,7 +1048,7 @@ Func_4279c:
 	ret
 
 .asm_427fe
-	ld bc, Data_605e0
+	ld bc, DelayedFallYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -1074,7 +1074,7 @@ Func_4279c:
 	play_sfx SFX_SLAM
 	ld b, $18
 	call DoGroundShake
-	ld de, Frameset_68f45
+	ld de, OmodonmekaFrameset_68f45
 	call SetObjectFramesetPtr
 .asm_4283c
 	ld a, $1c
@@ -1089,7 +1089,7 @@ Func_4279c:
 	ret
 
 .Func_4284d:
-	ld de, Frameset_68f45
+	ld de, OmodonmekaFrameset_68f45
 	call SetObjectFramesetPtr
 	ld a, $14
 	ld [hli], a

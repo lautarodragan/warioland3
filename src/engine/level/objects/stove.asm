@@ -16,7 +16,7 @@ StoveFunc:
 	ld [hld], a
 	ld a, -9
 	ld [hl], a
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar1], a
@@ -28,11 +28,11 @@ StoveFunc:
 	dec l
 	xor a
 	ld [hld], a ; OBJ_VAR_3
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	jp SetObjectFramesetPtr
 
 .Fall:
-	ld bc, Data_605e0
+	ld bc, DelayedFallYVel
 	call ApplyObjYMovement
 
 	ld hl, wCurObjYPos
@@ -90,7 +90,7 @@ StoveFunc:
 	jp nz, Func_3173
 	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
-	ld de, Frameset_69625
+	ld de, StoveFrameset_69625
 	call SetObjectFramesetPtr
 	ld a, 44
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -135,7 +135,7 @@ StoveFunc:
 .set_land
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
-	ld de, Frameset_69615
+	ld de, StoveFrameset_69615
 	jp SetObjectFramesetPtr
 
 .State05:
@@ -144,7 +144,7 @@ StoveFunc:
 	ld [hl], a ; OBJ_STATE
 	ld a, $02
 	ld [wCurObjVar2], a
-	ld de, Frameset_69618
+	ld de, StoveFrameset_69618
 	jp SetObjectFramesetPtr
 
 .AttackedRightStart:

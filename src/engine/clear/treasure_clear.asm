@@ -204,15 +204,15 @@ UpdateClearScreen:
 	ld a, [wTransitionParam]
 	cp TRANSITION_RETURN_TO_MAP
 	jr z, .asm_d41fa
-	ld a, HIGH(Frameset_d4d1b)
+	ld a, HIGH(GolfWarioFrameset_d4d1b)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d1b)
+	ld a, LOW(GolfWarioFrameset_d4d1b)
 	ld [hl], a
 	jr .got_frameset
 .asm_d41fa
-	ld a, HIGH(Frameset_d4d5f)
+	ld a, HIGH(GolfWarioFrameset_d4d5f)
 	ld [hli], a
-	ld a, LOW(Frameset_d4d5f)
+	ld a, LOW(GolfWarioFrameset_d4d5f)
 	ld [hl], a
 .got_frameset
 	call UpdateObjAnim

@@ -1,8 +1,8 @@
 WallCrackClosedFunc:
-	ld de, Frameset_6a052
+	ld de, WallCrackFrameset_6a052
 	jr WallCrackFunc
 WallCrackOpenFunc:
-	ld de, Frameset_6a05f
+	ld de, WallCrackFrameset_6a05f
 WallCrackFunc:
 	call SetObjectFramesetPtr
 	ld hl, wCurObjFlags

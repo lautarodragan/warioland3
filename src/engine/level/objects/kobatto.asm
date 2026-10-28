@@ -7,7 +7,7 @@ KobattoFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_69041
+	ld de, KobattoFrameset_69041
 	call SetObjectFramesetPtr
 
 	ld l, OBJ_SUBSTATE
@@ -24,13 +24,13 @@ KobattoFunc:
 	ld l, OBJ_VAR_1
 	ld a, $01
 	ld [hli], a ; var1
-	ld a, LOW(Data_60ec9)
+	ld a, LOW(KobattoSetMovement)
 	ld [hli], a ; var2
-	ld a, HIGH(Data_60ec9)
+	ld a, HIGH(KobattoSetMovement)
 	ld [hli], a ; var3
 	ret
 
 .Update:
-	ld de, Data_60ec9
+	ld de, KobattoSetMovement
 	call ApplyObjSetMovement
 	ret

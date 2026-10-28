@@ -38,7 +38,7 @@ Func_1c8586:
 	call Func_1c8604
 	ld hl, wGolfPals
 	call LoadPalsToTempPals1
-	ld hl, Pals_1ca34f
+	ld hl, GolfOBPals_1ca34f
 	call LoadPalsToTempPals2
 
 	ld a, [wNumCoins + 0]
@@ -226,15 +226,15 @@ Func_1c86dd:
 	jp Func_1c9fae
 
 Func_1c86f8:
-	ld a, HIGH(OAM_1cb3e0)
+	ld a, HIGH(GolfCourseMenuOAM_1cb3e0)
 	ld [wGolfOAMPtr + 0], a
-	ld a, LOW(OAM_1cb3e0)
+	ld a, LOW(GolfCourseMenuOAM_1cb3e0)
 	ld [wGolfOAMPtr + 1], a
 	ld a, $42
 	ld [wGolfObj1YCoord], a
 	ld a, $58
 	ld [wGolfObj1XCoord], a
-	ld de, Frameset_1cb59b
+	ld de, GolfCourseMenuFrameset_1cb59b
 	ld hl, wGolfObj1Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj1CurrentFrame]
@@ -246,7 +246,7 @@ Func_1c86f8:
 	ld [wGolfObj3YCoord], a
 	ld a, $58
 	ld [wGolfObj3XCoord], a
-	ld de, Frameset_1cb598
+	ld de, GolfCourseMenuFrameset_1cb598
 	ld hl, wGolfObj3Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj3CurrentFrame]
@@ -257,7 +257,7 @@ Func_1c86f8:
 	ld [wGolfObj4YCoord], a
 	ld a, $58
 	ld [wGolfObj4XCoord], a
-	ld de, Frameset_1cb59e
+	ld de, GolfCourseMenuFrameset_1cb59e
 	ld hl, wGolfObj4Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj4CurrentFrame]
@@ -272,7 +272,7 @@ Func_1c86f8:
 	ld [wGolfObj5YCoord], a
 	ld a, $6c
 	ld [wGolfObj5XCoord], a
-	ld de, Frameset_1cb5a1
+	ld de, GolfCourseMenuFrameset_1cb5a1
 	ld hl, wGolfObj5Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj5CurrentFrame]
@@ -308,7 +308,7 @@ Func_1c86f8:
 	ld [wGolfParaGoomYCoord], a
 	ld a, $55
 	ld [wGolfParaGoomXCoord], a
-	ld de, Frameset_1cb5c3
+	ld de, GolfCourseMenuFrameset_1cb5c3
 	ld hl, wGolfParaGoomDuration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfParaGoomCurrentFrame]
@@ -317,10 +317,10 @@ Func_1c86f8:
 	jp LoadGolfSprite
 
 .framesets
-	dw Frameset_1cb5d8
-	dw Frameset_1cb5db
-	dw Frameset_1cb5de
-	dw Frameset_1cb5e1
+	dw GolfCourseMenuFrameset_1cb5d8
+	dw GolfCourseMenuFrameset_1cb5db
+	dw GolfCourseMenuFrameset_1cb5de
+	dw GolfCourseMenuFrameset_1cb5e1
 
 ; loads attribute map to wGolfCourseTileMap
 ; and palettes to wGolfPals
@@ -354,10 +354,10 @@ Func_1c87db:
 	jp CopyHLToDE
 
 .data
-	dw GolfBuildingCourse1Tilemap, Pals_1ca24f ; GOLF_COURSE_1
-	dw GolfBuildingCourse2Tilemap, Pals_1ca28f ; GOLF_COURSE_2
-	dw GolfBuildingCourse3Tilemap, Pals_1ca2cf ; GOLF_COURSE_3
-	dw GolfBuildingCourse4Tilemap, Pals_1ca30f ; GOLF_COURSE_4
+	dw GolfBuildingCourse1Tilemap, GolfBGPals_1ca24f ; GOLF_COURSE_1
+	dw GolfBuildingCourse2Tilemap, GolfCourseMenuPals_1ca28f ; GOLF_COURSE_2
+	dw GolfBuildingCourse3Tilemap, GolfCourseMenuPals_1ca2cf ; GOLF_COURSE_3
+	dw GolfBuildingCourse4Tilemap, GolfCourseMenuPals_1ca30f ; GOLF_COURSE_4
 
 ; gets the golf course scroll X value
 ; and writes it as the target SCX

@@ -76,7 +76,7 @@ TadpoleFunc:
 	ld [hld], a
 	ld a, LOW(.Func_49ece)
 	ld [hld], a
-	ld de, Frameset_69a33
+	ld de, TadpoleFrameset_69a33
 	jp SetObjectFramesetPtr
 
 .Func_49ece:
@@ -88,10 +88,10 @@ TadpoleFunc:
 	jr z, .asm_49ee2
 	dec [hl]
 	ret nz
-	ld de, Frameset_69a3d
+	ld de, TadpoleFrameset_69a3d
 	jp SetObjectFramesetPtr
 .asm_49ee2
-	ld de, Frameset_69a1a
+	ld de, TadpoleFrameset_69a1a
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
@@ -139,7 +139,7 @@ TadpoleFunc:
 	ld [hl], b
 	ld a, $81
 	ld [wCurObjAction], a
-	ld de, Frameset_69a30
+	ld de, TadpoleFrameset_69a30
 	jp SetObjectFramesetPtr
 
 .Func_49f34:
@@ -183,12 +183,12 @@ TadpoleFunc:
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .asm_49f85
-	ld bc, Data_60a40
+	ld bc, TadpoleData_60a40
 	call ApplyObjYMovement
 	jp MoveObjectLeft_Fast
 
 .asm_49f85
-	ld de, Frameset_69a26
+	ld de, TadpoleFrameset_69a26
 	call SetObjectFramesetPtr
 	ld a, $09
 	ld [hli], a
@@ -205,7 +205,7 @@ TadpoleFunc:
 	and a
 	jr z, .asm_49fa7
 	dec [hl]
-	ld bc, Data_60a20
+	ld bc, TadpoleData_60a20
 	call ApplyObjYMovement
 	jp MoveObjectLeft_Fast
 
@@ -214,7 +214,7 @@ TadpoleFunc:
 	ld [wCurObjVar3], a
 	inc a
 	ld [wCurObjVar1], a
-	ld de, Frameset_69a1d
+	ld de, TadpoleFrameset_69a1d
 	jp SetObjectFramesetPtr
 
 .Func_49fb5:

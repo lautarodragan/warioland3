@@ -1,4 +1,4 @@
-OAM_15e44a::
+PrologueSceneObjOAM_15e44a::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -362,17 +362,17 @@ OAM_15e44a::
 	frame_oam  -8,   0, $64, 5 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-Frameset_15e741::
+PrologueSceneObjFrameset_15e741::
 	db   2,  3
 	db   1,  3
 	db   0,  3
 	db $ff
 
-Frameset_15e748::
+PrologueSceneObjFrameset_15e748::
 	db   3,  4
 	db $ff
 
-Frameset_15e74b::
+PrologueSceneObjFrameset_15e74b::
 	db   4,  5
 	db   5,  5
 	db   6,  5
@@ -395,39 +395,39 @@ Frameset_15e74b::
 	db   5,  2
 	db $ff
 
-Frameset_15e774::
+PrologueSceneObjFrameset_15e774::
 	db   7,  3
 	db   8,  3
 	db   9,  3
 	db  10,  3
 	db $ff
 
-Frameset_15e77d::
+PrologueSceneObjFrameset_15e77d::
 	db  11,  4
 	db $ff
 
-Frameset_15e780::
+PrologueSceneObjFrameset_15e780::
 	db  12,  4
 	db $ff
 
-Frameset_15e783::
+PrologueSceneObjFrameset_15e783::
 	db  14,  3
 	db  15,  3
 	db  16,  3
 	db $ff
 
-Frameset_15e78a::
+PrologueSceneObjFrameset_15e78a::
 	db  17,  9
 	db  18,  8
 	db  19,  7
 	db  20,  7
 	db $ff
 
-Frameset_15e793::
+PrologueSceneObjFrameset_15e793::
 	db  13,  4
 	db $ff
 
-Frameset_15e796::
+PrologueSceneObjFrameset_15e796::
 	db  21,  2
 	db  22,  2
 	db  23,  6
@@ -436,11 +436,11 @@ Frameset_15e796::
 	db  24,  3
 	db $ff
 
-Frameset_15e7a3::
+PrologueSceneObjFrameset_15e7a3::
 	db  25,  4
 	db $ff
 
-Frameset_15e7a6::
+PrologueSceneObjFrameset_15e7a6::
 	db  25,  1
 	db  28,  2
 	db  26,  2
@@ -451,7 +451,7 @@ Frameset_15e7a6::
 	db  32,  2
 	db $ff
 
-Frameset_15e7b7::
+PrologueSceneObjFrameset_15e7b7::
 	db  33,  4
 	db  34,  4
 	db  35,  4
@@ -460,7 +460,7 @@ Frameset_15e7b7::
 	db  38,  4
 	db $ff
 
-Frameset_15e7c4::
+PrologueSceneObjFrameset_15e7c4::
 	db  39,  2
 	db  40,  1
 	db  41,  2
@@ -483,41 +483,41 @@ Frameset_15e7c4::
 	db  40,  1
 	db $ff
 
-Frameset_15e7ed::
+PrologueSceneObjFrameset_15e7ed::
 	db  49,  4
 	db $ff
 
-Frameset_15e7f0::
+PrologueSceneObjFrameset_15e7f0::
 	db   2,  2
 	db  48,  2
 	db $ff
 
-Frameset_15e7f5::
+PrologueSceneObjFrameset_15e7f5::
 	db  12,  2
 	db  48,  2
 	db $ff
 
-Frameset_15e7fa::
+PrologueSceneObjFrameset_15e7fa::
 	db  44,  2
 	db  40,  1
 	db  50,  2
 	db $ff
 
-Frameset_15e801::
+PrologueSceneObjFrameset_15e801::
 	db  52,  2
 	db  50,  1
 	db  41,  2
 	db  50,  1
 	db $ff
 
-Frameset_15e80a::
+PrologueSceneObjFrameset_15e80a::
 	db  41,  2
 	db  45,  1
 	db  51,  2
 	db  45,  1
 	db $ff
 
-OAM_15e813::
+TempleSceneObjOAM_15e813::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -582,52 +582,52 @@ OAM_15e813::
 	frame_oam -20,   0, $2c, 0 | OAM_BANK1
 	db $80
 
-Frameset_15e88d::
+TempleSceneObjFrameset_15e88d::
 	db   0,  4
 	db $ff
 
-Frameset_15e890::
+TempleSceneObjFrameset_15e890::
 	db   1,  4
 	db $ff
 
-Frameset_15e893::
+TempleSceneObjFrameset_15e893::
 	db   2,  4
 	db $ff
 
-Frameset_15e896::
+TempleSceneObjFrameset_15e896::
 	db   3,  4
 	db $ff
 
-Frameset_15e899::
+TempleSceneObjFrameset_15e899::
 	db   4,  4
 	db $ff
 
-Frameset_15e89c::
+TempleSceneObjFrameset_15e89c::
 	db   5,  4
 	db $ff
 
-Frameset_15e89f::
+TempleSceneObjFrameset_15e89f::
 	db   6,  4
 	db $ff
 
-Frameset_15e8a2::
+TempleSceneObjFrameset_15e8a2::
 	db   7,  4
 	db $ff
 
-Frameset_15e8a5::
+TempleSceneObjFrameset_15e8a5::
 	db   8,  4
 	db $ff
 
-Frameset_15e8a8::
+TempleSceneObjFrameset_15e8a8::
 	db   9,  4
 	db $ff
 
-Frameset_15e8ab::
+TempleSceneObjFrameset_15e8ab::
 	db   0, 20
 	db   1, 20
 	db $ff
 
-Frameset_15e8b0::
+TempleSceneObjFrameset_15e8b0::
 	db   0, 10
 	db   2,  4
 	db   3, 10
@@ -635,19 +635,19 @@ Frameset_15e8b0::
 	db $ff
 
 ; unreferenced
-Frameset_15e8b9:
+UnreferencedTempleSceneObjFrameset_15e8b9:
 	db   5, 20
 	db   6, 20
 	db $ff
 
 ; unreferenced
-Frameset_15e8be:
+UnreferencedTempleSceneObjFrameset_15e8be:
 	db   7, 20
 	db   8, 20
 	db $ff
 
 ; unreferenced
-Frameset_15e8c3:
+UnreferencedTempleSceneObjFrameset_15e8c3:
 	db   9,  4
 	db  10,  4
 	db   9,  4
@@ -655,25 +655,25 @@ Frameset_15e8c3:
 	db $ff
 
 ; unreferenced
-Frameset_15e8cc:
+UnreferencedTempleSceneObjFrameset_15e8cc:
 	db  12, 15
 	db  13, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8d1:
+UnreferencedTempleSceneObjFrameset_15e8d1:
 	db  14, 15
 	db  15, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8d6:
+UnreferencedTempleSceneObjFrameset_15e8d6:
 	db  16, 15
 	db  17, 15
 	db $ff
 
 ; unreferenced
-Frameset_15e8db:
+UnreferencedTempleSceneObjFrameset_15e8db:
 	db  21,  7
 	db  22,  7
 	db  23,  7
@@ -682,7 +682,7 @@ Frameset_15e8db:
 	db $ff
 
 ; unreferenced
-Frameset_15e8e6:
+UnreferencedTempleSceneObjFrameset_15e8e6:
 	db  36,  7
 	db  37,  7
 	db  38,  7
@@ -691,185 +691,185 @@ Frameset_15e8e6:
 	db $ff
 
 ; unreferenced
-Frameset_15e8f1:
+UnreferencedTempleSceneObjFrameset_15e8f1:
 	db  52,  4
 	db  32,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e8f6:
+UnreferencedTempleSceneObjFrameset_15e8f6:
 	db  53,  4
 	db  47,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e8fb:
+UnreferencedTempleSceneObjFrameset_15e8fb:
 	db  18, 10
 	db  28,  6
 	db  27, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e902:
+UnreferencedTempleSceneObjFrameset_15e902:
 	db  27, 10
 	db  28,  6
 	db  18, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e909:
+UnreferencedTempleSceneObjFrameset_15e909:
 	db  33, 10
 	db  43,  6
 	db  42, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e910:
+UnreferencedTempleSceneObjFrameset_15e910:
 	db  42, 10
 	db  43,  6
 	db  33, 10
 	db $ff
 
 ; unreferenced
-Frameset_15e917:
+UnreferencedTempleSceneObjFrameset_15e917:
 	db  18,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e91a:
+UnreferencedTempleSceneObjFrameset_15e91a:
 	db  19,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e91d:
+UnreferencedTempleSceneObjFrameset_15e91d:
 	db  20,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e920:
+UnreferencedTempleSceneObjFrameset_15e920:
 	db  21,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e923:
+UnreferencedTempleSceneObjFrameset_15e923:
 	db  22,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e926:
+UnreferencedTempleSceneObjFrameset_15e926:
 	db  23,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e929:
+UnreferencedTempleSceneObjFrameset_15e929:
 	db  24,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e92c:
+UnreferencedTempleSceneObjFrameset_15e92c:
 	db  25,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e92f:
+UnreferencedTempleSceneObjFrameset_15e92f:
 	db  26,  4
 	db $ff
 
-Frameset_15e932::
+TempleSceneObjFrameset_15e932::
 	db  27,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e935:
+UnreferencedTempleSceneObjFrameset_15e935:
 	db  28,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e938:
+UnreferencedTempleSceneObjFrameset_15e938:
 	db  29,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e93b:
+UnreferencedTempleSceneObjFrameset_15e93b:
 	db  30,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e93e:
+UnreferencedTempleSceneObjFrameset_15e93e:
 	db  31,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e941:
+UnreferencedTempleSceneObjFrameset_15e941:
 	db  33,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e944:
+UnreferencedTempleSceneObjFrameset_15e944:
 	db  34,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e947:
+UnreferencedTempleSceneObjFrameset_15e947:
 	db  35,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e94a:
+UnreferencedTempleSceneObjFrameset_15e94a:
 	db  36,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e94d:
+UnreferencedTempleSceneObjFrameset_15e94d:
 	db  37,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e950:
+UnreferencedTempleSceneObjFrameset_15e950:
 	db  38,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e953:
+UnreferencedTempleSceneObjFrameset_15e953:
 	db  39,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e956:
+UnreferencedTempleSceneObjFrameset_15e956:
 	db  40,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e959:
+UnreferencedTempleSceneObjFrameset_15e959:
 	db  41,  4
 	db $ff
 
-Frameset_15e95c::
+TempleSceneObjFrameset_15e95c::
 	db  42,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e95f:
+UnreferencedTempleSceneObjFrameset_15e95f:
 	db  43,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e962:
+UnreferencedTempleSceneObjFrameset_15e962:
 	db  44,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e965:
+UnreferencedTempleSceneObjFrameset_15e965:
 	db  45,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e968:
+UnreferencedTempleSceneObjFrameset_15e968:
 	db  46,  4
 	db $ff
 
 ; unreferenced
-Frameset_15e96b:
+UnreferencedTempleSceneObjFrameset_15e96b:
 	db  18, 10
 	db  48,  6
 	db  49, 10
@@ -877,14 +877,14 @@ Frameset_15e96b:
 	db $ff
 
 ; unreferenced
-Frameset_15e974:
+UnreferencedTempleSceneObjFrameset_15e974:
 	db  51, 10
 	db  50,  6
 	db  33, 10
 	db  50,  6
 	db $ff
 
-OAM_15e97d::
+EpilogueSceneObjOAM_15e97d::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2
@@ -1329,30 +1329,30 @@ OAM_15e97d::
 	frame_oam -16,  -4, $30, 0 | OAM_BANK1
 	db $80
 
-Frameset_15ed91::
+EpilogueSceneObjFrameset_15ed91::
 	db   0,  4
 	db $ff
 
-Frameset_15ed94::
+EpilogueSceneObjFrameset_15ed94::
 	db   1,  4
 	db $ff
 
-Frameset_15ed97::
+EpilogueSceneObjFrameset_15ed97::
 	db   2,  4
 	db $ff
 
-Frameset_15ed9a::
+EpilogueSceneObjFrameset_15ed9a::
 	db   3,  4
 	db $ff
 
-Frameset_15ed9d::
+EpilogueSceneObjFrameset_15ed9d::
 	db   7,  4
 	db   6,  4
 	db   5,  4
 	db   4,  4
 	db $ff
 
-Frameset_15eda6::
+EpilogueSceneObjFrameset_15eda6::
 	db   8,  5
 	db   9,  5
 	db  10,  5
@@ -1361,7 +1361,7 @@ Frameset_15eda6::
 	db  13,  5
 	db $ff
 
-Frameset_15edb3::
+EpilogueSceneObjFrameset_15edb3::
 	db   8,  7
 	db   9,  7
 	db  10,  7
@@ -1370,15 +1370,15 @@ Frameset_15edb3::
 	db  13,  7
 	db $ff
 
-Frameset_15edc0::
+EpilogueSceneObjFrameset_15edc0::
 	db   6,  4
 	db $ff
 
-Frameset_15edc3::
+EpilogueSceneObjFrameset_15edc3::
 	db   4,  4
 	db $ff
 
-Frameset_15edc6::
+EpilogueSceneObjFrameset_15edc6::
 	db   4,  4
 	db  14,  4
 	db   4, 20
@@ -1398,14 +1398,14 @@ Frameset_15edc6::
 	db   5, 30
 	db $ff
 
-Frameset_15ede9::
+EpilogueSceneObjFrameset_15ede9::
 	db   4,  4
 	db  16,  8
 	db  17, 14
 	db  20,  3
 	db $ff
 
-Frameset_15edf2::
+EpilogueSceneObjFrameset_15edf2::
 	db   4,  4
 	db  20,  9
 	db  21,  9
@@ -1422,7 +1422,7 @@ Frameset_15edf2::
 	db  14,  4
 	db $ff
 
-Frameset_15ee0f::
+EpilogueSceneObjFrameset_15ee0f::
 	db   4,  4
 	db   3,  5
 	db  22, 10
@@ -1432,7 +1432,7 @@ Frameset_15ee0f::
 	db   5,  5
 	db $ff
 
-Frameset_15ee1e::
+EpilogueSceneObjFrameset_15ee1e::
 	db  15, 20
 	db  16,  4
 	db  23, 10
@@ -1449,14 +1449,14 @@ Frameset_15ee1e::
 	db  26,  2
 	db $ff
 
-Frameset_15ee3b::
+EpilogueSceneObjFrameset_15ee3b::
 	db   7,  4
 	db  27, 14
 	db  28, 24
 	db  27, 16
 	db $ff
 
-Frameset_15ee44::
+EpilogueSceneObjFrameset_15ee44::
 	db  29,  2
 	db  30,  2
 	db  31,  1
@@ -1468,7 +1468,7 @@ Frameset_15ee44::
 	db  39,  1
 	db $ff
 
-Frameset_15ee57::
+EpilogueSceneObjFrameset_15ee57::
 	db  31,  2
 	db  29,  2
 	db  35,  2
@@ -1477,40 +1477,40 @@ Frameset_15ee57::
 	db  37,  2
 	db $ff
 
-Frameset_15ee64::
+EpilogueSceneObjFrameset_15ee64::
 	db  41,  4
 	db $ff
 
-Frameset_15ee67::
+EpilogueSceneObjFrameset_15ee67::
 	db  42,  4
 	db  43,  4
 	db  44,  4
 	db  45,  4
 	db $ff
 
-Frameset_15ee70::
+EpilogueSceneObjFrameset_15ee70::
 	db  46,  4
 	db  47,  4
 	db  48,  4
 	db  49,  4
 	db $ff
 
-Frameset_15ee79::
+EpilogueSceneObjFrameset_15ee79::
 	db  50,  4
 	db  51,  4
 	db  52,  4
 	db  53,  4
 	db $ff
 
-Frameset_15ee82::
+EpilogueSceneObjFrameset_15ee82::
 	db  25,  2
 	db  26,  2
 	db $ff
 
-Frameset_15ee87::
+EpilogueSceneObjFrameset_15ee87::
 	db  54,  4
 	db $ff
 
-Frameset_15ee8a::
+EpilogueSceneObjFrameset_15ee8a::
 	db  55,  4
 	db $ff

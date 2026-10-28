@@ -34,7 +34,7 @@ HiddenFigureFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	ld de, Frameset_6a06c
+	ld de, HiddenFigureFrameset_6a06c
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a
@@ -212,13 +212,13 @@ HiddenFigureFunc:
 	jr z, .asm_4ccae
 	cp $08
 	jr z, .asm_4ccb3
-	ld bc, Data_4c180
+	ld bc, HiddenFigureGrab1SCYShake
 	jr .asm_4ccb6
 .asm_4ccae
-	ld bc, Data_4c580
+	ld bc, HiddenFigureGrab2SCYShake
 	jr .asm_4ccb6
 .asm_4ccb3
-	ld bc, Data_4c680
+	ld bc, HiddenFigureGrab3SCYShake
 .asm_4ccb6
 	call Func_4cf70
 	ld hl, wCurObjStateDuration
@@ -262,9 +262,9 @@ HiddenFigureFunc:
 	ret
 
 .Func_4ccf6:
-	ld bc, Data_4c000
+	ld bc, HiddenFigureSwipeSCYShake
 	call Func_4cf70
-	ld bc, Data_4c080
+	ld bc, HiddenFigureLeftSwipeSCX
 	call Func_4cf87
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -323,9 +323,9 @@ HiddenFigureFunc:
 	ret
 
 .Func_4cd59:
-	ld bc, Data_4c000
+	ld bc, HiddenFigureSwipeSCYShake
 	call Func_4cf70
-	ld bc, Data_4c100
+	ld bc, HiddenFigureRightSwipeSCX
 	call Func_4cf87
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -490,34 +490,34 @@ HiddenFigureFaceFunc:
 	ld a, [wWarioScreenXPos]
 	cp $38
 	jr nc, .asm_4ce8d
-	ld de, Frameset_6a07a
+	ld de, HiddenFigureFrameset_6a07a
 	jp SetObjectFramesetPtr
 .asm_4ce8d
 	cp $78
 	jr nc, .asm_4ce97
-	ld de, Frameset_6a06c
+	ld de, HiddenFigureFrameset_6a06c
 	jp SetObjectFramesetPtr
 .asm_4ce97
-	ld de, Frameset_6a07f
+	ld de, HiddenFigureFrameset_6a07f
 	jp SetObjectFramesetPtr
 .asm_4ce9d
 	ld a, [wWarioScreenXPos]
 	cp $38
 	jr nc, .asm_4ceaa
-	ld de, Frameset_6a092
+	ld de, HiddenFigureFrameset_6a092
 	jp SetObjectFramesetPtr
 .asm_4ceaa
 	cp $78
 	jr nc, .asm_4ceb4
-	ld de, Frameset_6a08d
+	ld de, HiddenFigureFrameset_6a08d
 	jp SetObjectFramesetPtr
 .asm_4ceb4
-	ld de, Frameset_6a097
+	ld de, HiddenFigureFrameset_6a097
 	jp SetObjectFramesetPtr
 .asm_4ceba
 	xor a
 	ld [hl], a
-	ld de, Frameset_6a084
+	ld de, HiddenFigureFrameset_6a084
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -600,7 +600,7 @@ HiddenFigureFaceFunc:
 	dec [hl]
 	ret nz
 	play_sfx SFX_HIDDEN_FIGURE_LAUGH
-	ld de, Frameset_6a071
+	ld de, HiddenFigureFrameset_6a071
 	jp SetObjectFramesetPtr
 
 Func_4cf70:
@@ -709,16 +709,16 @@ Func_4cfe0:
 	jr z, .asm_4cfef
 	cp $08
 	ret nz
-	ld hl, Pals_4d04b
+	ld hl, HiddenFigureFlashPals
 	jr .asm_4cffe
 .asm_4cfef
 	ld a, [wHiddenFigureRemainingHits]
 	cp $02
 	jr c, .asm_4cffb
-	ld hl, Pals_4d07b
+	ld hl, HiddenFigurePals
 	jr .asm_4cffe
 .asm_4cffb
-	ld hl, Pals_4d01b
+	ld hl, HiddenFigureLastHitPals
 .asm_4cffe
 	ld c, 0
 	ld b, 6
@@ -728,16 +728,16 @@ Func_4d005:
 	ld a, [wHiddenFigureRemainingHits]
 	cp $02
 	jr c, .asm_4d011
-	ld hl, Pals_4d07b
+	ld hl, HiddenFigurePals
 	jr .asm_4d014
 .asm_4d011
-	ld hl, Pals_4d01b
+	ld hl, HiddenFigureLastHitPals
 .asm_4d014
 	ld c, 0
 	ld b, 6
 	jp SetBGPals
 
-Pals_4d01b:
+HiddenFigureLastHitPals:
 	rgb  1,  4,  9
 	rgb 31,  0,  0
 	rgb 31,  0,  0
@@ -768,7 +768,7 @@ Pals_4d01b:
 	rgb 31, 25,  0
 	rgb  0,  0,  0
 
-Pals_4d04b:
+HiddenFigureFlashPals:
 	vc_patch FPA_292_BG_Flash_Palette1
 	IF DEF(_VC)
 		rgb  0,  0,  2
@@ -833,7 +833,7 @@ Pals_4d04b:
 	ENDC
 	vc_patch_end
 
-Pals_4d07b:
+HiddenFigurePals:
 	rgb  1,  4,  9
 	rgb 31,  0,  0
 	rgb  6, 10, 10
@@ -907,7 +907,7 @@ HiddenFigureLeftHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandsFlinch], a
 	ld bc, .Func_4d2c8
-	ld de, Frameset_6a13a
+	ld de, HiddenFigureFrameset_6a13a
 	jr .asm_4d154
 .asm_4d100
 	ld hl, wCurObjInteractionType
@@ -924,7 +924,7 @@ HiddenFigureLeftHandFunc:
 	ld a, $00
 	ld [hli], a
 	ld bc, .Func_4d1b1
-	ld de, Frameset_6a0bc
+	ld de, HiddenFigureFrameset_6a0bc
 	jr .asm_4d154
 .asm_4d11d
 	ld hl, wCurObjInteractionType
@@ -944,16 +944,16 @@ HiddenFigureLeftHandFunc:
 .asm_4d137
 	ld [wCurObjStateDuration], a
 	ld bc, .Func_4d164
-	ld de, Frameset_6a0d4
+	ld de, HiddenFigureFrameset_6a0d4
 	jr .asm_4d154
 .asm_4d142
 	set 3, [hl]
 	ld bc, .Func_4d37f
-	ld de, Frameset_6a0d4
+	ld de, HiddenFigureFrameset_6a0d4
 	jr .asm_4d154
 .asm_4d14c
 	ld bc, .Func_4d19e
-	ld de, Frameset_6a0d4
+	ld de, HiddenFigureFrameset_6a0d4
 	jr .asm_4d154
 .asm_4d154
 	ld hl, wCurObjUpdateFunction + 1
@@ -982,7 +982,7 @@ HiddenFigureLeftHandFunc:
 	jr z, .asm_4d197
 	ret
 .asm_4d17a
-	ld bc, Data_4c540
+	ld bc, HiddenFigureHandSlamY
 	call Func_4cf9e
 	ld a, [wCurObjVar3]
 	cp $0a
@@ -999,7 +999,7 @@ HiddenFigureLeftHandFunc:
 	jp .asm_4d34c
 
 .Func_4d19e:
-	ld bc, Data_4c500
+	ld bc, HiddenFigureHandFlinchY
 	call Func_4cf9e
 	ld a, [wCurObjVar3]
 	cp $3a
@@ -1038,7 +1038,7 @@ HiddenFigureLeftHandFunc:
 	ld [wWarioXPos + 0], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld de, Frameset_6a0f2
+	ld de, HiddenFigureFrameset_6a0f2
 	call SetObjectFramesetPtr
 	stop_music2
 	ret
@@ -1071,21 +1071,21 @@ HiddenFigureLeftHandFunc:
 	ld a, [wHiddenFigureAttack]
 	cp $08
 	jr z, .asm_4d280
-	ld bc, Data_4c380
+	ld bc, HiddenFigureLeftHandGrabX
 	call Func_4cfbf
 	ld a, [wHiddenFigureAttack]
 	cp $07
 	jr z, .asm_4d23e
-	ld bc, Data_4c400
+	ld bc, HiddenFigureHandGrab1Y
 	jr .asm_4d241
 .asm_4d23e
-	ld bc, Data_4c600
+	ld bc, HiddenFigureHandGrab2Y
 .asm_4d241
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d251
-	ld de, Frameset_6a0ef
+	ld de, HiddenFigureFrameset_6a0ef
 	jp SetObjectFramesetPtr
 .asm_4d251
 	cp $62
@@ -1095,7 +1095,7 @@ HiddenFigureLeftHandFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hld], a
-	ld de, Frameset_6a0c3
+	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
 .asm_4d264
 	cp $61
@@ -1112,14 +1112,14 @@ HiddenFigureLeftHandFunc:
 	ret nz
 	jp .asm_4d34c
 .asm_4d280
-	ld bc, Data_4c700
+	ld bc, HiddenFigureLeftHandGrab3X
 	call Func_4cfbf
-	ld bc, Data_4c800
+	ld bc, HiddenFigureHandGrab3Y
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d299
-	ld de, Frameset_6a0ef
+	ld de, HiddenFigureFrameset_6a0ef
 	jp SetObjectFramesetPtr
 .asm_4d299
 	cp $4e
@@ -1129,7 +1129,7 @@ HiddenFigureLeftHandFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FRONT_PUSH_BUMP_OFF
 	ld [hld], a
-	ld de, Frameset_6a0c3
+	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
 .asm_4d2ac
 	cp $4d
@@ -1181,7 +1181,7 @@ HiddenFigureLeftHandFunc:
 	ld [wHiddenFigureLeftHandStunned], a
 	ld [wCurObjStateDuration], a
 	stop_sfx
-	ld de, Frameset_6a0b2
+	ld de, HiddenFigureFrameset_6a0b2
 	jp SetObjectFramesetPtr
 .asm_4d30f
 	ld a, $01
@@ -1189,9 +1189,9 @@ HiddenFigureLeftHandFunc:
 	xor a
 	ld [hl], a
 .asm_4d316
-	ld bc, Data_4c200
+	ld bc, HiddenFigureLeftHandSwipeX
 	call Func_4cfbf
-	ld bc, Data_4c280
+	ld bc, HiddenFigureHandSwipeY
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $10
@@ -1240,7 +1240,7 @@ HiddenFigureLeftHandFunc:
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	res 4, [hl]
-	ld de, Frameset_6a128
+	ld de, HiddenFigureFrameset_6a128
 	jp SetObjectFramesetPtr
 
 .Func_4d379:
@@ -1254,7 +1254,7 @@ HiddenFigureLeftHandFunc:
 	ld a, [wHiddenFigureDefeatStarted]
 	and a
 	ret z
-	ld de, Frameset_6a0bc
+	ld de, HiddenFigureFrameset_6a0bc
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
@@ -1320,7 +1320,7 @@ HiddenFigureRightHandFunc:
 	ld a, $01
 	ld [wHiddenFigureHandsFlinch], a
 	ld bc, .Func_4d571
-	ld de, Frameset_6a145
+	ld de, HiddenFigureFrameset_6a145
 	jr .asm_4d455
 .asm_4d401
 	ld hl, wCurObjInteractionType
@@ -1337,7 +1337,7 @@ HiddenFigureRightHandFunc:
 	ld a, $0b
 	ld [hli], a
 	ld bc, .Func_4d4b2
-	ld de, Frameset_6a0c8
+	ld de, HiddenFigureFrameset_6a0c8
 	jr .asm_4d455
 .asm_4d41e
 	ld hl, wCurObjInteractionType
@@ -1357,16 +1357,16 @@ HiddenFigureRightHandFunc:
 .asm_4d438
 	ld [wCurObjStateDuration], a
 	ld bc, .Func_4d465
-	ld de, Frameset_6a0fe
+	ld de, HiddenFigureFrameset_6a0fe
 	jr .asm_4d455
 .asm_4d443
 	set 3, [hl]
 	ld bc, .Func_4d628
-	ld de, Frameset_6a0fe
+	ld de, HiddenFigureFrameset_6a0fe
 	jr .asm_4d455
 .asm_4d44d
 	ld bc, .Func_4d49f
-	ld de, Frameset_6a0fe
+	ld de, HiddenFigureFrameset_6a0fe
 	jr .asm_4d455
 .asm_4d455
 	ld hl, wCurObjUpdateFunction + 1
@@ -1395,7 +1395,7 @@ HiddenFigureRightHandFunc:
 	jr z, .asm_4d498
 	ret
 .asm_4d47b
-	ld bc, Data_4c540
+	ld bc, HiddenFigureHandSlamY
 	call Func_4cf9e
 	ld a, [wCurObjVar3]
 	cp $0a
@@ -1412,7 +1412,7 @@ HiddenFigureRightHandFunc:
 	jp .asm_4d5f5
 
 .Func_4d49f:
-	ld bc, Data_4c500
+	ld bc, HiddenFigureHandFlinchY
 	call Func_4cf9e
 	ld a, [wCurObjVar3]
 	cp $3a
@@ -1438,7 +1438,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
-	ld de, Frameset_6a11c
+	ld de, HiddenFigureFrameset_6a11c
 	jp SetObjectFramesetPtr
 .asm_4d4d2
 	ld hl, wCurObjState
@@ -1462,27 +1462,27 @@ HiddenFigureRightHandFunc:
 	ld a, [wHiddenFigureAttack]
 	cp $08
 	jr z, .asm_4d540
-	ld bc, Data_4c480
+	ld bc, HiddenFigureRightHandGrabX
 	call Func_4cfbf
 	ld a, [wHiddenFigureAttack]
 	cp $07
 	jr z, .asm_4d508
-	ld bc, Data_4c400
+	ld bc, HiddenFigureHandGrab1Y
 	jr .asm_4d50b
 .asm_4d508
-	ld bc, Data_4c600
+	ld bc, HiddenFigureHandGrab2Y
 .asm_4d50b
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d523
 	play_sfx SFX_HIDDEN_FIGURE_HAND_3
-	ld de, Frameset_6a119
+	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
 .asm_4d523
 	cp $62
 	jr nz, .asm_4d52d
-	ld de, Frameset_6a0cf
+	ld de, HiddenFigureFrameset_6a0cf
 	jp SetObjectFramesetPtr
 .asm_4d52d
 	cp $32
@@ -1494,20 +1494,20 @@ HiddenFigureRightHandFunc:
 	ret nz
 	jp .asm_4d5f5
 .asm_4d540
-	ld bc, Data_4c760
+	ld bc, HiddenFigureRightHandGrab3X
 	call Func_4cfbf
-	ld bc, Data_4c800
+	ld bc, HiddenFigureHandGrab3Y
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d561
 	play_sfx SFX_HIDDEN_FIGURE_HAND_2
-	ld de, Frameset_6a119
+	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
 .asm_4d561
 	cp $4e
 	jr nz, .asm_4d56b
-	ld de, Frameset_6a0cf
+	ld de, HiddenFigureFrameset_6a0cf
 	jp SetObjectFramesetPtr
 .asm_4d56b
 	cp $5f
@@ -1549,7 +1549,7 @@ HiddenFigureRightHandFunc:
 	ld [wHiddenFigureRightHandStunned], a
 	ld [wCurObjStateDuration], a
 	stop_sfx
-	ld de, Frameset_6a0b7
+	ld de, HiddenFigureFrameset_6a0b7
 	jp SetObjectFramesetPtr
 .asm_4d5b8
 	ld a, $01
@@ -1557,9 +1557,9 @@ HiddenFigureRightHandFunc:
 	xor a
 	ld [hl], a
 .asm_4d5bf
-	ld bc, Data_4c300
+	ld bc, HiddenFigureRightHandSwipeX
 	call Func_4cfbf
-	ld bc, Data_4c280
+	ld bc, HiddenFigureHandSwipeY
 	call Func_4cf9e
 	ld a, [wCurObjVar2]
 	cp $10
@@ -1607,7 +1607,7 @@ HiddenFigureRightHandFunc:
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	res 4, [hl]
-	ld de, Frameset_6a131
+	ld de, HiddenFigureFrameset_6a131
 	jp SetObjectFramesetPtr
 
 .Func_4d622:
@@ -1621,7 +1621,7 @@ HiddenFigureRightHandFunc:
 	ld a, [wHiddenFigureDefeatStarted]
 	and a
 	ret z
-	ld de, Frameset_6a0c8
+	ld de, HiddenFigureFrameset_6a0c8
 	call SetObjectFramesetPtr
 	ld a, $1e
 	ld [hli], a
@@ -1900,10 +1900,10 @@ HiddenFigureRightHandFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_4d81e
-	ld de, Frameset_6a0fe
+	ld de, HiddenFigureFrameset_6a0fe
 	jp SetObjectFramesetPtr
 .asm_4d81e
-	ld de, Frameset_6a0d4
+	ld de, HiddenFigureFrameset_6a0d4
 	jp SetObjectFramesetPtr
 
 .Func_4d824:

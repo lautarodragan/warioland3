@@ -28,7 +28,7 @@ AnonsterFunc:
 .asm_50031
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_693c4, Frameset_693d5
+	ld_obj_frameset AnonsterFrameset_693c4, AnonsterFrameset_693d5
 	call SetObjectFramesetPtr
 	ld a, $50
 	ld [hli], a
@@ -82,7 +82,7 @@ AnonsterFunc:
 	jr nz, .asm_500a8
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_6943c, Frameset_69441
+	ld_obj_frameset AnonsterFrameset_6943c, AnonsterFrameset_69441
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
@@ -96,7 +96,7 @@ AnonsterFunc:
 .asm_500a8
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
-	ld bc, Data_60790
+	ld bc, AnonsterData_60790
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
@@ -107,10 +107,10 @@ AnonsterFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_500c7
-	ld de, Frameset_693c4
+	ld de, AnonsterFrameset_693c4
 	jp SetObjectFramesetPtr
 .asm_500c7
-	ld de, Frameset_693d5
+	ld de, AnonsterFrameset_693d5
 	jp SetObjectFramesetPtr
 .asm_500cd
 	ld l, OBJ_VAR_3
@@ -142,11 +142,11 @@ AnonsterFunc:
 	cp b
 	jr c, .asm_50110
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_693e6
+	ld de, AnonsterFrameset_693e6
 	jp SetObjectFramesetPtr
 .asm_50110
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_69411
+	ld de, AnonsterFrameset_69411
 	jp SetObjectFramesetPtr
 .asm_50118
 	inc l
@@ -172,7 +172,7 @@ AnonsterFunc:
 	call Func_3513
 	and a
 	jp z, MoveObjectLeft
-	ld de, Frameset_69446
+	ld de, AnonsterFrameset_69446
 	jr .asm_50162
 .asm_5014e
 	ld a, [hli]
@@ -184,7 +184,7 @@ AnonsterFunc:
 	call Func_3513
 	and a
 	jp z, MoveObjectRight
-	ld de, Frameset_69512
+	ld de, AnonsterFrameset_69512
 .asm_50162
 	call SetObjectFramesetPtr
 	ld a, $0a
@@ -204,7 +204,7 @@ AnonsterFunc:
 	cp $4f
 	jr z, .asm_501a3
 .asm_5017f
-	ld bc, Data_60790
+	ld bc, AnonsterData_60790
 	jp ApplyObjYMovement_Loop
 .asm_50185
 	ld hl, wCurObjUpdateFunction + 1
@@ -216,7 +216,7 @@ AnonsterFunc:
 .asm_5018e
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_693f9, Frameset_69424
+	ld_obj_frameset AnonsterFrameset_693f9, AnonsterFrameset_69424
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
@@ -234,12 +234,12 @@ AnonsterFunc:
 	jr c, .asm_501b9
 	xor a
 	ld [hld], a
-	ld de, Frameset_693c4
+	ld de, AnonsterFrameset_693c4
 	jr .asm_501be
 .asm_501b9
 	xor a
 	ld [hld], a
-	ld de, Frameset_693d5
+	ld de, AnonsterFrameset_693d5
 .asm_501be
 	call SetObjectFramesetPtr
 	xor a
@@ -330,7 +330,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_69402, Frameset_6942d
+	ld_obj_frameset AnonsterFrameset_69402, AnonsterFrameset_6942d
 	call SetObjectFramesetPtr
 	jp .asm_5017f
 
@@ -450,7 +450,7 @@ AnonsterFunc:
 	ld [hli], a
 	ld a, $0b
 	ld [hli], a
-	ld de, Frameset_6944d
+	ld de, AnonsterFrameset_6944d
 	jp SetObjectFramesetPtr
 
 .Func_5034c:
@@ -470,7 +470,7 @@ AnonsterFunc:
 	and a
 	jr nz, .asm_5036e
 .asm_50368
-	ld bc, Data_607f0
+	ld bc, AnonsterData_607f0
 	jp ApplyObjYMovement
 .asm_5036e
 	ld hl, wCurObjYPos
@@ -483,7 +483,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, LOW(.Func_50397)
 	ld [hld], a
-	ld de, Frameset_69450
+	ld de, AnonsterFrameset_69450
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
@@ -523,11 +523,11 @@ AnonsterFunc:
 	cp b
 	jr c, .asm_503c4
 	res 7, [hl]
-	ld de, Frameset_694d0
+	ld de, AnonsterFrameset_694d0
 	jr .asm_503c9
 .asm_503c4
 	set 7, [hl]
-	ld de, Frameset_694c9
+	ld de, AnonsterFrameset_694c9
 .asm_503c9
 	call SetObjectFramesetPtr
 	ld a, $07
@@ -567,10 +567,10 @@ AnonsterFunc:
 	ld a, [hld]
 	rlca
 	jr c, .asm_50417
-	ld de, Frameset_69485
+	ld de, AnonsterFrameset_69485
 	jp SetObjectFramesetPtr
 .asm_50417
-	ld de, Frameset_69496
+	ld de, AnonsterFrameset_69496
 	jp SetObjectFramesetPtr
 
 .Func_5041d:
@@ -596,13 +596,13 @@ AnonsterFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .asm_5044d
-	ld de, Frameset_69485
+	ld de, AnonsterFrameset_69485
 	ld a, $10
 	ld [hld], a
 	ld a, $f8
 	jr .asm_50455
 .asm_5044d
-	ld de, Frameset_69496
+	ld de, AnonsterFrameset_69496
 	ld a, $07
 	ld [hld], a
 	ld a, $ef
@@ -650,11 +650,11 @@ AnonsterFunc:
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	jr nz, .asm_50499
 	jr c, .asm_504fe
-	ld de, Frameset_69463
+	ld de, AnonsterFrameset_69463
 	jr .asm_5049e
 .asm_50499
 	jr nc, .asm_504fe
-	ld de, Frameset_69474
+	ld de, AnonsterFrameset_69474
 .asm_5049e
 	call SetObjectFramesetPtr
 	ld a, $5d
@@ -671,7 +671,7 @@ AnonsterFunc:
 .asm_504b1
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_69554, Frameset_6954d
+	ld_obj_frameset AnonsterFrameset_69554, AnonsterFrameset_6954d
 	call SetObjectFramesetPtr
 	ld a, $07
 	ld [hli], a
@@ -729,7 +729,7 @@ AnonsterFunc:
 	call Func_3513
 	and a
 	jp z, MoveObjectLeft
-	ld de, Frameset_69573
+	ld de, AnonsterFrameset_69573
 	jr .asm_50544
 .asm_50527
 	ld hl, wCurObjYPos
@@ -746,7 +746,7 @@ AnonsterFunc:
 	call Func_3543
 	and a
 	jp nz, MoveObjectRight
-	ld de, Frameset_69568
+	ld de, AnonsterFrameset_69568
 .asm_50544
 	call SetObjectFramesetPtr
 	ld a, $0e
@@ -777,7 +777,7 @@ AnonsterFunc:
 	call DecrementRemainingBossHits
 	ld a, [hld]
 	rlca
-	ld_obj_frameset Frameset_694a7, Frameset_694b8
+	ld_obj_frameset AnonsterFrameset_694a7, AnonsterFrameset_694b8
 	call SetObjectFramesetPtr
 	ld a, [wCurObjSubState]
 	and $0f
@@ -819,7 +819,7 @@ AnonsterFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_6953c, Frameset_69543
+	ld_obj_frameset AnonsterFrameset_6953c, AnonsterFrameset_69543
 	call SetObjectFramesetPtr
 	ld a, $0e
 	ld [hli], a
@@ -836,7 +836,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_6951e
+	ld de, AnonsterFrameset_6951e
 	call SetObjectFramesetPtr
 	ld a, $33
 	ld [hli], a
@@ -853,7 +853,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_69519
+	ld de, AnonsterFrameset_69519
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar3], a
@@ -871,7 +871,7 @@ AnonsterFunc:
 	ld a, [wCurObjScreenYPos]
 	cp $10
 	jr c, .asm_50647
-	ld bc, Data_607e0
+	ld bc, AnonsterData_607e0
 	jp ApplyObjYMovement
 .asm_50647
 	ld a, [wTransformation]
@@ -885,7 +885,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_694e1
+	ld de, AnonsterFrameset_694e1
 	call SetObjectFramesetPtr
 	ld a, $2d
 	ld [hli], a
@@ -902,7 +902,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld de, Frameset_6944d
+	ld de, AnonsterFrameset_6944d
 	call SetObjectFramesetPtr
 	xor a
 	ld [wCurObjVar3], a
@@ -934,7 +934,7 @@ AnonsterFunc:
 	ld [wIsBossBattle], a
 	ld a, [wCurObjSubState]
 	rlca
-	ld_obj_frameset Frameset_694d7, Frameset_694dc
+	ld_obj_frameset AnonsterFrameset_694d7, AnonsterFrameset_694dc
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	ld a, $48
@@ -968,7 +968,7 @@ AnonsterFunc:
 .Func_50705:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60180
+	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
 	rlca
@@ -1125,7 +1125,7 @@ AnonsterSilkFunc:
 	ld a, [wCurObjSubState]
 	rlca
 	jr nc, .asm_5082a
-	ld bc, Data_60800
+	ld bc, AnonsterData_60800
 	call ApplyObjXMovement_Loop
 	ld l, OBJ_X_POS
 	ld a, [hli]
@@ -1136,7 +1136,7 @@ AnonsterSilkFunc:
 	ldh [hXPosHi], a
 	jr .asm_5083c
 .asm_5082a
-	ld bc, Data_60830
+	ld bc, AnonsterData_60830
 	call ApplyObjXMovement_Loop
 	ld l, OBJ_X_POS
 	ld a, [hli]
@@ -1185,7 +1185,7 @@ AnonsterSilkFunc:
 	call Func_352b
 	and a
 	ret z
-	ld de, Frameset_694f5
+	ld de, AnonsterFrameset_694f5
 	call SetObjectFramesetPtr
 	ld a, $64
 	ld [hli], a
@@ -1209,7 +1209,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	ld a, LOW(.Func_508be)
 	ld [hld], a
-	ld de, Frameset_6955b
+	ld de, AnonsterFrameset_6955b
 	call SetObjectFramesetPtr
 	ld a, $1d
 	ld [hli], a

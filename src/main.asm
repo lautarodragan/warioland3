@@ -99,7 +99,7 @@ SECTION "Hidden Figure Gfx", ROMX
 HiddenFigure1Gfx:: INCBIN "gfx/enemies/hidden_figure1.2bpp"
 HiddenFigure2Gfx:: INCBIN "gfx/enemies/hidden_figure2.2bpp"
 
-Pals_db000::
+HiddenFigureBGPals::
 	rgb  1,  4,  9
 	rgb 31,  0,  0
 	rgb  6, 10, 10
@@ -140,7 +140,7 @@ Pals_db000::
 	rgb 13,  6,  1
 	rgb  5,  2,  0
 
-Pals_db040::
+HiddenFigureOBPals::
 	rgb 21, 21, 21
 	rgb 31, 31, 31
 	rgb 31,  0,  0

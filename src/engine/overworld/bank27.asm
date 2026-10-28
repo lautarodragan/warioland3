@@ -1,30 +1,30 @@
 InitCutscene02:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8c00)
-	ld hl, Pals_b8c00
+	ld b, BANK(CutTreeCutscenePals_b8c00)
+	ld hl, CutTreeCutscenePals_b8c00
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps01
 	jp LoadCutsceneBGMaps02
 
 InitCutscene03:
-	ld b, BANK(Pals_b8240)
-	ld hl, Pals_b8240
+	ld b, BANK(SharedCutsceneBGPals_b8240)
+	ld hl, SharedCutsceneBGPals_b8240
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b88c0)
-	ld hl, Pals_b88c0
+	ld b, BANK(OpenNorthGateCutscenePals_b88c0)
+	ld hl, OpenNorthGateCutscenePals_b88c0
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes3Gfx
 	jp LoadCutsceneBGMaps07
 
 InitCutscene04:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8ec0)
-	ld hl, Pals_b8ec0
+	ld b, BANK(ExpelTornadoCutscenePals_b8ec0)
+	ld hl, ExpelTornadoCutscenePals_b8ec0
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes8Gfx_Vram0
 	call LoadCutsceneBGMaps01
@@ -36,11 +36,11 @@ InitCutscene06:
 	decompress_attrmap Cutscene08Attrmap, v1BGMap0
 	decompress_tilemap Cutscene08Tilemap, v0BGMap0
 
-	ld b, BANK(Pals_b8080)
-	ld hl, Pals_b8080
+	ld b, BANK(RainstormCutscenePals_b8080)
+	ld hl, RainstormCutscenePals_b8080
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8900)
-	ld hl, Pals_b8900
+	ld b, BANK(RainstormCutscenePals_b8900)
+	ld hl, RainstormCutscenePals_b8900
 	call LoadFarPalsToTempPals2
 	jp Func_9d01a
 
@@ -50,23 +50,23 @@ InitCutscene07:
 	decompress_attrmap Cutscene06Attrmap, v1BGMap0
 	decompress_tilemap Cutscene06Tilemap, v0BGMap0
 
-	ld b, BANK(Pals_b8000)
-	ld hl, Pals_b8000
+	ld b, BANK(FixElevatorCutscenePals_b8000)
+	ld hl, FixElevatorCutscenePals_b8000
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b89c0)
-	ld hl, Pals_b89c0
+	ld b, BANK(FixElevatorCutscenePals_b89c0)
+	ld hl, FixElevatorCutscenePals_b89c0
 	call LoadFarPalsToTempPals2
 	jp Func_9d158
 
 InitCutscene08:
-	ld hl, Pals_b8ac0
+	ld hl, MusicBoxCutscenePals_b8ac0
 ;	fallthrough
 
 Func_9c25f:
-	ld b, BANK(Pals_b8ac0)
+	ld b, BANK(MusicBoxCutscenePals_b8ac0)
 	call LoadFarPalsToTempPals2
-	ld hl, Pals_b8200
-	ld b, BANK(Pals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
 	call LoadFarPalsToTempPals1
 
 	ld a, LCDC_BG_MAP
@@ -76,91 +76,91 @@ Func_9c25f:
 	jp LoadCutsceneBGMaps04
 
 InitCutscene10:
-	ld hl, Pals_b8b00
+	ld hl, BlueMusicBoxCutscenePals_b8b00
 	jr Func_9c25f
 
 InitCutscene1d:
-	ld hl, Pals_b8b80
+	ld hl, RedMusicBoxCutscenePals_b8b80
 	jr Func_9c25f
 
 InitCutscene17:
-	ld hl, Pals_b8b40
+	ld hl, GreenMusicBoxCutscenePals_b8b40
 	jr Func_9c25f
 
 InitCutscene25:
-	ld hl, Pals_b8bc0
+	ld hl, GoldMusicBoxCutscenePals_b8bc0
 	jr Func_9c25f
 
 InitCutscene09:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8a80)
-	ld hl, Pals_b8a80
+	ld b, BANK(PlantSeedsCutscenePals_b8a80)
+	ld hl, PlantSeedsCutscenePals_b8a80
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes2Gfx
 	jp LoadCutsceneBGMaps03
 
 InitCutscene0a:
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8a00)
-	ld hl, Pals_b8a00
+	ld b, BANK(RaiseTowerCutscenePals_b8a00)
+	ld hl, RaiseTowerCutscenePals_b8a00
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps03
 	jp Func_9d0e6
 
 InitCutscene0c:
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8d40)
-	ld hl, Pals_b8d40
+	ld b, BANK(BlowMistCutscenePals_b8d40)
+	ld hl, BlowMistCutscenePals_b8d40
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes4Gfx
 	jp LoadCutsceneBGMaps03
 
 InitCutscene0d:
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8dc0)
-	ld hl, Pals_b8dc0
+	ld b, BANK(SummonSnakesCutscenePals_b8dc0)
+	ld hl, SummonSnakesCutscenePals_b8dc0
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes4Gfx
 	call LoadCutsceneBGMaps01
 	jp LoadCutsceneBGMaps02
 
 InitCutscene0e:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8980)
-	ld hl, Pals_b8980
+	ld b, BANK(FreezeSeaCutscenePals_b8980)
+	ld hl, FreezeSeaCutscenePals_b8980
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps03
 	jp LoadCutsceneBGMaps21
 
 InitCutscene11:
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8c40)
-	ld hl, Pals_b8c40
+	ld b, BANK(SummonLightningCutscenePals_b8c40)
+	ld hl, SummonLightningCutscenePals_b8c40
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps03
 	jp LoadCutsceneBGMaps21
 
 InitCutscene13:
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8e00)
-	ld hl, Pals_b8e00
+	ld b, BANK(FootStoneCutscenePals_b8e00)
+	ld hl, FootStoneCutscenePals_b8e00
 	call LoadFarPalsToTempPals2
 	ld a, LCDC_BG_MAP
 	ld [wLCDCFlagsToFlip], a
@@ -168,11 +168,11 @@ InitCutscene13:
 	jp LoadCutsceneBGMaps05
 
 InitCutscene14:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8a40)
-	ld hl, Pals_b8a40
+	ld b, BANK(VolcanoEruptionCutscenePals_b8a40)
+	ld hl, VolcanoEruptionCutscenePals_b8a40
 	call LoadFarPalsToTempPals2
 	ld a, LCDC_BG_MAP
 	ld [wLCDCFlagsToFlip], a
@@ -181,11 +181,11 @@ InitCutscene14:
 	jp LoadCutsceneBGMaps05
 
 InitCutscene15:
-	ld b, BANK(Pals_b81c0)
-	ld hl, Pals_b81c0
+	ld b, BANK(OpenBlueSnakeDoorCutscenePals_b81c0)
+	ld hl, OpenBlueSnakeDoorCutscenePals_b81c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8e80)
-	ld hl, Pals_b8e80
+	ld b, BANK(OpenBlueSnakeDoorCutscenePals_b8e80)
+	ld hl, OpenBlueSnakeDoorCutscenePals_b8e80
 	call LoadFarPalsToTempPals2
 .asm_9c367
 	ld a, LCDC_WINDOW
@@ -202,11 +202,11 @@ InitCutscene15:
 	jp Func_9da0e
 
 InitCutscene19:
-	ld b, BANK(Pals_b8140)
-	ld hl, Pals_b8140
+	ld b, BANK(RevealCastleCutscenePals_b8140)
+	ld hl, RevealCastleCutscenePals_b8140
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8940)
-	ld hl, Pals_b8940
+	ld b, BANK(RevealCastleCutscenePals_b8940)
+	ld hl, RevealCastleCutscenePals_b8940
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes4Gfx
 	jp LoadCutsceneBGMaps12
@@ -229,20 +229,20 @@ InitCutscene1b:
 	decompress_attrmap Cutscene33Attrmap, v1BGMap1
 	decompress_tilemap Cutscene33Tilemap, v0BGMap1
 
-	ld b, BANK(Pals_b8040)
-	ld hl, Pals_b8040
+	ld b, BANK(SharedCutsceneBGPals_b8040)
+	ld hl, SharedCutsceneBGPals_b8040
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8c80)
-	ld hl, Pals_b8c80
+	ld b, BANK(SummonSunCutscenePals_b8c80)
+	ld hl, SummonSunCutscenePals_b8c80
 	call LoadFarPalsToTempPals2
 	jp SetBGPriorityOnTopRows_BGMap1
 
 InitCutscene1e:
-	ld b, BANK(Pals_b80c0)
-	ld hl, Pals_b80c0
+	ld b, BANK(ExplodeBombsCutscenePals_b80c0)
+	ld hl, ExplodeBombsCutscenePals_b80c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8cc0)
-	ld hl, Pals_b8cc0
+	ld b, BANK(ExplodeBombsCutscenePals_b8cc0)
+	ld hl, ExplodeBombsCutscenePals_b8cc0
 	call LoadFarPalsToTempPals2
 
 	call LoadCutscenes3Gfx
@@ -261,11 +261,11 @@ InitCutscene22:
 	jp ClearTempPals_Bank27
 
 InitCutscene24:
-	ld b, BANK(Pals_b82c0)
-	ld hl, Pals_b82c0
+	ld b, BANK(OpenTreeMouthCutscenePals_b82c0)
+	ld hl, OpenTreeMouthCutscenePals_b82c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b82c0)
-	ld hl, Pals_b82c0
+	ld b, BANK(OpenTreeMouthCutscenePals_b82c0)
+	ld hl, OpenTreeMouthCutscenePals_b82c0
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes8Gfx_Vram0
 	call LoadCutsceneBGMaps28
@@ -293,10 +293,10 @@ InitCutscene27:
 	decompress_attrmap Cutscene11Attrmap, v1BGMap0
 	decompress_tilemap Cutscene11Tilemap, v0BGMap0
 
-	ld hl, Pals_cc5c0
+	ld hl, RoomPals_TheVolcanosBase1
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_cc5c0)
+	ld b, BANK(RoomPals_TheVolcanosBase1)
 	call CopyFarBytes
 
 	decompress_tiles1 CartGfx, v0Tiles1
@@ -315,31 +315,31 @@ InitCutscene27:
 	rgb  3,  0,  0
 
 InitCutscene18:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8d80)
-	ld hl, Pals_b8d80
+	ld b, BANK(PurifyWaterCutscenePals_b8d80)
+	ld hl, PurifyWaterCutscenePals_b8d80
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes1Gfx_Vram0
 	call LoadCutsceneBGMaps01
 	jp LoadCutsceneBGMaps02
 
 InitCutscene49:
-	ld b, BANK(Pals_b8180)
-	ld hl, Pals_b8180
+	ld b, BANK(OpenGoldenSnakeDoorCutscenePals_b8180)
+	ld hl, OpenGoldenSnakeDoorCutscenePals_b8180
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8e40)
-	ld hl, Pals_b8e40
+	ld b, BANK(OpenGoldenSnakeDoorCutscenePals_b8e40)
+	ld hl, OpenGoldenSnakeDoorCutscenePals_b8e40
 	call LoadFarPalsToTempPals2
 	jp InitCutscene15.asm_9c367
 
 InitCutscene1f:
-	ld b, BANK(Pals_b8280)
-	ld hl, Pals_b8280
+	ld b, BANK(LeavesFallCutscenePals_b8280)
+	ld hl, LeavesFallCutscenePals_b8280
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8f00)
-	ld hl, Pals_b8f00
+	ld b, BANK(LeavesFallCutscenePals_b8f00)
+	ld hl, LeavesFallCutscenePals_b8f00
 	call LoadFarPalsToTempPals2
 	call Func_9c931
 	call LoadCutsceneBGMaps16
@@ -348,11 +348,11 @@ InitCutscene1f:
 	jp Func_9dc6a
 
 InitCutscene21:
-	ld b, BANK(Pals_b8300)
-	ld hl, Pals_b8300
+	ld b, BANK(MakeWireCutscenePals_b8300)
+	ld hl, MakeWireCutscenePals_b8300
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8300)
-	ld hl, Pals_b8300
+	ld b, BANK(MakeWireCutscenePals_b8300)
+	ld hl, MakeWireCutscenePals_b8300
 	call LoadFarPalsToTempPals2
 	call Func_9c977
 	ld b, BANK(LevelMainTiles22)
@@ -361,21 +361,21 @@ InitCutscene21:
 	jp LoadCutsceneBGMaps31
 
 InitCutscene37:
-	ld b, BANK(Pals_b8240)
-	ld hl, Pals_b8240
+	ld b, BANK(SharedCutsceneBGPals_b8240)
+	ld hl, SharedCutsceneBGPals_b8240
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8f40)
-	ld hl, Pals_b8f40
+	ld b, BANK(TorchForestCutscenePals_b8f40)
+	ld hl, TorchForestCutscenePals_b8f40
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes4Gfx
 	jp LoadCutsceneBGMaps12
 
 InitCutscene38:
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8f80)
-	ld hl, Pals_b8f80
+	ld b, BANK(RevealWarpedVoidCutscenePals_b8f80)
+	ld hl, RevealWarpedVoidCutscenePals_b8f80
 	call LoadFarPalsToTempPals2
 	call Func_9c931
 	jp LoadCutsceneBGMaps03
@@ -390,11 +390,11 @@ InitCutscene30:
 	jp Func_9ded4
 
 InitCutscene39:
-	ld b, BANK(Pals_b8380)
-	ld hl, Pals_b8380
+	ld b, BANK(RaisePipeCutscenePals_b8380)
+	ld hl, RaisePipeCutscenePals_b8380
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8fc0)
-	ld hl, Pals_b8fc0
+	ld b, BANK(RaisePipeCutscenePals_b8fc0)
+	ld hl, RaisePipeCutscenePals_b8fc0
 	call LoadFarPalsToTempPals2
 	jp LoadCutsceneBGMaps15
 
@@ -409,11 +409,11 @@ InitCutscene3a:
 	jp Func_9e018
 
 InitCutscene3c:
-	ld b, BANK(Pals_b84c0)
-	ld hl, Pals_b84c0
+	ld b, BANK(CollectDemonsBloodCutscenePals_b84c0)
+	ld hl, CollectDemonsBloodCutscenePals_b84c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b84c0)
-	ld hl, Pals_b84c0
+	ld b, BANK(CollectDemonsBloodCutscenePals_b84c0)
+	ld hl, CollectDemonsBloodCutscenePals_b84c0
 	call LoadFarPalsToTempPals2
 	call Func_9c977
 	ld b, BANK(LevelMainTiles31)
@@ -423,11 +423,11 @@ InitCutscene3c:
 	jp SetBGPriorityOnTopRows_Vram1
 
 InitCutscene43:
-	ld b, BANK(Pals_b8440)
-	ld hl, Pals_b8440
+	ld b, BANK(PlacePropellerCutscenePals_b8440)
+	ld hl, PlacePropellerCutscenePals_b8440
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8440)
-	ld hl, Pals_b8440
+	ld b, BANK(PlacePropellerCutscenePals_b8440)
+	ld hl, PlacePropellerCutscenePals_b8440
 	call LoadFarPalsToTempPals2
 	ld b, BANK(LevelMainTiles36)
 	ld hl, LevelMainTiles36
@@ -444,11 +444,11 @@ InitCutscene54:
 	jp Func_9e2b8
 
 InitCutscene3d:
-	ld b, BANK(Pals_b8700)
-	ld hl, Pals_b8700
+	ld b, BANK(OpenParaGoomCageCutscenePals_b8700)
+	ld hl, OpenParaGoomCageCutscenePals_b8700
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b9000)
-	ld hl, Pals_b9000
+	ld b, BANK(OpenParaGoomCageCutscenePals_b9000)
+	ld hl, OpenParaGoomCageCutscenePals_b9000
 	call LoadFarPalsToTempPals2
 	call LoadCutscenes9Gfx_Vram0
 
@@ -465,11 +465,11 @@ InitCutscene3d:
 	jp LoadCutsceneBGMaps35
 
 InitCutscene4a:
-	ld b, BANK(Pals_b83c0)
-	ld hl, Pals_b83c0
+	ld b, BANK(OpenSkyDoorCutscenePals_b83c0)
+	ld hl, OpenSkyDoorCutscenePals_b83c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b9040)
-	ld hl, Pals_b9040
+	ld b, BANK(OpenSkyDoorCutscenePals_b9040)
+	ld hl, OpenSkyDoorCutscenePals_b9040
 	call LoadFarPalsToTempPals2
 	call Func_9c937
 	call LoadCutsceneBGMaps17
@@ -494,11 +494,11 @@ InitCutscene4e:
 	jp LoadCutsceneBGMaps30
 
 InitCutscene4f:
-	ld b, BANK(Pals_b8480)
-	ld hl, Pals_b8480
+	ld b, BANK(SprayIronWallCutscenePals_b8480)
+	ld hl, SprayIronWallCutscenePals_b8480
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8480)
-	ld hl, Pals_b8480
+	ld b, BANK(SprayIronWallCutscenePals_b8480)
+	ld hl, SprayIronWallCutscenePals_b8480
 	call LoadFarPalsToTempPals2
 	ld b, BANK(LevelMainTiles23)
 	ld hl, LevelMainTiles23
@@ -507,11 +507,11 @@ InitCutscene4f:
 	jp Func_9e5a1
 
 InitCutscene51:
-	ld b, BANK(Pals_b8400)
-	ld hl, Pals_b8400
+	ld b, BANK(MixChemicalsCutscenePals_b8400)
+	ld hl, MixChemicalsCutscenePals_b8400
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8400)
-	ld hl, Pals_b8400
+	ld b, BANK(MixChemicalsCutscenePals_b8400)
+	ld hl, MixChemicalsCutscenePals_b8400
 	call LoadFarPalsToTempPals2
 	call Func_9c931
 	call LoadCutsceneBGMaps18
@@ -557,11 +557,11 @@ InitCutscene55:
 InitCutscene44:
 	ld a, LCDC_BG_MAP
 	ld [wLCDCFlagsToFlip], a
-	ld b, BANK(Pals_b8200)
-	ld hl, Pals_b8200
+	ld b, BANK(SharedCutsceneBGPals_b8200)
+	ld hl, SharedCutsceneBGPals_b8200
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b90c0)
-	ld hl, Pals_b90c0
+	ld b, BANK(FeedOctohonCutscenePals_b90c0)
+	ld hl, FeedOctohonCutscenePals_b90c0
 	call LoadFarPalsToTempPals2
 	call Func_9c931
 
@@ -1922,7 +1922,7 @@ Cutscene19Func:
 	jp WaitCutsceneFunc
 
 .Func_9d2ff:
-	ld hl, Pals_9fc8b
+	ld hl, RevealCastleCutscenePal2_1
 .asm_9d302
 	ld de, wTempPals1 palette 2
 	ld b, 1 palettes
@@ -1944,15 +1944,15 @@ Cutscene19Func:
 	jp WaitCutsceneFunc
 
 .Func_9d32b:
-	ld hl, Pals_9fc93
+	ld hl, RevealCastleCutscenePal2_2
 	jr .asm_9d302
 
 .Func_9d330:
-	ld hl, Pals_9fc9b
+	ld hl, RevealCastleCutscenePal2_3
 	jr .asm_9d302
 
 .Func_9d335:
-	ld hl, Pals_9fca3
+	ld hl, RevealCastleCutscenePal2_4
 	jr .asm_9d302
 
 Cutscene0eFunc:
@@ -2019,11 +2019,11 @@ Cutscene11Func:
 	jp WaitCutsceneFunc
 
 .Func_9d3a7:
-	ld hl, Pals_b8040
+	ld hl, SharedCutsceneBGPals_b8040
 .asm_9d3aa
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_b8040) ; aka BANK(Pals_b8200)
+	ld b, BANK(SharedCutsceneBGPals_b8040) ; aka BANK(SharedCutsceneBGPals_b8200)
 	call CopyFarBytes
 	xor a
 	ld [wSceneObj1YCoord], a
@@ -2071,7 +2071,7 @@ Cutscene11Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9d409:
-	ld hl, Pals_b8200
+	ld hl, SharedCutsceneBGPals_b8200
 	jr .asm_9d3aa
 
 .Func_9d40e:
@@ -2181,16 +2181,16 @@ Cutscene1bFunc:
 	ld [wSceneObj2State], a
 	ld [wSceneObj3State], a
 
-	ld b, BANK(Pals_b8340)
+	ld b, BANK(SummonSunCutscenePals_b8340)
 	ld c, 8 palettes
-	ld hl, Pals_b8340
+	ld hl, SummonSunCutscenePals_b8340
 	ld de, wTempPals1
 	call CopyFarBytes
 	call Func_9cd40
 
-	ld b, BANK(Pals_b8340)
+	ld b, BANK(SummonSunCutscenePals_b8340)
 	ld c, 8 palettes
-	ld hl, Pals_b8340
+	ld hl, SummonSunCutscenePals_b8340
 	ld de, wTempPals2
 	call CopyFarBytes
 	call Func_9cd5a
@@ -2350,16 +2350,16 @@ Cutscene22Func:
 	dw EndCutsceneDelay_20Frames
 
 .Func_9d5f1:
-	ld hl, Pals_b8100
+	ld hl, TreasureMapCutscenePals_b8100
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(Pals_b8100)
+	ld b, BANK(TreasureMapCutscenePals_b8100)
 	call CopyFarBytes
 
-	ld hl, Pals_b8d00
+	ld hl, TreasureMapCutscenePals_b8d00
 	ld de, wTempPals2
 	ld c, 8 palettes
-	ld b, BANK(Pals_b8d00)
+	ld b, BANK(TreasureMapCutscenePals_b8d00)
 	call CopyFarBytes
 	call Func_9cc87
 	jp AdvanceCutsceneFunc
@@ -3696,11 +3696,11 @@ Cutscene30Func:
 
 .Func_9df3c:
 	call Func_9cc87
-	ld b, BANK(Pals_b8500)
-	ld hl, Pals_b8500
+	ld b, BANK(RaiseIceBlocksCutscenePals_b8500)
+	ld hl, RaiseIceBlocksCutscenePals_b8500
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8500)
-	ld hl, Pals_b8500
+	ld b, BANK(RaiseIceBlocksCutscenePals_b8500)
+	ld hl, RaiseIceBlocksCutscenePals_b8500
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -3884,11 +3884,11 @@ Cutscene3aFunc:
 
 .Func_9e07d:
 	call Func_9cc87
-	ld b, BANK(Pals_b8780)
-	ld hl, Pals_b8780
+	ld b, BANK(RemoveWarpsCutscenePals_b8780)
+	ld hl, RemoveWarpsCutscenePals_b8780
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8780)
-	ld hl, Pals_b8780
+	ld b, BANK(RemoveWarpsCutscenePals_b8780)
+	ld hl, RemoveWarpsCutscenePals_b8780
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4224,11 +4224,11 @@ Cutscene54Func:
 
 .Func_9e2ed:
 	call Func_9cc87
-	ld b, BANK(Pals_b8740)
-	ld hl, Pals_b8740
+	ld b, BANK(CutBaloonCutscenePals_b8740)
+	ld hl, CutBaloonCutscenePals_b8740
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8740)
-	ld hl, Pals_b8740
+	ld b, BANK(CutBaloonCutscenePals_b8740)
+	ld hl, CutBaloonCutscenePals_b8740
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4507,11 +4507,11 @@ Cutscene4cFunc:
 
 .Func_9e4f0:
 	call Func_9cc87
-	ld b, BANK(Pals_b86c0)
-	ld hl, Pals_b86c0
+	ld b, BANK(ExtinguishFireCutscenePals_b86c0)
+	ld hl, ExtinguishFireCutscenePals_b86c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b86c0)
-	ld hl, Pals_b86c0
+	ld b, BANK(ExtinguishFireCutscenePals_b86c0)
+	ld hl, ExtinguishFireCutscenePals_b86c0
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4576,11 +4576,11 @@ Cutscene4eFunc:
 
 .Func_9e562:
 	call Func_9cc87
-	ld b, BANK(Pals_b8640)
-	ld hl, Pals_b8640
+	ld b, BANK(PlaceBrickCutscenePals_b8640)
+	ld hl, PlaceBrickCutscenePals_b8640
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8640)
-	ld hl, Pals_b8640
+	ld b, BANK(PlaceBrickCutscenePals_b8640)
+	ld hl, PlaceBrickCutscenePals_b8640
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4836,11 +4836,11 @@ Cutscene56Func:
 
 .Func_9e71f:
 	call Func_9cc87
-	ld b, BANK(Pals_b9080)
-	ld hl, Pals_b9080
+	ld b, BANK(RevealDarkRoomCutscenePals_b9080)
+	ld hl, RevealDarkRoomCutscenePals_b9080
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b9080)
-	ld hl, Pals_b9080
+	ld b, BANK(RevealDarkRoomCutscenePals_b9080)
+	ld hl, RevealDarkRoomCutscenePals_b9080
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4874,19 +4874,19 @@ Cutscene56Func:
 	ld [wSceneObj2State], a
 	ld a, $08
 	ld [wCollectionRow], a
-	ld b, BANK(Pals_b8800)
+	ld b, BANK(RevealDarkRoomCutscenePals_b8800)
 	ld c, 8 palettes
-	ld hl, Pals_b8800
+	ld hl, RevealDarkRoomCutscenePals_b8800
 	ld de, wTempPals1
 	call CopyFarBytes
 	call Func_9cd40
 	jp AdvanceCutsceneFunc
 
 .Func_9e779:
-	ld hl, Pals_b8840
+	ld hl, RevealDarkRoomCutscenePals_b8840
 .asm_9e77c
 	call Func_9cd74
-	ld b, BANK(Pals_b8840) ; aka BANK(Pals_b8880)
+	ld b, BANK(RevealDarkRoomCutscenePals_b8840) ; aka BANK(RevealDarkRoomCutscenePals_b8880)
 	call LoadFarPalsToTempPals1
 	jp AdvanceCutsceneFunc
 
@@ -4897,7 +4897,7 @@ Cutscene56Func:
 	jp Func_9cdbd
 
 .Func_9e78e:
-	ld hl, Pals_b8880
+	ld hl, RevealDarkRoomCutscenePals_b8880
 	jr .asm_9e77c
 
 .Func_9e793:
@@ -4941,11 +4941,11 @@ Cutscene57Func:
 
 .Func_9e7d9:
 	call Func_9cc87
-	ld b, BANK(Pals_b8540)
-	ld hl, Pals_b8540
+	ld b, BANK(SummonMoonCutscenePals_b8540)
+	ld hl, SummonMoonCutscenePals_b8540
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8540)
-	ld hl, Pals_b8540
+	ld b, BANK(SummonMoonCutscenePals_b8540)
+	ld hl, SummonMoonCutscenePals_b8540
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -4988,10 +4988,10 @@ Cutscene57Func:
 	jp AdvanceCutsceneFunc
 
 .Func_9e836:
-	ld hl, Pals_b8580
+	ld hl, SummonMoonCutscenePals_b8580
 .asm_9e839
 	call Func_9cd74
-	ld b, BANK(Pals_b8580) ; aka BANK(Pals_b85c0) and BANK(Pals_b8600)
+	ld b, BANK(SummonMoonCutscenePals_b8580) ; aka BANK(SummonMoonCutscenePals_b85c0) and BANK(SummonMoonCutscenePals_b8600)
 	call LoadFarPalsToTempPals1
 	jp AdvanceCutsceneFunc
 
@@ -5002,11 +5002,11 @@ Cutscene57Func:
 	jp Func_9cdbd
 
 .Func_9e84b:
-	ld hl, Pals_b85c0
+	ld hl, SummonMoonCutscenePals_b85c0
 	jr .asm_9e839
 
 .Func_9e850:
-	ld hl, Pals_b8600
+	ld hl, SummonMoonCutscenePals_b8600
 	jr .asm_9e839
 
 Func_9e855:
@@ -5048,11 +5048,11 @@ Cutscene58Func:
 
 .Func_9e89c:
 	call Func_9cc87
-	ld b, BANK(Pals_b87c0)
-	ld hl, Pals_b87c0
+	ld b, BANK(OpenCraterHoleCutscenePals_b87c0)
+	ld hl, OpenCraterHoleCutscenePals_b87c0
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b87c0)
-	ld hl, Pals_b87c0
+	ld b, BANK(OpenCraterHoleCutscenePals_b87c0)
+	ld hl, OpenCraterHoleCutscenePals_b87c0
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -5176,11 +5176,11 @@ Cutscene55Func:
 
 .Func_9e9a3:
 	call Func_9cc87
-	ld b, BANK(Pals_b8680)
-	ld hl, Pals_b8680
+	ld b, BANK(DrillHolesCutscenePals_b8680)
+	ld hl, DrillHolesCutscenePals_b8680
 	call LoadFarPalsToTempPals1
-	ld b, BANK(Pals_b8680)
-	ld hl, Pals_b8680
+	ld b, BANK(DrillHolesCutscenePals_b8680)
+	ld hl, DrillHolesCutscenePals_b8680
 	call LoadFarPalsToTempPals2
 	jp AdvanceCutsceneFunc
 
@@ -5330,7 +5330,7 @@ Func_9ea9e:
 	ld a, [wSceneObj12YCoord]
 	and a
 	ret z
-	ld de, Data_9ec16
+	ld de, CutsceneObj10Movement
 	ld hl, wSceneObj10
 	call ApplyOWMovement
 	ret nz
@@ -5342,7 +5342,7 @@ Func_9eab4:
 	ld a, [wSceneObj12XCoord]
 	and a
 	ret z
-	ld de, Data_9ec41
+	ld de, CutsceneObj11Movement
 	ld hl, wSceneObj11
 	call ApplyOWMovement
 	ret nz
@@ -5521,10 +5521,10 @@ Cutscene44Func:
 .data_9ebe6
 	db 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1
 
-Data_9ec16:
+CutsceneObj10Movement:
 	db  0,  0, -2,  0, -2, -1, -3,  0, -2, -1, -2, -1, -2, -1, -2, -1, -1, -1, -1, -2,  0, -3,  1, -1,  2, -2,  6, -4,  6, -3,  6, -2,  7, -2,  6, -2,  7, -2,  6, -2,  7, -1, $80
 
-Data_9ec41:
+CutsceneObj11Movement:
 	db  0,  0, -1,  1, -2,  1, -1,  1, -1,  1, -1,  1, -1,  1,  0,  2,  1,  1,  1,  2,  1,  0,  2,  1,  1,  1,  5,  2,  5,  1,  6,  1,  5,  1,  6,  0,  5,  1,  6,  0,  5,  0, $80
 
 Cutscene14Func:
@@ -5850,7 +5850,7 @@ Cutscene14Func:
 	db  0, -1,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1, -1,  1,  0,  0, -1,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  1,  1,  0,  1,  0,  0,  0,  1,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  1,  1,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  1,  0,  1,  1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1,  0,  1,  0,  1,  0,  0, -1,  1,  0,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  1, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0, -1,  1,  0,  0, -1,  0, -1,  0, -1,  1, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1,  0, -1,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0, -1,  0, -1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, $80
 
 ; unreferenced
-Data_9ef82:
+VolcanoEruptionWobbleOnce_Obj2:
 	db  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  0, -1,  0,  0,  1, -1,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0, $80
 	db  0,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,  0,  1,  0,  0,  1,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1, -1,  0,  0,  1,  0,  0,  0,  1,  0,  0, -1,  1,  0,  0,  0,  0, -1,  1,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0,  0,  0, $80
 	db -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0, -1,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  0,  0,  0, -1,  1,  0,  0, -1,  0,  0,  0,  0,  1, -1,  0,  0,  0,  0,  1, -1,  0, -1,  1,  0, $80
@@ -5926,7 +5926,7 @@ Func_9f0e0:
 	cp $06
 	jr z, .asm_9f107
 .asm_9f0fd
-	ld de, OAM_bd1fd
+	ld de, OpenNorthGateCutsceneOAM_bd1fd
 	jp Func_9f0bc
 .asm_9f103
 	ld b, $00
@@ -5939,13 +5939,13 @@ Func_9f0e0:
 	jr .asm_9f0fd
 
 .framesets
-	dw Frameset_bd348
-	dw Frameset_bd34b
-	dw Frameset_bd34e
-	dw Frameset_bd351
-	dw Frameset_bd354
-	dw Frameset_bd363
-	dw Frameset_bd372
+	dw OpenNorthGateCutsceneFrameset_bd348
+	dw OpenNorthGateCutsceneFrameset_bd34b
+	dw OpenNorthGateCutsceneFrameset_bd34e
+	dw OpenNorthGateCutsceneFrameset_bd351
+	dw OpenNorthGateCutsceneFrameset_bd354
+	dw OpenNorthGateCutsceneFrameset_bd363
+	dw OpenNorthGateCutsceneFrameset_bd372
 
 Func_9f11e:
 	ld bc, wSceneObj2State
@@ -5960,7 +5960,7 @@ Func_9f11e:
 	jr z, .asm_9f137
 
 .asm_9f131
-	ld de, OAM_bd377
+	ld de, RainstormCutsceneOAM_bd377
 	jp Func_9f0bc
 
 .asm_9f137
@@ -5970,9 +5970,9 @@ Func_9f11e:
 	jr .asm_9f131
 
 .framesets
-	dw Frameset_bd43a
-	dw Frameset_bd43d
-	dw Frameset_bd44a
+	dw RainstormCutsceneFrameset_bd43a
+	dw RainstormCutsceneFrameset_bd43d
+	dw RainstormCutsceneFrameset_bd44a
 
 Func_9f146:
 	ld bc, wSceneObj2State
@@ -5991,12 +5991,12 @@ Func_9f146:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bd453
+	ld de, RaiseTowerCutsceneOAM_bd453
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bd469
-	dw Frameset_bd46c
+	dw RaiseTowerCutsceneFrameset_bd469
+	dw RaiseTowerCutsceneFrameset_bd46c
 
 Func_9f174:
 	ld bc, wSceneObj4State
@@ -6022,7 +6022,7 @@ Func_9f174:
 	cp $05
 	call z, .Func_9f1b5
 .asm_9f1a2
-	ld de, OAM_bd46f
+	ld de, FixElevatorCutsceneOAM_bd46f
 	jp Func_9f0bc
 .asm_9f1a8
 	ld b, $07
@@ -6042,16 +6042,16 @@ Func_9f174:
 	ret
 
 .framesets
-	dw Frameset_bd5c3
-	dw Frameset_bd5cc
-	dw Frameset_bd5d5
-	dw Frameset_bd5d8
-	dw Frameset_bd5dd
-	dw Frameset_bd5e6
-	dw Frameset_bd605
-	dw Frameset_bd608
-	dw Frameset_bd60f
-	dw Frameset_bd612
+	dw FixElevatorCutsceneFrameset_bd5c3
+	dw FixElevatorCutsceneFrameset_bd5cc
+	dw FixElevatorCutsceneFrameset_bd5d5
+	dw FixElevatorCutsceneFrameset_bd5d8
+	dw FixElevatorCutsceneFrameset_bd5dd
+	dw FixElevatorCutsceneFrameset_bd5e6
+	dw FixElevatorCutsceneFrameset_bd605
+	dw FixElevatorCutsceneFrameset_bd608
+	dw FixElevatorCutsceneFrameset_bd60f
+	dw FixElevatorCutsceneFrameset_bd612
 
 Func_9f1d8:
 	ld bc, wSceneObj2State
@@ -6061,13 +6061,13 @@ Func_9f1d8:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bd615
+	ld de, RevealCastleCutsceneOAM_bd615
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bd790
-	dw Frameset_bd793
-	dw Frameset_bd79c
+	dw RevealCastleCutsceneFrameset_bd790
+	dw RevealCastleCutsceneFrameset_bd793
+	dw RevealCastleCutsceneFrameset_bd79c
 
 Func_9f1f3:
 	ld de, wSceneObj2
@@ -6086,14 +6086,14 @@ Func_9f1f3:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bd7a1
+	ld de, FreezeSeaCutsceneOAM_bd7a1
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bd905
-	dw Frameset_bd908
-	dw Frameset_bd90b
-	dw Frameset_bd90e
+	dw FreezeSeaCutsceneFrameset_bd905
+	dw FreezeSeaCutsceneFrameset_bd908
+	dw FreezeSeaCutsceneFrameset_bd90b
+	dw FreezeSeaCutsceneFrameset_bd90e
 
 Func_9f225:
 	ld bc, wSceneObj2State
@@ -6106,12 +6106,12 @@ Func_9f225:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bd911
+	ld de, SummonSunCutsceneOAM_bd911
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bd96b
-	dw Frameset_bd96e
+	dw SummonSunCutsceneFrameset_bd96b
+	dw SummonSunCutsceneFrameset_bd96e
 
 Func_9f244:
 	ld bc, wSceneObj5State
@@ -6126,13 +6126,13 @@ Func_9f244:
 	cp $01
 	jr z, .asm_9f27a
 .asm_9f25b
-	ld de, OAM_188e16
+	ld de, OwlOAM_188e16
 	call Func_9f0c1
 	ret
 
 .framesets
-	dw Frameset_692e7
-	dw Frameset_69335
+	dw OwlFrameset_692e7
+	dw OwlFrameset_69335
 
 .asm_9f266
 	call .Func_9f26b
@@ -6187,15 +6187,15 @@ Func_9f2a2:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bd971
+	ld de, ExplodeBombsCutsceneOAM_bd971
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bd9ec
-	dw Frameset_bd9f5
-	dw Frameset_bd9f8
-	dw Frameset_bd9fb
-	dw Frameset_bd9fe
+	dw ExplodeBombsCutsceneFrameset_bd9ec
+	dw ExplodeBombsCutsceneFrameset_bd9f5
+	dw ExplodeBombsCutsceneFrameset_bd9f8
+	dw ExplodeBombsCutsceneFrameset_bd9fb
+	dw ExplodeBombsCutsceneFrameset_bd9fe
 
 Func_9f2cd:
 	ld bc, wSceneObj2State
@@ -6209,7 +6209,7 @@ Func_9f2cd:
 	cp $01
 	jr z, .asm_9f2e6
 .asm_9f2e0
-	ld de, OAM_bda01
+	ld de, TreasureMapCutsceneOAM_bda01
 	jp Func_9f0bc
 .asm_9f2e6
 	ld b, $02
@@ -6218,8 +6218,8 @@ Func_9f2cd:
 	jr .asm_9f2e0
 
 .framesets
-	dw Frameset_bdaa2
-	dw Frameset_bdab9
+	dw TreasureMapCutsceneFrameset_bdaa2
+	dw TreasureMapCutsceneFrameset_bdab9
 
 Func_9f2f3:
 	ld bc, wSceneObj2State
@@ -6243,9 +6243,9 @@ Func_9f2f3:
 	ret
 
 .framesets
-	dw Frameset_691a7
-	dw Frameset_691bc
-	dw Frameset_691bf
+	dw CartFrameset_691a7
+	dw PlaceCartWheelsCutsceneFrameset_691bc
+	dw CartFrameset_691bf
 
 Func_9f323:
 	ld de, wSceneObj2
@@ -6257,11 +6257,11 @@ Func_9f323:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bdabc
+	ld de, BlowMistCutsceneOAM_bdabc
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bdb03
+	dw BlowMistCutsceneFrameset_bdb03
 
 Func_9f340:
 	ld bc, wSceneObj3State
@@ -6276,13 +6276,13 @@ Func_9f340:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bdb06
+	ld de, SummonSnakesCutsceneOAM_bdb06
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bdc5f
-	dw Frameset_bdc62
-	dw Frameset_bdc7f
+	dw SummonSnakesCutsceneFrameset_bdc5f
+	dw SummonSnakesCutsceneFrameset_bdc62
+	dw SummonSnakesCutsceneFrameset_bdc7f
 
 Func_9f367:
 	ld de, wSceneObj3
@@ -6299,11 +6299,11 @@ Func_9f367:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bdc9c
+	ld de, FootStoneCutsceneOAM_bdc9c
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bdce3
+	dw FootStoneCutsceneFrameset_bdce3
 
 Func_9f38d:
 	ld bc, wSceneObj2State
@@ -6323,7 +6323,7 @@ Func_9f38d:
 	cp $04
 	jr z, .asm_9f3b8
 .asm_9f3b2
-	ld de, OAM_bdce6
+	ld de, OpenSnakeDoorCutsceneOAM_bdce6
 	jp Func_9f0bc
 .asm_9f3b8
 	ld b, $01
@@ -6332,12 +6332,12 @@ Func_9f38d:
 	jr .asm_9f3b2
 
 .framesets
-	dw Frameset_bddcc
-	dw Frameset_bddc3
-	dw Frameset_bddc6
-	dw Frameset_bdda9
-	dw Frameset_bddc0
-	dw Frameset_bddc9
+	dw OpenSnakeDoorCutsceneFrameset_bddcc
+	dw OpenSnakeDoorCutsceneFrameset_bddc3
+	dw OpenSnakeDoorCutsceneFrameset_bddc6
+	dw OpenSnakeDoorCutsceneFrameset_bdda9
+	dw OpenSnakeDoorCutsceneFrameset_bddc0
+	dw OpenSnakeDoorCutsceneFrameset_bddc9
 
 Func_9f3cd:
 	ld bc, wSceneObj3State
@@ -6350,13 +6350,13 @@ Func_9f3cd:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bddcf
+	ld de, ExpelTornadoCutsceneOAM_bddcf
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bde60
-	dw Frameset_bde63
-	dw Frameset_bde66
+	dw ExpelTornadoCutsceneFrameset_bde60
+	dw ExpelTornadoCutsceneFrameset_bde63
+	dw ExpelTornadoCutsceneFrameset_bde66
 
 Func_9f3ee:
 	ld bc, wSceneObj2State
@@ -6371,13 +6371,13 @@ Func_9f3ee:
 	call Func_9f0ae
 	cp $03
 	call z, .Func_9f414
-	ld de, OAM_bde69
+	ld de, OpenTreeMouthCutsceneOAM_bde69
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bdf92
-	dw Frameset_bdf95
-	dw Frameset_bdfa0
+	dw OpenTreeMouthCutsceneFrameset_bdf92
+	dw OpenTreeMouthCutsceneFrameset_bdf95
+	dw OpenTreeMouthCutsceneFrameset_bdfa0
 
 .Func_9f414:
 	ld a, [wOWAnimationFinished]
@@ -6402,7 +6402,7 @@ Func_9f423:
 	cp $03
 	jr z, .asm_9f47e
 .asm_9f440
-	ld de, OAM_bdfa5
+	ld de, LeavesFallCutsceneOAM_bdfa5
 	jp Func_9f0bc
 .asm_9f446
 	call .Func_9f45a
@@ -6412,10 +6412,10 @@ Func_9f423:
 	jr .asm_9f440
 
 .framesets
-	dw Frameset_be1b0
-	dw Frameset_be1c3
-	dw Frameset_be1fc
-	dw Frameset_be203
+	dw LeavesFallCutsceneFrameset_be1b0
+	dw LeavesFallCutsceneFrameset_be1c3
+	dw LeavesFallCutsceneFrameset_be1fc
+	dw LeavesFallCutsceneFrameset_be203
 
 .Func_9f45a:
 	ld a, [wSceneObj3Frame]
@@ -6479,14 +6479,14 @@ Func_9f49c:
 	cp $02
 	jr z, .asm_9f4ec
 .asm_9f4c5
-	ld de, OAM_be206
+	ld de, MakeWireCutsceneOAM_be206
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_be2b9
-	dw Frameset_be2c2
-	dw Frameset_be2d3
-	dw Frameset_be2d6
+	dw MakeWireCutsceneFrameset_be2b9
+	dw MakeWireCutsceneFrameset_be2c2
+	dw MakeWireCutsceneFrameset_be2d3
+	dw MakeWireCutsceneFrameset_be2d6
 
 .asm_9f4d3
 	call .Func_9f4d8
@@ -6534,11 +6534,11 @@ Func_9f508:
 	cp $01
 	jr z, .asm_9f529
 .asm_9f521
-	ld de, OAM_be2d9
+	ld de, TorchForestCutsceneOAM_be2d9
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_be3c5
+	dw TorchForestCutsceneFrameset_be3c5
 
 .asm_9f529
 	call .Func_9f52e
@@ -6580,7 +6580,7 @@ Func_9f547:
 	cp $03
 	jr z, .asm_9f582
 .asm_9f56d
-	ld de, OAM_be3ce
+	ld de, RevealWarpedVoidCutsceneOAM_be3ce
 	jp Func_9f0bc
 
 .asm_9f573
@@ -6590,9 +6590,9 @@ Func_9f547:
 	jr .asm_9f56d
 
 .framesets
-	dw Frameset_be7e6
-	dw Frameset_be7e9
-	dw Frameset_be802
+	dw RevealWarpedVoidCutsceneFrameset_be7e6
+	dw RevealWarpedVoidCutsceneFrameset_be7e9
+	dw RevealWarpedVoidCutsceneFrameset_be802
 
 .asm_9f582
 	call .Func_9f587
@@ -6634,7 +6634,7 @@ Func_9f5a0:
 	cp $02
 	jr z, .asm_9f5d1
 .asm_9f5cb
-	ld de, OAM_be807
+	ld de, RaiseIceBlocksCutsceneOAM_be807
 	jp Func_9f0bc
 .asm_9f5d1
 	call .Func_9f5e5
@@ -6644,10 +6644,10 @@ Func_9f5a0:
 	jr .asm_9f5cb
 
 .framesets
-	dw Frameset_be8de
-	dw Frameset_be8e1
-	dw Frameset_be8ea
-	dw Frameset_be8ed
+	dw RaiseIceBlocksCutsceneFrameset_be8de
+	dw RaiseIceBlocksCutsceneFrameset_be8e1
+	dw RaiseIceBlocksCutsceneFrameset_be8ea
+	dw RaiseIceBlocksCutsceneFrameset_be8ed
 
 .Func_9f5e5:
 	ld a, [wSceneObj2Frame]
@@ -6681,12 +6681,12 @@ Func_9f607:
 	cp $02
 	jr z, .asm_9f624
 .asm_9f61a
-	ld de, OAM_be8fe
+	ld de, RaisePipeCutsceneOAM_be8fe
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_be9fa
-	dw Frameset_be9fd
+	dw RaisePipeCutsceneFrameset_be9fa
+	dw RaisePipeCutsceneFrameset_be9fd
 
 .asm_9f624
 	call .Func_9f629
@@ -6723,7 +6723,7 @@ Func_9f638:
 	cp $02
 	jr z, .asm_9f684
 .asm_9f66d
-	ld de, OAM_bea06
+	ld de, RemoveWarpsCutsceneOAM_bea06
 	jp Func_9f0bc
 .asm_9f673
 	ld b, $00
@@ -6732,10 +6732,10 @@ Func_9f638:
 	jr .asm_9f66d
 
 .framesets
-	dw Frameset_beacc
-	dw Frameset_beacf
-	dw Frameset_beae4
-	dw Frameset_beaed
+	dw RemoveWarpsCutsceneFrameset_beacc
+	dw RemoveWarpsCutsceneFrameset_beacf
+	dw RemoveWarpsCutsceneFrameset_beae4
+	dw RemoveWarpsCutsceneFrameset_beaed
 
 .asm_9f684
 	call .Func_9f689
@@ -6777,7 +6777,7 @@ Func_9f6a2:
 	cp $06
 	jr z, .asm_9f6e1
 .asm_9f6c9
-	ld de, OAM_beafc
+	ld de, CollectDemonsBloodCutsceneOAM_beafc
 	jp Func_9f0bc
 
 .asm_9f6cf
@@ -6798,13 +6798,13 @@ Func_9f6a2:
 	jr .asm_9f6c9
 
 .framesets
-	dw Frameset_bebda
-	dw Frameset_bebcc
-	dw Frameset_bebdd
-	dw Frameset_bebe0
-	dw Frameset_bebd3
-	dw Frameset_bebe3
-	dw Frameset_bebec
+	dw CollectDemonsBloodCutsceneFrameset_bebda
+	dw CollectDemonsBloodCutsceneFrameset_bebcc
+	dw CollectDemonsBloodCutsceneFrameset_bebdd
+	dw CollectDemonsBloodCutsceneFrameset_bebe0
+	dw CollectDemonsBloodCutsceneFrameset_bebd3
+	dw CollectDemonsBloodCutsceneFrameset_bebe3
+	dw CollectDemonsBloodCutsceneFrameset_bebec
 
 Func_9f6f8:
 	ld bc, wSceneObj2State
@@ -6820,13 +6820,13 @@ Func_9f6f8:
 	cp $02
 	jr z, .asm_9f71d
 .asm_9f711
-	ld de, OAM_bebef
+	ld de, PlacePropellerCutsceneOAM_bebef
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_becc7
-	dw Frameset_becca
-	dw Frameset_becd3
+	dw PlacePropellerCutsceneFrameset_becc7
+	dw PlacePropellerCutsceneFrameset_becca
+	dw PlacePropellerCutsceneFrameset_becd3
 
 .asm_9f71d
 	call .Func_9f722
@@ -6859,13 +6859,13 @@ Func_9f73b:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_becdc
+	ld de, CutBaloonCutsceneOAM_becdc
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bed39
-	dw Frameset_bed3c
-	dw Frameset_bed3f
+	dw CutBaloonCutsceneFrameset_bed39
+	dw CutBaloonCutsceneFrameset_bed3c
+	dw CutBaloonCutsceneFrameset_bed3f
 
 Func_9f75c:
 	ld bc, wSceneObj2State
@@ -6885,7 +6885,7 @@ Func_9f75c:
 	cp $06
 	jr z, .asm_9f78b
 .asm_9f77d
-	ld de, OAM_bed42
+	ld de, OpenParaGoomCageCutsceneOAM_bed42
 	jp Func_9f0bc
 .asm_9f783
 	ld b, $00
@@ -6901,13 +6901,13 @@ Func_9f75c:
 	jr .asm_9f77d
 
 .framesets
-	dw Frameset_bee4d
-	dw Frameset_bee50
-	dw Frameset_bee55
-	dw Frameset_bee58
-	dw Frameset_bee5d
-	dw Frameset_bee60
-	dw Frameset_bee6b
+	dw OpenParaGoomCageCutsceneFrameset_bee4d
+	dw OpenParaGoomCageCutsceneFrameset_bee50
+	dw OpenParaGoomCageCutsceneFrameset_bee55
+	dw OpenParaGoomCageCutsceneFrameset_bee58
+	dw OpenParaGoomCageCutsceneFrameset_bee5d
+	dw OpenParaGoomCageCutsceneFrameset_bee60
+	dw OpenParaGoomCageCutsceneFrameset_bee6b
 
 Func_9f7a2:
 	ld bc, wSceneObj3State
@@ -6917,12 +6917,12 @@ Func_9f7a2:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0b5
-	ld de, OAM_180b43
+	ld de, ParaGoomOAM_180b43
 	jp Func_9f0c6
 
 .framesets
-	dw Frameset_68439
-	dw Frameset_684ba
+	dw ParaGoomFrameset_68439
+	dw ParaGoomFrameset_684ba
 
 Func_9f7bb:
 	ld bc, wSceneObj2State
@@ -6935,13 +6935,13 @@ Func_9f7bb:
 	ld hl, .framesets
 	call Func_9f0a5
 	call Func_9f0ae
-	ld de, OAM_bee6e
+	ld de, OpenSkyDoorCutsceneOAM_bee6e
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_befbe
-	dw Frameset_befc1
-	dw Frameset_befc4
+	dw OpenSkyDoorCutsceneFrameset_befbe
+	dw OpenSkyDoorCutsceneFrameset_befc1
+	dw OpenSkyDoorCutsceneFrameset_befc4
 
 Func_9f7dc:
 	ld bc, wSceneObj2State
@@ -6957,7 +6957,7 @@ Func_9f7dc:
 	cp $03
 	jr z, .asm_9f808
 .asm_9f7f3
-	ld de, OAM_befd5
+	ld de, ExtinguishFireCutsceneOAM_befd5
 	jp Func_9f0bc
 .asm_9f7f9
 	ld b, $03
@@ -6966,9 +6966,9 @@ Func_9f7dc:
 	jr .asm_9f7f3
 
 .framesets
-	dw Frameset_bf100
-	dw Frameset_bf103
-	dw Frameset_bf110
+	dw ExtinguishFireCutsceneFrameset_bf100
+	dw ExtinguishFireCutsceneFrameset_bf103
+	dw ExtinguishFireCutsceneFrameset_bf110
 
 .asm_9f808
 	call .Func_9f80d
@@ -6997,12 +6997,12 @@ Func_9f821:
 	cp $01
 	jr z, .asm_9f83e
 .asm_9f834
-	ld de, OAM_18aba0
+	ld de, FireOAM_18aba0
 	jp Func_9f0c1
 
 .framesets
-	dw Frameset_69c0a
-	dw Frameset_69c13
+	dw FireFrameset_69c0a
+	dw ExtinguishFireCutsceneFrameset_69c13
 
 .asm_9f83e
 	call .Func_9f843
@@ -7026,9 +7026,9 @@ Func_9f857:
 	and a
 	ret z
 	dec l
-	ld de, Frameset_bf154
+	ld de, PlaceBrickCutsceneFrameset_bf154
 	call Func_9f0ae
-	ld de, OAM_bf131
+	ld de, PlaceBrickCutsceneOAM_bf131
 	jp Func_9f0bc
 
 Func_9f86a:
@@ -7047,7 +7047,7 @@ Func_9f86a:
 	cp $03
 	jr z, .asm_9f88d
 .asm_9f887
-	ld de, OAM_bf157
+	ld de, SprayIronWallCutsceneOAM_bf157
 	jp Func_9f0bc
 .asm_9f88d
 	call .Func_9f8c1
@@ -7057,11 +7057,11 @@ Func_9f86a:
 	jr .asm_9f887
 
 .framesets
-	dw Frameset_bf28c
-	dw Frameset_bf28f
-	dw Frameset_bf298
-	dw Frameset_bf2a5
-	dw Frameset_bf2a8
+	dw SprayIronWallCutsceneFrameset_bf28c
+	dw SprayIronWallCutsceneFrameset_bf28f
+	dw SprayIronWallCutsceneFrameset_bf298
+	dw SprayIronWallCutsceneFrameset_bf2a5
+	dw SprayIronWallCutsceneFrameset_bf2a8
 
 .asm_9f8a3
 	call .Func_9f8a8
@@ -7113,7 +7113,7 @@ Func_9f8da:
 	cp $03
 	jr z, .asm_9f8f9
 	.asm_9f8f3
-	ld de, OAM_bf2ab
+	ld de, MixChemicalsCutsceneOAM_bf2ab
 	jp Func_9f0bc
 .asm_9f8f9
 	ld b, $00
@@ -7136,9 +7136,9 @@ Func_9f8da:
 	jr .asm_9f8f3
 
 .framesets
-	dw Frameset_bf43b
-	dw Frameset_bf45d
-	dw Frameset_bf43e
+	dw MixChemicalsCutsceneFrameset_bf43b
+	dw MixChemicalsCutsceneFrameset_bf45d
+	dw MixChemicalsCutsceneFrameset_bf43e
 
 Func_9f91f:
 	ld bc, wSceneObj2State
@@ -7154,7 +7154,7 @@ Func_9f91f:
 	cp $02
 	jr z, .asm_9f943
 .asm_9f936
-	ld de, OAM_bf460
+	ld de, RevealDarkRoomCutsceneOAM_bf460
 	jp Func_9f0bc
 .asm_9f93c
 	call .Func_9f953
@@ -7169,8 +7169,8 @@ Func_9f91f:
 	jr .asm_9f936
 
 .framesets
-	dw Frameset_bf5e0
-	dw Frameset_bf5e0
+	dw RevealDarkRoomCutsceneFrameset_bf5e0
+	dw RevealDarkRoomCutsceneFrameset_bf5e0
 
 .Func_9f953:
 	ld a, [wSceneObj2Frame]
@@ -7221,7 +7221,7 @@ Func_9f991:
 	cp $04
 	jr z, .asm_9f9b0
 .asm_9f9aa
-	ld de, OAM_bf611
+	ld de, SummonMoonCutsceneOAM_bf611
 	jp Func_9f0bc
 .asm_9f9b0
 	ld b, $03
@@ -7230,10 +7230,10 @@ Func_9f991:
 	jr .asm_9f9aa
 
 .framesets
-	dw Frameset_bf65d
-	dw Frameset_bf660
-	dw Frameset_bf665
-	dw Frameset_bf668
+	dw SummonMoonCutsceneFrameset_bf65d
+	dw SummonMoonCutsceneFrameset_bf660
+	dw SummonMoonCutsceneFrameset_bf665
+	dw SummonMoonCutsceneFrameset_bf668
 
 Func_9f9c1:
 	ld bc, wSceneObj11State
@@ -7251,7 +7251,7 @@ Func_9f9c1:
 	cp $02
 	jr z, .asm_9f9e6
 .asm_9f9e0
-	ld de, OAM_bf66d
+	ld de, OpenCraterHoleCutsceneOAM_bf66d
 	jp Func_9f0bc
 .asm_9f9e6
 	ld b, $01
@@ -7260,9 +7260,9 @@ Func_9f9c1:
 	jr .asm_9f9e0
 
 .framesets
-	dw Frameset_bf6df
-	dw Frameset_bf6e2
-	dw Frameset_bf6ed
+	dw OpenCraterHoleCutsceneFrameset_bf6df
+	dw OpenCraterHoleCutsceneFrameset_bf6e2
+	dw OpenCraterHoleCutsceneFrameset_bf6ed
 
 Func_9f9f5:
 	ld bc, wSceneObj3State
@@ -7277,12 +7277,12 @@ Func_9f9f5:
 	cp $02
 	jr z, .asm_9fa2f
 .asm_9fa0c
-	ld de, OAM_18c806
+	ld de, WallCrackOAM_18c806
 	jp Func_9f0cb
 
 .framesets
-	dw Frameset_6a052
-	dw Frameset_6a05f
+	dw WallCrackFrameset_6a052
+	dw WallCrackFrameset_6a05f
 
 .asm_9fa16
 	call .Func_9fa1b
@@ -7343,15 +7343,15 @@ Func_9fa48:
 	cp $02
 	jr z, .asm_9fa9b
 .asm_9fa8b
-	ld de, OAM_bf6f0
+	ld de, DrillHolesCutsceneOAM_bf6f0
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bf826
-	dw Frameset_bf829
-	dw Frameset_bf832
-	dw Frameset_bf835
-	dw Frameset_bf83e
+	dw DrillHolesCutsceneFrameset_bf826
+	dw DrillHolesCutsceneFrameset_bf829
+	dw DrillHolesCutsceneFrameset_bf832
+	dw DrillHolesCutsceneFrameset_bf835
+	dw DrillHolesCutsceneFrameset_bf83e
 
 .asm_9fa9b
 	call .Func_9faa0
@@ -7380,12 +7380,12 @@ Func_9fab4:
 	cp $01
 	jr z, .asm_9fad1
 .asm_9fac7
-	ld de, OAM_bf847
+	ld de, FeedOctohonCutsceneOAM_bf847
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bf923
-	dw Frameset_bf92a
+	dw FeedOctohonCutsceneFrameset_bf923
+	dw FeedOctohonCutsceneFrameset_bf92a
 
 .asm_9fad1
 	call .Func_9fad6
@@ -7419,7 +7419,7 @@ Func_9faea:
 	cp $02
 	jr z, .asm_9fb0b
 .asm_9fb05
-	ld de, OAM_18a895
+	ld de, OctohonOAM_18a895
 	jp Func_9f0c1
 .asm_9fb0b
 	ld b, $03
@@ -7428,9 +7428,9 @@ Func_9faea:
 	jr .asm_9fb05
 
 .framesets
-	dw Frameset_69b38
-	dw Frameset_69ba0
-	dw Frameset_69b60
+	dw OctohonFrameset_69b38
+	dw FeedOctohonCutsceneFrameset_69ba0
+	dw OctohonFrameset_69b60
 
 .asm_9fb1a
 	call .Func_9fb1f
@@ -7488,7 +7488,7 @@ Func_9fb53:
 ;	fallthrough
 
 Func_9fb61:
-	ld de, OAM_bc000
+	ld de, CutsceneOverlayOAM_bc000
 	ld a, $fc
 	and l
 	ld l, a
@@ -7560,7 +7560,7 @@ Func_9fba9:
 	call Func_9f0a5
 	call Func_9f0ae
 .asm_9fbd5
-	ld de, OAM_bcfb3
+	ld de, SharedCutsceneOAM_bcfb3
 	call Func_9f0bc
 	ret
 .asm_9fbdc
@@ -7573,12 +7573,12 @@ Func_9fba9:
 	jr .asm_9fbd5
 
 .framesets
-	dw Frameset_bd1b7
-	dw Frameset_bd1ba
-	dw Frameset_bd1bd
-	dw Frameset_bd1c0
-	dw Frameset_bd1c5
-	dw Frameset_bd1f8
+	dw VolcanoEruptionCutsceneFrameset_bd1b7
+	dw VolcanoEruptionCutsceneFrameset_bd1ba
+	dw VolcanoEruptionCutsceneFrameset_bd1bd
+	dw VolcanoEruptionCutsceneFrameset_bd1c0
+	dw VolcanoEruptionCutsceneFrameset_bd1c5
+	dw VolcanoEruptionCutsceneFrameset_bd1f8
 
 Func_9fbfa:
 	ld de, wSceneObj2
@@ -7591,10 +7591,10 @@ Func_9fbfa:
 	ld a, [wSceneObj2State]
 	and a
 	ret z
-	ld de, Frameset_bd1b4
+	ld de, PlantSeedsCutsceneFrameset_bd1b4
 	ld hl, wSceneObj2Duration
 	call Func_9f0ae
-	ld de, OAM_bcfb3
+	ld de, SharedCutsceneOAM_bcfb3
 	jp Func_9f0bc
 
 Func_9fc1d:
@@ -7613,20 +7613,20 @@ Func_9fc1d:
 	call GetPointerFromTableDE
 	ld hl, wSceneObj2Duration
 	call Func_9f0ae
-	ld de, OAM_bc1f6
+	ld de, MusicBoxCutsceneOAM_bc1f6
 	jp Func_9f0bc
 
 .framesets
-	dw Frameset_bcf15
-	dw Frameset_bcf18
-	dw Frameset_bcf21
-	dw Frameset_bcf24
-	dw Frameset_bcf35
-	dw Frameset_bcf38
-	dw Frameset_bcf49
-	dw Frameset_bcf4c
-	dw Frameset_bcf6d
-	dw Frameset_bcf70
+	dw MusicBoxCutsceneFrameset_bcf15
+	dw MusicBoxCutsceneFrameset_bcf18
+	dw MusicBoxCutsceneFrameset_bcf21
+	dw MusicBoxCutsceneFrameset_bcf24
+	dw MusicBoxCutsceneFrameset_bcf35
+	dw MusicBoxCutsceneFrameset_bcf38
+	dw MusicBoxCutsceneFrameset_bcf49
+	dw MusicBoxCutsceneFrameset_bcf4c
+	dw MusicBoxCutsceneFrameset_bcf6d
+	dw MusicBoxCutsceneFrameset_bcf70
 
 OWCutTree:
 .start
@@ -7645,38 +7645,38 @@ OWCutTree:
 	; invalid value
 	debug_nop
 .one
-	ld de, Frameset_bc1f3
+	ld de, CutTreeCutsceneFrameset_bc1f3
 	call UpdateOWAnimation
 	jr .asm_9fc85
 .two
-	ld de, Frameset_bc1e8
+	ld de, CutTreeCutsceneFrameset_bc1e8
 	call UpdateOWAnimation
 	ld b, $00
 	call Func_9f0d0
 	jr z, .start
 .asm_9fc85
-	ld de, OAM_bc122
+	ld de, CutTreeCutsceneOAM_bc122
 	jp Func_9f0bc
 
-Pals_9fc8b:
+RevealCastleCutscenePal2_1:
 	rgb  6,  7, 16
 	rgb  2,  5, 17
 	rgb  0,  4, 14
 	rgb  0,  0, 11
 
-Pals_9fc93:
+RevealCastleCutscenePal2_2:
 	rgb 12, 15, 22
 	rgb  4,  9, 21
 	rgb  0,  5, 18
 	rgb  0,  0, 11
 
-Pals_9fc9b:
+RevealCastleCutscenePal2_3:
 	rgb 16, 21, 26
 	rgb  6, 15, 27
 	rgb  0,  6, 21
 	rgb  0,  0, 11
 
-Pals_9fca3:
+RevealCastleCutscenePal2_4:
 	rgb 21, 28, 31
 	rgb  8, 19, 31
 	rgb  0,  7, 23

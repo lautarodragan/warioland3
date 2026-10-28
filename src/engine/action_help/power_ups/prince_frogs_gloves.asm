@@ -92,9 +92,9 @@ Func_1fad7a:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld a, HIGH(Frameset_1425f)
+	ld a, HIGH(WarioFrameset_1425f)
 	ld [hli], a
-	ld a, LOW(Frameset_1425f)
+	ld a, LOW(WarioFrameset_1425f)
 	ld [hli], a
 	xor a
 	ld [hl], a

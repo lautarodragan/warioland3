@@ -149,7 +149,7 @@ CountRichtertoffenFunc:
 	jp .asm_41044
 
 .Flatten:
-	ld de, Frameset_683d4
+	ld de, CountRichtertoffenFrameset_683d4
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -200,7 +200,7 @@ CountRichtertoffenFunc:
 	dec l
 	xor a
 	ld [hld], a ; OBJ_VAR_3
-	ld de, Frameset_683e1
+	ld de, CountRichtertoffenFrameset_683e1
 	call SetObjectFramesetPtr
 	ret
 
@@ -211,7 +211,7 @@ CountRichtertoffenFunc:
 	dec l
 	xor a
 	ld [hld], a ; OBJ_VAR_3
-	ld de, Frameset_683de
+	ld de, CountRichtertoffenFrameset_683de
 	call SetObjectFramesetPtr
 	ret
 
@@ -223,7 +223,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_WALK
 	ld [hld], a
-	ld de, Frameset_683bc
+	ld de, CountRichtertoffenFrameset_683bc
 	call SetObjectFramesetPtr
 	ld a, 44
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -279,12 +279,12 @@ CountRichtertoffenFunc:
 .asm_41006
 	jr c, .asm_41012
 	res OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
-	ld de, Frameset_683c1
+	ld de, CountRichtertoffenFrameset_683c1
 	call SetObjectFramesetPtr
 	jr .asm_4101a
 .asm_41012
 	set OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
-	ld de, Frameset_683c4
+	ld de, CountRichtertoffenFrameset_683c4
 	call SetObjectFramesetPtr
 .asm_4101a
 	ld a, 22
@@ -314,7 +314,7 @@ CountRichtertoffenFunc:
 	jr nz, .asm_41053
 
 .asm_41044
-	ld de, Frameset_683c7
+	ld de, CountRichtertoffenFrameset_683c7
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_2
@@ -349,7 +349,7 @@ CountRichtertoffenFunc:
 	jr .asm_41044
 
 .asm_4107a
-	ld bc, Data_603d0
+	ld bc, RiseYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -371,7 +371,7 @@ CountRichtertoffenFunc:
 	call Func_3513
 	and $0f
 	jp z, MoveObjectLeft
-	ld de, Frameset_683c4
+	ld de, CountRichtertoffenFrameset_683c4
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	set OBJSUBFLAG_HDIR_F, [hl]
@@ -386,7 +386,7 @@ CountRichtertoffenFunc:
 	call Func_3513
 	and $0f
 	jp z, MoveObjectRight
-	ld de, Frameset_683c1
+	ld de, CountRichtertoffenFrameset_683c1
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_HDIR_F, [hl]
@@ -418,7 +418,7 @@ CountRichtertoffenFunc:
 	dec l
 	xor a
 	ld [hld], a
-	ld de, Frameset_683d4
+	ld de, CountRichtertoffenFrameset_683d4
 	call SetObjectFramesetPtr
 	ld a, 24
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -430,7 +430,7 @@ CountRichtertoffenFunc:
 	ld a, [wIsInWaterOrSand]
 	and a
 	jp nz, VanishObject2
-	ld bc, Data_603e0
+	ld bc, QuickFallYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -453,7 +453,7 @@ CountRichtertoffenFunc:
 	call Func_3513
 	and $0f
 	jp z, MoveObjectLeft
-	ld de, Frameset_683c4
+	ld de, CountRichtertoffenFrameset_683c4
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	set OBJSUBFLAG_HDIR_F, [hl]
@@ -469,7 +469,7 @@ CountRichtertoffenFunc:
 	call Func_3513
 	and $0f
 	jp z, MoveObjectRight
-	ld de, Frameset_683c1
+	ld de, CountRichtertoffenFrameset_683c1
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_HDIR_F, [hl]
@@ -482,10 +482,10 @@ CountRichtertoffenFunc:
 	cp 14
 	jr z, .reset_bounce_animation
 .do_bounce_movement
-	ld bc, Data_604b0
+	ld bc, CountRichtertoffenData_604b0
 	jp ApplyObjYMovement
 .reset_bounce_animation
-	ld de, Frameset_683e1
+	ld de, CountRichtertoffenFrameset_683e1
 	call SetObjectFramesetPtr
 	jr .do_bounce_movement
 .check_bounce_end
@@ -500,7 +500,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -520,7 +520,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -546,7 +546,7 @@ CountRichtertoffenFunc:
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .asm_411d9
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	inc l
 	inc l
@@ -597,7 +597,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
-	ld de, Frameset_683e1
+	ld de, CountRichtertoffenFrameset_683e1
 	call SetObjectFramesetPtr
 	ld a, 48
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -624,7 +624,7 @@ CountRichtertoffenFunc:
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_41255
 	ld [hld], a ; OBJ_STATE
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	ld a, 4
 	ld [hli], a ; OBJ_STATE_DURATION
@@ -682,7 +682,7 @@ CountRichtertoffenFunc:
 	ld [hld], a ; OBJ_VAR_3
 	ld a, b
 	ld [hld], a ; OBJ_VAR_2
-	ld de, Frameset_683ca
+	ld de, CountRichtertoffenFrameset_683ca
 	jp SetObjectFramesetPtr
 
 .AttackedRightStart:
@@ -735,7 +735,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -752,7 +752,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
-	ld de, Frameset_683d9
+	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]

@@ -6,7 +6,7 @@ RockFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_69bfe
+	ld de, RockFrameset_69bfe
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -125,7 +125,7 @@ RockFunc:
 .Destroy:
 	ld a, $2f
 	ld [wCurObjState], a
-	ld de, Frameset_69c01
+	ld de, RockFrameset_69c01
 	call SetObjectFramesetPtr
 	ld a, $19
 	ld [hli], a

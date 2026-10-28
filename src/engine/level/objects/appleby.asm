@@ -7,7 +7,7 @@ ApplebyFunc:
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-	ld de, Frameset_689e9
+	ld de, ApplebyFrameset_689e9
 	call SetObjectFramesetPtr
 	ld a, 5
 	ld [hli], a
@@ -31,7 +31,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a00
+	ld de, ApplebyFrameset_68a00
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a
@@ -64,7 +64,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_68a12
+	ld de, ApplebyFrameset_68a12
 	call SetObjectFramesetPtr
 	ld a, 91
 	ld [wCurObjState], a
@@ -76,7 +76,7 @@ ApplebyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld de, Frameset_689e9
+	ld de, ApplebyFrameset_689e9
 	call SetObjectFramesetPtr
 	ld a, 60
 	ld [hli], a
@@ -134,13 +134,13 @@ ApplebyFunc:
 	cp $40
 	jr nc, .asm_47a9c
 	res OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68a1f
+	ld de, ApplebyFrameset_68a1f
 	jr .asm_47aa4
 .asm_47a9c
 	cp $c0
 	ret c
 	set OBJSUBFLAG_HDIR_F, [hl]
-	ld de, Frameset_68a3a
+	ld de, ApplebyFrameset_68a3a
 .asm_47aa4
 	call SetObjectFramesetPtr
 	ld a, 122
@@ -163,7 +163,7 @@ ApplebyFunc:
 .asm_47ac4
 	ld a, $2d
 	ld [hl], a
-	ld de, Frameset_68a09
+	ld de, ApplebyFrameset_68a09
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a
@@ -196,7 +196,7 @@ ApplebyFunc:
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
-	ld de, Frameset_68a63
+	ld de, ApplebyFrameset_68a63
 	call SetObjectFramesetPtr
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -307,7 +307,7 @@ AppleFunc:
 	jr z, .destroy
 	cp $19
 	jr z, .asm_47bb2
-	ld bc, Data_60670
+	ld bc, ApplebyData_60670
 	jp ApplyObjYMovement
 .destroy
 	xor a
@@ -343,5 +343,5 @@ AppleFunc:
 .asm_47bdb
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	ld bc, Data_60040
+	ld bc, DropYVel_Light
 	jp ApplyObjYMovement
