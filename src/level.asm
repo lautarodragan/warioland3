@@ -290,18 +290,18 @@ ThePeacefulVillage1BlockMap: INCBIN "data/levels/block_map/the_peaceful_village_
 OutOfTheWoodsObjectMap:       INCBIN "data/levels/object_map/out_of_the_woods.bin.rle"
 ThePeacefulVillage1ObjectMap: INCBIN "data/levels/object_map/the_peaceful_village_1.bin.rle"
 
-BlocksetTiles_OutOfTheWoods1: INCBIN "data/levels/blocksets/blockset_tiles_00.bin"
-BlocksetAttributes_OutOfTheWoods1: INCBIN "data/levels/blocksets/blockset_attributes_00.bin.rle"
-BlocksetTiles_OutOfTheWoods5: INCBIN "data/levels/blocksets/blockset_tiles_01.bin"
-BlocksetAttributes_OutOfTheWoods5: INCBIN "data/levels/blocksets/blockset_attributes_01.bin.rle"
-BlocksetTiles_OutOfTheWoods2: INCBIN "data/levels/blocksets/blockset_tiles_02.bin"
-BlocksetAttributes_OutOfTheWoods2: INCBIN "data/levels/blocksets/blockset_attributes_02.bin.rle"
-BlocksetTiles_OutOfTheWoods3: INCBIN "data/levels/blocksets/blockset_tiles_03.bin"
-BlocksetAttributes_OutOfTheWoods3: INCBIN "data/levels/blocksets/blockset_attributes_03.bin.rle"
-BlocksetTiles_OutOfTheWoods4: INCBIN "data/levels/blocksets/blockset_tiles_04.bin"
-BlocksetAttributes_OutOfTheWoods4: INCBIN "data/levels/blocksets/blockset_attributes_04.bin.rle"
-BlocksetTiles_Shared1: INCBIN "data/levels/blocksets/blockset_tiles_05.bin"
-BlocksetAttributes_Shared1: INCBIN "data/levels/blocksets/blockset_attributes_05.bin.rle"
+BlocksetTiles_OutOfTheWoods1: INCBIN "data/levels/blocksets/blockset_tiles_out_of_the_woods_1.bin"
+BlocksetAttributes_OutOfTheWoods1: INCBIN "data/levels/blocksets/blockset_attributes_out_of_the_woods_1.bin.rle"
+BlocksetTiles_OutOfTheWoods5: INCBIN "data/levels/blocksets/blockset_tiles_out_of_the_woods_5.bin"
+BlocksetAttributes_OutOfTheWoods5: INCBIN "data/levels/blocksets/blockset_attributes_out_of_the_woods_5.bin.rle"
+BlocksetTiles_OutOfTheWoods2: INCBIN "data/levels/blocksets/blockset_tiles_out_of_the_woods_2.bin"
+BlocksetAttributes_OutOfTheWoods2: INCBIN "data/levels/blocksets/blockset_attributes_out_of_the_woods_2.bin.rle"
+BlocksetTiles_OutOfTheWoods3: INCBIN "data/levels/blocksets/blockset_tiles_out_of_the_woods_3.bin"
+BlocksetAttributes_OutOfTheWoods3: INCBIN "data/levels/blocksets/blockset_attributes_out_of_the_woods_3.bin.rle"
+BlocksetTiles_OutOfTheWoods4: INCBIN "data/levels/blocksets/blockset_tiles_out_of_the_woods_4.bin"
+BlocksetAttributes_OutOfTheWoods4: INCBIN "data/levels/blocksets/blockset_attributes_out_of_the_woods_4.bin.rle"
+BlocksetTiles_Shared1: INCBIN "data/levels/blocksets/blockset_tiles_shared_1.bin"
+BlocksetAttributes_Shared1: INCBIN "data/levels/blocksets/blockset_attributes_shared_1.bin.rle"
 
 
 SECTION "Level Data 2", ROMX
@@ -312,18 +312,18 @@ TheSteepCanyon1BlockMap: INCBIN "data/levels/block_map/the_steep_canyon_1.bin.rl
 TheVastPlain1ObjectMap:   INCBIN "data/levels/object_map/the_vast_plain_1.bin.rle"
 TheSteepCanyon1ObjectMap: INCBIN "data/levels/object_map/the_steep_canyon_1.bin.rle"
 
-BlocksetTiles_ThePeacefulVillage1: INCBIN "data/levels/blocksets/blockset_tiles_06.bin"
-BlocksetAttributes_ThePeacefulVillage1: INCBIN "data/levels/blocksets/blockset_attributes_06.bin.rle"
-BlocksetTiles_ThePeacefulVillage3: INCBIN "data/levels/blocksets/blockset_tiles_07.bin"
-BlocksetAttributes_ThePeacefulVillage3: INCBIN "data/levels/blocksets/blockset_attributes_07.bin.rle"
-BlocksetTiles_TheVastPlain3: INCBIN "data/levels/blocksets/blockset_tiles_08.bin"
-BlocksetAttributes_TheVastPlain3: INCBIN "data/levels/blocksets/blockset_attributes_08.bin.rle"
-BlocksetTiles_ThePeacefulVillage2: INCBIN "data/levels/blocksets/blockset_tiles_09.bin"
-BlocksetAttributes_ThePeacefulVillage2: INCBIN "data/levels/blocksets/blockset_attributes_09.bin.rle"
-BlocksetTiles_ThePeacefulVillage4: INCBIN "data/levels/blocksets/blockset_tiles_10.bin"
-BlocksetAttributes_ThePeacefulVillage4: INCBIN "data/levels/blocksets/blockset_attributes_10.bin.rle"
-BlocksetTiles_BankOfTheWildRiver2: INCBIN "data/levels/blocksets/blockset_tiles_11.bin"
-BlocksetAttributes_BankOfTheWildRiver2: INCBIN "data/levels/blocksets/blockset_attributes_11.bin.rle"
+BlocksetTiles_ThePeacefulVillage1: INCBIN "data/levels/blocksets/blockset_tiles_the_peaceful_village_1.bin"
+BlocksetAttributes_ThePeacefulVillage1: INCBIN "data/levels/blocksets/blockset_attributes_the_peaceful_village_1.bin.rle"
+BlocksetTiles_ThePeacefulVillage3: INCBIN "data/levels/blocksets/blockset_tiles_the_peaceful_village_3.bin"
+BlocksetAttributes_ThePeacefulVillage3: INCBIN "data/levels/blocksets/blockset_attributes_the_peaceful_village_3.bin.rle"
+BlocksetTiles_TheVastPlain3: INCBIN "data/levels/blocksets/blockset_tiles_the_vast_plain_3.bin"
+BlocksetAttributes_TheVastPlain3: INCBIN "data/levels/blocksets/blockset_attributes_the_vast_plain_3.bin.rle"
+BlocksetTiles_ThePeacefulVillage2: INCBIN "data/levels/blocksets/blockset_tiles_the_peaceful_village_2.bin"
+BlocksetAttributes_ThePeacefulVillage2: INCBIN "data/levels/blocksets/blockset_attributes_the_peaceful_village_2.bin.rle"
+BlocksetTiles_ThePeacefulVillage4: INCBIN "data/levels/blocksets/blockset_tiles_the_peaceful_village_4.bin"
+BlocksetAttributes_ThePeacefulVillage4: INCBIN "data/levels/blocksets/blockset_attributes_the_peaceful_village_4.bin.rle"
+BlocksetTiles_BankOfTheWildRiver2: INCBIN "data/levels/blocksets/blockset_tiles_bank_of_the_wild_river_2.bin"
+BlocksetAttributes_BankOfTheWildRiver2: INCBIN "data/levels/blocksets/blockset_attributes_bank_of_the_wild_river_2.bin.rle"
 
 
 SECTION "Level Data 3", ROMX
@@ -334,18 +334,18 @@ SeaTurtleRocksBlockMap: INCBIN "data/levels/block_map/sea_turtle_rocks.bin.rle"
 TheTidalCoast1ObjectMap: INCBIN "data/levels/object_map/the_tidal_coast_1.bin.rle"
 SeaTurtleRocksObjectMap: INCBIN "data/levels/object_map/sea_turtle_rocks.bin.rle"
 
-BlocksetTiles_Shared2: INCBIN "data/levels/blocksets/blockset_tiles_12.bin"
-BlocksetAttributes_Shared2: INCBIN "data/levels/blocksets/blockset_attributes_12.bin.rle"
-BlocksetTiles_TheTidalCoast1: INCBIN "data/levels/blocksets/blockset_tiles_13.bin"
-BlocksetAttributes_TheTidalCoast1: INCBIN "data/levels/blocksets/blockset_attributes_13.bin.rle"
-BlocksetTiles_TheTidalCoast3: INCBIN "data/levels/blocksets/blockset_tiles_14.bin"
-BlocksetAttributes_TheTidalCoast3: INCBIN "data/levels/blocksets/blockset_attributes_14.bin.rle"
-BlocksetTiles_SeaTurtleRocks2: INCBIN "data/levels/blocksets/blockset_tiles_15.bin"
-BlocksetAttributes_SeaTurtleRocks2: INCBIN "data/levels/blocksets/blockset_attributes_15.bin.rle"
-BlocksetTiles_DesertRuins1: INCBIN "data/levels/blocksets/blockset_tiles_16.bin"
-BlocksetAttributes_DesertRuins1: INCBIN "data/levels/blocksets/blockset_attributes_16.bin.rle"
-BlocksetTiles_DesertRuins2: INCBIN "data/levels/blocksets/blockset_tiles_17.bin"
-BlocksetAttributes_DesertRuins2: INCBIN "data/levels/blocksets/blockset_attributes_17.bin.rle"
+BlocksetTiles_Shared2: INCBIN "data/levels/blocksets/blockset_tiles_shared_2.bin"
+BlocksetAttributes_Shared2: INCBIN "data/levels/blocksets/blockset_attributes_shared_2.bin.rle"
+BlocksetTiles_TheTidalCoast1: INCBIN "data/levels/blocksets/blockset_tiles_the_tidal_coast_1.bin"
+BlocksetAttributes_TheTidalCoast1: INCBIN "data/levels/blocksets/blockset_attributes_the_tidal_coast_1.bin.rle"
+BlocksetTiles_TheTidalCoast3: INCBIN "data/levels/blocksets/blockset_tiles_the_tidal_coast_3.bin"
+BlocksetAttributes_TheTidalCoast3: INCBIN "data/levels/blocksets/blockset_attributes_the_tidal_coast_3.bin.rle"
+BlocksetTiles_SeaTurtleRocks2: INCBIN "data/levels/blocksets/blockset_tiles_sea_turtle_rocks_2.bin"
+BlocksetAttributes_SeaTurtleRocks2: INCBIN "data/levels/blocksets/blockset_attributes_sea_turtle_rocks_2.bin.rle"
+BlocksetTiles_DesertRuins1: INCBIN "data/levels/blocksets/blockset_tiles_desert_ruins_1.bin"
+BlocksetAttributes_DesertRuins1: INCBIN "data/levels/blocksets/blockset_attributes_desert_ruins_1.bin.rle"
+BlocksetTiles_DesertRuins2: INCBIN "data/levels/blocksets/blockset_tiles_desert_ruins_2.bin"
+BlocksetAttributes_DesertRuins2: INCBIN "data/levels/blocksets/blockset_attributes_desert_ruins_2.bin.rle"
 
 
 SECTION "Level Data 4", ROMX
@@ -356,18 +356,18 @@ TheVolcanosBase1BlockMap: INCBIN "data/levels/block_map/the_volcanos_base_1.bin.
 DesertRuinsObjectMap:      INCBIN "data/levels/object_map/desert_ruins.bin.rle"
 TheVolcanosBase1ObjectMap: INCBIN "data/levels/object_map/the_volcanos_base_1.bin.rle"
 
-BlocksetTiles_Shared3: INCBIN "data/levels/blocksets/blockset_tiles_18.bin"
-BlocksetAttributes_Shared3: INCBIN "data/levels/blocksets/blockset_attributes_18.bin.rle"
-BlocksetTiles_TheVolcanosBase1: INCBIN "data/levels/blocksets/blockset_tiles_19.bin"
-BlocksetAttributes_TheVolcanosBase1: INCBIN "data/levels/blocksets/blockset_attributes_19.bin.rle"
-BlocksetTiles_ThePoolOfRain3: INCBIN "data/levels/blocksets/blockset_tiles_20.bin"
-BlocksetAttributes_ThePoolOfRain3: INCBIN "data/levels/blocksets/blockset_attributes_20.bin.rle"
-BlocksetTiles_ATownInChaos1: INCBIN "data/levels/blocksets/blockset_tiles_21.bin"
-BlocksetAttributes_ATownInChaos1: INCBIN "data/levels/blocksets/blockset_attributes_21.bin.rle"
-BlocksetTiles_ATownInChaos2: INCBIN "data/levels/blocksets/blockset_tiles_22.bin"
-BlocksetAttributes_ATownInChaos2: INCBIN "data/levels/blocksets/blockset_attributes_22.bin.rle"
-BlocksetTiles_BeneathTheWaves1: INCBIN "data/levels/blocksets/blockset_tiles_23.bin"
-BlocksetAttributes_BeneathTheWaves1: INCBIN "data/levels/blocksets/blockset_attributes_23.bin.rle"
+BlocksetTiles_Shared3: INCBIN "data/levels/blocksets/blockset_tiles_shared_3.bin"
+BlocksetAttributes_Shared3: INCBIN "data/levels/blocksets/blockset_attributes_shared_3.bin.rle"
+BlocksetTiles_TheVolcanosBase1: INCBIN "data/levels/blocksets/blockset_tiles_the_volcanos_base_1.bin"
+BlocksetAttributes_TheVolcanosBase1: INCBIN "data/levels/blocksets/blockset_attributes_the_volcanos_base_1.bin.rle"
+BlocksetTiles_ThePoolOfRain3: INCBIN "data/levels/blocksets/blockset_tiles_the_pool_of_rain_3.bin"
+BlocksetAttributes_ThePoolOfRain3: INCBIN "data/levels/blocksets/blockset_attributes_the_pool_of_rain_3.bin.rle"
+BlocksetTiles_ATownInChaos1: INCBIN "data/levels/blocksets/blockset_tiles_a_town_in_chaos_1.bin"
+BlocksetAttributes_ATownInChaos1: INCBIN "data/levels/blocksets/blockset_attributes_a_town_in_chaos_1.bin.rle"
+BlocksetTiles_ATownInChaos2: INCBIN "data/levels/blocksets/blockset_tiles_a_town_in_chaos_2.bin"
+BlocksetAttributes_ATownInChaos2: INCBIN "data/levels/blocksets/blockset_attributes_a_town_in_chaos_2.bin.rle"
+BlocksetTiles_BeneathTheWaves1: INCBIN "data/levels/blocksets/blockset_tiles_beneath_the_waves_1.bin"
+BlocksetAttributes_BeneathTheWaves1: INCBIN "data/levels/blocksets/blockset_attributes_beneath_the_waves_1.bin.rle"
 
 
 SECTION "Level Data 5", ROMX
@@ -378,18 +378,18 @@ ATownInChaosBlockMap:   INCBIN "data/levels/block_map/a_town_in_chaos.bin.rle"
 ThePoolOfRain1ObjectMap: INCBIN "data/levels/object_map/the_pool_of_rain_1.bin.rle"
 ATownInChaosObjectMap:   INCBIN "data/levels/object_map/a_town_in_chaos.bin.rle"
 
-BlocksetTiles_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_tiles_24.bin"
-BlocksetAttributes_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_attributes_24.bin.rle"
-BlocksetTiles_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_tiles_25.bin"
-BlocksetAttributes_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_attributes_25.bin.rle"
-BlocksetTiles_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_tiles_26.bin"
-BlocksetAttributes_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_attributes_26.bin.rle"
-BlocksetTiles_TowerOfRevival3: INCBIN "data/levels/blocksets/blockset_tiles_27.bin"
-BlocksetAttributes_TowerOfRevival3: INCBIN "data/levels/blocksets/blockset_attributes_27.bin.rle"
-BlocksetTiles_TheSteepCanyon1: INCBIN "data/levels/blocksets/blockset_tiles_28.bin"
-BlocksetAttributes_TheSteepCanyon1: INCBIN "data/levels/blocksets/blockset_attributes_28.bin.rle"
-BlocksetTiles_AboveTheClouds1: INCBIN "data/levels/blocksets/blockset_tiles_29.bin"
-BlocksetAttributes_AboveTheClouds1: INCBIN "data/levels/blocksets/blockset_attributes_29.bin.rle"
+BlocksetTiles_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_tiles_the_grasslands_2.bin"
+BlocksetAttributes_TheGrasslands2: INCBIN "data/levels/blocksets/blockset_attributes_the_grasslands_2.bin.rle"
+BlocksetTiles_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_1.bin"
+BlocksetAttributes_TheBigBridge3: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_1.bin.rle"
+BlocksetTiles_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_2.bin"
+BlocksetAttributes_TheBigBridge2: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_2.bin.rle"
+BlocksetTiles_TowerOfRevival3: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_3.bin"
+BlocksetAttributes_TowerOfRevival3: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_3.bin.rle"
+BlocksetTiles_TheSteepCanyon1: INCBIN "data/levels/blocksets/blockset_tiles_the_steep_canyon_1.bin"
+BlocksetAttributes_TheSteepCanyon1: INCBIN "data/levels/blocksets/blockset_attributes_the_steep_canyon_1.bin.rle"
+BlocksetTiles_AboveTheClouds1: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_1.bin"
+BlocksetAttributes_AboveTheClouds1: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_1.bin.rle"
 
 
 SECTION "Level Data 6", ROMX
@@ -400,18 +400,18 @@ TheWestCraterBlockMap:   INCBIN "data/levels/block_map/the_west_crater.bin.rle"
 BeneathTheWavesObjectMap: INCBIN "data/levels/object_map/beneath_the_waves.bin.rle"
 TheWestCraterObjectMap:   INCBIN "data/levels/object_map/the_west_crater.bin.rle"
 
-BlocksetTiles_TheStagnantSwamp1: INCBIN "data/levels/blocksets/blockset_tiles_30.bin"
-BlocksetAttributes_TheStagnantSwamp1: INCBIN "data/levels/blocksets/blockset_attributes_30.bin.rle"
-BlocksetTiles_DesertRuins4: INCBIN "data/levels/blocksets/blockset_tiles_31.bin"
-BlocksetAttributes_DesertRuins4: INCBIN "data/levels/blocksets/blockset_attributes_31.bin.rle"
-BlocksetTiles_TheFrigidSea3: INCBIN "data/levels/blocksets/blockset_tiles_32.bin"
-BlocksetAttributes_TheFrigidSea3: INCBIN "data/levels/blocksets/blockset_attributes_32.bin.rle"
-BlocksetTiles_CastleOfIllusions1: INCBIN "data/levels/blocksets/blockset_tiles_33.bin"
-BlocksetAttributes_CastleOfIllusions1: INCBIN "data/levels/blocksets/blockset_attributes_33.bin.rle"
-BlocksetTiles_TheColossalHole1: INCBIN "data/levels/blocksets/blockset_tiles_34.bin"
-BlocksetAttributes_TheColossalHole1: INCBIN "data/levels/blocksets/blockset_attributes_34.bin.rle"
-BlocksetTiles_TheStagnantSwamp4: INCBIN "data/levels/blocksets/blockset_tiles_35.bin"
-BlocksetAttributes_TheStagnantSwamp4: INCBIN "data/levels/blocksets/blockset_attributes_35.bin.rle"
+BlocksetTiles_TheStagnantSwamp1: INCBIN "data/levels/blocksets/blockset_tiles_the_stagnant_swamp_1.bin"
+BlocksetAttributes_TheStagnantSwamp1: INCBIN "data/levels/blocksets/blockset_attributes_the_stagnant_swamp_1.bin.rle"
+BlocksetTiles_DesertRuins4: INCBIN "data/levels/blocksets/blockset_tiles_desert_ruins_4.bin"
+BlocksetAttributes_DesertRuins4: INCBIN "data/levels/blocksets/blockset_attributes_desert_ruins_4.bin.rle"
+BlocksetTiles_TheFrigidSea3: INCBIN "data/levels/blocksets/blockset_tiles_the_frigid_sea_3.bin"
+BlocksetAttributes_TheFrigidSea3: INCBIN "data/levels/blocksets/blockset_attributes_the_frigid_sea_3.bin.rle"
+BlocksetTiles_CastleOfIllusions1: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_1.bin"
+BlocksetAttributes_CastleOfIllusions1: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_1.bin.rle"
+BlocksetTiles_TheColossalHole1: INCBIN "data/levels/blocksets/blockset_tiles_the_colossal_hole_1.bin"
+BlocksetAttributes_TheColossalHole1: INCBIN "data/levels/blocksets/blockset_attributes_the_colossal_hole_1.bin.rle"
+BlocksetTiles_TheStagnantSwamp4: INCBIN "data/levels/blocksets/blockset_tiles_the_stagnant_swamp_4.bin"
+BlocksetAttributes_TheStagnantSwamp4: INCBIN "data/levels/blocksets/blockset_attributes_the_stagnant_swamp_4.bin.rle"
 
 
 SECTION "Level Data 7", ROMX
@@ -422,18 +422,18 @@ TheBigBridgeBlockMap:  INCBIN "data/levels/block_map/the_big_bridge.bin.rle"
 TheGrasslandsObjectMap: INCBIN "data/levels/object_map/the_grasslands.bin.rle"
 TheBigBridgeObjectMap:  INCBIN "data/levels/object_map/the_big_bridge.bin.rle"
 
-BlocksetTiles_Craters1: INCBIN "data/levels/blocksets/blockset_tiles_36.bin"
-BlocksetAttributes_Craters1: INCBIN "data/levels/blocksets/blockset_attributes_36.bin.rle"
-BlocksetTiles_TheWarpedVoid1: INCBIN "data/levels/blocksets/blockset_tiles_37.bin"
-BlocksetAttributes_TheWarpedVoid1: INCBIN "data/levels/blocksets/blockset_attributes_37.bin.rle"
-BlocksetTiles_ForestOfFear1: INCBIN "data/levels/blocksets/blockset_tiles_38.bin"
-BlocksetAttributes_ForestOfFear1: INCBIN "data/levels/blocksets/blockset_attributes_38.bin.rle"
-BlocksetTiles_CaveOfFlames1: INCBIN "data/levels/blocksets/blockset_tiles_39.bin"
-BlocksetAttributes_CaveOfFlames1: INCBIN "data/levels/blocksets/blockset_attributes_39.bin.rle"
-BlocksetTiles_BeneathTheWaves2: INCBIN "data/levels/blocksets/blockset_tiles_40.bin"
-BlocksetAttributes_BeneathTheWaves2: INCBIN "data/levels/blocksets/blockset_attributes_40.bin.rle"
-BlocksetTiles_CastleOfIllusions2: INCBIN "data/levels/blocksets/blockset_tiles_41.bin"
-BlocksetAttributes_CastleOfIllusions2: INCBIN "data/levels/blocksets/blockset_attributes_41.bin.rle"
+BlocksetTiles_Craters1: INCBIN "data/levels/blocksets/blockset_tiles_craters_1.bin"
+BlocksetAttributes_Craters1: INCBIN "data/levels/blocksets/blockset_attributes_craters_1.bin.rle"
+BlocksetTiles_TheWarpedVoid1: INCBIN "data/levels/blocksets/blockset_tiles_the_warped_void_1.bin"
+BlocksetAttributes_TheWarpedVoid1: INCBIN "data/levels/blocksets/blockset_attributes_the_warped_void_1.bin.rle"
+BlocksetTiles_ForestOfFear1: INCBIN "data/levels/blocksets/blockset_tiles_forest_of_fear_1.bin"
+BlocksetAttributes_ForestOfFear1: INCBIN "data/levels/blocksets/blockset_attributes_forest_of_fear_1.bin.rle"
+BlocksetTiles_CaveOfFlames1: INCBIN "data/levels/blocksets/blockset_tiles_cave_of_flames_1.bin"
+BlocksetAttributes_CaveOfFlames1: INCBIN "data/levels/blocksets/blockset_attributes_cave_of_flames_1.bin.rle"
+BlocksetTiles_BeneathTheWaves2: INCBIN "data/levels/blocksets/blockset_tiles_beneath_the_waves_2.bin"
+BlocksetAttributes_BeneathTheWaves2: INCBIN "data/levels/blocksets/blockset_attributes_beneath_the_waves_2.bin.rle"
+BlocksetTiles_CastleOfIllusions2: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_2.bin"
+BlocksetAttributes_CastleOfIllusions2: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_2.bin.rle"
 
 
 SECTION "Level Data 8", ROMX
@@ -444,18 +444,18 @@ BankOfTheWildRiverBlockMap: INCBIN "data/levels/block_map/bank_of_the_wild_river
 TowerOfRevivalObjectMap:     INCBIN "data/levels/object_map/tower_of_revival.bin.rle"
 BankOfTheWildRiverObjectMap: INCBIN "data/levels/object_map/bank_of_the_wild_river.bin.rle"
 
-BlocksetTiles_CastleOfIllusions3: INCBIN "data/levels/blocksets/blockset_tiles_42.bin"
-BlocksetAttributes_CastleOfIllusions3: INCBIN "data/levels/blocksets/blockset_attributes_42.bin.rle"
-BlocksetTiles_ATownInChaos4: INCBIN "data/levels/blocksets/blockset_tiles_43.bin"
-BlocksetAttributes_ATownInChaos4: INCBIN "data/levels/blocksets/blockset_attributes_43.bin.rle"
-BlocksetTiles_TheTemple: INCBIN "data/levels/blocksets/blockset_tiles_44.bin"
-BlocksetAttributes_TheTemple: INCBIN "data/levels/blocksets/blockset_attributes_44.bin.rle"
-BlocksetTiles_DesertRuins3: INCBIN "data/levels/blocksets/blockset_tiles_45.bin"
-BlocksetAttributes_DesertRuins3: INCBIN "data/levels/blocksets/blockset_attributes_45.bin.rle"
-BlocksetTiles_TheVastPlain1: INCBIN "data/levels/blocksets/blockset_tiles_46.bin"
-BlocksetAttributes_TheVastPlain1: INCBIN "data/levels/blocksets/blockset_attributes_46.bin.rle"
-BlocksetTiles_TheFrigidSea2: INCBIN "data/levels/blocksets/blockset_tiles_47.bin"
-BlocksetAttributes_TheFrigidSea2: INCBIN "data/levels/blocksets/blockset_attributes_47.bin.rle"
+BlocksetTiles_CastleOfIllusions3: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_3.bin"
+BlocksetAttributes_CastleOfIllusions3: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_3.bin.rle"
+BlocksetTiles_ATownInChaos4: INCBIN "data/levels/blocksets/blockset_tiles_a_town_in_chaos_4.bin"
+BlocksetAttributes_ATownInChaos4: INCBIN "data/levels/blocksets/blockset_attributes_a_town_in_chaos_4.bin.rle"
+BlocksetTiles_TheTemple: INCBIN "data/levels/blocksets/blockset_tiles_the_temple.bin"
+BlocksetAttributes_TheTemple: INCBIN "data/levels/blocksets/blockset_attributes_the_temple.bin.rle"
+BlocksetTiles_DesertRuins3: INCBIN "data/levels/blocksets/blockset_tiles_desert_ruins_3.bin"
+BlocksetAttributes_DesertRuins3: INCBIN "data/levels/blocksets/blockset_attributes_desert_ruins_3.bin.rle"
+BlocksetTiles_TheVastPlain1: INCBIN "data/levels/blocksets/blockset_tiles_the_vast_plain_1.bin"
+BlocksetAttributes_TheVastPlain1: INCBIN "data/levels/blocksets/blockset_attributes_the_vast_plain_1.bin.rle"
+BlocksetTiles_TheFrigidSea2: INCBIN "data/levels/blocksets/blockset_tiles_the_frigid_sea_2.bin"
+BlocksetAttributes_TheFrigidSea2: INCBIN "data/levels/blocksets/blockset_attributes_the_frigid_sea_2.bin.rle"
 
 
 SECTION "Level Data 9", ROMX
@@ -466,18 +466,18 @@ AboveTheClouds1BlockMap: INCBIN "data/levels/block_map/above_the_clouds_1.bin.rl
 CaveOfFlamesObjectMap:    INCBIN "data/levels/object_map/cave_of_flames.bin.rle"
 AboveTheClouds1ObjectMap: INCBIN "data/levels/object_map/above_the_clouds_1.bin.rle"
 
-BlocksetTiles_TheVastPlain2: INCBIN "data/levels/blocksets/blockset_tiles_48.bin"
-BlocksetAttributes_TheVastPlain2: INCBIN "data/levels/blocksets/blockset_attributes_48.bin.rle"
-BlocksetTiles_TheStagnantSwamp3: INCBIN "data/levels/blocksets/blockset_tiles_49.bin"
-BlocksetAttributes_TheStagnantSwamp3: INCBIN "data/levels/blocksets/blockset_attributes_49.bin.rle"
-BlocksetTiles_ThePoolOfRain2: INCBIN "data/levels/blocksets/blockset_tiles_50.bin"
-BlocksetAttributes_ThePoolOfRain2: INCBIN "data/levels/blocksets/blockset_attributes_50.bin.rle"
-BlocksetTiles_TowerOfRevival2: INCBIN "data/levels/blocksets/blockset_tiles_51.bin"
-BlocksetAttributes_TowerOfRevival2: INCBIN "data/levels/blocksets/blockset_attributes_51.bin.rle"
-BlocksetTiles_ThePoolOfRain1: INCBIN "data/levels/blocksets/blockset_tiles_52.bin"
-BlocksetAttributes_ThePoolOfRain1: INCBIN "data/levels/blocksets/blockset_attributes_52.bin.rle"
-BlocksetTiles_ATownInChaos3: INCBIN "data/levels/blocksets/blockset_tiles_53.bin"
-BlocksetAttributes_ATownInChaos3: INCBIN "data/levels/blocksets/blockset_attributes_53.bin.rle"
+BlocksetTiles_TheVastPlain2: INCBIN "data/levels/blocksets/blockset_tiles_the_vast_plain_2.bin"
+BlocksetAttributes_TheVastPlain2: INCBIN "data/levels/blocksets/blockset_attributes_the_vast_plain_2.bin.rle"
+BlocksetTiles_TheStagnantSwamp3: INCBIN "data/levels/blocksets/blockset_tiles_the_stagnant_swamp_3.bin"
+BlocksetAttributes_TheStagnantSwamp3: INCBIN "data/levels/blocksets/blockset_attributes_the_stagnant_swamp_3.bin.rle"
+BlocksetTiles_ThePoolOfRain2: INCBIN "data/levels/blocksets/blockset_tiles_the_pool_of_rain_2.bin"
+BlocksetAttributes_ThePoolOfRain2: INCBIN "data/levels/blocksets/blockset_attributes_the_pool_of_rain_2.bin.rle"
+BlocksetTiles_TowerOfRevival2: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_2.bin"
+BlocksetAttributes_TowerOfRevival2: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_2.bin.rle"
+BlocksetTiles_ThePoolOfRain1: INCBIN "data/levels/blocksets/blockset_tiles_the_pool_of_rain_1.bin"
+BlocksetAttributes_ThePoolOfRain1: INCBIN "data/levels/blocksets/blockset_attributes_the_pool_of_rain_1.bin.rle"
+BlocksetTiles_ATownInChaos3: INCBIN "data/levels/blocksets/blockset_tiles_a_town_in_chaos_3.bin"
+BlocksetAttributes_ATownInChaos3: INCBIN "data/levels/blocksets/blockset_attributes_a_town_in_chaos_3.bin.rle"
 
 
 SECTION "Level Data 10", ROMX
@@ -488,18 +488,18 @@ TheFrigidSeaBlockMap:      INCBIN "data/levels/block_map/the_frigid_sea.bin.rle"
 TheStagnantSwamp1ObjectMap: INCBIN "data/levels/object_map/the_stagnant_swamp_1.bin.rle"
 TheFrigidSeaObjectMap:      INCBIN "data/levels/object_map/the_frigid_sea.bin.rle"
 
-BlocksetTiles_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_tiles_54.bin"
-BlocksetAttributes_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_attributes_54.bin.rle"
-BlocksetTiles_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_tiles_55.bin"
-BlocksetAttributes_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_attributes_55.bin.rle"
-BlocksetTiles_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_tiles_56.bin"
-BlocksetAttributes_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_attributes_56.bin.rle"
-BlocksetTiles_TowerOfRevival4: INCBIN "data/levels/blocksets/blockset_tiles_57.bin"
-BlocksetAttributes_TowerOfRevival4: INCBIN "data/levels/blocksets/blockset_attributes_57.bin.rle"
-BlocksetTiles_TowerOfRevival5: INCBIN "data/levels/blocksets/blockset_tiles_58.bin"
-BlocksetAttributes_TowerOfRevival5: INCBIN "data/levels/blocksets/blockset_attributes_58.bin.rle"
-BlocksetTiles_BankOfTheWildRiver1: INCBIN "data/levels/blocksets/blockset_tiles_59.bin"
-BlocksetAttributes_BankOfTheWildRiver1: INCBIN "data/levels/blocksets/blockset_attributes_59.bin.rle"
+BlocksetTiles_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_tiles_the_grasslands_1.bin"
+BlocksetAttributes_TheGrasslands1: INCBIN "data/levels/blocksets/blockset_attributes_the_grasslands_1.bin.rle"
+BlocksetTiles_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_tiles_the_big_bridge_3.bin"
+BlocksetAttributes_TheBigBridge1: INCBIN "data/levels/blocksets/blockset_attributes_the_big_bridge_3.bin.rle"
+BlocksetTiles_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_1.bin"
+BlocksetAttributes_TowerOfRevival1: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_1.bin.rle"
+BlocksetTiles_TowerOfRevival4: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_4.bin"
+BlocksetAttributes_TowerOfRevival4: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_4.bin.rle"
+BlocksetTiles_TowerOfRevival5: INCBIN "data/levels/blocksets/blockset_tiles_tower_of_revival_5.bin"
+BlocksetAttributes_TowerOfRevival5: INCBIN "data/levels/blocksets/blockset_attributes_tower_of_revival_5.bin.rle"
+BlocksetTiles_BankOfTheWildRiver1: INCBIN "data/levels/blocksets/blockset_tiles_bank_of_the_wild_river_1.bin"
+BlocksetAttributes_BankOfTheWildRiver1: INCBIN "data/levels/blocksets/blockset_attributes_bank_of_the_wild_river_1.bin.rle"
 
 
 SECTION "Level Data 11", ROMX
@@ -510,18 +510,18 @@ TheColossalHole1BlockMap:  INCBIN "data/levels/block_map/the_colossal_hole_1.bin
 CastleOfIllusionsObjectMap: INCBIN "data/levels/object_map/castle_of_illusions.bin.rle"
 TheColossalHole1ObjectMap:  INCBIN "data/levels/object_map/the_colossal_hole_1.bin.rle"
 
-BlocksetTiles_SeaTurtleRocks3: INCBIN "data/levels/blocksets/blockset_tiles_60.bin"
-BlocksetAttributes_SeaTurtleRocks3: INCBIN "data/levels/blocksets/blockset_attributes_60.bin.rle"
-BlocksetTiles_SeaTurtleRocks1: INCBIN "data/levels/blocksets/blockset_tiles_61.bin"
-BlocksetAttributes_SeaTurtleRocks1: INCBIN "data/levels/blocksets/blockset_attributes_61.bin.rle"
-BlocksetTiles_SeaTurtleRocks4: INCBIN "data/levels/blocksets/blockset_tiles_62.bin"
-BlocksetAttributes_SeaTurtleRocks4: INCBIN "data/levels/blocksets/blockset_attributes_62.bin.rle"
-BlocksetTiles_TheFrigidSea5: INCBIN "data/levels/blocksets/blockset_tiles_65.bin"
-BlocksetAttributes_TheFrigidSea5: INCBIN "data/levels/blocksets/blockset_attributes_65.bin.rle"
-BlocksetTiles_TheFrigidSea1: INCBIN "data/levels/blocksets/blockset_tiles_63.bin"
-BlocksetAttributes_TheFrigidSea1: INCBIN "data/levels/blocksets/blockset_attributes_63.bin.rle"
-BlocksetTiles_TheFrigidSea4: INCBIN "data/levels/blocksets/blockset_tiles_64.bin"
-BlocksetAttributes_TheFrigidSea4: INCBIN "data/levels/blocksets/blockset_attributes_64.bin.rle"
+BlocksetTiles_SeaTurtleRocks3: INCBIN "data/levels/blocksets/blockset_tiles_sea_turtle_rocks_3.bin"
+BlocksetAttributes_SeaTurtleRocks3: INCBIN "data/levels/blocksets/blockset_attributes_sea_turtle_rocks_3.bin.rle"
+BlocksetTiles_SeaTurtleRocks1: INCBIN "data/levels/blocksets/blockset_tiles_sea_turtle_rocks_1.bin"
+BlocksetAttributes_SeaTurtleRocks1: INCBIN "data/levels/blocksets/blockset_attributes_sea_turtle_rocks_1.bin.rle"
+BlocksetTiles_SeaTurtleRocks4: INCBIN "data/levels/blocksets/blockset_tiles_sea_turtle_rocks_4.bin"
+BlocksetAttributes_SeaTurtleRocks4: INCBIN "data/levels/blocksets/blockset_attributes_sea_turtle_rocks_4.bin.rle"
+BlocksetTiles_TheFrigidSea5: INCBIN "data/levels/blocksets/blockset_tiles_the_frigid_sea_5.bin"
+BlocksetAttributes_TheFrigidSea5: INCBIN "data/levels/blocksets/blockset_attributes_the_frigid_sea_5.bin.rle"
+BlocksetTiles_TheFrigidSea1: INCBIN "data/levels/blocksets/blockset_tiles_the_frigid_sea_1.bin"
+BlocksetAttributes_TheFrigidSea1: INCBIN "data/levels/blocksets/blockset_attributes_the_frigid_sea_1.bin.rle"
+BlocksetTiles_TheFrigidSea4: INCBIN "data/levels/blocksets/blockset_tiles_the_frigid_sea_4.bin"
+BlocksetAttributes_TheFrigidSea4: INCBIN "data/levels/blocksets/blockset_attributes_the_frigid_sea_4.bin.rle"
 
 
 SECTION "Level Data 12", ROMX
@@ -532,18 +532,18 @@ TheEastCraterBlockMap: INCBIN "data/levels/block_map/the_east_crater.bin.rle"
 TheWarpedVoidObjectMap: INCBIN "data/levels/object_map/the_warped_void.bin.rle"
 TheEastCraterObjectMap: INCBIN "data/levels/object_map/the_east_crater.bin.rle"
 
-BlocksetTiles_Shared4: INCBIN "data/levels/blocksets/blockset_tiles_66.bin"
-BlocksetAttributes_Shared4: INCBIN "data/levels/blocksets/blockset_attributes_66.bin.rle"
-BlocksetTiles_TheTidalCoast2: INCBIN "data/levels/blocksets/blockset_tiles_67.bin"
-BlocksetAttributes_TheTidalCoast2: INCBIN "data/levels/blocksets/blockset_attributes_67.bin.rle"
-BlocksetTiles_TheStagnantSwamp2: INCBIN "data/levels/blocksets/blockset_tiles_68.bin"
-BlocksetAttributes_TheStagnantSwamp2: INCBIN "data/levels/blocksets/blockset_attributes_68.bin.rle"
-BlocksetTiles_AboveTheClouds2: INCBIN "data/levels/blocksets/blockset_tiles_69.bin"
-BlocksetAttributes_AboveTheClouds2: INCBIN "data/levels/blocksets/blockset_attributes_69.bin.rle"
-BlocksetTiles_AboveTheClouds3: INCBIN "data/levels/blocksets/blockset_tiles_70.bin"
-BlocksetAttributes_AboveTheClouds3: INCBIN "data/levels/blocksets/blockset_attributes_70.bin.rle"
-BlocksetTiles_CaveOfFlames2: INCBIN "data/levels/blocksets/blockset_tiles_71.bin"
-BlocksetAttributes_CaveOfFlames2: INCBIN "data/levels/blocksets/blockset_attributes_71.bin.rle"
+BlocksetTiles_Shared4: INCBIN "data/levels/blocksets/blockset_tiles_shared_4.bin"
+BlocksetAttributes_Shared4: INCBIN "data/levels/blocksets/blockset_attributes_shared_4.bin.rle"
+BlocksetTiles_TheTidalCoast2: INCBIN "data/levels/blocksets/blockset_tiles_the_tidal_coast_2.bin"
+BlocksetAttributes_TheTidalCoast2: INCBIN "data/levels/blocksets/blockset_attributes_the_tidal_coast_2.bin.rle"
+BlocksetTiles_TheStagnantSwamp2: INCBIN "data/levels/blocksets/blockset_tiles_the_stagnant_swamp_2.bin"
+BlocksetAttributes_TheStagnantSwamp2: INCBIN "data/levels/blocksets/blockset_attributes_the_stagnant_swamp_2.bin.rle"
+BlocksetTiles_AboveTheClouds2: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_2.bin"
+BlocksetAttributes_AboveTheClouds2: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_2.bin.rle"
+BlocksetTiles_AboveTheClouds3: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_3.bin"
+BlocksetAttributes_AboveTheClouds3: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_3.bin.rle"
+BlocksetTiles_CaveOfFlames2: INCBIN "data/levels/blocksets/blockset_tiles_cave_of_flames_2.bin"
+BlocksetAttributes_CaveOfFlames2: INCBIN "data/levels/blocksets/blockset_attributes_cave_of_flames_2.bin.rle"
 
 
 SECTION "Level Data 13", ROMX
@@ -554,18 +554,18 @@ HiddenFigureRoomBlockMap: INCBIN "data/levels/block_map/hidden_figure_room.bin.r
 ForestOfFearObjectMap:     INCBIN "data/levels/object_map/forest_of_fear.bin.rle"
 HiddenFigureRoomObjectMap: INCBIN "data/levels/object_map/hidden_figure_room.bin.rle"
 
-BlocksetTiles_CaveOfFlames3: INCBIN "data/levels/blocksets/blockset_tiles_72.bin"
-BlocksetAttributes_CaveOfFlames3: INCBIN "data/levels/blocksets/blockset_attributes_72.bin.rle"
-BlocksetTiles_BeneathTheWaves3: INCBIN "data/levels/blocksets/blockset_tiles_73.bin"
-BlocksetAttributes_BeneathTheWaves3: INCBIN "data/levels/blocksets/blockset_attributes_73.bin.rle"
-BlocksetTiles_BeneathTheWaves4: INCBIN "data/levels/blocksets/blockset_tiles_74.bin"
-BlocksetAttributes_BeneathTheWaves4: INCBIN "data/levels/blocksets/blockset_attributes_74.bin.rle"
-BlocksetTiles_TheColossalHole2: INCBIN "data/levels/blocksets/blockset_tiles_75.bin"
-BlocksetAttributes_TheColossalHole2: INCBIN "data/levels/blocksets/blockset_attributes_75.bin.rle"
-BlocksetTiles_CastleOfIllusions4: INCBIN "data/levels/blocksets/blockset_tiles_76.bin"
-BlocksetAttributes_CastleOfIllusions4: INCBIN "data/levels/blocksets/blockset_attributes_76.bin.rle"
-BlocksetTiles_CastleOfIllusions5: INCBIN "data/levels/blocksets/blockset_tiles_77.bin"
-BlocksetAttributes_CastleOfIllusions5: INCBIN "data/levels/blocksets/blockset_attributes_77.bin.rle"
+BlocksetTiles_CaveOfFlames3: INCBIN "data/levels/blocksets/blockset_tiles_cave_of_flames_3.bin"
+BlocksetAttributes_CaveOfFlames3: INCBIN "data/levels/blocksets/blockset_attributes_cave_of_flames_3.bin.rle"
+BlocksetTiles_BeneathTheWaves3: INCBIN "data/levels/blocksets/blockset_tiles_beneath_the_waves_3.bin"
+BlocksetAttributes_BeneathTheWaves3: INCBIN "data/levels/blocksets/blockset_attributes_beneath_the_waves_3.bin.rle"
+BlocksetTiles_BeneathTheWaves4: INCBIN "data/levels/blocksets/blockset_tiles_beneath_the_waves_4.bin"
+BlocksetAttributes_BeneathTheWaves4: INCBIN "data/levels/blocksets/blockset_attributes_beneath_the_waves_4.bin.rle"
+BlocksetTiles_TheColossalHole2: INCBIN "data/levels/blocksets/blockset_tiles_the_colossal_hole_2.bin"
+BlocksetAttributes_TheColossalHole2: INCBIN "data/levels/blocksets/blockset_attributes_the_colossal_hole_2.bin.rle"
+BlocksetTiles_CastleOfIllusions4: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_4.bin"
+BlocksetAttributes_CastleOfIllusions4: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_4.bin.rle"
+BlocksetTiles_CastleOfIllusions5: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_5.bin"
+BlocksetAttributes_CastleOfIllusions5: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_5.bin.rle"
 
 
 SECTION "Level Data 14", ROMX
@@ -576,18 +576,18 @@ TheVolcanosBase2BlockMap: INCBIN "data/levels/block_map/the_volcanos_base_2.bin.
 TheVastPlain2ObjectMap:    INCBIN "data/levels/object_map/the_vast_plain_2.bin.rle"
 TheVolcanosBase2ObjectMap: INCBIN "data/levels/object_map/the_volcanos_base_2.bin.rle"
 
-BlocksetTiles_CastleOfIllusions6: INCBIN "data/levels/blocksets/blockset_tiles_78.bin"
-BlocksetAttributes_CastleOfIllusions6: INCBIN "data/levels/blocksets/blockset_attributes_78.bin.rle"
-BlocksetTiles_AboveTheClouds4: INCBIN "data/levels/blocksets/blockset_tiles_79.bin"
-BlocksetAttributes_AboveTheClouds4: INCBIN "data/levels/blocksets/blockset_attributes_79.bin.rle"
-BlocksetTiles_ForestOfFear2: INCBIN "data/levels/blocksets/blockset_tiles_80.bin"
-BlocksetAttributes_ForestOfFear2: INCBIN "data/levels/blocksets/blockset_attributes_80.bin.rle"
-BlocksetTiles_Craters2: INCBIN "data/levels/blocksets/blockset_tiles_81.bin"
-BlocksetAttributes_Craters2: INCBIN "data/levels/blocksets/blockset_attributes_81.bin.rle"
-BlocksetTiles_TheWarpedVoid2: INCBIN "data/levels/blocksets/blockset_tiles_82.bin"
-BlocksetAttributes_TheWarpedVoid2: INCBIN "data/levels/blocksets/blockset_attributes_82.bin.rle"
-BlocksetTiles_TheWarpedVoid3: INCBIN "data/levels/blocksets/blockset_tiles_83.bin"
-BlocksetAttributes_TheWarpedVoid3: INCBIN "data/levels/blocksets/blockset_attributes_83.bin.rle"
+BlocksetTiles_CastleOfIllusions6: INCBIN "data/levels/blocksets/blockset_tiles_castle_of_illusions_6.bin"
+BlocksetAttributes_CastleOfIllusions6: INCBIN "data/levels/blocksets/blockset_attributes_castle_of_illusions_6.bin.rle"
+BlocksetTiles_AboveTheClouds4: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_4.bin"
+BlocksetAttributes_AboveTheClouds4: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_4.bin.rle"
+BlocksetTiles_ForestOfFear2: INCBIN "data/levels/blocksets/blockset_tiles_forest_of_fear_2.bin"
+BlocksetAttributes_ForestOfFear2: INCBIN "data/levels/blocksets/blockset_attributes_forest_of_fear_2.bin.rle"
+BlocksetTiles_Craters2: INCBIN "data/levels/blocksets/blockset_tiles_craters_2.bin"
+BlocksetAttributes_Craters2: INCBIN "data/levels/blocksets/blockset_attributes_craters_2.bin.rle"
+BlocksetTiles_TheWarpedVoid2: INCBIN "data/levels/blocksets/blockset_tiles_the_warped_void_2.bin"
+BlocksetAttributes_TheWarpedVoid2: INCBIN "data/levels/blocksets/blockset_attributes_the_warped_void_2.bin.rle"
+BlocksetTiles_TheWarpedVoid3: INCBIN "data/levels/blocksets/blockset_tiles_the_warped_void_3.bin"
+BlocksetAttributes_TheWarpedVoid3: INCBIN "data/levels/blocksets/blockset_attributes_the_warped_void_3.bin.rle"
 
 
 SECTION "Level Data 15", ROMX
@@ -598,16 +598,16 @@ TheColossalHole2BlockMap: INCBIN "data/levels/block_map/the_colossal_hole_2.bin.
 ThePoolOfRain2ObjectMap:   INCBIN "data/levels/object_map/the_pool_of_rain_2.bin.rle"
 TheColossalHole2ObjectMap: INCBIN "data/levels/object_map/the_colossal_hole_2.bin.rle"
 
-BlocksetTiles_TheSteepCanyon2: INCBIN "data/levels/blocksets/blockset_tiles_84.bin"
-BlocksetAttributes_TheSteepCanyon2: INCBIN "data/levels/blocksets/blockset_attributes_84.bin.rle"
-BlocksetTiles_TheVolcanosBase2: INCBIN "data/levels/blocksets/blockset_tiles_85.bin"
-BlocksetAttributes_TheVolcanosBase2: INCBIN "data/levels/blocksets/blockset_attributes_85.bin.rle"
-BlocksetTiles_AboveTheClouds5: INCBIN "data/levels/blocksets/blockset_tiles_86.bin"
-BlocksetAttributes_AboveTheClouds5: INCBIN "data/levels/blocksets/blockset_attributes_86.bin.rle"
-BlocksetTiles_AboveTheClouds6: INCBIN "data/levels/blocksets/blockset_tiles_87.bin"
-BlocksetAttributes_AboveTheClouds6: INCBIN "data/levels/blocksets/blockset_attributes_87.bin.rle"
-BlocksetTiles_TheVastPlain4: INCBIN "data/levels/blocksets/blockset_tiles_88.bin"
-BlocksetAttributes_TheVastPlain4: INCBIN "data/levels/blocksets/blockset_attributes_88.bin.rle"
+BlocksetTiles_TheSteepCanyon2: INCBIN "data/levels/blocksets/blockset_tiles_the_steep_canyon_2.bin"
+BlocksetAttributes_TheSteepCanyon2: INCBIN "data/levels/blocksets/blockset_attributes_the_steep_canyon_2.bin.rle"
+BlocksetTiles_TheVolcanosBase2: INCBIN "data/levels/blocksets/blockset_tiles_the_volcanos_base_2.bin"
+BlocksetAttributes_TheVolcanosBase2: INCBIN "data/levels/blocksets/blockset_attributes_the_volcanos_base_2.bin.rle"
+BlocksetTiles_AboveTheClouds5: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_5.bin"
+BlocksetAttributes_AboveTheClouds5: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_5.bin.rle"
+BlocksetTiles_AboveTheClouds6: INCBIN "data/levels/blocksets/blockset_tiles_above_the_clouds_6.bin"
+BlocksetAttributes_AboveTheClouds6: INCBIN "data/levels/blocksets/blockset_attributes_above_the_clouds_6.bin.rle"
+BlocksetTiles_TheVastPlain4: INCBIN "data/levels/blocksets/blockset_tiles_the_vast_plain_4.bin"
+BlocksetAttributes_TheVastPlain4: INCBIN "data/levels/blocksets/blockset_attributes_the_vast_plain_4.bin.rle"
 
 
 SECTION "Level Data 16", ROMX
@@ -659,62 +659,62 @@ INCLUDE "data/levels/function_tables2.asm"
 
 SECTION "Room Main Tiles 1", ROMX
 
-LevelMainTiles_OutOfTheWoods1:  INCBIN "gfx/levels/main_tiles0.2bpp"
-LevelMainTiles_OutOfTheWoods2:  INCBIN "gfx/levels/main_tiles1.2bpp"
-LevelMainTiles_OutOfTheWoods3:  INCBIN "gfx/levels/main_tiles2.2bpp"
-LevelMainTiles_Shared1:  INCBIN "gfx/levels/main_tiles3.2bpp"
-LevelMainTiles_ThePeacefulVillage1:  INCBIN "gfx/levels/main_tiles4.2bpp"
-LevelMainTiles_ThePeacefulVillage3:  INCBIN "gfx/levels/main_tiles5.2bpp"
-LevelMainTiles_TheVastPlain:  INCBIN "gfx/levels/main_tiles6.2bpp"
-LevelMainTiles_BankOfTheWildRiver:: INCBIN "gfx/levels/main_tiles7.2bpp"
+LevelMainTiles_OutOfTheWoods1:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_1.2bpp"
+LevelMainTiles_OutOfTheWoods2:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_2.2bpp"
+LevelMainTiles_OutOfTheWoods3:  INCBIN "gfx/levels/main_tiles_out_of_the_woods_3.2bpp"
+LevelMainTiles_Shared1:  INCBIN "gfx/levels/main_tiles_shared_1.2bpp"
+LevelMainTiles_ThePeacefulVillage1:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_1.2bpp"
+LevelMainTiles_ThePeacefulVillage3:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_3.2bpp"
+LevelMainTiles_TheVastPlain:  INCBIN "gfx/levels/main_tiles_the_vast_plain.2bpp"
+LevelMainTiles_BankOfTheWildRiver:: INCBIN "gfx/levels/main_tiles_bank_of_the_wild_river.2bpp"
 
 
 SECTION "Room Main Tiles 2", ROMX
 
-LevelMainTiles_Shared2:   INCBIN "gfx/levels/main_tiles8.2bpp"
-LevelMainTiles_TheTidalCoast:   INCBIN "gfx/levels/main_tiles9.2bpp"
-LevelMainTiles_Shared3:  INCBIN "gfx/levels/main_tiles10.2bpp"
-LevelMainTiles_SeaTurtleRocks:: INCBIN "gfx/levels/main_tiles11.2bpp"
-LevelMainTiles_DesertRuins:  INCBIN "gfx/levels/main_tiles12.2bpp"
-LevelMainTiles_Shared4:  INCBIN "gfx/levels/main_tiles13.2bpp"
-LevelMainTiles_TheVolcanosBase:: INCBIN "gfx/levels/main_tiles14.2bpp"
-LevelMainTiles_ThePoolOfRain:  INCBIN "gfx/levels/main_tiles15.2bpp"
+LevelMainTiles_Shared2:   INCBIN "gfx/levels/main_tiles_shared_2.2bpp"
+LevelMainTiles_TheTidalCoast:   INCBIN "gfx/levels/main_tiles_the_tidal_coast.2bpp"
+LevelMainTiles_Shared3:  INCBIN "gfx/levels/main_tiles_shared_3.2bpp"
+LevelMainTiles_SeaTurtleRocks:: INCBIN "gfx/levels/main_tiles_sea_turtle_rocks.2bpp"
+LevelMainTiles_DesertRuins:  INCBIN "gfx/levels/main_tiles_desert_ruins.2bpp"
+LevelMainTiles_Shared4:  INCBIN "gfx/levels/main_tiles_shared_4.2bpp"
+LevelMainTiles_TheVolcanosBase:: INCBIN "gfx/levels/main_tiles_the_volcanos_base.2bpp"
+LevelMainTiles_ThePoolOfRain:  INCBIN "gfx/levels/main_tiles_the_pool_of_rain.2bpp"
 
 
 SECTION "Room Main Tiles 3", ROMX
 
-LevelMainTiles_ATownInChaos1:  INCBIN "gfx/levels/main_tiles16.2bpp"
-LevelMainTiles_ATownInChaos2:  INCBIN "gfx/levels/main_tiles17.2bpp"
-LevelMainTiles_BeneathTheWaves1:  INCBIN "gfx/levels/main_tiles18.2bpp"
-LevelMainTiles_TheGrasslands:  INCBIN "gfx/levels/main_tiles19.2bpp"
-LevelMainTiles_TheBigBridge1:  INCBIN "gfx/levels/main_tiles20.2bpp"
-LevelMainTiles_TheBigBridge2:  INCBIN "gfx/levels/main_tiles21.2bpp"
-LevelMainTiles_TowerOfRevival:: INCBIN "gfx/levels/main_tiles22.2bpp"
-LevelMainTiles_TheSteepCanyon:: INCBIN "gfx/levels/main_tiles23.2bpp"
+LevelMainTiles_ATownInChaos1:  INCBIN "gfx/levels/main_tiles_a_town_in_chaos_1.2bpp"
+LevelMainTiles_ATownInChaos2:  INCBIN "gfx/levels/main_tiles_a_town_in_chaos_2.2bpp"
+LevelMainTiles_BeneathTheWaves1:  INCBIN "gfx/levels/main_tiles_beneath_the_waves_1.2bpp"
+LevelMainTiles_TheGrasslands:  INCBIN "gfx/levels/main_tiles_the_grasslands.2bpp"
+LevelMainTiles_TheBigBridge1:  INCBIN "gfx/levels/main_tiles_the_big_bridge_1.2bpp"
+LevelMainTiles_TheBigBridge2:  INCBIN "gfx/levels/main_tiles_the_big_bridge_2.2bpp"
+LevelMainTiles_TowerOfRevival:: INCBIN "gfx/levels/main_tiles_tower_of_revival.2bpp"
+LevelMainTiles_TheSteepCanyon:: INCBIN "gfx/levels/main_tiles_the_steep_canyon.2bpp"
 
 
 SECTION "Room Main Tiles 4", ROMX
 
-LevelMainTiles_AboveTheClouds1:: INCBIN "gfx/levels/main_tiles24.2bpp"
-LevelMainTiles_TheStagnantSwamp:  INCBIN "gfx/levels/main_tiles25.2bpp"
-LevelMainTiles_TheFrigidSea:  INCBIN "gfx/levels/main_tiles26.2bpp"
-LevelMainTiles_CastleOfIllusions1:: INCBIN "gfx/levels/main_tiles27.2bpp"
-LevelMainTiles_TheColossalHole:: INCBIN "gfx/levels/main_tiles28.2bpp"
-LevelMainTiles_Craters:: INCBIN "gfx/levels/main_tiles29.2bpp"
-LevelMainTiles_TheWarpedVoid:: INCBIN "gfx/levels/main_tiles30.2bpp"
-LevelMainTiles_ForestOfFear:: INCBIN "gfx/levels/main_tiles31.2bpp"
+LevelMainTiles_AboveTheClouds1:: INCBIN "gfx/levels/main_tiles_above_the_clouds_1.2bpp"
+LevelMainTiles_TheStagnantSwamp:  INCBIN "gfx/levels/main_tiles_the_stagnant_swamp.2bpp"
+LevelMainTiles_TheFrigidSea:  INCBIN "gfx/levels/main_tiles_the_frigid_sea.2bpp"
+LevelMainTiles_CastleOfIllusions1:: INCBIN "gfx/levels/main_tiles_castle_of_illusions_1.2bpp"
+LevelMainTiles_TheColossalHole:: INCBIN "gfx/levels/main_tiles_the_colossal_hole.2bpp"
+LevelMainTiles_Craters:: INCBIN "gfx/levels/main_tiles_craters.2bpp"
+LevelMainTiles_TheWarpedVoid:: INCBIN "gfx/levels/main_tiles_the_warped_void.2bpp"
+LevelMainTiles_ForestOfFear:: INCBIN "gfx/levels/main_tiles_forest_of_fear.2bpp"
 
 
 SECTION "Room Main Tiles 5", ROMX
 
-LevelMainTiles_CaveOfFlames:  INCBIN "gfx/levels/main_tiles32.2bpp"
-LevelMainTiles_BeneathTheWaves2:  INCBIN "gfx/levels/main_tiles33.2bpp"
-LevelMainTiles_CastleOfIllusions2:  INCBIN "gfx/levels/main_tiles34.2bpp"
-LevelMainTiles_CastleOfIllusions3:  INCBIN "gfx/levels/main_tiles35.2bpp"
-LevelMainTiles_ATownInChaos3:: INCBIN "gfx/levels/main_tiles36.2bpp"
-LevelMainTiles_TheTemple:  INCBIN "gfx/levels/main_tiles37.2bpp"
-LevelMainTiles_ThePeacefulVillage2:  INCBIN "gfx/levels/main_tiles38.2bpp"
-LevelMainTiles_AboveTheClouds2:  INCBIN "gfx/levels/main_tiles39.2bpp"
+LevelMainTiles_CaveOfFlames:  INCBIN "gfx/levels/main_tiles_cave_of_flames.2bpp"
+LevelMainTiles_BeneathTheWaves2:  INCBIN "gfx/levels/main_tiles_beneath_the_waves_2.2bpp"
+LevelMainTiles_CastleOfIllusions2:  INCBIN "gfx/levels/main_tiles_castle_of_illusions_2.2bpp"
+LevelMainTiles_CastleOfIllusions3:  INCBIN "gfx/levels/main_tiles_castle_of_illusions_3.2bpp"
+LevelMainTiles_ATownInChaos3:: INCBIN "gfx/levels/main_tiles_a_town_in_chaos_3.2bpp"
+LevelMainTiles_TheTemple:  INCBIN "gfx/levels/main_tiles_the_temple.2bpp"
+LevelMainTiles_ThePeacefulVillage2:  INCBIN "gfx/levels/main_tiles_the_peaceful_village_2.2bpp"
+LevelMainTiles_AboveTheClouds2:  INCBIN "gfx/levels/main_tiles_above_the_clouds_2.2bpp"
 
 
 SECTION "Wario States 4", ROMX
@@ -913,27 +913,27 @@ INCLUDE "data/levels/palettes.asm"
 SECTION "Animated Tile Gfx", ROMX
 
 AnimatedTilesGfx:
-AnimatedTiles1Gfx:  INCBIN "gfx/levels/animated/animated_tiles1.2bpp"  ; ANIMATED_TILES_GFX_SHARED_1
-AnimatedTiles2Gfx:  INCBIN "gfx/levels/animated/animated_tiles2.2bpp"  ; ANIMATED_TILES_GFX_OUT_OF_THE_WOODS
-AnimatedTiles3Gfx:  INCBIN "gfx/levels/animated/animated_tiles3.2bpp"  ; ANIMATED_TILES_GFX_WATER
-AnimatedTiles4Gfx:  INCBIN "gfx/levels/animated/animated_tiles4.2bpp"  ; ANIMATED_TILES_GFX_SHARED_2
-AnimatedTiles5Gfx:  INCBIN "gfx/levels/animated/animated_tiles5.2bpp"  ; ANIMATED_TILES_GFX_DESERT_RUINS
-AnimatedTiles6Gfx:  INCBIN "gfx/levels/animated/animated_tiles6.2bpp"  ; ANIMATED_TILES_GFX_SHARED_3
-AnimatedTiles7Gfx:  INCBIN "gfx/levels/animated/animated_tiles7.2bpp"  ; ANIMATED_TILES_GFX_SHARED_4
-AnimatedTiles8Gfx:  INCBIN "gfx/levels/animated/animated_tiles8.2bpp"  ; ANIMATED_TILES_GFX_BENEATH_THE_WAVES
-AnimatedTiles9Gfx:  INCBIN "gfx/levels/animated/animated_tiles9.2bpp"  ; ANIMATED_TILES_GFX_THE_FRIGID_SEA
-AnimatedTiles10Gfx: INCBIN "gfx/levels/animated/animated_tiles10.2bpp" ; ANIMATED_TILES_GFX_SHARED_5
-AnimatedTiles11Gfx: INCBIN "gfx/levels/animated/animated_tiles11.2bpp" ; ANIMATED_TILES_GFX_SHARED_6
-AnimatedTiles12Gfx: INCBIN "gfx/levels/animated/animated_tiles12.2bpp" ; ANIMATED_TILES_GFX_SHARED_7
-AnimatedTiles13Gfx: INCBIN "gfx/levels/animated/animated_tiles13.2bpp" ; ANIMATED_TILES_GFX_BANK_OF_THE_WILD_RIVER
-AnimatedTiles14Gfx: INCBIN "gfx/levels/animated/animated_tiles14.2bpp" ; ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP
-AnimatedTiles15Gfx: INCBIN "gfx/levels/animated/animated_tiles15.2bpp" ; ANIMATED_TILES_GFX_THE_WARPED_VOID
-AnimatedTiles16Gfx: INCBIN "gfx/levels/animated/animated_tiles16.2bpp" ; ANIMATED_TILES_GFX_MENU
-AnimatedTiles17Gfx: INCBIN "gfx/levels/animated/animated_tiles17.2bpp" ; ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS
-AnimatedTiles18Gfx: INCBIN "gfx/levels/animated/animated_tiles18.2bpp" ; ANIMATED_TILES_GFX_SHARED_8
-AnimatedTiles19Gfx: INCBIN "gfx/levels/animated/animated_tiles19.2bpp" ; ANIMATED_TILES_GFX_SHARED_9
-AnimatedTiles20Gfx: INCBIN "gfx/levels/animated/animated_tiles20.2bpp" ; ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS
-AnimatedTiles21Gfx: INCBIN "gfx/levels/animated/animated_tiles21.2bpp" ; ANIMATED_TILES_GFX_UNUSED_20
-AnimatedTiles22Gfx: INCBIN "gfx/levels/animated/animated_tiles22.2bpp" ; ANIMATED_TILES_GFX_UNUSED_21
-AnimatedTiles23Gfx: INCBIN "gfx/levels/animated/animated_tiles23.2bpp" ; ANIMATED_TILES_GFX_UNUSED_22
-AnimatedTiles24Gfx: INCBIN "gfx/levels/animated/animated_tiles24.2bpp" ; ANIMATED_TILES_GFX_UNUSED_23
+AnimatedTiles1Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_1.2bpp"  ; ANIMATED_TILES_GFX_SHARED_1
+AnimatedTiles2Gfx:  INCBIN "gfx/levels/animated/animated_tiles_out_of_the_woods.2bpp"  ; ANIMATED_TILES_GFX_OUT_OF_THE_WOODS
+AnimatedTiles3Gfx:  INCBIN "gfx/levels/animated/animated_tiles_water.2bpp"  ; ANIMATED_TILES_GFX_WATER
+AnimatedTiles4Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_2.2bpp"  ; ANIMATED_TILES_GFX_SHARED_2
+AnimatedTiles5Gfx:  INCBIN "gfx/levels/animated/animated_tiles_desert_ruins.2bpp"  ; ANIMATED_TILES_GFX_DESERT_RUINS
+AnimatedTiles6Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_3.2bpp"  ; ANIMATED_TILES_GFX_SHARED_3
+AnimatedTiles7Gfx:  INCBIN "gfx/levels/animated/animated_tiles_shared_4.2bpp"  ; ANIMATED_TILES_GFX_SHARED_4
+AnimatedTiles8Gfx:  INCBIN "gfx/levels/animated/animated_tiles_beneath_the_waves.2bpp"  ; ANIMATED_TILES_GFX_BENEATH_THE_WAVES
+AnimatedTiles9Gfx:  INCBIN "gfx/levels/animated/animated_tiles_the_frigid_sea.2bpp"  ; ANIMATED_TILES_GFX_THE_FRIGID_SEA
+AnimatedTiles10Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_5.2bpp" ; ANIMATED_TILES_GFX_SHARED_5
+AnimatedTiles11Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_6.2bpp" ; ANIMATED_TILES_GFX_SHARED_6
+AnimatedTiles12Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_7.2bpp" ; ANIMATED_TILES_GFX_SHARED_7
+AnimatedTiles13Gfx: INCBIN "gfx/levels/animated/animated_tiles_bank_of_the_wild_river.2bpp" ; ANIMATED_TILES_GFX_BANK_OF_THE_WILD_RIVER
+AnimatedTiles14Gfx: INCBIN "gfx/levels/animated/animated_tiles_the_stagnant_swamp.2bpp" ; ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP
+AnimatedTiles15Gfx: INCBIN "gfx/levels/animated/animated_tiles_the_warped_void.2bpp" ; ANIMATED_TILES_GFX_THE_WARPED_VOID
+AnimatedTiles16Gfx: INCBIN "gfx/levels/animated/animated_tiles_menu.2bpp" ; ANIMATED_TILES_GFX_MENU
+AnimatedTiles17Gfx: INCBIN "gfx/levels/animated/animated_tiles_sea_turtle_rocks.2bpp" ; ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS
+AnimatedTiles18Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_8.2bpp" ; ANIMATED_TILES_GFX_SHARED_8
+AnimatedTiles19Gfx: INCBIN "gfx/levels/animated/animated_tiles_shared_9.2bpp" ; ANIMATED_TILES_GFX_SHARED_9
+AnimatedTiles20Gfx: INCBIN "gfx/levels/animated/animated_tiles_a_town_in_chaos.2bpp" ; ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS
+AnimatedTiles21Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_20.2bpp" ; ANIMATED_TILES_GFX_UNUSED_20
+AnimatedTiles22Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_21.2bpp" ; ANIMATED_TILES_GFX_UNUSED_21
+AnimatedTiles23Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_22.2bpp" ; ANIMATED_TILES_GFX_UNUSED_22
+AnimatedTiles24Gfx: INCBIN "gfx/levels/animated/animated_tiles_unused_23.2bpp" ; ANIMATED_TILES_GFX_UNUSED_23

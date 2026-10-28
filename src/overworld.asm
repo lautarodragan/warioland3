@@ -34,7 +34,7 @@ OverworldArrowsGfx:  INCBIN "gfx/overworld/arrows.2bpp.rle"
 OverworldGlowGfx:    INCBIN "gfx/overworld/glow.2bpp.rle"
 OverworldNumbersGfx: INCBIN "gfx/overworld/numbers.2bpp.rle"
 
-DebugUnknownTextGfx: INCBIN "gfx/debug_unknown_text.2bpp"
+DebugUnknownTextGfx: INCBIN "gfx/debug_treasure_text.2bpp"
 
 	ds $2, $0
 
