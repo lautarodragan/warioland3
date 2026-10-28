@@ -77,11 +77,11 @@ SunFunc:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr z, .asm_472dd
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_472e3
 .asm_472dd
@@ -433,11 +433,11 @@ SunMoon_MoveDown:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr z, .asm_4751a
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	ret z
 .asm_4751a
@@ -572,11 +572,11 @@ MoonFunc:
 	ld a, [hl]
 	ldh [hXPosHi], a
 	xor a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	call Func_352b
 	and a
 	jr z, .asm_475fe
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_47604
 .asm_475fe

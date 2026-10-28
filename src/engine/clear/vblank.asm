@@ -58,7 +58,7 @@ VBlank_MusicalCoinsScreen:
 	ldh [rSCY], a
 	ld a, [wSCX]
 	ldh [rSCX], a
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	bit 7, a
 	jr z, .dma_transfer
 	and $7f
@@ -88,7 +88,7 @@ VBlank_MusicalCoinsScreen:
 	ld a, [hl]
 	ld [de], a
 .asm_d47e6
-	ld hl, wcee4
+	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .dma_transfer
 	ld a, HIGH(wVirtualOAM)

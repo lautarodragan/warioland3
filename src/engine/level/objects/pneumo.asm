@@ -249,7 +249,7 @@ PneumoFunc:
 
 .asm_457c6
 	xor a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -262,7 +262,7 @@ PneumoFunc:
 	call Func_352b
 	and a
 	jr z, .asm_457e7
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_45801
 	jr .asm_457ed
@@ -510,7 +510,7 @@ PneumoFunc:
 	jr nc, .asm_45954
 .asm_4597c
 	xor a
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -523,7 +523,7 @@ PneumoFunc:
 	call Func_352b
 	and a
 	jr z, .asm_4599f
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jp nz, MoveObjectDown_Slow
 	jp .Func_456fe

@@ -102,7 +102,7 @@ Func_d4472:
 	inc b
 	ld [hl], b
 	ld a, $80
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ret
 
 .counting_up_done
@@ -218,7 +218,7 @@ Func_d454c:
 	ld [hli], a
 	ld [hl], b
 	ld a, $81
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ret
 
 .done

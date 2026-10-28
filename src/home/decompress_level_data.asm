@@ -1,7 +1,7 @@
 ; decompresses level block mao data pointed
 ; by wCompressedLevelBlockMapPtr to SRAM
 DecompressLevelBlockMap::
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and $3c
 	ret nz
 

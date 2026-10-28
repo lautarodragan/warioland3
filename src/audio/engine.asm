@@ -94,18 +94,18 @@ _UpdateAudio::
 	ld hl, wSFXTempo
 	ld a, [hli]
 	add [hl]
-	ld [hli], a ; w3d008 += wSFXTempo
+	ld [hli], a ; wSFXTempoAccumulator += wSFXTempo
 	ld a, 0
 	adc [hl]
 	ld [hld], a
-	ld a, [hli] ; w3d008
+	ld a, [hli] ; wSFXTempoAccumulator
 	sub $4a
 	ld b, a
 	ld a, [hl]
 	sbc 0
 	jr nc, .asm_300a4
 
-	; w3d008 < $4a
+	; wSFXTempoAccumulator < $4a
 	call SetSFXChannels
 .loop_chs_1
 	call Func_30547
@@ -114,7 +114,7 @@ _UpdateAudio::
 	jr .asm_300c8
 
 .asm_300a4
-	; w3d008 -= $4a
+	; wSFXTempoAccumulator -= $4a
 	ld [hld], a
 	ld [hl], b
 
@@ -130,7 +130,7 @@ _UpdateAudio::
 	call NextChannel
 	jr nz, .loop_chs_2
 
-	ld hl, w3d008
+	ld hl, wSFXTempoAccumulator
 	ld a, [hli]
 	sub $4a
 	ld b, a
@@ -144,12 +144,12 @@ _UpdateAudio::
 
 	ld hl, wMusicTempo
 	ld a, [hli]
-	add [hl] ; w3d00d
+	add [hl] ; wMusicTempoAccumulator
 	ld [hli], a
 	ld a, 0
 	adc [hl]
 	ld [hld], a
-	ld a, [hli] ; w3d00d
+	ld a, [hli] ; wMusicTempoAccumulator
 	sub $4a
 	ld b, a
 	ld a, [hl]
@@ -179,7 +179,7 @@ _UpdateAudio::
 	call NextChannel
 	jr nz, .asm_300fd
 
-	ld hl, w3d00d
+	ld hl, wMusicTempoAccumulator
 	ld a, [hli]
 	sub $4a
 	ld b, a
@@ -194,13 +194,13 @@ _UpdateAudio::
 	call NextTrack
 	jr nz, .asm_30114
 
-	ld a, [w3d01a]
+	ld a, [wEnvelopeFrameCycle]
 	and a
 	jr nz, .asm_30124
 	ld a, $0f
 .asm_30124
 	dec a
-	ld [w3d01a], a
+	ld [wEnvelopeFrameCycle], a
 
 ; get active channels
 	ld c, NUM_CHANNELS
@@ -450,7 +450,7 @@ PlayMusic::
 	xor a
 	ld [wMusicFadeOutPeriod], a
 	xor a
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call GetSound
 
 ; init noise channels
@@ -517,7 +517,7 @@ _PlayNewMusic_SetNoise::
 ; then set it as active
 Func_302e4::
 	xor a
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call SetMusicChannels
 .loop_chs
 	ld a, [wCurChannelPtr + 0]
@@ -753,7 +753,7 @@ DeactivateMusicChannels_FromFadeOut:
 
 DeactivateMusicChannels:
 	ld a, $ff
-	ld [w3d025], a
+	ld [wMusicChannelsDeactivated], a
 	call SetMusicChannels
 .loop_chs
 	ld a, [wCurChannelPtr + 0]
@@ -958,7 +958,7 @@ _SetMusicFadeOut::
 	jp ReturnFromAudioJump
 
 UpdateMusicFadeOut:
-	ld a, [w3d025]
+	ld a, [wMusicChannelsDeactivated]
 	and a
 	ret nz ; music channels are deactivated
 
@@ -2006,7 +2006,7 @@ Func_30a1f:
 	jr z, .asm_30ad0
 	set 7, a
 .asm_30ad0
-	ld [wTempTrackUnk02], a
+	ld [wTempTrackOwner], a
 	ld e, a
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
@@ -2053,7 +2053,7 @@ Func_30a1f:
 	ld [hli], a ; TRACK_FLAGS
 	ld a, [wTempTrackPriority]
 	ld [hli], a ; TRACK_PRIORITY
-	ld a, [wTempTrackUnk02]
+	ld a, [wTempTrackOwner]
 	ld [hli], a ; TRACK_UNK02
 	ld a, [wSoundEngineParam3]
 	ld [hli], a ; TRACK_UNK03
@@ -2254,7 +2254,7 @@ Func_30bfb:
 	jr nz, .asm_30c46
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
-	ld a, [w3d01a]
+	ld a, [wEnvelopeFrameCycle]
 	and a
 	jr nz, .asm_30c31
 	inc [hl]

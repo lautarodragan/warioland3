@@ -170,7 +170,7 @@ SetState_Hot:
 	ld a, TOUCH_VANISH
 	ld [wTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -502,7 +502,7 @@ SetState_FlatAirborne:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wFrameDuration], a
@@ -1573,7 +1573,7 @@ SetState_FatIdling:
 	ld a, TOUCH_ATTACK
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wJumpVelIndex], a
@@ -2040,7 +2040,7 @@ SetState_FatRecovering:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wJumpVelTable], a
@@ -2428,7 +2428,7 @@ SetState_TurningInvisible:
 	xor a ; TOUCH_NONE
 	ld [wTouchState], a
 	ld [wStingTouchState], a
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wFrameDuration], a
@@ -2495,7 +2495,7 @@ SetState_PuffyInflating:
 	ld a, TOUCH_BUMP
 	ld [wTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	play_sfx SFX_025
 
@@ -2777,7 +2777,7 @@ SetState_ZombieIdling:
 	ld a, TOUCH_VANISH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wWarioStateCounter], a
@@ -3093,7 +3093,7 @@ SetState_ZombieLanding:
 	ld a, TOUCH_BUMP
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wJumpVelIndex], a
@@ -3106,7 +3106,7 @@ SetState_ZombieLanding:
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
 	farcall Func_19a77
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	jr z, .asm_29d43
 
@@ -3686,7 +3686,7 @@ SetState_BouncyUpsideDown:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	xor a
 	ld [wFrameDuration], a
 	ld [wAnimationFrame], a
@@ -3756,7 +3756,7 @@ Func_2a2e7:
 	ld a, TOUCH_PASS_THROUGH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	ld hl, WarioBouncyPal
 	call SetWarioPal
@@ -4024,7 +4024,7 @@ SetState_Crazy:
 	ld a, TOUCH_VULNERABLE
 	ld [wStingTouchState], a
 	ld a, $01
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	xor a
 	ld [wWalkVelIndex], a
@@ -4569,7 +4569,7 @@ SetState_VampireTransforming:
 	ld a, TOUCH_VANISH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld a, -1
 	ld [wCollisionBoxBottom], a
 	ld a, -27

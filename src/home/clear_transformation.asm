@@ -13,7 +13,7 @@ ClearTransformationValues::
 	ld [wTransformationProgress], a
 	ld [wStingTouchState], a
 	ld [wTouchState], a
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 	ld [wIsIntangible], a
 	ld [wTransformationDuration + 0], a
 	ld [wTransformationDuration + 1], a

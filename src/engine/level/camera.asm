@@ -352,14 +352,14 @@ SetWarioScreenPos:
 .hidden_figure_camconfig
 	ld a, [wSCYShake]
 	ld c, a
-	ld a, [wc08a]
+	ld a, [wHiddenFigureBaseSCY]
 	add c
 	ld b, a
 	ld a, [wWarioYPos + 1]
 	add OAM_Y_OFS
 	sub b
 	ld [wWarioScreenYPos], a
-	ld a, [wc08c]
+	ld a, [wHiddenFigureBaseSCX]
 	ld b, a
 	ld a, [wWarioXPos + 1]
 	add OAM_X_OFS
@@ -375,7 +375,7 @@ LevelScroll_Vertical:
 
 ; there was an offset in Wario's Y coordinate
 	xor a
-	ld [wc0d4], a
+	ld [wCameraYIdleCounter], a
 	bit 7, b
 	jr nz, .up_movement
 
@@ -444,11 +444,11 @@ LevelScroll_Vertical:
 	ret c
 
 .not_in_ladder
-	ld a, [wc0d4]
+	ld a, [wCameraYIdleCounter]
 	inc a
-	ld [wc0d4], a
+	ld [wCameraYIdleCounter], a
 	dec a
-	ret z ; return if wc0d4 == 1
+	ret z ; return if wCameraYIdleCounter == 1
 
 	ld hl, wWarioScreenYPos
 	ld a, [wPrevWarioScreenYPos]
@@ -480,7 +480,7 @@ LevelScroll_Horizontal:
 
 ; there was an offset in Wario's X coordinate
 	xor a
-	ld [wc0d5], a
+	ld [wCameraXIdleCounter], a
 	bit 7, b
 	jr nz, .left_movement
 
@@ -565,11 +565,11 @@ LevelScroll_Horizontal:
 	and a
 	ret nz ; is jumping
 .not_flat
-	ld a, [wc0d5]
+	ld a, [wCameraXIdleCounter]
 	inc a
-	ld [wc0d5], a
+	ld [wCameraXIdleCounter], a
 	dec a
-	ret z ; return if wc0d5 == 1
+	ret z ; return if wCameraXIdleCounter == 1
 
 	ld b, 1
 	ld hl, wWarioScreenXPos

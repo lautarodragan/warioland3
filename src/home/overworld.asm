@@ -208,15 +208,15 @@ LoadLevelName::
 	ld e, $00
 	add hl, de
 	ld a, h
-	ld [w2d0b5SourceHi], a
+	ld [wHDMAVRAM1SourceHi], a
 	ld a, l
-	ld [w2d0b5SourceLo], a
+	ld [wHDMAVRAM1SourceLo], a
 	ld a, $15
-	ld [w2d0b5DestHi], a
+	ld [wHDMAVRAM1DestHi], a
 	xor a
-	ld [w2d0b5DestLo], a
+	ld [wHDMAVRAM1DestLo], a
 	ld a, 32 dma_tiles
-	ld [w2d0b5Mode], a
+	ld [wHDMAVRAM1Mode], a
 	ret
 
 ; copies c bytes from b:hl to de
@@ -280,7 +280,7 @@ SetSceneObjState::
 	ret
 
 PlayOverworldMusic::
-	ld a, [w2d011]
+	ld a, [wOWIsNight]
 	and a
 	jr nz, .night
 	play_music2 MUSIC_OVERWORLD_DAY
@@ -345,7 +345,7 @@ ApplyPalConfig::
 Func_3c03::
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ld hl, w2d0b5
+	ld hl, wHDMAVRAM1
 	ld a, [hli]
 	ld c, LOW(rVDMA_SRC_HIGH)
 	ld [$ff00+c], a
@@ -470,7 +470,7 @@ GetByteFromPointerInHL::
 
 Func_3c76::
 	xor a
-	ld hl, w2d0c0
+	ld hl, wUnused_2d0c0
 	ld bc, $10
 	call WriteAToHL_BCTimes
 	ret

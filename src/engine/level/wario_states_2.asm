@@ -555,7 +555,7 @@ SetState_SandFalling:
 	ld [wIsRolling], a
 	ld [wSwimVelIndex], a
 	ld [wIsCrouching], a
-	ld [wc0e0], a
+	ld [wUnused_c0e0], a
 	ld hl, WarioDefaultPal
 	call SetWarioPal
 ;	fallthrough

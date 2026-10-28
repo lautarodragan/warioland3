@@ -33,9 +33,9 @@ UpdateLevel:
 	ld a, [wHiddenFigureSCYShake]
 	add [hl]
 	ld [wSCY], a
-	ld a, [wc08b]
+	ld a, [wHiddenFigureSCX]
 	ld [wSCX], a
-	ld a, [wc08d]
+	ld a, [wHiddenFigureWY]
 	add [hl]
 	ldh [rWY], a
 

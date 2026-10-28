@@ -1,5 +1,5 @@
 LoadTitleScreenPals:
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	jr nz, .asm_492a
 	ld hl, Pals_4f82

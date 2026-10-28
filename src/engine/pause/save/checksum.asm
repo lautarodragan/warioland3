@@ -106,7 +106,7 @@ CalculateBackupSRAMChecksum1:
 
 	ld a, BANK("SRAM2")
 	sramswitch
-	ld hl, s2a000
+	ld hl, sLevelBlockObjectMap2
 	ld bc, $1000
 .loop_sram_2
 	ld a, [hli]
@@ -130,7 +130,7 @@ CalculateBackupSRAMChecksum2:
 	push af
 	ld a, BANK("SRAM3")
 	sramswitch
-	ld hl, s3a000
+	ld hl, sBackupLevelBlockObjectMap
 	ld de, 0
 	ld bc, SIZEOF(SRAM)
 .loop_sram_3
@@ -151,7 +151,7 @@ CalculateBackupSRAMChecksum2:
 
 	ld a, BANK("SRAM2")
 	sramswitch
-	ld hl, s2b000
+	ld hl, sBackupLevelBlockObjectMap2
 	ld bc, $1000
 .loop_sram_2
 	ld a, [hli]

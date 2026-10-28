@@ -110,8 +110,8 @@ Func_e31::
 	add h ; = h + (wBlockPtrBank - 1) * $20
 	ld b, a
 	ld c, l
-	ld hl, wc18e
-	ld a, [wc19e]
+	ld hl, wBlockRedrawQueue
+	ld a, [wBlockRedrawQueueWriteIndex]
 	ld e, a
 	ld d, $00
 	add hl, de
@@ -121,7 +121,7 @@ Func_e31::
 	ld a, e
 	add 2
 	and $0f
-	ld [wc19e], a
+	ld [wBlockRedrawQueueWriteIndex], a
 	ret
 
 UpdateWarioAnimation::

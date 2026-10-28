@@ -18,19 +18,19 @@ InitLevel:
 	ld a, TRUE
 	ld [wRoomAnimatedTilesEnabled], a
 	xor a
-	ld [wceef], a
+	ld [wRestoredSave], a
 
 	ld a, [wSRAMBank]
 	push af
 	ld a, BANK("SRAM0")
 	sramswitch
 	xor a
-	ld hl, s0a000
+	ld hl, sWRAMCheckVals
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, s0a800
+	ld hl, sBackup1WRAMCheckVals
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -51,7 +51,7 @@ InitLevel:
 	farcall LoadHiddenFigureGfx
 
 	ld a, $88
-	ld [wc08d], a
+	ld [wHiddenFigureWY], a
 	ldh [rWY], a
 	ld a, 0 + WX_OFS
 	ldh [rWX], a

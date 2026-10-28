@@ -11,7 +11,7 @@ StartMenu:
 	ld hl, wMenuObj1
 	call LoadStartMenuSprite
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and a
 	jr z, .asm_453e
 
@@ -86,7 +86,7 @@ StartMenu:
 	bit MODE_TIME_ATTACK_F, a
 	jr nz, .time_attack_enabled
 	ld a, $80
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld bc, Frameset_6ce9
 	jr .got_frameset
 .time_attack_enabled
@@ -97,7 +97,7 @@ StartMenu:
 
 .ClearData:
 	ld a, $81
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld a, SCREEN_HEIGHT_PX
 	ld [wMenuObj2YCoord], a
 	ld a, 120
@@ -130,15 +130,15 @@ StartMenu:
 	; game with all power ups
 	ld a, SUPER_GRAB_GLOVES
 	ld [wPowerUpLevel], a
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and $03
-	ld [wceef], a
+	ld [wRestoredSave], a
 
 .ContinueOrTimeAttack:
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	jr nz, .TimeAttack
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %111100
 	jr nz, .asm_45fd
 	jr StartOverworldState
@@ -178,7 +178,7 @@ Func_4628::
 	ld [wAnimatedTilesFrameCount], a
 	ld [wAnimatedTilesFrame], a
 	xor a
-	ld [w3d50d], a
+	ld [wUnused_3d50d], a
 	ld hl, wDayNight
 	set 7, [hl]
 	jr StartOverworldState

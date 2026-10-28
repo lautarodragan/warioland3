@@ -6,10 +6,10 @@ QueueBlockTilesAlongRow_OddColumn:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jr nz, .odd_row
@@ -25,12 +25,12 @@ QueueBlockTilesAlongRow_OddColumn:
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -64,12 +64,12 @@ QueueBlockTilesAlongRow_OddColumn:
 	inc l
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -94,12 +94,12 @@ QueueBlockTilesAlongRow_OddColumn:
 	ld hl, wRoomBlockTiles
 	add hl, de
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -129,10 +129,10 @@ QueueBlockAttributesAlongRow_OddColumn:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_2208a
@@ -148,12 +148,12 @@ QueueBlockAttributesAlongRow_OddColumn:
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -182,9 +182,9 @@ QueueBlockAttributesAlongRow_OddColumn:
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	ld a, [hl]
 	ld [de], a
@@ -205,12 +205,12 @@ QueueBlockAttributesAlongRow_OddColumn:
 	inc l
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -236,12 +236,12 @@ QueueBlockAttributesAlongRow_OddColumn:
 	ld hl, wRoomBlockAttributes
 	add hl, de
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -271,10 +271,10 @@ QueueBlockTilesAlongRow_EvenColumn:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM0Queue)
-	ld [wcce7 + 0], a
+	ld [wBGMapTileVRAM0QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM0Queue)
 	add b
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .odd_row
@@ -289,12 +289,12 @@ QueueBlockTilesAlongRow_EvenColumn:
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -327,12 +327,12 @@ QueueBlockTilesAlongRow_EvenColumn:
 	add hl, de
 	inc l
 	inc l
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -356,12 +356,12 @@ QueueBlockTilesAlongRow_EvenColumn:
 	push hl
 	ld hl, wRoomBlockTiles
 	add hl, de
-	ld a, [wcce7 + 0]
+	ld a, [wBGMapTileVRAM0QueuePtr + 0]
 	ld d, a
-	ld a, [wcce7 + 1]
+	ld a, [wBGMapTileVRAM0QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wcce7 + 1], a
+	ld [wBGMapTileVRAM0QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -391,10 +391,10 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	ld a, [wBGMapTileQueueSize]
 	ld b, a
 	ld a, HIGH(wBGMapTileVRAM1Queue)
-	ld [wc0b3 + 0], a
+	ld [wBGMapTileVRAM1QueuePtr + 0], a
 	ld a, LOW(wBGMapTileVRAM1Queue)
 	add b
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
 	jp nz, .asm_22217
@@ -409,12 +409,12 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l
@@ -448,12 +448,12 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	add hl, de
 	inc l
 	inc l
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	inc a
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hl]
 	ld [de], a
 	pop hl
@@ -477,12 +477,12 @@ QueueBlockAttributesAlongRow_EvenColumn:
 	push hl
 	ld hl, wRoomBlockAttributes
 	add hl, de
-	ld a, [wc0b3 + 0]
+	ld a, [wBGMapTileVRAM1QueuePtr + 0]
 	ld d, a
-	ld a, [wc0b3 + 1]
+	ld a, [wBGMapTileVRAM1QueuePtr + 1]
 	ld e, a
 	add $2
-	ld [wc0b3 + 1], a
+	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [hli]
 	ld [de], a
 	inc l

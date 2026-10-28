@@ -93,7 +93,7 @@ VBlank_Overworld:
 	ld [$ff00+c], a
 
 .asm_80c84
-	ld hl, w2d0b5
+	ld hl, wHDMAVRAM1
 	ld a, [hl]
 	and a
 	jr z, .asm_80ca2

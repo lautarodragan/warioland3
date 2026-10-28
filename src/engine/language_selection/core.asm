@@ -29,7 +29,7 @@ LanguageSelection:
 .got_language
 	ld [wLanguage], a
 	add $80
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	play_sfx SFX_0E2
 
 .update_anim

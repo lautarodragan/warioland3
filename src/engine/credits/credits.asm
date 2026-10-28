@@ -18,7 +18,7 @@ InitCredits:
 	ld [wSCY], a
 	ld [wCreditsPage], a
 	ldh [rWY], a
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld a, 0 + WX_OFS
 	ldh [rWX], a
 
@@ -196,7 +196,7 @@ ShowCredits:
 	ld [wCreditsBGMapPtr + 1], a
 
 	ld a, (1 << 7)
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ret
 
 .done_credits
@@ -381,7 +381,7 @@ Func_16026c:
 	call Func_1603be
 
 	ld a, $2 | (1 << 7)
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld hl, wSubState
 	inc [hl]
 
@@ -547,7 +547,7 @@ VBlank_160439:
 	ldh [rSCY], a
 	ld a, [wSCX]
 	ldh [rSCX], a
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	bit 7, a
 	jr z, .dma_transfer
 	and $7f
@@ -576,7 +576,7 @@ VBlank_160439:
 	ld b, CREDITS_TEXT_LENGTH
 	call WriteAToHL_BTimes
 	ld a, $1 | (1 << 7)
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	jr .dma_transfer
 
 .write_text
@@ -601,7 +601,7 @@ VBlank_160439:
 	or LCDC_WIN_ON | LCDC_WIN_9C00
 	ld [hl], a
 .asm_1604a6
-	ld hl, wcee4
+	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .dma_transfer
 	ld a, HIGH(wVirtualOAM)

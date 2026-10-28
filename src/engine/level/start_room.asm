@@ -179,7 +179,7 @@ ProcessMultiBlock:
 	add $10
 	ld [wMultiBlockParam], a
 	and $08
-	ld [wcede], a
+	ld [wUnused_cede], a
 
 .loop
 	ld a, [wMultiBlockParam]
@@ -193,33 +193,33 @@ ProcessMultiBlock:
 
 ; up block
 	; get block above
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	inc a
 	ld h, a
 	ld [wBlockPtr + 0], a
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	jr nz, .no_wrap_1
 	ld a, HIGH(sLevelBlockObjectMap)
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	inc a
 .no_wrap_1
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	ld l, a
 	ld [wBlockPtr + 1], a
 	jr .process_block
 
 .right_block
 	; get block on right
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	inc a
 	ld l, a
 	ld [wBlockPtr + 1], a
@@ -227,34 +227,34 @@ ProcessMultiBlock:
 
 .left_block
 	; get block on left
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	dec a
 	ld l, a
 	ld [wBlockPtr + 1], a
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	ld h, a
 	ld [wBlockPtr + 0], a
 	jr .process_block
 
 .down_block
 	; get block below
-	ld a, [wcedc + 0]
+	ld a, [wMultiBlockOriginPtr + 0]
 	dec a
 	ld h, a
 	ld [wBlockPtr + 0], a
 	cp HIGH(STARTOF(SRAM)) - 1
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	jr nz, .no_wrap_2
 	ld a, HIGH(STARTOF(SRAM) + SIZEOF(SRAM)) - 1
 	ld h, a
 	ld [wBlockPtr + 0], a
-	ld a, [wcedb]
+	ld a, [wMultiBlockOriginBank]
 	dec a
 .no_wrap_2
 	ld [wBlockPtrBank], a
-	ld a, [wcedc + 1]
+	ld a, [wMultiBlockOriginPtr + 1]
 	ld l, a
 	ld [wBlockPtr + 1], a
 
@@ -284,7 +284,7 @@ StartRoom_FromLevelStart:
 	ld [wIsBossBattle], a
 
 	; if from saved level, don't init start level vars
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jp nz, .skip_init_vars_and_objects
 
@@ -349,7 +349,7 @@ StartRoom_FromLevelStart:
 	call LoadRoom
 	pop_wram
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr nz, .asm_883a
 	call SetWarioPositionToSpawn
@@ -379,7 +379,7 @@ StartRoom_FromLevelStart:
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE_Short
 
-	ld hl, wcaa1
+	ld hl, wSavedEnemyPals
 	ld de, wTempPals2 palette 4
 	ld b, 4 palettes
 	call CopyHLToDE
@@ -406,7 +406,7 @@ StartRoom_FromLevelStart:
 	pop af
 	sramswitch
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr nz, .asm_88b7
 	ld a, [wSRAMBank]
@@ -424,13 +424,13 @@ StartRoom_FromLevelStart:
 
 	xor a
 	ld a, [wCameraSCY + 1]
-	ld [wc08a], a
+	ld [wHiddenFigureBaseSCY], a
 	ld [wHiddenFigureSCYShake], a
 	ld [wSCY], a
 	ldh [rSCY], a
 	ld a, [wCameraSCX + 1]
-	ld [wc08c], a
-	ld [wc08b], a
+	ld [wHiddenFigureBaseSCX], a
+	ld [wHiddenFigureSCX], a
 	ld [wSCX], a
 	ldh [rSCX], a
 
@@ -439,7 +439,7 @@ StartRoom_FromLevelStart:
 	xor a ; FALSE
 	ld [wBlockFuncWarioFlag], a
 
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr nz, .asm_8917
 	xor a ; FALSE
@@ -503,7 +503,7 @@ Func_896f:
 .asm_8996
 	ld h, a
 	ld a, c
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 	ld a, 1
 	ld [wUnused_ObjectParity], a
@@ -536,9 +536,9 @@ Func_896f:
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr nz, .asm_89de
 	ld h, HIGH(sLevelBlockObjectMap)
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	inc a
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 .asm_89de
 	dec d
@@ -549,37 +549,37 @@ Func_896f:
 	cp $0f
 	ret nc ; is Wario spawn block
 	ld c, a ; object index
-	ld a, [wc0c7]
+	ld a, [wRoomObjMapRightX]
 	dec a
 	cp l
 	ret c
-	; wc0c7 > l
-	ld a, [wc0c6]
+	; wRoomObjMapRightX > l
+	ld a, [wRoomObjMapLeftX]
 	cp l
 	jr z, .asm_89f3
 	ret nc
 .asm_89f3
-	; wc0c6 <= l
-	ld a, [wccec]
+	; wRoomObjMapLeftX <= l
+	ld a, [wObjectMapBank]
 	dec a
 	jr nz, .asm_8a08
-	ld a, [wc0c4]
+	ld a, [wRoomObjMapLowerY]
 	dec a
 	cp h
 	ret c
-	ld a, [wc0c5]
+	ld a, [wRoomObjMapUpperY]
 	cp h
 	jr z, .spawn
 	ret nc
 	jr .spawn
 
 .asm_8a08
-	ld a, [wc0c4]
+	ld a, [wRoomObjMapLowerY]
 	sub $20
 	dec a
 	cp h
 	ret c
-	ld a, [wc0c5]
+	ld a, [wRoomObjMapUpperY]
 	sub $20
 	cp h
 	jr z, .spawn
@@ -629,7 +629,7 @@ SetWarioPositionToSpawn:
 .asm_8a6c
 	ld h, a
 	ld a, c
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 
 .loop_search
@@ -664,9 +664,9 @@ SetWarioPositionToSpawn:
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
 	jr nz, .loop_search
 	ld h, HIGH(sLevelBlockObjectMap)
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	inc a
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	sramswitch
 	jr .loop_search
 
@@ -679,7 +679,7 @@ SetWarioPositionToSpawn:
 	and CAM_SCROLLING_MASK
 	cp CAM_TRANSITIONS
 	jr c, .skip_floor_update
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr nz, .skip_floor_update
 	call UpdateFloor
@@ -781,7 +781,7 @@ SetInitialCameraScroll:
 	ld [wCameraRoomXScrollLimit], a
 
 .check_if_saved_level
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %00111100
 	jr z, .handle_cam_y_scroll
 	ld a, [wCameraConfigFlags]

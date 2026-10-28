@@ -100,7 +100,7 @@ CheckBottomRightCollision:
 .got_collision_coords
 	ldh a, [hYPosLo]
 	and $f0
-	ld [wc0dc], a
+	ld [wFrontCollisionBlockY], a
 	call Func_19bc3
 	and $0f
 	jp z, Func_19832
@@ -180,7 +180,7 @@ CheckBottomLeftCollision:
 .got_collision_coords
 	ldh a, [hYPosLo]
 	and $f0
-	ld [wc0dc], a
+	ld [wFrontCollisionBlockY], a
 	call Func_19bc3
 	and $0f
 	jr z, Func_19832
@@ -210,7 +210,7 @@ Func_19832:
 	add 2
 	and $f0
 	ld b, a
-	ld a, [wc0dc]
+	ld a, [wFrontCollisionBlockY]
 	cp b
 	jp z, .asm_198c1
 	ld a, TRUE
@@ -548,7 +548,7 @@ CheckAirborneCollision:
 
 Func_19a77:
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionBoxLeft]
 	cpl
 	inc a
@@ -572,13 +572,13 @@ Func_19a77:
 	call Func_19b3a
 	and a
 	jr z, .asm_19aa2
-	ld a, [wc1ca]
+	ld a, [wHitFloorBlock]
 	and a
 	ret z
 
 .asm_19aa2
 	xor a ; FALSE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ld a, [wCollisionBoxRight]
 	sub $03
 	ld c, a
@@ -603,7 +603,7 @@ Func_19a77:
 	ret
 .asm_19ac7
 	ld a, TRUE
-	ld [wc1ca], a
+	ld [wHitFloorBlock], a
 	ret
 
 Func_19acd:

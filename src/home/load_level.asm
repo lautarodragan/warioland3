@@ -41,7 +41,7 @@ LoadLevelBlockMapAndObjects::
 	pop af
 	bankswitch
 	push hl
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and %111100
 	jr nz, .skip_loading_objects
 	call DecompressLevelObjectMap
@@ -82,7 +82,7 @@ ReloadLevelObjects::
 ; almost identical to DecompressLevelBlockMap
 ; but instead only copies over the highest bit
 .DecompressLevelBlockMap_OnlyHighBit:
-	ld a, [wceef]
+	ld a, [wRestoredSave]
 	and $3c
 	ret nz
 	ld a, [wSRAMBank]

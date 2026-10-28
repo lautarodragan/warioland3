@@ -1,11 +1,11 @@
 InitGolfLobby:
 	call DisableLCD
 	call ClearVirtualOAM
-	ld a, [w1d800]
+	ld a, [wGolfMode]
 	and a
 	call z, SaveBackupVRAM
 	ld a, $02
-	ld [w1d800], a
+	ld [wGolfMode], a
 	xor a
 	ld [wRoomAnimatedTilesEnabled], a
 
@@ -537,7 +537,7 @@ HandleGolfLobbyStates:
 	ret
 .asm_1c8420
 	xor a
-	ld [w1d800], a
+	ld [wGolfMode], a
 	ld [wGolfMenuOption], a
 	stop_music2
 	ld a, SST_GOLF_EXIT

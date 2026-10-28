@@ -10,7 +10,7 @@ VBlank_Title:
 	push af
 	ld a, BANK(TitleScreenBoxTilemap)
 	bankswitch
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	bit 7, a
 	jr z, .skip
 	ld hl, TitleScreenBoxTilemap
@@ -29,7 +29,7 @@ VBlank_Title:
 	ld d, a
 	ld b, 12
 	call CopyHLToDE
-	ld hl, wcee4
+	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .skip
 	pop af

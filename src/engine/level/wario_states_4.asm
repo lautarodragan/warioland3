@@ -2411,7 +2411,7 @@ SetState_Launched:
 	ld a, TOUCH_VANISH
 	ld [wStingTouchState], a
 	ld a, $02
-	ld [wca94], a
+	ld [wSpikeTouchState], a
 
 	ld a, WST_LAUNCHED
 	ld [wWarioState], a

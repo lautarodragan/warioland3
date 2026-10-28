@@ -59,7 +59,7 @@ Func_cf8::
 	and $f0
 	swap a
 	ld d, a
-	ld a, [wccec]
+	ld a, [wObjectMapBank]
 	dec a
 	add a
 	add d
@@ -153,7 +153,7 @@ Func_d81::
 
 Func_d8c::
 	ld a, [wBlockPtrBank]
-	ld [wccec], a
+	ld [wObjectMapBank], a
 	ld b, $01
 	ld a, l
 	srl a

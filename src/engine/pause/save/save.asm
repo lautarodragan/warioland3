@@ -16,7 +16,7 @@ InitSaveScreen:
 	ldh [rSCX], a
 	xor a
 	ld [wPalFadeCounter], a
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld [wTimer], a
 
 	ld hl, wBGMapTileVRAM0Queue
@@ -40,27 +40,27 @@ FillSaveScreenBar:
 	ret c
 	xor a
 	ld [wTimer], a
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	inc a
 	cp $0a
 	jr z, .bar_finished
 	or $1 << 7
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld hl, wBGMapTileVRAM0Queue + 1
 	inc [hl]
 	ret
 .bar_finished
 	xor a
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 	ld hl, wSubState
 	inc [hl]
 	ret
 
 SaveLevel:
 	call DisableLCD
-	push_wram BANK(w3d280)
-	ld hl, w3d280 palette 12
-	ld de, wcaa1
+	push_wram BANK(wBackupPals)
+	ld hl, wBackupPals palette 12
+	ld de, wSavedEnemyPals
 	ld b, 4 palettes
 	call CopyHLToDE
 	pop_wram
@@ -72,11 +72,11 @@ SaveLevel:
 	ld a, BANK("SRAM0")
 	sramswitch
 	ld a, $30
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
-	ld de, s0a000
+	ld de, sWRAMCheckVals
 	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
@@ -107,9 +107,9 @@ SaveLevel:
 	pop_wram
 
 	ld a, $31
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	call CalculateWRAMDataChecksum
 	ld a, d
@@ -120,9 +120,9 @@ SaveLevel:
 	ld [wChecksum + 1], a
 
 	ld a, $32
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sWRAMChecksumEcho1 + 0], a
@@ -130,9 +130,9 @@ SaveLevel:
 	ld [sWRAMChecksumEcho1 + 1], a
 
 	ld a, $33
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sWRAMChecksumEcho2 + 0], a
@@ -140,43 +140,43 @@ SaveLevel:
 	ld [sWRAMChecksumEcho2 + 1], a
 
 	ld a, $41
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	call CalculateBackupSRAMChecksum1
 	ld a, d
-	ld [s0a79d + 0], a
+	ld [sLevelMapChecksum + 0], a
 	ld [wChecksum + 0], a
 	ld a, e
-	ld [s0a79d + 1], a
+	ld [sLevelMapChecksum + 1], a
 	ld [wChecksum + 1], a
 
 	ld a, $42
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
-	ld [s0a7ed + 0], a
+	ld [sLevelMapChecksumEcho1 + 0], a
 	ld a, e
-	ld [s0a7ed + 1], a
+	ld [sLevelMapChecksumEcho1 + 1], a
 
 	ld a, $43
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
-	ld [s0afad + 0], a
+	ld [sLevelMapChecksumEcho2 + 0], a
 	ld a, e
-	ld [s0afad + 1], a
+	ld [sLevelMapChecksumEcho2 + 1], a
 
 	ld a, $50
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
-	ld de, s0a800
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
+	ld de, sBackup1WRAMCheckVals
 	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
@@ -203,9 +203,9 @@ SaveLevel:
 	call CopyHLToDE_BC
 	pop_wram
 	ld a, $51
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	call CalculateWRAMDataChecksum
 	ld a, d
 	ld [sBackup1WRAMChecksum + 0], a
@@ -214,27 +214,27 @@ SaveLevel:
 	ld [sBackup1WRAMChecksum + 1], a
 	ld [wChecksum + 1], a
 	ld a, $52
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup1WRAMChecksumEcho1 + 0], a
 	ld a, e
 	ld [sBackup1WRAMChecksumEcho1 + 1], a
 	ld a, $53
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup1WRAMChecksumEcho2 + 0], a
 	ld a, e
 	ld [sBackup1WRAMChecksumEcho2 + 1], a
 	ld a, $60
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
-	ld de, s0a400
+	ld de, sBackup2WRAMCheckVals
 	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
@@ -261,9 +261,9 @@ SaveLevel:
 	call CopyHLToDE_BC
 	pop_wram
 	ld a, $61
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	call CalculateWRAMDataChecksum
 	ld a, d
 	ld [sBackup2WRAMChecksum + 0], a
@@ -272,17 +272,17 @@ SaveLevel:
 	ld [sBackup2WRAMChecksum + 1], a
 	ld [wChecksum + 1], a
 	ld a, $62
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup2WRAMChecksumEcho1 + 0], a
 	ld a, e
 	ld [sBackup2WRAMChecksumEcho1 + 1], a
 	ld a, $63
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup2WRAMChecksumEcho2 + 0], a
 	ld a, e
@@ -290,11 +290,11 @@ SaveLevel:
 
 	call Func_1f14c6
 	ld a, $80
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
-	ld de, s0ac00
+	ld de, sBackup3WRAMCheckVals
 	ld a, CHECKVAL2_1
 	ld [de], a
 	inc e
@@ -322,9 +322,9 @@ SaveLevel:
 	call CopyHLToDE_BC
 	pop_wram
 	ld a, $81
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	call CalculateWRAMDataChecksum
 	ld a, d
 	ld [sBackup3WRAMChecksum + 0], a
@@ -333,26 +333,26 @@ SaveLevel:
 	ld [sBackup3WRAMChecksum + 1], a
 	ld [wChecksum + 1], a
 	ld a, $82
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup3WRAMChecksumEcho1 + 0], a
 	ld a, e
 	ld [sBackup3WRAMChecksumEcho1 + 1], a
 	ld a, $83
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld a, d
 	ld [sBackup3WRAMChecksumEcho2 + 0], a
 	ld a, e
 	ld [sBackup3WRAMChecksumEcho2 + 1], a
 
 	xor a
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	ld [wResetDisabled], a
 	pop af
 	sramswitch
@@ -414,7 +414,7 @@ InitSaveScreenAndBackupVRAM:
 	xor a
 	ld [wPalFadeCounter], a
 	ld [wTimer], a
-	ld [wcee4], a
+	ld [wBGUpdateRequest], a
 
 	ld hl, wBGMapTileVRAM0Queue
 	ld a, HIGH(v0BGMap0 + $164)
@@ -436,9 +436,9 @@ Save:
 	sramswitch
 
 	ld a, $10
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld de, sCheckVals
 	ld a, CHECKVAL1_1
@@ -466,9 +466,9 @@ Save:
 	pop_wram
 
 	ld a, $11
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	call CalculateGameDataChecksum
 	ld a, d
@@ -479,9 +479,9 @@ Save:
 	ld [wChecksum + 1], a
 
 	ld a, $12
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sGameDataChecksumEcho1 + 0], a
@@ -489,9 +489,9 @@ Save:
 	ld [sGameDataChecksumEcho1 + 1], a
 
 	ld a, $13
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sGameDataChecksumEcho2 + 0], a
@@ -499,9 +499,9 @@ Save:
 	ld [sGameDataChecksumEcho2 + 1], a
 
 	ld a, $20
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	; de = sBackupGameData
 	; save backup game data
@@ -529,9 +529,9 @@ Save:
 	pop_wram
 
 	ld a, $21
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, [wChecksum + 0]
 	ld d, a
@@ -541,9 +541,9 @@ Save:
 	ld [sBackupGameDataChecksum + 1], a
 
 	ld a, $22
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sBackupGameDataChecksumEcho1 + 0], a
@@ -551,9 +551,9 @@ Save:
 	ld [sBackupGameDataChecksumEcho1 + 1], a
 
 	ld a, $23
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 
 	ld a, d
 	ld [sBackupGameDataChecksumEcho2 + 0], a
@@ -561,9 +561,9 @@ Save:
 	ld [sBackupGameDataChecksumEcho2 + 1], a
 
 	xor a
-	ld [s0a790], a
-	ld [s0a7e0], a
-	ld [s0afa0], a
+	ld [sSaveProgress], a
+	ld [sSaveProgressEcho1], a
+	ld [sSaveProgressEcho2], a
 	pop af
 	sramswitch
 

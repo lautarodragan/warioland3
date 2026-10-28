@@ -72,9 +72,9 @@ Func_101e:
 ; - e = wSoundEngineParam3
 ; - d = wSoundEngineParam4
 ExecuteAudioMod::
-	ldh [hffac], a
+	ldh [hAudioTempA], a
 	push_wram BANK("Audio RAM")
-	ldh a, [hffac]
+	ldh a, [hAudioTempA]
 	call AudioFunc_ExecuteAudioMod
 	pop_wram
 	ret
@@ -83,9 +83,9 @@ ExecuteAudioMod::
 ; input:
 ; - a = fade out period (the higher the value, the slower the fade out)
 UnreferencedMusicFadeOut:
-	ldh [hffac], a
+	ldh [hAudioTempA], a
 	push_wram BANK("Audio RAM")
-	ldh a, [hffac]
+	ldh a, [hAudioTempA]
 	call AudioFunc_MusicFadeOut
 	pop_wram
 	ret
@@ -94,9 +94,9 @@ UnreferencedMusicFadeOut:
 ; output:
 ; - bc = sound ID
 UnreferencedGetPlayingSoundID:
-	ldh [hffac], a
+	ldh [hAudioTempA], a
 	push_wram BANK("Audio RAM")
-	ldh a, [hffac]
+	ldh a, [hAudioTempA]
 	call AudioFunc_GetPlayingSoundID
 	pop_wram
 	ret

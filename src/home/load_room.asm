@@ -156,7 +156,7 @@ LoadRoom::
 	jr nz, .asm_2963
 	ld a, $ff
 .asm_2963
-	ld [wc0c4], a
+	ld [wRoomObjMapLowerY], a
 
 	ld a, [wRoomUpperYLimit]
 	add a
@@ -164,7 +164,7 @@ LoadRoom::
 	add a
 	add a ; *16
 	add $a0
-	ld [wc0c5], a
+	ld [wRoomObjMapUpperY], a
 
 	ld a, [wRoomRightXLimit]
 	add a
@@ -174,14 +174,14 @@ LoadRoom::
 	jr nz, .asm_297e
 	ld a, $ff
 .asm_297e
-	ld [wc0c7], a
+	ld [wRoomObjMapRightX], a
 
 	ld a, [wRoomLeftXLimit]
 	add a
 	add a
 	add a ; *8
 	add $b0
-	ld [wc0c6], a
+	ld [wRoomObjMapLeftX], a
 	ret
 
 Func_298d::
@@ -217,7 +217,7 @@ LoadRoomTileMap::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wc0d0]
+	ld a, [wRoomTileMapBank]
 	ld [wTempBank], a
 	ld bc, wRoomBlockAttributes
 	ld a, [wTempBank]

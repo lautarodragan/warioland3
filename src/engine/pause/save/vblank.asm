@@ -23,7 +23,7 @@ VBlank_SaveScreen:
 	ret
 
 .Func:
-	ld a, [wcee4]
+	ld a, [wBGUpdateRequest]
 	bit 7, a
 	jr z, .transfer
 	ld hl, wBGMapTileVRAM0Queue
@@ -36,7 +36,7 @@ VBlank_SaveScreen:
 	xor a
 	ldh [rVBK], a
 	ld [hl], $02
-	ld hl, wcee4
+	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .transfer
 	ld a, HIGH(wVirtualOAM)

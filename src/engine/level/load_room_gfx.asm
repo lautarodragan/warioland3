@@ -39,7 +39,7 @@ LoadRoomGfx::
 	call Func_298d
 	call LoadBlockFunctionTable
 	ld a, [wRoomBlockFunctionTableBank]
-	ld [wc0d0], a
+	ld [wRoomTileMapBank], a
 	call LoadRoomTileMap
 
 	ld a, [wRoomMainTiles]

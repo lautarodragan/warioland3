@@ -795,7 +795,7 @@ Func_ac409:
 	jp .Func_ac43b
 
 Func_ac4fa:
-	ld hl, w2d14c
+	ld hl, wSceneWarioSFXCounter
 	ld a, [hl]
 	and a
 	play_sfx z, SFX_12A
@@ -805,12 +805,12 @@ Func_ac4fa:
 	cp c
 	jr c, .asm_ac514
 	xor a
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 .asm_ac514
 	ret
 
 Func_ac515:
-	ld hl, w2d14c
+	ld hl, wSceneWarioSFXCounter
 	inc [hl]
 	ld a, [hl]
 	cp $08
@@ -1011,7 +1011,7 @@ UpdateSceneWario:
 	cp SCENEWARIO_LOOK_BACK
 	ret z
 	ld hl, wSceneWarioFrame
-	ld a, [w2d14c]
+	ld a, [wSceneWarioSFXCounter]
 	and a
 	jr z, .asm_ac67e
 	dec a
@@ -1024,7 +1024,7 @@ UpdateSceneWario:
 	cp $04
 	ret z
 	xor a
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ret
 .asm_ac67e
 	ld a, [hl]
@@ -1036,7 +1036,7 @@ UpdateSceneWario:
 .asm_ac688
 	play_sfx SFX_0F1
 	ld a, $01
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ret
 
 .LookTurnForward:
@@ -1096,7 +1096,7 @@ UpdateSceneWario:
 	cp SCENEWARIO_IDLE_RIGHT
 	ret z
 	ld hl, wSceneWarioFrame
-	ld a, [w2d14c]
+	ld a, [wSceneWarioSFXCounter]
 	and a
 	jr z, .asm_ac718
 	dec a
@@ -1110,7 +1110,7 @@ UpdateSceneWario:
 .asm_ac70d
 	ret z
 	xor a
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ret
 .asm_ac713
 	ld a, [hl]
@@ -1127,7 +1127,7 @@ UpdateSceneWario:
 	play_sfx SFX_0F2
 	ld a, $01
 .asm_ac72c
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ret
 .asm_ac730
 	play_sfx SFX_011
@@ -1174,7 +1174,7 @@ UpdateSceneWario:
 	ld de, Frameset_aaccb
 	call .UpdateAnimation
 	ld a, [wOWAnimationFinished]
-	ld [w2d14e], a
+	ld [wSceneWarioAnimFinished], a
 	cp $ff
 	ret nz
 	play_sfx SFX_SNORE
@@ -1417,7 +1417,7 @@ SetSceneWarioState:
 	xor a
 	ld [hli], a
 	ld [hl], a
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ret
 
 .LoadGfx:
@@ -1499,7 +1499,7 @@ Func_ac9ca:
 	ld a, [wPalConfig1TotalSteps]
 	and a
 	ret nz
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	ld [hld], a
 	inc [hl]
 	ret
@@ -1620,10 +1620,10 @@ Func_aca68:
 	ret
 
 Func_aca6d:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2d013
+	inc [hl] ; wOWStep
 	ret
 
 InitTextPrinting:
@@ -1718,12 +1718,12 @@ Func_acaf3:
 	ld hl, wSceneObj1State
 	ld a, $01
 	call SetSceneObjState
-	ld hl, w2d013
+	ld hl, wOWStep
 	dec [hl]
 	dec [hl]
 	dec [hl]
 	xor a
-	ld [w2d014], a
+	ld [wOWStepCounter], a
 	ret
 
 .asm_acb20
@@ -1829,8 +1829,8 @@ _InitTempleScene:
 	call UpdateSceneWario
 
 	xor a
-	ld [w2d013], a
-	ld [w2d014], a
+	ld [wOWStep], a
+	ld [wOWStepCounter], a
 	ld a, [wLCDCFlagsToFlip]
 	ld b, a
 	and a
@@ -1965,7 +1965,7 @@ _UpdateTempleScene:
 	ld hl, wTempleSceneCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2da04
+	inc [hl] ; wTempleSceneStep
 	ret
 
 .UpdateScene:
@@ -1982,7 +1982,7 @@ _UpdateTempleScene:
 	dw HiddenFigureRevealScene ; TEMPLE_SCENE_HIDDEN_FIGURE_REVEAL
 
 .Entering:
-	ld a, [w2da04]
+	ld a, [wTempleSceneStep]
 	and a
 	jr z, .start
 	dec a
@@ -2032,7 +2032,7 @@ _UpdateTempleScene:
 	ld hl, wTempleSceneCounter
 	xor a
 	ld [hld], a
-	ld [hl], a ; w2da04
+	ld [hl], a ; wTempleSceneStep
 	xor a
 	ld [wCurTextLine], a
 	ld [wTextDelayCounter], a
@@ -2053,14 +2053,14 @@ _UpdateTempleScene:
 	ld hl, wTempleSceneCounter
 	xor a
 	ld [hld], a
-	ld [hl], a ; w2da04
+	ld [hl], a ; wTempleSceneStep
 	call ClearTextbox
 	ld hl, wTempleScene
 	ld [hl], TEMPLE_SCENE_EXITING
 	ret
 
 .Exiting:
-	ld a, [w2da04]
+	ld a, [wTempleSceneStep]
 	and a
 	jr z, .turn_left
 	dec a
@@ -2110,7 +2110,7 @@ _UpdateTempleScene:
 .exit
 	stop_sfx
 	ld a, $01
-	ld [w2d14c], a
+	ld [wSceneWarioSFXCounter], a
 	ld a, SST_OVERWORLD_08
 	ld [wSubState], a
 	scf
@@ -2401,11 +2401,11 @@ LoadNextObjectiveText:
 	ret
 
 Func_ad011:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp c
 	ret c
 Func_ad016:
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -2422,7 +2422,7 @@ SetFightAgainstAHiddenFigure:
 	ret
 
 HiddenFigureRevealScene:
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	cp $02
 	jr c, .cant_skip
 	ld a, [wGameModeFlags]
@@ -2434,9 +2434,9 @@ HiddenFigureRevealScene:
 .cant_skip
 	call DoHiddenFigureLeftHandMovement
 	call DoHiddenFigureRightHandMovement
-	ld hl, w2d014
+	ld hl, wOWStepCounter
 	inc [hl]
-	ld a, [w2d013]
+	ld a, [wOWStep]
 	jumptable
 
 	dw Func_ad016
@@ -2494,7 +2494,7 @@ HiddenFigureRevealScene:
 	jp Func_acaf3
 
 .WaitThenShowTextArrow:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp 30
 	ret c
 	ld a, $01
@@ -2524,14 +2524,14 @@ HiddenFigureRevealScene:
 .Func_ad0f6:
 	call HandleTempleWarioPanic
 	call HandleTempleShakeAndRocks
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and $f
 	ret nz ; only continue when counter reaches 16
 	jp PrologueFade
 
 .InitShakeAndRocks:
 	ld a, $01
-	ld [w2d896], a
+	ld [wTempleShakeState], a
 	call HandleTempleShakeAndRocks
 	ld a, $00 ; xor a
 	ld [wTempleRock1Size], a
@@ -2612,7 +2612,7 @@ HiddenFigureRevealScene:
 
 .Func_ad195:
 	call HandleTempleWarioPanic
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp 30
 	ret c
 	ld a, $0d
@@ -2636,8 +2636,8 @@ HiddenFigureRevealScene:
 	ld [hli], a
 	ld [hl], $80
 	ld a, $01
-	ld [w2d8da], a
-	ld [w2d8dc], a
+	ld [wTempleLeftHandMoving], a
+	ld [wTempleRightHandMoving], a
 	ld a, $04
 	ld [w2d880], a
 	xor a
@@ -2653,7 +2653,7 @@ HiddenFigureRevealScene:
 	jr c, .asm_ad1f1
 	ld c, $03
 .asm_ad1f1
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	and c
 	ret nz
 	jp PrologueFade
@@ -2669,7 +2669,7 @@ HiddenFigureRevealScene:
 	ret
 
 .Func_ad207:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp 30
 	ret c
 	ld a, 4
@@ -2696,7 +2696,7 @@ HiddenFigureRevealScene:
 	jp Func_ad016
 
 .Func_ad23a:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp 40
 	jr z, .finish_mouth_movement
 	cp 70
@@ -2825,7 +2825,7 @@ HiddenFigureRevealScene:
 	jp Func_ad016
 
 .Func_ad308:
-	ld a, [w2d014]
+	ld a, [wOWStepCounter]
 	cp 30
 	ret c
 	ld hl, wSceneObj1State
@@ -2849,11 +2849,11 @@ Func_ad329:
 	jr Func_ad335
 
 Func_ad330:
-	ld a, [w2d891]
+	ld a, [wSceneStepCounter]
 	cp c
 	ret c
 Func_ad335:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	xor a
 	ld [hld], a
 	inc [hl]
@@ -2861,9 +2861,9 @@ Func_ad335:
 
 Func_ad33c:
 	xor a
-	ld hl, w2d890
+	ld hl, wSceneStep
 	ld [hli], a
-	ld [hl], a ; w2d891
+	ld [hl], a ; wSceneStepCounter
 	jp Func_ad016
 
 HandleTempleShakeAndRocks:
@@ -2873,12 +2873,12 @@ HandleTempleShakeAndRocks:
 HandleHiddenFigureReveal:
 	call HandleTempleWarioPanic
 
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .PlayHiddenFigureRevealMusic
@@ -2895,7 +2895,7 @@ HandleHiddenFigureReveal:
 
 .StopPanicRun:
 	ld a, $03
-	ld [w2d892], a
+	ld [wSceneSubStep], a
 	jp Func_ad335
 
 .WaitForPanicRunStop:
@@ -2927,12 +2927,12 @@ HandleHiddenFigureReveal:
 	jp Func_ad335
 
 HandleEnterTempleWithAllMusicBoxesScene:
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .Wait1
@@ -3024,12 +3024,12 @@ HandleEnterTempleWithAllMusicBoxesScene:
 Func_ad445:
 	call HandleTempleMusicBoxes
 
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .Wait1
@@ -3065,11 +3065,11 @@ Func_ad445:
 	cp 16
 	ret c
 	ld a, $01
-	ld [w2d8a0], a
+	ld [wSceneAuxStep], a
 	jp Func_ad335
 
 .WaitMusicBoxSequenceFinish:
-	ld a, [w2d8a0]
+	ld a, [wSceneAuxStep]
 	and a
 	ret nz
 	jp Func_ad335
@@ -3092,7 +3092,7 @@ Func_ad445:
 
 .DespawnMusicBoxes:
 	ld a, $08
-	ld [w2d8a0], a
+	ld [wSceneAuxStep], a
 	jp Func_ad335
 
 HandleTempleMusicBoxes:
@@ -3102,9 +3102,9 @@ HandleTempleMusicBoxes:
 	call HandleTempleMusicBox4Hover
 	call HandleTempleMusicBox5Hover
 
-	ld hl, w2d8a0
+	ld hl, wSceneAuxStep
 	ld a, [hli]
-	inc [hl] ; w2d8a1
+	inc [hl] ; wSceneAuxStepCounter
 	and a
 	ret z
 	ld b, h
@@ -3127,10 +3127,10 @@ HandleTempleMusicBoxes:
 	dw .Reset
 
 .Next:
-	ld hl, w2d8a1
+	ld hl, wSceneAuxStepCounter
 	xor a
 	ld [hld], a
-	inc [hl] ; w2d8a0
+	inc [hl] ; wSceneAuxStep
 	ret
 
 .InitYellowMusicBox:
@@ -3161,10 +3161,10 @@ HandleTempleMusicBoxes:
 	jr .WaitThenInitMusicBox
 
 .Reset:
-	ld hl, w2d8a0
+	ld hl, wSceneAuxStep
 	xor a
 	ld [hli], a
-	ld [hl], a ; w2d8a1
+	ld [hl], a ; wSceneAuxStepCounter
 	ret
 
 .DeinitYellowMusicBox:
@@ -3363,12 +3363,12 @@ HandleTempleShakeScene:
 	call HandleTempleWarioPanic
 	call HandleTempleShakeAndRocks
 
-	ld hl, w2d891
+	ld hl, wSceneStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d890
+	ld a, [hl] ; wSceneStep
 	jumptable
 
 	dw .StartShake
@@ -3406,7 +3406,7 @@ HandleTempleShakeScene:
 	cp 90
 	ret c
 	ld a, $02
-	ld [w2d896], a
+	ld [wTempleShakeState], a
 	jp Func_ad335
 
 .InitSmallRock1:
@@ -3491,7 +3491,7 @@ HandleTempleShakeScene:
 
 .StopShakeAndDeinitRocks:
 	ld a, $01
-	ld [w2d896], a
+	ld [wTempleShakeState], a
 	ld a, $00
 	ld [wTempleRock1Size], a
 	ld [wTempleRock2Size], a
@@ -3517,7 +3517,7 @@ HandleTempleShakeScene:
 
 .StartBigShake:
 	ld a, $0b
-	ld [w2d896], a
+	ld [wTempleShakeState], a
 	jp Func_ad335
 
 .InitLargeRock1:
@@ -3631,12 +3631,12 @@ HandleTempleWarioPanic:
 	cp $01
 	ret nz
 
-	ld hl, w2d893
+	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld c, l
 	ld b, h
 	dec l
-	ld a, [hl] ; w2d892
+	ld a, [hl] ; wSceneSubStep
 	jumptable
 
 	dw .PanicRunRight
@@ -3653,11 +3653,11 @@ HandleTempleWarioPanic:
 	call SetSceneWarioState
 
 .Next:
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
 	inc l
-	ld [hl], a ; w2d893
+	ld [hl], a ; wSceneSubStepCounter
 	ret
 
 .MoveRight:
@@ -3678,11 +3678,11 @@ HandleTempleWarioPanic:
 	call SetSceneWarioState
 
 ; Previous
-	ld hl, w2d892
+	ld hl, wSceneSubStep
 	dec [hl]
 	xor a
 	inc l
-	ld [hl], a ; w2d893
+	ld [hl], a ; wSceneSubStepCounter
 	ret
 
 .PanicRunUntilMovingRight:
@@ -3724,12 +3724,12 @@ HandleTempleWarioPanic:
 	ret nz
 	xor a
 	ld [w2d894], a
-	ld [w2d893], a
-	ld [w2d892], a
+	ld [wSceneSubStepCounter], a
+	ld [wSceneSubStep], a
 	ret
 
 DoHiddenFigureLeftHandMovement:
-	ld a, [w2d8da]
+	ld a, [wTempleLeftHandMoving]
 	and a
 	ret z
 	ld hl, wSceneObj3
@@ -3738,7 +3738,7 @@ DoHiddenFigureLeftHandMovement:
 	ret
 
 DoHiddenFigureRightHandMovement:
-	ld a, [w2d8dc]
+	ld a, [wTempleRightHandMoving]
 	and a
 	ret z
 	ld hl, wSceneObj4
@@ -4293,7 +4293,7 @@ Func_adbfe:
 	ld [wNextMapSide], a
 	ld a, OW_EXIT_LEFT
 	ld [wMapSideLevelID], a
-	ld [w2d068], a
+	ld [wTargetMapSideLevelID], a
 	ld a, $37
 	call SetSceneWarioState
 	ld hl, wPalFade6Colour2GreenSign
@@ -4307,7 +4307,7 @@ Func_adbfe:
 	ld [wNextMapSide], a
 	ld a, OW_EXIT_RIGHT
 	ld [wMapSideLevelID], a
-	ld [w2d068], a
+	ld [wTargetMapSideLevelID], a
 	ld a, $36
 	call SetSceneWarioState
 	ld hl, wPalFade6Colour2GreenSign
