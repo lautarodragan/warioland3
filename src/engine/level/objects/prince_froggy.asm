@@ -81,7 +81,7 @@ PrinceFroggyFunc:
 	bit OBJFLAG_STEPPED_F, [hl]
 	jp z, .check_ground_shake
 	res OBJFLAG_STEPPED_F, [hl]
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld de, PrinceFroggyFrameset_68add
 	call SetObjectFramesetPtr
@@ -90,27 +90,27 @@ PrinceFroggyFunc:
 	ret
 
 .check_state
-	cp $1b
+	cp OBJSTATE_HOP
 	jp z, ObjState_Hop
-	cp $41
+	cp OBJSTATE_STANDING_FALL
 	jp z, ObjState_StandingFall
-	cp $13
+	cp OBJSTATE_TURN_AROUND_START
 	jr z, .turn_around_start
-	cp $11
+	cp OBJSTATE_STANDING_FALL_START
 	jr z, .standing_fall_start
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .wait_stepped_off
-	cp $3b
+	cp OBJSTATE_HIT_WARIO_RIGHT
 	jr z, .hit_wario
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .SetHitByObjLeft
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .SetHitByObjRight
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .SetAttackedLeft
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .SetAttackedRight
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .start_hop_and_vanish
 	jr .set_hit_wario
 
@@ -124,7 +124,7 @@ PrinceFroggyFunc:
 	jp .StartTurnAround
 
 .standing_fall_start
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -149,7 +149,7 @@ PrinceFroggyFunc:
 	call SetObjectFramesetPtr
 	jr .check_ground_shake
 .set_hit_wario
-	ld a, $3b
+	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	ld de, PrinceFroggyFrameset_68af2
 	call SetObjectFramesetPtr
@@ -164,7 +164,7 @@ PrinceFroggyFunc:
 	cp $10
 	ret c
 	ld l, OBJ_STATE
-	ld a, $1b
+	ld a, OBJSTATE_HOP
 	ld [hld], a
 	dec l
 	xor a
@@ -185,30 +185,30 @@ PrinceFroggyFunc:
 	ld a, [hl]
 	and a
 	jr z, .check_ground_shake
-	cp $11
+	cp OBJSTATE_STANDING_FALL_START
 	jr z, .standing_fall_start
-	cp $1b
+	cp OBJSTATE_HOP
 	jp z, ObjState_Hop
-	cp $41
+	cp OBJSTATE_STANDING_FALL
 	jp z, ObjState_StandingFall
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jp z, .SetHitByObjLeft
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jp z, .SetHitByObjRight
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jp z, .SetAttackedLeft
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jp z, .SetAttackedRight
-	cp $13
+	cp OBJSTATE_TURN_AROUND_START
 	jr z, .StartTurnAround
-	cp $43
+	cp OBJSTATE_TURN_AROUND
 	jr z, .turning_around
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .start_hop_and_vanish
 	xor a
 	ld [hl], a
 .StartTurnAround:
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hl], a
 	ld de, PrinceFroggyFrameset_68b01
 	call SetObjectFramesetPtr

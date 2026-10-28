@@ -2028,7 +2028,7 @@ Cutscene11Func:
 	xor a
 	ld [wSceneObj1YCoord], a
 	ld [wSceneObj2State], a
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 
 	ld a, HIGH(wTempPals1)
@@ -2195,7 +2195,7 @@ Cutscene1bFunc:
 	call CopyFarBytes
 	call SetPalConfig2ToTempPals2
 
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
@@ -2746,7 +2746,7 @@ Cutscene18Func:
 	jp WaitCutsceneFunc
 
 .FlipBGMap:
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
@@ -2796,7 +2796,7 @@ Cutscene0dFunc:
 	jp WaitCutsceneFunc
 
 .FlipBGMap:
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
@@ -3153,7 +3153,7 @@ Cutscene04Func:
 	call SetSceneObjState
 	xor a
 	ld [wSceneObj3State], a
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 
@@ -3928,7 +3928,7 @@ Cutscene3aFunc:
 	ld a, [bc]
 	cp $8c
 	ret c
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	xor a
 	ld [wSceneObj3State], a
@@ -4348,7 +4348,7 @@ Cutscene3dFunc:
 	ld a, [bc]
 	cp $3c
 	ret c
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	ld hl, wSceneObj4
 	lb de, $50, $50
@@ -4872,7 +4872,7 @@ Cutscene56Func:
 	ret c
 	xor a
 	ld [wSceneObj2State], a
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	ld b, BANK(RevealDarkRoomCutscenePals_b8800)
 	ld c, 8 palettes
@@ -5102,7 +5102,7 @@ Cutscene58Func:
 	ld a, [wSceneObj2State]
 	cp $01
 	ret nz
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	ld a, $02
 	ld hl, wSceneObj3State
@@ -5399,7 +5399,7 @@ Cutscene44Func:
 	ld a, [bc]
 	cp $1e
 	ret c
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	jp AdvanceCutsceneFunc
 

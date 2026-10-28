@@ -62,9 +62,9 @@ UpdatePerfectScreen:
 	jr nz, .check_input
 	call SlowFadeInScreen
 	ld a, [wSubState]
-	cp $03
+	cp SST_PERFECT_UPDATE
 	jr z, .check_input
-	ld a, $03
+	ld a, SST_PERFECT_UPDATE
 	ld [wSubState], a
 	ld hl, wGameOverWarioVar
 	inc [hl]

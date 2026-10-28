@@ -35,7 +35,7 @@ ApplebyFunc:
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
@@ -46,15 +46,15 @@ ApplebyFunc:
 	ld a, [hl]
 	and a
 	jr z, .Hidden
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jp c, .HandleHit
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .emerging
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .watching
-	cp $5c
+	cp OBJSTATE_5C
 	jr z, .throwing
-	cp $2d
+	cp OBJSTATE_SPECIAL_1
 	jr z, .hiding
 	ret
 
@@ -66,7 +66,7 @@ ApplebyFunc:
 	ret nz
 	ld de, ApplebyFrameset_68a12
 	call SetObjectFramesetPtr
-	ld a, 91
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ret
 
@@ -145,23 +145,23 @@ ApplebyFunc:
 	call SetObjectFramesetPtr
 	ld a, 122
 	ld [hli], a
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [wCurObjState], a
 	ret
 
 .HandleHit:
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .vanish
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .set_attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .set_attacked_right
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .set_hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .set_hit_by_obj_right
 .start_hiding
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a
 	ld de, ApplebyFrameset_68a09
 	call SetObjectFramesetPtr
@@ -303,9 +303,9 @@ AppleFunc:
 	inc [hl]
 .check_state
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, .destroy
-	cp $19
+	cp OBJSTATE_NO_EFFECT
 	jr z, .hop_away
 	ld bc, ApplebyData_60670
 	jp ApplyObjYMovement

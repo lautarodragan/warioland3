@@ -75,9 +75,9 @@ PillarPlatformFunc:
 	ld a, [hl]
 	and a
 	ret z
-	cp $2b
+	cp OBJSTATE_2B
 	jr z, .raise_requested
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .lower_requested
 	xor a
 	ld [hl], a

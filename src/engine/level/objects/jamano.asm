@@ -94,14 +94,14 @@ JamanoFunc:
 	jr c, .face_right
 	res 7, [hl]
 	inc l
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, JamanoFrameset_69c1c
 	jp SetObjectFramesetPtr
 .face_right
 	set 7, [hl]
 	inc l
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, JamanoFrameset_69ca1
 	jp SetObjectFramesetPtr
@@ -139,9 +139,9 @@ JamanoFunc:
 .still_dark
 	ld l, OBJ_STATE
 	ld a, [hld]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .move_left
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .move_right
 	bit 7, [hl]
 	jr nz, .freeze_facing_right
@@ -183,7 +183,7 @@ JamanoFunc:
 	and a
 	jr z, .drift_left
 .reverse_to_right
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	jr .vertical_move
 .drift_left
@@ -214,7 +214,7 @@ JamanoFunc:
 	and a
 	jr z, .drift_right
 .reverse_to_left
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	jr .vertical_move
 .drift_right
@@ -354,9 +354,9 @@ JamanoFunc:
 	ret
 .move_horizontal
 	ld a, [wCurObjState]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .centre_move_left
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .centre_move_right
 	ret
 .centre_move_left
@@ -375,7 +375,7 @@ JamanoFunc:
 	and a
 	jr z, .centre_step_left
 	play_sfx SFX_BUMP
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	jr .centre_move_vertical
 .centre_step_left
@@ -397,7 +397,7 @@ JamanoFunc:
 	and a
 	jr z, .centre_step_right
 	play_sfx SFX_BUMP
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	jr .centre_move_vertical
 .centre_step_right
@@ -829,9 +829,9 @@ SkullFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld a, [wCurObjState]
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .knocked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .knocked_right
 	ret
 .knocked_right

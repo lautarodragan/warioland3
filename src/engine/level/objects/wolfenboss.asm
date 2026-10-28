@@ -231,9 +231,9 @@ WolfenbossFunc:
 	ld a, [hl]
 	and $fe
 	jr z, .do_attacks_and_movement
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jr nz, .check_hurt_animation
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -252,7 +252,7 @@ WolfenbossFunc:
 	ret
 
 .check_hurt_animation
-	cp $38
+	cp OBJSTATE_WOBBLE_LEFT ; or OBJSTATE_WOBBLE_RIGHT
 	jr nz, .restart_attacks_and_movement
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -562,7 +562,7 @@ WolfenbossFunc:
 	ld a, l
 	add OBJ_STATE - OBJ_MAP_PTR_LO
 	ld l, a
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [hl], a
 	ret
 
@@ -712,7 +712,7 @@ WolfenbossPlatformFunc:
 	ld a, 2
 	ld [wCurObjFrameDuration], a
 	ld a, [wCurObjState]
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	ret nz
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Open)
@@ -1142,7 +1142,7 @@ KuriFunc:
 	ld [wCurObjAction], a
 	ld a, [wCurObjState]
 	and $fe
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START ; or OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .vanish
 	call MoveObjectUp_Fast
 	ld l, OBJ_FLAGS

@@ -212,7 +212,7 @@ ProcessInteractions:
 .table
 	table_width 2
 	dw ObjInteraction_Grabbable               ; OBJ_INTERACTION_GRABBABLE
-	dw ObjInteraction_Touch                        ; OBJ_INTERACTION_01
+	dw ObjInteraction_Touch                        ; OBJ_INTERACTION_TOUCH
 	dw ObjInteraction_FrontSting              ; OBJ_INTERACTION_FRONT_STING
 	dw ObjInteraction_BackSting               ; OBJ_INTERACTION_BACK_STING
 	dw ObjInteraction_TopSting                ; OBJ_INTERACTION_TOP_STING

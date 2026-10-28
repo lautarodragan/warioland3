@@ -6,6 +6,11 @@ DEF WORMWOULD_BURROW_DELAY         EQU 26 ; delay of starting to burrow after be
 DEF WORMWOULD_UNDERGROUND_DURATION EQU 30 ; duration of waiting underground before popping up
 DEF WORMWOULD_HURT_DURATION        EQU 50 ; duration of hurt state
 
+; Wormwould's own states (see WormwouldFunc.Main)
+DEF OBJSTATE_WORMWOULD_SHOOT_ROCK_HIGH EQU OBJSTATE_5A
+DEF OBJSTATE_WORMWOULD_SHOOT_ROCK_LOW  EQU OBJSTATE_5B
+DEF OBJSTATE_WORMWOULD_BURROW          EQU OBJSTATE_5C
+
 WormwouldFunc:
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Init)
@@ -131,7 +136,7 @@ WormwouldFunc:
 	ld [hli], a ; wCurObjVar2
 	ld a, $41
 	ld [hl], a ; wCurObjVar3
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [wCurObjState], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -175,7 +180,7 @@ WormwouldFunc:
 	call SetObjectFramesetPtr
 	ld a, 34
 	ld [hli], a
-	ld a, $5b
+	ld a, OBJSTATE_WORMWOULD_SHOOT_ROCK_LOW
 	ld [wCurObjState], a
 	ret
 
@@ -183,7 +188,7 @@ WormwouldFunc:
 	ld a, 1
 	ld [wCurObjStateDuration], a
 .set_burrowing
-	ld a, $5c
+	ld a, OBJSTATE_WORMWOULD_BURROW
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
@@ -195,7 +200,7 @@ WormwouldFunc:
 	jp SetObjectFramesetPtr
 
 .attacked
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -245,24 +250,24 @@ WormwouldFunc:
 	ld a, [hl]
 	and a
 	jr z, .idle
-	cp $34
+	cp OBJSTATE_ATTACKED_LEFT
 	jr z, .after_attack
-	cp $5a
+	cp OBJSTATE_WORMWOULD_SHOOT_ROCK_HIGH
 	jr z, .shoot_rock_high
-	cp $2d
+	cp OBJSTATE_SPECIAL_1
 	jr z, .raising
-	cp $5b
+	cp OBJSTATE_WORMWOULD_SHOOT_ROCK_LOW
 	jp z, .shoot_rock_low
-	cp $5c
+	cp OBJSTATE_WORMWOULD_BURROW
 	jp z, .burrowing
 	and $fe
 	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .attacked
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START
 	jp z, .start_burrowing
 	cp OBJSTATE_VANISH_TOUCH
 	jr z, .smash_attacked
-	cp $3a
+	cp OBJSTATE_RESIST_VANISH
 	jp z, .hurt
 	xor a
 	ld [hl], a
@@ -297,7 +302,7 @@ WormwouldFunc:
 	call SetObjectFramesetPtr
 	ld a, WORMWOULD_SHOOT_ROCK_DURATION
 	ld [hli], a ; wCurObjFrameDuration
-	ld a, $5a
+	ld a, OBJSTATE_WORMWOULD_SHOOT_ROCK_HIGH
 	ld [wCurObjState], a
 	ret
 
@@ -328,7 +333,7 @@ WormwouldFunc:
 	jp CreateObjectAtRelativePos
 
 .smash_attacked
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
@@ -360,7 +365,7 @@ WormwouldFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
-	ld a, $5c
+	ld a, OBJSTATE_WORMWOULD_BURROW
 	ld [hld], a
 	ld a, [hl]
 	and $0f

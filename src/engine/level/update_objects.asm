@@ -590,7 +590,7 @@ DoObjectAction:
 	ld hl, wCurObjAction
 	xor a
 	ld [hld], a
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_TRIGGERED
 	ld [hl], a ; OBJ_STATE
 	ret
 
@@ -627,7 +627,7 @@ DoObjectAction:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_NO_EFFECT
 	ld [hl], a
 	ret
 
@@ -1079,7 +1079,7 @@ _ObjState_PickedUpLeft::
 	jp HomeJumpRet
 
 .keep_grabbed
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_GRABBED_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1208,7 +1208,7 @@ _ObjState_PickedUpLeft::
 	jp nz, .drop_obj
 	or GRAB_PICK_UP_BLOCKED
 	ld [wGrabState], a
-	ld a, OBJSTATE_19
+	ld a, OBJSTATE_GRABBED_RIGHT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1286,7 +1286,7 @@ _ObjState_PickedUpRight::
 	jp HomeJumpRet
 
 .keep_grabbed
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_GRABBED_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -1418,7 +1418,7 @@ _ObjState_PickedUpRight::
 	jp nz, .drop_obj
 	or GRAB_PICK_UP_BLOCKED
 	ld [wGrabState], a
-	ld a, OBJSTATE_18
+	ld a, OBJSTATE_GRABBED_LEFT_START
 	ld [wCurObjState], a
 	jp HomeJumpRet
 
@@ -3661,7 +3661,7 @@ ObjBounceRight:
 	jp HomeJumpRet
 
 .hit_wall
-	ld a, $26
+	ld a, OBJSTATE_BOUNCE_FALL_LEFT_START
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]

@@ -22,7 +22,7 @@ MusicalCoinFunc:
 
 .Update:
 	ld a, [wCurObjState]
-	cp OBJSTATE_18
+	cp OBJSTATE_TRIGGERED
 	ret nz
 	xor a
 	ld [wCurObjFlags], a

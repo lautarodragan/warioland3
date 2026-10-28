@@ -288,11 +288,11 @@ BigOctohonFunc:
 	ld a, [hl]
 	and a
 	jr z, .dispatch_phase
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .hit_wario_right
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jr z, .hit_wario_left
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
 	jr .hurt
 .dispatch_phase

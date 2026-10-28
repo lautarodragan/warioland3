@@ -51,7 +51,7 @@ ChestFunc:
 .Update:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp OBJSTATE_18
+	cp OBJSTATE_TRIGGERED
 	ret nz
 	ld a, [wAutoMoveState]
 	and a

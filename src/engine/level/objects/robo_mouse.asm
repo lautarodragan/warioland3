@@ -146,7 +146,7 @@ RoboMouseFunc:
 
 .Activate:
 	ld hl, wCurObjState
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -223,11 +223,11 @@ RoboMouseFunc:
 	jp .State25
 .resist_vanish
 	ld l, OBJ_STATE
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hld], a
 	ld a, [wCurObjInteractionType]
-	and $7f
-	cp $0b
+	and INTERACTION_MASK
+	cp OBJ_INTERACTION_BUMP_OFF_PAUSE
 	jr z, .splash
 	ld a, [hld]
 	rlca
@@ -276,20 +276,20 @@ RoboMouseFunc:
 	and a
 	ret z
 	ld a, [wCurObjInteractionType]
-	and $7f
-	cp $0b
+	and INTERACTION_MASK
+	cp OBJ_INTERACTION_BUMP_OFF_PAUSE
 	jr z, .set_turn_around
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	jr .set_landed_state
 .set_turn_around
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 .set_landed_state
 	ld [wCurObjState], a
 	ret
 
 .Default:
 	ld hl, wCurObjState
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -300,7 +300,7 @@ RoboMouseFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -308,7 +308,7 @@ RoboMouseFunc:
 	ret
 
 .Land:
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [wCurObjState], a
 .Walk:
 	ld a, [wCurObjSubState]
@@ -369,11 +369,11 @@ RoboMouseFunc:
 	jr nc, .jump_wall_left
 	dec [hl]
 .jump_wall_left
-	ld a, $24
+	ld a, OBJSTATE_BOUNCE_3_LEFT_START
 	ld [wCurObjState], a
 	jr .set_hop_left
 .hop_gap_left
-	ld a, $22
+	ld a, OBJSTATE_BOUNCE_2_LEFT_START
 	ld [wCurObjState], a
 .set_hop_left
 	ld a, $02
@@ -385,7 +385,7 @@ RoboMouseFunc:
 	jp SetObjectFramesetPtr
 
 .start_fall_left
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ld de, RoboMouseFrameset_69220
 	jp SetObjectFramesetPtr
@@ -446,11 +446,11 @@ RoboMouseFunc:
 	jr nc, .jump_wall_right
 	dec [hl]
 .jump_wall_right
-	ld a, $25
+	ld a, OBJSTATE_BOUNCE_3_RIGHT_START
 	ld [wCurObjState], a
 	jr .set_hop_right
 .hop_gap_right
-	ld a, $23
+	ld a, OBJSTATE_BOUNCE_2_RIGHT_START
 	ld [wCurObjState], a
 .set_hop_right
 	ld a, $02
@@ -462,12 +462,12 @@ RoboMouseFunc:
 	jp SetObjectFramesetPtr
 
 .start_fall_right
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ld de, RoboMouseFrameset_691de
 	jp SetObjectFramesetPtr
 .TurnAroundStart:
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [wCurObjState], a
 	ld a, $01
 	ld hl, wCurObjFlags
@@ -496,7 +496,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	rlca
 	jr c, .already_facing_wario
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, RoboMouseFrameset_69227
@@ -505,7 +505,7 @@ RoboMouseFunc:
 	ld a, [hli]
 	rlca
 	jr nc, .already_facing_wario
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, RoboMouseFrameset_691f2
@@ -522,11 +522,11 @@ RoboMouseFunc:
 	ret
 
 .already_facing_wario
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [wCurObjInteractionType]
-	and $7f
-	cp $0b
+	and INTERACTION_MASK
+	cp OBJ_INTERACTION_BUMP_OFF_PAUSE
 	jr nz, .set_interaction
 	ld a, [hld]
 	rlca
@@ -541,7 +541,7 @@ RoboMouseFunc:
 	ret nz
 	ld de, RoboMouseFrameset_691de
 	call SetObjectFramesetPtr
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [wCurObjState], a
 	ret
 
@@ -551,7 +551,7 @@ RoboMouseFunc:
 	ret nz
 	ld de, RoboMouseFrameset_69220
 	call SetObjectFramesetPtr
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [wCurObjState], a
 	ret
 

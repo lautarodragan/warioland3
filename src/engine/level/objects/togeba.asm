@@ -153,7 +153,7 @@ TogebaFunc:
 	ld a, [hl]
 	and a
 	jr z, .sink
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .hit
 	xor a
 	ld [hl], a

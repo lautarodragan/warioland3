@@ -204,11 +204,11 @@ ShootFunc:
 	ld a, [hl]
 	and a
 	jr z, .HandleNormalState
-	cp $0e
+	cp OBJSTATE_HIT_WARIO_DOWN_START
 	jr z, .hit_wario_below
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .jump_away_right
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .jump_away_left
 	cp OBJSTATE_SPECIAL_3
 	jr z, .interacted_with_ball_wario
@@ -655,7 +655,7 @@ ShootFunc:
 	ld a, LOW(.BallForm)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
-	ld a, OBJ_INTERACTION_01
+	ld a, OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, -18
 	ld [hli], a ; OBJ_COLLBOX_TOP
@@ -771,7 +771,7 @@ ShootFunc:
 	dw .Default
 
 .State28:
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
@@ -787,7 +787,7 @@ ShootFunc:
 	ld a, LOW(.Main)
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $05
+	ld a, OBJSTATE_ATTACKED_RIGHT_START
 	ld [hld], a
 	res 7, [hl]
 	ld l, OBJ_INTERACTION_TYPE
@@ -801,7 +801,7 @@ ShootFunc:
 
 .Default:
 	ld hl, wCurObjState
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -810,7 +810,7 @@ ShootFunc:
 
 .Land:
 	ld hl, wCurObjState
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	dec l
 	xor a
@@ -872,13 +872,13 @@ ShootFunc:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 .BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
 	ld [hld], a ; OBJ_STATE
 	ld de, ShootFrameset_69f5d
@@ -894,7 +894,7 @@ ShootFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	dec l
 	xor a
@@ -903,12 +903,12 @@ ShootFunc:
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .set_fall
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .set_fall
 	ld l, OBJ_VAR_2
@@ -920,13 +920,13 @@ ShootFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ret
 
@@ -935,7 +935,7 @@ ShootFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -944,12 +944,12 @@ ShootFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .AttackedLeftStart:
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld de, Frameset_69f9f
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
@@ -971,7 +971,7 @@ ShootFunc:
 	jp SetObjectFramesetPtr
 
 .AttackedRightStart:
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld de, Frameset_69fa4
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
@@ -1022,7 +1022,7 @@ ShootFunc:
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .landed_moving_right
 	inc l
-	ld a, $09
+	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [hl], a ; OBJ_STATE
 	ret
 .landed_moving_right
@@ -1030,12 +1030,12 @@ ShootFunc:
 	cp 219
 	jr nc, .wario_scores
 	inc l
-	ld a, $08
+	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [hl], a ; OBJ_STATE
 	ret
 .wario_scores
 	inc l
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a ; OBJ_STATE
 
 	ld a, $02
@@ -1098,7 +1098,7 @@ ShootFunc:
 	ld de, Frameset_69fa4
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	res OBJSUBFLAG_VDIR_F, [hl] ; OBJ_SUBSTATE
 	dec l
@@ -1126,7 +1126,7 @@ ShootFunc:
 	ld a, LOW(.DefeatRise)
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hl] ; OBJ_SUBSTATE
 	and OBJSUBFLAG_UNINITIALISED | OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR
@@ -1397,10 +1397,10 @@ GKTortoiseFunc:
 	ld a, [hl] ; OBJ_STATE
 	and a
 	ret z
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr z, .start_catch_wario
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jr nz, .knocked_down
 	xor a
 	ld [hl], a ; OBJ_STATE

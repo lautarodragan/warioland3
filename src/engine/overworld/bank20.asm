@@ -1541,7 +1541,7 @@ RunOWScene_NextParams:
 	ret
 .other_map_side
 	stop_sfx
-	ld a, $04
+	ld a, SST_OVERWORLD_FADE_TO_OW_SCENE
 	ld [wSubState], a
 	ret
 

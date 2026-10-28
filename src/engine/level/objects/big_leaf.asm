@@ -124,9 +124,9 @@ BigLeaf2Func:
 	ld a, [hl]
 	and a
 	jr z, .drift
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishObject2
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr c, .destroy
 	ld a, [wWarioScreenXPos]
 	add $2a

@@ -470,7 +470,7 @@ YellowBellyBodyFunc:
 	ld a, [hl]
 	and a
 	jr z, .turn_timer
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .release_pump
 	xor a
 	ld [hld], a
@@ -868,19 +868,19 @@ PumpFunc:
 .OnFloor:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $31
+	cp OBJSTATE_WALK
 	jr z, .walk
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .pressed
-	cp $3a
+	cp OBJSTATE_RESIST_VANISH
 	jp z, .pressed_wait
-	cp $58
+	cp OBJSTATE_HIT_BY_OBJ_LEFT
 	jp z, .knocked
 	and $fe
 	ret z
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jp z, .start_knocked
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -954,7 +954,7 @@ PumpFunc:
 	jr .move_left
 
 .pressed
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
 	ld [w1d147], a
 	xor a
@@ -982,7 +982,7 @@ PumpFunc:
 	jp ApplyObjYMovement
 
 .start_knocked
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hl], a
 	xor a
 	ld [wDollBoyHammerRange], a
@@ -1052,9 +1052,9 @@ YellowBellyArrowFunc:
 .FlyLeft:
 	call .CheckPastWario
 	ld a, [wCurObjState]
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .knocked_right
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .knocked_right
 	and a
 	jr nz, .hit_wario
@@ -1101,9 +1101,9 @@ YellowBellyArrowFunc:
 .FlyRight:
 	call .CheckPastWario
 	ld a, [wCurObjState]
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .knocked_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .knocked_left
 	and a
 	jr nz, .hit_wario
@@ -1313,7 +1313,7 @@ YellowBellyPlatformFunc:
 
 .WaitForDefeat:
 	ld a, [wCurObjState]
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	ret nz
 	ld de, YellowBellyFrameset_69896
 	call SetObjectFramesetPtr

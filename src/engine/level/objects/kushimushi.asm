@@ -29,19 +29,19 @@ KushimushiVerticalFunc:
 	ld a, [hl]
 	and a
 	jr z, .move_vertical
-	cp $0e
+	cp OBJSTATE_HIT_WARIO_DOWN_START
 	jr z, .pause_after_hit_vertical
-	cp $0d
+	cp OBJSTATE_HIT_WARIO_UP_START
 	jr z, .pause_after_hit_vertical
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishObject2
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .set_hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .set_hit_by_obj_right
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .set_attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .set_attacked_right
 	rra
 	jr nc, .set_hit_by_obj_right
@@ -133,7 +133,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectDown
 	ld de, KushimushiFrameset_6863f
 	ld b, $1
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .set_vertical_phase
 .turn_around_up
@@ -149,7 +149,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectUp
 	ld de, KushimushiFrameset_68634
 	ld b, $3
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .set_vertical_phase
 .turn_around_down
@@ -174,19 +174,19 @@ KushimushiVerticalFunc:
 	ld a, [hl]
 	and a
 	jr z, .move_horizontal
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .pause_after_hit_horizontal
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jr z, .pause_after_hit_horizontal
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishObject2
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jp z, .set_hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jp z, .set_hit_by_obj_right
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jp z, .set_attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jp z, .set_attacked_right
 	rra
 	jp nc, .set_hit_by_obj_right
@@ -234,7 +234,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectRight
 	ld de, KushimushiFrameset_68655
 	ld b, $1
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .set_horizontal_phase
 .turn_around_left
@@ -249,7 +249,7 @@ KushimushiVerticalFunc:
 	jp nz, MoveObjectLeft
 	ld de, KushimushiFrameset_6864a
 	ld b, $3
-	ld c, OBJ_INTERACTION_01
+	ld c, OBJ_INTERACTION_TOUCH
 	ld a, 22
 	jr .set_horizontal_phase
 .turn_around_right

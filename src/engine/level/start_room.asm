@@ -137,7 +137,7 @@ StartRoom_FromTransition:
 	pop_wram
 	xor a
 	ld [wIsIntangible], a
-	ld a, $02
+	ld a, SST_LEVEL_FADE_IN
 	ld [wSubState], a
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a

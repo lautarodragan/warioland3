@@ -267,7 +267,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_BOSS_APPEAR                  ; 1ca
 	const SFX_HIDDEN_FIGURE_HAND_1         ; 1cb
 	const SFX_HIDDEN_FIGURE_LAUGH          ; 1cc
-	const SFX_0CD                          ; 1cd
+	const SFX_HIDDEN_FIGURE_GRAB           ; 1cd
 	const SFX_HIDDEN_FIGURE_HIT            ; 1ce
 	const SFX_HIDDEN_FIGURE_DEFEATED       ; 1cf
 	const SFX_HIDDEN_FIGURE_HAND_2         ; 1d0

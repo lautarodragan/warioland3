@@ -22,12 +22,12 @@ WaterDropFunc:
 	ld a, [hl]
 	and a
 	jr z, .default
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .splash
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .return_to_start
 .set_splash
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, WaterDropFrameset_69775
 	call SetObjectFramesetPtr
@@ -42,7 +42,7 @@ WaterDropFunc:
 	ret nz
 	ld l, OBJ_FLAGS
 	set OBJFLAG_INVISIBLE_F, [hl]
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ld a, $3c
 	ld [wCurObjStateDuration], a

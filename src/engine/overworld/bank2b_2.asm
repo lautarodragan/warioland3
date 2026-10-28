@@ -2728,7 +2728,7 @@ _UpdateEpilogue:
 	ld [wSceneObj11State], a
 	ld [wSceneObj12State], a
 	ld [wSceneObj13State], a
-	ld a, $08
+	ld a, LCDC_BG_9C00
 	ld [wCollectionRow], a
 	call CopyTempPalsToBGOBPals_Bank2b1
 	ld hl, PrologueBGPals

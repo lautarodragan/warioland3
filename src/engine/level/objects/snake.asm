@@ -59,16 +59,16 @@ SnakeFunc:
 	and a
 	jr z, .dispatch
 	inc l
-	ld b, $00
+	ld b, OBJSTATE_DEFAULT
 	ld [hl], b
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .vanish_touch
 	and $fe
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .hit
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START ; or OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr nz, .ignore_hit
 .hit
 	ld l, OBJ_VAR_1
@@ -446,7 +446,7 @@ SnakeFunc:
 	ret
 
 .off_screen_edge
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [wCurObjState], a
 	ret
 

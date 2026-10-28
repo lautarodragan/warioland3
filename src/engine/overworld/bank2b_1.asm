@@ -4102,7 +4102,7 @@ _UpdateGolfBuilding:
 	stop_sfx
 	ld a, $01
 	ld [wOWUIObj2Duration], a
-	ld a, $08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	scf
 	ret

@@ -1,3 +1,6 @@
+; Anonster's own state (see AnonsterFunc.OnFloor)
+DEF OBJSTATE_ANONSTER_SPIT_WAVES EQU OBJSTATE_5B
+
 AnonsterFunc:
 	ld a, TRUE
 	ld [wIsBossBattle], a
@@ -78,7 +81,7 @@ AnonsterFunc:
 	ld hl, wCurObjState
 	ld a, [hld]
 	and $fe
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START ; or OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr nz, .walk
 	ld a, [hld]
 	rlca
@@ -513,7 +516,7 @@ AnonsterFunc:
 	ld a, LOW(.OnFloor)
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -562,7 +565,7 @@ AnonsterFunc:
 	dec [hl]
 	jp z, .return_to_ceiling
 	ld l, OBJ_STATE
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -578,13 +581,13 @@ AnonsterFunc:
 	ld a, [hl]
 	and a
 	jr z, .floor_default
-	cp $5b
+	cp OBJSTATE_ANONSTER_SPIT_WAVES
 	jr z, .spit_waves
-	cp $5c
+	cp OBJSTATE_5C
 	jr z, .after_waves
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .wait
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .check_hit_from_behind
 	jr .reset_to_walk
 .wait
@@ -659,7 +662,7 @@ AnonsterFunc:
 	call SetObjectFramesetPtr
 	ld a, $5d
 	ld [hli], a
-	ld a, $5b
+	ld a, OBJSTATE_ANONSTER_SPIT_WAVES
 	ld [wCurObjState], a
 	ret
 
@@ -937,7 +940,7 @@ AnonsterFunc:
 	ld_obj_frameset AnonsterFrameset_694d7, AnonsterFrameset_694dc
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -1165,7 +1168,7 @@ AnonsterSilkFunc:
 	ld a, [wCurObjState]
 	and a
 	jr z, .sink
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr c, .Dissolve
 	jr .destroy
 .sink
@@ -1336,12 +1339,12 @@ AnonsterSilkFunc:
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .set_fall
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .set_fall
 	ld l, OBJ_VAR_2
@@ -1352,7 +1355,7 @@ AnonsterSilkFunc:
 	ret
 
 .State00:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
@@ -1383,7 +1386,7 @@ AnonsterSilkFunc:
 	cp $50
 	jp c, VanishObject2
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
@@ -1393,21 +1396,21 @@ AnonsterSilkFunc:
 	cp $50
 	jp c, VanishObject2
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
 .set_knocked_back
@@ -1422,7 +1425,7 @@ AnonsterSilkFunc:
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1435,7 +1438,7 @@ AnonsterSilkFunc:
 
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1448,7 +1451,7 @@ AnonsterSilkFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -1463,7 +1466,7 @@ AnonsterSilkFunc:
 	jr .State18
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
@@ -1480,7 +1483,7 @@ AnonsterSilkFunc:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 31
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE
 	dec l
 	xor a

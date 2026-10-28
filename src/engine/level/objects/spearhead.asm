@@ -158,7 +158,7 @@ SpearheadFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 
 	ld l, OBJ_STATE
@@ -280,7 +280,7 @@ SpearheadFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 
 	ld l, OBJ_STATE
@@ -411,7 +411,7 @@ SpearheadFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_WALK
@@ -588,7 +588,7 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ret
 
@@ -773,7 +773,7 @@ SpearheadFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca

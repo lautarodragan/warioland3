@@ -194,9 +194,9 @@ MuddeeFunc:
 	ld a, $02
 	ld [w1d147], a
 	ld a, [wCurObjInteractionType]
-	cp $48
+	cp OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	jr z, .hit_on_top
-	cp $47
+	cp OBJ_INTERACTION_TOP_STING_BUMP_OFF
 	jr z, .hit_while_top_sting
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]

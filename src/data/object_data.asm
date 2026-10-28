@@ -24,7 +24,7 @@ RedKeyData:                object_data RED_KEY_O,               ChestsOAM_18c000
 GreenKeyData:              object_data GREEN_KEY_O,             ChestsOAM_18c000, OBJ_INTERACTION_GREEN_KEY,                  -24, KeyFunc,                   $0
 BlueKeyData:               object_data BLUE_KEY_O,              ChestsOAM_18c000, OBJ_INTERACTION_BLUE_KEY,                   -24, KeyFunc,                   $0
 MusicalCoinData:           object_data MUSICAL_COIN,            ChestsOAM_18c000, OBJ_INTERACTION_MUSICAL_COIN,               -25, MusicalCoinFunc,           $0
-SpearheadData:             object_data SPEARHEAD,               SpearheadOAM_18007b, OBJ_INTERACTION_01,                         -14, SpearheadFunc,             OBJFLAG_PRIORITY
+SpearheadData:             object_data SPEARHEAD,               SpearheadOAM_18007b, OBJ_INTERACTION_TOUCH,                         -14, SpearheadFunc,             OBJFLAG_PRIORITY
 FutamoguData:              object_data FUTAMOGU,                OAM_180564, OBJ_INTERACTION_WALKABLE       | HEAVY_OBJ, -17, FutamoguFunc,              OBJFLAG_PRIORITY
 WebberData:                object_data WEBBER,                  OAM_180242, OBJ_INTERACTION_WALKABLE       | HEAVY_OBJ, -16, WebberFunc,                OBJFLAG_PRIORITY
 TorchData:                 object_data TORCH,                   OAM_180838, OBJ_INTERACTION_FIRE,                       -16, TorchFunc,                 $0
@@ -32,39 +32,39 @@ TorchNoEmbersData:         object_data TORCH_NO_EMBERS,         OAM_180838, OBJ_
 FlameBlockTorchData:       object_data FLAME_BLOCK_TORCH,       OAM_180838, OBJ_INTERACTION_UNLIT_TORCH,                -16, FlameBlockTorchFunc,       $0
 FlameBlockData:            object_data FLAME_BLOCK,             FlameBlockOAM_1895ec, OBJ_INTERACTION_SOLID,                      -30, FlameBlockFunc,            $0
 StoveData:                 object_data STOVE,                   StoveOAM_1896e1, OBJ_INTERACTION_STOVE          | HEAVY_OBJ, -32, StoveFunc,                 $0
-UnusedFlowerData:          object_data UNUSED_FLOWER,           OAM_180916, OBJ_INTERACTION_01,                           0, UnusedFlowerFunc,          $0
+UnusedFlowerData:          object_data UNUSED_FLOWER,           OAM_180916, OBJ_INTERACTION_TOUCH,                           0, UnusedFlowerFunc,          $0
 CountRichtertoffenData:    object_data COUNT_RICHTERTOFFEN,     CountRichtertoffenOAM_1809ff, OBJ_INTERACTION_RICHTERTOFFEN  | HEAVY_OBJ, -18, CountRichtertoffenFunc,    OBJFLAG_PRIORITY
 HebariiData:               object_data HEBARII,                 HebariiOAM_18a703, OBJ_INTERACTION_HEBARII,                    -15, HebariiFunc,               $0
-ParaGoomData:              object_data PARA_GOOM,               ParaGoomOAM_180b43, OBJ_INTERACTION_01,                         -12, ParaGoomFunc,              OBJFLAG_PRIORITY
+ParaGoomData:              object_data PARA_GOOM,               ParaGoomOAM_180b43, OBJ_INTERACTION_TOUCH,                         -12, ParaGoomFunc,              OBJFLAG_PRIORITY
 DoughnuteerData:           object_data DOUGHNUTEER,             DoughnuteerOAM_180ea7, OBJ_INTERACTION_BUMP_OFF_PAUSE,                         -14, DoughnuteerFunc,           OBJFLAG_PRIORITY
-OmodonmekaData:            object_data OMODONMEKA,              OmodonmekaOAM_18136c, OBJ_INTERACTION_01,                         -25, OmodonmekaFunc,            OBJFLAG_PRIORITY
-OmodonmekaWithOmodon1Data: object_data OMODONMEKA_WITH_OMODON1, OAM_181189, OBJ_INTERACTION_01,                         -25, OmodonmekaWithOmodon1Func, OBJFLAG_PRIORITY
-OmodonmekaWithOmodon2Data: object_data OMODONMEKA_WITH_OMODON2, OAM_181189, OBJ_INTERACTION_01,                         -25, OmodonmekaWithOmodon2Func, OBJFLAG_PRIORITY
+OmodonmekaData:            object_data OMODONMEKA,              OmodonmekaOAM_18136c, OBJ_INTERACTION_TOUCH,                         -25, OmodonmekaFunc,            OBJFLAG_PRIORITY
+OmodonmekaWithOmodon1Data: object_data OMODONMEKA_WITH_OMODON1, OAM_181189, OBJ_INTERACTION_TOUCH,                         -25, OmodonmekaWithOmodon1Func, OBJFLAG_PRIORITY
+OmodonmekaWithOmodon2Data: object_data OMODONMEKA_WITH_OMODON2, OAM_181189, OBJ_INTERACTION_TOUCH,                         -25, OmodonmekaWithOmodon2Func, OBJFLAG_PRIORITY
 KushimushiVerticalData:    object_data KUSHIMUSHI_VERTICAL,     KushimushiOAM_18160c, OBJ_INTERACTION_BOTTOM_STING,               -13, KushimushiVerticalFunc,    $0
 KushimushiHorizontalData:  object_data KUSHIMUSHI_HORIZONTAL,   KushimushiOAM_18160c, OBJ_INTERACTION_FRONT_STING,                -12, KushimushiHorizontalFunc,  $0
 MizuuoData:                object_data MIZUUO,                  OAM_188395, OBJ_INTERACTION_BUMP_OFF,                         -10, MizuuoFunc,                $0
 BigLeafSpawnerData:        object_data BIG_LEAF_SPAWNER,        OAM_180000, OBJ_INTERACTION_BUMP_OFF_PAUSE,                           0, BigLeafSpawnerFunc,        $0
 SmallLeafData:             object_data SMALL_LEAF,              SmallLeafOAM_181be4, OBJ_INTERACTION_WALKABLE,                   -17, SmallLeafFunc,             $0
-SilkyData:                 object_data SILKY,                   SilkyOAM_18181e, OBJ_INTERACTION_01,                          -8, SilkyFunc,                 OBJFLAG_PRIORITY
+SilkyData:                 object_data SILKY,                   SilkyOAM_18181e, OBJ_INTERACTION_TOUCH,                          -8, SilkyFunc,                 OBJFLAG_PRIORITY
 OrangeBirdData:            object_data ORANGE_BIRD,             BirdOAM_1819e3, OBJ_INTERACTION_ORANGE_BIRD,                -13, BirdFunc,                  OBJFLAG_PRIORITY
 BlueBirdData:              object_data BLUE_BIRD,               BirdOAM_1819e3, OBJ_INTERACTION_FRONT_STING,                -13, BirdFunc,                  OBJFLAG_PRIORITY
 SnakeData:                 object_data SNAKE,                   OAM_189783, OBJ_INTERACTION_WALKABLE       | HEAVY_OBJ, -31, SnakeFunc,                 $0
-ApplebyData:               object_data APPLEBY,                 ApplebyOAM_185a1c, OBJ_INTERACTION_01,                          -6, ApplebyFunc,               $0
+ApplebyData:               object_data APPLEBY,                 ApplebyOAM_185a1c, OBJ_INTERACTION_TOUCH,                          -6, ApplebyFunc,               $0
 Barrel1Data:               object_data BARREL1,                 BarrelOAM_181b0f, OBJ_INTERACTION_SOLID_PLATFORM             | HEAVY_OBJ, -15, Barrel1Func,               OBJFLAG_PRIORITY
 Barrel2Data:               object_data BARREL2,                 BarrelOAM_181b0f, OBJ_INTERACTION_GRABBABLE_WALKABLE,                         -15, Barrel2Func,               $0
 RockData:                  object_data ROCK,                    RockOAM_18ab5c, OBJ_INTERACTION_GRABBABLE_WALKABLE,                         -15, RockFunc,                  $0
 RedPrinceFroggyData:       object_data RED_PRINCE_FROGGY,       OAM_184000, OBJ_INTERACTION_PRINCE_FROGGY  | HEAVY_OBJ, -16, RedPrinceFroggyFunc,       OBJFLAG_PRIORITY
 GreyPrinceFroggyData:      object_data GREY_PRINCE_FROGGY,      OAM_184000, OBJ_INTERACTION_PRINCE_FROGGY  | HEAVY_OBJ, -26, GreyPrinceFroggyFunc,      OBJFLAG_PRIORITY
-HammerBotData:             object_data HAMMER_BOT,              HammerBotOAM_18422f, OBJ_INTERACTION_01             | HEAVY_OBJ, -18, HammerBotFunc,             OBJFLAG_PRIORITY
-TeruteruData:              object_data TERUTERU,                TeruteruOAM_18496f, OBJ_INTERACTION_01,                         -20, TeruteruFunc,              OBJFLAG_PRIORITY
-MadSciensteinData:         object_data MAD_SCIENSTEIN,          MadSciensteinOAM_184ab2, OBJ_INTERACTION_01             | HEAVY_OBJ, -18, MadSciensteinFunc,         OBJFLAG_PRIORITY
+HammerBotData:             object_data HAMMER_BOT,              HammerBotOAM_18422f, OBJ_INTERACTION_TOUCH             | HEAVY_OBJ, -18, HammerBotFunc,             OBJFLAG_PRIORITY
+TeruteruData:              object_data TERUTERU,                TeruteruOAM_18496f, OBJ_INTERACTION_TOUCH,                         -20, TeruteruFunc,              OBJFLAG_PRIORITY
+MadSciensteinData:         object_data MAD_SCIENSTEIN,          MadSciensteinOAM_184ab2, OBJ_INTERACTION_TOUCH             | HEAVY_OBJ, -18, MadSciensteinFunc,         OBJFLAG_PRIORITY
 SeeingEyeDoorData:         object_data SEEING_EYE_DOOR,         MadSciensteinOAM_184ab2, OBJ_INTERACTION_SOLID          | HEAVY_OBJ, -24, SeeingEyeDoorFunc,         OBJFLAG_PRIORITY
 PneumoData:                object_data PNEUMO,                  PneumoOAM_184db9, OBJ_INTERACTION_PNEUMO,                     -16, PneumoFunc,                OBJFLAG_PRIORITY
 ElectricLampData:          object_data ELECTRIC_LAMP,           ElectricLampOAM_184eeb, OBJ_INTERACTION_BUMP_OFF_PAUSE,                           0, ElectricLampFunc,          $0
 ZombieData:                object_data ZOMBIE,                  ZombieOAM_184ffa, OBJ_INTERACTION_BUMP_OFF_PAUSE             | HEAVY_OBJ,  -6, ZombieFunc,                OBJFLAG_PRIORITY
 FireBotData:               object_data FIRE_BOT,                OAM_184755, OBJ_INTERACTION_BUMP_OFF_PAUSE,                         -14, FireBotFunc,               OBJFLAG_PRIORITY
-SpearBotData:              object_data SPEAR_BOT,               SpearBotOAM_18440a, OBJ_INTERACTION_01,                         -14, SpearBotFunc,              OBJFLAG_PRIORITY
-BeamBotData:               object_data BEAM_BOT,                BeamBotOAM_1845aa, OBJ_INTERACTION_01,                         -14, BeamBotFunc,               OBJFLAG_PRIORITY
+SpearBotData:              object_data SPEAR_BOT,               SpearBotOAM_18440a, OBJ_INTERACTION_TOUCH,                         -14, SpearBotFunc,              OBJFLAG_PRIORITY
+BeamBotData:               object_data BEAM_BOT,                BeamBotOAM_1845aa, OBJ_INTERACTION_TOUCH,                         -14, BeamBotFunc,               OBJFLAG_PRIORITY
 SunData:                   object_data SUN,                     SunMoonOAM_1851df, OBJ_INTERACTION_FIRE,                       -20, SunFunc,                   $0
 MoonData:                  object_data MOON,                    SunMoonOAM_1854a2, OBJ_INTERACTION_ELECTRIC,                   -20, MoonFunc,                  $0
 KobattoData:               object_data KOBATTO,                 OAM_185788, OBJ_INTERACTION_VAMPIRE,                    -12, KobattoFunc,               OBJFLAG_PRIORITY

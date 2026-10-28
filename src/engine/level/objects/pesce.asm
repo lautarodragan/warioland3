@@ -159,10 +159,10 @@ PesceFunc:
 	ld a, [hl]
 	and a
 	jr z, .dispatch_phase
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jr z, .catch_wario
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jp z, .hit
 	xor a
 	ld [hl], a
@@ -1167,11 +1167,11 @@ FlyFunc:
 .Update:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .descend
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .hover_left
-	cp $5c
+	cp OBJSTATE_5C
 	jr z, .fly_up_away
 	jr .hit
 .descend
@@ -1182,7 +1182,7 @@ FlyFunc:
 	jp nz, MoveObjectDown
 	ld a, $70
 	ld [hl], a
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ld a, $01
 	ld [wDollBoyActiveBarrels], a
@@ -1201,7 +1201,7 @@ FlyFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [wCurObjState], a
 	ret
 .fly_up_away

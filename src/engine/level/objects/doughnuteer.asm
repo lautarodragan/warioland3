@@ -120,7 +120,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .throwing
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -132,7 +132,7 @@ DoughnuteerFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -174,7 +174,7 @@ DoughnuteerFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -201,7 +201,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .fleeing
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -218,7 +218,7 @@ DoughnuteerFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .flee_on_floor
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -256,7 +256,7 @@ DoughnuteerFunc:
 	and a
 	jp z, MoveObjectLeft
 .flee_stop_left
-	ld a, $2c
+	ld a, OBJSTATE_2C
 	ld [wCurObjState], a
 	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
@@ -291,7 +291,7 @@ DoughnuteerFunc:
 	and a
 	jp z, MoveObjectRight
 .flee_stop_right
-	ld a, $2c
+	ld a, OBJSTATE_2C
 	ld [wCurObjState], a
 	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
@@ -307,7 +307,7 @@ DoughnuteerFunc:
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -342,7 +342,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .wait_count_down
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -350,7 +350,7 @@ DoughnuteerFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -358,7 +358,7 @@ DoughnuteerFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -368,7 +368,7 @@ DoughnuteerFunc:
 	ld a, $ff
 	ld [hl], a
 	ld l, OBJ_STATE
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -396,7 +396,7 @@ DoughnuteerFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -418,10 +418,10 @@ DoughnuteerFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -439,7 +439,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .walking
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -474,7 +474,7 @@ DoughnuteerFunc:
 	jr .start_throw
 
 .turn_to_wario
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [hl], a
 	ret
 
@@ -484,7 +484,7 @@ DoughnuteerFunc:
 	jr nc, .turn_to_wario
 	ld de, DoughnuteerFrameset_68597
 .start_throw
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	call SetObjectFramesetPtr
 	ld a, $33
@@ -504,7 +504,7 @@ DoughnuteerFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .walk_on_floor
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -542,7 +542,7 @@ DoughnuteerFunc:
 	and a
 	jp z, MoveObjectLeft_Slow
 .turn_at_edge_left
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -573,7 +573,7 @@ DoughnuteerFunc:
 	and a
 	jp z, MoveObjectRight_Slow
 .turn_at_edge_right
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -588,7 +588,7 @@ DoughnuteerFunc:
 	call CreateObjectAtRelativePos
 .set_bump_left
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	jr .set_bump
 
@@ -605,7 +605,7 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr c, .bumped_flee_right
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hl], a
 	ld de, DoughnuteerFrameset_685fe
 	call SetObjectFramesetPtr
@@ -614,7 +614,7 @@ DoughnuteerFunc:
 	ret
 
 .bumped_flee_right
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, DoughnuteerFrameset_6857d
 	call SetObjectFramesetPtr
@@ -631,7 +631,7 @@ DoughnuteerFunc:
 	call CreateObjectAtRelativePos
 .set_bump_right
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 .set_bump
 	ld a, [hld]
@@ -664,14 +664,14 @@ DoughnuteerFunc:
 	ld a, [hli]
 	rlca
 	jr c, .bumped_turn_to_flee
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hl], a
 	ld de, DoughnuteerFrameset_68574
 	call SetObjectFramesetPtr
 	ret
 
 .bumped_turn_to_flee
-	ld a, $2b
+	ld a, OBJSTATE_2B
 	ld [hl], a
 	ld de, DoughnuteerFrameset_68605
 	call SetObjectFramesetPtr
@@ -681,7 +681,7 @@ DoughnuteerFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -697,13 +697,13 @@ DoughnuteerFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -719,19 +719,19 @@ DoughnuteerFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .set_fall
 
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .set_fall
 	ld a, [hld]
@@ -759,7 +759,7 @@ DoughnuteerFunc:
 	ret
 
 .State0f:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -769,7 +769,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .count_down
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -777,13 +777,13 @@ DoughnuteerFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -794,13 +794,13 @@ DoughnuteerFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ApplyObjHopYVel
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .TurnAroundStart:
 	ld hl, wCurObjState
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -821,7 +821,7 @@ DoughnuteerFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .turning
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -832,7 +832,7 @@ DoughnuteerFunc:
 	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -853,14 +853,14 @@ DoughnuteerFunc:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
 	ld [hld], a
 	ld a, [hld]
@@ -890,28 +890,28 @@ DoughnuteerFunc:
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
 .set_knocked_back
@@ -935,7 +935,7 @@ DoughnuteerFunc:
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -947,7 +947,7 @@ DoughnuteerFunc:
 	jp ObjState_PickedUpLeft
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -960,7 +960,7 @@ DoughnuteerFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -987,7 +987,7 @@ DoughnuteerFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1016,7 +1016,7 @@ DoughnuteerFunc:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a
@@ -1037,9 +1037,9 @@ DoughnutFunc_LeftRight:
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, DoughnutFunc_Destroy
-	cp $19
+	cp OBJSTATE_NO_EFFECT
 	jr z, DoughnutFunc
 	ld bc, SmallHopYVel2
 	jp ApplyObjYMovement
@@ -1056,9 +1056,9 @@ DoughnutFunc_Up:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 .Update:
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, DoughnutFunc_Destroy
-	cp $19
+	cp OBJSTATE_NO_EFFECT
 	jr z, DoughnutFunc
 	ld bc, JumpArcYVel
 	jp ApplyObjYMovement

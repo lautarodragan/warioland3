@@ -103,7 +103,7 @@ HebariiFunc:
 	ld [hld], a
 	ld a, [hl] ; OBJ_INTERACTION_TYPE
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld a, OBJSTATE_SPECIAL_1
 	ld [wCurObjState], a

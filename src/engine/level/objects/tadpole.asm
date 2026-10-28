@@ -147,21 +147,21 @@ TadpoleFunc:
 	ld a, [hl]
 	and a
 	jr z, .move
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .hit_wario
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START
 	jr z, .hit_from_right
-	cp $09
+	cp OBJSTATE_WOBBLE_RIGHT_START
 	jr z, .hit_from_left
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .hit_from_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .hit_from_right
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .hit_from_right
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .hit_from_left
 	xor a
 	ld [hl], a

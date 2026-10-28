@@ -255,7 +255,7 @@ ZombieFunc:
 	cp TRANSFORMATION_ZOMBIE_WARIO
 	jr nz, .not_zombie_wario
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .clear_state
 .hit
 	dec l
@@ -300,7 +300,7 @@ ZombieFunc:
 
 .not_zombie_wario
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
 	jr .hit
 .clear_state
@@ -605,9 +605,9 @@ ZombieHeadFunc:
 	ld a, [hld]
 	and a
 	ret z
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jp c, ZombieFunc.knock_back
-	cp $0f
+	cp OBJSTATE_STUNNED_START
 	jp nc, ZombieFunc.knock_back
 	ld a, [hld]
 	rlca

@@ -81,7 +81,7 @@ ScowlerFunc:
 	ret
 
 .activated
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
@@ -91,7 +91,7 @@ ScowlerFunc:
 	call UpdateScowlerInkBlackout
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jr z, .activated
 	ld b, a
 	ld a, [wRoomTransitionParam]
@@ -100,10 +100,10 @@ ScowlerFunc:
 	ld a, b
 	and a
 	jr z, .default
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr z, .shoot_ink
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jr z, .stun
 	ret
 .stun
@@ -178,7 +178,7 @@ ScowlerFunc:
 	ld a, [wCurObjScreenYPos]
 	cp b
 	jr c, .swim
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	ld de, ScowlerFrameset_69a7a
 	call SetObjectFramesetPtr
@@ -367,7 +367,7 @@ ScowlerFunc:
 	and a
 	jr z, .vulnerable_swim
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jr z, .check_hit_from_above
 	xor a
 	ld [hl], a
@@ -795,7 +795,7 @@ ScrowlerTentacleFunc:
 	ret
 
 .activated
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	play_sfx SFX_ELECTRIC_SHOCK
 	stop_music2
@@ -804,7 +804,7 @@ ScrowlerTentacleFunc:
 .FollowScowler:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jr z, .activated
 	ld a, [wRoomTransitionParam]
 	and a

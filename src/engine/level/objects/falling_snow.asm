@@ -132,7 +132,7 @@ FallingSnowFunc:
 	ld a, [wCurObjState]
 	and a
 	jr z, .falling
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, .triggered
 	ld de, FallingSnowFrameset_695cb
 	call SetObjectFramesetPtr

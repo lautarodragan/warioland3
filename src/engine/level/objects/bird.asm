@@ -108,7 +108,7 @@ BirdFunc:
 .take_off
 	ld a, $23
 	ld [hli], a
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	play_sfx SFX_BIRD_ALERT
 	ret
@@ -144,21 +144,21 @@ BirdFunc:
 	ld a, [hl]
 	and a
 	jp z, .Idle
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr z, .Special3
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .hit_wario_right
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jr z, .hit_wario_left
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .vanish
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .set_hit_by_obj_left
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .set_hit_by_obj_right
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .set_attacked_left
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .set_attacked_right
 	rra
 	jr nc, .set_hit_by_obj_right
@@ -278,7 +278,7 @@ BirdFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [hld], a
 	ld a, [hl]
 	rlca

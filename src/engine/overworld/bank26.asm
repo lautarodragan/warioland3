@@ -460,7 +460,7 @@ HandleTreasureCollectionInput:
 ; b btn
 	stop_music2
 	stop_sfx
-	ld a, $08
+	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
 
@@ -511,7 +511,7 @@ HandleTreasureCollectionInput:
 .page_turned
 	play_sfx SFX_PAGE_TURN
 	stop_music2
-	ld a, $0c
+	ld a, SST_OVERWORLD_COLLECTION
 	ld [wSubState], a
 	ret
 
@@ -616,7 +616,7 @@ HandleTreasureCollectionInput:
 
 .change_page
 	play_sfx SFX_PAGE_TURN
-	ld a, $0c
+	ld a, SST_OVERWORLD_COLLECTION
 	ld [wSubState], a
 	ret
 

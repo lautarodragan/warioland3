@@ -11,7 +11,7 @@ ObjParams_HebariiProjectile:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw HebariiProjectileFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -28,7 +28,7 @@ ObjParams_WebberProjectile:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw WebberProjectileFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -45,7 +45,7 @@ ObjParams_UnusedFlowerProjectileLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw UnusedFlowerProjectileLeftFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -62,7 +62,7 @@ ObjParams_UnusedFlowerProjectileRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw UnusedFlowerProjectileRightFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -79,7 +79,7 @@ ObjParams_BigLeaf1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BigLeaf1Func
 	db $0 ; obj flags
 
@@ -96,7 +96,7 @@ ObjParams_BigLeaf2:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BigLeaf2Func
 	db $0 ; obj flags
 
@@ -113,7 +113,7 @@ ObjParams_BigLeaf3:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BigLeaf2Func
 	db $0 ; obj flags
 
@@ -130,7 +130,7 @@ ObjParams_DoughnutLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw DoughnutFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -147,7 +147,7 @@ ObjParams_DoughnutRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw DoughnutFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -164,7 +164,7 @@ ObjParams_DoughnutUpLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw DoughnutFunc_Up
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -181,7 +181,7 @@ ObjParams_DoughnutUpRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw DoughnutFunc_Up
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -198,7 +198,7 @@ ObjParams_InvisibilityPotionLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InvisibilityPotionFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -215,7 +215,7 @@ ObjParams_InvisibilityPotionRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InvisibilityPotionFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -232,7 +232,7 @@ ObjParams_InvisibilityPotionDropLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InvisibilityPotionFunc_Drop
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -249,7 +249,7 @@ ObjParams_InvisibilityPotionDropRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InvisibilityPotionFunc_Drop
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -266,7 +266,7 @@ ObjParams_ZombieHeadLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw ZombieHeadFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -283,7 +283,7 @@ ObjParams_ZombieHeadRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw ZombieHeadFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -291,7 +291,7 @@ ObjParams_StarsLeft:
 	db -20 ; y
 	db -12 ; x
 	db STARS_LEFT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -300,7 +300,7 @@ ObjParams_StarsLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -308,7 +308,7 @@ ObjParams_StarsRight:
 	db -20 ; y
 	db  11 ; x
 	db STARS_RIGHT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -317,7 +317,7 @@ ObjParams_StarsRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -334,7 +334,7 @@ ObjParams_BeamLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BeamFunc_Left
 	db $0 ; obj flags
 
@@ -351,7 +351,7 @@ ObjParams_BeamRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BeamFunc_Right
 	db $0 ; obj flags
 
@@ -368,7 +368,7 @@ ObjParams_AppleLeft:
 	db $01 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AppleFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -385,7 +385,7 @@ ObjParams_AppleRight:
 	db $01 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AppleFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -402,7 +402,7 @@ ObjParams_SunFlameLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SunFlameFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -419,7 +419,7 @@ ObjParams_SunFlameRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SunFlameFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -436,7 +436,7 @@ ObjParams_MoonStarLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MoonStarFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -453,7 +453,7 @@ ObjParams_MoonStarRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MoonStarFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -461,7 +461,7 @@ ObjParams_BirdStars1:
 	db -10 ; y
 	db  -7 ; x
 	db BIRD_STARS1 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
@@ -470,7 +470,7 @@ ObjParams_BirdStars1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -478,7 +478,7 @@ ObjParams_BirdStars2:
 	db -10 ; y
 	db   6 ; x
 	db BIRD_STARS2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
@@ -487,7 +487,7 @@ ObjParams_BirdStars2:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -504,7 +504,7 @@ ObjParams_SnowflakeLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SnowflakeFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -521,7 +521,7 @@ ObjParams_SnowflakeRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SnowflakeFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -538,7 +538,7 @@ ObjParams_MizzouProjectileLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MizzouProjectileFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -555,7 +555,7 @@ ObjParams_MizzouProjectileRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MizzouProjectileFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -563,7 +563,7 @@ ObjParams_GreyTreasure:
 	db -40 ; y
 	db   0 ; x
 	db GREY_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_680da ; frameset
@@ -572,7 +572,7 @@ ObjParams_GreyTreasure:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw GreyTreasureFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -580,7 +580,7 @@ ObjParams_RedTreasure:
 	db -40 ; y
 	db   0 ; x
 	db RED_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68113 ; frameset
@@ -589,7 +589,7 @@ ObjParams_RedTreasure:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw RedTreasureFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -597,7 +597,7 @@ ObjParams_GreenTreasure:
 	db -40 ; y
 	db   0 ; x
 	db GREEN_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_6814c ; frameset
@@ -606,7 +606,7 @@ ObjParams_GreenTreasure:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw GreenTreasureFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -614,7 +614,7 @@ ObjParams_BlueTreasure:
 	db -40 ; y
 	db   0 ; x
 	db BLUE_TREASURE_O ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68185 ; frameset
@@ -623,7 +623,7 @@ ObjParams_BlueTreasure:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BlueTreasureFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -640,7 +640,7 @@ ObjParams_AnonsterSilk1Left:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatLeft
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -657,7 +657,7 @@ ObjParams_AnonsterSilk1Right:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatRight
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -674,7 +674,7 @@ ObjParams_AnonsterSilk2Left:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatLeft
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -691,7 +691,7 @@ ObjParams_AnonsterSilk2Right:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatRight
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -708,7 +708,7 @@ ObjParams_AnonsterSilk3Left:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatLeft
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -725,7 +725,7 @@ ObjParams_AnonsterSilk3Right:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterSilkFunc.FloatRight
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -742,7 +742,7 @@ ObjParams_AnonsterWaveLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsteWaveLFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -759,7 +759,7 @@ ObjParams_AnonsterWaveRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw AnonsterWaveFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -776,7 +776,7 @@ ObjParams_SilkPlatform1:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
 
@@ -793,7 +793,7 @@ ObjParams_SilkPlatform2:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
 
@@ -810,7 +810,7 @@ ObjParams_SilkPlatform3:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SilkPlatformFunc
 	db $0 ; obj flags
 
@@ -827,7 +827,7 @@ ObjParams_SnakeFireLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SnakeFireFunc
 	db $0 ; obj flags
 
@@ -844,7 +844,7 @@ ObjParams_SnakeFireRight:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SnakeFireFunc
 	db $0 ; obj flags
 
@@ -861,7 +861,7 @@ ObjParams_DollBoyHammer:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw DollBoyHammerFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -878,7 +878,7 @@ ObjParams_HammerPlatform:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw HammerPlatformFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -895,7 +895,7 @@ ObjParams_HighRollingRockLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw RollingRockFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -912,7 +912,7 @@ ObjParams_HighRollingRockRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw RollingRockFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -929,7 +929,7 @@ ObjParams_LowRollingRockLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw RollingRockFunc_Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -946,7 +946,7 @@ ObjParams_LowRollingRockRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw RollingRockFunc_Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -964,7 +964,7 @@ ObjParams_PalmTreeShort:
 	db $1f ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
 
@@ -981,7 +981,7 @@ ObjParams_PalmTreeMedium:
 	db $1f ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
 
@@ -998,7 +998,7 @@ ObjParams_PalmTreeTall:
 	db $1f ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw PalmTreeFunc
 	db $0 ; obj flags
 
@@ -1015,7 +1015,7 @@ ObjParams_YellowBellyArrowLeft:
 	db $1 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw YellowBellyArrowFunc.Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1032,7 +1032,7 @@ ObjParams_YellowBellyArrowRight:
 	db $1 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw YellowBellyArrowFunc.Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1049,7 +1049,7 @@ ObjParams_Dragonfly1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw Dragonfly1Func
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1057,7 +1057,7 @@ ObjParams_Fly:
 	db -48 ; y
 	db  48 ; x
 	db FLY ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 12, -6, 5 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_699e4 ; frameset
@@ -1066,7 +1066,7 @@ ObjParams_Fly:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $5a ; state
+	db OBJSTATE_5A ; state
 	dw FlyFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1083,7 +1083,7 @@ ObjParams_Tadpole:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $5a ; state
+	db OBJSTATE_5A ; state
 	dw TadpoleFunc
 	db $0 ; obj flags
 
@@ -1100,7 +1100,7 @@ ObjParams_InkLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InkFunc.Left
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1117,7 +1117,7 @@ ObjParams_InkRight:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw InkFunc.Right
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1134,7 +1134,7 @@ ObjParams_FloatingRing:
 	db $14 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_NO_DESPAWN ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw FloatingRingFunc
 	db $0 ; obj flags
 
@@ -1151,7 +1151,7 @@ ObjParams_Skull1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SkullFunc
 	db $0 ; obj flags
 
@@ -1168,7 +1168,7 @@ ObjParams_Skull2:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SkullFunc
 	db $0 ; obj flags
 
@@ -1185,7 +1185,7 @@ ObjParams_Skull3:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SkullFunc
 	db $0 ; obj flags
 
@@ -1202,7 +1202,7 @@ ObjParams_Skull4:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw SkullFunc
 	db $0 ; obj flags
 
@@ -1219,7 +1219,7 @@ ObjParams_JamanoHat:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw JamanoHatFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1236,7 +1236,7 @@ ObjParams_MagicSpiralLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db MAGIC_SPIRAL_NUMBER_BOUNCES | OBJSUBFLAG_VDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MagicSpiralFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1253,7 +1253,7 @@ ObjParams_MagicSpiralRight:
 	db $00 ; var2
 	db $00 ; var3
 	db MAGIC_SPIRAL_NUMBER_BOUNCES | OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MagicSpiralFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1270,7 +1270,7 @@ ObjParams_IgaguriLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw IgaguriFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1287,7 +1287,7 @@ ObjParams_IgaguriRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw IgaguriFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1304,7 +1304,7 @@ ObjParams_HiddenFigureFace:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw HiddenFigureFaceFunc
 	db $0 ; obj flags
 
@@ -1321,7 +1321,7 @@ ObjParams_HiddenFigureLeftHand:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw HiddenFigureLeftHandFunc
 	db $0 ; obj flags
 
@@ -1338,7 +1338,7 @@ ObjParams_HiddenFigureRightHand:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw HiddenFigureRightHandFunc
 	db $0 ; obj flags
 
@@ -1346,7 +1346,7 @@ ObjParams_Omodon2:
 	db 16 ; y
 	db  0 ; x
 	db OMODON2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -16, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
@@ -1355,7 +1355,7 @@ ObjParams_Omodon2:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw Func_4279c
 	db $0 ; obj flags
 
@@ -1363,7 +1363,7 @@ ObjParams_Omodon1:
 	db 16 ; y
 	db  0 ; x
 	db OMODON1 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -26, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
@@ -1372,7 +1372,7 @@ ObjParams_Omodon1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw Func_4279c
 	db $0 ; obj flags
 
@@ -1380,7 +1380,7 @@ ObjParams_DollBoyHammerStarsLeft:
 	db -20 ; y
 	db -19 ; x
 	db DOLL_BOY_HAMMER_STARS_LEFT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -1389,7 +1389,7 @@ ObjParams_DollBoyHammerStarsLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1397,7 +1397,7 @@ ObjParams_DollBoyHammerStarsRight:
 	db -20 ; y
 	db 18 ; x
 	db DOLL_BOY_HAMMER_STARS_RIGHT ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -1406,7 +1406,7 @@ ObjParams_DollBoyHammerStarsRight:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1421,7 +1421,7 @@ ObjParams_Coin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1436,7 +1436,7 @@ ObjParams_ColourCoin:
 	db $02 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_UNINITIALISED ; substate
-	db OBJSTATE_19 ; state
+	db OBJSTATE_COIN_INIT ; state
 	dw CoinFunc.ColourCoin
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1451,7 +1451,7 @@ ObjParams_TorchEmberLeft1:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw TorchEmberLeft1Func
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1466,7 +1466,7 @@ ObjParams_TorchEmberRight1:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw TorchEmberRight1Func
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1481,7 +1481,7 @@ ObjParams_TorchEmberLeft2:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw TorchEmberLeft2Func
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1496,7 +1496,7 @@ ObjParams_TorchEmberRight2:
 	db $00 ; var2
 	db $00 ; var3
 	db OBJSUBFLAG_HDIR ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw TorchEmberRight2Func
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1511,7 +1511,7 @@ ObjParams_ElectricLampSpark:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw ElectricLampSparkFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1526,7 +1526,7 @@ ObjParams_Bubble:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw BubbleFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1541,13 +1541,13 @@ ObjParams_FallingSnow:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw FallingSnowFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
 ObjParams_StarsAbove:
 	db STARS_ABOVE ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680c5 ; frameset
@@ -1556,7 +1556,7 @@ ObjParams_StarsAbove:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_WithYOffset
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1571,7 +1571,7 @@ ObjParams_YellowBellyHead:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw YellowBellyHeadFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1586,7 +1586,7 @@ ObjParams_Pump:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw PumpFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1601,7 +1601,7 @@ ObjParams_Cheese:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw CheeseFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1616,7 +1616,7 @@ ObjParams_ScrowlerTentacleRight:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw ScrowlerTentacleFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1631,7 +1631,7 @@ ObjParams_ScrowlerTentacleLeft:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw ScrowlerTentacleFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
@@ -1646,13 +1646,13 @@ ObjParams_MuddeeStinger1:
 	db $00 ; var2
 	db $00 ; var3
 	db $1 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MuddeeStingerFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
 ObjParams_MuddeeStinger2:
 	db MUDDEE_STINGER2 ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 0, -4, 3 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw MuddeeStingerFrameset_68072 ; frameset
@@ -1661,13 +1661,13 @@ ObjParams_MuddeeStinger2:
 	db $00 ; var2
 	db $00 ; var3
 	db $1 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw MuddeeStingerFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
 ObjParams_Kuri:
 	db KURI ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db -12, 0, -5, 4 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e50 ; frameset
@@ -1676,13 +1676,13 @@ ObjParams_Kuri:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw KuriFunc
 	db OBJFLAG_PRIORITY ; obj flags
 
 ObjParams_StarsCentre:
 	db STARS_CENTRE ; id
-	db OBJ_INTERACTION_01 ; interaction type
+	db OBJ_INTERACTION_TOUCH ; interaction type
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
@@ -1691,6 +1691,6 @@ ObjParams_StarsCentre:
 	db $00 ; var2
 	db $00 ; var3
 	db $0 ; substate
-	db $00 ; state
+	db OBJSTATE_DEFAULT ; state
 	dw StarsFunc_SetFlags
 	db OBJFLAG_PRIORITY ; obj flags

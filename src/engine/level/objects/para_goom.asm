@@ -120,14 +120,14 @@ ParaGoomFunc:
 	dw ObjState_FullThrowRight
 
 .FullThrowLeftStart:
-	ld a, $5e
+	ld a, OBJSTATE_FULL_THROW_LEFT
 	ld [wCurObjState], a
 	ld de, ParaGoomFrameset_684a1
 	call SetObjectFramesetPtr
 	jp ObjState_FullThrowLeft
 
 .FullThrowRightStart:
-	ld a, $5f
+	ld a, OBJSTATE_FULL_THROW_RIGHT
 	ld [wCurObjState], a
 	ld de, ParaGoomFrameset_684a1
 	call SetObjectFramesetPtr
@@ -139,12 +139,12 @@ ParaGoomFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, $f4
 	ld [hl], a
 	ld l, OBJ_STATE
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -192,7 +192,7 @@ ParaGoomFunc:
 	and a
 	ret nz
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	xor a
 	ld [wCurObjStateDuration], a
@@ -200,7 +200,7 @@ ParaGoomFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
@@ -295,7 +295,7 @@ ParaGoomFunc:
 	ret nz
 .walk_with_propeller
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -316,11 +316,11 @@ ParaGoomFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 .walk_without_propeller
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -379,7 +379,7 @@ ParaGoomFunc:
 	cp $ef
 	jr nz, .start_extend
 	ld l, OBJ_STATE
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -390,7 +390,7 @@ ParaGoomFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hli], a
 	ld a, $f4
 	ld [hl], a
@@ -398,7 +398,7 @@ ParaGoomFunc:
 
 .start_extend
 	ld l, OBJ_STATE
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -409,7 +409,7 @@ ParaGoomFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -431,7 +431,7 @@ ParaGoomFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .on_floor
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -477,7 +477,7 @@ ParaGoomFunc:
 	and a
 	jp z, MoveObjectLeft_Slow
 .turn_at_edge_left
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -511,19 +511,19 @@ ParaGoomFunc:
 	and a
 	jp z, MoveObjectRight_Slow
 .turn_at_edge_right
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .BumpLeftStart:
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	jr .set_bump
 
 .BumpRightStart:
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 .set_bump
 	ld a, [wCurObjCollBoxTop]
@@ -546,7 +546,7 @@ ParaGoomFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ret
 
@@ -563,7 +563,7 @@ ParaGoomFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -586,13 +586,13 @@ ParaGoomFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -615,19 +615,19 @@ ParaGoomFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .set_fall
 
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .set_fall
 	ld a, [hld]
@@ -662,7 +662,7 @@ ParaGoomFunc:
 	ret
 
 .State0f:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -672,7 +672,7 @@ ParaGoomFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .count_down
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -680,13 +680,13 @@ ParaGoomFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -723,7 +723,7 @@ ParaGoomFunc:
 	ld bc, ParaGoomData_60530
 	jp ApplyObjYMovement
 .start_hover
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld de, ParaGoomFrameset_684b7
 	call SetObjectFramesetPtr
@@ -736,7 +736,7 @@ ParaGoomFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [hld], a
 	dec l
 	xor a
@@ -764,7 +764,7 @@ ParaGoomFunc:
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z
-	ld a, $0a
+	ld a, OBJSTATE_VANISH_TOUCH
 	ld [wCurObjState], a
 	ret
 
@@ -775,7 +775,7 @@ ParaGoomFunc:
 	ldh a, [hYPosHi]
 	ld [hl], a
 	ld l, OBJ_STATE
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [hld], a
 	ld de, ParaGoomFrameset_6855f
 	call SetObjectFramesetPtr
@@ -798,13 +798,13 @@ ParaGoomFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .TurnAroundStart:
 	ld hl, wCurObjState
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
@@ -861,7 +861,7 @@ ParaGoomFunc:
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
 	jp z, .walk_with_propeller
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -870,7 +870,7 @@ ParaGoomFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -895,14 +895,14 @@ ParaGoomFunc:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
 	ld [hld], a
 	ld a, [hld]
@@ -938,12 +938,12 @@ ParaGoomFunc:
 	ret
 
 .State0b:
-	ld a, $3b
+	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	jr .set_hit_wario
 
 .State0c:
-	ld a, $3c
+	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
 .set_hit_wario
 	ld hl, wCurObjFrameDuration
@@ -963,7 +963,7 @@ ParaGoomFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -976,34 +976,34 @@ ParaGoomFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
 .set_knocked_back
@@ -1026,7 +1026,7 @@ ParaGoomFunc:
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1039,7 +1039,7 @@ ParaGoomFunc:
 
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -1052,7 +1052,7 @@ ParaGoomFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1084,7 +1084,7 @@ ParaGoomFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -1117,7 +1117,7 @@ ParaGoomFunc:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a

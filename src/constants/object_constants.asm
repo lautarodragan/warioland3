@@ -312,7 +312,7 @@ DEF INTERACTION_DOWN  EQU (1 << INTERACTION_DOWN_F)  ; $80
 ; object interaction types
 	const_def
 	const OBJ_INTERACTION_GRABBABLE                  ; $00
-	const OBJ_INTERACTION_01                  ; $01
+	const OBJ_INTERACTION_TOUCH                      ; $01
 	const OBJ_INTERACTION_FRONT_STING                ; $02
 	const OBJ_INTERACTION_BACK_STING                 ; $03
 	const OBJ_INTERACTION_TOP_STING                  ; $04
@@ -433,8 +433,8 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_FALL_RIGHT_START ; $15
 	const OBJSTATE_STUN_LEFT_START ; $16
 	const OBJSTATE_STUN_RIGHT_START ; $17
-	const OBJSTATE_18 ; $18
-	const OBJSTATE_19 ; $19
+	const OBJSTATE_GRABBED_LEFT_START ; $18
+	const OBJSTATE_GRABBED_RIGHT_START ; $19
 	const OBJSTATE_HOP_START ; $1a
 	const OBJSTATE_HOP ; $1b
 	const OBJSTATE_RANDOM_WOBBLE_START ; $1c
@@ -506,6 +506,14 @@ DEF INTERACTION_MASK EQU $ff ^ HEAVY_OBJ
 	const OBJSTATE_FULL_THROW_LEFT ; $5e
 	const OBJSTATE_FULL_THROW_RIGHT ; $5f
 
+; objects that cannot be grabbed reuse the grab states for other things
+DEF OBJSTATE_TRIGGERED  EQU OBJSTATE_GRABBED_LEFT_START  ; set by OBJACTION_TRIGGER (collected, eaten...)
+DEF OBJSTATE_NO_EFFECT  EQU OBJSTATE_GRABBED_RIGHT_START ; set by OBJACTION_NO_EFFECT (Wario immune)
+DEF OBJSTATE_COIN_INIT  EQU OBJSTATE_GRABBED_RIGHT_START ; CoinFunc's .Init
+
+; OBJ_ACTION values: written by SetObjAction (object_interactions.asm)
+; and turned into an OBJ_STATE by DoObjectAction (update_objects.asm)
+; HIT_WARIO: the object stung, burned, bumped off or transformed Wario
 	const_def
 	const OBJACTION_NONE                  ; $00
 	const OBJACTION_BUMP                  ; $01

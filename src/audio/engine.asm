@@ -1001,7 +1001,7 @@ UpdateChannel:
 	ld a, [hl]
 	bit CHANFLAGS_ACTIVE_F, a
 	ret z ; not active
-	bit CHANFLAGS_6_F, a
+	bit CHANFLAGS_INITIALISED_F, a
 	jr nz, .skip_init
 	push hl
 	call InitChannel
@@ -2004,7 +2004,7 @@ PlayNote:
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
 	jr z, .got_owner
-	set 7, a
+	set TRACK_OWNER_SFX_F, a
 .got_owner
 	ld [wTempTrackOwner], a
 	ld e, a
@@ -2049,7 +2049,7 @@ PlayNote:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 
-	ld a, TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_6 | TRACKFLAGS_7
+	ld a, TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE | TRACKFLAGS_ACTIVE
 	ld [hli], a ; TRACK_FLAGS
 	ld a, [wTempTrackPriority]
 	ld [hli], a ; TRACK_PRIORITY
@@ -2122,7 +2122,7 @@ AudioCmd_ReleaseNote:
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
 	jr z, .got_owner
-	set 7, a
+	set TRACK_OWNER_SFX_F, a
 .got_owner
 	ld e, a
 	ld a, [wSoundEngineParam3]
@@ -2167,7 +2167,7 @@ TickSFXTrack:
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_OWNER
+	bit TRACK_OWNER_SFX_F, [hl] ; TRACK_OWNER
 	ret z
 	jr TickTrackDuration
 
@@ -2180,7 +2180,7 @@ TickMusicTrack:
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_OWNER
+	bit TRACK_OWNER_SFX_F, [hl] ; TRACK_OWNER
 	ret nz
 	; fallthrough
 
@@ -2192,7 +2192,7 @@ TickTrackDuration:
 	ld a, [hli]
 	ld d, a
 	ld a, [de]
-	cp TRACKFLAGS_6 | TRACKFLAGS_7
+	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE ; channel's CHANNEL_FLAGS
 	jr c, StopTrack_FromChannelPtr
 	inc hl
 	ld a, [hl] ; TRACK_DURATION
@@ -2208,7 +2208,7 @@ ReleaseTrack:
 	ld a, [hl] ; TRACK_FLAGS
 	bit TRACKFLAGS_START_ENVELOPE_F, a
 	jr nz, StopTrack
-	or TRACKFLAGS_FADING | TRACKFLAGS_6
+	or TRACKFLAGS_FADING | TRACKFLAGS_START_ENVELOPE
 	and $ff ^ TRACKFLAGS_HELD
 	ld [hl], a
 	ret
@@ -2250,7 +2250,7 @@ ProcessTrack:
 
 .channel_active
 	ld [wCurChannelFlags], a
-	bit CHANFLAGS_6_F, b
+	bit TRACKFLAGS_START_ENVELOPE_F, b
 	jr nz, .start_envelope
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
@@ -2480,7 +2480,7 @@ ProcessTrack:
 	ld bc, TRACK_FLAGS - TRACK_FREQUENCY
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	and $ff ^ (TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_6)
+	and $ff ^ (TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE)
 	ld [hl], a
 	jr .update_volume
 

@@ -47,7 +47,7 @@ PrinceFrogsGlovesActionHelp_End:
 	jp InitWithoutDemoPowerUpReset
 
 .return_to_overworld
-	and $3f
+	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
 	call ResumeNormalVolume

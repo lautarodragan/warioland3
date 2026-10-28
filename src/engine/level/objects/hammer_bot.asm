@@ -143,7 +143,7 @@ HammerBotFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $07
@@ -151,7 +151,7 @@ HammerBotFunc:
 	ld a, $f8
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -179,7 +179,7 @@ HammerBotFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -201,7 +201,7 @@ HammerBotFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .wind_up
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -209,7 +209,7 @@ HammerBotFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [wCurObjState], a
 	ret
 
@@ -221,7 +221,7 @@ HammerBotFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .charge
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -238,7 +238,7 @@ HammerBotFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .charge_on_floor
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -276,7 +276,7 @@ HammerBotFunc:
 	and a
 	jp z, MoveObjectLeft
 .charge_turn_at_edge_left
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -307,7 +307,7 @@ HammerBotFunc:
 	and a
 	jp z, MoveObjectRight
 .charge_turn_at_edge_right
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -315,10 +315,10 @@ HammerBotFunc:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -344,7 +344,7 @@ HammerBotFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .walking
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -361,7 +361,7 @@ HammerBotFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .on_floor
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -409,7 +409,7 @@ HammerBotFunc:
 	or OBJ_INTERACTION_BOUNCY
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	ret
 
@@ -439,7 +439,7 @@ HammerBotFunc:
 	and a
 	jp z, MoveObjectLeft_Slow
 .turn_at_edge_left
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -478,7 +478,7 @@ HammerBotFunc:
 	or OBJ_INTERACTION_BOUNCY
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	ret
 
@@ -509,18 +509,18 @@ HammerBotFunc:
 	and a
 	jp z, MoveObjectRight_Slow
 .turn_at_edge_right
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .BumpLeftStart:
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	jr .set_bump
 .BumpRightStart:
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 .set_bump
 	ld a, [hld]
@@ -539,13 +539,13 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ret
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -566,13 +566,13 @@ HammerBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -593,18 +593,18 @@ HammerBotFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .set_fall
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .set_fall
 	ld a, [hld]
@@ -630,7 +630,7 @@ HammerBotFunc:
 	ret
 
 .State0f:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -640,7 +640,7 @@ HammerBotFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .count_down
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -648,13 +648,13 @@ HammerBotFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -665,13 +665,13 @@ HammerBotFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ApplyObjHopYVel
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .TurnAroundStart:
 	ld hl, wCurObjState
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -687,7 +687,7 @@ HammerBotFunc:
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
-	or OBJ_INTERACTION_01
+	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -697,7 +697,7 @@ HammerBotFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .turning
-	ld a, $1a
+	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
@@ -708,7 +708,7 @@ HammerBotFunc:
 	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
@@ -729,14 +729,14 @@ HammerBotFunc:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble
 	ld [hld], a
 	ld a, [hld]
@@ -763,13 +763,13 @@ HammerBotFunc:
 	ret
 
 .State0b:
-	ld a, $3b
+	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsLeft
 	ld de, HammerBotFrameset_68b5e
 	jr .hit_wario
 .State0c:
-	ld a, $3c
+	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsRight
 	ld de, HammerBotFrameset_68b61
@@ -792,7 +792,7 @@ HammerBotFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -804,20 +804,20 @@ HammerBotFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .set_knocked_back
@@ -832,13 +832,13 @@ HammerBotFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .attacked_left
-	ld a, $08
+	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [wCurObjState], a
 	ret
 
 .attacked_left
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $01
 	jr .set_knocked_back
@@ -853,13 +853,13 @@ HammerBotFunc:
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
 	jr z, .attacked_right
-	ld a, $09
+	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [wCurObjState], a
 	ret
 
 .attacked_right
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $01
 .set_knocked_back
@@ -884,7 +884,7 @@ HammerBotFunc:
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -897,7 +897,7 @@ HammerBotFunc:
 
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -910,7 +910,7 @@ HammerBotFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -935,7 +935,7 @@ HammerBotFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -962,7 +962,7 @@ HammerBotFunc:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a
