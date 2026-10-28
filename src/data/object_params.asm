@@ -6,7 +6,7 @@ ObjParams_HebariiProjectile:
 	db -3,  2, -3,  2 ; collision
 	dw HebariiOAM_18a703 ; OAM
 	dw HebariiFrameset_68408 ; frameset
-	db 2 ; action duration
+	db 2 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -23,7 +23,7 @@ ObjParams_WebberProjectile:
 	db -7, -3, -4, 3 ; collision
 	dw WebberOAM_180242 ; OAM
 	dw WebberFrameset_682c8 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -40,7 +40,7 @@ ObjParams_UnusedFlowerProjectileLeft:
 	db -13, -3, -6, 5 ; collision box
 	dw UnusedFlowerOAM_180916 ; OAM
 	dw UnusedFlowerFrameset_6838c ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -57,7 +57,7 @@ ObjParams_UnusedFlowerProjectileRight:
 	db -13, -3, -6, 5 ; collision box
 	dw UnusedFlowerOAM_180916 ; OAM
 	dw UnusedFlowerFrameset_68395 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -74,7 +74,7 @@ ObjParams_BigLeaf1:
 	db -16, -8, -8, 7 ; collision box
 	dw BigLeafOAM_1817b4 ; OAM
 	dw BigLeafFrameset_68732 ; frameset
-	db 80 ; action duration
+	db 80 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -91,7 +91,7 @@ ObjParams_BigLeaf2:
 	db -16, -8, -8, 7 ; collision box
 	dw BigLeafOAM_1817b4 ; OAM
 	dw BigLeafFrameset_68732 ; frameset
-	db 20 ; action duration
+	db 20 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -108,7 +108,7 @@ ObjParams_BigLeaf3:
 	db -16, -8, -8, 7 ; collision box
 	dw BigLeafOAM_1817b4 ; OAM
 	dw BigLeafFrameset_68732 ; frameset
-	db 20 ; action duration
+	db 20 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -125,7 +125,7 @@ ObjParams_DoughnutLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw DoughnuteerOAM_180ea7 ; OAM
 	dw DoughnuteerFrameset_685ea ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -142,7 +142,7 @@ ObjParams_DoughnutRight:
 	db -12, -4, -4, 3 ; collision box
 	dw DoughnuteerOAM_180ea7 ; OAM
 	dw DoughnuteerFrameset_685ed ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -159,7 +159,7 @@ ObjParams_DoughnutUpLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw DoughnuteerOAM_180ea7 ; OAM
 	dw DoughnuteerFrameset_685ea ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -176,7 +176,7 @@ ObjParams_DoughnutUpRight:
 	db -12, -4, -4, 3 ; collision box
 	dw DoughnuteerOAM_180ea7 ; OAM
 	dw DoughnuteerFrameset_685ed ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -193,7 +193,7 @@ ObjParams_InvisibilityPotionLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw MadSciensteinOAM_184ab2 ; OAM
 	dw MadSciensteinFrameset_68c33 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -210,7 +210,7 @@ ObjParams_InvisibilityPotionRight:
 	db -12, -4, -4, 3 ; collision box
 	dw MadSciensteinOAM_184ab2 ; OAM
 	dw MadSciensteinFrameset_68c33 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -227,7 +227,7 @@ ObjParams_InvisibilityPotionDropLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw MadSciensteinOAM_184ab2 ; OAM
 	dw MadSciensteinFrameset_68c33 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -244,7 +244,7 @@ ObjParams_InvisibilityPotionDropRight:
 	db -12, -4, -4, 3 ; collision box
 	dw MadSciensteinOAM_184ab2 ; OAM
 	dw MadSciensteinFrameset_68c33 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -261,7 +261,7 @@ ObjParams_ZombieHeadLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw ZombieOAM_184ffa ; OAM
 	dw ZombieFrameset_68db3 ; frameset
-	db 48 ; action duration
+	db 48 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -278,7 +278,7 @@ ObjParams_ZombieHeadRight:
 	db -12, -4, -4, 3 ; collision box
 	dw ZombieOAM_184ffa ; OAM
 	dw ZombieFrameset_68dc4 ; frameset
-	db 48 ; action duration
+	db 48 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -295,7 +295,7 @@ ObjParams_StarsLeft:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
-	db 25 ; action duration
+	db 25 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -312,7 +312,7 @@ ObjParams_StarsRight:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
-	db 25 ; action duration
+	db 25 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -329,7 +329,7 @@ ObjParams_BeamLeft:
 	db -14, -3, -2, 1 ; collision box
 	dw BeamBotOAM_1845aa ; OAM
 	dw BeamBotFrameset_68ee1 ; frameset
-	db 18 ; action duration
+	db 18 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -346,7 +346,7 @@ ObjParams_BeamRight:
 	db -14, -3, -2, 1 ; collision box
 	dw BeamBotOAM_1845aa ; OAM
 	dw BeamBotFrameset_68eea ; frameset
-	db 18 ; action duration
+	db 18 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -363,7 +363,7 @@ ObjParams_AppleLeft:
 	db -12, -4, -4, 3 ; collision box
 	dw ApplebyOAM_185a1c ; OAM
 	dw ApplebyFrameset_68a60 ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $01 ; var2
 	db $00 ; var3
@@ -380,7 +380,7 @@ ObjParams_AppleRight:
 	db -12, -4, -4, 3 ; collision box
 	dw ApplebyOAM_185a1c ; OAM
 	dw ApplebyFrameset_68a60 ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $01 ; var2
 	db $00 ; var3
@@ -397,7 +397,7 @@ ObjParams_SunFlameLeft:
 	db -10, -2, -5, 4 ; collision box
 	dw SunMoonOAM_1851df ; OAM
 	dw SunMoonFrameset_68fb2 ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -414,7 +414,7 @@ ObjParams_SunFlameRight:
 	db -10, -2, -5, 4 ; collision box
 	dw SunMoonOAM_1851df ; OAM
 	dw SunMoonFrameset_68fad ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -431,7 +431,7 @@ ObjParams_MoonStarLeft:
 	db -10, -3, -5, 4 ; collision box
 	dw SunMoonOAM_1854a2 ; OAM
 	dw SunMoonFrameset_6901b ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -448,7 +448,7 @@ ObjParams_MoonStarRight:
 	db -10, -3, -5, 4 ; collision box
 	dw SunMoonOAM_1854a2 ; OAM
 	dw SunMoonFrameset_69012 ; frameset
-	db $00 ; action duration
+	db $00 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -465,7 +465,7 @@ ObjParams_BirdStars1:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
-	db 17 ; action duration
+	db 17 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -482,7 +482,7 @@ ObjParams_BirdStars2:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680b6 ; frameset
-	db 17 ; action duration
+	db 17 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -499,7 +499,7 @@ ObjParams_SnowflakeLeft:
 	db -12, -5, -6, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw BrrrBearFrameset_69169 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -516,7 +516,7 @@ ObjParams_SnowflakeRight:
 	db -12, -5, -6, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw BrrrBearFrameset_69169 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -533,7 +533,7 @@ ObjParams_MizzouProjectileLeft:
 	db -7, 0, -4, 3 ; collision box
 	dw MizuuoOAM_188395 ; OAM
 	dw MizuuoFrameset_686ce ; frameset
-	db 28 ; action duration
+	db 28 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -550,7 +550,7 @@ ObjParams_MizzouProjectileRight:
 	db -7, 0, -4, 3 ; collision box
 	dw MizuuoOAM_188395 ; OAM
 	dw MizuuoFrameset_686d3 ; frameset
-	db 28 ; action duration
+	db 28 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -567,7 +567,7 @@ ObjParams_GreyTreasure:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_680da ; frameset
-	db 87 ; action duration
+	db 87 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -584,7 +584,7 @@ ObjParams_RedTreasure:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68113 ; frameset
-	db 87 ; action duration
+	db 87 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -601,7 +601,7 @@ ObjParams_GreenTreasure:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_6814c ; frameset
-	db 87 ; action duration
+	db 87 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -618,7 +618,7 @@ ObjParams_BlueTreasure:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw ChestsFrameset_68185 ; frameset
-	db 87 ; action duration
+	db 87 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -635,7 +635,7 @@ ObjParams_AnonsterSilk1Left:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 32 ; action duration
+	db 32 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -652,7 +652,7 @@ ObjParams_AnonsterSilk1Right:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 32 ; action duration
+	db 32 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -669,7 +669,7 @@ ObjParams_AnonsterSilk2Left:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 24 ; action duration
+	db 24 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -686,7 +686,7 @@ ObjParams_AnonsterSilk2Right:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 24 ; action duration
+	db 24 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -703,7 +703,7 @@ ObjParams_AnonsterSilk3Left:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 16 ; action duration
+	db 16 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -720,7 +720,7 @@ ObjParams_AnonsterSilk3Right:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694ee ; frameset
-	db 16 ; action duration
+	db 16 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -737,7 +737,7 @@ ObjParams_AnonsterWaveLeft:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_694f8 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -754,7 +754,7 @@ ObjParams_AnonsterWaveRight:
 	db -8, -4, -5, 4 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_69505 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -771,7 +771,7 @@ ObjParams_SilkPlatform1:
 	db -8, -2, -5, 5 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_6954a ; frameset
-	db 170 ; action duration
+	db 170 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -788,7 +788,7 @@ ObjParams_SilkPlatform2:
 	db -8, -2, -5, 5 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_6954a ; frameset
-	db 120 ; action duration
+	db 120 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -805,7 +805,7 @@ ObjParams_SilkPlatform3:
 	db -8, -2, -5, 5 ; collision box
 	dw AnonsterOAM_190000 ; OAM
 	dw AnonsterFrameset_6954a ; frameset
-	db 70 ; action duration
+	db 70 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -822,7 +822,7 @@ ObjParams_SnakeFireLeft:
 	db -8, 0, -4, 3 ; collision box
 	dw SnakeOAM_189783 ; OAM
 	dw SnakeFrameset_6893a ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -839,7 +839,7 @@ ObjParams_SnakeFireRight:
 	db -8, 0, -4, 3 ; collision box
 	dw SnakeOAM_189783 ; OAM
 	dw SnakeFrameset_6893a ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -856,7 +856,7 @@ ObjParams_DollBoyHammer:
 	db -12, -4, -4, 3 ; collision box
 	dw DollBoyOAM_19105c ; OAM
 	dw DollBoyFrameset_69684 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -873,7 +873,7 @@ ObjParams_HammerPlatform:
 	db -10, -1, -5, 4 ; collision box
 	dw DollBoyOAM_19105c ; OAM
 	dw DollBoyFrameset_696b1 ; frameset
-	db 140 ; action duration
+	db 140 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -890,7 +890,7 @@ ObjParams_HighRollingRockLeft:
 	db -10, -4, -4, 3 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_6973d ; frameset
-	db 7 ; action duration
+	db 7 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -907,7 +907,7 @@ ObjParams_HighRollingRockRight:
 	db -10, -4, -4, 3 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_696f8 ; frameset
-	db 7 ; action duration
+	db 7 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -924,7 +924,7 @@ ObjParams_LowRollingRockLeft:
 	db -10, -4, -4, 3 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_6973d ; frameset
-	db 7 ; action duration
+	db 7 ; state duration
 	db $1 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -941,7 +941,7 @@ ObjParams_LowRollingRockRight:
 	db -10, -4, -4, 3 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_696f8 ; frameset
-	db 7 ; action duration
+	db 7 ; state duration
 	db $1 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -959,7 +959,7 @@ ObjParams_PalmTreeShort:
 	db -6, -2, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_69746 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $1a ; var1
 	db $1f ; var2
 	db $00 ; var3
@@ -976,7 +976,7 @@ ObjParams_PalmTreeMedium:
 	db -14, -10, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_6974d ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $30 ; var1
 	db $1f ; var2
 	db $00 ; var3
@@ -993,7 +993,7 @@ ObjParams_PalmTreeTall:
 	db -30, -26, -7, 6 ; collision box
 	dw WormwouldOAM_194000 ; OAM
 	dw WormwouldFrameset_69754 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $4a ; var1
 	db $1f ; var2
 	db $00 ; var3
@@ -1010,7 +1010,7 @@ ObjParams_YellowBellyArrowLeft:
 	db -10, -4, -3, 2 ; collision box
 	dw YellowBellyOAM_1926dc ; OAM
 	dw YellowBellyFrameset_69870 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $1 ; var2
 	db $00 ; var3
@@ -1027,7 +1027,7 @@ ObjParams_YellowBellyArrowRight:
 	db -10, -4, -3, 2 ; collision box
 	dw YellowBellyOAM_1926dc ; OAM
 	dw YellowBellyFrameset_69875 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $1 ; var2
 	db $00 ; var3
@@ -1044,7 +1044,7 @@ ObjParams_Dragonfly1:
 	db -9, -7, -7, 6 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_699d0 ; frameset
-	db 36 ; action duration
+	db 36 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1061,7 +1061,7 @@ ObjParams_Fly:
 	db -12, 12, -6, 5 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_699e4 ; frameset
-	db 40 ; action duration
+	db 40 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1078,7 +1078,7 @@ ObjParams_Tadpole:
 	db -12, -4, -5, 4 ; collision box
 	dw TadpoleOAM_18a642 ; OAM
 	dw TadpoleFrameset_69a33 ; frameset
-	db 28 ; action duration
+	db 28 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1095,7 +1095,7 @@ ObjParams_InkLeft:
 	db -13, -3, -3, 2 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69ae3 ; frameset
-	db 20 ; action duration
+	db 20 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1112,7 +1112,7 @@ ObjParams_InkRight:
 	db -13, -3, -3, 2 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69ae3 ; frameset
-	db 20 ; action duration
+	db 20 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1129,7 +1129,7 @@ ObjParams_FloatingRing:
 	db -1, 4, -5, 4 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69b0d ; frameset
-	db 140 ; action duration
+	db 140 ; state duration
 	db $00 ; var1
 	db $14 ; var2
 	db $00 ; var3
@@ -1146,7 +1146,7 @@ ObjParams_Skull1:
 	db -8, 7, -4, 3 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69c69 ; frameset
-	db 60 ; action duration
+	db 60 ; state duration
 	db $64 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1163,7 +1163,7 @@ ObjParams_Skull2:
 	db -8, 7, -4, 3 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69c69 ; frameset
-	db 60 ; action duration
+	db 60 ; state duration
 	db $78 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1180,7 +1180,7 @@ ObjParams_Skull3:
 	db -8, 7, -4, 3 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69cc5 ; frameset
-	db 60 ; action duration
+	db 60 ; state duration
 	db $8c ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1197,7 +1197,7 @@ ObjParams_Skull4:
 	db -8, 7, -4, 3 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69cc5 ; frameset
-	db 60 ; action duration
+	db 60 ; state duration
 	db $a0 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1214,7 +1214,7 @@ ObjParams_JamanoHat:
 	db -4, 0, -6, 5 ; collision box
 	dw JamanoOAM_19501c ; OAM
 	dw JamanoFrameset_69cef ; frameset
-	db 40 ; action duration
+	db 40 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1231,7 +1231,7 @@ ObjParams_MagicSpiralLeft:
 	db -4, 3, -4, 3 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e30 ; frameset
-	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
+	db MAGIC_SPIRAL_MOVE_DELAY ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1248,7 +1248,7 @@ ObjParams_MagicSpiralRight:
 	db -4, 3, -4, 3 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e30 ; frameset
-	db MAGIC_SPIRAL_MOVE_DELAY ; action duration
+	db MAGIC_SPIRAL_MOVE_DELAY ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1265,7 +1265,7 @@ ObjParams_IgaguriLeft:
 	db -16, -4, -5, 4 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e7b ; frameset
-	db 62 ; action duration
+	db 62 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1282,7 +1282,7 @@ ObjParams_IgaguriRight:
 	db -16, -4, -5, 4 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e7b ; frameset
-	db 62 ; action duration
+	db 62 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1299,7 +1299,7 @@ ObjParams_HiddenFigureFace:
 	db -24, -19, -4, 3 ; collision box
 	dw HiddenFigureOAM_18c88a ; OAM
 	dw HiddenFigureFrameset_6a06c ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1316,7 +1316,7 @@ ObjParams_HiddenFigureLeftHand:
 	db -24, -8, -8, 7 ; collision box
 	dw HiddenFigureOAM_18c88a ; OAM
 	dw HiddenFigureFrameset_6a128 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1333,7 +1333,7 @@ ObjParams_HiddenFigureRightHand:
 	db -24, -8, -8, 7 ; collision box
 	dw HiddenFigureOAM_18c88a ; OAM
 	dw HiddenFigureFrameset_6a131 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1350,7 +1350,7 @@ ObjParams_Omodon2:
 	db -16, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1367,7 +1367,7 @@ ObjParams_Omodon1:
 	db -26, 11, -17, 0 ; collision box
 	dw OmodonmekaOAM_18154f ; OAM
 	dw OmodonmekaFrameset_68f50 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1384,7 +1384,7 @@ ObjParams_DollBoyHammerStarsLeft:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
-	db 25 ; action duration
+	db 25 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1401,7 +1401,7 @@ ObjParams_DollBoyHammerStarsRight:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
-	db 25 ; action duration
+	db 25 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1416,7 +1416,7 @@ ObjParams_Coin:
 	db -12, 0, -4, 3
 	dw CoinOAM_180003 ; OAM
 	db 1, 8 ; frameset
-	db 4 ; action duration
+	db 4 ; state duration
 	db $00 ; var1
 	db $02 ; var2
 	db $00 ; var3
@@ -1431,7 +1431,7 @@ ObjParams_ColourCoin:
 	db -12, 0, -4, 3
 	dw CoinOAM_180003 ; OAM
 	db 1, 8 ; frameset
-	db 4 ; action duration
+	db 4 ; state duration
 	db $00 ; var1
 	db $02 ; var2
 	db $00 ; var3
@@ -1446,7 +1446,7 @@ ObjParams_TorchEmberLeft1:
 	db -12, -3, -5, 3 ; collision box
 	dw TorchOAM_180838 ; OAM
 	dw TorchFrameset_68354 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1461,7 +1461,7 @@ ObjParams_TorchEmberRight1:
 	db -12, -3, -5, 3 ; collision box
 	dw TorchOAM_180838 ; OAM
 	dw TorchFrameset_68354 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1476,7 +1476,7 @@ ObjParams_TorchEmberLeft2:
 	db -12, -3, -5, 3 ; collision box
 	dw TorchOAM_180838 ; OAM
 	dw TorchFrameset_68354 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1491,7 +1491,7 @@ ObjParams_TorchEmberRight2:
 	db -12, -3, -5, 3 ; collision box
 	dw TorchOAM_180838 ; OAM
 	dw TorchFrameset_68354 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1506,7 +1506,7 @@ ObjParams_ElectricLampSpark:
 	db -6, -5, -4, 3 ; collision box
 	dw ElectricLampOAM_184eeb ; OAM
 	dw ElectricLampFrameset_68c97 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1521,7 +1521,7 @@ ObjParams_Bubble:
 	db -24, -7, -9, 8 ; collision box
 	dw BubbleOAM_185b98 ; OAM
 	dw BubbleFrameset_69105 ; frameset
-	db 32 ; action duration
+	db 32 ; state duration
 	db $30 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1536,7 +1536,7 @@ ObjParams_FallingSnow:
 	db -15, -8, -5, 4 ; collision box
 	dw FallingSnowOAM_1893fe ; OAM
 	dw FallingSnowFrameset_6957e ; frameset
-	db 80 ; action duration
+	db 80 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1551,7 +1551,7 @@ ObjParams_StarsAbove:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680c5 ; frameset
-	db 33 ; action duration
+	db 33 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1566,7 +1566,7 @@ ObjParams_YellowBellyHead:
 	db -10, -6, -4, 3 ; collision box
 	dw YellowBellyOAM_1926dc ; OAM
 	dw YellowBellyFrameset_6987a ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1581,7 +1581,7 @@ ObjParams_Pump:
 	db -13, -1, -6, 5 ; collision box
 	dw YellowBellyOAM_1926dc ; OAM
 	dw YellowBellyFrameset_6987a ; frameset
-	db 16 ; action duration
+	db 16 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1596,7 +1596,7 @@ ObjParams_Cheese:
 	db -12, -5, -6, 5 ; collision box
 	dw PesceOAM_1927d5 ; OAM
 	dw PesceFrameset_69a00 ; frameset
-	db 48 ; action duration
+	db 48 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1611,7 +1611,7 @@ ObjParams_ScrowlerTentacleRight:
 	db -10, -2, -3, 2 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69af5 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1626,7 +1626,7 @@ ObjParams_ScrowlerTentacleLeft:
 	db -10, -2, -3, 2 ; collision box
 	dw ScowlerOAM_194895 ; OAM
 	dw ScowlerFrameset_69af5 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1641,7 +1641,7 @@ ObjParams_MuddeeStinger1:
 	db -12, 0, -4, 3 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw MuddeeStingerFrameset_68072 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1656,7 +1656,7 @@ ObjParams_MuddeeStinger2:
 	db -12, 0, -4, 3 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw MuddeeStingerFrameset_68072 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1671,7 +1671,7 @@ ObjParams_Kuri:
 	db -12, 0, -5, 4 ; collision box
 	dw WolfenbossOAM_195e06 ; OAM
 	dw WolfenbossFrameset_69e50 ; frameset
-	db 0 ; action duration
+	db 0 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
@@ -1686,7 +1686,7 @@ ObjParams_StarsCentre:
 	db 0, 0, 0, 0 ; collision box
 	dw ChestsOAM_18c000 ; OAM
 	dw StarsFrameset_680a5 ; frameset
-	db 25 ; action duration
+	db 25 ; state duration
 	db $00 ; var1
 	db $00 ; var2
 	db $00 ; var3
