@@ -3536,7 +3536,7 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.looking_right`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.look_center_from_left`)
 - `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.start_swim`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.asm_b6675`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.asm_b6696`)
 - `SFX_088`: level/objects/omodonmeka.asm:361 (`OmodonmekaFunc.asm_423b8`)
-- `SFX_08D`: level/objects/shoot.asm:630 (`ShootFunc.MoveLeftOrRight`), level/objects/shoot.asm:639 (`ShootFunc.moving_right`), level/objects/octohon.asm:270 (`BigOctohonFunc.asm_4a6f3`), overworld/bank27.asm:5490 (`Cutscene44Func.WaitThenPlaySFX08D`)
+- `SFX_08D`: level/objects/shoot.asm:630 (`ShootFunc.MoveLeftOrRight`), level/objects/shoot.asm:639 (`ShootFunc.moving_right`), level/objects/octohon.asm:270 (`BigOctohonFunc.set_hit_wario`), overworld/bank27.asm:5490 (`Cutscene44Func.WaitThenPlaySFX08D`)
 - `SFX_08F`: level/objects/big_leaf.asm:208 (`BigLeaf2Func.check_water`), overworld/bank27.asm:7460 (`UpdateCutsceneLevelObj_FeedOctohon.PlaySFX08FEvery40Frames`)
 - `SFX_0A2`: level/objects/doll_boy.asm:229 (`DollBoyFunc.spawn_hammer`), level/objects/doll_boy.asm:623 (`DollBoyFunc.handle_walk_movement`)
 - `SFX_0A6`: level/objects/wormwould.asm:212 (`WormwouldFunc.after_attack`)
