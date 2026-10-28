@@ -70,13 +70,13 @@ MapSide_Init:
 MapSide_DayNightTransition:
 	ld a, [wDayNight]
 	bit 7, a
-	jr nz, .asm_80f1f
+	jr nz, .transition
 	call PlayOverworldMusic
 	call UpdateOWObjsAndWario
 	ld hl, wOWStep
 	inc [hl]
 	ret
-.asm_80f1f
+.transition
 	farcall DayNightTransition
 	call UpdateOWObjsAndWario
 	ld a, [wOWPalTransitionState]
@@ -177,11 +177,11 @@ MapSide_FadeInLevelName:
 	call UpdateOWObjsAndWario
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
-	jr nc, .asm_80ff2
+	jr nc, .next_step
 	farcall FadeInLevelName
 	srl c
 	ret c
-.asm_80ff2
+.next_step
 	ld hl, wOWStep
 	inc [hl]
 	ret
@@ -194,15 +194,15 @@ MapSide_Idle:
 	jr nz, UpdateOWObjsAndWario
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
-	jr nz, .asm_81016
+	jr nz, .check_other_input
 	ld a, [wJoypadPressed]
 	bit B_PAD_SELECT, a
-	jr z, .asm_81016
+	jr z, .check_other_input
 	ld hl, wOWBarsState
 	inc [hl]
 	jr UpdateOWObjsAndWario
 
-.asm_81016
+.check_other_input
 	call HandlePathPreview
 	ld a, [wPathPreviewState]
 	and a
@@ -252,11 +252,11 @@ HandleTempleHintInput:
 	ret z
 	ld a, [wNextTreasure]
 	cp TREASURES_END
-	jr nz, .asm_81092
+	jr nz, .show_hint
 	ld a, [wGameModeFlags]
 	bit MODE_GAME_CLEARED_F, a
 	ret nz
-.asm_81092
+.show_hint
 	call ClearUnused_2d0c0
 	ld a, OWWARIO_UP
 	call SetOWWarioOAM
@@ -387,16 +387,16 @@ SetNextPathWaypoint:
 SetOWWarioWalkDirection:
 	ld hl, wOWLineFlags
 	bit 0, [hl]
-	jr nz, .asm_81151
+	jr nz, .horizontal
 	ld a, $40
 	bit 1, [hl]
-	jr z, .asm_81157
+	jr z, .rotate_dir
 	jr .done
-.asm_81151
+.horizontal
 	ld a, $10
 	bit 2, [hl]
 	jr z, .done
-.asm_81157
+.rotate_dir
 	rlca
 .done
 	ld [wLevelArrowDirections1], a
@@ -406,19 +406,19 @@ MapSide_Walk:
 	call StepOWLineMovement
 	ld hl, wOWWarioRunCounter
 	bit 7, [hl]
-	jr nz, .asm_81177
+	jr nz, .run_step
 
 	ld a, [wJoypadDown]
 	and PAD_CTRL_PAD
-	jr z, .asm_81175
+	jr z, .check_running
 	inc [hl]
 	ld a, [hl]
 	cp $06
-	jr c, .asm_81175
+	jr c, .check_running
 	set 7, [hl]
-.asm_81175
+.check_running
 	bit 7, [hl]
-.asm_81177
+.run_step
 	call nz, StepOWLineMovement
 
 	ld a, [wOWYCoord1]
@@ -427,27 +427,27 @@ MapSide_Walk:
 	ld [wOWWarioXCoord], a
 	ld a, [wOWLineStepsLeft]
 	and a
-	jr nz, .asm_8119c
+	jr nz, .update_objs
 	ld bc, wOWPathShape
 	call SetNextPathWaypoint
 	cp $ff
-	jr z, .asm_811a0
+	jr z, .path_done
 	call InitOWLineMovement
 	call SetOWWarioWalkDirection
-.asm_8119c
+.update_objs
 	call UpdateOWObjsAndWario
 	ret
 
-.asm_811a0
+.path_done
 	ld a, [wTargetMapSideLevelID]
 	ld [wMapSideLevelID], a
 	cp OW_EXITS
-	jr nc, .asm_811b1
+	jr nc, .walked_to_exit
 	ld a, $02
 	ld [wOWStep], a
-	jr .asm_8119c
+	jr .update_objs
 
-.asm_811b1
+.walked_to_exit
 	stop_music2
 	play_sfx SFX_PAGE_TURN
 
@@ -455,12 +455,12 @@ MapSide_Walk:
 	ld [wOWStepCounter], a
 	ld hl, wOWStep
 	inc [hl]
-	jr .asm_8119c
+	jr .update_objs
 
 MapSide_WalkOffEdge:
 	ld a, [wOWStepCounter]
 	cp $02
-	jr c, .asm_811fc
+	jr c, .update_objs
 	xor a
 	ld [hl], a
 	ld a, [wMapSideLevelID]
@@ -478,10 +478,10 @@ MapSide_WalkOffEdge:
 	add b
 	ld [wOWWarioXCoord], a
 	cp c
-	jr nz, .asm_811fc
+	jr nz, .update_objs
 	ld hl, wOWStep
 	inc [hl]
-.asm_811fc
+.update_objs
 	call UpdateOWObjsAndWario
 	ret
 
@@ -506,15 +506,15 @@ MapSide_ChangeSide:
 	ld [wTargetMapSideLevelID], a
 	ld a, [wNextMapSide]
 	bit 1, a
-	jr nz, .asm_81234 ; south or east?
+	jr nz, .map_side ; south or east?
 	add b
 	bit 1, a
-	jr nz, .asm_8123a
-.asm_81234
+	jr nz, .golf_building
+.map_side
 	ld a, SST_OVERWORLD_MAP_SIDE
 	ld [wSubState], a
 	ret
-.asm_8123a
+.golf_building
 	ld a, SST_OVERWORLD_TO_GOLF_BUILDING
 	ld [wSubState], a
 	ret
@@ -789,13 +789,13 @@ TempleHint_FadeInName:
 TempleHint_WaitInput:
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_RIGHT | PAD_LEFT | PAD_DOWN
-	jr nz, .asm_81423
+	jr nz, .close_hint
 	ld hl, wSceneObj13State
 	ld a, [hl]
 	and a
 	jp z, AdvanceTempleHint
 	ret
-.asm_81423
+.close_hint
 	xor a
 	ld hl, wSceneObj13State
 	call SetSceneObjState
@@ -842,7 +842,7 @@ UnreferencedPathPreviewFromLevel:
 HandlePathPreview:
 	ld a, [wJoypadDown]
 	bit B_PAD_B, a
-	jr z, .asm_8148e
+	jr z, .no_b_btn
 	ld hl, wPathPreviewCounter
 	inc [hl]
 	ld a, [wPathPreviewState]
@@ -852,7 +852,7 @@ HandlePathPreview:
 	dw PathPreview_InitTracers
 	dw PathPreview_RunTracers
 
-.asm_8148e
+.no_b_btn
 	ld a, [wPathPreviewState]
 	and a
 	ret z
@@ -1072,20 +1072,20 @@ PathPreview_RunTracers:
 	ld a, [wCurOWPathTracerIndex]
 	inc a
 	bit 1, a
-	jr z, .asm_81639
+	jr z, .got_offset_sign
 	ld b, $f8
-.asm_81639
+.got_offset_sign
 	cp $03
-	jr nc, .asm_81642
+	jr nc, .offset_y
 	ld a, e
 	add b
 	ld e, a
-	jr .asm_81645
-.asm_81642
+	jr .set_tracer_pos
+.offset_y
 	ld a, d
 	add b
 	ld d, a
-.asm_81645
+.set_tracer_pos
 	ld a, d
 	ld [wCurOWPathTracerYCoord], a
 	ld [wOWYCoord1], a
@@ -1106,14 +1106,14 @@ PathPreview_RunTracers:
 	ld c, a
 	ld a, [wOWAllowedDPadInput]
 	swap a
-.asm_81670
+.loop_shift_dpad
 	rrca
 	dec b
-	jr nz, .asm_81670
+	jr nz, .loop_shift_dpad
 	ld a, $00
-	jr nc, .asm_81679
+	jr nc, .set_allowed
 	ld a, c
-.asm_81679
+.set_allowed
 	ld [hl], a
 .next_tracer_state
 	ld hl, wCurOWPathTracerTracerState
@@ -1123,7 +1123,7 @@ PathPreview_RunTracers:
 .TracerGetTarget:
 	ld a, [wCurOWPathTracerSpriteState]
 	and a
-	jr z, .asm_816ad
+	jr z, .tracer_done
 	ld hl, wPathPreviewPathsPtr
 	ld a, [hli]
 	ld h, [hl]
@@ -1139,14 +1139,14 @@ PathPreview_RunTracers:
 	ld [wOWPathShape], a
 	ld a, b
 	cp $80
-	jr z, .asm_816ad
+	jr z, .tracer_done
 	call GetMapLevelCoords
 	ld a, [hli]
 	ld [wOWPathTargetYCoord], a
 	ld a, [hl]
 	ld [wOWPathTargetXCoord], a
 	jr .next_tracer_state
-.asm_816ad
+.tracer_done
 	ld a, $05
 	ld [wCurOWPathTracerTracerState], a
 	ret
@@ -1169,11 +1169,11 @@ PathPreview_RunTracers:
 	ld bc, wOWPathShape
 	call SetNextPathWaypoint
 	cp $ff
-	jr z, .asm_816e3
+	jr z, .end_of_path
 	call InitOWLineMovement
 	call .set_tracer_sprite
 	ret
-.asm_816e3
+.end_of_path
 	xor a
 	ld [wCurOWPathTracerCounter], a
 	jp .next_tracer_state
@@ -1192,18 +1192,18 @@ PathPreview_RunTracers:
 .set_tracer_sprite:
 	ld hl, wOWLineFlags
 	bit 0, [hl]
-	jr nz, .asm_81705
+	jr nz, .horizontal
 	ld a, $03
 	bit 1, [hl]
-	jr z, .asm_8170b
-	jr .asm_8170c
-.asm_81705
+	jr z, .inc_sprite_state
+	jr .set_sprite_state
+.horizontal
 	ld a, $01
 	bit 2, [hl]
-	jr z, .asm_8170c
-.asm_8170b
+	jr z, .set_sprite_state
+.inc_sprite_state
 	inc a
-.asm_8170c
+.set_sprite_state
 	ld hl, wCurOWPathTracerSpriteState
 	ld [hld], a
 	xor a
@@ -1308,13 +1308,13 @@ UnreferencedSetLastEventCutsceneSelectable:
 	ld [wCheckedEvent], a
 	call CheckIfEventIsUnlocked
 	ld a, [wCheckedEvent]
-	jr z, .asm_817cb
+	jr z, .got_event
 	inc a
 	ld b, EVENT_BLUE_CRAYON
 	cp b
 	jr c, .loop
 	ld a, b
-.asm_817cb
+.got_event
 	dec a
 	call LoadEventTreasures
 	ld a, [wEventTreasure1]
@@ -1423,9 +1423,9 @@ GetNextTreasureToCollect:
 	cp TRANSITION_GAME_OVER
 	ret z
 	inc a
-	jr z, .asm_8186d ; == TRANSITION_NEW_GAME
+	jr z, .check_collected ; == TRANSITION_NEW_GAME
 	dec a
-.asm_8186d
+.check_collected
 	cp [hl]
 	ret nz
 .collected
@@ -1534,12 +1534,12 @@ RunOWScene_NextParams:
 	ld b, a
 	ld a, [wOWSceneMapSide]
 	cp b
-	jr nz, .asm_81923
+	jr nz, .other_map_side
 	xor a
 	ld [wOWStepCounter], a
 	ld [wOWStep], a
 	ret
-.asm_81923
+.other_map_side
 	stop_sfx
 	ld a, SST_OVERWORLD_FADE_TO_OW_SCENE
 	ld [wSubState], a
@@ -2716,11 +2716,11 @@ InitOWScenesForMapSide:
 	ld c, a
 	dec c
 	and a
-	jr z, .asm_81de1
+	jr z, .set_last_transition
 	cp TRANSITION_NEW_GAME
 	jr nz, .loop_cutscenes
 	ld c, $00
-.asm_81de1
+.set_last_transition
 	ld a, c
 	ld [wLastTransitionParam], a
 
@@ -2731,12 +2731,12 @@ InitOWScenesForMapSide:
 	call CheckIfEventIsUnlocked
 	ld [wEventUnlockState], a
 	and a
-	jr z, .asm_81dfd
+	jr z, .prepare_scene
 	dec c
-	jr z, .asm_81dfd
+	jr z, .prepare_scene
 	ld a, $80
 	ld [wEventUnlockState], a
-.asm_81dfd
+.prepare_scene
 	call .PrepareScene
 	ld a, [wTempEvent]
 	inc a
@@ -2979,9 +2979,9 @@ GetUnlockedLevelArrows:
 	ld [wLevelArrowDirections2], a
 	cp $ff
 	ld a, [hl]
-	jr nz, .asm_81fb4
+	jr nz, .set_num_arrows
 	xor a
-.asm_81fb4
+.set_num_arrows
 	ld [wNumLevelArrows2], a
 	ret
 
@@ -3083,7 +3083,7 @@ UpdateOWWario:
 	ld c, a
 	ld a, [wTargetMapSideLevelID]
 	cp c
-	jr z, .asm_82064
+	jr z, .reset_sfx_counter
 	ld hl, wOWWalkSFXCounter
 	ld a, [hl]
 	and a
@@ -3092,17 +3092,17 @@ UpdateOWWario:
 	ld a, [wOWWarioRunCounter]
 	rlca
 	ld c, $24
-	jr nc, .asm_82060
+	jr nc, .check_sfx_counter
 	srl c
 	srl c
-.asm_82060
+.check_sfx_counter
 	ld a, [hl]
 	cp c
-	jr c, .asm_82068
-.asm_82064
+	jr c, .check_direction
+.reset_sfx_counter
 	xor a
 	ld [wOWWalkSFXCounter], a
-.asm_82068
+.check_direction
 	ld a, [wOWWarioLastDir]
 	ld b, a
 	ld a, [wLevelArrowDirections1]
@@ -3111,15 +3111,15 @@ UpdateOWWario:
 	ld [wOWWarioLastDir], a
 	ld c, OWWARIO_UP
 	bit 6, a
-	jr nz, .asm_82089
+	jr nz, .set_oam
 	ld c, OWWARIO_RIGHT
 	bit 4, a
-	jr nz, .asm_82089
+	jr nz, .set_oam
 	ld c, OWWARIO_LEFT
 	bit 5, a
-	jr nz, .asm_82089
+	jr nz, .set_oam
 	ld c, OWWARIO_DOWN
-.asm_82089
+.set_oam
 	ld a, c
 	call SetOWWarioOAM
 ;	fallthrough
@@ -3188,18 +3188,18 @@ SetPathFromArrowDirection:
 	ld a, [wLevelArrowDirections1]
 	swap a
 	rrca
-	jr c, .asm_82100 ; right
+	jr c, .got_direction ; right
 	inc hl
 	rrca
-	jr c, .asm_82100 ; left
+	jr c, .got_direction ; left
 	inc hl
 	rrca
-	jr c, .asm_82100 ; up
+	jr c, .got_direction ; up
 	inc hl
 	rrca
-	jr c, .asm_82100 ; down
+	jr c, .got_direction ; down
 	debug_nop
-.asm_82100
+.got_direction
 	ld a, [hl]
 	ld [wTargetMapSideLevelID], a
 	ld de, $4
@@ -3213,11 +3213,11 @@ SetPathFromArrowDirection:
 GetCurLevelPathsPtr:
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
-	jr c, .asm_8211f
+	jr c, .level
 	sub OW_EXIT_RIGHT
 	ld hl, OWExitPaths
 	jr .got_table
-.asm_8211f
+.level
 	ld hl, OWLevelPaths
 .got_table
 	add a
@@ -3334,10 +3334,10 @@ InitOWLineMovement:
 	ld hl, wOWYDistance
 	ld a, [hli]
 	cp [hl] ; wOWXDistance
-	jr nc, .asm_821cf
+	jr nc, .got_major_axis
 	ld a, [hld] ; wOWXDistance
 	set 0, b
-.asm_821cf
+.got_major_axis
 	; a  = max(wOWYDistance, wOWXDistance)
 	; hl = min(wOWYDistance, wOWXDistance)
 	ld [wOWLineStepsLeft], a
@@ -3351,13 +3351,13 @@ InitOWLineMovement:
 	lb de, 1, 1
 	ld hl, wOWLineFlags
 	bit 1, [hl]
-	jr z, .asm_821ec
+	jr z, .got_y_step
 	ld d, -1
-.asm_821ec
+.got_y_step
 	bit 2, [hl]
-	jr z, .asm_821f2
+	jr z, .got_x_step
 	ld e, -1
-.asm_821f2
+.got_x_step
 	ld hl, wOWLineYStep
 	ld [hl], d
 	inc l
@@ -3405,17 +3405,17 @@ StepOWLineMovement:
 	ld a, [wOWLineFlags]
 	and $1
 	xor $1
-	jr .asm_82234
+	jr .step_axis
 .step_major_axis:
 	ld a, [wOWLineFlags]
 	and $1
-.asm_82234
+.step_axis
 	ld hl, wOWYCoord1
 	ld de, wOWLineYStep
-	jr z, .asm_8223e
+	jr z, .got_axis
 	inc e
 	inc l
-.asm_8223e
+.got_axis
 	ld a, [de]
 	add [hl]
 	ld [hl], a
@@ -4248,7 +4248,7 @@ HandleBottomBar:
 	ld c, a
 	ld a, [wTargetMapSideLevelID]
 	cp c
-	jr nz, .asm_82788
+	jr nz, .walking
 	ld a, [wBottomBarAction]
 	cp BOTBAR_CLOSING
 	jp z, .CloseBottomBar
@@ -4263,7 +4263,7 @@ HandleBottomBar:
 	jr z, .HandleClosedBottomBar
 	ret
 
-.asm_82788
+.walking
 	xor a
 	ld [wUnused_2d096], a
 	ld a, [wBottomBarAction]
@@ -4589,11 +4589,11 @@ DrawBottomBarButtonPrompt:
 	ld b, $04
 	ld a, [wOWLevel]
 	add a
-	jr nz, .asm_8296c
+	jr nz, .valid_level
 	; wOWLevel == $00 or $80
 	ld b, $06
 	jr .got_tile
-.asm_8296c
+.valid_level
 	ld a, [wBottomBarFlags]
 	bit 4, a
 	jr z, .got_tile
@@ -4756,11 +4756,11 @@ UnlockLevel_GetArrows:
 UnlockLevel_WaitHighlight:
 	ld a, [wHighlightOWTile]
 	and a
-	jr z, .asm_82aa6
+	jr z, .wait
 	xor a
 	ld [wOWFuncCounter], a
 	ret
-.asm_82aa6
+.wait
 	ld a, [wOWFuncCounter]
 	cp 4
 	ret c
@@ -4868,11 +4868,11 @@ ShowLevelArrowInOW:
 UnlockLevel_WaitHighlight30:
 	ld a, [wHighlightOWTile]
 	and a
-	jr z, .asm_82b72
+	jr z, .wait
 	xor a
 	ld [wOWFuncCounter], a
 	ret
-.asm_82b72
+.wait
 	ld a, [wOWFuncCounter]
 	cp 30
 	ret c
@@ -4881,11 +4881,11 @@ UnlockLevel_WaitHighlight30:
 UnlockLevel_ShowStar:
 	ld a, [wOWFuncCounter]
 	cp $01
-	jr z, .asm_82b88
+	jr z, .spawn_star
 	cp $40
 	ret c
 	jp AdvanceOWFunc_UnlockLevel
-.asm_82b88
+.spawn_star
 	ld a, [wLevel2]
 	cp OW_EXITS
 	jp nc, AdvanceOWFunc_UnlockLevel
@@ -4937,13 +4937,13 @@ DrawHighlightLevelStar:
 	call UpdateOWAnimation
 	ld a, [wOWAnimationFinished]
 	cp $ff
-	jr z, .asm_82c03
+	jr z, .finished
 	ld hl, wCurSceneObj
 	ld de, LevelStarOAM_aa445
 	ld b, BANK(LevelStarOAM_aa445)
 	call LoadOWSpriteWithScroll
 	ret
-.asm_82c03
+.finished
 	ld hl, wCurSceneObjState
 	xor a
 	ld [hl], a
@@ -5012,27 +5012,27 @@ HighlightLevel:
 	ld [wLevel2], a
 	ld a, [wCurEvent]
 	cp EVENT_GOLD_MUSIC_BOX
-	jr z, .asm_82c71
+	jr z, .gold_music_box
 	cp EVENT_SUPER_GRAB_GLOVES
-	jr z, .asm_82c78
-.asm_82c6e
+	jr z, .super_grab_gloves
+.next
 	jp AdvanceOWFunc_Bank20
 
-.asm_82c71
+.gold_music_box
 	ld a, $07
 	ld [wOWSceneActionParam], a
-	jr .asm_82c6e
+	jr .next
 
-.asm_82c78
+.super_grab_gloves
 	ld a, [wCurMapSide]
 	cp EAST
-	jr nz, .asm_82c6e
+	jr nz, .next
 	ld a, [wOWSceneActionParam]
 	cp $07
-	jr nz, .asm_82c6e
+	jr nz, .next
 	ld a, MYSTERY_HANDLE
 	call IsTreasureCollected
-	jr nz, .asm_82c6e
+	jr nz, .next
 	jr EndOWFunc_Bank20
 
 .Wait12:
