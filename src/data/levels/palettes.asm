@@ -1,4 +1,4 @@
-RoomPals000:
+RoomPals_OutOfTheWoods1:
 	rgb 27, 31, 27
 	rgb  0, 19,  0
 	rgb  0, 10,  0
@@ -39,7 +39,7 @@ RoomPals000:
 	rgb 13,  2,  0
 	rgb  0,  0,  0
 
-RoomPals001:
+RoomPals_OutOfTheWoods7:
 	rgb 14, 13, 28
 	rgb  0,  9, 14
 	rgb  0,  4,  8
@@ -80,7 +80,7 @@ RoomPals001:
 	rgb  8,  1,  8
 	rgb  0,  0,  0
 
-RoomPals002:
+RoomPals_OutOfTheWoods2:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -121,7 +121,7 @@ RoomPals002:
 	rgb  8,  4,  2
 	rgb  2,  0,  0
 
-RoomPals003:
+RoomPals_OutOfTheWoods3:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -162,7 +162,7 @@ RoomPals003:
 	rgb  6,  2,  0
 	rgb  2,  0,  0
 
-RoomPals004:
+RoomPals_OutOfTheWoods6:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb  9,  9,  9
@@ -203,7 +203,7 @@ RoomPals004:
 	rgb 11,  4,  0
 	rgb  5,  0,  0
 
-RoomPals005:
+RoomPals_OutOfTheWoods8:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb  9,  9,  9
@@ -244,7 +244,7 @@ RoomPals005:
 	rgb  7,  1,  7
 	rgb  0,  0,  0
 
-RoomPals006:
+RoomPals_Shared1:
 	rgb 10,  7, 17
 	rgb 17, 14, 25
 	rgb  7,  4, 13
@@ -285,7 +285,7 @@ RoomPals006:
 	rgb 11,  6,  0
 	rgb  2,  0,  0
 
-RoomPals007:
+RoomPals_Shared2:
 	rgb  7,  5, 14
 	rgb 13, 11, 22
 	rgb  4,  1, 11
@@ -326,7 +326,7 @@ RoomPals007:
 	rgb  7,  2,  0
 	rgb  1,  0,  0
 
-RoomPals008:
+RoomPals_ThePeacefulVillage1:
 	rgb 24, 27, 31
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -367,7 +367,7 @@ RoomPals008:
 	rgb 11,  6,  0
 	rgb  0,  0,  0
 
-RoomPals009:
+RoomPals_ThePeacefulVillage2:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -408,7 +408,7 @@ RoomPals009:
 	rgb  5,  8, 23
 	rgb 24, 27, 31
 
-RoomPals010:
+RoomPals_ThePeacefulVillage5:
 	rgb 17, 19, 21
 	rgb  9, 10, 12
 	rgb  4,  5,  8
@@ -449,7 +449,7 @@ RoomPals010:
 	rgb  4,  5, 11
 	rgb  0,  1, 10
 
-RoomPals011:
+RoomPals_ThePeacefulVillage3:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -490,7 +490,7 @@ RoomPals011:
 	rgb  7,  8,  9
 	rgb  0,  0,  0
 
-RoomPals012:
+RoomPals_TheVastPlain1:
 	rgb 17, 14,  3
 	rgb 13, 10,  0
 	rgb 10,  7,  0
@@ -531,7 +531,7 @@ RoomPals012:
 	rgb  9,  0,  0
 	rgb  0,  0,  0
 
-RoomPals013:
+RoomPals_ThePeacefulVillage4:
 	rgb 10, 11, 25
 	rgb  5,  7, 14
 	rgb  0,  3,  9
@@ -572,7 +572,7 @@ RoomPals013:
 	rgb  6,  4,  8
 	rgb 29, 25,  9
 
-RoomPals014:
+RoomPals_BankOfTheWildRiver1:
 	rgb 27, 29, 31
 	rgb 21, 24, 25
 	rgb 16, 21, 22
@@ -613,7 +613,7 @@ RoomPals014:
 	rgb  4,  9,  0
 	rgb  3,  0,  0
 
-RoomPals015:
+RoomPals_Shared3:
 	rgb 28, 28, 28
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -654,7 +654,7 @@ RoomPals015:
 	rgb  0,  6,  5
 	rgb  2,  0,  0
 
-RoomPals016:
+RoomPals_TheTidalCoast1:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -695,7 +695,7 @@ RoomPals016:
 	rgb 13,  8,  3
 	rgb  3,  0,  0
 
-RoomPals017:
+RoomPals_Shared4:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -736,7 +736,7 @@ RoomPals017:
 	rgb  7,  0, 13
 	rgb  2,  0,  0
 
-RoomPals018:
+RoomPals_SeaTurtleRocks1:
 	rgb  4, 15, 31
 	rgb  3, 10, 22
 	rgb  3,  8, 16
@@ -777,7 +777,7 @@ RoomPals018:
 	rgb 11,  0,  6
 	rgb  2,  0,  0
 
-RoomPals019:
+RoomPals_DesertRuins1:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -818,7 +818,7 @@ RoomPals019:
 	rgb 13,  8,  3
 	rgb  3,  0,  0
 
-RoomPals020:
+RoomPals_DesertRuins2:
 	rgb 31, 31,  0
 	rgb  6,  6, 15
 	rgb 14, 13,  0
@@ -859,7 +859,7 @@ RoomPals020:
 	rgb  7,  4,  1
 	rgb  3,  0,  0
 
-RoomPals021:
+RoomPals_Shared5:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -900,7 +900,7 @@ RoomPals021:
 	rgb  3,  8,  0
 	rgb  2,  0,  0
 
-RoomPals022:
+RoomPals_ThePeacefulVillage6:
 	rgb 14, 16, 18
 	rgb  7,  8,  9
 	rgb  3,  4,  5
@@ -941,7 +941,7 @@ RoomPals022:
 	rgb  4,  5, 11
 	rgb  0,  1, 10
 
-RoomPals023::
+RoomPals_TheVolcanosBase1::
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -982,7 +982,7 @@ RoomPals023::
 	rgb  8,  6, 10
 	rgb  3,  0,  0
 
-RoomPals024:
+RoomPals_TheVolcanosBase2:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -1023,7 +1023,7 @@ RoomPals024:
 	rgb 10,  0,  0
 	rgb  3,  0,  0
 
-RoomPals025:
+RoomPals_ThePoolOfRain1:
 	rgb 28, 25, 19
 	rgb 22, 17,  9
 	rgb 17, 11,  3
@@ -1064,7 +1064,7 @@ RoomPals025:
 	rgb 12,  0,  0
 	rgb  0,  0,  0
 
-RoomPals026:
+RoomPals_ThePoolOfRain2:
 	rgb 28, 25, 19
 	rgb 22, 17,  9
 	rgb 17, 11,  3
@@ -1105,7 +1105,7 @@ RoomPals026:
 	rgb  2,  8,  2
 	rgb  0,  0,  0
 
-RoomPals027:
+RoomPals_ATownInChaos1:
 	rgb 15, 11,  1
 	rgb 23, 24, 28
 	rgb  7, 18, 28
@@ -1146,7 +1146,7 @@ RoomPals027:
 	rgb 13,  8,  0
 	rgb  2,  0,  0
 
-RoomPals028:
+RoomPals_ATownInChaos2:
 	rgb 26, 24, 20
 	rgb 31, 14, 14
 	rgb 24,  0,  0
@@ -1187,7 +1187,7 @@ RoomPals028:
 	rgb  7,  5, 11
 	rgb  0,  0,  0
 
-RoomPals029:
+RoomPals_ATownInChaos3:
 	rgb 19, 17, 13
 	rgb 26, 10, 10
 	rgb 20,  0,  0
@@ -1228,7 +1228,7 @@ RoomPals029:
 	rgb  6,  2, 10
 	rgb  0,  0,  0
 
-RoomPals030:
+RoomPals_BeneathTheWaves1:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb  7,  8,  9
@@ -1269,7 +1269,7 @@ RoomPals030:
 	rgb  3,  5, 11
 	rgb  0,  0,  0
 
-RoomPals031:
+RoomPals_TheGrasslands1:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1310,7 +1310,7 @@ RoomPals031:
 	rgb  0,  7,  4
 	rgb  0,  0,  0
 
-RoomPals032:
+RoomPals_TheBigBridge3:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1351,7 +1351,7 @@ RoomPals032:
 	rgb  5,  6,  2
 	rgb  0,  0,  0
 
-RoomPals033:
+RoomPals_TheBigBridge2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1392,7 +1392,7 @@ RoomPals033:
 	rgb  5,  6,  2
 	rgb  0,  0,  0
 
-RoomPals034:
+RoomPals_TowerOfRevival1:
 	rgb 22, 25, 29
 	rgb 10, 13, 17
 	rgb  2,  3, 23
@@ -1433,7 +1433,7 @@ RoomPals034:
 	rgb  5,  7,  7
 	rgb  0,  0,  0
 
-RoomPals035:
+RoomPals_TheSteepCanyon1:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1474,7 +1474,7 @@ RoomPals035:
 	rgb 10,  6,  0
 	rgb  0,  0,  0
 
-RoomPals036:
+RoomPals_AboveTheClouds1:
 	rgb 23, 24,  4
 	rgb 26, 28, 31
 	rgb 17, 18,  2
@@ -1515,7 +1515,7 @@ RoomPals036:
 	rgb 16, 17, 23
 	rgb  1,  3, 12
 
-RoomPals037:
+RoomPals_TheStagnantSwamp1:
 	rgb 26, 28, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1556,7 +1556,7 @@ RoomPals037:
 	rgb  7,  8,  0
 	rgb  0,  0,  0
 
-RoomPals038:
+RoomPals_DesertRuins4:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -1597,7 +1597,7 @@ RoomPals038:
 	rgb  6,  2,  5
 	rgb  3,  0,  0
 
-RoomPals039:
+RoomPals_TheFrigidSea1:
 	rgb 26, 28, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1638,7 +1638,7 @@ RoomPals039:
 	rgb  2,  6, 11
 	rgb  0,  0,  0
 
-RoomPals040:
+RoomPals_CastleOfIllusions1:
 	rgb 27, 29, 31
 	rgb 12, 16, 28
 	rgb  0,  6, 19
@@ -1679,7 +1679,7 @@ RoomPals040:
 	rgb  9,  7,  1
 	rgb  0,  0,  0
 
-RoomPals041:
+RoomPals_TheColossalHole1:
 	rgb 27, 26, 31
 	rgb 17, 16, 31
 	rgb  9,  8, 29
@@ -1720,7 +1720,7 @@ RoomPals041:
 	rgb  9,  3,  3
 	rgb  0,  0,  0
 
-RoomPals042:
+RoomPals_TheStagnantSwamp2:
 	rgb 26, 28, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1761,7 +1761,7 @@ RoomPals042:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-RoomPals043:
+RoomPals_TheWestCrater1:
 	rgb 18, 21, 25
 	rgb 10, 13, 17
 	rgb  3,  6,  9
@@ -1802,7 +1802,7 @@ RoomPals043:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-RoomPals044:
+RoomPals_TheWestCrater2:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -1843,7 +1843,7 @@ RoomPals044:
 	rgb 10,  4,  6
 	rgb  3,  0,  0
 
-RoomPals045:
+RoomPals_TowerOfRevival3:
 	rgb 22, 25, 29
 	rgb 10, 13, 17
 	rgb  2,  3, 23
@@ -1884,7 +1884,7 @@ RoomPals045:
 	rgb  2,  4,  4
 	rgb  0,  0,  0
 
-RoomPals046:
+RoomPals_SeaTurtleRocks2:
 	rgb  1, 11, 23
 	rgb  2,  8, 19
 	rgb  0,  6, 15
@@ -1925,7 +1925,7 @@ RoomPals046:
 	rgb 10,  0,  6
 	rgb  2,  0,  0
 
-RoomPals047:
+RoomPals_TheWarpedVoid1:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -1966,7 +1966,7 @@ RoomPals047:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals048:
+RoomPals_ForestOfFear1:
 	rgb 15, 16,  7
 	rgb 18, 24, 31
 	rgb  4, 12, 31
@@ -2007,7 +2007,7 @@ RoomPals048:
 	rgb  2,  6,  2
 	rgb  0,  0,  0
 
-RoomPals049:
+RoomPals_CaveOfFlames1:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -2048,7 +2048,7 @@ RoomPals049:
 	rgb 13,  3,  0
 	rgb  3,  0,  0
 
-RoomPals050:
+RoomPals_BeneathTheWaves2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb  7,  8,  9
@@ -2089,7 +2089,7 @@ RoomPals050:
 	rgb  3,  6, 11
 	rgb  0,  0,  0
 
-RoomPals051:
+RoomPals_BeneathTheWaves3:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb  7,  8,  9
@@ -2130,7 +2130,7 @@ RoomPals051:
 	rgb  2,  4,  9
 	rgb  0,  0,  0
 
-RoomPals052:
+RoomPals_CastleOfIllusions2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2171,7 +2171,7 @@ RoomPals052:
 	rgb  7,  1,  7
 	rgb  0,  0,  0
 
-RoomPals053:
+RoomPals_CastleOfIllusions3:
 	rgb 29, 30, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2212,7 +2212,7 @@ RoomPals053:
 	rgb  5,  7,  2
 	rgb  0,  0,  0
 
-RoomPals054:
+RoomPals_ATownInChaos4:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb  7,  8,  9
@@ -2253,7 +2253,7 @@ RoomPals054:
 	rgb  9,  4,  7
 	rgb  0,  0,  0
 
-RoomPals055:
+RoomPals_TheTemple:
 	rgb 19, 29, 31
 	rgb  7, 14, 21
 	rgb  0,  5, 12
@@ -2294,7 +2294,7 @@ RoomPals055:
 	rgb  7,  0,  0
 	rgb  0,  0,  0
 
-RoomPals056:
+RoomPals_TheVastPlain3:
 	rgb 12,  8, 15
 	rgb 10,  6, 11
 	rgb  7,  4,  9
@@ -2335,7 +2335,7 @@ RoomPals056:
 	rgb  5,  0,  9
 	rgb  0,  0,  0
 
-RoomPals057:
+RoomPals_TheVastPlain2:
 	rgb 10,  8,  0
 	rgb  9,  5,  0
 	rgb  6,  3,  0
@@ -2376,7 +2376,7 @@ RoomPals057:
 	rgb  6,  0,  0
 	rgb  0,  0,  0
 
-RoomPals058:
+RoomPals_DesertRuins3:
 	rgb 31, 18,  5
 	rgb  0, 10, 10
 	rgb 25,  0,  0
@@ -2417,7 +2417,7 @@ RoomPals058:
 	rgb  7,  4,  1
 	rgb  3,  0,  0
 
-RoomPals059:
+RoomPals_ATownInChaos5:
 	rgb 11,  7, 13
 	rgb 13, 16, 28
 	rgb  7, 11, 23
@@ -2458,7 +2458,7 @@ RoomPals059:
 	rgb  7,  3,  9
 	rgb  2,  0,  0
 
-RoomPals060:
+RoomPals_ATownInChaos6:
 	rgb 24, 22, 18
 	rgb 31, 14, 14
 	rgb 24,  0,  0
@@ -2499,7 +2499,7 @@ RoomPals060:
 	rgb  5,  3,  9
 	rgb  0,  0,  0
 
-RoomPals061:
+RoomPals_ATownInChaos7:
 	rgb 14, 12, 16
 	rgb 22,  5, 14
 	rgb 16,  0,  9
@@ -2540,7 +2540,7 @@ RoomPals061:
 	rgb  4,  0,  8
 	rgb  0,  0,  0
 
-RoomPals062:
+RoomPals_SeaTurtleRocks4:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -2581,7 +2581,7 @@ RoomPals062:
 	rgb  7,  0,  0
 	rgb  2,  0,  0
 
-RoomPals063:
+RoomPals_TheEastCrater1:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -2622,7 +2622,7 @@ RoomPals063:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-RoomPals064:
+RoomPals_TheEastCrater2:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -2663,7 +2663,7 @@ RoomPals064:
 	rgb 10,  4,  6
 	rgb  3,  0,  0
 
-RoomPals065:
+RoomPals_TowerOfRevival2:
 	rgb 26, 23,  6
 	rgb 18, 12,  0
 	rgb 23,  0,  0
@@ -2704,7 +2704,7 @@ RoomPals065:
 	rgb  5,  7,  7
 	rgb  0,  0,  0
 
-RoomPals066:
+RoomPals_TheGrasslands2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2745,7 +2745,7 @@ RoomPals066:
 	rgb  0,  5,  2
 	rgb  0,  1,  0
 
-RoomPals067:
+RoomPals_TheStagnantSwamp3:
 	rgb 10,  6,  0
 	rgb 31, 31,  8
 	rgb 25, 16,  0
@@ -2786,7 +2786,7 @@ RoomPals067:
 	rgb  5,  7,  1
 	rgb  0,  0,  0
 
-RoomPals068:
+RoomPals_TheWarpedVoid25:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2827,7 +2827,7 @@ RoomPals068:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals069:
+RoomPals_TheWarpedVoid17:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2868,7 +2868,7 @@ RoomPals069:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals070:
+RoomPals_TheWarpedVoid9:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -2909,7 +2909,7 @@ RoomPals070:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals071:
+RoomPals_TheVolcanosBase4:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -2950,7 +2950,7 @@ RoomPals071:
 	rgb  5,  2,  7
 	rgb  3,  0,  0
 
-RoomPals072:
+RoomPals_ThePoolOfRain3:
 	rgb 15, 11, 15
 	rgb 11,  7,  9
 	rgb  8,  4,  7
@@ -2991,7 +2991,7 @@ RoomPals072:
 	rgb  9,  0,  3
 	rgb  0,  0,  0
 
-RoomPals073:
+RoomPals_TheGrasslands3:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3032,7 +3032,7 @@ RoomPals073:
 	rgb  0,  4,  6
 	rgb  0,  0,  0
 
-RoomPals074:
+RoomPals_TheBigBridge1:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3073,7 +3073,7 @@ RoomPals074:
 	rgb  5,  6,  2
 	rgb  0,  0,  0
 
-RoomPals075:
+RoomPals_TheBigBridge4:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3114,7 +3114,7 @@ RoomPals075:
 	rgb  2,  5,  4
 	rgb  0,  0,  0
 
-RoomPals076:
+RoomPals_TheBigBridge5:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3155,7 +3155,7 @@ RoomPals076:
 	rgb  2,  5,  4
 	rgb  0,  0,  0
 
-RoomPals077:
+RoomPals_TowerOfRevival4:
 	rgb 21, 24, 29
 	rgb  8, 12, 17
 	rgb  1,  2, 23
@@ -3196,7 +3196,7 @@ RoomPals077:
 	rgb  3,  4,  7
 	rgb  0,  0,  0
 
-RoomPals078:
+RoomPals_TowerOfRevival5:
 	rgb 23, 20, 11
 	rgb 15,  9,  4
 	rgb 17,  0,  6
@@ -3237,7 +3237,7 @@ RoomPals078:
 	rgb  3,  4,  7
 	rgb  0,  0,  0
 
-RoomPals079:
+RoomPals_BankOfTheWildRiver2:
 	rgb 14, 13, 28
 	rgb 12, 13, 26
 	rgb 10, 12, 24
@@ -3278,7 +3278,7 @@ RoomPals079:
 	rgb  2,  5,  6
 	rgb  3,  0,  0
 
-RoomPals080:
+RoomPals_SeaTurtleRocks5:
 	rgb  0,  9, 21
 	rgb  0,  6, 17
 	rgb  0,  4, 12
@@ -3319,7 +3319,7 @@ RoomPals080:
 	rgb  6,  0,  6
 	rgb  2,  0,  0
 
-RoomPals081:
+RoomPals_SeaTurtleRocks3:
 	rgb 31, 31, 31
 	rgb 19, 19, 19
 	rgb 10, 10, 10
@@ -3360,7 +3360,7 @@ RoomPals081:
 	rgb  2,  0,  0
 	rgb  2,  0,  0
 
-RoomPals082:
+RoomPals_TheFrigidSea2:
 	rgb 26, 28, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3401,7 +3401,7 @@ RoomPals082:
 	rgb  2,  3,  9
 	rgb  0,  0,  0
 
-RoomPals083:
+RoomPals_TheTidalCoast2:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -3442,7 +3442,7 @@ RoomPals083:
 	rgb  8,  5,  6
 	rgb  3,  0,  0
 
-RoomPals084:
+RoomPals_TheStagnantSwamp4:
 	rgb 26, 28, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3483,7 +3483,7 @@ RoomPals084:
 	rgb  4,  5,  5
 	rgb  0,  0,  0
 
-RoomPals085:
+RoomPals_CaveOfFlames2:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3524,7 +3524,7 @@ RoomPals085:
 	rgb 11,  3,  0
 	rgb  2,  0,  0
 
-RoomPals086:
+RoomPals_CaveOfFlames3:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3565,7 +3565,7 @@ RoomPals086:
 	rgb  9,  2,  0
 	rgb  1,  0,  0
 
-RoomPals087:
+RoomPals_CaveOfFlames4:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3606,7 +3606,7 @@ RoomPals087:
 	rgb  7,  1,  0
 	rgb  0,  0,  0
 
-RoomPals088:
+RoomPals_AboveTheClouds2:
 	rgb 23, 24,  4
 	rgb 26, 28, 31
 	rgb 17, 18,  2
@@ -3647,7 +3647,7 @@ RoomPals088:
 	rgb 16, 17, 23
 	rgb  1,  3, 12
 
-RoomPals089:
+RoomPals_AboveTheClouds3:
 	rgb 23, 24,  4
 	rgb 26, 28, 31
 	rgb 17, 18,  2
@@ -3688,7 +3688,7 @@ RoomPals089:
 	rgb 16, 17, 23
 	rgb  1,  3, 12
 
-RoomPals090:
+RoomPals_AboveTheClouds4:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -3729,7 +3729,7 @@ RoomPals090:
 	rgb  9, 10, 18
 	rgb 24, 25, 30
 
-RoomPals091:
+RoomPals_AboveTheClouds5:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -3770,7 +3770,7 @@ RoomPals091:
 	rgb  9, 10, 18
 	rgb 24, 25, 30
 
-RoomPals092:
+RoomPals_AboveTheClouds6:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -3811,7 +3811,7 @@ RoomPals092:
 	rgb  9, 10, 18
 	rgb 24, 25, 30
 
-RoomPals093:
+RoomPals_AboveTheClouds7:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -3852,7 +3852,7 @@ RoomPals093:
 	rgb  9,  7,  1
 	rgb  0,  0,  0
 
-RoomPals094:
+RoomPals_CaveOfFlames5:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3893,7 +3893,7 @@ RoomPals094:
 	rgb  6,  0,  0
 	rgb  0,  0,  0
 
-RoomPals095:
+RoomPals_CaveOfFlames6:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3934,7 +3934,7 @@ RoomPals095:
 	rgb  5,  0,  0
 	rgb  0,  0,  0
 
-RoomPals096:
+RoomPals_CaveOfFlames7:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -3975,7 +3975,7 @@ RoomPals096:
 	rgb  4,  0,  0
 	rgb  0,  0,  0
 
-RoomPals097:
+RoomPals_BeneathTheWaves4:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb  7,  8,  9
@@ -4016,7 +4016,7 @@ RoomPals097:
 	rgb  0,  2,  9
 	rgb  0,  0,  0
 
-RoomPals098:
+RoomPals_TheColossalHole2:
 	rgb  6, 11, 22
 	rgb  0,  4, 21
 	rgb  0,  2, 10
@@ -4057,7 +4057,7 @@ RoomPals098:
 	rgb  6,  3,  4
 	rgb  0,  0,  0
 
-RoomPals099:
+RoomPals_CastleOfIllusions4:
 	rgb  6, 11, 22
 	rgb  0,  4, 23
 	rgb  0,  0,  9
@@ -4098,7 +4098,7 @@ RoomPals099:
 	rgb  4,  5,  2
 	rgb  0,  0,  0
 
-RoomPals100:
+RoomPals_CastleOfIllusions5:
 	rgb 29, 30, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4139,7 +4139,7 @@ RoomPals100:
 	rgb  2,  4,  3
 	rgb  0,  0,  0
 
-RoomPals101:
+RoomPals_AboveTheClouds8:
 	rgb 27, 27,  4
 	rgb  7, 12, 22
 	rgb 17, 18,  2
@@ -4180,7 +4180,7 @@ RoomPals101:
 	rgb  4,  8, 15
 	rgb  0,  0,  4
 
-RoomPals102:
+RoomPals_AboveTheClouds9:
 	rgb 27, 27,  4
 	rgb  7, 12, 22
 	rgb 17, 18,  2
@@ -4221,7 +4221,7 @@ RoomPals102:
 	rgb  4,  8, 15
 	rgb  0,  0,  4
 
-RoomPals103:
+RoomPals_AboveTheClouds10:
 	rgb 27, 27,  4
 	rgb  7, 12, 22
 	rgb 17, 18,  2
@@ -4262,7 +4262,7 @@ RoomPals103:
 	rgb  4,  8, 15
 	rgb  0,  0,  4
 
-RoomPals104:
+RoomPals_AboveTheClouds11:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -4303,7 +4303,7 @@ RoomPals104:
 	rgb  5,  6, 10
 	rgb 14, 17, 24
 
-RoomPals105:
+RoomPals_AboveTheClouds12:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -4344,7 +4344,7 @@ RoomPals105:
 	rgb  5,  6, 10
 	rgb 14, 17, 24
 
-RoomPals106:
+RoomPals_AboveTheClouds13:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -4385,7 +4385,7 @@ RoomPals106:
 	rgb  5,  6, 10
 	rgb 14, 17, 24
 
-RoomPals107:
+RoomPals_ForestOfFear2:
 	rgb 11, 13, 10
 	rgb 18, 24, 31
 	rgb  4, 12, 31
@@ -4426,7 +4426,7 @@ RoomPals107:
 	rgb  2,  5,  5
 	rgb  0,  0,  0
 
-RoomPals108:
+RoomPals_TheWestCrater3:
 	rgb 18, 21, 25
 	rgb  9, 11, 14
 	rgb 10,  0,  4
@@ -4467,7 +4467,7 @@ RoomPals108:
 	rgb 11,  4,  0
 	rgb  3,  0,  0
 
-RoomPals109:
+RoomPals_TheWestCrater4:
 	rgb 13, 18, 23
 	rgb  5, 10, 17
 	rgb  0,  4,  8
@@ -4508,7 +4508,7 @@ RoomPals109:
 	rgb  9,  0,  7
 	rgb  3,  0,  0
 
-RoomPals110:
+RoomPals_TheWestCrater5:
 	rgb 13, 18, 25
 	rgb  4,  9, 14
 	rgb  8,  0,  4
@@ -4549,7 +4549,7 @@ RoomPals110:
 	rgb  9,  0,  7
 	rgb  3,  0,  0
 
-RoomPals111:
+RoomPals_TheEastCrater3:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -4590,7 +4590,7 @@ RoomPals111:
 	rgb  9,  0,  7
 	rgb  3,  0,  0
 
-RoomPals112:
+RoomPals_TheSteepCanyon2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4631,7 +4631,7 @@ RoomPals112:
 	rgb 10,  6,  0
 	rgb  0,  0,  0
 
-RoomPals113:
+RoomPals_TheSteepCanyon3:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4672,7 +4672,7 @@ RoomPals113:
 	rgb  7,  2,  6
 	rgb  0,  0,  0
 
-RoomPals114:
+RoomPals_TheSteepCanyon4:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4713,7 +4713,7 @@ RoomPals114:
 	rgb  7,  2,  6
 	rgb  0,  0,  0
 
-RoomPals115:
+RoomPals_OutOfTheWoods4:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -4754,7 +4754,7 @@ RoomPals115:
 	rgb  5,  0,  0
 	rgb  2,  0,  0
 
-RoomPals116:
+RoomPals_OutOfTheWoods5:
 	rgb 26, 27, 28
 	rgb 13, 14, 15
 	rgb  7,  8,  9
@@ -4795,7 +4795,7 @@ RoomPals116:
 	rgb  4,  0,  0
 	rgb  2,  0,  0
 
-RoomPals117:
+RoomPals_TheVolcanosBase3:
 	rgb 31, 31, 31
 	rgb 21, 21, 21
 	rgb 11, 10, 11
@@ -4836,7 +4836,7 @@ RoomPals117:
 	rgb  0, 10,  0
 	rgb  3,  0,  0
 
-RoomPals118:
+RoomPals_TheWarpedVoid2:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4877,7 +4877,7 @@ RoomPals118:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals119:
+RoomPals_TheWarpedVoid3:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4918,7 +4918,7 @@ RoomPals119:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals120:
+RoomPals_TheWarpedVoid4:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -4959,7 +4959,7 @@ RoomPals120:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals121:
+RoomPals_TheWarpedVoid5:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5000,7 +5000,7 @@ RoomPals121:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals122:
+RoomPals_TheWarpedVoid6:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5041,7 +5041,7 @@ RoomPals122:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals123:
+RoomPals_TheWarpedVoid7:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5082,7 +5082,7 @@ RoomPals123:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals124:
+RoomPals_TheWarpedVoid8:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5123,7 +5123,7 @@ RoomPals124:
 	rgb  6,  0, 18
 	rgb  0,  0,  0
 
-RoomPals125:
+RoomPals_TheWarpedVoid26:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5164,7 +5164,7 @@ RoomPals125:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals126:
+RoomPals_TheWarpedVoid27:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5205,7 +5205,7 @@ RoomPals126:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals127:
+RoomPals_TheWarpedVoid28:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5246,7 +5246,7 @@ RoomPals127:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals128:
+RoomPals_TheWarpedVoid29:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5287,7 +5287,7 @@ RoomPals128:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals129:
+RoomPals_TheWarpedVoid30:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5328,7 +5328,7 @@ RoomPals129:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals130:
+RoomPals_TheWarpedVoid31:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5369,7 +5369,7 @@ RoomPals130:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals131:
+RoomPals_TheWarpedVoid32:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5410,7 +5410,7 @@ RoomPals131:
 	rgb  6,  0, 10
 	rgb  0,  0,  0
 
-RoomPals132:
+RoomPals_TheWarpedVoid18:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5451,7 +5451,7 @@ RoomPals132:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals133:
+RoomPals_TheWarpedVoid19:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5492,7 +5492,7 @@ RoomPals133:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals134:
+RoomPals_TheWarpedVoid20:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5533,7 +5533,7 @@ RoomPals134:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals135:
+RoomPals_TheWarpedVoid21:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5574,7 +5574,7 @@ RoomPals135:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals136:
+RoomPals_TheWarpedVoid22:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5615,7 +5615,7 @@ RoomPals136:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals137:
+RoomPals_TheWarpedVoid23:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5656,7 +5656,7 @@ RoomPals137:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals138:
+RoomPals_TheWarpedVoid24:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5697,7 +5697,7 @@ RoomPals138:
 	rgb  0,  3, 19
 	rgb  0,  0,  0
 
-RoomPals139:
+RoomPals_TheWarpedVoid10:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5738,7 +5738,7 @@ RoomPals139:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals140:
+RoomPals_TheWarpedVoid11:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5779,7 +5779,7 @@ RoomPals140:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals141:
+RoomPals_TheWarpedVoid12:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5820,7 +5820,7 @@ RoomPals141:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals142:
+RoomPals_TheWarpedVoid13:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5861,7 +5861,7 @@ RoomPals142:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals143:
+RoomPals_TheWarpedVoid14:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5902,7 +5902,7 @@ RoomPals143:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals144:
+RoomPals_TheWarpedVoid15:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11
@@ -5943,7 +5943,7 @@ RoomPals144:
 	rgb  8,  0, 19
 	rgb  0,  0,  0
 
-RoomPals145:
+RoomPals_TheWarpedVoid16:
 	rgb 28, 29, 31
 	rgb 16, 17, 18
 	rgb 10, 10, 11

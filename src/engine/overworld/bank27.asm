@@ -293,10 +293,10 @@ InitCutscene27:
 	decompress_attrmap Cutscene11Attrmap, v1BGMap0
 	decompress_tilemap Cutscene11Tilemap, v0BGMap0
 
-	ld hl, RoomPals023
+	ld hl, RoomPals_TheVolcanosBase1
 	ld de, wTempPals1
 	ld c, 8 palettes
-	ld b, BANK(RoomPals023)
+	ld b, BANK(RoomPals_TheVolcanosBase1)
 	call CopyFarBytes
 
 	decompress_tiles1 CartGfx, v0Tiles1
