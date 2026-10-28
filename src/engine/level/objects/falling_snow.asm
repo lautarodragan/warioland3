@@ -71,9 +71,9 @@ FallingSnowSpawnerFunc:
 	ld [hli], a
 	ld a, [hl]
 	and a
-	jr z, .asm_495b1
+	jr z, .move_down
 	call MoveObjectRightByVar2
-.asm_495b1
+.move_down
 	call MoveObjectDownByVar2
 	ld hl, wCurObjFlags
 	set OBJFLAG_INVISIBLE_F, [hl]
@@ -131,15 +131,15 @@ FallingSnowFunc:
 .Fall:
 	ld a, [wCurObjState]
 	and a
-	jr z, .asm_49625
+	jr z, .falling
 	cp OBJSTATE_TRIGGERED
-	jr z, .asm_49666
+	jr z, .triggered
 	ld de, FallingSnowFrameset_695cb
 	call SetObjectFramesetPtr
 	ld a, $11
 	ld [hli], a
-	jr .asm_49650
-.asm_49625
+	jr .set_wait_and_despawn
+.falling
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -162,7 +162,7 @@ FallingSnowFunc:
 	call SetObjectFramesetPtr
 	ld a, $2d
 	ld [hli], a
-.asm_49650
+.set_wait_and_despawn
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
@@ -174,7 +174,7 @@ FallingSnowFunc:
 	play_sfx SFX_WATER_DROP
 	ret
 
-.asm_49666
+.triggered
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.FallBroken)
 	ld [hld], a

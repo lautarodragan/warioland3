@@ -183,10 +183,10 @@ UnusedFlowerProjectileCommonFunc:
 
 .Jump:
 	ld bc, SmallHopYVel + $8
-	jr .asm_40ddd
+	jr .apply_y_movement
 .Thrown:
 	ld bc, SmallHopYVel
-.asm_40ddd
+.apply_y_movement
 	call ApplyObjYMovement
 
 	ld hl, wCurObjYPos

@@ -32,7 +32,7 @@ WebberFunc:
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
 	ld de, WebberFrameset_682c2
-	jr .asm_40865
+	jr .set_attacked
 
 .AttackedRightStart:
 	ld a, HIGH(ObjState_AttackedRight)
@@ -40,7 +40,7 @@ WebberFunc:
 	ld b, $02
 	ld de, WebberFrameset_682c5
 
-.asm_40865
+.set_attacked
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
@@ -304,10 +304,10 @@ WebberFunc:
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jr nc, .has_super_jump_slam
 	ld bc, SmashedYVel
-	jr .asm_40a14
+	jr .apply_smash_vel
 .has_super_jump_slam
 	ld bc, SuperSmashedYVel
-.asm_40a14
+.apply_smash_vel
 	call ApplyObjYMovement
 
 	ld hl, wCurObjYPos
@@ -376,7 +376,7 @@ WebberFunc:
 .SpecialIdle:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_40aa9
+	jr z, .special_idle_done
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jp nc, .set_shake
@@ -390,7 +390,7 @@ WebberFunc:
 	ld [hld], a
 	ld de, WebberFrameset_682d6
 	jp SetObjectFramesetPtr
-.asm_40aa9
+.special_idle_done
 	ld a, 5
 	ld [wCurObjVar3], a
 	jp .set_idle

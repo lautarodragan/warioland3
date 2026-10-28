@@ -104,17 +104,17 @@ StoveFunc:
 
 .AttackedLeftStart:
 	ld a, OBJSTATE_ATTACKED_LEFT
-	jr .asm_49813
+	jr .set_attacked_state
 
 .State34:
 	ld l, OBJ_VAR_2
 	ld a, [wGlobalCounter]
 	and %111
-	jr nz, .asm_497e8
+	jr nz, .slide_right
 	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
-.asm_497e8
+.slide_right
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	sub 4
@@ -140,7 +140,7 @@ StoveFunc:
 
 .State05:
 	ld a, OBJSTATE_ATTACKED_RIGHT
-.asm_49813
+.set_attacked_state
 	ld [hl], a ; OBJ_STATE
 	ld a, $02
 	ld [wCurObjVar2], a
@@ -151,11 +151,11 @@ StoveFunc:
 	ld l, OBJ_VAR_2
 	ld a, [wGlobalCounter]
 	and %111
-	jr nz, .asm_49833
+	jr nz, .slide_left
 	play_sfx SFX_STOVE_RATTLE
 	dec [hl]
 	jr z, .set_land
-.asm_49833
+.slide_left
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	sub 4
