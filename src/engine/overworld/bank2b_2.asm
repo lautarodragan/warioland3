@@ -292,9 +292,9 @@ Prologue:
 	ld c, $07
 	ld a, [wPalConfig1TotalSteps]
 	cp $08
-	jr c, .asm_ae174
+	jr c, .fade_on_interval
 	ld c, $01
-.asm_ae174
+.fade_on_interval
 	ld a, [wOWStepCounter]
 	and c
 	ret nz
@@ -312,9 +312,9 @@ Prologue:
 .LookAroundOnPage2:
 	ld a, [wCurTextBufferPage]
 	cp $02
-	jr z, .asm_ae190
+	jr z, .look_around
 	ret
-.asm_ae190
+.look_around
 	ld a, SCENEWARIO_LOOK_AROUND
 	call SetSceneWarioState
 	ret
@@ -507,11 +507,11 @@ Prologue_WarioEnterCave:
 .StartSparkleLoop:
 	ld a, [wSceneStepCounter]
 	cp $14
-	jr z, .asm_ae2c5
+	jr z, .loop_sparkle
 	cp $3c
 	ret c
 	jp AdvancePrologueStep
-.asm_ae2c5
+.loop_sparkle
 	ld a, $03
 	ld [wMusicBoxSparkleStep], a
 	ret
@@ -671,11 +671,11 @@ Prologue_WarioSuckedIntoMusicBox:
 	ld [wSceneObj2YCoord], a
 	ld a, b
 	cp 180
-	jr z, .asm_ae3c5
+	jr z, .at_y_180
 	cp 165
 	ret nz
 	jp AdvancePrologueStep
-.asm_ae3c5
+.at_y_180
 	ld hl, wSceneObj2State
 	ld a, $0c
 	call SetSceneObjState
@@ -763,9 +763,9 @@ Prologue_WarioSuckedIntoMusicBox:
 	and $03
 	ret nz
 	bit 2, b
-	jr z, .asm_ae45b
+	jr z, .move_up
 	inc [hl] ; x
-.asm_ae45b
+.move_up
 	dec l
 	dec [hl] ; y
 	ret
@@ -777,11 +777,11 @@ Prologue_WarioSuckedIntoMusicBox:
 	dec [hl]
 	ld a, [hl]
 	cp 168
-	jr z, .asm_ae46d
+	jr z, .at_y_168
 	cp 156
 	ret nz
 	jp AdvancePrologueStep
-.asm_ae46d
+.at_y_168
 	ld a, $17
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
@@ -835,10 +835,10 @@ Prologue_WarioSuckedIntoMusicBox:
 .get_fall_speed:
 	ld a, [hl]
 	cp $14
-	jr c, .asm_ae4c8
+	jr c, .got_fall_index
 	ld a, $10
 	ld [hl], a
-.asm_ae4c8
+.got_fall_index
 	ld e, a
 	ld d, $00
 	ld hl, .data_ae4d1
@@ -890,7 +890,7 @@ CycleSceneWarioPals:
 	and a
 	ret z
 	cp $80
-	jr z, .asm_ae554
+	jr z, .stop
 	ld hl, wSceneWarioPalCycleCounter
 	inc [hl]
 	ld a, [hl]
@@ -902,9 +902,9 @@ CycleSceneWarioPals:
 	inc [hl]
 	ld a, [hl]
 	cp $09
-	jr c, .asm_ae540
+	jr c, .set_attributes
 	ld [hl], $01
-.asm_ae540
+.set_attributes
 	ld hl, .data_ae54b
 	ld b, $00
 	add hl, bc
@@ -923,7 +923,7 @@ CycleSceneWarioPals:
 	db $6
 	db $7
 
-.asm_ae554
+.stop
 	xor a
 	ld [wSceneWarioAttributes], a
 	ld [wSceneWarioPalCycleStep], a
@@ -1207,58 +1207,58 @@ Prologue_WarioFallFromPlane:
 .DoBounce:
 	ld a, [wSceneSubActive]
 	and a
-	jr z, .asm_ae740
+	jr z, .sub_steps
 	ld a, [wSceneStepCounter]
 	and $03
-	jr z, .asm_ae740
+	jr z, .sub_steps
 	ld de, PrologueWarioFallMovement
 	ld hl, wSceneWario
 	call ApplyOWMovement
-	jr nz, .asm_ae740
+	jr nz, .sub_steps
 	xor a
 	ld [wSceneSubActive], a
-.asm_ae740
+.sub_steps
 	ld a, [wSceneSubStep]
 	and a
-	jr z, .asm_ae763
+	jr z, .sub_start
 	dec a
-	jr z, .asm_ae771
+	jr z, .land_stunned
 	dec a
-	jr z, .asm_ae794
+	jr z, .sub_wait4
 	dec a
-	jr z, .asm_ae79e
+	jr z, .tumble_end
 	dec a
-	jr z, .asm_ae7a5
+	jr z, .crash_land_with_bump
 	dec a
-	jr z, .asm_ae794
+	jr z, .sub_wait4
 	dec a
-	jr z, .asm_ae7b5
+	jr z, .crash_land
 	dec a
-	jr z, .asm_ae7c5
+	jr z, .wait_stunned
 	dec a
-	jr z, .asm_ae7d4
+	jr z, .get_up
 	dec a
-	jp z, .asm_ae7f2
+	jp z, .sub_done
 	ret
 
-.asm_ae763
+.sub_start
 	ld a, $01
 	ld [wSceneSubActive], a
-.asm_ae768
+.next_sub_step
 	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
 	ld [wSceneSubStepCounter], a
 	ret
 
-.asm_ae771
+.land_stunned
 	ld a, [wSceneWarioYCoord]
 	cp 96
 	ret nz
 	ld a, SCENEWARIO_STUNNED_RIGHT
 	call SetSceneWarioState
 	call .PlayBumpSfx
-.asm_ae77f
+.place_bump_obj
 	ld hl, wCurSceneObj
 	ld a, [wSceneWarioYCoord]
 	ld [hli], a
@@ -1267,40 +1267,40 @@ Prologue_WarioFallFromPlane:
 	ld a, $10
 	ld hl, wCurSceneObjState
 	call SetSceneObjState
-	jr .asm_ae768
+	jr .next_sub_step
 
-.asm_ae794
+.sub_wait4
 	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
 	cp $04
 	ret c
-	jr .asm_ae768
+	jr .next_sub_step
 
-.asm_ae79e
+.tumble_end
 	ld a, SCENEWARIO_CRASH_TUMBLE_END
 	call SetSceneWarioState
-	jr .asm_ae768
+	jr .next_sub_step
 
-.asm_ae7a5
+.crash_land_with_bump
 	ld a, [wSceneWarioYCoord]
 	cp 96
 	ret nz
 	ld a, SCENEWARIO_CRASH_LAND_RIGHT
 	call SetSceneWarioState
 	call .PlayBumpSfx
-	jr .asm_ae77f
+	jr .place_bump_obj
 
-.asm_ae7b5
+.crash_land
 	ld a, [wSceneWarioYCoord]
 	cp 96
 	ret nz
 	ld a, SCENEWARIO_CRASH_LAND_RIGHT
 	call SetSceneWarioState
 	call .PlayBumpSfx
-	jr .asm_ae768
+	jr .next_sub_step
 
-.asm_ae7c5
+.wait_stunned
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_STUNNED_RIGHT
 	ret nz
@@ -1310,7 +1310,7 @@ Prologue_WarioFallFromPlane:
 	ld [wSceneSubStepCounter], a
 	ret
 
-.asm_ae7d4
+.get_up
 	ld hl, wSceneSubStepCounter
 	inc [hl]
 	ld a, [hl]
@@ -1325,7 +1325,7 @@ Prologue_WarioFallFromPlane:
 	ld [wSceneSubStepCounter], a
 	ret
 
-.asm_ae7f2
+.sub_done
 	ld a, $80
 	ld [wSceneSubStep], a
 	ret
@@ -1480,7 +1480,7 @@ UpdatePlaneParts:
 	ret c
 	ld hl, wPlanePart1Counter
 	call AdvanceStepAtHL
-	jp .asm_ae912
+	jp .advance_aux_step
 
 .StartPart2:
 	ld a, [wSceneAuxStepCounter]
@@ -1488,7 +1488,7 @@ UpdatePlaneParts:
 	ret c
 	ld hl, wPlanePart2Counter
 	call AdvanceStepAtHL
-	jr .asm_ae912
+	jr .advance_aux_step
 
 .StartPart3:
 	ld a, [wSceneAuxStepCounter]
@@ -1496,7 +1496,7 @@ UpdatePlaneParts:
 	ret c
 	ld hl, wPlanePart3Counter
 	call AdvanceStepAtHL
-	jr .asm_ae912
+	jr .advance_aux_step
 
 .StartPart4:
 	ld a, [wSceneAuxStepCounter]
@@ -1504,8 +1504,8 @@ UpdatePlaneParts:
 	ret c
 	ld hl, wPlanePart4Counter
 	call AdvanceStepAtHL
-	jr .asm_ae912 ; unnecessary jump
-.asm_ae912
+	jr .advance_aux_step ; unnecessary jump
+.advance_aux_step
 	ld hl, wSceneAuxStepCounter
 
 AdvanceStepAtHL:
@@ -1719,7 +1719,7 @@ UpdatePlanePart2:
 
 .Fall1:
 	call .move_arc1
-	jr .asm_aea95
+	jr .follow_obj4
 
 .Bounce1:
 	call .move_arc1
@@ -1759,7 +1759,7 @@ UpdatePlanePart2:
 .Fall2:
 	call .move_arc3
 
-.asm_aea95
+.follow_obj4
 	ld a, [wSceneObj4XCoord]
 	ld [wSceneObj1XCoord], a
 	ld a, [wSceneObj4YCoord]
@@ -2376,9 +2376,9 @@ _InitEpilogue:
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
-	jr z, .asm_af014
+	jr z, .set_lcdc
 	xor b
-.asm_af014
+.set_lcdc
 	ldh [rLCDC], a
 	xor a
 	ld [wLCDCFlagsToFlip], a
@@ -2467,9 +2467,9 @@ UnreferencedInitEpilogue:
 	ld b, a
 	and a
 	ld a, LCDC_BG_ON | LCDC_OBJ_ON | LCDC_OBJ_16 | LCDC_WIN_9C00 | LCDC_ON
-	jr z, .asm_af127
+	jr z, .set_lcdc
 	xor b
-.asm_af127
+.set_lcdc
 	ldh [rLCDC], a
 	xor a
 	ld [wLCDCFlagsToFlip], a
@@ -2579,10 +2579,10 @@ _UpdateEpilogue:
 	ld de, OldMan1Gfx
 	ld b, HIGH(v0Tiles1) - $80
 	ld c, $40 dma_tiles
-.asm_af1f2
+.set_hdma_bank
 	ld a, BANK(OldMan1Gfx)
 	ld [wHDMABank], a
-.asm_af1f7
+.set_hdma
 	ld hl, wHDMA
 	ld a, d
 	ld [hli], a
@@ -2601,28 +2601,28 @@ _UpdateEpilogue:
 	ld de, OldMan2Gfx
 	ld b, HIGH(v1Tiles0) - $80
 	ld c, $80 dma_tiles
-	jr .asm_af1f2
+	jr .set_hdma_bank
 .LoadCrowdTilemap:
 	xor a
 	ld [wHDMADestVRAMBank], a
 	ld de, EpilogueCrowdTilemap
 	ld b, HIGH(v0BGMap0) - $80
 	ld c, 18 dma_rows
-	jr .asm_af1f2
+	jr .set_hdma_bank
 .LoadCrowdAttrmap:
 	ld a, BANK("VRAM1")
 	ld [wHDMADestVRAMBank], a
 	ld de, EpilogueCrowdAttrmap
 	ld b, HIGH(v1BGMap0) - $80
 	ld c, 18 dma_rows
-	jr .asm_af1f2
+	jr .set_hdma_bank
 .RestoreSavedVRAM1Tiles:
 	ld a, BANK("VRAM1")
 	ld [wHDMADestVRAMBank], a
 	ld de, wAttrmap
 	ld b, HIGH(v1Tiles1) - $80
 	ld c, $50 dma_tiles
-	jr .asm_af1f2
+	jr .set_hdma_bank
 .InitCrowdScene:
 	ld a, SCREEN_WIDTH_PX
 	ldh [rSCX], a
@@ -2706,7 +2706,7 @@ _UpdateEpilogue:
 	ld c, $80 dma_tiles
 	ld a, BANK(PrologueBackgroundGfx)
 	ld [wHDMABank], a
-	jp .asm_af1f7
+	jp .set_hdma
 .InitForestScene:
 	ld hl, wSceneObj9
 	ld a, $3c
@@ -2789,33 +2789,33 @@ _UpdateEpilogue:
 ; japanese
 	ld a, [wCurTextBufferPage]
 	cp $01
-	jr z, .asm_af3ce
+	jr z, .anim_10_line_1
 	cp $04
-	jr z, .asm_af3de
+	jr z, .anim_0c_line_1
 	cp $05
-	jr z, .asm_af3e6
+	jr z, .anim_0d_line_2
 	cp $07
-	jr z, .asm_af3f2
+	jr z, .anim_0e_line_2
 	cp $0a
-	jr z, .asm_af3f6
+	jr z, .anim_10_line_2
 	cp $0b
-	jr z, .asm_af3fa
-	jr .asm_af3bf
+	jr z, .anim_0c_line_3
+	jr .default_anim_on_line_1
 .english
 	ld a, [wCurTextBufferPage]
 	cp $01
-	jr z, .asm_af3ce
+	jr z, .anim_10_line_1
 	cp $04
-	jr z, .asm_af3de
+	jr z, .anim_0c_line_1
 	cp $05
-	jr z, .asm_af3e2
+	jr z, .anim_0d_line_1
 	cp $08
-	jr z, .asm_af3f2
+	jr z, .anim_0e_line_2
 	cp $0b
-	jr z, .asm_af3ce
+	jr z, .anim_10_line_1
 	cp $0c
-	jr z, .asm_af3de
-.asm_af3bf
+	jr z, .anim_0c_line_1
+.default_anim_on_line_1
 	ld a, [wCurTextBufferLine]
 	cp $01
 	ret nz
@@ -2823,42 +2823,42 @@ _UpdateEpilogue:
 	ld hl, wSceneObj9State
 	call SetSceneObjState
 	ret
-.asm_af3ce
+.anim_10_line_1
 	ld b, $10
-.asm_af3d0
+.anim_on_line_1
 	ld a, $01
 	ld hl, wCurTextBufferLine
 	cp [hl]
 	ret nz
-.asm_af3d7
+.set_anim
 	ld a, b
 	ld hl, wSceneObj9State
 	jp SetSceneObjState
-.asm_af3de
+.anim_0c_line_1
 	ld b, $0c
-	jr .asm_af3d0
-.asm_af3e2
+	jr .anim_on_line_1
+.anim_0d_line_1
 	ld b, $0d
-	jr .asm_af3d0
-.asm_af3e6
+	jr .anim_on_line_1
+.anim_0d_line_2
 	ld b, $0d
-.asm_af3e8
+.anim_on_line_2
 	ld a, $02
-.asm_af3ea
+.anim_on_line_a
 	ld hl, wCurTextBufferLine
 	cp [hl]
-	jr nz, .asm_af3bf
-	jr .asm_af3d7
-.asm_af3f2
+	jr nz, .default_anim_on_line_1
+	jr .set_anim
+.anim_0e_line_2
 	ld b, $0e
-	jr .asm_af3e8
-.asm_af3f6
+	jr .anim_on_line_2
+.anim_10_line_2
 	ld b, $10
-	jr .asm_af3e8
-.asm_af3fa
+	jr .anim_on_line_2
+.anim_0c_line_3
 	ld b, $0c
 	ld a, $03
-	jr .asm_af3ea
+	jr .anim_on_line_a
 
 .wait_wario_state
 	ld a, [wSceneWarioState]
@@ -3003,16 +3003,16 @@ _UpdateEpilogue:
 .LiftMusicBox:
 	ld a, [wSceneStepCounter]
 	cp $04
-	jr z, .asm_af506
+	jr z, .lift_step_4
 	cp $06
-	jr z, .asm_af518
+	jr z, .lift_step_6
 	cp $07
-	jr z, .asm_af51e
+	jr z, .lift_step_7
 	ret
-.asm_af506
+.lift_step_4
 	ld d, $df
 	ld e, $fa
-.asm_af50a
+.place_music_box_on_wario
 	ld hl, wSceneObj9
 	ld a, [wSceneWarioYCoord]
 	add d
@@ -3021,14 +3021,14 @@ _UpdateEpilogue:
 	add e
 	ld [hl], a
 	ret
-.asm_af518
+.lift_step_6
 	ld d, $e0
 	ld e, $fb
-	jr .asm_af50a
-.asm_af51e
+	jr .place_music_box_on_wario
+.lift_step_7
 	ld d, $e2
 	ld e, $fc
-	call .asm_af50a
+	call .place_music_box_on_wario
 	jp .next_scene_step
 
 .WarioCarrySnapFingers:
@@ -3083,17 +3083,17 @@ _UpdateEpilogue:
 .UpdateWarioFall:
 	ld a, [wSceneSubActive]
 	and a
-	jr z, .asm_af597
+	jr z, .wario_fall_step
 	ld a, [wSceneStepCounter]
 	and $03
-	jr z, .asm_af597
+	jr z, .wario_fall_step
 	ld de, PrologueWarioFallMovement
 	ld hl, wSceneWarioYCoord
 	call ApplyOWMovement_Mirrored
-	jr nz, .asm_af597
+	jr nz, .wario_fall_step
 	xor a
 	ld [wSceneSubActive], a
-.asm_af597
+.wario_fall_step
 	ld a, [wSceneSubStep]
 	cp $80
 	ret z
@@ -3117,7 +3117,7 @@ _UpdateEpilogue:
 	ld [wSceneSubActive], a
 	xor a
 	ld [wSceneWarioMovementStep], a
-.asm_af5bc
+.next_wario_fall_step
 	ld hl, wSceneSubStep
 	inc [hl]
 	xor a
@@ -3131,7 +3131,7 @@ _UpdateEpilogue:
 	ld a, $1b
 	call SetSceneWarioState
 	call .play_wario_bump_sfx
-	jr .asm_af5bc
+	jr .next_wario_fall_step
 
 .WarioFall_Delay4:
 	ld hl, wSceneSubStepCounter
@@ -3139,13 +3139,13 @@ _UpdateEpilogue:
 	ld a, [hl]
 	cp $04
 	ret c
-	jr .asm_af5bc
+	jr .next_wario_fall_step
 
 .WarioFall_WaitStunned:
 	ld a, [wSceneWarioState]
 	cp $1c
 	ret nz
-	jr .asm_af5bc
+	jr .next_wario_fall_step
 
 .WarioFall_GetUp:
 	ld hl, wSceneSubStepCounter
@@ -3156,7 +3156,7 @@ _UpdateEpilogue:
 	ld a, $0c
 	call SetSceneWarioState
 	play_sfx SFX_STEP
-	jr .asm_af5bc
+	jr .next_wario_fall_step
 
 .WarioFall_Done:
 	ld a, $80
@@ -3170,14 +3170,14 @@ _UpdateEpilogue:
 .UpdateMusicBoxFall:
 	ld a, [wEpilogueMusicBoxFallActive]
 	and a
-	jr z, .asm_af622
+	jr z, .music_box_fall_step
 	ld hl, wSceneObj9
 	ld de, PrologueWarioFallMovement
 	call ApplyOWMovement_Mirrored
-	jr nz, .asm_af622
+	jr nz, .music_box_fall_step
 	xor a
 	ld [wEpilogueMusicBoxFallActive], a
-.asm_af622
+.music_box_fall_step
 	ld a, [wEpilogueMusicBoxFallStep]
 	cp $80
 	ret z
@@ -3199,7 +3199,7 @@ _UpdateEpilogue:
 	ld [wEpilogueMusicBoxFallActive], a
 	xor a
 	ld [wSceneObj9MovementStep], a
-.asm_af643
+.next_music_box_fall_step
 	ld hl, wEpilogueMusicBoxFallStep
 	inc [hl]
 	xor a
@@ -3211,7 +3211,7 @@ _UpdateEpilogue:
 	cp $60
 	ret nz
 	call .play_music_box_bump_sfx
-	jr .asm_af643
+	jr .next_music_box_fall_step
 
 .MusicBoxFall_Delay4:
 	ld hl, wEpilogueMusicBoxFallCounter
@@ -3219,7 +3219,7 @@ _UpdateEpilogue:
 	ld a, [hl]
 	cp $04
 	ret c
-	jr .asm_af643
+	jr .next_music_box_fall_step
 
 .MusicBoxFall_Done:
 	ld a, $80
@@ -3313,20 +3313,20 @@ _UpdateEpilogue:
 	ld hl, wCurSceneObj
 	ld a, [hl]
 	cp $50
-	jr c, .asm_af711
+	jr c, .fly_up_fast
 	ld a, [wSceneStepCounter]
 	ld b, a
 	and $03
 	ret nz
 	dec [hl]
 	ret
-.asm_af711
+.fly_up_fast
 	dec [hl]
 	dec [hl]
 	dec [hl]
 	ld a, [hl]
 	cp $18
-	jr c, .asm_af733
+	jr c, .flown_away
 	cp $40
 	ret nc
 	ld a, [wCurSceneObjState]
@@ -3339,7 +3339,7 @@ _UpdateEpilogue:
 	ld hl, wSceneObj9State
 	call SetSceneObjState
 	ret
-.asm_af733
+.flown_away
 	xor a
 	ld [wCurSceneObjState], a
 	jp AdvancePrologueStep
@@ -3456,7 +3456,7 @@ _UpdateEpilogue:
 
 .SetObjsPal4:
 	ld a, $04
-.asm_af7ff
+.set_objs_pal
 	ld [wSceneObj5Attributes], a
 	ld [wSceneObj6Attributes], a
 	ld [wSceneObj7Attributes], a
@@ -3481,7 +3481,7 @@ _UpdateEpilogue:
 	call SetSceneObjState
 	ld hl, wSceneObj9XCoord
 	dec [hl]
-.asm_af839
+.transformed
 	xor a
 	ld [wSceneObj1State], a
 	call .load_epilogue_pals
@@ -3503,7 +3503,7 @@ _UpdateEpilogue:
 
 .SetObjsPal0:
 	xor a
-	jr .asm_af7ff
+	jr .set_objs_pal
 
 .TransformHammerBot:
 	ld a, $03
@@ -3511,7 +3511,7 @@ _UpdateEpilogue:
 	call SetSceneObjState
 	ld hl, wSceneObj9XCoord
 	dec [hl]
-	jr .asm_af839
+	jr .transformed
 
 .ShowDoughnuteer:
 	ld a, [bc]
@@ -3529,7 +3529,7 @@ _UpdateEpilogue:
 
 .SetObjsPal3:
 	ld a, $03
-	jp .asm_af7ff
+	jp .set_objs_pal
 
 .TransformDoughnuteer:
 	ld a, $04
@@ -3538,7 +3538,7 @@ _UpdateEpilogue:
 	ld hl, wSceneObj9XCoord
 	dec [hl]
 	dec [hl]
-	jr .asm_af839
+	jr .transformed
 
 .Wait80:
 	ld a, [bc]
