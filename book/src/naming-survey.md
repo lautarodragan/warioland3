@@ -3705,3 +3705,90 @@ shows which entry they pick.
   `MapSide_ChangeSide` sets. The label is probably wrong, and so is its row
   in the second-pass table ("the fight"). Renaming labels is outside this
   pass.
+
+## Object state literals
+
+The raw numbers that are object states, actions or interaction types
+were replaced by the constants from the sixth pass: 972 lines, 886
+states, 75 actions and 11 interaction types. A small register tracker
+found them: it follows `a`-`e`, `hl` and `de` through each file, merges
+the values at labels and jumps, and marks a literal when it reaches
+`wCurObjState`/`OBJ_STATE`, `wCurObjAction`/`OBJ_ACTION` or the
+interaction type field, or when `cp` compares it with a value loaded from
+one of them. Every hit was checked by hand. Literals on positions,
+timers, frame durations and grab results next to state code were left
+alone. The ROM was byte-identical after every batch.
+
+- Actions: `$81`/`$8f`/`$9f` and `N | (1 << 7)` became
+  `no_actions_for 1`/`15`/`31` (also `7` and `2` in `DoObjectAction` and
+  `load_objects.asm`).
+- Interactions: `and $7f` became `INTERACTION_MASK` (Brrr Bear, Robo
+  Mouse), and Muddee's `cp $48`/`$47` and Robo Mouse's `cp $0b` became
+  `OBJ_INTERACTION_*`.
+- `$18`/`$19`: Appleby and the doughnuts compare against
+  `OBJSTATE_TRIGGERED` (eaten) and `OBJSTATE_NO_EFFECT` (restart); the
+  invisibility potion, the owl and falling snow against
+  `OBJSTATE_TRIGGERED`. No grabbable object had a raw `$18`/`$19`.
+- After `and $fe` (which keeps only the left variant of a LEFT/RIGHT
+  pair), the `cp` uses the LEFT name with `; or ..._RIGHT`, as
+  `update_objects.asm` already did.
+- `data/object_params.asm`: the 98 `db $00 ; state` are
+  `OBJSTATE_DEFAULT`; Fly and Tadpole start in `OBJSTATE_5A`.
+
+**By file** (lines; `obj/` = `src/engine/level/objects/`): `data/object_params.asm` 100,
+`update_objects.asm` 16, `load_objects.asm` 1; `obj/` mad_scienstein 60,
+doughnuteer 58, hammer_bot 51, para_goom 49, fire_bot 46, spear_bot 46,
+brrr_bear 43, silky 42, beam_bot 40, teruteru 32, prince_froggy 26,
+robo_mouse 25, shoot 25, hidden_figure 24, anonster 22, omodonmeka 21,
+haridama 19, doll_boy 18, appleby 16, tadpole 15, barrel 14, kushimushi
+14, rock 14, wormwould 14, yellow_belly 14, bird 12, jamano 12, hand 10,
+scowler 8, pesce 7, pneumo 7, water_drop 6, wolfenboss 6, octohon 5,
+snake 5, small_leaf 4, zombie 4, count_richtertoffen 3, hebarii 3,
+spearhead 3, big_leaf 2, muddee 2, pillar_platform 2, coin 1 (an
+action), falling_snow 1, muddee_stinger 1, owl 1, togeba 1, water_spark 1.
+
+**Object-local aliases** (defined at the top of each object file), where
+the branch labels show what the state does:
+
+| Alias | Value | Evidence |
+|-------|-------|----------|
+| `OBJSTATE_DOLLBOY_JUMP_DOWN` / `_JUMP_UP` | `5A` / `5B` | `.WalkingPhase` jumps to `.jump_platform_below` / `.jump_platform_above`; set by the "jump to platform below/above" code. |
+| `OBJSTATE_DOLLBOY_STUNNED` | `5C` | Set by `.set_stunned`, handled by `.update_stunned`. |
+| `OBJSTATE_WORMWOULD_SHOOT_ROCK_HIGH` / `_LOW` / `_BURROW` | `5A` / `5B` / `5C` | `.Main` jumps to `.shoot_rock_high` / `.shoot_rock_low` / `.burrowing`; `5C` is set by `.set_burrowing` and `.hurt`. |
+| `OBJSTATE_OMODON_PRESS_WARIO` | `5A` | `OmodonFunc.Update`: set by `.StartPressWario` (from `OBJSTATE_ACTIVATE`), handled by `.PressWario`. |
+| `OBJSTATE_ANONSTER_SPIT_WAVES` | `5B` | `.OnFloor` jumps to `.spit_waves`. Anonster's `5A` and `5C` stay numbered. |
+| `OBJSTATE_HARIDAMA_UNCURL` | `5B` | `.Update` jumps to `.Uncurl`. Haridama's `5A` stays numbered. |
+
+The other `2B`, `2C`, `5A`-`5C` uses (Doughnuteer, Mad Scienstein,
+Para-Goom, Fire Bot, Spear Bot, Teruteru, Jamano, Appleby, Pesce/Fly,
+Water Drop, Robo Mouse, Scowler, Prince Froggy, Pillar Platform) use the
+numbered constants, because their handlers don't have descriptive
+labels yet. No object writes `1D`-`1F`, `3D`, `3E` or `5D`.
+
+**Left raw:**
+
+- `obj/coin.asm`: 37 state literals (31 in the code, 6 `move_coin`
+  arguments). `CoinFunc` has its own 27-entry table (`.Move1Start` ...
+  `.State18`, `.Init`, `.StartMovement`) that doesn't follow the shared
+  meanings: `$0c` is `.FallLeftStart`, not `HIT_WARIO_LEFT_START`, so the
+  shared names would be wrong. Only `$18` (`OBJSTATE_TRIGGERED`, collected)
+  and `$19` (`OBJSTATE_COIN_INIT`) have names that fit. Naming the coin
+  states is a separate job.
+- The 23 `and $fe` masks on a state: they are bit masks, not states.
+- Scene object states (`wCurSceneObjState`, intro and overworld scenes)
+  are a different system and were not touched.
+
+**Findings:**
+
+- Pillar Platform compares its state with `OBJSTATE_2B`
+  (`obj/pillar_platform.asm:78`, which sends it to `.Rise`), but nothing
+  sets `$2b` on it: the only writers of `$2b` are Doughnuteer and Mad
+  Scienstein, and only on themselves. The branch looks unreachable.
+- Yellow Belly's pump (`PumpFunc.OnFloor`) stores `OBJSTATE_RESIST_VANISH`
+  into `wYellowBellyHitRequest` too (`obj/yellow_belly.asm:957-959`). That
+  variable is only tested for zero, so the state value doubles as a
+  "hit" flag.
+- `5A` is also the spawn state of Fly and Tadpole (`data/object_params.asm`).
+  Fly then goes through `5A`, `5B` and `5C` as its own sequence
+  (`obj/pesce.asm:1170`), and Tadpole's `.Update` never checks for `5A`.
+  So `5A` doesn't mean the same thing in every object.
