@@ -499,7 +499,7 @@ Sfx_Land:
 	db 1, 0
 	dw Sfx_Land_Ch1
 
-Sfx_011_Ch1:
+Sfx_Tiptoe1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -510,9 +510,9 @@ Sfx_011_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_011:
+Sfx_Tiptoe1:
 	db 1, 0
-	dw Sfx_011_Ch1
+	dw Sfx_Tiptoe1_Ch1
 
 Sfx_Recovery_Ch1:
 	semitone_offset 0

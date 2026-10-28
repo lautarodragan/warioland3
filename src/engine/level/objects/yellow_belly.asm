@@ -674,7 +674,7 @@ YellowBellyBodyFunc:
 	ld hl, YellowBellyPals_51ce1
 	jr .asm_51815
 .asm_5180a
-	play_sfx SFX_0B9
+	play_sfx SFX_PESCE_3_YB_2
 .asm_51812
 	ld hl, YellowBellyPals_51cb1
 .asm_51815

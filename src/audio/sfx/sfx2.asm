@@ -5228,7 +5228,7 @@ Sfx_ScowlerInk2:
 	dw Sfx_ScowlerInk2_Ch1
 	dw Sfx_ScowlerInk2_Ch2
 
-Sfx_0b9_Ch1:
+Sfx_Pesce3Yb2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_32
@@ -5249,9 +5249,9 @@ Sfx_0b9_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_0b9:
+Sfx_Pesce3Yb2:
 	db 1, 0
-	dw Sfx_0b9_Ch1
+	dw Sfx_Pesce3Yb2_Ch1
 
 Sfx_Pump_Ch1:
 	semitone_offset 0
@@ -7579,7 +7579,7 @@ Sfx_MenuClose:
 	db 1, 0
 	dw Sfx_MenuClose_Ch1
 
-Sfx_0eb_Ch1:
+Sfx_PageTurn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_11
@@ -7613,7 +7613,7 @@ Sfx_0eb_Ch1:
 	audio_wait 4
 	audio_end
 
-Sfx_0eb_Ch2:
+Sfx_PageTurn_Ch2:
 	semitone_offset 0
 	wave WAVE_52
 	volume 56
@@ -7647,10 +7647,10 @@ Sfx_0eb_Ch2:
 	audio_wait 4
 	audio_end
 
-Sfx_0eb:
+Sfx_PageTurn:
 	db 2, 0
-	dw Sfx_0eb_Ch1
-	dw Sfx_0eb_Ch2
+	dw Sfx_PageTurn_Ch1
+	dw Sfx_PageTurn_Ch2
 
 Sfx_ActionHelpButton_Ch1:
 	semitone_offset 0
@@ -7833,7 +7833,7 @@ Sfx_GolfSpecialTerrain1:
 	db 1, 0
 	dw Sfx_GolfSpecialTerrain1_Ch1
 
-Sfx_0f1_Ch1:
+Sfx_Tiptoe2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7846,11 +7846,11 @@ Sfx_0f1_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_0f1:
+Sfx_Tiptoe2:
 	db 1, 0
-	dw Sfx_0f1_Ch1
+	dw Sfx_Tiptoe2_Ch1
 
-Sfx_0f2_Ch1:
+Sfx_Tiptoe3_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -7861,9 +7861,9 @@ Sfx_0f2_Ch1:
 	audio_wait 14
 	audio_end
 
-Sfx_0f2:
+Sfx_Tiptoe3:
 	db 1, 0
-	dw Sfx_0f2_Ch1
+	dw Sfx_Tiptoe3_Ch1
 
 Sfx_Prologue1_Ch1:
 	semitone_offset 0
@@ -9052,7 +9052,7 @@ Sfx_ItemRaise:
 	dw Sfx_ItemRaise_Ch2
 	dw Sfx_ItemRaise_Ch3
 
-Sfx_113_Ch1:
+Sfx_ActionB_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_10
@@ -9077,9 +9077,9 @@ Sfx_113_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_113:
+Sfx_ActionB:
 	db 1, 0
-	dw Sfx_113_Ch1
+	dw Sfx_ActionB_Ch1
 
 Sfx_VolcanoEruption4_Ch1:
 	semitone_offset 0
@@ -10393,7 +10393,7 @@ Sfx_TreeMouthOpen:
 	db 1, 0
 	dw Sfx_TreeMouthOpen_Ch1
 
-Sfx_132_Ch1:
+Sfx_Turn_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -10406,9 +10406,9 @@ Sfx_132_Ch1:
 	audio_wait 10
 	audio_end
 
-Sfx_132:
+Sfx_Turn:
 	db 1, 0
-	dw Sfx_132_Ch1
+	dw Sfx_Turn_Ch1
 
 Sfx_MakeWire_Ch1:
 	semitone_offset 0
@@ -10467,7 +10467,7 @@ Sfx_OpenCraterHole:
 	db 1, 0
 	dw Sfx_OpenCraterHole_Ch1
 
-Sfx_136_Ch1:
+Sfx_Tiptoe2BUnused_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_1A
@@ -10480,9 +10480,9 @@ Sfx_136_Ch1:
 	audio_wait 3
 	audio_end
 
-Sfx_136:
+Sfx_Tiptoe2BUnused:
 	db 1, 0
-	dw Sfx_136_Ch1
+	dw Sfx_Tiptoe2BUnused_Ch1
 
 Sfx_SceneWarioRun_Ch1:
 	semitone_offset 0

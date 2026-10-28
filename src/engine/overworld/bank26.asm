@@ -509,7 +509,7 @@ HandleTreasureCollectionInput:
 .asm_9a68d
 	ld [hl], $04
 .asm_9a68f
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	stop_music2
 	ld a, SST_OVERWORLD_COLLECTION
 	ld [wSubState], a
@@ -615,7 +615,7 @@ HandleTreasureCollectionInput:
 	ld [hl], NUM_COLLECTION_PAGES - 1
 
 .change_page
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	ld a, SST_OVERWORLD_COLLECTION
 	ld [wSubState], a
 	ret

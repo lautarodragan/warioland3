@@ -260,7 +260,7 @@ HandleTempleHintInput:
 	call ClearUnused_2d0c0
 	ld a, OWWARIO_UP
 	call SetOWWarioOAM
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	ld a, $0a
 	ld [wOWStep], a
 	scf
@@ -449,7 +449,7 @@ MapSide_Walk:
 
 .asm_811b1
 	stop_music2
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 
 	xor a
 	ld [wOWStepCounter], a
@@ -891,7 +891,7 @@ PathPreview_Wait:
 	ld a, [wPathPreviewCounter]
 	cp b
 	ret c
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	ld a, [wOWLevelYCoord]
 	ld [wOWYCoord1], a
 	ld [wOWWarioYCoord], a

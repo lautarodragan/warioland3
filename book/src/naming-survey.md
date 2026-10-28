@@ -37,6 +37,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 22 | Sixth pass, substates and other constants: `SST_*`, audio commands, flags and struct fields, `GRAB_PICK_UP_BLOCKED`, `ROOMTRANSITION_*`, `EVENT_NONE`, `unk` gfx files; see "Sixth pass: substates and other constants" | ~45 |
 | 23 | Sound effects named by owner and order (one scene or object each), e.g. `SFX_VOLCANO_ERUPTION_1`..`6` | 40 |
 | 24 | Object state, action and interaction literals written as constants (972 lines), object-local aliases for `OBJSTATE_5A`-`5C`; see "Object state literals" | 972 |
+| 25 | Sound effects named by ear from recordings: `SFX_TIPTOE_1`..`3`, `SFX_PAGE_TURN`, `SFX_ACTION_B`, `SFX_TURN`, `SFX_PESCE_3_YB_2`, `SFX_TIPTOE_2_B_UNUSED` | 8 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3605,6 +3606,18 @@ position in the code, for objects) when it plays several:
 labels follow (`Sfx_VolcanoEruption1`, ...). Still numbered: the 15 shared
 by unrelated callers (`011`, `07F`, `08D`, `08F`, `0B2`, `0B7`, `0B9`,
 `0C4`, `0EB`, `0F1`, `101`, `10E`, `113`, `12F`, `132`) and `0F2`.
+
+**Named by ear** (batch 25, by Taro, from recordings of each sound):
+`SFX_TIPTOE_1`/`2`/`3` (`011`, `0F1`, `0F2`; "tiptoe" is Taro's own name
+for these little steps in the scenes), `SFX_PAGE_TURN` (`0EB`),
+`SFX_ACTION_B` (`113`, the B button indicator and other UI that appears),
+`SFX_TURN` (`132`), `SFX_PESCE_3_YB_2` (`0B9`, shared by Pesce, where it
+plays when Pesce lets Wario go in the water, and Yellow Belly, at the end
+of a palette flash; it sounds close to the swim sound), and
+`SFX_TIPTOE_2_B_UNUSED` (`136`: the same notes, tempo and envelope as
+`SFX_TIPTOE_2`, on the second square channel, `CHAN6`, instead of the
+first; nothing plays it). Still numbered: `07F`, `08D`, `08F`, `0B2`,
+`0B7`, `0C4`, `101`, `10E`, `12F`.
 
 **Unused, left numbered:** `SFX_136` has its own sound data (`Sfx_136`) but
 nothing plays it; its constant comment now says "(unused)". The 58

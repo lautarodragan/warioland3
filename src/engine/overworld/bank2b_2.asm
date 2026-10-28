@@ -3470,7 +3470,7 @@ _UpdateEpilogue:
 	ld a, [wSceneObj1YCoord]
 	cp $50
 	ret c
-	play_sfx SFX_0EB
+	play_sfx SFX_PAGE_TURN
 	call CopyTempPalsToBGOBPals_Bank2b1
 	call FillTempPals2White
 	jp .next_scene_step

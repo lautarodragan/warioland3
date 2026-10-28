@@ -1008,7 +1008,7 @@ UpdateSceneWario:
 	jr z, .asm_ac688
 	ret
 .asm_ac688
-	play_sfx SFX_0F1
+	play_sfx SFX_TIPTOE_2
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
 	ret
@@ -1098,13 +1098,13 @@ UpdateSceneWario:
 	jr z, .asm_ac722
 	ret
 .asm_ac722
-	play_sfx SFX_0F2
+	play_sfx SFX_TIPTOE_3
 	ld a, $01
 .asm_ac72c
 	ld [wSceneWarioSFXCounter], a
 	ret
 .asm_ac730
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	ld a, $02
 	jr .asm_ac72c
 

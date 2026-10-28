@@ -250,7 +250,7 @@ PesceFunc:
 .asm_51ed4
 	xor a
 	ld [wAutoMoveState], a
-	play_sfx SFX_0B9
+	play_sfx SFX_PESCE_3_YB_2
 	ld hl, wCurObjVar1
 	ld a, $04
 	ld [hli], a

@@ -2065,7 +2065,7 @@ Cutscene11Func:
 	dec [hl]
 	ld a, [hl]
 	cp $74
-	jr z, .play_sfx_113
+	jr z, .play_action_b_sfx
 	cp $68
 	ret nz
 	jp AdvanceCutsceneFunc
@@ -2096,13 +2096,13 @@ Cutscene11Func:
 	inc [hl]
 	inc [hl]
 	cp $70
-	jr z, .play_sfx_113
+	jr z, .play_action_b_sfx
 	cp $64
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.play_sfx_113
-	play_sfx SFX_113
+.play_action_b_sfx
+	play_sfx SFX_ACTION_B
 	ret
 
 Cutscene1bFunc:
@@ -3144,7 +3144,7 @@ Cutscene04Func:
 	call .move_up
 	cp $4a
 	ret nz
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceCutsceneFunc
 
 .SetObj2State01FlipBGMap:
@@ -4463,7 +4463,7 @@ Cutscene4aFunc:
 	ld a, [wSceneObj2Frame]
 	cp $06
 	ret nz
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	jp AdvanceCutsceneFunc
 
 .WaitObj2Frame07:
@@ -5099,7 +5099,7 @@ Cutscene58Func:
 	ld a, $01
 	ld [wSceneObj12YCoord], a
 	ld [wSceneObj12XCoord], a
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	jp AdvanceCutsceneFunc
 
 .WaitObj2State01FlipBGMap:
@@ -6158,10 +6158,10 @@ UpdateCutsceneLevelObj_SummonSun:
 	ret
 
 .asm_9f27a
-	call .PlaySFX011OnFrame01
+	call .PlayTiptoeSFXOnFrame01
 	jr .asm_9f25b
 
-.PlaySFX011OnFrame01:
+.PlayTiptoeSFXOnFrame01:
 	ld d, h
 	ld e, l
 	set 1, e
@@ -6183,7 +6183,7 @@ UpdateCutsceneLevelObj_SummonSun:
 	ret nz
 	xor a
 	ld [de], a
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	ret
 
 UpdateCutsceneObjs_ExplodeBombs:
@@ -6518,10 +6518,10 @@ UpdateCutsceneObjs_MakeWire:
 
 .asm_9f4ec
 	call .PlayMakeWireSFXEvery12Frames
-	call .PlaySFX132Every16Frames
+	call .PlayTurnSFXEvery16Frames
 	jr .asm_9f4c5
 
-.PlaySFX132Every16Frames:
+.PlayTurnSFXEvery16Frames:
 	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
@@ -6530,7 +6530,7 @@ UpdateCutsceneObjs_MakeWire:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_132
+	play_sfx SFX_TURN
 	ret
 
 UpdateCutsceneObjs_TorchForest:
@@ -7209,10 +7209,10 @@ UpdateCutsceneObjs_RevealDarkRoom:
 	jr z, .asm_9f982
 	ret nz
 .asm_9f978
-	play_sfx SFX_011
+	play_sfx SFX_TIPTOE_1
 	jr .asm_9f98a
 .asm_9f982
-	play_sfx SFX_0F1
+	play_sfx SFX_TIPTOE_2
 .asm_9f98a
 	ld a, b
 	xor $01

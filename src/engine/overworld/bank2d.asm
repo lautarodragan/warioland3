@@ -3180,7 +3180,7 @@ NOWFunc_BottomBar:
 	ld a, [hl]
 	cp $94
 	ret nz
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
 .Wait45:
@@ -3207,7 +3207,7 @@ NOWFunc_BottomBar:
 	ret c
 	ld a, $23
 	ld [wSceneObj1State], a
-	play_sfx SFX_113
+	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
 .Wait10:

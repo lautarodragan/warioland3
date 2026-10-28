@@ -79,7 +79,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_SWIM                         ; 10e
 	const SFX_UNDERWATER_THRUST            ; 10f
 	const SFX_LAND                         ; 110
-	const SFX_011                          ; 111
+	const SFX_TIPTOE_1                     ; 111
 	const SFX_RECOVERY                     ; 112
 	const SFX_STING                        ; 113
 	const SFX_STOMP                        ; 114
@@ -247,7 +247,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_SCOWLER_BLACKOUT             ; 1b6
 	const SFX_0B7                          ; 1b7
 	const SFX_SCOWLER_INK_2                ; 1b8
-	const SFX_0B9                          ; 1b9
+	const SFX_PESCE_3_YB_2                 ; 1b9
 	const SFX_PUMP                         ; 1ba
 	const SFX_PESCE_HIT                    ; 1bb
 	const SFX_JAMANO_TURN                  ; 1bc
@@ -297,14 +297,14 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_GOLF_MISS                    ; 1e8
 	const SFX_MENU_OPEN                    ; 1e9
 	const SFX_MENU_CLOSE                   ; 1ea
-	const SFX_0EB                          ; 1eb
+	const SFX_PAGE_TURN                    ; 1eb
 	const SFX_ACTION_HELP_BUTTON           ; 1ec
 	const SFX_GOLF_CHARGE_SHOT             ; 1ed
 	const SFX_GOLF_SPECIAL_TERRAIN_2       ; 1ee
 	const SFX_GOLF_HOLE_IN                 ; 1ef
 	const SFX_GOLF_SPECIAL_TERRAIN_1       ; 1f0
-	const SFX_0F1                          ; 1f1
-	const SFX_0F2                          ; 1f2
+	const SFX_TIPTOE_2                     ; 1f1
+	const SFX_TIPTOE_3                     ; 1f2
 	const SFX_PROLOGUE_1                   ; 1f3
 	const SFX_PROLOGUE_2                   ; 1f4
 	const SFX_SNORE                        ; 1f5
@@ -338,7 +338,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_VOLCANO_ERUPTION_2           ; 210
 	const SFX_VOLCANO_ERUPTION_3           ; 211
 	const SFX_ITEM_RAISE                   ; 212
-	const SFX_113                          ; 213
+	const SFX_ACTION_B                     ; 213
 	const SFX_VOLCANO_ERUPTION_4           ; 214
 	const SFX_VOLCANO_ERUPTION_5           ; 215
 	const SFX_VOLCANO_ERUPTION_6           ; 216
@@ -369,11 +369,11 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_12F                          ; 22f
 	const SFX_TEXT_PRINT                   ; 230
 	const SFX_TREE_MOUTH_OPEN              ; 231
-	const SFX_132                          ; 232
+	const SFX_TURN                         ; 232
 	const SFX_MAKE_WIRE                    ; 233
 	const SFX_GAME_OVER                    ; 234
 	const SFX_OPEN_CRATER_HOLE             ; 235
-	const SFX_136                          ; 236 (unused)
+	const SFX_TIPTOE_2_B_UNUSED            ; 236 (unused: SFX_TIPTOE_2 on the second square channel)
 	const SFX_SCENE_WARIO_RUN              ; 237
 	const SFX_EPILOGUE_OBJ                 ; 238
 DEF NUM_SOUNDS EQU const_value

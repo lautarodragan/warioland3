@@ -106,7 +106,7 @@ SoundHeaders:
 	sfx Sfx_Swim,                        $00, 228, CHAN5_F, 1 ; SFX_SWIM
 	sfx Sfx_UnderwaterThrust,            $00, 210, CHAN5_F, 1 ; SFX_UNDERWATER_THRUST
 	sfx Sfx_Land,                        $00, 228, CHAN8_F, 1 ; SFX_LAND
-	sfx Sfx_011,                         $00, 200, CHAN5_F, 1 ; SFX_011
+	sfx Sfx_Tiptoe1,                     $00, 200, CHAN5_F, 1 ; SFX_TIPTOE_1
 	sfx Sfx_Recovery,                    $00, 255, CHAN5_F, 1 ; SFX_RECOVERY
 	sfx Sfx_Sting,                       $00, 237, CHAN7_F, 1 ; SFX_STING
 	sfx Sfx_Stomp,                       $00, 239, CHAN5_F, 1 ; SFX_STOMP
@@ -241,7 +241,7 @@ SoundHeaders:
 	sfx Sfx_ScowlerBlackout,             $00, 238, CHAN5_F, 2 ; SFX_SCOWLER_BLACKOUT
 	sfx Sfx_0b7,                         $00, 239, CHAN5_F, 2 ; SFX_0B7
 	sfx Sfx_ScowlerInk2,                 $00, 239, CHAN5_F, 2 ; SFX_SCOWLER_INK_2
-	sfx Sfx_0b9,                         $00, 220, CHAN5_F, 1 ; SFX_0B9
+	sfx Sfx_Pesce3Yb2,                   $00, 220, CHAN5_F, 1 ; SFX_PESCE_3_YB_2
 	sfx Sfx_Pump,                        $00, 220, CHAN5_F, 2 ; SFX_PUMP
 	sfx Sfx_PesceHit,                    $00, 220, CHAN5_F, 2 ; SFX_PESCE_HIT
 	sfx Sfx_JamanoTurn,                  $00, 239, CHAN5_F, 1 ; SFX_JAMANO_TURN
@@ -278,14 +278,14 @@ SoundHeaders:
 	sfx Sfx_GolfMiss,                    $00, 220, CHAN5_F, 1 ; SFX_GOLF_MISS
 	sfx Sfx_MenuOpen,                    $00, 220, CHAN5_F, 1 ; SFX_MENU_OPEN
 	sfx Sfx_MenuClose,                   $00, 220, CHAN5_F, 1 ; SFX_MENU_CLOSE
-	sfx Sfx_0eb,                         $00, 220, CHAN5_F, 2 ; SFX_0EB
+	sfx Sfx_PageTurn,                    $00, 220, CHAN5_F, 2 ; SFX_PAGE_TURN
 	sfx Sfx_ActionHelpButton,            $00, 220, CHAN7_F, 1 ; SFX_ACTION_HELP_BUTTON
 	sfx Sfx_GolfChargeShot,              $00, 220, CHAN8_F, 1 ; SFX_GOLF_CHARGE_SHOT
 	sfx Sfx_GolfSpecialTerrain2,         $00, 220, CHAN5_F, 1 ; SFX_GOLF_SPECIAL_TERRAIN_2
 	sfx Sfx_GolfHoleIn,                  $00, 237, CHAN5_F, 1 ; SFX_GOLF_HOLE_IN
 	sfx Sfx_GolfSpecialTerrain1,         $00, 220, CHAN5_F, 1 ; SFX_GOLF_SPECIAL_TERRAIN_1
-	sfx Sfx_0f1,                         $00, 237, CHAN5_F, 1 ; SFX_0F1
-	sfx Sfx_0f2,                         $00, 220, CHAN5_F, 1 ; SFX_0F2
+	sfx Sfx_Tiptoe2,                     $00, 237, CHAN5_F, 1 ; SFX_TIPTOE_2
+	sfx Sfx_Tiptoe3,                     $00, 220, CHAN5_F, 1 ; SFX_TIPTOE_3
 	sfx Sfx_Prologue1,                   $00, 220, CHAN8_F, 1 ; SFX_PROLOGUE_1
 	sfx Sfx_Prologue2,                   $00, 220, CHAN5_F, 1 ; SFX_PROLOGUE_2
 	sfx Sfx_Snore,                       $00, 220, CHAN8_F, 1 ; SFX_SNORE
@@ -314,7 +314,7 @@ SoundHeaders:
 	sfx Sfx_VolcanoEruption2,            $00, 220, CHAN5_F, 2 ; SFX_VOLCANO_ERUPTION_2
 	sfx Sfx_VolcanoEruption3,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_3
 	sfx Sfx_ItemRaise,                   $00, 220, CHAN5_F, 3 ; SFX_ITEM_RAISE
-	sfx Sfx_113,                         $00, 220, CHAN5_F, 1 ; SFX_113
+	sfx Sfx_ActionB,                     $00, 220, CHAN5_F, 1 ; SFX_ACTION_B
 	sfx Sfx_VolcanoEruption4,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_4
 	sfx Sfx_VolcanoEruption5,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_5
 	sfx Sfx_VolcanoEruption6,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_6
@@ -345,10 +345,10 @@ SoundHeaders:
 	sfx Sfx_12f,                         $00, 220, CHAN8_F, 1 ; SFX_12F
 	sfx Sfx_TextPrint,                   $00, 220, CHAN8_F, 1 ; SFX_TEXT_PRINT
 	sfx Sfx_TreeMouthOpen,               $00, 220, CHAN8_F, 1 ; SFX_TREE_MOUTH_OPEN
-	sfx Sfx_132,                         $00, 220, CHAN5_F, 1 ; SFX_132
+	sfx Sfx_Turn,                        $00, 220, CHAN5_F, 1 ; SFX_TURN
 	sfx Sfx_MakeWire,                    $00, 220, CHAN7_F, 1 ; SFX_MAKE_WIRE
 	sfx Sfx_GameOver,                    $00, 220, CHAN5_F, 1 ; SFX_GAME_OVER
 	sfx Sfx_OpenCraterHole,              $00, 220, CHAN5_F, 1 ; SFX_OPEN_CRATER_HOLE
-	sfx Sfx_136,                         $00, 236, CHAN6_F, 1 ; SFX_136
+	sfx Sfx_Tiptoe2BUnused,              $00, 236, CHAN6_F, 1 ; SFX_TIPTOE_2_B_UNUSED
 	sfx Sfx_SceneWarioRun,               $00, 226, CHAN8_F, 1 ; SFX_SCENE_WARIO_RUN
 	sfx Sfx_EpilogueObj,                 $00, 220, CHAN8_F, 1 ; SFX_EPILOGUE_OBJ
