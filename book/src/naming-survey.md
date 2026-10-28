@@ -4241,3 +4241,112 @@ There are no more "unknown" or `unk` names in src/.
   the `DEF` sits above the states of table entry n+1. That is why
   `WarioTempleGfx` is entry `SCENEWARIO_GROUP_09` in `.WarioSpritePointers`
   but its states follow `DEF SCENEWARIO_GROUP_08` in event_constants.asm.
+
+## Room data indices
+
+The indices a room header and a room's `room` entry name were still
+numbered: `ROOM_000`, `ROOM_PAL_000`, `OBJECT_GROUP_000`, `BLOCKSET_00`,
+`BLOCK_FUNCTION_TABLE_00`, `MAIN_TILES_00`, `ANIMATED_TILES_GROUP_00`,
+`ANIMATED_TILES_GFX_00` and `ROOM_PALCYCLE_00`. They are now named after
+the level that uses them, with their data labels and files. Values and order
+are unchanged and the ROM is byte-identical after each family. Out of scope
+and still numbered: `SPECIAL_TILES_*` (9, each shared by many levels),
+`WAVE_*`, `GOLF_HOLE_*`, `SCENEWARIO_GROUP_*` and the existing
+`BLOCK_FUNCTION_TABLE_UNUSED_89`-`97` (NULL entries).
+
+### Rule
+
+A script walked `LevelHeaders`, every `<Level>...RoomHeaders` table it
+points to (all 200 level variants plus `THE_TEMPLE`), each room header and
+the room's `room` entry, and built a map from index to the level variants
+and room slots that use it. Palette cycles count their palettes as users,
+and animated tiles groups their gfx, except where the duration is 0:
+`UpdateRoomAnimatedTiles` and `UpdateRoomAnimatedPals` return early then, so
+nothing of the group or cycle is ever loaded. Code that loads an index
+itself was searched for as well (writes to `wObjectGroup`,
+`wAnimatedTilesGfx`, `wRoomPalCycle` and `wRoom`, and direct references to
+the data labels).
+
+- Used by one level: `<FAMILY>_<LEVEL>_<n>`, with the level constant's name
+  (`THE_` kept, as in `level_constants.asm`), and `n` counting that level's
+  indices of the family in order of first use (variants in `LevelHeaders`
+  order, rooms in slot order). A level with only one index of the family
+  drops `_n` (`MAIN_TILES_THE_TEMPLE`).
+- `ROOM_*` also says whether only day or only night variants use the room,
+  after the number so it doesn't read like a level variant:
+  `ROOM_OUT_OF_THE_WOODS_3_DAY` and `ROOM_OUT_OF_THE_WOODS_3_NIGHT` are the
+  day and night copies of one room. A night room takes its day room's
+  number when each is the other's only counterpart at the same slots of the
+  same variant number; other rooms get numbers of their own.
+- Used by several levels with an obvious common thread: named after it.
+  `_CRATERS` for the blocksets, function tables and main tiles that only
+  The West Crater and The East Crater use; `ROOM_PALCYCLE_NONE` and
+  `ANIMATED_TILES_GROUP_NONE` (duration 0, see above);
+  `ANIMATED_TILES_GROUP_WATER` and `ANIMATED_TILES_GFX_WATER` (14 levels;
+  the gfx are the water tiles the swimming flippers and Prince Frog's
+  gloves ActionHelp demos load).
+- Other shared ones: `<FAMILY>_SHARED_<n>`, numbered by index, with the
+  users in a comment next to the constant.
+- Used by no room: `<FAMILY>_UNUSED_<index>`, keeping the old number like
+  `BLOCK_FUNCTION_TABLE_UNUSED_89` does. Two indices no room uses are
+  loaded by code and named for it instead: `OBJECT_GROUP_EMPTY`
+  (`ObjectGroup_Empty`, the group with no objects whose gfx
+  `SetOwlTileOffset` treats as slot fillers) and `ANIMATED_TILES_GFX_MENU`
+  (the musical coins screen and `InitGolfCourseMenu`, which had it as a raw
+  `$0f`).
+
+Labels follow their constant in CamelCase after an underscore
+(`RoomPals_OutOfTheWoods1`, `BlocksetTiles_Craters1`,
+`BlockFunctionTable_TheTemple`, `LevelMainTiles_TheVolcanosBase`,
+`AnimatedTilesGfx_Water`, `.PalCycle_None`, `.room_data_the_temple`), files
+in snake case (`blockset_tiles_out_of_the_woods_1.bin`,
+`main_tiles_craters.png`, `animated_tiles_water.png`), as the block and
+object maps already were. An `ObjectGroupN` list is named after the first
+used group that points to it; groups that share a list (with another
+common-objects colour) are named in a comment above it. The room headers'
+initial palette cycle, a raw number before, is now a `ROOM_PALCYCLE_*`
+constant. `tests/tools/level_map.py` reads the room and function table
+pointer tables instead of matching numbers.
+
+### Counts
+
+| Family | Total | One level | Shared, named | `SHARED` | `UNUSED` |
+|---|---|---|---|---|---|
+| `ROOM_*` | 155 | 146 | 0 | 5 | 4 |
+| `ROOM_PAL_*` | 146 | 141 | 0 | 5 | 0 |
+| `OBJECT_GROUP_*` | 146 | 107 | 1 (`EMPTY`) | 34 | 4 |
+| `BLOCKSET_*` | 89 | 83 | 2 (`CRATERS`) | 4 | 0 |
+| `BLOCK_FUNCTION_TABLE_*` | 89 | 83 | 2 (`CRATERS`) | 4 | 0 |
+| `MAIN_TILES_*` | 40 | 35 | 1 (`CRATERS`) | 4 | 0 |
+| `ANIMATED_TILES_GROUP_*` | 29 | 9 | 2 (`NONE`, `WATER`) | 9 | 9 |
+| `ANIMATED_TILES_GFX_*` | 24 | 9 | 2 (`WATER`, `MENU`) | 9 | 4 |
+| `ROOM_PALCYCLE_*` | 20 | 11 | 1 (`NONE`) | 0 | 8 |
+
+### Shared
+
+- Rooms: `ROOM_SHARED_1`/`_2` (old `ROOM_010`/`011`, day/night: Out of the
+  Woods, The Grasslands), `_3` (`019`: Bank of the Wild River, The
+  Grasslands), `_4` (`021`: The Tidal Coast, The Volcano's Base), `_5`
+  (`025`: The Vast Plain, The Steep Canyon). Their palettes, blocksets,
+  function tables and main tiles are the other `SHARED` entries of those
+  families, for the same pairs of levels.
+- `OBJECT_GROUP_SHARED_1`-`34`: enemy sets reused across levels, up to nine
+  levels for `OBJECT_GROUP_SHARED_2`.
+- `ANIMATED_TILES_GROUP_SHARED_1`-`9` and the matching
+  `ANIMATED_TILES_GFX_SHARED_1`-`9` (each of these groups has its own gfx).
+
+### Unused
+
+- `ROOM_UNUSED_000` (a NULL entry) and `ROOM_UNUSED_063`-`065`: three
+  complete rooms with A Town in Chaos graphics and palettes that no level
+  lists.
+- `OBJECT_GROUP_UNUSED_039`, `_046`, `_066`, `_103`. `_066` is an exact
+  duplicate of `OBJECT_GROUP_THE_VOLCANOS_BASE_1` (same colour, same list);
+  the others reuse lists of used groups with another colour.
+- `ANIMATED_TILES_GROUP_UNUSED_16` (animates `ANIMATED_TILES_GFX_MENU`) and
+  `_21`-`_28` (duration 0, gfx 0).
+- `ANIMATED_TILES_GFX_UNUSED_20`-`_23`: no group points at them.
+- `ROOM_PALCYCLE_UNUSED_12`-`_19`: copies of the empty cycle.
+- Every palette, blockset, function table and main tiles set is used. The
+  overworld cutscenes (bank27.asm) also load twelve main tiles sets and
+  `RoomPals_TheVolcanosBase1` directly; the constants say which.

@@ -134,7 +134,7 @@ The room lists of levels before `THE_GRASSLANDS_NIGHT_1` are in `Rooms 1`
 | camera configuration | `CAM_*` flags | `wCameraConfigFlags` |
 | object group | `OBJECT_GROUP_*` | `wObjectGroup` |
 | animated tiles group | `ANIMATED_TILES_GROUP_*` | `wAnimatedTilesGroup` |
-| initial palette cycle | | `wRoomPalCycle` |
+| initial palette cycle | `ROOM_PALCYCLE_*` | `wRoomPalCycle` |
 | room graphics | `ROOM_*` | `wRoom` |
 
 Limits are in sectors; the upper and left limits are inclusive, the lower
@@ -167,6 +167,26 @@ equal, so it makes no difference, but a new room needs them to match.
 (`LoadObjectGroupData`: enemy graphics and palettes, see
 [Objects](objects.md#object-groups)), the animated tiles group
 (`InitRoomAnimatedTiles`) and the palette cycle (`InitRoomAnimatedPals`).
+
+### Index names
+
+The indices above (`ROOM_*`, `ROOM_PAL_*`, `OBJECT_GROUP_*`, `BLOCKSET_*`,
+`BLOCK_FUNCTION_TABLE_*`, `MAIN_TILES_*`, `ANIMATED_TILES_GROUP_*`,
+`ANIMATED_TILES_GFX_*`, `ROOM_PALCYCLE_*`) are named after the level whose
+rooms use them, found by walking every level variant's room headers:
+`<FAMILY>_<LEVEL>_<n>`, with `n` counting the level's indices of that family
+in order of first use and left out when the level has only one
+(`ROOM_PAL_OUT_OF_THE_WOODS_1`, `MAIN_TILES_THE_TEMPLE`). Rooms used only by
+day or only by night variants end in `_DAY` or `_NIGHT`, and the two copies
+of a room share its number (`ROOM_OUT_OF_THE_WOODS_3_DAY`,
+`ROOM_OUT_OF_THE_WOODS_3_NIGHT`). Indices several levels use are
+`<FAMILY>_SHARED_<n>`, with the levels in a comment next to the constant,
+unless they have something plain in common: `_CRATERS` (only the two
+craters), `ROOM_PALCYCLE_NONE` and `ANIMATED_TILES_GROUP_NONE` (duration 0,
+never run), `ANIMATED_TILES_GROUP_WATER`. Indices no room uses are
+`<FAMILY>_UNUSED_<old index>`. Data labels and files follow the constant
+(`RoomPals_OutOfTheWoods1`, `blockset_tiles_out_of_the_woods_1.bin`). The
+full rule, counts and lists are in the [naming survey](naming-survey.md#room-data-indices).
 
 ## Starting a level
 
