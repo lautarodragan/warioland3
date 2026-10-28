@@ -181,9 +181,9 @@ src/data/levels/block_map/the_peaceful_village_1.bin.rle: tools/compressor += --
 src/data/levels/block_map/tower_of_revival.bin.rle: tools/compressor += --force-trailing-copy
 src/data/levels/block_map/the_peaceful_village_2.bin.rle: tools/compressor += --force-trailing-copy
 
-src/data/levels/blocksets/blockset_attributes_20.bin.rle: tools/compressor += --force-trailing-copy
-src/data/levels/blocksets/blockset_attributes_50.bin.rle: tools/compressor += --force-trailing-copy
-src/data/levels/blocksets/blockset_attributes_52.bin.rle: tools/compressor += --force-trailing-copy
+src/data/levels/blocksets/blockset_attributes_the_pool_of_rain_3.bin.rle: tools/compressor += --force-trailing-copy
+src/data/levels/blocksets/blockset_attributes_the_pool_of_rain_2.bin.rle: tools/compressor += --force-trailing-copy
+src/data/levels/blocksets/blockset_attributes_the_pool_of_rain_1.bin.rle: tools/compressor += --force-trailing-copy
 
 ### Interleaved gfx
 
