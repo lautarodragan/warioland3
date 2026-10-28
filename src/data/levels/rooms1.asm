@@ -224,161 +224,161 @@ ENDM
 
 RoomBlockAndGfxData:
 	table_width 2
-	dw NULL           ; ROOM_000
-	dw .room_data_001 ; ROOM_001
-	dw .room_data_002 ; ROOM_002
-	dw .room_data_003 ; ROOM_003
-	dw .room_data_004 ; ROOM_004
-	dw .room_data_005 ; ROOM_005
-	dw .room_data_006 ; ROOM_006
-	dw .room_data_007 ; ROOM_007
-	dw .room_data_008 ; ROOM_008
-	dw .room_data_009 ; ROOM_009
-	dw .room_data_010 ; ROOM_010
-	dw .room_data_011 ; ROOM_011
-	dw .room_data_012 ; ROOM_012
-	dw .room_data_013 ; ROOM_013
-	dw .room_data_014 ; ROOM_014
-	dw .room_data_015 ; ROOM_015
-	dw .room_data_016 ; ROOM_016
-	dw .room_data_017 ; ROOM_017
-	dw .room_data_018 ; ROOM_018
-	dw .room_data_019 ; ROOM_019
-	dw .room_data_020 ; ROOM_020
-	dw .room_data_021 ; ROOM_021
-	dw .room_data_022 ; ROOM_022
-	dw .room_data_023 ; ROOM_023
-	dw .room_data_024 ; ROOM_024
-	dw .room_data_025 ; ROOM_025
-	dw .room_data_026 ; ROOM_026
-	dw .room_data_027 ; ROOM_027
-	dw .room_data_028 ; ROOM_028
-	dw .room_data_029 ; ROOM_029
-	dw .room_data_030 ; ROOM_030
-	dw .room_data_031 ; ROOM_031
-	dw .room_data_032 ; ROOM_032
-	dw .room_data_033 ; ROOM_033
-	dw .room_data_034 ; ROOM_034
-	dw .room_data_035 ; ROOM_035
-	dw .room_data_036 ; ROOM_036
-	dw .room_data_037 ; ROOM_037
-	dw .room_data_038 ; ROOM_038
-	dw .room_data_039 ; ROOM_039
-	dw .room_data_040 ; ROOM_040
-	dw .room_data_041 ; ROOM_041
-	dw .room_data_042 ; ROOM_042
-	dw .room_data_043 ; ROOM_043
-	dw .room_data_044 ; ROOM_044
-	dw .room_data_045 ; ROOM_045
-	dw .room_data_046 ; ROOM_046
-	dw .room_data_047 ; ROOM_047
-	dw .room_data_048 ; ROOM_048
-	dw .room_data_049 ; ROOM_049
-	dw .room_data_050 ; ROOM_050
-	dw .room_data_051 ; ROOM_051
-	dw .room_data_052 ; ROOM_052
-	dw .room_data_053 ; ROOM_053
-	dw .room_data_054 ; ROOM_054
-	dw .room_data_055 ; ROOM_055
-	dw .room_data_056 ; ROOM_056
-	dw .room_data_057 ; ROOM_057
-	dw .room_data_058 ; ROOM_058
-	dw .room_data_059 ; ROOM_059
-	dw .room_data_060 ; ROOM_060
-	dw .room_data_061 ; ROOM_061
-	dw .room_data_062 ; ROOM_062
-	dw .room_data_063 ; ROOM_063
-	dw .room_data_064 ; ROOM_064
-	dw .room_data_065 ; ROOM_065
-	dw .room_data_066 ; ROOM_066
-	dw .room_data_067 ; ROOM_067
-	dw .room_data_068 ; ROOM_068
-	dw .room_data_069 ; ROOM_069
-	dw .room_data_070 ; ROOM_070
-	dw .room_data_071 ; ROOM_071
-	dw .room_data_072 ; ROOM_072
-	dw .room_data_073 ; ROOM_073
-	dw .room_data_074 ; ROOM_074
-	dw .room_data_075 ; ROOM_075
-	dw .room_data_076 ; ROOM_076
-	dw .room_data_077 ; ROOM_077
-	dw .room_data_078 ; ROOM_078
-	dw .room_data_079 ; ROOM_079
-	dw .room_data_080 ; ROOM_080
-	dw .room_data_081 ; ROOM_081
-	dw .room_data_082 ; ROOM_082
-	dw .room_data_083 ; ROOM_083
-	dw .room_data_084 ; ROOM_084
-	dw .room_data_085 ; ROOM_085
-	dw .room_data_086 ; ROOM_086
-	dw .room_data_087 ; ROOM_087
-	dw .room_data_088 ; ROOM_088
-	dw .room_data_089 ; ROOM_089
-	dw .room_data_090 ; ROOM_090
-	dw .room_data_091 ; ROOM_091
-	dw .room_data_092 ; ROOM_092
-	dw .room_data_093 ; ROOM_093
-	dw .room_data_094 ; ROOM_094
-	dw .room_data_095 ; ROOM_095
-	dw .room_data_096 ; ROOM_096
-	dw .room_data_097 ; ROOM_097
-	dw .room_data_098 ; ROOM_098
-	dw .room_data_099 ; ROOM_099
-	dw .room_data_100 ; ROOM_100
-	dw .room_data_101 ; ROOM_101
-	dw .room_data_102 ; ROOM_102
-	dw .room_data_103 ; ROOM_103
-	dw .room_data_104 ; ROOM_104
-	dw .room_data_105 ; ROOM_105
-	dw .room_data_106 ; ROOM_106
-	dw .room_data_107 ; ROOM_107
-	dw .room_data_108 ; ROOM_108
-	dw .room_data_109 ; ROOM_109
-	dw .room_data_110 ; ROOM_110
-	dw .room_data_111 ; ROOM_111
-	dw .room_data_112 ; ROOM_112
-	dw .room_data_113 ; ROOM_113
-	dw .room_data_114 ; ROOM_114
-	dw .room_data_115 ; ROOM_115
-	dw .room_data_116 ; ROOM_116
-	dw .room_data_117 ; ROOM_117
-	dw .room_data_118 ; ROOM_118
-	dw .room_data_119 ; ROOM_119
-	dw .room_data_120 ; ROOM_120
-	dw .room_data_121 ; ROOM_121
-	dw .room_data_122 ; ROOM_122
-	dw .room_data_123 ; ROOM_123
-	dw .room_data_124 ; ROOM_124
-	dw .room_data_125 ; ROOM_125
-	dw .room_data_126 ; ROOM_126
-	dw .room_data_127 ; ROOM_127
-	dw .room_data_128 ; ROOM_128
-	dw .room_data_129 ; ROOM_129
-	dw .room_data_130 ; ROOM_130
-	dw .room_data_131 ; ROOM_131
-	dw .room_data_132 ; ROOM_132
-	dw .room_data_133 ; ROOM_133
-	dw .room_data_134 ; ROOM_134
-	dw .room_data_135 ; ROOM_135
-	dw .room_data_136 ; ROOM_136
-	dw .room_data_137 ; ROOM_137
-	dw .room_data_138 ; ROOM_138
-	dw .room_data_139 ; ROOM_139
-	dw .room_data_140 ; ROOM_140
-	dw .room_data_141 ; ROOM_141
-	dw .room_data_142 ; ROOM_142
-	dw .room_data_143 ; ROOM_143
-	dw .room_data_144 ; ROOM_144
-	dw .room_data_145 ; ROOM_145
-	dw .room_data_146 ; ROOM_146
-	dw .room_data_147 ; ROOM_147
-	dw .room_data_148 ; ROOM_148
-	dw .room_data_149 ; ROOM_149
-	dw .room_data_150 ; ROOM_150
-	dw .room_data_151 ; ROOM_151
-	dw .room_data_152 ; ROOM_152
-	dw .room_data_153 ; ROOM_153
-	dw .room_data_154 ; ROOM_154
+	dw NULL                                      ; ROOM_UNUSED_000
+	dw .room_data_out_of_the_woods_1_day         ; ROOM_OUT_OF_THE_WOODS_1_DAY
+	dw .room_data_out_of_the_woods_6_night       ; ROOM_OUT_OF_THE_WOODS_6_NIGHT
+	dw .room_data_out_of_the_woods_5_day         ; ROOM_OUT_OF_THE_WOODS_5_DAY
+	dw .room_data_out_of_the_woods_5_night       ; ROOM_OUT_OF_THE_WOODS_5_NIGHT
+	dw .room_data_out_of_the_woods_2             ; ROOM_OUT_OF_THE_WOODS_2
+	dw .room_data_out_of_the_woods_3_day         ; ROOM_OUT_OF_THE_WOODS_3_DAY
+	dw .room_data_out_of_the_woods_3_night       ; ROOM_OUT_OF_THE_WOODS_3_NIGHT
+	dw .room_data_out_of_the_woods_4_day         ; ROOM_OUT_OF_THE_WOODS_4_DAY
+	dw .room_data_out_of_the_woods_4_night       ; ROOM_OUT_OF_THE_WOODS_4_NIGHT
+	dw .room_data_shared_1                       ; ROOM_SHARED_1
+	dw .room_data_shared_2                       ; ROOM_SHARED_2
+	dw .room_data_the_peaceful_village_1_day     ; ROOM_THE_PEACEFUL_VILLAGE_1_DAY
+	dw .room_data_the_peaceful_village_1_night   ; ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
+	dw .room_data_the_peaceful_village_2_day     ; ROOM_THE_PEACEFUL_VILLAGE_2_DAY
+	dw .room_data_the_peaceful_village_3         ; ROOM_THE_PEACEFUL_VILLAGE_3
+	dw .room_data_the_vast_plain_4_day           ; ROOM_THE_VAST_PLAIN_4_DAY
+	dw .room_data_the_peaceful_village_4_night   ; ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
+	dw .room_data_bank_of_the_wild_river_1_day   ; ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
+	dw .room_data_shared_3                       ; ROOM_SHARED_3
+	dw .room_data_the_tidal_coast_1_day          ; ROOM_THE_TIDAL_COAST_1_DAY
+	dw .room_data_shared_4                       ; ROOM_SHARED_4
+	dw .room_data_sea_turtle_rocks_1_day         ; ROOM_SEA_TURTLE_ROCKS_1_DAY
+	dw .room_data_desert_ruins_1_day             ; ROOM_DESERT_RUINS_1_DAY
+	dw .room_data_desert_ruins_2                 ; ROOM_DESERT_RUINS_2
+	dw .room_data_shared_5                       ; ROOM_SHARED_5
+	dw .room_data_the_peaceful_village_5_night   ; ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
+	dw .room_data_the_volcanos_base_1_day        ; ROOM_THE_VOLCANOS_BASE_1_DAY
+	dw .room_data_the_volcanos_base_2            ; ROOM_THE_VOLCANOS_BASE_2
+	dw .room_data_the_pool_of_rain_1_day         ; ROOM_THE_POOL_OF_RAIN_1_DAY
+	dw .room_data_the_pool_of_rain_2             ; ROOM_THE_POOL_OF_RAIN_2
+	dw .room_data_a_town_in_chaos_1_day          ; ROOM_A_TOWN_IN_CHAOS_1_DAY
+	dw .room_data_a_town_in_chaos_2_day          ; ROOM_A_TOWN_IN_CHAOS_2_DAY
+	dw .room_data_a_town_in_chaos_3_day          ; ROOM_A_TOWN_IN_CHAOS_3_DAY
+	dw .room_data_beneath_the_waves_1_day        ; ROOM_BENEATH_THE_WAVES_1_DAY
+	dw .room_data_the_grasslands_1_day           ; ROOM_THE_GRASSLANDS_1_DAY
+	dw .room_data_the_big_bridge_1_day           ; ROOM_THE_BIG_BRIDGE_1_DAY
+	dw .room_data_the_big_bridge_2               ; ROOM_THE_BIG_BRIDGE_2
+	dw .room_data_tower_of_revival_1_day         ; ROOM_TOWER_OF_REVIVAL_1_DAY
+	dw .room_data_the_steep_canyon_1_day         ; ROOM_THE_STEEP_CANYON_1_DAY
+	dw .room_data_above_the_clouds_1_day         ; ROOM_ABOVE_THE_CLOUDS_1_DAY
+	dw .room_data_the_stagnant_swamp_1_day       ; ROOM_THE_STAGNANT_SWAMP_1_DAY
+	dw .room_data_desert_ruins_1_night           ; ROOM_DESERT_RUINS_1_NIGHT
+	dw .room_data_the_frigid_sea_1_day           ; ROOM_THE_FRIGID_SEA_1_DAY
+	dw .room_data_castle_of_illusions_1_day      ; ROOM_CASTLE_OF_ILLUSIONS_1_DAY
+	dw .room_data_the_colossal_hole_1_day        ; ROOM_THE_COLOSSAL_HOLE_1_DAY
+	dw .room_data_the_stagnant_swamp_2           ; ROOM_THE_STAGNANT_SWAMP_2
+	dw .room_data_the_west_crater_1_day          ; ROOM_THE_WEST_CRATER_1_DAY
+	dw .room_data_the_west_crater_2              ; ROOM_THE_WEST_CRATER_2
+	dw .room_data_tower_of_revival_3_day         ; ROOM_TOWER_OF_REVIVAL_3_DAY
+	dw .room_data_sea_turtle_rocks_2             ; ROOM_SEA_TURTLE_ROCKS_2
+	dw .room_data_the_warped_void_1              ; ROOM_THE_WARPED_VOID_1
+	dw .room_data_forest_of_fear_1_day           ; ROOM_FOREST_OF_FEAR_1_DAY
+	dw .room_data_cave_of_flames_1               ; ROOM_CAVE_OF_FLAMES_1
+	dw .room_data_beneath_the_waves_2            ; ROOM_BENEATH_THE_WAVES_2
+	dw .room_data_beneath_the_waves_3            ; ROOM_BENEATH_THE_WAVES_3
+	dw .room_data_castle_of_illusions_2          ; ROOM_CASTLE_OF_ILLUSIONS_2
+	dw .room_data_castle_of_illusions_3_day      ; ROOM_CASTLE_OF_ILLUSIONS_3_DAY
+	dw .room_data_a_town_in_chaos_4              ; ROOM_A_TOWN_IN_CHAOS_4
+	dw .room_data_the_temple                     ; ROOM_THE_TEMPLE
+	dw .room_data_the_vast_plain_4_night         ; ROOM_THE_VAST_PLAIN_4_NIGHT
+	dw .room_data_the_vast_plain_3               ; ROOM_THE_VAST_PLAIN_3
+	dw .room_data_desert_ruins_3                 ; ROOM_DESERT_RUINS_3
+	dw .room_data_unused_063                     ; ROOM_UNUSED_063
+	dw .room_data_unused_064                     ; ROOM_UNUSED_064
+	dw .room_data_unused_065                     ; ROOM_UNUSED_065
+	dw .room_data_sea_turtle_rocks_4             ; ROOM_SEA_TURTLE_ROCKS_4
+	dw .room_data_the_vast_plain_1_day           ; ROOM_THE_VAST_PLAIN_1_DAY
+	dw .room_data_the_vast_plain_1_night         ; ROOM_THE_VAST_PLAIN_1_NIGHT
+	dw .room_data_the_east_crater_1_day          ; ROOM_THE_EAST_CRATER_1_DAY
+	dw .room_data_the_east_crater_2              ; ROOM_THE_EAST_CRATER_2
+	dw .room_data_tower_of_revival_2_day         ; ROOM_TOWER_OF_REVIVAL_2_DAY
+	dw .room_data_the_frigid_sea_2               ; ROOM_THE_FRIGID_SEA_2
+	dw .room_data_the_grasslands_2               ; ROOM_THE_GRASSLANDS_2
+	dw .room_data_the_vast_plain_2_day           ; ROOM_THE_VAST_PLAIN_2_DAY
+	dw .room_data_the_vast_plain_2_night         ; ROOM_THE_VAST_PLAIN_2_NIGHT
+	dw .room_data_the_stagnant_swamp_3           ; ROOM_THE_STAGNANT_SWAMP_3
+	dw .room_data_the_warped_void_4              ; ROOM_THE_WARPED_VOID_4
+	dw .room_data_the_warped_void_3              ; ROOM_THE_WARPED_VOID_3
+	dw .room_data_the_warped_void_2              ; ROOM_THE_WARPED_VOID_2
+	dw .room_data_the_volcanos_base_1_night      ; ROOM_THE_VOLCANOS_BASE_1_NIGHT
+	dw .room_data_the_pool_of_rain_1_night       ; ROOM_THE_POOL_OF_RAIN_1_NIGHT
+	dw .room_data_the_pool_of_rain_3_day         ; ROOM_THE_POOL_OF_RAIN_3_DAY
+	dw .room_data_the_pool_of_rain_3_night       ; ROOM_THE_POOL_OF_RAIN_3_NIGHT
+	dw .room_data_a_town_in_chaos_1_night        ; ROOM_A_TOWN_IN_CHAOS_1_NIGHT
+	dw .room_data_a_town_in_chaos_2_night        ; ROOM_A_TOWN_IN_CHAOS_2_NIGHT
+	dw .room_data_a_town_in_chaos_3_night        ; ROOM_A_TOWN_IN_CHAOS_3_NIGHT
+	dw .room_data_a_town_in_chaos_5              ; ROOM_A_TOWN_IN_CHAOS_5
+	dw .room_data_the_grasslands_3_day           ; ROOM_THE_GRASSLANDS_3_DAY
+	dw .room_data_the_grasslands_1_night         ; ROOM_THE_GRASSLANDS_1_NIGHT
+	dw .room_data_the_grasslands_3_night         ; ROOM_THE_GRASSLANDS_3_NIGHT
+	dw .room_data_the_big_bridge_3_day           ; ROOM_THE_BIG_BRIDGE_3_DAY
+	dw .room_data_the_big_bridge_1_night         ; ROOM_THE_BIG_BRIDGE_1_NIGHT
+	dw .room_data_the_big_bridge_3_night         ; ROOM_THE_BIG_BRIDGE_3_NIGHT
+	dw .room_data_tower_of_revival_4_day         ; ROOM_TOWER_OF_REVIVAL_4_DAY
+	dw .room_data_tower_of_revival_5_day         ; ROOM_TOWER_OF_REVIVAL_5_DAY
+	dw .room_data_tower_of_revival_6_day         ; ROOM_TOWER_OF_REVIVAL_6_DAY
+	dw .room_data_tower_of_revival_1_night       ; ROOM_TOWER_OF_REVIVAL_1_NIGHT
+	dw .room_data_tower_of_revival_7_night       ; ROOM_TOWER_OF_REVIVAL_7_NIGHT
+	dw .room_data_tower_of_revival_2_night       ; ROOM_TOWER_OF_REVIVAL_2_NIGHT
+	dw .room_data_tower_of_revival_5_night       ; ROOM_TOWER_OF_REVIVAL_5_NIGHT
+	dw .room_data_tower_of_revival_6_night       ; ROOM_TOWER_OF_REVIVAL_6_NIGHT
+	dw .room_data_bank_of_the_wild_river_2_day   ; ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
+	dw .room_data_bank_of_the_wild_river_1_night ; ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
+	dw .room_data_bank_of_the_wild_river_2_night ; ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
+	dw .room_data_sea_turtle_rocks_3             ; ROOM_SEA_TURTLE_ROCKS_3
+	dw .room_data_sea_turtle_rocks_5_day         ; ROOM_SEA_TURTLE_ROCKS_5_DAY
+	dw .room_data_sea_turtle_rocks_6             ; ROOM_SEA_TURTLE_ROCKS_6
+	dw .room_data_sea_turtle_rocks_1_night       ; ROOM_SEA_TURTLE_ROCKS_1_NIGHT
+	dw .room_data_sea_turtle_rocks_5_night       ; ROOM_SEA_TURTLE_ROCKS_5_NIGHT
+	dw .room_data_the_frigid_sea_3_day           ; ROOM_THE_FRIGID_SEA_3_DAY
+	dw .room_data_the_frigid_sea_1_night         ; ROOM_THE_FRIGID_SEA_1_NIGHT
+	dw .room_data_the_frigid_sea_3_night         ; ROOM_THE_FRIGID_SEA_3_NIGHT
+	dw .room_data_the_tidal_coast_2              ; ROOM_THE_TIDAL_COAST_2
+	dw .room_data_the_tidal_coast_3              ; ROOM_THE_TIDAL_COAST_3
+	dw .room_data_the_tidal_coast_1_night        ; ROOM_THE_TIDAL_COAST_1_NIGHT
+	dw .room_data_the_stagnant_swamp_1_night     ; ROOM_THE_STAGNANT_SWAMP_1_NIGHT
+	dw .room_data_the_stagnant_swamp_4           ; ROOM_THE_STAGNANT_SWAMP_4
+	dw .room_data_above_the_clouds_2_day         ; ROOM_ABOVE_THE_CLOUDS_2_DAY
+	dw .room_data_above_the_clouds_3             ; ROOM_ABOVE_THE_CLOUDS_3
+	dw .room_data_cave_of_flames_2               ; ROOM_CAVE_OF_FLAMES_2
+	dw .room_data_cave_of_flames_3               ; ROOM_CAVE_OF_FLAMES_3
+	dw .room_data_cave_of_flames_4               ; ROOM_CAVE_OF_FLAMES_4
+	dw .room_data_beneath_the_waves_4_day        ; ROOM_BENEATH_THE_WAVES_4_DAY
+	dw .room_data_beneath_the_waves_5_day        ; ROOM_BENEATH_THE_WAVES_5_DAY
+	dw .room_data_beneath_the_waves_1_night      ; ROOM_BENEATH_THE_WAVES_1_NIGHT
+	dw .room_data_beneath_the_waves_4_night      ; ROOM_BENEATH_THE_WAVES_4_NIGHT
+	dw .room_data_beneath_the_waves_5_night      ; ROOM_BENEATH_THE_WAVES_5_NIGHT
+	dw .room_data_the_colossal_hole_2_day        ; ROOM_THE_COLOSSAL_HOLE_2_DAY
+	dw .room_data_the_colossal_hole_1_night      ; ROOM_THE_COLOSSAL_HOLE_1_NIGHT
+	dw .room_data_the_colossal_hole_2_night      ; ROOM_THE_COLOSSAL_HOLE_2_NIGHT
+	dw .room_data_castle_of_illusions_4_day      ; ROOM_CASTLE_OF_ILLUSIONS_4_DAY
+	dw .room_data_castle_of_illusions_1_night    ; ROOM_CASTLE_OF_ILLUSIONS_1_NIGHT
+	dw .room_data_castle_of_illusions_4_night    ; ROOM_CASTLE_OF_ILLUSIONS_4_NIGHT
+	dw .room_data_castle_of_illusions_3_night    ; ROOM_CASTLE_OF_ILLUSIONS_3_NIGHT
+	dw .room_data_above_the_clouds_4_day         ; ROOM_ABOVE_THE_CLOUDS_4_DAY
+	dw .room_data_above_the_clouds_1_night       ; ROOM_ABOVE_THE_CLOUDS_1_NIGHT
+	dw .room_data_above_the_clouds_4_night       ; ROOM_ABOVE_THE_CLOUDS_4_NIGHT
+	dw .room_data_above_the_clouds_2_night       ; ROOM_ABOVE_THE_CLOUDS_2_NIGHT
+	dw .room_data_forest_of_fear_2_day           ; ROOM_FOREST_OF_FEAR_2_DAY
+	dw .room_data_forest_of_fear_1_night         ; ROOM_FOREST_OF_FEAR_1_NIGHT
+	dw .room_data_forest_of_fear_2_night         ; ROOM_FOREST_OF_FEAR_2_NIGHT
+	dw .room_data_the_west_crater_3_day          ; ROOM_THE_WEST_CRATER_3_DAY
+	dw .room_data_the_west_crater_1_night        ; ROOM_THE_WEST_CRATER_1_NIGHT
+	dw .room_data_the_west_crater_3_night        ; ROOM_THE_WEST_CRATER_3_NIGHT
+	dw .room_data_the_east_crater_4_day          ; ROOM_THE_EAST_CRATER_4_DAY
+	dw .room_data_the_east_crater_1_night        ; ROOM_THE_EAST_CRATER_1_NIGHT
+	dw .room_data_the_east_crater_4_night        ; ROOM_THE_EAST_CRATER_4_NIGHT
+	dw .room_data_the_east_crater_3              ; ROOM_THE_EAST_CRATER_3
+	dw .room_data_the_warped_void_5              ; ROOM_THE_WARPED_VOID_5
+	dw .room_data_the_warped_void_6              ; ROOM_THE_WARPED_VOID_6
+	dw .room_data_the_steep_canyon_2_day         ; ROOM_THE_STEEP_CANYON_2_DAY
+	dw .room_data_the_steep_canyon_1_night       ; ROOM_THE_STEEP_CANYON_1_NIGHT
+	dw .room_data_the_steep_canyon_2_night       ; ROOM_THE_STEEP_CANYON_2_NIGHT
+	dw .room_data_the_volcanos_base_3            ; ROOM_THE_VOLCANOS_BASE_3
 	assert_table_length NUM_ROOMS
 	dw NULL
 	dw NULL
@@ -389,313 +389,313 @@ RoomBlockAndGfxData:
 	dw NULL
 	dw NULL
 
-.room_data_001
+.room_data_out_of_the_woods_1_day
 	room BLOCK_FUNCTION_TABLE_00, BLOCKSET_00, MAIN_TILES_00, SPECIAL_TILES_0, ROOM_PAL_000
-.room_data_002
+.room_data_out_of_the_woods_6_night
 	room BLOCK_FUNCTION_TABLE_00, BLOCKSET_00, MAIN_TILES_00, SPECIAL_TILES_0, ROOM_PAL_001
-.room_data_003
+.room_data_out_of_the_woods_5_day
 	room BLOCK_FUNCTION_TABLE_01, BLOCKSET_01, MAIN_TILES_00, SPECIAL_TILES_0, ROOM_PAL_000
-.room_data_004
+.room_data_out_of_the_woods_5_night
 	room BLOCK_FUNCTION_TABLE_01, BLOCKSET_01, MAIN_TILES_00, SPECIAL_TILES_0, ROOM_PAL_001
-.room_data_005
+.room_data_out_of_the_woods_2
 	room BLOCK_FUNCTION_TABLE_02, BLOCKSET_02, MAIN_TILES_01, SPECIAL_TILES_1, ROOM_PAL_002
-.room_data_006
+.room_data_out_of_the_woods_3_day
 	room BLOCK_FUNCTION_TABLE_03, BLOCKSET_03, MAIN_TILES_02, SPECIAL_TILES_2, ROOM_PAL_004
-.room_data_007
+.room_data_out_of_the_woods_3_night
 	room BLOCK_FUNCTION_TABLE_03, BLOCKSET_03, MAIN_TILES_02, SPECIAL_TILES_2, ROOM_PAL_005
-.room_data_008
+.room_data_out_of_the_woods_4_day
 	room BLOCK_FUNCTION_TABLE_04, BLOCKSET_04, MAIN_TILES_02, SPECIAL_TILES_2, ROOM_PAL_004
-.room_data_009
+.room_data_out_of_the_woods_4_night
 	room BLOCK_FUNCTION_TABLE_04, BLOCKSET_04, MAIN_TILES_02, SPECIAL_TILES_2, ROOM_PAL_005
-.room_data_010
+.room_data_shared_1
 	room BLOCK_FUNCTION_TABLE_05, BLOCKSET_05, MAIN_TILES_03, SPECIAL_TILES_3, ROOM_PAL_006
-.room_data_011
+.room_data_shared_2
 	room BLOCK_FUNCTION_TABLE_05, BLOCKSET_05, MAIN_TILES_03, SPECIAL_TILES_3, ROOM_PAL_007
-.room_data_012
+.room_data_the_peaceful_village_1_day
 	room BLOCK_FUNCTION_TABLE_06, BLOCKSET_06, MAIN_TILES_04, SPECIAL_TILES_3, ROOM_PAL_008
-.room_data_013
+.room_data_the_peaceful_village_1_night
 	room BLOCK_FUNCTION_TABLE_10, BLOCKSET_10, MAIN_TILES_04, SPECIAL_TILES_3, ROOM_PAL_013
-.room_data_014
+.room_data_the_peaceful_village_2_day
 	room BLOCK_FUNCTION_TABLE_09, BLOCKSET_09, MAIN_TILES_38, SPECIAL_TILES_3, ROOM_PAL_009
-.room_data_015
+.room_data_the_peaceful_village_3
 	room BLOCK_FUNCTION_TABLE_07, BLOCKSET_07, MAIN_TILES_05, SPECIAL_TILES_3, ROOM_PAL_011
-.room_data_016
+.room_data_the_vast_plain_4_day
 	room BLOCK_FUNCTION_TABLE_08, BLOCKSET_08, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_012
-.room_data_017
+.room_data_the_peaceful_village_4_night
 	room BLOCK_FUNCTION_TABLE_09, BLOCKSET_09, MAIN_TILES_38, SPECIAL_TILES_3, ROOM_PAL_010
-.room_data_018
+.room_data_bank_of_the_wild_river_1_day
 	room BLOCK_FUNCTION_TABLE_59, BLOCKSET_59, MAIN_TILES_07, SPECIAL_TILES_3, ROOM_PAL_014
-.room_data_019
+.room_data_shared_3
 	room BLOCK_FUNCTION_TABLE_12, BLOCKSET_12, MAIN_TILES_08, SPECIAL_TILES_3, ROOM_PAL_015
-.room_data_020
+.room_data_the_tidal_coast_1_day
 	room BLOCK_FUNCTION_TABLE_13, BLOCKSET_13, MAIN_TILES_09, SPECIAL_TILES_1, ROOM_PAL_016
-.room_data_021
+.room_data_shared_4
 	room BLOCK_FUNCTION_TABLE_66, BLOCKSET_66, MAIN_TILES_10, SPECIAL_TILES_1, ROOM_PAL_017
-.room_data_022
+.room_data_sea_turtle_rocks_1_day
 	room BLOCK_FUNCTION_TABLE_61, BLOCKSET_61, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_018
-.room_data_023
+.room_data_desert_ruins_1_day
 	room BLOCK_FUNCTION_TABLE_16, BLOCKSET_16, MAIN_TILES_12, SPECIAL_TILES_4, ROOM_PAL_019
-.room_data_024
+.room_data_desert_ruins_2
 	room BLOCK_FUNCTION_TABLE_17, BLOCKSET_17, MAIN_TILES_12, SPECIAL_TILES_4, ROOM_PAL_020
-.room_data_025
+.room_data_shared_5
 	room BLOCK_FUNCTION_TABLE_18, BLOCKSET_18, MAIN_TILES_13, SPECIAL_TILES_1, ROOM_PAL_021
-.room_data_026
+.room_data_the_peaceful_village_5_night
 	room BLOCK_FUNCTION_TABLE_09, BLOCKSET_09, MAIN_TILES_38, SPECIAL_TILES_3, ROOM_PAL_022
-.room_data_027
+.room_data_the_volcanos_base_1_day
 	room BLOCK_FUNCTION_TABLE_19, BLOCKSET_19, MAIN_TILES_14, SPECIAL_TILES_1, ROOM_PAL_023
-.room_data_028
+.room_data_the_volcanos_base_2
 	room BLOCK_FUNCTION_TABLE_19, BLOCKSET_19, MAIN_TILES_14, SPECIAL_TILES_1, ROOM_PAL_024
-.room_data_029
+.room_data_the_pool_of_rain_1_day
 	room BLOCK_FUNCTION_TABLE_52, BLOCKSET_52, MAIN_TILES_15, SPECIAL_TILES_5, ROOM_PAL_025
-.room_data_030
+.room_data_the_pool_of_rain_2
 	room BLOCK_FUNCTION_TABLE_50, BLOCKSET_50, MAIN_TILES_15, SPECIAL_TILES_5, ROOM_PAL_026
-.room_data_031
+.room_data_a_town_in_chaos_1_day
 	room BLOCK_FUNCTION_TABLE_21, BLOCKSET_21, MAIN_TILES_16, SPECIAL_TILES_8, ROOM_PAL_027
-.room_data_032
+.room_data_a_town_in_chaos_2_day
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_028
-.room_data_033
+.room_data_a_town_in_chaos_3_day
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_029
-.room_data_034
+.room_data_beneath_the_waves_1_day
 	room BLOCK_FUNCTION_TABLE_23, BLOCKSET_23, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_030
-.room_data_035
+.room_data_the_grasslands_1_day
 	room BLOCK_FUNCTION_TABLE_54, BLOCKSET_54, MAIN_TILES_19, SPECIAL_TILES_1, ROOM_PAL_031
-.room_data_036
+.room_data_the_big_bridge_1_day
 	room BLOCK_FUNCTION_TABLE_55, BLOCKSET_55, MAIN_TILES_20, SPECIAL_TILES_1, ROOM_PAL_074
-.room_data_037
+.room_data_the_big_bridge_2
 	room BLOCK_FUNCTION_TABLE_26, BLOCKSET_26, MAIN_TILES_21, SPECIAL_TILES_1, ROOM_PAL_033
-.room_data_038
+.room_data_tower_of_revival_1_day
 	room BLOCK_FUNCTION_TABLE_56, BLOCKSET_56, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_034
-.room_data_039
+.room_data_the_steep_canyon_1_day
 	room BLOCK_FUNCTION_TABLE_28, BLOCKSET_28, MAIN_TILES_23, SPECIAL_TILES_1, ROOM_PAL_035
-.room_data_040
+.room_data_above_the_clouds_1_day
 	room BLOCK_FUNCTION_TABLE_29, BLOCKSET_29, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_036
-.room_data_041
+.room_data_the_stagnant_swamp_1_day
 	room BLOCK_FUNCTION_TABLE_30, BLOCKSET_30, MAIN_TILES_25, SPECIAL_TILES_7, ROOM_PAL_037
-.room_data_042
+.room_data_desert_ruins_1_night
 	room BLOCK_FUNCTION_TABLE_31, BLOCKSET_31, MAIN_TILES_12, SPECIAL_TILES_4, ROOM_PAL_038
-.room_data_043
+.room_data_the_frigid_sea_1_day
 	room BLOCK_FUNCTION_TABLE_63, BLOCKSET_63, MAIN_TILES_26, SPECIAL_TILES_1, ROOM_PAL_039
-.room_data_044
+.room_data_castle_of_illusions_1_day
 	room BLOCK_FUNCTION_TABLE_33, BLOCKSET_33, MAIN_TILES_27, SPECIAL_TILES_1, ROOM_PAL_040
-.room_data_045
+.room_data_the_colossal_hole_1_day
 	room BLOCK_FUNCTION_TABLE_34, BLOCKSET_34, MAIN_TILES_28, SPECIAL_TILES_1, ROOM_PAL_041
-.room_data_046
+.room_data_the_stagnant_swamp_2
 	room BLOCK_FUNCTION_TABLE_68, BLOCKSET_68, MAIN_TILES_25, SPECIAL_TILES_7, ROOM_PAL_042
-.room_data_047
+.room_data_the_west_crater_1_day
 	room BLOCK_FUNCTION_TABLE_36, BLOCKSET_36, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_043
-.room_data_048
+.room_data_the_west_crater_2
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_044
-.room_data_049
+.room_data_tower_of_revival_3_day
 	room BLOCK_FUNCTION_TABLE_27, BLOCKSET_27, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_045
-.room_data_050
+.room_data_sea_turtle_rocks_2
 	room BLOCK_FUNCTION_TABLE_15, BLOCKSET_15, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_046
-.room_data_051
+.room_data_the_warped_void_1
 	room BLOCK_FUNCTION_TABLE_37, BLOCKSET_37, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_047
-.room_data_052
+.room_data_forest_of_fear_1_day
 	room BLOCK_FUNCTION_TABLE_38, BLOCKSET_38, MAIN_TILES_31, SPECIAL_TILES_1, ROOM_PAL_048
-.room_data_053
+.room_data_cave_of_flames_1
 	room BLOCK_FUNCTION_TABLE_39, BLOCKSET_39, MAIN_TILES_32, SPECIAL_TILES_1, ROOM_PAL_049
-.room_data_054
+.room_data_beneath_the_waves_2
 	room BLOCK_FUNCTION_TABLE_40, BLOCKSET_40, MAIN_TILES_33, SPECIAL_TILES_1, ROOM_PAL_050
-.room_data_055
+.room_data_beneath_the_waves_3
 	room BLOCK_FUNCTION_TABLE_23, BLOCKSET_23, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_051
-.room_data_056
+.room_data_castle_of_illusions_2
 	room BLOCK_FUNCTION_TABLE_41, BLOCKSET_41, MAIN_TILES_34, SPECIAL_TILES_1, ROOM_PAL_052
-.room_data_057
+.room_data_castle_of_illusions_3_day
 	room BLOCK_FUNCTION_TABLE_42, BLOCKSET_42, MAIN_TILES_35, SPECIAL_TILES_1, ROOM_PAL_053
-.room_data_058
+.room_data_a_town_in_chaos_4
 	room BLOCK_FUNCTION_TABLE_53, BLOCKSET_53, MAIN_TILES_36, SPECIAL_TILES_1, ROOM_PAL_054
-.room_data_059
+.room_data_the_temple
 	room BLOCK_FUNCTION_TABLE_44, BLOCKSET_44, MAIN_TILES_37, SPECIAL_TILES_1, ROOM_PAL_055
-.room_data_060
+.room_data_the_vast_plain_4_night
 	room BLOCK_FUNCTION_TABLE_08, BLOCKSET_08, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_056
-.room_data_061
+.room_data_the_vast_plain_3
 	room BLOCK_FUNCTION_TABLE_08, BLOCKSET_08, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_057
-.room_data_062
+.room_data_desert_ruins_3
 	room BLOCK_FUNCTION_TABLE_45, BLOCKSET_45, MAIN_TILES_12, SPECIAL_TILES_4, ROOM_PAL_058
-.room_data_063
+.room_data_unused_063
 	room BLOCK_FUNCTION_TABLE_21, BLOCKSET_21, MAIN_TILES_16, SPECIAL_TILES_8, ROOM_PAL_059
-.room_data_064
+.room_data_unused_064
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_060
-.room_data_065
+.room_data_unused_065
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_061
-.room_data_066
+.room_data_sea_turtle_rocks_4
 	room BLOCK_FUNCTION_TABLE_62, BLOCKSET_62, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_081
-.room_data_067
+.room_data_the_vast_plain_1_day
 	room BLOCK_FUNCTION_TABLE_46, BLOCKSET_46, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_012
-.room_data_068
+.room_data_the_vast_plain_1_night
 	room BLOCK_FUNCTION_TABLE_46, BLOCKSET_46, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_056
-.room_data_069
+.room_data_the_east_crater_1_day
 	room BLOCK_FUNCTION_TABLE_36, BLOCKSET_36, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_063
-.room_data_070
+.room_data_the_east_crater_2
 	room BLOCK_FUNCTION_TABLE_36, BLOCKSET_36, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_064
-.room_data_071
+.room_data_tower_of_revival_2_day
 	room BLOCK_FUNCTION_TABLE_51, BLOCKSET_51, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_065
-.room_data_072
+.room_data_the_frigid_sea_2
 	room BLOCK_FUNCTION_TABLE_47, BLOCKSET_47, MAIN_TILES_26, SPECIAL_TILES_6, ROOM_PAL_039
-.room_data_073
+.room_data_the_grasslands_2
 	room BLOCK_FUNCTION_TABLE_24, BLOCKSET_24, MAIN_TILES_19, SPECIAL_TILES_1, ROOM_PAL_066
-.room_data_074
+.room_data_the_vast_plain_2_day
 	room BLOCK_FUNCTION_TABLE_48, BLOCKSET_48, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_012
-.room_data_075
+.room_data_the_vast_plain_2_night
 	room BLOCK_FUNCTION_TABLE_88, BLOCKSET_88, MAIN_TILES_06, SPECIAL_TILES_3, ROOM_PAL_056
-.room_data_076
+.room_data_the_stagnant_swamp_3
 	room BLOCK_FUNCTION_TABLE_49, BLOCKSET_49, MAIN_TILES_25, SPECIAL_TILES_7, ROOM_PAL_067
-.room_data_077
+.room_data_the_warped_void_4
 	room BLOCK_FUNCTION_TABLE_37, BLOCKSET_37, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_068
-.room_data_078
+.room_data_the_warped_void_3
 	room BLOCK_FUNCTION_TABLE_37, BLOCKSET_37, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_069
-.room_data_079
+.room_data_the_warped_void_2
 	room BLOCK_FUNCTION_TABLE_37, BLOCKSET_37, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_070
-.room_data_080
+.room_data_the_volcanos_base_1_night
 	room BLOCK_FUNCTION_TABLE_85, BLOCKSET_85, MAIN_TILES_14, SPECIAL_TILES_1, ROOM_PAL_071
-.room_data_081
+.room_data_the_pool_of_rain_1_night
 	room BLOCK_FUNCTION_TABLE_52, BLOCKSET_52, MAIN_TILES_15, SPECIAL_TILES_5, ROOM_PAL_072
-.room_data_082
+.room_data_the_pool_of_rain_3_day
 	room BLOCK_FUNCTION_TABLE_20, BLOCKSET_20, MAIN_TILES_15, SPECIAL_TILES_5, ROOM_PAL_025
-.room_data_083
+.room_data_the_pool_of_rain_3_night
 	room BLOCK_FUNCTION_TABLE_20, BLOCKSET_20, MAIN_TILES_15, SPECIAL_TILES_5, ROOM_PAL_072
-.room_data_084
+.room_data_a_town_in_chaos_1_night
 	room BLOCK_FUNCTION_TABLE_21, BLOCKSET_21, MAIN_TILES_16, SPECIAL_TILES_8, ROOM_PAL_059
-.room_data_085
+.room_data_a_town_in_chaos_2_night
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_060
-.room_data_086
+.room_data_a_town_in_chaos_3_night
 	room BLOCK_FUNCTION_TABLE_22, BLOCKSET_22, MAIN_TILES_17, SPECIAL_TILES_1, ROOM_PAL_061
-.room_data_087
+.room_data_a_town_in_chaos_5
 	room BLOCK_FUNCTION_TABLE_43, BLOCKSET_43, MAIN_TILES_36, SPECIAL_TILES_1, ROOM_PAL_054
-.room_data_088
+.room_data_the_grasslands_3_day
 	room BLOCK_FUNCTION_TABLE_24, BLOCKSET_24, MAIN_TILES_19, SPECIAL_TILES_1, ROOM_PAL_031
-.room_data_089
+.room_data_the_grasslands_1_night
 	room BLOCK_FUNCTION_TABLE_54, BLOCKSET_54, MAIN_TILES_19, SPECIAL_TILES_1, ROOM_PAL_073
-.room_data_090
+.room_data_the_grasslands_3_night
 	room BLOCK_FUNCTION_TABLE_24, BLOCKSET_24, MAIN_TILES_19, SPECIAL_TILES_1, ROOM_PAL_073
-.room_data_091
+.room_data_the_big_bridge_3_day
 	room BLOCK_FUNCTION_TABLE_25, BLOCKSET_25, MAIN_TILES_20, SPECIAL_TILES_1, ROOM_PAL_032
-.room_data_092
+.room_data_the_big_bridge_1_night
 	room BLOCK_FUNCTION_TABLE_55, BLOCKSET_55, MAIN_TILES_20, SPECIAL_TILES_1, ROOM_PAL_075
-.room_data_093
+.room_data_the_big_bridge_3_night
 	room BLOCK_FUNCTION_TABLE_25, BLOCKSET_25, MAIN_TILES_20, SPECIAL_TILES_1, ROOM_PAL_076
-.room_data_094
+.room_data_tower_of_revival_4_day
 	room BLOCK_FUNCTION_TABLE_27, BLOCKSET_27, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_034
-.room_data_095
+.room_data_tower_of_revival_5_day
 	room BLOCK_FUNCTION_TABLE_57, BLOCKSET_57, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_065
-.room_data_096
+.room_data_tower_of_revival_6_day
 	room BLOCK_FUNCTION_TABLE_58, BLOCKSET_58, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_065
-.room_data_097
+.room_data_tower_of_revival_1_night
 	room BLOCK_FUNCTION_TABLE_56, BLOCKSET_56, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_077
-.room_data_098
+.room_data_tower_of_revival_7_night
 	room BLOCK_FUNCTION_TABLE_27, BLOCKSET_27, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_077
-.room_data_099
+.room_data_tower_of_revival_2_night
 	room BLOCK_FUNCTION_TABLE_51, BLOCKSET_51, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_078
-.room_data_100
+.room_data_tower_of_revival_5_night
 	room BLOCK_FUNCTION_TABLE_57, BLOCKSET_57, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_078
-.room_data_101
+.room_data_tower_of_revival_6_night
 	room BLOCK_FUNCTION_TABLE_58, BLOCKSET_58, MAIN_TILES_22, SPECIAL_TILES_1, ROOM_PAL_078
-.room_data_102
+.room_data_bank_of_the_wild_river_2_day
 	room BLOCK_FUNCTION_TABLE_11, BLOCKSET_11, MAIN_TILES_07, SPECIAL_TILES_3, ROOM_PAL_014
-.room_data_103
+.room_data_bank_of_the_wild_river_1_night
 	room BLOCK_FUNCTION_TABLE_59, BLOCKSET_59, MAIN_TILES_07, SPECIAL_TILES_3, ROOM_PAL_079
-.room_data_104
+.room_data_bank_of_the_wild_river_2_night
 	room BLOCK_FUNCTION_TABLE_11, BLOCKSET_11, MAIN_TILES_07, SPECIAL_TILES_3, ROOM_PAL_079
-.room_data_105
+.room_data_sea_turtle_rocks_3
 	room BLOCK_FUNCTION_TABLE_60, BLOCKSET_60, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_046
-.room_data_106
+.room_data_sea_turtle_rocks_5_day
 	room BLOCK_FUNCTION_TABLE_15, BLOCKSET_15, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_018
-.room_data_107
+.room_data_sea_turtle_rocks_6
 	room BLOCK_FUNCTION_TABLE_15, BLOCKSET_15, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_062
-.room_data_108
+.room_data_sea_turtle_rocks_1_night
 	room BLOCK_FUNCTION_TABLE_61, BLOCKSET_61, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_080
-.room_data_109
+.room_data_sea_turtle_rocks_5_night
 	room BLOCK_FUNCTION_TABLE_15, BLOCKSET_15, MAIN_TILES_11, SPECIAL_TILES_1, ROOM_PAL_080
-.room_data_110
+.room_data_the_frigid_sea_3_day
 	room BLOCK_FUNCTION_TABLE_32, BLOCKSET_32, MAIN_TILES_26, SPECIAL_TILES_1, ROOM_PAL_039
-.room_data_111
+.room_data_the_frigid_sea_1_night
 	room BLOCK_FUNCTION_TABLE_64, BLOCKSET_64, MAIN_TILES_26, SPECIAL_TILES_1, ROOM_PAL_082
-.room_data_112
+.room_data_the_frigid_sea_3_night
 	room BLOCK_FUNCTION_TABLE_65, BLOCKSET_65, MAIN_TILES_26, SPECIAL_TILES_1, ROOM_PAL_082
-.room_data_113
+.room_data_the_tidal_coast_2
 	room BLOCK_FUNCTION_TABLE_67, BLOCKSET_67, MAIN_TILES_10, SPECIAL_TILES_1, ROOM_PAL_017
-.room_data_114
+.room_data_the_tidal_coast_3
 	room BLOCK_FUNCTION_TABLE_14, BLOCKSET_14, MAIN_TILES_10, SPECIAL_TILES_1, ROOM_PAL_017
-.room_data_115
+.room_data_the_tidal_coast_1_night
 	room BLOCK_FUNCTION_TABLE_13, BLOCKSET_13, MAIN_TILES_09, SPECIAL_TILES_1, ROOM_PAL_083
-.room_data_116
+.room_data_the_stagnant_swamp_1_night
 	room BLOCK_FUNCTION_TABLE_30, BLOCKSET_30, MAIN_TILES_25, SPECIAL_TILES_7, ROOM_PAL_084
-.room_data_117
+.room_data_the_stagnant_swamp_4
 	room BLOCK_FUNCTION_TABLE_35, BLOCKSET_35, MAIN_TILES_25, SPECIAL_TILES_7, ROOM_PAL_042
-.room_data_118
+.room_data_above_the_clouds_2_day
 	room BLOCK_FUNCTION_TABLE_69, BLOCKSET_69, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_090
-.room_data_119
+.room_data_above_the_clouds_3
 	room BLOCK_FUNCTION_TABLE_70, BLOCKSET_70, MAIN_TILES_39, SPECIAL_TILES_1, ROOM_PAL_093
-.room_data_120
+.room_data_cave_of_flames_2
 	room BLOCK_FUNCTION_TABLE_39, BLOCKSET_39, MAIN_TILES_32, SPECIAL_TILES_1, ROOM_PAL_094
-.room_data_121
+.room_data_cave_of_flames_3
 	room BLOCK_FUNCTION_TABLE_71, BLOCKSET_71, MAIN_TILES_32, SPECIAL_TILES_1, ROOM_PAL_049
-.room_data_122
+.room_data_cave_of_flames_4
 	room BLOCK_FUNCTION_TABLE_72, BLOCKSET_72, MAIN_TILES_32, SPECIAL_TILES_1, ROOM_PAL_049
-.room_data_123
+.room_data_beneath_the_waves_4_day
 	room BLOCK_FUNCTION_TABLE_73, BLOCKSET_73, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_030
-.room_data_124
+.room_data_beneath_the_waves_5_day
 	room BLOCK_FUNCTION_TABLE_74, BLOCKSET_74, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_030
-.room_data_125
+.room_data_beneath_the_waves_1_night
 	room BLOCK_FUNCTION_TABLE_23, BLOCKSET_23, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_097
-.room_data_126
+.room_data_beneath_the_waves_4_night
 	room BLOCK_FUNCTION_TABLE_73, BLOCKSET_73, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_097
-.room_data_127
+.room_data_beneath_the_waves_5_night
 	room BLOCK_FUNCTION_TABLE_74, BLOCKSET_74, MAIN_TILES_18, SPECIAL_TILES_1, ROOM_PAL_097
-.room_data_128
+.room_data_the_colossal_hole_2_day
 	room BLOCK_FUNCTION_TABLE_75, BLOCKSET_75, MAIN_TILES_28, SPECIAL_TILES_1, ROOM_PAL_041
-.room_data_129
+.room_data_the_colossal_hole_1_night
 	room BLOCK_FUNCTION_TABLE_34, BLOCKSET_34, MAIN_TILES_28, SPECIAL_TILES_1, ROOM_PAL_098
-.room_data_130
+.room_data_the_colossal_hole_2_night
 	room BLOCK_FUNCTION_TABLE_75, BLOCKSET_75, MAIN_TILES_28, SPECIAL_TILES_1, ROOM_PAL_098
-.room_data_131
+.room_data_castle_of_illusions_4_day
 	room BLOCK_FUNCTION_TABLE_76, BLOCKSET_76, MAIN_TILES_27, SPECIAL_TILES_1, ROOM_PAL_040
-.room_data_132
+.room_data_castle_of_illusions_1_night
 	room BLOCK_FUNCTION_TABLE_77, BLOCKSET_77, MAIN_TILES_27, SPECIAL_TILES_1, ROOM_PAL_099
-.room_data_133
+.room_data_castle_of_illusions_4_night
 	room BLOCK_FUNCTION_TABLE_78, BLOCKSET_78, MAIN_TILES_27, SPECIAL_TILES_1, ROOM_PAL_099
-.room_data_134
+.room_data_castle_of_illusions_3_night
 	room BLOCK_FUNCTION_TABLE_42, BLOCKSET_42, MAIN_TILES_35, SPECIAL_TILES_1, ROOM_PAL_100
-.room_data_135
+.room_data_above_the_clouds_4_day
 	room BLOCK_FUNCTION_TABLE_79, BLOCKSET_79, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_036
-.room_data_136
+.room_data_above_the_clouds_1_night
 	room BLOCK_FUNCTION_TABLE_86, BLOCKSET_86, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_101
-.room_data_137
+.room_data_above_the_clouds_4_night
 	room BLOCK_FUNCTION_TABLE_87, BLOCKSET_87, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_101
-.room_data_138
+.room_data_above_the_clouds_2_night
 	room BLOCK_FUNCTION_TABLE_69, BLOCKSET_69, MAIN_TILES_24, SPECIAL_TILES_1, ROOM_PAL_104
-.room_data_139
+.room_data_forest_of_fear_2_day
 	room BLOCK_FUNCTION_TABLE_80, BLOCKSET_80, MAIN_TILES_31, SPECIAL_TILES_1, ROOM_PAL_048
-.room_data_140
+.room_data_forest_of_fear_1_night
 	room BLOCK_FUNCTION_TABLE_38, BLOCKSET_38, MAIN_TILES_31, SPECIAL_TILES_1, ROOM_PAL_107
-.room_data_141
+.room_data_forest_of_fear_2_night
 	room BLOCK_FUNCTION_TABLE_80, BLOCKSET_80, MAIN_TILES_31, SPECIAL_TILES_1, ROOM_PAL_107
-.room_data_142
+.room_data_the_west_crater_3_day
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_108
-.room_data_143
+.room_data_the_west_crater_1_night
 	room BLOCK_FUNCTION_TABLE_36, BLOCKSET_36, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_109
-.room_data_144
+.room_data_the_west_crater_3_night
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_110
-.room_data_145
+.room_data_the_east_crater_4_day
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_063
-.room_data_146
+.room_data_the_east_crater_1_night
 	room BLOCK_FUNCTION_TABLE_36, BLOCKSET_36, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_111
-.room_data_147
+.room_data_the_east_crater_4_night
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_111
-.room_data_148
+.room_data_the_east_crater_3
 	room BLOCK_FUNCTION_TABLE_81, BLOCKSET_81, MAIN_TILES_29, SPECIAL_TILES_1, ROOM_PAL_064
-.room_data_149
+.room_data_the_warped_void_5
 	room BLOCK_FUNCTION_TABLE_82, BLOCKSET_82, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_047
-.room_data_150
+.room_data_the_warped_void_6
 	room BLOCK_FUNCTION_TABLE_83, BLOCKSET_83, MAIN_TILES_30, SPECIAL_TILES_1, ROOM_PAL_047
-.room_data_151
+.room_data_the_steep_canyon_2_day
 	room BLOCK_FUNCTION_TABLE_84, BLOCKSET_84, MAIN_TILES_23, SPECIAL_TILES_1, ROOM_PAL_112
-.room_data_152
+.room_data_the_steep_canyon_1_night
 	room BLOCK_FUNCTION_TABLE_28, BLOCKSET_28, MAIN_TILES_23, SPECIAL_TILES_1, ROOM_PAL_113
-.room_data_153
+.room_data_the_steep_canyon_2_night
 	room BLOCK_FUNCTION_TABLE_84, BLOCKSET_84, MAIN_TILES_23, SPECIAL_TILES_1, ROOM_PAL_114
-.room_data_154
+.room_data_the_volcanos_base_3
 	room BLOCK_FUNCTION_TABLE_19, BLOCKSET_19, MAIN_TILES_14, SPECIAL_TILES_1, ROOM_PAL_117
 
 RoomBlockTilesPointers::
@@ -1344,47 +1344,47 @@ OutOfTheWoodsDay1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_03,  0, ROOM_006
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_3_DAY
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 OutOfTheWoodsDay3RoomHeaders:
 	dw .room_00
@@ -1419,47 +1419,47 @@ OutOfTheWoodsDay3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_005, ANIMATED_TILES_GROUP_03,  0, ROOM_008
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_005, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_4_DAY
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_001
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_1_DAY
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 OutOfTheWoodsDay4RoomHeaders:
 	dw .room_00
@@ -1494,47 +1494,47 @@ OutOfTheWoodsDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_005, ANIMATED_TILES_GROUP_03,  0, ROOM_008
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_005, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_4_DAY
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_003
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_DAY
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_010
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_1
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 OutOfTheWoodsNight1To2RoomHeaders:
 	dw .room_00
@@ -1569,47 +1569,47 @@ OutOfTheWoodsNight1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_004, ANIMATED_TILES_GROUP_03,  0, ROOM_007
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_004, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_3_NIGHT
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 OutOfTheWoodsNight3RoomHeaders:
 	dw .room_00
@@ -1644,47 +1644,47 @@ OutOfTheWoodsNight3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_006, ANIMATED_TILES_GROUP_03,  0, ROOM_009
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_006, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_4_NIGHT
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_002
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_6_NIGHT
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 OutOfTheWoodsNight4RoomHeaders:
 	dw .room_00
@@ -1719,47 +1719,47 @@ OutOfTheWoodsNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_02
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_03
-	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  9,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_04
-	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  2,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_05
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_020, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_06
-	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  1,  0,  0,  1,  1,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_036, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_10
-	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  5,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_11
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_12
-	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  4,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_13
-	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  7,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_14
-	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  4,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_15
-	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  9,  2,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_16
-	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  0,  0,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_17
-	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  1,  2,  2,  3,  0,  2, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_18
-	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_006, ANIMATED_TILES_GROUP_03,  0, ROOM_009
+	room_header  3,  2,  2,  3,  3,  7, CAM_FREE, OBJECT_GROUP_006, ANIMATED_TILES_GROUP_03,  0, ROOM_OUT_OF_THE_WOODS_4_NIGHT
 .room_19
-	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  3,  0,  0,  1,  3,  6, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_21
-	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  7,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_23
-	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_004
+	room_header  8,  1,  0,  3,  7, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_009, ANIMATED_TILES_GROUP_01,  0, ROOM_OUT_OF_THE_WOODS_5_NIGHT
 .room_26
-	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_011
+	room_header  2,  1,  1,  2,  2,  3, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_114, ANIMATED_TILES_GROUP_01,  0, ROOM_SHARED_2
 .room_27
-	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  3,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 .room_29
-	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_005
+	room_header  5,  1,  1,  2,  3,  6, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_02,  1, ROOM_OUT_OF_THE_WOODS_2
 
 ThePeacefulVillageDay1RoomHeaders:
 	dw .room_00
@@ -1794,47 +1794,47 @@ ThePeacefulVillageDay1RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_01
-	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_02
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_03
-	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_04
-	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_05
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_06
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_08
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_09
-	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_014
+	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_10
-	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_12
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_13
-	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_14
-	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_15
-	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_015
+	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_PEACEFUL_VILLAGE_3
 .room_16
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_17
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_19
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_25
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_26
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_053, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_27
-	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_28
-	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 
 ThePeacefulVillageDay2To4RoomHeaders:
 	dw .room_00
@@ -1869,47 +1869,47 @@ ThePeacefulVillageDay2To4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_01
-	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_02
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_03
-	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_04
-	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_05
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_06
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_08
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_09
-	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_014
+	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_10
-	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_12
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_13
-	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_14
-	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_014
+	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_15
-	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_015
+	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_PEACEFUL_VILLAGE_3
 .room_16
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_17
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_19
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_25
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_26
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_012
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_DAY
 .room_27
-	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 .room_28
-	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_014
+	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_2_DAY
 
 ThePeacefulVillageNight1RoomHeaders:
 	dw .room_00
@@ -1944,47 +1944,47 @@ ThePeacefulVillageNight1RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_01
-	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_02
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_03
-	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_03,  0, ROOM_017
+	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_04
-	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_05
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_06
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_08
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_026
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
 .room_09
-	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_026
+	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
 .room_10
-	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_12
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_13
-	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_14
-	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_017
+	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_15
-	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_015
+	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_PEACEFUL_VILLAGE_3
 .room_16
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_17
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_19
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_25
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_26
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_054, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_27
-	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_28
-	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 
 ThePeacefulVillageNight2To4RoomHeaders:
 	dw .room_00
@@ -2019,47 +2019,47 @@ ThePeacefulVillageNight2To4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_01
-	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  5,  0,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_02
-	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  6,  0,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_03
-	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_03,  0, ROOM_017
+	room_header  6,  2,  2,  3,  6,  7, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_04
-	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  9,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_05
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_06
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_08
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_026
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS, OBJECT_GROUP_035, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
 .room_09
-	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_026
+	room_header  8,  2,  2,  3,  8, 10, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_087, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
 .room_10
-	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  5,  1,  0,  2,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_12
-	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  6,  1,  0,  2,  6,  7, CAM_TRANSITIONS, OBJECT_GROUP_058, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_13
-	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  8,  1,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_14
-	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_017
+	room_header  7,  1,  1,  2,  7,  8, CAM_FREE, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_15
-	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_015
+	room_header  0,  2,  2,  3,  0,  6, CAM_TRANSITIONS, OBJECT_GROUP_028, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_PEACEFUL_VILLAGE_3
 .room_16
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_17
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_19
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_25
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_26
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_013
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_017, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
 .room_27
-	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  8,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 .room_28
-	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_017
+	room_header  9,  0,  0,  2,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_015, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
 
 TheVastPlainDay1To3RoomHeaders:
 	dw .room_00
@@ -2094,41 +2094,41 @@ TheVastPlainDay1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_067
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_DAY
 .room_03
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_025
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_SHARED_5
 .room_07
-	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_09
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_10
-	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_11
-	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_14
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_15
-	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 .room_16
 .room_17
 .room_18
 .room_19
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_067
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_DAY
 .room_20
 .room_21
-	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_22
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_067
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_DAY
 .room_23
-	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_25
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_067
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_DAY
 .room_26
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_067
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_DAY
 .room_27
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_025
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_SHARED_5
 .room_29
-	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 
 TheVastPlainDay4RoomHeaders:
 	dw .room_00
@@ -2163,41 +2163,41 @@ TheVastPlainDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_016
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_DAY
 .room_03
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_025
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_SHARED_5
 .room_07
-	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_09
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_10
-	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_11
-	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_14
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_15
-	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 .room_16
 .room_17
 .room_18
 .room_19
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_016
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_DAY
 .room_20
 .room_21
-	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_074
+	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_021, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_DAY
 .room_22
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_016
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_DAY
 .room_23
-	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_25
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_016
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_DAY
 .room_26
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_016
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_DAY
 .room_27
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_025
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_SHARED_5
 .room_29
-	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 
 TheVastPlainNight1To3RoomHeaders:
 	dw .room_00
@@ -2232,41 +2232,41 @@ TheVastPlainNight1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_068
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_NIGHT
 .room_03
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_025
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_SHARED_5
 .room_07
-	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_09
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_10
-	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_11
-	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_14
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_15
-	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 .room_16
 .room_17
 .room_18
 .room_19
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_068
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_NIGHT
 .room_20
 .room_21
-	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_22
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_068
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_NIGHT
 .room_23
-	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_25
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_068
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_NIGHT
 .room_26
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_068
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_1_NIGHT
 .room_27
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_025
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_SHARED_5
 .room_29
-	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 
 TheVastPlainNight4RoomHeaders:
 	dw .room_00
@@ -2301,41 +2301,41 @@ TheVastPlainNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_060
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_NIGHT
 .room_03
-	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_025
+	room_header  0,  2,  2,  3,  0,  2, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_00,  0, ROOM_SHARED_5
 .room_07
-	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  7,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_09
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_10
-	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  9,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_11
-	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  2,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_14
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_15
-	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  6,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 .room_16
 .room_17
 .room_18
 .room_19
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_060
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_NIGHT
 .room_20
 .room_21
-	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_075
+	room_header  6,  0,  0,  2,  6, 10, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_056, ANIMATED_TILES_GROUP_00,  0, ROOM_THE_VAST_PLAIN_2_NIGHT
 .room_22
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_060
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_NIGHT
 .room_23
-	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_025
+	room_header  3,  2,  2,  3,  2,  5, CAM_TRANSITIONS, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_5
 .room_25
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_060
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_NIGHT
 .room_26
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_060
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_012, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VAST_PLAIN_4_NIGHT
 .room_27
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_025
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_11,  0, ROOM_SHARED_5
 .room_29
-	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_061
+	room_header  7,  2,  2,  3,  6,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_048, ANIMATED_TILES_GROUP_11,  0, ROOM_THE_VAST_PLAIN_3
 
 BankOfTheWildRiverDay1To3RoomHeaders:
 	dw .room_00
@@ -2370,45 +2370,45 @@ BankOfTheWildRiverDay1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_01
-	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_03
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_04
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_05
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_07
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_08
-	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_09
-	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_018
+	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_10
-	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_14
-	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_018
+	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_15
-	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_16
-	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_018
+	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_18
-	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_19
-	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_018
+	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_20
-	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_21
-	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_22
-	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_23
-	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_24
-	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 .room_29
-	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_018
+	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
 
 BankOfTheWildRiverDay4RoomHeaders:
 	dw .room_00
@@ -2443,45 +2443,45 @@ BankOfTheWildRiverDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_01
-	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_03
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_04
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_05
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_07
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_08
-	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_09
-	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_102
+	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_10
-	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_14
-	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_102
+	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_15
-	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_16
-	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_102
+	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_18
-	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_19
-	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_102
+	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_20
-	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_21
-	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_22
-	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_23
-	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_24
-	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 .room_29
-	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_102
+	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
 
 BankOfTheWildRiverNight1To3RoomHeaders:
 	dw .room_00
@@ -2516,45 +2516,45 @@ BankOfTheWildRiverNight1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_01
-	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_03
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_04
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_05
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_07
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_08
-	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_09
-	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_103
+	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_10
-	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_14
-	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_103
+	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_15
-	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_16
-	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_103
+	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_18
-	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_19
-	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_103
+	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_20
-	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_21
-	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_22
-	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_23
-	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_24
-	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 .room_29
-	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_103
+	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
 
 BankOfTheWildRiverNight4RoomHeaders:
 	dw .room_00
@@ -2589,45 +2589,45 @@ BankOfTheWildRiverNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  2,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_01
-	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_03
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_04
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_05
-	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  9,  2,  2,  3,  9, 10, CAM_FREE, OBJECT_GROUP_106, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_07
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_08
-	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  0,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_09
-	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_104
+	room_header  6,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_10
-	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  8,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_14
-	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_104
+	room_header  5,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_15
-	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  4,  1,  1,  2,  0,  5, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_16
-	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_104
+	room_header  9,  0,  0,  2,  9, 10, CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT, OBJECT_GROUP_069, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_18
-	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  6, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_074, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_19
-	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_104
+	room_header  7,  1,  1,  2,  5,  8, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_13,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_20
-	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  3,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_21
-	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  4,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_22
-	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  7,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_23
-	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  8,  1,  1,  3,  8,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_139, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_24
-	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  1,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 .room_29
-	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_104
+	room_header  5,  0,  0,  1,  1,  9, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_088, ANIMATED_TILES_GROUP_06,  0, ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
 
 TheTidalCoastDay1To2RoomHeaders:
 	dw .room_00
@@ -2662,39 +2662,39 @@ TheTidalCoastDay1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 
 TheTidalCoastDay3RoomHeaders:
 	dw .room_00
@@ -2729,39 +2729,39 @@ TheTidalCoastDay3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 
 TheTidalCoastDay4RoomHeaders:
 	dw .room_00
@@ -2796,39 +2796,39 @@ TheTidalCoastDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_020
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_DAY
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 
 TheTidalCoastNight1To2RoomHeaders:
 	dw .room_00
@@ -2863,39 +2863,39 @@ TheTidalCoastNight1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_021
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_SHARED_4
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 
 TheTidalCoastNight3RoomHeaders:
 	dw .room_00
@@ -2930,39 +2930,39 @@ TheTidalCoastNight3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_113
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_2
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_113
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_2
 
 TheTidalCoastNight4RoomHeaders:
 	dw .room_00
@@ -2997,39 +2997,39 @@ TheTidalCoastNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  1,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_04
-	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  2,  2,  3,  7,  8, CAM_TRANSITIONS | CAM_BORDER_LEFT, OBJECT_GROUP_091, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_07
-	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  2,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_09
-	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  3,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_10
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_12
-	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  0,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_13
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_093, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_14
-	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  0,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_17
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_20
-	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  1,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_21
-	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  6,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_23
-	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  4,  2,  2,  3,  4,  7, CAM_FREE, OBJECT_GROUP_129, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_25
-	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  2,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_26
-	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_114
+	room_header  1,  2,  2,  3,  0,  4, CAM_FREE, OBJECT_GROUP_003, ANIMATED_TILES_GROUP_04,  0, ROOM_THE_TIDAL_COAST_3
 .room_27
-	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_115
+	room_header  4,  0,  0,  2,  1,  6, CAM_FREE, OBJECT_GROUP_018, ANIMATED_TILES_GROUP_06,  0, ROOM_THE_TIDAL_COAST_1_NIGHT
 .room_28
-	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  7,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 .room_29
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_114
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_07,  0, ROOM_THE_TIDAL_COAST_3
 
 SeaTurtleRocksDay1RoomHeaders:
 	dw .room_00
@@ -3064,40 +3064,40 @@ SeaTurtleRocksDay1RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_022
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_DAY
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_022
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_DAY
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_022
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_DAY
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_022
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_DAY
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_066
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_022
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_DAY
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 SeaTurtleRocksDay2To3RoomHeaders:
 	dw .room_00
@@ -3132,40 +3132,40 @@ SeaTurtleRocksDay2To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_066
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 SeaTurtleRocksDay4RoomHeaders:
 	dw .room_00
@@ -3200,40 +3200,40 @@ SeaTurtleRocksDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_107
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_106
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_DAY
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 SeaTurtleRocksNight1RoomHeaders:
 	dw .room_00
@@ -3268,40 +3268,40 @@ SeaTurtleRocksNight1RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_108
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_NIGHT
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_108
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_NIGHT
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_108
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_NIGHT
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_108
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_NIGHT
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_066
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_108
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_1_NIGHT
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 SeaTurtleRocksNight2To3RoomHeaders:
 	dw .room_00
@@ -3336,40 +3336,40 @@ SeaTurtleRocksNight2To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_066
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_066
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_4
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 SeaTurtleRocksNight4RoomHeaders:
 	dw .room_00
@@ -3404,40 +3404,40 @@ SeaTurtleRocksNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_03
-	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  2,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_05
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_10
 .room_15
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_11
-	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  8,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_13
-	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_105
+	room_header  5,  0,  0,  2,  5,  6, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_086, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_3
 .room_16
-	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  6,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_20
-	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  4,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_21
-	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  7,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_22
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_23
-	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_107
+	room_header  5,  2,  2,  3,  5,  8, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_24
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_25
-	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  3,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_107
+	room_header  6,  1,  0,  2,  6,  9, CAM_FREE, OBJECT_GROUP_063, ANIMATED_TILES_GROUP_01,  0, ROOM_SEA_TURTLE_ROCKS_6
 .room_27
-	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  1,  2,  2,  3,  0,  5, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 .room_28
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_109
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_127, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_5_NIGHT
 .room_29
-	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_050
+	room_header  9,  2,  2,  3,  8, 10, CAM_TRANSITIONS, OBJECT_GROUP_064, ANIMATED_TILES_GROUP_17,  0, ROOM_SEA_TURTLE_ROCKS_2
 
 DesertRuinsDay1To4RoomHeaders:
 	dw .room_00
@@ -3472,48 +3472,48 @@ DesertRuinsDay1To4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_023
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_DAY
 .room_01
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_04
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_05
-	room_header  7,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_06
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_07
-	room_header  7,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_08
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_023
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_DAY
 .room_09
-	room_header  5,  1,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  1,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_10
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_023
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_DAY
 .room_11
-	room_header  6,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  6,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_14
-	room_header  8,  0,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  8,  0,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_15
-	room_header  9,  0,  0,  2,  9, 10, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_055, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  9,  0,  0,  2,  9, 10, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_055, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_19
 .room_29
-	room_header  7,  1,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  1,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_023
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_DAY
 .room_21
-	room_header  6,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  6,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_22
-	room_header  8,  2,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  8,  2,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_24
-	room_header  5,  2,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  2,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_25
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_26
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_023
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_023, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_DAY
 .room_27
-	room_header  5,  0,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  0,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_28
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 
 DesertRuinsNight1To4RoomHeaders:
 	dw .room_00
@@ -3548,48 +3548,48 @@ DesertRuinsNight1To4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_042
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_NIGHT
 .room_01
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_013, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_04
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_05
-	room_header  7,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_06
-	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  1,  2,  2,  3,  1,  2, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_07
-	room_header  7,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_08
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_042
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_NIGHT
 .room_09
-	room_header  5,  1,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  1,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_10
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_042
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_NIGHT
 .room_11
-	room_header  6,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  6,  2,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_14
-	room_header  8,  0,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  8,  0,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_15
-	room_header  9,  0,  0,  2,  9, 10, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_055, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  9,  0,  0,  2,  9, 10, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_055, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_19
 .room_29
-	room_header  7,  1,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  7,  1,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_042
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_NIGHT
 .room_21
-	room_header  6,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  6,  0,  0,  3,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_060, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_22
-	room_header  8,  2,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  8,  2,  0,  3,  8,  9, CAM_FREE, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 .room_24
-	room_header  5,  2,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  2,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_25
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_26
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_042
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_061, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_1_NIGHT
 .room_27
-	room_header  5,  0,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_024
+	room_header  5,  0,  0,  3,  5,  6, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_2
 .room_28
-	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_062
+	room_header  2,  2,  2,  3,  2,  3, CAM_TRANSITIONS, OBJECT_GROUP_011, ANIMATED_TILES_GROUP_05,  0, ROOM_DESERT_RUINS_3
 
 TheVolcanosBaseDay1To2RoomHeaders:
 	dw .room_00
@@ -3624,48 +3624,48 @@ TheVolcanosBaseDay1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_02
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_03
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_04
-	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_06
-	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_07
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_09
-	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_10
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_11
 .room_12
 .room_13
 .room_14
-	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_15
-	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_16
-	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_17
-	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_18
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_19
-	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_21
-	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_22
-	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_154
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_3
 .room_28
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_29
-	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 
 TheVolcanosBaseDay3To4RoomHeaders:
 	dw .room_00
@@ -3700,48 +3700,48 @@ TheVolcanosBaseDay3To4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_02
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_03
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_04
-	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_06
-	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_07
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_09
-	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_10
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_11
 .room_12
 .room_13
 .room_14
-	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_15
-	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_16
-	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_17
-	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_18
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_19
-	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_21
-	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_22
-	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_154
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_3
 .room_28
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 .room_29
-	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_027
+	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_DAY
 
 TheVolcanosBaseNight1To2RoomHeaders:
 	dw .room_00
@@ -3776,48 +3776,48 @@ TheVolcanosBaseNight1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_02
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_03
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_04
-	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_06
-	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_07
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_09
-	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_10
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_11
 .room_12
 .room_13
 .room_14
-	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_15
-	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_16
-	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_17
-	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_18
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_19
-	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_21
-	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_22
-	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_154
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_3
 .room_28
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_065, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_29
-	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 
 TheVolcanosBaseNight3To4RoomHeaders:
 	dw .room_00
@@ -3852,48 +3852,48 @@ TheVolcanosBaseNight3To4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  1,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_02
-	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  2,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_03
-	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  0,  1,  1,  2,  0,  1, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_04
-	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  8,  2,  2,  3,  8,  9, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_06
-	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  0,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_07
-	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  1,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_09
-	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  3,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_10
-	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  3,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_11
 .room_12
 .room_13
 .room_14
-	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  4,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_15
-	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  5,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_16
-	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  5,  1,  0,  2,  5,  6, CAM_YSCROLL, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_17
-	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  2,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_18
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_025, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_19
-	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  1,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_20
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_21
-	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_021
+	room_header  8,  0,  0,  2,  8,  9, CAM_FREE, OBJECT_GROUP_024, ANIMATED_TILES_GROUP_07,  0, ROOM_SHARED_4
 .room_22
-	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_028
+	room_header  7,  1,  0,  2,  7,  8, CAM_YSCROLL, OBJECT_GROUP_059, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_2
 .room_26
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_154
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_044, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_3
 .room_28
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_067, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 .room_29
-	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_080
+	room_header  0,  2,  2,  3,  0,  7, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_010, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_VOLCANOS_BASE_1_NIGHT
 
 ThePoolOfRainDay1To3RoomHeaders:
 	dw .room_00
@@ -3928,40 +3928,40 @@ ThePoolOfRainDay1To3RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_01
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_06
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_07
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_09
-	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_10
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_11
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_13
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_14
-	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_16
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_19
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_21
 .room_22
 .room_23
 .room_24
-	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_25
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 .room_28
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_029
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_DAY
 
 ThePoolOfRainDay4RoomHeaders:
 	dw .room_00
@@ -3996,40 +3996,40 @@ ThePoolOfRainDay4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_01
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_06
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_07
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_09
-	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_10
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_11
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_13
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_14
-	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_16
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_19
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_21
 .room_22
 .room_23
 .room_24
-	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_25
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 .room_28
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_082
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_DAY
 
 ThePoolOfRainNight1To3RoomHeaders:
 	dw .room_00
@@ -4064,40 +4064,40 @@ ThePoolOfRainNight1To3RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_01
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_06
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_07
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_09
-	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_10
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_11
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_13
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_14
-	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_16
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_19
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_21
 .room_22
 .room_23
 .room_24
-	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_25
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 .room_28
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_081
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_1_NIGHT
 
 ThePoolOfRainNight4RoomHeaders:
 	dw .room_00
@@ -4132,40 +4132,40 @@ ThePoolOfRainNight4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_01
-	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  0,  2,  2,  3,  0,  5, CAM_FREE | CAM_BORDER_DOWN, OBJECT_GROUP_076, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  5,  2,  2,  3,  5,  6, CAM_TRANSITIONS, OBJECT_GROUP_008, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_06
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_07
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_09
-	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  0,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_10
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_11
-	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  0,  1,  1,  2,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_13
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_14
-	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  8,  2,  2,  3,  6, 10, CAM_TRANSITIONS, OBJECT_GROUP_075, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_16
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_19
-	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_030
+	room_header  6,  1,  0,  2,  6,  7, CAM_XSCROLL2 | CAM_TRANSITIONS, OBJECT_GROUP_108, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_2
 .room_20
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_21
 .room_22
 .room_23
 .room_24
-	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  3,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_25
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 .room_28
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_083
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_052, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_POOL_OF_RAIN_3_NIGHT
 
 ATownInChaosDay1To3RoomHeaders:
 	dw .room_00
@@ -4200,49 +4200,49 @@ ATownInChaosDay1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_04
-	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_032
+	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_05
-	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_06
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_09
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_10
-	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_033
+	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_11
-	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_14
-	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_033
+	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_15
-	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_16
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_17
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_033
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_18
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_19
-	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_058
+	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_4
 .room_21
-	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_22
-	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_23
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_24
-	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_033
+	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_25
-	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_032
+	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_26
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_27
-	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_031
+	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_28
-	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_29
-	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_058
+	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_4
 
 ATownInChaosDay4RoomHeaders:
 	dw .room_00
@@ -4277,49 +4277,49 @@ ATownInChaosDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_04
-	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_032
+	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_05
-	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_06
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_09
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_10
-	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_033
+	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_11
-	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_14
-	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_033
+	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_15
-	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_16
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_17
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_033
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_18
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_19
-	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_087
+	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_5
 .room_21
-	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_22
-	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_23
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_24
-	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_033
+	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_DAY
 .room_25
-	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_032
+	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_26
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_031
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_27
-	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_031
+	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_A_TOWN_IN_CHAOS_1_DAY
 .room_28
-	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_032
+	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_DAY
 .room_29
-	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_087
+	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_5
 
 ATownInChaosNight1To3RoomHeaders:
 	dw .room_00
@@ -4354,49 +4354,49 @@ ATownInChaosNight1To3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_04
-	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_085
+	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_05
-	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_06
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_09
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_10
-	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_086
+	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_11
-	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_14
-	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_086
+	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_15
-	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_16
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_17
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_086
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_18
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_19
-	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_058
+	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_4
 .room_21
-	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_22
-	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_23
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_24
-	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_086
+	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_25
-	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_085
+	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_26
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_27
-	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_084
+	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_28
-	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_29
-	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_058
+	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_4
 
 ATownInChaosNight4RoomHeaders:
 	dw .room_00
@@ -4431,49 +4431,49 @@ ATownInChaosNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  2,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_04
-	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_085
+	room_header  3,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_05
-	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  1,  2,  2,  3,  1,  2, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_06
-	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  8,  2,  2,  3,  8,  9, CAM_FREE, OBJECT_GROUP_029, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_09
-	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  4,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_10
-	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_086
+	room_header  7,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_11
-	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  6,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_14
-	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_086
+	room_header  9,  0,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_15
-	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  2,  2,  2,  3,  2,  3, CAM_FREE, OBJECT_GROUP_145, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_16
-	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  1,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_17
-	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_086
+	room_header  9,  1,  0,  2,  9, 10, CAM_FREE, OBJECT_GROUP_121, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_18
-	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  9,  2,  2,  3,  9, 10, CAM_TRANSITIONS, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_19
-	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_087
+	room_header  7,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_5
 .room_21
-	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  5,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_22
-	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  5,  1,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_23
-	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  4,  0,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_24
-	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_086
+	room_header  5,  2,  2,  3,  5,  8, CAM_TRANSITIONS, OBJECT_GROUP_071, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_3_NIGHT
 .room_25
-	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_085
+	room_header  4,  2,  2,  3,  3,  5, CAM_TRANSITIONS, OBJECT_GROUP_070, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_26
-	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_084
+	room_header  3,  1,  0,  2,  1,  5, CAM_FREE, OBJECT_GROUP_068, ANIMATED_TILES_GROUP_03,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_27
-	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_084
+	room_header  0,  2,  1,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_111, ANIMATED_TILES_GROUP_20,  0, ROOM_A_TOWN_IN_CHAOS_1_NIGHT
 .room_28
-	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_085
+	room_header  6,  0,  0,  2,  5,  7, CAM_FREE, OBJECT_GROUP_057, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_2_NIGHT
 .room_29
-	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_087
+	room_header  8,  1,  0,  2,  7,  9, CAM_FREE, OBJECT_GROUP_040, ANIMATED_TILES_GROUP_12,  0, ROOM_A_TOWN_IN_CHAOS_5
 
 BeneathTheWavesDay1To2RoomHeaders:
 	dw .room_00
@@ -4508,49 +4508,49 @@ BeneathTheWavesDay1To2RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_034
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_DAY
 
 BeneathTheWavesDay3RoomHeaders:
 	dw .room_00
@@ -4585,49 +4585,49 @@ BeneathTheWavesDay3RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_123
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_DAY
 
 BeneathTheWavesDay4RoomHeaders:
 	dw .room_00
@@ -4662,49 +4662,49 @@ BeneathTheWavesDay4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_124
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_DAY
 
 BeneathTheWavesNight1To2RoomHeaders:
 	dw .room_00
@@ -4739,49 +4739,49 @@ BeneathTheWavesNight1To2RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_125
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_089, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_1_NIGHT
 
 BeneathTheWavesNight3RoomHeaders:
 	dw .room_00
@@ -4816,49 +4816,49 @@ BeneathTheWavesNight3RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_126
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_4_NIGHT
 
 BeneathTheWavesNight4RoomHeaders:
 	dw .room_00
@@ -4893,49 +4893,49 @@ BeneathTheWavesNight4RoomHeaders:
 	dw NULL
 
 .room_00
-	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  8,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_02
-	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  2,  0,  0,  1,  1,  4, CAM_FREE, OBJECT_GROUP_016, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_03
-	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  7,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_04
-	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  4,  2,  2,  3,  4,  5, CAM_TRANSITIONS, OBJECT_GROUP_007, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_05
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_022, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_06
-	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  6,  2,  2,  3,  6,  7, CAM_FREE, OBJECT_GROUP_142, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_07
-	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  3,  0,  0,  1,  1,  4, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_045, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_09
-	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  1,  1,  2,  2,  4, CAM_TRANSITIONS, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_10
-	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  7,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_12
-	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  9,  0,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_14
-	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  8,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_17
-	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  0,  1,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_18
-	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  1,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_19
-	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_055
+	room_header  7,  2,  2,  3,  7, 10, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_133, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_3
 .room_20
-	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  2,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_21
-	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_054
+	room_header  3,  2,  2,  3,  2,  4, CAM_FREE, OBJECT_GROUP_047, ANIMATED_TILES_GROUP_11,  0, ROOM_BENEATH_THE_WAVES_2
 .room_22
-	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  0,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_23
-	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  1,  2,  1,  3,  0,  2, CAM_FREE | CAM_BORDER_UP, OBJECT_GROUP_030, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 .room_24
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_25
-	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  5,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_26
-	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_054
+	room_header  6,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_033, ANIMATED_TILES_GROUP_18,  0, ROOM_BENEATH_THE_WAVES_2
 .room_27
-	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_127
+	room_header  9,  1,  0,  2,  7, 10, CAM_FREE | CAM_BORDER_RIGHT | CAM_BORDER_LEFT | CAM_BORDER_DOWN, OBJECT_GROUP_090, ANIMATED_TILES_GROUP_08,  0, ROOM_BENEATH_THE_WAVES_5_NIGHT
 
 TheWestCraterDay1To2RoomHeaders:
 	dw .room_00
@@ -4970,25 +4970,25 @@ TheWestCraterDay1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheWestCraterDay3RoomHeaders:
 	dw .room_00
@@ -5023,25 +5023,25 @@ TheWestCraterDay3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_047
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_DAY
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheWestCraterDay4RoomHeaders:
 	dw .room_00
@@ -5076,25 +5076,25 @@ TheWestCraterDay4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_142
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_DAY
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_142
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_DAY
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_142
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_DAY
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_142
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_DAY
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_142
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_DAY
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheWestCraterNight1To2RoomHeaders:
 	dw .room_00
@@ -5129,25 +5129,25 @@ TheWestCraterNight1To2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_101, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheWestCraterNight3RoomHeaders:
 	dw .room_00
@@ -5182,25 +5182,25 @@ TheWestCraterNight3RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_143
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_1_NIGHT
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheWestCraterNight4RoomHeaders:
 	dw .room_00
@@ -5235,25 +5235,25 @@ TheWestCraterNight4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_144
+	room_header  3,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_NIGHT
 .room_01
-	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  4,  0,  0,  2,  4,  7, CAM_FREE, OBJECT_GROUP_026, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_04
-	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_144
+	room_header  1,  0,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_NIGHT
 .room_13
-	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  8,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 .room_20
-	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_144
+	room_header  1,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_NIGHT
 .room_21
-	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  0,  2,  1,  3,  0,  1, CAM_FREE | CAM_BORDER_RIGHT, OBJECT_GROUP_002, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_22
-	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_048
+	room_header  7,  2,  2,  3,  4,  8, CAM_TRANSITIONS, OBJECT_GROUP_027, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_2
 .room_27
-	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_144
+	room_header  2,  2,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_NIGHT
 .room_28
-	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_144
+	room_header  3,  1,  0,  3,  1,  4, CAM_FREE, OBJECT_GROUP_136, ANIMATED_TILES_GROUP_10,  0, ROOM_THE_WEST_CRATER_3_NIGHT
 .room_29
-	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_048
+	room_header  9,  2,  0,  3,  8, 10, CAM_FREE, OBJECT_GROUP_098, ANIMATED_TILES_GROUP_12,  0, ROOM_THE_WEST_CRATER_2
 
 TheGrasslandsDay1RoomHeaders:
 	dw .room_00
@@ -5288,49 +5288,49 @@ TheGrasslandsDay1RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_01
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_02
-	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_04
-	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_05
-	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_06
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_08
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_09
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_13
-	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_14
-	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_15
-	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_16
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_18
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_19
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_20
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_21
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_23
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_035
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_1_DAY
 .room_24
-	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_25
-	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_27
-	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_28
-	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_29
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 
 TheGrasslandsDay2RoomHeaders:
 	dw .room_00
@@ -5365,49 +5365,49 @@ TheGrasslandsDay2RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_01
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_02
-	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_04
-	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_05
-	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_06
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_08
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_09
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_13
-	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_14
-	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_15
-	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_16
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_18
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_19
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_20
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_21
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_23
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_112, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_24
-	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_25
-	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_27
-	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_28
-	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_29
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 
 TheGrasslandsDay3To4RoomHeaders:
 	dw .room_00
@@ -5442,46 +5442,46 @@ TheGrasslandsDay3To4RoomHeaders:
 	dw .room_29
 
 .room_00
-	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  1,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_01
-	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  0,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_02
-	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  1,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_04
-	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  6,  0,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_05
-	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  3,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_06
-	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  4,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_08
-	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  5,  2,  2,  3,  5,  6, CAM_FREE, OBJECT_GROUP_100, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_09
-	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  1,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_13
-	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  6,  1,  0,  2,  6,  8, CAM_TRANSITIONS, OBJECT_GROUP_049, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_14
-	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  1,  2,  2,  3,  1,  3, CAM_TRANSITIONS, OBJECT_GROUP_019, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_15
-	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  1,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_16
-	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  3,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_18
-	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  5,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_19
-	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  2,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_20
-	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_010
+	room_header  9,  2,  0,  3,  9, 10, CAM_FREE, OBJECT_GROUP_080, ANIMATED_TILES_GROUP_03,  0, ROOM_SHARED_1
 .room_21
-	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  4,  1,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_23
-	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_088
+	room_header  5,  0,  0,  2,  1,  6, CAM_TRANSITIONS, OBJECT_GROUP_072, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_3_DAY
 .room_24
-	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  4,  2,  2,  3,  3,  5, CAM_FREE, OBJECT_GROUP_014, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3
 .room_25
-	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  0,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_27
-	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  8,  2,  0,  3,  8,  9, CAM_FREE | CAM_BORDER_LEFT, OBJECT_GROUP_099, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_28
-	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_073
+	room_header  7,  2,  2,  3,  6,  8, CAM_TRANSITIONS | CAM_BORDER_RIGHT, OBJECT_GROUP_092, ANIMATED_TILES_GROUP_03,  0, ROOM_THE_GRASSLANDS_2
 .room_29
-	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_019
+	room_header  0,  2,  2,  3,  0,  1, CAM_TRANSITIONS, OBJECT_GROUP_001, ANIMATED_TILES_GROUP_19,  0, ROOM_SHARED_3

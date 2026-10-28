@@ -114,9 +114,20 @@ class Level:
         }
         self.group_objects = {const: group_objects.get(label, []) for const, label in group_labels.items()}
 
-        # ROOM_xxx -> BLOCK_FUNCTION_TABLE_xx -> BlockFunctionTablexx
-        room_defs = dict(
-            re.findall(r"^\.room_data_(\d+)\n\troom (BLOCK_FUNCTION_TABLE_\w+),", read("data/levels/rooms1.asm"), re.M)
+        # ROOM_* -> .room_data_* -> BLOCK_FUNCTION_TABLE_* -> BlockFunctionTable_*
+        rooms1 = read("data/levels/rooms1.asm")
+        room_labels = dict(
+            (const, label) for label, const in re.findall(r"^\tdw (\.room_data_\w+)\s+; (ROOM_\w+)", rooms1, re.M)
+        )
+        room_tables = dict(re.findall(r"^(\.room_data_\w+)\n\troom (BLOCK_FUNCTION_TABLE_\w+),", rooms1, re.M))
+        room_defs = {const: room_tables[label] for const, label in room_labels.items()}
+        table_labels = dict(
+            (const, label)
+            for label, const in re.findall(
+                r"^\tdw (BlockFunctionTable\w+)\s+; (BLOCK_FUNCTION_TABLE_\w+)",
+                read("data/levels/function_table_pointers.asm"),
+                re.M,
+            )
         )
         func_tables = labelled_blocks(
             read("data/levels/function_tables1.asm", "data/levels/function_tables2.asm"),
@@ -146,8 +157,7 @@ class Level:
                 if room_id is None:
                     funcs_row.append(None)
                 else:
-                    table_const = room_defs[room_id.removeprefix("ROOM_")]
-                    funcs = func_tables["BlockFunctionTable" + table_const.removeprefix("BLOCK_FUNCTION_TABLE_")]
+                    funcs = func_tables[table_labels[room_defs[room_id]]]
                     funcs_row.append(funcs[blocks[n] & 0x7F])
                 byte = objects[n // 2]
                 objects_row.append(byte >> 4 if n % 2 == 0 else byte & 0x0F)
