@@ -1,4 +1,4 @@
-BlockFunctionTable00:
+BlockFunctionTable_OutOfTheWoods1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -130,7 +130,7 @@ BlockFunctionTable00:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable01:
+BlockFunctionTable_OutOfTheWoods5:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -262,7 +262,7 @@ BlockFunctionTable01:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable02:
+BlockFunctionTable_OutOfTheWoods2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -394,7 +394,7 @@ BlockFunctionTable02:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable03:
+BlockFunctionTable_OutOfTheWoods3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -526,7 +526,7 @@ BlockFunctionTable03:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable04:
+BlockFunctionTable_OutOfTheWoods4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -658,7 +658,7 @@ BlockFunctionTable04:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable05:
+BlockFunctionTable_Shared1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -790,7 +790,7 @@ BlockFunctionTable05:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable06:
+BlockFunctionTable_ThePeacefulVillage1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -922,7 +922,7 @@ BlockFunctionTable06:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable07:
+BlockFunctionTable_ThePeacefulVillage3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1054,7 +1054,7 @@ BlockFunctionTable07:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable08:
+BlockFunctionTable_TheVastPlain3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1186,7 +1186,7 @@ BlockFunctionTable08:
 	dw BlockFunc_ObjectWall ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable09:
+BlockFunctionTable_ThePeacefulVillage2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1318,7 +1318,7 @@ BlockFunctionTable09:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable10:
+BlockFunctionTable_ThePeacefulVillage4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1450,7 +1450,7 @@ BlockFunctionTable10:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable11:
+BlockFunctionTable_BankOfTheWildRiver2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1582,7 +1582,7 @@ BlockFunctionTable11:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable12:
+BlockFunctionTable_Shared2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1714,7 +1714,7 @@ BlockFunctionTable12:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable13:
+BlockFunctionTable_TheTidalCoast1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1846,7 +1846,7 @@ BlockFunctionTable13:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable14:
+BlockFunctionTable_TheTidalCoast3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -1978,7 +1978,7 @@ BlockFunctionTable14:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable15:
+BlockFunctionTable_SeaTurtleRocks2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2110,7 +2110,7 @@ BlockFunctionTable15:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable16:
+BlockFunctionTable_DesertRuins1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2242,7 +2242,7 @@ BlockFunctionTable16:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable17:
+BlockFunctionTable_DesertRuins2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2374,7 +2374,7 @@ BlockFunctionTable17:
 	dw BlockFunc_Door ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable18:
+BlockFunctionTable_Shared3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2506,7 +2506,7 @@ BlockFunctionTable18:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable19:
+BlockFunctionTable_TheVolcanosBase1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2638,7 +2638,7 @@ BlockFunctionTable19:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable20:
+BlockFunctionTable_ThePoolOfRain3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2770,7 +2770,7 @@ BlockFunctionTable20:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable21:
+BlockFunctionTable_ATownInChaos1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -2902,7 +2902,7 @@ BlockFunctionTable21:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable22:
+BlockFunctionTable_ATownInChaos2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3034,7 +3034,7 @@ BlockFunctionTable22:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable23:
+BlockFunctionTable_BeneathTheWaves1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3166,7 +3166,7 @@ BlockFunctionTable23:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable24:
+BlockFunctionTable_TheGrasslands2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3298,7 +3298,7 @@ BlockFunctionTable24:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable25:
+BlockFunctionTable_TheBigBridge3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3430,7 +3430,7 @@ BlockFunctionTable25:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable26:
+BlockFunctionTable_TheBigBridge2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3562,7 +3562,7 @@ BlockFunctionTable26:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable27:
+BlockFunctionTable_TowerOfRevival3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3694,7 +3694,7 @@ BlockFunctionTable27:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable28:
+BlockFunctionTable_TheSteepCanyon1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3826,7 +3826,7 @@ BlockFunctionTable28:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable29:
+BlockFunctionTable_AboveTheClouds1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -3958,7 +3958,7 @@ BlockFunctionTable29:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable30:
+BlockFunctionTable_TheStagnantSwamp1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4090,7 +4090,7 @@ BlockFunctionTable30:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable31:
+BlockFunctionTable_DesertRuins4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4222,7 +4222,7 @@ BlockFunctionTable31:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable32:
+BlockFunctionTable_TheFrigidSea3:
 	table_width 2
 	dw BlockFunc_SlipperySolid ; $00
 	dw BlockFunc_SlipperySolid ; $01
@@ -4354,7 +4354,7 @@ BlockFunctionTable32:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable33:
+BlockFunctionTable_CastleOfIllusions1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4486,7 +4486,7 @@ BlockFunctionTable33:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable34:
+BlockFunctionTable_TheColossalHole1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4618,7 +4618,7 @@ BlockFunctionTable34:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable35:
+BlockFunctionTable_TheStagnantSwamp4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4750,7 +4750,7 @@ BlockFunctionTable35:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable36:
+BlockFunctionTable_Craters1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -4882,7 +4882,7 @@ BlockFunctionTable36:
 	dw BlockFunc_MinigameDoor ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable37:
+BlockFunctionTable_TheWarpedVoid1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5014,7 +5014,7 @@ BlockFunctionTable37:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable38:
+BlockFunctionTable_ForestOfFear1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5146,7 +5146,7 @@ BlockFunctionTable38:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable39:
+BlockFunctionTable_CaveOfFlames1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5278,7 +5278,7 @@ BlockFunctionTable39:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable40:
+BlockFunctionTable_BeneathTheWaves2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5410,7 +5410,7 @@ BlockFunctionTable40:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable41:
+BlockFunctionTable_CastleOfIllusions2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5542,7 +5542,7 @@ BlockFunctionTable41:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable42:
+BlockFunctionTable_CastleOfIllusions3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5674,7 +5674,7 @@ BlockFunctionTable42:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable43:
+BlockFunctionTable_ATownInChaos4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5806,7 +5806,7 @@ BlockFunctionTable43:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable44:
+BlockFunctionTable_TheTemple:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -5938,7 +5938,7 @@ BlockFunctionTable44:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable45:
+BlockFunctionTable_DesertRuins3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6070,7 +6070,7 @@ BlockFunctionTable45:
 	dw BlockFunc_Door ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable46:
+BlockFunctionTable_TheVastPlain1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6202,7 +6202,7 @@ BlockFunctionTable46:
 	dw BlockFunc_ObjectWall ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable47:
+BlockFunctionTable_TheFrigidSea2:
 	table_width 2
 	dw BlockFunc_SlipperySolid ; $00
 	dw BlockFunc_SlipperySolid ; $01
@@ -6334,7 +6334,7 @@ BlockFunctionTable47:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable48:
+BlockFunctionTable_TheVastPlain2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6466,7 +6466,7 @@ BlockFunctionTable48:
 	dw BlockFunc_ObjectWall ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable49:
+BlockFunctionTable_TheStagnantSwamp3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6598,7 +6598,7 @@ BlockFunctionTable49:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable50:
+BlockFunctionTable_ThePoolOfRain2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6730,7 +6730,7 @@ BlockFunctionTable50:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable51:
+BlockFunctionTable_TowerOfRevival2:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6862,7 +6862,7 @@ BlockFunctionTable51:
 	dw BlockFunc_LargeCrackedBlockDown_78 ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable52:
+BlockFunctionTable_ThePoolOfRain1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -6994,7 +6994,7 @@ BlockFunctionTable52:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable53:
+BlockFunctionTable_ATownInChaos3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7126,7 +7126,7 @@ BlockFunctionTable53:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable54:
+BlockFunctionTable_TheGrasslands1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7258,7 +7258,7 @@ BlockFunctionTable54:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable55:
+BlockFunctionTable_TheBigBridge1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7390,7 +7390,7 @@ BlockFunctionTable55:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable56:
+BlockFunctionTable_TowerOfRevival1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7522,7 +7522,7 @@ BlockFunctionTable56:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable57:
+BlockFunctionTable_TowerOfRevival4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7654,7 +7654,7 @@ BlockFunctionTable57:
 	dw BlockFunc_LargeCrackedBlockDown_78 ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable58:
+BlockFunctionTable_TowerOfRevival5:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7786,7 +7786,7 @@ BlockFunctionTable58:
 	dw BlockFunc_LargeCrackedBlockDown_78 ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable59:
+BlockFunctionTable_BankOfTheWildRiver1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -7918,7 +7918,7 @@ BlockFunctionTable59:
 	dw BlockFunc_Solid ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable60:
+BlockFunctionTable_SeaTurtleRocks3:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -8050,7 +8050,7 @@ BlockFunctionTable60:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable61:
+BlockFunctionTable_SeaTurtleRocks1:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
@@ -8182,7 +8182,7 @@ BlockFunctionTable61:
 	dw BlockFunc_Free ; $7f
 	assert_table_length NUM_ROOM_BLOCK_TYPES
 
-BlockFunctionTable62:
+BlockFunctionTable_SeaTurtleRocks4:
 	table_width 2
 	dw BlockFunc_Solid ; $00
 	dw BlockFunc_Solid ; $01
