@@ -25,20 +25,20 @@ SmallOctohonFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_4a4e9
+	jr c, .face_right
 	ld de, OctohonFrameset_69b2f
 	ld b, $00
-	jr .asm_4a4ee
-.asm_4a4e9
+	jr .set_update
+.face_right
 	ld de, OctohonFrameset_69b38
 	ld b, $01
-.asm_4a4ee
+.set_update
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Update)
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-.asm_4a4f7
+.start_swim
 	ld hl, wCurObjStateDuration
 	ld a, $ac
 	ld [hli], a
@@ -48,12 +48,12 @@ SmallOctohonFunc:
 	ld [hl], a
 	ldh a, [rDIV]
 	rra
-	jr nc, .asm_4a50c
+	jr nc, .got_flags
 	ld l, OBJ_FLAGS
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-.asm_4a50c
+.got_flags
 	jp SetObjectFramesetPtr
 
 .Update:
@@ -62,51 +62,51 @@ SmallOctohonFunc:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_4a521
+	jr z, .phase_left
 	cp $01
-	jr z, .asm_4a53f
+	jr z, .phase_right
 	xor a
 	ld [hl], a
-.asm_4a521
+.phase_left
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_4a531
+	jr z, .left_phase_over
 	dec [hl]
-	jr nz, .asm_4a55d
+	jr nz, .check_wall
 	ld de, OctohonFrameset_69b41
 	call SetObjectFramesetPtr
-	jr .asm_4a55d
-.asm_4a531
+	jr .check_wall
+.left_phase_over
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	cp $ee
-	jr nz, .asm_4a55d
+	jr nz, .check_wall
 	ld de, OctohonFrameset_69b38
 	ld b, $01
-	jr .asm_4a4f7
-.asm_4a53f
+	jr .start_swim
+.phase_right
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_4a54f
+	jr z, .right_phase_over
 	dec [hl]
-	jr nz, .asm_4a55d
+	jr nz, .check_wall
 	ld de, OctohonFrameset_69b4c
 	call SetObjectFramesetPtr
-	jr .asm_4a55d
-.asm_4a54f
+	jr .check_wall
+.right_phase_over
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	cp $ee
-	jr nz, .asm_4a55d
+	jr nz, .check_wall
 	ld de, OctohonFrameset_69b2f
 	ld b, $00
-	jr .asm_4a4f7
-.asm_4a55d
+	jr .start_swim
+.check_wall
 	ld a, [wCurObjVar2]
 	and a
-	jr z, .asm_4a57d
+	jr z, .move_x
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -118,12 +118,12 @@ SmallOctohonFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr z, .asm_4a57d
+	jr z, .move_x
 	ld hl, wCurObjVar2
 	inc [hl]
 	ret
 
-.asm_4a57d
+.move_x
 	ld de, OctohonData_4a5a9
 	ld hl, wCurObjVar2
 	ld a, [hl]
@@ -131,18 +131,18 @@ SmallOctohonFunc:
 	ld c, e
 	add c
 	ld c, a
-	jr nc, .asm_4a58b
+	jr nc, .no_carry
 	inc b
-.asm_4a58b
+.no_carry
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4a595
+	jr nz, .got_offset
 	xor a
 	ld [hl], a
 	ld b, d
 	ld c, e
 	ld a, [bc]
-.asm_4a595
+.got_offset
 	inc [hl]
 	ld b, a
 	dec l
@@ -150,14 +150,14 @@ SmallOctohonFunc:
 	and a
 	ld l, OBJ_X_POS
 	ld a, [hl]
-	jr nz, .asm_4a5a4
+	jr nz, .move_right
 	sub b
 	ld [hli], a
 	ret nc
 	dec [hl]
 	ret
 
-.asm_4a5a4
+.move_right
 	add b
 	ld [hli], a
 	ret nc
@@ -225,20 +225,20 @@ BigOctohonFunc:
 	add $2a
 	cp b
 	ld hl, wCurObjSubState
-	jr c, .asm_4a6d1
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, OctohonFrameset_69b57
-	jr .asm_4a6d6
-.asm_4a6d1
+	jr .set_update
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, OctohonFrameset_69b60
-.asm_4a6d6
+.set_update
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Update)
 	ld [hld], a
 	ld a, LOW(.Update)
 	ld [hld], a
-.asm_4a6df
+.start_swim
 	ld hl, wCurObjStateDuration
 	ld a, $ac
 	ld [hli], a
@@ -247,12 +247,12 @@ BigOctohonFunc:
 	ld [hl], a
 	jp SetObjectFramesetPtr
 
-.asm_4a6eb
+.hit_wario_right
 	ld de, OctohonFrameset_69b69
-	jr .asm_4a6f3
-.asm_4a6f0
+	jr .set_hit_wario
+.hit_wario_left
 	ld de, OctohonFrameset_69b74
-.asm_4a6f3
+.set_hit_wario
 	xor a
 	ld [hl], a
 	call SetObjectFramesetPtr
@@ -270,7 +270,7 @@ BigOctohonFunc:
 	play_sfx SFX_BIG_OCTO_1
 	ret
 
-.asm_4a711
+.hurt
 	xor a
 	ld [hld], a
 	ld a, [hld]
@@ -287,62 +287,62 @@ BigOctohonFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4a73f
+	jr z, .dispatch_phase
 	cp OBJSTATE_HIT_WARIO_RIGHT_START
-	jr z, .asm_4a6eb
+	jr z, .hit_wario_right
 	cp OBJSTATE_HIT_WARIO_LEFT_START
-	jr z, .asm_4a6f0
+	jr z, .hit_wario_left
 	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
-	jr .asm_4a711
-.asm_4a73f
+	jr .hurt
+.dispatch_phase
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jr z, .asm_4a7c2
+	jr z, .swim
 	cp $01
-	jr z, .asm_4a77f
+	jr z, .charge
 	cp $02
-	jr z, .asm_4a774
+	jr z, .recoil_wait
 	cp $03
-	jr z, .asm_4a756
+	jr z, .dash_after_hit
 	cp $04
-	jr z, .asm_4a76c
+	jr z, .recoil
 	ret
-.asm_4a756
+.dash_after_hit
 	dec l
 	dec [hl]
-	jr nz, .asm_4a78b
+	jr nz, .charge_move
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4a766
+	jr c, .dash_end_facing_right
 	ld de, OctohonFrameset_69b57
-	jp .asm_4a6df
-.asm_4a766
+	jp .start_swim
+.dash_end_facing_right
 	ld de, OctohonFrameset_69b60
-	jp .asm_4a6df
-.asm_4a76c
+	jp .start_swim
+.recoil
 	ld bc, OctohonData_60d50
 	call ApplyObjXMovement
 	ld l, OBJ_VAR_1
-.asm_4a774
+.recoil_wait
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	dec l
 	dec [hl]
 	ret nz
-	jp .asm_4a860
-.asm_4a77f
+	jp .turn_around
+.charge
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_4a786
+	jr z, .charge_move_start
 	dec [hl]
 	ret
-.asm_4a786
+.charge_move_start
 	ld a, $02
 	ld [wCurObjFrameDuration], a
-.asm_4a78b
+.charge_move
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -350,7 +350,7 @@ BigOctohonFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4a7ae
+	jr c, .charge_right
 	ld a, [hli]
 	sub $06
 	ldh [hXPosLo], a
@@ -360,8 +360,8 @@ BigOctohonFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
-	jp .asm_4a6eb
-.asm_4a7ae
+	jp .hit_wario_right
+.charge_right
 	ld a, [hli]
 	add $06
 	ldh [hXPosLo], a
@@ -371,14 +371,14 @@ BigOctohonFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
-	jp .asm_4a6f0
-.asm_4a7c2
+	jp .hit_wario_left
+.swim
 	dec l
 	ld a, [hl]
 	and a
-	jp z, .asm_4a859
+	jp z, .wait_turn
 	dec [hl]
-	jr z, .asm_4a812
+	jr z, .set_turn_frameset
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -387,10 +387,10 @@ BigOctohonFunc:
 	add c
 	sub b
 	cp $14
-	jr c, .asm_4a7df
+	jr c, .in_y_range
 	cp $ec
-	jr c, .asm_4a823
-.asm_4a7df
+	jr c, .swim_move
+.in_y_range
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -399,16 +399,16 @@ BigOctohonFunc:
 	sub b
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_4a7f9
+	jr nz, .facing_right
 	cp $40
-	jr nc, .asm_4a823
+	jr nc, .swim_move
 	ld de, OctohonFrameset_69bc3
-	jr .asm_4a800
-.asm_4a7f9
+	jr .start_charge
+.facing_right
 	cp $c0
-	jr c, .asm_4a823
+	jr c, .swim_move
 	ld de, OctohonFrameset_69bce
-.asm_4a800
+.start_charge
 	call SetObjectFramesetPtr
 	ld a, $24
 	ld [hli], a
@@ -420,12 +420,12 @@ BigOctohonFunc:
 	or OBJ_INTERACTION_WATER_FRONT_LAUNCH
 	ld [hld], a
 	ret
-.asm_4a812
+.set_turn_frameset
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset OctohonFrameset_69b69, OctohonFrameset_69b74
 	call SetObjectFramesetPtr
-.asm_4a823
+.swim_move
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -433,7 +433,7 @@ BigOctohonFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4a844
+	jr c, .swim_right
 	ld a, [hli]
 	sub $06
 	ldh [hXPosLo], a
@@ -442,9 +442,9 @@ BigOctohonFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr z, .asm_4a875
-	jr .asm_4a854
-.asm_4a844
+	jr z, .move_x
+	jr .blocked
+.swim_right
 	ld a, [hli]
 	add $06
 	ldh [hXPosLo], a
@@ -453,30 +453,30 @@ BigOctohonFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr z, .asm_4a875
-.asm_4a854
+	jr z, .move_x
+.blocked
 	ld hl, wCurObjVar2
 	inc [hl]
 	ret
 
-.asm_4a859
+.wait_turn
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	cp $ee
-	jr nz, .asm_4a823
-.asm_4a860
+	jr nz, .swim_move
+.turn_around
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	xor $80
 	ld [hl], a
 	rlca
-	jr c, .asm_4a86f
+	jr c, .turn_to_right
 	ld de, OctohonFrameset_69b57
-	jp .asm_4a6df
-.asm_4a86f
+	jp .start_swim
+.turn_to_right
 	ld de, OctohonFrameset_69b60
-	jp .asm_4a6df
-.asm_4a875
+	jp .start_swim
+.move_x
 	ld de, OctohonData_4a5a9
 	ld hl, wCurObjVar2
 	ld a, [hl]
@@ -484,31 +484,31 @@ BigOctohonFunc:
 	ld c, e
 	add c
 	ld c, a
-	jr nc, .asm_4a883
+	jr nc, .no_carry
 	inc b
-.asm_4a883
+.no_carry
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4a88d
+	jr nz, .got_offset
 	xor a
 	ld [hl], a
 	ld b, d
 	ld c, e
 	ld a, [bc]
-.asm_4a88d
+.got_offset
 	inc [hl]
 	ld b, a
 	ld a, [wCurObjSubState]
 	rlca
 	ld l, OBJ_X_POS
 	ld a, [hl]
-	jr c, .asm_4a89d
+	jr c, .move_right
 	sub b
 	ld [hli], a
 	ret nc
 	dec [hl]
 	ret
-.asm_4a89d
+.move_right
 	add b
 	ld [hli], a
 	ret nc
