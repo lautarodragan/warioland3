@@ -27,6 +27,7 @@
 - [History of the fork](history.md)
 - [Naming the disassembly](renames.md)
 - [Original game bugs](original-game-bugs.md)
+- [Curiosities](curiosities.md)
 
 # Reference
 
