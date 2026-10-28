@@ -111,19 +111,19 @@ ProcessInteractions:
 	ld d, a
 	ld a, d
 	sub c
-	jr c, .asm_200c9
-	jr z, .asm_200c5
+	jr c, .from_below
+	jr z, .equal_y_overlap
 
 	ld a, c
 	ld [wObjOverlapFromAbove], a
-	jr .asm_200cd
-.asm_200c5
+	jr .check_x_overlap
+.equal_y_overlap
 	ld a, c
 	ld [wObjOverlapFromAbove], a
-.asm_200c9
+.from_below
 	ld a, d
 	ld [wObjOverlapFromBelow], a
-.asm_200cd
+.check_x_overlap
 
 	ld hl, wObjCollBoxLeft
 	ld a, [wObjScreenXPos]
@@ -150,19 +150,19 @@ ProcessInteractions:
 	jp c, .next_obj
 	ld d, a
 	sub c
-	jr c, .asm_20108
-	jr z, .asm_20104
+	jr c, .from_right
+	jr z, .equal_x_overlap
 
 	ld a, c
 	ld [wObjOverlapFromLeft], a
-	jr .asm_2010c
-.asm_20104
+	jr .got_overlaps
+.equal_x_overlap
 	ld a, c
 	ld [wObjOverlapFromLeft], a
-.asm_20108
+.from_right
 	ld a, d
 	ld [wObjOverlapFromRight], a
-.asm_2010c
+.got_overlaps
 
 	ld hl, wInteractionSide
 	ld a, INTERACTION_LEFT | INTERACTION_RIGHT | INTERACTION_UP | INTERACTION_DOWN
@@ -172,35 +172,35 @@ ProcessInteractions:
 	ld a, [wObjOverlapFromLeft]
 	ld c, a
 	cp b
-	jr z, .asm_20126
-	jr c, .asm_20123
+	jr z, .got_x_side
+	jr c, .left_overlap_smaller
 	res INTERACTION_RIGHT_F, [hl]
-	jr .asm_20126
-.asm_20123
+	jr .got_x_side
+.left_overlap_smaller
 	res INTERACTION_LEFT_F, [hl]
 	ld b, c
-.asm_20126
+.got_x_side
 	ld a, [wObjOverlapFromBelow]
 	ld d, a
 	ld a, [wObjOverlapFromAbove]
 	ld e, a
 	cp d
-	jr z, .asm_2013a
-	jr c, .asm_20137
+	jr z, .got_y_side
+	jr c, .above_overlap_smaller
 	res INTERACTION_UP_F, [hl]
-	jr .asm_2013a
-.asm_20137
+	jr .got_y_side
+.above_overlap_smaller
 	res INTERACTION_DOWN_F, [hl]
 	ld d, e
-.asm_2013a
+.got_y_side
 	ld a, b
 	cp d
 	jr z, .do_interaction
-	jr c, .asm_20146
+	jr c, .x_overlap_smaller
 	res INTERACTION_LEFT_F, [hl]
 	res INTERACTION_RIGHT_F, [hl]
 	jr .do_interaction
-.asm_20146
+.x_overlap_smaller
 	res INTERACTION_UP_F, [hl]
 	res INTERACTION_DOWN_F, [hl]
 
@@ -347,9 +347,9 @@ TouchObject:
 BumpIntoObject:
 	ld a, [wTouchState]
 	and a
-	jr z, .asm_20257
+	jr z, .bump
 	cp TOUCH_BUMP
-	jr z, .asm_20257
+	jr z, .bump
 	cp TOUCH_VULNERABLE
 	jp z, BumpOffObject ; this causes an infinite loop!
 	cp TOUCH_ATTACK
@@ -358,7 +358,7 @@ BumpIntoObject:
 	jp z, VanishObjectAndKnockBackIfZombie
 	jp ProcessInteractions.next_obj
 
-.asm_20257
+.bump
 	ld a, [wAttackCounter]
 	and a
 	jp nz, AttackObject
@@ -379,11 +379,11 @@ BumpIntoObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20283
+	jr c, .obj_on_left
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 	jr .wario_bump
-.asm_20283
+.obj_on_left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
 .wario_bump
@@ -397,14 +397,14 @@ FlatWarioBumpIntoObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_202a0
+	jr c, .obj_on_left
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
-	jr .asm_202a5
-.asm_202a0
+	jr .fall
+.obj_on_left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-.asm_202a5
+.fall
 	farcall SetState_FlatFalling
 	ret
 
@@ -445,38 +445,38 @@ SetState_EnemyBumping:
 	jr nz, .crouching
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_20326
+	jr nz, .dir_right
 	ld a, HIGH(WarioBumpFrameset_14a71)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioBumpFrameset_14a71)
 	ld [wWarioFramesetPtr + 1], a
-.asm_20316
+.update_animation
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 	ret
-.asm_20326
+.dir_right
 	ld a, HIGH(WarioBumpFrameset_14a6c)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioBumpFrameset_14a6c)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20316
+	jr .update_animation
 
 .crouching
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_20344
+	jr nz, .crouching_dir_right
 	ld a, HIGH(WarioFrameset_14a3b)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_14a3b)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20316
-.asm_20344
+	jr .update_animation
+.crouching_dir_right
 	ld a, HIGH(WarioFrameset_14a38)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_14a38)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20316
+	jr .update_animation
 
 ; routine called when an object is attacked
 ; whether by Wario's B attack, Fat Wario bump, rolling, etc.
@@ -486,7 +486,7 @@ AttackObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20382
+	jr c, .obj_on_left
 
 	ld a, INTERACTION_RIGHT
 	ld [wInteractionSide], a
@@ -509,7 +509,7 @@ AttackObject:
 	ld [de], a
 	jr .spawn_stars
 
-.asm_20382
+.obj_on_left
 	ld a, INTERACTION_LEFT
 	ld [wInteractionSide], a
 	ld hl, wWarioXPos + 1
@@ -559,17 +559,17 @@ AttackObject:
 .not_rolling
 	ld a, [wObjInteractionType]
 	bit HEAVY_OBJ_F, a
-	jr z, .asm_203fc
+	jr z, .not_heavy
 	farcall DoJumpingBump_NoSFX
 	ret
 
-.asm_203fc
+.not_heavy
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_20412
+	jr nz, .airborne
 	farcall SetState_Idling
 	ret
-.asm_20412
+.airborne
 	farcall StartFall
 	ret
 
@@ -623,20 +623,20 @@ StepOnObject:
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	jr .asm_2048c
+	jr .got_side
 .on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
-.asm_2048c
+.got_side
 	ld a, [wInteractionSide]
 	bit INTERACTION_DOWN_F, a
-	jr nz, .asm_20506
+	jr nz, .not_from_above
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wObjScreenYPos]
 	cp b
-	jr c, .asm_20506
+	jr c, .not_from_above
 
 	ld a, [wGrabState]
 	and GRAB_STATE_MASK
@@ -653,16 +653,16 @@ StepOnObject:
 	and a
 	jp z, .no_input
 	farcall StartJump_FromInput
-	jr .asm_204e8
+	jr .set_jump
 
 .crouching_1
 	farcall StartCrouchJump
-	jr .asm_204e8
+	jr .set_jump
 
 .grabbing
 	farcall SetState_GrabAirborne_Jump
 
-.asm_204e8
+.set_jump
 	ld a,TRUE
 	ld [wDoFullJump], a
 	ld a, $0a
@@ -670,15 +670,15 @@ StepOnObject:
 
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jr z, .asm_20578
+	jr z, .wobble_obj
 	ld a, [wPowerUpLevel]
 	cp HIGH_JUMP_BOOTS
-	jr c, .asm_20578
+	jr c, .wobble_obj
 	xor a ; full jump
 	ld [wJumpVelIndex], a
-	jr .asm_20578
+	jr .wobble_obj
 
-.asm_20506
+.not_from_above
 	ld a, [wInvincibleCounter]
 	cp $01
 	ret z
@@ -689,36 +689,36 @@ StepOnObject:
 	ld a, [wGrabState]
 	and GRAB_STATE_MASK
 	cp GRAB_IDLE
-	jr z, .asm_20547
+	jr z, .grab_idle
 	xor a
 	ld [wGrabState], a
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_20536
+	jr nz, .airborne
 	farcall SetState_Idling
-	jr .asm_20578
+	jr .wobble_obj
 
-.asm_20536
+.airborne
 	farcall StartFall
-	jr .asm_20578
+	jr .wobble_obj
 
-.asm_20547
+.grab_idle
 	ld a, [wJumpVelTable]
 	and a
-	jr z, .asm_20578
+	jr z, .wobble_obj
 	farcall SetState_GrabAirborne_Fall
-	jr .asm_20578
+	jr .wobble_obj
 
 .crouching_2
 	ld a, [wJumpVelTable]
 	and a
-	jr z, .asm_20578
+	jr z, .wobble_obj
 	farcall StartCrouchFall
-	jr .asm_20578
+	jr .wobble_obj
 
 .no_input
 	call BumpOffObject
-.asm_20578
+.wobble_obj
 	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	jp SetObjAction
@@ -739,16 +739,16 @@ StepOnObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_205af
+	jr c, .transformed_obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	jr .asm_205b7
-.asm_205af
+	jr .transformed_got_side
+.transformed_obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
-.asm_205b7
+.transformed_got_side
 	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
@@ -756,9 +756,9 @@ StepOnObject:
 	cp TRANSFORMATION_FLAT_WARIO
 	jp z, FlatWarioBumpIntoObject
 	cp TRANSFORMATION_BOUNCY_WARIO
-	jr z, .asm_205d1
+	jr z, .bouncy
 	ret
-.asm_205d1
+.bouncy
 	ld a, [wTouchState]
 	cp TOUCH_PASS_THROUGH
 	ret z
@@ -784,27 +784,27 @@ JumpOffVanishingObject:
 	ld a, [wGrabState]
 	and GRAB_STATE_MASK
 	cp GRAB_IDLE
-	jr z, .asm_2062a
+	jr z, .grab_idle
 	xor a
 	ld [wGrabState], a
 	farcall StartJump_FromInput
-	jr .asm_20639
-.asm_2062a
+	jr .set_jump
+.grab_idle
 	farcall SetState_GrabAirborne_Jump
-.asm_20639
+.set_jump
 	ld a, TRUE
 	ld [wDoFullJump], a
 	ld a, $0a
 	ld [wJumpVelIndex], a
 	ld a, [wJoypadDown]
 	bit B_PAD_A, a
-	jr z, .asm_20655
+	jr z, .vanish_obj
 	ld a, [wPowerUpLevel]
 	cp HIGH_JUMP_BOOTS
-	jr c, .asm_20655
+	jr c, .vanish_obj
 	xor a
 	ld [wJumpVelIndex], a
-.asm_20655
+.vanish_obj
 	ld b, OBJACTION_VANISH_TOUCH
 ;	fallthrough
 
@@ -837,18 +837,18 @@ GetStungByObject:
 	jr nc, .check_rolling
 	ld a, [wObjInteractionType]
 	bit HEAVY_OBJ_F, a
-	jr nz, .asm_2068c
+	jr nz, .check_sting_touch_state
 .check_rolling
 	ld a, [wIsRolling]
 	and a
 	jp nz, AttackObject
 
-.asm_2068c
+.check_sting_touch_state
 	ld a, [wStingTouchState]
 	and a
-	jr z, .asm_206a8
+	jr z, .sting
 	cp TOUCH_VULNERABLE
-	jr z, .asm_206a8
+	jr z, .sting
 	cp TOUCH_BUMP
 	jp z, BumpIntoObject
 	cp TOUCH_ATTACK
@@ -857,31 +857,31 @@ GetStungByObject:
 	jp z, VanishObjectAndKnockBackIfZombie
 	jp ProcessInteractions.next_obj
 
-.asm_206a8
+.sting
 	ld a, [wWarioScreenXPos]
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_206bc
+	jr c, .obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	jr .asm_206c4
-.asm_206bc
+	jr .got_side
+.obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
-.asm_206c4
+.got_side
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_206d2
+	jr nz, .face_left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	jr .asm_206d7
-.asm_206d2
+	jr .set_action
+.face_left
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
-.asm_206d7
+.set_action
 	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 	ld a, [wInvincibleCounter]
@@ -926,7 +926,7 @@ SetState_Stung:
 	ld [wCollisionBoxRight], a
 	ld a, [wIsCrouching]
 	and a
-	jr z, .asm_20774
+	jr z, .knock_back
 	ld a, -27
 	ld [wCollisionBoxTop], a
 
@@ -942,7 +942,7 @@ SetState_Stung:
 	farcall CheckUpCollision
 	ld a, b
 	and a
-	jr nz, .asm_20780
+	jr nz, .stay_crouched
 
 	xor a
 	ld [wIsCrouching], a
@@ -955,14 +955,14 @@ SetState_Stung:
 	ldh a, [hXPosLoBackup]
 	ldh [hXPosLo], a
 
-.asm_20774
+.knock_back
 	ld a, -27
 	ld [wCollisionBoxTop], a
 	ld a, JUMP_VEL_KNOCK_BACK
 	ld [wJumpVelTable], a
-	jr .asm_20799
+	jr .load_gfx
 
-.asm_20780
+.stay_crouched
 	ld a, -15
 	ld [wCollisionBoxTop], a
 	xor a ; JUMP_VEL_NONE
@@ -977,7 +977,7 @@ SetState_Stung:
 	ldh a, [hXPosLoBackup]
 	ldh [hXPosLo], a
 
-.asm_20799
+.load_gfx
 	ld a, BANK(WarioAirborneGfx)
 	ld [wDMASourceBank], a
 	ld a, HIGH(WarioAirborneGfx)
@@ -997,18 +997,18 @@ SetState_Stung:
 	ld [wAnimationFrame], a
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_207d3
+	jr nz, .dir_right
 	ld a, HIGH(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_207dd
-.asm_207d3
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 1], a
-.asm_207dd
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -1023,14 +1023,14 @@ GetStungByObjectInWater:
 	ret z
 	ld a, [wStingTouchState]
 	and a
-	jr z, .asm_20808
+	jr z, .sting
 	cp TOUCH_BUMP
 	jp z, BumpObjectInWater.start
 	cp TOUCH_VANISH
 	jp z, VanishTouchedObject
 	ret
 
-.asm_20808
+.sting
 	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 ;	fallthrough
@@ -1074,18 +1074,18 @@ SetState_WaterStung:
 	ld [wAnimationFrame], a
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_2087f
+	jr nz, .dir_right
 	ld a, HIGH(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20889
-.asm_2087f
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 1], a
-.asm_20889
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -1094,14 +1094,14 @@ SetState_WaterStung:
 PushObjectInWater:
 	ld a, [wStingTouchState]
 	and a
-	jr z, .asm_208a9
+	jr z, .push
 	cp TOUCH_BUMP
-	jr z, .asm_208a9
+	jr z, .push
 	cp TOUCH_VANISH
 	jp z, VanishTouchedObject
 	ret
 
-.asm_208a9
+.push
 	ld a, [wWaterInteraction]
 	and a
 	ret z
@@ -1109,16 +1109,16 @@ PushObjectInWater:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_208c2
+	jr c, .obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	jr .asm_208ca
-.asm_208c2
+	jr .got_side
+.obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
-.asm_208ca
+.got_side
 	play_sfx SFX_STOMP
 	ld b, OBJACTION_WOBBLE
 	call SetObjAction
@@ -1142,14 +1142,14 @@ BumpObjectInWater:
 .start
 	ld a, [wStingTouchState]
 	and a
-	jr z, .asm_2090a
+	jr z, .bump_obj
 	cp TOUCH_BUMP
-	jr z, .asm_2090a
+	jr z, .bump_obj
 	cp TOUCH_VANISH
 	jp z, VanishTouchedObject
 	ret
 
-.asm_2090a
+.bump_obj
 	ld a, [wWaterInteraction]
 	and a
 	ret z
@@ -1205,7 +1205,7 @@ BumpOffObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_209b4
+	jr c, .obj_on_left
 	ld a, INTERACTION_RIGHT
 	ld [wInteractionSide], a
 	ld a, DIRECTION_LEFT
@@ -1214,12 +1214,12 @@ BumpOffObject:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioBumpFrameset_14a79)
 	ld [wWarioFramesetPtr + 1], a
-.asm_209a4
+.update_animation
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 	ret
-.asm_209b4
+.obj_on_left
 	ld a, INTERACTION_LEFT
 	ld [wInteractionSide], a
 	ld a, DIRECTION_RIGHT
@@ -1228,16 +1228,16 @@ BumpOffObject:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioBumpFrameset_14a76)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_209a4
+	jr .update_animation
 
 StandOnSolidObject:
 	ld a, [wWarioState]
 	cp WST_ATTACKING_AIRBORNE
-	jr nz, .asm_209d5
+	jr nz, .not_attacking_airborne
 	; airborne
 	xor a
 	ld [wAttackCounter], a
-.asm_209d5
+.not_attacking_airborne
 	ld a, [wWaterInteraction]
 	and a
 	ret nz
@@ -1250,9 +1250,9 @@ StandOnSolidObject:
 	and a
 	jr z, .set_stepped_on
 	cp $03
-	jr c, .asm_209f1
+	jr c, .got_overlap
 	ld a, $02
-.asm_209f1
+.got_overlap
 	ld b, a
 	call MoveWarioUp
 .set_stepped_on
@@ -1311,8 +1311,8 @@ PushAgainstSolidObject:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20aa5
-.asm_20a79
+	jr c, .obj_on_left
+.obj_on_right
 	ld a, [wDirection]
 	and a
 	jp z, ProcessInteractions.next_obj
@@ -1321,15 +1321,15 @@ PushAgainstSolidObject:
 	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
-	jr nz, .asm_20acf
+	jr nz, .check_transformation
 	ld a, [wObjOverlapFromLeft]
 	cp $ff
-	jr z, .asm_20aa5
+	jr z, .obj_on_left
 	ld b, a
 	call MoveWarioLeft
-	jr .asm_20acf
+	jr .check_transformation
 
-.asm_20aa5
+.obj_on_left
 	ld a, [wDirection]
 	and a
 	jp nz, ProcessInteractions.next_obj
@@ -1338,13 +1338,13 @@ PushAgainstSolidObject:
 	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
-	jr nz, .asm_20acf
+	jr nz, .check_transformation
 	ld a, [wObjOverlapFromRight]
 	cp $ff
-	jr z, .asm_20a79
+	jr z, .obj_on_right
 	ld b, a
 	call MoveWarioRight
-.asm_20acf
+.check_transformation
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
 	jr z, .ball_o_string
@@ -1356,12 +1356,12 @@ PushAgainstSolidObject:
 	ld [wWalkVelIndex], a
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_20aef
+	jr nz, .bump
 	ld a, [wAttackCounter]
 	and a
 	jp z, ProcessInteractions.next_obj
 
-.asm_20aef
+.bump
 	farcall DoJumpingBump
 	ret
 
@@ -1389,7 +1389,7 @@ PushAgainstSolidObject:
 BumpOffObject_HitWarioShort:
 	ld a, [wTouchState]
 	and a
-	jr z, .asm_20b5e
+	jr z, .no_touch_state
 	cp TOUCH_BUMP
 	jp z, PushAgainstSolidObject
 	cp TOUCH_VULNERABLE
@@ -1400,7 +1400,7 @@ BumpOffObject_HitWarioShort:
 	jp z, VanishObjectAndKnockBackIfZombie
 	jp PushAgainstSolidObject
 
-.asm_20b5e
+.no_touch_state
 	ld a, [wTouchState]
 	and a
 	ret nz
@@ -1459,14 +1459,14 @@ ObjInteraction_Grabbable:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20bdd
+	jr c, .obj_on_left
 	ld a, INTERACTION_RIGHT
 	ld [wInteractionSide], a
 	ld a, [wDirection]
 	and a
 	jr nz, .check_invincible_counter
 	jr .step_on_obj
-.asm_20bdd
+.obj_on_left
 	ld a, INTERACTION_LEFT
 	ld [wInteractionSide], a
 	ld a, [wDirection]
@@ -1514,9 +1514,9 @@ ObjInteraction_Grabbable:
 	jr z, .set_wario_pick_up
 	ld a, [wObjInteractionType]
 	bit HEAVY_OBJ_F, a
-	jr z, .asm_20c31
+	jr z, .grab_airborne
 	jr .step_on_obj
-.asm_20c31
+.grab_airborne
 	farcall SetState_GrabAirborne_Fall
 	ret
 
@@ -1528,12 +1528,12 @@ ObjInteraction_Grabbable:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20c56
+	jr c, .unused_obj_on_left
 	ld a, INTERACTION_RIGHT
 	ld [wInteractionSide], a
 	jp BumpIntoObject
 
-.asm_20c56
+.unused_obj_on_left
 	ld a, INTERACTION_LEFT
 	ld [wInteractionSide], a
 	jp BumpIntoObject
@@ -1573,49 +1573,49 @@ ObjInteraction_Grabbable:
 
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_20cdb
+	jr nz, .pick_up_dir_right
 	ld a, [wWarioSlopeInteraction]
 	bit LEFT_SLOPE_F, a
-	jr nz, .asm_20cf5
+	jr nz, .on_slope
 	ld a, [wGrabState]
 	and (1 << GRAB_HEAVY_F)
-	jr nz, .asm_20d05
+	jr nz, .heavy_dir_left
 	ld a, HIGH(WarioGrabFrameset_163ec)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioGrabFrameset_163ec)
 	ld [wWarioFramesetPtr + 1], a
-.asm_20ccb
+.update_animation
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
 	ret
-.asm_20cdb
+.pick_up_dir_right
 	ld a, [wWarioSlopeInteraction]
 	bit RIGHT_SLOPE_F, a
-	jr nz, .asm_20cf5
+	jr nz, .on_slope
 	ld a, [wGrabState]
 	and (1 << GRAB_HEAVY_F)
-	jr nz, .asm_20d11
+	jr nz, .heavy_dir_right
 	ld a, HIGH(WarioGrabFrameset_1640c)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioGrabFrameset_1640c)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20ccb
-.asm_20cf5
+	jr .update_animation
+.on_slope
 	farcall SetState_GrabIdling
 	ret
-.asm_20d05
+.heavy_dir_left
 	ld a, HIGH(WarioGrabFrameset_163f5)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioGrabFrameset_163f5)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20ccb
-.asm_20d11
+	jr .update_animation
+.heavy_dir_right
 	ld a, HIGH(WarioGrabFrameset_16415)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioGrabFrameset_16415)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20ccb
+	jr .update_animation
 
 ObjInteraction_Touch:
 	jp TouchObject
@@ -1623,39 +1623,39 @@ ObjInteraction_Touch:
 ObjInteraction_FrontSting:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jr nz, .asm_20d44
+	jr nz, .vertical
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_20d39
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
 	jp TouchObject
-.asm_20d39
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
 	jp TouchObject
-.asm_20d44
+.vertical
 	jp StepOnObject
 
 ObjInteraction_BackSting:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jr nz, .asm_20d6b
+	jr nz, .vertical
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_20d60
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
 	jp TouchObject
-.asm_20d60
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
 	jp TouchObject
-.asm_20d6b
+.vertical
 	jp StepOnObject
 
 ObjInteraction_TopSting:
@@ -1693,14 +1693,14 @@ ObjInteraction_WaterKnockBack:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_20dbe
+	jr c, .obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 	jr .knock_back
-.asm_20dbe
+.obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
@@ -1721,12 +1721,12 @@ ObjInteraction_WaterFrontSting:
 	jp nz, PushObjectInWater
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_20e04
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObjectInWater
 	jp BumpObjectInWater
-.asm_20e04
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObjectInWater
@@ -1741,12 +1741,12 @@ ObjInteraction_Haridama:
 
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_20e2e
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObjectInWater
 	jp BumpObjectInWater
-.asm_20e2e
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObjectInWater
@@ -1755,20 +1755,20 @@ ObjInteraction_Haridama:
 ObjInteraction_FrontBump:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jr nz, .asm_20e5d
+	jr nz, .vertical
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_20e52
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, BumpOffObject
 	jp TouchObject
-.asm_20e52
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, BumpOffObject
 	jp TouchObject
-.asm_20e5d
+.vertical
 	jp StepOnObject
 
 ObjInteraction_BumpOff:
@@ -1888,18 +1888,18 @@ SetState_OnFire:
 
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_20f50
+	jr nz, .dir_right
 	ld a, HIGH(WarioOnFireFrameset_16b38)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioOnFireFrameset_16b38)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_20f5a
-.asm_20f50
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioOnFireFrameset_16b49)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioOnFireFrameset_16b49)
 	ld [wWarioFramesetPtr + 1], a
-.asm_20f5a
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -1908,12 +1908,12 @@ SetState_OnFire:
 ObjInteraction_Richtertoffen:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jr nz, .asm_20f78
+	jr nz, .from_above
 	bit INTERACTION_DOWN_F, a
 	jr nz, .try_flatten_wario
 	jp AttackOrBumpOffObject
 
-.asm_20f78
+.from_above
 	ld a, [wIsSmashAttacking]
 	dec a
 	jp z, JumpOffVanishingObject
@@ -1932,21 +1932,21 @@ ObjInteraction_Richtertoffen:
 	ld [wCollisionBoxRight], a
 	ld a, [wLadderInteraction]
 	cp LADDER_UNDERNEATH
-	jr z, .asm_20fdb
+	jr z, .blocked
 	farcall CheckBottomLeftCollision_Break
 	ld a, b
 	and a
-	jr nz, .asm_20fdb
+	jr nz, .blocked
 	farcall CheckBottomRightCollision_Break
 	ld a, b
 	and a
-	jr nz, .asm_20fdb
+	jr nz, .blocked
 	ld b, OBJACTION_FLATTEN
 	call SetObjAction
 	farcall SetState_FlatAirborne
 	ret
 
-.asm_20fdb
+.blocked
 	ld a, -9
 	ld [wCollisionBoxLeft], a
 	ld a, 9
@@ -2081,10 +2081,10 @@ GetTreasure:
 
 	ld a, [wJumpVelTable]
 	and a
-	jr z, .asm_210ea
+	jr z, .got_jump_vel
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
-.asm_210ea
+.got_jump_vel
 	ld hl, WarioDefaultPal
 	call SetWarioPal
 	ld a, BANK(WarioIdleGfx)
@@ -2104,7 +2104,7 @@ GetTreasure:
 
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21130
+	jr nz, .obj_on_left
 	ld a, [wObjOverlapFromLeft]
 	ld b, a
 	call MoveWarioLeft
@@ -2114,8 +2114,8 @@ GetTreasure:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_1425f)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_21146
-.asm_21130
+	jr .got_frameset
+.obj_on_left
 	ld a, [wObjOverlapFromRight]
 	ld b, a
 	call MoveWarioRight
@@ -2125,7 +2125,7 @@ GetTreasure:
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_14252)
 	ld [wWarioFramesetPtr + 1], a
-.asm_21146
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2191,18 +2191,18 @@ ObjInteraction_Omodonmeka:
 
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_211e1
+	jr nz, .dir_right
 	ld a, HIGH(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f70)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_211eb
-.asm_211e1
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_15f7f)
 	ld [wWarioFramesetPtr + 1], a
-.asm_211eb
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2241,39 +2241,39 @@ SetState_FlatStretching:
 ObjInteraction_Silky:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jr nz, .asm_21267
+	jr nz, .vertical
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_2125d
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jr nz, TurnIntoBallOStringWario
 	jp TouchObject
 
-.asm_2125d
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jr nz, TurnIntoBallOStringWario
 	jp TouchObject
 
-.asm_21267
+.vertical
 	jp StepOnObject
 
 TurnIntoBallOStringWario:
 	ld a, [wIsCrouching]
 	and a
-	jr z, .asm_21290
+	jr z, .transform
 	ld a, -27
 	ld [wCollisionBoxTop], a
 	farcall CheckUpCollision
 	ld a, b
 	and a
-	jr z, .asm_21290
+	jr z, .transform
 	ld a, -15
 	ld [wCollisionBoxTop], a
 	jp TouchObject
 
-.asm_21290
+.transform
 	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
@@ -2287,12 +2287,12 @@ TurnIntoBallOStringWario:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_212b3
+	jr c, .obj_on_left
 
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 	jr .set_ball_o_string
-.asm_212b3
+.obj_on_left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
 
@@ -2406,10 +2406,10 @@ ObjInteraction_Food:
 
 	ld a, [wJumpVelTable]
 	and a
-	jr z, .asm_213bb
+	jr z, .got_jump_vel
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
-.asm_213bb
+.got_jump_vel
 	play_sfx SFX_EAT_FOOD
 	call UpdateLevelMusic
 
@@ -2444,18 +2444,18 @@ ObjInteraction_Food:
 
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_21419
+	jr nz, .dir_right
 	ld a, HIGH(WarioFrameset_1789c)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_1789c)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_21423
-.asm_21419
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioFrameset_178c3)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFrameset_178c3)
 	ld [wWarioFramesetPtr + 1], a
-.asm_21423
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2486,17 +2486,17 @@ ObjInteraction_Electric:
 	ld b, a
 	ld a, [wObjScreenXPos]
 	cp b
-	jr c, .asm_21469
+	jr c, .obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_RIGHT
 	ld [wInteractionSide], a
-	jr .asm_21471
+	jr .got_side
 
-.asm_21469
+.obj_on_left
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
-.asm_21471
+.got_side
 	ld b, OBJACTION_HIT_WARIO
 	call SetObjAction
 
@@ -2510,15 +2510,15 @@ ObjInteraction_Electric:
 	ret z
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21492
+	jr nz, .face_left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	jr .asm_21497
-.asm_21492
+	jr .shock
+.face_left
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 
-.asm_21497
+.shock
 	play_sfx SFX_ELECTRIC_SHOCK
 
 	xor a
@@ -2579,18 +2579,18 @@ ObjInteraction_Electric:
 
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_2152e
+	jr nz, .dir_right
 	ld a, HIGH(WarioElectricFrameset_17b79)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioElectricFrameset_17b79)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_21538
-.asm_2152e
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioElectricFrameset_17b76)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioElectricFrameset_17b76)
 	ld [wWarioFramesetPtr + 1], a
-.asm_21538
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -2664,12 +2664,12 @@ ObjInteraction_Bouncy:
 	jp nz, StepOnObject
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_21600
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jr nz, TurnIntoBouncyWario
 	jp TouchObject
-.asm_21600
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jr nz, TurnIntoBouncyWario
@@ -2709,17 +2709,17 @@ ObjInteraction_FireBot:
 	jp nz, StepOnObject
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_21668
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21672
+	jr nz, .burn
 	jp TouchObject
-.asm_21668
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21672
+	jr nz, .burn
 	jp TouchObject
-.asm_21672
+.burn
 	jp ObjInteraction_Fire
 
 ObjInteraction_Solid:
@@ -2736,36 +2736,36 @@ ObjInteraction_Solid:
 PushWarioBelowSolidObject:
 	ld a, [wWarioState]
 	cp WST_FLAT_SQUISHED
-	jr nz, .asm_216a2
+	jr nz, .push_down
 	farcall SetState_FlatSquishedLifting
 	ret
 
-.asm_216a2
+.push_down
 	ld a, [wObjOverlapFromBelow]
 	cp $10
-	jr c, .asm_216ab
+	jr c, .got_push_dist
 	ld a, $0c
-.asm_216ab
+.got_push_dist
 	ld b, a
 	call MoveWarioDown
 	farcall CheckTopBlockInteraction
 	ld a, [wWaterInteraction]
 	and a
-	jr z, .asm_216d4
+	jr z, .not_in_water
 	farcall DiveFromSurface_SkipSplash
 	ret
 
-.asm_216d4
+.not_in_water
 	farcall CheckCentreCollision
 	ld a, b
 	and a
-	jr nz, .asm_21710
+	jr nz, .landed
 	ld a, [wInvincibleCounter]
 	cp $01
 	ret z
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jr z, .asm_2173e
+	jr z, .flat_fall
 	and a
 	ret nz
 	ld a, [wIsCrouching]
@@ -2776,7 +2776,7 @@ PushWarioBelowSolidObject:
 	farcall StartFall
 	ret
 
-.asm_21710
+.landed
 	ld hl, hYPosHi
 	ld de, wWarioPos
 	ld a, [hli]
@@ -2789,7 +2789,7 @@ PushWarioBelowSolidObject:
 	ret z
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jr z, .asm_2175e
+	jr z, .flat_landed
 	and a
 	ret nz
 	xor a
@@ -2797,7 +2797,7 @@ PushWarioBelowSolidObject:
 	farcall SetState_Idling
 	ret
 
-.asm_2173e
+.flat_fall
 	farcall SetState_FlatFalling
 	ret
 
@@ -2805,7 +2805,7 @@ PushWarioBelowSolidObject:
 	farcall StartCrouchFall
 	ret
 
-.asm_2175e
+.flat_landed
 	ld a, [wWarioState]
 	cp WST_FLAT_SQUISHED
 	ret z
@@ -2817,12 +2817,12 @@ ObjInteraction_Omodon:
 	bit INTERACTION_UP_F, a
 	jp nz, StandOnSolidObject
 	bit INTERACTION_DOWN_F, a
-	jr nz, .asm_21789
+	jr nz, .from_below
 	ld a, [wAttackCounter]
 	and a
 	jr nz, DoJumpingBump_Far
 	jp PushAgainstSolidObject
-.asm_21789
+.from_below
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
@@ -2841,23 +2841,23 @@ DoJumpingBump_Far:
 ObjInteraction_OrangeBird:
 	ld a, [wInteractionSide]
 	and INTERACTION_UP | INTERACTION_DOWN
-	jr nz, .asm_217db
+	jr nz, .vertical
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_217d1
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_217de
+	jr nz, .front
 	jp TouchObject
-.asm_217d1
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_217de
+	jr nz, .front
 	jp TouchObject
-.asm_217db
+.vertical
 	jp StepOnObject
 
-.asm_217de
+.front
 	ld a, [wInvincibleCounter]
 	and a
 	ret nz
@@ -2932,18 +2932,18 @@ ObjInteraction_Ice:
 	ret nz
 	ld a, [wIsCrouching]
 	and a
-	jr z, .asm_218b6
+	jr z, .transform
 	ld a, -27
 	ld [wCollisionBoxTop], a
 	farcall CheckUpCollision
 	ld a, b
 	and a
-	jr z, .asm_218b6
+	jr z, .transform
 	ld a, -15
 	ld [wCollisionBoxTop], a
 	ret
 
-.asm_218b6
+.transform
 	ld b, OBJACTION_TRIGGER
 	call SetObjAction
 
@@ -2962,10 +2962,10 @@ ObjInteraction_Ice:
 ObjInteraction_Owl:
 	ld a, [wInteractionSide]
 	bit INTERACTION_DOWN_F, a
-	jr nz, .asm_218f1
+	jr nz, .from_below
 	jp BumpOffObject
 
-.asm_218f1
+.from_below
 	ld a, [wTransformation]
 	bit TRANSFORMATIONF_PERSISTENT_F, a
 	ret nz
@@ -3182,27 +3182,27 @@ AttackSolidObject:
 ObjInteraction_RoboMouse:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jr nz, .asm_21ae4
+	jr nz, .from_above
 
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21ada
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21aee
+	jr nz, .front
 	jp ObjInteraction_BumpOffPause
-.asm_21ada
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21aee
+	jr nz, .front
 	jp ObjInteraction_BumpOffPause
 
-.asm_21ae4
+.from_above
 	ld a, [wIsSmashAttacking]
 	and a
 	jp nz, JumpOffVanishingObject
 	jp ObjInteraction_BumpOffPause
-.asm_21aee
+.front
 	jp ObjInteraction_Jamano
 
 ObjInteraction_SolidPlatform:
@@ -3270,11 +3270,11 @@ ObjInteraction_Beam:
 ObjInteraction_SmashableTop:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jr z, .asm_21b86
+	jr z, .bump_off
 	ld a, [wIsSmashAttacking]
 	and a
 	jp nz, JumpOffVanishingObject
-.asm_21b86
+.bump_off
 	jp BumpOffObject
 
 ObjInteraction_Teruteru:
@@ -3343,17 +3343,17 @@ ObjInteraction_WaterDrop:
 ObjInteraction_Pesce:
 	ld a, [wObjDirection]
 	cp DIRECTION_RIGHT
-	jr z, .asm_21c37
+	jr z, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21c41
+	jr nz, .swallow
 	jp GetStungByObjectInWater
-.asm_21c37
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21c41
+	jr nz, .swallow
 	jp GetStungByObjectInWater
-.asm_21c41
+.swallow
 	ld b, OBJACTION_SWALLOW
 	call SetObjAction
 	farcall SetState_Swallowed
@@ -3371,12 +3371,12 @@ ObjInteraction_Tadpole:
 	jp nz, StepOnObject
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21c7a
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, ObjInteraction_RollingRock
 	jp ObjInteraction_BumpOffPause
-.asm_21c7a
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, ObjInteraction_RollingRock
@@ -3471,12 +3471,12 @@ ObjInteraction_FrontStingBumpOff:
 	jp nz, ObjInteraction_BumpOffPause
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21d59
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
 	jp ObjInteraction_BumpOffPause
-.asm_21d59
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
@@ -3491,11 +3491,11 @@ ObjInteraction_TopStingBumpOff:
 ObjInteraction_BottomStingSmashableTop:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jr nz, .asm_21d7e
+	jr nz, .from_above
 	bit INTERACTION_DOWN_F, a
 	jp nz, GetStungByObject
 	jp ObjInteraction_BumpOffPause
-.asm_21d7e
+.from_above
 	ld a, [wIsSmashAttacking]
 	and a
 	jp nz, JumpOffVanishingObject
@@ -3507,12 +3507,12 @@ ObjInteraction_WaterFrontLaunch:
 	jp nz, PushObjectInWater
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21da1
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, LaunchWario
 	jp BumpObjectInWater
-.asm_21da1
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, LaunchWario
@@ -3635,38 +3635,38 @@ ObjInteraction_FrontPushBumpOff:
 	ld a, [wObjDirection]
 	ld b, a
 	and a
-	jr nz, .asm_21eb6
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21ebf
-	jr .asm_21eca
-.asm_21eb6
+	jr nz, .front
+	jr .bump_off
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21ebf
-	jr .asm_21eca
-.asm_21ebf
+	jr nz, .front
+	jr .bump_off
+.front
 	ld a, [wObjDirection]
 	xor $1
 	ld [wDirection], a
 	jp PushAgainstSolidObject
-.asm_21eca
+.bump_off
 	jp BumpOffObject_NoAction
 
 ObjInteraction_FrontDragDown:
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21edd
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
-	jr nz, .asm_21ee7
+	jr nz, .drag_down
 	jp ObjInteraction_BumpOffPause
-.asm_21edd
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
-	jr nz, .asm_21ee7
+	jr nz, .drag_down
 	jp ObjInteraction_BumpOffPause
-.asm_21ee7
+.drag_down
 	play_sfx SFX_FAT_WALK
 	farcall SetState_DraggedDown
 	jp SetObjAction_Special3
@@ -3674,9 +3674,9 @@ ObjInteraction_FrontDragDown:
 ObjInteraction_WaterKnockBackTopRight:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jr nz, .asm_21f0b
+	jr nz, .from_above
 	jp ObjInteraction_WaterKnockBack
-.asm_21f0b
+.from_above
 	ld a, [wInteractionSide]
 	or INTERACTION_LEFT
 	ld [wInteractionSide], a
@@ -3688,17 +3688,17 @@ ObjInteraction_WaterKnockBackTopRight:
 ObjInteraction_FrontStingSmashableTop:
 	ld a, [wInteractionSide]
 	bit INTERACTION_UP_F, a
-	jp nz, ObjInteraction_BottomStingSmashableTop.asm_21d7e
+	jp nz, ObjInteraction_BottomStingSmashableTop.from_above
 	bit INTERACTION_DOWN_F, a
 	jp nz, ObjInteraction_BumpOffPause
 	ld a, [wObjDirection]
 	and a
-	jr nz, .asm_21f46
+	jr nz, .obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_RIGHT_F, a
 	jp nz, GetStungByObject
 	jp ObjInteraction_BumpOffPause
-.asm_21f46
+.obj_facing_right
 	ld a, [wInteractionSide]
 	bit INTERACTION_LEFT_F, a
 	jp nz, GetStungByObject
