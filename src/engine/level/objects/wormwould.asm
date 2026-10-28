@@ -161,19 +161,19 @@ WormwouldFunc:
 	and a
 	ret nz
 	ld l, OBJ_STATE
-	jr .asm_5414b
+	jr .start_burrowing
 .spawn_low_rock
 	play_sfx SFX_TEMPLE_ROCK
 	ld a, [hld]
 	rlca
-	jr c, .asm_5412b
+	jr c, .low_rock_right
 	ld bc, ObjParams_LowRollingRockLeft
 	jp CreateObjectAtRelativePos
-.asm_5412b
+.low_rock_right
 	ld bc, ObjParams_LowRollingRockRight
 	jp CreateObjectAtRelativePos
 
-.asm_54131
+.start_shoot_rock_low
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset WormwouldFrameset_696bc, WormwouldFrameset_696c5
@@ -184,7 +184,7 @@ WormwouldFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_5414b
+.start_burrowing
 	ld a, 1
 	ld [wCurObjStateDuration], a
 .set_burrowing
@@ -192,10 +192,10 @@ WormwouldFunc:
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
-	jr c, .asm_5415d
+	jr c, .burrow_facing_right
 	ld de, WormwouldFrameset_69734
 	jp SetObjectFramesetPtr
-.asm_5415d
+.burrow_facing_right
 	ld de, WormwouldFrameset_69701
 	jp SetObjectFramesetPtr
 
@@ -229,7 +229,7 @@ WormwouldFunc:
 	; has only 1 remaining hit
 	ld a, [hl] ; wCurObjVar3
 	cp $1e
-	jr z, .asm_54131
+	jr z, .start_shoot_rock_low
 .raise
 	dec [hl]
 	jp nz, MoveObjectUp
@@ -237,7 +237,7 @@ WormwouldFunc:
 	ld a, [hl]
 	and $0f
 	cp WORMWOULD_NUM_HITS + 1
-	jr c, .asm_54209
+	jr c, .start_shoot_rock_high
 .set_idle
 	xor a
 	ld [wCurObjState], a
@@ -249,7 +249,7 @@ WormwouldFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_541e9
+	jr z, .idle
 	cp OBJSTATE_ATTACKED_LEFT
 	jr z, .after_attack
 	cp OBJSTATE_WORMWOULD_SHOOT_ROCK_HIGH
@@ -264,7 +264,7 @@ WormwouldFunc:
 	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .attacked
 	cp OBJSTATE_WOBBLE_LEFT_START
-	jp z, .asm_5414b
+	jp z, .start_burrowing
 	cp OBJSTATE_VANISH_TOUCH
 	jr z, .smash_attacked
 	cp OBJSTATE_RESIST_VANISH
@@ -273,7 +273,7 @@ WormwouldFunc:
 	ld [hl], a
 	ret
 
-.asm_541e9
+.idle
 	ld a, [wCurObjScreenYPos]
 	add $20
 	cp $20
@@ -295,7 +295,7 @@ WormwouldFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_SUBSTATE
-.asm_54209
+.start_shoot_rock_high
 	ld a, [hld]
 	rlca
 	ld_obj_frameset WormwouldFrameset_69713, WormwouldFrameset_696d7
@@ -325,10 +325,10 @@ WormwouldFunc:
 	play_sfx SFX_TEMPLE_ROCK
 	ld a, [hld]
 	rlca
-	jr c, .asm_54251
+	jr c, .high_rock_right
 	ld bc, ObjParams_HighRollingRockLeft
 	jp CreateObjectAtRelativePos
-.asm_54251
+.high_rock_right
 	ld bc, ObjParams_HighRollingRockRight
 	jp CreateObjectAtRelativePos
 
@@ -370,19 +370,19 @@ WormwouldFunc:
 	ld a, [hl]
 	and $0f
 	dec a
-	jr nz, .asm_542b6
+	jr nz, .has_hits_left
 	; no more remaining hits
 	stop_music2
 	ret
-.asm_542b6
+.has_hits_left
 	ld a, -26
 	ld [wCurObjCollBoxTop], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_542c5
+	jr c, .hurt_facing_right
 	ld de, WormwouldFrameset_69726
 	jp SetObjectFramesetPtr
-.asm_542c5
+.hurt_facing_right
 	ld de, WormwouldFrameset_696ea
 	jp SetObjectFramesetPtr
 
@@ -501,12 +501,12 @@ WormwouldFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_543a9
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_543ab
-.asm_543a9
+	jr .got_direction
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
-.asm_543ab
+.got_direction
 	res OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, [hl]
 	and $80

@@ -43,19 +43,19 @@ PrinceFroggyFunc:
 .SetHitByObjLeft:
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
-	jr .asm_440da
+	jr .set_update_func
 .SetHitByObjRight:
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
-	jr .asm_440da
+	jr .set_update_func
 .SetAttackedLeft:
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
-	jr .asm_440da
+	jr .set_update_func
 .SetAttackedRight:
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
-.asm_440da
+.set_update_func
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
@@ -76,10 +76,10 @@ PrinceFroggyFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr nz, .asm_44113
+	jr nz, .check_state
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
-	jp z, .asm_44185
+	jp z, .check_ground_shake
 	res OBJFLAG_STEPPED_F, [hl]
 	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
@@ -89,19 +89,19 @@ PrinceFroggyFunc:
 	ld [hli], a
 	ret
 
-.asm_44113
+.check_state
 	cp OBJSTATE_HOP
 	jp z, ObjState_Hop
 	cp OBJSTATE_STANDING_FALL
 	jp z, ObjState_StandingFall
 	cp OBJSTATE_TURN_AROUND_START
-	jr z, .asm_44144
+	jr z, .turn_around_start
 	cp OBJSTATE_STANDING_FALL_START
-	jr z, .asm_44151
+	jr z, .standing_fall_start
 	cp OBJSTATE_5A
-	jr z, .asm_44158
+	jr z, .wait_stepped_off
 	cp OBJSTATE_HIT_WARIO_RIGHT
-	jr z, .asm_44161
+	jr z, .hit_wario
 	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .SetHitByObjLeft
 	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
@@ -111,10 +111,10 @@ PrinceFroggyFunc:
 	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .SetAttackedRight
 	cp OBJSTATE_VANISH_TOUCH
-	jp z, .asm_4420a
-	jr .asm_44172
+	jp z, .start_hop_and_vanish
+	jr .set_hit_wario
 
-.asm_44144
+.turn_around_start
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update_Sitting)
 	ld [hld], a
@@ -123,7 +123,7 @@ PrinceFroggyFunc:
 	ld l, OBJ_STATE
 	jp .StartTurnAround
 
-.asm_44151
+.standing_fall_start
 	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	dec l
@@ -131,24 +131,24 @@ PrinceFroggyFunc:
 	ld [hld], a
 	ret
 
-.asm_44158
+.wait_stepped_off
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
-	jr z, .asm_44166
+	jr z, .reset_to_idle
 	res OBJFLAG_STEPPED_F, [hl]
 	ret
 
-.asm_44161
+.hit_wario
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr nz, .asm_44185
-.asm_44166
+	jr nz, .check_ground_shake
+.reset_to_idle
 	xor a
 	ld [wCurObjState], a
 	ld de, PrinceFroggyFrameset_68ac6
 	call SetObjectFramesetPtr
-	jr .asm_44185
-.asm_44172
+	jr .check_ground_shake
+.set_hit_wario
 	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	ld de, PrinceFroggyFrameset_68af2
@@ -159,7 +159,7 @@ PrinceFroggyFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.asm_44185
+.check_ground_shake
 	ld a, [wGroundShakeCounter]
 	cp $10
 	ret c
@@ -184,9 +184,9 @@ PrinceFroggyFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_44185
+	jr z, .check_ground_shake
 	cp OBJSTATE_STANDING_FALL_START
-	jr z, .asm_44151
+	jr z, .standing_fall_start
 	cp OBJSTATE_HOP
 	jp z, ObjState_Hop
 	cp OBJSTATE_STANDING_FALL
@@ -202,9 +202,9 @@ PrinceFroggyFunc:
 	cp OBJSTATE_TURN_AROUND_START
 	jr z, .StartTurnAround
 	cp OBJSTATE_TURN_AROUND
-	jr z, .asm_441f8
+	jr z, .turning_around
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_4420a
+	jr z, .start_hop_and_vanish
 	xor a
 	ld [hl], a
 .StartTurnAround:
@@ -225,17 +225,17 @@ PrinceFroggyFunc:
 	ld [hl], a
 	ret
 
-.asm_441f8
+.turning_around
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr nz, .asm_44185
+	jr nz, .check_ground_shake
 	xor a
 	ld [wCurObjState], a
 	ld de, PrinceFroggyFrameset_68ae9
 	call SetObjectFramesetPtr
-	jp .asm_44185
+	jp .check_ground_shake
 
-.asm_4420a
+.start_hop_and_vanish
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.HopAndVanish)
 	ld [hld], a
