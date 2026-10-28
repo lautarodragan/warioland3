@@ -24,12 +24,12 @@ PneumoFunc:
 	ld [hld], a
 	ret
 
-.asm_45672
+.hit_wario_below
 	xor a
 	ld [hld], a
 	jp .start_retreat
 
-.asm_45677
+.touched
 	xor a
 	ld [hld], a
 	ld a, [wTransformation]
@@ -47,22 +47,22 @@ PneumoFunc:
 	and a
 	jr z, .substate_table
 	cp OBJSTATE_HIT_WARIO_DOWN_START
-	jr z, .asm_45672
+	jr z, .hit_wario_below
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_456c7
+	jr z, .vanish
 	cp OBJSTATE_ATTACKED_LEFT_START
-	jr c, .asm_45677
+	jr c, .touched
 	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
-	jr z, .asm_456ca
+	jr z, .set_hit_by_obj_left
 	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
-	jr z, .asm_456d2
+	jr z, .set_hit_by_obj_right
 	cp OBJSTATE_ATTACKED_LEFT_START
-	jr z, .asm_456da
+	jr z, .set_attacked_left
 	cp OBJSTATE_ATTACKED_RIGHT_START
-	jr z, .asm_456e2
+	jr z, .set_attacked_right
 	rra
-	jr nc, .asm_456d2
-	jr .asm_456ca
+	jr nc, .set_hit_by_obj_right
+	jr .set_hit_by_obj_left
 
 .substate_table
 	ld l, OBJ_SUBSTATE
@@ -78,29 +78,29 @@ PneumoFunc:
 	dw .UnusedMoveSideways
 	dw .MoveToWarioY
 
-.asm_456c7
+.vanish
 	jp VanishAndDespawnObject
 
-.asm_456ca
+.set_hit_by_obj_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_456e8
-.asm_456d2
+	jr .set_knocked_back
+.set_hit_by_obj_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_456e8
-.asm_456da
+	jr .set_knocked_back
+.set_attacked_left
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-	jr .asm_456e8
-.asm_456e2
+	jr .set_knocked_back
+.set_attacked_right
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-.asm_456e8
+.set_knocked_back
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
@@ -134,15 +134,15 @@ PneumoFunc:
 	ld a, [wWarioScreenYPos]
 	add $2a
 	cp b
-	jr c, .asm_45739
+	jr c, .bob
 	cp $61
-	jr nc, .asm_45739
+	jr nc, .bob
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jr z, .asm_45739
+	jr z, .bob
 	ld a, [wGlobalCounter]
 	and %111111
-	jr nz, .asm_45739
+	jr nz, .bob
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -150,19 +150,19 @@ PneumoFunc:
 	ld [hld], a
 	ret
 
-.asm_45739
+.bob
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	ld d, HIGH(PneumoData_44000)
-.asm_4573f
+.read_bob_offset
 	add LOW(PneumoData_44000)
 	ld e, a
 	ld a, [de]
 	cp $80
-	jr nz, .asm_4579c
+	jr nz, .apply_bob_offset
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jr z, .asm_45798
+	jr z, .restart_bob
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -171,9 +171,9 @@ PneumoFunc:
 	add c
 	sub b
 	cp $b0
-	jr c, .asm_45798
+	jr c, .restart_bob
 	cp $ec
-	jr nc, .asm_45798
+	jr nc, .restart_bob
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -181,54 +181,54 @@ PneumoFunc:
 	add c
 	sub b
 	cp $60
-	jr nc, .asm_45782
+	jr nc, .check_wario_right
 	cp $10
 	ld a, $01
-	jr nc, .asm_45777
+	jr nc, .swoop_left
 	dec a
-.asm_45777
+.swoop_left
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, PneumoFrameset_68c7f
 	ld c, $03
-	jr .asm_457ae
-.asm_45782
+	jr .start_swoop
+.check_wario_right
 	cp SCREEN_WIDTH_PX
-	jr c, .asm_45798
+	jr c, .restart_bob
 	cp $f0
 	ld a, $01
-	jr c, .asm_4578d
+	jr c, .swoop_right
 	dec a
-.asm_4578d
+.swoop_right
 	ld l, OBJ_SUBSTATE
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, PneumoFrameset_68c84
 	ld c, $03
-	jr .asm_457ae
-.asm_45798
+	jr .start_swoop
+.restart_bob
 	xor a
 	ld [hl], a
-	jr .asm_4573f
-.asm_4579c
+	jr .read_bob_offset
+.apply_bob_offset
 	inc [hl]
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_457a9
+	jr nc, .bob_up
 	add c
 	ld [hli], a
 	ret nc
 	inc [hl]
 	ret
 
-.asm_457a9
+.bob_up
 	add c
 	ld [hli], a
 	ret c
 	dec [hl]
 	ret
 
-.asm_457ae
+.start_swoop
 	ld [wCurObjVar2], a
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -243,11 +243,11 @@ PneumoFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_457c6
+	jr z, .swoop
 	dec [hl]
 	ret
 
-.asm_457c6
+.swoop
 	xor a
 	ld [wHitFloorBlock], a
 	ld hl, wCurObjYPos
@@ -261,16 +261,16 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr z, .asm_457e7
+	jr z, .no_floor
 	ld a, [wHitFloorBlock]
 	and a
-	jr z, .asm_45801
-	jr .asm_457ed
-.asm_457e7
+	jr z, .start_rise
+	jr .check_wario_below
+.no_floor
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr nz, .asm_45801
-.asm_457ed
+	jr nz, .start_rise
+.check_wario_below
 	ld c, $2a
 	ld a, [wCurObjScreenYPos]
 	add c
@@ -279,10 +279,10 @@ PneumoFunc:
 	add c
 	sub b
 	cp $14
-	jr c, .asm_45801
+	jr c, .start_rise
 	cp $80
-	jr c, .asm_45810
-.asm_45801
+	jr c, .move_down
+.start_rise
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -292,16 +292,16 @@ PneumoFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.asm_45810
+.move_down
 	ld hl, wCurObjVar1
 	inc [hl]
 	ld l, OBJ_Y_POS
 	ld a, [hl]
 	add 2
 	ld [hli], a
-	jr nc, .asm_4581d
+	jr nc, .move_horizontal
 	inc [hl]
-.asm_4581d
+.move_horizontal
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -311,7 +311,7 @@ PneumoFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_45843
+	jr c, .move_right
 	ld a, [hli]
 	sub 8
 	ldh [hXPosLo], a
@@ -320,10 +320,10 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_45854
+	jr nz, .reverse
 	jp MoveObjectLeftByVar2
 
-.asm_45843
+.move_right
 	ld a, [hli]
 	add 7
 	ldh [hXPosLo], a
@@ -333,7 +333,7 @@ PneumoFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRightByVar2
-.asm_45854
+.reverse
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
@@ -357,7 +357,7 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and a
-	jp nz, .asm_4581d
+	jp nz, .move_horizontal
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
@@ -367,14 +367,14 @@ PneumoFunc:
 	ld a, [hl]
 	sub 2
 	ld [hli], a
-	jp nc, .asm_4581d
+	jp nc, .move_horizontal
 	dec [hl]
-	jp .asm_4581d
+	jp .move_horizontal
 
 .UnusedMoveSideways:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp nz, .asm_4581d
+	jp nz, .move_horizontal
 	jp .set_float
 
 .start_retreat:
@@ -390,12 +390,12 @@ PneumoFunc:
 	ld a, [wCurObjScreenXPos]
 	add c
 	sub b
-	jr c, .asm_458b8
+	jr c, .retreat_left
 	set OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_458ba
-.asm_458b8
+	jr .set_retreat
+.retreat_left
 	res OBJSUBFLAG_HDIR_F, [hl]
-.asm_458ba
+.set_retreat
 	dec l
 	xor a
 	ld [hld], a
@@ -422,10 +422,10 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and a
-	jr nz, .asm_458ed
+	jr nz, .retreat_horizontal
 	ld bc, PneumoData_60600
 	call ApplyObjYMovement
-.asm_458ed
+.retreat_horizontal
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -435,7 +435,7 @@ PneumoFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_45917
+	jr c, .retreat_right
 	ld a, [hli]
 	sub 8
 	ldh [hXPosLo], a
@@ -449,7 +449,7 @@ PneumoFunc:
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_45917
+.retreat_right
 	ld a, [hli]
 	add 7
 	ldh [hXPosLo], a
@@ -484,9 +484,9 @@ PneumoFunc:
 	ld e, l
 	ld a, [wCurObjYPos + 1]
 	cp d
-	jr z, .asm_45971
-	jr c, .asm_4597c
-.asm_45954
+	jr z, .compare_y_lo
+	jr c, .move_down_to_wario
+.move_up_to_wario
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 16
@@ -502,13 +502,13 @@ PneumoFunc:
 	and a
 	jp nz, .start_retreat
 	jp MoveObjectUp
-.asm_45971
+.compare_y_lo
 	ld a, [wCurObjYPos + 0]
 	and $fc
 	cp e
 	jp z, .set_float
-	jr nc, .asm_45954
-.asm_4597c
+	jr nc, .move_up_to_wario
+.move_down_to_wario
 	xor a
 	ld [wHitFloorBlock], a
 	ld hl, wCurObjYPos
@@ -522,12 +522,12 @@ PneumoFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr z, .asm_4599f
+	jr z, .check_water
 	ld a, [wHitFloorBlock]
 	and a
 	jp nz, MoveObjectDown_Slow
 	jp .set_float
-.asm_4599f
+.check_water
 	ld a, [wIsInWaterOrSand]
 	and a
 	jp z, MoveObjectDown
