@@ -22,15 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # `make ips` rebuilds the original ROM from an earlier commit (base_ref)
+        # in a git worktree, so that commit must be present: fetch the whole
+        # history (a shallow fetch by date sometimes missed it).
         uses: actions/checkout@v7
         with:
-          fetch-depth: 1
-
-      - name: Deepen history for base ROM reconstruction
-        # `make ips` rebuilds the original ROM from an earlier commit (base_ref)
-        # in a git worktree, so that commit must be present. Fetch just enough
-        # history rather than the whole repo.
-        run: git fetch --shallow-since=2026-01-29 origin
+          fetch-depth: 0
 
       - name: Install rgbds
         # Use the official prebuilt binary instead of building from source.
