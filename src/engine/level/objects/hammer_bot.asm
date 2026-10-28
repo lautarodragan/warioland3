@@ -159,7 +159,7 @@ HammerBotFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_4437f
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -168,7 +168,7 @@ HammerBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_4437f
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -183,14 +183,14 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_4439e
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
-.asm_4439e
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, HammerBotFrameset_68b17
@@ -200,12 +200,12 @@ HammerBotFunc:
 .Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_443b4
+	jr c, .wind_up
 	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
-.asm_443b4
+.wind_up
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -220,12 +220,12 @@ HammerBotFunc:
 	play_sfx z, SFX_HAMMER_BOT_WALK
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_443dc
+	jr c, .charge
 	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
-.asm_443dc
+.charge
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -237,12 +237,12 @@ HammerBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_443f7
+	jr nz, .charge_on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_443f7
+.charge_on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -250,15 +250,15 @@ HammerBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_44438
+	jr c, .charge_right
 	ld a, [hl]
 	and $0f
 	sub $10
-	jr nc, .asm_44414
+	jr nc, .charge_check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_44432
-.asm_44414
+	jr z, .charge_turn_at_edge_left
+.charge_check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -275,21 +275,21 @@ HammerBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
-.asm_44432
+.charge_turn_at_edge_left
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_44438
+.charge_right
 	ld a, [hl]
 	and $0f
 	add $0f
 	cp $10
-	jr c, .asm_44448
+	jr c, .charge_check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_44466
-.asm_44448
+	jr z, .charge_turn_at_edge_right
+.charge_check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -306,7 +306,7 @@ HammerBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
-.asm_44466
+.charge_turn_at_edge_right
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
@@ -322,12 +322,12 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_44485
+	jr c, .land_facing_right
 	ld de, HammerBotFrameset_68b12
 	call SetObjectFramesetPtr
 	ret
 
-.asm_44485
+.land_facing_right
 	ld de, HammerBotFrameset_68b17
 	call SetObjectFramesetPtr
 	ret
@@ -335,20 +335,20 @@ HammerBotFunc:
 .Walk:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr z, .asm_444a3
+	jr z, .check_shake
 	ld a, [wGlobalCounter]
 	ld b, a
 	and $1f
 	play_sfx z, SFX_HAMMER_BOT_WALK
-.asm_444a3
+.check_shake
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_444b0
+	jr c, .walking
 	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
-.asm_444b0
+.walking
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -360,12 +360,12 @@ HammerBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_444cb
+	jr nz, .on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_444cb
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -374,7 +374,7 @@ HammerBotFunc:
 	ld c, $2a
 	ld a, [wCurObjSubState]
 	rlca
-	jp c, .asm_4454e
+	jp c, .facing_right
 	ld a, [wWarioScreenYPos]
 	add c
 	ld b, a
@@ -382,10 +382,10 @@ HammerBotFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_444ef
+	jr c, .in_y_range_left
 	cp $e8
-	jr c, .asm_4451c
-.asm_444ef
+	jr c, .walk_left
+.in_y_range_left
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -393,7 +393,7 @@ HammerBotFunc:
 	add c
 	sub b
 	cp $40
-	jr nc, .asm_4451c
+	jr nc, .walk_left
 	ld de, HammerBotFrameset_68b1c
 	call SetObjectFramesetPtr
 	ld a, 20
@@ -413,15 +413,15 @@ HammerBotFunc:
 	ld [hld], a
 	ret
 
-.asm_4451c
+.walk_left
 	ld a, [hl]
 	and $0f
 	sub $08
-	jr nc, .asm_4452a
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_44548
-.asm_4452a
+	jr z, .turn_at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -438,12 +438,12 @@ HammerBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_44548
+.turn_at_edge_left
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_4454e
+.facing_right
 	ld a, [wWarioScreenYPos]
 	add c
 	ld b, a
@@ -451,10 +451,10 @@ HammerBotFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_44560
+	jr c, .in_y_range_right
 	cp $e8
-	jr c, .asm_4458d
-.asm_44560
+	jr c, .walk_right
+.in_y_range_right
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -462,7 +462,7 @@ HammerBotFunc:
 	add c
 	sub b
 	cp $c0
-	jr c, .asm_4458d
+	jr c, .walk_right
 	ld de, HammerBotFrameset_68b25
 	call SetObjectFramesetPtr
 	ld a, 20
@@ -482,16 +482,16 @@ HammerBotFunc:
 	ld [hld], a
 	ret
 
-.asm_4458d
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $07
 	cp $10
-	jr c, .asm_4459d
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_445bb
-.asm_4459d
+	jr z, .turn_at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -508,7 +508,7 @@ HammerBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_445bb
+.turn_at_edge_right
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
@@ -517,12 +517,12 @@ HammerBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_445cf
+	jr .set_bump
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_445cf
+.set_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset HammerBotFrameset_68b58, HammerBotFrameset_68b5b
@@ -601,12 +601,12 @@ HammerBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_4466b
+	jr .set_fall
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_4466b
+.set_fall
 	ld a, [hld]
 	rlca
 	ld_obj_frameset HammerBotFrameset_68b2e, HammerBotFrameset_68b37
@@ -639,12 +639,12 @@ HammerBotFunc:
 .State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_446ae
+	jr c, .count_down
 	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
-.asm_446ae
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -696,32 +696,32 @@ HammerBotFunc:
 .TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_44710
+	jr c, .turning
 	ld a, OBJSTATE_HOP_START
 	ld [wCurObjState], a
 	ret
 
-.asm_44710
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $09
-	jr z, .asm_44722
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
-.asm_44722
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_4472c
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_4472c
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
@@ -730,14 +730,14 @@ HammerBotFunc:
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_44741
+	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_44741
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -767,13 +767,13 @@ HammerBotFunc:
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsLeft
 	ld de, HammerBotFrameset_68b5e
-	jr .asm_44783
+	jr .hit_wario
 .State0c:
 	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
 	ld bc, ObjParams_StarsRight
 	ld de, HammerBotFrameset_68b61
-.asm_44783
+.hit_wario
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a
@@ -813,56 +813,56 @@ HammerBotFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_4481b
+	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_4481b
+	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_447ef
+	jr nz, .attacked_left
 	ld a, [wEffectivePowerUp]
 	cp GARLIC
-	jr nc, .asm_447ef
+	jr nc, .attacked_left
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
-	jr z, .asm_447ef
+	jr z, .attacked_left
 	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [wCurObjState], a
 	ret
 
-.asm_447ef
+.attacked_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $01
-	jr .asm_4481b
+	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_44813
+	jr nz, .attacked_right
 	ld a, [wEffectivePowerUp]
 	cp GARLIC
-	jr nc, .asm_44813
+	jr nc, .attacked_right
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
-	jr z, .asm_44813
+	jr z, .attacked_right
 	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [wCurObjState], a
 	ret
 
-.asm_44813
+.attacked_right
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $01
-.asm_4481b
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl]
@@ -875,10 +875,10 @@ HammerBotFunc:
 	ld [hld], a
 	ld a, c
 	rlca
-	jr c, .asm_44833
+	jr c, .knocked_back_facing_right
 	ld de, HammerBotFrameset_68b40
 	jp SetObjectFramesetPtr
-.asm_44833
+.knocked_back_facing_right
 	ld de, HammerBotFrameset_68b45
 	jp SetObjectFramesetPtr
 
