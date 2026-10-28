@@ -325,11 +325,11 @@ UpdatePauseMenu:
 .blue_key
 	ld a, [wKeyAndTreasureFlags]
 	bit BLUE_KEY_F, a
-	jr z, .asm_1f02e5
+	jr z, .skip_blue_key
 	ld hl, wMenuObj7
 	call LoadPauseMenuSprite
 
-.asm_1f02e5
+.skip_blue_key
 	ld hl, wMenuObj8
 	call LoadPauseMenuSprite
 	ld hl, wMenuObj8End
