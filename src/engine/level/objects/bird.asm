@@ -31,13 +31,13 @@ BirdFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_432b9
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
 	ret
 
-.asm_432b9
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
@@ -50,23 +50,23 @@ BirdFunc:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_432e7
+	jr z, .check_wario_y
 	dec [hl]
 	ret nz
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_432df
+	jr c, .turn_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687e4
 	call SetObjectFramesetPtr
-	jr .asm_432e7
+	jr .check_wario_y
 
-.asm_432df
+.turn_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687d3
 	call SetObjectFramesetPtr
-.asm_432e7
+.check_wario_y
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -75,10 +75,10 @@ BirdFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_432fa
+	jr c, .in_y_range
 	cp $e8
 	ret c
-.asm_432fa
+.in_y_range
 	ld l, OBJ_SUBSTATE
 	ld a, [wWarioScreenXPos]
 	add c
@@ -87,25 +87,25 @@ BirdFunc:
 	add c
 	sub b
 	ld b, a
-	jr c, .asm_43319
+	jr c, .wario_to_right
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_43338
+	jr nz, .turn_around
 	ld a, b
 	cp $70
 	ret nc
 	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
-	jr .asm_43327
+	jr .take_off
 
-.asm_43319
+.wario_to_right
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr z, .asm_43338
+	jr z, .turn_around
 	ld a, b
 	cp $90
 	ret c
 	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
-.asm_43327
+.take_off
 	ld a, $23
 	ld [hli], a
 	ld a, OBJSTATE_SPECIAL_3
@@ -113,7 +113,7 @@ BirdFunc:
 	play_sfx SFX_BIRD_ALERT
 	ret
 
-.asm_43338
+.turn_around
 	ld de, BirdFrameset_687ff
 	call SetObjectFramesetPtr
 	ld a, $0c
@@ -124,7 +124,7 @@ BirdFunc:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_43358
+	jr z, .fly
 	dec [hl]
 	ret nz
 	play_sfx SFX_BIRD_TAKE_OFF
@@ -133,7 +133,7 @@ BirdFunc:
 .FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_43358
+.fly
 	ld a, [wCurObjSubState]
 	rlca
 	jp c, MoveObjectRight_Fast
@@ -147,42 +147,42 @@ BirdFunc:
 	cp OBJSTATE_SPECIAL_3
 	jr z, .Special3
 	cp OBJSTATE_HIT_WARIO_RIGHT_START
-	jr z, .asm_4338f
+	jr z, .hit_wario_right
 	cp OBJSTATE_HIT_WARIO_LEFT_START
-	jr z, .asm_43394
+	jr z, .hit_wario_left
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_433c7
+	jr z, .vanish
 	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
-	jr z, .asm_433ca
+	jr z, .set_hit_by_obj_left
 	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
-	jr z, .asm_433d2
+	jr z, .set_hit_by_obj_right
 	cp OBJSTATE_ATTACKED_LEFT_START
-	jr z, .asm_433e2
+	jr z, .set_attacked_left
 	cp OBJSTATE_ATTACKED_RIGHT_START
-	jr z, .asm_433da
+	jr z, .set_attacked_right
 	rra
-	jr nc, .asm_433d2
-	jr .asm_433ca
+	jr nc, .set_hit_by_obj_right
+	jr .set_hit_by_obj_left
 
 
-.asm_4338f
+.hit_wario_right
 	ld bc, ObjParams_BirdStars1
-	jr .asm_43397
+	jr .hit_wario
 
-.asm_43394
+.hit_wario_left
 	ld bc, ObjParams_BirdStars2
-.asm_43397
+.hit_wario
 	xor a
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_NO_COLLISION_F, [hl]
-	jr z, .asm_433a7
+	jr z, .spawn_stars
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr z, .asm_433d2
-	jr .asm_433ca
+	jr z, .set_hit_by_obj_right
+	jr .set_hit_by_obj_left
 
-.asm_433a7
+.spawn_stars
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, [wCurObjId]
@@ -202,32 +202,32 @@ BirdFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.asm_433c7
+.vanish
 	jp VanishAndDespawnObject
 
-.asm_433ca
+.set_hit_by_obj_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_433e8
+	jr .set_knocked_back
 
-.asm_433d2
+.set_hit_by_obj_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_433e8
+	jr .set_knocked_back
 
-.asm_433da
+.set_attacked_right
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-	jr .asm_433e8
+	jr .set_knocked_back
 
-.asm_433e2
+.set_attacked_left
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-.asm_433e8
+.set_knocked_back
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -242,10 +242,10 @@ BirdFunc:
 	ld [wCurObjAction], a
 	ld a, [hl]
 	rlca
-	jr c, .asm_43405
+	jr c, .knocked_back_facing_right
 	ld de, BirdFrameset_687f5
 	jp SetObjectFramesetPtr
-.asm_43405
+.knocked_back_facing_right
 	ld de, BirdFrameset_687fa
 	jp SetObjectFramesetPtr
 
@@ -282,13 +282,13 @@ BirdFunc:
 	ld [hld], a
 	ld a, [hl]
 	rlca
-	jr c, .asm_43448
+	jr c, .land_facing_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687ce
 	call SetObjectFramesetPtr
 	ret
 
-.asm_43448
+.land_facing_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, BirdFrameset_687c9
 	call SetObjectFramesetPtr
