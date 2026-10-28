@@ -3554,7 +3554,7 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.asm_553a8`)
 - `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.hatch_spawn_kuri`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.asm_9f8d1`)
 - `SFX_0C5`: level/objects/wolfenboss.asm:975 (`IgaguriFunc.hatch_shake`)
-- `SFX_0C9`: level/objects/shoot.asm:135 (`ShootFunc.asm_566a9`)
+- `SFX_0C9`: level/objects/shoot.asm:135 (`ShootFunc.hit_wario_below`)
 - `SFX_0CB`: level/objects/hidden_figure.asm:1213 (`HiddenFigureLeftHandFunc.asm_4d333`), level/objects/hidden_figure.asm:1581 (`HiddenFigureRightHandFunc.asm_4d5dc`)
 - `SFX_0D0`: level/objects/hidden_figure.asm:1490 (`HiddenFigureRightHandFunc.asm_4d52d`), level/objects/hidden_figure.asm:1504 (`HiddenFigureRightHandFunc.asm_4d540`)
 - `SFX_0D1`: level/objects/hidden_figure.asm:1479 (`HiddenFigureRightHandFunc.asm_4d50b`)
