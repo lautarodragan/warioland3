@@ -627,7 +627,7 @@ ShootFunc:
 ; moving left
 	cp 27
 	jp nc, MoveObjectLeftByVar2
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_VDIR_F, [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
@@ -636,7 +636,7 @@ ShootFunc:
 .moving_right
 	cp 219
 	jp c, MoveObjectRightByVar2
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_VDIR_F, [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]

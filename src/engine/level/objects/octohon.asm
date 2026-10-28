@@ -267,7 +267,7 @@ BigOctohonFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_WATER_BUMP
 	ld [hld], a
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	ret
 
 .asm_4a711

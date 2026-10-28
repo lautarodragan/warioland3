@@ -2660,7 +2660,7 @@ Cutscene02Func:
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	play_sfx SFX_101
+	play_sfx SFX_CHOP_TREE
 	jp AdvanceCutsceneFunc
 
 .WaitCutAnimation:
@@ -5375,7 +5375,7 @@ Cutscene44Func:
 	dw .WaitObj3State03
 	dw .Wait60
 	dw .MoveObj3RightOffScreen
-	dw .WaitThenPlaySFX08D
+	dw .WaitThenPlayBigOctoSFX1
 	dw CutsceneScreenShake
 	dw EndCutsceneDelay_60Frames
 
@@ -5483,11 +5483,11 @@ Cutscene44Func:
 	ld [wSceneObj3State], a
 	jp AdvanceCutsceneFunc
 
-.WaitThenPlaySFX08D:
+.WaitThenPlayBigOctoSFX1:
 	ld a, [bc]
 	cp $2d
 	ret c
-	play_sfx SFX_08D
+	play_sfx SFX_BIG_OCTO_1
 	jp AdvanceCutsceneFunc
 
 .lower_obj2:
@@ -7445,10 +7445,10 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	dw OctohonFrameset_69b60
 
 .asm_9fb1a
-	call .PlaySFX08FEvery40Frames
+	call .PlayBigOctoSFX2Every40Frames
 	jr .asm_9fb05
 
-.PlaySFX08FEvery40Frames:
+.PlayBigOctoSFX2Every40Frames:
 	ld de, wSceneObj4YCoord
 	ld a, [de]
 	inc a
@@ -7457,7 +7457,7 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_08F
+	play_sfx SFX_BIG_OCTO_2
 	ret
 
 .asm_9fb33

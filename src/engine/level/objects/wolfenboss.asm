@@ -788,7 +788,7 @@ IgaguriFunc:
 	ld a, [wWolfenbossRemainingHits]
 	cp 2 + 1
 	jr c, .last_hit_1
-	play_sfx SFX_101
+	play_sfx SFX_CHOP_TREE
 	ld a, $02
 	jr .got_var_2
 .last_hit_1

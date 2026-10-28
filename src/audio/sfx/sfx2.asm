@@ -3365,7 +3365,7 @@ Sfx_RailHum:
 	db 1, 0
 	dw Sfx_RailHum_Ch1
 
-Sfx_08d_Ch1:
+Sfx_BigOcto1_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_0A
@@ -3438,9 +3438,9 @@ Sfx_08d_Ch1:
 	note E_2
 	audio_end
 
-Sfx_08d:
+Sfx_BigOcto1:
 	db 1, 0
-	dw Sfx_08d_Ch1
+	dw Sfx_BigOcto1_Ch1
 
 Sfx_Sparkle_Ch1:
 	semitone_offset 0
@@ -3517,7 +3517,7 @@ Sfx_Sparkle:
 	db 1, 0
 	dw Sfx_Sparkle_Ch1
 
-Sfx_08f_Ch1:
+Sfx_BigOcto2_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_68
@@ -3542,9 +3542,9 @@ Sfx_08f_Ch1:
 	audio_wait 5
 	audio_end
 
-Sfx_08f:
+Sfx_BigOcto2:
 	db 1, 0
-	dw Sfx_08f_Ch1
+	dw Sfx_BigOcto2_Ch1
 
 Sfx_WaterDrop_Ch1:
 	semitone_offset 0
@@ -8119,7 +8119,7 @@ Sfx_Success:
 	dw Sfx_Success_Ch2
 	dw Sfx_Success_Ch3
 
-Sfx_101_Ch1:
+Sfx_ChopTree_Ch1:
 	semitone_offset 0
 	tempo 74
 	wave WAVE_65
@@ -8177,9 +8177,9 @@ Sfx_101_Ch1:
 	audio_wait 1
 	audio_end
 
-Sfx_101:
+Sfx_ChopTree:
 	db 1, 0
-	dw Sfx_101_Ch1
+	dw Sfx_ChopTree_Ch1
 
 Sfx_TreeFall_Ch1:
 	semitone_offset 0

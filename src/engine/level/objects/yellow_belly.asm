@@ -526,7 +526,7 @@ YellowBellyBodyFunc:
 	ld de, YellowBellyFrameset_697eb
 	jp SetObjectFramesetPtr
 .asm_516ec
-	play_sfx SFX_101
+	play_sfx SFX_CHOP_TREE
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	jr nz, .asm_516fe
 	ld de, YellowBellyFrameset_69780

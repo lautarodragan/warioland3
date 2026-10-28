@@ -203,9 +203,9 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_SNAKE_PREPARE_FIRE           ; 18a
 	const SFX_SNAKE_SINK                   ; 18b
 	const SFX_RAIL_HUM                     ; 18c
-	const SFX_08D                          ; 18d
+	const SFX_BIG_OCTO_1                   ; 18d
 	const SFX_SPARKLE                      ; 18e
-	const SFX_08F                          ; 18f
+	const SFX_BIG_OCTO_2                   ; 18f
 	const SFX_090                          ; 190 (unused)
 	const SFX_091                          ; 191 (unused)
 	const SFX_092                          ; 192 (unused)
@@ -320,7 +320,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_0FF                          ; 1ff (unused)
 
 	const SFX_100                          ; 200 (unused)
-	const SFX_101                          ; 201
+	const SFX_CHOP_TREE                    ; 201
 	const SFX_TREE_FALL                    ; 202
 	const SFX_PATH_ARROW                   ; 203
 	const SFX_LEVEL_STAR                   ; 204

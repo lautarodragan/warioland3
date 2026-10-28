@@ -38,6 +38,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 23 | Sound effects named by owner and order (one scene or object each), e.g. `SFX_VOLCANO_ERUPTION_1`..`6` | 40 |
 | 24 | Object state, action and interaction literals written as constants (972 lines), object-local aliases for `OBJSTATE_5A`-`5C`; see "Object state literals" | 972 |
 | 25 | Sound effects named by ear from recordings: `SFX_TIPTOE_1`..`3`, `SFX_PAGE_TURN`, `SFX_ACTION_B`, `SFX_TURN`, `SFX_PESCE_3_YB_2`, `SFX_TIPTOE_2_B_UNUSED` | 8 |
+| 26 | More sound effects named by ear: `SFX_BIG_OCTO_1`/`2`, `SFX_CHOP_TREE` | 3 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3616,8 +3617,10 @@ plays when Pesce lets Wario go in the water, and Yellow Belly, at the end
 of a palette flash; it sounds close to the swim sound), and
 `SFX_TIPTOE_2_B_UNUSED` (`136`: the same notes, tempo and envelope as
 `SFX_TIPTOE_2`, on the second square channel, `CHAN6`, instead of the
-first; nothing plays it). Still numbered: `07F`, `08D`, `08F`, `0B2`,
-`0B7`, `0C4`, `101`, `10E`, `12F`.
+first; nothing plays it). Then `SFX_BIG_OCTO_1`/`2` (`08D`/`08F`, Big Octohon and the feed Octohon
+cutscene; `08D` also plays for Shoot, `08F` for Big Leaf 2) and
+`SFX_CHOP_TREE` (`101`, the cut tree cutscene; also Yellow Belly and
+Igaguri). Still numbered: `07F`, `0B2`, `0B7`, `0C4`, `10E`, `12F`.
 
 **Unused, left numbered:** `SFX_136` has its own sound data (`Sfx_136`) but
 nothing plays it; its constant comment now says "(unused)". The 58

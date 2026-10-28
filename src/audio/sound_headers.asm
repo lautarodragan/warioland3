@@ -212,9 +212,9 @@ SoundHeaders:
 	sfx Sfx_SnakePrepareFire,            $00, 227, CHAN5_F, 2 ; SFX_SNAKE_PREPARE_FIRE
 	sfx Sfx_SnakeSink,                   $00, 220, CHAN5_F, 1 ; SFX_SNAKE_SINK
 	sfx Sfx_RailHum,                     $00, 227, CHAN8_F, 1 ; SFX_RAIL_HUM
-	sfx Sfx_08d,                         $00, 220, CHAN5_F, 1 ; SFX_08D
+	sfx Sfx_BigOcto1,                    $00, 220, CHAN5_F, 1 ; SFX_BIG_OCTO_1
 	sfx Sfx_Sparkle,                     $00, 239, CHAN5_F, 1 ; SFX_SPARKLE
-	sfx Sfx_08f,                         $00, 220, CHAN8_F, 1 ; SFX_08F
+	sfx Sfx_BigOcto2,                    $00, 220, CHAN8_F, 1 ; SFX_BIG_OCTO_2
 	filler_sounds 17
 
 	sfx Sfx_WaterDrop,                   $00, 234, CHAN8_F, 1 ; SFX_WATER_DROP
@@ -296,7 +296,7 @@ SoundHeaders:
 	sfx Sfx_Success,                     $00, 239, CHAN5_F, 3 ; SFX_SUCCESS
 	filler_sounds 6
 
-	sfx Sfx_101,                         $00, 220, CHAN8_F, 1 ; SFX_101
+	sfx Sfx_ChopTree,                    $00, 220, CHAN8_F, 1 ; SFX_CHOP_TREE
 	sfx Sfx_TreeFall,                    $00, 220, CHAN5_F, 1 ; SFX_TREE_FALL
 	sfx Sfx_PathArrow,                   $00, 220, CHAN8_F, 1 ; SFX_PATH_ARROW
 	sfx Sfx_LevelStar,                   $00, 220, CHAN5_F, 1 ; SFX_LEVEL_STAR
