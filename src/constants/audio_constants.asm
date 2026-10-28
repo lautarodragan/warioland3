@@ -104,6 +104,10 @@ DEF CHANFLAGS_ACTIVE            EQU (1 << CHANFLAGS_ACTIVE_F)
 
 DEF NUM_TRACKS EQU 4
 
+; TRACK_OWNER: the channel number that owns the track, with this bit set
+; when that channel plays a sound effect (not music)
+DEF TRACK_OWNER_SFX_F EQU 7
+
 ; track struct members
 RSRESET
 DEF TRACK_FLAGS             rb

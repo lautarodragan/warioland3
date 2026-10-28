@@ -2004,7 +2004,7 @@ PlayNote:
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
 	jr z, .got_owner
-	set 7, a
+	set TRACK_OWNER_SFX_F, a
 .got_owner
 	ld [wTempTrackOwner], a
 	ld e, a
@@ -2122,7 +2122,7 @@ AudioCmd_ReleaseNote:
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
 	jr z, .got_owner
-	set 7, a
+	set TRACK_OWNER_SFX_F, a
 .got_owner
 	ld e, a
 	ld a, [wSoundEngineParam3]
@@ -2167,7 +2167,7 @@ TickSFXTrack:
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_OWNER
+	bit TRACK_OWNER_SFX_F, [hl] ; TRACK_OWNER
 	ret z
 	jr TickTrackDuration
 
@@ -2180,7 +2180,7 @@ TickMusicTrack:
 	ret z
 	inc hl
 	inc hl
-	bit 7, [hl] ; TRACK_OWNER
+	bit TRACK_OWNER_SFX_F, [hl] ; TRACK_OWNER
 	ret nz
 	; fallthrough
 
