@@ -17,6 +17,7 @@ w2d122
 w2d13f
 LevelRooms_
 LevelHeaders_
+.asm_
 
 # the first, reverted owl attempt (debug-owl.md)
 wDebugOwlActive

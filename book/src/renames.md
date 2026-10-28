@@ -87,7 +87,8 @@ Still named after their address, on purpose:
 
 - Nothing in `src/` is named `Func_`/`Data_`/`Frameset_`/`OAM_`/`Pals_` after
   its address any more. The `.asm_` jump labels were never part of the
-  survey.
+  survey; they were named later, in the "Jump labels" sections at the
+  end of the [naming survey](naming-survey.md), and none are left.
 - Duplicates that stay on purpose: bank `$20`'s copies of bank `$2d`'s
   `WaitOWFunc`/`AdvanceOWFunc`/`EndOWFunc` (`*_Bank20`, plus
   `AdvanceOWFunc_UnlockLevel`), which are in another bank and reached by `jr`

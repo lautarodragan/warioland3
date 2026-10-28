@@ -4057,3 +4057,131 @@ and most new names reuse the ones they had:
 - An earlier row of this survey (the `Func_1f357` / `SwimLeft` row)
   calls `HandleSwimming`'s right-hand branch `.asm_1f2c0`; it is now
   `.swim_right`.
+
+## Jump labels: level objects
+
+All 1697 `.asm_xxxxx` local labels in `src/engine/level/objects/*.asm`
+(62 files; the other 11 files had none) now have names. None are left.
+The two `Routine.asm_xxxxx` references among them became
+`ZombieFunc.knock_back` (used from `ZombieHeadFunc`) and
+`Omodon_Idle.start_fall` (used from `OmodonFunc`). The rows of this
+survey that quoted these labels (the "Left numbered" SFX list and the
+"Possible bug: Scowler's stunned vertical direction" note) were updated. The ROM
+is byte-identical.
+
+| File | Labels |
+| --- | --- |
+| hidden_figure | 113 |
+| yellow_belly | 99 |
+| pesce | 92 |
+| jamano | 69 |
+| anonster | 67 |
+| doughnuteer | 64 |
+| muddee | 62 |
+| mad_scienstein | 61 |
+| omodonmeka | 60 |
+| para_goom | 53 |
+| shoot | 49 |
+| fire_bot, spear_bot | 48, 48 |
+| scowler | 47 |
+| octohon | 44 |
+| zombie | 38 |
+| coin | 37 |
+| hammer_bot | 35 |
+| snake | 34 |
+| haridama, pneumo | 33, 33 |
+| brrr_bear, sun_moon | 30, 30 |
+| spearhead | 29 |
+| silky | 28 |
+| beam_bot | 27 |
+| robo_mouse | 25 |
+| appleby, nobiiru | 24, 24 |
+| doll_boy, teruteru | 21, 21 |
+| bird | 20 |
+| wolfenboss | 19 |
+| count_richtertoffen, kushimushi | 15, 15 |
+| zip_line | 14 |
+| bubble, muddee_stinger, seeing_eye_door | 13, 13, 13 |
+| mizuuo | 12 |
+| prince_froggy, wormwould | 11, 11 |
+| hebarii | 10 |
+| big_leaf, tadpole | 9, 9 |
+| pillar_platform, water_drop | 8, 8 |
+| cart | 6 |
+| barrel, owl, togeba | 5, 5, 5 |
+| falling_snow, futamogu, hand | 4, 4, 4 |
+| rock, spark, stove, torch, webber | 3 each |
+| small_leaf | 2 |
+| flame_block, unused_flower | 1, 1 |
+
+**Conventions.** The object files already named their branches in
+lowercase snake_case (`.set_fall`, `.no_shake1`, `.has_ground`,
+`.spawn_hammer`), so all new names are snake_case too. CamelCase is
+kept for the two kinds of label that were already CamelCase: update
+functions stored in `OBJ_UPDATE_FUNCTION` (futamogu's `.VanishTouch`)
+and routines that are `call`ed (Robo Mouse's
+`.BreakBlocksWalkingLeft`/`Right` and `.BreakBlocksInFrontRight`, next
+to the existing `.BreakBlocksInFront`). Most enemies share one state
+machine, so the same names recur in each file:
+
+- Facing: `.face_right` after the usual `wWarioScreenXPos + $2a`
+  comparison, `.face_left` when the turn flips to the left, and a
+  `_facing_right` suffix on the right-facing frameset branch
+  (`.land_facing_right`, `.standing_fall_right`, `.knocked_back_facing_right`).
+- Common tails: `.set_knocked_back` where `.State28`/`.State29`/
+  `.Attacked*Start` meet; `.set_bump`, `.set_fall` (+ `.set_fall_vars`),
+  `.set_wobble` (+ `.set_wobble_vars`), `.set_hit_wario`; `.attacked_left`
+  / `.attacked_right` after the garlic/transformation checks.
+- Walking: `.walking` (no ground shake), `.in_y_range`, `.wario_to_right`,
+  `.turn_to_wario`, `.walk_on`, `.walk_on_floor` (or `.on_floor`),
+  `.walk_right`, `.check_wall_left`/`_right`, `.turn_at_edge_left`/
+  `_right`. Turning: `.turning`, `.flip_direction`, `.face_left`.
+  Timers: `.count_down`.
+- Object searches: `.loop`, `.next_obj`, `.found_<object>`; the
+  unrolled 8-slot searches in omodonmeka are `.check_<what>_obj2` to
+  `_obj8`, as in `_CountCurObjTransientChildren`. A second search in the
+  same scope gets a prefix (`.find_pump_loop`, `.find_platform_next`).
+- Boss and special-object phases are named for what the code does:
+  Mad Scienstein and Doughnuteer `.throwing`, `.fleeing`,
+  `.after_flee_flip`; Fire Bot `.burning`, `.cooling_down`, Spear Bot
+  `.charging`; Pesce `.lunge`, `.start_eat_bait`, `.drag_wario_down`;
+  Muddee `.swim_up`, `.end_up_swim_right`, `.aim_zigzag`; Para-Goom
+  `.extend_propeller` for the `$ef` collision box with
+  `OBJ_INTERACTION_TOP_STING`; Scowler's tentacles `.scowler_stunned` /
+  `_vulnerable` / `_shooting` / `_defeated` by the body's `OBJ_VAR_1`.
+- Numbers only where the code is indexed by a number: Nobiiru
+  `.extend1_right` ... `.retract5_done` (beside `.Extend1` ...
+  `.Retract5`), Pesce `.turn_hits_1` ... by `wPesceHits`, Jamano
+  `.darkness_0` ... by `wJamanoDarkness`, Hidden Figure `.grab2_y` /
+  `.grab3` by attack 7/8, Doll Boy `.check_3_parts`.
+
+**Findings:**
+
+- `WormwouldFunc.Init` compares the low byte of its Y position with
+  Wario's (`cp c / ret nz`), loads the high bytes (`ld c, [hl]`, `ld a,
+  [wWarioYPos + 0]`) and then does a second `ret nz` without a `cp`, so
+  the high byte is never compared. Probably a missing `cp c`.
+- `AppleFunc.Update2_Left` (`appleby.asm`) tests `OBJ_VAR_1` with
+  `ld a, [hli] / jr nz, .move_left`; `ld` sets no flags, so the branch
+  uses whatever flags were left before. `.Update2_Right` has the
+  `and a`.
+- `HandFunc.Retract` ends with `ret` followed by an unreachable
+  `ld b, 0 / jp .ApplyOffsetToWario`.
+- Count Richtertoffen's `.StunLeft`/`.StunRight` write
+  `OBJ_INTERACTION_RICHTERTOFFEN` (`$0f`) and `.TurnAround` writes
+  `OBJ_INTERACTION_TOUCH` (`$01`) into `wCurObjState`. The values are
+  `OBJSTATE_STUNNED_START` and `OBJSTATE_LAND`, so this works, but the
+  constants come from the wrong list.
+- Brrr Bear compares `wEffectivePowerUp` with the literals `$06` and
+  `$05` where the other objects use `SUPER_JUMP_SLAM_OVERALLS` and
+  `GARLIC`.
+- `HiddenFigureLeftHandFunc.Swipe` installs
+  `HiddenFigureRightHandFunc.Stunned` as the left hand's update
+  function. This is not a bug: `.Stunned` checks `wCurObjId` and serves
+  both hands (`.right_hand_check`).
+- Pesce's `.FindBait` takes the first active object whose ID is
+  `CHEESE` or higher, so any later object ID would also count as bait.
+- Already marked or already in this survey: Scowler's `set 6` that
+  `.reset_vdir` undoes, Shoot's `play_sfx` clobbering `a` before
+  `cp 123`, and the unreachable code after `jp` in Doll Boy's walk and
+  Muddee's `.DefeatedFall`.
