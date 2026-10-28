@@ -131,7 +131,7 @@ BrrrBearFunc:
 	and a
 	jp nz, VanishObject2
 	ld a, [wEffectivePowerUp]
-	cp $06
+	cp SUPER_JUMP_SLAM_OVERALLS
 	jp nc, VanishObject2
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
@@ -637,7 +637,7 @@ BrrrBearFunc:
 	and a
 	jr nz, .attacked_left
 	ld a, [wEffectivePowerUp]
-	cp $05
+	cp GARLIC
 	jr nc, .attacked_left
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
@@ -657,7 +657,7 @@ BrrrBearFunc:
 	and a
 	jr nz, .attacked_right
 	ld a, [wEffectivePowerUp]
-	cp $05
+	cp GARLIC
 	jr nc, .attacked_right
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK

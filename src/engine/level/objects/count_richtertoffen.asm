@@ -512,7 +512,7 @@ CountRichtertoffenFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, OBJ_INTERACTION_RICHTERTOFFEN
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -532,7 +532,7 @@ CountRichtertoffenFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, OBJ_INTERACTION_RICHTERTOFFEN
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
@@ -607,7 +607,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	ld a, OBJ_INTERACTION_TOUCH
+	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
