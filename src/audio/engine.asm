@@ -2049,7 +2049,7 @@ PlayNote:
 	ld a, [wCurTrackPtr + 1]
 	ld h, a
 
-	ld a, TRACKFLAGS_4 | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE | TRACKFLAGS_ACTIVE
+	ld a, TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE | TRACKFLAGS_ACTIVE
 	ld [hli], a ; TRACK_FLAGS
 	ld a, [wTempTrackPriority]
 	ld [hli], a ; TRACK_PRIORITY
@@ -2208,7 +2208,7 @@ ReleaseTrack:
 	ld a, [hl] ; TRACK_FLAGS
 	bit TRACKFLAGS_START_ENVELOPE_F, a
 	jr nz, StopTrack
-	or TRACKFLAGS_4 | TRACKFLAGS_START_ENVELOPE
+	or TRACKFLAGS_FADING | TRACKFLAGS_START_ENVELOPE
 	and $ff ^ TRACKFLAGS_HELD
 	ld [hl], a
 	ret
@@ -2250,7 +2250,7 @@ ProcessTrack:
 
 .channel_active
 	ld [wCurChannelFlags], a
-	bit CHANFLAGS_INITIALISED_F, b
+	bit TRACKFLAGS_START_ENVELOPE_F, b
 	jr nz, .start_envelope
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
@@ -2263,11 +2263,11 @@ ProcessTrack:
 	pop hl
 	bit TRACKFLAGS_HELD_F, b
 	jr z, .released
-	bit TRACKFLAGS_4_F, b
+	bit TRACKFLAGS_FADING_F, b
 	jr nz, .fade_in_step
 	jp .sustain_step
 .released
-	bit TRACKFLAGS_4_F, b
+	bit TRACKFLAGS_FADING_F, b
 	jp nz, .fade_out_step
 	jp .release_countdown
 
@@ -2359,7 +2359,7 @@ ProcessTrack:
 	push bc
 	ld bc, TRACK_FLAGS - TRACK_VOLUME
 	add hl, bc
-	res TRACKFLAGS_4_F, [hl]
+	res TRACKFLAGS_FADING_F, [hl]
 	call .SetVolumeWithFadeOut
 	ld d, a
 	ld bc, TRACK_VOLUME_ENVELOPE
@@ -2480,7 +2480,7 @@ ProcessTrack:
 	ld bc, TRACK_FLAGS - TRACK_FREQUENCY
 	add hl, bc
 	ld a, [hl] ; TRACK_FLAGS
-	and $ff ^ (TRACKFLAGS_4 | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE)
+	and $ff ^ (TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_START_ENVELOPE)
 	ld [hl], a
 	jr .update_volume
 

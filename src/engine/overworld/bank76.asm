@@ -256,8 +256,8 @@ INCBIN "gfx/wario/crash.2bpp"
 WarioMusicBoxGfx:
 INCBIN "gfx/wario/music_box.2bpp"
 
-WarioUnk4Gfx:
-INCBIN "gfx/wario/unk4.2bpp"
+WarioTempleGfx:
+INCBIN "gfx/wario/temple.2bpp"
 
 WarioSleepGfx::
 INCBIN "gfx/wario/sleep.2bpp"

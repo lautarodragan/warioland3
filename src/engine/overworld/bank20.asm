@@ -3232,10 +3232,10 @@ PlaceOWWarioAtCurLevel:
 	ld [wLevel1], a
 	call GetMapLevelCoords
 	ld a, [hli]
-	ld [wOWLevelYCoord], a ; level x
+	ld [wOWLevelYCoord], a ; level y
 	ld b, a
 	ld a, [hli]
-	ld [wOWLevelXCoord], a ; level y
+	ld [wOWLevelXCoord], a ; level x
 	ld c, a
 	ld a, [hli]
 	add b

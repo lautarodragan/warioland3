@@ -4185,3 +4185,59 @@ machine, so the same names recur in each file:
   `.reset_vdir` undoes, Shoot's `play_sfx` clobbering `a` before
   `cp 123`, and the unreachable code after `jp` in Doll Boy's walk and
   Muddee's `.DefeatedFall`.
+
+## Last audio flags and other leftovers
+
+This pass rechecked the raw bit operations in src/audio/engine.asm and
+named the last numbered channel and track flags. It also named the
+remaining Wario scene sheet, the `ow_coord` "unknown" fields and the
+noise step constants. The ROM is unchanged.
+
+### Audio flags
+
+Every `bit`, `set`, `res`, `and` and `or` in engine.asm was checked. The
+raw ones left act on other bytes: the "argument already seen" bits in
+`b` in `PlayNote` (:1906-:1925), the SFX bit 7 of `TRACK_OWNER` (:2007,
+:2125, :2170, :2183), command and argument bytes (:1038, :1900, :2106) and the pan
+bits in `SetSoundOutput` (:2846-:2854). None of them is a channel or
+track flag byte.
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `TRACKFLAGS_4` | `TRACKFLAGS_FADING` | It is set at note start (:2052) and by `ReleaseTrack` (:2211). It is cleared when the fade-in ends (`.fade_in_done`, :2362) and when the release starts (`.start_release`, :2483). `ProcessTrack` picks the step from it and `HELD` (:2264-:2271): `HELD`+`FADING` is the fade-in, `HELD` alone the sustain, `FADING` alone the fade-out, neither the release countdown. | high |
+| `TRACKFLAGS_0`..`TRACKFLAGS_3` | `TRACKFLAGS_UNUSED_0`..`TRACKFLAGS_UNUSED_3` | The flags byte is only written whole at note start (:2052, no low bits) and by `StopTrack` (zero). `ReleaseTrack` and `.start_release` only touch bits 4-6. No `bit`/`and` tests a low bit. | high |
+| `CHANFLAGS_3` | `CHANFLAGS_UNUSED_3` | `LoadChannelWithSound` and `InitChannel` write whole bytes without it (:590, :625). The per-frame mask clears bits 0-2 (:211), and `wCurChannelFlags` (stored back at :1288) is only changed by named `set`/`res` on bits 0, 1, 2 and 4. Nothing sets or tests bit 3. | high |
+
+`ProcessTrack` tested `bit CHANFLAGS_INITIALISED_F, b` with `b` holding
+the track's `TRACK_FLAGS` (:2236), and the branch goes to
+`.start_envelope`. It now reads `bit TRACKFLAGS_START_ENVELOPE_F, b`,
+which has the same value (engine.asm:2253).
+
+### Other names
+
+| Old | New | Evidence | Conf. |
+|---|---|---|---|
+| `WarioUnk4Gfx` / `gfx/wario/unk4.png` | `WarioTempleGfx` / `gfx/wario/temple.png` | Every state in its group is used in the temple only. `Prologue_WarioJumpAndBow` and `Prologue_WarioLeaveTemple` run after `.LoadTempleGfx` in the prologue (bank2b_2.asm:46-67, :1083, :1111). The panic, bow and show-music-boxes states are set by `HiddenFigureRevealScene` and its steps (bank2b_1.asm:2790-:3580), which is `TEMPLE_SCENE_HIDDEN_FIGURE_REVEAL` (:1949). | medium |
+| `ow_coord` `\3`/`\4` "unknown 1/2" | Wario y/x offset from the level | `PlaceOWWarioAtCurLevel` adds them to the level's coordinates to get `wOWWarioYCoord`/`wOWWarioXCoord` (bank20.asm:3230-:3248). `MapSide_StartPath` adds them to get the path target (:291-:301). Comments only. The swapped "level x"/"level y" comments in `PlaceOWWarioAtCurLevel` were fixed. | high |
+| `NOISE_POLYCOUNTER_15` / `NOISE_POLYCOUNTER_07` | `NOISE_15STEP` / `NOISE_7STEP` | Bit 0 of a noise wave's timbre byte. `SetTimbre` shifts it to bit 3 and writes it as `AUD4POLY_7STEP` (engine.asm:2624-:2636), so the names follow hardware.inc's `AUD4POLY_15STEP`/`AUD4POLY_7STEP`. | high |
+
+There are no more "unknown" or `unk` names in src/.
+
+### Left
+
+- The other constants in src/constants/ with a number suffix are counts
+  or variants, not hex placeholders: `PAR_3`-`5`, `SHOT_POWER_0`-`9`,
+  `SWEEP_TIME_1`-`7`, `GOLF_PRICE_TIER_*`, `GOLF_TREASURES_TIER_*`,
+  `GOLF_COURSE_*`, `GOLF_PARAGOOM_*`, `SPECIAL_TILES_*`, the
+  `*CONN_*` connections, `GEAR_1`/`_2`, `PARTICLE_MAGIC_1`/`_2`,
+  `MUSIC_HIDDEN_FIGURE_BATTLE_1`/`_2`, `GOLF_WARIO_ATTACKING_1`/`_2` and
+  `SCENEWARIO_SHOW_MUSIC_BOXES_1`-`5`. They were left alone.
+  `OBJSTATE_*` was out of scope for this pass.
+- The SFX bit 7 of `TRACK_OWNER` (set from `AUDIOENG_HANDLING_SFX`,
+  engine.asm:2004-:2007) is still a raw `bit 7`/`set 7`. It is not a flags
+  byte, so it was left for a pass on the track struct.
+- Not a bug, but easy to misread: each `SCENEWARIO_GROUP_n` is the upper
+  bound `SetSceneWarioState` compares against (bank2b_1.asm:1340-1382), so
+  the `DEF` sits above the states of table entry n+1. That is why
+  `WarioTempleGfx` is entry `SCENEWARIO_GROUP_09` in `.WarioSpritePointers`
+  but its states follow `DEF SCENEWARIO_GROUP_08` in event_constants.asm.

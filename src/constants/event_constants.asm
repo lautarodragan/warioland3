@@ -149,7 +149,7 @@ DEF SCENEWARIO_GROUP_07 EQU const_value
 	const SCENEWARIO_SIT_STILL               ; $24
 	const SCENEWARIO_SIT_IDLE                ; $25
 DEF SCENEWARIO_GROUP_08 EQU const_value
-; WarioUnk4Gfx
+; WarioTempleGfx
 	const SCENEWARIO_JUMP_AND_BOW            ; $26
 	const SCENEWARIO_SNAP_FINGERS            ; $27
 	const SCENEWARIO_SHOW_MUSIC_BOXES_1      ; $28

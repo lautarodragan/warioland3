@@ -1453,7 +1453,7 @@ ENDM
 	scene_wario_gfx SceneWarioOAM_aa6e7,  WarioCrashGfx  ; SCENEWARIO_GROUP_06
 	scene_wario_gfx SceneWarioOAM_aa934,  WarioMusicBoxGfx  ; SCENEWARIO_GROUP_07
 	scene_wario_gfx SceneWarioOAM_aab5c,  WarioSleepGfx ; SCENEWARIO_GROUP_08
-	scene_wario_gfx SceneWarioOAM_aad1e,  WarioUnk4Gfx  ; SCENEWARIO_GROUP_09
+	scene_wario_gfx SceneWarioOAM_aad1e,  WarioTempleGfx ; SCENEWARIO_GROUP_09
 	scene_wario_gfx SceneWarioOAM_ab0c5,  WarioShowMusicBoxesGfx  ; SCENEWARIO_GROUP_10
 	scene_wario_gfx WarioGetTreasureOAM_1fc31b, WarioIdleGfx  ; SCENEWARIO_GROUP_11
 	scene_wario_gfx WarioOnFireOAM_1673c,  WarioHotGfx   ; SCENEWARIO_GROUP_12

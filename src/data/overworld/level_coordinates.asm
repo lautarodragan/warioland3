@@ -1,7 +1,7 @@
 ; \1 = bg y coord
 ; \2 = bg x coord
-; \3 = unknown 1
-; \4 = unknown 2
+; \3 = Wario y offset from the level (PlaceOWWarioAtCurLevel and MapSide_StartPath add it)
+; \4 = Wario x offset from the level
 MACRO ow_coord
 	IF (\1) != -1
 	DEF x = \2 + (\1 * TILEMAP_WIDTH)
