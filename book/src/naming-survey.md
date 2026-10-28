@@ -4338,8 +4338,11 @@ pointer tables instead of matching numbers.
 ### Unused
 
 - `ROOM_UNUSED_000` (a NULL entry) and `ROOM_UNUSED_063`-`065`: three
-  complete rooms with A Town in Chaos graphics and palettes that no level
-  lists.
+  room graphics sets (a `ROOM_*` index is a blockset, block functions, main
+  tiles and palette, not a map) that no level lists. They are exact copies
+  of `ROOM_A_TOWN_IN_CHAOS_1`/`2`/`3_NIGHT`. Checked in the emulator: A Town
+  in Chaos by day with its three room sets swapped for these is pixel for
+  pixel the real night version.
 - `OBJECT_GROUP_UNUSED_039`, `_046`, `_066`, `_103`. `_066` is an exact
   duplicate of `OBJECT_GROUP_THE_VOLCANOS_BASE_1` (same colour, same list);
   the others reuse lists of used groups with another colour.
