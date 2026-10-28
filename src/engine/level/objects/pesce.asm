@@ -67,7 +67,7 @@ PesceFunc:
 	ld [wIsBossBattle], a
 	ret
 
-.asm_51d76
+.hit
 	xor a
 	ld [hl], a
 	ld [wCurObjStateDuration], a
@@ -76,24 +76,24 @@ PesceFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $01
-	jr z, .asm_51d9a
+	jr z, .hit_1
 	cp $02
-	jr z, .asm_51d9e
+	jr z, .hit_2
 	cp $03
-	jr z, .asm_51da6
+	jr z, .hit_3
 	xor a
 	ld [hl], a
 	ld a, $f2
-	jr .asm_51da0
-.asm_51d9a
+	jr .set_collbox_top
+.hit_1
 	ld a, $ef
-	jr .asm_51da0
-.asm_51d9e
+	jr .set_collbox_top
+.hit_2
 	ld a, $eb
-.asm_51da0
+.set_collbox_top
 	ld [wCurObjCollBoxTop], a
-	jp .asm_51e67
-.asm_51da6
+	jp .back_to_swim
+.hit_3
 	ld a, $e6
 	ld [wCurObjCollBoxTop], a
 	ld hl, wCurObjUpdateFunction + 1
@@ -107,9 +107,9 @@ PesceFunc:
 	or OBJ_INTERACTION_WATER_KNOCK_BACK_TOP_RIGHT
 	ld [hld], a
 	stop_music2
-	jp .asm_51e67
+	jp .back_to_swim
 
-.asm_51dcb
+.catch_wario
 	stop_music2
 	play_sfx SFX_FAT_WALK
 	xor a
@@ -123,7 +123,7 @@ PesceFunc:
 	ld [wWarioYPos + 0], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_51e0e
+	jr c, .catch_facing_right
 	ld a, [hli]
 	sub $14
 	ld [wWarioXPos + 1], a
@@ -137,7 +137,7 @@ PesceFunc:
 	ld a, $03
 	ld [hl], a
 	ret
-.asm_51e0e
+.catch_facing_right
 	ld a, [hli]
 	ld [wWarioXPos + 1], a
 	ld a, [hl]
@@ -158,41 +158,41 @@ PesceFunc:
 	ld l, OBJ_STATE
 	ld a, [hl]
 	and a
-	jr z, .asm_51e40
+	jr z, .dispatch_phase
 	cp OBJSTATE_ACTIVATE
-	jr z, .asm_51dcb
+	jr z, .catch_wario
 	and $fe
 	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
-	jp z, .asm_51d76
+	jp z, .hit
 	xor a
 	ld [hl], a
-.asm_51e40
+.dispatch_phase
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jp z, .asm_51f8a
+	jp z, .swim
 	cp $01
-	jp z, .asm_51efc
+	jp z, .lunge
 	cp $02
-	jr z, .asm_51e6e
+	jr z, .turn_with_wario
 	cp $03
-	jr z, .asm_51e97
+	jr z, .drag_wario_down
 	cp $04
-	jr z, .asm_51e91
+	jr z, .idle
 	cp $05
-	jr z, .asm_51e5d
+	jr z, .eat_bait
 	ret
-.asm_51e5d
+.eat_bait
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jp nz, .asm_51f46
-.asm_51e67
+	jp nz, .swim_forward
+.back_to_swim
 	xor a
 	ld [wCurObjVar1], a
-	jp .asm_52155
-.asm_51e6e
+	jp .set_swim_frameset
+.turn_with_wario
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -212,21 +212,21 @@ PesceFunc:
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.asm_51e91
+.idle
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
-.asm_51e97
+.drag_wario_down
 	ld a, [wGlobalCounter]
 	and %1011111
 	play_sfx z, SFX_WATER_SURFACE
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_51eae
+	jr z, .sink_with_wario
 	dec [hl]
 	ret
-.asm_51eae
+.sink_with_wario
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	add $06
@@ -240,14 +240,14 @@ PesceFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_51ed4
+	jr nz, .release_wario
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
 	ld b, $01
 	call MoveWarioDown
 	jp MoveObjectDown
-.asm_51ed4
+.release_wario
 	xor a
 	ld [wAutoMoveState], a
 	play_sfx SFX_PESCE_3_YB_2
@@ -258,21 +258,21 @@ PesceFunc:
 	call MoveObjectUpByVar2
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_51ef6
+	jr c, .release_facing_right
 	ld de, PesceFrameset_6990a
 	jp SetObjectFramesetPtr
-.asm_51ef6
+.release_facing_right
 	ld de, PesceFrameset_69942
 	jp SetObjectFramesetPtr
 
-.asm_51efc
+.lunge
 	ld a, [wCurObjFramesetOffset]
 	cp $02
-	jr nz, .asm_51f12
+	jr nz, .lunge_rise
 	ld a, [wCurObjFrameDuration]
 	cp $01
 	play_sfx z, SFX_PESCE_1
-.asm_51f12
+.lunge_rise
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -287,19 +287,19 @@ PesceFunc:
 	call ProcessBlock_UpSide
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr z, .asm_51f46
+	jr z, .swim_forward
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	cp b
-	jr c, .asm_51f46
+	jr c, .swim_forward
 	ld a, [wGlobalCounter]
 	and %11
-	jr nz, .asm_51f46
+	jr nz, .swim_forward
 	ld hl, wCurObjVar3
 	inc [hl]
 	call MoveObjectUp
-.asm_51f46
+.swim_forward
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -309,7 +309,7 @@ PesceFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_51f6c
+	jr c, .swim_forward_right
 	ld a, [hli]
 	sub $10
 	ldh [hXPosLo], a
@@ -319,8 +319,8 @@ PesceFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
-	jr .asm_51f7d
-.asm_51f6c
+	jr .lunge_timer
+.swim_forward_right
 	ld a, [hli]
 	add $0f
 	ldh [hXPosLo], a
@@ -330,7 +330,7 @@ PesceFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
-.asm_51f7d
+.lunge_timer
 	ld hl, wCurObjVar2
 	dec [hl]
 	ret nz
@@ -338,32 +338,32 @@ PesceFunc:
 	ld [hld], a
 	xor a
 	ld [hl], a
-	jp .asm_52068
+	jp .turn_around
 
-.asm_51f8a
+.swim
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_51f96
+	jr z, .swim_patrol
 	dec [hl]
 	ret nz
-	jp .asm_52155
-.asm_51f96
+	jp .set_swim_frameset
+.swim_patrol
 	ld l, OBJ_VAR_3
 	ld a, [hl]
 	and a
-	jr z, .asm_51fae
+	jr z, .check_wario
 	ld a, [wGlobalCounter]
 	rra
-	jr c, .asm_51fa6
+	jr c, .swim_horizontally
 	dec [hl]
 	call MoveObjectDown
-.asm_51fa6
+.swim_horizontally
 	ld a, [wCurObjSubState]
 	rlca
-	jr nc, .asm_51fcb
-	jr .asm_5201c
-.asm_51fae
+	jr nc, .look_for_bait_left
+	jr .look_for_bait_right
+.check_wario
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -372,28 +372,28 @@ PesceFunc:
 	ld c, a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_52011
+	jr c, .check_wario_right_side
 	ld a, [wWaterInteraction]
 	and a
-	jr z, .asm_51fcb
+	jr z, .look_for_bait_left
 	ld a, c
 	cp b
-	jp nc, .asm_520c5
-.asm_51fcb
+	jp nc, .start_lunge
+.look_for_bait_left
 	call .FindBait
 	ld a, d
 	cp $d0
-	jr z, .asm_51ff1
+	jr z, .swim_left
 	ld c, $2a
 	add c
 	ld d, a
 	ld a, [wCurObjScreenYPos]
 	add c
 	cp d
-	jr c, .asm_51ff1
+	jr c, .swim_left
 	sub d
 	cp $18
-	jr nc, .asm_51ff1
+	jr nc, .swim_left
 	ld a, e
 	add c
 	ld e, a
@@ -401,8 +401,8 @@ PesceFunc:
 	add $0a
 	sub e
 	cp $30
-	jp c, .asm_52108
-.asm_51ff1
+	jp c, .start_eat_bait
+.swim_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -419,29 +419,29 @@ PesceFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-	jr .asm_52060
-.asm_52011
+	jr .turn_timer
+.check_wario_right_side
 	ld a, [wWaterInteraction]
 	and a
-	jr z, .asm_5201c
+	jr z, .look_for_bait_right
 	ld a, c
 	cp b
-	jp c, .asm_520c5
-.asm_5201c
+	jp c, .start_lunge
+.look_for_bait_right
 	call .FindBait
 	ld a, d
 	cp $d0
-	jr z, .asm_52042
+	jr z, .swim_right
 	ld c, $2a
 	add c
 	ld d, a
 	ld a, [wCurObjScreenYPos]
 	add c
 	cp d
-	jr c, .asm_52042
+	jr c, .swim_right
 	sub d
 	cp $18
-	jr nc, .asm_52042
+	jr nc, .swim_right
 	ld a, [wCurObjScreenXPos]
 	add $4a
 	ld b, a
@@ -449,8 +449,8 @@ PesceFunc:
 	add c
 	sub b
 	cp $30
-	jp c, .asm_52108
-.asm_52042
+	jp c, .start_eat_bait
+.swim_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -467,13 +467,13 @@ PesceFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_52060
+.turn_timer
 	ld hl, wCurObjVar2
 	dec [hl]
 	ret nz
 	ld a, $3c
 	ld [hl], a
-.asm_52068
+.turn_around
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
@@ -481,111 +481,111 @@ PesceFunc:
 	ld b, a
 	ld a, [wPesceHits]
 	cp $01
-	jr z, .asm_52092
+	jr z, .turn_hits_1
 	cp $02
-	jr z, .asm_520a2
+	jr z, .turn_hits_2
 	cp $03
-	jr z, .asm_520b2
+	jr z, .turn_hits_3
 	xor a
 	ld [wPesceHits], a
 	ld c, $17
 	sla b
-	jr c, .asm_5208d
+	jr c, .turn_hits_0_right
 	ld de, PesceFrameset_69981
-	jr .asm_520c0
-.asm_5208d
+	jr .set_turn_frameset
+.turn_hits_0_right
 	ld de, PesceFrameset_6997a
-	jr .asm_520c0
-.asm_52092
+	jr .set_turn_frameset
+.turn_hits_1
 	ld c, $1b
 	sla b
-	jr c, .asm_5209d
+	jr c, .turn_hits_1_right
 	ld de, PesceFrameset_6998f
-	jr .asm_520c0
-.asm_5209d
+	jr .set_turn_frameset
+.turn_hits_1_right
 	ld de, PesceFrameset_69988
-	jr .asm_520c0
-.asm_520a2
+	jr .set_turn_frameset
+.turn_hits_2
 	ld c, $1f
 	sla b
-	jr c, .asm_520ad
+	jr c, .turn_hits_2_right
 	ld de, PesceFrameset_6999d
-	jr .asm_520c0
-.asm_520ad
+	jr .set_turn_frameset
+.turn_hits_2_right
 	ld de, PesceFrameset_69996
-	jr .asm_520c0
-.asm_520b2
+	jr .set_turn_frameset
+.turn_hits_3
 	ld c, $25
 	sla b
 	ld_obj_frameset PesceFrameset_699ab, PesceFrameset_699a4
-.asm_520c0
+.set_turn_frameset
 	call SetObjectFramesetPtr
 	ld [hl], c
 	ret
 
-.asm_520c5
+.start_lunge
 	ld a, $01
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	ld b, a
 	ld a, [wPesceHits]
 	cp $01
-	jr z, .asm_520eb
+	jr z, .lunge_hits_1
 	cp $02
-	jr z, .asm_520f9
+	jr z, .lunge_hits_2
 	xor a
 	ld [wPesceHits], a
 	sla b
-	jr c, .asm_520e6
+	jr c, .lunge_hits_0_right
 	ld de, PesceFrameset_69911
-	jr .asm_52105
-.asm_520e6
+	jr .set_lunge_frameset
+.lunge_hits_0_right
 	ld de, PesceFrameset_69949
-	jr .asm_52105
-.asm_520eb
+	jr .set_lunge_frameset
+.lunge_hits_1
 	sla b
-	jr c, .asm_520f4
+	jr c, .lunge_hits_1_right
 	ld de, PesceFrameset_69934
-	jr .asm_52105
-.asm_520f4
+	jr .set_lunge_frameset
+.lunge_hits_1_right
 	ld de, PesceFrameset_6996c
-	jr .asm_52105
-.asm_520f9
+	jr .set_lunge_frameset
+.lunge_hits_2
 	sla b
 	ld_obj_frameset PesceFrameset_6993b, PesceFrameset_69973
-.asm_52105
+.set_lunge_frameset
 	jp SetObjectFramesetPtr
 
-.asm_52108
+.start_eat_bait
 	play_sfx SFX_PESCE_2
 	ld a, [wCurObjSubState]
 	ld b, a
 	ld a, [wPesceHits]
 	cp $01
-	jr z, .asm_52131
+	jr z, .bite_hits_1
 	cp $02
-	jr z, .asm_5213f
+	jr z, .bite_hits_2
 	xor a
 	ld [wPesceHits], a
 	sla b
-	jr c, .asm_5212c
+	jr c, .bite_hits_0_right
 	ld de, PesceFrameset_699b2
-	jr .asm_5214b
-.asm_5212c
+	jr .set_bite_frameset
+.bite_hits_0_right
 	ld de, PesceFrameset_699c1
-	jr .asm_5214b
-.asm_52131
+	jr .set_bite_frameset
+.bite_hits_1
 	sla b
-	jr c, .asm_5213a
+	jr c, .bite_hits_1_right
 	ld de, PesceFrameset_699b7
-	jr .asm_5214b
-.asm_5213a
+	jr .set_bite_frameset
+.bite_hits_1_right
 	ld de, PesceFrameset_699c6
-	jr .asm_5214b
-.asm_5213f
+	jr .set_bite_frameset
+.bite_hits_2
 	sla b
 	ld_obj_frameset PesceFrameset_699bc, PesceFrameset_699cb
-.asm_5214b
+.set_bite_frameset
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
@@ -593,72 +593,72 @@ PesceFunc:
 	ld [hl], a
 	ret
 
-.asm_52155
+.set_swim_frameset
 	ld a, [wCurObjSubState]
 	ld b, a
 	ld a, [wPesceHits]
 	cp $01
-	jr z, .asm_5217a
+	jr z, .swim_hits_1
 	cp $02
-	jr z, .asm_52188
+	jr z, .swim_hits_2
 	cp $03
-	jr z, .asm_52196
+	jr z, .swim_hits_3
 	xor a
 	ld [wPesceHits], a
 	sla b
-	jr c, .asm_52175
+	jr c, .swim_hits_0_right
 	ld de, PesceFrameset_6990a
-	jr .asm_521a2
-.asm_52175
+	jr .apply_swim_frameset
+.swim_hits_0_right
 	ld de, PesceFrameset_69942
-	jr .asm_521a2
-.asm_5217a
+	jr .apply_swim_frameset
+.swim_hits_1
 	sla b
-	jr c, .asm_52183
+	jr c, .swim_hits_1_right
 	ld de, PesceFrameset_69918
-	jr .asm_521a2
-.asm_52183
+	jr .apply_swim_frameset
+.swim_hits_1_right
 	ld de, PesceFrameset_69950
-	jr .asm_521a2
-.asm_52188
+	jr .apply_swim_frameset
+.swim_hits_2
 	sla b
-	jr c, .asm_52191
+	jr c, .swim_hits_2_right
 	ld de, PesceFrameset_6991f
-	jr .asm_521a2
-.asm_52191
+	jr .apply_swim_frameset
+.swim_hits_2_right
 	ld de, PesceFrameset_69957
-	jr .asm_521a2
-.asm_52196
+	jr .apply_swim_frameset
+.swim_hits_3
 	sla b
 	ld_obj_frameset PesceFrameset_69926, PesceFrameset_6995e
-.asm_521a2
+.apply_swim_frameset
 	jp SetObjectFramesetPtr
 
 .FindBait:
 	xor a
 	ld b, a
 	ld h, HIGH(wObj1)
-.asm_521a9
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp CHEESE
-	jr c, .asm_521ba
+	jr c, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hl]
 	rra
-	jr c, .asm_521c4
-.asm_521ba
+	jr c, .found_bait
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
-	jr z, .asm_521cc
+	jr z, .no_bait
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_521a9
-.asm_521c4
+	jr .loop
+.found_bait
 	ld a, l
 	add $0d
 	ld l, a
@@ -666,7 +666,7 @@ PesceFunc:
 	ld d, a
 	ld e, [hl]
 	ret
-.asm_521cc
+.no_bait
 	ld d, $d0
 	ld e, d
 	ret
@@ -675,19 +675,19 @@ PesceFunc:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_52239
+	jr z, .defeated_sink
 	cp $01
-	jr z, .asm_5222b
+	jr z, .defeated_wait
 	cp $02
-	jr z, .asm_521e9
+	jr z, .defeated_swim_away
 	cp $03
-	jr z, .asm_521e4
+	jr z, .despawn
 	ret
-.asm_521e4
+.despawn
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_521e9
+.defeated_swim_away
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $30
@@ -715,7 +715,7 @@ PesceFunc:
 	ld a, $01
 	ld [wPesceFightOver], a
 	ret
-.asm_5222b
+.defeated_wait
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -724,7 +724,7 @@ PesceFunc:
 	ld [hl], a
 	ld de, PesceFrameset_6995e
 	jp SetObjectFramesetPtr
-.asm_52239
+.defeated_sink
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	add $06
@@ -741,7 +741,7 @@ PesceFunc:
 	jp z, MoveObjectDown_Slow
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_52265
+	jr c, .defeated_landed_facing_right
 	ld de, PesceFrameset_699a4
 	call SetObjectFramesetPtr
 	ld a, $25
@@ -749,7 +749,7 @@ PesceFunc:
 	ld a, $01
 	ld [hl], a
 	ret
-.asm_52265
+.defeated_landed_facing_right
 	ld a, $02
 	ld [wCurObjVar1], a
 	ret
@@ -790,35 +790,35 @@ DragonflySpawnerFunc:
 	ld [wCurObjFrameDuration], a
 	ld a, [wPesceHits]
 	cp $03
-	jr z, .asm_522cf
+	jr z, .start_wait_fight_end
 	xor a
 	ld b, a
 	ld h, HIGH(wObj1)
-.asm_522af
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp DRAGONFLY1
-	jr nz, .asm_522bf
+	jr nz, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hli] ; OBJ_FLAGS
 	rra
 	ret c
-.asm_522bf
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
 	jr z, .spawn_dragonfly
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_522af
+	jr .loop
 .spawn_dragonfly
 	ld bc, ObjParams_Dragonfly1
 	jp CreateObjectAtRelativePos
 
-.asm_522cf
+.start_wait_fight_end
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
@@ -880,27 +880,27 @@ Dragonfly1Func:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_52359
+	jr z, .fly
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_52353
+	jr c, .end_turn_right
 	ld de, PesceFrameset_699d0
 	jp SetObjectFramesetPtr
-.asm_52353
+.end_turn_right
 	ld de, PesceFrameset_699d5
 	jp SetObjectFramesetPtr
-.asm_52359
+.fly
 	ld a, [wPesceHits]
 	cp $03
-	jr z, .asm_523a3
+	jr z, .fly_away
 	dec l
 	dec [hl]
-	jr z, .asm_52388
+	jr z, .turn_around
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_52379
+	jr c, .fly_right
 	call MoveObjectLeft
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -908,7 +908,7 @@ Dragonfly1Func:
 	res OBJFLAG_STEPPED_F, [hl]
 	ld b, $01
 	jp MoveWarioLeft
-.asm_52379
+.fly_right
 	call MoveObjectRight
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -916,7 +916,7 @@ Dragonfly1Func:
 	res OBJFLAG_STEPPED_F, [hl]
 	ld b, $01
 	jp MoveWarioRight
-.asm_52388
+.turn_around
 	ld a, $70
 	ld [hli], a
 	ld a, $11
@@ -926,13 +926,13 @@ Dragonfly1Func:
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	rlca
-	jr c, .asm_5239d
+	jr c, .turned_right
 	ld de, PesceFrameset_699df
 	jp SetObjectFramesetPtr
-.asm_5239d
+.turned_right
 	ld de, PesceFrameset_699da
 	jp SetObjectFramesetPtr
-.asm_523a3
+.fly_away
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.FlyAway)
 	ld [hld], a
@@ -1004,14 +1004,14 @@ Dragonfly2Func:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_52423
+	jr z, .fly_down
 	cp $01
-	jr z, .asm_52441
+	jr z, .fly_up
 	ret
-.asm_52423
+.fly_down
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr z, .asm_5243a
+	jr z, .start_up
 	call MoveObjectDown
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -1020,16 +1020,16 @@ Dragonfly2Func:
 	ld b, $01
 	call MoveWarioDown
 	jp HandleDownwardsFloorTransition
-.asm_5243a
+.start_up
 	ld a, $50
 	ld [hli], a
 	ld a, $01
 	ld [hl], a
 	ret
-.asm_52441
+.fly_up
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr z, .asm_52458
+	jr z, .start_down
 	call MoveObjectUp
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -1038,7 +1038,7 @@ Dragonfly2Func:
 	ld b, $01
 	call MoveWarioUp
 	jp HandleUpwardsFloorTransition
-.asm_52458
+.start_down
 	ld a, $50
 	ld [hli], a
 	xor a
@@ -1086,7 +1086,7 @@ FlySpawnerFunc:
 	ld [wCurObjFrameDuration], a
 	ld a, [wPesceHits]
 	cp $03
-	jr z, .asm_524dc
+	jr z, .start_wait_fight_end
 	ld a, [wPesceFlyActive]
 	and a
 	ret nz
@@ -1123,7 +1123,7 @@ FlySpawnerFunc:
 .spawn_fly
 	ld bc, ObjParams_Fly
 	jp CreateObjectAtRelativePos
-.asm_524dc
+.start_wait_fight_end
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.WaitForFightEnd)
 	ld [hld], a
@@ -1168,13 +1168,13 @@ FlyFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp OBJSTATE_5A
-	jr z, .asm_52545
+	jr z, .descend
 	cp OBJSTATE_5B
-	jr z, .asm_5255e
+	jr z, .hover_left
 	cp OBJSTATE_5C
-	jr z, .asm_5257d
-	jr .asm_52591
-.asm_52545
+	jr z, .fly_up_away
+	jr .hit
+.descend
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
@@ -1187,16 +1187,16 @@ FlyFunc:
 	ld a, $01
 	ld [wPesceFlyActive], a
 	ret
-.asm_5255e
+.hover_left
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld a, [wPesceFlyActive]
 	and a
-	jr z, .asm_5256f
+	jr z, .move_left
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
-.asm_5256f
+.move_left
 	call MoveObjectLeft
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -1204,7 +1204,7 @@ FlyFunc:
 	ld a, OBJSTATE_5C
 	ld [wCurObjState], a
 	ret
-.asm_5257d
+.fly_up_away
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_FLAGS
@@ -1214,21 +1214,21 @@ FlyFunc:
 	ld [wCurObjFlags], a
 	ld [wPesceFlyActive], a
 	ret
-.asm_52591
+.hit
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_525a5
+	jr c, .knock_left
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
-	jr .asm_525a9
-.asm_525a5
+	jr .set_knock_back
+.knock_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
-.asm_525a9
+.set_knock_back
 	ld hl, wCurObjUpdateFunction + 1
 	ld [hld], a
 	ld [hl], c
@@ -1250,12 +1250,12 @@ CheeseFunc:
 	ld [wCurObjAction], a
 	ld a, [wCurObjState]
 	and a
-	jr nz, .asm_52634
+	jr nz, .fly_gone
 	ld a, [wPesceFlyActive]
 	and a
-	jr z, .asm_52638
+	jr z, .despawn
 	cp $02
-	jr z, .asm_52614
+	jr z, .drop
 	cp $03
 	jr nz, .find_fly_obj
 	ld a, no_actions_for 1
@@ -1300,7 +1300,7 @@ CheeseFunc:
 	ld [wCurObjXPos + 1], a
 	ret
 
-.asm_52614
+.drop
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -1317,10 +1317,10 @@ CheeseFunc:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
 	jp nz, MoveObjectDown_Fast
-.asm_52634
+.fly_gone
 	xor a
 	ld [wPesceFlyActive], a
-.asm_52638
+.despawn
 	xor a
 	ld [wCurObjFlags], a
 	ret
@@ -1330,7 +1330,7 @@ CheeseFunc:
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr z, .asm_52634
+	jr z, .fly_gone
 	call MoveObjectDown_Slow
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
