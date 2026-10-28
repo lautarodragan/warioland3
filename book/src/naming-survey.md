@@ -1824,9 +1824,9 @@ soon as anything before them in "Object Functions 2" moves. Fix:
 `ScowlerFunc.Func_546e0` (scowler.asm:323-331) ends with
 
     cp b
-    jr nc, .asm_54734
+    jr nc, .reset_vdir
     set 6, [hl]
-    .asm_54734
+    .reset_vdir
     res 6, [hl]
     ret
 
@@ -3541,15 +3541,15 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0A2`: level/objects/doll_boy.asm:229 (`DollBoyFunc.spawn_hammer`), level/objects/doll_boy.asm:623 (`DollBoyFunc.handle_walk_movement`)
 - `SFX_0A6`: level/objects/wormwould.asm:212 (`WormwouldFunc.after_attack`)
 - `SFX_0A8`: level/objects/yellow_belly.asm:553 (`YellowBellyBodyFunc.asm_51704`)
-- `SFX_0AB`: level/objects/scowler.asm:377 (`ScowlerFunc.asm_54782`)
+- `SFX_0AB`: level/objects/scowler.asm:377 (`ScowlerFunc.vulnerable_swim`)
 - `SFX_0AD`: level/objects/pesce.asm:560 (`PesceFunc.asm_52108`)
 - `SFX_0AE`: level/objects/pesce.asm:274 (`PesceFunc.asm_51efc`)
 - `SFX_0B0`: level/objects/anonster.asm:155 (`AnonsterFunc.asm_50118`)
 - `SFX_0B1`: level/objects/anonster.asm:343 (`AnonsterFunc.StartRise`), level/objects/anonster.asm:817 (`AnonsterFunc.Hurt`), level/objects/anonster.asm:924 (`AnonsterFunc.Defeated`)
 - `SFX_0B2`: level/objects/anonster.asm:865 (`AnonsterFunc.Recover2`), level/objects/muddee.asm:108 (`MuddeeFunc.spawn_stingers`)
-- `SFX_0B5`: level/objects/scowler.asm:1071 (`UpdateScowlerInkBlackout.asm_54c31`)
-- `SFX_0B7`: level/objects/shoot.asm:842 (`ShootFunc.Walk`), level/objects/scowler.asm:1068 (`UpdateScowlerInkBlackout.asm_54c27`)
-- `SFX_0B8`: level/objects/scowler.asm:1090 (`UpdateScowlerInkBlackout.asm_54c5f`)
+- `SFX_0B5`: level/objects/scowler.asm:1071 (`UpdateScowlerInkBlackout.start_ink`)
+- `SFX_0B7`: level/objects/shoot.asm:842 (`ShootFunc.Walk`), level/objects/scowler.asm:1068 (`UpdateScowlerInkBlackout.ink_again`)
+- `SFX_0B8`: level/objects/scowler.asm:1090 (`UpdateScowlerInkBlackout.end_ink`)
 - `SFX_0B9`: level/objects/yellow_belly.asm:677 (`YellowBellyBodyFunc.asm_5180a`), level/objects/pesce.asm:253 (`PesceFunc.asm_51ed4`)
 - `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.asm_553a8`)
 - `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.hatch_spawn_kuri`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.asm_9f8d1`)
