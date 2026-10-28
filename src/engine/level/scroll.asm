@@ -94,10 +94,10 @@ UpdateLevelEdges:
 	add hl, de
 	ld a, h
 	cp $03
-	jr c, .asm_8f8f
+	jr c, .lower_y_in_range
 	ld hl, $2f8
 	ld a, h
-.asm_8f8f
+.lower_y_in_range
 	ld [wBlockYPos + 0], a
 	ld a, l
 	ld [wBlockYPos + 1], a
@@ -111,9 +111,9 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_8faa
+	jr z, .lower_x_not_negative
 	ld hl, $0
-.asm_8faa
+.lower_x_not_negative
 	ld a, h
 	ld [wBlockXPos + 0], a
 	ld a, l
@@ -130,9 +130,9 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_8fc7
+	jr z, .upper_y_not_negative
 	ld hl, $0
-.asm_8fc7
+.upper_y_not_negative
 	ld a, h
 	ld [wBlockYPos + 0], a
 	ld a, l
@@ -146,9 +146,9 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_8fe3
+	jr z, .upper_x_not_negative
 	ld hl, $0
-.asm_8fe3
+.upper_x_not_negative
 	ld a, h
 	ld [wBlockXPos + 0], a
 	ld a, l
@@ -165,22 +165,22 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_9002
+	jr z, .right_y_not_negative
 	ld hl, $0
-	jr .asm_9013
-.asm_9002
+	jr .right_set_y
+.right_y_not_negative
 	ld de, $b8
 	push hl
 	add hl, de
 	ld a, h
 	cp $03
-	jr c, .asm_9012
+	jr c, .right_y_in_range
 	pop hl
 	ld hl, $240
-	jr .asm_9013
-.asm_9012
+	jr .right_set_y
+.right_y_in_range
 	pop hl
-.asm_9013
+.right_set_y
 	ld a, h
 	ld [wBlockYPos + 0], a
 	ld a, l
@@ -195,10 +195,10 @@ UpdateLevelEdges:
 	add hl, de
 	ld a, h
 	cp $0a
-	jr c, .asm_9031
+	jr c, .right_x_in_range
 	ld hl, $9f8
 	ld a, h
-.asm_9031
+.right_x_in_range
 	ld [wBlockXPos + 0], a
 	ld a, l
 	ld [wBlockXPos + 1], a
@@ -214,22 +214,22 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_904f
+	jr z, .left_y_not_negative
 	ld hl, $0
-	jr .asm_9060
-.asm_904f
+	jr .left_set_y
+.left_y_not_negative
 	ld de, $b8
 	push hl
 	add hl, de
 	ld a, h
 	cp $03
-	jr c, .asm_905f
+	jr c, .left_y_in_range
 	pop hl
 	ld hl, $240
-	jr .asm_9060
-.asm_905f
+	jr .left_set_y
+.left_y_in_range
 	pop hl
-.asm_9060
+.left_set_y
 	ld a, h
 	ld [wBlockYPos + 0], a
 	ld a, l
@@ -243,9 +243,9 @@ UpdateLevelEdges:
 	ld de, -$10
 	add hl, de
 	bit 7, h
-	jr z, .asm_907c
+	jr z, .left_x_not_negative
 	ld hl, $0
-.asm_907c
+.left_x_not_negative
 	ld a, h
 	ld [wBlockXPos + 0], a
 	ld a, l
@@ -288,7 +288,7 @@ ENDR
 	sramswitch
 	ld a, [wBlockYPos + 1]
 	and $08
-	jr z, .asm_923a
+	jr z, .top_half
 	push hl
 	call .AddRowBottomTiles
 	pop hl
@@ -297,7 +297,7 @@ ENDR
 	call .AddRowBottomAttributes
 	jr .update_queue_size
 
-.asm_923a
+.top_half
 	push hl
 	call .AddRowTopTiles
 	pop hl
@@ -321,7 +321,7 @@ ENDR
 	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockXPos + 1]
 	and $08
-	jp nz, .asm_9438
+	jp nz, .bottom_tiles_odd_column
 
 REPT 12
 	ld a, [hli]
@@ -369,7 +369,7 @@ ENDR
 	pop hl
 	ret
 
-.asm_9438
+.bottom_tiles_odd_column
 	ld a, [hli]
 	ld d, $00
 	ld e, a
@@ -451,7 +451,7 @@ ENDR
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockXPos + 1]
 	and $08
-	jp nz, .asm_97f3
+	jp nz, .bottom_attrs_odd_column
 	push_wram $03
 
 REPT 12
@@ -501,7 +501,7 @@ ENDR
 	pop_wram
 	ret
 
-.asm_97f3
+.bottom_attrs_odd_column
 	push_wram $03
 	ld a, [hli]
 	ld d, $00
@@ -585,7 +585,7 @@ ENDR
 	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockXPos + 1]
 	and $08
-	jp nz, .asm_9b94
+	jp nz, .top_tiles_odd_column
 
 REPT 12
 	ld a, [hli]
@@ -629,7 +629,7 @@ ENDR
 	pop hl
 	ret
 
-.asm_9b94
+.top_tiles_odd_column
 	ld a, [hli]
 	ld d, $00
 	ld e, a
@@ -686,7 +686,7 @@ ENDR
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockXPos + 1]
 	and $08
-	jp nz, .asm_9f20
+	jp nz, .top_attrs_odd_column
 	push_wram $03
 
 REPT 12
@@ -731,7 +731,7 @@ ENDR
 	pop_wram
 	ret
 
-.asm_9f20
+.top_attrs_odd_column
 	push_wram $03
 	ld a, [hli]
 	ld d, $00
@@ -815,22 +815,22 @@ ENDR
 	sramswitch
 	ld a, [wBlockXPos + 1]
 	and $08
-	jr z, .asm_a290
+	jr z, .left_half
 	push hl
 	call AddColumnRightTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
 	call AddColumnRightAttributes
-	jr .asm_a2a1
-.asm_a290
+	jr .update_queue_size
+.left_half
 	push hl
 	call AddColumnLeftTiles
 	pop hl
 	ld a, [wBlockPtrBank]
 	sramswitch
 	call AddColumnLeftAttributes
-.asm_a2a1
+.update_queue_size
 	ld a, [wBGMapTileQueueSize]
 	add 23
 	ld [wBGMapTileQueueSize], a
@@ -846,7 +846,7 @@ AddColumnRightTiles:
 	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_a52f
+	jp nz, .odd_row
 
 REPT 11
 	ld a, [hl]
@@ -902,7 +902,7 @@ ENDR
 	pop hl
 	ret
 
-.asm_a52f:
+.odd_row:
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -927,12 +927,12 @@ ENDR
 	inc h
 	ld a, h
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr nz, .asm_a562
+	jr nz, .same_bank
 	ld h, HIGH(sLevelBlockObjectMap)
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_a562
+.same_bank
 
 REPT 10
 	ld a, [hl]
@@ -1002,7 +1002,7 @@ AddColumnRightAttributes:
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_aa2d
+	jp nz, .odd_row
 	push_wram $03
 
 REPT 11
@@ -1060,7 +1060,7 @@ ENDR
 	pop_wram
 	ret
 
-.asm_aa2d
+.odd_row
 	push_wram $03
 	ld a, [hl]
 	ld d, $00
@@ -1086,12 +1086,12 @@ ENDR
 	inc h
 	ld a, h
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr nz, .asm_aa67
+	jr nz, .same_bank
 	ld h, HIGH(sLevelBlockObjectMap)
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_aa67
+.same_bank
 
 	REPT 10
 	ld a, [hl]
@@ -1162,7 +1162,7 @@ AddColumnLeftTiles:
 	ld [wBGMapTileVRAM0QueuePtr + 1], a ; wBGMapTileVRAM0Queue + wBGMapTileQueueSize
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_af1f
+	jp nz, .odd_row
 
 REPT 11
 	ld a, [hl]
@@ -1216,7 +1216,7 @@ ENDR
 	pop hl
 	ret
 
-.asm_af1f
+.odd_row
 	ld a, [hl]
 	ld d, $00
 	ld e, a
@@ -1240,12 +1240,12 @@ ENDR
 	inc h
 	ld a, h
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr nz, .asm_af51
+	jr nz, .same_bank
 	ld h, HIGH(sLevelBlockObjectMap)
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_af51
+.same_bank
 
 REPT 10
 	ld a, [hl]
@@ -1313,7 +1313,7 @@ AddColumnLeftAttributes:
 	ld [wBGMapTileVRAM1QueuePtr + 1], a
 	ld a, [wBlockYPos + 1]
 	and $08
-	jp nz, .asm_b405
+	jp nz, .odd_row
 	push_wram $03
 
 REPT 11
@@ -1369,7 +1369,7 @@ ENDR
 	pop_wram
 	ret
 
-.asm_b405
+.odd_row
 	push_wram $03
 	ld a, [hl]
 	ld d, $00
@@ -1394,12 +1394,12 @@ ENDR
 	inc h
 	ld a, h
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr nz, .asm_b43e
+	jr nz, .same_bank
 	ld h, HIGH(sLevelBlockObjectMap)
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-.asm_b43e
+.same_bank
 
 REPT 10
 	ld a, [hl]
