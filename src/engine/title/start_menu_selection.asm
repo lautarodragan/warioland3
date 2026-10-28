@@ -144,20 +144,20 @@ HandleStartMenuSelection:
 	jr z, .set_select_flag
 	inc [hl]
 	and $03
-	jr z, .asm_4cb2
+	jr z, .attr_3
 	dec a
-	jr z, .asm_4caf
+	jr z, .attr_0
 	dec a
-	jr z, .asm_4cb6
-.asm_4caf
+	jr z, .attr_1
+.attr_0
 	xor a
-	jr .asm_4cb8
-.asm_4cb2
+	jr .set_attr
+.attr_3
 	ld a, $03
-	jr .asm_4cb8
-.asm_4cb6
+	jr .set_attr
+.attr_1
 	ld a, $01
-.asm_4cb8
+.set_attr
 	dec l
 	ld [hl], a
 	ret

@@ -1,14 +1,14 @@
 LoadTitleScreenPals:
 	ld a, [wRestoredSave]
 	and a
-	jr nz, .asm_492a
+	jr nz, .has_save
 	ld hl, TitleScreenBGPals
 	call LoadPalsToTempPals1
 	ld hl, TitleScreenOBPals
 	call LoadPalsToTempPals2
 	ret
 
-.asm_492a
+.has_save
 	ld hl, TitleScreenBGPals2
 	call LoadPalsToTempPals1
 	ld hl, TitleScreenOBPals2
