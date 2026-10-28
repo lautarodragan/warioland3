@@ -16,41 +16,41 @@ MuddeeStingerFunc:
 	ld [wCurObjFrameDuration], a
 	ld a, [wCurObjState]
 	cp OBJSTATE_VANISH_TOUCH
-	jr nz, .asm_4ca3b
+	jr nz, .check_hit
 	ld a, $01
 	ld [wMuddeeHitState], a
-.asm_4ca3b
+.check_hit
 	ld a, [wMuddeeHitState]
 	and a
-	jr z, .asm_4ca46
+	jr z, .find_muddee
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_4ca46
+.find_muddee
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_4ca4c
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp MUDDEE
-	jr nz, .asm_4ca5d
+	jr nz, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hl] ; OBJ_FLAGS
 	rra
-	jr c, .asm_4ca66
-.asm_4ca5d
+	jr c, .found_muddee
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_4ca4c
-.asm_4ca66
+	jr .loop
+.found_muddee
 	ld a, l
 	add $0f
 	ld l, a
@@ -60,15 +60,15 @@ MuddeeStingerFunc:
 	ld l, a
 	ld a, [wCurObjId]
 	cp MUDDEE_STINGER2
-	jr z, .asm_4ca7b
+	jr z, .stinger2
 	ld de, MuddeeStingerData_4caed
-	jr .asm_4ca7e
-.asm_4ca7b
+	jr .got_offsets
+.stinger2
 	ld de, MuddeeStingerData_4cb0d
-.asm_4ca7e
+.got_offsets
 	ld a, c
 	cp $10
-	jr c, .asm_4ca99
+	jr c, .apply_offset
 	ld a, [hli]
 	ld [wCurObjYPos + 0], a
 	ld a, [hli]
@@ -80,7 +80,7 @@ MuddeeStingerFunc:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
-.asm_4ca99
+.apply_offset
 	add a
 	add e
 	ld e, a
@@ -90,52 +90,52 @@ MuddeeStingerFunc:
 	ld a, [de]
 	ld c, a
 	cp $80
-	jr nc, .asm_4cab4
+	jr nc, .negative_y
 	ld a, [hli]
 	add c
 	ld [wCurObjYPos + 0], a
-	jr nc, .asm_4cac2
+	jr nc, .same_y_hi
 	ld a, [hl]
 	inc a
 	ld [wCurObjYPos + 1], a
-	jr .asm_4cac6
-.asm_4cab4
+	jr .x_offset
+.negative_y
 	ld a, [hli]
 	add c
 	ld [wCurObjYPos + 0], a
-	jr c, .asm_4cac2
+	jr c, .same_y_hi
 	ld a, [hl]
 	dec a
 	ld [wCurObjYPos + 1], a
-	jr .asm_4cac6
-.asm_4cac2
+	jr .x_offset
+.same_y_hi
 	ld a, [hl]
 	ld [wCurObjYPos + 1], a
-.asm_4cac6
+.x_offset
 	inc l
 	inc de
 	ld a, [de]
 	ld c, a
 	cp $80
-	jr nc, .asm_4cadb
+	jr nc, .negative_x
 	ld a, [hli]
 	add c
 	ld [wCurObjXPos + 0], a
-	jr nc, .asm_4cae8
+	jr nc, .same_x_hi
 	ld a, [hl]
 	inc a
 	ld [wCurObjXPos + 1], a
 	ret
-.asm_4cadb
+.negative_x
 	ld a, [hli]
 	add c
 	ld [wCurObjXPos + 0], a
-	jr c, .asm_4cae8
+	jr c, .same_x_hi
 	ld a, [hl]
 	dec a
 	ld [wCurObjXPos + 1], a
 	ret
-.asm_4cae8
+.same_x_hi
 	ld a, [hl]
 	ld [wCurObjXPos + 1], a
 	ret

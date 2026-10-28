@@ -3533,7 +3533,7 @@ with no clearer meaning), so these keep their numbers:
 
 - `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.asm_ac730`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.asm_9f295`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f978`)
 - `SFX_064`: level/objects/zombie.asm:375 (`ZombieFunc.asm_45d1d`)
-- `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.asm_455ba`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.asm_4561e`)
+- `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.looking_right`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.look_center_from_left`)
 - `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.start_swim`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.asm_b6675`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.asm_b6696`)
 - `SFX_088`: level/objects/omodonmeka.asm:361 (`OmodonmekaFunc.asm_423b8`)
 - `SFX_08D`: level/objects/shoot.asm:630 (`ShootFunc.MoveLeftOrRight`), level/objects/shoot.asm:639 (`ShootFunc.moving_right`), level/objects/octohon.asm:270 (`BigOctohonFunc.asm_4a6f3`), overworld/bank27.asm:5490 (`Cutscene44Func.WaitThenPlaySFX08D`)

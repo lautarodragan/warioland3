@@ -8,7 +8,7 @@ BubbleHoleFunc:
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	jr .asm_47c08
+	jr .try_spawn
 
 .Update:
 	ld a, no_actions_for 1
@@ -18,16 +18,16 @@ BubbleHoleFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-.asm_47c08
+.try_spawn
 	call CountActiveTransientObjects
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BUBBLE
 	ld a, e
-	jr nz, .asm_47c19
+	jr nz, .not_bubble_wario
 	cp 1
 	jr nc, .wait
 	jr .create_bubble
-.asm_47c19
+.not_bubble_wario
 	cp 2
 	jr nc, .wait
 .create_bubble
@@ -93,18 +93,18 @@ BubbleFunc:
 .Rise:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr z, .asm_47c96
+	jr z, .rise
 	ld a, [wGlobalCounter]
 	and %1
-	jr nz, .asm_47ce0
-.asm_47c96
+	jr nz, .drift_timer
+.rise
 	ld l, OBJ_Y_POS
 	ld a, [hl]
 	sub $01
 	ld [hli], a
-	jr nc, .asm_47c9f
+	jr nc, .check_ceiling
 	dec [hl]
-.asm_47c9f
+.check_ceiling
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $18
@@ -142,7 +142,7 @@ BubbleFunc:
 	ret nz ; still underwater
 	jp .set_burst
 
-.asm_47ce0
+.drift_timer
 	ld hl, wCurObjVar1
 	dec [hl]
 	ld l, OBJ_SUBSTATE
@@ -176,7 +176,7 @@ BubbleFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr nz, .asm_47d2b
+	jr nz, .blocked_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $07
@@ -186,8 +186,8 @@ BubbleFunc:
 	ldh [hYPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr z, .asm_47d38
-.asm_47d2b
+	jr z, .drift_left_step
+.blocked_left
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_VAR_1
@@ -197,7 +197,7 @@ BubbleFunc:
 	ld [hl], a
 	ret
 
-.asm_47d38
+.drift_left_step
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	ld b, HIGH(BubbleDriftLeftX)
@@ -205,13 +205,13 @@ BubbleFunc:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_47d4a
+	jr nz, .next_left_offset
 	dec c
 	ld a, [bc]
-	jr .asm_47d4b
-.asm_47d4a
+	jr .apply_left_offset
+.next_left_offset
 	inc [hl]
-.asm_47d4b
+.apply_left_offset
 	ld b, a
 	and a
 	ret z
@@ -239,7 +239,7 @@ BubbleFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr nz, .asm_47d88
+	jr nz, .blocked_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $07
@@ -249,8 +249,8 @@ BubbleFunc:
 	ldh [hYPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr z, .asm_47d95
-.asm_47d88
+	jr z, .drift_right_step
+.blocked_right
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_VAR_1
@@ -260,7 +260,7 @@ BubbleFunc:
 	ld [hl], a
 	ret
 
-.asm_47d95
+.drift_right_step
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	ld b, HIGH(BubbleDriftRightX)
@@ -268,13 +268,13 @@ BubbleFunc:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_47da7
+	jr nz, .next_right_offset
 	dec c
 	ld a, [bc]
-	jr .asm_47da8
-.asm_47da7
+	jr .apply_right_offset
+.next_right_offset
 	inc [hl]
-.asm_47da8
+.apply_right_offset
 	ld b, a
 	and a
 	ret z

@@ -2,16 +2,16 @@ ZipLineFunc:
 	ld hl, wCurObjSubState
 	ld a, [wCurObjId]
 	cp ZIP_LINE4
-	jr c, .asm_49338
+	jr c, .zip_line_1_to_3
 	ld a, $03
-	jr nz, .asm_4933a
+	jr nz, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_4933c
-.asm_49338
+	jr .set_speed
+.zip_line_1_to_3
 	ld a, $01
-.asm_4933a
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
-.asm_4933c
+.set_speed
 	ld [wCurObjVar2], a
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
 	ld l, OBJ_FLAGS
@@ -44,10 +44,10 @@ ZipLineFunc:
 	call .Move
 	ld a, [wCurObjVar1]
 	cp $03
-	jr z, .asm_493cd
+	jr z, .set_crashed
 	ld a, [wCurObjState]
 	and a
-	jr nz, .asm_49393
+	jr nz, .grabbed
 	ld a, [wCurObjScreenYPos]
 	add c
 	ld b, a
@@ -62,7 +62,7 @@ ZipLineFunc:
 	ld [wCurObjAction], a
 	ret
 
-.asm_49393
+.grabbed
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.CarryWario)
 	ld [hld], a
@@ -85,15 +85,15 @@ ZipLineFunc:
 	ld [wWarioXPos + 0], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_493c7
+	jr c, .carry_facing_right
 	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
-.asm_493c7
+.carry_facing_right
 	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
 
-.asm_493cd
+.set_crashed
 	ld de, ZipLineFrameset_691db
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -109,7 +109,7 @@ ZipLineFunc:
 	call .Move
 	ld a, [wCurObjVar1]
 	cp $03
-	jr z, .asm_493cd
+	jr z, .set_crashed
 	ld a, [wTransformation]
 	cp TRANSFORMATION_RAIL
 	ret z
@@ -143,7 +143,7 @@ ZipLineFunc:
 	ret z
 	ld a, [wCurObjSubState]
 	rlca
-	jr nc, .asm_49450
+	jr nc, .moving_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $10
@@ -159,15 +159,15 @@ ZipLineFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_4947b
+	jr nz, .hit_wall
 	call .move_right
 	ld a, [wCurObjId]
 	cp ZIP_LINE1
 	ret z
 	rra
-	jp nc, .asm_494f5
-	jp .asm_494e7
-.asm_49450
+	jp nc, .move_down
+	jp .move_up
+.moving_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $10
@@ -183,37 +183,37 @@ ZipLineFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_4947b
+	jr nz, .hit_wall
 	call .move_left
 	ld a, [wCurObjId]
 	cp ZIP_LINE1
 	ret z
 	rra
-	jr nc, .asm_494e7
-	jr .asm_494f5
-.asm_4947b
+	jr nc, .move_up
+	jr .move_down
+.hit_wall
 	ld a, [wCurObjId]
 	cp ZIP_LINE4
-	jr nc, .asm_49499
+	jr nc, .crash
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_49491
+	jr nz, .turn_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ZipLineFrameset_691d2
 	jp SetObjectFramesetPtr
-.asm_49491
+.turn_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ZipLineFrameset_691c9
 	jp SetObjectFramesetPtr
 
-.asm_49499
+.crash
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	dec a
-	jr nz, .asm_494ab
+	jr nz, .set_crashed_flag
 	ld [wAutoMoveState], a
 	play_sfx SFX_EXPLOSION
-.asm_494ab
+.set_crashed_flag
 	ld a, $03
 	ld [hl], a
 	ret
@@ -225,7 +225,7 @@ ZipLineFunc:
 	ret nz
 	call MoveWarioLeft
 	farcall CheckCarriedWarioLeftCollision
-	jr .asm_49518
+	jr .rail_hum_sfx
 
 .move_right:
 	call MoveObjectRightByVar2
@@ -234,15 +234,15 @@ ZipLineFunc:
 	ret nz
 	call MoveWarioRight
 	farcall CheckCarriedWarioRightCollision
-	jr .asm_49518
-.asm_494e7
+	jr .rail_hum_sfx
+.move_up
 	call MoveObjectUpByVar2
 	ld a, [wCurObjVar1]
 	dec a
 	ret nz
 	call MoveWarioUp
 	jp HandleUpwardsFloorTransition
-.asm_494f5
+.move_down
 	call MoveObjectDownByVar2
 	ld a, [wCurObjVar1]
 	dec a
@@ -258,7 +258,7 @@ ZipLineFunc:
 	play_sfx SFX_ZIP_LINE_SLIDE
 	ret
 
-.asm_49518
+.rail_hum_sfx
 	ld a, [wCurObjId]
 	cp ZIP_LINE4
 	ret nc
