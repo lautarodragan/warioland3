@@ -833,7 +833,7 @@ AudioModFunctionTable:
 	dw AudioMod_Pan              ; AUDIOMOD_PAN
 	dw AudioMod_VibratoAmplitude ; AUDIOMOD_VIBRATO_AMPLITUDE
 	dw AudioMod_VibratoSpeed     ; AUDIOMOD_VIBRATO_SPEED
-	dw AudioMod_Release                ; AUDIOMOD_RELEASE
+	dw AudioMod_Release          ; AUDIOMOD_RELEASE
 	assert_table_length NUM_AUDIOMOD_FUNCTIONS
 
 ; input:
@@ -1307,8 +1307,8 @@ AudioCommandTable:
 	dw AudioCmd_SetChannelVibratoDisabled ; AUDIOCMD_VIBRATO_DISABLED
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C7
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_C8
-	dw AudioCmd_SetChannelFrequencyOffset           ; AUDIOCMD_FREQUENCY_OFFSET
-	dw AudioCmd_SetChannelUnused1e           ; AUDIOCMD_SET_UNUSED_1E
+	dw AudioCmd_SetChannelFrequencyOffset ; AUDIOCMD_FREQUENCY_OFFSET
+	dw AudioCmd_SetChannelUnused1e        ; AUDIOCMD_SET_UNUSED_1E
 	dw InvalidAudioCmd                    ; AUDIOCMD_UNUSED_CB
 	dw AudioCmd_ClearFlags                ; AUDIOCMD_UNUSED_CC
 	dw AudioCmd_Special                         ; cd

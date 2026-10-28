@@ -224,7 +224,7 @@ ENDM
 
 RoomBlockAndGfxData:
 	table_width 2
-	dw NULL           ; ROOM_UNUSED_000
+	dw NULL                                      ; ROOM_UNUSED_000
 	dw .room_data_out_of_the_woods_1_day         ; ROOM_OUT_OF_THE_WOODS_1_DAY
 	dw .room_data_out_of_the_woods_6_night       ; ROOM_OUT_OF_THE_WOODS_6_NIGHT
 	dw .room_data_out_of_the_woods_5_day         ; ROOM_OUT_OF_THE_WOODS_5_DAY
@@ -700,95 +700,95 @@ RoomBlockAndGfxData:
 
 RoomBlockTilesPointers::
 	table_width 2
-	dw BlocksetTiles_OutOfTheWoods1 ; BLOCKSET_OUT_OF_THE_WOODS_1
-	dw BlocksetTiles_OutOfTheWoods5 ; BLOCKSET_OUT_OF_THE_WOODS_5
-	dw BlocksetTiles_OutOfTheWoods2 ; BLOCKSET_OUT_OF_THE_WOODS_2
-	dw BlocksetTiles_OutOfTheWoods3 ; BLOCKSET_OUT_OF_THE_WOODS_3
-	dw BlocksetTiles_OutOfTheWoods4 ; BLOCKSET_OUT_OF_THE_WOODS_4
-	dw BlocksetTiles_Shared1 ; BLOCKSET_SHARED_1
+	dw BlocksetTiles_OutOfTheWoods1      ; BLOCKSET_OUT_OF_THE_WOODS_1
+	dw BlocksetTiles_OutOfTheWoods5      ; BLOCKSET_OUT_OF_THE_WOODS_5
+	dw BlocksetTiles_OutOfTheWoods2      ; BLOCKSET_OUT_OF_THE_WOODS_2
+	dw BlocksetTiles_OutOfTheWoods3      ; BLOCKSET_OUT_OF_THE_WOODS_3
+	dw BlocksetTiles_OutOfTheWoods4      ; BLOCKSET_OUT_OF_THE_WOODS_4
+	dw BlocksetTiles_Shared1             ; BLOCKSET_SHARED_1
 	dw BlocksetTiles_ThePeacefulVillage1 ; BLOCKSET_THE_PEACEFUL_VILLAGE_1
 	dw BlocksetTiles_ThePeacefulVillage3 ; BLOCKSET_THE_PEACEFUL_VILLAGE_3
-	dw BlocksetTiles_TheVastPlain3 ; BLOCKSET_THE_VAST_PLAIN_3
+	dw BlocksetTiles_TheVastPlain3       ; BLOCKSET_THE_VAST_PLAIN_3
 	dw BlocksetTiles_ThePeacefulVillage2 ; BLOCKSET_THE_PEACEFUL_VILLAGE_2
 	dw BlocksetTiles_ThePeacefulVillage4 ; BLOCKSET_THE_PEACEFUL_VILLAGE_4
 	dw BlocksetTiles_BankOfTheWildRiver2 ; BLOCKSET_BANK_OF_THE_WILD_RIVER_2
-	dw BlocksetTiles_Shared2 ; BLOCKSET_SHARED_2
-	dw BlocksetTiles_TheTidalCoast1 ; BLOCKSET_THE_TIDAL_COAST_1
-	dw BlocksetTiles_TheTidalCoast3 ; BLOCKSET_THE_TIDAL_COAST_3
-	dw BlocksetTiles_SeaTurtleRocks2 ; BLOCKSET_SEA_TURTLE_ROCKS_2
-	dw BlocksetTiles_DesertRuins1 ; BLOCKSET_DESERT_RUINS_1
-	dw BlocksetTiles_DesertRuins2 ; BLOCKSET_DESERT_RUINS_2
-	dw BlocksetTiles_Shared3 ; BLOCKSET_SHARED_3
-	dw BlocksetTiles_TheVolcanosBase1 ; BLOCKSET_THE_VOLCANOS_BASE_1
-	dw BlocksetTiles_ThePoolOfRain3 ; BLOCKSET_THE_POOL_OF_RAIN_3
-	dw BlocksetTiles_ATownInChaos1 ; BLOCKSET_A_TOWN_IN_CHAOS_1
-	dw BlocksetTiles_ATownInChaos2 ; BLOCKSET_A_TOWN_IN_CHAOS_2
-	dw BlocksetTiles_BeneathTheWaves1 ; BLOCKSET_BENEATH_THE_WAVES_1
-	dw BlocksetTiles_TheGrasslands2 ; BLOCKSET_THE_GRASSLANDS_2
-	dw BlocksetTiles_TheBigBridge3 ; BLOCKSET_THE_BIG_BRIDGE_3
-	dw BlocksetTiles_TheBigBridge2 ; BLOCKSET_THE_BIG_BRIDGE_2
-	dw BlocksetTiles_TowerOfRevival3 ; BLOCKSET_TOWER_OF_REVIVAL_3
-	dw BlocksetTiles_TheSteepCanyon1 ; BLOCKSET_THE_STEEP_CANYON_1
-	dw BlocksetTiles_AboveTheClouds1 ; BLOCKSET_ABOVE_THE_CLOUDS_1
-	dw BlocksetTiles_TheStagnantSwamp1 ; BLOCKSET_THE_STAGNANT_SWAMP_1
-	dw BlocksetTiles_DesertRuins4 ; BLOCKSET_DESERT_RUINS_4
-	dw BlocksetTiles_TheFrigidSea3 ; BLOCKSET_THE_FRIGID_SEA_3
-	dw BlocksetTiles_CastleOfIllusions1 ; BLOCKSET_CASTLE_OF_ILLUSIONS_1
-	dw BlocksetTiles_TheColossalHole1 ; BLOCKSET_THE_COLOSSAL_HOLE_1
-	dw BlocksetTiles_TheStagnantSwamp4 ; BLOCKSET_THE_STAGNANT_SWAMP_4
-	dw BlocksetTiles_Craters1 ; BLOCKSET_CRATERS_1
-	dw BlocksetTiles_TheWarpedVoid1 ; BLOCKSET_THE_WARPED_VOID_1
-	dw BlocksetTiles_ForestOfFear1 ; BLOCKSET_FOREST_OF_FEAR_1
-	dw BlocksetTiles_CaveOfFlames1 ; BLOCKSET_CAVE_OF_FLAMES_1
-	dw BlocksetTiles_BeneathTheWaves2 ; BLOCKSET_BENEATH_THE_WAVES_2
-	dw BlocksetTiles_CastleOfIllusions2 ; BLOCKSET_CASTLE_OF_ILLUSIONS_2
-	dw BlocksetTiles_CastleOfIllusions3 ; BLOCKSET_CASTLE_OF_ILLUSIONS_3
-	dw BlocksetTiles_ATownInChaos4 ; BLOCKSET_A_TOWN_IN_CHAOS_4
-	dw BlocksetTiles_TheTemple ; BLOCKSET_THE_TEMPLE
-	dw BlocksetTiles_DesertRuins3 ; BLOCKSET_DESERT_RUINS_3
-	dw BlocksetTiles_TheVastPlain1 ; BLOCKSET_THE_VAST_PLAIN_1
-	dw BlocksetTiles_TheFrigidSea2 ; BLOCKSET_THE_FRIGID_SEA_2
-	dw BlocksetTiles_TheVastPlain2 ; BLOCKSET_THE_VAST_PLAIN_2
-	dw BlocksetTiles_TheStagnantSwamp3 ; BLOCKSET_THE_STAGNANT_SWAMP_3
-	dw BlocksetTiles_ThePoolOfRain2 ; BLOCKSET_THE_POOL_OF_RAIN_2
-	dw BlocksetTiles_TowerOfRevival2 ; BLOCKSET_TOWER_OF_REVIVAL_2
-	dw BlocksetTiles_ThePoolOfRain1 ; BLOCKSET_THE_POOL_OF_RAIN_1
-	dw BlocksetTiles_ATownInChaos3 ; BLOCKSET_A_TOWN_IN_CHAOS_3
-	dw BlocksetTiles_TheGrasslands1 ; BLOCKSET_THE_GRASSLANDS_1
-	dw BlocksetTiles_TheBigBridge1 ; BLOCKSET_THE_BIG_BRIDGE_1
-	dw BlocksetTiles_TowerOfRevival1 ; BLOCKSET_TOWER_OF_REVIVAL_1
-	dw BlocksetTiles_TowerOfRevival4 ; BLOCKSET_TOWER_OF_REVIVAL_4
-	dw BlocksetTiles_TowerOfRevival5 ; BLOCKSET_TOWER_OF_REVIVAL_5
+	dw BlocksetTiles_Shared2             ; BLOCKSET_SHARED_2
+	dw BlocksetTiles_TheTidalCoast1      ; BLOCKSET_THE_TIDAL_COAST_1
+	dw BlocksetTiles_TheTidalCoast3      ; BLOCKSET_THE_TIDAL_COAST_3
+	dw BlocksetTiles_SeaTurtleRocks2     ; BLOCKSET_SEA_TURTLE_ROCKS_2
+	dw BlocksetTiles_DesertRuins1        ; BLOCKSET_DESERT_RUINS_1
+	dw BlocksetTiles_DesertRuins2        ; BLOCKSET_DESERT_RUINS_2
+	dw BlocksetTiles_Shared3             ; BLOCKSET_SHARED_3
+	dw BlocksetTiles_TheVolcanosBase1    ; BLOCKSET_THE_VOLCANOS_BASE_1
+	dw BlocksetTiles_ThePoolOfRain3      ; BLOCKSET_THE_POOL_OF_RAIN_3
+	dw BlocksetTiles_ATownInChaos1       ; BLOCKSET_A_TOWN_IN_CHAOS_1
+	dw BlocksetTiles_ATownInChaos2       ; BLOCKSET_A_TOWN_IN_CHAOS_2
+	dw BlocksetTiles_BeneathTheWaves1    ; BLOCKSET_BENEATH_THE_WAVES_1
+	dw BlocksetTiles_TheGrasslands2      ; BLOCKSET_THE_GRASSLANDS_2
+	dw BlocksetTiles_TheBigBridge3       ; BLOCKSET_THE_BIG_BRIDGE_3
+	dw BlocksetTiles_TheBigBridge2       ; BLOCKSET_THE_BIG_BRIDGE_2
+	dw BlocksetTiles_TowerOfRevival3     ; BLOCKSET_TOWER_OF_REVIVAL_3
+	dw BlocksetTiles_TheSteepCanyon1     ; BLOCKSET_THE_STEEP_CANYON_1
+	dw BlocksetTiles_AboveTheClouds1     ; BLOCKSET_ABOVE_THE_CLOUDS_1
+	dw BlocksetTiles_TheStagnantSwamp1   ; BLOCKSET_THE_STAGNANT_SWAMP_1
+	dw BlocksetTiles_DesertRuins4        ; BLOCKSET_DESERT_RUINS_4
+	dw BlocksetTiles_TheFrigidSea3       ; BLOCKSET_THE_FRIGID_SEA_3
+	dw BlocksetTiles_CastleOfIllusions1  ; BLOCKSET_CASTLE_OF_ILLUSIONS_1
+	dw BlocksetTiles_TheColossalHole1    ; BLOCKSET_THE_COLOSSAL_HOLE_1
+	dw BlocksetTiles_TheStagnantSwamp4   ; BLOCKSET_THE_STAGNANT_SWAMP_4
+	dw BlocksetTiles_Craters1            ; BLOCKSET_CRATERS_1
+	dw BlocksetTiles_TheWarpedVoid1      ; BLOCKSET_THE_WARPED_VOID_1
+	dw BlocksetTiles_ForestOfFear1       ; BLOCKSET_FOREST_OF_FEAR_1
+	dw BlocksetTiles_CaveOfFlames1       ; BLOCKSET_CAVE_OF_FLAMES_1
+	dw BlocksetTiles_BeneathTheWaves2    ; BLOCKSET_BENEATH_THE_WAVES_2
+	dw BlocksetTiles_CastleOfIllusions2  ; BLOCKSET_CASTLE_OF_ILLUSIONS_2
+	dw BlocksetTiles_CastleOfIllusions3  ; BLOCKSET_CASTLE_OF_ILLUSIONS_3
+	dw BlocksetTiles_ATownInChaos4       ; BLOCKSET_A_TOWN_IN_CHAOS_4
+	dw BlocksetTiles_TheTemple           ; BLOCKSET_THE_TEMPLE
+	dw BlocksetTiles_DesertRuins3        ; BLOCKSET_DESERT_RUINS_3
+	dw BlocksetTiles_TheVastPlain1       ; BLOCKSET_THE_VAST_PLAIN_1
+	dw BlocksetTiles_TheFrigidSea2       ; BLOCKSET_THE_FRIGID_SEA_2
+	dw BlocksetTiles_TheVastPlain2       ; BLOCKSET_THE_VAST_PLAIN_2
+	dw BlocksetTiles_TheStagnantSwamp3   ; BLOCKSET_THE_STAGNANT_SWAMP_3
+	dw BlocksetTiles_ThePoolOfRain2      ; BLOCKSET_THE_POOL_OF_RAIN_2
+	dw BlocksetTiles_TowerOfRevival2     ; BLOCKSET_TOWER_OF_REVIVAL_2
+	dw BlocksetTiles_ThePoolOfRain1      ; BLOCKSET_THE_POOL_OF_RAIN_1
+	dw BlocksetTiles_ATownInChaos3       ; BLOCKSET_A_TOWN_IN_CHAOS_3
+	dw BlocksetTiles_TheGrasslands1      ; BLOCKSET_THE_GRASSLANDS_1
+	dw BlocksetTiles_TheBigBridge1       ; BLOCKSET_THE_BIG_BRIDGE_1
+	dw BlocksetTiles_TowerOfRevival1     ; BLOCKSET_TOWER_OF_REVIVAL_1
+	dw BlocksetTiles_TowerOfRevival4     ; BLOCKSET_TOWER_OF_REVIVAL_4
+	dw BlocksetTiles_TowerOfRevival5     ; BLOCKSET_TOWER_OF_REVIVAL_5
 	dw BlocksetTiles_BankOfTheWildRiver1 ; BLOCKSET_BANK_OF_THE_WILD_RIVER_1
-	dw BlocksetTiles_SeaTurtleRocks3 ; BLOCKSET_SEA_TURTLE_ROCKS_3
-	dw BlocksetTiles_SeaTurtleRocks1 ; BLOCKSET_SEA_TURTLE_ROCKS_1
-	dw BlocksetTiles_SeaTurtleRocks4 ; BLOCKSET_SEA_TURTLE_ROCKS_4
-	dw BlocksetTiles_TheFrigidSea1 ; BLOCKSET_THE_FRIGID_SEA_1
-	dw BlocksetTiles_TheFrigidSea4 ; BLOCKSET_THE_FRIGID_SEA_4
-	dw BlocksetTiles_TheFrigidSea5 ; BLOCKSET_THE_FRIGID_SEA_5
-	dw BlocksetTiles_Shared4 ; BLOCKSET_SHARED_4
-	dw BlocksetTiles_TheTidalCoast2 ; BLOCKSET_THE_TIDAL_COAST_2
-	dw BlocksetTiles_TheStagnantSwamp2 ; BLOCKSET_THE_STAGNANT_SWAMP_2
-	dw BlocksetTiles_AboveTheClouds2 ; BLOCKSET_ABOVE_THE_CLOUDS_2
-	dw BlocksetTiles_AboveTheClouds3 ; BLOCKSET_ABOVE_THE_CLOUDS_3
-	dw BlocksetTiles_CaveOfFlames2 ; BLOCKSET_CAVE_OF_FLAMES_2
-	dw BlocksetTiles_CaveOfFlames3 ; BLOCKSET_CAVE_OF_FLAMES_3
-	dw BlocksetTiles_BeneathTheWaves3 ; BLOCKSET_BENEATH_THE_WAVES_3
-	dw BlocksetTiles_BeneathTheWaves4 ; BLOCKSET_BENEATH_THE_WAVES_4
-	dw BlocksetTiles_TheColossalHole2 ; BLOCKSET_THE_COLOSSAL_HOLE_2
-	dw BlocksetTiles_CastleOfIllusions4 ; BLOCKSET_CASTLE_OF_ILLUSIONS_4
-	dw BlocksetTiles_CastleOfIllusions5 ; BLOCKSET_CASTLE_OF_ILLUSIONS_5
-	dw BlocksetTiles_CastleOfIllusions6 ; BLOCKSET_CASTLE_OF_ILLUSIONS_6
-	dw BlocksetTiles_AboveTheClouds4 ; BLOCKSET_ABOVE_THE_CLOUDS_4
-	dw BlocksetTiles_ForestOfFear2 ; BLOCKSET_FOREST_OF_FEAR_2
-	dw BlocksetTiles_Craters2 ; BLOCKSET_CRATERS_2
-	dw BlocksetTiles_TheWarpedVoid2 ; BLOCKSET_THE_WARPED_VOID_2
-	dw BlocksetTiles_TheWarpedVoid3 ; BLOCKSET_THE_WARPED_VOID_3
-	dw BlocksetTiles_TheSteepCanyon2 ; BLOCKSET_THE_STEEP_CANYON_2
-	dw BlocksetTiles_TheVolcanosBase2 ; BLOCKSET_THE_VOLCANOS_BASE_2
-	dw BlocksetTiles_AboveTheClouds5 ; BLOCKSET_ABOVE_THE_CLOUDS_5
-	dw BlocksetTiles_AboveTheClouds6 ; BLOCKSET_ABOVE_THE_CLOUDS_6
-	dw BlocksetTiles_TheVastPlain4 ; qwertyasd
+	dw BlocksetTiles_SeaTurtleRocks3     ; BLOCKSET_SEA_TURTLE_ROCKS_3
+	dw BlocksetTiles_SeaTurtleRocks1     ; BLOCKSET_SEA_TURTLE_ROCKS_1
+	dw BlocksetTiles_SeaTurtleRocks4     ; BLOCKSET_SEA_TURTLE_ROCKS_4
+	dw BlocksetTiles_TheFrigidSea1       ; BLOCKSET_THE_FRIGID_SEA_1
+	dw BlocksetTiles_TheFrigidSea4       ; BLOCKSET_THE_FRIGID_SEA_4
+	dw BlocksetTiles_TheFrigidSea5       ; BLOCKSET_THE_FRIGID_SEA_5
+	dw BlocksetTiles_Shared4             ; BLOCKSET_SHARED_4
+	dw BlocksetTiles_TheTidalCoast2      ; BLOCKSET_THE_TIDAL_COAST_2
+	dw BlocksetTiles_TheStagnantSwamp2   ; BLOCKSET_THE_STAGNANT_SWAMP_2
+	dw BlocksetTiles_AboveTheClouds2     ; BLOCKSET_ABOVE_THE_CLOUDS_2
+	dw BlocksetTiles_AboveTheClouds3     ; BLOCKSET_ABOVE_THE_CLOUDS_3
+	dw BlocksetTiles_CaveOfFlames2       ; BLOCKSET_CAVE_OF_FLAMES_2
+	dw BlocksetTiles_CaveOfFlames3       ; BLOCKSET_CAVE_OF_FLAMES_3
+	dw BlocksetTiles_BeneathTheWaves3    ; BLOCKSET_BENEATH_THE_WAVES_3
+	dw BlocksetTiles_BeneathTheWaves4    ; BLOCKSET_BENEATH_THE_WAVES_4
+	dw BlocksetTiles_TheColossalHole2    ; BLOCKSET_THE_COLOSSAL_HOLE_2
+	dw BlocksetTiles_CastleOfIllusions4  ; BLOCKSET_CASTLE_OF_ILLUSIONS_4
+	dw BlocksetTiles_CastleOfIllusions5  ; BLOCKSET_CASTLE_OF_ILLUSIONS_5
+	dw BlocksetTiles_CastleOfIllusions6  ; BLOCKSET_CASTLE_OF_ILLUSIONS_6
+	dw BlocksetTiles_AboveTheClouds4     ; BLOCKSET_ABOVE_THE_CLOUDS_4
+	dw BlocksetTiles_ForestOfFear2       ; BLOCKSET_FOREST_OF_FEAR_2
+	dw BlocksetTiles_Craters2            ; BLOCKSET_CRATERS_2
+	dw BlocksetTiles_TheWarpedVoid2      ; BLOCKSET_THE_WARPED_VOID_2
+	dw BlocksetTiles_TheWarpedVoid3      ; BLOCKSET_THE_WARPED_VOID_3
+	dw BlocksetTiles_TheSteepCanyon2     ; BLOCKSET_THE_STEEP_CANYON_2
+	dw BlocksetTiles_TheVolcanosBase2    ; BLOCKSET_THE_VOLCANOS_BASE_2
+	dw BlocksetTiles_AboveTheClouds5     ; BLOCKSET_ABOVE_THE_CLOUDS_5
+	dw BlocksetTiles_AboveTheClouds6     ; BLOCKSET_ABOVE_THE_CLOUDS_6
+	dw BlocksetTiles_TheVastPlain4       ; qwertyasd
 
 
 	assert_table_length NUM_BLOCKSETS
@@ -804,95 +804,95 @@ RoomBlockTilesPointers::
 
 RoomBlockAttributePointers::
 	table_width 2
-	dw BlocksetAttributes_OutOfTheWoods1 ; BLOCKSET_OUT_OF_THE_WOODS_1
-	dw BlocksetAttributes_OutOfTheWoods5 ; BLOCKSET_OUT_OF_THE_WOODS_5
-	dw BlocksetAttributes_OutOfTheWoods2 ; BLOCKSET_OUT_OF_THE_WOODS_2
-	dw BlocksetAttributes_OutOfTheWoods3 ; BLOCKSET_OUT_OF_THE_WOODS_3
-	dw BlocksetAttributes_OutOfTheWoods4 ; BLOCKSET_OUT_OF_THE_WOODS_4
-	dw BlocksetAttributes_Shared1 ; BLOCKSET_SHARED_1
+	dw BlocksetAttributes_OutOfTheWoods1      ; BLOCKSET_OUT_OF_THE_WOODS_1
+	dw BlocksetAttributes_OutOfTheWoods5      ; BLOCKSET_OUT_OF_THE_WOODS_5
+	dw BlocksetAttributes_OutOfTheWoods2      ; BLOCKSET_OUT_OF_THE_WOODS_2
+	dw BlocksetAttributes_OutOfTheWoods3      ; BLOCKSET_OUT_OF_THE_WOODS_3
+	dw BlocksetAttributes_OutOfTheWoods4      ; BLOCKSET_OUT_OF_THE_WOODS_4
+	dw BlocksetAttributes_Shared1             ; BLOCKSET_SHARED_1
 	dw BlocksetAttributes_ThePeacefulVillage1 ; BLOCKSET_THE_PEACEFUL_VILLAGE_1
 	dw BlocksetAttributes_ThePeacefulVillage3 ; BLOCKSET_THE_PEACEFUL_VILLAGE_3
-	dw BlocksetAttributes_TheVastPlain3 ; BLOCKSET_THE_VAST_PLAIN_3
+	dw BlocksetAttributes_TheVastPlain3       ; BLOCKSET_THE_VAST_PLAIN_3
 	dw BlocksetAttributes_ThePeacefulVillage2 ; BLOCKSET_THE_PEACEFUL_VILLAGE_2
 	dw BlocksetAttributes_ThePeacefulVillage4 ; BLOCKSET_THE_PEACEFUL_VILLAGE_4
 	dw BlocksetAttributes_BankOfTheWildRiver2 ; BLOCKSET_BANK_OF_THE_WILD_RIVER_2
-	dw BlocksetAttributes_Shared2 ; BLOCKSET_SHARED_2
-	dw BlocksetAttributes_TheTidalCoast1 ; BLOCKSET_THE_TIDAL_COAST_1
-	dw BlocksetAttributes_TheTidalCoast3 ; BLOCKSET_THE_TIDAL_COAST_3
-	dw BlocksetAttributes_SeaTurtleRocks2 ; BLOCKSET_SEA_TURTLE_ROCKS_2
-	dw BlocksetAttributes_DesertRuins1 ; BLOCKSET_DESERT_RUINS_1
-	dw BlocksetAttributes_DesertRuins2 ; BLOCKSET_DESERT_RUINS_2
-	dw BlocksetAttributes_Shared3 ; BLOCKSET_SHARED_3
-	dw BlocksetAttributes_TheVolcanosBase1 ; BLOCKSET_THE_VOLCANOS_BASE_1
-	dw BlocksetAttributes_ThePoolOfRain3 ; BLOCKSET_THE_POOL_OF_RAIN_3
-	dw BlocksetAttributes_ATownInChaos1 ; BLOCKSET_A_TOWN_IN_CHAOS_1
-	dw BlocksetAttributes_ATownInChaos2 ; BLOCKSET_A_TOWN_IN_CHAOS_2
-	dw BlocksetAttributes_BeneathTheWaves1 ; BLOCKSET_BENEATH_THE_WAVES_1
-	dw BlocksetAttributes_TheGrasslands2 ; BLOCKSET_THE_GRASSLANDS_2
-	dw BlocksetAttributes_TheBigBridge3 ; BLOCKSET_THE_BIG_BRIDGE_3
-	dw BlocksetAttributes_TheBigBridge2 ; BLOCKSET_THE_BIG_BRIDGE_2
-	dw BlocksetAttributes_TowerOfRevival3 ; BLOCKSET_TOWER_OF_REVIVAL_3
-	dw BlocksetAttributes_TheSteepCanyon1 ; BLOCKSET_THE_STEEP_CANYON_1
-	dw BlocksetAttributes_AboveTheClouds1 ; BLOCKSET_ABOVE_THE_CLOUDS_1
-	dw BlocksetAttributes_TheStagnantSwamp1 ; BLOCKSET_THE_STAGNANT_SWAMP_1
-	dw BlocksetAttributes_DesertRuins4 ; BLOCKSET_DESERT_RUINS_4
-	dw BlocksetAttributes_TheFrigidSea3 ; BLOCKSET_THE_FRIGID_SEA_3
-	dw BlocksetAttributes_CastleOfIllusions1 ; BLOCKSET_CASTLE_OF_ILLUSIONS_1
-	dw BlocksetAttributes_TheColossalHole1 ; BLOCKSET_THE_COLOSSAL_HOLE_1
-	dw BlocksetAttributes_TheStagnantSwamp4 ; BLOCKSET_THE_STAGNANT_SWAMP_4
-	dw BlocksetAttributes_Craters1 ; BLOCKSET_CRATERS_1
-	dw BlocksetAttributes_TheWarpedVoid1 ; BLOCKSET_THE_WARPED_VOID_1
-	dw BlocksetAttributes_ForestOfFear1 ; BLOCKSET_FOREST_OF_FEAR_1
-	dw BlocksetAttributes_CaveOfFlames1 ; BLOCKSET_CAVE_OF_FLAMES_1
-	dw BlocksetAttributes_BeneathTheWaves2 ; BLOCKSET_BENEATH_THE_WAVES_2
-	dw BlocksetAttributes_CastleOfIllusions2 ; BLOCKSET_CASTLE_OF_ILLUSIONS_2
-	dw BlocksetAttributes_CastleOfIllusions3 ; BLOCKSET_CASTLE_OF_ILLUSIONS_3
-	dw BlocksetAttributes_ATownInChaos4 ; BLOCKSET_A_TOWN_IN_CHAOS_4
-	dw BlocksetAttributes_TheTemple ; BLOCKSET_THE_TEMPLE
-	dw BlocksetAttributes_DesertRuins3 ; BLOCKSET_DESERT_RUINS_3
-	dw BlocksetAttributes_TheVastPlain1 ; BLOCKSET_THE_VAST_PLAIN_1
-	dw BlocksetAttributes_TheFrigidSea2 ; BLOCKSET_THE_FRIGID_SEA_2
-	dw BlocksetAttributes_TheVastPlain2 ; BLOCKSET_THE_VAST_PLAIN_2
-	dw BlocksetAttributes_TheStagnantSwamp3 ; BLOCKSET_THE_STAGNANT_SWAMP_3
-	dw BlocksetAttributes_ThePoolOfRain2 ; BLOCKSET_THE_POOL_OF_RAIN_2
-	dw BlocksetAttributes_TowerOfRevival2 ; BLOCKSET_TOWER_OF_REVIVAL_2
-	dw BlocksetAttributes_ThePoolOfRain1 ; BLOCKSET_THE_POOL_OF_RAIN_1
-	dw BlocksetAttributes_ATownInChaos3 ; BLOCKSET_A_TOWN_IN_CHAOS_3
-	dw BlocksetAttributes_TheGrasslands1 ; BLOCKSET_THE_GRASSLANDS_1
-	dw BlocksetAttributes_TheBigBridge1 ; BLOCKSET_THE_BIG_BRIDGE_1
-	dw BlocksetAttributes_TowerOfRevival1 ; BLOCKSET_TOWER_OF_REVIVAL_1
-	dw BlocksetAttributes_TowerOfRevival4 ; BLOCKSET_TOWER_OF_REVIVAL_4
-	dw BlocksetAttributes_TowerOfRevival5 ; BLOCKSET_TOWER_OF_REVIVAL_5
+	dw BlocksetAttributes_Shared2             ; BLOCKSET_SHARED_2
+	dw BlocksetAttributes_TheTidalCoast1      ; BLOCKSET_THE_TIDAL_COAST_1
+	dw BlocksetAttributes_TheTidalCoast3      ; BLOCKSET_THE_TIDAL_COAST_3
+	dw BlocksetAttributes_SeaTurtleRocks2     ; BLOCKSET_SEA_TURTLE_ROCKS_2
+	dw BlocksetAttributes_DesertRuins1        ; BLOCKSET_DESERT_RUINS_1
+	dw BlocksetAttributes_DesertRuins2        ; BLOCKSET_DESERT_RUINS_2
+	dw BlocksetAttributes_Shared3             ; BLOCKSET_SHARED_3
+	dw BlocksetAttributes_TheVolcanosBase1    ; BLOCKSET_THE_VOLCANOS_BASE_1
+	dw BlocksetAttributes_ThePoolOfRain3      ; BLOCKSET_THE_POOL_OF_RAIN_3
+	dw BlocksetAttributes_ATownInChaos1       ; BLOCKSET_A_TOWN_IN_CHAOS_1
+	dw BlocksetAttributes_ATownInChaos2       ; BLOCKSET_A_TOWN_IN_CHAOS_2
+	dw BlocksetAttributes_BeneathTheWaves1    ; BLOCKSET_BENEATH_THE_WAVES_1
+	dw BlocksetAttributes_TheGrasslands2      ; BLOCKSET_THE_GRASSLANDS_2
+	dw BlocksetAttributes_TheBigBridge3       ; BLOCKSET_THE_BIG_BRIDGE_3
+	dw BlocksetAttributes_TheBigBridge2       ; BLOCKSET_THE_BIG_BRIDGE_2
+	dw BlocksetAttributes_TowerOfRevival3     ; BLOCKSET_TOWER_OF_REVIVAL_3
+	dw BlocksetAttributes_TheSteepCanyon1     ; BLOCKSET_THE_STEEP_CANYON_1
+	dw BlocksetAttributes_AboveTheClouds1     ; BLOCKSET_ABOVE_THE_CLOUDS_1
+	dw BlocksetAttributes_TheStagnantSwamp1   ; BLOCKSET_THE_STAGNANT_SWAMP_1
+	dw BlocksetAttributes_DesertRuins4        ; BLOCKSET_DESERT_RUINS_4
+	dw BlocksetAttributes_TheFrigidSea3       ; BLOCKSET_THE_FRIGID_SEA_3
+	dw BlocksetAttributes_CastleOfIllusions1  ; BLOCKSET_CASTLE_OF_ILLUSIONS_1
+	dw BlocksetAttributes_TheColossalHole1    ; BLOCKSET_THE_COLOSSAL_HOLE_1
+	dw BlocksetAttributes_TheStagnantSwamp4   ; BLOCKSET_THE_STAGNANT_SWAMP_4
+	dw BlocksetAttributes_Craters1            ; BLOCKSET_CRATERS_1
+	dw BlocksetAttributes_TheWarpedVoid1      ; BLOCKSET_THE_WARPED_VOID_1
+	dw BlocksetAttributes_ForestOfFear1       ; BLOCKSET_FOREST_OF_FEAR_1
+	dw BlocksetAttributes_CaveOfFlames1       ; BLOCKSET_CAVE_OF_FLAMES_1
+	dw BlocksetAttributes_BeneathTheWaves2    ; BLOCKSET_BENEATH_THE_WAVES_2
+	dw BlocksetAttributes_CastleOfIllusions2  ; BLOCKSET_CASTLE_OF_ILLUSIONS_2
+	dw BlocksetAttributes_CastleOfIllusions3  ; BLOCKSET_CASTLE_OF_ILLUSIONS_3
+	dw BlocksetAttributes_ATownInChaos4       ; BLOCKSET_A_TOWN_IN_CHAOS_4
+	dw BlocksetAttributes_TheTemple           ; BLOCKSET_THE_TEMPLE
+	dw BlocksetAttributes_DesertRuins3        ; BLOCKSET_DESERT_RUINS_3
+	dw BlocksetAttributes_TheVastPlain1       ; BLOCKSET_THE_VAST_PLAIN_1
+	dw BlocksetAttributes_TheFrigidSea2       ; BLOCKSET_THE_FRIGID_SEA_2
+	dw BlocksetAttributes_TheVastPlain2       ; BLOCKSET_THE_VAST_PLAIN_2
+	dw BlocksetAttributes_TheStagnantSwamp3   ; BLOCKSET_THE_STAGNANT_SWAMP_3
+	dw BlocksetAttributes_ThePoolOfRain2      ; BLOCKSET_THE_POOL_OF_RAIN_2
+	dw BlocksetAttributes_TowerOfRevival2     ; BLOCKSET_TOWER_OF_REVIVAL_2
+	dw BlocksetAttributes_ThePoolOfRain1      ; BLOCKSET_THE_POOL_OF_RAIN_1
+	dw BlocksetAttributes_ATownInChaos3       ; BLOCKSET_A_TOWN_IN_CHAOS_3
+	dw BlocksetAttributes_TheGrasslands1      ; BLOCKSET_THE_GRASSLANDS_1
+	dw BlocksetAttributes_TheBigBridge1       ; BLOCKSET_THE_BIG_BRIDGE_1
+	dw BlocksetAttributes_TowerOfRevival1     ; BLOCKSET_TOWER_OF_REVIVAL_1
+	dw BlocksetAttributes_TowerOfRevival4     ; BLOCKSET_TOWER_OF_REVIVAL_4
+	dw BlocksetAttributes_TowerOfRevival5     ; BLOCKSET_TOWER_OF_REVIVAL_5
 	dw BlocksetAttributes_BankOfTheWildRiver1 ; BLOCKSET_BANK_OF_THE_WILD_RIVER_1
-	dw BlocksetAttributes_SeaTurtleRocks3 ; BLOCKSET_SEA_TURTLE_ROCKS_3
-	dw BlocksetAttributes_SeaTurtleRocks1 ; BLOCKSET_SEA_TURTLE_ROCKS_1
-	dw BlocksetAttributes_SeaTurtleRocks4 ; BLOCKSET_SEA_TURTLE_ROCKS_4
-	dw BlocksetAttributes_TheFrigidSea1 ; BLOCKSET_THE_FRIGID_SEA_1
-	dw BlocksetAttributes_TheFrigidSea4 ; BLOCKSET_THE_FRIGID_SEA_4
-	dw BlocksetAttributes_TheFrigidSea5 ; BLOCKSET_THE_FRIGID_SEA_5
-	dw BlocksetAttributes_Shared4 ; BLOCKSET_SHARED_4
-	dw BlocksetAttributes_TheTidalCoast2 ; BLOCKSET_THE_TIDAL_COAST_2
-	dw BlocksetAttributes_TheStagnantSwamp2 ; BLOCKSET_THE_STAGNANT_SWAMP_2
-	dw BlocksetAttributes_AboveTheClouds2 ; BLOCKSET_ABOVE_THE_CLOUDS_2
-	dw BlocksetAttributes_AboveTheClouds3 ; BLOCKSET_ABOVE_THE_CLOUDS_3
-	dw BlocksetAttributes_CaveOfFlames2 ; BLOCKSET_CAVE_OF_FLAMES_2
-	dw BlocksetAttributes_CaveOfFlames3 ; BLOCKSET_CAVE_OF_FLAMES_3
-	dw BlocksetAttributes_BeneathTheWaves3 ; BLOCKSET_BENEATH_THE_WAVES_3
-	dw BlocksetAttributes_BeneathTheWaves4 ; BLOCKSET_BENEATH_THE_WAVES_4
-	dw BlocksetAttributes_TheColossalHole2 ; BLOCKSET_THE_COLOSSAL_HOLE_2
-	dw BlocksetAttributes_CastleOfIllusions4 ; BLOCKSET_CASTLE_OF_ILLUSIONS_4
-	dw BlocksetAttributes_CastleOfIllusions5 ; BLOCKSET_CASTLE_OF_ILLUSIONS_5
-	dw BlocksetAttributes_CastleOfIllusions6 ; BLOCKSET_CASTLE_OF_ILLUSIONS_6
-	dw BlocksetAttributes_AboveTheClouds4 ; BLOCKSET_ABOVE_THE_CLOUDS_4
-	dw BlocksetAttributes_ForestOfFear2 ; BLOCKSET_FOREST_OF_FEAR_2
-	dw BlocksetAttributes_Craters2 ; BLOCKSET_CRATERS_2
-	dw BlocksetAttributes_TheWarpedVoid2 ; BLOCKSET_THE_WARPED_VOID_2
-	dw BlocksetAttributes_TheWarpedVoid3 ; BLOCKSET_THE_WARPED_VOID_3
-	dw BlocksetAttributes_TheSteepCanyon2 ; BLOCKSET_THE_STEEP_CANYON_2
-	dw BlocksetAttributes_TheVolcanosBase2 ; BLOCKSET_THE_VOLCANOS_BASE_2
-	dw BlocksetAttributes_AboveTheClouds5 ; BLOCKSET_ABOVE_THE_CLOUDS_5
-	dw BlocksetAttributes_AboveTheClouds6 ; BLOCKSET_ABOVE_THE_CLOUDS_6
-	dw BlocksetAttributes_TheVastPlain4 ; BLOCKSET_THE_VAST_PLAIN_4
+	dw BlocksetAttributes_SeaTurtleRocks3     ; BLOCKSET_SEA_TURTLE_ROCKS_3
+	dw BlocksetAttributes_SeaTurtleRocks1     ; BLOCKSET_SEA_TURTLE_ROCKS_1
+	dw BlocksetAttributes_SeaTurtleRocks4     ; BLOCKSET_SEA_TURTLE_ROCKS_4
+	dw BlocksetAttributes_TheFrigidSea1       ; BLOCKSET_THE_FRIGID_SEA_1
+	dw BlocksetAttributes_TheFrigidSea4       ; BLOCKSET_THE_FRIGID_SEA_4
+	dw BlocksetAttributes_TheFrigidSea5       ; BLOCKSET_THE_FRIGID_SEA_5
+	dw BlocksetAttributes_Shared4             ; BLOCKSET_SHARED_4
+	dw BlocksetAttributes_TheTidalCoast2      ; BLOCKSET_THE_TIDAL_COAST_2
+	dw BlocksetAttributes_TheStagnantSwamp2   ; BLOCKSET_THE_STAGNANT_SWAMP_2
+	dw BlocksetAttributes_AboveTheClouds2     ; BLOCKSET_ABOVE_THE_CLOUDS_2
+	dw BlocksetAttributes_AboveTheClouds3     ; BLOCKSET_ABOVE_THE_CLOUDS_3
+	dw BlocksetAttributes_CaveOfFlames2       ; BLOCKSET_CAVE_OF_FLAMES_2
+	dw BlocksetAttributes_CaveOfFlames3       ; BLOCKSET_CAVE_OF_FLAMES_3
+	dw BlocksetAttributes_BeneathTheWaves3    ; BLOCKSET_BENEATH_THE_WAVES_3
+	dw BlocksetAttributes_BeneathTheWaves4    ; BLOCKSET_BENEATH_THE_WAVES_4
+	dw BlocksetAttributes_TheColossalHole2    ; BLOCKSET_THE_COLOSSAL_HOLE_2
+	dw BlocksetAttributes_CastleOfIllusions4  ; BLOCKSET_CASTLE_OF_ILLUSIONS_4
+	dw BlocksetAttributes_CastleOfIllusions5  ; BLOCKSET_CASTLE_OF_ILLUSIONS_5
+	dw BlocksetAttributes_CastleOfIllusions6  ; BLOCKSET_CASTLE_OF_ILLUSIONS_6
+	dw BlocksetAttributes_AboveTheClouds4     ; BLOCKSET_ABOVE_THE_CLOUDS_4
+	dw BlocksetAttributes_ForestOfFear2       ; BLOCKSET_FOREST_OF_FEAR_2
+	dw BlocksetAttributes_Craters2            ; BLOCKSET_CRATERS_2
+	dw BlocksetAttributes_TheWarpedVoid2      ; BLOCKSET_THE_WARPED_VOID_2
+	dw BlocksetAttributes_TheWarpedVoid3      ; BLOCKSET_THE_WARPED_VOID_3
+	dw BlocksetAttributes_TheSteepCanyon2     ; BLOCKSET_THE_STEEP_CANYON_2
+	dw BlocksetAttributes_TheVolcanosBase2    ; BLOCKSET_THE_VOLCANOS_BASE_2
+	dw BlocksetAttributes_AboveTheClouds5     ; BLOCKSET_ABOVE_THE_CLOUDS_5
+	dw BlocksetAttributes_AboveTheClouds6     ; BLOCKSET_ABOVE_THE_CLOUDS_6
+	dw BlocksetAttributes_TheVastPlain4       ; BLOCKSET_THE_VAST_PLAIN_4
 	assert_table_length NUM_BLOCKSETS
 	dw NULL
 	dw NULL
@@ -905,46 +905,46 @@ RoomBlockAttributePointers::
 	dw NULL
 
 LevelMainTilesPointers::
-	dw LevelMainTiles_OutOfTheWoods1  ; MAIN_TILES_OUT_OF_THE_WOODS_1
-	dw LevelMainTiles_OutOfTheWoods2  ; MAIN_TILES_OUT_OF_THE_WOODS_2
-	dw LevelMainTiles_OutOfTheWoods3  ; MAIN_TILES_OUT_OF_THE_WOODS_3
-	dw LevelMainTiles_Shared1  ; MAIN_TILES_SHARED_1
-	dw LevelMainTiles_ThePeacefulVillage1  ; MAIN_TILES_THE_PEACEFUL_VILLAGE_1
-	dw LevelMainTiles_ThePeacefulVillage3  ; MAIN_TILES_THE_PEACEFUL_VILLAGE_3
-	dw LevelMainTiles_TheVastPlain  ; MAIN_TILES_THE_VAST_PLAIN
+	dw LevelMainTiles_OutOfTheWoods1      ; MAIN_TILES_OUT_OF_THE_WOODS_1
+	dw LevelMainTiles_OutOfTheWoods2      ; MAIN_TILES_OUT_OF_THE_WOODS_2
+	dw LevelMainTiles_OutOfTheWoods3      ; MAIN_TILES_OUT_OF_THE_WOODS_3
+	dw LevelMainTiles_Shared1             ; MAIN_TILES_SHARED_1
+	dw LevelMainTiles_ThePeacefulVillage1 ; MAIN_TILES_THE_PEACEFUL_VILLAGE_1
+	dw LevelMainTiles_ThePeacefulVillage3 ; MAIN_TILES_THE_PEACEFUL_VILLAGE_3
+	dw LevelMainTiles_TheVastPlain        ; MAIN_TILES_THE_VAST_PLAIN
 	dw LevelMainTiles_BankOfTheWildRiver  ; MAIN_TILES_BANK_OF_THE_WILD_RIVER
-	dw LevelMainTiles_Shared2  ; MAIN_TILES_SHARED_2
-	dw LevelMainTiles_TheTidalCoast  ; MAIN_TILES_THE_TIDAL_COAST
-	dw LevelMainTiles_Shared3 ; MAIN_TILES_SHARED_3
-	dw LevelMainTiles_SeaTurtleRocks ; MAIN_TILES_SEA_TURTLE_ROCKS
-	dw LevelMainTiles_DesertRuins ; MAIN_TILES_DESERT_RUINS
-	dw LevelMainTiles_Shared4 ; MAIN_TILES_SHARED_4
-	dw LevelMainTiles_TheVolcanosBase ; MAIN_TILES_THE_VOLCANOS_BASE
-	dw LevelMainTiles_ThePoolOfRain ; MAIN_TILES_THE_POOL_OF_RAIN
-	dw LevelMainTiles_ATownInChaos1 ; MAIN_TILES_A_TOWN_IN_CHAOS_1
-	dw LevelMainTiles_ATownInChaos2 ; MAIN_TILES_A_TOWN_IN_CHAOS_2
-	dw LevelMainTiles_BeneathTheWaves1 ; MAIN_TILES_BENEATH_THE_WAVES_1
-	dw LevelMainTiles_TheGrasslands ; MAIN_TILES_THE_GRASSLANDS
-	dw LevelMainTiles_TheBigBridge1 ; MAIN_TILES_THE_BIG_BRIDGE_1
-	dw LevelMainTiles_TheBigBridge2 ; MAIN_TILES_THE_BIG_BRIDGE_2
-	dw LevelMainTiles_TowerOfRevival ; MAIN_TILES_TOWER_OF_REVIVAL
-	dw LevelMainTiles_TheSteepCanyon ; MAIN_TILES_THE_STEEP_CANYON
-	dw LevelMainTiles_AboveTheClouds1 ; MAIN_TILES_ABOVE_THE_CLOUDS_1
-	dw LevelMainTiles_TheStagnantSwamp ; MAIN_TILES_THE_STAGNANT_SWAMP
-	dw LevelMainTiles_TheFrigidSea ; MAIN_TILES_THE_FRIGID_SEA
-	dw LevelMainTiles_CastleOfIllusions1 ; MAIN_TILES_CASTLE_OF_ILLUSIONS_1
-	dw LevelMainTiles_TheColossalHole ; MAIN_TILES_THE_COLOSSAL_HOLE
-	dw LevelMainTiles_Craters ; MAIN_TILES_CRATERS
-	dw LevelMainTiles_TheWarpedVoid ; MAIN_TILES_THE_WARPED_VOID
-	dw LevelMainTiles_ForestOfFear ; MAIN_TILES_FOREST_OF_FEAR
-	dw LevelMainTiles_CaveOfFlames ; MAIN_TILES_CAVE_OF_FLAMES
-	dw LevelMainTiles_BeneathTheWaves2 ; MAIN_TILES_BENEATH_THE_WAVES_2
-	dw LevelMainTiles_CastleOfIllusions2 ; MAIN_TILES_CASTLE_OF_ILLUSIONS_2
-	dw LevelMainTiles_CastleOfIllusions3 ; MAIN_TILES_CASTLE_OF_ILLUSIONS_3
-	dw LevelMainTiles_ATownInChaos3 ; MAIN_TILES_A_TOWN_IN_CHAOS_3
-	dw LevelMainTiles_TheTemple ; MAIN_TILES_THE_TEMPLE
+	dw LevelMainTiles_Shared2             ; MAIN_TILES_SHARED_2
+	dw LevelMainTiles_TheTidalCoast       ; MAIN_TILES_THE_TIDAL_COAST
+	dw LevelMainTiles_Shared3             ; MAIN_TILES_SHARED_3
+	dw LevelMainTiles_SeaTurtleRocks      ; MAIN_TILES_SEA_TURTLE_ROCKS
+	dw LevelMainTiles_DesertRuins         ; MAIN_TILES_DESERT_RUINS
+	dw LevelMainTiles_Shared4             ; MAIN_TILES_SHARED_4
+	dw LevelMainTiles_TheVolcanosBase     ; MAIN_TILES_THE_VOLCANOS_BASE
+	dw LevelMainTiles_ThePoolOfRain       ; MAIN_TILES_THE_POOL_OF_RAIN
+	dw LevelMainTiles_ATownInChaos1       ; MAIN_TILES_A_TOWN_IN_CHAOS_1
+	dw LevelMainTiles_ATownInChaos2       ; MAIN_TILES_A_TOWN_IN_CHAOS_2
+	dw LevelMainTiles_BeneathTheWaves1    ; MAIN_TILES_BENEATH_THE_WAVES_1
+	dw LevelMainTiles_TheGrasslands       ; MAIN_TILES_THE_GRASSLANDS
+	dw LevelMainTiles_TheBigBridge1       ; MAIN_TILES_THE_BIG_BRIDGE_1
+	dw LevelMainTiles_TheBigBridge2       ; MAIN_TILES_THE_BIG_BRIDGE_2
+	dw LevelMainTiles_TowerOfRevival      ; MAIN_TILES_TOWER_OF_REVIVAL
+	dw LevelMainTiles_TheSteepCanyon      ; MAIN_TILES_THE_STEEP_CANYON
+	dw LevelMainTiles_AboveTheClouds1     ; MAIN_TILES_ABOVE_THE_CLOUDS_1
+	dw LevelMainTiles_TheStagnantSwamp    ; MAIN_TILES_THE_STAGNANT_SWAMP
+	dw LevelMainTiles_TheFrigidSea        ; MAIN_TILES_THE_FRIGID_SEA
+	dw LevelMainTiles_CastleOfIllusions1  ; MAIN_TILES_CASTLE_OF_ILLUSIONS_1
+	dw LevelMainTiles_TheColossalHole     ; MAIN_TILES_THE_COLOSSAL_HOLE
+	dw LevelMainTiles_Craters             ; MAIN_TILES_CRATERS
+	dw LevelMainTiles_TheWarpedVoid       ; MAIN_TILES_THE_WARPED_VOID
+	dw LevelMainTiles_ForestOfFear        ; MAIN_TILES_FOREST_OF_FEAR
+	dw LevelMainTiles_CaveOfFlames        ; MAIN_TILES_CAVE_OF_FLAMES
+	dw LevelMainTiles_BeneathTheWaves2    ; MAIN_TILES_BENEATH_THE_WAVES_2
+	dw LevelMainTiles_CastleOfIllusions2  ; MAIN_TILES_CASTLE_OF_ILLUSIONS_2
+	dw LevelMainTiles_CastleOfIllusions3  ; MAIN_TILES_CASTLE_OF_ILLUSIONS_3
+	dw LevelMainTiles_ATownInChaos3       ; MAIN_TILES_A_TOWN_IN_CHAOS_3
+	dw LevelMainTiles_TheTemple           ; MAIN_TILES_THE_TEMPLE
 	dw LevelMainTiles_ThePeacefulVillage2 ; MAIN_TILES_THE_PEACEFUL_VILLAGE_2
-	dw LevelMainTiles_AboveTheClouds2 ; MAIN_TILES_ABOVE_THE_CLOUDS_2
+	dw LevelMainTiles_AboveTheClouds2     ; MAIN_TILES_ABOVE_THE_CLOUDS_2
 	dw NULL
 	dw NULL
 	dw NULL
@@ -976,152 +976,152 @@ SpecialTilesPointers::
 	dw NULL
 
 RoomPals::
-	dw RoomPals_OutOfTheWoods1 ; ROOM_PAL_OUT_OF_THE_WOODS_1
-	dw RoomPals_OutOfTheWoods7 ; ROOM_PAL_OUT_OF_THE_WOODS_7
-	dw RoomPals_OutOfTheWoods2 ; ROOM_PAL_OUT_OF_THE_WOODS_2
-	dw RoomPals_OutOfTheWoods3 ; ROOM_PAL_OUT_OF_THE_WOODS_3
-	dw RoomPals_OutOfTheWoods6 ; ROOM_PAL_OUT_OF_THE_WOODS_6
-	dw RoomPals_OutOfTheWoods8 ; ROOM_PAL_OUT_OF_THE_WOODS_8
-	dw RoomPals_Shared1 ; ROOM_PAL_SHARED_1
-	dw RoomPals_Shared2 ; ROOM_PAL_SHARED_2
+	dw RoomPals_OutOfTheWoods1      ; ROOM_PAL_OUT_OF_THE_WOODS_1
+	dw RoomPals_OutOfTheWoods7      ; ROOM_PAL_OUT_OF_THE_WOODS_7
+	dw RoomPals_OutOfTheWoods2      ; ROOM_PAL_OUT_OF_THE_WOODS_2
+	dw RoomPals_OutOfTheWoods3      ; ROOM_PAL_OUT_OF_THE_WOODS_3
+	dw RoomPals_OutOfTheWoods6      ; ROOM_PAL_OUT_OF_THE_WOODS_6
+	dw RoomPals_OutOfTheWoods8      ; ROOM_PAL_OUT_OF_THE_WOODS_8
+	dw RoomPals_Shared1             ; ROOM_PAL_SHARED_1
+	dw RoomPals_Shared2             ; ROOM_PAL_SHARED_2
 	dw RoomPals_ThePeacefulVillage1 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_1
 	dw RoomPals_ThePeacefulVillage2 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_2
 	dw RoomPals_ThePeacefulVillage5 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_5
 	dw RoomPals_ThePeacefulVillage3 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_3
-	dw RoomPals_TheVastPlain1 ; ROOM_PAL_THE_VAST_PLAIN_1
+	dw RoomPals_TheVastPlain1       ; ROOM_PAL_THE_VAST_PLAIN_1
 	dw RoomPals_ThePeacefulVillage4 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_4
 	dw RoomPals_BankOfTheWildRiver1 ; ROOM_PAL_BANK_OF_THE_WILD_RIVER_1
-	dw RoomPals_Shared3 ; ROOM_PAL_SHARED_3
-	dw RoomPals_TheTidalCoast1 ; ROOM_PAL_THE_TIDAL_COAST_1
-	dw RoomPals_Shared4 ; ROOM_PAL_SHARED_4
-	dw RoomPals_SeaTurtleRocks1 ; ROOM_PAL_SEA_TURTLE_ROCKS_1
-	dw RoomPals_DesertRuins1 ; ROOM_PAL_DESERT_RUINS_1
-	dw RoomPals_DesertRuins2 ; ROOM_PAL_DESERT_RUINS_2
-	dw RoomPals_Shared5 ; ROOM_PAL_SHARED_5
+	dw RoomPals_Shared3             ; ROOM_PAL_SHARED_3
+	dw RoomPals_TheTidalCoast1      ; ROOM_PAL_THE_TIDAL_COAST_1
+	dw RoomPals_Shared4             ; ROOM_PAL_SHARED_4
+	dw RoomPals_SeaTurtleRocks1     ; ROOM_PAL_SEA_TURTLE_ROCKS_1
+	dw RoomPals_DesertRuins1        ; ROOM_PAL_DESERT_RUINS_1
+	dw RoomPals_DesertRuins2        ; ROOM_PAL_DESERT_RUINS_2
+	dw RoomPals_Shared5             ; ROOM_PAL_SHARED_5
 	dw RoomPals_ThePeacefulVillage6 ; ROOM_PAL_THE_PEACEFUL_VILLAGE_6
-	dw RoomPals_TheVolcanosBase1 ; ROOM_PAL_THE_VOLCANOS_BASE_1
-	dw RoomPals_TheVolcanosBase2 ; ROOM_PAL_THE_VOLCANOS_BASE_2
-	dw RoomPals_ThePoolOfRain1 ; ROOM_PAL_THE_POOL_OF_RAIN_1
-	dw RoomPals_ThePoolOfRain2 ; ROOM_PAL_THE_POOL_OF_RAIN_2
-	dw RoomPals_ATownInChaos1 ; ROOM_PAL_A_TOWN_IN_CHAOS_1
-	dw RoomPals_ATownInChaos2 ; ROOM_PAL_A_TOWN_IN_CHAOS_2
-	dw RoomPals_ATownInChaos3 ; ROOM_PAL_A_TOWN_IN_CHAOS_3
-	dw RoomPals_BeneathTheWaves1 ; ROOM_PAL_BENEATH_THE_WAVES_1
-	dw RoomPals_TheGrasslands1 ; ROOM_PAL_THE_GRASSLANDS_1
-	dw RoomPals_TheBigBridge3 ; ROOM_PAL_THE_BIG_BRIDGE_3
-	dw RoomPals_TheBigBridge2 ; ROOM_PAL_THE_BIG_BRIDGE_2
-	dw RoomPals_TowerOfRevival1 ; ROOM_PAL_TOWER_OF_REVIVAL_1
-	dw RoomPals_TheSteepCanyon1 ; ROOM_PAL_THE_STEEP_CANYON_1
-	dw RoomPals_AboveTheClouds1 ; ROOM_PAL_ABOVE_THE_CLOUDS_1
-	dw RoomPals_TheStagnantSwamp1 ; ROOM_PAL_THE_STAGNANT_SWAMP_1
-	dw RoomPals_DesertRuins4 ; ROOM_PAL_DESERT_RUINS_4
-	dw RoomPals_TheFrigidSea1 ; ROOM_PAL_THE_FRIGID_SEA_1
-	dw RoomPals_CastleOfIllusions1 ; ROOM_PAL_CASTLE_OF_ILLUSIONS_1
-	dw RoomPals_TheColossalHole1 ; ROOM_PAL_THE_COLOSSAL_HOLE_1
-	dw RoomPals_TheStagnantSwamp2 ; ROOM_PAL_THE_STAGNANT_SWAMP_2
-	dw RoomPals_TheWestCrater1 ; ROOM_PAL_THE_WEST_CRATER_1
-	dw RoomPals_TheWestCrater2 ; ROOM_PAL_THE_WEST_CRATER_2
-	dw RoomPals_TowerOfRevival3 ; ROOM_PAL_TOWER_OF_REVIVAL_3
-	dw RoomPals_SeaTurtleRocks2 ; ROOM_PAL_SEA_TURTLE_ROCKS_2
-	dw RoomPals_TheWarpedVoid1 ; ROOM_PAL_THE_WARPED_VOID_1
-	dw RoomPals_ForestOfFear1 ; ROOM_PAL_FOREST_OF_FEAR_1
-	dw RoomPals_CaveOfFlames1 ; ROOM_PAL_CAVE_OF_FLAMES_1
-	dw RoomPals_BeneathTheWaves2 ; ROOM_PAL_BENEATH_THE_WAVES_2
-	dw RoomPals_BeneathTheWaves3 ; ROOM_PAL_BENEATH_THE_WAVES_3
-	dw RoomPals_CastleOfIllusions2 ; ROOM_PAL_CASTLE_OF_ILLUSIONS_2
-	dw RoomPals_CastleOfIllusions3 ; ROOM_PAL_CASTLE_OF_ILLUSIONS_3
-	dw RoomPals_ATownInChaos4 ; ROOM_PAL_A_TOWN_IN_CHAOS_4
-	dw RoomPals_TheTemple ; ROOM_PAL_THE_TEMPLE
-	dw RoomPals_TheVastPlain3 ; ROOM_PAL_THE_VAST_PLAIN_3
-	dw RoomPals_TheVastPlain2 ; ROOM_PAL_THE_VAST_PLAIN_2
-	dw RoomPals_DesertRuins3 ; ROOM_PAL_DESERT_RUINS_3
-	dw RoomPals_ATownInChaos5 ; ROOM_PAL_A_TOWN_IN_CHAOS_5
-	dw RoomPals_ATownInChaos6 ; ROOM_PAL_A_TOWN_IN_CHAOS_6
-	dw RoomPals_ATownInChaos7 ; ROOM_PAL_A_TOWN_IN_CHAOS_7
-	dw RoomPals_SeaTurtleRocks4 ; ROOM_PAL_SEA_TURTLE_ROCKS_4
-	dw RoomPals_TheEastCrater1 ; ROOM_PAL_THE_EAST_CRATER_1
-	dw RoomPals_TheEastCrater2 ; ROOM_PAL_THE_EAST_CRATER_2
-	dw RoomPals_TowerOfRevival2 ; ROOM_PAL_TOWER_OF_REVIVAL_2
-	dw RoomPals_TheGrasslands2 ; ROOM_PAL_THE_GRASSLANDS_2
-	dw RoomPals_TheStagnantSwamp3 ; ROOM_PAL_THE_STAGNANT_SWAMP_3
-	dw RoomPals_TheWarpedVoid25 ; ROOM_PAL_THE_WARPED_VOID_25
-	dw RoomPals_TheWarpedVoid17 ; ROOM_PAL_THE_WARPED_VOID_17
-	dw RoomPals_TheWarpedVoid9 ; ROOM_PAL_THE_WARPED_VOID_9
-	dw RoomPals_TheVolcanosBase4 ; ROOM_PAL_THE_VOLCANOS_BASE_4
-	dw RoomPals_ThePoolOfRain3 ; ROOM_PAL_THE_POOL_OF_RAIN_3
-	dw RoomPals_TheGrasslands3 ; ROOM_PAL_THE_GRASSLANDS_3
-	dw RoomPals_TheBigBridge1 ; ROOM_PAL_THE_BIG_BRIDGE_1
-	dw RoomPals_TheBigBridge4 ; ROOM_PAL_THE_BIG_BRIDGE_4
-	dw RoomPals_TheBigBridge5 ; ROOM_PAL_THE_BIG_BRIDGE_5
-	dw RoomPals_TowerOfRevival4 ; ROOM_PAL_TOWER_OF_REVIVAL_4
-	dw RoomPals_TowerOfRevival5 ; ROOM_PAL_TOWER_OF_REVIVAL_5
+	dw RoomPals_TheVolcanosBase1    ; ROOM_PAL_THE_VOLCANOS_BASE_1
+	dw RoomPals_TheVolcanosBase2    ; ROOM_PAL_THE_VOLCANOS_BASE_2
+	dw RoomPals_ThePoolOfRain1      ; ROOM_PAL_THE_POOL_OF_RAIN_1
+	dw RoomPals_ThePoolOfRain2      ; ROOM_PAL_THE_POOL_OF_RAIN_2
+	dw RoomPals_ATownInChaos1       ; ROOM_PAL_A_TOWN_IN_CHAOS_1
+	dw RoomPals_ATownInChaos2       ; ROOM_PAL_A_TOWN_IN_CHAOS_2
+	dw RoomPals_ATownInChaos3       ; ROOM_PAL_A_TOWN_IN_CHAOS_3
+	dw RoomPals_BeneathTheWaves1    ; ROOM_PAL_BENEATH_THE_WAVES_1
+	dw RoomPals_TheGrasslands1      ; ROOM_PAL_THE_GRASSLANDS_1
+	dw RoomPals_TheBigBridge3       ; ROOM_PAL_THE_BIG_BRIDGE_3
+	dw RoomPals_TheBigBridge2       ; ROOM_PAL_THE_BIG_BRIDGE_2
+	dw RoomPals_TowerOfRevival1     ; ROOM_PAL_TOWER_OF_REVIVAL_1
+	dw RoomPals_TheSteepCanyon1     ; ROOM_PAL_THE_STEEP_CANYON_1
+	dw RoomPals_AboveTheClouds1     ; ROOM_PAL_ABOVE_THE_CLOUDS_1
+	dw RoomPals_TheStagnantSwamp1   ; ROOM_PAL_THE_STAGNANT_SWAMP_1
+	dw RoomPals_DesertRuins4        ; ROOM_PAL_DESERT_RUINS_4
+	dw RoomPals_TheFrigidSea1       ; ROOM_PAL_THE_FRIGID_SEA_1
+	dw RoomPals_CastleOfIllusions1  ; ROOM_PAL_CASTLE_OF_ILLUSIONS_1
+	dw RoomPals_TheColossalHole1    ; ROOM_PAL_THE_COLOSSAL_HOLE_1
+	dw RoomPals_TheStagnantSwamp2   ; ROOM_PAL_THE_STAGNANT_SWAMP_2
+	dw RoomPals_TheWestCrater1      ; ROOM_PAL_THE_WEST_CRATER_1
+	dw RoomPals_TheWestCrater2      ; ROOM_PAL_THE_WEST_CRATER_2
+	dw RoomPals_TowerOfRevival3     ; ROOM_PAL_TOWER_OF_REVIVAL_3
+	dw RoomPals_SeaTurtleRocks2     ; ROOM_PAL_SEA_TURTLE_ROCKS_2
+	dw RoomPals_TheWarpedVoid1      ; ROOM_PAL_THE_WARPED_VOID_1
+	dw RoomPals_ForestOfFear1       ; ROOM_PAL_FOREST_OF_FEAR_1
+	dw RoomPals_CaveOfFlames1       ; ROOM_PAL_CAVE_OF_FLAMES_1
+	dw RoomPals_BeneathTheWaves2    ; ROOM_PAL_BENEATH_THE_WAVES_2
+	dw RoomPals_BeneathTheWaves3    ; ROOM_PAL_BENEATH_THE_WAVES_3
+	dw RoomPals_CastleOfIllusions2  ; ROOM_PAL_CASTLE_OF_ILLUSIONS_2
+	dw RoomPals_CastleOfIllusions3  ; ROOM_PAL_CASTLE_OF_ILLUSIONS_3
+	dw RoomPals_ATownInChaos4       ; ROOM_PAL_A_TOWN_IN_CHAOS_4
+	dw RoomPals_TheTemple           ; ROOM_PAL_THE_TEMPLE
+	dw RoomPals_TheVastPlain3       ; ROOM_PAL_THE_VAST_PLAIN_3
+	dw RoomPals_TheVastPlain2       ; ROOM_PAL_THE_VAST_PLAIN_2
+	dw RoomPals_DesertRuins3        ; ROOM_PAL_DESERT_RUINS_3
+	dw RoomPals_ATownInChaos5       ; ROOM_PAL_A_TOWN_IN_CHAOS_5
+	dw RoomPals_ATownInChaos6       ; ROOM_PAL_A_TOWN_IN_CHAOS_6
+	dw RoomPals_ATownInChaos7       ; ROOM_PAL_A_TOWN_IN_CHAOS_7
+	dw RoomPals_SeaTurtleRocks4     ; ROOM_PAL_SEA_TURTLE_ROCKS_4
+	dw RoomPals_TheEastCrater1      ; ROOM_PAL_THE_EAST_CRATER_1
+	dw RoomPals_TheEastCrater2      ; ROOM_PAL_THE_EAST_CRATER_2
+	dw RoomPals_TowerOfRevival2     ; ROOM_PAL_TOWER_OF_REVIVAL_2
+	dw RoomPals_TheGrasslands2      ; ROOM_PAL_THE_GRASSLANDS_2
+	dw RoomPals_TheStagnantSwamp3   ; ROOM_PAL_THE_STAGNANT_SWAMP_3
+	dw RoomPals_TheWarpedVoid25     ; ROOM_PAL_THE_WARPED_VOID_25
+	dw RoomPals_TheWarpedVoid17     ; ROOM_PAL_THE_WARPED_VOID_17
+	dw RoomPals_TheWarpedVoid9      ; ROOM_PAL_THE_WARPED_VOID_9
+	dw RoomPals_TheVolcanosBase4    ; ROOM_PAL_THE_VOLCANOS_BASE_4
+	dw RoomPals_ThePoolOfRain3      ; ROOM_PAL_THE_POOL_OF_RAIN_3
+	dw RoomPals_TheGrasslands3      ; ROOM_PAL_THE_GRASSLANDS_3
+	dw RoomPals_TheBigBridge1       ; ROOM_PAL_THE_BIG_BRIDGE_1
+	dw RoomPals_TheBigBridge4       ; ROOM_PAL_THE_BIG_BRIDGE_4
+	dw RoomPals_TheBigBridge5       ; ROOM_PAL_THE_BIG_BRIDGE_5
+	dw RoomPals_TowerOfRevival4     ; ROOM_PAL_TOWER_OF_REVIVAL_4
+	dw RoomPals_TowerOfRevival5     ; ROOM_PAL_TOWER_OF_REVIVAL_5
 	dw RoomPals_BankOfTheWildRiver2 ; ROOM_PAL_BANK_OF_THE_WILD_RIVER_2
-	dw RoomPals_SeaTurtleRocks5 ; ROOM_PAL_SEA_TURTLE_ROCKS_5
-	dw RoomPals_SeaTurtleRocks3 ; ROOM_PAL_SEA_TURTLE_ROCKS_3
-	dw RoomPals_TheFrigidSea2 ; ROOM_PAL_THE_FRIGID_SEA_2
-	dw RoomPals_TheTidalCoast2 ; ROOM_PAL_THE_TIDAL_COAST_2
-	dw RoomPals_TheStagnantSwamp4 ; ROOM_PAL_THE_STAGNANT_SWAMP_4
-	dw RoomPals_CaveOfFlames2 ; ROOM_PAL_CAVE_OF_FLAMES_2
-	dw RoomPals_CaveOfFlames3 ; ROOM_PAL_CAVE_OF_FLAMES_3
-	dw RoomPals_CaveOfFlames4 ; ROOM_PAL_CAVE_OF_FLAMES_4
-	dw RoomPals_AboveTheClouds2 ; ROOM_PAL_ABOVE_THE_CLOUDS_2
-	dw RoomPals_AboveTheClouds3 ; ROOM_PAL_ABOVE_THE_CLOUDS_3
-	dw RoomPals_AboveTheClouds4 ; ROOM_PAL_ABOVE_THE_CLOUDS_4
-	dw RoomPals_AboveTheClouds5 ; ROOM_PAL_ABOVE_THE_CLOUDS_5
-	dw RoomPals_AboveTheClouds6 ; ROOM_PAL_ABOVE_THE_CLOUDS_6
-	dw RoomPals_AboveTheClouds7 ; ROOM_PAL_ABOVE_THE_CLOUDS_7
-	dw RoomPals_CaveOfFlames5 ; ROOM_PAL_CAVE_OF_FLAMES_5
-	dw RoomPals_CaveOfFlames6 ; ROOM_PAL_CAVE_OF_FLAMES_6
-	dw RoomPals_CaveOfFlames7 ; ROOM_PAL_CAVE_OF_FLAMES_7
-	dw RoomPals_BeneathTheWaves4 ; ROOM_PAL_BENEATH_THE_WAVES_4
-	dw RoomPals_TheColossalHole2 ; ROOM_PAL_THE_COLOSSAL_HOLE_2
-	dw RoomPals_CastleOfIllusions4 ; ROOM_PAL_CASTLE_OF_ILLUSIONS_4
-	dw RoomPals_CastleOfIllusions5 ; ROOM_PAL_CASTLE_OF_ILLUSIONS_5
-	dw RoomPals_AboveTheClouds8 ; ROOM_PAL_ABOVE_THE_CLOUDS_8
-	dw RoomPals_AboveTheClouds9 ; ROOM_PAL_ABOVE_THE_CLOUDS_9
-	dw RoomPals_AboveTheClouds10 ; ROOM_PAL_ABOVE_THE_CLOUDS_10
-	dw RoomPals_AboveTheClouds11 ; ROOM_PAL_ABOVE_THE_CLOUDS_11
-	dw RoomPals_AboveTheClouds12 ; ROOM_PAL_ABOVE_THE_CLOUDS_12
-	dw RoomPals_AboveTheClouds13 ; ROOM_PAL_ABOVE_THE_CLOUDS_13
-	dw RoomPals_ForestOfFear2 ; ROOM_PAL_FOREST_OF_FEAR_2
-	dw RoomPals_TheWestCrater3 ; ROOM_PAL_THE_WEST_CRATER_3
-	dw RoomPals_TheWestCrater4 ; ROOM_PAL_THE_WEST_CRATER_4
-	dw RoomPals_TheWestCrater5 ; ROOM_PAL_THE_WEST_CRATER_5
-	dw RoomPals_TheEastCrater3 ; ROOM_PAL_THE_EAST_CRATER_3
-	dw RoomPals_TheSteepCanyon2 ; ROOM_PAL_THE_STEEP_CANYON_2
-	dw RoomPals_TheSteepCanyon3 ; ROOM_PAL_THE_STEEP_CANYON_3
-	dw RoomPals_TheSteepCanyon4 ; ROOM_PAL_THE_STEEP_CANYON_4
-	dw RoomPals_OutOfTheWoods4 ; ROOM_PAL_OUT_OF_THE_WOODS_4
-	dw RoomPals_OutOfTheWoods5 ; ROOM_PAL_OUT_OF_THE_WOODS_5
-	dw RoomPals_TheVolcanosBase3 ; ROOM_PAL_THE_VOLCANOS_BASE_3
-	dw RoomPals_TheWarpedVoid2 ; ROOM_PAL_THE_WARPED_VOID_2
-	dw RoomPals_TheWarpedVoid3 ; ROOM_PAL_THE_WARPED_VOID_3
-	dw RoomPals_TheWarpedVoid4 ; ROOM_PAL_THE_WARPED_VOID_4
-	dw RoomPals_TheWarpedVoid5 ; ROOM_PAL_THE_WARPED_VOID_5
-	dw RoomPals_TheWarpedVoid6 ; ROOM_PAL_THE_WARPED_VOID_6
-	dw RoomPals_TheWarpedVoid7 ; ROOM_PAL_THE_WARPED_VOID_7
-	dw RoomPals_TheWarpedVoid8 ; ROOM_PAL_THE_WARPED_VOID_8
-	dw RoomPals_TheWarpedVoid26 ; ROOM_PAL_THE_WARPED_VOID_26
-	dw RoomPals_TheWarpedVoid27 ; ROOM_PAL_THE_WARPED_VOID_27
-	dw RoomPals_TheWarpedVoid28 ; ROOM_PAL_THE_WARPED_VOID_28
-	dw RoomPals_TheWarpedVoid29 ; ROOM_PAL_THE_WARPED_VOID_29
-	dw RoomPals_TheWarpedVoid30 ; ROOM_PAL_THE_WARPED_VOID_30
-	dw RoomPals_TheWarpedVoid31 ; ROOM_PAL_THE_WARPED_VOID_31
-	dw RoomPals_TheWarpedVoid32 ; ROOM_PAL_THE_WARPED_VOID_32
-	dw RoomPals_TheWarpedVoid18 ; ROOM_PAL_THE_WARPED_VOID_18
-	dw RoomPals_TheWarpedVoid19 ; ROOM_PAL_THE_WARPED_VOID_19
-	dw RoomPals_TheWarpedVoid20 ; ROOM_PAL_THE_WARPED_VOID_20
-	dw RoomPals_TheWarpedVoid21 ; ROOM_PAL_THE_WARPED_VOID_21
-	dw RoomPals_TheWarpedVoid22 ; ROOM_PAL_THE_WARPED_VOID_22
-	dw RoomPals_TheWarpedVoid23 ; ROOM_PAL_THE_WARPED_VOID_23
-	dw RoomPals_TheWarpedVoid24 ; ROOM_PAL_THE_WARPED_VOID_24
-	dw RoomPals_TheWarpedVoid10 ; ROOM_PAL_THE_WARPED_VOID_10
-	dw RoomPals_TheWarpedVoid11 ; ROOM_PAL_THE_WARPED_VOID_11
-	dw RoomPals_TheWarpedVoid12 ; ROOM_PAL_THE_WARPED_VOID_12
-	dw RoomPals_TheWarpedVoid13 ; ROOM_PAL_THE_WARPED_VOID_13
-	dw RoomPals_TheWarpedVoid14 ; ROOM_PAL_THE_WARPED_VOID_14
-	dw RoomPals_TheWarpedVoid15 ; ROOM_PAL_THE_WARPED_VOID_15
-	dw RoomPals_TheWarpedVoid16 ; ROOM_PAL_THE_WARPED_VOID_16
+	dw RoomPals_SeaTurtleRocks5     ; ROOM_PAL_SEA_TURTLE_ROCKS_5
+	dw RoomPals_SeaTurtleRocks3     ; ROOM_PAL_SEA_TURTLE_ROCKS_3
+	dw RoomPals_TheFrigidSea2       ; ROOM_PAL_THE_FRIGID_SEA_2
+	dw RoomPals_TheTidalCoast2      ; ROOM_PAL_THE_TIDAL_COAST_2
+	dw RoomPals_TheStagnantSwamp4   ; ROOM_PAL_THE_STAGNANT_SWAMP_4
+	dw RoomPals_CaveOfFlames2       ; ROOM_PAL_CAVE_OF_FLAMES_2
+	dw RoomPals_CaveOfFlames3       ; ROOM_PAL_CAVE_OF_FLAMES_3
+	dw RoomPals_CaveOfFlames4       ; ROOM_PAL_CAVE_OF_FLAMES_4
+	dw RoomPals_AboveTheClouds2     ; ROOM_PAL_ABOVE_THE_CLOUDS_2
+	dw RoomPals_AboveTheClouds3     ; ROOM_PAL_ABOVE_THE_CLOUDS_3
+	dw RoomPals_AboveTheClouds4     ; ROOM_PAL_ABOVE_THE_CLOUDS_4
+	dw RoomPals_AboveTheClouds5     ; ROOM_PAL_ABOVE_THE_CLOUDS_5
+	dw RoomPals_AboveTheClouds6     ; ROOM_PAL_ABOVE_THE_CLOUDS_6
+	dw RoomPals_AboveTheClouds7     ; ROOM_PAL_ABOVE_THE_CLOUDS_7
+	dw RoomPals_CaveOfFlames5       ; ROOM_PAL_CAVE_OF_FLAMES_5
+	dw RoomPals_CaveOfFlames6       ; ROOM_PAL_CAVE_OF_FLAMES_6
+	dw RoomPals_CaveOfFlames7       ; ROOM_PAL_CAVE_OF_FLAMES_7
+	dw RoomPals_BeneathTheWaves4    ; ROOM_PAL_BENEATH_THE_WAVES_4
+	dw RoomPals_TheColossalHole2    ; ROOM_PAL_THE_COLOSSAL_HOLE_2
+	dw RoomPals_CastleOfIllusions4  ; ROOM_PAL_CASTLE_OF_ILLUSIONS_4
+	dw RoomPals_CastleOfIllusions5  ; ROOM_PAL_CASTLE_OF_ILLUSIONS_5
+	dw RoomPals_AboveTheClouds8     ; ROOM_PAL_ABOVE_THE_CLOUDS_8
+	dw RoomPals_AboveTheClouds9     ; ROOM_PAL_ABOVE_THE_CLOUDS_9
+	dw RoomPals_AboveTheClouds10    ; ROOM_PAL_ABOVE_THE_CLOUDS_10
+	dw RoomPals_AboveTheClouds11    ; ROOM_PAL_ABOVE_THE_CLOUDS_11
+	dw RoomPals_AboveTheClouds12    ; ROOM_PAL_ABOVE_THE_CLOUDS_12
+	dw RoomPals_AboveTheClouds13    ; ROOM_PAL_ABOVE_THE_CLOUDS_13
+	dw RoomPals_ForestOfFear2       ; ROOM_PAL_FOREST_OF_FEAR_2
+	dw RoomPals_TheWestCrater3      ; ROOM_PAL_THE_WEST_CRATER_3
+	dw RoomPals_TheWestCrater4      ; ROOM_PAL_THE_WEST_CRATER_4
+	dw RoomPals_TheWestCrater5      ; ROOM_PAL_THE_WEST_CRATER_5
+	dw RoomPals_TheEastCrater3      ; ROOM_PAL_THE_EAST_CRATER_3
+	dw RoomPals_TheSteepCanyon2     ; ROOM_PAL_THE_STEEP_CANYON_2
+	dw RoomPals_TheSteepCanyon3     ; ROOM_PAL_THE_STEEP_CANYON_3
+	dw RoomPals_TheSteepCanyon4     ; ROOM_PAL_THE_STEEP_CANYON_4
+	dw RoomPals_OutOfTheWoods4      ; ROOM_PAL_OUT_OF_THE_WOODS_4
+	dw RoomPals_OutOfTheWoods5      ; ROOM_PAL_OUT_OF_THE_WOODS_5
+	dw RoomPals_TheVolcanosBase3    ; ROOM_PAL_THE_VOLCANOS_BASE_3
+	dw RoomPals_TheWarpedVoid2      ; ROOM_PAL_THE_WARPED_VOID_2
+	dw RoomPals_TheWarpedVoid3      ; ROOM_PAL_THE_WARPED_VOID_3
+	dw RoomPals_TheWarpedVoid4      ; ROOM_PAL_THE_WARPED_VOID_4
+	dw RoomPals_TheWarpedVoid5      ; ROOM_PAL_THE_WARPED_VOID_5
+	dw RoomPals_TheWarpedVoid6      ; ROOM_PAL_THE_WARPED_VOID_6
+	dw RoomPals_TheWarpedVoid7      ; ROOM_PAL_THE_WARPED_VOID_7
+	dw RoomPals_TheWarpedVoid8      ; ROOM_PAL_THE_WARPED_VOID_8
+	dw RoomPals_TheWarpedVoid26     ; ROOM_PAL_THE_WARPED_VOID_26
+	dw RoomPals_TheWarpedVoid27     ; ROOM_PAL_THE_WARPED_VOID_27
+	dw RoomPals_TheWarpedVoid28     ; ROOM_PAL_THE_WARPED_VOID_28
+	dw RoomPals_TheWarpedVoid29     ; ROOM_PAL_THE_WARPED_VOID_29
+	dw RoomPals_TheWarpedVoid30     ; ROOM_PAL_THE_WARPED_VOID_30
+	dw RoomPals_TheWarpedVoid31     ; ROOM_PAL_THE_WARPED_VOID_31
+	dw RoomPals_TheWarpedVoid32     ; ROOM_PAL_THE_WARPED_VOID_32
+	dw RoomPals_TheWarpedVoid18     ; ROOM_PAL_THE_WARPED_VOID_18
+	dw RoomPals_TheWarpedVoid19     ; ROOM_PAL_THE_WARPED_VOID_19
+	dw RoomPals_TheWarpedVoid20     ; ROOM_PAL_THE_WARPED_VOID_20
+	dw RoomPals_TheWarpedVoid21     ; ROOM_PAL_THE_WARPED_VOID_21
+	dw RoomPals_TheWarpedVoid22     ; ROOM_PAL_THE_WARPED_VOID_22
+	dw RoomPals_TheWarpedVoid23     ; ROOM_PAL_THE_WARPED_VOID_23
+	dw RoomPals_TheWarpedVoid24     ; ROOM_PAL_THE_WARPED_VOID_24
+	dw RoomPals_TheWarpedVoid10     ; ROOM_PAL_THE_WARPED_VOID_10
+	dw RoomPals_TheWarpedVoid11     ; ROOM_PAL_THE_WARPED_VOID_11
+	dw RoomPals_TheWarpedVoid12     ; ROOM_PAL_THE_WARPED_VOID_12
+	dw RoomPals_TheWarpedVoid13     ; ROOM_PAL_THE_WARPED_VOID_13
+	dw RoomPals_TheWarpedVoid14     ; ROOM_PAL_THE_WARPED_VOID_14
+	dw RoomPals_TheWarpedVoid15     ; ROOM_PAL_THE_WARPED_VOID_15
+	dw RoomPals_TheWarpedVoid16     ; ROOM_PAL_THE_WARPED_VOID_16
 
 	ds $12, $ff
 
@@ -1281,35 +1281,35 @@ RoomPalCycles::
 
 AnimatedTilesGroups:
 	; frame duration, group
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_NONE
-	db  2, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_SHARED_1
-	db 11, ANIMATED_TILES_GFX_OUT_OF_THE_WOODS ; ANIMATED_TILES_GROUP_OUT_OF_THE_WOODS
-	db  6, ANIMATED_TILES_GFX_WATER ; ANIMATED_TILES_GROUP_WATER
-	db  5, ANIMATED_TILES_GFX_SHARED_2 ; ANIMATED_TILES_GROUP_SHARED_2
-	db 11, ANIMATED_TILES_GFX_DESERT_RUINS ; ANIMATED_TILES_GROUP_DESERT_RUINS
-	db  6, ANIMATED_TILES_GFX_SHARED_3 ; ANIMATED_TILES_GROUP_SHARED_3
-	db  6, ANIMATED_TILES_GFX_SHARED_4 ; ANIMATED_TILES_GROUP_SHARED_4
-	db  9, ANIMATED_TILES_GFX_BENEATH_THE_WAVES ; ANIMATED_TILES_GROUP_BENEATH_THE_WAVES
-	db  6, ANIMATED_TILES_GFX_THE_FRIGID_SEA ; ANIMATED_TILES_GROUP_THE_FRIGID_SEA
-	db  6, ANIMATED_TILES_GFX_SHARED_5 ; ANIMATED_TILES_GROUP_SHARED_5
-	db  6, ANIMATED_TILES_GFX_SHARED_6 ; ANIMATED_TILES_GROUP_SHARED_6
-	db  3, ANIMATED_TILES_GFX_SHARED_7 ; ANIMATED_TILES_GROUP_SHARED_7
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_NONE
+	db  2, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_SHARED_1
+	db 11, ANIMATED_TILES_GFX_OUT_OF_THE_WOODS       ; ANIMATED_TILES_GROUP_OUT_OF_THE_WOODS
+	db  6, ANIMATED_TILES_GFX_WATER                  ; ANIMATED_TILES_GROUP_WATER
+	db  5, ANIMATED_TILES_GFX_SHARED_2               ; ANIMATED_TILES_GROUP_SHARED_2
+	db 11, ANIMATED_TILES_GFX_DESERT_RUINS           ; ANIMATED_TILES_GROUP_DESERT_RUINS
+	db  6, ANIMATED_TILES_GFX_SHARED_3               ; ANIMATED_TILES_GROUP_SHARED_3
+	db  6, ANIMATED_TILES_GFX_SHARED_4               ; ANIMATED_TILES_GROUP_SHARED_4
+	db  9, ANIMATED_TILES_GFX_BENEATH_THE_WAVES      ; ANIMATED_TILES_GROUP_BENEATH_THE_WAVES
+	db  6, ANIMATED_TILES_GFX_THE_FRIGID_SEA         ; ANIMATED_TILES_GROUP_THE_FRIGID_SEA
+	db  6, ANIMATED_TILES_GFX_SHARED_5               ; ANIMATED_TILES_GROUP_SHARED_5
+	db  6, ANIMATED_TILES_GFX_SHARED_6               ; ANIMATED_TILES_GROUP_SHARED_6
+	db  3, ANIMATED_TILES_GFX_SHARED_7               ; ANIMATED_TILES_GROUP_SHARED_7
 	db  2, ANIMATED_TILES_GFX_BANK_OF_THE_WILD_RIVER ; ANIMATED_TILES_GROUP_BANK_OF_THE_WILD_RIVER
-	db 11, ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP ; ANIMATED_TILES_GROUP_THE_STAGNANT_SWAMP
-	db  8, ANIMATED_TILES_GFX_THE_WARPED_VOID ; ANIMATED_TILES_GROUP_THE_WARPED_VOID
-	db  6, ANIMATED_TILES_GFX_MENU ; ANIMATED_TILES_GROUP_UNUSED_16
-	db  6, ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS ; ANIMATED_TILES_GROUP_SEA_TURTLE_ROCKS
-	db  6, ANIMATED_TILES_GFX_SHARED_8 ; ANIMATED_TILES_GROUP_SHARED_8
-	db  5, ANIMATED_TILES_GFX_SHARED_9 ; ANIMATED_TILES_GROUP_SHARED_9
-	db  9, ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS ; ANIMATED_TILES_GROUP_A_TOWN_IN_CHAOS
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_21
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_22
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_23
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_24
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_25
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_26
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_27
-	db  0, ANIMATED_TILES_GFX_SHARED_1 ; ANIMATED_TILES_GROUP_UNUSED_28
+	db 11, ANIMATED_TILES_GFX_THE_STAGNANT_SWAMP     ; ANIMATED_TILES_GROUP_THE_STAGNANT_SWAMP
+	db  8, ANIMATED_TILES_GFX_THE_WARPED_VOID        ; ANIMATED_TILES_GROUP_THE_WARPED_VOID
+	db  6, ANIMATED_TILES_GFX_MENU                   ; ANIMATED_TILES_GROUP_UNUSED_16
+	db  6, ANIMATED_TILES_GFX_SEA_TURTLE_ROCKS       ; ANIMATED_TILES_GROUP_SEA_TURTLE_ROCKS
+	db  6, ANIMATED_TILES_GFX_SHARED_8               ; ANIMATED_TILES_GROUP_SHARED_8
+	db  5, ANIMATED_TILES_GFX_SHARED_9               ; ANIMATED_TILES_GROUP_SHARED_9
+	db  9, ANIMATED_TILES_GFX_A_TOWN_IN_CHAOS        ; ANIMATED_TILES_GROUP_A_TOWN_IN_CHAOS
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_21
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_22
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_23
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_24
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_25
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_26
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_27
+	db  0, ANIMATED_TILES_GFX_SHARED_1               ; ANIMATED_TILES_GROUP_UNUSED_28
 
 OutOfTheWoodsDay1To2RoomHeaders:
 	dw .room_00

@@ -40,16 +40,16 @@ Waves:
 	db WAVEFORM_SQUARE_4_8,                 0, NO_SWEEP,                      $f6, $24, $3c ; WAVE_25
 	db WAVEFORM_SQUARE_1_2_SAWTOOTH,        0, NO_SWEEP,                      $f6, $24, $3c ; WAVE_26
 	db WAVEFORM_SQUARE_1_2_SAWTOOTH,        0, NO_SWEEP,                      $f6, $24, $3c ; WAVE_27
-	db NOISE_TRACK | NOISE_7STEP, 10, NO_SWEEP,                      $ff, $ff, $31 ; WAVE_28
-	db NOISE_TRACK | NOISE_7STEP,  0, NO_SWEEP,                      $f0, $10, $4f ; WAVE_29
-	db NOISE_TRACK | NOISE_15STEP,  8, NO_SWEEP,                      $ff, $ff, $3e ; WAVE_2A
-	db NOISE_TRACK | NOISE_7STEP,  6, NO_SWEEP,                      $ff, $ff, $41 ; WAVE_2B
-	db NOISE_TRACK | NOISE_7STEP,  6, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_2C
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $fd, $0f, $3c ; WAVE_2D
-	db NOISE_TRACK | NOISE_7STEP,  2, NO_SWEEP,                      $ff, $ff, $4c ; WAVE_2E
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $fd, $0f, $3c ; WAVE_2F
-	db NOISE_TRACK | NOISE_15STEP, 12, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_30
-	db NOISE_TRACK | NOISE_15STEP, 36, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_31
+	db NOISE_TRACK | NOISE_7STEP,          10, NO_SWEEP,                      $ff, $ff, $31 ; WAVE_28
+	db NOISE_TRACK | NOISE_7STEP,           0, NO_SWEEP,                      $f0, $10, $4f ; WAVE_29
+	db NOISE_TRACK | NOISE_15STEP,          8, NO_SWEEP,                      $ff, $ff, $3e ; WAVE_2A
+	db NOISE_TRACK | NOISE_7STEP,           6, NO_SWEEP,                      $ff, $ff, $41 ; WAVE_2B
+	db NOISE_TRACK | NOISE_7STEP,           6, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_2C
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $fd, $0f, $3c ; WAVE_2D
+	db NOISE_TRACK | NOISE_7STEP,           2, NO_SWEEP,                      $ff, $ff, $4c ; WAVE_2E
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $fd, $0f, $3c ; WAVE_2F
+	db NOISE_TRACK | NOISE_15STEP,         12, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_30
+	db NOISE_TRACK | NOISE_15STEP,         36, NO_SWEEP,                      $ff, $ff, $4f ; WAVE_31
 	db RECT_TRACK1 | RECTWAVE_1_2,          0, 5 | SWEEP_INCR | SWEEP_TIME_1, $f6, $00, $3c ; WAVE_32
 	db RECT_TRACK1 | RECTWAVE_1_2,          0, 4 | SWEEP_INCR | SWEEP_TIME_2, $ff, $ff, $3c ; WAVE_33
 	db RECT_TRACK1 | RECTWAVE_1_2,          0, 4 | SWEEP_DECR | SWEEP_TIME_3, $ff, $ff, $3c ; WAVE_34
@@ -101,15 +101,15 @@ Waves:
 	db WAVEFORM_SQUARE_4_8,                 0, NO_SWEEP,                      $cf, $fa, $3c ; WAVE_62
 	db WAVEFORM_SPIKY,                      0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_63
 	db WAVEFORM_TRIANGLE,                   0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_64
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_65
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $fa, $4c, $3c ; WAVE_66
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $fc, $0c, $3c ; WAVE_67
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $cf, $fa, $3c ; WAVE_68
-	db NOISE_TRACK | NOISE_15STEP,  0, NO_SWEEP,                      $e8, $18, $3c ; WAVE_69
-	db NOISE_TRACK | NOISE_7STEP,  0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_6A
-	db NOISE_TRACK | NOISE_7STEP,  0, NO_SWEEP,                      $f6, $24, $3c ; WAVE_6B
-	db NOISE_TRACK | NOISE_7STEP,  0, NO_SWEEP,                      $fc, $0c, $3c ; WAVE_6C
-	db NOISE_TRACK | NOISE_7STEP,  0, NO_SWEEP,                      $cf, $fa, $3c ; WAVE_6D
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_65
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $fa, $4c, $3c ; WAVE_66
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $fc, $0c, $3c ; WAVE_67
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $cf, $fa, $3c ; WAVE_68
+	db NOISE_TRACK | NOISE_15STEP,          0, NO_SWEEP,                      $e8, $18, $3c ; WAVE_69
+	db NOISE_TRACK | NOISE_7STEP,           0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_6A
+	db NOISE_TRACK | NOISE_7STEP,           0, NO_SWEEP,                      $f6, $24, $3c ; WAVE_6B
+	db NOISE_TRACK | NOISE_7STEP,           0, NO_SWEEP,                      $fc, $0c, $3c ; WAVE_6C
+	db NOISE_TRACK | NOISE_7STEP,           0, NO_SWEEP,                      $cf, $fa, $3c ; WAVE_6D
 	db RECT_TRACK1 | RECTWAVE_1_2,          0, 5 | SWEEP_DECR | SWEEP_TIME_1, $ff, $ff, $3c ; WAVE_6E
 	db WAVEFORM_SQUISHED_SINE,              0, NO_SWEEP,                      $ff, $ff, $3c ; WAVE_6F
 	db RECT_TRACK1 | RECTWAVE_1_8,          0, NO_SWEEP,                      $fa, $6c, $3c ; WAVE_70

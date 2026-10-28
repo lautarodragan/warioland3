@@ -119,47 +119,47 @@ MACRO particle_struct
 ENDM
 
 MACRO channel_struct
-\1Flags::            db
-\1Duration::         db
-\1CmdPtr::           dw
-\1SoundBank::        db
-\1Unused05::         db
-\1SoundID::          dw
-\1Priority::         db
-\1Pitch::            db
+\1Flags::               db
+\1Duration::            db
+\1CmdPtr::              dw
+\1SoundBank::           db
+\1Unused05::            db
+\1SoundID::             dw
+\1Priority::            db
+\1Pitch::               db
 \1Unk0a::            db
 \1Unk0b::            db
-\1Timbre::           db
-\1Length::           db
-\1Sweep::            db
-\1FadeInEnvelope::   db
-\1FadeOutEnvelope::  db
-\1ActiveCommand::    db
-\1SemitoneOffset::   db
+\1Timbre::              db
+\1Length::              db
+\1Sweep::               db
+\1FadeInEnvelope::      db
+\1FadeOutEnvelope::     db
+\1ActiveCommand::       db
+\1SemitoneOffset::      db
 \1Unk13::            dw
-\1Volume::           db
+\1Volume::              db
 \1Unk16::            db
-\1SinglePan::        db
-\1GlobalPan::        db
+\1SinglePan::           db
+\1GlobalPan::           db
 \1Unk19::            db
 \1Unk1a::            db
 \1Unk1b::            dw
 \1Unk1d::            db
 \1Unk1e::            db
-\1VibratoSpeed::     db
-\1VibratoValue::     db
-\1VibratoAmplitude:: db
+\1VibratoSpeed::        db
+\1VibratoValue::        db
+\1VibratoAmplitude::    db
 \1Unk22::            db
-\1VibratoDisabled::  db
+\1VibratoDisabled::     db
 \1Unk24::            dw
 \1Unk26::            db
 \1Unk27::            db
 \1Unk28::            db
 \1Unk29::            db
-\1VibratoDelay::     db
-\1VibratoCounter::   db
-\1Frequency::        dw
-\1SOFlags::          db
+\1VibratoDelay::        db
+\1VibratoCounter::      db
+\1Frequency::           dw
+\1SOFlags::             db
 ; bits 7 and 6 determine sound ouput
 ; %01 -> only SO1
 ; %10 -> only SO2
@@ -234,9 +234,9 @@ ENDM
 
 MACRO colour_part_fade_struct
 \1Current:: db
-\1Target::  db
-\1Sign::    db ; $1 = incr, $2 = decr
-\1Diff::    db
+\1Target::      db
+\1Sign::        db ; $1 = incr, $2 = decr
+\1Diff::        db
 \1Unk1::    db
 \1Unk2::    db
 \1Unk3::    db
