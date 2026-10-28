@@ -251,7 +251,7 @@ ENDR
 	xor a ; OBJSTATE_DEFAULT
 	ld [de], a ; OBJ_STATE
 	inc e
-	ld a, 2 | (1 << 7)
+	ld a, no_actions_for 2
 	ld [de], a ; OBJ_ACTION
 	inc e
 	inc e

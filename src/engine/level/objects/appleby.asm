@@ -66,7 +66,7 @@ ApplebyFunc:
 	ret nz
 	ld de, ApplebyFrameset_68a12
 	call SetObjectFramesetPtr
-	ld a, 91
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ret
 

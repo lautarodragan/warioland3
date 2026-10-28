@@ -613,13 +613,13 @@ CountRichtertoffenFunc:
 
 .WobbleLeftStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_41255
 .WobbleRightStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_41255
@@ -768,7 +768,7 @@ CountRichtertoffenFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE

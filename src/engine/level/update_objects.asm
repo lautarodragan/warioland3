@@ -593,7 +593,7 @@ DoObjectAction:
 
 .Special3:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_SPECIAL_3
 	ld [hl], a ; OBJ_STATE
@@ -609,7 +609,7 @@ DoObjectAction:
 	ld hl, wCurObjActionSide
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .bump_right
 	ld a, OBJSTATE_BUMP_LEFT_START
@@ -627,7 +627,7 @@ DoObjectAction:
 	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .attack_right
 	ld a, OBJSTATE_ATTACKED_LEFT_START
@@ -644,7 +644,7 @@ DoObjectAction:
 	ld a, [wDirection]
 	and a
 	ld l, OBJ_ACTION
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .pick_up_right
 	ld a, OBJSTATE_PICKED_UP_LEFT_START
@@ -661,7 +661,7 @@ DoObjectAction:
 	ld l, OBJ_ACTION_SIDE
 	ld a, [hld]
 	and INTERACTION_RIGHT
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a ; OBJ_ACTION
 	jr z, .wobble_right
 	ld a, OBJSTATE_WOBBLE_LEFT_START
@@ -677,17 +677,17 @@ DoObjectAction:
 	res OBJFLAG_GRABBED_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_ACTION
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_VANISH_TOUCH
 	ld [hl], a
 	ret
 
 .HitWarioShort:
-	ld b, 7 | (1 << 7)
+	ld b, no_actions_for 7
 	jr .asm_6181f
 .HitWario:
-	ld b, 15 | (1 << 7)
+	ld b, no_actions_for 15
 .asm_6181f
 	ld hl, wCurObjActionSide
 	ld a, [hld]
@@ -1202,7 +1202,7 @@ _ObjState_PickedUpLeft::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hld], a ; OBJ_STATE
@@ -1409,7 +1409,7 @@ _ObjState_PickedUpRight::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hld], a ; OBJ_STATE
@@ -1653,7 +1653,7 @@ _ObjState_GrabbedRight::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_LEFT_START
 	ld [hl], a ; OBJ_STATE
@@ -1764,7 +1764,7 @@ _ObjState_GrabbedLeft::
 	ld a, $02
 	ld [wCurObjVar2], a
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_FALL_RIGHT_START
 	ld [hl], a ; OBJ_STATE
@@ -1896,7 +1896,7 @@ ThrowObject_Left:
 	inc l
 	ld a, OBJSTATE_THROW_LEFT
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -1914,7 +1914,7 @@ ThrowObject_Left:
 	inc l
 	ld a, OBJSTATE_FULL_THROW_LEFT_START
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -2042,7 +2042,7 @@ ThrowObject_Right:
 	inc l
 	ld a, OBJSTATE_THROW_RIGHT
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 
@@ -2060,7 +2060,7 @@ ThrowObject_Right:
 	inc l
 	ld a, OBJSTATE_FULL_THROW_RIGHT_START
 	ld [hli], a ; OBJ_STATE
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a ; OBJ_ACTION
 	jp HomeJumpRet
 

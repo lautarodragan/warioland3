@@ -163,7 +163,7 @@ CoinFunc:
 
 .Init:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $1a
 	ld [hl], a ; OBJ_STATE
