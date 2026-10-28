@@ -35,10 +35,10 @@ _InitPrologue:
 	jr z, .japanese
 ; english
 	decompress_tilemap TextEN_HiddenFigureAreYouAware, wTextBuffer
-	jr .asm_adf63
+	jr .got_text
 .japanese
 	decompress_tilemap TextJP_HiddenFigureAreYouAware, wTextBuffer
-.asm_adf63
+.got_text
 	call FillClearedTextBuffer
 
 	; clear temp pals

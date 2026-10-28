@@ -455,7 +455,7 @@ _TreasureCollection:
 HandleTreasureCollectionInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_B, a
-	jr z, .asm_9a646
+	jr z, .no_b_btn
 
 ; b btn
 	stop_music2
@@ -464,7 +464,7 @@ HandleTreasureCollectionInput:
 	ld [wSubState], a
 	ret
 
-.asm_9a646
+.no_b_btn
 	ld hl, wCollectionPage
 	ld a, [wJoypadDown]
 	ld b, a
@@ -494,21 +494,21 @@ HandleTreasureCollectionInput:
 .a_right
 	ld a, $04
 	cp [hl]
-	jr z, .asm_9a682
+	jr z, .wrap_to_first
 	inc [hl]
-	jr .asm_9a68f
-.asm_9a682
+	jr .page_turned
+.wrap_to_first
 	ld [hl], $00
-	jr .asm_9a68f
+	jr .page_turned
 .a_left
 	ld a, [hl]
 	and a
-	jr z, .asm_9a68d
+	jr z, .wrap_to_last
 	dec [hl]
-	jr .asm_9a68f
-.asm_9a68d
+	jr .page_turned
+.wrap_to_last
 	ld [hl], $04
-.asm_9a68f
+.page_turned
 	play_sfx SFX_PAGE_TURN
 	stop_music2
 	ld a, SST_OVERWORLD_COLLECTION
@@ -751,91 +751,91 @@ ProcessCollectionLinkState:
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a823
+	jr z, .check_cell_1
 	ld hl, wSceneObj2YCoord
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj2YCoord
 	call CollectionRowColToCoords
-.asm_9a823
+.check_cell_1
 	ld a, [wCollectionLinkedCells + 1]
 	cp $80
 	jr z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a840
+	jr z, .check_cell_2
 	ld hl, wSceneObj3YCoord
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj3YCoord
 	call CollectionRowColToCoords
-.asm_9a840
+.check_cell_2
 	ld a, [wCollectionLinkedCells + 2]
 	cp $80
 	jr z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a85d
+	jr z, .check_cell_3
 	ld hl, wSceneObj3End
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj3End
 	call CollectionRowColToCoords
-.asm_9a85d
+.check_cell_3
 	ld a, [wCollectionLinkedCells + 3]
 	cp $80
 	jp z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a87b
+	jr z, .check_cell_4
 	ld hl, wSceneObj4End
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj4End
 	call CollectionRowColToCoords
-.asm_9a87b
+.check_cell_4
 	ld a, [wCollectionLinkedCells + 4]
 	cp $80
 	jp z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a899
+	jr z, .check_cell_5
 	ld hl, wSceneObj5End
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj5End
 	call CollectionRowColToCoords
-.asm_9a899
+.check_cell_5
 	ld a, [wCollectionLinkedCells + 5]
 	cp $80
 	jp z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a8b7
+	jr z, .check_cell_6
 	ld hl, wSceneObj6End
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj6End
 	call CollectionRowColToCoords
-.asm_9a8b7
+.check_cell_6
 	ld a, [wCollectionLinkedCells + 6]
 	cp $80
 	jp z, .AdvanceState
 	dec a
 	ld hl, wCollectionCell
 	cp [hl]
-	jr z, .asm_9a8d5
+	jr z, .all_cells_placed
 	ld hl, wSceneObj7End
 	call GetCollectionCellRowAndColumn
 	call .set_marker_state
 	ld de, wSceneObj7End
 	call CollectionRowColToCoords
-.asm_9a8d5
+.all_cells_placed
 	jp .AdvanceState
 
 .set_marker_state:

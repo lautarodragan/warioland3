@@ -3558,7 +3558,7 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0CB`: level/objects/hidden_figure.asm:1213 (`HiddenFigureLeftHandFunc.asm_4d333`), level/objects/hidden_figure.asm:1581 (`HiddenFigureRightHandFunc.asm_4d5dc`)
 - `SFX_0D0`: level/objects/hidden_figure.asm:1490 (`HiddenFigureRightHandFunc.asm_4d52d`), level/objects/hidden_figure.asm:1504 (`HiddenFigureRightHandFunc.asm_4d540`)
 - `SFX_0D1`: level/objects/hidden_figure.asm:1479 (`HiddenFigureRightHandFunc.asm_4d50b`)
-- `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.asm_811b1`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.asm_9a68f`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
+- `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.asm_811b1`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.page_turned`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
 - `SFX_0EE`: golf/hole.asm:1999 (`GolfHoleState_SpecialTerrain.asm_1c9743`)
 - `SFX_0F0`: golf/hole.asm:1968 (`GolfHoleState_SpecialTerrain.asm_1c9708`)
 - `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.asm_ac688`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f982`)

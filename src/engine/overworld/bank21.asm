@@ -289,9 +289,9 @@ DaytimeTransition:
 .End:
 	ld a, [wOWBarsState]
 	and a
-	jr nz, .asm_84bff
+	jr nz, .reset_states
 	ld [wDayNight], a ; $0
-.asm_84bff
+.reset_states
 	xor a
 	ld [wOWIsNight], a
 	ld [wPathPreviewState], a
@@ -711,7 +711,7 @@ GreyOWPalsPointers:
 FadeBGAndOBPals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
-	jr nc, .asm_84e77
+	jr nc, .step_fade
 	ld hl, wPalConfig1TotalSteps
 	inc [hl]
 	ld a, HIGH(wTempBGPals)
@@ -733,7 +733,7 @@ FadeBGAndOBPals:
 	ld [wPalConfig2Number], a
 	ret
 
-.asm_84e77
+.step_fade
 	call StepOBPalConfigFade
 	call StepBGPalConfigFade
 	ret c
@@ -926,7 +926,7 @@ ClearTempPals_Bank21:
 _CutsceneFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
-	jr nc, .asm_85033
+	jr nc, .step_fade
 	ld hl, wPalConfig1TotalSteps
 	inc [hl]
 	ld a, HIGH(wTempBGPals)
@@ -948,7 +948,7 @@ _CutsceneFadePals:
 	ld [wPalConfig2Number], a
 	ret
 
-.asm_85033
+.step_fade
 	call StepOBPalConfigFade
 	call StepBGPalConfigFade
 	ret c
@@ -962,7 +962,7 @@ _CutsceneFadePals:
 _CutsceneFadeToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp 1
-	jr nc, .asm_850a6
+	jr nc, .step_fade
 
 	ld hl, wTempPals1 palette 1
 	ld de, wTempBGPals palette 1
@@ -1001,7 +1001,7 @@ _CutsceneFadeToWhite:
 	ld [wPalConfig2Number], a
 	ret
 
-.asm_850a6
+.step_fade
 	call StepOBPalConfigFade
 	call StepBGPalConfigFade
 	ret c
@@ -1015,7 +1015,7 @@ _CutsceneFadeToWhite:
 _CutsceneFadeOBToWhite:
 	ld a, [wPalConfig2TotalSteps]
 	cp $01
-	jr nc, .asm_850ef
+	jr nc, .step_fade
 	ld hl, wTempPals2
 	ld de, wTempOBPals
 	ld b, 8 palettes
@@ -1036,7 +1036,7 @@ _CutsceneFadeOBToWhite:
 	ld [wPalConfig2Number], a
 	ret
 
-.asm_850ef
+.step_fade
 	call StepOBPalConfigFade
 	ret c
 	xor a
@@ -1049,7 +1049,7 @@ _CutsceneFadeOBToWhite:
 _CutsceneFadeBGToWhite:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
-	jr nc, .asm_85135
+	jr nc, .step_fade
 	ld hl, wTempPals1 palette 1
 	ld de, wTempBGPals palette 1
 	ld b, 7 palettes
@@ -1070,7 +1070,7 @@ _CutsceneFadeBGToWhite:
 	ld [wPalConfig1Number], a
 	ret
 
-.asm_85135
+.step_fade
 	call StepBGPalConfigFade
 	ret c
 	xor a
@@ -1083,7 +1083,7 @@ _CutsceneFadeBGToWhite:
 _OWFuncFadePals:
 	ld a, [wPalConfig1TotalSteps]
 	cp $01
-	jr nc, .asm_85179
+	jr nc, .step_fade
 	ld hl, wPalConfig1TotalSteps
 	inc [hl]
 	ld a, HIGH(wTempBGPals)
@@ -1104,7 +1104,7 @@ _OWFuncFadePals:
 	ld [wPalConfig2Number], a
 	ret
 
-.asm_85179
+.step_fade
 	call StepOBPalConfigFade
 	call StepBGPalConfigFade
 	ret c
@@ -1324,7 +1324,7 @@ FadeOutLevelName:
 	ret nz
 	ld a, [wPalConfig1TotalSteps]
 	cp 1
-	jr nc, .asm_85325
+	jr nc, .step_fade
 
 	ld hl, wTempPals1 palette 7 color 1
 	ld de, wTempBGPals palette 7 color 1
@@ -1348,7 +1348,7 @@ FadeOutLevelName:
 	ld [wPalConfig1Number], a
 	ret
 
-.asm_85325
+.step_fade
 	call FadeBGPalConfig
 	ret c
 	xor a
@@ -1894,7 +1894,7 @@ OWSceneFreezeSeaAttrmap: INCBIN "data/bgmaps/overworld/ow_scene_freeze_sea.attrm
 Tilemap_85928: INCBIN "data/bgmaps/map_85928.tilemap" ; unreferenced
 
 CopyOWTileColumn1:
-.asm_85a68
+.loop_rows
 	ld hl, wOWTileColumnCopy1Dest
 	ld a, [hli]
 	ld e, a
@@ -1920,7 +1920,7 @@ CopyOWTileColumn1:
 	ld de, wOWTileColumnCopy1Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
-	jr .asm_85a68
+	jr .loop_rows
 
 AddTilemapRowToPtrAtDE:
 	ld a, [de]
@@ -1940,7 +1940,7 @@ AddTilemapRowToPtrAtDE:
 	ret
 
 CopyOWTileColumn2:
-.asm_85aa2
+.loop_rows
 	ld hl, wOWTileColumnCopy2Dest
 	ld a, [hli]
 	ld e, a
@@ -1966,10 +1966,10 @@ CopyOWTileColumn2:
 	ld de, wOWTileColumnCopy2Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
-	jr .asm_85aa2
+	jr .loop_rows
 
 CopyOWTileColumn3:
-.asm_85acb
+.loop_rows
 	ld hl, wOWTileColumnCopy3Dest
 	ld a, [hli]
 	ld e, a
@@ -1995,7 +1995,7 @@ CopyOWTileColumn3:
 	ld de, wOWTileColumnCopy3Dest
 	call AddTilemapRowToPtrAtDE
 	call AddTilemapRowToPtrAtDE
-	jr .asm_85acb
+	jr .loop_rows
 
 EOWTilemapPatch_FormCastle1:
 	dwcoord 4, 3, wTilemap
