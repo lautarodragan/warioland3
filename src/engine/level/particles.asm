@@ -1340,7 +1340,7 @@ ParticleAnim_Splash:
 LoadParticleSprite:
 	ld a, [wCameraConfigFlags]
 	cp CAM_XSCROLL2 | CAM_TRANSITIONS | CAM_BORDER_RIGHT | CAM_BORDER_LEFT
-	jr z, .asm_d0c5
+	jr z, .use_camera_scroll
 	ld a, [wSCY]
 	ld b, a
 	ld a, [wCurParticleYCoord]
@@ -1360,7 +1360,7 @@ LoadParticleSprite:
 	call LoadSprite
 	ret
 
-.asm_d0c5
+.use_camera_scroll
 	ld a, [wCameraSCY + 1]
 	ld b, a
 	ld a, [wCurParticleYCoord]

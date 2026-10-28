@@ -493,14 +493,14 @@ SpawnObjectsInView:
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_8996
+	jr c, .got_bank
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_8996
+	jr c, .got_bank
 	inc c
 	sub $20
-.asm_8996
+.got_bank
 	ld h, a
 	ld a, c
 	ld [wObjectMapBank], a
@@ -534,13 +534,13 @@ SpawnObjectsInView:
 	inc h
 	ld a, h
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr nz, .asm_89de
+	jr nz, .same_bank
 	ld h, HIGH(sLevelBlockObjectMap)
 	ld a, [wObjectMapBank]
 	inc a
 	ld [wObjectMapBank], a
 	sramswitch
-.asm_89de
+.same_bank
 	dec d
 	jr nz, .loop_search
 	ret
@@ -556,13 +556,13 @@ SpawnObjectsInView:
 	; wRoomObjMapRightX > l
 	ld a, [wRoomObjMapLeftX]
 	cp l
-	jr z, .asm_89f3
+	jr z, .in_x_range
 	ret nc
-.asm_89f3
+.in_x_range
 	; wRoomObjMapLeftX <= l
 	ld a, [wObjectMapBank]
 	dec a
-	jr nz, .asm_8a08
+	jr nz, .not_first_bank
 	ld a, [wRoomObjMapLowerY]
 	dec a
 	cp h
@@ -573,7 +573,7 @@ SpawnObjectsInView:
 	ret nc
 	jr .spawn
 
-.asm_8a08
+.not_first_bank
 	ld a, [wRoomObjMapLowerY]
 	sub $20
 	dec a
@@ -619,14 +619,14 @@ SetWarioPositionToSpawn:
 	ld c, $01
 	ld a, [wObjectSpawnBlockY]
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_8a6c
+	jr c, .got_bank
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_8a6c
+	jr c, .got_bank
 	inc c
 	sub $20
-.asm_8a6c
+.got_bank
 	ld h, a
 	ld a, c
 	ld [wObjectMapBank], a
@@ -860,7 +860,7 @@ SetInitialCameraScroll:
 	ret c ; not CAM_TRANSITIONS
 	ld a, [wWarioYPos + 1]
 	cp $80
-	jr nc, .asm_8c0c
+	jr nc, .wario_in_lower_half
 	ld a, [wRoomUpperYLimit]
 	ld b, a
 	ld a, [wWarioYPos + 0]
@@ -869,7 +869,7 @@ SetInitialCameraScroll:
 	cp b
 	jr c, .cap_up_side
 	bit 7, a
-	jr z, .asm_8c06
+	jr z, .not_negative
 
 	xor a
 	ld [wCameraSCY + 0], a
@@ -877,12 +877,12 @@ SetInitialCameraScroll:
 	ld [wCameraRoomYScrollLimit], a
 	ret
 
-.asm_8c06
+.not_negative
 	ld a, $e8
 	ld [wCameraSCY + 1], a
 	ret
 
-.asm_8c0c
+.wario_in_lower_half
 	ld a, $68
 	ld [wCameraSCY + 1], a
 	ret
@@ -914,9 +914,9 @@ ApplyInitialCameraScroll:
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_UP_F, a
 	ld a, $00
-	jr z, .asm_8c43
+	jr z, .set_upper_scy
 	ld a, $20
-.asm_8c43
+.set_upper_scy
 	ld [wCameraSCY + 1], a
 	ldh [rSCY], a
 	ld [wSCY], a
@@ -929,9 +929,9 @@ ApplyInitialCameraScroll:
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_DOWN_F, a
 	ld a, $68
-	jr z, .asm_8c5f
+	jr z, .set_lower_scy
 	ld a, $48
-.asm_8c5f
+.set_lower_scy
 	ld [wCameraSCY + 1], a
 	ldh [rSCY], a
 	ld [wSCY], a
@@ -969,9 +969,9 @@ ApplyInitialCameraScroll:
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_LEFT_F, a
 	ld a, $00
-	jr z, .asm_8caa
+	jr z, .set_left_scx
 	ld a, $20
-.asm_8caa
+.set_left_scx
 	ld [wCameraSCX + 1], a
 	ldh [rSCX], a
 	ld [wSCX], a
@@ -984,9 +984,9 @@ ApplyInitialCameraScroll:
 	ld a, [wCameraConfigFlags]
 	bit CAM_BORDER_RIGHT_F, a
 	ld a, $60
-	jr z, .asm_8cc5
+	jr z, .set_right_scx
 	ld a, $40
-.asm_8cc5
+.set_right_scx
 	ld [wCameraSCX + 1], a
 	ldh [rSCX], a
 	ld [wSCX], a

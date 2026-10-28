@@ -3967,3 +3967,93 @@ sound-effect lists were updated to the new names.
 - `_UpdateEpilogue`'s old man talk animation is keyed by text page and
   differs between languages: on page 5 the Japanese text switches at
   line 2 (`.anim_0d_line_2`), the English at line 1 (`.anim_0d_line_1`).
+
+## Jump labels: level engine
+
+All 1151 `.asm_xxxxx` local labels in `src/engine/level/*.asm` (not the
+`objects/` subdirectory) now have names. None are left. The one
+`Routine.asm_xxxxx` reference among them,
+`ObjInteraction_BottomStingSmashableTop.asm_21d7e` (used from
+`ObjInteraction_FrontStingSmashableTop`), became `.from_above`. The ROM
+is byte-identical.
+
+| File | Labels |
+| --- | --- |
+| wario_states_3 | 258 |
+| wario_states_1 | 227 |
+| object_interactions | 131 |
+| wario_states_4 | 128 |
+| update_objects | 123 |
+| block_functions | 107 |
+| wario_states_2 | 103 |
+| scroll | 27 |
+| row_block_queue | 22 |
+| start_room | 11 |
+| block_queue | 7 |
+| collisions | 5 |
+| get_bg_ptr, particles | 1, 1 |
+
+**Conventions.** The files already used lowercase snake_case for locals,
+and most new names reuse the ones they had:
+
+- Wario state set-up: `.dir_right` for the `wDirection` branch and
+  `.got_frameset` (or `.update_animation` when the left-facing code
+  jumps back up) where both framesets meet. A second pair in the same
+  routine gets a prefix: `.crash_dir_right`, `.rolling_got_frameset`,
+  `.powered_up_dir_right`.
+- Airborne updates: `.falling` / `.check_landing`, `.landed`,
+  `.hit_ceiling`; `.no_sand`; `.skip_sfx` for the loop-counter SFX.
+- Walk speed caps: `.cap_walk_vel`, `.got_walk_vel` (or `.done` when the
+  routine just returns), with `_left` / `_right` where both sides have
+  one.
+- Input handlers: `.d_right`, `.d_left`, `.turn_right`, `.turn_left`,
+  `.move_right`, `.facing_right`.
+- Object interactions: `.obj_on_left` (the `wObjScreenXPos` compare),
+  `.got_side`, `.obj_facing_right` (the `wObjDirection` compare),
+  `.vertical` (`INTERACTION_UP | INTERACTION_DOWN`), `.front`,
+  `.from_above`, `.from_below`.
+- Block functions: `.can_enter` for doors and pipes, `.side`, `.up`,
+  `.landing`, `.break` for breakable blocks, `.already_breaking` for a
+  multi-block break in progress and `.robo_mouse_break`.
+- Object movement tables in `update_objects.asm`: `.not_last`,
+  `.got_y_vel`, `.done_y_vel` and `.negative`, as `_ObjState_Fall`
+  already named them; `.on_screen` for the "release the grab when off
+  screen" check.
+- SRAM pointers: `.got_bank` after the `$a0`/`$c0` bank search,
+  `.same_bank` where `h` doesn't wrap into the next bank.
+- `CheckObjectOnScreen` already numbered its carries (`.no_overflow1`
+  to `3`, `.no_underflow1`); the new ones continue the series (up to
+  `.no_overflow8`, `.no_underflow4`).
+- `_CountCurObjTransientChildren` checks the 8 object slots one after
+  another; its labels are `.check_obj2` to `.check_obj8`.
+
+**Findings:**
+
+- `QueueBlockAttributesAlongRow_OddColumn` (`row_block_queue.asm`,
+  `.odd_row`) reads the first attribute from `wBGMapTileVRAM1Queue + 4 *
+  block + 3` instead of `wRoomBlockAttributes`. The other three routines
+  and the even branch use `wRoomBlockAttributes`. This looks like a bug
+  that gives one wrong attribute when a room is drawn from an odd column
+  and odd row; not checked in game. That routine's even branch also
+  queues a 17th attribute, while `QueueBlockTilesAlongRow_OddColumn`
+  queues 16 tiles.
+- `LargeNonCrackedBlockRightCollision` (`block_functions.asm`) sends a
+  rolling side hit to `.landing`, which needs `SUPER_JUMP_SLAM_OVERALLS`.
+  The Down, Left and Up versions go straight to `.break`.
+- `SetState_Bumping` (`wario_states_1.asm`) has two bare `ret`s
+  (`.done_right`, `.done_left`) that its rolling branch `call`s, so
+  those calls do nothing.
+- Unreachable code: the `ret` after `jr nc, .stop_slipping` in
+  `UpdateState_CrouchSlipping`; a second frameset block after
+  `jr SetState_BouncyLastBounce` in `StartBouncyLastBounce`
+  (`.unused_dir_right`, `.unused_reset_animation`); `xor a / ld [hl], a`
+  after `jp SetState_BatFlying` in `HandleBatFlyingInput`; and the
+  `.unused_obj_on_left` block in `ObjInteraction_Grabbable`, already
+  marked unreachable.
+- Small redundancies: `UpdateState_Slipping` loads `a` from `[hl]`
+  twice; `HandleOnFireInput` does `jr .facing_left` to the next line;
+  `UpdateState_BouncyAirborne` has `xor a` right before `ld a,
+  WST_BOUNCY_CEILING`.
+- An earlier row of this survey (the `Func_1f357` / `SwimLeft` row)
+  calls `HandleSwimming`'s right-hand branch `.asm_1f2c0`; it is now
+  `.swim_right`.
