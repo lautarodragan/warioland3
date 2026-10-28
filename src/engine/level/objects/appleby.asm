@@ -49,16 +49,16 @@ ApplebyFunc:
 	cp OBJSTATE_ACTIVATE
 	jp c, .HandleHit
 	cp OBJSTATE_5A
-	jr z, .asm_47a1e
+	jr z, .emerging
 	cp OBJSTATE_5B
-	jr z, .asm_47a6b
+	jr z, .watching
 	cp OBJSTATE_5C
-	jr z, .asm_47a4a
+	jr z, .throwing
 	cp OBJSTATE_SPECIAL_1
-	jr z, .asm_47a33
+	jr z, .hiding
 	ret
 
-.asm_47a1e
+.emerging
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
@@ -70,7 +70,7 @@ ApplebyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_47a33
+.hiding
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
@@ -84,35 +84,35 @@ ApplebyFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_47a4a
+.throwing
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	cp $46
-	jr nz, .asm_47a65
+	jr nz, .count_down
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_47a5c
+	jr c, .throw_right
 	ld bc, ObjParams_AppleLeft
-	jr .asm_47a5f
-.asm_47a5c
+	jr .spawn_apple
+.throw_right
 	ld bc, ObjParams_AppleRight
-.asm_47a5f
+.spawn_apple
 	call CreateObjectAtRelativePos
 	ld hl, wCurObjStateDuration
-.asm_47a65
+.count_down
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
-	jr .asm_47ac4
-.asm_47a6b
+	jr .start_hiding
+.watching
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_47a73
+	jr z, .check_wario
 	dec [hl]
 	ret
 
-.asm_47a73
+.check_wario
 	ld l, OBJ_SUBSTATE
 	ld c, $2a
 	ld a, [wCurObjScreenYPos]
@@ -132,16 +132,16 @@ ApplebyFunc:
 	add c
 	sub b
 	cp $40
-	jr nc, .asm_47a9c
+	jr nc, .check_wario_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ApplebyFrameset_68a1f
-	jr .asm_47aa4
-.asm_47a9c
+	jr .start_throw
+.check_wario_right
 	cp $c0
 	ret c
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ApplebyFrameset_68a3a
-.asm_47aa4
+.start_throw
 	call SetObjectFramesetPtr
 	ld a, 122
 	ld [hli], a
@@ -151,16 +151,16 @@ ApplebyFunc:
 
 .HandleHit:
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_47ad5
+	jr z, .vanish
 	cp OBJSTATE_ATTACKED_LEFT_START
-	jr z, .asm_47ae8
+	jr z, .set_attacked_left
 	cp OBJSTATE_ATTACKED_RIGHT_START
-	jr z, .asm_47af0
+	jr z, .set_attacked_right
 	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
-	jr z, .asm_47ad8
+	jr z, .set_hit_by_obj_left
 	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
-	jr z, .asm_47ae0
-.asm_47ac4
+	jr z, .set_hit_by_obj_right
+.start_hiding
 	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a
 	ld de, ApplebyFrameset_68a09
@@ -171,28 +171,28 @@ ApplebyFunc:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.asm_47ad5
+.vanish
 	jp VanishObject
-.asm_47ad8
+.set_hit_by_obj_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_47af6
-.asm_47ae0
+	jr .set_knocked_back
+.set_hit_by_obj_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_47af6
-.asm_47ae8
+	jr .set_knocked_back
+.set_attacked_left
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-	jr .asm_47af6
-.asm_47af0
+	jr .set_knocked_back
+.set_attacked_right
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-.asm_47af6
+.set_knocked_back
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
@@ -272,41 +272,41 @@ AppleFunc:
 .Update2_Left:
 	ld hl, wCurObjVar1
 	ld a, [hli]
-	jr nz, .asm_47b7b
+	jr nz, .move_left
 	ld a, [wGlobalCounter]
 	rra
-	jr c, .asm_47b9c
-.asm_47b7b
+	jr c, .check_state
+.move_left
 	ld b, [hl]
 	ld l, OBJ_X_POS
 	ld a, [hl]
 	sub b
 	ld [hli], a
-	jr nc, .asm_47b9c
+	jr nc, .check_state
 	dec [hl]
-	jr .asm_47b9c
+	jr .check_state
 .Update2_Right:
 	ld hl, wCurObjVar1
 	ld a, [hli]
 	and a
-	jr nz, .asm_47b93
+	jr nz, .move_right
 	ld a, [wGlobalCounter]
 	rra
-	jr nc, .asm_47b9c
-.asm_47b93
+	jr nc, .check_state
+.move_right
 	ld b, [hl]
 	ld l, OBJ_X_POS
 	ld a, [hl]
 	add b
 	ld [hli], a
-	jr nc, .asm_47b9c
+	jr nc, .check_state
 	inc [hl]
-.asm_47b9c
+.check_state
 	ld a, [wCurObjState]
 	cp OBJSTATE_TRIGGERED
 	jr z, .destroy
 	cp OBJSTATE_NO_EFFECT
-	jr z, .asm_47bb2
+	jr z, .hop_away
 	ld bc, ApplebyData_60670
 	jp ApplyObjYMovement
 .destroy
@@ -314,19 +314,19 @@ AppleFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.asm_47bb2
+.hop_away
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_47bc5
+	jr c, .wario_to_right
 	ld bc, .HopRight
-	jr .asm_47bc8
-.asm_47bc5
+	jr .set_hop
+.wario_to_right
 	ld bc, .HopLeft
-.asm_47bc8
+.set_hop
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, b
 	ld [hld], a
@@ -337,10 +337,10 @@ AppleFunc:
 
 .HopLeft:
 	call MoveObjectLeft
-	jr .asm_47bdb
+	jr .apply_hop
 .HopRight:
 	call MoveObjectRight
-.asm_47bdb
+.apply_hop
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, DropYVel_Light
