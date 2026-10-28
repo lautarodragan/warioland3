@@ -26,20 +26,20 @@ HandFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4778e
+	jr z, .dispatch
 	cp OBJSTATE_SPECIAL_2
-	jr z, .asm_4778e
+	jr z, .dispatch
 	cp OBJSTATE_SPECIAL_3
-	jr nz, .asm_4778c
+	jr nz, .reset_state
 	ld a, OBJSTATE_SPECIAL_2
 	ld [hl], a
 	ld b, 11
 	call .ApplyOffsetToWario
-	jr .asm_4778e
-.asm_4778c
+	jr .dispatch
+.reset_state
 	xor a
 	ld [hl], a
-.asm_4778e
+.dispatch
 	ld a, [wCurObjVar1]
 	jumptable
 
@@ -194,26 +194,26 @@ HandFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 49
-	jr nc, .asm_478be
+	jr nc, .count_down
 	cp 26
-	jr c, .asm_478b0
+	jr c, .check_grabbed
 	ld a, [wCurObjScreenYPos]
 	sub 4
 	ld b, a
 	ld a, [wWarioScreenYPos]
 	cp b
-	jr nc, .asm_478be
+	jr nc, .count_down
 	dec [hl]
 	ret
 
-.asm_478b0
+.check_grabbed
 	ld a, [wCurObjState]
 	cp OBJSTATE_SPECIAL_2
-	jr nz, .asm_478be
+	jr nz, .count_down
 	ld b, 7
 	call .ApplyOffsetToWario
 	ld l, OBJ_STATE_DURATION
-.asm_478be
+.count_down
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	dec [hl]

@@ -97,7 +97,7 @@ FutamoguFunc:
 	cp OBJSTATE_ATTACKED_LEFT
 	jr z, .Shake
 	cp OBJSTATE_VANISH_TOUCH
-	jr z, .asm_407bf
+	jr z, .VanishTouch
 	cp OBJSTATE_RESIST_VANISH
 	jp z, .Fall
 	and $fe
@@ -125,13 +125,13 @@ FutamoguFunc:
 	ld c, [hl]
 	ld a, [wCurObjYPos + 0]
 	cp c
-	jr nz, .asm_4078c
+	jr nz, .start_climb
 	inc l
 	ld b, [hl] ; OBJ_VAR_2
 	ld a, [wCurObjYPos + 1]
 	cp b
-	jr z, .asm_4079a
-.asm_4078c
+	jr z, .at_start_pos
+.start_climb
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_3
 	ld [hld], a
@@ -140,7 +140,7 @@ FutamoguFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_4079a
+.at_start_pos
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
@@ -165,7 +165,7 @@ FutamoguFunc:
 	ret nz
 	jp .set_idle
 
-.asm_407bf
+.VanishTouch
 	dec l
 	ld a, [hli] ; OBJ_SUBSTATE
 	rlca
@@ -193,10 +193,10 @@ FutamoguFunc:
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jr nc, .has_super_jump_slam
 	ld bc, SmashedYVel
-	jr .asm_407ee
+	jr .apply_smash_vel
 .has_super_jump_slam
 	ld bc, SuperSmashedYVel
-.asm_407ee
+.apply_smash_vel
 	call ApplyObjYMovement
 
 	ld hl, wCurObjYPos

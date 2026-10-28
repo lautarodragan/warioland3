@@ -151,12 +151,12 @@ RockFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_4aa35
+	jr .set_bump
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_4aa35
+.set_bump
 	ld a, $0c
 	ld [wCurObjStateDuration], a
 	ld a, $01
@@ -164,10 +164,10 @@ RockFunc:
 	ret
 .State14:
 	ld a, OBJSTATE_FALL_LEFT
-	jr .asm_4aa46
+	jr .set_fall
 .State15:
 	ld a, OBJSTATE_FALL_RIGHT
-.asm_4aa46
+.set_fall
 	ld [wCurObjState], a
 	xor a
 	ld [wCurObjVar3], a
@@ -254,22 +254,22 @@ RockFunc:
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_4aae9
+	jr .set_update_func
 .State29:
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_4aae9
+	jr .set_update_func
 .AttackedRightStart:
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-	jr .asm_4aae9
+	jr .set_update_func
 .AttackedLeftStart:
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-.asm_4aae9
+.set_update_func
 	ld hl, wCurObjUpdateFunction + 1
 	ld [hld], a
 	ld [hl], c
