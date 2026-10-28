@@ -136,7 +136,7 @@ SpearBotFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_45fef
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -145,7 +145,7 @@ SpearBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_45fef
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -159,13 +159,13 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_46024
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld l, OBJ_COLLBOX_LEFT
 	ld a, [hl]
 	cp $f6
-	jr nz, .asm_4601b
+	jr nz, .no_spear_left
 	ld a, $fa
 	ld [hl], a
 	ld de, SpearBotFrameset_68e69
@@ -174,20 +174,20 @@ SpearBotFunc:
 	ld [hli], a
 	ret
 
-.asm_4601b
+.no_spear_left
 	ld de, SpearBotFrameset_68ddf
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
 	ret
 
-.asm_46024
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, [hl]
 	cp $09
-	jr nz, .asm_4603a
+	jr nz, .no_spear_right
 	ld a, $05
 	ld [hl], a
 	ld de, SpearBotFrameset_68e70
@@ -196,7 +196,7 @@ SpearBotFunc:
 	ld [hli], a
 	ret
 
-.asm_4603a
+.no_spear_right
 	ld de, SpearBotFrameset_68de8
 	call SetObjectFramesetPtr
 	xor a
@@ -211,16 +211,16 @@ SpearBotFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_46059
+	jr c, .retracted_facing_right
 	ld de, SpearBotFrameset_68ddf
 	jp SetObjectFramesetPtr
-.asm_46059
+.retracted_facing_right
 	ld de, SpearBotFrameset_68de8
 	jp SetObjectFramesetPtr
 .Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46070
+	jr c, .thrust_delay
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -228,7 +228,7 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46070
+.thrust_delay
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -237,22 +237,22 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_4608b
+	jr c, .spear_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
 	ld de, SpearBotFrameset_68e57
-	jr .asm_46096
-.asm_4608b
+	jr .set_spear
+.spear_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
 	ld [hld], a
 	ld a, $fa
 	ld [hld], a
 	ld de, SpearBotFrameset_68e60
-.asm_46096
+.set_spear
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $02
@@ -266,7 +266,7 @@ SpearBotFunc:
 .Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_460b7
+	jr c, .charging
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -274,7 +274,7 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_460b7
+.charging
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -286,12 +286,12 @@ SpearBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_460d2
+	jr nz, .on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_460d2
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -299,15 +299,15 @@ SpearBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4611d
+	jr c, .charge_right
 	ld a, [hl]
 	and $0f
 	sub $06
-	jr nc, .asm_460ef
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_4610d
-.asm_460ef
+	jr z, .at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -324,25 +324,25 @@ SpearBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
-.asm_4610d
+.at_edge_left
 	ld a, [wCurObjVar1]
 	and a
-	jr z, .asm_46118
+	jr z, .cool_down_left
 	ld de, SpearBotFrameset_68e41
-	jr .asm_46154
-.asm_46118
+	jr .start_charging_turn
+.cool_down_left
 	ld de, SpearBotFrameset_68dff
-	jr .asm_46164
-.asm_4611d
+	jr .start_cool_down
+.charge_right
 	ld a, [hl]
 	and $0f
 	add $05
 	cp $10
-	jr c, .asm_4612d
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_4614b
-.asm_4612d
+	jr z, .at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -359,12 +359,12 @@ SpearBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
-.asm_4614b
+.at_edge_right
 	ld a, [wCurObjVar1]
 	and a
-	jr z, .asm_46161
+	jr z, .cool_down_right
 	ld de, SpearBotFrameset_68e4c
-.asm_46154
+.start_charging_turn
 	call SetObjectFramesetPtr
 	ld a, 36
 	ld [hli], a
@@ -373,9 +373,9 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46161
+.cool_down_right
 	ld de, SpearBotFrameset_68e08
-.asm_46164
+.start_cool_down
 	call SetObjectFramesetPtr
 	ld a, 38
 	ld [hli], a
@@ -385,7 +385,7 @@ SpearBotFunc:
 .State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46181
+	jr c, .cooling_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -393,7 +393,7 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46181
+.cooling_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -403,7 +403,7 @@ SpearBotFunc:
 .State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_4619d
+	jr c, .charging_turn
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -411,11 +411,11 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4619d
+.charging_turn
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $0f
-	jr z, .asm_461be
+	jr z, .charging_flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
@@ -423,18 +423,18 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_461b8
+	jr c, .resume_charging_right
 	ld de, SpearBotFrameset_68e57
 	jp SetObjectFramesetPtr
-.asm_461b8
+.resume_charging_right
 	ld de, SpearBotFrameset_68e60
 	jp SetObjectFramesetPtr
-.asm_461be
+.charging_flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_461d0
+	jr c, .charging_face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
@@ -443,7 +443,7 @@ SpearBotFunc:
 	ld [hld], a
 	ret
 
-.asm_461d0
+.charging_face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -462,19 +462,19 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_461f4
+	jr c, .land_facing_right
 	ld de, SpearBotFrameset_68ddf
 	call SetObjectFramesetPtr
 	ret
 
-.asm_461f4
+.land_facing_right
 	ld de, SpearBotFrameset_68de8
 	call SetObjectFramesetPtr
 	ret
 .Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_4620c
+	jr c, .walking
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -482,7 +482,7 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_4620c
+.walking
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -491,10 +491,10 @@ SpearBotFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_46220
+	jr c, .in_y_range
 	cp $e8
-	jr c, .asm_46253
-.asm_46220
+	jr c, .walk_on
+.in_y_range
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -503,25 +503,25 @@ SpearBotFunc:
 	add c
 	sub b
 	cp $c0
-	jr nc, .asm_46242
+	jr nc, .wario_to_right
 	cp $40
-	jr nc, .asm_46253
+	jr nc, .walk_on
 	ld a, [hli]
 	rlca
-	jr c, .asm_4623e
+	jr c, .turn_to_wario
 	ld de, SpearBotFrameset_68df1
-	jr .asm_46249
-.asm_4623e
+	jr .start_thrust
+.turn_to_wario
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [hl], a
 	ret
 
-.asm_46242
+.wario_to_right
 	ld a, [hli]
 	rlca
-	jr nc, .asm_4623e
+	jr nc, .turn_to_wario
 	ld de, SpearBotFrameset_68df8
-.asm_46249
+.start_thrust
 	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a
 	call SetObjectFramesetPtr
@@ -529,7 +529,7 @@ SpearBotFunc:
 	ld [hli], a
 	ret
 
-.asm_46253
+.walk_on
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -541,12 +541,12 @@ SpearBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_4626e
+	jr nz, .walk_on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_4626e
+.walk_on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -554,15 +554,15 @@ SpearBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_462af
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $06
-	jr nc, .asm_4628b
+	jr nc, .walk_check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_462a9
-.asm_4628b
+	jr z, .turn_at_edge_left
+.walk_check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -579,21 +579,21 @@ SpearBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_462a9
+.turn_at_edge_left
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_462af
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $05
 	cp $10
-	jr c, .asm_462bf
+	jr c, .walk_check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_462dd
-.asm_462bf
+	jr z, .turn_at_edge_right
+.walk_check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -610,7 +610,7 @@ SpearBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_462dd
+.turn_at_edge_right
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
@@ -618,12 +618,12 @@ SpearBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_462f1
+	jr .set_bump
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_462f1
+.set_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset SpearBotFrameset_68e11, SpearBotFrameset_68e14
@@ -699,12 +699,12 @@ SpearBotFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_4638d
+	jr .set_fall
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_4638d
+.set_fall
 	ld a, [hld]
 	rlca
 	ld_obj_frameset SpearBotFrameset_68e17, SpearBotFrameset_68e20
@@ -736,12 +736,12 @@ SpearBotFunc:
 .State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_463d0
+	jr c, .count_down
 	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
-.asm_463d0
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -788,7 +788,7 @@ SpearBotFunc:
 .TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46432
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -796,27 +796,27 @@ SpearBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46432
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $09
-	jr z, .asm_46444
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
-.asm_46444
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_4644e
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_4644e
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 .WobbleLeftStart:
@@ -824,13 +824,13 @@ SpearBotFunc:
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_46463
+	jr .set_wobble
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_46463
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -857,11 +857,11 @@ SpearBotFunc:
 .State0b:
 	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
-	jr .asm_46499
+	jr .set_hit_wario
 .State0c:
 	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
-.asm_46499
+.set_hit_wario
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -879,7 +879,7 @@ SpearBotFunc:
 	and a
 	jp nz, ObjState_BumpSlideRight
 	ld de, SpearBotFrameset_68dff
-	jr .asm_464c7
+	jr .start_cool_down_after_bump
 .State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
@@ -890,7 +890,7 @@ SpearBotFunc:
 	and a
 	jp nz, ObjState_BumpSlideLeft
 	ld de, SpearBotFrameset_68e08
-.asm_464c7
+.start_cool_down_after_bump
 	call SetObjectFramesetPtr
 	ld a, 38
 	ld [hli], a
@@ -902,25 +902,25 @@ SpearBotFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_464f9
+	jr .set_knocked_back
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_464f9
+	jr .set_knocked_back
 .AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_464f9
+	jr .set_knocked_back
 .AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
-.asm_464f9
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl]
@@ -933,10 +933,10 @@ SpearBotFunc:
 	ld [hld], a
 	ld a, c
 	rlca
-	jr c, .asm_46511
+	jr c, .knocked_back_facing_right
 	ld de, SpearBotFrameset_68e29
 	jp SetObjectFramesetPtr
-.asm_46511
+.knocked_back_facing_right
 	ld de, SpearBotFrameset_68e2e
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
