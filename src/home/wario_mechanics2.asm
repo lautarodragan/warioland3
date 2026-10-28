@@ -81,20 +81,20 @@ IsOnSlipperyGround::
 LimitAirWalkVelocity::
 	ld a, [wJumpVelIndex]
 	cp FALLING_JUMP_VEL_INDEX
-	jr nc, .asm_1776
+	jr nc, .falling
 	ld a, [wWalkVelIndex]
 	cp $10
-	jr c, .asm_1775
+	jr c, .done
 	ld a, $0c
 	ld [wWalkVelIndex], a
-.asm_1775
+.done
 	ret
 
-.asm_1776
+.falling
 	ld a, [wWalkVelIndex]
 	cp $08
-	jr c, .asm_1782
+	jr c, .done_falling
 	ld a, $04
 	ld [wWalkVelIndex], a
-.asm_1782
+.done_falling
 	ret

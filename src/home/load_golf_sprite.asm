@@ -17,12 +17,12 @@ StartGolfHDMA::
 SetGolfBGPals::
 	ld de, rBGPI
 	ld c, 4
-	jr .asm_2c52
+	jr .load_pals
 
 	ld de, rOBPI
 	ld c, 4
 
-.asm_2c52
+.load_pals
 	ld a, $80
 	ld [de], a
 	inc e
