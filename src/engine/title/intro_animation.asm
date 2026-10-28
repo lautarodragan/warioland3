@@ -4,10 +4,10 @@
 ScrollIntroBackgroundLayers:
 	ld a, [wGlobalCounter]
 	and %11
-	jr nz, .asm_4cc6
+	jr nz, .skip_far
 	ld hl, wIntroBGXOffsetFar
 	dec [hl]
-.asm_4cc6
+.skip_far
 	ld hl, wIntroBGXOffsetCentre
 	dec [hl]
 	ld hl, wIntroBGXOffsetNear
@@ -39,17 +39,17 @@ FinishIntroBackgroundScroll:
 	jr nz, .scroll_centre
 	ld a, [wSCX]
 	ld [hl], a
-	jr .far_layer
+	jr .near_layer
 .scroll_centre
 	dec [hl]
 
-.far_layer
+.near_layer
 	ld hl, wIntroBGXOffsetNear
 	ld a, [hl]
 	cp 224
-	jr z, .asm_4cff
+	jr z, .near_stopped
 	jr .scroll_near
-.asm_4cff
+.near_stopped
 	ld a, 224
 	ld [hl], a
 	jr .done
@@ -102,7 +102,7 @@ PanIntroBackgroundLayers:
 ScrollIntroClouds:
 	ld a, [wGlobalCounter]
 	and %1
-	jr z, .asm_4d66
+	jr z, .cloud2
 
 	ld hl, wMenuObj5XCoord
 	ld a, [hl]
@@ -110,16 +110,16 @@ ScrollIntroClouds:
 	jr c, .incr_x1
 	ld a, [wSubState]
 	cp $05
-	jr nc, .asm_4d66
+	jr nc, .cloud2
 	cp $04
 	jr c, .incr_x1
 	ld a, [wPlaneWarioVar]
 	and a
-	jr nz, .asm_4d66
+	jr nz, .cloud2
 .incr_x1
 	inc [hl]
 
-.asm_4d66
+.cloud2
 	ld hl, wMenuObj4XCoord
 	ld a, [hl]
 	cp 176

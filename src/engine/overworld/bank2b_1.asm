@@ -123,39 +123,39 @@ UpdateEpilogueSceneObjs_Back:
 UpdateEpilogueSceneObj:
 	ld a, [bc]
 	jumptable
-	dw .Func_ac11c
+	dw .None
 	dw SceneObjState_TextArrow
-	dw .Func_ac11d
-	dw .Func_ac122
-	dw .Func_ac127
-	dw .Func_ac12c
-	dw .Func_ac131
-	dw .Func_ac13c
-	dw .Func_ac141
-	dw .Func_ac15f
-	dw .Func_ac164
-	dw .Func_ac169
-	dw .Func_ac174
-	dw .Func_ac17f
-	dw .Func_ac18a
-	dw .Func_ac195
-	dw .Func_ac1a0
-	dw .Func_ac1ab
-	dw .Func_ac1b1
-	dw .Func_ac1b7
-	dw .Func_ac1d1
-	dw .Func_ac1d7
-	dw .Func_ac1dd
-	dw .Func_ac1fb
-	dw .Func_ac21e
-	dw .Func_ac22c
-	dw .Func_ac23a
-	dw .Func_ac248
-	dw .Func_ac24e
+	dw .State02
+	dw .State03
+	dw .State04
+	dw .State05
+	dw .State06
+	dw .State07
+	dw .State08
+	dw .State09
+	dw .State0a
+	dw .State0b
+	dw .State0c
+	dw .State0d
+	dw .State0e
+	dw .State0f
+	dw .State10
+	dw .State11
+	dw .State12
+	dw .State13
+	dw .State14
+	dw .State15
+	dw .State16
+	dw .State17
+	dw .State18
+	dw .State19
+	dw .State1a
+	dw .State1b
+	dw .State1c
 
-.asm_ac0f2
+.animate_and_draw
 	call UpdateSceneObjAnim_CreditsOAM3
-.asm_ac0f5
+.draw
 	ld de, EpilogueSceneObjOAM_15e97d
 	jp LoadSceneObjSpriteWithScroll_CreditsOAM3
 
@@ -164,12 +164,12 @@ UpdateEpilogueSceneObj:
 	ld e, $00
 .set_new_state_if_finished
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .asm_ac0f5
+	jr nz, .draw
 	jr UpdateEpilogueSceneObj
 
 ; unreachable
 	call UpdateSceneObjAnim_CreditsOAM3
-.asm_ac10a
+.unreferenced_draw
 	ld de, EpilogueSceneObjOAM_15e97d
 	jp LoadSceneObjSprite_CreditsOAM
 
@@ -177,43 +177,43 @@ UpdateEpilogueSceneObj:
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .asm_ac10a
+	jr nz, .unreferenced_draw
 	jr UpdateEpilogueSceneObj
 
-.Func_ac11c:
+.None:
 	ret
 
-.Func_ac11d:
+.State02:
 	ld de, EpilogueSceneObjFrameset_15ed91
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac122:
+.State03:
 	ld de, EpilogueSceneObjFrameset_15ed94
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac127:
+.State04:
 	ld de, EpilogueSceneObjFrameset_15ed97
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac12c:
+.State05:
 	ld de, EpilogueSceneObjFrameset_15ed9a
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac131:
+.State06:
 	ld de, EpilogueSceneObjFrameset_15ed9d
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0a
 	jp .set_new_state_if_finished
 
-.Func_ac13c:
+.State07:
 	ld de, EpilogueSceneObjFrameset_15edb3
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac141:
+.State08:
 	ld de, EpilogueSceneObjFrameset_15eda6
 	call UpdateSceneObjAnim_CreditsOAM3
 	call .PlaySFXEvery30Frames
-	jp .asm_ac0f5
+	jp .draw
 .PlaySFXEvery30Frames:
 	inc c
 	ld a, [bc] ; unk7
@@ -226,87 +226,87 @@ UpdateEpilogueSceneObj:
 	play_sfx SFX_EPILOGUE_OBJ
 	ret
 
-.Func_ac15f:
+.State09:
 	ld de, EpilogueSceneObjFrameset_15edc0
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac164:
+.State0a:
 	ld de, EpilogueSceneObjFrameset_15edc3
-	jr .asm_ac0f2
+	jr .animate_and_draw
 
-.Func_ac169:
+.State0b:
 	ld de, EpilogueSceneObjFrameset_15edc6
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0a
 	jp .set_new_state_if_finished
 
-.Func_ac174:
+.State0c:
 	ld de, EpilogueSceneObjFrameset_15ede9
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0b
 	jp .set_new_state_if_finished
 
-.Func_ac17f:
+.State0d:
 	ld de, EpilogueSceneObjFrameset_15edf2
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0a
 	jp .set_new_state_if_finished
 
-.Func_ac18a:
+.State0e:
 	ld de, EpilogueSceneObjFrameset_15ee0f
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0a
 	jp .set_new_state_if_finished
 
-.Func_ac195:
+.State0f:
 	ld de, EpilogueSceneObjFrameset_15ee1e
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $17
 	jp .set_new_state_if_finished
 
-.Func_ac1a0:
+.State10:
 	ld de, EpilogueSceneObjFrameset_15ee3b
 	call UpdateSceneObjAnim_CreditsOAM3
 	ld e, $0a
 	jp .set_new_state_if_finished
 
-.Func_ac1ab:
+.State11:
 	ld de, EpilogueSceneObjFrameset_15ee44
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.Func_ac1b1:
+.State12:
 	ld de, EpilogueSceneObjFrameset_15ee57
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.Func_ac1b7:
+.State13:
 	ld de, EpilogueSceneObjFrameset_15ee64
 	call UpdateSceneObjAnim_CreditsOAM3
-	call .Func_ac1c3
-	jp .asm_ac0f5
+	call .follow_wario
+	jp .draw
 
-.Func_ac1c3:
+.follow_wario:
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_CARRY_WALK
-	jp z, .asm_ac254
+	jp z, .carry_walk_bob
 	cp SCENEWARIO_PICKUP
-	jp z, .asm_ac275
+	jp z, .pick_up
 	ret
 
-.Func_ac1d1:
+.State14:
 	ld de, EpilogueSceneObjFrameset_15ee67
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.Func_ac1d7:
+.State15:
 	ld de, EpilogueSceneObjFrameset_15ee70
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.Func_ac1dd:
+.State16:
 	ld de, EpilogueSceneObjFrameset_15ee79
 	call UpdateSceneObjAnim_CreditsOAM3
-	call .Func_ac1e9
-	jp .asm_ac0f5
+	call .PlaySparkleSFXEvery48Frames
+	jp .draw
 
-.Func_ac1e9:
+.PlaySparkleSFXEvery48Frames:
 	inc c
 	ld a, [bc]
 	inc a
@@ -318,75 +318,75 @@ UpdateEpilogueSceneObj:
 	play_sfx SFX_SPARKLE
 	ret
 
-.Func_ac1fb:
+.State17:
 	ld de, EpilogueSceneObjFrameset_15ee82
 	call UpdateSceneObjAnim_CreditsOAM3
-	call .Func_ac207
-	jp .asm_ac0f5
+	call .PlayBeanstalkGrowSFXEvery40Frames
+	jp .draw
 
-.Func_ac207:
+.PlayBeanstalkGrowSFXEvery40Frames:
 	inc c
 	ld a, [bc]
 	inc a
 	ld [bc], a
 	cp $01
-	jr z, .asm_ac215
+	jr z, .play_beanstalk_sfx
 	cp $28
 	ret c
 	xor a
 	ld [bc], a
 	ret
-.asm_ac215
+.play_beanstalk_sfx
 	play_sfx SFX_BEANSTALK_GROW
 	ret
 
-.Func_ac21e:
+.State18:
 	ld de, SpearheadFrameset_681d2
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
 	ld de, SpearheadOAM_18007b
 	ld b, BANK(SpearheadOAM_18007b)
 	jp LoadOWSpriteWithScroll
 
-.Func_ac22c:
+.State19:
 	ld de, HammerBotFrameset_68b12
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
 	ld de, HammerBotOAM_18422f
 	ld b, BANK(HammerBotOAM_18422f)
 	jp LoadOWSpriteWithScroll
 
-.Func_ac23a:
+.State1a:
 	ld de, DoughnuteerFrameset_68562
 	call UnreferencedUpdateSceneObjAnim_ObjFramesets
 	ld de, DoughnuteerOAM_180ea7
 	ld b, BANK(DoughnuteerOAM_180ea7)
 	jp LoadOWSpriteWithScroll
 
-.Func_ac248:
+.State1b:
 	ld de, EpilogueSceneObjFrameset_15ee87
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.Func_ac24e:
+.State1c:
 	ld de, EpilogueSceneObjFrameset_15ee8a
-	jp .asm_ac0f2
+	jp .animate_and_draw
 
-.asm_ac254
+.carry_walk_bob
 	inc c
 	ld a, [wSceneWarioFrame]
 	ld e, a
 	ld a, [bc]
 	and a
-	jr z, .asm_ac267
+	jr z, .bob_up
 	dec a
-	jr z, .asm_ac261
+	jr z, .bob_down
 	ret
-.asm_ac261
+.bob_down
 	ld d, $01
 	ld a, 26
-	jr .asm_ac26b
-.asm_ac267
+	jr .check_bob_frame
+.bob_up
 	ld d, $ff
 	ld a, 25
-.asm_ac26b
+.check_bob_frame
 	cp e
 	ret nz ; not target frame
 	ld a, [bc]
@@ -397,7 +397,7 @@ UpdateEpilogueSceneObj:
 	ld [hl], a
 	ret
 
-.asm_ac275
+.pick_up
 	inc c
 	ld a, [wSceneWarioFrame]
 	ld e, a
@@ -405,20 +405,20 @@ UpdateEpilogueSceneObj:
 	cp $80
 	ret z
 	and a
-	jr z, .asm_ac286
+	jr z, .pick_up_frame_0
 	dec a
-	jr z, .asm_ac29c
-	jr .asm_ac2a6
-.asm_ac286
+	jr z, .pick_up_frame_1
+	jr .pick_up_frame_2
+.pick_up_frame_0
 	ld a, $00
 	cp e
 	ret nz
 	ld d, $fc
 	ld e, $ea
-.asm_ac28e
+.next_pick_up_pos
 	ld a, [bc]
 	inc a
-.asm_ac290
+.set_pick_up_pos
 	ld [bc], a
 	ld a, [wSceneWarioYCoord]
 	add d
@@ -427,21 +427,21 @@ UpdateEpilogueSceneObj:
 	add e
 	ld [hld], a
 	ret
-.asm_ac29c
+.pick_up_frame_1
 	ld a, $01
 	cp e
 	ret nz
 	ld d, $f0
 	ld e, $ec
-	jr .asm_ac28e
-.asm_ac2a6
+	jr .next_pick_up_pos
+.pick_up_frame_2
 	ld a, $02
 	cp e
 	ret nz
 	ld a, $80
 	ld d, $de
 	ld e, $f9
-	jr .asm_ac290
+	jr .set_pick_up_pos
 
 UpdateTempleSceneObjs_Front:
 	ld bc, wCurSceneObjState
@@ -478,138 +478,138 @@ UpdateTempleSceneObjs_Back:
 UpdateTempleSceneObjAnimation:
 	ld a, [bc]
 	jumptable
-	dw .Func_ac358
+	dw .None
 	dw SceneObjState_TextArrow
-	dw .Func_ac359
-	dw .Func_ac35e
-	dw .Func_ac363
-	dw .Func_ac368
-	dw .Func_ac36d
-	dw .Func_ac372
-	dw .Func_ac377
-	dw .Func_ac37c
-	dw .Func_ac381
-	dw .Func_ac38b
-	dw .Func_ac386
-	dw .Func_ac399
-	dw .Func_ac39e
-	dw .Func_ac3a3
-	dw .Func_ac3ad
-	dw .Func_ac3b7
-	dw .Func_ac3bc
+	dw .State02
+	dw .State03
+	dw .State04
+	dw .State05
+	dw .State06
+	dw .State07
+	dw .State08
+	dw .State09
+	dw .State0a
+	dw .State0b
+	dw .State0c
+	dw .State0d
+	dw .State0e
+	dw .State0f
+	dw .State10
+	dw .State11
+	dw .State12
 
 ; unreferenced
-.Func_ac32e:
+.unreferenced_animate_and_draw_1:
 	call UpdateSceneObjAnim_CreditsOAM
 
-.Func_ac331:
+.draw_1:
 	ld de, OAM_1644a
 	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
-.Func_ac337:
+.animate_once_1:
 	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .Func_ac331
+	jr nz, .draw_1
 	jr UpdateTempleSceneObjAnimation
 
-.Func_ac343:
+.animate_and_draw_2:
 	call UpdateSceneObjAnim_CreditsOAM2
-.Func_ac346:
+.draw_2:
 	ld de, TempleSceneObjOAM_15e813
 	jp LoadSceneObjSpriteWithScroll_CreditsOAM2
 
 ; unreferenced
-.Func_ac34c:
+.unreferenced_animate_once_2:
 	call UpdateSceneObjAnim_CreditsOAM2
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .Func_ac346
+	jr nz, .draw_2
 	jr UpdateTempleSceneObjAnimation
 
-.Func_ac358:
+.None:
 	ret
 
-.Func_ac359:
+.State02:
 	ld de, PrologueSceneObjFrameset_15e796
-	jr .Func_ac337
+	jr .animate_once_1
 
-.Func_ac35e:
+.State03:
 	ld de, TempleSceneObjFrameset_15e89c
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac363:
+.State04:
 	ld de, TempleSceneObjFrameset_15e89f
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac368:
+.State05:
 	ld de, TempleSceneObjFrameset_15e8a2
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac36d:
+.State06:
 	ld de, TempleSceneObjFrameset_15e8a5
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac372:
+.State07:
 	ld de, TempleSceneObjFrameset_15e8a8
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac377:
+.State08:
 	ld de, TempleSceneObjFrameset_15e88d
-	jr .Func_ac343
+	jr .animate_and_draw_2
 
-.Func_ac37c:
+.State09:
 	ld de, TempleSceneObjFrameset_15e896
-	jr .Func_ac38e
+	jr .animate_and_draw_no_scroll
 
-.Func_ac381:
+.State0a:
 	ld de, TempleSceneObjFrameset_15e893
-	jr .Func_ac38e
+	jr .animate_and_draw_no_scroll
 
-.Func_ac386:
+.State0c:
 	ld de, TempleSceneObjFrameset_15e899
-	jr .Func_ac38e
+	jr .animate_and_draw_no_scroll
 
-.Func_ac38b:
+.State0b:
 	ld de, TempleSceneObjFrameset_15e890
 
-.Func_ac38e:
+.animate_and_draw_no_scroll:
 	call UpdateSceneObjAnim_CreditsOAM2
 	ld de, TempleSceneObjOAM_15e813
 	ld b, BANK(TempleSceneObjOAM_15e813)
 	jp LoadOWSprite
 
-.Func_ac399:
+.State0d:
 	ld de, TempleSceneObjFrameset_15e8ab
-	jr .Func_ac3c1
+	jr .animate_and_draw_3
 
-.Func_ac39e:
+.State0e:
 	ld de, TempleSceneObjFrameset_15e8b0
-	jr .Func_ac3c1
+	jr .animate_and_draw_3
 
-.Func_ac3a3:
+.State0f:
 	ld de, TempleSceneObjFrameset_15e8b0
 	call UpdateSceneObjAnim_CreditsOAM2
 	ld e, $0d
-	jr .Func_ac3d1
+	jr .set_state_if_finished_3
 
-.Func_ac3ad:
+.State10:
 	ld de, TempleSceneObjFrameset_15e8ab
 	call UpdateSceneObjAnim_CreditsOAM2
 	ld e, $0e
-	jr .Func_ac3d1
+	jr .set_state_if_finished_3
 
-.Func_ac3b7:
+.State11:
 	ld de, TempleSceneObjFrameset_15e932
-	jr .Func_ac3c1
+	jr .animate_and_draw_3
 
-.Func_ac3bc:
+.State12:
 	ld de, TempleSceneObjFrameset_15e95c
-	jr .Func_ac3c1
+	jr .animate_and_draw_3
 
-.Func_ac3c1:
+.animate_and_draw_3:
 	call UpdateSceneObjAnim_CreditsOAM2
-.asm_ac3c4
+.draw_3
 	ld de, HiddenFigureOAM_18c88a
 	ld b, BANK(HiddenFigureOAM_18c88a)
 	jp LoadOWSpriteWithScroll
@@ -618,9 +618,9 @@ UpdateTempleSceneObjAnimation:
 	call UpdateSceneObjAnim_CreditsOAM2
 	ld e, $00
 
-.Func_ac3d1:
+.set_state_if_finished_3:
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .asm_ac3c4
+	jr nz, .draw_3
 	jp UpdateTempleSceneObjAnimation
 
 UpdatePrologueSceneObjects:
@@ -646,131 +646,131 @@ UpdatePrologueSceneObjs8And9:
 UpdatePrologueSceneObj:
 	ld a, [bc]
 	jumptable
-	dw .Func_ac450
+	dw .None
 	dw SceneObjState_TextArrow
-	dw .Func_ac451
-	dw .Func_ac456
-	dw .Func_ac45b
-	dw .Func_ac460
-	dw .Func_ac465
-	dw .Func_ac46a
-	dw .Func_ac46f
-	dw .Func_ac474
-	dw .Func_ac479
-	dw .Func_ac48e
-	dw .Func_ac493
-	dw .Func_ac4a8
-	dw .Func_ac4ad
-	dw .Func_ac4b2
-	dw .Func_ac4b7
-	dw .Func_ac4bc
-	dw .Func_ac4c1
-	dw .Func_ac4c7
-	dw .Func_ac4cd
-	dw .Func_ac4e3
-	dw .Func_ac4ee
-	dw .Func_ac4f4
+	dw .State02
+	dw .State03
+	dw .State04
+	dw .State05
+	dw .State06
+	dw .State07
+	dw .State08
+	dw .State09
+	dw .State0a
+	dw .State0b
+	dw .State0c
+	dw .State0d
+	dw .State0e
+	dw .State0f
+	dw .State10
+	dw .State11
+	dw .State12
+	dw .State13
+	dw .State14
+	dw .State15
+	dw .State16
+	dw .State17
 
-.Func_ac43b:
+.animate_and_draw:
 	call UpdateSceneObjAnim_CreditsOAM
-.Func_ac43e:
+.draw:
 	ld de, PrologueSceneObjOAM_15e44a
 	jp LoadSceneObjSpriteWithScroll_CreditsOAM
 
-.Func_ac444:
+.animate_once:
 	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 .set_new_state_if_finished
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .Func_ac43e
+	jr nz, .draw
 	jr UpdatePrologueSceneObj
 
-.Func_ac450:
+.None:
 	ret
 
-.Func_ac451:
+.State02:
 	ld de, PrologueSceneObjFrameset_15e741
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac456:
+.State03:
 	ld de, PrologueSceneObjFrameset_15e748
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac45b:
+.State04:
 	ld de, PrologueSceneObjFrameset_15e74b
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac460:
+.State05:
 	ld de, PrologueSceneObjFrameset_15e774
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac465:
+.State06:
 	ld de, PrologueSceneObjFrameset_15e77d
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac46a:
+.State07:
 	ld de, PrologueSceneObjFrameset_15e780
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac46f:
+.State08:
 	ld de, PrologueSceneObjFrameset_15e793
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac474:
+.State09:
 	ld de, PrologueSceneObjFrameset_15e7a3
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac479:
+.State0a:
 	ld de, PrologueSceneObjFrameset_15e7a6
-	call .Func_ac43b
+	call .animate_and_draw
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
 	play_sfx SFX_PROLOGUE_1
 	ret
 
-.Func_ac48e:
+.State0b:
 	ld de, PrologueSceneObjFrameset_15e7b7
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac493:
+.State0c:
 	ld de, PrologueSceneObjFrameset_15e7c4
-	call .Func_ac43b
+	call .animate_and_draw
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
 	play_sfx SFX_PROLOGUE_2
 	ret
 
-.Func_ac4a8:
+.State0d:
 	ld de, PrologueSceneObjFrameset_15e7ed
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac4ad:
+.State0e:
 	ld de, PrologueSceneObjFrameset_15e7b7
-	jr .Func_ac444
+	jr .animate_once
 
-.Func_ac4b2:
+.State0f:
 	ld de, PrologueSceneObjFrameset_15e783
-	jr .Func_ac43b
+	jr .animate_and_draw
 
-.Func_ac4b7:
+.State10:
 	ld de, PrologueSceneObjFrameset_15e78a
-	jr .Func_ac444
+	jr .animate_once
 
-.Func_ac4bc:
+.State11:
 	ld de, PrologueSceneObjFrameset_15e796
-	jr .Func_ac444
+	jr .animate_once
 
-.Func_ac4c1:
+.State12:
 	ld de, PrologueSceneObjFrameset_15e7f0
-	jp .Func_ac43b
+	jp .animate_and_draw
 
-.Func_ac4c7:
+.State13:
 	ld de, PrologueSceneObjFrameset_15e7f5
-	jp .Func_ac43b
+	jp .animate_and_draw
 
-.Func_ac4cd:
+.State14:
 	ld de, PrologueSceneObjFrameset_aad0b
 	call UpdateSceneObjAnim_OWOAM1
 	ld e, $00
@@ -780,19 +780,19 @@ UpdatePrologueSceneObj:
 	ld b, BANK(SceneWarioOAM_aab5c)
 	jp LoadOWSpriteWithScroll
 
-.Func_ac4e3:
+.State15:
 	ld de, PrologueSceneObjFrameset_15e7fa
 	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $16
 	jp .set_new_state_if_finished
 
-.Func_ac4ee:
+.State16:
 	ld de, PrologueSceneObjFrameset_15e801
-	jp .Func_ac43b
+	jp .animate_and_draw
 
-.Func_ac4f4:
+.State17:
 	ld de, PrologueSceneObjFrameset_15e80a
-	jp .Func_ac43b
+	jp .animate_and_draw
 
 PlaySceneWarioStepSFX:
 	ld hl, wSceneWarioSFXCounter
@@ -803,10 +803,10 @@ PlaySceneWarioStepSFX:
 	ld c, $24
 	ld a, [hl]
 	cp c
-	jr c, .asm_ac514
+	jr c, .done
 	xor a
 	ld [wSceneWarioSFXCounter], a
-.asm_ac514
+.done
 	ret
 
 PlaySceneWarioRunSFX:
@@ -1006,18 +1006,18 @@ UpdateSceneWario:
 	ld b, SCENEWARIO_LOOK_TURN_FORWARD
 	call .SetStateIfFinished
 
-.asm_ac65f
+.look_around_sfx
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_LOOK_BACK
 	ret z
 	ld hl, wSceneWarioFrame
 	ld a, [wSceneWarioSFXCounter]
 	and a
-	jr z, .asm_ac67e
+	jr z, .look_check_frame
 	dec a
-	jr z, .asm_ac672
+	jr z, .look_wait_frame_change
 	ret
-.asm_ac672
+.look_wait_frame_change
 	ld a, [hl]
 	cp $00
 	ret z
@@ -1026,14 +1026,14 @@ UpdateSceneWario:
 	xor a
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac67e
+.look_check_frame
 	ld a, [hl]
 	cp $00
-	jr z, .asm_ac688
+	jr z, .look_play_sfx
 	cp $04
-	jr z, .asm_ac688
+	jr z, .look_play_sfx
 	ret
-.asm_ac688
+.look_play_sfx
 	play_sfx SFX_TIPTOE_2
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
@@ -1054,14 +1054,14 @@ UpdateSceneWario:
 	call .UpdateAnimation
 	ld b, SCENEWARIO_TURN_LEFT_END
 	call .SetStateIfFinished
-	jr .asm_ac65f
+	jr .look_around_sfx
 
 .LookTurnRight:
 	ld de, SceneWarioFrameset_aa6ca
 	call .UpdateAnimation
 	ld b, SCENEWARIO_TURN_RIGHT_END
 	call .SetStateIfFinished
-	jr .asm_ac65f
+	jr .look_around_sfx
 
 .OnFire:
 	ld de, SceneWarioFrameset_aa8ec
@@ -1098,41 +1098,41 @@ UpdateSceneWario:
 	ld hl, wSceneWarioFrame
 	ld a, [wSceneWarioSFXCounter]
 	and a
-	jr z, .asm_ac718
+	jr z, .look_up_check_frame
 	dec a
-	jr z, .asm_ac70a
+	jr z, .look_up_wait_leave_0d
 	dec a
-	jr z, .asm_ac713
+	jr z, .look_up_wait_leave_0c
 	ret
-.asm_ac70a
+.look_up_wait_leave_0d
 	ld a, [hl]
 	cp $0d
-.asm_ac70d
+.look_up_reset_if_changed
 	ret z
 	xor a
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac713
+.look_up_wait_leave_0c
 	ld a, [hl]
 	cp $0c
-	jr .asm_ac70d
-.asm_ac718
+	jr .look_up_reset_if_changed
+.look_up_check_frame
 	ld a, [hl]
 	cp $0c
-	jr z, .asm_ac730
+	jr z, .look_up_play_tiptoe_1
 	cp $0d
-	jr z, .asm_ac722
+	jr z, .look_up_play_tiptoe_3
 	ret
-.asm_ac722
+.look_up_play_tiptoe_3
 	play_sfx SFX_TIPTOE_3
 	ld a, $01
-.asm_ac72c
+.look_up_set_sfx_counter
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac730
+.look_up_play_tiptoe_1
 	play_sfx SFX_TIPTOE_1
 	ld a, $02
-	jr .asm_ac72c
+	jr .look_up_set_sfx_counter
 
 .CrashLandLeft:
 	ld de, SceneWarioFrameset_aa924
@@ -1197,10 +1197,10 @@ UpdateSceneWario:
 .JumpAndBow:
 	ld de, SceneWarioFrameset_ab03c
 	call .UpdateAnimation
-	call .Func_ac7b7
+	call .PlayLandSFXAtFrame7
 	ld b, SCENEWARIO_LOOK_BACK
 	jp .SetStateIfFinished
-.Func_ac7b7:
+.PlayLandSFXAtFrame7:
 	ld a, [wSceneWarioFrame]
 	cp $07
 	ret nz
@@ -1233,10 +1233,10 @@ UpdateSceneWario:
 .PanicJump:
 	ld de, SceneWarioFrameset_ab09d
 	call .UpdateAnimation
-	call .Func_ac7ff
+	call .PlayLandSFXAtEnd
 	ld b, SCENEWARIO_LOOK_BACK
 	jp .SetStateIfFinished
-.Func_ac7ff:
+.PlayLandSFXAtEnd:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
@@ -1329,13 +1329,13 @@ UpdateSceneWario:
 
 .PanicRunLeft:
 	ld de, SceneWarioFrameset_16b5a
-.asm_ac8a7
+.panic_run
 	call .UpdateAnimation
 	jp PlaySceneWarioRunSFX
 
 .PanicRunRight:
 	ld de, SceneWarioFrameset_16b63
-	jr .asm_ac8a7
+	jr .panic_run
 
 .IdleFront:
 	ld de, SceneWarioFrameset_1fc316
@@ -1714,7 +1714,7 @@ NextTextPageOrEnd:
 	add hl, bc
 	ld a, [hl]
 	cp '▼'
-	jp z, .asm_acb20 ; can be jr
+	jp z, .end_of_text ; can be jr
 	ld hl, wSceneObj1State
 	ld a, $01
 	call SetSceneObjState
@@ -1726,7 +1726,7 @@ NextTextPageOrEnd:
 	ld [wOWStepCounter], a
 	ret
 
-.asm_acb20
+.end_of_text
 	call AdvanceTempleOWStep2
 	scf
 	ret
@@ -1798,7 +1798,7 @@ _InitTempleScene:
 	ld a, [wTempBank]
 	ldh [hCallFuncBank], a
 	hcall Decompress
-	jr .asm_acc68
+	jr .init_scene_wario
 
 .set_regular_temple_scene
 	ld [wTempleScene], a
@@ -1816,7 +1816,7 @@ _InitTempleScene:
 	hcall Decompress
 	call LoadNextObjectiveText
 
-.asm_acc68
+.init_scene_wario
 	ld a, $60
 	ld [w1d140], a
 	ld a, $e8
@@ -2448,38 +2448,38 @@ HiddenFigureRevealScene:
 	dw LoadCurTextPageBufferPage
 	dw WaitAButtonAndClearTextbox
 	dw PrintTextPageWithoutHeader
-	dw .Func_ad0bd
+	dw .NextTextPageOrEnd
 	dw .WaitThenShowTextArrow
 	dw .WaitAButtonThenClearTextbox
 	dw HandleTempleMusicBoxScene
 	dw HandleTempleShakeScene
-	dw .Func_ad0e4
-	dw .Func_ad0f6
+	dw .SetFadeToDarkness
+	dw .FadeEvery16Frames
 	dw .InitShakeAndRocks
-	dw .Func_ad12f
+	dw .WaitRocksGone
 	dw .LoadHiddenFigureGfx1
 	dw .LoadHiddenFigureGfx2
 	dw .LoadHiddenFigureGfx3
-	dw .Func_ad195
-	dw .Func_ad1e3
+	dw .ShowHiddenFigure
+	dw .FadeInHiddenFigure
 	dw HandleHiddenFigureReveal
 	dw .Wait3
 	dw .InitTextPrintOnBGMap1
 	dw PrintTextPageWithHeader
-	dw .Func_ad207
+	dw .SkipToPage4
 	dw LoadCurTextPageBufferPage
 	dw .StartHiddenFigureMouthMovement
 	dw .PlayHiddenFigureLaughSFX
 	dw .PrintTextUntilNextPage
-	dw .Func_ad23a
+	dw .CloseMouthThenShowArrow
 	dw LoadCurTextPageBufferPage
-	dw .Func_ad259
-	dw .Func_ad271
-	dw .Func_ad27a
-	dw .Func_ad2f4
-	dw .Func_ad300
-	dw .Func_ad308
-	dw .Func_ad319
+	dw .WaitAButtonOpenMouth
+	dw .WaitMouthOpen
+	dw .PrintTextMoveMouth
+	dw .WaitMouthClosedNextPage
+	dw .WarioPanicJump
+	dw .WaitThenShowTextArrow2
+	dw .WaitAButtonThenClearTextbox2
 	dw SetFightAgainstAHiddenFigure
 
 .Wait1:
@@ -2490,7 +2490,7 @@ HiddenFigureRevealScene:
 	ld c, 30
 	jp WaitTempleOWStep
 
-.Func_ad0bd:
+.NextTextPageOrEnd:
 	jp NextTextPageOrEnd
 
 .WaitThenShowTextArrow:
@@ -2512,16 +2512,16 @@ HiddenFigureRevealScene:
 	call ClearTextbox
 	jp AdvanceTempleOWStep
 
-.Func_ad0e4:
+.SetFadeToDarkness:
 	call HandleTempleShakeAndRocks
 	ld a, $03
 	ld [w2d880], a
 	xor a
 	ld [wPalConfig1TotalSteps], a
 	ld [wPalConfig2TotalSteps], a
-	jp .Func_ad16a
+	jp .panic_and_next
 
-.Func_ad0f6:
+.FadeEvery16Frames:
 	call HandleTempleWarioPanic
 	call HandleTempleShakeAndRocks
 	ld a, [wOWStepCounter]
@@ -2544,9 +2544,9 @@ HiddenFigureRevealScene:
 	ld [wTempleRock8Size], a
 	ld [wTempleRock9Size], a
 	ld [wTempleRock10Size], a
-	jr .Func_ad16a
+	jr .panic_and_next
 
-.Func_ad12f:
+.WaitRocksGone:
 	call HandleTempleWarioPanic
 	call HandleTempleShakeAndRocks
 	xor a
@@ -2586,7 +2586,7 @@ HiddenFigureRevealScene:
 	ld a, c
 	ld [hl], a ; mode
 
-.Func_ad16a:
+.panic_and_next:
 	call HandleTempleWarioPanic
 	jp AdvanceTempleOWStep
 
@@ -2610,7 +2610,7 @@ HiddenFigureRevealScene:
 	ld [wHDMABank], a
 	jr .SetHDMA
 
-.Func_ad195:
+.ShowHiddenFigure:
 	call HandleTempleWarioPanic
 	ld a, [wOWStepCounter]
 	cp 30
@@ -2645,14 +2645,14 @@ HiddenFigureRevealScene:
 	ld [wPalConfig2TotalSteps], a
 	jp AdvanceTempleOWStep
 
-.Func_ad1e3:
+.FadeInHiddenFigure:
 	call HandleTempleWarioPanic
 	ld c, $07
 	ld a, [wPalConfig1TotalSteps]
 	cp $14
-	jr c, .asm_ad1f1
+	jr c, .fade_on_interval
 	ld c, $03
-.asm_ad1f1
+.fade_on_interval
 	ld a, [wOWStepCounter]
 	and c
 	ret nz
@@ -2668,7 +2668,7 @@ HiddenFigureRevealScene:
 	ld [wBGMapToPrintText], a
 	ret
 
-.Func_ad207:
+.SkipToPage4:
 	ld a, [wOWStepCounter]
 	cp 30
 	ret c
@@ -2695,7 +2695,7 @@ HiddenFigureRevealScene:
 	ret nz
 	jp AdvanceTempleOWStep
 
-.Func_ad23a:
+.CloseMouthThenShowArrow:
 	ld a, [wOWStepCounter]
 	cp 40
 	jr z, .finish_mouth_movement
@@ -2713,7 +2713,7 @@ HiddenFigureRevealScene:
 	ld [wSceneObj7State], a
 	ret
 
-.Func_ad259:
+.WaitAButtonOpenMouth:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
@@ -2725,13 +2725,13 @@ HiddenFigureRevealScene:
 	ld [wSceneObj7State], a
 	jp AdvanceTempleOWStep2
 
-.Func_ad271:
+.WaitMouthOpen:
 	ld a, [wSceneObj7State]
 	cp $0e
 	ret nz
 	jp AdvanceTempleOWStep2
 
-.Func_ad27a:
+.PrintTextMoveMouth:
 	call PrintTextWithoutHeader
 	call .HandleHiddenFigureMouthClosing
 	ld a, [wCurTextLine]
@@ -2810,7 +2810,7 @@ HiddenFigureRevealScene:
 	ld b, 5
 	jr .check_pos
 
-.Func_ad2f4:
+.WaitMouthClosedNextPage:
 	ld a, [wSceneObj7State]
 	cp $0d
 	ret nz
@@ -2819,12 +2819,12 @@ HiddenFigureRevealScene:
 	dec [hl]
 	ret
 
-.Func_ad300:
+.WarioPanicJump:
 	ld a, SCENEWARIO_PANIC_JUMP
 	call SetSceneWarioState
 	jp AdvanceTempleOWStep
 
-.Func_ad308:
+.WaitThenShowTextArrow2:
 	ld a, [wOWStepCounter]
 	cp 30
 	ret c
@@ -2833,7 +2833,7 @@ HiddenFigureRevealScene:
 	call SetSceneObjState
 	jp AdvanceTempleOWStep
 
-.Func_ad319:
+.WaitAButtonThenClearTextbox2:
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	ret z
@@ -3842,7 +3842,7 @@ _GolfBuilding:
 	decompress_attrmap GolfBuildingAttrmap, v1BGMap0
 	decompress_tilemap GolfBuildingTilemap, v0BGMap0
 
-	call .Func_ada43
+	call .PlaceSceneWario
 	call UpdateSceneWario
 
 	ld a, LCDC_DEFAULT
@@ -3852,11 +3852,11 @@ _GolfBuilding:
 	inc [hl]
 	ret
 
-.Func_ada43:
+.PlaceSceneWario:
 	ld a, [wCrayonFlags]
 	cp ALL_CRAYONS
 	jr z, .all_crayons
-.Func_ada4a:
+.place_wario_by_map_side:
 	ld de, wOWUIObj1YCoord
 	ld a, $58
 	ld [de], a
@@ -3887,7 +3887,7 @@ _GolfBuilding:
 .all_crayons
 	ld a, [wOWLevel]
 	cp LEVEL_GOLF_BUILDING
-	jr nz, .asm_ada97
+	jr nz, .not_golf_building
 	ld de, wOWUIObj1YCoord
 	ld a, $58
 	ld [de], a
@@ -3902,8 +3902,8 @@ _GolfBuilding:
 	call SetSceneWarioState
 	ret
 
-.asm_ada97
-	call .Func_ada4a
+.not_golf_building
+	call .place_wario_by_map_side
 	ld hl, wPalFade6Colour2GreenCurrent
 	inc [hl]
 	inc [hl]
@@ -4082,13 +4082,13 @@ _GolfBuilding:
 	ret
 
 _UpdateGolfBuilding:
-	call .Func_adc0b
-	call nc, .Func_adc2f
+	call .CheckExit
+	call nc, .RunScene
 	call UpdateSceneWario
 	call ClearUnusedVirtualOAM
 	ret
 
-.Func_adc0b:
+.CheckExit:
 	ld a, [wPalFade6Colour2GreenCurrent]
 	cp $04
 	jr z, .no_carry
@@ -4107,27 +4107,27 @@ _UpdateGolfBuilding:
 	scf
 	ret
 
-.Func_adc2f:
+.RunScene:
 	ld hl, wPalFade6Colour2GreenSign
 	inc [hl]
 	ld c, l
 	ld b, h
 	ld a, [wPalFade6Colour2GreenCurrent]
 	jumptable
-	dw .Func_adc54 ; $0
-	dw .Func_adc7e ; $1
-	dw .Func_adca9 ; $2
-	dw .Func_adcda ; $3
-	dw .Func_add0b ; $4
+	dw .WalkRightAndExit ; $0
+	dw .WalkLeftAndExit ; $1
+	dw .WalkRightToDoor ; $2
+	dw .WalkLeftToDoor ; $3
+	dw .AtDoor ; $4
 
-.asm_adc43
+.next_step
 	ld hl, wPalFade6Colour2GreenSign
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-.asm_adc4a
+.set_scene
 	ld [wPalFade6Colour2GreenCurrent], a
 	ld hl, wPalFade6Colour2GreenSign
 	xor a
@@ -4135,150 +4135,150 @@ _UpdateGolfBuilding:
 	ld [hl], a
 	ret
 
-.Func_adc54:
+.WalkRightAndExit:
 	ld a, [wPalFade6Colour2GreenTarget]
 	and a
-	jr z, .asm_adc65
+	jr z, .walk_right_exit_start
 	dec a
-	jr z, .asm_adc6c
+	jr z, .walk_right_exit_move
 	dec a
-	jr z, .asm_adc78
+	jr z, .walk_right_exit_wait
 	dec a
 	call z, .exit
 	ret
 
-.asm_adc65
+.walk_right_exit_start
 	ld a, $08
 	call SetSceneWarioState
-	jr .asm_adc43
-.asm_adc6c
+	jr .next_step
+.walk_right_exit_move
 	call ApplySceneWarioMovementRight
 	cp $90
 	ret nz
 	xor a
 	call SetSceneWarioState
-	jr .asm_adc43
-.asm_adc78
+	jr .next_step
+.walk_right_exit_wait
 	ld a, [bc]
 	cp $14
 	ret c
-	jr .asm_adc43
+	jr .next_step
 
-.Func_adc7e:
+.WalkLeftAndExit:
 	ld a, [wPalFade6Colour2GreenTarget]
 	and a
-	jr z, .asm_adc8f
+	jr z, .walk_left_exit_start
 	dec a
-	jr z, .asm_adc96
+	jr z, .walk_left_exit_move
 	dec a
-	jr z, .asm_adca2
+	jr z, .walk_left_exit_wait
 	dec a
 	call z, .exit
 	ret
 
-.asm_adc8f
+.walk_left_exit_start
 	ld a, $07
 	call SetSceneWarioState
-	jr .asm_adc43
-.asm_adc96
+	jr .next_step
+.walk_left_exit_move
 	call ApplySceneWarioMovementLeft
 	cp $10
 	ret nz
 	xor a
 	call SetSceneWarioState
-	jr .asm_adc43
-.asm_adca2
+	jr .next_step
+.walk_left_exit_wait
 	ld a, [bc]
 	cp $14
 	ret c
-	jp .asm_adc43
+	jp .next_step
 
-.Func_adca9:
+.WalkRightToDoor:
 	ld a, [wPalFade6Colour2GreenTarget]
 	and a
-	jr z, .asm_adcb6
+	jr z, .walk_right_door_start
 	dec a
-	jr z, .asm_adcbe
+	jr z, .walk_right_door_move
 	dec a
-	jr z, .asm_adccc
+	jr z, .walk_right_door_wait
 	ret
-.asm_adcb6
+.walk_right_door_start
 	ld a, $08
 	call SetSceneWarioState
-	jp .asm_adc43
-.asm_adcbe
+	jp .next_step
+.walk_right_door_move
 	call ApplySceneWarioMovementRight
 	cp $50
 	ret nz
 	ld a, $0d
 	call SetSceneWarioState
-	jp .asm_adc43
-.asm_adccc
+	jp .next_step
+.walk_right_door_wait
 	ld a, [bc]
 	cp $08
 	ret c
 	ld a, $34
 	call SetSceneWarioState
 	ld a, $04
-	jp .asm_adc4a
+	jp .set_scene
 
-.Func_adcda:
+.WalkLeftToDoor:
 	ld a, [wPalFade6Colour2GreenTarget]
 	and a
-	jr z, .asm_adce7
+	jr z, .walk_left_door_start
 	dec a
-	jr z, .asm_adcef
+	jr z, .walk_left_door_move
 	dec a
-	jr z, .asm_adcfd
+	jr z, .walk_left_door_wait
 	ret
-.asm_adce7
+.walk_left_door_start
 	ld a, $07
 	call SetSceneWarioState
-	jp .asm_adc43
-.asm_adcef
+	jp .next_step
+.walk_left_door_move
 	call ApplySceneWarioMovementLeft
 	cp $50
 	ret nz
 	ld a, $0c
 	call SetSceneWarioState
-	jp .asm_adc43
-.asm_adcfd
+	jp .next_step
+.walk_left_door_wait
 	ld a, [bc]
 	cp $08
 	ret c
 	ld a, $35
 	call SetSceneWarioState
 	ld a, $04
-	jp .asm_adc4a
+	jp .set_scene
 
-.Func_add0b:
+.AtDoor:
 	ld a, [wPalFade6Colour2GreenTarget]
 	jumptable
-	dw .Func_add21
-	dw .Func_add2a
-	dw .Func_add36
-	dw .Func_add8a
-	dw .Func_add93
-	dw .Func_adda5
-	dw .Func_addae
-	dw .Func_addb7
-	dw .Func_addc0
+	dw .WaitLookFront
+	dw .FaceFront
+	dw .HandleInput
+	dw .WaitLookBack
+	dw .EnterGolf
+	dw .WaitIdleLeft
+	dw .StartWalkLeftAndExit
+	dw .WaitIdleRight
+	dw .StartWalkRightAndExit
 
-.Func_add21:
+.WaitLookFront:
 	ld a, [wOWUIObj1State]
 	cp $01
 	ret nz
-	jp .asm_adc43
+	jp .next_step
 
-.Func_add2a:
+.FaceFront:
 	ld a, [bc]
 	cp $10
 	ret c
 	ld a, $3c
 	call SetSceneWarioState
-	jp .asm_adc43
+	jp .next_step
 
-.Func_add36:
+.HandleInput:
 	ld a, [wJoypadPressed]
 	bit B_PAD_RIGHT, a
 	jr nz, .d_right
@@ -4320,15 +4320,15 @@ _UpdateGolfBuilding:
 	ld a, $30
 	call SetSceneWarioState
 	play_sfx SFX_STEP
-	jp .asm_adc43
+	jp .next_step
 
-.Func_add8a:
+.WaitLookBack:
 	ld a, [wOWUIObj1State]
 	cp $02
 	ret nz
-	jp .asm_adc43
+	jp .next_step
 
-.Func_add93:
+.EnterGolf:
 	ld a, [bc]
 	cp $14
 	ret c
@@ -4340,31 +4340,31 @@ _UpdateGolfBuilding:
 	inc [hl]
 	ret
 
-.Func_adda5:
+.WaitIdleLeft:
 	ld a, [wOWUIObj1State]
 	cp $0c
 	ret nz
-	jp .asm_adc43
+	jp .next_step
 
-.Func_addae:
+.StartWalkLeftAndExit:
 	ld a, [bc]
 	cp $04
 	ret c
 	ld a, $01
-	jp .asm_adc4a
+	jp .set_scene
 
-.Func_addb7:
+.WaitIdleRight:
 	ld a, [wOWUIObj1State]
 	cp $0d
 	ret nz
-	jp .asm_adc43
+	jp .next_step
 
-.Func_addc0:
+.StartWalkRightAndExit:
 	ld a, [bc]
 	cp $04
 	ret c
 	ld a, $00
-	jp .asm_adc4a
+	jp .set_scene
 
 GolfBuildingGreyPals:
 	rgb 31, 31, 31

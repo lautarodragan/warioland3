@@ -27,14 +27,14 @@ SnakeFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_498d8
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, SnakeFrameset_68804
-	jr .asm_498dd
-.asm_498d8
+	jr .set_frameset
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, SnakeFrameset_6881d
-.asm_498dd
+.set_frameset
 	call SetObjectFramesetPtr
 	ld a, $78
 	ld [hli], a
@@ -53,48 +53,48 @@ SnakeFunc:
 	call SetOneWayPlatformAction
 	ld a, $0f
 	ld [wCurObjCollBoxBottom], a
-	call .Func_49af0
+	call .TurnToWario
 	ld hl, wCurObjState
 	ld a, [hld]
 	and a
-	jr z, .asm_49920
+	jr z, .dispatch
 	inc l
 	ld b, $00
 	ld [hl], b
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	cp $0a
-	jr z, .asm_49936
+	jr z, .vanish_touch
 	and $fe
 	cp $04
-	jr z, .asm_49919
+	jr z, .hit
 	cp $28
-	jr nz, .asm_4991e
-.asm_49919
+	jr nz, .ignore_hit
+.hit
 	ld l, OBJ_VAR_1
-	jp .Func_49a85
-.asm_4991e
+	jp .start_sinking
+.ignore_hit
 	ld l, OBJ_SUBSTATE
-.asm_49920
+.dispatch
 	ld a, [hl]
 	and $0f
 	jumptable
-	dw .Func_49943
-	dw .Func_49943
-	dw .Func_49957
-	dw .Func_49984
-	dw .Func_499b8
-	dw .Func_499f8
-	dw .Func_49a57
-	dw .Func_49a7c
-	dw .Func_49aa1
+	dw .Wait
+	dw .Wait
+	dw .Rise
+	dw .WaitAfterRise
+	dw .PrepareFire
+	dw .ShootFire
+	dw .EndShooting
+	dw .StartSinking
+	dw .Sink
 
-.asm_49936
+.vanish_touch
 	play_sfx SFX_VANISH
 	ld l, OBJ_VAR_1
-	jp .Func_49a85
+	jp .start_sinking
 
-.Func_49943:
+.Wait:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -105,11 +105,11 @@ SnakeFunc:
 	play_sfx SFX_BEANSTALK_GROW
 	ret
 
-.Func_49957:
-	call .Func_49b76
+.Rise:
+	call .SetStateFromScreenY
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_4997d
+	jr z, .end_rise
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
 	jp z, MoveObjectUp_Slow
@@ -123,56 +123,56 @@ SnakeFunc:
 	call MoveWarioUp
 	call HandleUpwardsFloorTransition
 	jp MoveObjectUp
-.asm_4997d
+.end_rise
 	ld a, $53
 	ld [hli], a
 	ld l, OBJ_SUBSTATE
 	inc [hl]
 	ret
 
-.Func_49984:
+.WaitAfterRise:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_4998d
+	jr z, .wait_done
 	dec [hl]
 	ret
 
-.asm_4998d
+.wait_done
 	inc l
 	ld a, [hl]
 	and a
 	ld l, OBJ_SUBSTATE
-	jr nz, .asm_499b1
+	jr nz, .advance_while_turning
 	ld a, [wCurObjFrame]
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_499a3
+	jr nz, .wait_facing_right
 	cp $05
 	ret nz
 	ld de, SnakeFrameset_68852
-	jr .asm_499a9
-.asm_499a3
+	jr .start_prepare
+.wait_facing_right
 	cp $0e
 	ret nz
 	ld de, SnakeFrameset_688c6
-.asm_499a9
+.start_prepare
 	inc [hl]
 	call SetObjectFramesetPtr
 	ld a, $31
 	ld [hli], a
 	ret
 
-.asm_499b1
+.advance_while_turning
 	inc [hl]
 	ld a, $31
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_499b8:
+.PrepareFire:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_499d2
+	jr z, .prepare_done
 	dec [hl]
 	ld l, OBJ_FRAMESET_OFFSET
 	ld a, [hld]
@@ -184,7 +184,7 @@ SnakeFunc:
 	play_sfx SFX_SNAKE_PREPARE_FIRE
 	ret
 
-.asm_499d2
+.prepare_done
 	inc l
 	ld a, [hl]
 	and a
@@ -192,16 +192,16 @@ SnakeFunc:
 	ld a, [wCurObjFrame]
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_499e7
+	jr nz, .prepare_facing_right
 	cp $22
 	ret nz
 	ld de, SnakeFrameset_6886f
-	jr .asm_499ed
-.asm_499e7
+	jr .start_shoot
+.prepare_facing_right
 	cp $45
 	ret nz
 	ld de, SnakeFrameset_688e3
-.asm_499ed
+.start_shoot
 	inc [hl]
 	call SetObjectFramesetPtr
 	ld a, $31
@@ -210,12 +210,12 @@ SnakeFunc:
 	ld [hl], a
 	ret
 
-.Func_499f8:
+.ShootFire:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
 	dec [hl]
-	jr z, .asm_49a12
+	jr z, .find_free_slot
 	dec l
 	ld a, [hld]
 	cp $0a
@@ -226,47 +226,47 @@ SnakeFunc:
 	play_sfx SFX_SNAKE_PREPARE_FIRE
 	ret
 
-.asm_49a12
+.find_free_slot
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_49a18
+.loop
 	ld l, OBJ_FLAGS
 	add l
 	ld l, a
 	bit OBJFLAG_ACTIVE_F, [hl]
-	jr z, .asm_49a2a
+	jr z, .spit_fire
 	ld a, b
 	cp LOW(wObj8)
-	jr z, .asm_49a5f
+	jr z, .set_end_shooting
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_49a18
-.asm_49a2a
+	jr .loop
+.spit_fire
 	ld a, $93
 	ld [wCurObjStateDuration], a
 	play_sfx SFX_SNAKE_SPIT_FIRE
 	ld hl, wCurObjSubState
 	inc [hl]
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_49a4b
+	jr nz, .spit_right
 	ld de, SnakeFrameset_6888c
 	call SetObjectFramesetPtr
 	ld bc, ObjParams_SnakeFireLeft
 	jp CreateObjectAtRelativePos
-.asm_49a4b
+.spit_right
 	ld de, SnakeFrameset_68900
 	call SetObjectFramesetPtr
 	ld bc, ObjParams_SnakeFireRight
 	jp CreateObjectAtRelativePos
 
-.Func_49a57:
+.EndShooting:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
 	dec [hl]
 	ret nz
-.asm_49a5f
+.set_end_shooting
 	ld a, $31
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjSubState
@@ -275,22 +275,22 @@ SnakeFunc:
 	or $07
 	ld [hl], a
 	rlca
-	jr c, .asm_49a76
+	jr c, .end_facing_right
 	ld de, SnakeFrameset_688a9
 	jp SetObjectFramesetPtr
 
-.asm_49a76
+.end_facing_right
 	ld de, SnakeFrameset_6891d
 	jp SetObjectFramesetPtr
 
-.Func_49a7c:
+.StartSinking:
 	ld hl, wCurObjVar1
 	ld a, $02
 	ld [hld], a
 	dec [hl]
 	ret nz
 	inc l
-.Func_49a85:
+.start_sinking:
 	xor a
 	ld [hl], a
 	ld l, OBJ_SUBSTATE
@@ -305,26 +305,26 @@ SnakeFunc:
 	ld [hli], a
 	ret
 
-.Func_49aa1:
-	call .Func_49b76
+.Sink:
+	call .SetStateFromScreenY
 	ld hl, wCurObjVar2
 	ld a, [hli]
 	ld b, a
 	ld a, [wCurObjYPos + 0]
 	cp b
-	jr nz, .asm_49ab6
+	jr nz, .sinking
 	ld b, [hl]
 	ld a, [wCurObjYPos + 1]
 	cp b
-	jr z, .asm_49ae2
-.asm_49ab6
+	jr z, .sunk
+.sinking
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_49ac5
+	jr z, .move_down
 	dec [hl]
 	play_sfx SFX_SNAKE_SINK
-.asm_49ac5
+.move_down
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
 	jp z, MoveObjectDown_Slow
@@ -338,7 +338,7 @@ SnakeFunc:
 	call MoveWarioDown
 	call HandleDownwardsFloorTransition
 	jp MoveObjectDown
-.asm_49ae2
+.sunk
 	ld l, OBJ_STATE_DURATION
 	ld a, $78
 	ld [hl], a
@@ -349,38 +349,38 @@ SnakeFunc:
 	ld [hld], a
 	ret
 
-.Func_49af0:
+.TurnToWario:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_49b22
+	jr z, .check_wario
 	dec [hl]
 	ret nz
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	and $0f
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_49b12
+	jr nz, .turned_to_right
 	cp $04
-	jr nz, .asm_49b0c
+	jr nz, .left_default_frameset
 	ld de, SnakeFrameset_68852
 	jp SetObjectFramesetPtr
 
-.asm_49b0c
+.left_default_frameset
 	ld de, SnakeFrameset_68804
 	jp SetObjectFramesetPtr
 
-.asm_49b12
+.turned_to_right
 	cp $04
-	jr nz, .asm_49b1c
+	jr nz, .right_default_frameset
 	ld de, SnakeFrameset_688c6
 	jp SetObjectFramesetPtr
 
-.asm_49b1c
+.right_default_frameset
 	ld de, SnakeFrameset_6881d
 	jp SetObjectFramesetPtr
 
-.asm_49b22
+.check_wario
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -389,10 +389,10 @@ SnakeFunc:
 	add c
 	sub b
 	cp $28
-	jr c, .asm_49b35
+	jr c, .in_y_range
 	cp $e8
 	ret c
-.asm_49b35
+.in_y_range
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -400,52 +400,52 @@ SnakeFunc:
 	ld a, [wCurObjScreenXPos]
 	add c
 	sub b
-	jr c, .asm_49b5a
+	jr c, .wario_to_right
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	ret z
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld a, [hl]
 	and $0f
 	cp $04
-	jr nz, .asm_49b55
+	jr nz, .turn_left_frameset
 	ld de, SnakeFrameset_6884b
-	jr .asm_49b6e
-.asm_49b55
+	jr .start_turn
+.turn_left_frameset
 	ld de, SnakeFrameset_6883d
-	jr .asm_49b6e
-.asm_49b5a
+	jr .start_turn
+.wario_to_right
 	bit OBJSUBFLAG_HDIR_F, [hl]
 	ret nz
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld a, [hl]
 	and $0f
 	cp $04
-	jr nz, .asm_49b6b
+	jr nz, .turn_right_frameset
 	ld de, SnakeFrameset_68844
-	jr .asm_49b6e
-.asm_49b6b
+	jr .start_turn
+.turn_right_frameset
 	ld de, SnakeFrameset_68836
-.asm_49b6e
+.start_turn
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $14
 	ld [hl], a
 	ret
 
-.Func_49b76:
+.SetStateFromScreenY:
 	ld a, [wCurObjScreenYPos]
 	cp $10
-	jr c, .asm_49b8a
+	jr c, .off_screen_edge
 	cp $c0
-	jr nc, .asm_49b85
+	jr nc, .in_view
 	cp $a0
-	jr nc, .asm_49b8a
-.asm_49b85
+	jr nc, .off_screen_edge
+.in_view
 	xor a
 	ld [wCurObjState], a
 	ret
 
-.asm_49b8a
+.off_screen_edge
 	ld a, $48
 	ld [wCurObjState], a
 	ret

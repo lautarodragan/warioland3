@@ -25,9 +25,9 @@ PillarPlatformFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49ce5)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49ce5)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -40,87 +40,87 @@ PillarPlatformFunc:
 	ld [hl], a
 	ld a, [wDayNight]
 	rra
-	jr c, .asm_49cbc
+	jr c, .night
 	ld de, PillarPlatformFrameset_6975b
 	jp SetObjectFramesetPtr
 
-.asm_49cbc
+.night
 	ld de, PillarPlatformFrameset_6975e
 	jp SetObjectFramesetPtr
 
-.Func_49cc2:
+.Rise:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectUp_Fast
-	jr .asm_49cd8
-.Func_49cce:
+	jr .stop_moving
+.Lower:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectDown_Fast
-.asm_49cd8
+.stop_moving
 	xor a
 	ld [wCurObjState], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49ce5)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49ce5)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ret
 
-.Func_49ce5:
+.Update:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
 	ret z
 	cp $2b
-	jr z, .asm_49cf9
+	jr z, .raise_requested
 	cp $0a
-	jr z, .asm_49d13
+	jr z, .lower_requested
 	xor a
 	ld [hl], a
 	ret
 
-.asm_49cf9
+.raise_requested
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	cp $02
-	jr c, .asm_49d05
+	jr c, .start_rise
 	xor a
 	ld [wCurObjState], a
 	ret
 
-.asm_49d05
+.start_rise
 	inc [hl]
 	dec l
 	ld a, $09
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49cc2)
+	ld a, HIGH(.Rise)
 	ld [hld], a
-	ld a, LOW(.Func_49cc2)
+	ld a, LOW(.Rise)
 	ld [hld], a
 	ret
 
-.asm_49d13
+.lower_requested
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jr nz, .asm_49d1d
+	jr nz, .start_lower
 	ld [wCurObjState], a
 	ret
 
-.asm_49d1d
+.start_lower
 	dec [hl]
 	dec l
 	ld a, $09
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_49cce)
+	ld a, HIGH(.Lower)
 	ld [hld], a
-	ld a, LOW(.Func_49cce)
+	ld a, LOW(.Lower)
 	ld [hld], a
 	ld a, [wCurObjUnk01]
 	add $03
@@ -128,35 +128,35 @@ PillarPlatformFunc:
 	ld c, $2b
 	ld a, $00
 	ld b, $00
-	call .Func_49d43
+	call .SetLinkedPlatformsState
 	ld a, [wCurObjUnk01]
 	sub $03
 	ld e, a
 	ld a, $00
 	ld b, $00
-.Func_49d43:
+.SetLinkedPlatformsState:
 	ld h, HIGH(wObjects)
-.asm_49d45
+.loop
 	ld l, OBJ_MAP_PTR_LO
 	add l
 	ld l, a
 	ld a, [hl]
 	cp e
-	jr nz, .asm_49d5b
+	jr nz, .next_obj
 	ld a, l
 	add $06
 	ld l, a
 	ld a, [hl]
 	cp $20
-	jr nz, .asm_49d5b
+	jr nz, .next_obj
 	ld a, l
 	add $14
 	ld l, a
 	ld [hl], c
-.asm_49d5b
+.next_obj
 	ld a, b
 	cp $e0
 	ret z
 	add $20
 	ld b, a
-	jr .asm_49d45
+	jr .loop

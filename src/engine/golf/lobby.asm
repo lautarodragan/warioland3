@@ -28,15 +28,15 @@ InitGolfLobby:
 
 	ld a, [wGolfMenuOption]
 	and a
-	jr nz, .asm_1c8069
+	jr nz, .exit_pipe
 	ld a, GOLF_WARIO_WAITING
 	ld [wGolfWarioState], a
 	ld a, SCREEN_HEIGHT_PX
 	ld [wGolfWarioYPos], a
 	ld a, $38
 	ld [wGolfWarioXPos], a
-	jr .asm_1c807d
-.asm_1c8069
+	jr .got_wario_pos
+.exit_pipe
 	ld a, GOLF_WARIO_GOING_IN_PIPE
 	ld [wGolfWarioState], a
 	ld a, $a0
@@ -46,7 +46,7 @@ InitGolfLobby:
 	ld a, GOLFLOBBYSTATE_EXIT_PIPE
 	ld [wGolfLobbyState], a
 
-.asm_1c807d
+.got_wario_pos
 	call HandleGolfLobbyWarioSprite
 
 	xor a
@@ -209,19 +209,19 @@ UpdateGolfLobbyAnimations:
 	and a
 	jr nz, .english
 	ld de, GolfLobbyFrameset_1cb3d4
-	jr .asm_1c81d4
+	jr .got_frameset
 .english
 	ld de, GolfLobbyFrameset_1cb3d1
-.asm_1c81d4
+.got_frameset
 	ld hl, wGolfObj4Duration
 	call UpdateGolfObjectAnimation
 	ld a, c
 	and a
-	jr z, .asm_1c81e4
+	jr z, .load_sprite
 	ld a, COININFO_NOT_ENOUGH_COINS
 	ld [wGolfObj4State], a
 	ret
-.asm_1c81e4
+.load_sprite
 	ld a, [wGolfObj4CurrentFrame]
 	ld [wGolfObj4Frame], a
 	ld hl, wGolfObj4Sprite
@@ -495,21 +495,21 @@ HandleGolfLobbyStates:
 	ld hl, wGolfCounter
 	ld a, [hl]
 	and a
-	jr nz, .asm_1c83ed
+	jr nz, .descend_pipe
 	inc [hl]
 	ld hl, wGolfNumCoins + 1
 	ld a, [wNumCoins + 1]
 	ld [hld], a
 	ld a, [wNumCoins + 0]
 	ld [hl], a
-.asm_1c83ed
+.descend_pipe
 	ld hl, wGolfWarioYPos
 	ld a, [hl]
 	cp $b0
-	jr nc, .asm_1c83f7
+	jr nc, .enter_hole
 	inc [hl]
 	ret
-.asm_1c83f7
+.enter_hole
 	ld a, SST_GOLF_HOLE
 	ld [wSubState], a
 	ret
@@ -520,12 +520,12 @@ HandleGolfLobbyStates:
 	and a
 	ret z
 	cp 1
-	jr z, .asm_1c840d
+	jr z, .start_door_anim
 	cp 28
-	jr nc, .asm_1c8420
+	jr nc, .exit_lobby
 	inc [hl]
 	ret
-.asm_1c840d
+.start_door_anim
 	inc [hl]
 	xor a
 	ld [wGolfWarioDuration], a
@@ -535,7 +535,7 @@ HandleGolfLobbyStates:
 	ld a, $01
 	ld [wGolfVBlankMode], a
 	ret
-.asm_1c8420
+.exit_lobby
 	xor a
 	ld [wGolfMode], a
 	ld [wGolfMenuOption], a
@@ -548,12 +548,12 @@ HandleGolfLobbyStates:
 	ld hl, wGolfWarioYPos
 	ld a, [hl]
 	cp $80
-	jr z, .asm_1c844f
+	jr z, .out_of_pipe
 	cp $a0
 	play_sfx z, SFX_PIPE_ENTER
 	dec [hl]
 	ret
-.asm_1c844f
+.out_of_pipe
 	ld a, GOLF_WARIO_WAITING
 	ld [wGolfWarioState], a
 	ld a, $78
@@ -651,10 +651,10 @@ UpdateGolfClearCutscene:
 	ld hl, wGolfCounter
 	ld a, [wGolfObj1State]
 	and a
-	jr nz, .asm_1c8530
+	jr nz, .wait_after_rise
 	ld a, [wGolfObj1YCoord]
 	cp $50
-	jr z, .asm_1c8525
+	jr z, .reached_top
 	ld a, [hl]
 	and $0f
 	play_sfx z, SFX_RUMBLE
@@ -667,7 +667,7 @@ UpdateGolfClearCutscene:
 	ld [wGolfObj1YCoord], a
 	jr UpdateGolfClearCutsceneAnimation
 
-.asm_1c8525
+.reached_top
 	xor a
 	ld [hl], a
 	ld [wGolfObj1FramesetOffset], a
@@ -675,14 +675,14 @@ UpdateGolfClearCutscene:
 	ld [wGolfObj1State], a
 	jr UpdateGolfClearCutsceneAnimation
 
-.asm_1c8530
+.wait_after_rise
 	ld a, [hl]
 	cp $40
-	jr nc, .asm_1c8538
+	jr nc, .exit
 	inc [hl]
 	jr UpdateGolfClearCutsceneAnimation
 
-.asm_1c8538
+.exit
 	ld a, SST_GOLF_EXIT
 	ld [wSubState], a
 	ret
@@ -694,12 +694,12 @@ UpdateGolfClearCutsceneAnimation:
 	ld [wGolfOAMPtr + 1], a
 	ld a, [wGolfObj1State]
 	and a
-	jr nz, .asm_1c8553
+	jr nz, .risen
 	ld de, GolfLobbyFrameset_1cb5cf
-	jr .asm_1c8556
-.asm_1c8553
+	jr .got_frameset
+.risen
 	ld de, GolfLobbyFrameset_1cb5cc
-.asm_1c8556
+.got_frameset
 	ld hl, wGolfObj1Duration
 	call UpdateGolfObjectAnimation
 	ld a, [wGolfObj1CurrentFrame]

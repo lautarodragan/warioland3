@@ -48,26 +48,26 @@ HandlePauseMenuInput:
 
 	ld a, [wPauseMenuSelection]
 	cp PAUSEMENU_SAVE
-	jr z, .asm_1f09f0
+	jr z, .save_selected
 	cp PAUSEMENU_ACTION_HELP
-	jr z, .asm_1f0a02
+	jr z, .action_help_selected
 	cp PAUSEMENU_TO_MAP
-	jr z, .asm_1f0a1d
+	jr z, .to_map_selected
 
 	; PAUSEMENU_RETURN
 	ld a, [wJoypadPressed]
 	bit B_PAD_RIGHT, a
-	jr nz, .asm_1f09e7
+	jr nz, .return_d_right
 	bit B_PAD_A, a
 	ret z
 	jp .Return
-.asm_1f09e7
+.return_d_right
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	jr nz, .highlight_action_help_button
 	jr .highlight_save_button
 
-.asm_1f09f0
+.save_selected
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
 	jp nz, .highlight_return_button
@@ -77,22 +77,22 @@ HandlePauseMenuInput:
 	ret z
 	jp .Save
 
-.asm_1f0a02
+.action_help_selected
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
-	jr nz, .asm_1f0a13
+	jr nz, .action_help_d_left
 	bit B_PAD_RIGHT, a
 	jr nz, .highlight_to_map_button
 	bit B_PAD_A, a
 	ret z
 	jp .ActionHelp
-.asm_1f0a13
+.action_help_d_left
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	jp nz, .highlight_return_button
 	jr .highlight_save_button
 
-.asm_1f0a1d
+.to_map_selected
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
 	jr nz, .highlight_action_help_button
@@ -140,16 +140,16 @@ HandlePauseMenuInput:
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jr z, .vampire_1
 	ld bc, PauseMenuFrameset_1f1c50
-	jr .asm_1f0a79
+	jr .got_frameset_1
 .owl_1
 	ld bc, PauseMenuFrameset_1f1cf9
-	jr .asm_1f0a79
+	jr .got_frameset_1
 .rail_1
 	ld bc, PauseMenuFrameset_1f1d1b
-	jr .asm_1f0a79
+	jr .got_frameset_1
 .vampire_1
 	ld bc, PauseMenuFrameset_1f1d41
-.asm_1f0a79
+.got_frameset_1
 	ld a, b
 	ld [hli], a
 	ld a, c
@@ -244,16 +244,16 @@ HandlePauseMenuInput:
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jr z, .vampire_2
 	ld bc, PauseMenuFrameset_1f1c69
-	jr .asm_1f0b18
+	jr .got_frameset_2
 .owl_2
 	ld bc, PauseMenuFrameset_1f1d0a
-	jr .asm_1f0b18
+	jr .got_frameset_2
 .rail_2
 	ld bc, PauseMenuFrameset_1f1d20
-	jr .asm_1f0b18
+	jr .got_frameset_2
 .vampire_2
 	ld bc, PauseMenuFrameset_1f1d4c
-.asm_1f0b18
+.got_frameset_2
 	ld a, b
 	ld [hli], a
 	ld a, c

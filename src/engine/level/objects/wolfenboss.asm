@@ -275,10 +275,10 @@ WolfenbossFunc:
 	xor a
 	ld [hld], a
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_5601d
+	jr nz, .hurt_facing_right
 	ld de, WolfenbossFrameset_69e0e
 	jp SetObjectFramesetPtr
-.asm_5601d
+.hurt_facing_right
 	ld de, WolfenbossFrameset_69e1f
 	jp SetObjectFramesetPtr
 
@@ -343,10 +343,10 @@ WolfenbossFunc:
 	ld [hl], a ; OBJ_VAR_1
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_56082
+	jr c, .after_attack_facing_right
 	ld de, WolfenbossFrameset_69dfb
 	jp SetObjectFramesetPtr
-.asm_56082
+.after_attack_facing_right
 	ld de, WolfenbossFrameset_69e00
 	jp SetObjectFramesetPtr
 
@@ -383,24 +383,24 @@ WolfenbossFunc:
 	ld [hl], a
 	ld a, [wCurObjVar2]
 	and a
-	jr nz, .asm_560d9
+	jr nz, .attack_after_turn
 .start_movement
 	xor a
 	ld [wCurObjVar1], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_560d3
+	jr c, .start_moving_right
 	ld de, WolfenbossFrameset_69dec
 	jp SetObjectFramesetPtr
-.asm_560d3
+.start_moving_right
 	ld de, WolfenbossFrameset_69de7
 	jp SetObjectFramesetPtr
-.asm_560d9
+.attack_after_turn
 	xor a
 	ld [wCurObjVar2], a
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr z, .asm_56115
-	jr .asm_5613e
+	jr z, .start_attack_facing_left
+	jr .start_attack_facing_right
 
 .do_movement
 	ld a, [wGlobalCounter]
@@ -420,18 +420,18 @@ WolfenbossFunc:
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	cp b
-	jr nc, .asm_56115
+	jr nc, .start_attack_facing_left
 	ld a, $01
 	ld [wCurObjVar2], a
-	jr .asm_56122
-.asm_56115
+	jr .turn_right
+.start_attack_facing_left
 	ld de, WolfenbossFrameset_69df1
 	jr .start_attack
 .move_left
 	ld a, [wCurObjScreenXPos]
 	cp $18
 	jp nz, MoveObjectLeft_Slow
-.asm_56122
+.turn_right
 	ld de, WolfenbossFrameset_69dd5
 	jr .start_turning
 
@@ -443,11 +443,11 @@ WolfenbossFunc:
 	ld b, a
 	ld a, [wWarioScreenXPos]
 	cp b
-	jr nc, .asm_5613e
+	jr nc, .start_attack_facing_right
 	ld a, $01
 	ld [wCurObjVar2], a
-	jr .asm_56176
-.asm_5613e
+	jr .turn_left
+.start_attack_facing_right
 	ld de, WolfenbossFrameset_69df6
 
 .start_attack
@@ -487,7 +487,7 @@ WolfenbossFunc:
 	ld a, [wCurObjScreenXPos]
 	cp $98
 	jp nz, MoveObjectRight_Slow
-.asm_56176
+.turn_left
 	ld de, WolfenbossFrameset_69dde
 .start_turning
 	call SetObjectFramesetPtr
@@ -520,13 +520,13 @@ WolfenbossFunc:
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
 	cp $c0
-	jr nc, .asm_561ca
+	jr nc, .fell_off_screen
 	ld a, [wCurObjVar3]
 	cp $2b
 	play_sfx z, SFX_BOSS_DEFEAT_FALL
 	ld bc, WolfenbossData_60da0
 	jp ApplyObjYMovement
-.asm_561ca
+.fell_off_screen
 	ld a, BOSS_DEFEATED
 	ld [wBossState], a
 	call UpdateLevelMusic
@@ -583,10 +583,10 @@ MagicSpiralFunc:
 	jr z, .done_grow
 	ld a, [hl]
 	cp 69
-	jr nz, .asm_5622c
+	jr nz, .check_grow_frame_2
 	ld de, WolfenbossFrameset_69e39
 	jp SetObjectFramesetPtr
-.asm_5622c
+.check_grow_frame_2
 	cp 38
 	ret nz
 	ld de, WolfenbossFrameset_69e42
@@ -626,7 +626,7 @@ MagicSpiralFunc:
 	jr .done_vertical_movement
 .set_move_down
 	set OBJSUBFLAG_VDIR_F, [hl]
-	jr .asm_56281
+	jr .bounce_vertical
 .moving_down
 	cp SCREEN_HEIGHT_PX
 	jr nc, .set_move_up
@@ -634,7 +634,7 @@ MagicSpiralFunc:
 	jr .done_vertical_movement
 .set_move_up
 	res OBJSUBFLAG_VDIR_F, [hl]
-.asm_56281
+.bounce_vertical
 	call .reflect
 
 .done_vertical_movement
@@ -764,10 +764,10 @@ IgaguriFunc:
 	jr z, .done_grow
 	ld a, [hl]
 	cp 43
-	jr nz, .asm_56364
+	jr nz, .check_grow_frame_2
 	ld de, WolfenbossFrameset_69e80
 	jp SetObjectFramesetPtr
-.asm_56364
+.check_grow_frame_2
 	cp 24
 	ret nz
 	ld de, WolfenbossFrameset_69e4b
@@ -925,7 +925,7 @@ IgaguriFunc:
 	ld [hl], a
 	ld l, OBJ_VAR_1
 	dec [hl]
-	jr nz, .asm_56477
+	jr nz, .bounce_again
 .skip_bounce
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Hatch)
@@ -935,7 +935,7 @@ IgaguriFunc:
 	xor a
 	ld [wCurObjVar1], a
 	ret
-.asm_56477
+.bounce_again
 	xor a
 	ld [wCurObjVar3], a
 .ground_shake
@@ -953,13 +953,13 @@ IgaguriFunc:
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_564a3
+	jr z, .hatch_wait
 	cp $01
-	jr z, .asm_564b1
+	jr z, .hatch_shake
 	cp $02
-	jr z, .asm_564ce
+	jr z, .hatch_spawn_kuri
 	ret
-.asm_564a3
+.hatch_wait
 	ld a, $2
 	ld [wCurObjFrameDuration], a
 	ld l, OBJ_STATE_DURATION
@@ -969,7 +969,7 @@ IgaguriFunc:
 	ld [hli], a
 	inc [hl] ; OBJ_VAR_1
 	ret
-.asm_564b1
+.hatch_shake
 	ld a, [wGlobalCounter]
 	and %11111
 	play_sfx z, SFX_IGAGURI
@@ -981,7 +981,7 @@ IgaguriFunc:
 	inc [hl] ; OBJ_VAR_1
 	ld de, WolfenbossFrameset_69e59
 	jp SetObjectFramesetPtr
-.asm_564ce
+.hatch_spawn_kuri
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jr z, .destroy
@@ -1030,10 +1030,10 @@ KuriFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_5652d
+	jr c, .wario_to_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.asm_5652d
+.wario_to_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
@@ -1050,10 +1050,10 @@ KuriFunc:
 .Landed:
 	ld a, [wTransformation]
 	and a
-	jr z, .asm_56547
+	jr z, .check_state
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_56547
+.check_state
 	ld hl, wCurObjState
 	ld a, [hld]
 	and a
@@ -1118,11 +1118,11 @@ KuriFunc:
 .attacked_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, WolfenbossFrameset_69e60
-	jr .asm_565b3
+	jr .launch
 .attacked_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, WolfenbossFrameset_69e60
-.asm_565b3
+.launch
 	inc l
 	xor a
 	ld [hl], a

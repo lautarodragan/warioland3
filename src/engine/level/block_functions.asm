@@ -111,11 +111,11 @@ BlockFunc_AboveRightSlope:
 BlockFunc_BelowRightSlope:
 	ld a, [wBlockFuncWarioFlag]
 	and a
-	jr z, .asm_180c3
+	jr z, .check_down_collision
 	ld a, [wWarioState]
 	cp WST_ATTACKING_AIRBORNE
 	jp z, BlockFunc_Solid
-.asm_180c3
+.check_down_collision
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
@@ -186,17 +186,17 @@ RightSlopeCollision:
 
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN | COLLISION_LANDING
-	jr z, .asm_18126
+	jr z, .done
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jr nz, .set_slope_interaction
 	ld a, ON_SLOPE | RIGHT_SLOPE
 	ld [wObjSlopeInteraction], a
-	jr .asm_18126
+	jr .done
 .set_slope_interaction
 	ld a, ON_SLOPE | RIGHT_SLOPE
 	ld [wWarioSlopeInteraction], a
-.asm_18126
+.done
 	jp BlockFunc_SlopeEnd
 
 BlockFunc_AboveLeftSlope:
@@ -214,11 +214,11 @@ BlockFunc_AboveLeftSlope:
 BlockFunc_BelowLeftSlope:
 	ld a, [wBlockFuncWarioFlag]
 	and a
-	jr z, .asm_1814d
+	jr z, .check_down_collision
 	ld a, [wWarioState]
 	cp WST_ATTACKING_AIRBORNE
 	jp z, BlockFunc_Solid
-.asm_1814d
+.check_down_collision
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN | COLLISION_LANDING
 	jp z, BlockFunc_Free
@@ -271,7 +271,7 @@ BlockFunc_LeftSlope:
 LeftSlopeCollision:
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN | COLLISION_LANDING
-	jr z, .asm_181a9
+	jr z, .done
 
 	ldh a, [hXPosLo]
 	and $0f
@@ -293,11 +293,11 @@ LeftSlopeCollision:
 	jr nz, .set_slope_interaction
 	ld a, ON_SLOPE | LEFT_SLOPE
 	ld [wObjSlopeInteraction], a
-	jr .asm_181a9
+	jr .done
 .set_slope_interaction
 	ld a, ON_SLOPE | LEFT_SLOPE
 	ld [wWarioSlopeInteraction], a
-.asm_181a9
+.done
 	jp BlockFunc_SlopeEnd
 
 BlockFunc_Water:
@@ -350,17 +350,17 @@ BlockFunc_Floor:
 	ld [wHitFloorBlock], a
 	ld a, [wCollisionPoints]
 	bit COLLISION_DOWN_F, a
-	jr nz, .asm_18228
+	jr nz, .solid
 	bit COLLISION_DOWN_SIDES_F, a
-	jr nz, .asm_18228
+	jr nz, .solid
 	and COLLISION_UP_SIDES | COLLISION_SIDE | COLLISION_UP | COLLISION_ENV
 	jp nz, BlockFunc_Free
 	ldh a, [hYPosLo]
 	and $0f
 	cp $05
-	jr c, .asm_18228
+	jr c, .solid
 	jp BlockFunc_Free
-.asm_18228
+.solid
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -374,17 +374,17 @@ BlockFunc_Floor:
 BlockFunc_WaterSurface:
 	ld a, [wCollisionPoints]
 	bit COLLISION_LANDING_F, a
-	jr nz, .asm_18257
+	jr nz, .landing
 	ldh a, [hYPosLo]
 	and $0e
 	jp nz, BlockFunc_Water
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN | COLLISION_DOWN_SIDES
-	jr nz, .asm_1825a
+	jr nz, .standing_on_surface
 	jp BlockFunc_Water
-.asm_18257
+.landing
 	jp BlockFunc_Floor
-.asm_1825a
+.standing_on_surface
 	ld a, TRUE
 	ld [wIsInWaterOrSand], a
 	jp BlockFunc_Solid
@@ -460,9 +460,9 @@ BlockFunc_LadderTop:
 LadderTopCollision:
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
-	jr nz, .asm_182f6
+	jr nz, .ladder_underneath
 	jp BlockFunc_Floor
-.asm_182f6
+.ladder_underneath
 	ld a, LADDER_UNDERNEATH
 	ld [wLadderInteraction], a
 	jp BlockFunc_FreeEnvInteraction
@@ -516,22 +516,22 @@ BlockFunc_NonSolidSpike:
 ; left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	jr .asm_1836b
+	jr .got_direction
 .right
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 
-.asm_1836b
+.got_direction
 	ld a, [wSpikeTouchState]
 	and a
-	jr nz, .asm_18383
+	jr nz, .touch_state_nonzero
 	farcall SetState_Stung
 	jp BlockFunc_Free
-.asm_18383
+.touch_state_nonzero
 	cp $01
-	jr z, .asm_1838a
+	jr z, .end_transformation
 	jp BlockFunc_Free
-.asm_1838a
+.end_transformation
 	farcall EndTransformationAndSting
 	jp BlockFunc_Free
 
@@ -558,22 +558,22 @@ BlockFunc_SolidSpike:
 ; left
 	ld a, DIRECTION_RIGHT
 	ld [wDirection], a
-	jr .asm_183d1
+	jr .got_direction
 .right
 	ld a, DIRECTION_LEFT
 	ld [wDirection], a
 
-.asm_183d1
+.got_direction
 	ld a, [wSpikeTouchState]
 	and a
-	jr nz, .asm_183e9
+	jr nz, .touch_state_nonzero
 	farcall SetState_Stung
 	jp BlockFunc_Solid
-.asm_183e9
+.touch_state_nonzero
 	cp $01
-	jr z, .asm_183f0
+	jr z, .end_transformation
 	jp BlockFunc_Solid
-.asm_183f0
+.end_transformation
 	farcall EndTransformationAndSting
 	jp BlockFunc_Solid
 
@@ -597,10 +597,10 @@ BlockFunc_DownPipe_Left:
 
 	ld a, [wWarioState]
 	cp WST_IDLING
-	jr z, .asm_1843d
+	jr z, .can_enter
 	cp WST_GRAB_IDLING
 	jp nz, BlockFunc_Solid
-.asm_1843d
+.can_enter
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN
 	jp z, BlockFunc_Solid
@@ -623,10 +623,10 @@ BlockFunc_DownPipe_Right:
 
 	ld a, [wWarioState]
 	cp WST_IDLING
-	jr z, .asm_18474
+	jr z, .can_enter
 	cp WST_GRAB_IDLING
 	jp nz, BlockFunc_Solid
-.asm_18474
+.can_enter
 	ld a, [wCollisionPoints]
 	and COLLISION_DOWN
 	jp z, BlockFunc_Solid
@@ -686,10 +686,10 @@ BlockFunc_UpPipe_Left:
 
 	ld a, [wWarioState]
 	cp WST_AIRBORNE
-	jr z, .asm_1850f
+	jr z, .can_enter
 	cp WST_GRAB_AIRBORNE
 	jp nz, BlockFunc_Solid
-.asm_1850f
+.can_enter
 	ld a, [wCollisionPoints]
 	and COLLISION_UP
 	jp z, BlockFunc_Solid
@@ -712,10 +712,10 @@ BlockFunc_UpPipe_Right:
 
 	ld a, [wWarioState]
 	cp WST_AIRBORNE
-	jr z, .asm_18546
+	jr z, .can_enter
 	cp WST_GRAB_AIRBORNE
 	jp nz, BlockFunc_Solid
-.asm_18546
+.can_enter
 	ld a, [wCollisionPoints]
 	and COLLISION_UP
 	jp z, BlockFunc_Solid
@@ -823,10 +823,10 @@ BlockFunc_Door_NoReload:
 	jp z, BlockFunc_Free
 	ld a, [wWarioState]
 	cp WST_IDLING
-	jr z, .asm_18647
+	jr z, .can_enter
 	cp WST_GRAB_IDLING
 	jp nz, BlockFunc_Free
-.asm_18647
+.can_enter
 	ld a, ROOMTRANSITION_DOOR | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_DELAY
 	ld [wRoomTransitionParam], a
 	jr EnterDoor
@@ -844,10 +844,10 @@ BlockFunc_MinigameDoor_NoReload:
 	jp z, BlockFunc_Free
 	ld a, [wWarioState]
 	cp WST_IDLING
-	jr z, .asm_18671
+	jr z, .can_enter
 	cp WST_GRAB_IDLING
 	jp nz, BlockFunc_Free
-.asm_18671
+.can_enter
 	ld a, ROOMTRANSITION_GOLF | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_DELAY
 	ld [wRoomTransitionParam], a
 ;	fallthrough
@@ -889,18 +889,18 @@ EnterDoor:
 	ld [wWarioOAMPtr + 1], a
 	ld a, [wDirection]
 	and a
-	jr nz, .asm_186dd
+	jr nz, .dir_right
 	ld a, HIGH(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFenceFrameset_14d0b)
 	ld [wWarioFramesetPtr + 1], a
-	jr .asm_186e7
-.asm_186dd
+	jr .got_frameset
+.dir_right
 	ld a, HIGH(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 0], a
 	ld a, LOW(WarioFenceFrameset_14d10)
 	ld [wWarioFramesetPtr + 1], a
-.asm_186e7
+.got_frameset
 	ld a, BANK("Wario OAM 1")
 	ldh [hCallFuncBank], a
 	hcall UpdateWarioAnimation
@@ -912,10 +912,10 @@ BlockFunc_UnderwaterDoor:
 	jp z, BlockFunc_Water
 	ld a, [wTransformation]
 	cp TRANSFORMATION_INVISIBLE_WARIO
-	jr z, .asm_1870b
+	jr z, .can_enter
 	and a
 	jp nz, BlockFunc_Water
-.asm_1870b
+.can_enter
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
@@ -923,10 +923,10 @@ BlockFunc_UnderwaterDoor:
 	ld [wWaterInteraction], a
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
-	jr z, .asm_18724
+	jr z, .done
 	ld a, ROOMTRANSITION_UNDERWATER_DOOR | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS
 	ld [wRoomTransitionParam], a
-.asm_18724
+.done
 	jp BlockFunc_Free
 
 BlockFunc_UnderwaterDoor_NoReload:
@@ -935,10 +935,10 @@ BlockFunc_UnderwaterDoor_NoReload:
 	jp z, BlockFunc_Water
 	ld a, [wTransformation]
 	cp TRANSFORMATION_INVISIBLE_WARIO
-	jr z, .asm_18739
+	jr z, .can_enter
 	and a
 	jp nz, BlockFunc_Water
-.asm_18739
+.can_enter
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Water
@@ -946,10 +946,10 @@ BlockFunc_UnderwaterDoor_NoReload:
 	ld [wWaterInteraction], a
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
-	jr z, .asm_18752
+	jr z, .done
 	ld a, ROOMTRANSITION_UNDERWATER_DOOR | ROOMTRANSITIONF_DOOR
 	ld [wRoomTransitionParam], a
-.asm_18752
+.done
 	jp BlockFunc_Free
 
 ; unreferenced
@@ -959,19 +959,19 @@ UnreferencedBlockFunc_UnusedDoor:
 	jp z, BlockFunc_Free
 	ld a, [wTransformation]
 	cp TRANSFORMATION_INVISIBLE_WARIO
-	jr z, .asm_18767
+	jr z, .can_enter
 	and a
 	jp nz, BlockFunc_Free
-.asm_18767
+.can_enter
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
 	jp z, BlockFunc_Free
 	ld a, [wJoypadPressed]
 	bit B_PAD_UP, a
-	jr z, .asm_1877b
+	jr z, .done
 	ld a, ROOMTRANSITION_UNUSED_DOOR | ROOMTRANSITIONF_DOOR | ROOMTRANSITIONF_RELOAD_OBJECTS | ROOMTRANSITIONF_DELAY
 	ld [wRoomTransitionParam], a
-.asm_1877b
+.done
 	jp BlockFunc_Free
 
 BlockFunc_TreasureDoor:
@@ -1058,12 +1058,12 @@ BlockFunc_LightSource:
 	jp z, BlockFunc_Free
 	ld a, [wTransformation]
 	cp TRANSFORMATION_ZOMBIE_WARIO
-	jr z, .asm_1883a
+	jr z, .zombie
 	cp TRANSFORMATION_VAMPIRE_WARIO
 	jp nz, BlockFunc_Free
 	call RecoverFromTransformation_WithoutInvincibility
 	jp BlockFunc_Free
-.asm_1883a
+.zombie
 	farcall SetState_ZombieRecovering
 	jp BlockFunc_Free
 
@@ -1092,7 +1092,7 @@ BlockFunc_VampireWarioBarrier:
 	jp z, BlockFunc_Solid
 	ld a, [wWarioXPos + 1]
 	and $08
-	jr nz, .asm_1889e
+	jr nz, .push_right
 	ld a, [wCollisionBoxRight]
 	ld b, a
 	ld a, [wWarioXPos + 1]
@@ -1103,7 +1103,7 @@ BlockFunc_VampireWarioBarrier:
 	sbc $00
 	ld [wWarioXPos + 0], a
 	jp BlockFunc_Solid
-.asm_1889e
+.push_right
 	ld a, [wCollisionBoxLeft]
 	ld b, a
 	ld a, $10
@@ -1187,9 +1187,9 @@ BlockFunc_AirCurrent:
 	jp z, BlockFunc_Free
 	ld a, [wCollisionPoints]
 	bit COLLISION_ENV_F, a
-	jr nz, .asm_1895e
+	jr nz, .env_collision
 	jp BlockFunc_Free
-.asm_1895e
+.env_collision
 	ld a, [wInvincibleCounter]
 	and a
 	jp nz, BlockFunc_Free
@@ -1301,37 +1301,37 @@ CrackedBlockWithColourCoinCollision:
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18a36
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18a45
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18a45
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18a5c
+	jr nz, .break
 	jp BlockFunc_Solid
 
-.asm_18a36
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_18a5c
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_18a5c
+	jr nz, .break
 	jp BlockFunc_Solid
 
-.asm_18a45
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_18a5c
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_18a5c
+	jr nz, .break
 	jp BlockFunc_Solid
 
-.asm_18a5c
+.break
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -1352,12 +1352,12 @@ CrackedBlockWithColourCoinCollision:
 	jp z, BlockFunc_Free
 	ld a, [wIsSmashAttacking]
 	and a
-	jr nz, .asm_18a8f
+	jr nz, .smash_attacking
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	jp BlockFunc_Free
-.asm_18a8f
+.smash_attacking
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
@@ -1382,7 +1382,7 @@ SnowballBlockRightCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18ad6
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1395,7 +1395,7 @@ SnowballBlockRightCollision:
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18ad6
+.already_breaking
 	or $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1418,7 +1418,7 @@ SnowballBlockDownCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18b17
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1430,7 +1430,7 @@ SnowballBlockDownCollision:
 	jp c, BlockFunc_Solid ; not in snowball
 	ld a, $03
 	ld [wMultiBlockParam], a
-.asm_18b17
+.already_breaking
 	or $03
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1459,7 +1459,7 @@ SnowballBlockLeftCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18b5b
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1472,7 +1472,7 @@ SnowballBlockLeftCollision:
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18b5b
+.already_breaking
 	or $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1501,7 +1501,7 @@ SnowballBlockUpCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18b9f
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1514,7 +1514,7 @@ SnowballBlockUpCollision:
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18b9f
+.already_breaking
 	or $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1544,7 +1544,7 @@ BigSnowballBlockRightCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18be3
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1557,7 +1557,7 @@ BigSnowballBlockRightCollision:
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18be3
+.already_breaking
 	or $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1587,7 +1587,7 @@ BigSnowballBlockDownCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18c24
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1599,7 +1599,7 @@ BigSnowballBlockDownCollision:
 	jp nz, BlockFunc_Solid ; not big snowball
 	ld a, $03
 	ld [wMultiBlockParam], a
-.asm_18c24
+.already_breaking
 	or $03
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1628,7 +1628,7 @@ BigSnowballBlockLeftCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18c68
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1641,7 +1641,7 @@ BigSnowballBlockLeftCollision:
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18c68
+.already_breaking
 	or $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1670,7 +1670,7 @@ BigSnowballBlockUpCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18cac
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
@@ -1683,7 +1683,7 @@ BigSnowballBlockUpCollision:
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18cac
+.already_breaking
 	or $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -1731,34 +1731,34 @@ CrackedBlockCollision:
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18cfc
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18d0b
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18d0b
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18d22
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18cfc
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_18d22
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_18d22
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18d0b
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_18d22
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_18d22
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18d22
+.break
 	ld hl, wBlockPtr
 	ld a, [hli]
 	ld l, [hl]
@@ -1779,12 +1779,12 @@ CrackedBlockCollision:
 	jp z, BlockFunc_Free
 	ld a, [wIsSmashAttacking]
 	and a
-	jr nz, .asm_18d55
+	jr nz, .smash_attacking
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	jp BlockFunc_Free
-.asm_18d55
+.smash_attacking
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
@@ -1839,13 +1839,13 @@ NonCrackedBlockCollision:
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18dcb
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18dda
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18dda
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18dc1
+	jr nz, .landing
 	jp BlockFunc_Solid
 
 .fat_wario
@@ -1854,13 +1854,13 @@ NonCrackedBlockCollision:
 	jr nz, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
-.asm_18dc1
+.landing
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jr nc, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
-.asm_18dcb
+.side
 	ld a, [wAttackCounter]
 	and a
 	jr nz, BreakBlock_SolidUnlessRolling
@@ -1869,7 +1869,7 @@ NonCrackedBlockCollision:
 	jr nz, BreakBlock_SolidUnlessRolling
 	jp BlockFunc_Solid
 
-.asm_18dda
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
@@ -1941,53 +1941,53 @@ LargeCrackedBlockRightCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18e92
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_18e9a
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18e64
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18e73
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18e73
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18e8a
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18e64
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_18e8a
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_18e8a
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18e73
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_18e8a
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_18e8a
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18e8a
+.break
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_Wario
-.asm_18e92
+.already_breaking
 	or $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18e9a
+.robo_mouse_break
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -2035,53 +2035,53 @@ LargeCrackedBlockDownCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18f26
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_18f2d
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18ef8
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18f07
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18f07
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18f1e
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18ef8
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_18f1e
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_18f1e
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18f07
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_18f1e
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_18f1e
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18f1e
+.break
 	ld a, $03
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_Wario
-.asm_18f26
+.already_breaking
 	or $03
 	ld [wMultiBlockParam], a
 	jr StartMultiBlockBreak
-.asm_18f2d
+.robo_mouse_break
 	ld a, $03
 	ld [wMultiBlockParam], a
 ;	fallthrough
@@ -2156,53 +2156,53 @@ LargeCrackedBlockLeftCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_18fe3
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_18feb
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_18fb5
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_18fc4
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_18fc4
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_18fdb
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18fb5
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_18fdb
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_18fdb
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18fc4
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_18fdb
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_18fdb
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_18fdb
+.break
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_Wario
-.asm_18fe3
+.already_breaking
 	or $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_18feb
+.robo_mouse_break
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -2250,53 +2250,53 @@ LargeCrackedBlockUpCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_19076
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_1907e
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_19049
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_19058
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_19058
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_1906f
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19049
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_1906f
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_1906f
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19058
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_1906f
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_1906f
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_1906f
+.break
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jr StartMultiBlockBreak_Wario
-.asm_19076
+.already_breaking
 	or $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_1907e
+.robo_mouse_break
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -2335,12 +2335,12 @@ StartMultiBlockBreak_Wario:
 	jp z, BlockFunc_Free
 	ld a, [wIsSmashAttacking]
 	and a
-	jr nz, .asm_190d5
+	jr nz, .smash_attacking
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	jp BlockFunc_Free
-.asm_190d5
+.smash_attacking
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
@@ -2389,68 +2389,68 @@ LargeNonCrackedBlockRightCollision:
 	jp nz, BlockFunc_Solid
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_19185
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_1918d
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FAT_WARIO
-	jr z, .asm_19145
+	jr z, .fat_wario
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_1914f
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_1915e
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_1915e
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_19175
+	jr nz, .landing
 	jp BlockFunc_Solid
-.asm_19145
+.fat_wario
 	ld a, [wCollisionPoints]
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_1917d
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_1914f
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_1917d
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_19175
+	jr nz, .landing
 	jp BlockFunc_Solid
-.asm_1915e
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_1917d
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_1917d
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19175
+.landing
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
-.asm_1917d
+.break
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_SolidUnlessRolling
-.asm_19185
+.already_breaking
 	or $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
-.asm_1918d
+.robo_mouse_break
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
@@ -2498,68 +2498,68 @@ LargeNonCrackedBlockDownCollision:
 	jp nz, BlockFunc_Solid
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_1923a
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_19241
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FAT_WARIO
-	jr z, .asm_191fa
+	jr z, .fat_wario
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_19204
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_19213
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_19213
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_1922a
+	jr nz, .landing
 	jp BlockFunc_Solid
-.asm_191fa
+.fat_wario
 	ld a, [wCollisionPoints]
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_19232
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19204
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_19232
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_19232
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19213
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_19232
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_19232
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_1922a
+.landing
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
-.asm_19232
+.break
 	ld a, $03
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_SolidUnlessRolling
-.asm_1923a
+.already_breaking
 	or $03
 	ld [wMultiBlockParam], a
 	jr StartMultiBlockBreak2
-.asm_19241
+.robo_mouse_break
 	ld a, $03
 	ld [wMultiBlockParam], a
 ;	fallthrough
@@ -2633,68 +2633,68 @@ LargeNonCrackedBlockLeftCollision:
 	jp nz, BlockFunc_Solid
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_19318
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_19320
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FAT_WARIO
-	jr z, .asm_192d8
+	jr z, .fat_wario
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_192e2
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_192f1
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_192f1
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_19308
+	jr nz, .landing
 	jp BlockFunc_Solid
-.asm_192d8
+.fat_wario
 	ld a, [wCollisionPoints]
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_19310
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_192e2
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_19310
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_19310
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_192f1
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_19310
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_19310
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19308
+.landing
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
-.asm_19310
+.break
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak_SolidUnlessRolling
-.asm_19318
+.already_breaking
 	or $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
-.asm_19320
+.robo_mouse_break
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
@@ -2742,68 +2742,68 @@ LargeNonCrackedBlockUpCollision:
 	jp nz, BlockFunc_Solid
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_193cc
+	jr nz, .already_breaking
 	ld a, [wBlockFuncSpecialCollision]
 	cp COLLISION_ROBO_MOUSE_FREE
 	jp z, BlockFunc_Free
 	cp COLLISION_ROBO_MOUSE_BREAK
-	jr z, .asm_193d4
+	jr z, .robo_mouse_break
 	ld a, [wBlockFuncBreakFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FAT_WARIO
-	jr z, .asm_1938d
+	jr z, .fat_wario
 	ld a, [wPowerUpLevel]
 	cp GARLIC
 	jp c, BlockFunc_Solid
 	ld a, [wCollisionPoints]
 	bit COLLISION_SIDE_F, a
-	jr nz, .asm_19397
+	jr nz, .side
 	bit COLLISION_UP_F, a
-	jr nz, .asm_193a6
+	jr nz, .up
 	bit COLLISION_UP_SIDES_F, a
-	jr nz, .asm_193a6
+	jr nz, .up
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_193bd
+	jr nz, .landing
 	jp BlockFunc_Solid
-.asm_1938d
+.fat_wario
 	ld a, [wCollisionPoints]
 	and COLLISION_LANDING | COLLISION_LANDING_SIDES
-	jr nz, .asm_193c5
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_19397
+.side
 	ld a, [wAttackCounter]
 	and a
-	jr nz, .asm_193c5
+	jr nz, .break
 	ld a, [wIsRolling]
 	and a
-	jr nz, .asm_193c5
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_193a6
+.up
 	ld a, [wPowerUpLevel]
 	cp HEAD_SMASH_HELMET
 	jp c, BlockFunc_Solid
 	ld a, [wJumpVelTable]
 	and a
-	jr nz, .asm_193c5
+	jr nz, .break
 	ld a, [wSwimVelIndex]
 	and a
-	jr nz, .asm_193c5
+	jr nz, .break
 	jp BlockFunc_Solid
-.asm_193bd
+.landing
 	ld a, [wPowerUpLevel]
 	cp SUPER_JUMP_SLAM_OVERALLS
 	jp c, BlockFunc_Solid
-.asm_193c5
+.break
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jr StartMultiBlockBreak_SolidUnlessRolling
-.asm_193cc
+.already_breaking
 	or $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
-.asm_193d4
+.robo_mouse_break
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak2
@@ -3079,19 +3079,19 @@ YarnBlockRightCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_1954a
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr z, .asm_19542
+	jr z, .ball_o_string
 	jp BlockFunc_Solid
-.asm_19542
+.ball_o_string
 	ld a, $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_1954a
+.already_breaking
 	or $01
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -3119,18 +3119,18 @@ YarnBlockDownCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_19585
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr z, .asm_19580
+	jr z, .ball_o_string
 	jp BlockFunc_Solid
-.asm_19580
+.ball_o_string
 	ld a, $03
 	ld [wMultiBlockParam], a
-.asm_19585
+.already_breaking
 	or $03
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -3159,19 +3159,19 @@ YarnBlockLeftCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_195c3
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr z, .asm_195bb
+	jr z, .ball_o_string
 	jp BlockFunc_Solid
-.asm_195bb
+.ball_o_string
 	ld a, $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_195c3
+.already_breaking
 	or $02
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
@@ -3200,19 +3200,19 @@ YarnBlockCollision:
 	jp nz, BlockFunc_Free
 	ld a, [wMultiBlockParam]
 	and $f8
-	jr nz, .asm_19601
+	jr nz, .already_breaking
 	ld a, [wBlockFuncWarioFlag]
 	and a
 	jp z, BlockFunc_Solid
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr z, .asm_195f9
+	jr z, .ball_o_string
 	jp BlockFunc_Solid
-.asm_195f9
+.ball_o_string
 	ld a, $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak
-.asm_19601
+.already_breaking
 	or $04
 	ld [wMultiBlockParam], a
 	jp StartMultiBlockBreak

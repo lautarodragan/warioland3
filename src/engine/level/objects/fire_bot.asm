@@ -16,44 +16,44 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
-	jp .Func_46c42
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_46c42
-	dw .Func_46e6f
-	dw .Func_46f7c
-	dw .Func_46f84
-	dw .Func_47180
-	dw .Func_4718a
-	dw .Func_471b0
-	dw .Func_471c3
-	dw .Func_470ea
-	dw .Func_470f4
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
 	dw VanishObject2
-	dw .Func_47126
-	dw .Func_4712d
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_4704d
-	dw .Func_47076
-	dw .Func_46c7e
-	dw .Func_47239
-	dw .Func_47091
-	dw .Func_47018
-	dw .Func_47020
-	dw .Func_46fb2
-	dw .Func_46fe5
-	dw .Func_47207
-	dw .Func_471d6
+	dw .State0b
+	dw .State0c
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw ObjState_HopStart
 	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46c42
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -62,16 +62,16 @@ FireBotFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_47176
-	dw .Func_4716c
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_46ce4
-	dw .Func_46d38
-	dw .Func_46c42
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_46e8d
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -80,22 +80,22 @@ FireBotFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_46c42
-	dw .Func_4713e
-	dw .Func_47150
-	dw .Func_46c42
-	dw .Func_46c42
-	dw .Func_4705c
-	dw .Func_47084
-	dw .Func_46cc6
+	dw .Default
+	dw .State3b
+	dw .State3c
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
+	dw .StandingFall
 	dw ObjState_Drop
-	dw .Func_470ba
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_46fd7
-	dw .Func_4700a
-	dw .Func_47228
-	dw .Func_471f7
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -112,11 +112,11 @@ FireBotFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_46e1e
-	dw .Func_46e02
-	dw .Func_46c42
+	dw .State5a
+	dw .State5b
+	dw .Default
 
-.Func_46c42:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -136,7 +136,7 @@ FireBotFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_46c72
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -145,7 +145,7 @@ FireBotFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_46c72
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -153,19 +153,19 @@ FireBotFunc:
 	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	ret
-.Func_46c7e:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_46ca7
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld l, OBJ_COLLBOX_LEFT
 	ld a, [hl]
 	cp $f6
-	jr nz, .asm_46c9e
+	jr nz, .no_flame_left
 	ld a, $fa
 	ld [hl], a
 	ld de, FireBotFrameset_689db
@@ -174,20 +174,20 @@ FireBotFunc:
 	ld [hli], a
 	ret
 
-.asm_46c9e
+.no_flame_left
 	ld de, FireBotFrameset_6893d
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
 	ret
 
-.asm_46ca7
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, [hl]
 	cp $09
-	jr nz, .asm_46cbd
+	jr nz, .no_flame_right
 	ld a, $05
 	ld [hl], a
 	ld de, FireBotFrameset_689e2
@@ -196,13 +196,13 @@ FireBotFunc:
 	ld [hli], a
 	ret
 
-.asm_46cbd
+.no_flame_right
 	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
 	ret
-.Func_46cc6:
+.StandingFall:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -211,19 +211,19 @@ FireBotFunc:
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_46cdd
+	jr c, .extinguished_facing_right
 	ld de, FireBotFrameset_6893d
 	call SetObjectFramesetPtr
 	ret
 
-.asm_46cdd
+.extinguished_facing_right
 	ld de, FireBotFrameset_68946
 	call SetObjectFramesetPtr
 	ret
-.Func_46ce4:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46cf5
+	jr c, .ignite_delay
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -231,7 +231,7 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46cf5
+.ignite_delay
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -240,22 +240,22 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_46d10
+	jr c, .flame_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
 	ld de, FireBotFrameset_689c9
-	jr .asm_46d1b
-.asm_46d10
+	jr .set_flame
+.flame_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
 	ld [hld], a
 	ld a, $fa
 	ld [hld], a
 	ld de, FireBotFrameset_689d2
-.asm_46d1b
+.set_flame
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $02
@@ -270,10 +270,10 @@ FireBotFunc:
 	ret z
 	play_sfx SFX_FLAME
 	ret
-.Func_46d38:
+.Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46d49
+	jr c, .burning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -281,7 +281,7 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46d49
+.burning
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -293,12 +293,12 @@ FireBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_46d64
+	jr nz, .on_floor
 	ld a, $11
 	ld [wCurObjState], a
 	ret
 
-.asm_46d64
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -306,15 +306,15 @@ FireBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_46daf
+	jr c, .burn_walk_right
 	ld a, [hl]
 	and $0f
 	sub $06
-	jr nc, .asm_46d81
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_46d9f
-.asm_46d81
+	jr z, .at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -331,25 +331,25 @@ FireBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft
-.asm_46d9f
+.at_edge_left
 	ld a, [wCurObjVar1]
 	and a
-	jr z, .asm_46daa
+	jr z, .cool_down_left
 	ld de, FireBotFrameset_689b3
-	jr .asm_46de6
-.asm_46daa
+	jr .start_burning_turn
+.cool_down_left
 	ld de, FireBotFrameset_68969
-	jr .asm_46df6
-.asm_46daf
+	jr .start_cool_down
+.burn_walk_right
 	ld a, [hl]
 	and $0f
 	add $05
 	cp $10
-	jr c, .asm_46dbf
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_46ddd
-.asm_46dbf
+	jr z, .at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -366,12 +366,12 @@ FireBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight
-.asm_46ddd
+.at_edge_right
 	ld a, [wCurObjVar1]
 	and a
-	jr z, .asm_46df3
+	jr z, .cool_down_right
 	ld de, FireBotFrameset_689be
-.asm_46de6
+.start_burning_turn
 	call SetObjectFramesetPtr
 	ld a, 36
 	ld [hli], a
@@ -380,19 +380,19 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46df3
+.cool_down_right
 	ld de, FireBotFrameset_68976
-.asm_46df6
+.start_cool_down
 	call SetObjectFramesetPtr
 	ld a, 61
 	ld [hli], a
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_46e02:
+.State5b:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46e13
+	jr c, .cooling_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -400,17 +400,17 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46e13
+.cooling_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46e1e:
+.State5a:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46e2f
+	jr c, .burning_turn
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -418,11 +418,11 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46e2f
+.burning_turn
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $0f
-	jr z, .asm_46e52
+	jr z, .burning_flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld l, OBJ_STATE
@@ -430,22 +430,22 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_46e4b
+	jr c, .resume_burning_right
 	ld de, FireBotFrameset_689c9
 	call SetObjectFramesetPtr
 	ret
 
-.asm_46e4b
+.resume_burning_right
 	ld de, FireBotFrameset_689d2
 	call SetObjectFramesetPtr
 	ret
 
-.asm_46e52
+.burning_flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_46e64
+	jr c, .burning_face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
@@ -454,7 +454,7 @@ FireBotFunc:
 	ld [hld], a
 	ret
 
-.asm_46e64
+.burning_face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
@@ -462,7 +462,7 @@ FireBotFunc:
 	ld a, $f6
 	ld [hld], a
 	ret
-.Func_46e6f:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -473,16 +473,16 @@ FireBotFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_46e87
+	jr c, .land_facing_right
 	ld de, FireBotFrameset_6893d
 	jp SetObjectFramesetPtr
-.asm_46e87
+.land_facing_right
 	ld de, FireBotFrameset_68946
 	jp SetObjectFramesetPtr
-.Func_46e8d:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_46e9e
+	jr c, .walking
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -490,10 +490,10 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_46e9e
+.walking
 	ld a, [wTransformation]
 	cp TRANSFORMATION_HOT_WARIO
-	jr z, .asm_46eec
+	jr z, .walk_on
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -502,10 +502,10 @@ FireBotFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_46eb9
+	jr c, .in_y_range
 	cp $e8
-	jr c, .asm_46eec
-.asm_46eb9
+	jr c, .walk_on
+.in_y_range
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -514,25 +514,25 @@ FireBotFunc:
 	add c
 	sub b
 	cp $c0
-	jr nc, .asm_46edb
+	jr nc, .wario_to_right
 	cp $40
-	jr nc, .asm_46eec
+	jr nc, .walk_on
 	ld a, [hli]
 	rlca
-	jr c, .asm_46ed7
+	jr c, .turn_to_wario
 	ld de, FireBotFrameset_6894f
-	jr .asm_46ee2
-.asm_46ed7
+	jr .start_ignite
+.turn_to_wario
 	ld a, $13
 	ld [hl], a
 	ret
 
-.asm_46edb
+.wario_to_right
 	ld a, [hli]
 	rlca
-	jr nc, .asm_46ed7
+	jr nc, .turn_to_wario
 	ld de, FireBotFrameset_6895c
-.asm_46ee2
+.start_ignite
 	ld a, $2d
 	ld [hl], a
 	call SetObjectFramesetPtr
@@ -540,7 +540,7 @@ FireBotFunc:
 	ld [hli], a
 	ret
 
-.asm_46eec
+.walk_on
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -552,12 +552,12 @@ FireBotFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_46f07
+	jr nz, .walk_on_floor
 	ld a, $11
 	ld [wCurObjState], a
 	ret
 
-.asm_46f07
+.walk_on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -565,15 +565,15 @@ FireBotFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_46f48
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $06
-	jr nc, .asm_46f24
+	jr nc, .walk_check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_46f42
-.asm_46f24
+	jr z, .turn_at_edge_left
+.walk_check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -590,21 +590,21 @@ FireBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_46f42
+.turn_at_edge_left
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.asm_46f48
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $05
 	cp $10
-	jr c, .asm_46f58
+	jr c, .walk_check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_46f76
-.asm_46f58
+	jr z, .turn_at_edge_right
+.walk_check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -621,20 +621,20 @@ FireBotFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_46f76
+.turn_at_edge_right
 	ld a, $13
 	ld [wCurObjState], a
 	ret
-.Func_46f7c:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
-	jr .asm_46f8a
-.Func_46f84:
+	jr .set_bump
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
-.asm_46f8a
+.set_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset FireBotFrameset_68983, FireBotFrameset_68986
@@ -654,7 +654,7 @@ FireBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_46fb2:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -672,7 +672,7 @@ FireBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_46fd7:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -680,7 +680,7 @@ FireBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_46fe5:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -698,7 +698,7 @@ FireBotFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_4700a:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -706,16 +706,16 @@ FireBotFunc:
 	ld a, $0f
 	ld [wCurObjState], a
 	ret
-.Func_47018:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
-	jr .asm_47026
-.Func_47020:
+	jr .set_fall
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
-.asm_47026
+.set_fall
 	ld a, [hld]
 	rlca
 	ld_obj_frameset FireBotFrameset_68989, FireBotFrameset_68992
@@ -737,29 +737,29 @@ FireBotFunc:
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
-.Func_4704d:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_4705c:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_47069
+	jr c, .count_down
 	ld a, $1c
 	ld [wCurObjState], a
 	ret
 
-.asm_47069
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
 	ld a, $10
 	ld [wCurObjState], a
 	ret
-.Func_47076:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -768,14 +768,14 @@ FireBotFunc:
 	ld [hld], a
 	ld a, $07
 	ld [wCurObjStateDuration], a
-.Func_47084:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ApplyObjHopYVel
 	ld a, $00
 	ld [wCurObjState], a
 	ret
-.Func_47091:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -796,10 +796,10 @@ FireBotFunc:
 	or OBJ_INTERACTION_01
 	ld [hld], a
 	ret
-.Func_470ba:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_470cb
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -807,41 +807,41 @@ FireBotFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_470cb
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $09
-	jr z, .asm_470dd
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret
 
-.asm_470dd
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_470e7
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_470e7
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.Func_470ea:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
-	jr .asm_470fc
-.Func_470f4:
+	jr .set_wobble
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $39
-.asm_470fc
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -865,14 +865,14 @@ FireBotFunc:
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
 	ret
-.Func_47126:
+.State0b:
 	ld a, $3b
 	ld [wCurObjState], a
-	jr .asm_47132
-.Func_4712d:
+	jr .set_hit_wario
+.State0c:
 	ld a, $3c
 	ld [wCurObjState], a
-.asm_47132
+.set_hit_wario
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -880,7 +880,7 @@ FireBotFunc:
 	ld a, $02
 	ld [wCurObjVar2], a
 	ret
-.Func_4713e:
+.State3b:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -890,8 +890,8 @@ FireBotFunc:
 	and a
 	jp nz, ObjState_BumpSlideRight
 	ld de, FireBotFrameset_68969
-	jr .asm_47160
-.Func_47150:
+	jr .start_cool_down_after_bump
+.State3c:
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -901,37 +901,37 @@ FireBotFunc:
 	and a
 	jp nz, ObjState_BumpSlideLeft
 	ld de, FireBotFrameset_68976
-.asm_47160
+.start_cool_down_after_bump
 	call SetObjectFramesetPtr
 	ld a, 61
 	ld [hli], a
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
-.Func_4716c:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
-	jr .asm_47192
-.Func_47176:
+	jr .set_knocked_back
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
-	jr .asm_47192
-.Func_47180:
+	jr .set_knocked_back
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
-	jr .asm_47192
-.Func_4718a:
+	jr .set_knocked_back
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
 	ld b, $02
-.asm_47192
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl]
@@ -944,13 +944,13 @@ FireBotFunc:
 	ld [hld], a
 	ld a, c
 	rlca
-	jr c, .asm_471aa
+	jr c, .knocked_back_facing_right
 	ld de, FireBotFrameset_6899b
 	jp SetObjectFramesetPtr
-.asm_471aa
+.knocked_back_facing_right
 	ld de, FireBotFrameset_689a0
 	jp SetObjectFramesetPtr
-.Func_471b0:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -962,7 +962,7 @@ FireBotFunc:
 	ld a, $01
 	ld [hld], a
 	jp ObjState_PickedUpLeft
-.Func_471c3:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -975,7 +975,7 @@ FireBotFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_471d6:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
@@ -990,7 +990,7 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_471f7:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -998,8 +998,8 @@ FireBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_47207
-.Func_47207:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
@@ -1014,7 +1014,7 @@ FireBotFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_47228:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1022,8 +1022,8 @@ FireBotFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_471d6
-.Func_47239:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

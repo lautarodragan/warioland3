@@ -153,9 +153,9 @@ LoadRoom::
 	add a
 	add a ; *16
 	add $a0
-	jr nz, .asm_2963
+	jr nz, .got_lower_limit
 	ld a, $ff
-.asm_2963
+.got_lower_limit
 	ld [wRoomObjMapLowerY], a
 
 	ld a, [wRoomUpperYLimit]
@@ -171,9 +171,9 @@ LoadRoom::
 	add a
 	add a ; *8
 	add $b0
-	jr nz, .asm_297e
+	jr nz, .got_right_limit
 	ld a, $ff
-.asm_297e
+.got_right_limit
 	ld [wRoomObjMapRightX], a
 
 	ld a, [wRoomLeftXLimit]

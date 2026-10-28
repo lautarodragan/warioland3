@@ -24,7 +24,7 @@ MizuuoFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_48776
+	jr z, .swim
 	dec [hl]
 	ret nz
 	ld l, OBJ_SUBSTATE
@@ -32,26 +32,26 @@ MizuuoFunc:
 	xor $80
 	ld [hl], a
 	rlca
-	jr c, .asm_48770
+	jr c, .turned_right
 	ld de, MizuuoFrameset_686e5
 	jp SetObjectFramesetPtr
 
-.asm_48770
+.turned_right
 	ld de, MizuuoFrameset_686ea
 	jp SetObjectFramesetPtr
 
-.asm_48776
+.swim
 	inc l
 	ld a, [hl]
 	cp $5f
-	jr z, .asm_487a1
+	jr z, .start_shoot
 	dec [hl]
-	jr z, .asm_48789
+	jr z, .turn_around
 	ld a, [wCurObjSubState]
 	rlca
 	jp c, MoveObjectRight
 	jp MoveObjectLeft
-.asm_48789
+.turn_around
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset MizuuoFrameset_68713, MizuuoFrameset_6871e
@@ -62,7 +62,7 @@ MizuuoFunc:
 	ld [hl], a
 	ret
 
-.asm_487a1
+.start_shoot
 	dec [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.Update2)
@@ -100,26 +100,26 @@ MizuuoFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr nz, .asm_48810
+	jr nz, .reset_state
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr z, .asm_48812
+	jr z, .end_shoot
 	ld a, [hl]
 	cp $24
 	ret nz
 	play_sfx SFX_07F
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4880a
+	jr c, .shoot_right
 	ld bc, ObjParams_MizzouProjectileLeft
 	jp CreateObjectAtRelativePos
-.asm_4880a
+.shoot_right
 	ld bc, ObjParams_MizzouProjectileRight
 	jp CreateObjectAtRelativePos
-.asm_48810
+.reset_state
 	xor a
 	ld [hl], a
-.asm_48812
+.end_shoot
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset MizuuoFrameset_68701, MizuuoFrameset_6870a
@@ -146,11 +146,11 @@ MizuuoFunc:
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4884d
+	jr c, .resume_facing_right
 	ld de, MizuuoFrameset_686e5
 	jp SetObjectFramesetPtr
 
-.asm_4884d
+.resume_facing_right
 	ld de, MizuuoFrameset_686ea
 	jp SetObjectFramesetPtr
 
@@ -173,25 +173,25 @@ MizzouProjectileFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_488b5
+	jr nz, .burst
 	ld a, [wCurObjVar1]
 	and a
-	jr z, .asm_4888b
+	jr z, .rising
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_488b5
+	jr nz, .burst
 	ld a, [wIsInWaterOrSand]
 	and a
 	jr nz, .in_water
 	ld bc, MizuuoData_60740
-	jr .asm_4888e
-.asm_4888b
+	jr .apply_movement
+.rising
 	ld bc, MizuuoData_60700
-.asm_4888e
+.apply_movement
 	call ApplyObjYMovement
 	ld a, [wCurObjState]
 	and a
-	jr nz, .asm_488b5
+	jr nz, .burst
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -203,15 +203,15 @@ MizzouProjectileFunc:
 	ld [hl], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_488af
+	jr c, .facing_right
 	ld de, MizuuoFrameset_686d8
 	jp SetObjectFramesetPtr
 
-.asm_488af
+.facing_right
 	ld de, MizuuoFrameset_686db
 	jp SetObjectFramesetPtr
 
-.asm_488b5
+.burst
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Update)
 	ld [hld], a

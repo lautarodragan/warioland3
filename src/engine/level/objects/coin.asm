@@ -191,11 +191,11 @@ CoinFunc:
 
 	; move left
 	move_coin $0a, 6, Bounce3YVel_Light
-	jp .asm_63502
+	jp .move_left
 	move_coin $02, 4, Bounce1YVel_Light
-	jr .asm_63502
+	jr .move_left
 	move_coin $06, 5, Bounce2YVel_Light
-.asm_63502
+.move_left
 	call MoveObjectLeftByVar2
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -226,11 +226,11 @@ CoinFunc:
 
 	; move right
 	move_coin $0b, 6, Bounce3YVel_Light
-	jp .asm_635db
+	jp .move_right
 	move_coin $03, 4, Bounce1YVel_Light
-	jr .asm_635db
+	jr .move_right
 	move_coin $07, 5, Bounce2YVel_Light
-.asm_635db
+.move_right
 	call MoveObjectRightByVar2
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -275,29 +275,29 @@ CoinFunc:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_6362a
+	jr nz, .continue_fall_left
 	dec c
 	ld a, [bc]
-	jr .asm_6362b
-.asm_6362a
+	jr .got_y_vel_fall_left
+.continue_fall_left
 	inc [hl]
-.asm_6362b
+.got_y_vel_fall_left
 	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_6363b
+	jr nc, .fall_left_negative_vel
 	add c
 	ld [hli], a
-	jr nc, .asm_63640
+	jr nc, .fall_left_check_floor
 	inc [hl]
-	jr .asm_63640
-.asm_6363b
+	jr .fall_left_check_floor
+.fall_left_negative_vel
 	add c
 	ld [hli], a
-	jr c, .asm_63640
+	jr c, .fall_left_check_floor
 	dec [hl]
-.asm_63640
+.fall_left_check_floor
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -309,12 +309,12 @@ CoinFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_63680
+	jr nz, .fall_left_landed
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr z, .asm_6365d
+	jr z, .fall_left_check_wall
 	ld [wCurObjFramesetOffset], a
-.asm_6365d
+.fall_left_check_wall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -334,7 +334,7 @@ CoinFunc:
 	ld a, $0d
 	ld [wCurObjState], a
 	ret
-.asm_63680
+.fall_left_landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -343,28 +343,28 @@ CoinFunc:
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jr z, .asm_63690
+	jr z, .fall_left_pick_bounce
 	dec [hl]
-.asm_63690
+.fall_left_pick_bounce
 	ldh a, [hTemp]
 	cp 2
-	jr c, .asm_636a4
+	jr c, .fall_left_slide
 	cp 3
-	jr c, .asm_636aa
+	jr c, .fall_left_small_bounce
 	cp 4
-	jr c, .asm_636b0
+	jr c, .fall_left_medium_bounce
 	ld a, $08
 	ld [wCurObjState], a
 	ret
-.asm_636a4
+.fall_left_slide
 	ld a, $10
 	ld [wCurObjState], a
 	ret
-.asm_636aa
+.fall_left_small_bounce
 	ld a, $00
 	ld [wCurObjState], a
 	ret
-.asm_636b0
+.fall_left_medium_bounce
 	ld a, $04
 	ld [wCurObjState], a
 	ret
@@ -385,29 +385,29 @@ CoinFunc:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_636d3
+	jr nz, .continue_fall_right
 	dec c
 	ld a, [bc]
-	jr .asm_636d4
-.asm_636d3
+	jr .got_y_vel_fall_right
+.continue_fall_right
 	inc [hl]
-.asm_636d4
+.got_y_vel_fall_right
 	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_636e4
+	jr nc, .fall_right_negative_vel
 	add c
 	ld [hli], a
-	jr nc, .asm_636e9
+	jr nc, .fall_right_check_floor
 	inc [hl]
-	jr .asm_636e9
-.asm_636e4
+	jr .fall_right_check_floor
+.fall_right_negative_vel
 	add c
 	ld [hli], a
-	jr c, .asm_636e9
+	jr c, .fall_right_check_floor
 	dec [hl]
-.asm_636e9
+.fall_right_check_floor
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -419,12 +419,12 @@ CoinFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_63729
+	jr nz, .fall_right_landed
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr z, .asm_63706
+	jr z, .fall_right_check_wall
 	ld [wCurObjFramesetOffset], a
-.asm_63706
+.fall_right_check_wall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -444,7 +444,7 @@ CoinFunc:
 	ld a, $0c
 	ld [wCurObjState], a
 	ret
-.asm_63729
+.fall_right_landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -453,28 +453,28 @@ CoinFunc:
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jr z, .asm_63739
+	jr z, .fall_right_pick_bounce
 	dec [hl]
-.asm_63739
+.fall_right_pick_bounce
 	ldh a, [hTemp]
 	cp 2
-	jr c, .asm_6374d
+	jr c, .fall_right_slide
 	cp 3
-	jr c, .asm_63753
+	jr c, .fall_right_small_bounce
 	cp 4
-	jr c, .asm_63759
+	jr c, .fall_right_medium_bounce
 	ld a, $09
 	ld [wCurObjState], a
 	ret
-.asm_6374d
+.fall_right_slide
 	ld a, $11
 	ld [wCurObjState], a
 	ret
-.asm_63753
+.fall_right_small_bounce
 	ld a, $01
 	ld [wCurObjState], a
 	ret
-.asm_63759
+.fall_right_medium_bounce
 	ld a, $05
 	ld [wCurObjState], a
 	ret
@@ -483,16 +483,16 @@ CoinFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jr nz, .asm_6376c
+	jr nz, .sliding_left
 	ld a, $12
 	ld [wCurObjState], a
 	ret
-.asm_6376c
+.sliding_left
 	ld a, [wGlobalCounter]
 	and %11111
-	jr nz, .asm_63774
+	jr nz, .slide_left_check_wall
 	dec [hl]
-.asm_63774
+.slide_left_check_wall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -508,7 +508,7 @@ CoinFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr nz, .asm_637dd
+	jr nz, .slide_left_hit_wall
 	call MoveObjectLeftByVar2
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -550,7 +550,7 @@ CoinFunc:
 	ld a, $0c
 	ld [wCurObjState], a
 	ret
-.asm_637dd
+.slide_left_hit_wall
 	ld a, $11
 	ld [wCurObjState], a
 	ret
@@ -559,16 +559,16 @@ CoinFunc:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
-	jr nz, .asm_637f0
+	jr nz, .sliding_right
 	ld a, $12
 	ld [wCurObjState], a
 	ret
-.asm_637f0
+.sliding_right
 	ld a, [wGlobalCounter]
 	and %11111
-	jr nz, .asm_637f8
+	jr nz, .slide_right_check_wall
 	dec [hl]
-.asm_637f8
+.slide_right_check_wall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -584,7 +584,7 @@ CoinFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and $0f
-	jr nz, .asm_63861
+	jr nz, .slide_right_hit_wall
 	call MoveObjectRightByVar2
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -626,7 +626,7 @@ CoinFunc:
 	ld a, $0d
 	ld [wCurObjState], a
 	ret
-.asm_63861
+.slide_right_hit_wall
 	ld a, $10
 	ld [wCurObjState], a
 	ret
@@ -636,11 +636,11 @@ CoinFunc:
 	ld [wCurObjState], a
 	ld a, [wCurObjFramesetOffset]
 	and a
-	jr nz, .asm_63878
+	jr nz, .rest_in_water
 	ld a, 100
 	ld [wCurObjStateDuration], a
 	ret
-.asm_63878
+.rest_in_water
 	ld a, 50
 	ld [wCurObjStateDuration], a
 	ret
@@ -648,7 +648,7 @@ CoinFunc:
 .State13:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_6389e
+	jr z, .rest_over
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -664,7 +664,7 @@ CoinFunc:
 	ld a, $14
 	ld [wCurObjState], a
 	ret
-.asm_6389e
+.rest_over
 	ld a, $16
 	ld [wCurObjState], a
 	ret
@@ -674,11 +674,11 @@ CoinFunc:
 	ld [wCurObjState], a
 	ld a, [wCurObjFramesetOffset]
 	and a
-	jr nz, .asm_638b5
+	jr nz, .blink_in_water
 	ld a, 100
 	ld [wCurObjStateDuration], a
 	ret
-.asm_638b5
+.blink_in_water
 	ld a, 50
 	ld [wCurObjStateDuration], a
 	ret
@@ -693,12 +693,12 @@ CoinFunc:
 	and $03
 	ld l, OBJ_FLAGS
 	ld a, [hl]
-	jr nz, .asm_638d1
+	jr nz, .blink_visible
 	res OBJFLAG_ON_SCREEN_F, a
 	set OBJFLAG_INVISIBLE_F, a
 	ld [hl], a
 	ret
-.asm_638d1
+.blink_visible
 	res OBJFLAG_INVISIBLE_F, a
 	ld [hl], a
 	ret
@@ -722,29 +722,29 @@ CoinFunc:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_638f5
+	jr nz, .continue_drop
 	dec c
 	ld a, [bc]
-	jr .asm_638f6
-.asm_638f5
+	jr .got_drop_vel
+.continue_drop
 	inc [hl]
-.asm_638f6
+.got_drop_vel
 	ldh [hTemp], a
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_63906
+	jr nc, .drop_negative_vel
 	add c
 	ld [hli], a
-	jr nc, .asm_6390b
+	jr nc, .drop_check_floor
 	inc [hl]
-	jr .asm_6390b
-.asm_63906
+	jr .drop_check_floor
+.drop_negative_vel
 	add c
 	ld [hli], a
-	jr c, .asm_6390b
+	jr c, .drop_check_floor
 	dec [hl]
-.asm_6390b
+.drop_check_floor
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -756,7 +756,7 @@ CoinFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr z, .asm_6392d
+	jr z, .drop_check_water
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -764,7 +764,7 @@ CoinFunc:
 	ld [hl], a
 	ld a, $12
 	ld [wCurObjState], a
-.asm_6392d
+.drop_check_water
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z

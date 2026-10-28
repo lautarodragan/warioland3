@@ -47,10 +47,10 @@ FlameBlockFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 25
-	jr nc, .asm_49715
+	jr nc, .count_down
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_49715
+.count_down
 	dec [hl]
 	ret nz
 	xor a

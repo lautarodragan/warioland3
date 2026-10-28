@@ -141,12 +141,12 @@ CountRichtertoffenFunc:
 .State0b:
 	ld hl, wCurObjSubState
 	set OBJSUBFLAG_HDIR_F, [hl]
-	jp .asm_41044
+	jp .start_jump_fall
 
 .State0c:
 	ld hl, wCurObjSubState
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jp .asm_41044
+	jp .start_jump_fall
 
 .Flatten:
 	ld de, CountRichtertoffenFrameset_683d4
@@ -169,7 +169,7 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 20
-	jr nz, .asm_40f72
+	jr nz, .count_down
 	ld a, [wAutoMoveState]
 	and a
 	jp nz, MoveObjectDown_Fast
@@ -180,13 +180,13 @@ CountRichtertoffenFunc:
 	ld a, [wWarioYPos + 0]
 	sbc 0
 	ld [hli], a
-.asm_40f72
+.count_down
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
 	ld a, no_actions_for 31
 	ld [wCurObjAction], a
-	jp .asm_40fe9
+	jp .start_jump
 
 .Default:
 	ld hl, wCurObjInteractionType
@@ -232,7 +232,7 @@ CountRichtertoffenFunc:
 .Walk:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_40fe9
+	jr z, .start_jump
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -244,12 +244,12 @@ CountRichtertoffenFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_40fdf
+	jr nz, .on_ground
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_40fdf
+.on_ground
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -257,18 +257,18 @@ CountRichtertoffenFunc:
 	ld [hli], a
 	ret
 
-.asm_40fe9
+.start_jump
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jr nz, .asm_40ffa
+	jr nz, .compare_wario_x
 	ld a, [hl] ; OBJ_SUBSTATE
 	rlca
 	ccf
-	jr .asm_41006
-.asm_40ffa
+	jr .set_jump_dir
+.compare_wario_x
 	ld c, $2a
 	ld a, [wWarioScreenXPos]
 	add c
@@ -276,17 +276,17 @@ CountRichtertoffenFunc:
 	ld a, [wCurObjScreenXPos]
 	add c
 	sub b
-.asm_41006
-	jr c, .asm_41012
+.set_jump_dir
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
 	ld de, CountRichtertoffenFrameset_683c1
 	call SetObjectFramesetPtr
-	jr .asm_4101a
-.asm_41012
+	jr .got_jump_dir
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl] ; OBJ_SUBSTATE
 	ld de, CountRichtertoffenFrameset_683c4
 	call SetObjectFramesetPtr
-.asm_4101a
+.got_jump_dir
 	ld a, 22
 	ld [hli], a ; OBJ_STATE_DURATION
 	ld l, OBJ_VAR_3
@@ -306,14 +306,14 @@ CountRichtertoffenFunc:
 	ld a, [wWarioScreenXPos]
 	add c
 	sub b
-	jr .asm_41006
+	jr .set_jump_dir
 
 .JumpRise:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr nz, .asm_41053
+	jr nz, .rising
 
-.asm_41044
+.start_jump_fall
 	ld de, CountRichtertoffenFrameset_683c7
 	call SetObjectFramesetPtr
 	ld l, OBJ_STATE
@@ -324,7 +324,7 @@ CountRichtertoffenFunc:
 	ld [hld], a ; OBJ_VAR_3
 	ret
 
-.asm_41053
+.rising
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	sub 18
@@ -338,7 +338,7 @@ CountRichtertoffenFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and $0f
-	jr z, .asm_4107a
+	jr z, .no_ceiling
 	ld hl, wCurObjVar2
 	ld a, $01
 	ld [hl], a
@@ -346,9 +346,9 @@ CountRichtertoffenFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .asm_41044
+	jr .start_jump_fall
 
-.asm_4107a
+.no_ceiling
 	ld bc, RiseYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -540,12 +540,12 @@ CountRichtertoffenFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_411d9
+	jr .set_fall
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_411d9
+.set_fall
 	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
 	inc l
@@ -616,13 +616,13 @@ CountRichtertoffenFunc:
 	ld a, 15 | (1 << 7)
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_41255
+	jr .set_wobble
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, 15 | (1 << 7)
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_41255
+.set_wobble
 	ld [hld], a ; OBJ_STATE
 	ld de, CountRichtertoffenFrameset_683d9
 	call SetObjectFramesetPtr
@@ -645,34 +645,34 @@ CountRichtertoffenFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_412a4
+	jr .set_knocked_back
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_412a4
+	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_4129c
+	jr nz, .attacked_left
 	ld a, [wEffectivePowerUp]
 	cp GARLIC
-	jr nc, .asm_4129c
+	jr nc, .attacked_left
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
-	jr z, .asm_4129c
+	jr z, .attacked_left
 	ld a, OBJSTATE_WOBBLE_LEFT_START
 	ld [wCurObjState], a
 	ret
-.asm_4129c
+.attacked_left
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $01
 
-.asm_412a4
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl] ; OBJ_SUBSTATE
@@ -688,22 +688,22 @@ CountRichtertoffenFunc:
 .AttackedRightStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_412d1
+	jr nz, .attacked_right
 	ld a, [wEffectivePowerUp]
 	cp GARLIC
-	jr nc, .asm_412d1
+	jr nc, .attacked_right
 	ld a, [wCurObjInteractionType]
 	and INTERACTION_MASK
-	jr z, .asm_412d1
+	jr z, .attacked_right
 	ld a, OBJSTATE_WOBBLE_RIGHT_START
 	ld [wCurObjState], a
 	ret
-.asm_412d1
+.attacked_right
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $01
-	jr .asm_412a4
+	jr .set_knocked_back
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState

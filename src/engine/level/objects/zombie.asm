@@ -60,23 +60,23 @@ ZombieFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_45b27
+	jr nz, .on_floor
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_45b27
+.on_floor
 	ld hl, wCurObjXPos
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_45b69
+	jr c, .crawl_right
 	ld a, [hl]
 	and $0f
 	sub 4
-	jr nc, .asm_45b3f
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jp z, .asm_45b61
-.asm_45b3f
+	jp z, .turn_around
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -92,26 +92,26 @@ ZombieFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_45b61
+	jr nz, .turn_around
 	call MoveObjectLeft
-	jr .asm_45b99
-.asm_45b61
+	jr .check_rise_delay
+.turn_around
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ret
 
-.asm_45b69
+.crawl_right
 	ld a, [hl]
 	and $0f
 	add 3
 	cp 16
-	jr c, .asm_45b79
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_45b61
-.asm_45b79
+	jr z, .turn_around
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub 4
@@ -127,16 +127,16 @@ ZombieFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_45b61
+	jr nz, .turn_around
 	call MoveObjectRight
-.asm_45b99
+.check_rise_delay
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_45ba2
+	jr z, .check_wario_near
 	dec [hl]
 	ret
-.asm_45ba2
+.check_wario_near
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -188,14 +188,14 @@ ZombieFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_45c01
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ZombieFrameset_68d93
-	jr .asm_45c06
-.asm_45c01
+	jr .set_rise_frameset
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, ZombieFrameset_68d9c
-.asm_45c06
+.set_rise_frameset
 	call SetObjectFramesetPtr
 	ld a, 20
 	ld [hli], a ; state duration
@@ -213,10 +213,10 @@ ZombieFunc:
 .Rising:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_ZOMBIE_WARIO
-	jr nz, .asm_45c2f
+	jr nz, .rise
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_45c2f
+.rise
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ld a, [hl]
@@ -236,7 +236,7 @@ ZombieFunc:
 	ld [hld], a
 	xor a
 	ld [wCurObjState], a
-	jr .asm_45cca
+	jr .set_walk
 .coll_box_low
 	ld a, -12
 	ld [wCurObjCollBoxTop], a
@@ -253,24 +253,24 @@ ZombieFunc:
 	jr z, .substate_table
 	ld a, [wTransformation]
 	cp TRANSFORMATION_ZOMBIE_WARIO
-	jr nz, .asm_45cb2
+	jr nz, .not_zombie_wario
 	ld a, [hl]
 	cp $0a
-	jr nz, .asm_45cba
-.asm_45c70
+	jr nz, .clear_state
+.hit
 	dec l
 	ld a, [hl]
 	and $0f
 	cp $3
-	jr z, .asm_45c7d
+	jr z, .hit_while_throwing
 	ld de, ZombieFrameset_68d1a
-	jr .asm_45c80
-.asm_45c7d
+	jr .set_hit_frameset
+.hit_while_throwing
 	ld de, ZombieFrameset_68d1f
-.asm_45c80
+.set_hit_frameset
 	call SetObjectFramesetPtr
 
-.asm_45c83
+.knock_back
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -286,24 +286,24 @@ ZombieFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_45ca9
+	jr c, .knock_left
 	ld bc, ObjState_HitByObjRight
-	jr .asm_45cac
-.asm_45ca9
+	jr .set_knock_back
+.knock_left
 	ld bc, ObjState_HitByObjLeft
-.asm_45cac
+.set_knock_back
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, b
 	ld [hld], a
 	ld [hl], c
 	ret
 
-.asm_45cb2
+.not_zombie_wario
 	ld a, [hl]
 	cp $0a
 	jp z, VanishAndDespawnObject
-	jr .asm_45c70
-.asm_45cba
+	jr .hit
+.clear_state
 	xor a
 	ld [hl], a
 .substate_table
@@ -311,26 +311,26 @@ ZombieFunc:
 	and $0f
 	jumptable
 
-	dw .Func_45ce2
-	dw .Func_45ce2
-	dw .Func_45ddc
+	dw .CheckWarioNear
+	dw .CheckWarioNear
+	dw .TurnAround
 	dw .ThrowHead
 
-.asm_45cca
+.set_walk
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
 	or $01
 	ld [hl], a
 	rlca
-	jr c, .asm_45cdc
+	jr c, .walk_facing_right
 	ld de, ZombieFrameset_68d81
 	jp SetObjectFramesetPtr
-.asm_45cdc
+.walk_facing_right
 	ld de, ZombieFrameset_68d8a
 	jp SetObjectFramesetPtr
 
-.Func_45ce2:
+.CheckWarioNear:
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -339,10 +339,10 @@ ZombieFunc:
 	add c
 	sub b
 	cp 32
-	jr c, .asm_45cf6
+	jr c, .near_y
 	cp -32
-	jr c, .asm_45d32
-.asm_45cf6
+	jr c, .walk
+.near_y
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -351,20 +351,20 @@ ZombieFunc:
 	add c
 	sub b
 	cp -48
-	jr nc, .asm_45d15
+	jr nc, .wario_to_right
 	cp 48
-	jr nc, .asm_45d32
+	jr nc, .walk
 	ld a, [hl]
 	rlca
-	jp c, .asm_45dc4
+	jp c, .turn_from_right
 	ld de, ZombieFrameset_68da5
-	jr .asm_45d1d
-.asm_45d15
+	jr .start_throw
+.wario_to_right
 	ld a, [hl]
 	rlca
-	jp nc, .asm_45dc9
+	jp nc, .turn_from_left
 	ld de, ZombieFrameset_68dac
-.asm_45d1d
+.start_throw
 	rrca
 	and OBJSUBFLAGS_MASK
 	or $3
@@ -375,7 +375,7 @@ ZombieFunc:
 	play_sfx SFX_ZOMBIE
 	ret
 
-.asm_45d32
+.walk
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -387,7 +387,7 @@ ZombieFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_45d56
+	jr nz, .walk_on_floor
 	ld a, $30
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjUpdateFunction + 1
@@ -397,7 +397,7 @@ ZombieFunc:
 	ld [hld], a
 	ret
 
-.asm_45d56
+.walk_on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -405,15 +405,15 @@ ZombieFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_45d94
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $04
-	jr nc, .asm_45d74
+	jr nc, .walk_check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jp z, .asm_45dc9
-.asm_45d74
+	jp z, .turn_from_left
+.walk_check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -430,17 +430,17 @@ ZombieFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
-	jr .asm_45dc9
-.asm_45d94
+	jr .turn_from_left
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $03
 	cp $10
-	jr c, .asm_45da4
+	jr c, .walk_check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_45dc4
-.asm_45da4
+	jr z, .turn_from_right
+.walk_check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -457,13 +457,13 @@ ZombieFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
-	jr .asm_45dc4
-.asm_45dc4
+	jr .turn_from_right
+.turn_from_right
 	ld de, ZombieFrameset_68d2b
-	jr .asm_45dcc
-.asm_45dc9
+	jr .start_turn
+.turn_from_left
 	ld de, ZombieFrameset_68d24
-.asm_45dcc
+.start_turn
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -474,23 +474,23 @@ ZombieFunc:
 	ld [hli], a
 	ret
 
-.Func_45ddc:
+.TurnAround:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp 20
-	jr z, .asm_45deb
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
-	jp .asm_45cca
-.asm_45deb
+	jp .set_walk
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_45df5
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.asm_45df5
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
@@ -515,10 +515,10 @@ ZombieFunc:
 .throw_head
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_45e1f
+	jr c, .throw_right
 	ld bc, ObjParams_ZombieHeadLeft
 	jp CreateObjectAtRelativePos
-.asm_45e1f
+.throw_right
 	ld bc, ObjParams_ZombieHeadRight
 	jp CreateObjectAtRelativePos
 
@@ -555,23 +555,23 @@ ZombieHeadFunc_Left:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr nz, .asm_45e64
+	jr nz, .count_down
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr nz, .asm_45e73
+	jr nz, .move
 	xor a
 	ld [hl], a
 	ret
-.asm_45e64
+.count_down
 	dec [hl]
-	jr nz, .asm_45e73
+	jr nz, .move
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld de, ZombieFrameset_68dda
 	call SetObjectFramesetPtr
-.asm_45e73
+.move
 	ld bc, ZombieData_605a0
 	jr ZombieHeadFunc
 
@@ -579,23 +579,23 @@ ZombieHeadFunc_Right:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr nz, .asm_45e88
+	jr nz, .count_down
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_ON_SCREEN_F, [hl]
-	jr nz, .asm_45e97
+	jr nz, .move
 	xor a
 	ld [hl], a
 	ret
-.asm_45e88
+.count_down
 	dec [hl]
-	jr nz, .asm_45e97
+	jr nz, .move
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld de, ZombieFrameset_68dd5
 	call SetObjectFramesetPtr
-.asm_45e97
+.move
 	ld bc, ZombieData_60560
 ;	fallthrough
 
@@ -606,9 +606,9 @@ ZombieHeadFunc:
 	and a
 	ret z
 	cp $0b
-	jp c, ZombieFunc.asm_45c83
+	jp c, ZombieFunc.knock_back
 	cp $0f
-	jp nc, ZombieFunc.asm_45c83
+	jp nc, ZombieFunc.knock_back
 	ld a, [hld]
 	rlca
 	ld_obj_frameset ZombieFrameset_68dd5, ZombieFrameset_68dda

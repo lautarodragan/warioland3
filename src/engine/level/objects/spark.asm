@@ -31,27 +31,27 @@ SparkFunc:
 	ld hl, wCurObjVar1
 	ld a, [hld]
 	and a
-	jr z, .asm_4a8ed
+	jr z, .move_left_or_down
 	dec [hl]
-	jr z, .asm_4a8e7
+	jr z, .switch_to_left_or_down
 	ld a, [wCurObjId]
 	cp SPARK_HORIZONTAL
 	jp z, MoveObjectRight
 	jp MoveObjectUp
-.asm_4a8e7
+.switch_to_left_or_down
 	ld a, $50
 	ld [hli], a
 	xor a
 	ld [hl], a
 	ret
-.asm_4a8ed
+.move_left_or_down
 	dec [hl]
-	jr z, .asm_4a8fb
+	jr z, .switch_to_right_or_up
 	ld a, [wCurObjId]
 	cp SPARK_HORIZONTAL
 	jp z, MoveObjectLeft
 	jp MoveObjectDown
-.asm_4a8fb
+.switch_to_right_or_up
 	ld a, $50
 	ld [hli], a
 	ld a, $01

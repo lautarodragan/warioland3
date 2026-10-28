@@ -313,10 +313,10 @@ RailActionHelp_Step0D:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	cp $27
-	jr z, .asm_1e44fc
+	jr z, .got_vel_index
 	inc [hl]
 	ld a, [hl]
-.asm_1e44fc
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal

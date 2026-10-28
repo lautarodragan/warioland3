@@ -100,7 +100,7 @@ ENDR
 ; unreferenced
 UnreferencedGetPackedNybble:
 	srl l
-	jr c, .asm_8eba
+	jr c, .low_nybble
 	ld a, l
 	add $b0
 	ld l, a
@@ -108,7 +108,7 @@ UnreferencedGetPackedNybble:
 	swap a
 	and $0f
 	ret
-.asm_8eba
+.low_nybble
 	ld a, l
 	add $b0
 	ld l, a

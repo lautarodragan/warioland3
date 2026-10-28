@@ -53,48 +53,48 @@ UpdatePerfectScreen:
 	ld hl, wTimer
 	ld a, [hl]
 	and a
-	jr z, .asm_dc08c
+	jr z, .timer_done
 	dec [hl]
-	jr nz, .asm_dc0cf
-.asm_dc08c
+	jr nz, .check_input
+.timer_done
 	ld a, [wGlobalCounter]
 	and %111
-	jr nz, .asm_dc0cf
+	jr nz, .check_input
 	call SlowFadeInScreen
 	ld a, [wSubState]
 	cp $03
-	jr z, .asm_dc0cf
+	jr z, .check_input
 	ld a, $03
 	ld [wSubState], a
 	ld hl, wGameOverWarioVar
 	inc [hl]
 	ld a, [hl]
 	dec a
-	jr z, .asm_dc0bd
+	jr z, .hold_pals1
 	dec a
-	jr z, .asm_dc0c7
+	jr z, .load_pals2
 	dec a
-	jr z, .asm_dc0cc
+	jr z, .load_pals3
 	dec a
-	jr z, .asm_dc0c7
+	jr z, .load_pals2
 	dec a
-	jr z, .asm_dc0c2
+	jr z, .load_pals1
 	ld [hl], $00
 	call LoadPerfectCyclePals0
-	jr .asm_dc0cf
-.asm_dc0bd
+	jr .check_input
+.hold_pals1
 	ld a, 240
 	ld [wTimer], a
-.asm_dc0c2
+.load_pals1
 	call LoadPerfectCyclePals1
-	jr .asm_dc0cf
-.asm_dc0c7
+	jr .check_input
+.load_pals2
 	call LoadPerfectCyclePals2
-	jr .asm_dc0cf
-.asm_dc0cc
+	jr .check_input
+.load_pals3
 	call LoadPerfectCyclePals3
 
-.asm_dc0cf
+.check_input
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
 	ret nz

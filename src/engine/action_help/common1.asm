@@ -197,7 +197,7 @@ HandleActionHelpPowerUpSelection:
 	ld a, [wMenuObj1XCoord]
 	add $10
 	ld [wMenuObj1XCoord], a
-	jr .asm_1fb72b
+	jr .power_up_changed
 
 .d_left
 	ld a, [hl]
@@ -211,7 +211,7 @@ HandleActionHelpPowerUpSelection:
 	sub $10
 	ld [wMenuObj1XCoord], a
 
-.asm_1fb72b
+.power_up_changed
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
 
@@ -220,7 +220,7 @@ HandleActionHelpPowerUpSelection:
 	ld a, [wPowerUpLevel]
 	and POWER_UP_MASK
 	cp e
-	jr c, .asm_1fb750
+	jr c, .prev_was_locked
 	hlbgcoord 0, 16, v1BGMap1
 	sla e
 	ld d, $00
@@ -233,7 +233,7 @@ HandleActionHelpPowerUpSelection:
 	add hl, de
 	ld [hli], a
 	ld [hl], a
-.asm_1fb750
+.prev_was_locked
 	ld a, [wActionHelpPowerUp]
 	ld e, a
 	ld a, [wPowerUpLevel]

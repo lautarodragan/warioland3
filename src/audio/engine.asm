@@ -103,7 +103,7 @@ _UpdateAudio::
 	ld b, a
 	ld a, [hl]
 	sbc 0
-	jr nc, .asm_300a4
+	jr nc, .tick_sfx
 
 	; wSFXTempoAccumulator < $4a
 	call SetSFXChannels
@@ -111,9 +111,9 @@ _UpdateAudio::
 	call RefreshChannel
 	call NextChannel
 	jr nz, .loop_chs_1
-	jr .asm_300c8
+	jr .music
 
-.asm_300a4
+.tick_sfx
 	; wSFXTempoAccumulator -= $4a
 	ld [hld], a
 	ld [hl], b
@@ -136,9 +136,9 @@ _UpdateAudio::
 	ld b, a
 	ld a, [hl]
 	sbc 0
-	jr nc, .asm_300a4
+	jr nc, .tick_sfx
 
-.asm_300c8
+.music
 	ld hl, wAudioEngineFlags
 	res AUDIOENG_HANDLING_SFX_F, [hl]
 
@@ -154,30 +154,30 @@ _UpdateAudio::
 	ld b, a
 	ld a, [hl]
 	sbc 0
-	jr nc, .asm_300ed
+	jr nc, .tick_music
 
 	call SetMusicChannels
-.asm_300e3
+.loop_refresh_music_chs
 	call RefreshChannel
 	call NextChannel
-	jr nz, .asm_300e3
-	jr .asm_30111
+	jr nz, .loop_refresh_music_chs
+	jr .process_tracks
 
-.asm_300ed
+.tick_music
 	ld [hld], a
 	ld [hl], b
 
 	call SetAllTracks
-.asm_300f2
+.loop_music_tracks
 	call TickMusicTrack
 	call NextTrack
-	jr nz, .asm_300f2
+	jr nz, .loop_music_tracks
 
 	call SetMusicChannels
-.asm_300fd
+.loop_update_music_chs
 	call UpdateChannel
 	call NextChannel
-	jr nz, .asm_300fd
+	jr nz, .loop_update_music_chs
 
 	ld hl, wMusicTempoAccumulator
 	ld a, [hli]
@@ -185,20 +185,20 @@ _UpdateAudio::
 	ld b, a
 	ld a, [hl]
 	sbc 0
-	jr nc, .asm_300ed
+	jr nc, .tick_music
 
-.asm_30111
+.process_tracks
 	call SetAllTracks
-.asm_30114
+.loop_process_tracks
 	call ProcessTrack
 	call NextTrack
-	jr nz, .asm_30114
+	jr nz, .loop_process_tracks
 
 	ld a, [wEnvelopeFrameCycle]
 	and a
-	jr nz, .asm_30124
+	jr nz, .dec_envelope_cycle
 	ld a, $0f
-.asm_30124
+.dec_envelope_cycle
 	dec a
 	ld [wEnvelopeFrameCycle], a
 
@@ -329,7 +329,7 @@ _PlaySFX::
 
 	ld a, [wStartChannel]
 	bit 7, a
-	jr nz, .asm_30211 ; jump never taken
+	jr nz, .fill_free_channels_first ; jump never taken
 
 	ld b, a
 	sub CHAN5_F
@@ -352,14 +352,14 @@ _PlaySFX::
 	ld [wCurChannelPtr + 0], a
 	ld a, h
 	ld [wCurChannelPtr + 1], a
-	jr .asm_301f1
+	jr .check_channel
 
 .loop_1
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
 	ld a, [wCurChannelPtr + 1]
 	ld h, a
-.asm_301f1
+.check_channel
 	bit CHANFLAGS_ACTIVE_F, [hl]
 	jr z, .load_to_channel
 	ld bc, CHANNEL_PRIORITY
@@ -380,7 +380,7 @@ _PlaySFX::
 .done_1
 	jp ReturnFromAudioJump
 
-.asm_30211
+.fill_free_channels_first
 	call SetSFXChannels
 	ld a, $1
 	ld [wSoundEngineParam4], a
@@ -415,7 +415,7 @@ _PlaySFX::
 	ld b, a
 	ld a, [wSoundEngineParam3]
 	and b
-	jr nz, .asm_3026f
+	jr nz, .next_channel
 
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
@@ -425,10 +425,10 @@ _PlaySFX::
 	add hl, bc
 	ld a, [wSoundPriority]
 	cp [hl]
-	jr c, .asm_3026f
+	jr c, .next_channel
 	call LoadChannelWithSound
 	jr z, .done_2
-.asm_3026f
+.next_channel
 	ld a, [wSoundEngineParam4]
 	sla a
 	ld [wSoundEngineParam4], a
@@ -777,7 +777,7 @@ _GetActiveChannels::
 
 _GetPlayingSoundID::
 	and a
-	jr nz, .asm_3045d
+	jr nz, .check_sfx_channel
 	ld a, [wActiveChannels]
 	and MUSIC_CHANNELS
 	jr z, .no_music
@@ -786,7 +786,7 @@ _GetPlayingSoundID::
 	ld a, [wLoadedMusic + 1]
 	ld b, a
 	jr .got_id
-.asm_3045d
+.check_sfx_channel
 	cp NUM_SFX_CHANNELS + 1
 	jr c, .valid_sfx_channel
 .no_music
@@ -1166,12 +1166,12 @@ UpdateVibrato:
 	inc hl
 	ld a, b
 	cp [hl]
-	jr z, .asm_30644
+	jr z, .vibrato_done
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_FREQUENCY_F, a
 	ld [wCurChannelFlags], a
 	ld [hl], b
-.asm_30644
+.vibrato_done
 	jr .skip_vibrato ; unnecessary jump
 
 .skip_vibrato
@@ -1240,7 +1240,7 @@ ApplyChannelUpdates:
 
 .skip_frequency
 	bit CHANFLAGS_UPDATE_SO_F, a
-	jr z, .asm_306a8
+	jr z, .skip_so
 	ld bc, CHANNEL_SINGLE_PAN
 	add hl, bc
 	ld a, [hli]
@@ -1253,7 +1253,7 @@ ApplyChannelUpdates:
 	add hl, bc
 	ld a, [wCurChannelFlags]
 
-.asm_306a8
+.skip_so
 	bit CHANFLAGS_UPDATE_VOLUME_F, a
 	jr z, .done
 	ld bc, CHANNEL_VOLUME
@@ -1658,21 +1658,21 @@ AudioCmd_SetVibratoSpeed:
 	inc de
 	ld [hli], a
 	sla a
-	jr nz, .asm_308ee
+	jr nz, .done
 	ccf
 	rra
 	rra
 	ld [hl], a ; CHANNEL_VIBRATO_PHASE
-.asm_308ee
+.done
 	jp DoAudioCommand
 
 AudioMod_VibratoSpeed:
 	ld a, [wSoundEngineParam2]
 	sla a
-	jr z, .asm_308fe
+	jr z, .set_with_phase
 	ld bc, CHANNEL_VIBRATO_SPEED
 	jp AudioModSetValue_Short
-.asm_308fe
+.set_with_phase
 	rra
 	ld [wSoundEngineParam1], a
 	rra
@@ -1902,7 +1902,7 @@ PlayNote:
 	cp C_0
 	jr nc, .pitch ; if >= $24
 	cp $20
-	jr c, .asm_30a5a ; if < $20
+	jr c, .note_volume ; if < $20
 	bit 5, b
 	jr nz, .done_args
 	set 5, b
@@ -1919,7 +1919,7 @@ PlayNote:
 	ld [hli], a ; CHANNEL_PITCH
 	jr .loop_args
 
-.asm_30a5a
+.note_volume
 	bit 6, b
 	jr nz, .done_args
 	set 6, b
@@ -1948,7 +1948,7 @@ PlayNote:
 
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_PERCUSSION_F, a
-	jr z, .asm_30aa5
+	jr z, .set_track
 	push hl
 	ld e, l
 	ld d, h
@@ -1972,7 +1972,7 @@ PlayNote:
 	ld a, [hl]
 	ld [wSoundEngineParam4], a
 	pop hl
-.asm_30aa5
+.set_track
 
 ; set Track1 if (CHANNEL_TIMBRE < $08)
 ; set Track2 if ($8  <= CHANNEL_TIMBRE < $10)
@@ -2003,9 +2003,9 @@ PlayNote:
 	ld a, [wNumAudioChannels]
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
-	jr z, .asm_30ad0
+	jr z, .got_owner
 	set 7, a
-.asm_30ad0
+.got_owner
 	ld [wTempTrackOwner], a
 	ld e, a
 	ld a, [wCurChannelPtr + 0]
@@ -2026,10 +2026,10 @@ PlayNote:
 	and a
 	jr z, .UpdateTrack
 	bit TRACKFLAGS_HELD_F, a
-	jr nz, .asm_30af7
+	jr nz, .track_held
 	jr .UpdateTrack
 
-.asm_30af7
+.track_held
 	ld a, [hli] ; TRACK_PRIORITY
 	cp d
 	jr c, .UpdateTrack
@@ -2104,12 +2104,12 @@ AudioCmd_ReleaseNote:
 	add hl, bc
 	ld a, [wAudioCmdArg]
 	bit 7, a
-	jr nz, .asm_30b66
+	jr nz, .got_pitch
 	cp $24
-	jr c, .asm_30b66
+	jr c, .got_pitch
 	inc de
 	ld [hl], a ; CHANNEL_PITCH
-.asm_30b66
+.got_pitch
 	ld a, [hl] ; CHANNEL_PITCH
 	ld bc, CHANNEL_SEMITONE_OFFSET - CHANNEL_PITCH
 	add hl, bc
@@ -2121,9 +2121,9 @@ AudioCmd_ReleaseNote:
 	ld a, [wNumAudioChannels]
 	ld hl, wAudioEngineFlags
 	bit AUDIOENG_HANDLING_SFX_F, [hl]
-	jr z, .asm_30b7f
+	jr z, .got_owner
 	set 7, a
-.asm_30b7f
+.got_owner
 	ld e, a
 	ld a, [wSoundEngineParam3]
 	ld d, a
@@ -2244,34 +2244,34 @@ ProcessTrack:
 	ld d, a
 	ld a, [de]
 	cp CHANFLAGS_INITIALISED | CHANFLAGS_ACTIVE
-	jr nc, .asm_30c1f
+	jr nc, .channel_active
 	pop hl
 	jr StopTrack
 
-.asm_30c1f
+.channel_active
 	ld [wCurChannelFlags], a
 	bit CHANFLAGS_6_F, b
-	jr nz, .asm_30c46
+	jr nz, .start_envelope
 	ld de, TRACK_FREQUENCY - (TRACK_CHANNEL_PTR + 2)
 	add hl, de
 	ld a, [wEnvelopeFrameCycle]
 	and a
-	jr nz, .asm_30c31
+	jr nz, .inc_counter
 	inc [hl]
-.asm_30c31
+.inc_counter
 	inc [hl]
 	pop hl
 	bit TRACKFLAGS_HELD_F, b
-	jr z, .asm_30c3e
+	jr z, .released
 	bit TRACKFLAGS_FADING_F, b
-	jr nz, .asm_30c95
-	jp .asm_30ce9
-.asm_30c3e
+	jr nz, .fade_in_step
+	jp .sustain_step
+.released
 	bit TRACKFLAGS_FADING_F, b
-	jp nz, .asm_30d22
-	jp .asm_30d70
+	jp nz, .fade_out_step
+	jp .release_countdown
 
-.asm_30c46
+.start_envelope
 	pop hl
 	res TRACKFLAGS_START_ENVELOPE_F, [hl]
 	bit TRACKFLAGS_HELD_F, [hl]
@@ -2284,7 +2284,7 @@ ProcessTrack:
 	ld a, [wCurChannelFlags]
 	or CHANFLAGS_UPDATE_SO | CHANFLAGS_UPDATE_VOLUME | CHANFLAGS_UPDATE_FREQUENCY
 	ld [wCurChannelFlags], a
-	call .Func_30dc6
+	call .SetVolumeFromNoteVolume
 
 ; fade in
 	ld bc, TRACK_FADE_IN_ENVELOPE
@@ -2296,12 +2296,12 @@ ProcessTrack:
 	cpl
 	rrca
 	and %111 ; bits 7, 6, and 5 of TRACK_FADE_IN_ENVELOPE
-	jr z, .asm_30cba
+	jr z, .fade_in_done
 	or %1000 ; amplify
 	ld [hli], a ; TRACK_VOLUME_ENVELOPE
 	xor a
 	ld [hli], a ; TRACK_FREQUENCY low
-	jp .asm_30d9d
+	jp .update_registers
 
 .fade_out
 	ld bc, TRACK_FADE_OUT_ENVELOPE
@@ -2311,23 +2311,23 @@ ProcessTrack:
 	add hl, de
 	ld a, [hl]
 	and $f0
-	jp z, .asm_30d3b ; if mute setting
+	jp z, .start_release ; if mute setting
 	ld c, a
 	ld a, b
 	cpl
 	rrca
 	and %111
-	jp z, .asm_30d3b
+	jp z, .start_release
 	or c
 	ld [hli], a
 	xor a
 	ld [hli], a
-	jp .asm_30d95
+	jp .update_volume
 
-.asm_30c95
+.fade_in_step
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_VOLUME_F, a
-	call nz, .Func_30dc6
+	call nz, .SetVolumeFromNoteVolume
 
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
@@ -2335,21 +2335,21 @@ ProcessTrack:
 	and %111 ; length
 	dec a
 	cp [hl] ; TRACK_FREQUENCY
-	jr nc, .asm_30cb3 ; if (length - 1) >= freq lo
+	jr nc, .check_reached_volume ; if (length - 1) >= freq lo
 	xor a
 	ld [hld], a ; TRACK_FREQUENCY
 	ld a, [hl] ; TRACK_VOLUME_ENVELOPE
 	add $10
-	jr c, .asm_30cba
-	call .Func_30e1b
+	jr c, .fade_in_done
+	call .CheckWaveVolumeChange
 	ld [hli], a
-.asm_30cb3
+.check_reached_volume
 	dec hl
 	ld a, [hld]
 	cp [hl]
-	jp c, .asm_30d84
+	jp c, .keep_volume
 	inc hl
-.asm_30cba
+.fade_in_done
 	ld bc, TRACK_FADE_IN_ENVELOPE - TRACK_VOLUME_ENVELOPE
 	add hl, bc
 	ld b, [hl]
@@ -2360,7 +2360,7 @@ ProcessTrack:
 	ld bc, TRACK_FLAGS - TRACK_VOLUME
 	add hl, bc
 	res TRACKFLAGS_FADING_F, [hl]
-	call .Func_30deb
+	call .SetVolumeWithFadeOut
 	ld d, a
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
@@ -2369,81 +2369,81 @@ ProcessTrack:
 	cpl
 	rrca
 	and %111 ; bits 3, 2, and 1 of TRACK_FADE_IN_ENVELOPE
-	jr nz, .asm_30ce2
+	jr nz, .set_envelope
 	call .CheckEnvelopeValue
-	jr z, .asm_30d3b
+	jr z, .start_release
 	ld a, d
 	ld c, d
-.asm_30ce2
+.set_envelope
 	or c
 	ld [hli], a ; TRACK_VOLUME_ENVELOPE
 	xor a
 	ld [hli], a ; TRACK_FREQUENCY lo
-	jp .asm_30d95
+	jp .update_volume
 
-.asm_30ce9
+.sustain_step
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_VOLUME_F, a
-	call nz, .Func_30deb
+	call nz, .SetVolumeWithFadeOut
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
 	ld a, [hli]
 	and %111
-	jr z, .asm_30d1b
+	jr z, .no_sustain_envelope
 	dec a
 	cp [hl]
-	jr nc, .asm_30d09
+	jr nc, .check_sustain_floor
 	xor a
 	ld [hld], a
 	ld a, [hl]
 	sub $10
-	jr c, .asm_30d11
-	call .Func_30e1b
+	jr c, .sustain_done
+	call .CheckWaveVolumeChange
 	ld [hli], a
-.asm_30d09
+.check_sustain_floor
 	dec hl
 	dec hl
 	ld a, [hli]
 	or $0f
 	cp [hl]
-	jr c, .asm_30d84
-.asm_30d11
+	jr c, .keep_volume
+.sustain_done
 	call .CheckEnvelopeValue
-	jr z, .asm_30d3b
+	jr z, .start_release
 	dec hl
-.asm_30d17
+.copy_envelope
 	ld a, [hli]
 	ld [hl], a
-	jr .asm_30d95
+	jr .update_volume
 
-.asm_30d1b
+.no_sustain_envelope
 	dec hl
 	ld a, [hld]
 	xor [hl]
-	jr nz, .asm_30d17
-	jr .asm_30d9d
+	jr nz, .copy_envelope
+	jr .update_registers
 
-.asm_30d22
+.fade_out_step
 	ld bc, TRACK_VOLUME_ENVELOPE
 	add hl, bc
 	ld a, [hli]
 	and $07
 	dec a
 	cp [hl] ; TRACK_FREQUENCY
-	jr nc, .asm_30d84
+	jr nc, .keep_volume
 	xor a
 	ld [hld], a ; TRACK_FREQUENCY
 	ld a, [hl] ; TRACK_VOLUME_ENVELOPE
 	sub $10
-	jr c, .asm_30d3b
-	call .Func_30e1b
+	jr c, .start_release
+	call .CheckWaveVolumeChange
 	ld [hl], a
-	jr .asm_30d84
+	jr .keep_volume
 
 	; unreachable
 	dec hl
 
-.asm_30d3b
+.start_release
 	push hl
 	ld a, [wCurChannelPtr + 0]
 	ld l, a
@@ -2465,13 +2465,13 @@ ProcessTrack:
 
 	ld a, b
 	and a
-	jr z, .asm_30d77
+	jr z, .stop_track
 	ld a, c
 	and a
-	jr z, .asm_30d77
+	jr z, .stop_track
 	ld a, d
 	and a
-	jr z, .asm_30d77
+	jr z, .stop_track
 	call MultiplyBByC_Short
 	add $0f
 	and $f0
@@ -2482,14 +2482,14 @@ ProcessTrack:
 	ld a, [hl] ; TRACK_FLAGS
 	and $ff ^ (TRACKFLAGS_FADING | TRACKFLAGS_HELD | TRACKFLAGS_6)
 	ld [hl], a
-	jr .asm_30d95
+	jr .update_volume
 
-.asm_30d70
+.release_countdown
 	ld bc, TRACK_FREQUENCY
 	add hl, bc
 	dec [hl]
-	jr nz, .asm_30d9d
-.asm_30d77
+	jr nz, .update_registers
+.stop_track
 	ld a, [wCurTrackPtr + 0]
 	ld l, a
 	ld a, [wCurTrackPtr + 1]
@@ -2498,21 +2498,21 @@ ProcessTrack:
 	ld [hl], a
 	jp TurnSoundRegisterOff
 
-.asm_30d84
+.keep_volume
 	ld a, [wCurSoundRegister]
 	cp LOW(rAUD3LEVEL)
-	jr z, .asm_30d9d
+	jr z, .update_registers
 	ld a, [wCurChannelFlags]
 	res CHANFLAGS_UPDATE_VOLUME_F, a
 	ld [wCurChannelFlags], a
-	jr .asm_30d9d
+	jr .update_registers
 
-.asm_30d95
+.update_volume
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_VOLUME_F, a
 	ld [wCurChannelFlags], a
 
-.asm_30d9d
+.update_registers
 	ld a, [wCurChannelFlags]
 	bit CHANFLAGS_UPDATE_FREQUENCY_F, a
 	jr z, .skip_frequency
@@ -2539,7 +2539,7 @@ ProcessTrack:
 	and $f0
 	ret
 
-.Func_30dc6:
+.SetVolumeFromNoteVolume:
 	push hl
 	ld bc, TRACK_NOTE_VOLUME
 	add hl, bc
@@ -2562,7 +2562,7 @@ ProcessTrack:
 	add hl, de
 	ret
 
-.Func_30deb:
+.SetVolumeWithFadeOut:
 	push hl
 	ld bc, TRACK_FADE_OUT_ENVELOPE
 	add hl, bc
@@ -2591,7 +2591,7 @@ ProcessTrack:
 	add hl, de
 	ret
 
-.Func_30e1b:
+.CheckWaveVolumeChange:
 	ld b, a
 	ld a, [wCurSoundRegister]
 	cp LOW(rAUD3LEVEL)
@@ -2599,11 +2599,11 @@ ProcessTrack:
 	ret nz ; not sound3
 	xor [hl]
 	and $c0
-	jr z, .asm_30e30
+	jr z, .same_wave_volume
 	ld a, [wCurChannelFlags]
 	set CHANFLAGS_UPDATE_VOLUME_F, a
 	ld [wCurChannelFlags], a
-.asm_30e30
+.same_wave_volume
 	ld a, b
 	ret
 
@@ -2798,14 +2798,14 @@ SetFrequency:
 	ld d, a
 	ld a, b
 	cp $c0
-	jr c, .asm_30f2b
+	jr c, .write_poly
 	and AUD4POLY_SHIFT >> 2
 	rlca
 	rlca
 	or d
 	or 4 & AUD4POLY_DIV
 	ld d, a
-.asm_30f2b
+.write_poly
 	ld a, [$ff00+c] ; rAUD4POLY
 	and AUD4POLY_7STEP
 	or d
@@ -2844,13 +2844,13 @@ SetSoundOutput:
 
 .got_masks
 	bit 7, [hl]
-	jr nz, .asm_30f6d
+	jr nz, .bit7_set
 	bit 6, [hl]
 	jr z, .no_panning
 	; only bit 6 set
 	ld a, SO_RIGHT
 	jr .apply_so_mask
-.asm_30f6d
+.bit7_set
 	bit 6, [hl]
 	jr nz, .no_panning
 	; only bit 7 set

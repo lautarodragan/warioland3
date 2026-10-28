@@ -23,44 +23,44 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [hl], a
-	jp .Func_4811f
+	jp .Default
 
 .Update:
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_4811f
-	dw .Func_481aa
-	dw .Func_482b2
-	dw .Func_482ba
-	dw .Func_48434
-	dw .Func_48458
-	dw .Func_4848e
-	dw .Func_484a1
-	dw .Func_483f5
-	dw .Func_483ff
-	dw .Func_480e7
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_48341
-	dw .Func_4836a
-	dw .Func_48153
-	dw .Func_484f3
-	dw .Func_483a4
-	dw .Func_48322
-	dw .Func_48326
-	dw .Func_482e0
-	dw .Func_48301
-	dw .Func_484d3
-	dw .Func_484b4
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .WobbleLeftStart
+	dw .WobbleRightStart
+	dw .VanishTouch
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State0f
+	dw .State10
+	dw .StandingFallStart
+	dw .State12
+	dw .TurnAroundStart
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw ObjState_HopStart
 	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -69,16 +69,16 @@ BrrrBearFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_4842a
-	dw .Func_48420
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4816f
-	dw .Func_4811f
-	dw .Func_4811f
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Default
+	dw .Default
 	dw ObjState_Fall
-	dw .Func_481ca
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -87,22 +87,22 @@ BrrrBearFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_48350
-	dw .Func_48399
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_483c5
+	dw .TurnAround
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_482f3
-	dw .Func_48314
-	dw .Func_484e2
-	dw .Func_484c3
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -119,11 +119,11 @@ BrrrBearFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_4811f
-	dw .Func_4811f
-	dw .Func_4811f
+	dw .Default
+	dw .Default
+	dw .Default
 
-.Func_480e7:
+.VanishTouch:
 	ld a, [wCurObjAction]
 	and a
 	jp z, VanishObject2
@@ -143,10 +143,10 @@ BrrrBearFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jp nc, .Func_483f5
-	jp .Func_483ff
+	jp nc, .WobbleLeftStart
+	jp .WobbleRightStart
 
-.Func_4811f:
+.Default:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -161,7 +161,7 @@ BrrrBearFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_48147
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -169,7 +169,7 @@ BrrrBearFunc:
 	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
-.asm_48147
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	dec l
 	xor a
@@ -178,30 +178,30 @@ BrrrBearFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.Func_48153:
+.StandingFallStart:
 	ld hl, wCurObjState
 	ld a, $41
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_48166
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
 
-.asm_48166
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, BrrrBearFrameset_69126
 	call SetObjectFramesetPtr
 	ret
 
-.Func_4816f:
+.Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_48180
+	jr c, .shooting
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -209,28 +209,28 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_48180
+.shooting
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_481a4
+	jr z, .end_shoot
 	ld a, [hl]
 	cp $22
 	ret nz
 	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4819e
+	jr c, .snowflake_right
 	ld bc, ObjParams_SnowflakeLeft
 	jp CreateObjectAtRelativePos
-.asm_4819e
+.snowflake_right
 	ld bc, ObjParams_SnowflakeRight
 	jp CreateObjectAtRelativePos
-.asm_481a4
+.end_shoot
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.Func_481aa:
+.Land:
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -241,20 +241,20 @@ BrrrBearFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_481c3
+	jr c, .land_facing_right
 	ld de, BrrrBearFrameset_69115
 	call SetObjectFramesetPtr
 	ret
 
-.asm_481c3
+.land_facing_right
 	ld de, BrrrBearFrameset_69126
 	call SetObjectFramesetPtr
 	ret
 
-.Func_481ca:
+.Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_481db
+	jr c, .walking
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -262,7 +262,7 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_481db
+.walking
 	ld c, $2a
 	ld a, [wWarioScreenYPos]
 	add c
@@ -271,10 +271,10 @@ BrrrBearFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_481ef
+	jr c, .in_y_range
 	cp $e8
-	jr c, .asm_48222
-.asm_481ef
+	jr c, .walk_on
+.in_y_range
 	ld hl, wCurObjSubState
 	ld a, [wWarioScreenXPos]
 	add c
@@ -283,25 +283,25 @@ BrrrBearFunc:
 	add c
 	sub b
 	cp $b8
-	jr nc, .asm_48211
+	jr nc, .wario_to_right
 	cp $48
-	jr nc, .asm_48222
+	jr nc, .walk_on
 	ld a, [hli]
 	rlca
-	jr c, .asm_4820d
+	jr c, .turn_to_wario
 	ld de, BrrrBearFrameset_6913d
-	jr .asm_48218
-.asm_4820d
+	jr .start_shoot
+.turn_to_wario
 	ld a, $13
 	ld [hl], a
 	ret
 
-.asm_48211
+.wario_to_right
 	ld a, [hli]
 	rlca
-	jr nc, .asm_4820d
+	jr nc, .turn_to_wario
 	ld de, BrrrBearFrameset_6914c
-.asm_48218
+.start_shoot
 	ld a, $2d
 	ld [hl], a
 	call SetObjectFramesetPtr
@@ -309,7 +309,7 @@ BrrrBearFunc:
 	ld [hli], a
 	ret
 
-.asm_48222
+.walk_on
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -321,12 +321,12 @@ BrrrBearFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_4823d
+	jr nz, .on_floor
 	ld a, $11
 	ld [wCurObjState], a
 	ret
 
-.asm_4823d
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -334,15 +334,15 @@ BrrrBearFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_4827e
+	jr c, .walk_right
 	ld a, [hl]
 	and $0f
 	sub $08
-	jr nc, .asm_4825a
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_48278
-.asm_4825a
+	jr z, .turn_at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -359,21 +359,21 @@ BrrrBearFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_48278
+.turn_at_edge_left
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.asm_4827e
+.walk_right
 	ld a, [hl]
 	and $0f
 	add $07
 	cp $10
-	jr c, .asm_4828e
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_482ac
-.asm_4828e
+	jr z, .turn_at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -390,21 +390,21 @@ BrrrBearFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_482ac
+.turn_at_edge_right
 	ld a, $13
 	ld [wCurObjState], a
 	ret
 
-.Func_482b2:
+.BumpLeftStart:
 	ld hl, wCurObjState
 	ld a, $32
 	ld [hld], a
-	jr .asm_482c0
-.Func_482ba:
+	jr .set_bump
+.BumpRightStart:
 	ld hl, wCurObjState
 	ld a, $33
 	ld [hld], a
-.asm_482c0
+.set_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset BrrrBearFrameset_69137, BrrrBearFrameset_6913a
@@ -420,7 +420,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ret
 
-.Func_482e0:
+.StunLeftStart:
 	ld a, $46
 	ld [wCurObjState], a
 	ld de, BrrrBearFrameset_6915b
@@ -430,7 +430,7 @@ BrrrBearFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_482f3:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -439,7 +439,7 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_48301:
+.StunRightStart:
 	ld a, $47
 	ld [wCurObjState], a
 	ld de, BrrrBearFrameset_6915b
@@ -449,7 +449,7 @@ BrrrBearFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_48314:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -458,12 +458,12 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_48322:
+.State14:
 	ld a, $44
-	jr .asm_48328
-.Func_48326:
+	jr .set_fall
+.State15:
 	ld a, $45
-.asm_48328
+.set_fall
 	ld [wCurObjState], a
 	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
@@ -480,22 +480,22 @@ BrrrBearFunc:
 	ld [hld], a
 	ret
 
-.Func_48341:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_48350:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_4835d
+	jr c, .count_down
 	ld a, $1c
 	ld [wCurObjState], a
 	ret
 
-.asm_4835d
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -503,7 +503,7 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4836a:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -513,14 +513,14 @@ BrrrBearFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_48385
+	jr c, .recover_facing_right
 	ld de, BrrrBearFrameset_69183
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_4838a
-.asm_48385
+	jr .set_recover_frameset
+.recover_facing_right
 	ld de, BrrrBearFrameset_6918e
 	set OBJSUBFLAG_HDIR_F, [hl]
-.asm_4838a
+.set_recover_frameset
 	call SetObjectFramesetPtr
 	ld a, $28
 	ld [hli], a
@@ -531,7 +531,7 @@ BrrrBearFunc:
 	ld [hld], a
 	ret
 
-.Func_48399:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -539,7 +539,7 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_483a4:
+.TurnAroundStart:
 	ld hl, wCurObjState
 	ld a, $43
 	ld [hld], a
@@ -556,10 +556,10 @@ BrrrBearFunc:
 	ld [hld], a
 	ret
 
-.Func_483c5:
+.TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_483d6
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -567,42 +567,42 @@ BrrrBearFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_483d6
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $06
-	jr z, .asm_483e8
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, $01
 	ld [wCurObjState], a
 	ret
 
-.asm_483e8
+.flip_direction
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_483f2
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
-.asm_483f2
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_483f5:
+.WobbleLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
-	jr .asm_48407
+	jr .set_wobble
 
-.Func_483ff:
+.WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $39
-.asm_48407
+.set_wobble
 	ld [hld], a
 	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
@@ -620,58 +620,58 @@ BrrrBearFunc:
 	ld [hld], a
 	ret
 
-.Func_48420:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
-	jr .asm_4847a
-.Func_4842a:
+	jr .set_knocked_back
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
-	jr .asm_4847a
-.Func_48434:
+	jr .set_knocked_back
+.AttackedLeftStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_4844e
+	jr nz, .attacked_left
 	ld a, [wEffectivePowerUp]
 	cp $05
-	jr nc, .asm_4844e
+	jr nc, .attacked_left
 	ld a, [wCurObjInteractionType]
 	and $7f
-	jr z, .asm_4844e
+	jr z, .attacked_left
 	ld a, $08
 	ld [wCurObjState], a
 	ret
 
-.asm_4844e
+.attacked_left
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $01
-	jr .asm_4847a
-.Func_48458:
+	jr .set_knocked_back
+.AttackedRightStart:
 	ld a, [wTransformation]
 	and a
-	jr nz, .asm_48472
+	jr nz, .attacked_right
 	ld a, [wEffectivePowerUp]
 	cp $05
-	jr nc, .asm_48472
+	jr nc, .attacked_right
 	ld a, [wCurObjInteractionType]
 	and $7f
-	jr z, .asm_48472
+	jr z, .attacked_right
 	ld a, $09
 	ld [wCurObjState], a
 	ret
 
-.asm_48472
+.attacked_right
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
 	ld b, $01
-.asm_4847a
+.set_knocked_back
 	ld a, [hl]
 	and $f0
 	ld [hld], a
@@ -685,7 +685,7 @@ BrrrBearFunc:
 	ld [wCurObjAction], a
 	ret
 
-.Func_4848e:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -697,7 +697,7 @@ BrrrBearFunc:
 	ld a, $01
 	ld [hld], a
 	jp ObjState_PickedUpLeft
-.Func_484a1:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -710,14 +710,14 @@ BrrrBearFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_484b4:
+.State19:
 	ld a, $49
 	ld [wCurObjState], a
 	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_484c3:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -725,16 +725,16 @@ BrrrBearFunc:
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jr .Func_484d3
+	jr .State18
 
-.Func_484d3:
+.State18:
 	ld a, $48
 	ld [wCurObjState], a
 	ld de, BrrrBearFrameset_6915b
 	call SetObjectFramesetPtr
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_484e2:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -742,9 +742,9 @@ BrrrBearFunc:
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-	jp .Func_484b4
+	jp .State19
 
-.Func_484f3:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

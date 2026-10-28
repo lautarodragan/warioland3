@@ -67,11 +67,11 @@ SuperJumpSlamOverallsActionHelp:
 SuperJumpSlamOverallsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1fa4c0
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
-.asm_1fa4c0
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -133,9 +133,9 @@ SuperJumpSlamOverallsActionHelp_Step02:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa53a
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa53a
+.skip_dec
 	ld a, [hl]
 	cp $a0
 	ret nc
@@ -212,43 +212,43 @@ SuperJumpSlamOverallsActionHelp_Step06:
 	add [hl]
 	ld [wMenuObj4YCoord], a
 	cp $40
-	jr nc, .asm_1fa5c1
-	jr .asm_1fa5cb
-.asm_1fa5c1
+	jr nc, .clamp_to_ground
+	jr .countdown
+.clamp_to_ground
 	ld a, $26
 	ld [wActionHelpWarioVar], a
 	ld a, $40
 	ld [wMenuObj4YCoord], a
-.asm_1fa5cb
+.countdown
 	ld hl, wTimer
 	dec [hl]
-	jr z, .asm_1fa5f3
+	jr z, .shake_done
 	ld a, [hl]
 	cp $05
-	jr nz, .asm_1fa5dc
+	jr nz, .shake_screen
 	call ActionHelp_ShowWarioIdle
 	call ActionHelp_ClearDPadInput
-.asm_1fa5dc
+.shake_screen
 	ld hl, wSCY
 	ld a, [wTimer]
 	and $03
 	cp $03
-	jr z, .asm_1fa5ed
+	jr z, .shake_down
 	cp $01
-	jr z, .asm_1fa5f0
+	jr z, .shake_up
 	ret
 
-.asm_1fa5ed
+.shake_down
 	inc [hl]
 	inc [hl]
 	ret
 
-.asm_1fa5f0
+.shake_up
 	dec [hl]
 	dec [hl]
 	ret
 
-.asm_1fa5f3
+.shake_done
 	call ActionHelp_ShowWarioJump
 	call ActionHelp_ShowAInput
 	xor a
@@ -261,20 +261,20 @@ SuperJumpSlamOverallsActionHelp_Step06:
 SuperJumpSlamOverallsActionHelp_Step07:
 	ld a, [wMenuObj5XCoord]
 	cp $40
-	jr z, .asm_1fa624
+	jr z, .apply_jump_vel
 	ld hl, wMenuObj4XCoord
 	dec [hl]
 	ld hl, wMenuObj5XCoord
 	dec [hl]
 	ld a, [hl]
 	cp $40
-	jr nz, .asm_1fa624
+	jr nz, .apply_jump_vel
 	call ActionHelp_ClearButtonsInput
 	call ActionHelp_ShowDDownInput
 	call ActionHelp_ShowWarioSmashAttack
 	ld a, $18
 	ld [wActionHelpWarioVar], a
-.asm_1fa624
+.apply_jump_vel
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -305,14 +305,14 @@ SuperJumpSlamOverallsActionHelp_Step08:
 	ld hl, wMenuObj4XCoord
 	ld a, [hl]
 	cp $40
-	jr z, .asm_1fa666
+	jr z, .apply_jump_vel
 	dec [hl]
 	ld a, [hl]
 	cp $40
-	jr nz, .asm_1fa666
+	jr nz, .apply_jump_vel
 	ld a, $18
 	ld [wActionHelpWarioVar], a
-.asm_1fa666
+.apply_jump_vel
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -382,9 +382,9 @@ SuperJumpSlamOverallsActionHelp_Step0B:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa6de
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa6de
+.skip_dec
 	ld a, [hl]
 	cp $60
 	ret nc
@@ -411,9 +411,9 @@ SuperJumpSlamOverallsActionHelp_Step0C:
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and $01
-	jr z, .asm_1fa70c
+	jr z, .skip_dec
 	dec [hl]
-.asm_1fa70c
+.skip_dec
 	ld a, [wActionHelpWarioXCoord]
 	cp [hl]
 	ret c
@@ -502,10 +502,10 @@ SuperJumpSlamOverallsActionHelp_Step10:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1fa7a2
+	jr c, .got_vel_index
 	ld [hl], $27
 	ld a, [hl]
-.asm_1fa7a2
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
@@ -533,35 +533,35 @@ SuperJumpSlamOverallsActionHelp_Step10:
 SuperJumpSlamOverallsActionHelp_Step11:
 	ld a, [wMenuObj5AnimationEnded]
 	and a
-	jr z, .asm_1fa7d9
+	jr z, .countdown
 	call ActionHelp_HideObj5BlockDebris
-.asm_1fa7d9
+.countdown
 	ld hl, wTimer
 	dec [hl]
-	jr z, .asm_1fa801
+	jr z, .shake_done
 	ld a, [hl]
 	cp $05
-	jr nz, .asm_1fa7ea
+	jr nz, .shake_screen
 	call ActionHelp_ShowWarioJump
 	call ActionHelp_ClearDPadInput
-.asm_1fa7ea
+.shake_screen
 	ld hl, wSCY
 	ld a, [wTimer]
 	and $03
 	cp $03
-	jr z, .asm_1fa7fb
+	jr z, .shake_down
 	cp $01
-	jr z, .asm_1fa7fe
+	jr z, .shake_up
 	ret
-.asm_1fa7fb
+.shake_down
 	inc [hl]
 	inc [hl]
 	ret
-.asm_1fa7fe
+.shake_up
 	dec [hl]
 	dec [hl]
 	ret
-.asm_1fa801
+.shake_done
 	ld a, $18
 	ld [wActionHelpWarioVar], a
 

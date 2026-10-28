@@ -190,7 +190,7 @@ VBlank_DoorTransition::
 .no_wrap_left_1
 	dec b
 	jr nz, .loop_fill_left_1
-	jr .asm_a8e
+	jr .done
 
 	; do wTransitionEffectStep tiles left
 .left_then_up
@@ -250,6 +250,6 @@ VBlank_DoorTransition::
 .no_wrap_up_2
 	dec b
 	jr nz, .loop_fill_upwards_2
-.asm_a8e
+.done
 	pop_wram
 	ret

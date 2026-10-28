@@ -34,10 +34,10 @@ SmallLeafFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $0a
-	jr z, .asm_43747
+	jr z, .vanish
 	and $fe
 	cp $04
-	jr z, .asm_43747
+	jr z, .vanish
 	xor a
 	ld [hl], a
 	ld l, OBJ_FLAGS
@@ -55,26 +55,26 @@ SmallLeafFunc:
 	ld [hld], a
 	ret
 
-.asm_43747
+.vanish
 	jp VanishAndDespawnObject
 
 .Update2:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $0a
-	jr z, .asm_43747
+	jr z, .vanish
 	and $fe
 	cp $04
-	jr z, .asm_43747
+	jr z, .vanish
 	xor a
 	ld [hl], a
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	cp $0f
-	jr nc, .asm_43766
+	jr nc, .count_down
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_43766
+.count_down
 	dec [hl]
 	ret nz
 	ld a, $9b

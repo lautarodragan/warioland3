@@ -64,35 +64,35 @@ InitGameOverScreen:
 UpdateGameOverScreen:
 	ld a, [wGameOverWarioVar]
 	dec a
-	jr z, .asm_db338
+	jr z, .scroll_in
 	dec a
-	jr z, .asm_db35b
+	jr z, .shake
 	dec a
-	jr z, .asm_db38a
+	jr z, .wait_input
 	ld hl, wTimer
 	dec [hl]
-	jp nz, .asm_db3a9
+	jp nz, .update_wario
 
 	play_sfx SFX_GAME_OVER
 	ld hl, wGameOverWarioVar
 	inc [hl]
-	jr .asm_db3a9
+	jr .update_wario
 
-.asm_db338
+.scroll_in
 	ld hl, wSCY
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	jr nz, .asm_db3a9
+	jr nz, .update_wario
 	play_sfx SFX_EARTHQUAKE
 	play_music MUSIC_GOLF_GAME_OVER
 	ld a, 6
 	ld [wTimer], a
 	ld hl, wGameOverWarioVar
 	inc [hl]
-	jr .asm_db3a9
+	jr .update_wario
 
-.asm_db35b
+.shake
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
@@ -100,27 +100,27 @@ UpdateGameOverScreen:
 	dec [hl]
 	ld a, [hl]
 	and $01
-	jr z, .asm_db371
+	jr z, .shake_up
 	ld hl, wSCY
 	inc [hl]
 	inc [hl]
-	jr .asm_db3a9
-.asm_db371
+	jr .update_wario
+.shake_up
 	ld hl, wSCY
 	dec [hl]
 	dec [hl]
 	ld a, [wTimer]
 	and a
-	jr nz, .asm_db3a9
+	jr nz, .update_wario
 	play_music MUSIC_GAME_OVER
 	ld hl, wGameOverWarioVar
 	inc [hl]
-	jr .asm_db3a9
+	jr .update_wario
 
-.asm_db38a
+.wait_input
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
-	jr z, .asm_db3a9
+	jr z, .update_wario
 	play_sfx SFX_SELECTION
 	ld hl, wGameOverWarioFramesetOffset
 	xor a
@@ -132,14 +132,14 @@ UpdateGameOverScreen:
 	ld [hl], a
 	ld hl, wSubState
 	inc [hl]
-.asm_db3a9
+.update_wario
 	ld hl, wGameOverWarioFramesetPtr + 1
 	farcall BANK(SceneWarioFrameset_aace2), UpdateObjAnim
 
 	ld a, [wObjAnimWasReset]
 	ld [wGameOverWarioAnimationEnded], a
 	and a
-	call nz, .Func_db3db
+	call nz, .PlaySnoreSFX
 	ld hl, wGameOverWario
 	call LoadGameOverSprite
 	ld hl, wMenuObj1FramesetPtr + 1
@@ -149,7 +149,7 @@ UpdateGameOverScreen:
 	call ClearUnusedVirtualOAM
 	ret
 
-.Func_db3db:
+.PlaySnoreSFX:
 	play_sfx SFX_SNORE
 	ret
 

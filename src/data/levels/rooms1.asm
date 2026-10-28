@@ -225,160 +225,160 @@ ENDM
 RoomBlockAndGfxData:
 	table_width 2
 	dw NULL           ; ROOM_UNUSED_000
-	dw .room_data_001 ; ROOM_OUT_OF_THE_WOODS_1_DAY
-	dw .room_data_002 ; ROOM_OUT_OF_THE_WOODS_6_NIGHT
-	dw .room_data_003 ; ROOM_OUT_OF_THE_WOODS_5_DAY
-	dw .room_data_004 ; ROOM_OUT_OF_THE_WOODS_5_NIGHT
-	dw .room_data_005 ; ROOM_OUT_OF_THE_WOODS_2
-	dw .room_data_006 ; ROOM_OUT_OF_THE_WOODS_3_DAY
-	dw .room_data_007 ; ROOM_OUT_OF_THE_WOODS_3_NIGHT
-	dw .room_data_008 ; ROOM_OUT_OF_THE_WOODS_4_DAY
-	dw .room_data_009 ; ROOM_OUT_OF_THE_WOODS_4_NIGHT
-	dw .room_data_010 ; ROOM_SHARED_1
-	dw .room_data_011 ; ROOM_SHARED_2
-	dw .room_data_012 ; ROOM_THE_PEACEFUL_VILLAGE_1_DAY
-	dw .room_data_013 ; ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
-	dw .room_data_014 ; ROOM_THE_PEACEFUL_VILLAGE_2_DAY
-	dw .room_data_015 ; ROOM_THE_PEACEFUL_VILLAGE_3
-	dw .room_data_016 ; ROOM_THE_VAST_PLAIN_4_DAY
-	dw .room_data_017 ; ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
-	dw .room_data_018 ; ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
-	dw .room_data_019 ; ROOM_SHARED_3
-	dw .room_data_020 ; ROOM_THE_TIDAL_COAST_1_DAY
-	dw .room_data_021 ; ROOM_SHARED_4
-	dw .room_data_022 ; ROOM_SEA_TURTLE_ROCKS_1_DAY
-	dw .room_data_023 ; ROOM_DESERT_RUINS_1_DAY
-	dw .room_data_024 ; ROOM_DESERT_RUINS_2
-	dw .room_data_025 ; ROOM_SHARED_5
-	dw .room_data_026 ; ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
-	dw .room_data_027 ; ROOM_THE_VOLCANOS_BASE_1_DAY
-	dw .room_data_028 ; ROOM_THE_VOLCANOS_BASE_2
-	dw .room_data_029 ; ROOM_THE_POOL_OF_RAIN_1_DAY
-	dw .room_data_030 ; ROOM_THE_POOL_OF_RAIN_2
-	dw .room_data_031 ; ROOM_A_TOWN_IN_CHAOS_1_DAY
-	dw .room_data_032 ; ROOM_A_TOWN_IN_CHAOS_2_DAY
-	dw .room_data_033 ; ROOM_A_TOWN_IN_CHAOS_3_DAY
-	dw .room_data_034 ; ROOM_BENEATH_THE_WAVES_1_DAY
-	dw .room_data_035 ; ROOM_THE_GRASSLANDS_1_DAY
-	dw .room_data_036 ; ROOM_THE_BIG_BRIDGE_1_DAY
-	dw .room_data_037 ; ROOM_THE_BIG_BRIDGE_2
-	dw .room_data_038 ; ROOM_TOWER_OF_REVIVAL_1_DAY
-	dw .room_data_039 ; ROOM_THE_STEEP_CANYON_1_DAY
-	dw .room_data_040 ; ROOM_ABOVE_THE_CLOUDS_1_DAY
-	dw .room_data_041 ; ROOM_THE_STAGNANT_SWAMP_1_DAY
-	dw .room_data_042 ; ROOM_DESERT_RUINS_1_NIGHT
-	dw .room_data_043 ; ROOM_THE_FRIGID_SEA_1_DAY
-	dw .room_data_044 ; ROOM_CASTLE_OF_ILLUSIONS_1_DAY
-	dw .room_data_045 ; ROOM_THE_COLOSSAL_HOLE_1_DAY
-	dw .room_data_046 ; ROOM_THE_STAGNANT_SWAMP_2
-	dw .room_data_047 ; ROOM_THE_WEST_CRATER_1_DAY
-	dw .room_data_048 ; ROOM_THE_WEST_CRATER_2
-	dw .room_data_049 ; ROOM_TOWER_OF_REVIVAL_3_DAY
-	dw .room_data_050 ; ROOM_SEA_TURTLE_ROCKS_2
-	dw .room_data_051 ; ROOM_THE_WARPED_VOID_1
-	dw .room_data_052 ; ROOM_FOREST_OF_FEAR_1_DAY
-	dw .room_data_053 ; ROOM_CAVE_OF_FLAMES_1
-	dw .room_data_054 ; ROOM_BENEATH_THE_WAVES_2
-	dw .room_data_055 ; ROOM_BENEATH_THE_WAVES_3
-	dw .room_data_056 ; ROOM_CASTLE_OF_ILLUSIONS_2
-	dw .room_data_057 ; ROOM_CASTLE_OF_ILLUSIONS_3_DAY
-	dw .room_data_058 ; ROOM_A_TOWN_IN_CHAOS_4
-	dw .room_data_059 ; ROOM_THE_TEMPLE
-	dw .room_data_060 ; ROOM_THE_VAST_PLAIN_4_NIGHT
-	dw .room_data_061 ; ROOM_THE_VAST_PLAIN_3
-	dw .room_data_062 ; ROOM_DESERT_RUINS_3
-	dw .room_data_063 ; ROOM_UNUSED_063
-	dw .room_data_064 ; ROOM_UNUSED_064
-	dw .room_data_065 ; ROOM_UNUSED_065
-	dw .room_data_066 ; ROOM_SEA_TURTLE_ROCKS_4
-	dw .room_data_067 ; ROOM_THE_VAST_PLAIN_1_DAY
-	dw .room_data_068 ; ROOM_THE_VAST_PLAIN_1_NIGHT
-	dw .room_data_069 ; ROOM_THE_EAST_CRATER_1_DAY
-	dw .room_data_070 ; ROOM_THE_EAST_CRATER_2
-	dw .room_data_071 ; ROOM_TOWER_OF_REVIVAL_2_DAY
-	dw .room_data_072 ; ROOM_THE_FRIGID_SEA_2
-	dw .room_data_073 ; ROOM_THE_GRASSLANDS_2
-	dw .room_data_074 ; ROOM_THE_VAST_PLAIN_2_DAY
-	dw .room_data_075 ; ROOM_THE_VAST_PLAIN_2_NIGHT
-	dw .room_data_076 ; ROOM_THE_STAGNANT_SWAMP_3
-	dw .room_data_077 ; ROOM_THE_WARPED_VOID_4
-	dw .room_data_078 ; ROOM_THE_WARPED_VOID_3
-	dw .room_data_079 ; ROOM_THE_WARPED_VOID_2
-	dw .room_data_080 ; ROOM_THE_VOLCANOS_BASE_1_NIGHT
-	dw .room_data_081 ; ROOM_THE_POOL_OF_RAIN_1_NIGHT
-	dw .room_data_082 ; ROOM_THE_POOL_OF_RAIN_3_DAY
-	dw .room_data_083 ; ROOM_THE_POOL_OF_RAIN_3_NIGHT
-	dw .room_data_084 ; ROOM_A_TOWN_IN_CHAOS_1_NIGHT
-	dw .room_data_085 ; ROOM_A_TOWN_IN_CHAOS_2_NIGHT
-	dw .room_data_086 ; ROOM_A_TOWN_IN_CHAOS_3_NIGHT
-	dw .room_data_087 ; ROOM_A_TOWN_IN_CHAOS_5
-	dw .room_data_088 ; ROOM_THE_GRASSLANDS_3_DAY
-	dw .room_data_089 ; ROOM_THE_GRASSLANDS_1_NIGHT
-	dw .room_data_090 ; ROOM_THE_GRASSLANDS_3_NIGHT
-	dw .room_data_091 ; ROOM_THE_BIG_BRIDGE_3_DAY
-	dw .room_data_092 ; ROOM_THE_BIG_BRIDGE_1_NIGHT
-	dw .room_data_093 ; ROOM_THE_BIG_BRIDGE_3_NIGHT
-	dw .room_data_094 ; ROOM_TOWER_OF_REVIVAL_4_DAY
-	dw .room_data_095 ; ROOM_TOWER_OF_REVIVAL_5_DAY
-	dw .room_data_096 ; ROOM_TOWER_OF_REVIVAL_6_DAY
-	dw .room_data_097 ; ROOM_TOWER_OF_REVIVAL_1_NIGHT
-	dw .room_data_098 ; ROOM_TOWER_OF_REVIVAL_7_NIGHT
-	dw .room_data_099 ; ROOM_TOWER_OF_REVIVAL_2_NIGHT
-	dw .room_data_100 ; ROOM_TOWER_OF_REVIVAL_5_NIGHT
-	dw .room_data_101 ; ROOM_TOWER_OF_REVIVAL_6_NIGHT
-	dw .room_data_102 ; ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
-	dw .room_data_103 ; ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
-	dw .room_data_104 ; ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
-	dw .room_data_105 ; ROOM_SEA_TURTLE_ROCKS_3
-	dw .room_data_106 ; ROOM_SEA_TURTLE_ROCKS_5_DAY
-	dw .room_data_107 ; ROOM_SEA_TURTLE_ROCKS_6
-	dw .room_data_108 ; ROOM_SEA_TURTLE_ROCKS_1_NIGHT
-	dw .room_data_109 ; ROOM_SEA_TURTLE_ROCKS_5_NIGHT
-	dw .room_data_110 ; ROOM_THE_FRIGID_SEA_3_DAY
-	dw .room_data_111 ; ROOM_THE_FRIGID_SEA_1_NIGHT
-	dw .room_data_112 ; ROOM_THE_FRIGID_SEA_3_NIGHT
-	dw .room_data_113 ; ROOM_THE_TIDAL_COAST_2
-	dw .room_data_114 ; ROOM_THE_TIDAL_COAST_3
-	dw .room_data_115 ; ROOM_THE_TIDAL_COAST_1_NIGHT
-	dw .room_data_116 ; ROOM_THE_STAGNANT_SWAMP_1_NIGHT
-	dw .room_data_117 ; ROOM_THE_STAGNANT_SWAMP_4
-	dw .room_data_118 ; ROOM_ABOVE_THE_CLOUDS_2_DAY
-	dw .room_data_119 ; ROOM_ABOVE_THE_CLOUDS_3
-	dw .room_data_120 ; ROOM_CAVE_OF_FLAMES_2
-	dw .room_data_121 ; ROOM_CAVE_OF_FLAMES_3
-	dw .room_data_122 ; ROOM_CAVE_OF_FLAMES_4
-	dw .room_data_123 ; ROOM_BENEATH_THE_WAVES_4_DAY
-	dw .room_data_124 ; ROOM_BENEATH_THE_WAVES_5_DAY
-	dw .room_data_125 ; ROOM_BENEATH_THE_WAVES_1_NIGHT
-	dw .room_data_126 ; ROOM_BENEATH_THE_WAVES_4_NIGHT
-	dw .room_data_127 ; ROOM_BENEATH_THE_WAVES_5_NIGHT
-	dw .room_data_128 ; ROOM_THE_COLOSSAL_HOLE_2_DAY
-	dw .room_data_129 ; ROOM_THE_COLOSSAL_HOLE_1_NIGHT
-	dw .room_data_130 ; ROOM_THE_COLOSSAL_HOLE_2_NIGHT
-	dw .room_data_131 ; ROOM_CASTLE_OF_ILLUSIONS_4_DAY
-	dw .room_data_132 ; ROOM_CASTLE_OF_ILLUSIONS_1_NIGHT
-	dw .room_data_133 ; ROOM_CASTLE_OF_ILLUSIONS_4_NIGHT
-	dw .room_data_134 ; ROOM_CASTLE_OF_ILLUSIONS_3_NIGHT
-	dw .room_data_135 ; ROOM_ABOVE_THE_CLOUDS_4_DAY
-	dw .room_data_136 ; ROOM_ABOVE_THE_CLOUDS_1_NIGHT
-	dw .room_data_137 ; ROOM_ABOVE_THE_CLOUDS_4_NIGHT
-	dw .room_data_138 ; ROOM_ABOVE_THE_CLOUDS_2_NIGHT
-	dw .room_data_139 ; ROOM_FOREST_OF_FEAR_2_DAY
-	dw .room_data_140 ; ROOM_FOREST_OF_FEAR_1_NIGHT
-	dw .room_data_141 ; ROOM_FOREST_OF_FEAR_2_NIGHT
-	dw .room_data_142 ; ROOM_THE_WEST_CRATER_3_DAY
-	dw .room_data_143 ; ROOM_THE_WEST_CRATER_1_NIGHT
-	dw .room_data_144 ; ROOM_THE_WEST_CRATER_3_NIGHT
-	dw .room_data_145 ; ROOM_THE_EAST_CRATER_4_DAY
-	dw .room_data_146 ; ROOM_THE_EAST_CRATER_1_NIGHT
-	dw .room_data_147 ; ROOM_THE_EAST_CRATER_4_NIGHT
-	dw .room_data_148 ; ROOM_THE_EAST_CRATER_3
-	dw .room_data_149 ; ROOM_THE_WARPED_VOID_5
-	dw .room_data_150 ; ROOM_THE_WARPED_VOID_6
-	dw .room_data_151 ; ROOM_THE_STEEP_CANYON_2_DAY
-	dw .room_data_152 ; ROOM_THE_STEEP_CANYON_1_NIGHT
-	dw .room_data_153 ; ROOM_THE_STEEP_CANYON_2_NIGHT
-	dw .room_data_154 ; ROOM_THE_VOLCANOS_BASE_3
+	dw .room_data_out_of_the_woods_1_day         ; ROOM_OUT_OF_THE_WOODS_1_DAY
+	dw .room_data_out_of_the_woods_6_night       ; ROOM_OUT_OF_THE_WOODS_6_NIGHT
+	dw .room_data_out_of_the_woods_5_day         ; ROOM_OUT_OF_THE_WOODS_5_DAY
+	dw .room_data_out_of_the_woods_5_night       ; ROOM_OUT_OF_THE_WOODS_5_NIGHT
+	dw .room_data_out_of_the_woods_2             ; ROOM_OUT_OF_THE_WOODS_2
+	dw .room_data_out_of_the_woods_3_day         ; ROOM_OUT_OF_THE_WOODS_3_DAY
+	dw .room_data_out_of_the_woods_3_night       ; ROOM_OUT_OF_THE_WOODS_3_NIGHT
+	dw .room_data_out_of_the_woods_4_day         ; ROOM_OUT_OF_THE_WOODS_4_DAY
+	dw .room_data_out_of_the_woods_4_night       ; ROOM_OUT_OF_THE_WOODS_4_NIGHT
+	dw .room_data_shared_1                       ; ROOM_SHARED_1
+	dw .room_data_shared_2                       ; ROOM_SHARED_2
+	dw .room_data_the_peaceful_village_1_day     ; ROOM_THE_PEACEFUL_VILLAGE_1_DAY
+	dw .room_data_the_peaceful_village_1_night   ; ROOM_THE_PEACEFUL_VILLAGE_1_NIGHT
+	dw .room_data_the_peaceful_village_2_day     ; ROOM_THE_PEACEFUL_VILLAGE_2_DAY
+	dw .room_data_the_peaceful_village_3         ; ROOM_THE_PEACEFUL_VILLAGE_3
+	dw .room_data_the_vast_plain_4_day           ; ROOM_THE_VAST_PLAIN_4_DAY
+	dw .room_data_the_peaceful_village_4_night   ; ROOM_THE_PEACEFUL_VILLAGE_4_NIGHT
+	dw .room_data_bank_of_the_wild_river_1_day   ; ROOM_BANK_OF_THE_WILD_RIVER_1_DAY
+	dw .room_data_shared_3                       ; ROOM_SHARED_3
+	dw .room_data_the_tidal_coast_1_day          ; ROOM_THE_TIDAL_COAST_1_DAY
+	dw .room_data_shared_4                       ; ROOM_SHARED_4
+	dw .room_data_sea_turtle_rocks_1_day         ; ROOM_SEA_TURTLE_ROCKS_1_DAY
+	dw .room_data_desert_ruins_1_day             ; ROOM_DESERT_RUINS_1_DAY
+	dw .room_data_desert_ruins_2                 ; ROOM_DESERT_RUINS_2
+	dw .room_data_shared_5                       ; ROOM_SHARED_5
+	dw .room_data_the_peaceful_village_5_night   ; ROOM_THE_PEACEFUL_VILLAGE_5_NIGHT
+	dw .room_data_the_volcanos_base_1_day        ; ROOM_THE_VOLCANOS_BASE_1_DAY
+	dw .room_data_the_volcanos_base_2            ; ROOM_THE_VOLCANOS_BASE_2
+	dw .room_data_the_pool_of_rain_1_day         ; ROOM_THE_POOL_OF_RAIN_1_DAY
+	dw .room_data_the_pool_of_rain_2             ; ROOM_THE_POOL_OF_RAIN_2
+	dw .room_data_a_town_in_chaos_1_day          ; ROOM_A_TOWN_IN_CHAOS_1_DAY
+	dw .room_data_a_town_in_chaos_2_day          ; ROOM_A_TOWN_IN_CHAOS_2_DAY
+	dw .room_data_a_town_in_chaos_3_day          ; ROOM_A_TOWN_IN_CHAOS_3_DAY
+	dw .room_data_beneath_the_waves_1_day        ; ROOM_BENEATH_THE_WAVES_1_DAY
+	dw .room_data_the_grasslands_1_day           ; ROOM_THE_GRASSLANDS_1_DAY
+	dw .room_data_the_big_bridge_1_day           ; ROOM_THE_BIG_BRIDGE_1_DAY
+	dw .room_data_the_big_bridge_2               ; ROOM_THE_BIG_BRIDGE_2
+	dw .room_data_tower_of_revival_1_day         ; ROOM_TOWER_OF_REVIVAL_1_DAY
+	dw .room_data_the_steep_canyon_1_day         ; ROOM_THE_STEEP_CANYON_1_DAY
+	dw .room_data_above_the_clouds_1_day         ; ROOM_ABOVE_THE_CLOUDS_1_DAY
+	dw .room_data_the_stagnant_swamp_1_day       ; ROOM_THE_STAGNANT_SWAMP_1_DAY
+	dw .room_data_desert_ruins_1_night           ; ROOM_DESERT_RUINS_1_NIGHT
+	dw .room_data_the_frigid_sea_1_day           ; ROOM_THE_FRIGID_SEA_1_DAY
+	dw .room_data_castle_of_illusions_1_day      ; ROOM_CASTLE_OF_ILLUSIONS_1_DAY
+	dw .room_data_the_colossal_hole_1_day        ; ROOM_THE_COLOSSAL_HOLE_1_DAY
+	dw .room_data_the_stagnant_swamp_2           ; ROOM_THE_STAGNANT_SWAMP_2
+	dw .room_data_the_west_crater_1_day          ; ROOM_THE_WEST_CRATER_1_DAY
+	dw .room_data_the_west_crater_2              ; ROOM_THE_WEST_CRATER_2
+	dw .room_data_tower_of_revival_3_day         ; ROOM_TOWER_OF_REVIVAL_3_DAY
+	dw .room_data_sea_turtle_rocks_2             ; ROOM_SEA_TURTLE_ROCKS_2
+	dw .room_data_the_warped_void_1              ; ROOM_THE_WARPED_VOID_1
+	dw .room_data_forest_of_fear_1_day           ; ROOM_FOREST_OF_FEAR_1_DAY
+	dw .room_data_cave_of_flames_1               ; ROOM_CAVE_OF_FLAMES_1
+	dw .room_data_beneath_the_waves_2            ; ROOM_BENEATH_THE_WAVES_2
+	dw .room_data_beneath_the_waves_3            ; ROOM_BENEATH_THE_WAVES_3
+	dw .room_data_castle_of_illusions_2          ; ROOM_CASTLE_OF_ILLUSIONS_2
+	dw .room_data_castle_of_illusions_3_day      ; ROOM_CASTLE_OF_ILLUSIONS_3_DAY
+	dw .room_data_a_town_in_chaos_4              ; ROOM_A_TOWN_IN_CHAOS_4
+	dw .room_data_the_temple                     ; ROOM_THE_TEMPLE
+	dw .room_data_the_vast_plain_4_night         ; ROOM_THE_VAST_PLAIN_4_NIGHT
+	dw .room_data_the_vast_plain_3               ; ROOM_THE_VAST_PLAIN_3
+	dw .room_data_desert_ruins_3                 ; ROOM_DESERT_RUINS_3
+	dw .room_data_unused_063                     ; ROOM_UNUSED_063
+	dw .room_data_unused_064                     ; ROOM_UNUSED_064
+	dw .room_data_unused_065                     ; ROOM_UNUSED_065
+	dw .room_data_sea_turtle_rocks_4             ; ROOM_SEA_TURTLE_ROCKS_4
+	dw .room_data_the_vast_plain_1_day           ; ROOM_THE_VAST_PLAIN_1_DAY
+	dw .room_data_the_vast_plain_1_night         ; ROOM_THE_VAST_PLAIN_1_NIGHT
+	dw .room_data_the_east_crater_1_day          ; ROOM_THE_EAST_CRATER_1_DAY
+	dw .room_data_the_east_crater_2              ; ROOM_THE_EAST_CRATER_2
+	dw .room_data_tower_of_revival_2_day         ; ROOM_TOWER_OF_REVIVAL_2_DAY
+	dw .room_data_the_frigid_sea_2               ; ROOM_THE_FRIGID_SEA_2
+	dw .room_data_the_grasslands_2               ; ROOM_THE_GRASSLANDS_2
+	dw .room_data_the_vast_plain_2_day           ; ROOM_THE_VAST_PLAIN_2_DAY
+	dw .room_data_the_vast_plain_2_night         ; ROOM_THE_VAST_PLAIN_2_NIGHT
+	dw .room_data_the_stagnant_swamp_3           ; ROOM_THE_STAGNANT_SWAMP_3
+	dw .room_data_the_warped_void_4              ; ROOM_THE_WARPED_VOID_4
+	dw .room_data_the_warped_void_3              ; ROOM_THE_WARPED_VOID_3
+	dw .room_data_the_warped_void_2              ; ROOM_THE_WARPED_VOID_2
+	dw .room_data_the_volcanos_base_1_night      ; ROOM_THE_VOLCANOS_BASE_1_NIGHT
+	dw .room_data_the_pool_of_rain_1_night       ; ROOM_THE_POOL_OF_RAIN_1_NIGHT
+	dw .room_data_the_pool_of_rain_3_day         ; ROOM_THE_POOL_OF_RAIN_3_DAY
+	dw .room_data_the_pool_of_rain_3_night       ; ROOM_THE_POOL_OF_RAIN_3_NIGHT
+	dw .room_data_a_town_in_chaos_1_night        ; ROOM_A_TOWN_IN_CHAOS_1_NIGHT
+	dw .room_data_a_town_in_chaos_2_night        ; ROOM_A_TOWN_IN_CHAOS_2_NIGHT
+	dw .room_data_a_town_in_chaos_3_night        ; ROOM_A_TOWN_IN_CHAOS_3_NIGHT
+	dw .room_data_a_town_in_chaos_5              ; ROOM_A_TOWN_IN_CHAOS_5
+	dw .room_data_the_grasslands_3_day           ; ROOM_THE_GRASSLANDS_3_DAY
+	dw .room_data_the_grasslands_1_night         ; ROOM_THE_GRASSLANDS_1_NIGHT
+	dw .room_data_the_grasslands_3_night         ; ROOM_THE_GRASSLANDS_3_NIGHT
+	dw .room_data_the_big_bridge_3_day           ; ROOM_THE_BIG_BRIDGE_3_DAY
+	dw .room_data_the_big_bridge_1_night         ; ROOM_THE_BIG_BRIDGE_1_NIGHT
+	dw .room_data_the_big_bridge_3_night         ; ROOM_THE_BIG_BRIDGE_3_NIGHT
+	dw .room_data_tower_of_revival_4_day         ; ROOM_TOWER_OF_REVIVAL_4_DAY
+	dw .room_data_tower_of_revival_5_day         ; ROOM_TOWER_OF_REVIVAL_5_DAY
+	dw .room_data_tower_of_revival_6_day         ; ROOM_TOWER_OF_REVIVAL_6_DAY
+	dw .room_data_tower_of_revival_1_night       ; ROOM_TOWER_OF_REVIVAL_1_NIGHT
+	dw .room_data_tower_of_revival_7_night       ; ROOM_TOWER_OF_REVIVAL_7_NIGHT
+	dw .room_data_tower_of_revival_2_night       ; ROOM_TOWER_OF_REVIVAL_2_NIGHT
+	dw .room_data_tower_of_revival_5_night       ; ROOM_TOWER_OF_REVIVAL_5_NIGHT
+	dw .room_data_tower_of_revival_6_night       ; ROOM_TOWER_OF_REVIVAL_6_NIGHT
+	dw .room_data_bank_of_the_wild_river_2_day   ; ROOM_BANK_OF_THE_WILD_RIVER_2_DAY
+	dw .room_data_bank_of_the_wild_river_1_night ; ROOM_BANK_OF_THE_WILD_RIVER_1_NIGHT
+	dw .room_data_bank_of_the_wild_river_2_night ; ROOM_BANK_OF_THE_WILD_RIVER_2_NIGHT
+	dw .room_data_sea_turtle_rocks_3             ; ROOM_SEA_TURTLE_ROCKS_3
+	dw .room_data_sea_turtle_rocks_5_day         ; ROOM_SEA_TURTLE_ROCKS_5_DAY
+	dw .room_data_sea_turtle_rocks_6             ; ROOM_SEA_TURTLE_ROCKS_6
+	dw .room_data_sea_turtle_rocks_1_night       ; ROOM_SEA_TURTLE_ROCKS_1_NIGHT
+	dw .room_data_sea_turtle_rocks_5_night       ; ROOM_SEA_TURTLE_ROCKS_5_NIGHT
+	dw .room_data_the_frigid_sea_3_day           ; ROOM_THE_FRIGID_SEA_3_DAY
+	dw .room_data_the_frigid_sea_1_night         ; ROOM_THE_FRIGID_SEA_1_NIGHT
+	dw .room_data_the_frigid_sea_3_night         ; ROOM_THE_FRIGID_SEA_3_NIGHT
+	dw .room_data_the_tidal_coast_2              ; ROOM_THE_TIDAL_COAST_2
+	dw .room_data_the_tidal_coast_3              ; ROOM_THE_TIDAL_COAST_3
+	dw .room_data_the_tidal_coast_1_night        ; ROOM_THE_TIDAL_COAST_1_NIGHT
+	dw .room_data_the_stagnant_swamp_1_night     ; ROOM_THE_STAGNANT_SWAMP_1_NIGHT
+	dw .room_data_the_stagnant_swamp_4           ; ROOM_THE_STAGNANT_SWAMP_4
+	dw .room_data_above_the_clouds_2_day         ; ROOM_ABOVE_THE_CLOUDS_2_DAY
+	dw .room_data_above_the_clouds_3             ; ROOM_ABOVE_THE_CLOUDS_3
+	dw .room_data_cave_of_flames_2               ; ROOM_CAVE_OF_FLAMES_2
+	dw .room_data_cave_of_flames_3               ; ROOM_CAVE_OF_FLAMES_3
+	dw .room_data_cave_of_flames_4               ; ROOM_CAVE_OF_FLAMES_4
+	dw .room_data_beneath_the_waves_4_day        ; ROOM_BENEATH_THE_WAVES_4_DAY
+	dw .room_data_beneath_the_waves_5_day        ; ROOM_BENEATH_THE_WAVES_5_DAY
+	dw .room_data_beneath_the_waves_1_night      ; ROOM_BENEATH_THE_WAVES_1_NIGHT
+	dw .room_data_beneath_the_waves_4_night      ; ROOM_BENEATH_THE_WAVES_4_NIGHT
+	dw .room_data_beneath_the_waves_5_night      ; ROOM_BENEATH_THE_WAVES_5_NIGHT
+	dw .room_data_the_colossal_hole_2_day        ; ROOM_THE_COLOSSAL_HOLE_2_DAY
+	dw .room_data_the_colossal_hole_1_night      ; ROOM_THE_COLOSSAL_HOLE_1_NIGHT
+	dw .room_data_the_colossal_hole_2_night      ; ROOM_THE_COLOSSAL_HOLE_2_NIGHT
+	dw .room_data_castle_of_illusions_4_day      ; ROOM_CASTLE_OF_ILLUSIONS_4_DAY
+	dw .room_data_castle_of_illusions_1_night    ; ROOM_CASTLE_OF_ILLUSIONS_1_NIGHT
+	dw .room_data_castle_of_illusions_4_night    ; ROOM_CASTLE_OF_ILLUSIONS_4_NIGHT
+	dw .room_data_castle_of_illusions_3_night    ; ROOM_CASTLE_OF_ILLUSIONS_3_NIGHT
+	dw .room_data_above_the_clouds_4_day         ; ROOM_ABOVE_THE_CLOUDS_4_DAY
+	dw .room_data_above_the_clouds_1_night       ; ROOM_ABOVE_THE_CLOUDS_1_NIGHT
+	dw .room_data_above_the_clouds_4_night       ; ROOM_ABOVE_THE_CLOUDS_4_NIGHT
+	dw .room_data_above_the_clouds_2_night       ; ROOM_ABOVE_THE_CLOUDS_2_NIGHT
+	dw .room_data_forest_of_fear_2_day           ; ROOM_FOREST_OF_FEAR_2_DAY
+	dw .room_data_forest_of_fear_1_night         ; ROOM_FOREST_OF_FEAR_1_NIGHT
+	dw .room_data_forest_of_fear_2_night         ; ROOM_FOREST_OF_FEAR_2_NIGHT
+	dw .room_data_the_west_crater_3_day          ; ROOM_THE_WEST_CRATER_3_DAY
+	dw .room_data_the_west_crater_1_night        ; ROOM_THE_WEST_CRATER_1_NIGHT
+	dw .room_data_the_west_crater_3_night        ; ROOM_THE_WEST_CRATER_3_NIGHT
+	dw .room_data_the_east_crater_4_day          ; ROOM_THE_EAST_CRATER_4_DAY
+	dw .room_data_the_east_crater_1_night        ; ROOM_THE_EAST_CRATER_1_NIGHT
+	dw .room_data_the_east_crater_4_night        ; ROOM_THE_EAST_CRATER_4_NIGHT
+	dw .room_data_the_east_crater_3              ; ROOM_THE_EAST_CRATER_3
+	dw .room_data_the_warped_void_5              ; ROOM_THE_WARPED_VOID_5
+	dw .room_data_the_warped_void_6              ; ROOM_THE_WARPED_VOID_6
+	dw .room_data_the_steep_canyon_2_day         ; ROOM_THE_STEEP_CANYON_2_DAY
+	dw .room_data_the_steep_canyon_1_night       ; ROOM_THE_STEEP_CANYON_1_NIGHT
+	dw .room_data_the_steep_canyon_2_night       ; ROOM_THE_STEEP_CANYON_2_NIGHT
+	dw .room_data_the_volcanos_base_3            ; ROOM_THE_VOLCANOS_BASE_3
 	assert_table_length NUM_ROOMS
 	dw NULL
 	dw NULL
@@ -389,313 +389,313 @@ RoomBlockAndGfxData:
 	dw NULL
 	dw NULL
 
-.room_data_001
+.room_data_out_of_the_woods_1_day
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_1, BLOCKSET_OUT_OF_THE_WOODS_1, MAIN_TILES_OUT_OF_THE_WOODS_1, SPECIAL_TILES_0, ROOM_PAL_OUT_OF_THE_WOODS_1
-.room_data_002
+.room_data_out_of_the_woods_6_night
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_1, BLOCKSET_OUT_OF_THE_WOODS_1, MAIN_TILES_OUT_OF_THE_WOODS_1, SPECIAL_TILES_0, ROOM_PAL_OUT_OF_THE_WOODS_7
-.room_data_003
+.room_data_out_of_the_woods_5_day
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_5, BLOCKSET_OUT_OF_THE_WOODS_5, MAIN_TILES_OUT_OF_THE_WOODS_1, SPECIAL_TILES_0, ROOM_PAL_OUT_OF_THE_WOODS_1
-.room_data_004
+.room_data_out_of_the_woods_5_night
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_5, BLOCKSET_OUT_OF_THE_WOODS_5, MAIN_TILES_OUT_OF_THE_WOODS_1, SPECIAL_TILES_0, ROOM_PAL_OUT_OF_THE_WOODS_7
-.room_data_005
+.room_data_out_of_the_woods_2
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_2, BLOCKSET_OUT_OF_THE_WOODS_2, MAIN_TILES_OUT_OF_THE_WOODS_2, SPECIAL_TILES_1, ROOM_PAL_OUT_OF_THE_WOODS_2
-.room_data_006
+.room_data_out_of_the_woods_3_day
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_3, BLOCKSET_OUT_OF_THE_WOODS_3, MAIN_TILES_OUT_OF_THE_WOODS_3, SPECIAL_TILES_2, ROOM_PAL_OUT_OF_THE_WOODS_6
-.room_data_007
+.room_data_out_of_the_woods_3_night
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_3, BLOCKSET_OUT_OF_THE_WOODS_3, MAIN_TILES_OUT_OF_THE_WOODS_3, SPECIAL_TILES_2, ROOM_PAL_OUT_OF_THE_WOODS_8
-.room_data_008
+.room_data_out_of_the_woods_4_day
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_4, BLOCKSET_OUT_OF_THE_WOODS_4, MAIN_TILES_OUT_OF_THE_WOODS_3, SPECIAL_TILES_2, ROOM_PAL_OUT_OF_THE_WOODS_6
-.room_data_009
+.room_data_out_of_the_woods_4_night
 	room BLOCK_FUNCTION_TABLE_OUT_OF_THE_WOODS_4, BLOCKSET_OUT_OF_THE_WOODS_4, MAIN_TILES_OUT_OF_THE_WOODS_3, SPECIAL_TILES_2, ROOM_PAL_OUT_OF_THE_WOODS_8
-.room_data_010
+.room_data_shared_1
 	room BLOCK_FUNCTION_TABLE_SHARED_1, BLOCKSET_SHARED_1, MAIN_TILES_SHARED_1, SPECIAL_TILES_3, ROOM_PAL_SHARED_1
-.room_data_011
+.room_data_shared_2
 	room BLOCK_FUNCTION_TABLE_SHARED_1, BLOCKSET_SHARED_1, MAIN_TILES_SHARED_1, SPECIAL_TILES_3, ROOM_PAL_SHARED_2
-.room_data_012
+.room_data_the_peaceful_village_1_day
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_1, BLOCKSET_THE_PEACEFUL_VILLAGE_1, MAIN_TILES_THE_PEACEFUL_VILLAGE_1, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_1
-.room_data_013
+.room_data_the_peaceful_village_1_night
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_4, BLOCKSET_THE_PEACEFUL_VILLAGE_4, MAIN_TILES_THE_PEACEFUL_VILLAGE_1, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_4
-.room_data_014
+.room_data_the_peaceful_village_2_day
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_2, BLOCKSET_THE_PEACEFUL_VILLAGE_2, MAIN_TILES_THE_PEACEFUL_VILLAGE_2, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_2
-.room_data_015
+.room_data_the_peaceful_village_3
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_3, BLOCKSET_THE_PEACEFUL_VILLAGE_3, MAIN_TILES_THE_PEACEFUL_VILLAGE_3, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_3
-.room_data_016
+.room_data_the_vast_plain_4_day
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_3, BLOCKSET_THE_VAST_PLAIN_3, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_1
-.room_data_017
+.room_data_the_peaceful_village_4_night
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_2, BLOCKSET_THE_PEACEFUL_VILLAGE_2, MAIN_TILES_THE_PEACEFUL_VILLAGE_2, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_5
-.room_data_018
+.room_data_bank_of_the_wild_river_1_day
 	room BLOCK_FUNCTION_TABLE_BANK_OF_THE_WILD_RIVER_1, BLOCKSET_BANK_OF_THE_WILD_RIVER_1, MAIN_TILES_BANK_OF_THE_WILD_RIVER, SPECIAL_TILES_3, ROOM_PAL_BANK_OF_THE_WILD_RIVER_1
-.room_data_019
+.room_data_shared_3
 	room BLOCK_FUNCTION_TABLE_SHARED_2, BLOCKSET_SHARED_2, MAIN_TILES_SHARED_2, SPECIAL_TILES_3, ROOM_PAL_SHARED_3
-.room_data_020
+.room_data_the_tidal_coast_1_day
 	room BLOCK_FUNCTION_TABLE_THE_TIDAL_COAST_1, BLOCKSET_THE_TIDAL_COAST_1, MAIN_TILES_THE_TIDAL_COAST, SPECIAL_TILES_1, ROOM_PAL_THE_TIDAL_COAST_1
-.room_data_021
+.room_data_shared_4
 	room BLOCK_FUNCTION_TABLE_SHARED_4, BLOCKSET_SHARED_4, MAIN_TILES_SHARED_3, SPECIAL_TILES_1, ROOM_PAL_SHARED_4
-.room_data_022
+.room_data_sea_turtle_rocks_1_day
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_1, BLOCKSET_SEA_TURTLE_ROCKS_1, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_1
-.room_data_023
+.room_data_desert_ruins_1_day
 	room BLOCK_FUNCTION_TABLE_DESERT_RUINS_1, BLOCKSET_DESERT_RUINS_1, MAIN_TILES_DESERT_RUINS, SPECIAL_TILES_4, ROOM_PAL_DESERT_RUINS_1
-.room_data_024
+.room_data_desert_ruins_2
 	room BLOCK_FUNCTION_TABLE_DESERT_RUINS_2, BLOCKSET_DESERT_RUINS_2, MAIN_TILES_DESERT_RUINS, SPECIAL_TILES_4, ROOM_PAL_DESERT_RUINS_2
-.room_data_025
+.room_data_shared_5
 	room BLOCK_FUNCTION_TABLE_SHARED_3, BLOCKSET_SHARED_3, MAIN_TILES_SHARED_4, SPECIAL_TILES_1, ROOM_PAL_SHARED_5
-.room_data_026
+.room_data_the_peaceful_village_5_night
 	room BLOCK_FUNCTION_TABLE_THE_PEACEFUL_VILLAGE_2, BLOCKSET_THE_PEACEFUL_VILLAGE_2, MAIN_TILES_THE_PEACEFUL_VILLAGE_2, SPECIAL_TILES_3, ROOM_PAL_THE_PEACEFUL_VILLAGE_6
-.room_data_027
+.room_data_the_volcanos_base_1_day
 	room BLOCK_FUNCTION_TABLE_THE_VOLCANOS_BASE_1, BLOCKSET_THE_VOLCANOS_BASE_1, MAIN_TILES_THE_VOLCANOS_BASE, SPECIAL_TILES_1, ROOM_PAL_THE_VOLCANOS_BASE_1
-.room_data_028
+.room_data_the_volcanos_base_2
 	room BLOCK_FUNCTION_TABLE_THE_VOLCANOS_BASE_1, BLOCKSET_THE_VOLCANOS_BASE_1, MAIN_TILES_THE_VOLCANOS_BASE, SPECIAL_TILES_1, ROOM_PAL_THE_VOLCANOS_BASE_2
-.room_data_029
+.room_data_the_pool_of_rain_1_day
 	room BLOCK_FUNCTION_TABLE_THE_POOL_OF_RAIN_1, BLOCKSET_THE_POOL_OF_RAIN_1, MAIN_TILES_THE_POOL_OF_RAIN, SPECIAL_TILES_5, ROOM_PAL_THE_POOL_OF_RAIN_1
-.room_data_030
+.room_data_the_pool_of_rain_2
 	room BLOCK_FUNCTION_TABLE_THE_POOL_OF_RAIN_2, BLOCKSET_THE_POOL_OF_RAIN_2, MAIN_TILES_THE_POOL_OF_RAIN, SPECIAL_TILES_5, ROOM_PAL_THE_POOL_OF_RAIN_2
-.room_data_031
+.room_data_a_town_in_chaos_1_day
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_1, BLOCKSET_A_TOWN_IN_CHAOS_1, MAIN_TILES_A_TOWN_IN_CHAOS_1, SPECIAL_TILES_8, ROOM_PAL_A_TOWN_IN_CHAOS_1
-.room_data_032
+.room_data_a_town_in_chaos_2_day
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_2
-.room_data_033
+.room_data_a_town_in_chaos_3_day
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_3
-.room_data_034
+.room_data_beneath_the_waves_1_day
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_1, BLOCKSET_BENEATH_THE_WAVES_1, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_1
-.room_data_035
+.room_data_the_grasslands_1_day
 	room BLOCK_FUNCTION_TABLE_THE_GRASSLANDS_1, BLOCKSET_THE_GRASSLANDS_1, MAIN_TILES_THE_GRASSLANDS, SPECIAL_TILES_1, ROOM_PAL_THE_GRASSLANDS_1
-.room_data_036
+.room_data_the_big_bridge_1_day
 	room BLOCK_FUNCTION_TABLE_THE_BIG_BRIDGE_1, BLOCKSET_THE_BIG_BRIDGE_1, MAIN_TILES_THE_BIG_BRIDGE_1, SPECIAL_TILES_1, ROOM_PAL_THE_BIG_BRIDGE_1
-.room_data_037
+.room_data_the_big_bridge_2
 	room BLOCK_FUNCTION_TABLE_THE_BIG_BRIDGE_2, BLOCKSET_THE_BIG_BRIDGE_2, MAIN_TILES_THE_BIG_BRIDGE_2, SPECIAL_TILES_1, ROOM_PAL_THE_BIG_BRIDGE_2
-.room_data_038
+.room_data_tower_of_revival_1_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_1, BLOCKSET_TOWER_OF_REVIVAL_1, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_1
-.room_data_039
+.room_data_the_steep_canyon_1_day
 	room BLOCK_FUNCTION_TABLE_THE_STEEP_CANYON_1, BLOCKSET_THE_STEEP_CANYON_1, MAIN_TILES_THE_STEEP_CANYON, SPECIAL_TILES_1, ROOM_PAL_THE_STEEP_CANYON_1
-.room_data_040
+.room_data_above_the_clouds_1_day
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_1, BLOCKSET_ABOVE_THE_CLOUDS_1, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_1
-.room_data_041
+.room_data_the_stagnant_swamp_1_day
 	room BLOCK_FUNCTION_TABLE_THE_STAGNANT_SWAMP_1, BLOCKSET_THE_STAGNANT_SWAMP_1, MAIN_TILES_THE_STAGNANT_SWAMP, SPECIAL_TILES_7, ROOM_PAL_THE_STAGNANT_SWAMP_1
-.room_data_042
+.room_data_desert_ruins_1_night
 	room BLOCK_FUNCTION_TABLE_DESERT_RUINS_4, BLOCKSET_DESERT_RUINS_4, MAIN_TILES_DESERT_RUINS, SPECIAL_TILES_4, ROOM_PAL_DESERT_RUINS_4
-.room_data_043
+.room_data_the_frigid_sea_1_day
 	room BLOCK_FUNCTION_TABLE_THE_FRIGID_SEA_1, BLOCKSET_THE_FRIGID_SEA_1, MAIN_TILES_THE_FRIGID_SEA, SPECIAL_TILES_1, ROOM_PAL_THE_FRIGID_SEA_1
-.room_data_044
+.room_data_castle_of_illusions_1_day
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_1, BLOCKSET_CASTLE_OF_ILLUSIONS_1, MAIN_TILES_CASTLE_OF_ILLUSIONS_1, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_1
-.room_data_045
+.room_data_the_colossal_hole_1_day
 	room BLOCK_FUNCTION_TABLE_THE_COLOSSAL_HOLE_1, BLOCKSET_THE_COLOSSAL_HOLE_1, MAIN_TILES_THE_COLOSSAL_HOLE, SPECIAL_TILES_1, ROOM_PAL_THE_COLOSSAL_HOLE_1
-.room_data_046
+.room_data_the_stagnant_swamp_2
 	room BLOCK_FUNCTION_TABLE_THE_STAGNANT_SWAMP_2, BLOCKSET_THE_STAGNANT_SWAMP_2, MAIN_TILES_THE_STAGNANT_SWAMP, SPECIAL_TILES_7, ROOM_PAL_THE_STAGNANT_SWAMP_2
-.room_data_047
+.room_data_the_west_crater_1_day
 	room BLOCK_FUNCTION_TABLE_CRATERS_1, BLOCKSET_CRATERS_1, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_WEST_CRATER_1
-.room_data_048
+.room_data_the_west_crater_2
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_WEST_CRATER_2
-.room_data_049
+.room_data_tower_of_revival_3_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_3, BLOCKSET_TOWER_OF_REVIVAL_3, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_3
-.room_data_050
+.room_data_sea_turtle_rocks_2
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_2, BLOCKSET_SEA_TURTLE_ROCKS_2, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_2
-.room_data_051
+.room_data_the_warped_void_1
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_1, BLOCKSET_THE_WARPED_VOID_1, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_1
-.room_data_052
+.room_data_forest_of_fear_1_day
 	room BLOCK_FUNCTION_TABLE_FOREST_OF_FEAR_1, BLOCKSET_FOREST_OF_FEAR_1, MAIN_TILES_FOREST_OF_FEAR, SPECIAL_TILES_1, ROOM_PAL_FOREST_OF_FEAR_1
-.room_data_053
+.room_data_cave_of_flames_1
 	room BLOCK_FUNCTION_TABLE_CAVE_OF_FLAMES_1, BLOCKSET_CAVE_OF_FLAMES_1, MAIN_TILES_CAVE_OF_FLAMES, SPECIAL_TILES_1, ROOM_PAL_CAVE_OF_FLAMES_1
-.room_data_054
+.room_data_beneath_the_waves_2
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_2, BLOCKSET_BENEATH_THE_WAVES_2, MAIN_TILES_BENEATH_THE_WAVES_2, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_2
-.room_data_055
+.room_data_beneath_the_waves_3
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_1, BLOCKSET_BENEATH_THE_WAVES_1, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_3
-.room_data_056
+.room_data_castle_of_illusions_2
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_2, BLOCKSET_CASTLE_OF_ILLUSIONS_2, MAIN_TILES_CASTLE_OF_ILLUSIONS_2, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_2
-.room_data_057
+.room_data_castle_of_illusions_3_day
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_3, BLOCKSET_CASTLE_OF_ILLUSIONS_3, MAIN_TILES_CASTLE_OF_ILLUSIONS_3, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_3
-.room_data_058
+.room_data_a_town_in_chaos_4
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_3, BLOCKSET_A_TOWN_IN_CHAOS_3, MAIN_TILES_A_TOWN_IN_CHAOS_3, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_4
-.room_data_059
+.room_data_the_temple
 	room BLOCK_FUNCTION_TABLE_THE_TEMPLE, BLOCKSET_THE_TEMPLE, MAIN_TILES_THE_TEMPLE, SPECIAL_TILES_1, ROOM_PAL_THE_TEMPLE
-.room_data_060
+.room_data_the_vast_plain_4_night
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_3, BLOCKSET_THE_VAST_PLAIN_3, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_3
-.room_data_061
+.room_data_the_vast_plain_3
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_3, BLOCKSET_THE_VAST_PLAIN_3, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_2
-.room_data_062
+.room_data_desert_ruins_3
 	room BLOCK_FUNCTION_TABLE_DESERT_RUINS_3, BLOCKSET_DESERT_RUINS_3, MAIN_TILES_DESERT_RUINS, SPECIAL_TILES_4, ROOM_PAL_DESERT_RUINS_3
-.room_data_063
+.room_data_unused_063
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_1, BLOCKSET_A_TOWN_IN_CHAOS_1, MAIN_TILES_A_TOWN_IN_CHAOS_1, SPECIAL_TILES_8, ROOM_PAL_A_TOWN_IN_CHAOS_5
-.room_data_064
+.room_data_unused_064
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_6
-.room_data_065
+.room_data_unused_065
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_7
-.room_data_066
+.room_data_sea_turtle_rocks_4
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_4, BLOCKSET_SEA_TURTLE_ROCKS_4, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_3
-.room_data_067
+.room_data_the_vast_plain_1_day
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_1, BLOCKSET_THE_VAST_PLAIN_1, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_1
-.room_data_068
+.room_data_the_vast_plain_1_night
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_1, BLOCKSET_THE_VAST_PLAIN_1, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_3
-.room_data_069
+.room_data_the_east_crater_1_day
 	room BLOCK_FUNCTION_TABLE_CRATERS_1, BLOCKSET_CRATERS_1, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_1
-.room_data_070
+.room_data_the_east_crater_2
 	room BLOCK_FUNCTION_TABLE_CRATERS_1, BLOCKSET_CRATERS_1, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_2
-.room_data_071
+.room_data_tower_of_revival_2_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_2, BLOCKSET_TOWER_OF_REVIVAL_2, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_2
-.room_data_072
+.room_data_the_frigid_sea_2
 	room BLOCK_FUNCTION_TABLE_THE_FRIGID_SEA_2, BLOCKSET_THE_FRIGID_SEA_2, MAIN_TILES_THE_FRIGID_SEA, SPECIAL_TILES_6, ROOM_PAL_THE_FRIGID_SEA_1
-.room_data_073
+.room_data_the_grasslands_2
 	room BLOCK_FUNCTION_TABLE_THE_GRASSLANDS_2, BLOCKSET_THE_GRASSLANDS_2, MAIN_TILES_THE_GRASSLANDS, SPECIAL_TILES_1, ROOM_PAL_THE_GRASSLANDS_2
-.room_data_074
+.room_data_the_vast_plain_2_day
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_2, BLOCKSET_THE_VAST_PLAIN_2, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_1
-.room_data_075
+.room_data_the_vast_plain_2_night
 	room BLOCK_FUNCTION_TABLE_THE_VAST_PLAIN_4, BLOCKSET_THE_VAST_PLAIN_4, MAIN_TILES_THE_VAST_PLAIN, SPECIAL_TILES_3, ROOM_PAL_THE_VAST_PLAIN_3
-.room_data_076
+.room_data_the_stagnant_swamp_3
 	room BLOCK_FUNCTION_TABLE_THE_STAGNANT_SWAMP_3, BLOCKSET_THE_STAGNANT_SWAMP_3, MAIN_TILES_THE_STAGNANT_SWAMP, SPECIAL_TILES_7, ROOM_PAL_THE_STAGNANT_SWAMP_3
-.room_data_077
+.room_data_the_warped_void_4
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_1, BLOCKSET_THE_WARPED_VOID_1, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_25
-.room_data_078
+.room_data_the_warped_void_3
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_1, BLOCKSET_THE_WARPED_VOID_1, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_17
-.room_data_079
+.room_data_the_warped_void_2
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_1, BLOCKSET_THE_WARPED_VOID_1, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_9
-.room_data_080
+.room_data_the_volcanos_base_1_night
 	room BLOCK_FUNCTION_TABLE_THE_VOLCANOS_BASE_2, BLOCKSET_THE_VOLCANOS_BASE_2, MAIN_TILES_THE_VOLCANOS_BASE, SPECIAL_TILES_1, ROOM_PAL_THE_VOLCANOS_BASE_4
-.room_data_081
+.room_data_the_pool_of_rain_1_night
 	room BLOCK_FUNCTION_TABLE_THE_POOL_OF_RAIN_1, BLOCKSET_THE_POOL_OF_RAIN_1, MAIN_TILES_THE_POOL_OF_RAIN, SPECIAL_TILES_5, ROOM_PAL_THE_POOL_OF_RAIN_3
-.room_data_082
+.room_data_the_pool_of_rain_3_day
 	room BLOCK_FUNCTION_TABLE_THE_POOL_OF_RAIN_3, BLOCKSET_THE_POOL_OF_RAIN_3, MAIN_TILES_THE_POOL_OF_RAIN, SPECIAL_TILES_5, ROOM_PAL_THE_POOL_OF_RAIN_1
-.room_data_083
+.room_data_the_pool_of_rain_3_night
 	room BLOCK_FUNCTION_TABLE_THE_POOL_OF_RAIN_3, BLOCKSET_THE_POOL_OF_RAIN_3, MAIN_TILES_THE_POOL_OF_RAIN, SPECIAL_TILES_5, ROOM_PAL_THE_POOL_OF_RAIN_3
-.room_data_084
+.room_data_a_town_in_chaos_1_night
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_1, BLOCKSET_A_TOWN_IN_CHAOS_1, MAIN_TILES_A_TOWN_IN_CHAOS_1, SPECIAL_TILES_8, ROOM_PAL_A_TOWN_IN_CHAOS_5
-.room_data_085
+.room_data_a_town_in_chaos_2_night
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_6
-.room_data_086
+.room_data_a_town_in_chaos_3_night
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_2, BLOCKSET_A_TOWN_IN_CHAOS_2, MAIN_TILES_A_TOWN_IN_CHAOS_2, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_7
-.room_data_087
+.room_data_a_town_in_chaos_5
 	room BLOCK_FUNCTION_TABLE_A_TOWN_IN_CHAOS_4, BLOCKSET_A_TOWN_IN_CHAOS_4, MAIN_TILES_A_TOWN_IN_CHAOS_3, SPECIAL_TILES_1, ROOM_PAL_A_TOWN_IN_CHAOS_4
-.room_data_088
+.room_data_the_grasslands_3_day
 	room BLOCK_FUNCTION_TABLE_THE_GRASSLANDS_2, BLOCKSET_THE_GRASSLANDS_2, MAIN_TILES_THE_GRASSLANDS, SPECIAL_TILES_1, ROOM_PAL_THE_GRASSLANDS_1
-.room_data_089
+.room_data_the_grasslands_1_night
 	room BLOCK_FUNCTION_TABLE_THE_GRASSLANDS_1, BLOCKSET_THE_GRASSLANDS_1, MAIN_TILES_THE_GRASSLANDS, SPECIAL_TILES_1, ROOM_PAL_THE_GRASSLANDS_3
-.room_data_090
+.room_data_the_grasslands_3_night
 	room BLOCK_FUNCTION_TABLE_THE_GRASSLANDS_2, BLOCKSET_THE_GRASSLANDS_2, MAIN_TILES_THE_GRASSLANDS, SPECIAL_TILES_1, ROOM_PAL_THE_GRASSLANDS_3
-.room_data_091
+.room_data_the_big_bridge_3_day
 	room BLOCK_FUNCTION_TABLE_THE_BIG_BRIDGE_3, BLOCKSET_THE_BIG_BRIDGE_3, MAIN_TILES_THE_BIG_BRIDGE_1, SPECIAL_TILES_1, ROOM_PAL_THE_BIG_BRIDGE_3
-.room_data_092
+.room_data_the_big_bridge_1_night
 	room BLOCK_FUNCTION_TABLE_THE_BIG_BRIDGE_1, BLOCKSET_THE_BIG_BRIDGE_1, MAIN_TILES_THE_BIG_BRIDGE_1, SPECIAL_TILES_1, ROOM_PAL_THE_BIG_BRIDGE_4
-.room_data_093
+.room_data_the_big_bridge_3_night
 	room BLOCK_FUNCTION_TABLE_THE_BIG_BRIDGE_3, BLOCKSET_THE_BIG_BRIDGE_3, MAIN_TILES_THE_BIG_BRIDGE_1, SPECIAL_TILES_1, ROOM_PAL_THE_BIG_BRIDGE_5
-.room_data_094
+.room_data_tower_of_revival_4_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_3, BLOCKSET_TOWER_OF_REVIVAL_3, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_1
-.room_data_095
+.room_data_tower_of_revival_5_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_4, BLOCKSET_TOWER_OF_REVIVAL_4, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_2
-.room_data_096
+.room_data_tower_of_revival_6_day
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_5, BLOCKSET_TOWER_OF_REVIVAL_5, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_2
-.room_data_097
+.room_data_tower_of_revival_1_night
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_1, BLOCKSET_TOWER_OF_REVIVAL_1, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_4
-.room_data_098
+.room_data_tower_of_revival_7_night
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_3, BLOCKSET_TOWER_OF_REVIVAL_3, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_4
-.room_data_099
+.room_data_tower_of_revival_2_night
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_2, BLOCKSET_TOWER_OF_REVIVAL_2, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_5
-.room_data_100
+.room_data_tower_of_revival_5_night
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_4, BLOCKSET_TOWER_OF_REVIVAL_4, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_5
-.room_data_101
+.room_data_tower_of_revival_6_night
 	room BLOCK_FUNCTION_TABLE_TOWER_OF_REVIVAL_5, BLOCKSET_TOWER_OF_REVIVAL_5, MAIN_TILES_TOWER_OF_REVIVAL, SPECIAL_TILES_1, ROOM_PAL_TOWER_OF_REVIVAL_5
-.room_data_102
+.room_data_bank_of_the_wild_river_2_day
 	room BLOCK_FUNCTION_TABLE_BANK_OF_THE_WILD_RIVER_2, BLOCKSET_BANK_OF_THE_WILD_RIVER_2, MAIN_TILES_BANK_OF_THE_WILD_RIVER, SPECIAL_TILES_3, ROOM_PAL_BANK_OF_THE_WILD_RIVER_1
-.room_data_103
+.room_data_bank_of_the_wild_river_1_night
 	room BLOCK_FUNCTION_TABLE_BANK_OF_THE_WILD_RIVER_1, BLOCKSET_BANK_OF_THE_WILD_RIVER_1, MAIN_TILES_BANK_OF_THE_WILD_RIVER, SPECIAL_TILES_3, ROOM_PAL_BANK_OF_THE_WILD_RIVER_2
-.room_data_104
+.room_data_bank_of_the_wild_river_2_night
 	room BLOCK_FUNCTION_TABLE_BANK_OF_THE_WILD_RIVER_2, BLOCKSET_BANK_OF_THE_WILD_RIVER_2, MAIN_TILES_BANK_OF_THE_WILD_RIVER, SPECIAL_TILES_3, ROOM_PAL_BANK_OF_THE_WILD_RIVER_2
-.room_data_105
+.room_data_sea_turtle_rocks_3
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_3, BLOCKSET_SEA_TURTLE_ROCKS_3, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_2
-.room_data_106
+.room_data_sea_turtle_rocks_5_day
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_2, BLOCKSET_SEA_TURTLE_ROCKS_2, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_1
-.room_data_107
+.room_data_sea_turtle_rocks_6
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_2, BLOCKSET_SEA_TURTLE_ROCKS_2, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_4
-.room_data_108
+.room_data_sea_turtle_rocks_1_night
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_1, BLOCKSET_SEA_TURTLE_ROCKS_1, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_5
-.room_data_109
+.room_data_sea_turtle_rocks_5_night
 	room BLOCK_FUNCTION_TABLE_SEA_TURTLE_ROCKS_2, BLOCKSET_SEA_TURTLE_ROCKS_2, MAIN_TILES_SEA_TURTLE_ROCKS, SPECIAL_TILES_1, ROOM_PAL_SEA_TURTLE_ROCKS_5
-.room_data_110
+.room_data_the_frigid_sea_3_day
 	room BLOCK_FUNCTION_TABLE_THE_FRIGID_SEA_3, BLOCKSET_THE_FRIGID_SEA_3, MAIN_TILES_THE_FRIGID_SEA, SPECIAL_TILES_1, ROOM_PAL_THE_FRIGID_SEA_1
-.room_data_111
+.room_data_the_frigid_sea_1_night
 	room BLOCK_FUNCTION_TABLE_THE_FRIGID_SEA_4, BLOCKSET_THE_FRIGID_SEA_4, MAIN_TILES_THE_FRIGID_SEA, SPECIAL_TILES_1, ROOM_PAL_THE_FRIGID_SEA_2
-.room_data_112
+.room_data_the_frigid_sea_3_night
 	room BLOCK_FUNCTION_TABLE_THE_FRIGID_SEA_5, BLOCKSET_THE_FRIGID_SEA_5, MAIN_TILES_THE_FRIGID_SEA, SPECIAL_TILES_1, ROOM_PAL_THE_FRIGID_SEA_2
-.room_data_113
+.room_data_the_tidal_coast_2
 	room BLOCK_FUNCTION_TABLE_THE_TIDAL_COAST_2, BLOCKSET_THE_TIDAL_COAST_2, MAIN_TILES_SHARED_3, SPECIAL_TILES_1, ROOM_PAL_SHARED_4
-.room_data_114
+.room_data_the_tidal_coast_3
 	room BLOCK_FUNCTION_TABLE_THE_TIDAL_COAST_3, BLOCKSET_THE_TIDAL_COAST_3, MAIN_TILES_SHARED_3, SPECIAL_TILES_1, ROOM_PAL_SHARED_4
-.room_data_115
+.room_data_the_tidal_coast_1_night
 	room BLOCK_FUNCTION_TABLE_THE_TIDAL_COAST_1, BLOCKSET_THE_TIDAL_COAST_1, MAIN_TILES_THE_TIDAL_COAST, SPECIAL_TILES_1, ROOM_PAL_THE_TIDAL_COAST_2
-.room_data_116
+.room_data_the_stagnant_swamp_1_night
 	room BLOCK_FUNCTION_TABLE_THE_STAGNANT_SWAMP_1, BLOCKSET_THE_STAGNANT_SWAMP_1, MAIN_TILES_THE_STAGNANT_SWAMP, SPECIAL_TILES_7, ROOM_PAL_THE_STAGNANT_SWAMP_4
-.room_data_117
+.room_data_the_stagnant_swamp_4
 	room BLOCK_FUNCTION_TABLE_THE_STAGNANT_SWAMP_4, BLOCKSET_THE_STAGNANT_SWAMP_4, MAIN_TILES_THE_STAGNANT_SWAMP, SPECIAL_TILES_7, ROOM_PAL_THE_STAGNANT_SWAMP_2
-.room_data_118
+.room_data_above_the_clouds_2_day
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_2, BLOCKSET_ABOVE_THE_CLOUDS_2, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_4
-.room_data_119
+.room_data_above_the_clouds_3
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_3, BLOCKSET_ABOVE_THE_CLOUDS_3, MAIN_TILES_ABOVE_THE_CLOUDS_2, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_7
-.room_data_120
+.room_data_cave_of_flames_2
 	room BLOCK_FUNCTION_TABLE_CAVE_OF_FLAMES_1, BLOCKSET_CAVE_OF_FLAMES_1, MAIN_TILES_CAVE_OF_FLAMES, SPECIAL_TILES_1, ROOM_PAL_CAVE_OF_FLAMES_5
-.room_data_121
+.room_data_cave_of_flames_3
 	room BLOCK_FUNCTION_TABLE_CAVE_OF_FLAMES_2, BLOCKSET_CAVE_OF_FLAMES_2, MAIN_TILES_CAVE_OF_FLAMES, SPECIAL_TILES_1, ROOM_PAL_CAVE_OF_FLAMES_1
-.room_data_122
+.room_data_cave_of_flames_4
 	room BLOCK_FUNCTION_TABLE_CAVE_OF_FLAMES_3, BLOCKSET_CAVE_OF_FLAMES_3, MAIN_TILES_CAVE_OF_FLAMES, SPECIAL_TILES_1, ROOM_PAL_CAVE_OF_FLAMES_1
-.room_data_123
+.room_data_beneath_the_waves_4_day
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_3, BLOCKSET_BENEATH_THE_WAVES_3, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_1
-.room_data_124
+.room_data_beneath_the_waves_5_day
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_4, BLOCKSET_BENEATH_THE_WAVES_4, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_1
-.room_data_125
+.room_data_beneath_the_waves_1_night
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_1, BLOCKSET_BENEATH_THE_WAVES_1, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_4
-.room_data_126
+.room_data_beneath_the_waves_4_night
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_3, BLOCKSET_BENEATH_THE_WAVES_3, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_4
-.room_data_127
+.room_data_beneath_the_waves_5_night
 	room BLOCK_FUNCTION_TABLE_BENEATH_THE_WAVES_4, BLOCKSET_BENEATH_THE_WAVES_4, MAIN_TILES_BENEATH_THE_WAVES_1, SPECIAL_TILES_1, ROOM_PAL_BENEATH_THE_WAVES_4
-.room_data_128
+.room_data_the_colossal_hole_2_day
 	room BLOCK_FUNCTION_TABLE_THE_COLOSSAL_HOLE_2, BLOCKSET_THE_COLOSSAL_HOLE_2, MAIN_TILES_THE_COLOSSAL_HOLE, SPECIAL_TILES_1, ROOM_PAL_THE_COLOSSAL_HOLE_1
-.room_data_129
+.room_data_the_colossal_hole_1_night
 	room BLOCK_FUNCTION_TABLE_THE_COLOSSAL_HOLE_1, BLOCKSET_THE_COLOSSAL_HOLE_1, MAIN_TILES_THE_COLOSSAL_HOLE, SPECIAL_TILES_1, ROOM_PAL_THE_COLOSSAL_HOLE_2
-.room_data_130
+.room_data_the_colossal_hole_2_night
 	room BLOCK_FUNCTION_TABLE_THE_COLOSSAL_HOLE_2, BLOCKSET_THE_COLOSSAL_HOLE_2, MAIN_TILES_THE_COLOSSAL_HOLE, SPECIAL_TILES_1, ROOM_PAL_THE_COLOSSAL_HOLE_2
-.room_data_131
+.room_data_castle_of_illusions_4_day
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_4, BLOCKSET_CASTLE_OF_ILLUSIONS_4, MAIN_TILES_CASTLE_OF_ILLUSIONS_1, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_1
-.room_data_132
+.room_data_castle_of_illusions_1_night
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_5, BLOCKSET_CASTLE_OF_ILLUSIONS_5, MAIN_TILES_CASTLE_OF_ILLUSIONS_1, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_4
-.room_data_133
+.room_data_castle_of_illusions_4_night
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_6, BLOCKSET_CASTLE_OF_ILLUSIONS_6, MAIN_TILES_CASTLE_OF_ILLUSIONS_1, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_4
-.room_data_134
+.room_data_castle_of_illusions_3_night
 	room BLOCK_FUNCTION_TABLE_CASTLE_OF_ILLUSIONS_3, BLOCKSET_CASTLE_OF_ILLUSIONS_3, MAIN_TILES_CASTLE_OF_ILLUSIONS_3, SPECIAL_TILES_1, ROOM_PAL_CASTLE_OF_ILLUSIONS_5
-.room_data_135
+.room_data_above_the_clouds_4_day
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_4, BLOCKSET_ABOVE_THE_CLOUDS_4, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_1
-.room_data_136
+.room_data_above_the_clouds_1_night
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_5, BLOCKSET_ABOVE_THE_CLOUDS_5, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_8
-.room_data_137
+.room_data_above_the_clouds_4_night
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_6, BLOCKSET_ABOVE_THE_CLOUDS_6, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_8
-.room_data_138
+.room_data_above_the_clouds_2_night
 	room BLOCK_FUNCTION_TABLE_ABOVE_THE_CLOUDS_2, BLOCKSET_ABOVE_THE_CLOUDS_2, MAIN_TILES_ABOVE_THE_CLOUDS_1, SPECIAL_TILES_1, ROOM_PAL_ABOVE_THE_CLOUDS_11
-.room_data_139
+.room_data_forest_of_fear_2_day
 	room BLOCK_FUNCTION_TABLE_FOREST_OF_FEAR_2, BLOCKSET_FOREST_OF_FEAR_2, MAIN_TILES_FOREST_OF_FEAR, SPECIAL_TILES_1, ROOM_PAL_FOREST_OF_FEAR_1
-.room_data_140
+.room_data_forest_of_fear_1_night
 	room BLOCK_FUNCTION_TABLE_FOREST_OF_FEAR_1, BLOCKSET_FOREST_OF_FEAR_1, MAIN_TILES_FOREST_OF_FEAR, SPECIAL_TILES_1, ROOM_PAL_FOREST_OF_FEAR_2
-.room_data_141
+.room_data_forest_of_fear_2_night
 	room BLOCK_FUNCTION_TABLE_FOREST_OF_FEAR_2, BLOCKSET_FOREST_OF_FEAR_2, MAIN_TILES_FOREST_OF_FEAR, SPECIAL_TILES_1, ROOM_PAL_FOREST_OF_FEAR_2
-.room_data_142
+.room_data_the_west_crater_3_day
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_WEST_CRATER_3
-.room_data_143
+.room_data_the_west_crater_1_night
 	room BLOCK_FUNCTION_TABLE_CRATERS_1, BLOCKSET_CRATERS_1, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_WEST_CRATER_4
-.room_data_144
+.room_data_the_west_crater_3_night
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_WEST_CRATER_5
-.room_data_145
+.room_data_the_east_crater_4_day
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_1
-.room_data_146
+.room_data_the_east_crater_1_night
 	room BLOCK_FUNCTION_TABLE_CRATERS_1, BLOCKSET_CRATERS_1, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_3
-.room_data_147
+.room_data_the_east_crater_4_night
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_3
-.room_data_148
+.room_data_the_east_crater_3
 	room BLOCK_FUNCTION_TABLE_CRATERS_2, BLOCKSET_CRATERS_2, MAIN_TILES_CRATERS, SPECIAL_TILES_1, ROOM_PAL_THE_EAST_CRATER_2
-.room_data_149
+.room_data_the_warped_void_5
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_2, BLOCKSET_THE_WARPED_VOID_2, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_1
-.room_data_150
+.room_data_the_warped_void_6
 	room BLOCK_FUNCTION_TABLE_THE_WARPED_VOID_3, BLOCKSET_THE_WARPED_VOID_3, MAIN_TILES_THE_WARPED_VOID, SPECIAL_TILES_1, ROOM_PAL_THE_WARPED_VOID_1
-.room_data_151
+.room_data_the_steep_canyon_2_day
 	room BLOCK_FUNCTION_TABLE_THE_STEEP_CANYON_2, BLOCKSET_THE_STEEP_CANYON_2, MAIN_TILES_THE_STEEP_CANYON, SPECIAL_TILES_1, ROOM_PAL_THE_STEEP_CANYON_2
-.room_data_152
+.room_data_the_steep_canyon_1_night
 	room BLOCK_FUNCTION_TABLE_THE_STEEP_CANYON_1, BLOCKSET_THE_STEEP_CANYON_1, MAIN_TILES_THE_STEEP_CANYON, SPECIAL_TILES_1, ROOM_PAL_THE_STEEP_CANYON_3
-.room_data_153
+.room_data_the_steep_canyon_2_night
 	room BLOCK_FUNCTION_TABLE_THE_STEEP_CANYON_2, BLOCKSET_THE_STEEP_CANYON_2, MAIN_TILES_THE_STEEP_CANYON, SPECIAL_TILES_1, ROOM_PAL_THE_STEEP_CANYON_4
-.room_data_154
+.room_data_the_volcanos_base_3
 	room BLOCK_FUNCTION_TABLE_THE_VOLCANOS_BASE_1, BLOCKSET_THE_VOLCANOS_BASE_1, MAIN_TILES_THE_VOLCANOS_BASE, SPECIAL_TILES_1, ROOM_PAL_THE_VOLCANOS_BASE_3
 
 RoomBlockTilesPointers::
@@ -1126,28 +1126,28 @@ RoomPals::
 	ds $12, $ff
 
 RoomPalCycles::
-	dw .PalCycle0  ; ROOM_PALCYCLE_NONE
-	dw .PalCycle1  ; ROOM_PALCYCLE_OUT_OF_THE_WOODS
-	dw .PalCycle2  ; ROOM_PALCYCLE_CAVE_OF_FLAMES_1
-	dw .PalCycle3  ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_1
-	dw .PalCycle4  ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_2
-	dw .PalCycle5  ; ROOM_PALCYCLE_CAVE_OF_FLAMES_2
-	dw .PalCycle6  ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_3
-	dw .PalCycle7  ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_4
-	dw .PalCycle8  ; ROOM_PALCYCLE_THE_WARPED_VOID_1
-	dw .PalCycle9  ; ROOM_PALCYCLE_THE_WARPED_VOID_4
-	dw .PalCycle10 ; ROOM_PALCYCLE_THE_WARPED_VOID_3
-	dw .PalCycle11 ; ROOM_PALCYCLE_THE_WARPED_VOID_2
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_12
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_13
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_14
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_15
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_16
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_17
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_18
-	dw .PalCycle0  ; ROOM_PALCYCLE_UNUSED_19
+	dw .PalCycle_None            ; ROOM_PALCYCLE_NONE
+	dw .PalCycle_OutOfTheWoods   ; ROOM_PALCYCLE_OUT_OF_THE_WOODS
+	dw .PalCycle_CaveOfFlames1   ; ROOM_PALCYCLE_CAVE_OF_FLAMES_1
+	dw .PalCycle_AboveTheClouds1 ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_1
+	dw .PalCycle_AboveTheClouds2 ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_2
+	dw .PalCycle_CaveOfFlames2   ; ROOM_PALCYCLE_CAVE_OF_FLAMES_2
+	dw .PalCycle_AboveTheClouds3 ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_3
+	dw .PalCycle_AboveTheClouds4 ; ROOM_PALCYCLE_ABOVE_THE_CLOUDS_4
+	dw .PalCycle_TheWarpedVoid1  ; ROOM_PALCYCLE_THE_WARPED_VOID_1
+	dw .PalCycle_TheWarpedVoid4  ; ROOM_PALCYCLE_THE_WARPED_VOID_4
+	dw .PalCycle_TheWarpedVoid3  ; ROOM_PALCYCLE_THE_WARPED_VOID_3
+	dw .PalCycle_TheWarpedVoid2  ; ROOM_PALCYCLE_THE_WARPED_VOID_2
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_12
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_13
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_14
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_15
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_16
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_17
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_18
+	dw .PalCycle_None            ; ROOM_PALCYCLE_UNUSED_19
 
-.PalCycle0:
+.PalCycle_None:
 	db ROOM_PAL_OUT_OF_THE_WOODS_1
 	db ROOM_PAL_OUT_OF_THE_WOODS_1
 	db ROOM_PAL_OUT_OF_THE_WOODS_1
@@ -1158,7 +1158,7 @@ RoomPalCycles::
 	db ROOM_PAL_OUT_OF_THE_WOODS_1
 	db 0 ; duration
 
-.PalCycle1:
+.PalCycle_OutOfTheWoods:
 	db ROOM_PAL_OUT_OF_THE_WOODS_2
 	db ROOM_PAL_OUT_OF_THE_WOODS_2
 	db ROOM_PAL_OUT_OF_THE_WOODS_2
@@ -1169,7 +1169,7 @@ RoomPalCycles::
 	db ROOM_PAL_OUT_OF_THE_WOODS_3
 	db 11 ; duration
 
-.PalCycle2:
+.PalCycle_CaveOfFlames1:
 	db ROOM_PAL_CAVE_OF_FLAMES_1
 	db ROOM_PAL_CAVE_OF_FLAMES_1
 	db ROOM_PAL_CAVE_OF_FLAMES_2
@@ -1180,7 +1180,7 @@ RoomPalCycles::
 	db ROOM_PAL_CAVE_OF_FLAMES_2
 	db 13 ; duration
 
-.PalCycle3:
+.PalCycle_AboveTheClouds1:
 	db ROOM_PAL_ABOVE_THE_CLOUDS_1
 	db ROOM_PAL_ABOVE_THE_CLOUDS_1
 	db ROOM_PAL_ABOVE_THE_CLOUDS_1
@@ -1191,7 +1191,7 @@ RoomPalCycles::
 	db ROOM_PAL_ABOVE_THE_CLOUDS_2
 	db 22 ; duration
 
-.PalCycle4:
+.PalCycle_AboveTheClouds2:
 	db ROOM_PAL_ABOVE_THE_CLOUDS_4
 	db ROOM_PAL_ABOVE_THE_CLOUDS_4
 	db ROOM_PAL_ABOVE_THE_CLOUDS_4
@@ -1202,7 +1202,7 @@ RoomPalCycles::
 	db ROOM_PAL_ABOVE_THE_CLOUDS_5
 	db 22 ; duration
 
-.PalCycle5:
+.PalCycle_CaveOfFlames2:
 	db ROOM_PAL_CAVE_OF_FLAMES_4
 	db ROOM_PAL_CAVE_OF_FLAMES_4
 	db ROOM_PAL_CAVE_OF_FLAMES_5
@@ -1213,7 +1213,7 @@ RoomPalCycles::
 	db ROOM_PAL_CAVE_OF_FLAMES_5
 	db 13 ; duration
 
-.PalCycle6:
+.PalCycle_AboveTheClouds3:
 	db ROOM_PAL_ABOVE_THE_CLOUDS_8
 	db ROOM_PAL_ABOVE_THE_CLOUDS_8
 	db ROOM_PAL_ABOVE_THE_CLOUDS_8
@@ -1224,7 +1224,7 @@ RoomPalCycles::
 	db ROOM_PAL_ABOVE_THE_CLOUDS_9
 	db 22 ; duration
 
-.PalCycle7:
+.PalCycle_AboveTheClouds4:
 	db ROOM_PAL_ABOVE_THE_CLOUDS_11
 	db ROOM_PAL_ABOVE_THE_CLOUDS_11
 	db ROOM_PAL_ABOVE_THE_CLOUDS_11
@@ -1235,7 +1235,7 @@ RoomPalCycles::
 	db ROOM_PAL_ABOVE_THE_CLOUDS_12
 	db 22 ; duration
 
-.PalCycle8:
+.PalCycle_TheWarpedVoid1:
 	db ROOM_PAL_THE_WARPED_VOID_1
 	db ROOM_PAL_THE_WARPED_VOID_2
 	db ROOM_PAL_THE_WARPED_VOID_3
@@ -1246,7 +1246,7 @@ RoomPalCycles::
 	db ROOM_PAL_THE_WARPED_VOID_8
 	db 16 ; duration
 
-.PalCycle9:
+.PalCycle_TheWarpedVoid4:
 	db ROOM_PAL_THE_WARPED_VOID_25
 	db ROOM_PAL_THE_WARPED_VOID_26
 	db ROOM_PAL_THE_WARPED_VOID_27
@@ -1257,7 +1257,7 @@ RoomPalCycles::
 	db ROOM_PAL_THE_WARPED_VOID_32
 	db 16 ; duration
 
-.PalCycle10:
+.PalCycle_TheWarpedVoid3:
 	db ROOM_PAL_THE_WARPED_VOID_17
 	db ROOM_PAL_THE_WARPED_VOID_18
 	db ROOM_PAL_THE_WARPED_VOID_19
@@ -1268,7 +1268,7 @@ RoomPalCycles::
 	db ROOM_PAL_THE_WARPED_VOID_24
 	db 16 ; duration
 
-.PalCycle11:
+.PalCycle_TheWarpedVoid2:
 	db ROOM_PAL_THE_WARPED_VOID_9
 	db ROOM_PAL_THE_WARPED_VOID_10
 	db ROOM_PAL_THE_WARPED_VOID_11

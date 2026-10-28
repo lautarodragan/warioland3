@@ -23,7 +23,7 @@ VBlank_LanguageSelection:
 	ld b, 13
 	ld a, $06
 	call WriteAToHL_BTimes
-	jr .asm_4e29
+	jr .done_bg_update
 .english
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
@@ -35,7 +35,7 @@ VBlank_LanguageSelection:
 	ld b, 13
 	ld a, $07
 	call WriteAToHL_BTimes
-.asm_4e29
+.done_bg_update
 	ld hl, wBGUpdateRequest
 	res 7, [hl]
 

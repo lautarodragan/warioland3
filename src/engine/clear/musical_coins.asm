@@ -257,11 +257,11 @@ ExitClearScreen:
 	ld [wTimer + 1], a
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
-	jr nz, .asm_d463e
+	jr nz, .return_to_overworld
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_LEVEL_CLEAR
 	jp nz, OpenActionHelp
-.asm_d463e
+.return_to_overworld
 	farcall ReturnToOverworld
 	ret
 

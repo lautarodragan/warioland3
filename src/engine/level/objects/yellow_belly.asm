@@ -2,9 +2,9 @@ YellowBellyBodyFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5139d)
+	ld a, HIGH(.IntroFade1)
 	ld [hld], a
-	ld a, LOW(.Func_5139d)
+	ld a, LOW(.IntroFade1)
 	ld [hld], a
 	ld de, YellowBellyFrameset_69780
 	call SetObjectFramesetPtr
@@ -32,7 +32,7 @@ YellowBellyBodyFunc:
 	stop_music2
 	ret
 
-.Func_5139d:
+.IntroFade1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -41,15 +41,15 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513bf)
+	ld a, HIGH(.IntroFade2)
 	ld [hld], a
-	ld a, LOW(.Func_513bf)
+	ld a, LOW(.IntroFade2)
 	ld [hld], a
 	play_sfx SFX_BOSS_APPEAR
 	ld hl, YellowBellyPals_51c81
-	jr .asm_513f1
+	jr .set_pals
 
-.Func_513bf:
+.IntroFade2:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -58,13 +58,13 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513d9)
+	ld a, HIGH(.IntroFade3)
 	ld [hld], a
-	ld a, LOW(.Func_513d9)
+	ld a, LOW(.IntroFade3)
 	ld [hld], a
 	ld hl, YellowBellyPals_51c99
-	jr .asm_513f1
-.Func_513d9:
+	jr .set_pals
+.IntroFade3:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -73,18 +73,18 @@ YellowBellyBodyFunc:
 	ld a, $1e
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_513fb)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_513fb)
+	ld a, LOW(.StartFight)
 	ld [hld], a
 	ld hl, YellowBellyPals_51cb1
-.asm_513f1
+.set_pals
 	ld de, wTempPals2 palette 4
 	ld c, 4
 	ld b, 3
 	jp CopyAndApplyOBPals
 
-.Func_513fb:
+.StartFight:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -93,16 +93,16 @@ YellowBellyBodyFunc:
 	ld a, $20
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51419)
+	ld a, HIGH(.RiseAndSpawnHead)
 	ld [hld], a
-	ld a, LOW(.Func_51419)
+	ld a, LOW(.RiseAndSpawnHead)
 	ld [hld], a
 	ld a, BOSS_REGULAR
 	ld [wBossState], a
 	call UpdateLevelMusic
 	ret
 
-.Func_51419:
+.RiseAndSpawnHead:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -120,29 +120,29 @@ YellowBellyBodyFunc:
 	xor a
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51652)
+	ld a, HIGH(.Swim)
 	ld [hld], a
-	ld a, LOW(.Func_51652)
+	ld a, LOW(.Swim)
 	ld [hld], a
 	ld bc, ObjParams_YellowBellyHead
 	jp CreateObjectFromCurObjPos
 
-.asm_51442
+.start_shooting
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_514a4)
+	ld a, HIGH(.ShootArrows)
 	ld [hld], a
-	ld a, LOW(.Func_514a4)
+	ld a, LOW(.ShootArrows)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr z, .asm_5145c
+	jr z, .aim_at_wario
 	xor a
 	ld [wCurObjVar1], a
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_5147e
-	jr .asm_5149a
-.asm_5145c
+	jr nz, .shoot_right
+	jr .shoot_left
+.aim_at_wario
 	ld l, OBJ_X_POS
 	ld a, [hli]
 	ld e, a
@@ -153,26 +153,26 @@ YellowBellyBodyFunc:
 	ld c, a
 	ld a, b
 	cp d
-	jr c, .asm_51483
-	jr nz, .asm_51473
+	jr c, .wario_to_left
+	jr nz, .wario_to_right
 	ld a, c
 	cp e
-	jr c, .asm_51483
-.asm_51473
+	jr c, .wario_to_left
+.wario_to_right
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_5147e
+	jr nz, .shoot_right
 	ld de, YellowBellyFrameset_697b0
-	jr .asm_5148c
-.asm_5147e
+	jr .turn_to_wario
+.shoot_right
 	ld de, YellowBellyFrameset_697a1
-	jr .asm_5149d
-.asm_51483
+	jr .set_shoot_frameset
+.wario_to_left
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr z, .asm_5149a
+	jr z, .shoot_left
 	ld de, YellowBellyFrameset_697bb
-.asm_5148c
+.turn_to_wario
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $44
@@ -182,60 +182,60 @@ YellowBellyBodyFunc:
 	xor OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR
 	ld [hl], a
 	ret
-.asm_5149a
+.shoot_left
 	ld de, YellowBellyFrameset_69792
-.asm_5149d
+.set_shoot_frameset
 	call SetObjectFramesetPtr
 	ld a, $62
 	ld [hli], a
 	ret
 
-.Func_514a4:
+.ShootArrows:
 	ld a, [w1d147]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_514c9
+	jr z, .shooting
 	dec [hl]
 	ret nz
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_514bf
+	jr nz, .after_turn_right
 	ld de, YellowBellyFrameset_69792
-	jr .asm_514c2
-.asm_514bf
+	jr .set_after_turn_frameset
+.after_turn_right
 	ld de, YellowBellyFrameset_697a1
-.asm_514c2
+.set_after_turn_frameset
 	call SetObjectFramesetPtr
 	ld a, $62
 	ld [hli], a
 	ret
-.asm_514c9
+.shooting
 	dec l
 	dec [hl]
-	jr z, .asm_514eb
+	jr z, .end_shooting
 	ld a, [hl]
 	cp $2f
 	ret nz
 	play_sfx SFX_BEAM
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_514e5
+	jr nz, .arrow_right
 	ld bc, ObjParams_YellowBellyArrowLeft
 	jp CreateObjectAtRelativePos
-.asm_514e5
+.arrow_right
 	ld bc, ObjParams_YellowBellyArrowRight
 	jp CreateObjectAtRelativePos
-.asm_514eb
+.end_shooting
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr nz, .asm_51523
+	jr nz, .start_guard_pump
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51652)
+	ld a, HIGH(.Swim)
 	ld [hld], a
-	ld a, LOW(.Func_51652)
+	ld a, LOW(.Swim)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
@@ -253,17 +253,17 @@ YellowBellyBodyFunc:
 	ld [wCurObjState], a
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_5151d
+	jr nz, .swim_facing_right
 	ld de, YellowBellyFrameset_697e6
 	jp SetObjectFramesetPtr
-.asm_5151d
+.swim_facing_right
 	ld de, YellowBellyFrameset_697eb
 	jp SetObjectFramesetPtr
-.asm_51523
+.start_guard_pump
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_515dd)
+	ld a, HIGH(.GuardPump)
 	ld [hld], a
-	ld a, LOW(.Func_515dd)
+	ld a, LOW(.GuardPump)
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	ld a, $03
@@ -277,21 +277,21 @@ YellowBellyBodyFunc:
 	ld [wCurObjState], a
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_51548
+	jr nz, .guard_facing_right
 	ld de, YellowBellyFrameset_69780
 	jp SetObjectFramesetPtr
-.asm_51548
+.guard_facing_right
 	ld de, YellowBellyFrameset_69789
 	jp SetObjectFramesetPtr
 
-.asm_5154e
+.release_pump
 	stop_sfx
 	ld a, $01
 	ld [wDollBoyHammerRange], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51572)
+	ld a, HIGH(.ReleasePump)
 	ld [hld], a
-	ld a, LOW(.Func_51572)
+	ld a, LOW(.ReleasePump)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_PRIORITY_F, [hl]
@@ -300,93 +300,93 @@ YellowBellyBodyFunc:
 	ld de, YellowBellyFrameset_697c6
 	jp SetObjectFramesetPtr
 
-.Func_51572:
+.ReleasePump:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar1]
 	cp $a6
-	jr nz, .asm_51588
+	jr nz, .check_defeat_sfx
 	play_sfx SFX_VANISH
-	jr .asm_515a8
-.asm_51588
+	jr .reload_timer
+.check_defeat_sfx
 	cp $88
-	jr nz, .asm_51596
+	jr nz, .check_spawn_pump
 	play_sfx SFX_BOSS_DEFEATED
-	jr .asm_515a8
-.asm_51596
+	jr .reload_timer
+.check_spawn_pump
 	cp $25
-	jr nz, .asm_515ab
+	jr nz, .check_rise
 	play_sfx SFX_YELLOW_BELLY_SPAWN_PUMP
 	ld bc, ObjParams_Pump
 	call CreateObjectFromCurObjPos
-.asm_515a8
+.reload_timer
 	ld a, [wCurObjVar1]
-.asm_515ab
+.check_rise
 	cp $92
-	jr nc, .asm_515b7
+	jr nc, .count_down
 	ld a, [wCurObjScreenYPos]
 	cp $39
 	call nc, MoveObjectUp
-.asm_515b7
+.count_down
 	ld hl, wCurObjVar1
 	dec [hl]
-	jp z, .asm_514eb
+	jp z, .end_shooting
 	ld a, [hl]
 	cp $37
 	ret c
-	jr z, .asm_515d0
+	jr z, .normal_pals
 	and $0f
-	jr z, .asm_515d0
+	jr z, .normal_pals
 	cp $08
 	ret nz
 	ld hl, YellowBellyPals_51cc9
-	jr .asm_515d3
-.asm_515d0
+	jr .apply_flash_pals
+.normal_pals
 	ld hl, YellowBellyPals_51cb1
-.asm_515d3
+.apply_flash_pals
 	ld de, wTempPals2 palette 4
 	ld c, 4
 	ld b, 3
 	jp CopyAndApplyOBPals
 
-.Func_515dd:
+.GuardPump:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jr nz, .asm_515eb
+	jr nz, .guard
 	xor a
 	ld [wDollBoyHammerRange], a
-	jp .asm_514eb
-.asm_515eb
+	jp .end_shooting
+.guard
 	ld a, [w1d147]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld a, [wDollBoyHammerRange]
 	and a
-	jp z, .asm_514eb
+	jp z, .end_shooting
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_515ff
+.find_pump_loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp PUMP
-	jr nz, .asm_51610
+	jr nz, .find_pump_next
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hli] ; OBJ_FLAGS
 	rra
-	jr c, .asm_51619
-.asm_51610
+	jr c, .found_pump
+.find_pump_next
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_515ff
-.asm_51619
+	jr .find_pump_loop
+.found_pump
 	inc l
 	inc l
 	inc l
@@ -403,75 +403,75 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_5163a
+	jr c, .target_right
 	ld a, c
 	sub $38
 	ld c, a
 	ld a, b
 	sbc $00
 	ld b, a
-	jr .asm_51642
-.asm_5163a
+	jr .compare_target
+.target_right
 	ld a, c
 	add $38
 	ld c, a
 	ld a, b
 	adc $00
 	ld b, a
-.asm_51642
+.compare_target
 	ld a, e
 	cp c
-	jr nz, .asm_5164b
+	jr nz, .move_to_pump
 	ld a, d
 	cp b
-	jp z, .asm_51442
-.asm_5164b
+	jp z, .start_shooting
+.move_to_pump
 	ld a, $02
 	ld [wCurObjVar2], a
-	jr .asm_5168e
+	jr .check_state
 
-.Func_51652:
+.Swim:
 	ld a, [wDollBoyActiveBarrels]
 	and a
-	jr z, .asm_51662
+	jr z, .check_hit
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	xor a
 	ld [wCurObjState], a
 	ret
-.asm_51662
+.check_hit
 	ld a, [w1d147]
 	and a
-	jp nz, .asm_5179a
+	jp nz, .hit
 	ld hl, wCurObjVar1
 	ld a, [hli]
 	and a
-	jr nz, .asm_51688
+	jr nz, .bob
 	inc l
 	ld a, [hl]
 	dec a
-	jr nz, .asm_51688
+	jr nz, .bob
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	sub b
-	jr c, .asm_51688
+	jr c, .bob
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5178c)
+	ld a, HIGH(.Sink)
 	ld [hld], a
-	ld a, LOW(.Func_5178c)
+	ld a, LOW(.Sink)
 	ld [hld], a
 	ret
-.asm_51688
+.bob
 	ld bc, YellowBellyData_60950
 	call ApplyObjYMovement_Loop
-.asm_5168e
+.check_state
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_516bf
+	jr z, .turn_timer
 	cp $0a
-	jp z, .asm_5154e
+	jp z, .release_pump
 	xor a
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
@@ -482,76 +482,76 @@ YellowBellyBodyFunc:
 	ld c, a
 	ld a, [hl]
 	rlca
-	jr c, .asm_516b2
+	jr c, .check_facing_right
 	ld a, c
 	cp b
-	jr c, .asm_516ba
-	jr .asm_516b6
-.asm_516b2
+	jr c, .speed_up
+	jr .reverse
+.check_facing_right
 	ld a, b
 	cp c
-	jr c, .asm_516ba
-.asm_516b6
+	jr c, .speed_up
+.reverse
 	ld a, [hl]
 	xor $80
 	ld [hl], a
-.asm_516ba
+.speed_up
 	ld a, $02
 	ld [wCurObjVar2], a
-.asm_516bf
+.turn_timer
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	and a
-	jr z, .asm_51704
+	jr z, .swim_move
 	dec [hl]
 	ret nz
 	ld a, [wGlobalCounter]
 	rra
-	jr c, .asm_516d4
+	jr c, .end_turn
 	dec l
 	ld a, [hl]
 	cp $02
-	jr c, .asm_516d4
+	jr c, .end_turn
 	dec [hl]
-.asm_516d4
+.end_turn
 	ld l, OBJ_SUBSTATE
 	ld a, [wDollBoyHammerRange]
 	dec a
-	jr z, .asm_516ec
+	jr z, .pump_out_frameset
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_516e6
+	jr nz, .swim_frameset_right
 	ld de, YellowBellyFrameset_697e6
 	jp SetObjectFramesetPtr
-.asm_516e6
+.swim_frameset_right
 	ld de, YellowBellyFrameset_697eb
 	jp SetObjectFramesetPtr
-.asm_516ec
+.pump_out_frameset
 	play_sfx SFX_CHOP_TREE
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_516fe
+	jr nz, .pump_out_frameset_right
 	ld de, YellowBellyFrameset_69780
 	jp SetObjectFramesetPtr
-.asm_516fe
+.pump_out_frameset_right
 	ld de, YellowBellyFrameset_69789
 	jp SetObjectFramesetPtr
-.asm_51704
+.swim_move
 	ld l, OBJ_VAR_3
 	ld a, [hl]
 	dec a
-	jr nz, .asm_51729
+	jr nz, .move_horizontal
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jr z, .asm_51729
+	jr z, .move_horizontal
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	sub b
-	jr nc, .asm_51729
+	jr nc, .move_horizontal
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jp z, .asm_51442
+	jp z, .start_shooting
 	play_sfx SFX_YELLOW_BELLY
-.asm_51729
+.move_horizontal
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -561,7 +561,7 @@ YellowBellyBodyFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_51759
+	jr c, .move_right
 	ld a, [hli]
 	sub $18
 	ldh [hXPosLo], a
@@ -573,10 +573,10 @@ YellowBellyBodyFunc:
 	jp z, MoveObjectLeftByVar2
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr nz, .asm_51782
+	jr nz, .flip
 	ld de, YellowBellyFrameset_697b0
-	jr .asm_51774
-.asm_51759
+	jr .turn_at_wall
+.move_right
 	ld a, [hli]
 	add $18
 	ldh [hXPosLo], a
@@ -588,9 +588,9 @@ YellowBellyBodyFunc:
 	jp z, MoveObjectRightByVar2
 	ld hl, wCurObjSubState
 	bit OBJSUBFLAG_VDIR_F, [hl]
-	jr z, .asm_51782
+	jr z, .flip
 	ld de, YellowBellyFrameset_697bb
-.asm_51774
+.turn_at_wall
 	call SetObjectFramesetPtr
 	inc l
 	ld a, $44
@@ -598,17 +598,17 @@ YellowBellyBodyFunc:
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	xor OBJSUBFLAG_VDIR | OBJSUBFLAG_HDIR
-	jr .asm_51785
-.asm_51782
+	jr .set_direction
+.flip
 	ld a, [hl]
 	xor $80
-.asm_51785
+.set_direction
 	ld [hl], a
 	ld a, $01
 	ld [wCurObjVar2], a
 	ret
 
-.Func_5178c:
+.Sink:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenXPos]
@@ -616,19 +616,19 @@ YellowBellyBodyFunc:
 	ret nc
 	jp MoveObjectDown
 
-.asm_5179a
+.hit
 	xor a
 	ld [w1d147], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_517ee)
+	ld a, HIGH(.HitFlash)
 	ld [hld], a
-	ld a, LOW(.Func_517ee)
+	ld a, LOW(.HitFlash)
 	ld [hld], a
 	call DecrementRemainingBossHits
 	ld a, [hl]
 	and $0f
 	dec a
-	jr z, .asm_517bd
+	jr z, .last_hit
 	ld de, YellowBellyFrameset_697d5
 	call SetObjectFramesetPtr
 	ld a, $64
@@ -636,11 +636,11 @@ YellowBellyBodyFunc:
 	ld a, $01
 	ld [hl], a
 	ret
-.asm_517bd
+.last_hit
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5184a)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_5184a)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ld de, YellowBellyFrameset_69845
 	call SetObjectFramesetPtr
@@ -657,32 +657,32 @@ YellowBellyBodyFunc:
 	stop_music2
 	ret
 
-.Func_517ee:
+.HitFlash:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_5181f
+	jr z, .flash_done
 	dec [hl]
-	jr z, .asm_5180a
+	jr z, .end_flash
 	ld a, [hl]
 	and $0f
-	jr z, .asm_51812
+	jr z, .hit_normal_pals
 	cp $08
 	ret nz
 	ld hl, YellowBellyPals_51ce1
-	jr .asm_51815
-.asm_5180a
+	jr .apply_hit_pals
+.end_flash
 	play_sfx SFX_PESCE_3_YB_2
-.asm_51812
+.hit_normal_pals
 	ld hl, YellowBellyPals_51cb1
-.asm_51815
+.apply_hit_pals
 	ld de, wTempPals2 palette 4
 	ld c, 4
 	ld b, 3
 	jp CopyAndApplyOBPals
-.asm_5181f
+.flash_done
 	dec l
 	ld a, [hld]
 	cp $10
@@ -692,56 +692,56 @@ YellowBellyBodyFunc:
 	ret nz
 	xor a
 	ld [wCurObjVar1], a
-	call .asm_514eb
+	call .end_shooting
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $03
-	jr z, .asm_5183c
+	jr z, .head_oam_3
 	cp $02
-	jr z, .asm_51841
+	jr z, .head_oam_2
 	ret
-.asm_5183c
+.head_oam_3
 	ld de, OAM_191940
-	jr .asm_51844
-.asm_51841
+	jr .set_oam
+.head_oam_2
 	ld de, YellowBellyOAM_191f04
-.asm_51844
+.set_oam
 	ld l, OBJ_OAM_PTR
 	ld a, e
 	ld [hli], a
 	ld [hl], d
 	ret
 
-.Func_5184a:
+.Defeated:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_5186e
+	jr z, .defeat_anim
 	dec [hl]
-	jr z, .asm_51861
+	jr z, .defeat_normal_pals
 	ld a, [hl]
 	and $0f
-	jr z, .asm_51861
+	jr z, .defeat_normal_pals
 	cp $08
 	ret nz
 	ld hl, YellowBellyPals_51ce1
-	jr .asm_51864
-.asm_51861
+	jr .apply_defeat_pals
+.defeat_normal_pals
 	ld hl, YellowBellyPals_51cb1
-.asm_51864
+.apply_defeat_pals
 	ld de, wTempPals2 palette 4
 	ld c, 4
 	ld b, 3
 	jp CopyAndApplyOBPals
-.asm_5186e
+.defeat_anim
 	dec l
 	ld a, [hld]
 	cp $14
-	jr nz, .asm_51880
+	jr nz, .check_defeat_end
 	ld a, [hld]
 	and a
 	play_sfx z, SFX_WOLFENBOSS_SMOKE
-.asm_51880
+.check_defeat_end
 	ld l, OBJ_FRAMESET_OFFSET
 	ld a, [hld]
 	cp $20
@@ -754,27 +754,27 @@ YellowBellyBodyFunc:
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_51893
+.find_platform_loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp YELLOW_BELLY_PLATFORM
-	jr nz, .asm_518a4
+	jr nz, .find_platform_next
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hli] ; OBJ_FLAGS
 	rra
-	jr c, .asm_518ad
-.asm_518a4
+	jr c, .found_platform
+.find_platform_next
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_51893
-.asm_518ad
+	jr .find_platform_loop
+.found_platform
 	ld a, l
 	add $1a
 	ld l, a
@@ -784,13 +784,13 @@ YellowBellyBodyFunc:
 
 PumpFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_518c6)
+	ld a, HIGH(.Fall)
 	ld [hld], a
-	ld a, LOW(.Func_518c6)
+	ld a, LOW(.Fall)
 	ld [hld], a
 	ld a, [wGlobalCounter]
 	ld [wCurObjVar1], a
-.Func_518c6:
+.Fall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, YellowBellyData_609e0
@@ -798,10 +798,10 @@ PumpFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_518db
+	jr z, .check_floor
 	dec [hl]
-	jr .asm_518f0
-.asm_518db
+	jr .drift
+.check_floor
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -813,8 +813,8 @@ PumpFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_51927
-.asm_518f0
+	jr nz, .landed
+.drift
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -824,7 +824,7 @@ PumpFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjVar1]
 	rra
-	jr c, .asm_51915
+	jr c, .drift_right
 	ld a, [hli]
 	sub $06
 	ldh [hXPosLo], a
@@ -835,7 +835,7 @@ PumpFunc:
 	and a
 	ret nz
 	jp MoveObjectLeft_Slow
-.asm_51915
+.drift_right
 	ld a, [hli]
 	add $05
 	ldh [hXPosLo], a
@@ -846,7 +846,7 @@ PumpFunc:
 	and a
 	ret nz
 	jp MoveObjectRight_Slow
-.asm_51927
+.landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -855,9 +855,9 @@ PumpFunc:
 	ld de, YellowBellyFrameset_6987f
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51947)
+	ld a, HIGH(.OnFloor)
 	ld [hld], a
-	ld a, LOW(.Func_51947)
+	ld a, LOW(.OnFloor)
 	ld [hld], a
 	xor a
 	ld [wCurObjState], a
@@ -865,21 +865,21 @@ PumpFunc:
 	res OBJFLAG_PRIORITY_F, [hl]
 	ret
 
-.Func_51947:
+.OnFloor:
 	ld hl, wCurObjState
 	ld a, [hl]
 	cp $31
-	jr z, .asm_5198b
+	jr z, .walk
 	cp $0a
-	jp z, .asm_519e3
+	jp z, .pressed
 	cp $3a
-	jp z, .asm_51a03
+	jp z, .pressed_wait
 	cp $58
-	jp z, .asm_51a1d
+	jp z, .knocked
 	and $fe
 	ret z
 	cp $28
-	jp z, .asm_51a16
+	jp z, .start_knocked
 	ld a, $31
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
@@ -888,12 +888,12 @@ PumpFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_5197b
+	jr c, .wario_to_right
 	set OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_5197d
-.asm_5197b
+	jr .start_walk
+.wario_to_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-.asm_5197d
+.start_walk
 	xor a
 	ld [wCurObjVar2], a
 	ld a, $3c
@@ -901,14 +901,14 @@ PumpFunc:
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
-.asm_5198b
+.walk
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr nz, .asm_51996
+	jr nz, .walk_move
 	xor a
 	ld [wCurObjState], a
 	ret
-.asm_51996
+.walk_move
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -918,7 +918,7 @@ PumpFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_519c6
+	jr c, .walk_right
 	ld a, [hli]
 	sub $06
 	ldh [hXPosLo], a
@@ -927,15 +927,15 @@ PumpFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_519bf
-.asm_519b9
+	jr nz, .blocked_left
+.move_left
 	ld bc, YellowBellyData_60a00
 	jp ApplyObjXMovement
-.asm_519bf
+.blocked_left
 	ld hl, wCurObjSubState
 	set 7, [hl]
-	jr .asm_519d6
-.asm_519c6
+	jr .move_right
+.walk_right
 	ld a, [hli]
 	add $05
 	ldh [hXPosLo], a
@@ -944,16 +944,16 @@ PumpFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_519dc
-.asm_519d6
+	jr nz, .blocked_right
+.move_right
 	ld bc, YellowBellyData_60a10
 	jp ApplyObjXMovement
-.asm_519dc
+.blocked_right
 	ld hl, wCurObjSubState
 	res 7, [hl]
-	jr .asm_519b9
+	jr .move_left
 
-.asm_519e3
+.pressed
 	ld a, $3a
 	ld [hl], a
 	ld [w1d147], a
@@ -968,59 +968,59 @@ PumpFunc:
 	play_sfx SFX_PUMP
 	ret
 
-.asm_51a03
+.pressed_wait
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_51a10
+	jr z, .drop
 	dec [hl]
 	ret
-.asm_51a10
+.drop
 	ld bc, DropYVel_Light
 	jp ApplyObjYMovement
 
-.asm_51a16
+.start_knocked
 	ld a, $58
 	ld [hl], a
 	xor a
 	ld [wDollBoyHammerRange], a
-.asm_51a1d
+.knocked
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
 	cp $48
-	jr nc, .asm_51a2e
+	jr nc, .follow_arrow
 	xor a
 	ld [wCurObjFlags], a
 	ret
 
-.asm_51a2e
+.follow_arrow
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_51a34
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp YELLOW_BELLY_ARROW_LEFT ; YELLOW_BELLY_ARROW_RIGHT
-	jr nz, .asm_51a45
+	jr nz, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hli] ; OBJ_FLAGS
 	rra
-	jr c, .asm_51a4e
-.asm_51a45
+	jr c, .found_arrow
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_51a34
-.asm_51a4e
+	jr .loop
+.found_arrow
 	inc l
 	inc l
 	ld a, [hli]
@@ -1038,94 +1038,94 @@ PumpFunc:
 YellowBellyArrowFunc:
 .Left:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51a7d)
+	ld a, HIGH(.FlyLeft)
 	ld [hld], a
-	ld a, LOW(.Func_51a7d)
+	ld a, LOW(.FlyLeft)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr z, .Func_51a7d
+	jr z, .FlyLeft
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
 	ld a, $02
 	ld [wCurObjVar2], a
-.Func_51a7d:
-	call .Func_51b4b
+.FlyLeft:
+	call .CheckPastWario
 	ld a, [wCurObjState]
 	cp $28
-	jr z, .asm_51a9b
+	jr z, .knocked_right
 	cp $29
-	jr z, .asm_51a9b
+	jr z, .knocked_right
 	and a
-	jr nz, .asm_51af7
+	jr nz, .hit_wario
 	call MoveObjectDownByVar2
 	ld a, [wDollBoyHammerRange]
 	and a
 	jp z, MoveObjectLeftByVar2
 	jp MoveObjectLeft
-.asm_51a9b
+.knocked_right
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51aaa)
+	ld a, HIGH(.KnockedAwayRight)
 	ld [hld], a
-	ld a, LOW(.Func_51aaa)
+	ld a, LOW(.KnockedAwayRight)
 	ld [hld], a
 	ld a, $04
 	ld [wCurObjVar2], a
 	ret
-.Func_51aaa:
+.KnockedAwayRight:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
 	cp $40
-	jr nc, .asm_51abb
+	jr nc, .fly_away_right
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_51abb
+.fly_away_right
 	call MoveObjectUpByVar2
 	jp MoveObjectRight_Fast
 
 .Right:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51ad9)
+	ld a, HIGH(.FlyRight)
 	ld [hld], a
-	ld a, LOW(.Func_51ad9)
+	ld a, LOW(.FlyRight)
 	ld [hld], a
 	ld a, [wDollBoyHammerRange]
 	and a
-	jr z, .Func_51ad9
+	jr z, .FlyRight
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
 	ld a, $02
 	ld [wCurObjVar2], a
-.Func_51ad9:
-	call .Func_51b4b
+.FlyRight:
+	call .CheckPastWario
 	ld a, [wCurObjState]
 	cp $28
-	jr z, .asm_51b25
+	jr z, .knocked_left
 	cp $29
-	jr z, .asm_51b25
+	jr z, .knocked_left
 	and a
-	jr nz, .asm_51af7
+	jr nz, .hit_wario
 	call MoveObjectDownByVar2
 	ld a, [wDollBoyHammerRange]
 	and a
 	jp z, MoveObjectRightByVar2
 	jp MoveObjectRight
-.asm_51af7
+.hit_wario
 	ld a, $1e
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51b16)
+	ld a, HIGH(.WaitAndDespawn)
 	ld [hld], a
-	ld a, LOW(.Func_51b16)
+	ld a, LOW(.WaitAndDespawn)
 	ld [hld], a
 	stop_music2
 	xor a
 	ld [wBossState], a
 	ret
 
-.Func_51b16:
+.WaitAndDespawn:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1134,48 +1134,48 @@ YellowBellyArrowFunc:
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_51b25
+.knocked_left
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_51b34)
+	ld a, HIGH(.KnockedAwayLeft)
 	ld [hld], a
-	ld a, LOW(.Func_51b34)
+	ld a, LOW(.KnockedAwayLeft)
 	ld [hld], a
 	ld a, $04
 	ld [wCurObjVar2], a
 	ret
 
-.Func_51b34:
+.KnockedAwayLeft:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
 	cp $40
-	jr nc, .asm_51b45
+	jr nc, .fly_away_left
 	xor a
 	ld [wCurObjFlags], a
 	ret
-.asm_51b45
+.fly_away_left
 	call MoveObjectUpByVar2
 	jp MoveObjectLeft_Fast
 
-.Func_51b4b:
+.CheckPastWario:
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	cp b
-	jr nc, .asm_51b68
+	jr nc, .past_wario
 	ld a, [wCurObjSubState]
 	rlca
 	ld a, [wWarioScreenXPos]
 	ld b, a
 	ld a, [wCurObjScreenXPos]
-	jr c, .asm_51b66
+	jr c, .flying_right
 	cp b
-	jr c, .asm_51b68
+	jr c, .past_wario
 	ret
-.asm_51b66
+.flying_right
 	cp b
 	ret c
-.asm_51b68
+.past_wario
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
@@ -1184,21 +1184,21 @@ YellowBellyHeadFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51b7b)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_51b7b)
+	ld a, LOW(.Update)
 	ld [hld], a
-.Func_51b7b:
+.Update:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_PUFFY_WARIO
-	jr nz, .asm_51b87
+	jr nz, .check_hit
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_51b87
+.check_hit
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_51baa
+	jr z, .hit_timer
 	xor a
 	ld [hl], a
 	ld a, $1e
@@ -1208,40 +1208,40 @@ YellowBellyHeadFunc:
 	stop_music2
 	xor a
 	ld [wBossState], a
-.asm_51baa
+.hit_timer
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_51bb8
+	jr z, .find_body
 	dec [hl]
-	jr nz, .asm_51bb8
+	jr nz, .find_body
 	xor a
 	ld [wDollBoyActiveBarrels], a
-.asm_51bb8
+.find_body
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_51bbe
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp YELLOW_BELLY_BODY
-	jr nz, .asm_51bcf
+	jr nz, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hli] ; OBJ_FLAGS
 	rra
-	jr c, .asm_51bd8
-.asm_51bcf
+	jr c, .found_body
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_51bbe
-.asm_51bd8
+	jr .loop
+.found_body
 	inc l
 	inc l
 	ld a, [hli]
@@ -1258,32 +1258,32 @@ YellowBellyHeadFunc:
 	ld l, a
 	ld a, [hli] ; OBJ_VAR_1
 	and a
-	jr z, .asm_51bf9
+	jr z, .follow
 	inc a
-	jr z, .asm_51c13
+	jr z, .despawn
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-.asm_51bf9
+.follow
 	inc l
 	inc l
 	bit OBJSUBFLAG_VDIR_F, [hl]
 	ld hl, wCurObjXPos
 	ld a, e
-	jr nz, .asm_51c0b
+	jr nz, .follow_right
 	sub $08
 	ld [hli], a
 	ld a, d
 	sbc $00
 	ld [hl], a
 	ret
-.asm_51c0b
+.follow_right
 	add $08
 	ld [hli], a
 	ld a, d
 	adc $00
 	ld [hl], a
 	ret
-.asm_51c13
+.despawn
 	xor a
 	ld [wCurObjFlags], a
 	ret
@@ -1293,9 +1293,9 @@ YellowBellyPlatformFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set 3, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_51c3f)
+	ld a, HIGH(.WaitForDefeat)
 	ld [hld], a
-	ld a, LOW(.Func_51c3f)
+	ld a, LOW(.WaitForDefeat)
 	ld [hld], a
 	ld de, YellowBellyFrameset_69893
 	call SetObjectFramesetPtr
@@ -1311,7 +1311,7 @@ YellowBellyPlatformFunc:
 	ld [hl], a
 	ret
 
-.Func_51c3f:
+.WaitForDefeat:
 	ld a, [wCurObjState]
 	cp $2f
 	ret nz

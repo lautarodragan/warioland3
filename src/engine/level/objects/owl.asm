@@ -59,11 +59,11 @@ OwlFunc:
 .WakeUp:
 	ld a, [wCurObjFrame]
 	cp $0c
-	jr nz, .asm_4924e
+	jr nz, .count_down
 	ld a, [wCurObjFrameDuration]
 	dec a
 	play_sfx z, SFX_FLAP
-.asm_4924e
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -82,11 +82,11 @@ OwlFunc:
 .FlyUpwards:
 	ld a, [wCurObjFrame]
 	cp $0c
-	jr nz, .asm_4927a
+	jr nz, .fly_up
 	ld a, [wCurObjFrameDuration]
 	dec a
 	play_sfx z, SFX_FLAP
-.asm_4927a
+.fly_up
 	call MoveObjectUp
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -94,9 +94,9 @@ OwlFunc:
 	ld a, 30
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_492b4)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_492b4)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -110,22 +110,22 @@ OwlFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_492ac
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
-.asm_492ac
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 
-.Func_492b4:
+.FlyAway:
 	ld a, [wCurObjState]
 	cp $18
 	jr z, .despawn
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_492f7
+	jr z, .turn_around
 	ld a, [wCurObjSubState]
 	rlca
 	jr c, .flying_right
@@ -148,7 +148,7 @@ OwlFunc:
 .move_right
 	jp MoveObjectRight
 
-.asm_492f7
+.turn_around
 	ld a, 60
 	ld [hl], a
 	ld l, OBJ_SUBSTATE
@@ -156,10 +156,10 @@ OwlFunc:
 	xor $80
 	ld [hl], a
 	rla
-	jr c, .asm_49309
+	jr c, .turn_right
 	ld de, OwlFrameset_6936c
 	jp SetObjectFramesetPtr
-.asm_49309
+.turn_right
 	ld de, OwlFrameset_69377
 	jp SetObjectFramesetPtr
 

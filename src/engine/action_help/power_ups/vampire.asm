@@ -126,7 +126,7 @@ VampireActionHelp_Step02:
 VampireActionHelp_Step04:
 	ld a, [wTimer]
 	and a
-	jr z, .asm_1e4676
+	jr z, .play_transform_sfx
 	ld a, [wActionHelpWarioAnimationEnded]
 	and a
 	ret z
@@ -139,7 +139,7 @@ VampireActionHelp_Step04:
 	inc [hl]
 	ret
 
-.asm_1e4676
+.play_transform_sfx
 	play_sfx SFX_BAT_TRANSFORM
 	ld a, $01
 	ld [wTimer], a
@@ -164,16 +164,16 @@ VampireActionHelp_Step07:
 
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e46cd
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e46cd
+.skip_dec_x
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $30
-	jr c, .asm_1e46d6
+	jr c, .dec_y_once
 	dec [hl]
-.asm_1e46d6
+.dec_y_once
 	dec [hl]
 	ld a, [hl]
 	cp $20
@@ -190,10 +190,10 @@ VampireActionHelp_Step07:
 VampireActionHelp_Step08:
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e46f3
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e46f3
+.skip_dec_x
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	ld e, a
@@ -223,16 +223,16 @@ VampireActionHelp_Step09:
 
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e473e
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e473e
+.skip_dec_x
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $2c
-	jr c, .asm_1e4747
+	jr c, .dec_y_once
 	dec [hl]
-.asm_1e4747
+.dec_y_once
 	dec [hl]
 	ld a, [hl]
 	cp $1c
@@ -249,10 +249,10 @@ VampireActionHelp_Step09:
 VampireActionHelp_Step0A:
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e4764
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e4764
+.skip_dec_x
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	ld e, a
@@ -282,16 +282,16 @@ VampireActionHelp_Step0B:
 
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e47af
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e47af
+.skip_dec_x
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1e47b8
+	jr c, .dec_y_once
 	dec [hl]
-.asm_1e47b8
+.dec_y_once
 	dec [hl]
 	ld a, [hl]
 	cp $18
@@ -308,10 +308,10 @@ VampireActionHelp_Step0B:
 VampireActionHelp_Step0C:
 	ld a, [wActionHelpCounter]
 	and %1
-	jr z, .asm_1e47d5
+	jr z, .skip_dec_x
 	ld hl, wActionHelpWarioXCoord
 	dec [hl]
-.asm_1e47d5
+.skip_dec_x
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	ld e, a
@@ -342,9 +342,9 @@ VampireActionHelp_Step0D:
 	ld hl, wActionHelpWario
 	ld a, [hl]
 	cp $20
-	jr c, .asm_1e481e
+	jr c, .dec_y_once
 	dec [hl]
-.asm_1e481e
+.dec_y_once
 	dec [hl]
 	ld a, [wActionHelpCounter]
 	and %1
@@ -368,10 +368,10 @@ VampireActionHelp_Step0E:
 	ld hl, wActionHelpWarioVar
 	ld a, [hl]
 	cp $27
-	jr z, .asm_1e4847
+	jr z, .got_vel_index
 	inc [hl]
 	ld a, [hl]
-.asm_1e4847
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal

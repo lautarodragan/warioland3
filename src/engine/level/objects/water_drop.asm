@@ -1,8 +1,8 @@
 WaterDropFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_49d83)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_49d83)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -15,18 +15,18 @@ WaterDropFunc:
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
-	jp .asm_49ddd
+	jp .reset_drop
 
-.Func_49d83:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_49df7
+	jr z, .default
 	cp $5a
-	jr z, .asm_49da6
+	jr z, .splash
 	cp $5b
-	jr z, .asm_49dbd
-.asm_49d92
+	jr z, .return_to_start
+.set_splash
 	ld a, $5a
 	ld [hl], a
 	ld de, WaterDropFrameset_69775
@@ -34,7 +34,7 @@ WaterDropFunc:
 	ld a, $18
 	ld [hli], a
 	play_sfx SFX_WATER_DROP
-.asm_49da6
+.splash
 	ld a, $81
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
@@ -46,16 +46,16 @@ WaterDropFunc:
 	ld [wCurObjState], a
 	ld a, $3c
 	ld [wCurObjStateDuration], a
-.asm_49dbd
+.return_to_start
 	ld a, $81
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	ld e, a
 	and a
-	jr z, .asm_49dca
+	jr z, .move_back_up
 	dec [hl]
-.asm_49dca
+.move_back_up
 	inc l
 	ld a, [hli]
 	ld c, a
@@ -70,7 +70,7 @@ WaterDropFunc:
 	ld a, e
 	and a
 	ret nz
-.asm_49ddd
+.reset_drop
 	ld de, WaterDropFrameset_69761
 	call SetObjectFramesetPtr
 	ld a, $41
@@ -87,17 +87,17 @@ WaterDropFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ret
 
-.asm_49df7
+.default
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_49e05
+	jr z, .fall
 	dec [hl]
 	ret nz
 	ld de, WaterDropFrameset_69772
 	jp SetObjectFramesetPtr
 
-.asm_49e05
+.fall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -109,18 +109,18 @@ WaterDropFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_49e26
+	jr nz, .landed
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr nz, .asm_49e26
+	jr nz, .landed
 	ld bc, FallingYVel_Light
 	jp ApplyObjYMovement
 
-.asm_49e26
+.landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
 	ldh a, [hYPosHi]
 	ld [hl], a
 	ld l, OBJ_STATE
-	jp .asm_49d92
+	jp .set_splash

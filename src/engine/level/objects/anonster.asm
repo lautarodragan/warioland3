@@ -13,11 +13,11 @@ AnonsterFunc:
 	ld a, $28
 	ld [wCurObjStateDuration], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50024)
+	ld a, HIGH(.StartFight)
 	ld [hld], a
-	ld a, LOW(.Func_50024)
+	ld a, LOW(.StartFight)
 	ld [hld], a
-.Func_50024:
+.StartFight:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -25,7 +25,7 @@ AnonsterFunc:
 	ld [wBossState], a
 	call UpdateLevelMusic
 
-.asm_50031
+.restart
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset AnonsterFrameset_693c4, AnonsterFrameset_693d5
@@ -33,9 +33,9 @@ AnonsterFunc:
 	ld a, $50
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5005e)
+	ld a, HIGH(.Appear)
 	ld [hld], a
-	ld a, LOW(.Func_5005e)
+	ld a, LOW(.Appear)
 	ld [hld], a
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $08
@@ -49,7 +49,7 @@ AnonsterFunc:
 	res 7, [hl]
 	ret
 
-.Func_5005e:
+.Appear:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -58,9 +58,9 @@ AnonsterFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5007f)
+	ld a, HIGH(.Walk)
 	ld [hld], a
-	ld a, LOW(.Func_5007f)
+	ld a, LOW(.Walk)
 	ld [hld], a
 	ld l, OBJ_STATE
 	xor a
@@ -72,14 +72,14 @@ AnonsterFunc:
 	ld [hld], a
 	ret
 
-.Func_5007f:
+.Walk:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjState
 	ld a, [hld]
 	and $fe
 	cp $28
-	jr nz, .asm_500a8
+	jr nz, .walk
 	ld a, [hld]
 	rlca
 	ld_obj_frameset AnonsterFrameset_6943c, AnonsterFrameset_69441
@@ -87,13 +87,13 @@ AnonsterFunc:
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50282)
+	ld a, HIGH(.StartRise)
 	ld [hld], a
-	ld a, LOW(.Func_50282)
+	ld a, LOW(.StartRise)
 	ld [hld], a
 	ret
 
-.asm_500a8
+.walk
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ld bc, AnonsterData_60790
@@ -101,37 +101,37 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_500cd
+	jr z, .check_hover_start
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_500c7
+	jr c, .end_turn_facing_right
 	ld de, AnonsterFrameset_693c4
 	jp SetObjectFramesetPtr
-.asm_500c7
+.end_turn_facing_right
 	ld de, AnonsterFrameset_693d5
 	jp SetObjectFramesetPtr
-.asm_500cd
+.check_hover_start
 	ld l, OBJ_VAR_3
 	ld a, [hld]
 	cp $4f
-	jr nz, .asm_50118
+	jr nz, .walk_move
 	inc [hl]
 	ld a, [hl]
 	cp $02
-	jr c, .asm_50118
+	jr c, .walk_move
 	farcall _CountActiveTransientObjects
 	ld a, e
 	and a
-	jr nz, .asm_50118
+	jr nz, .walk_move
 	xor a
 	ld [hli], a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5016f)
+	ld a, HIGH(.Hover)
 	ld [hld], a
-	ld a, LOW(.Func_5016f)
+	ld a, LOW(.Hover)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [wWarioScreenXPos]
@@ -140,15 +140,15 @@ AnonsterFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_50110
+	jr c, .hover_facing_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ld de, AnonsterFrameset_693e6
 	jp SetObjectFramesetPtr
-.asm_50110
+.hover_facing_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ld de, AnonsterFrameset_69411
 	jp SetObjectFramesetPtr
-.asm_50118
+.walk_move
 	inc l
 	ld a, [hl]
 	dec a
@@ -162,7 +162,7 @@ AnonsterFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_5014e
+	jr c, .walk_right
 	ld a, [hli]
 	sub $11
 	ldh [hXPosLo], a
@@ -173,8 +173,8 @@ AnonsterFunc:
 	and a
 	jp z, MoveObjectLeft
 	ld de, AnonsterFrameset_69446
-	jr .asm_50162
-.asm_5014e
+	jr .turn_at_wall
+.walk_right
 	ld a, [hli]
 	add $10
 	ldh [hXPosLo], a
@@ -185,7 +185,7 @@ AnonsterFunc:
 	and a
 	jp z, MoveObjectRight
 	ld de, AnonsterFrameset_69512
-.asm_50162
+.turn_at_wall
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -195,25 +195,25 @@ AnonsterFunc:
 	ld [hl], a
 	ret
 
-.Func_5016f:
+.Hover:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar3]
 	cp $1f
-	jr z, .asm_50185
+	jr z, .start_shooting
 	cp $4f
-	jr z, .asm_501a3
-.asm_5017f
+	jr z, .end_hover
+.hover_bob
 	ld bc, AnonsterData_60790
 	jp ApplyObjYMovement_Loop
-.asm_50185
+.start_shooting
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_501c4)
+	ld a, HIGH(.ShootSilk1)
 	ld [hld], a
-	ld a, LOW(.Func_501c4)
+	ld a, LOW(.ShootSilk1)
 	ld [hld], a
 
-.asm_5018e
+.set_shoot_frameset
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset AnonsterFrameset_693f9, AnonsterFrameset_69424
@@ -222,145 +222,145 @@ AnonsterFunc:
 	ld [hli], a
 	ret
 
-.asm_501a3
+.end_hover
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_5007f)
+	ld a, HIGH(.Walk)
 	ld [hld], a
-	ld a, LOW(.Func_5007f)
+	ld a, LOW(.Walk)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [hld]
 	rlca
-	jr c, .asm_501b9
+	jr c, .resume_walk_facing_right
 	xor a
 	ld [hld], a
 	ld de, AnonsterFrameset_693c4
-	jr .asm_501be
-.asm_501b9
+	jr .set_resume_frameset
+.resume_walk_facing_right
 	xor a
 	ld [hld], a
 	ld de, AnonsterFrameset_693d5
-.asm_501be
+.set_resume_frameset
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
 	ret
 
-.Func_501c4:
+.ShootSilk1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_501ed
+	jr z, .silk1_done
 	ld a, [hl]
 	cp $18
 	ret nz
 	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_501e7
+	jr c, .silk1_right
 	ld bc, ObjParams_AnonsterSilk1Left
 	jp CreateObjectAtRelativePos
-.asm_501e7
+.silk1_right
 	ld bc, ObjParams_AnonsterSilk1Right
 	jp CreateObjectAtRelativePos
-.asm_501ed
+.silk1_done
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $04
-	jr z, .asm_50266
+	jr z, .end_shooting
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50200)
+	ld a, HIGH(.ShootSilk2)
 	ld [hld], a
-	ld a, LOW(.Func_50200)
+	ld a, LOW(.ShootSilk2)
 	ld [hld], a
-	jr .asm_5018e
-.Func_50200:
+	jr .set_shoot_frameset
+.ShootSilk2:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_50229
+	jr z, .silk2_done
 	ld a, [hl]
 	cp $18
 	ret nz
 	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_50223
+	jr c, .silk2_right
 	ld bc, ObjParams_AnonsterSilk2Left
 	jp CreateObjectAtRelativePos
-.asm_50223
+.silk2_right
 	ld bc, ObjParams_AnonsterSilk2Right
 	jp CreateObjectAtRelativePos
-.asm_50229
+.silk2_done
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $03
-	jr z, .asm_50266
+	jr z, .end_shooting
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5023d)
+	ld a, HIGH(.ShootSilk3)
 	ld [hld], a
-	ld a, LOW(.Func_5023d)
+	ld a, LOW(.ShootSilk3)
 	ld [hld], a
-	jp .asm_5018e
-.Func_5023d:
+	jp .set_shoot_frameset
+.ShootSilk3:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_50266
+	jr z, .end_shooting
 	ld a, [hl]
 	cp $18
 	ret nz
 	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_50260
+	jr c, .silk3_right
 	ld bc, ObjParams_AnonsterSilk3Left
 	jp CreateObjectAtRelativePos
-.asm_50260
+.silk3_right
 	ld bc, ObjParams_AnonsterSilk3Right
 	jp CreateObjectAtRelativePos
-.asm_50266
+.end_shooting
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5016f)
+	ld a, HIGH(.Hover)
 	ld [hld], a
-	ld a, LOW(.Func_5016f)
+	ld a, LOW(.Hover)
 	ld [hld], a
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset AnonsterFrameset_69402, AnonsterFrameset_6942d
 	call SetObjectFramesetPtr
-	jp .asm_5017f
+	jp .hover_bob
 
-.Func_50282:
+.StartRise:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_50293)
+	ld a, HIGH(.RiseToCeiling)
 	ld [hld], a
-	ld a, LOW(.Func_50293)
+	ld a, LOW(.RiseToCeiling)
 	ld [hld], a
 	play_sfx SFX_ANONSTER_2
-.Func_50293:
+.RiseToCeiling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_502ae
+	jr z, .rise
 	dec [hl]
 	ret nz
 	inc l
 	ld a, $03
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_502d1)
+	ld a, HIGH(.MoveAboveWario)
 	ld [hld], a
-	ld a, LOW(.Func_502d1)
+	ld a, LOW(.MoveAboveWario)
 	ld [hld], a
 	ret
 
-.asm_502ae
+.rise
 	ld a, [wCurObjScreenYPos]
 	cp $08
 	jp nc, MoveObjectUp_Slow
@@ -373,22 +373,22 @@ AnonsterFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_502ce
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_502ce
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.Func_502d1:
+.MoveAboveWario:
 	ld a, [wWarioScreenXPos]
 	and $fe
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	and $fe
 	cp b
-	jr z, .asm_50321
+	jr z, .above_wario
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -398,7 +398,7 @@ AnonsterFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_50305
+	jr c, .move_right
 	ld a, [hli]
 	sub $11
 	ldh [hXPosLo], a
@@ -408,8 +408,8 @@ AnonsterFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Fast
-	jr .asm_50316
-.asm_50305
+	jr .reverse
+.move_right
 	ld a, [hli]
 	add $10
 	ldh [hXPosLo], a
@@ -419,7 +419,7 @@ AnonsterFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Fast
-.asm_50316
+.reverse
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
@@ -427,15 +427,15 @@ AnonsterFunc:
 	ld l, OBJ_VAR_1
 	dec [hl]
 	ret nz
-.asm_50321
+.above_wario
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	xor a
 	ld [wCurObjVar3], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5034c)
+	ld a, HIGH(.DropOnWario)
 	ld [hld], a
-	ld a, LOW(.Func_5034c)
+	ld a, LOW(.DropOnWario)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -453,10 +453,10 @@ AnonsterFunc:
 	ld de, AnonsterFrameset_6944d
 	jp SetObjectFramesetPtr
 
-.Func_5034c:
+.DropOnWario:
 	ld a, [wCurObjScreenYPos]
 	cp $50
-	jr c, .asm_50368
+	jr c, .fall
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -468,26 +468,26 @@ AnonsterFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_5036e
-.asm_50368
+	jr nz, .landed
+.fall
 	ld bc, AnonsterData_607f0
 	jp ApplyObjYMovement
-.asm_5036e
+.landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
 	ldh a, [hYPosHi]
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50397)
+	ld a, HIGH(.Land)
 	ld [hld], a
-	ld a, LOW(.Func_50397)
+	ld a, LOW(.Land)
 	ld [hld], a
 	ld de, AnonsterFrameset_69450
 	call SetObjectFramesetPtr
 	ld a, $20
 	ld [hli], a
-.asm_50388
+.set_floor_collbox
 	ld l, OBJ_COLLBOX_TOP
 	ld a, $f0
 	ld [hli], a
@@ -499,18 +499,18 @@ AnonsterFunc:
 	ld [hli], a
 	ret
 
-.Func_50397:
+.Land:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ld a, [hl]
 	cp $18
-	jr z, .asm_503d3
+	jr z, .ground_shake
 	and a
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5041d)
+	ld a, HIGH(.OnFloor)
 	ld [hld], a
-	ld a, LOW(.Func_5041d)
+	ld a, LOW(.OnFloor)
 	ld [hld], a
 	ld l, OBJ_STATE
 	ld a, $5a
@@ -521,14 +521,14 @@ AnonsterFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_503c4
+	jr c, .land_wario_to_right
 	res 7, [hl]
 	ld de, AnonsterFrameset_694d0
-	jr .asm_503c9
-.asm_503c4
+	jr .set_land_frameset
+.land_wario_to_right
 	set 7, [hl]
 	ld de, AnonsterFrameset_694c9
-.asm_503c9
+.set_land_frameset
 	call SetObjectFramesetPtr
 	ld a, $07
 	ld [hli], a
@@ -536,77 +536,77 @@ AnonsterFunc:
 	ld [hl], a
 	ret
 
-.asm_503d3
+.ground_shake
 	play_sfx SFX_EARTHQUAKE
 	ld b, $18
 	jp DoGroundShake
 
-.asm_503e0
+.spit_waves
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
-	jr z, .asm_50403
+	jr z, .waves_done
 	ld a, [hl]
 	cp $2b
 	ret nz
 	play_sfx SFX_ENEMY_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_503fd
+	jr c, .wave_right
 	ld bc, ObjParams_AnonsterWaveLeft
 	jp CreateObjectAtRelativePos
-.asm_503fd
+.wave_right
 	ld bc, ObjParams_AnonsterWaveRight
 	jp CreateObjectAtRelativePos
-.asm_50403
+.waves_done
 	inc l
 	dec [hl]
-	jp z, .asm_504b1
+	jp z, .return_to_ceiling
 	ld l, OBJ_STATE
 	ld a, $5c
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_50417
+	jr c, .waves_done_facing_right
 	ld de, AnonsterFrameset_69485
 	jp SetObjectFramesetPtr
-.asm_50417
+.waves_done_facing_right
 	ld de, AnonsterFrameset_69496
 	jp SetObjectFramesetPtr
 
-.Func_5041d:
+.OnFloor:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_5046b
+	jr z, .floor_default
 	cp $5b
-	jr z, .asm_503e0
+	jr z, .spit_waves
 	cp $5c
-	jr z, .asm_504aa
+	jr z, .after_waves
 	cp $5a
-	jr z, .asm_50437
+	jr z, .wait
 	cp $0a
-	jp z, .asm_5054b
-	jr .asm_5043b
-.asm_50437
+	jp z, .check_hit_from_behind
+	jr .reset_to_walk
+.wait
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
-.asm_5043b
+.reset_to_walk
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_5044d
+	jr c, .reset_facing_right
 	ld de, AnonsterFrameset_69485
 	ld a, $10
 	ld [hld], a
 	ld a, $f8
-	jr .asm_50455
-.asm_5044d
+	jr .set_floor_walk
+.reset_facing_right
 	ld de, AnonsterFrameset_69496
 	ld a, $07
 	ld [hld], a
 	ld a, $ef
-.asm_50455
+.set_floor_walk
 	ld [hld], a
 	ld a, $00
 	ld [hld], a
@@ -622,13 +622,13 @@ AnonsterFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_5046b
+.floor_default
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_5047f
+	jr z, .check_spit
 	dec [hl]
-	jr z, .asm_5043b
+	jr z, .reset_to_walk
 	ld a, [hl]
 	cp $07
 	ret nz
@@ -638,7 +638,7 @@ AnonsterFunc:
 	ld [hl], a
 	ret
 
-.asm_5047f
+.check_spit
 	ld a, [wGlobalCounter]
 	rra
 	ret c
@@ -648,14 +648,14 @@ AnonsterFunc:
 	sub b
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_50499
-	jr c, .asm_504fe
+	jr nz, .check_spit_facing_right
+	jr c, .walk_towards_wario
 	ld de, AnonsterFrameset_69463
-	jr .asm_5049e
-.asm_50499
-	jr nc, .asm_504fe
+	jr .start_spit
+.check_spit_facing_right
+	jr nc, .walk_towards_wario
 	ld de, AnonsterFrameset_69474
-.asm_5049e
+.start_spit
 	call SetObjectFramesetPtr
 	ld a, $5d
 	ld [hli], a
@@ -663,12 +663,12 @@ AnonsterFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_504aa
+.after_waves
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jr nz, .asm_504d0
+	jr nz, .floor_walk
 
-.asm_504b1
+.return_to_ceiling
 	ld a, [wCurObjSubState]
 	rlca
 	ld_obj_frameset AnonsterFrameset_69554, AnonsterFrameset_6954d
@@ -676,19 +676,19 @@ AnonsterFunc:
 	ld a, $07
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50650)
+	ld a, HIGH(.StartReturnToCeiling)
 	ld [hld], a
-	ld a, LOW(.Func_50650)
+	ld a, LOW(.StartReturnToCeiling)
 	ld [hld], a
-	jp .asm_50388
+	jp .set_floor_collbox
 
-.asm_504d0
+.floor_walk
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_504e5
+	jr z, .chase
 	dec [hl]
-	jp z, .asm_5043b
+	jp z, .reset_to_walk
 	ld a, [hl]
 	cp $07
 	ret nz
@@ -698,21 +698,21 @@ AnonsterFunc:
 	ld [hl], a
 	ret
 
-.asm_504e5
+.chase
 	ld l, OBJ_FRAME_DURATION
 	ld a, [hl]
 	cp $03
-	jr c, .asm_504ef
+	jr c, .chase_sfx
 	sub $03
 	ld [hl], a
-.asm_504ef
+.chase_sfx
 	ld a, [wGlobalCounter]
 	and %1111
 	play_sfx z, SFX_ANONSTER_WALK
-.asm_504fe
+.walk_towards_wario
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_50527
+	jr nz, .chase_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -730,8 +730,8 @@ AnonsterFunc:
 	and a
 	jp z, MoveObjectLeft
 	ld de, AnonsterFrameset_69573
-	jr .asm_50544
-.asm_50527
+	jr .turn_at_edge
+.chase_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -747,13 +747,13 @@ AnonsterFunc:
 	and a
 	jp nz, MoveObjectRight
 	ld de, AnonsterFrameset_69568
-.asm_50544
+.turn_at_edge
 	call SetObjectFramesetPtr
 	ld a, $0e
 	ld [hli], a
 	ret
 
-.asm_5054b
+.check_hit_from_behind
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -762,12 +762,12 @@ AnonsterFunc:
 	sub b
 	dec l
 	bit 7, [hl]
-	jr nz, .asm_50561
-	jr c, .asm_50564
-	jp .asm_5043b
-.asm_50561
-	jp c, .asm_5043b
-.asm_50564
+	jr nz, .hit_check_facing_right
+	jr c, .hit_from_behind
+	jp .reset_to_walk
+.hit_check_facing_right
+	jp c, .reset_to_walk
+.hit_from_behind
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -782,18 +782,18 @@ AnonsterFunc:
 	ld a, [wCurObjSubState]
 	and $0f
 	dec a
-	jr z, .asm_505a0
+	jr z, .last_hit
 	ld a, $56
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_505be)
+	ld a, HIGH(.Hurt)
 	ld [hld], a
-	ld a, LOW(.Func_505be)
+	ld a, LOW(.Hurt)
 	ld [hld], a
 	jp UpdateAnonsterPal
-.asm_505a0
+.last_hit
 	ld a, $ac
 	ld [hl], a
 	ld l, OBJ_SUBSTATE
@@ -801,14 +801,14 @@ AnonsterFunc:
 	and OBJSUBFLAG_HDIR
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50689)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_50689)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	stop_music2
 	ret
 
-.Func_505be:
+.Hurt:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -824,13 +824,13 @@ AnonsterFunc:
 	ld a, $0e
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_505f4)
+	ld a, HIGH(.Recover1)
 	ld [hld], a
-	ld a, LOW(.Func_505f4)
+	ld a, LOW(.Recover1)
 	ld [hld], a
-	jp .asm_50388
+	jp .set_floor_collbox
 
-.Func_505f4:
+.Recover1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -841,13 +841,13 @@ AnonsterFunc:
 	ld a, $33
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50610)
+	ld a, HIGH(.Recover2)
 	ld [hld], a
-	ld a, LOW(.Func_50610)
+	ld a, LOW(.Recover2)
 	ld [hld], a
 	ret
 
-.Func_50610:
+.Recover2:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -858,28 +858,28 @@ AnonsterFunc:
 	xor a
 	ld [wCurObjVar3], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50635)
+	ld a, HIGH(.ReturnToCeiling)
 	ld [hld], a
-	ld a, LOW(.Func_50635)
+	ld a, LOW(.ReturnToCeiling)
 	ld [hld], a
 	play_sfx SFX_0B2
 	ret
 
-.Func_50635:
+.ReturnToCeiling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjScreenYPos]
 	cp $10
-	jr c, .asm_50647
+	jr c, .at_ceiling
 	ld bc, AnonsterData_607e0
 	jp ApplyObjYMovement
-.asm_50647
+.at_ceiling
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BALL_O_STRING_WARIO
-	jp nz, .asm_50031
+	jp nz, .restart
 	ret
 
-.Func_50650:
+.StartReturnToCeiling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -890,13 +890,13 @@ AnonsterFunc:
 	ld a, $2d
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5066c)
+	ld a, HIGH(.JumpToCeiling)
 	ld [hld], a
-	ld a, LOW(.Func_5066c)
+	ld a, LOW(.JumpToCeiling)
 	ld [hld], a
 	ret
 
-.Func_5066c:
+.JumpToCeiling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -907,19 +907,19 @@ AnonsterFunc:
 	xor a
 	ld [wCurObjVar3], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50635)
+	ld a, HIGH(.ReturnToCeiling)
 	ld [hld], a
-	ld a, LOW(.Func_50635)
+	ld a, LOW(.ReturnToCeiling)
 	ld [hld], a
 	ret
 
-.Func_50689:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_506f5
+	jr z, .start_defeat_fall
 	cp $a4
 	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
@@ -945,12 +945,12 @@ AnonsterFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_506eb
+	jr c, .defeated_face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .asm_506ed
-.asm_506eb
+	jr .defeated_got_direction
+.defeated_face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
-.asm_506ed
+.defeated_got_direction
 	dec l
 	xor a
 	ld [hl], a
@@ -958,14 +958,14 @@ AnonsterFunc:
 	set OBJFLAG_PRIORITY_F, [hl]
 	ret
 
-.asm_506f5
+.start_defeat_fall
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_50705)
+	ld a, HIGH(.DefeatedFall)
 	ld [hld], a
-	ld a, LOW(.Func_50705)
+	ld a, LOW(.DefeatedFall)
 	ld [hld], a
 	play_sfx SFX_BOSS_DEFEAT_FALL
-.Func_50705:
+.DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, AttackedYVel_Light
@@ -986,20 +986,20 @@ SilkPlatformsFunc:
 	set OBJSUBFLAG_NO_DESPAWN_F, [hl]
 	ld a, $28
 	ld [wCurObjStateDuration], a
-	jr .asm_50746
+	jr .wait_then_create
 
 .CreatePlatform3:
 	ld bc, ObjParams_SilkPlatform3
 	ld de, .Wait
-	jr .asm_50746
+	jr .wait_then_create
 .CreatePlatform2:
 	ld bc, ObjParams_SilkPlatform2
 	ld de, .CreatePlatform3
-	jr .asm_50746
+	jr .wait_then_create
 .CreatePlatform1:
 	ld bc, ObjParams_SilkPlatform1
 	ld de, .CreatePlatform2
-.asm_50746
+.wait_then_create
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, 2
@@ -1037,7 +1037,7 @@ AnonsterSilkFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_507f7
+	jr z, .drift_down
 	call MoveObjectLeft_Fast
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -1054,7 +1054,7 @@ AnonsterSilkFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr z, .asm_507ae
+	jr z, .float_left_count_down
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.FloatRight)
 	ld [hld], a
@@ -1064,17 +1064,17 @@ AnonsterSilkFunc:
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_507ae
+.float_left_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp z, .asm_50849
-	jp .asm_50855
+	jp z, .random_turn
+	jp .check_state
 
 .FloatRight:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_507f7
+	jr z, .drift_down
 	call MoveObjectRight_Fast
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -1091,7 +1091,7 @@ AnonsterSilkFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr z, .asm_507ed
+	jr z, .float_right_count_down
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.FloatLeft)
 	ld [hld], a
@@ -1101,20 +1101,20 @@ AnonsterSilkFunc:
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_507ed
+.float_right_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jp z, .asm_50849
-	jp .asm_50855
-.asm_507f7
+	jp z, .random_turn
+	jp .check_state
+.drift_down
 	ld a, [wCurObjScreenYPos]
 	cp $b0
-	jr c, .asm_50803
+	jr c, .drift
 	xor a
 	ld [wCurObjFlags], a
 	ret
 
-.asm_50803
+.drift
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -1124,7 +1124,7 @@ AnonsterSilkFunc:
 	ldh [hYPosHi], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr nc, .asm_5082a
+	jr nc, .drift_right
 	ld bc, AnonsterData_60800
 	call ApplyObjXMovement_Loop
 	ld l, OBJ_X_POS
@@ -1134,8 +1134,8 @@ AnonsterSilkFunc:
 	ld a, [hli]
 	sbc $00
 	ldh [hXPosHi], a
-	jr .asm_5083c
-.asm_5082a
+	jr .check_drift_wall
+.drift_right
 	ld bc, AnonsterData_60830
 	call ApplyObjXMovement_Loop
 	ld l, OBJ_X_POS
@@ -1145,30 +1145,30 @@ AnonsterSilkFunc:
 	ld a, [hli]
 	adc $00
 	ldh [hXPosHi], a
-.asm_5083c
+.check_drift_wall
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_5084e
+	jr nz, .reverse
 	ld a, [wCurObjVar2]
 	cp $2e
-	jr nz, .asm_50855
-.asm_50849
+	jr nz, .check_state
+.random_turn
 	ldh a, [rDIV]
 	rra
-	jr c, .asm_50855
-.asm_5084e
+	jr c, .check_state
+.reverse
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-.asm_50855
+.check_state
 	ld a, [wCurObjState]
 	and a
-	jr z, .asm_50861
+	jr z, .sink
 	cp $0b
-	jr c, .Func_50898
+	jr c, .Dissolve
 	jr .destroy
-.asm_50861
+.sink
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
@@ -1190,9 +1190,9 @@ AnonsterSilkFunc:
 	ld a, $64
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_508cd)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_508cd)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1201,13 +1201,13 @@ AnonsterSilkFunc:
 	ld [hld], a
 	ret
 
-.Func_50898:
+.Dissolve:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_508be)
+	ld a, HIGH(.WaitAndDestroy)
 	ld [hld], a
-	ld a, LOW(.Func_508be)
+	ld a, LOW(.WaitAndDestroy)
 	ld [hld], a
 	ld de, AnonsterFrameset_6955b
 	call SetObjectFramesetPtr
@@ -1219,7 +1219,7 @@ AnonsterSilkFunc:
 	play_sfx SFX_WATER_DROP
 	ret
 
-.Func_508be:
+.WaitAndDestroy:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1231,92 +1231,92 @@ AnonsterSilkFunc:
 	ld [wCurObjFlags], a
 	ret
 
-.Func_508cd:
+.Update:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld a, [wCurObjScreenYPos]
 	cp $b0
-	jr c, .asm_508dd
+	jr c, .dispatch_state
 	cp $c0
-	jr c, .Func_50898
-.asm_508dd
+	jr c, .Dissolve
+.dispatch_state
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_509ab
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a01
-	dw .Func_50a0b
-	dw .Func_50a1e
-	dw .Func_50a31
-	dw .Func_50898
-	dw .Func_50898
+	dw .State00
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .Dissolve
+	dw .Dissolve
 	dw VanishObject2
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_509ab
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a79
-	dw .Func_50898
-	dw .Func_50995
-	dw .Func_5099d
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a5e
-	dw .Func_50a44
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .State00
+	dw .Dissolve
+	dw .Dissolve
+	dw .State12
+	dw .Dissolve
+	dw .State14
+	dw .State15
+	dw .Dissolve
+	dw .Dissolve
+	dw .State18
+	dw .State19
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_509ef
-	dw .Func_509dd
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .State28
+	dw .State29
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
 	dw ObjState_Fall
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
 	dw ObjState_AttackedLeft
 	dw ObjState_AttackedRight
 	dw ObjState_PickedUpLeft
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_509bb
-	dw .Func_50898
-	dw .Func_50898
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .Dissolve
+	dw .State3f
+	dw .Dissolve
+	dw .Dissolve
 	dw ObjState_Drop
-	dw .Func_50898
+	dw .Dissolve
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_50898
-	dw .Func_50898
-	dw .Func_50a68
-	dw .Func_50a4e
+	dw .Dissolve
+	dw .Dissolve
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -1334,16 +1334,16 @@ AnonsterSilkFunc:
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
 
-.Func_50995:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
-	jr .asm_509a3
-.Func_5099d:
+	jr .set_fall
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
-.asm_509a3
+.set_fall
 	ld l, OBJ_VAR_2
 	ld a, $02
 	ld [hli], a
@@ -1351,7 +1351,7 @@ AnonsterSilkFunc:
 	ld [hli], a
 	ret
 
-.Func_509ab:
+.State00:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
@@ -1360,7 +1360,7 @@ AnonsterSilkFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_509bb:
+.State3f:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp z, .destroy
@@ -1371,14 +1371,14 @@ AnonsterSilkFunc:
 	ld a, [wGlobalCounter]
 	and %111
 	cp $04
-	jr c, .asm_509d8
+	jr c, .blink_hide
 	res OBJFLAG_INVISIBLE_F, [hl]
 	jp ObjCheckFloorOrDrop
-.asm_509d8
+.blink_hide
 	set OBJFLAG_INVISIBLE_F, [hl]
 	jp ObjCheckFloorOrDrop
 
-.Func_509dd:
+.State29:
 	ld a, [wCurObjScreenYPos]
 	cp $50
 	jp c, VanishObject2
@@ -1386,9 +1386,9 @@ AnonsterSilkFunc:
 	ld a, $59
 	ld [hld], a
 	ld b, $02
-	jr .asm_50a13
+	jr .set_knocked_back
 
-.Func_509ef:
+.State28:
 	ld a, [wCurObjScreenYPos]
 	cp $50
 	jp c, VanishObject2
@@ -1396,21 +1396,21 @@ AnonsterSilkFunc:
 	ld a, $58
 	ld [hld], a
 	ld b, $02
-	jr .asm_50a13
+	jr .set_knocked_back
 
-.Func_50a01:
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
-	jr .asm_50a13
+	jr .set_knocked_back
 
-.Func_50a0b:
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
 	ld b, $02
-.asm_50a13
+.set_knocked_back
 	dec l
 	xor a
 	ld [hld], a
@@ -1420,7 +1420,7 @@ AnonsterSilkFunc:
 	ld [wCurObjAction], a
 	ret
 
-.Func_50a1e:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -1433,7 +1433,7 @@ AnonsterSilkFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_50a31:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -1446,13 +1446,13 @@ AnonsterSilkFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_50a44:
+.State19:
 	ld hl, wCurObjState
 	ld a, $49
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_50a4e:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -1460,14 +1460,14 @@ AnonsterSilkFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_50a5e
-.Func_50a5e:
+	jr .State18
+.State18:
 	ld hl, wCurObjState
 	ld a, $48
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_50a68:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -1475,8 +1475,8 @@ AnonsterSilkFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_50a44
-.Func_50a79:
+	jp .State19
+.State12:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 31
 	ld [hld], a
@@ -1502,26 +1502,26 @@ UpdateAnonsterPal:
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $03
-	jr nz, .asm_50aa4
-	ld hl, .Pals_50ab4
+	jr nz, .check_red
+	ld hl, .green_pal
 	jr .got_pal
-.asm_50aa4
+.check_red
 	cp $02
 	ret nz
-	ld hl, .Pals_50abc
+	ld hl, .red_pal
 .got_pal
 	ld de, wTempPals2 palette 7
 	ld c, 7
 	ld b, 1
 	jp CopyAndApplyOBPals
 
-.Pals_50ab4:
+.green_pal:
 	rgb  0, 20, 12
 	rgb  0, 31,  5
 	rgb  0, 11,  0
 	rgb  1,  0,  0
 
-.Pals_50abc:
+.red_pal:
 	rgb  0, 20, 12
 	rgb 31,  0,  0
 	rgb 14,  0,  0

@@ -11,14 +11,14 @@ SetObjectMapEntryAndSpawn:
 	ld c, $01
 	ld a, [hld]
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_ba68
+	jr c, .got_bank
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_ba68
+	jr c, .got_bank
 	inc c
 	sub $20
-.asm_ba68
+.got_bank
 	ld l, [hl]
 	ld h, a
 	ld a, c
@@ -27,15 +27,15 @@ SetObjectMapEntryAndSpawn:
 	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
-	jr z, .asm_ba85
+	jr z, .set_low_nybble
 	swap e
 	ld a, [hl]
 	and $0f
-	jr .asm_ba88
-.asm_ba85
+	jr .write_entry
+.set_low_nybble
 	ld a, [hl]
 	and $f0
-.asm_ba88
+.write_entry
 	or e
 	ld [hl], a
 	pop hl
@@ -48,14 +48,14 @@ SetObjectMapEntryAndSpawn:
 	ld c, $01
 	ld a, [hld]
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_baaf
+	jr c, .got_bank_again
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_baaf
+	jr c, .got_bank_again
 	inc c
 	sub $20
-.asm_baaf
+.got_bank_again
 	ld d, a
 	ld a, [hld]
 	ld e, a
@@ -94,14 +94,14 @@ DespawnObject:
 	ld c, $01
 	ld a, [hld] ; OBJ_MAP_PTR_HI
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_bb12
+	jr c, .got_bank
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_bb12
+	jr c, .got_bank
 	inc c
 	sub $20
-.asm_bb12
+.got_bank
 	ld d, a
 	ld a, [hld] ; OBJ_MAP_PTR_LO
 	ld e, a
@@ -126,14 +126,14 @@ ClearObjectMapEntry:
 	ld c, $01
 	ld a, [hld]
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_bb51
+	jr c, .got_bank
 	inc c
 	sub $20
 	cp HIGH(STARTOF(SRAM) + SIZEOF(SRAM))
-	jr c, .asm_bb51
+	jr c, .got_bank
 	inc c
 	sub $20
-.asm_bb51
+.got_bank
 	ld l, [hl]
 	ld h, a
 	ld a, c
@@ -142,7 +142,7 @@ ClearObjectMapEntry:
 	ld a, [wObjectMapBank]
 	sramswitch
 	bit 0, b
-	jr z, .asm_bb76
+	jr z, .clear_low_nybble
 	ld a, [hl]
 	and $0f
 	ld [hl], a
@@ -151,7 +151,7 @@ ClearObjectMapEntry:
 	pop_wram
 	ret
 
-.asm_bb76
+.clear_low_nybble
 	ld a, [hl]
 	and $f0
 	ld [hl], a

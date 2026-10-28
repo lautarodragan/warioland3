@@ -3,9 +3,9 @@ WaterSparkFunc:
 	res OBJFLAG_INVISIBLE_F, [hl]
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4a482)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4a482)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld de, WaterSparkFrameset_69b1e
 	call SetObjectFramesetPtr
@@ -20,7 +20,7 @@ WaterSparkFunc:
 	ld [hl], a
 	ret
 
-.Func_4a482:
+.Idle:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
@@ -28,9 +28,9 @@ WaterSparkFunc:
 	xor a
 	ld [hl], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4a49d)
+	ld a, HIGH(.Spark)
 	ld [hld], a
-	ld a, LOW(.Func_4a49d)
+	ld a, LOW(.Spark)
 	ld [hld], a
 	ld de, WaterSparkFrameset_69b12
 	call SetObjectFramesetPtr
@@ -38,16 +38,16 @@ WaterSparkFunc:
 	ld [hli], a
 	ret
 
-.Func_4a49d:
+.Spark:
 	ld a, $81
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4a482)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4a482)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld de, WaterSparkFrameset_69b1e
 	jp SetObjectFramesetPtr

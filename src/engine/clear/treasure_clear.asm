@@ -179,21 +179,21 @@ InitClearScreen:
 UpdateClearScreen:
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_LEVEL_CLEAR
-	jr z, .asm_d41ce
+	jr z, .update_wario
 	ld hl, wMenuObj8FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj8
 	call LoadClearScreenSprite
 
-.asm_d41ce
+.update_wario
 	ld hl, wClearScreenWarioFramesetPtr + 1
 	call UpdateObjAnim
 	ld a, [wClearScreenWarioVar]
 	and a
-	jr nz, .asm_d4203
+	jr nz, .load_wario_sprite
 	ld a, [wObjAnimWasReset]
 	and a
-	jr z, .asm_d4203
+	jr z, .load_wario_sprite
 	ld a, TRUE
 	ld [wClearScreenWarioVar], a
 	; reset animation
@@ -203,20 +203,20 @@ UpdateClearScreen:
 	ld [hli], a
 	ld a, [wTransitionParam]
 	cp TRANSITION_RETURN_TO_MAP
-	jr z, .asm_d41fa
+	jr z, .returning_to_map
 	ld a, HIGH(GolfWarioFrameset_d4d1b)
 	ld [hli], a
 	ld a, LOW(GolfWarioFrameset_d4d1b)
 	ld [hl], a
 	jr .got_frameset
-.asm_d41fa
+.returning_to_map
 	ld a, HIGH(GolfWarioFrameset_d4d5f)
 	ld [hli], a
 	ld a, LOW(GolfWarioFrameset_d4d5f)
 	ld [hl], a
 .got_frameset
 	call UpdateObjAnim
-.asm_d4203
+.load_wario_sprite
 	ld hl, wClearScreenWario
 	call LoadClearScreenWarioSprite
 

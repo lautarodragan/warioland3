@@ -39,7 +39,7 @@ FlameBlockTorchUpdate:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_40b6f
+	jr z, .count_down
 	xor a
 	ld [hl], a
 	ld l, OBJ_STATE_DURATION
@@ -47,7 +47,7 @@ FlameBlockTorchUpdate:
 	ld a, $02
 	ld [hl], a ; OBJ_VAR_1
 	play_sfx SFX_FLAME
-.asm_40b6f
+.count_down
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
@@ -155,12 +155,12 @@ UnreferencedTorchEmberFunc_FollowWario:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_40c2c
+	jr c, .move_right
 	call MoveObjectLeft_Slow
-	jr .asm_40c2f
-.asm_40c2c
+	jr .apply_hop
+.move_right
 	call MoveObjectRight
-.asm_40c2f
+.apply_hop
 	ld bc, SmallHopYVel
 	call ApplyObjYMovement
 	jr TorchEmberCommonFunc

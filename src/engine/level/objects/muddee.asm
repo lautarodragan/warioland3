@@ -2,9 +2,9 @@ MuddeeFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_5564e)
+	ld a, HIGH(.WaitForAmbush)
 	ld [hld], a
-	ld a, LOW(.Func_5564e)
+	ld a, LOW(.WaitForAmbush)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -31,19 +31,19 @@ MuddeeFunc:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_5564e:
+.WaitForAmbush:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call .Func_55c3a
+	call .Blink
 	ld a, [wMuddeeAmbushState]
 	dec a
 	ret nz
 	ld a, TRUE
 	ld [wIsBossBattle], a
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_55676)
+	ld a, HIGH(.Appear)
 	ld [hld], a
-	ld a, LOW(.Func_55676)
+	ld a, LOW(.Appear)
 	ld [hld], a
 	ld hl, MuddeePals_55e46
 	ld de, wTempPals2 palette 6
@@ -51,17 +51,17 @@ MuddeeFunc:
 	ld b, 1
 	jp CopyAndApplyOBPals
 
-.Func_55676:
+.Appear:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call .Func_55c3a
+	call .Blink
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55696)
+	ld a, HIGH(.WaitForWarioNear)
 	ld [hld], a
-	ld a, LOW(.Func_55696)
+	ld a, LOW(.WaitForWarioNear)
 	ld [hld], a
 	ld de, MuddeeFrameset_69d85
 	call SetObjectFramesetPtr
@@ -69,17 +69,17 @@ MuddeeFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_55696:
+.WaitForWarioNear:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	call .Func_55c3a
+	call .Blink
 	ld a, [wWarioXPos + 0]
 	cp $09
-	jr c, .asm_556ab
+	jr c, .wario_close
 	ld a, [wWarioXPos + 1]
 	cp $40
 	ret nc
-.asm_556ab
+.wario_close
 	ld a, [wWarioScreenYPos]
 	ld b, a
 	ld a, [wCurObjScreenYPos]
@@ -89,9 +89,9 @@ MuddeeFunc:
 	cp $96
 	ret nc
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_556f0)
+	ld a, HIGH(.Leap)
 	ld [hld], a
-	ld a, LOW(.Func_556f0)
+	ld a, LOW(.Leap)
 	ld [hld], a
 	ld de, MuddeeFrameset_69cf2
 	call SetObjectFramesetPtr
@@ -104,125 +104,125 @@ MuddeeFunc:
 	call UpdateLevelMusic
 	xor a
 	ld [w1d147], a
-.asm_556dc
+.spawn_stingers
 	play_sfx SFX_0B2
 	ld bc, ObjParams_MuddeeStinger1
 	call CreateObjectFromCurObjPos
 	ld bc, ObjParams_MuddeeStinger2
 	jp CreateObjectFromCurObjPos
 
-.Func_556f0:
+.Leap:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar3]
 	cp $0e
-	jr z, .asm_55702
+	jr z, .end_leap
 	ld bc, MuddeeData_60d30
 	jp ApplyObjYMovement
-.asm_55702
+.end_leap
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_55711)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_55711)
+	ld a, LOW(.Main)
 	ld [hld], a
 	ld a, $01
 	ld [wCurObjVar1], a
 	ret
 
-.Func_55711:
+.Main:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjSubState
 	ld a, [wCurObjFrame]
 	cp $10
-	jr nc, .asm_55734
+	jr nc, .no_interaction_change
 	cp $0c
-	jr nc, .asm_5573b
+	jr nc, .bump_off_frames
 	cp $09
-	jr nc, .asm_5573f
+	jr nc, .sting_front_left
 	cp $06
-	jr nc, .asm_55743
+	jr nc, .sting_up
 	cp $03
-	jr nc, .asm_55747
+	jr nc, .sting_front_right
 	ld b, $48
-	jr .asm_5574b
-.asm_55734
+	jr .set_interaction
+.no_interaction_change
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
-	jr .asm_55752
-.asm_5573b
+	jr .check_hit
+.bump_off_frames
 	ld b, $0b
-	jr .asm_5574b
-.asm_5573f
+	jr .set_interaction
+.sting_front_left
 	res 7, [hl]
-	jr .asm_55749
-.asm_55743
+	jr .sting_front
+.sting_up
 	ld b, $47
-	jr .asm_5574b
-.asm_55747
+	jr .set_interaction
+.sting_front_right
 	set 7, [hl]
-.asm_55749
+.sting_front
 	ld b, $46
-.asm_5574b
+.set_interaction
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
 	and HEAVY_OBJ
 	or b
 	ld [hl], a
-.asm_55752
+.check_hit
 	ld a, [w1d147]
 	and a
-	jr z, .asm_5575e
+	jr z, .dispatch
 	cp $02
-	jr z, .asm_557b1
-	jr .asm_55774
-.asm_5575e
+	jr z, .hurt
+	jr .hit
+.dispatch
 	ld a, [wCurObjVar1]
 	jumptable
-	dw .Func_55861
-	dw .Func_558d0
-	dw .Func_55942
-	dw .Func_5599c
-	dw .Func_559f6
-	dw .Func_55a0b
-	dw .Func_55a2b
-	dw .Func_55a82
-	dw .Func_55ad9
+	dw .SwimUp
+	dw .SwimDown
+	dw .SwimLeft
+	dw .SwimRight
+	dw .WaitThenSink
+	dw .Sink
+	dw .MoveUnderWario
+	dw .LeapFromFloor
+	dw .SwimZigZag
 
-.asm_55774
+.hit
 	play_sfx SFX_VANISH
 	ld a, $02
 	ld [w1d147], a
 	ld a, [wCurObjInteractionType]
 	cp $48
-	jr z, .asm_5579c
+	jr z, .hit_on_top
 	cp $47
-	jr z, .asm_557a1
+	jr z, .hit_while_top_sting
 	ld l, OBJ_SUBSTATE
 	bit OBJSUBFLAG_HDIR_F, [hl]
-	jr nz, .asm_55797
+	jr nz, .hit_facing_right
 	ld de, MuddeeFrameset_69d57
-	jr .asm_557a4
-.asm_55797
+	jr .set_hit_frameset
+.hit_facing_right
 	ld de, MuddeeFrameset_69d52
-	jr .asm_557a4
-.asm_5579c
+	jr .set_hit_frameset
+.hit_on_top
 	ld de, MuddeeFrameset_69d48
-	jr .asm_557a4
-.asm_557a1
+	jr .set_hit_frameset
+.hit_while_top_sting
 	ld de, MuddeeFrameset_69d4d
-.asm_557a4
+.set_hit_frameset
 	call SetObjectFramesetPtr
 	ld a, $3c
 	ld [hli], a
 	xor a
 	ld [wCurObjVar3], a
 	jp DecrementRemainingBossHits
-.asm_557b1
+.hurt
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_557cf
+	jr z, .fall_to_water
 	cp $28
 	play_sfx z, SFX_MUDDEE_HURT
 	dec [hl]
@@ -231,8 +231,8 @@ MuddeeFunc:
 	and $0f
 	cp $02
 	ret nz
-	jr .asm_55806
-.asm_557cf
+	jr .defeated
+.fall_to_water
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -261,7 +261,7 @@ MuddeeFunc:
 	play_sfx SFX_SMALL_SPLASH
 	ret
 
-.asm_55806
+.defeated
 	ld de, MuddeeFrameset_69d6a
 	call SetObjectFramesetPtr
 	ld a, $28
@@ -269,9 +269,9 @@ MuddeeFunc:
 	ld a, $14
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55ba7)
+	ld a, HIGH(.DefeatedFall)
 	ld [hld], a
-	ld a, LOW(.Func_55ba7)
+	ld a, LOW(.DefeatedFall)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
@@ -283,12 +283,12 @@ MuddeeFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr nc, .asm_55832
+	jr nc, .defeated_face_right
 	res 7, [hl]
-	jr .asm_55834
-.asm_55832
+	jr .defeated_got_direction
+.defeated_face_right
 	set 7, [hl]
-.asm_55834
+.defeated_got_direction
 	dec l
 	xor a
 	ld [hl], a
@@ -302,16 +302,16 @@ MuddeeFunc:
 	ld [wMuddeeAmbushState], a
 	ret
 
-.Func_55861:
+.SwimUp:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_55870
+	jr z, .swim_up
 	dec [hl]
 	ret nz
 	ld de, MuddeeFrameset_69d04
 	jp SetObjectFramesetPtr
-.asm_55870
+.swim_up
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $1c
@@ -325,52 +325,52 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and a
-	jr nz, .asm_5589e
-	call .Func_55c2b
-	jr z, .asm_5589e
-	call .Func_55be7
+	jr nz, .end_swim_up
+	call .CompareYWithWarioRow
+	jr z, .end_swim_up
+	call .PlaySwimSFX
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $05
 	jp nz, MoveObjectUp
 	jp MoveObjectUp_Slow
-.asm_5589e
+.end_swim_up
 	ld hl, wCurObjXPos
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
 	ld a, [wWarioXPos + 0]
 	cp d
-	jr c, .asm_558c1
-	jr nz, .asm_558b2
+	jr c, .end_up_swim_left
+	jr nz, .end_up_swim_right
 	ld a, [wWarioXPos + 1]
 	cp e
-	jr c, .asm_558c1
-.asm_558b2
+	jr c, .end_up_swim_left
+.end_up_swim_right
 	ld a, $03
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d2f
 	ld c, $0e
 	ld b, $7d
-	jp .Func_55c11
-.asm_558c1
+	jp .SetFramesetAndDurations
+.end_up_swim_left
 	ld a, $02
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d16
 	ld c, $0e
 	ld b, $7d
-	jp .Func_55c11
+	jp .SetFramesetAndDurations
 
-.Func_558d0:
+.SwimDown:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_558df
+	jr z, .swim_down
 	dec [hl]
 	ret nz
 	ld de, MuddeeFrameset_69cf2
 	jp SetObjectFramesetPtr
-.asm_558df
+.swim_down
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $30
@@ -385,52 +385,52 @@ MuddeeFunc:
 	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr nz, .asm_55910
-	call .Func_55c2b
-	jr z, .asm_55910
-	call .Func_55be7
+	jr nz, .end_swim_down
+	call .CompareYWithWarioRow
+	jr z, .end_swim_down
+	call .PlaySwimSFX
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $05
 	jp nz, MoveObjectDown
 	jp MoveObjectDown_Slow
-.asm_55910
+.end_swim_down
 	ld hl, wCurObjXPos
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
 	ld a, [wWarioXPos + 0]
 	cp d
-	jr c, .asm_55933
-	jr nz, .asm_55924
+	jr c, .end_down_swim_left
+	jr nz, .end_down_swim_right
 	ld a, [wWarioXPos + 1]
 	cp e
-	jr c, .asm_55933
-.asm_55924
+	jr c, .end_down_swim_left
+.end_down_swim_right
 	ld a, $03
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d16
 	ld c, $02
 	ld b, $7d
-	jp .Func_55c11
-.asm_55933
+	jp .SetFramesetAndDurations
+.end_down_swim_left
 	ld a, $02
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d2f
 	ld c, $02
 	ld b, $7d
-	jp .Func_55c11
+	jp .SetFramesetAndDurations
 
-.Func_55942:
+.SwimLeft:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_55951
+	jr z, .swim_left
 	dec [hl]
 	ret nz
 	ld de, MuddeeFrameset_69d0d
 	jp SetObjectFramesetPtr
-.asm_55951
+.swim_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -444,40 +444,40 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_5597a
-	call .Func_55be7
+	jr nz, .end_swim_left
+	call .PlaySwimSFX
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $05
 	jp nz, MoveObjectLeft
 	jp MoveObjectLeft_Slow
-.asm_5597a
-	call .Func_55c1e
-	jr c, .asm_5598d
+.end_swim_left
+	call .CompareYWithWario
+	jr c, .end_left_swim_down
 	xor a
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d2f
 	ld c, $08
 	ld b, $7d
-	jp .Func_55c11
-.asm_5598d
+	jp .SetFramesetAndDurations
+.end_left_swim_down
 	ld a, $01
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d16
 	ld c, $14
 	ld b, $7d
-	jp .Func_55c11
+	jp .SetFramesetAndDurations
 
-.Func_5599c:
+.SwimRight:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_559ab
+	jr z, .swim_right
 	dec [hl]
 	ret nz
 	ld de, MuddeeFrameset_69cfb
 	jp SetObjectFramesetPtr
-.asm_559ab
+.swim_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -491,31 +491,31 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_559d4
-	call .Func_55be7
+	jr nz, .end_swim_right
+	call .PlaySwimSFX
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $05
 	jp nz, MoveObjectRight
 	jp MoveObjectRight_Slow
-.asm_559d4
-	call .Func_55c1e
-	jr c, .asm_559e7
+.end_swim_right
+	call .CompareYWithWario
+	jr c, .end_right_swim_down
 	xor a
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d16
 	ld c, $08
 	ld b, $7d
-	jp .Func_55c11
-.asm_559e7
+	jp .SetFramesetAndDurations
+.end_right_swim_down
 	ld a, $01
 	ld [wCurObjVar1], a
 	ld de, MuddeeFrameset_69d2f
 	ld c, $14
 	ld b, $7d
-	jp .Func_55c11
+	jp .SetFramesetAndDurations
 
-.Func_559f6:
+.WaitThenSink:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -528,7 +528,7 @@ MuddeeFunc:
 	ld [hl], a
 	jp MoveObjectDownByVar2
 
-.Func_55a0b:
+.Sink:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $12
@@ -547,7 +547,7 @@ MuddeeFunc:
 	ld [wCurObjVar1], a
 	ret
 
-.Func_55a2b:
+.MoveUnderWario:
 	ld hl, wCurObjXPos
 	ld a, [hli]
 	ld e, a
@@ -561,13 +561,13 @@ MuddeeFunc:
 	ldh [hYPosHi], a
 	ld a, [wWarioXPos + 0]
 	cp d
-	jr c, .asm_55a60
-	jr nz, .asm_55a4e
+	jr c, .move_left_under
+	jr nz, .move_right_under
 	ld a, [wWarioXPos + 1]
 	cp e
-	jr c, .asm_55a60
-	jr z, .asm_55a72
-.asm_55a4e
+	jr c, .move_left_under
+	jr z, .under_wario
+.move_right_under
 	ld a, [hli]
 	add $08
 	ldh [hXPosLo], a
@@ -578,7 +578,7 @@ MuddeeFunc:
 	and a
 	ret nz
 	jp MoveObjectRight_Slow
-.asm_55a60
+.move_left_under
 	ld a, [hli]
 	sub $08
 	ldh [hXPosLo], a
@@ -589,7 +589,7 @@ MuddeeFunc:
 	and a
 	ret nz
 	jp MoveObjectLeft_Slow
-.asm_55a72
+.under_wario
 	ld de, MuddeeFrameset_69d04
 	call SetObjectFramesetPtr
 	inc l
@@ -598,78 +598,78 @@ MuddeeFunc:
 	inc l
 	xor a
 	ld [hl], a
-	jp .asm_556dc
+	jp .spawn_stingers
 
-.Func_55a82:
+.LeapFromFloor:
 	ld hl, wCurObjVar3
 	ld a, [hli]
 	cp $0e
-	jr z, .asm_55a90
+	jr z, .leap_done
 	ld bc, MuddeeData_60d30
 	jp ApplyObjYMovement
-.asm_55a90
+.leap_done
 	ld a, [hl]
 	and $0f
 	cp $03
-	jr z, .asm_55a9c
+	jr z, .start_zigzag
 	xor a
 	ld [wCurObjVar1], a
 	ret
-.asm_55a9c
+.start_zigzag
 	ld l, OBJ_STATE_DURATION
 	xor a
 	ld [hli], a
 	ld a, $08
 	ld [hl], a
-.asm_55aa3
+.aim_zigzag
 	ld l, OBJ_X_POS
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
 	ld a, [wWarioXPos + 0]
 	cp d
-	jr c, .asm_55abd
-	jr nz, .asm_55ab6
+	jr c, .aim_left
+	jr nz, .aim_right
 	ld a, [wWarioXPos + 1]
 	cp e
-	jr c, .asm_55abd
-.asm_55ab6
+	jr c, .aim_left
+.aim_right
 	ld de, MuddeeFrameset_69da7
 	ld a, $01
-	jr .asm_55ac1
-.asm_55abd
+	jr .set_aim
+.aim_left
 	ld de, MuddeeFrameset_69d8e
 	xor a
-.asm_55ac1
+.set_aim
 	ld [wCurObjVar2], a
 	xor a
 	ld [wCurObjVar3], a
-	call .Func_55c1e
+	call .CompareYWithWario
 	ld l, OBJ_SUBSTATE
-	jr c, .asm_55ad4
+	jr c, .aim_down
 	res 6, [hl]
 	jp SetObjectFramesetPtr
-.asm_55ad4
+.aim_down
 	set 6, [hl]
 	jp SetObjectFramesetPtr
 
-.Func_55ad9:
+.SwimZigZag:
 	ld hl, wCurObjVar3
 	ld a, [hl]
 	inc a
-	jr z, .asm_55b00
+	jr z, .zigzag_timer
 	ld l, OBJ_FRAME_DURATION
 	ld a, [hli]
 	and a
-	jr nz, .asm_55b00
+	jr nz, .zigzag_timer
 	ld a, [hl]
 	cp $18
-	jr nz, .asm_55b00
+	jr nz, .zigzag_timer
 	ld l, OBJ_VAR_3
 	inc [hl]
 	ld a, [hl]
 	cp $03
-	jr nz, .asm_55b00
+	jr nz, .zigzag_timer
 	ld a, $ff
 	ld [hl], a
 	ld de, MuddeeFrameset_69cf2
@@ -677,11 +677,11 @@ MuddeeFunc:
 	ld a, $3c
 	ld [hl], a
 	ret
-.asm_55b00
+.zigzag_timer
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	and a
-	jr z, .asm_55b10
+	jr z, .zigzag_move
 	dec [hl]
 	ret nz
 	ld l, OBJ_VAR_3
@@ -689,9 +689,9 @@ MuddeeFunc:
 	inc a
 	ret nz
 	ld [hl], a
-	jr .asm_55aa3
-.asm_55b10
-	call .Func_55bd8
+	jr .aim_zigzag
+.zigzag_move
+	call .PlayBubbleSFX
 	ld a, [wCurObjVar2]
 	rra
 	ld hl, wCurObjYPos
@@ -699,7 +699,7 @@ MuddeeFunc:
 	ldh [hYPosLo], a
 	ld a, [hli]
 	ldh [hYPosHi], a
-	jr c, .asm_55b37
+	jr c, .zigzag_move_right
 	ld a, [hli]
 	sub $18
 	ldh [hXPosLo], a
@@ -708,10 +708,10 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_55b4c
+	jr nz, .zigzag_reverse_x
 	call MoveObjectLeft_Slow
-	jr .asm_55b58
-.asm_55b37
+	jr .zigzag_vertical
+.zigzag_move_right
 	ld a, [hli]
 	add $18
 	ldh [hXPosLo], a
@@ -720,10 +720,10 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_55b4c
+	jr nz, .zigzag_reverse_x
 	call MoveObjectRight_Slow
-	jr .asm_55b58
-.asm_55b4c
+	jr .zigzag_vertical
+.zigzag_reverse_x
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	xor $01
@@ -731,10 +731,10 @@ MuddeeFunc:
 	ld l, OBJ_STATE_DURATION
 	ld a, $28
 	ld [hl], a
-.asm_55b58
+.zigzag_vertical
 	ld hl, wCurObjSubState
 	bit 6, [hl]
-	jr nz, .asm_55b7b
+	jr nz, .zigzag_move_down
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $1c
@@ -748,9 +748,9 @@ MuddeeFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and a
-	jr nz, .asm_55b9a
+	jr nz, .zigzag_reverse_y
 	jp MoveObjectUp_Slow
-.asm_55b7b
+.zigzag_move_down
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	add $30
@@ -765,9 +765,9 @@ MuddeeFunc:
 	call ProcessBlock_Landing
 	ld a, [wIsInWaterOrSand]
 	and a
-	jr nz, .asm_55b9a
+	jr nz, .zigzag_reverse_y
 	jp MoveObjectDown_Slow
-.asm_55b9a
+.zigzag_reverse_y
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	xor OBJSUBFLAG_VDIR
@@ -776,25 +776,25 @@ MuddeeFunc:
 	ld [wCurObjStateDuration], a
 	ret
 
-.Func_55ba7:
+.DefeatedFall:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjVar1
 	ld a, [hl]
 	and a
-	jr z, .asm_55bb6
+	jr z, .wait_fall
 	dec [hl]
-	jr .asm_55bc6
-.asm_55bb6
+	jr .fall
+.wait_fall
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_55bc6
+	jr z, .fall
 	dec [hl]
 	ret nz
 	play_sfx SFX_BOSS_DEFEAT_FALL
 	ret
-.asm_55bc6
+.fall
 	ld bc, AttackedYVel_Light
 	call ApplyObjYMovement
 	ld a, [wCurObjSubState]
@@ -806,40 +806,40 @@ MuddeeFunc:
 	dec [hl]
 	ret
 
-.Func_55bd8:
+.PlayBubbleSFX:
 	ld a, [wGlobalCounter]
 	and %1111
 	ret nz
 	play_sfx SFX_MUDDEE_BUBBLE
 	ret
 
-.Func_55be7:
+.PlaySwimSFX:
 	ld a, [wGlobalCounter]
 	ld b, a
 	ld a, [wCurObjSubState]
 	and $0f
 	cp $05
-	jr nz, .asm_55bfa
+	jr nz, .not_slow
 	ld a, b
 	and $1f
 	ret nz
-	jr .asm_55c08
-.asm_55bfa
+	jr .play_sfx
+.not_slow
 	cp $04
-	jr nz, .asm_55c04
+	jr nz, .fast
 	ld a, b
 	and $0f
 	ret nz
-	jr .asm_55c08
-.asm_55c04
+	jr .play_sfx
+.fast
 	ld a, b
 	and $07
 	ret nz
-.asm_55c08
+.play_sfx
 	play_sfx SFX_MUDDEE_SWIM
 	ret
 
-.Func_55c11:
+.SetFramesetAndDurations:
 	ld hl, wCurObjFramesetPtr
 	ld a, e
 	ld [hli], a
@@ -852,7 +852,7 @@ MuddeeFunc:
 	ld [hl], b
 	ret
 
-.Func_55c1e:
+.CompareYWithWario:
 	ld a, [wWarioScreenYPos]
 	add $2a
 	ld b, a
@@ -861,7 +861,7 @@ MuddeeFunc:
 	cp b
 	ret
 
-.Func_55c2b:
+.CompareYWithWarioRow:
 	ld a, [wWarioScreenYPos]
 	sub $10
 	and $f8
@@ -871,14 +871,14 @@ MuddeeFunc:
 	cp b
 	ret
 
-.Func_55c3a:
+.Blink:
 	ld hl, wCurObjFlags
 	ld a, [wGlobalCounter]
 	and %11
-	jr z, .asm_55c47
+	jr z, .hide
 	res 4, [hl]
 	ret
-.asm_55c47
+.hide
 	set 4, [hl]
 	ret
 
@@ -888,9 +888,9 @@ Turtle1Func:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55c7d)
+	ld a, HIGH(.WaitForWario)
 	ld [hld], a
-	ld a, LOW(.Func_55c7d)
+	ld a, LOW(.WaitForWario)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -910,20 +910,20 @@ Turtle1Func:
 	ld [wCurObjVar2], a
 	jp MoveObjectUpByVar2
 
-.Func_55c7d:
+.WaitForWario:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55c91)
+	ld a, HIGH(.CarryWario)
 	ld [hld], a
-	ld a, LOW(.Func_55c91)
+	ld a, LOW(.CarryWario)
 	ld [hld], a
 	ret
 
-.Func_55c91:
+.CarryWario:
 	call SetOneWayPlatformAction
 	call PlayTurtleSwimSFX
 	ld a, [wGlobalCounter]
@@ -931,7 +931,7 @@ Turtle1Func:
 	ret nc
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_55cc3
+	jr z, .arrived
 	call MoveObjectRight
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -943,11 +943,11 @@ Turtle1Func:
 	ret nz
 	ld b, $01
 	jp MoveWarioRight
-.asm_55cc3
+.arrived
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55cdd)
+	ld a, HIGH(.StartAmbush)
 	ld [hld], a
-	ld a, LOW(.Func_55cdd)
+	ld a, LOW(.StartAmbush)
 	ld [hld], a
 	ld de, MuddeeFrameset_69d65
 	call SetObjectFramesetPtr
@@ -956,7 +956,7 @@ Turtle1Func:
 	play_sfx SFX_BOSS_APPEAR
 	ret
 
-.Func_55cdd:
+.StartAmbush:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -966,36 +966,36 @@ Turtle1Func:
 	ld a, $40
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55cf9)
+	ld a, HIGH(.Submerge)
 	ld [hld], a
-	ld a, LOW(.Func_55cf9)
+	ld a, LOW(.Submerge)
 	ld [hld], a
 	ld a, 1
 	ld [wMuddeeAmbushState], a
 	ret
 
-.Func_55cf9:
+.Submerge:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_55d05
+	jr z, .sink
 	dec [hl]
 	ret
-.asm_55d05
+.sink
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	inc l
 	dec [hl]
 	jp nz, MoveObjectDown
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55d18)
+	ld a, HIGH(.WaitForMuddeeDefeat)
 	ld [hld], a
-	ld a, LOW(.Func_55d18)
+	ld a, LOW(.WaitForMuddeeDefeat)
 	ld [hld], a
 	ret
 
-.Func_55d18:
+.WaitForMuddeeDefeat:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wMuddeeAmbushState]
@@ -1008,16 +1008,16 @@ Turtle1Func:
 	ld a, $40
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55d4c)
+	ld a, HIGH(.Resurface)
 	ld [hld], a
-	ld a, LOW(.Func_55d4c)
+	ld a, LOW(.Resurface)
 	ld [hld], a
 	ld hl, wCurObjUnk02
 	ld e, $06
 	farcall SetObjectMapEntryAndSpawn
 	ret
 
-.Func_55d4c:
+.Resurface:
 	call SetOneWayPlatformAction
 	ld a, [wGlobalCounter]
 	rra
@@ -1025,7 +1025,7 @@ Turtle1Func:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_55d6a
+	jr z, .rise
 	dec [hl]
 	ret nz
 	ld a, BOSS_DEFEATED
@@ -1034,7 +1034,7 @@ Turtle1Func:
 	xor a
 	ld [wIsBossBattle], a
 	ret
-.asm_55d6a
+.rise
 	inc l
 	dec [hl]
 	jp nz, MoveObjectUp
@@ -1054,13 +1054,13 @@ TurtleCommonFunc:
 	ret z
 	res OBJFLAG_STEPPED_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_55d90)
+	ld a, HIGH(.CarryWario)
 	ld [hld], a
-	ld a, LOW(.Func_55d90)
+	ld a, LOW(.CarryWario)
 	ld [hld], a
 	ret
 
-.Func_55d90:
+.CarryWario:
 	call SetOneWayPlatformAction
 	call PlayTurtleSwimSFX
 	ld a, [wGlobalCounter]
@@ -1079,7 +1079,7 @@ TurtleCommonFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_55dd6
+	jr nz, .blocked
 	call MoveObjectRight
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -1091,15 +1091,15 @@ TurtleCommonFunc:
 	ret nz
 	ld b, $01
 	jp MoveWarioRight
-.asm_55dd6
+.blocked
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_55de0)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_55de0)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ret
 
-.Func_55de0:
+.Idle:
 	call SetOneWayPlatformAction
 	ret
 
@@ -1129,27 +1129,27 @@ Turtle2Func:
 	ld a, LOW(wObj1)
 	ld b, LOW(wObj1)
 	ld h, HIGH(wObj1)
-.asm_55e14
+.loop
 	ld l, OBJ_ID
 	add l
 	ld l, a
 	ld a, [hl] ; OBJ_ID
 	cp TURTLE1
-	jr nz, .asm_55e25
+	jr nz, .next_obj
 	ld a, l
 	sub OBJ_ID - OBJ_FLAGS
 	ld l, a
 	ld a, [hl] ; OBJ_FLAGS
 	rra
-	jr c, .asm_55e2e
-.asm_55e25
+	jr c, .found_turtle1
+.next_obj
 	ld a, b
 	cp LOW(wObj8)
 	ret z
 	add OBJ_STRUCT_LENGTH
 	ld b, a
-	jr .asm_55e14
-.asm_55e2e
+	jr .loop
+.found_turtle1
 	xor a
 	ld [wCurObjFlags], a
 	ret

@@ -157,9 +157,9 @@ BlockPtrToObjectMapPtr::
 	ld b, $01
 	ld a, l
 	srl a
-	jr nc, .asm_d9a
+	jr nc, .got_parity
 	dec b
-.asm_d9a
+.got_parity
 	add $b0
 	ld l, a
 	ret

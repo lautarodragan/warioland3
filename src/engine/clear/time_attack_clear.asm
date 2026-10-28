@@ -24,13 +24,13 @@ InitTimeAttackClearScreen:
 
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
-	jr nz, .asm_d42d3
+	jr nz, .no_high_score
 	ld hl, wMenuObj8FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj8
 	call LoadClearScreenSprite
 
-.asm_d42d3
+.no_high_score
 	ld hl, wClearScreenWarioFramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wClearScreenWario
@@ -91,21 +91,21 @@ InitTimeAttackClearScreen:
 UpdateTimeAttackClearScreen:
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
-	jr nz, .asm_d435f
+	jr nz, .update_wario
 	ld hl, wMenuObj8FramesetPtr + 1
 	call UpdateObjAnim
 	ld hl, wMenuObj8
 	call LoadClearScreenSprite
 
-.asm_d435f
+.update_wario
 	ld hl, wClearScreenWarioFramesetPtr + 1
 	call UpdateObjAnim
 	ld a, [wActionHelpWarioVar]
 	and a
-	jr nz, .asm_d4394
+	jr nz, .load_wario_sprite
 	ld a, [wObjAnimWasReset]
 	and a
-	jr z, .asm_d4394
+	jr z, .load_wario_sprite
 	ld a, $01
 	ld [wActionHelpWarioVar], a
 	ld hl, wClearScreenWarioFramesetOffset
@@ -115,20 +115,20 @@ UpdateTimeAttackClearScreen:
 
 	ld a, [wTimeAttackResult]
 	cp TIME_ATTACK_GOT_HIGH_SCORE
-	jr nz, .asm_d438b
+	jr nz, .no_high_score
 	ld a, HIGH(GolfWarioFrameset_d4d1b)
 	ld [hli], a
 	ld a, LOW(GolfWarioFrameset_d4d1b)
 	ld [hl], a
-	jr .asm_d4391
-.asm_d438b
+	jr .got_frameset
+.no_high_score
 	ld a, HIGH(GolfWarioFrameset_d4d5f)
 	ld [hli], a
 	ld a, LOW(GolfWarioFrameset_d4d5f)
 	ld [hl], a
-.asm_d4391
+.got_frameset
 	call UpdateObjAnim
-.asm_d4394
+.load_wario_sprite
 	ld hl, wClearScreenWario
 	call LoadClearScreenWarioSprite
 

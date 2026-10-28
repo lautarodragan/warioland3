@@ -2,9 +2,9 @@ OmodonmekaFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_42218)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_42218)
+	ld a, LOW(.Update)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -20,25 +20,25 @@ OmodonmekaFunc:
 	ld [hli], a
 	ld a, [wCurObjYPos + 1]
 	ld [hli], a
-	jp .Func_42432
+	jp .ResetToIdle
 
-.Func_42199:
+.Activate:
 	xor a
 	ld [hl], a
 	ld de, OmodonmekaFrameset_68f14
 	call SetObjectFramesetPtr
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jr nz, .asm_421b1
+	jr nz, .not_flat
 	ld a, $18
 	ld [hli], a
 	ld e, $07
 	ld d, $07
-	jr .asm_421b5
-.asm_421b1
+	jr .grab_wario
+.not_flat
 	ld e, $05
 	ld d, $1a
-.asm_421b5
+.grab_wario
 	ld l, OBJ_Y_POS
 	ld a, [wWarioYPos + 1]
 	sub d
@@ -59,28 +59,28 @@ OmodonmekaFunc:
 	ld [hl], a
 	ld a, $f9
 	ld [wCurObjCollBoxBottom], a
-	jr .asm_42249
+	jr .dispatch_substate
 
-.asm_421dc
+.hit_by_obj_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_421fa
-.asm_421e4
+	jr .set_knocked_back
+.hit_by_obj_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_421fa
-.asm_421ec
+	jr .set_knocked_back
+.attacked_left
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-	jr .asm_421fa
-.asm_421f4
+	jr .set_knocked_back
+.attacked_right
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-.asm_421fa
+.set_knocked_back
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld [hld], a
 	ld [hl], c
@@ -97,26 +97,26 @@ OmodonmekaFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_42215
+.vanish_touch
 	jp VanishAndDespawnObject
 
-.Func_42218:
+.Update:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_42249
+	jr z, .dispatch_substate
 	cp $2a
-	jp z, .Func_42199
+	jp z, .Activate
 	cp $04
-	jr z, .asm_421ec
+	jr z, .attacked_left
 	cp $05
-	jr z, .asm_421f4
+	jr z, .attacked_right
 	cp $28
-	jr z, .asm_421dc
+	jr z, .hit_by_obj_left
 	cp $29
-	jr z, .asm_421e4
+	jr z, .hit_by_obj_right
 	cp $0a
-	jr z, .asm_42215
+	jr z, .vanish_touch
 	xor a
 	ld [hld], a
 	ld a, [hl]
@@ -128,46 +128,46 @@ OmodonmekaFunc:
 	ld [hld], a
 	ld de, OmodonmekaFrameset_68f34
 	call SetObjectFramesetPtr
-.asm_42249
+.dispatch_substate
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	and $0f
 	jumptable
 
-	dw .Func_42321
-	dw .Func_42321
-	dw .Func_423e1
-	dw .Func_42420
-	dw .Func_4244c
-	dw .Func_42291
-	dw .Func_422fc
-	dw .Func_42261
-	dw .Func_42369
+	dw .Hover
+	dw .Hover
+	dw .Fall
+	dw .ReturnToStartY
+	dw .FlyAway
+	dw .CarryWarioUp
+	dw .HoldWarioAtTop
+	dw .HoldFlatWario
+	dw .WatchWario
 
-.Func_42261:
+.HoldFlatWario:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wAutoMoveState]
 	and a
-	jr nz, .asm_42271
+	jr nz, .hold_flat_wario
 	inc a
 	ld [wCurObjState], a
 	ret
 
-.asm_42271
+.hold_flat_wario
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ld a, [hl]
 	cp $10
-	jr nz, .asm_4227e
+	jr nz, .check_second_lift
 	ld e, $0e
-	jr .asm_42283
+	jr .set_height_above_wario
 
-.asm_4227e
+.check_second_lift
 	cp $07
 	ret nz
 	ld e, $16
-.asm_42283
+.set_height_above_wario
 	ld l, OBJ_Y_POS
 	ld a, [wWarioYPos + 1]
 	sub e
@@ -177,17 +177,17 @@ OmodonmekaFunc:
 	ld [hli], a
 	ret
 
-.Func_42291:
+.CarryWarioUp:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wAutoMoveState]
 	and a
-	jr nz, .asm_422a1
+	jr nz, .carrying
 	inc a
 	ld [wCurObjState], a
 	ret
 
-.asm_422a1
+.carrying
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $1d
@@ -201,7 +201,7 @@ OmodonmekaFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and $0f
-	jr nz, .asm_422d0
+	jr nz, .reached_top
 	ld hl, wCurObjVar1
 	ld a, [hli]
 	sub $40
@@ -212,11 +212,11 @@ OmodonmekaFunc:
 	ld l, OBJ_Y_POS + 1
 	ld a, [hld]
 	cp d
-	jr nz, .asm_422e2
+	jr nz, .lift_up
 	ld a, [hl]
 	cp e
-	jr nz, .asm_422e2
-.asm_422d0
+	jr nz, .lift_up
+.reached_top
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and $f0
@@ -228,7 +228,7 @@ OmodonmekaFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_422e2
+.lift_up
 	ld a, [wGlobalCounter]
 	and %111
 	play_sfx z, SFX_OMODONMEKA_LIFT
@@ -237,17 +237,17 @@ OmodonmekaFunc:
 	call MoveWarioUp
 	call HandleUpwardsFloorTransition
 	jp MoveObjectUp
-.Func_422fc:
+.HoldWarioAtTop:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wAutoMoveState]
 	and a
-	jr nz, .asm_4230c
+	jr nz, .hover_with_wario
 	inc a
 	ld [wCurObjState], a
 	ret
 
-.asm_4230c
+.hover_with_wario
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld l, OBJ_Y_POS
@@ -259,7 +259,7 @@ OmodonmekaFunc:
 	ld [wWarioYPos + 0], a
 	ret
 
-.Func_42321:
+.Hover:
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjFlags
@@ -276,10 +276,10 @@ OmodonmekaFunc:
 	add $22
 	sub b
 	cp $28
-	jr c, .asm_42347
+	jr c, .in_x_range
 	cp $d8
 	ret c
-.asm_42347
+.in_x_range
 	ld a, [wWarioScreenYPos]
 	add c
 	ld b, a
@@ -297,7 +297,7 @@ OmodonmekaFunc:
 	play_sfx SFX_RAIL_HUM
 	ret
 
-.Func_42369:
+.WatchWario:
 	ld a, [wGlobalCounter]
 	and %11111
 	play_sfx z, SFX_RAIL_HUM
@@ -312,14 +312,14 @@ OmodonmekaFunc:
 	add $22
 	sub b
 	cp $10
-	jr c, .asm_423b8
+	jr c, .wario_close
 	cp $f0
-	jr nc, .asm_423b8
+	jr nc, .wario_close
 	cp $28
-	jr c, .asm_423ab
+	jr c, .check_wario_below
 	cp $d8
-	jr nc, .asm_423ab
-.asm_4239b
+	jr nc, .check_wario_below
+.back_to_hover
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and $f0
@@ -329,17 +329,17 @@ OmodonmekaFunc:
 	call SetObjectFramesetPtr
 	ret
 
-.asm_423ab
+.check_wario_below
 	ld a, [wWarioScreenYPos]
 	add c
 	ld b, a
 	ld a, [wCurObjScreenYPos]
 	add c
 	sub b
-	jr nc, .asm_4239b
+	jr nc, .back_to_hover
 	ret
 
-.asm_423b8
+.wario_close
 	ld a, [wWarioScreenYPos]
 	add c
 	ld b, a
@@ -361,7 +361,7 @@ OmodonmekaFunc:
 	play_sfx SFX_OMODONMEKA
 	ret
 
-.Func_423e1:
+.Fall:
 	ld bc, OmodonmekaData_60500
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -397,7 +397,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	ret
 
-.Func_42420:
+.ReturnToStartY:
 	ld hl, wCurObjVar1
 	ld e, [hl]
 	inc l
@@ -410,7 +410,7 @@ OmodonmekaFunc:
 	cp e
 	jp nz, MoveObjectUp
 
-.Func_42432:
+.ResetToIdle:
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -427,7 +427,7 @@ OmodonmekaFunc:
 	ld [hld], a
 	ret
 
-.Func_4244c:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, OmodonmekaData_604e0
@@ -450,7 +450,7 @@ OmodonmekaFunc:
 	ret nz
 	ld a, $f9
 	ld [wCurObjCollBoxBottom], a
-	jr .Func_42432
+	jr .ResetToIdle
 
 OmodonmekaWithOmodon1Func:
 	ld hl, wCurObjFlags
@@ -472,7 +472,7 @@ OmodonmekaWithOmodon1Func:
 	call CountCurObjTransientChildren
 	ld a, e
 	and a
-	jp nz, OmodonmekaWithOmodonFunc.Func_42559
+	jp nz, OmodonmekaWithOmodonFunc.StartLowering
 	ld bc, ObjParams_Omodon1
 	call CreateObjectAtRelativePos
 	ld de, OmodonmekaFrameset_68f14
@@ -480,7 +480,7 @@ OmodonmekaWithOmodon1Func:
 	ld a, $00
 	ld [hli], a
 	ld [wCurObjVar3], a
-	jp OmodonmekaWithOmodonFunc.Func_42535
+	jp OmodonmekaWithOmodonFunc.Idle
 
 OmodonmekaWithOmodon2Func:
 	ld hl, wCurObjFlags
@@ -502,7 +502,7 @@ OmodonmekaWithOmodon2Func:
 	call CountCurObjTransientChildren
 	ld a, e
 	and a
-	jp nz, OmodonmekaWithOmodonFunc.Func_42559
+	jp nz, OmodonmekaWithOmodonFunc.StartLowering
 	ld bc, ObjParams_Omodon2
 	call CreateObjectAtRelativePos
 	ld de, OmodonmekaFrameset_68f14
@@ -510,23 +510,23 @@ OmodonmekaWithOmodon2Func:
 	ld a, $00
 	ld [hli], a
 	ld [wCurObjVar3], a
-	jp OmodonmekaWithOmodonFunc.Func_42535
+	jp OmodonmekaWithOmodonFunc.Idle
 
 OmodonmekaWithOmodonFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_42525
+	jr z, .dispatch
 	cp $04
-	jp z, OmodonmekaFunc.asm_421ec
+	jp z, OmodonmekaFunc.attacked_left
 	cp $05
-	jp z, OmodonmekaFunc.asm_421f4
+	jp z, OmodonmekaFunc.attacked_right
 	cp $28
-	jp z, OmodonmekaFunc.asm_421dc
+	jp z, OmodonmekaFunc.hit_by_obj_left
 	cp $29
-	jp z, OmodonmekaFunc.asm_421e4
+	jp z, OmodonmekaFunc.hit_by_obj_right
 	cp $0a
-	jp z, OmodonmekaFunc.asm_42215
+	jp z, OmodonmekaFunc.vanish_touch
 	ld a, $3a
 	ld [hld], a
 	dec l
@@ -538,25 +538,25 @@ OmodonmekaWithOmodonFunc:
 	ld a, $02
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_42714)
+	ld a, HIGH(.FlyAway)
 	ld [hld], a
-	ld a, LOW(.Func_42714)
+	ld a, LOW(.FlyAway)
 	ld [hld], a
-	jp .Func_42714
+	jp .FlyAway
 
-.asm_42525
+.dispatch
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	and $0f
 	jumptable
 
-	dw .Func_42535
-	dw .Func_42535
-	dw .Func_42554
-	dw .Func_4256c
-	dw .Func_426ee
+	dw .Idle
+	dw .Idle
+	dw .WaitToLower
+	dw .LowerToOmodon
+	dw .Rise
 
-.Func_42535:
+.Idle:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
 	jp z, ApplyOmodonHoverBob
@@ -573,11 +573,11 @@ OmodonmekaWithOmodonFunc:
 	res OBJFLAG_STEPPED_F, [hl]
 	ret
 
-.Func_42554:
+.WaitToLower:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-.Func_42559:
+.StartLowering:
 	ld hl, wCurObjSubState
 	ld a, [hl]
 	and OBJSUBFLAGS_MASK
@@ -589,11 +589,11 @@ OmodonmekaWithOmodonFunc:
 	ld [hli], a
 	ret
 
-.Func_4256c:
+.LowerToOmodon:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $28
-	jp nz, .asm_42635
+	jp nz, .count_down
 	ld l, OBJ_MAP_PTR_LO
 	ld a, [hli]
 	ld c, a
@@ -604,131 +604,131 @@ OmodonmekaWithOmodonFunc:
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_42592
+	jr nz, .check_omodon_obj2
 	ld a, [hli]
 	cp c
-	jr nz, .asm_42592
+	jr nz, .check_omodon_obj2
 	ld a, [hl]
 	cp b
-	jr nz, .asm_42592
+	jr nz, .check_omodon_obj2
 	ld l, OBJ_SCREEN_Y_POS
-	jp .Func_4261f
-.asm_42592
+	jp .move_to_omodon
+.check_omodon_obj2
 	ld l, $20
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_425a6
+	jr nz, .check_omodon_obj3
 	ld a, [hli]
 	cp c
-	jr nz, .asm_425a6
+	jr nz, .check_omodon_obj3
 	ld a, [hl]
 	cp b
-	jr nz, .asm_425a6
+	jr nz, .check_omodon_obj3
 	ld l, $2d
-	jp .Func_4261f
-.asm_425a6
+	jp .move_to_omodon
+.check_omodon_obj3
 	ld l, $40
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_425ba
+	jr nz, .check_omodon_obj4
 	ld a, [hli]
 	cp c
-	jr nz, .asm_425ba
+	jr nz, .check_omodon_obj4
 	ld a, [hl]
 	cp b
-	jr nz, .asm_425ba
+	jr nz, .check_omodon_obj4
 	ld l, $4d
-	jp .Func_4261f
-.asm_425ba
+	jp .move_to_omodon
+.check_omodon_obj4
 	ld l, $60
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_425ce
+	jr nz, .check_omodon_obj5
 	ld a, [hli]
 	cp c
-	jr nz, .asm_425ce
+	jr nz, .check_omodon_obj5
 	ld a, [hl]
 	cp b
-	jr nz, .asm_425ce
+	jr nz, .check_omodon_obj5
 	ld l, $6d
-	jp .Func_4261f
-.asm_425ce
+	jp .move_to_omodon
+.check_omodon_obj5
 	ld l, $80
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_425e2
+	jr nz, .check_omodon_obj6
 	ld a, [hli]
 	cp c
-	jr nz, .asm_425e2
+	jr nz, .check_omodon_obj6
 	ld a, [hl]
 	cp b
-	jr nz, .asm_425e2
+	jr nz, .check_omodon_obj6
 	ld l, $8d
-	jp .Func_4261f
-.asm_425e2
+	jp .move_to_omodon
+.check_omodon_obj6
 	ld l, $a0
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_425f6
+	jr nz, .check_omodon_obj7
 	ld a, [hli]
 	cp c
-	jr nz, .asm_425f6
+	jr nz, .check_omodon_obj7
 	ld a, [hl]
 	cp b
-	jr nz, .asm_425f6
+	jr nz, .check_omodon_obj7
 	ld l, $ad
-	jp .Func_4261f
-.asm_425f6
+	jp .move_to_omodon
+.check_omodon_obj7
 	ld l, $c0
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_4260a
+	jr nz, .check_omodon_obj8
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4260a
+	jr nz, .check_omodon_obj8
 	ld a, [hl]
 	cp b
-	jr nz, .asm_4260a
+	jr nz, .check_omodon_obj8
 	ld l, $cd
-	jp .Func_4261f
-.asm_4260a
+	jp .move_to_omodon
+.check_omodon_obj8
 	ld l, $e0
 	ld a, [hli]
 	and d
 	cp d
-	jr nz, .asm_4261e
+	jr nz, .no_omodon
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4261e
+	jr nz, .no_omodon
 	ld a, [hl]
 	cp b
-	jr nz, .asm_4261e
+	jr nz, .no_omodon
 	ld l, $ed
-	jp .Func_4261f
-.asm_4261e
+	jp .move_to_omodon
+.no_omodon
 	ret
 
-.Func_4261f:
+.move_to_omodon:
 	ld a, [wCurObjScreenYPos]
 	ld c, a
 	ld a, [hl]
 	sub $10
 	cp c
-	jr z, .asm_42632
+	jr z, .at_omodon
 	ld a, [hl]
 	sub $0f
 	cp c
-	jr z, .asm_42632
+	jr z, .at_omodon
 	jp MoveObjectDown
-.asm_42632
+.at_omodon
 	ld hl, wCurObjStateDuration
-.asm_42635
+.count_down
 	dec [hl]
 	ret nz
 	ld hl, wCurObjSubState
@@ -750,101 +750,101 @@ OmodonmekaWithOmodonFunc:
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_42662
+	jr nz, .find_omodon_obj2
 	ld a, [hli]
 	cp e
-	jr nz, .asm_42662
+	jr nz, .find_omodon_obj2
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_42662
+	jr z, .lift_omodon
+.find_omodon_obj2
 	ld l, $20
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_42671
+	jr nz, .find_omodon_obj3
 	ld a, [hli]
 	cp e
-	jr nz, .asm_42671
+	jr nz, .find_omodon_obj3
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_42671
+	jr z, .lift_omodon
+.find_omodon_obj3
 	ld l, $40
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_42680
+	jr nz, .find_omodon_obj4
 	ld a, [hli]
 	cp e
-	jr nz, .asm_42680
+	jr nz, .find_omodon_obj4
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_42680
+	jr z, .lift_omodon
+.find_omodon_obj4
 	ld l, $60
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_4268f
+	jr nz, .find_omodon_obj5
 	ld a, [hli]
 	cp e
-	jr nz, .asm_4268f
+	jr nz, .find_omodon_obj5
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_4268f
+	jr z, .lift_omodon
+.find_omodon_obj5
 	ld l, $80
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_4269e
+	jr nz, .find_omodon_obj6
 	ld a, [hli]
 	cp e
-	jr nz, .asm_4269e
+	jr nz, .find_omodon_obj6
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_4269e
+	jr z, .lift_omodon
+.find_omodon_obj6
 	ld l, $a0
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_426ad
+	jr nz, .find_omodon_obj7
 	ld a, [hli]
 	cp e
-	jr nz, .asm_426ad
+	jr nz, .find_omodon_obj7
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_426ad
+	jr z, .lift_omodon
+.find_omodon_obj7
 	ld l, $c0
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_426bc
+	jr nz, .find_omodon_obj8
 	ld a, [hli]
 	cp e
-	jr nz, .asm_426bc
+	jr nz, .find_omodon_obj8
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_426bc
+	jr z, .lift_omodon
+.find_omodon_obj8
 	ld l, $e0
 	ld a, [hli]
 	and b
 	cp b
-	jr nz, .asm_426cb
+	jr nz, .omodon_missing
 	ld a, [hli]
 	cp e
-	jr nz, .asm_426cb
+	jr nz, .omodon_missing
 	ld a, [hli]
 	cp d
-	jr z, .asm_426cc
-.asm_426cb
+	jr z, .lift_omodon
+.omodon_missing
 	ret
 
-.asm_426cc
+.lift_omodon
 	ld a, l
 	add $18
 	ld l, a
@@ -872,17 +872,17 @@ OmodonmekaWithOmodonFunc:
 	inc [hl]
 	ret
 
-.Func_426ee:
+.Rise:
 	ld hl, wCurObjFlags
 	bit OBJFLAG_STEPPED_F, [hl]
-	jr z, .asm_42702
+	jr z, .rise
 	ld a, [wGlobalCounter]
 	rra
 	ret c
 	ld b, $01
 	call MoveWarioUp
 	call HandleUpwardsFloorTransition
-.asm_42702
+.rise
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp nz, MoveObjectUp
@@ -895,7 +895,7 @@ OmodonmekaWithOmodonFunc:
 	ld [hld], a
 	ret
 
-.Func_42714:
+.FlyAway:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld bc, OmodonmekaData_604e0
@@ -911,7 +911,7 @@ ApplyOmodonHoverBob:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_42740
+	jr nz, .next_offset
 	ld a, c
 	sub $3f
 	ld c, a
@@ -921,7 +921,7 @@ ApplyOmodonHoverBob:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jr .apply_y_offset
-.asm_42740
+.next_offset
 	inc [hl]
 .apply_y_offset
 	and a
@@ -961,14 +961,14 @@ Omodon_Idle:
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wTransformation]
 	cp TRANSFORMATION_FLAT_WARIO
-	jr nz, .asm_4277f
+	jr nz, .start_fall
 	call ApplyOmodonHoverBob
-	call Func_4279c.Func_42894
+	call Func_4279c.pass_stepped_flag_to_omodonmeka
 	ld hl, wCurObjFlags
 	res OBJFLAG_STEPPED_F, [hl]
 	ret
 
-.asm_4277f
+.start_fall
 	ld hl, wCurObjState
 	ld a, $2e
 	ld [hld], a
@@ -992,46 +992,46 @@ Func_4279c:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_427a9)
+	ld a, HIGH(.Update)
 	ld [hld], a
-	ld a, LOW(.Func_427a9)
+	ld a, LOW(.Update)
 	ld [hld], a
-.Func_427a9:
-	call .Func_42935
+.Update:
+	call .check_omodonmeka_linked
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
 	jr z, Omodon_Idle
 	cp $2d
-	jr z, .asm_427cd
+	jr z, .carried
 	cp $2e
-	jr z, .asm_427fe
+	jr z, .fall
 	cp $2f
 	jr z, Omodon_Landed
 	cp $2a
-	jp z, .Func_4284d
+	jp z, .StartPressWario
 	cp $5a
-	jp z, .Func_4286b
+	jp z, .PressWario
 	xor a
 	ld [hl], a
 	jr Omodon_Idle
-.asm_427cd
-	call .Func_42894
+.carried
+	call .pass_stepped_flag_to_omodonmeka
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $33
-	jr nz, .asm_427da
+	jr nz, .carry_up
 	dec [hl]
 	ret
 
-.asm_427da
+.carry_up
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
-	jr z, .asm_427e5
+	jr z, .move_up
 	ld a, [wGlobalCounter]
 	rra
 	ret c
-.asm_427e5
+.move_up
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp nz, MoveObjectUp
@@ -1047,7 +1047,7 @@ Func_4279c:
 	ld [wCurObjCollBoxBottom], a
 	ret
 
-.asm_427fe
+.fall
 	ld bc, DelayedFallYVel
 	call ApplyObjYMovement
 	ld hl, wCurObjYPos
@@ -1076,7 +1076,7 @@ Func_4279c:
 	call DoGroundShake
 	ld de, OmodonmekaFrameset_68f45
 	call SetObjectFramesetPtr
-.asm_4283c
+.set_landed
 	ld a, $1c
 	ld [hli], a
 	ld l, OBJ_INTERACTION_TYPE
@@ -1088,7 +1088,7 @@ Func_4279c:
 	ld [wCurObjState], a
 	ret
 
-.Func_4284d:
+.StartPressWario:
 	ld de, OmodonmekaFrameset_68f45
 	call SetObjectFramesetPtr
 	ld a, $14
@@ -1104,11 +1104,11 @@ Func_4279c:
 	ld [hli], a
 	ret
 
-.Func_4286b:
+.PressWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $14
-	jr nz, .asm_42889
+	jr nz, .count_down
 	ld a, [wAutoMoveState]
 	and a
 	jp nz, MoveObjectDown_Fast
@@ -1119,16 +1119,16 @@ Func_4279c:
 	ld a, [wWarioYPos + 0]
 	sbc $00
 	ld [hli], a
-.asm_42889
+.count_down
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
 	ld a, no_actions_for 31
 	ld [wCurObjAction], a
-	jr .asm_4283c
+	jr .set_landed
 
 
-.Func_42894:
+.pass_stepped_flag_to_omodonmeka:
 	ld hl, wCurObjUnk01
 	ld a, [hli]
 	ld c, a
@@ -1140,101 +1140,101 @@ Func_4279c:
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428af
+	jr nz, .check_meka_obj2
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428af
+	jr nz, .check_meka_obj2
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428af
+	jr z, .found_meka
+.check_meka_obj2
 	ld l, $20
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428be
+	jr nz, .check_meka_obj3
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428be
+	jr nz, .check_meka_obj3
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428be
+	jr z, .found_meka
+.check_meka_obj3
 	ld l, $40
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428cd
+	jr nz, .check_meka_obj4
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428cd
+	jr nz, .check_meka_obj4
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428cd
+	jr z, .found_meka
+.check_meka_obj4
 	ld l, $60
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428dc
+	jr nz, .check_meka_obj5
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428dc
+	jr nz, .check_meka_obj5
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428dc
+	jr z, .found_meka
+.check_meka_obj5
 	ld l, $80
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428eb
+	jr nz, .check_meka_obj6
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428eb
+	jr nz, .check_meka_obj6
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428eb
+	jr z, .found_meka
+.check_meka_obj6
 	ld l, $a0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_428fa
+	jr nz, .check_meka_obj7
 	ld a, [hli]
 	cp c
-	jr nz, .asm_428fa
+	jr nz, .check_meka_obj7
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_428fa
+	jr z, .found_meka
+.check_meka_obj7
 	ld l, $c0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_42909
+	jr nz, .check_meka_obj8
 	ld a, [hli]
 	cp c
-	jr nz, .asm_42909
+	jr nz, .check_meka_obj8
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_42909
+	jr z, .found_meka
+.check_meka_obj8
 	ld l, $e0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_42918
+	jr nz, .meka_not_found
 	ld a, [hli]
 	cp c
-	jr nz, .asm_42918
+	jr nz, .meka_not_found
 	ld a, [hld]
 	cp b
-	jr z, .asm_42919
-.asm_42918
+	jr z, .found_meka
+.meka_not_found
 	ret
 
-.asm_42919
+.found_meka
 	ld a, [wCurObjFlags]
 	rlca
 	rlca
@@ -1255,9 +1255,9 @@ Func_4279c:
 	ld a, [hl]
 	cp $3a
 	ret nz
-	jp Omodon_Idle.asm_4277f
+	jp Omodon_Idle.start_fall
 
-.Func_42935:
+.check_omodonmeka_linked:
 	ld hl, wCurObjUnk01
 	ld a, [hli]
 	ld c, a
@@ -1269,103 +1269,103 @@ Func_4279c:
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_42950
+	jr nz, .check_linked_obj2
 	ld a, [hli]
 	cp c
-	jr nz, .asm_42950
+	jr nz, .check_linked_obj2
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_42950
+	jr z, .linked
+.check_linked_obj2
 	ld l, $20
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_4295f
+	jr nz, .check_linked_obj3
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4295f
+	jr nz, .check_linked_obj3
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_4295f
+	jr z, .linked
+.check_linked_obj3
 	ld l, $40
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_4296e
+	jr nz, .check_linked_obj4
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4296e
+	jr nz, .check_linked_obj4
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_4296e
+	jr z, .linked
+.check_linked_obj4
 	ld l, $60
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_4297d
+	jr nz, .check_linked_obj5
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4297d
+	jr nz, .check_linked_obj5
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_4297d
+	jr z, .linked
+.check_linked_obj5
 	ld l, $80
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_4298c
+	jr nz, .check_linked_obj6
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4298c
+	jr nz, .check_linked_obj6
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_4298c
+	jr z, .linked
+.check_linked_obj6
 	ld l, $a0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_4299b
+	jr nz, .check_linked_obj7
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4299b
+	jr nz, .check_linked_obj7
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_4299b
+	jr z, .linked
+.check_linked_obj7
 	ld l, $c0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_429aa
+	jr nz, .check_linked_obj8
 	ld a, [hli]
 	cp c
-	jr nz, .asm_429aa
+	jr nz, .check_linked_obj8
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_429aa
+	jr z, .linked
+.check_linked_obj8
 	ld l, $e0
 	ld a, [hli]
 	and d
 	cp e
-	jr nz, .asm_429b9
+	jr nz, .not_linked
 	ld a, [hli]
 	cp c
-	jr nz, .asm_429b9
+	jr nz, .not_linked
 	ld a, [hld]
 	cp b
-	jr z, .asm_429be
-.asm_429b9
+	jr z, .linked
+.not_linked
 	xor a
 	ld [wCurObjSubState], a
 	ret
 
-.asm_429be
+.linked
 	ld a, $10
 	ld [wCurObjSubState], a
 	ret

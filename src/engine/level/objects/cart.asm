@@ -62,7 +62,7 @@ CartFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_48613
+	jr nz, .stop
 	call MoveObjectLeft
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -91,7 +91,7 @@ CartFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_48613
+	jr nz, .stop
 	call MoveObjectRight
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -103,7 +103,7 @@ CartFunc:
 	ret nz
 	ld b, $01
 	jp MoveWarioRight
-.asm_48613
+.stop
 	ld de, CartFrameset_69199
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -120,14 +120,14 @@ CartVariableFunc:
 	push_wram $02
 	ld a, TRUCK_WHEEL
 	call IsTreasureCollected
-	jr nz, .asm_4863b
+	jr nz, .has_wheel
 	ld de, CartFrameset_691a7
 	ld bc, CartStoppedFunc
-	jr .asm_48641
-.asm_4863b
+	jr .init
+.has_wheel
 	ld de, CartFrameset_691bf
 	ld bc, .Waiting
-.asm_48641
+.init
 	pop_wram
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
@@ -160,10 +160,10 @@ CartVariableFunc:
 	ld [hld], a
 	ld a, [wCurObjId]
 	cp CART_VARIABLE_RIGHT
-	jr z, .asm_48682
+	jr z, .face_right
 	ld de, CartFrameset_691b3
 	jp SetObjectFramesetPtr
-.asm_48682
+.face_right
 	ld de, CartFrameset_691aa
 	jp SetObjectFramesetPtr
 
@@ -177,7 +177,7 @@ CartVariableFunc:
 	ret c
 	ld a, [wCurObjId]
 	cp CART_VARIABLE_RIGHT
-	jr z, .asm_486e3
+	jr z, .cart_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -193,7 +193,7 @@ CartVariableFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_48721
+	jr nz, .stop
 	call MoveObjectLeft
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -205,7 +205,7 @@ CartVariableFunc:
 	ret nz
 	ld b, $01
 	jp MoveWarioLeft
-.asm_486e3
+.cart_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -221,7 +221,7 @@ CartVariableFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Side
 	and a
-	jr nz, .asm_48721
+	jr nz, .stop
 	call MoveObjectRight
 	ld l, OBJ_FLAGS
 	bit OBJFLAG_STEPPED_F, [hl]
@@ -233,7 +233,7 @@ CartVariableFunc:
 	ret nz
 	ld b, $01
 	jp MoveWarioRight
-.asm_48721
+.stop
 	ld de, CartFrameset_691bf
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1

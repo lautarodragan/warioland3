@@ -8,16 +8,16 @@ TogebaFunc:
 	ld [hld], a
 	ld a, $f4
 	ld [hld], a
-.Func_48d9b:
+.SetUpright:
 	ld de, TogebaFrameset_69230
 	call SetObjectFramesetPtr
 	xor a
 	ld [hl], a
 	ld [wCurObjState], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_48db7)
+	ld a, HIGH(.Upright)
 	ld [hld], a
-	ld a, LOW(.Func_48db7)
+	ld a, LOW(.Upright)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -26,14 +26,14 @@ TogebaFunc:
 	ld [hld], a
 	ret
 
-.Func_48db7:
+.Upright:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr nc, .asm_48de3
+	jr nc, .start_flip_over
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr nz, .asm_48dda
+	jr nz, .count_down
 	ld l, OBJ_STATE
 	ld a, [hl]
 	and a
@@ -48,14 +48,14 @@ TogebaFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.asm_48dda
+.count_down
 	dec [hl]
 	ret nz
 	ld de, TogebaFrameset_69230
 	call SetObjectFramesetPtr
 	ret
 
-.asm_48de3
+.start_flip_over
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, $4e
 	ld [hld], a
@@ -74,16 +74,16 @@ TogebaFunc:
 	ld [wCurObjVar3], a
 	ret
 
-.Func_48e02:
+.FlipOver:
 	ld bc, TogebaData_60760
 	call ApplyObjYMovement
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_48e46)
+	ld a, HIGH(.Flipped)
 	ld [hld], a
-	ld a, LOW(.Func_48e46)
+	ld a, LOW(.Flipped)
 	ld [hld], a
 	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
@@ -97,7 +97,7 @@ TogebaFunc:
 	ld [hld], a
 	ret
 
-.Func_48e2b:
+.StartRecover:
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, $4e
 	ld [hld], a
@@ -109,13 +109,13 @@ TogebaFunc:
 	ld [hli], a
 	ret
 
-.Func_48e3e:
+.Recover:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	jp .Func_48d9b
+	jp .SetUpright
 
-.Func_48e46:
+.Flipped:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -129,7 +129,7 @@ TogebaFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .Func_48e2b
+	jr nz, .StartRecover
 	ld hl, wCurObjXPos
 	ld a, [hli]
 	add $0b
@@ -139,30 +139,30 @@ TogebaFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .Func_48e2b
+	jr nz, .StartRecover
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_48e82
+	jr z, .check_state
 	dec [hl]
-	jr nz, .asm_48e82
+	jr nz, .check_state
 	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
-.asm_48e82
+.check_state
 	ld l, OBJ_STATE
 	ld a, [hl]
 	and a
-	jr z, .asm_48eb3
+	jr z, .sink
 	cp $0a
-	jr nz, .asm_48e99
+	jr nz, .hit
 	xor a
 	ld [hl], a
 	ld de, TogebaFrameset_6926c
 	call SetObjectFramesetPtr
 	ld a, $1b
 	ld [hli], a
-	jr .asm_48eb3
-.asm_48e99
+	jr .sink
+.hit
 	xor a
 	ld [hl], a
 	ld de, TogebaFrameset_6927c
@@ -171,15 +171,15 @@ TogebaFunc:
 	ld [hli], a
 	ld a, [wCurObjUnk1d]
 	rla
-	jr nc, .asm_48eb3
+	jr nc, .sink
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_48ecc)
+	ld a, HIGH(.FlippedBounce)
 	ld [hld], a
-	ld a, LOW(.Func_48ecc)
+	ld a, LOW(.FlippedBounce)
 	ld [hld], a
 	ret
 
-.asm_48eb3
+.sink
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
@@ -192,15 +192,15 @@ TogebaFunc:
 	call HandleDownwardsFloorTransition
 	jp MoveObjectDown
 
-.Func_48ecc:
+.FlippedBounce:
 	call MoveObjectUp_Fast
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_48e46)
+	ld a, HIGH(.Flipped)
 	ld [hld], a
-	ld a, LOW(.Func_48e46)
+	ld a, LOW(.Flipped)
 	ld [hld], a
 	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr

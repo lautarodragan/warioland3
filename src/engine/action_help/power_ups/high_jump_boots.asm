@@ -73,12 +73,12 @@ HighJumpBootsActionHelp:
 HighJumpBootsActionHelp_End:
 	ld a, [wPowerUpLevel]
 	bit ACTION_HELP_LEVEL_CLEAR_F, a
-	jr nz, .asm_1fa920
+	jr nz, .return_to_overworld
 	bit ACTION_HELP_TITLE_SCREEN_F, a
 	jr z, .restart_action_help
 	jp InitWithoutDemoPowerUpReset
 
-.asm_1fa920
+.return_to_overworld
 	and POWER_UP_MASK
 	ld [wPowerUpLevel], a
 	farcall ReturnToOverworld
@@ -232,10 +232,10 @@ HighJumpBootsActionHelp_Step08:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1faa2c
+	jr c, .got_vel_index
 	ld [hl], $27
 	ld a, [hl]
-.asm_1faa2c
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_HighJump
@@ -305,11 +305,11 @@ HighJumpBootsActionHelp_Step0B:
 	ld hl, wMenuObj5XCoord
 	ld a, [hl]
 	cp $3c
-	jr nc, .asm_1faaa6
+	jr nc, .skip_inc
 	inc [hl]
 	ld hl, wMenuObj4XCoord
 	inc [hl]
-.asm_1faaa6
+.skip_inc
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
@@ -385,10 +385,10 @@ HighJumpBootsActionHelp_Step0E:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1fab2d
+	jr c, .got_vel_index
 	ld [hl], $27
 	ld a, [hl]
-.asm_1fab2d
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
@@ -470,20 +470,20 @@ HighJumpBootsActionHelp_Step10:
 HighJumpBootsActionHelp_Step11:
 	ld a, [wMenuObj4AnimationEnded]
 	and a
-	jr z, .asm_1fabbe
+	jr z, .update_jump
 	ld hl, wMenuObj4
 	call ActionHelp_HideBlockDebris
-.asm_1fabbe
+.update_jump
 	ld hl, wMenuObj5XCoord
 	inc [hl]
 	ld hl, wActionHelpWarioVar
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1fabce
+	jr c, .got_vel_index
 	ld [hl], $27
 	ld a, [hl]
-.asm_1fabce
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal
@@ -532,7 +532,7 @@ HighJumpBootsActionHelp_Step13:
 	ld [wActionHelpWarioYCoord], a
 	ld a, [wActionHelpWarioVar]
 	cp $18
-	jr z, .asm_1fac38
+	jr z, .at_apex
 	ret c
 	ld a, [wActionHelpWarioYCoord]
 	cp $40
@@ -546,7 +546,7 @@ HighJumpBootsActionHelp_Step13:
 	inc [hl]
 	ret
 
-.asm_1fac38
+.at_apex
 	call ActionHelp_ClearButtonsInput
 	ret
 
@@ -636,10 +636,10 @@ HighJumpBootsActionHelp_Step18:
 	inc [hl]
 	ld a, [hl]
 	cp $28
-	jr c, .asm_1facc9
+	jr c, .got_vel_index
 	ld [hl], $27
 	ld a, [hl]
-.asm_1facc9
+.got_vel_index
 	ld e, a
 	ld d, $00
 	ld hl, JumpVelTable_Normal

@@ -9,10 +9,10 @@ TeruteruFunc:
 .Init:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND
-	jr z, .asm_448ed
+	jr z, .set_update
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
-.asm_448ed
+.set_update
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.Update)
 	ld [hld], a
@@ -24,53 +24,53 @@ TeruteruFunc:
 	and $f0
 	or $08
 	ld [hl], a
-	jp .Func_44a72
+	jp .Default
 
 .Update:
 	ld hl, wCurObjFlags
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND
-	jr nz, .asm_44911
+	jr nz, .visible
 	set OBJFLAG_INVISIBLE_F, [hl]
-	jr .asm_44913
-.asm_44911
+	jr .dispatch
+.visible
 	res OBJFLAG_INVISIBLE_F, [hl]
-.asm_44913
+.dispatch
 	ld a, [wCurObjState]
 	jumptable
 
-	dw .Func_44a72
-	dw .Func_44a97
-	dw .Func_44c3f
-	dw .Func_44c49
-	dw .Func_44c84
-	dw .Func_44c8e
-	dw .Func_44caa
-	dw .Func_44cbd
-	dw .Func_44c3f
-	dw .Func_44c49
+	dw .Default
+	dw .Land
+	dw .BumpLeftStart
+	dw .BumpRightStart
+	dw .AttackedLeftStart
+	dw .AttackedRightStart
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .BumpLeftStart
+	dw .BumpRightStart
 	dw VanishObject2
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_449d1
-	dw .Func_44be1
-	dw .Func_44c12
-	dw .Func_44a72
-	dw .Func_44d27
-	dw .Func_44a72
-	dw .Func_44bb9
-	dw .Func_44bc0
-	dw .Func_44b61
-	dw .Func_44b8d
-	dw .Func_44cff
-	dw .Func_44cd0
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State0e
+	dw .State0f
+	dw .State10
+	dw .Default
+	dw .State12
+	dw .Default
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
 	dw ObjState_HopStart
 	dw ObjState_Hop
 	dw ObjState_StartRandomWobble
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
+	dw .Default
+	dw .Default
+	dw .Default
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -79,16 +79,16 @@ TeruteruFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_44c7a
-	dw .Func_44c70
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a09
-	dw .Func_44a25
-	dw .Func_44a5d
+	dw .State28
+	dw .State29
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Special1
+	dw .Special2
+	dw .Special3
 	dw ObjState_Fall
-	dw .Func_44ac1
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
 	dw ObjState_AttackedLeft
@@ -97,22 +97,22 @@ TeruteruFunc:
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44a72
-	dw .Func_44bf8
-	dw .Func_44c32
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .Default
+	dw .State3f
+	dw .State40
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_44a72
+	dw .Default
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_44b7f
-	dw .Func_44bab
-	dw .Func_44d16
-	dw .Func_44cef
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -129,21 +129,21 @@ TeruteruFunc:
 	dw ObjState_FallRight
 	dw ObjState_HitByObjLeft
 	dw ObjState_HitByObjRight
-	dw .Func_44b2d
-	dw .Func_449d7
-	dw .Func_44a72
+	dw .State5a
+	dw .State5b
+	dw .Default
 
-.Func_449d1:
+.State0e:
 	ld a, $5b
 	ld [wCurObjState], a
 	ret
 
-.Func_449d7:
+.State5b:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND
-	jr nz, .asm_449ff
+	jr nz, .blind_over
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_Y_POS
@@ -159,13 +159,13 @@ TeruteruFunc:
 	ld [hli], a
 	ret
 
-.asm_449ff
+.blind_over
 	ld a, [wDirection]
 	and a
-	jp z, .Func_44c3f
-	jp .Func_44c49
+	jp z, .BumpLeftStart
+	jp .BumpRightStart
 
-.Func_44a09:
+.Special1:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -182,25 +182,25 @@ TeruteruFunc:
 	ld [hli], a
 	ret
 
-.Func_44a25:
+.Special2:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_44a46
+	jr z, .start_rise
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr z, .asm_44a43
-	jr c, .asm_44a40
+	jr z, .descend
+	jr c, .move_right
 	call MoveObjectLeft
-	jr .asm_44a43
-.asm_44a40
+	jr .descend
+.move_right
 	call MoveObjectRight
-.asm_44a43
+.descend
 	jp MoveObjectDown_Fast
-.asm_44a46
+.start_rise
 	ld a, $2f
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68bae
@@ -214,19 +214,19 @@ TeruteruFunc:
 	ld [hli], a
 	ret
 
-.Func_44a5d:
+.Special3:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $3c
-	jr nz, .asm_44a6b
+	jr nz, .rise
 	ld de, TeruteruFrameset_68b90
 	call SetObjectFramesetPtr
-.asm_44a6b
+.rise
 	dec [hl]
 	jp nz, MoveObjectUp
-	jp .asm_44b4c
+	jp .resume_walk
 
-.Func_44a72:
+.Default:
 	ld hl, wCurObjCollBoxRight
 	ld a, $06
 	ld [hld], a
@@ -243,12 +243,12 @@ TeruteruFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_44a95
+	jr c, .face_right
 	res OBJSUBFLAG_HDIR_F, [hl]
-	jr .Func_44a97
-.asm_44a95
+	jr .Land
+.face_right
 	set OBJSUBFLAG_HDIR_F, [hl]
-.Func_44a97:
+.Land:
 	ld hl, wCurObjState
 	ld a, $31
 	ld [hld], a
@@ -272,10 +272,10 @@ TeruteruFunc:
 	ld [hl], a
 	ret
 
-.Func_44ac1:
+.Walk:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_BLIND
-	jr z, .asm_44afd
+	jr z, .hover
 	ld c, $2a
 	ld a, [wCurObjScreenYPos]
 	add c
@@ -284,9 +284,9 @@ TeruteruFunc:
 	add c
 	sub b
 	cp $18
-	jr c, .asm_44afd
+	jr c, .hover
 	cp $80
-	jr nc, .asm_44afd
+	jr nc, .hover
 	ld a, [wWarioScreenXPos]
 	add c
 	ld b, a
@@ -294,10 +294,10 @@ TeruteruFunc:
 	add c
 	sub b
 	cp $e8
-	jr nc, .asm_44aee
+	jr nc, .start_swoop
 	cp $18
-	jr nc, .asm_44afd
-.asm_44aee
+	jr nc, .hover
+.start_swoop
 	ld a, $2d
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68b84
@@ -306,26 +306,26 @@ TeruteruFunc:
 	ld [hli], a
 	ret
 
-.asm_44afd
+.hover
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjVar1
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_44b17
+	jr c, .moving_right
 	dec [hl]
 	ld a, [hl]
 	and a
 	jp nz, MoveObjectLeft
 	ld de, TeruteruFrameset_68b76
-	jr .asm_44b21
-.asm_44b17
+	jr .start_turn
+.moving_right
 	inc [hl]
 	ld a, [hl]
 	cp $64
 	jp nz, MoveObjectRight
 	ld de, TeruteruFrameset_68b7d
-.asm_44b21
+.start_turn
 	call SetObjectFramesetPtr
 	ld a, 26
 	ld [hli], a
@@ -333,44 +333,44 @@ TeruteruFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44b2d:
+.State5a:
 	ld bc, HoverYVel
 	call ApplyObjYMovement_Loop
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $09
-	jr z, .asm_44b3f
+	jr z, .turn_around
 	dec [hl]
-	jr z, .asm_44b4c
+	jr z, .resume_walk
 	ret
 
-.asm_44b3f
+.turn_around
 	dec [hl]
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_44b49
+	jr c, .turn_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_44b49
+.turn_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_44b4c
+.resume_walk
 	ld l, OBJ_STATE
 	ld a, $31
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_44b5b
+	jr c, .walk_right
 	ld de, TeruteruFrameset_68b64
 	jp SetObjectFramesetPtr
-.asm_44b5b
+.walk_right
 	ld de, TeruteruFrameset_68b6d
 	jp SetObjectFramesetPtr
 
-.Func_44b61:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
@@ -386,7 +386,7 @@ TeruteruFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_44b7f:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -395,7 +395,7 @@ TeruteruFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44b8d:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
@@ -411,7 +411,7 @@ TeruteruFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_GRABBABLE
 	ld [hld], a
-.Func_44bab:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -420,14 +420,14 @@ TeruteruFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44bb9:
+.State14:
 	ld a, $44
 	ld [wCurObjState], a
-	jr .asm_44bc5
-.Func_44bc0:
+	jr .set_fall
+.State15:
 	ld a, $45
 	ld [wCurObjState], a
-.asm_44bc5
+.set_fall
 	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
 	ld l, OBJ_VAR_2
@@ -446,7 +446,7 @@ TeruteruFunc:
 	ld [hl], a
 	ret
 
-.Func_44be1:
+.State0f:
 	ld a, $3f
 	ld [wCurObjState], a
 	ld a, $64
@@ -458,15 +458,15 @@ TeruteruFunc:
 	and OBJSUBFLAGS_MASK
 	or $08
 	ld [hl], a
-.Func_44bf8:
+.State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_44c05
+	jr c, .count_down
 	ld a, $1c
 	ld [wCurObjState], a
 	ret
 
-.asm_44c05
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -474,7 +474,7 @@ TeruteruFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44c12:
+.State10:
 	ld hl, wCurObjState
 	ld a, $40
 	ld [hld], a
@@ -494,7 +494,7 @@ TeruteruFunc:
 	ld [hli], a
 	ld a, $f1
 	ld [hl], a
-.Func_44c32:
+.State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectUp
@@ -502,18 +502,18 @@ TeruteruFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_44c3f:
+.BumpLeftStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $38
-	jr .asm_44c51
-.Func_44c49:
+	jr .set_wobble
+.BumpRightStart:
 	ld hl, wCurObjAction
 	ld a, $8f
 	ld [hld], a
 	ld a, $39
-.asm_44c51
+.set_wobble
 	ld [hld], a
 	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
@@ -535,30 +535,30 @@ TeruteruFunc:
 	ld [hl], a
 	ret
 
-.Func_44c70:
+.State29:
 	ld hl, wCurObjState
 	ld a, $59
 	ld [hld], a
 	ld b, $02
-	jr .asm_44c96
-.Func_44c7a:
+	jr .set_knocked_back
+.State28:
 	ld hl, wCurObjState
 	ld a, $58
 	ld [hld], a
 	ld b, $02
-	jr .asm_44c96
-.Func_44c84:
+	jr .set_knocked_back
+.AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, $34
 	ld [hld], a
 	ld b, $02
-	jr .asm_44c96
-.Func_44c8e:
+	jr .set_knocked_back
+.AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, $35
 	ld [hld], a
 	ld b, $02
-.asm_44c96
+.set_knocked_back
 	ld a, [hl]
 	and $f0
 	ld [hld], a
@@ -572,7 +572,7 @@ TeruteruFunc:
 	ld [wCurObjAction], a
 	ret
 
-.Func_44caa:
+.PickedUpLeftStart:
 	ld hl, wCurObjState
 	ld a, $36
 	ld [hld], a
@@ -585,7 +585,7 @@ TeruteruFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_44cbd:
+.PickedUpRightStart:
 	ld hl, wCurObjState
 	ld a, $37
 	ld [hld], a
@@ -598,7 +598,7 @@ TeruteruFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_44cd0:
+.State19:
 	ld a, $49
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68ba5
@@ -615,7 +615,7 @@ TeruteruFunc:
 	and OBJSUBFLAGS_MASK
 	or $08
 	ld [hl], a
-.Func_44cef:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
@@ -623,9 +623,9 @@ TeruteruFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jr .Func_44cff
+	jr .State18
 
-.Func_44cff:
+.State18:
 	ld a, $48
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68ba5
@@ -637,7 +637,7 @@ TeruteruFunc:
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_GRABBED_F, [hl]
-.Func_44d16:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
@@ -645,9 +645,9 @@ TeruteruFunc:
 	ld a, [hl]
 	xor OBJSUBFLAG_HDIR
 	ld [hl], a
-	jp .Func_44cd0
+	jp .State19
 
-.Func_44d27:
+.State12:
 	ld hl, wCurObjAction
 	ld a, $9f
 	ld [hld], a

@@ -62,7 +62,7 @@ VBlank_MusicalCoinsScreen:
 	bit 7, a
 	jr z, .dma_transfer
 	and $7f
-	jr nz, .asm_d47d9
+	jr nz, .vram1_tile
 	ld hl, wBGMapTileVRAM0Queue
 	ld a, [hli]
 	ld d, a
@@ -76,8 +76,8 @@ VBlank_MusicalCoinsScreen:
 	ld e, a
 	ld a, [hli]
 	ld [de], a
-	jr .asm_d47e6
-.asm_d47d9
+	jr .done_bg_update
+.vram1_tile
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, wBGMapTileVRAM0Queue
@@ -87,7 +87,7 @@ VBlank_MusicalCoinsScreen:
 	ld e, a
 	ld a, [hl]
 	ld [de], a
-.asm_d47e6
+.done_bg_update
 	ld hl, wBGUpdateRequest
 	res 7, [hl]
 .dma_transfer

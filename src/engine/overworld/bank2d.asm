@@ -41,20 +41,20 @@ InitOWObjects_North:
 
 InitNOWObjects_CutTree:
 	dec c
-	jr z, .asm_b404f
+	jr z, .place_hint_obj
 	ld hl, wSceneObj8
 	ld de, .data
 	call InitSceneObjParams
-	jr .asm_b404f
+	jr .place_hint_obj
 
 .data
 	db $44, $30, $01
 
-.asm_b404f
-	call .Func_b4055
+.place_hint_obj
+	call .InitDayNightObjs
 	jp PlaceTempleHintObj
 
-.Func_b4055:
+.InitDayNightObjs:
 	ld a, [wCurEvent]
 	and a
 	ret nz
@@ -103,14 +103,14 @@ InitNOWObjects_Garlic:
 	ret nz
 	ld a, [wCurEvent]
 	and a
-	jr nz, .asm_b40b4
+	jr nz, .init_obj3
 	ld a, [wNextMapSide]
 	and a
-	jr nz, .asm_b40b4
+	jr nz, .init_obj3
 	ld a, [wMapSideLevelID]
 	cp OWNORTH_SEA_TURTLE_ROCKS
 	ret z
-.asm_b40b4
+.init_obj3
 	ld hl, wSceneObj3
 	ld de, .data
 	jp InitSceneObjParams
@@ -125,9 +125,9 @@ InitNOWObjects_MagicSeed:
 	ld hl, wSceneObj4
 	ld de, .data_2
 	cp $80
-	jr nz, .asm_b40d0
+	jr nz, .init_obj4
 	ld de, .data_1
-.asm_b40d0
+.init_obj4
 	jp InitSceneObjParams
 
 .data_1
@@ -140,16 +140,16 @@ InitNOWObjects_SummonSnake:
 	and a
 	ret z
 	dec c
-	jr z, .asm_b40f0
+	jr z, .init_obj2
 	ld hl, wSceneObj1
 	ld de, .data_1
 	call InitSceneObjParams
-	call .asm_b40f0
+	call .init_obj2
 	xor a
 	ld [wSceneObj2State], a
 	ret
 
-.asm_b40f0
+.init_obj2
 	ld hl, wSceneObj2
 	ld de, .data_2
 	jp InitSceneObjParams
@@ -164,7 +164,7 @@ InitNOWObjects_FallLeaves:
 	and a
 	ret z
 	sla c
-	jr c, .asm_b4128
+	jr c, .pending
 	ld a, $01
 	ld [wSceneObj6ScriptStep], a
 	ld hl, wSceneObj6
@@ -181,7 +181,7 @@ InitNOWObjects_FallLeaves:
 .data_2
 	db $38, $0f, $10
 
-.asm_b4128
+.pending
 	ld hl, wSceneObj6
 	ld de, .data_3
 	call InitSceneObjParams
@@ -388,13 +388,13 @@ InitOWObjects_West:
 InitWOWObjects_Rain:
 	ld a, c
 	cp $80
-	jr z, .asm_b4339
+	jr z, .pending
 	and a
 	ret z
 	ld hl, WOWTilemapPatch_Rain
 	farcall _ApplyOWTilemapPatches
 	ret
-.asm_b4339
+.pending
 	ld hl, wSceneObj15
 	ld de, .data_1
 	call InitSceneObjParams
@@ -432,9 +432,9 @@ InitWOWObjects_ElevatorWorking:
 	ld a, [wOWIsNight]
 	and a
 	ld a, $06
-	jr z, .asm_b4385
+	jr z, .set_obj8_state
 	ld a, $08
-.asm_b4385
+.set_obj8_state
 	ld [wSceneObj8State], a
 	ret
 
@@ -450,9 +450,9 @@ InitWOWObjects_MagicSeed:
 	ld hl, wSceneObj4
 	ld de, .data_2
 	cp $80
-	jr nz, .asm_b439f
+	jr nz, .init_obj4
 	ld de, .data_1
-.asm_b439f
+.init_obj4
 	jp InitSceneObjParams
 
 .data_1
@@ -465,11 +465,11 @@ InitWOWObjects_SummonSnake:
 	and a
 	ret z
 	dec c
-	jr z, .asm_b43ce
+	jr z, .init_obj5
 	ld hl, wSceneObj1
 	ld de, .data_1
 	call InitSceneObjParams
-	call .asm_b43ce
+	call .init_obj5
 	xor a
 	ld [wSceneObj5State], a
 	hlbgcoord 16, 5, wAttrmap
@@ -479,7 +479,7 @@ InitWOWObjects_SummonSnake:
 	hlbgcoord  0, 7, wAttrmap
 	res B_BG_PRIO, [hl]
 	ret
-.asm_b43ce
+.init_obj5
 	ld hl, wSceneObj5
 	ld de, .data_2
 	jp InitSceneObjParams
@@ -494,10 +494,10 @@ InitWOWObjects_Earthquake:
 	and a
 	ret z
 	dec a
-	jr nz, .asm_b43e9
+	jr nz, .pending
 	ld hl, WOWTilemapPatch_Earthquake
 	jp ApplyOWTilemapPatches
-.asm_b43e9
+.pending
 	ld hl, wSceneObj11
 	ld de, .data_1
 	call InitSceneObjParams
@@ -550,16 +550,16 @@ InitWOWObjects_VulcanoEruption:
 	and a
 	ret z
 	sla a
-	jr c, .asm_b4455
-.asm_b444f
+	jr c, .pending
+.apply_patch
 	ld hl, WOWTilemapPatch_VulcanoEruption
 	jp ApplyOWTilemapPatches
-.asm_b4455
+.pending
 	ld a, [wOWSceneActionParam]
 	ld b, a
 	ld a, [wTempUnlockableConnectionID]
 	cp b
-	jr nz, .asm_b444f
+	jr nz, .apply_patch
 	ld hl, wSceneObj11
 	ld de, InitWOWObjects_Earthquake.data_1
 	call InitSceneObjParams
@@ -578,10 +578,10 @@ InitWOWObjects_RedMusicBox:
 	call InitSceneObjParams
 	ld a, [wEventUnlockState]
 	add a
-	jr z, .asm_b448f
+	jr z, .pending
 	ld hl, WOWTilemapPatch_RedMusicBox
 	jp ApplyOWTilemapPatches
-.asm_b448f
+.pending
 	xor a
 	ld [wSceneObj6State], a
 	ld hl, wSceneObj6YCoord
@@ -640,14 +640,14 @@ InitSOWObjects_MagicSeed:
 	ld hl, wSceneObj4
 	ld de, .data_2
 	cp $80
-	jr nz, .asm_b4500
+	jr nz, .init_obj4
 	ld a, [wOWSceneActionParam]
 	ld b, a
 	ld a, [wTempUnlockableConnectionID]
 	cp b
 	ret nz
 	ld de, .data_1
-.asm_b4500
+.init_obj4
 	jp InitSceneObjParams
 
 .data_1
@@ -673,23 +673,23 @@ InitSOWObjects_YellowMusicBox:
 InitSOWObjects_CanyonThunder:
 	ld a, $80
 	cp c
-	jr z, .asm_b4542
+	jr z, .pending
 	dec c
 	ret nz
 	ld hl, SOWTilemapPatch_CanyonThunder
 	farcall _ApplyOWTilemapPatches
-.asm_b4539
+.init_obj5
 	ld hl, wSceneObj5
 	ld de, .data_3
 	jp InitSceneObjParams
-.asm_b4542
+.pending
 	ld hl, wSceneObj2
 	ld de, .data_1
 	call InitSceneObjParams
 	ld hl, wSceneObj10
 	ld de, .data_2
 	call InitSceneObjParams
-	call .asm_b4539
+	call .init_obj5
 	xor a
 	ld [wSceneObj5State], a
 	jp LoadOverworldThunderGfx
@@ -704,7 +704,7 @@ InitSOWObjects_CanyonThunder:
 InitSOWObjects_RaiseTower:
 	ld a, c
 	dec a
-	jr z, .asm_b459a
+	jr z, .done
 	sla c
 	ret nc
 
@@ -732,7 +732,7 @@ InitSOWObjects_RaiseTower:
 .data_2
 	db $50, $78, $0c
 
-.asm_b459a
+.done
 	ld hl, SOWTilemapPatch_RaiseTower
 	farcall _ApplyOWTilemapPatches
 	ld a, [wCurEvent]
@@ -754,7 +754,7 @@ InitSOWObjects_RaiseTower:
 InitSOWObjects_Fan:
 	ld a, c
 	and a
-	jr z, .asm_b45e3
+	jr z, .init_obj9
 	dec a
 	ret z
 	ld hl, wSceneObj1
@@ -764,7 +764,7 @@ InitSOWObjects_Fan:
 	ld de, .data_3
 	call InitSceneObjParams
 	call LoadOverworldFanGfx
-.asm_b45e3
+.init_obj9
 	ld hl, wSceneObj9
 	ld de, .data_1
 	jp InitSceneObjParams
@@ -781,15 +781,15 @@ InitSOWObjects_SummonSnake:
 	and a
 	ret z
 	dec c
-	jr z, .asm_b460c
+	jr z, .init_obj7
 	ld hl, wSceneObj1
 	ld de, .data_1
 	call InitSceneObjParams
-	call .asm_b460c
+	call .init_obj7
 	xor a
 	ld [wSceneObj7State], a
 	ret
-.asm_b460c
+.init_obj7
 	ld hl, wSceneObj7
 	ld de, .data_2
 	jp InitSceneObjParams
@@ -804,10 +804,10 @@ InitSOWObjects_Earthquake:
 	and a
 	ret z
 	sla c
-	jr c, .asm_b4628
+	jr c, .pending
 	ld hl, SOWTilemapPatch_Earthquake
 	jp ApplyOWTilemapPatches
-.asm_b4628
+.pending
 	ld hl, wSceneObj2
 	ld de, .data
 	call InitSceneObjParams
@@ -821,10 +821,10 @@ InitSOWObjects_GreenMusicBox:
 	and a
 	ret z
 	sla c
-	jr c, .asm_b4644
+	jr c, .pending
 	ld hl, SOWTilemapPatch_GreenMusicBox
 	jp ApplyOWTilemapPatches
-.asm_b4644
+.pending
 	ld hl, wSceneObj2
 	ld de, .data
 	call InitSceneObjParams
@@ -887,7 +887,7 @@ InitEOWObjects_FreezeSea:
 	call z, LoadUnfrozenSeaPal
 	ld a, $80
 	cp c
-	jr z, .asm_b46cd
+	jr z, .pending
 	dec c
 	ret nz
 
@@ -906,7 +906,7 @@ InitEOWObjects_FreezeSea:
 	ld b, BANK(OWSceneFreezeSeaAttrmap)
 	jp CopyFarBytes
 
-.asm_b46cd
+.pending
 	ld hl, wSceneObj1
 	ld de, .data
 	jp InitSceneObjParams
@@ -917,18 +917,18 @@ InitEOWObjects_FreezeSea:
 InitEOWObjects_Earthquake:
 	ld a, c
 	and a
-	jr z, .asm_b46e7
+	jr z, .init_obj6
 	cp $80
-	jr z, .asm_b46f0
+	jr z, .pending
 	ld hl, EOWTilemapPatch_Earthquake
 	jp ApplyOWTilemapPatches
-.asm_b46e7
+.init_obj6
 	ld hl, wSceneObj6
 	ld de, .data_1
 	jp InitSceneObjParams
 
-.asm_b46f0
-	call .asm_b46e7
+.pending
+	call .init_obj6
 	ld hl, wSceneObj15
 	ld de, .data_2
 	call InitSceneObjParams
@@ -949,10 +949,10 @@ InitEOWObjects_FormCastle:
 	ld a, c
 	and a
 	ret z
-	call .Func_b4757
+	call .InitDayNightObj7
 	ld a, $80
 	cp c
-	jr z, .asm_b4741
+	jr z, .pending
 
 	ld hl, EOWTilemapPatch_FormCastle1
 	call ApplyOWTilemapPatches
@@ -967,7 +967,7 @@ InitEOWObjects_FormCastle:
 	ld hl, EOWTilemapPatch_FormCastle6
 	jp ApplyOWTilemapPatches
 
-.asm_b4741
+.pending
 	ld hl, wSceneObj1
 	ld de, .data_1
 	call InitSceneObjParams
@@ -981,7 +981,7 @@ InitEOWObjects_FormCastle:
 .data_2
 	db $28, $28, $12
 
-.Func_b4757:
+.InitDayNightObj7:
 	ld a, [wTempOWSceneAction]
 	cp UNLOCK_LEVEL
 	ret z
@@ -1017,12 +1017,12 @@ InitEOWObjects_VulcanoEruption:
 	and a
 	ret z
 	sla c
-	jr nc, .asm_b47dc
+	jr nc, .apply_patch
 	ld a, [wOWSceneActionParam]
 	ld b, a
 	ld a, [wTempUnlockableConnectionID]
 	cp b
-	jr nz, .asm_b47dc
+	jr nz, .apply_patch
 
 	ld hl, wSceneObj10
 	ld de, .data_1
@@ -1045,7 +1045,7 @@ InitEOWObjects_VulcanoEruption:
 
 	call LoadOverworldFireGfx
 
-.asm_b47dc
+.apply_patch
 	ld hl, EOWTilemapPatch_VulcanoEruption
 	jp ApplyOWTilemapPatches
 
@@ -1069,13 +1069,13 @@ InitEOWObjects_BurnVines:
 	dec c
 	ret z
 	and a
-	jr z, .asm_b480c
-	call .asm_b480c
+	jr z, .init_obj9
+	call .init_obj9
 	ld hl, wSceneObj1
 	ld de, .data_2
 	call InitSceneObjParams
 	jp LoadOverworldTorchGfx
-.asm_b480c
+.init_obj9
 	ld hl, wSceneObj9
 	ld de, .data_1
 	jp InitSceneObjParams
@@ -1106,8 +1106,8 @@ InitEOWObjects_RaisePipe:
 	and a
 	ret z
 	dec c
-	jr z, .asm_b4864
-	call .asm_b4864
+	jr z, .init_obj8
+	call .init_obj8
 	ld a, [wSceneObj8YCoord]
 	add $08
 	ld [wSceneObj8YCoord], a
@@ -1124,7 +1124,7 @@ InitEOWObjects_RaisePipe:
 	ld b, 2
 	jp SetBGMapBytesPriority
 
-.asm_b4864
+.init_obj8
 	ld hl, wSceneObj8
 	ld de, .data_1
 	jp InitSceneObjParams
@@ -1960,9 +1960,9 @@ WestOWObjState05:
 	ld a, [wOWIsNight]
 	and a
 	ld b, $00
-	jr z, .asm_b4e9d
+	jr z, .set_attributes
 	ld b, $06
-.asm_b4e9d
+.set_attributes
 	set 0, l
 	res 2, l
 	ld [hl], b
@@ -2086,12 +2086,12 @@ UpdateWestOWPal5FromObj11:
 	ld hl, wTempPals1 palette 5
 	ld a, [wSceneObj11Frame]
 	cp $57
-	jr z, .asm_b4f6b
+	jr z, .copy_pal
 	ld a, [wSceneObj11State]
 	and a
-	jr z, .asm_b4f6b
+	jr z, .copy_pal
 	ld hl, .pal
-.asm_b4f6b
+.copy_pal
 	ld de, wTempBGPals palette 5
 	ld b, 1 palettes
 	call CopyHLToDE
@@ -2365,7 +2365,7 @@ NorthOWObjState26:
 	ld de, TopBarFrameset_aa0c1
 	call UpdateCurOWObjAnimation
 	ld b, $27
-	jr AnimateNorthOWObj2.asm_b5122
+	jr AnimateNorthOWObj2.set_state_when_finished
 
 NorthOWObjState27:
 	ld de, TopBarFrameset_aa09d
@@ -2375,20 +2375,20 @@ NorthOWObjState28:
 	ld de, TopBarFrameset_aa0bc
 	call UpdateCurOWObjAnimation
 	ld b, $25
-	jr AnimateNorthOWObj2.asm_b5122
+	jr AnimateNorthOWObj2.set_state_when_finished
 
 AnimateNorthOWObj2:
 	call UpdateCurOWObjAnimation
-.asm_b5117
+.draw
 	ld de, TopBarOAM_a9fe2
 	jp LoadCurSceneObjSpriteWithScroll
 
 	call UpdateCurOWObjAnimation
 	ld b, $00
-.asm_b5122
+.set_state_when_finished
 	call SetOWObjStateIfAnimFinished
 	jp z, RunNorthOWObjState
-	jr .asm_b5117
+	jr .draw
 
 NorthOWObjState29:
 	ld de, NorthOWObjFrameset_a87e8
@@ -2447,18 +2447,18 @@ NOWFunc_CutTree:
 	jumptable
 
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait4_1
 	dw .SetTreeFall
 	dw .WaitFall
 	dw .WaitDisappear
-	dw .Wait2
+	dw .Wait4_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait4_1:
 	ld a, 4
 	jp WaitOWFunc
 
-.Wait2:
+.Wait4_2:
 	ld a, 4
 	jp WaitOWFunc
 
@@ -2485,17 +2485,17 @@ NOWFunc_OpenGate:
 	jumptable
 
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait4_1
 	dw .OpenDoor
 	dw .WaitAnim
-	dw .Wait2
+	dw .Wait4_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait4_1:
 	ld a, $04
 	jp WaitOWFunc
 
-.Wait2:
+.Wait4_2:
 	ld a, $04
 	jp WaitOWFunc
 
@@ -2517,19 +2517,19 @@ NOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -2556,7 +2556,7 @@ NOWFunc_MagicSeed:
 	ld b, $09
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -2577,7 +2577,7 @@ NOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait8
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -2587,7 +2587,7 @@ NOWFunc_SummonSnake:
 	dw .WaitSnakeComeIn
 	dw EndOWFunc
 
-.Wait1:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -2643,27 +2643,27 @@ NOWFunc_FallLeaves:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b5316
+	dw .SetObj7State14
 	dw .StartLeaf1MovementAndPlaySFX
-	dw .Wait2
+	dw .Wait8
 	dw .StartLeaf3Movement
 	dw .WaitLeafMovement
-	dw .Wait3
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait3:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b5316:
+.SetObj7State14:
 	ld a, $14
 	ld hl, wSceneObj7State
 	call SetSceneObjState
@@ -2675,7 +2675,7 @@ NOWFunc_FallLeaves:
 	play_sfx SFX_SPARKLE
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -2816,11 +2816,11 @@ ENDR
 	ret
 
 UpdateNorthLeaves:
-	call .Func_b5435
-	call .Func_b54ba
+	call .UpdateLeaf1
+	call .UpdateLeaf2
 	ret
 
-.Func_b5435:
+.UpdateLeaf1:
 	ld hl, wSceneObj6ScriptStep
 	ld a, [hli]
 	and a
@@ -2828,37 +2828,37 @@ UpdateNorthLeaves:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b544a
-	dw .Func_b5461
-	dw .Func_b5471
-	dw .Func_b5486
-	dw .Func_b548e
-	dw .Func_b549e
+	dw .Leaf1_SetState12
+	dw .Leaf1_SetState13
+	dw .Leaf1_Reset
+	dw .Leaf1_Wait90
+	dw .Leaf1_Sink
+	dw .Leaf1_Restart
 
-.Func_b544a:
+.Leaf1_SetState12:
 	ld a, [wSceneObj6ScriptCounter]
 	cp $78
 	ret c
 	ld a, $12
 	ld hl, wSceneObj6State
 	call SetSceneObjState
-.asm_b5458
+.leaf1_next_step
 	ld hl, wSceneObj6ScriptStep
 	inc [hl]
 	xor a
 	ld [wSceneObj6ScriptCounter], a
 	ret
 
-.Func_b5461:
+.Leaf1_SetState13:
 	ld a, [wSceneObj6ScriptCounter]
 	cp $5a
 	ret c
 	ld a, $13
 	ld hl, wSceneObj6State
 	call SetSceneObjState
-	jr .asm_b5458
+	jr .leaf1_next_step
 
-.Func_b5471:
+.Leaf1_Reset:
 	ld a, [wSceneObj6ScriptCounter]
 	cp $28
 	ret c
@@ -2867,15 +2867,15 @@ UpdateNorthLeaves:
 	call SetSceneObjState
 	ld a, $38
 	ld [wSceneObj6YCoord], a
-	jr .asm_b5458
+	jr .leaf1_next_step
 
-.Func_b5486:
+.Leaf1_Wait90:
 	ld a, [wSceneObj6ScriptCounter]
 	cp $5a
 	ret c
-	jr .asm_b5458
+	jr .leaf1_next_step
 
-.Func_b548e:
+.Leaf1_Sink:
 	ld a, [wSceneObj6ScriptCounter]
 	and $0f
 	ret nz
@@ -2884,9 +2884,9 @@ UpdateNorthLeaves:
 	ld a, [hl]
 	cp $48
 	ret nz
-	jr .asm_b5458
+	jr .leaf1_next_step
 
-.Func_b549e:
+.Leaf1_Restart:
 	ld hl, wSceneObj6Frame
 	ld a, [hld]
 	cp $46
@@ -2905,7 +2905,7 @@ UpdateNorthLeaves:
 	ld [hl], a
 	ret
 
-.Func_b54ba:
+.UpdateLeaf2:
 	ld hl, wSceneObj7ScriptStep
 	ld a, [hli]
 	and a
@@ -2913,37 +2913,37 @@ UpdateNorthLeaves:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b54cf
-	dw .Func_b54e6
-	dw .Func_b54f6
-	dw .Func_b550b
-	dw .Func_b5513
-	dw .Func_b5523
+	dw .Leaf2_SetState12
+	dw .Leaf2_SetState13
+	dw .Leaf2_Reset
+	dw .Leaf2_Wait90
+	dw .Leaf2_Sink
+	dw .Leaf2_Restart
 
-.Func_b54cf:
+.Leaf2_SetState12:
 	ld a, [wSceneObj7ScriptCounter]
 	cp $78
 	ret c
 	ld a, $12
 	ld hl, wSceneObj7State
 	call SetSceneObjState
-.asm_b54dd
+.leaf2_next_step
 	ld hl, wSceneObj7ScriptStep
 	inc [hl]
 	xor a
 	ld [wSceneObj7ScriptCounter], a
 	ret
 
-.Func_b54e6:
+.Leaf2_SetState13:
 	ld a, [wSceneObj7ScriptCounter]
 	cp $5a
 	ret c
 	ld a, $13
 	ld hl, wSceneObj7State
 	call SetSceneObjState
-	jr .asm_b54dd
+	jr .leaf2_next_step
 
-.Func_b54f6:
+.Leaf2_Reset:
 	ld a, [wSceneObj7ScriptCounter]
 	cp $28
 	ret c
@@ -2952,15 +2952,15 @@ UpdateNorthLeaves:
 	call SetSceneObjState
 	ld a, $38
 	ld [wSceneObj7YCoord], a
-	jr .asm_b54dd
+	jr .leaf2_next_step
 
-.Func_b550b:
+.Leaf2_Wait90:
 	ld a, [wSceneObj7ScriptCounter]
 	cp $5a
 	ret c
-	jr .asm_b54dd
+	jr .leaf2_next_step
 
-.Func_b5513:
+.Leaf2_Sink:
 	ld a, [wSceneObj7ScriptCounter]
 	and $0f
 	ret nz
@@ -2969,9 +2969,9 @@ UpdateNorthLeaves:
 	ld a, [hl]
 	cp $48
 	ret nz
-	jr .asm_b54dd
+	jr .leaf2_next_step
 
-.Func_b5523:
+.Leaf2_Restart:
 	ld hl, wSceneObj7Frame
 	ld a, [hld]
 	cp $46
@@ -2994,12 +2994,12 @@ NOWFunc_PlayMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBox
-	dw .Wait2
+	dw .Wait254
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3013,7 +3013,7 @@ NOWFunc_PlayMusicBox:
 	play_sfx SFX_GOLD_MUSIC_BOX
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait254:
 	ld a, 254
 	jp WaitOWFunc
 
@@ -3021,25 +3021,25 @@ NOWFunc_Crayon:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20_1
 	dw .PlayFallSFX
 	dw .CrayonFall
-	dw .Wait2
+	dw .Wait4
 	dw .CrayonLift
 	dw .WaitCrayonLift
-	dw .Wait3
+	dw .Wait10
 	dw .Scribble
 	dw .AdvanceIfCollectedAllCrayons
 	dw .LoadNewOWPal
 	dw .FadePal
-	dw .Wait4
+	dw .Wait20_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait20_1:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait4:
+.Wait20_2:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3064,7 +3064,7 @@ NOWFunc_Crayon:
 	play_sfx SFX_STOMP
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait4:
 	ld a, 4
 	jp WaitOWFunc
 
@@ -3079,7 +3079,7 @@ NOWFunc_Crayon:
 	ld hl, wSceneObj5State
 	jp WaitOWObjState
 
-.Wait3:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
@@ -3133,22 +3133,22 @@ NOWFunc_BottomBar:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait40
 	dw .LoadBottomBarPal
 	dw .RaiseBBtnIndicator
-	dw .Wait2
+	dw .Wait45
 	dw .BlinkBBtnIndicator
 	dw .StartOpenBottomBar
-	dw .Wait3
+	dw .Wait10
 	dw .OpenBottomBar
-	dw .Wait4
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Wait4:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3183,7 +3183,7 @@ NOWFunc_BottomBar:
 	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait45:
 	ld a, 45
 	jp WaitOWFunc
 
@@ -3192,9 +3192,9 @@ NOWFunc_BottomBar:
 	ld b, a
 	bit 3, a
 	ld a, $22
-	jr z, .asm_b56b5
+	jr z, .set_blink_state
 	ld a, $23
-.asm_b56b5
+.set_blink_state
 	ld [wSceneObj1State], a
 	ld a, 47
 	cp b
@@ -3210,7 +3210,7 @@ NOWFunc_BottomBar:
 	play_sfx SFX_ACTION_B
 	jp AdvanceOWFunc
 
-.Wait3:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
@@ -3236,11 +3236,11 @@ NOWFunc_DayNightSpell:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw WaitOWSceneLevelNameFadeIn
 	dw .StartOpenTopBar
 	dw .OpenTopBar
-	dw .Wait2
+	dw .Wait40
 	dw .SetButtonVisible
 	dw .SetButtonInvisible
 	dw .SetButtonVisible
@@ -3252,14 +3252,14 @@ NOWFunc_DayNightSpell:
 	dw .WaitAndPressNightButton
 	dw .WaitNightButtonPress
 	dw .DayNightTransition
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3276,7 +3276,7 @@ NOWFunc_DayNightSpell:
 	ret nz
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -3291,8 +3291,8 @@ NOWFunc_DayNightSpell:
 	ld hl, .visible_button_attr
 
 .apply_attribute
-	call .Func_b5827
-	call .Func_b57f4
+	call .write_day_night_button
+	call .copy_top_bar_to_vram
 	jp AdvanceOWFunc
 
 .SetButtonInvisible:
@@ -3369,7 +3369,7 @@ NOWFunc_DayNightSpell:
 	db $7 | BG_BANK1, $7 | BG_BANK1
 	db $7 | BG_BANK1, $7 | BG_BANK1
 
-.Func_b57f4:
+.copy_top_bar_to_vram:
 	ld a, HIGH(wAttrmap + 0 + 21 * TILEMAP_WIDTH)
 	ld [wHDMASourceHi], a
 	ld a, LOW(wAttrmap + 0 + 21 * TILEMAP_WIDTH)
@@ -3393,7 +3393,7 @@ NOWFunc_DayNightSpell:
 	ld [wHDMAVRAM1Mode], a
 	ret
 
-.Func_b5827:
+.write_day_night_button:
 	debgcoord 11, 19, wAttrmap
 	push de
 	ld a, e
@@ -3502,26 +3502,26 @@ GetSceneFallingYOffset:
 NOWFunc_Prologue:
 	call UpdateOWSceneScreenShake
 	farcall UpdateNOWPrologueParticles
-	call .Func_b59e5
+	call .PlaySparkleSFXEvery48Frames
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b5949
-	dw .Func_b5965
-	dw .Func_b5973
-	dw .Func_b598c
-	dw .Func_b59a0
-	dw .Func_b59a5
-	dw .Func_b59ca
-	dw .Func_b59c5
-	dw .Func_b59d4
-	dw .Func_b59cf
-	dw .Func_b59b6
-	dw .Func_b59d9
-	dw .Func_b59d9
-	dw .Func_b59de
+	dw .StartShake
+	dw .RequestShake4
+	dw .WaitShake5ThenShowObj1
+	dw .WaitShakeEnd
+	dw .Wait86
+	dw .StartObj2Particles
+	dw .StartObj8Particles
+	dw .StartObj5Particles
+	dw .StartObj10Particles
+	dw .StartObj9Particles
+	dw .StartObj3Particles
+	dw .Wait120
+	dw .Wait120
+	dw .StopSFXLoop
 
-.Func_b5949:
+.StartShake:
 	ld a, [wOWFuncCounter]
 	cp 60
 	ret c
@@ -3537,7 +3537,7 @@ NOWFunc_Prologue:
 	ld [hli], a
 	jp AdvanceOWFunc
 
-.Func_b5965:
+.RequestShake4:
 	ld a, [wOWFuncCounter]
 	cp 134
 	ret c
@@ -3545,7 +3545,7 @@ NOWFunc_Prologue:
 	ld [wOWUIObj1YCoord], a
 	jp AdvanceOWFunc
 
-.Func_b5973:
+.WaitShake5ThenShowObj1:
 	ld a, [wOWUIObj1YCoord]
 	cp $05
 	ret nz
@@ -3555,7 +3555,7 @@ NOWFunc_Prologue:
 	play_sfx SFX_EARTHQUAKE
 	jp AdvanceOWFunc
 
-.Func_b598c:
+.WaitShakeEnd:
 	ld a, [wOWUIObj1YCoord]
 	and a
 	ret nz
@@ -3568,11 +3568,11 @@ NOWFunc_Prologue:
 	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
-.Func_b59a0:
+.Wait86:
 	ld a, 86
 	jp WaitOWFunc
 
-.Func_b59a5:
+.StartObj2Particles:
 	ld a, [wOWFuncCounter]
 	cp 6
 	ret c
@@ -3581,9 +3581,9 @@ NOWFunc_Prologue:
 	ld [wOWUIObj2Attributes], a
 	jp AdvanceOWFunc
 
-.Func_b59b6:
+.StartObj3Particles:
 	ld hl, w2d151
-.asm_b59b9
+.start_particles
 	ld a, [wOWFuncCounter]
 	cp 6
 	ret c
@@ -3591,32 +3591,32 @@ NOWFunc_Prologue:
 	ld [hl], a
 	jp AdvanceOWFunc
 
-.Func_b59c5:
+.StartObj5Particles:
 	ld hl, wNOWPrologueObj5ParticleStep
-	jr .asm_b59b9
+	jr .start_particles
 
-.Func_b59ca:
+.StartObj8Particles:
 	ld hl, wd153
-	jr .asm_b59b9
+	jr .start_particles
 
-.Func_b59cf:
+.StartObj9Particles:
 	ld hl, wd154
-	jr .asm_b59b9
+	jr .start_particles
 
-.Func_b59d4:
+.StartObj10Particles:
 	ld hl, wNOWPrologueObj10ParticleStep
-	jr .asm_b59b9
+	jr .start_particles
 
-.Func_b59d9:
+.Wait120:
 	ld a, 120
 	jp WaitOWFunc
 
-.Func_b59de:
+.StopSFXLoop:
 	xor a
 	ld [wOWUIObj2Attributes], a
 	jp EndOWFunc
 
-.Func_b59e5:
+.PlaySparkleSFXEvery48Frames:
 	ld a, [wOWUIObj2Attributes]
 	and a
 	ret z
@@ -3624,13 +3624,13 @@ NOWFunc_Prologue:
 	inc [hl]
 	ld a, [hl]
 	cp $01
-	jr z, .asm_b59f9
+	jr z, .play_sparkle_sfx
 	cp $30
 	ret c
 	xor a
 	ld [hl], a
 	ret
-.asm_b59f9
+.play_sparkle_sfx
 	play_sfx SFX_SPARKLE
 	ret
 
@@ -3655,14 +3655,14 @@ WOWFunc_Rain:
 	jumptable
 	dw AdvanceOWFunc
 	dw .InitPalConfig
-	dw .Wait1
+	dw .Wait180
 	dw .ShowRainClouds
 	dw .WaitRainClouds
 	dw .FillPool
-	dw .Wait2
+	dw .Wait120
 	dw .WaitRainAndHideClouds
 	dw .WaitCloudsDisappear
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
 .PlayThunderSFX:
@@ -3679,7 +3679,7 @@ WOWFunc_Rain:
 	ld [hl], a
 	ret
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -3690,7 +3690,7 @@ WOWFunc_Rain:
 	ld [wSceneObj15ScriptCounter], a
 	jp AdvanceOWFunc
 
-.Wait1:
+.Wait180:
 	ld a, 180
 	jp WaitOWFunc
 
@@ -3714,7 +3714,7 @@ WOWFunc_Rain:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait120:
 	ld a, 120
 	jp WaitOWFunc
 
@@ -3799,10 +3799,10 @@ WOWFunc_ClearTornado:
 	dw .ShowTornado
 	dw .ClearTornado
 	dw .HideTornado
-	dw .Wait1
+	dw .Wait20
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3851,12 +3851,12 @@ WOWFunc_ElevatorWorking:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .SetElevatorWorking
-	dw .Wait2
+	dw .Wait200
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3866,7 +3866,7 @@ WOWFunc_ElevatorWorking:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait200:
 	ld a, 200
 	jp WaitOWFunc
 
@@ -3874,19 +3874,19 @@ WOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -3913,7 +3913,7 @@ WOWFunc_MagicSeed:
 	ld b, $0c
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -3934,7 +3934,7 @@ WOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait8
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -3943,7 +3943,7 @@ WOWFunc_SummonSnake:
 	dw .WaitSnakeComeOut
 	dw EndOWFunc
 
-.Wait1:
+.Wait8:
 	ld a, 8
 	jp WaitOWFunc
 
@@ -3986,32 +3986,32 @@ WOWFunc_SummonSnake:
 
 WOWFunc_Earthquake:
 	call UpdateOWSceneScreenShake
-	call .Func_b5d0a
+	call .UpdateFallingRocks
 
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b5c94
+	dw .StartShake
 	dw .WaitShake
-	dw .Func_b5cc4
+	dw .StopShake
 	dw .WaitPostShake
 	dw .DropRocks
-	dw .Func_b5c8f
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b5c8f:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b5c94:
+.StartShake:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $01
@@ -4036,7 +4036,7 @@ WOWFunc_Earthquake:
 	ld a, 120
 	jp WaitOWFunc
 
-.Func_b5cc4:
+.StopShake:
 	xor a
 	ld [wOWUIObj1Duration], a
 	ld a, $03
@@ -4069,7 +4069,7 @@ WOWFunc_Earthquake:
 	play_sfx SFX_EARTHQUAKE
 	jp AdvanceOWFunc
 
-.Func_b5d0a:
+.UpdateFallingRocks:
 	ld hl, wOWUIObj1Duration
 	ld a, [hli]
 	and a
@@ -4077,52 +4077,52 @@ WOWFunc_Earthquake:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b5d25
-	dw .Func_b5d52
-	dw .Func_b5d34
-	dw .Func_b5d52
-	dw .Func_b5d3e
-	dw .Func_b5d52
-	dw .Func_b5d48
-	dw .Func_b5d52
-	dw .Func_b5d5a
+	dw .Rock1
+	dw .RockWait10
+	dw .Rock2
+	dw .RockWait10
+	dw .Rock3
+	dw .RockWait10
+	dw .Rock4
+	dw .RockWait10
+	dw .RocksRestart
 
-.Func_b5d25:
+.Rock1:
 	ld a, $14
 	ld hl, wSceneObj13State
 	call SetSceneObjState
-.asm_b5d2d
+.next_rock
 	xor a
 	ld hl, wOWUIObj1FramesetOffset
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_b5d34:
+.Rock2:
 	ld a, $15
 	ld hl, wSceneObj15State
 	call SetSceneObjState
-	jr .asm_b5d2d
+	jr .next_rock
 
-.Func_b5d3e:
+.Rock3:
 	ld a, $14
 	ld hl, wSceneObj14State
 	call SetSceneObjState
-	jr .asm_b5d2d
+	jr .next_rock
 
-.Func_b5d48:
+.Rock4:
 	ld a, $15
 	ld hl, wSceneObj12State
 	call SetSceneObjState
-	jr .asm_b5d2d
+	jr .next_rock
 
-.Func_b5d52:
+.RockWait10:
 	ld a, [wOWUIObj1FramesetOffset]
 	cp $0a
 	ret c
-	jr .asm_b5d2d
+	jr .next_rock
 
-.Func_b5d5a:
+.RocksRestart:
 	ld a, $01
 	ld hl, wOWUIObj1Duration
 	ld [hli], a
@@ -4132,45 +4132,45 @@ WOWFunc_Earthquake:
 
 WOWFunc_VulcanoEruption:
 	call UpdateOWSceneScreenShake
-	call .Func_b5f58
-	call .Func_b5fb9
-	call .Func_b601a
+	call .UpdateLeftRock
+	call .UpdateRightRock
+	call .UpdateMiddleRock
 	call PlayVolcanoRumbleSFX
 
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
-	dw .Func_b5dac
-	dw .Func_b5dd2
-	dw .Func_b5dd7
-	dw .Func_b5dfa
-	dw .Func_b5e02
-	dw .Func_b5e10
-	dw .Func_b5e73
-	dw .Func_b5eb7
-	dw .Func_b5ec7
-	dw .Func_b5ed4
-	dw .Func_b5ee1
-	dw .Func_b5eee
-	dw .Func_b5efb
-	dw .Func_b5f08
-	dw .Func_b5f10
-	dw .Func_b5f15
-	dw .Func_b5f33
-	dw .Func_b5f50
-	dw .Func_b5da7
+	dw .Wait60
+	dw .StartShake
+	dw .Wait58
+	dw .SetObj11State1f
+	dw .WaitObj11Disappear
+	dw .RequestShake4
+	dw .Flash
+	dw .EruptAndPatchTiles
+	dw .LaunchRock1
+	dw .LaunchRock2
+	dw .LaunchRock3
+	dw .LaunchRock4
+	dw .LaunchRock5
+	dw .LaunchRock6
+	dw .WaitRocksLanded
+	dw .Wait16
+	dw .StartShake2
+	dw .StopShakeAtStep1b
+	dw .WaitShakeEnd
+	dw .Wait24
 	dw EndOWFunc
 
-.Wait1:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b5da7:
+.Wait24:
 	ld a, 24
 	jp WaitOWFunc
 
-.Func_b5dac:
+.StartShake:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $17
@@ -4189,11 +4189,11 @@ WOWFunc_VulcanoEruption:
 	ld [hli], a
 	jp AdvanceOWFunc
 
-.Func_b5dd2:
+.Wait58:
 	ld a, 58
 	jp WaitOWFunc
 
-.Func_b5dd7:
+.SetObj11State1f:
 	ld a, $1f
 	ld hl, wSceneObj11State
 	call SetSceneObjState
@@ -4214,13 +4214,13 @@ WOWFunc_VulcanoEruption:
 	ld [hli], a
 	jp AdvanceOWFunc
 
-.Func_b5dfa:
+.WaitObj11Disappear:
 	ld a, [wSceneObj11State]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b5e02:
+.RequestShake4:
 	ld a, [wOWFuncCounter]
 	cp 6
 	ret c
@@ -4228,7 +4228,7 @@ WOWFunc_VulcanoEruption:
 	ld [wOWUIObj1YCoord], a
 	jp AdvanceOWFunc
 
-.Func_b5e10:
+.Flash:
 	ld a, $1a
 	ld hl, wSceneObj10State
 	call SetSceneObjState
@@ -4285,7 +4285,7 @@ WOWFunc_VulcanoEruption:
 	ld [wOWUIObj2Attributes], a
 	jp AdvanceOWFunc
 
-.Func_b5e73:
+.EruptAndPatchTiles:
 	ld a, [wOWFuncCounter]
 	cp 8
 	ret c
@@ -4326,64 +4326,64 @@ WOWFunc_VulcanoEruption:
 
 	jp AdvanceOWFunc
 
-.Func_b5eb7:
+.LaunchRock1:
 	ld a, $03
 	ld [wSceneObj3ScriptStep], a
-.asm_b5ebc
+.play_launch_sfx
 	play_sfx SFX_TEMPLE_ROCK
 	jp AdvanceOWFunc
 
-.Func_b5ec7:
+.LaunchRock2:
 	ld a, [wOWFuncCounter]
 	cp 12
 	ret c
 	ld a, $03
 	ld [wSceneObj1ScriptStep], a
-	jr .asm_b5ebc
+	jr .play_launch_sfx
 
-.Func_b5ed4:
+.LaunchRock3:
 	ld a, [wOWFuncCounter]
 	cp 36
 	ret c
 	ld a, $01
 	ld [wSceneObj6ScriptStep], a
-	jr .asm_b5ebc
+	jr .play_launch_sfx
 
-.Func_b5ee1:
+.LaunchRock4:
 	ld a, [wOWFuncCounter]
 	cp 12
 	ret c
 	ld a, $03
 	ld [wSceneObj3ScriptStep], a
-	jr .asm_b5ebc
+	jr .play_launch_sfx
 
-.Func_b5eee:
+.LaunchRock5:
 	ld a, [wOWFuncCounter]
 	cp 20
 	ret c
 	ld a, $03
 	ld [wSceneObj1ScriptStep], a
-	jr .asm_b5ebc
+	jr .play_launch_sfx
 
-.Func_b5efb:
+.LaunchRock6:
 	ld a, [wOWFuncCounter]
 	cp 38
 	ret c
 	ld a, $01
 	ld [wSceneObj3ScriptStep], a
-	jr .asm_b5ebc
+	jr .play_launch_sfx
 
-.Func_b5f08:
+.WaitRocksLanded:
 	ld a, [wSceneObj3ScriptStep]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b5f10:
+.Wait16:
 	ld a, 16
 	jp WaitOWFunc
 
-.Func_b5f15:
+.StartShake2:
 	ld a, $08
 	ld [wOWUIObj1YCoord], a
 	ld a, $19
@@ -4399,7 +4399,7 @@ WOWFunc_VulcanoEruption:
 	ld [hli], a
 	jp AdvanceOWFunc
 
-.Func_b5f33:
+.StopShakeAtStep1b:
 	ld a, [wOWUIObj1Frame]
 	cp $1b
 	ret nz
@@ -4415,33 +4415,33 @@ WOWFunc_VulcanoEruption:
 	ld [wOWSeaGfxVariant], a
 	jp AdvanceOWFunc
 
-.Func_b5f50:
+.WaitShakeEnd:
 	ld a, [wOWUIObj1YCoord]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b5f58:
+.UpdateLeftRock:
 	ld hl, wSceneObj1ScriptStep
 	ld a, [hl]
 	and a
 	ret z
 	dec a
 	jumptable
-	dw .Func_b5f70
-	dw .Func_b5f89
-	dw .Func_b5f9c
-	dw .Func_b5fa1
-	dw .Func_b5fad
-	dw .Func_b5f89
-	dw .Func_b5fb4
-	dw .Func_b5fa1
+	dw .LeftRock_Launch46
+	dw .LeftRock_Fall
+	dw .LeftRock_Launch75
+	dw .LeftRock_FallSteep
+	dw .LeftRock_Launch46Alt
+	dw .LeftRock_Fall
+	dw .LeftRock_Launch75Alt
+	dw .LeftRock_FallSteep
 
-.Func_b5f70:
+.LeftRock_Launch46:
 	lb de, 8, 46
-.asm_b5f73
+.left_rock_launch
 	ld b, $1c
-.asm_b5f75
+.left_rock_launch_with_state
 	ld hl, wSceneObj1
 	ld a, d
 	ld [hli], a
@@ -4456,14 +4456,14 @@ WOWFunc_VulcanoEruption:
 	inc [hl]
 	ret
 
-.Func_b5f89:
+.LeftRock_Fall:
 	ld hl, wSceneObj1XCoord
 	dec [hl]
 	dec [hl]
 	dec l
 	inc [hl]
 	inc [hl]
-.asm_b5f91
+.left_rock_check_landed
 	ld a, [hl]
 	cp $88
 	ret c
@@ -4473,11 +4473,11 @@ WOWFunc_VulcanoEruption:
 	ld [hl], a
 	ret
 
-.Func_b5f9c:
+.LeftRock_Launch75:
 	lb de, 8, 75
-	jr .asm_b5f73
+	jr .left_rock_launch
 
-.Func_b5fa1:
+.LeftRock_FallSteep:
 	ld hl, wSceneObj1XCoord
 	dec [hl]
 	dec [hl]
@@ -4486,39 +4486,39 @@ WOWFunc_VulcanoEruption:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b5f91
+	jr .left_rock_check_landed
 
-.Func_b5fad:
+.LeftRock_Launch46Alt:
 	lb de, 8, 46
-.asm_b5fb0
+.left_rock_launch_alt
 	ld b, $1f
-	jr .asm_b5f75
+	jr .left_rock_launch_with_state
 
-.Func_b5fb4:
+.LeftRock_Launch75Alt:
 	lb de, 8, 75
-	jr .asm_b5fb0
+	jr .left_rock_launch_alt
 
-.Func_b5fb9:
+.UpdateRightRock:
 	ld hl, wSceneObj3ScriptStep
 	ld a, [hl]
 	and a
 	ret z
 	dec a
 	jumptable
-	dw .Func_b5fd1
-	dw .Func_b5fea
-	dw .Func_b5ffd
-	dw .Func_b6002
-	dw .Func_b600e
-	dw .Func_b5fea
-	dw .Func_b6015
-	dw .Func_b6002
+	dw .RightRock_Launch98
+	dw .RightRock_Fall
+	dw .RightRock_Launch93
+	dw .RightRock_FallSteep
+	dw .RightRock_Launch98Alt
+	dw .RightRock_Fall
+	dw .RightRock_Launch93Alt
+	dw .RightRock_FallSteep
 
-.Func_b5fd1:
+.RightRock_Launch98:
 	lb de, 8, 98
-.asm_b5fd4
+.right_rock_launch
 	ld b, $1d
-.asm_b5fd6
+.right_rock_launch_with_state
 	ld hl, wSceneObj3YCoord
 	ld a, d
 	ld [hli], a
@@ -4533,14 +4533,14 @@ WOWFunc_VulcanoEruption:
 	inc [hl]
 	ret
 
-.Func_b5fea:
+.RightRock_Fall:
 	ld hl, wSceneObj3XCoord
 	inc [hl]
 	inc [hl]
 	dec l
 	inc [hl]
 	inc [hl]
-.asm_b5ff2
+.right_rock_check_landed
 	ld a, [hl]
 	cp $88
 	ret c
@@ -4550,11 +4550,11 @@ WOWFunc_VulcanoEruption:
 	ld [hl], a
 	ret
 
-.Func_b5ffd:
+.RightRock_Launch93:
 	lb de, 8, 93
-	jr .asm_b5fd4
+	jr .right_rock_launch
 
-.Func_b6002:
+.RightRock_FallSteep:
 	ld hl, wSceneObj3XCoord
 	inc [hl]
 	inc [hl]
@@ -4563,29 +4563,29 @@ WOWFunc_VulcanoEruption:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b5ff2
+	jr .right_rock_check_landed
 
-.Func_b600e:
+.RightRock_Launch98Alt:
 	lb de, 8, 98
-.asm_b6011
+.right_rock_launch_alt
 	ld b, $20
-	jr .asm_b5fd6
+	jr .right_rock_launch_with_state
 
-.Func_b6015:
+.RightRock_Launch93Alt:
 	lb de, 8, 93
-	jr .asm_b6011
+	jr .right_rock_launch_alt
 
-.Func_b601a:
+.UpdateMiddleRock:
 	ld hl, wSceneObj6ScriptStep
 	ld a, [hl]
 	and a
 	ret z
 	dec a
-	jr z, .asm_b6027
+	jr z, .middle_rock_launch
 	dec a
-	jr z, .asm_b603f
+	jr z, .middle_rock_fall
 	ret
-.asm_b6027
+.middle_rock_launch
 	ld hl, wSceneObj6
 	ld a, $08
 	ld [hli], a
@@ -4599,7 +4599,7 @@ WOWFunc_VulcanoEruption:
 	ld [hld], a
 	inc [hl]
 	ret
-.asm_b603f
+.middle_rock_fall
 	ld hl, wSceneObj6YCoord
 	inc [hl]
 	inc [hl]
@@ -4631,22 +4631,22 @@ PlayVolcanoRumbleSFX:
 	ret
 
 WOWFunc_RedMusicBox:
-	call .Func_b608a
+	call .PlayThunderSFXLoop
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
-	dw .Func_b60aa
-	dw .Func_b60b5
-	dw .Func_b60ba
-	dw .Func_b60d0
-	dw .Func_b60d5
-	dw .Func_b60e4
-	dw .Func_b60e9
-	dw .Func_b60f4
+	dw .Wait20
+	dw .PlayMusicBoxSFX
+	dw .Wait254
+	dw .SetObj6State20AndPatchTiles
+	dw .Wait23
+	dw .SetObj6State21
+	dw .Wait10
+	dw .SetObj6State22
+	dw .StopSFXLoop
 	dw EndOWFunc
 
-.Func_b608a:
+.PlayThunderSFXLoop:
 	ld hl, wSceneObj6Unk7
 	ld a, [hl]
 	and a
@@ -4661,19 +4661,19 @@ WOWFunc_RedMusicBox:
 	ld [hl], a
 	ret
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b60aa:
+.PlayMusicBoxSFX:
 	play_sfx SFX_RED_MUSIC_BOX
 	jp AdvanceOWFunc
 
-.Func_b60b5:
+.Wait254:
 	ld a, 254
 	jp WaitOWFunc
 
-.Func_b60ba:
+.SetObj6State20AndPatchTiles:
 	ld a, $20
 	ld hl, wSceneObj6State
 	call SetSceneObjState
@@ -4683,11 +4683,11 @@ WOWFunc_RedMusicBox:
 	ld [wSceneObj6Unk7], a
 	jp AdvanceOWFunc
 
-.Func_b60d0:
+.Wait23:
 	ld a, 23
 	jp WaitOWFunc
 
-.Func_b60d5:
+.SetObj6State21:
 	ld a, $21
 	ld hl, wSceneObj6State
 	call SetSceneObjState
@@ -4695,17 +4695,17 @@ WOWFunc_RedMusicBox:
 	dec [hl]
 	jp AdvanceOWFunc
 
-.Func_b60e4:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
-.Func_b60e9:
+.SetObj6State22:
 	ld a, $22
 	ld hl, wSceneObj6State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b60f4:
+.StopSFXLoop:
 	ld a, [wOWFuncCounter]
 	cp 106
 	ret c
@@ -5359,7 +5359,7 @@ SOWFunc_SendSeeds:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw .ShowSeed1
 	dw .WaitShowSeed
 	dw .ShowSeed2
@@ -5368,20 +5368,20 @@ SOWFunc_SendSeeds:
 	dw .WaitShowSeed
 	dw .PlayFlyingSFX
 	dw .MoveSeeds
-	dw .Wait2
+	dw .Wait10
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait2:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
 .ShowSeed1:
 	ld hl, wSceneObj4State
-.asm_b6606
+.show_seed
 	ld a, $06
 	call SetSceneObjState
 	play_sfx SFX_TEMPLE_ROCK
@@ -5393,13 +5393,13 @@ SOWFunc_SendSeeds:
 
 .ShowSeed2:
 	ld hl, wSceneObj2State
-	jr .asm_b6606
+	jr .show_seed
 
 .ShowSeed3:
 	ld a, $01
 	ld [wSceneObj2ScriptCounter], a
 	ld hl, wSceneObj3State
-	jr .asm_b6606
+	jr .show_seed
 
 .PlayFlyingSFX:
 	play_sfx SFX_07F
@@ -5436,13 +5436,13 @@ SOWFunc_SendSeeds:
 	dec [hl]
 	ld a, [hl]
 	cp $1a
-	jr z, .asm_b6675
+	jr z, .start_seed1
 	cp $f0
 	ret c
 	xor a
 	ld [wSceneObj2ScriptCounter], a
 	ret
-.asm_b6675
+.start_seed1
 	ld a, $01
 	ld [wSceneObj4ScriptCounter], a
 	play_sfx SFX_07F
@@ -5455,13 +5455,13 @@ SOWFunc_SendSeeds:
 	dec [hl]
 	ld a, [hl]
 	cp $1a
-	jr z, .asm_b6696
+	jr z, .start_seed3
 	cp $f0
 	ret c
 	xor a
 	ld [wSceneObj4ScriptCounter], a
 	ret
-.asm_b6696
+.start_seed3
 	ld a, $01
 	ld [wSceneObj3ScriptCounter], a
 	play_sfx SFX_07F
@@ -5500,19 +5500,19 @@ SOWFunc_MagicSeed:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .PlayFallSFX
 	dw .SeedFall
 	dw .WaitSeedFall
-	dw .Wait2
+	dw .Wait30
 	dw .GrowStalk
 	dw .WaitGrowStalk
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -5539,7 +5539,7 @@ SOWFunc_MagicSeed:
 	ld b, $03
 	jp WaitOWObjState
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -5559,19 +5559,19 @@ SOWFunc_YellowMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBoxSFX
 	dw .WaitMusic
 	dw .LowerBridge
 	dw .ShowLoweredBridge
-	dw .Wait2
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -5596,101 +5596,101 @@ SOWFunc_YellowMusicBox:
 	jp WaitOWObjState
 
 SOWFunc_CanyonThunder:
-	call .Func_b68cd
+	call .UpdateBarrage
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b67c7
-	dw .Func_b67d1
-	dw .Func_b67ec
-	dw .Func_b67f4
-	dw .Func_b67f9
-	dw .Func_b6801
-	dw .Func_b6810
-	dw .Func_b681b
-	dw .Func_b6820
-	dw .Func_b6828
-	dw .Func_b6831
-	dw .Func_b6971
+	dw .Wait34
+	dw .Lightning1
+	dw .FlashWait16
+	dw .Lightning2
+	dw .FlashWait54
+	dw .Lightning3
+	dw .WaitFlashDone
+	dw .Wait30
+	dw .StartBarrage
+	dw .WaitBarrage
+	dw .Wait7
+	dw .FlashWhite
 	dw OWFuncFadePals
-	dw .Func_b6836
-	dw .Func_b6847
-	dw .Func_b684c
-	dw .Func_b6968
-	dw .Func_b67cc
+	dw .SetObj5State0aAndPatchTiles
+	dw .Wait45
+	dw .LoadNormalPals
+	dw .FadeEvery2Frames
+	dw .Wait90
 	dw EndOWFunc
 
-.Func_b67c7:
+.Wait34:
 	vc_hook Canyon_thunder_motion_blur_begin
 	ld a, 34
 	jp WaitOWFunc
 
-.Func_b67cc:
+.Wait90:
 	ld a, 90
 	jp WaitOWFunc
 
-.Func_b67d1:
+.Lightning1:
 	ld hl, wSceneObj2State
-.asm_b67d4
+.lightning
 	ld a, $12
-.asm_b67d6
+.lightning_with_state
 	call SetSceneObjState
 	ld a, $01
 	ld [wPalConfig1TotalSteps], a
-	call .Func_b6879
+	call .step_flash
 	play_sfx SFX_LIGHTNING
 	jp AdvanceOWFunc
 
-.Func_b67ec:
-	call .Func_b6879
+.FlashWait16:
+	call .step_flash
 	ld a, 16
 	jp WaitOWFunc
 
-.Func_b67f4:
+.Lightning2:
 	ld hl, wSceneObj10State
-	jr .asm_b67d4
+	jr .lightning
 
-.Func_b67f9:
-	call .Func_b6879
+.FlashWait54:
+	call .step_flash
 	ld a, 54
 	jp WaitOWFunc
 
-.Func_b6801:
+.Lightning3:
 	ld hl, wSceneObj2YCoord
 	ld a, $56
 	ld [hli], a
 	ld [hl], $47
 	ld hl, wSceneObj2State
 	ld a, $17
-	jr .asm_b67d6
+	jr .lightning_with_state
 
-.Func_b6810:
-	call .Func_b6879
+.WaitFlashDone:
+	call .step_flash
 	ld a, [wPalConfig1TotalSteps]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b681b:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Func_b6820:
+.StartBarrage:
 	ld a, $01
 	ld [wSceneObj2ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b6828:
+.WaitBarrage:
 	ld a, [wSceneObj2ScriptStep]
 	cp $07
 	ret c
 	jp AdvanceOWFunc
 
-.Func_b6831:
+.Wait7:
 	ld a, 7
 	jp WaitOWFunc
 
-.Func_b6836:
+.SetObj5State0aAndPatchTiles:
 	vc_hook Canyon_thunder_motion_blur_end
 	ld a, $0a
 	ld hl, wSceneObj5State
@@ -5699,11 +5699,11 @@ SOWFunc_CanyonThunder:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b6847:
+.Wait45:
 	ld a, 45
 	jp WaitOWFunc
 
-.Func_b684c:
+.LoadNormalPals:
 	ld hl, SouthOWDayPals
 	ld de, wTempPals1
 	ld b, BANK(SouthOWDayPals)
@@ -5716,7 +5716,7 @@ SOWFunc_CanyonThunder:
 	call CopyFarBytes
 	jp AdvanceOWFunc
 
-.Func_b6869:
+.step_flash_from_5:
 	ld hl, wPalConfig1TotalSteps
 	ld a, [hl]
 	and a
@@ -5728,7 +5728,7 @@ SOWFunc_CanyonThunder:
 	jr z, .flash1_pal
 	ret
 
-.Func_b6879:
+.step_flash:
 	ld hl, wPalConfig1TotalSteps
 	ld a, [hl]
 	and a
@@ -5739,12 +5739,12 @@ SOWFunc_CanyonThunder:
 	cp $05
 	jr z, .flash2_pal
 	cp $09
-	jr z, .asm_b6892
+	jr z, .normal_pal
 	ret
 .flash1_pal
 	ld hl, OWLightningFlashPals2
 	jr .got_pal
-.asm_b6892
+.normal_pal
 	xor a
 	ld [hl], a
 	ld a, [wOWFuncStep]
@@ -5779,7 +5779,7 @@ SOWFunc_CanyonThunder:
 	call FillPalsWithFlashColour
 	jr .apply_pals
 
-.Func_b68cd:
+.UpdateBarrage:
 	ld a, [wSceneObj2ScriptStep]
 	and a
 	ret z
@@ -5787,23 +5787,23 @@ SOWFunc_CanyonThunder:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b68ee
-	dw .Func_b6919
-	dw .Func_b692e
-	dw .Func_b6919
-	dw .Func_b6938
-	dw .Func_b6919
-	dw .Func_b6942
-	dw .Func_b6919
-	dw .Func_b694c
-	dw .Func_b6925
-	dw .Func_b6960
+	dw .Barrage_Bolt1
+	dw .Barrage_FlashWait7
+	dw .Barrage_Bolt2
+	dw .Barrage_FlashWait7
+	dw .Barrage_Bolt3
+	dw .Barrage_FlashWait7
+	dw .Barrage_Bolt4
+	dw .Barrage_FlashWait7
+	dw .Barrage_Bolt5
+	dw .Barrage_Wait7
+	dw .Barrage_End
 
-.Func_b68ee:
+.Barrage_Bolt1:
 	ld hl, wSceneObj2
 	lb de, $50, $38
 	ld c, $17
-.asm_b68f6
+.place_bolt
 	ld a, d
 	ld [hli], a
 	ld a, e
@@ -5813,50 +5813,50 @@ SOWFunc_CanyonThunder:
 	call SetSceneObjState
 	ld a, $01
 	ld [wPalConfig1TotalSteps], a
-	call .Func_b6869
-.asm_b6908
+	call .step_flash_from_5
+.bolt_sfx
 	play_sfx SFX_LIGHTNING
-.asm_b6910
+.next_barrage_step
 	ld hl, wSceneObj2ScriptStep
 	inc [hl]
 	xor a
 	ld [wSceneObj2ScriptCounter], a
 	ret
 
-.Func_b6919:
-	call .Func_b6869
+.Barrage_FlashWait7:
+	call .step_flash_from_5
 	ld a, $07
 	ld hl, wSceneObj2ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b6910
+	jr .next_barrage_step
 
-.Func_b6925:
+.Barrage_Wait7:
 	ld a, $07
 	ld hl, wSceneObj2ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b6910
+	jr .next_barrage_step
 
-.Func_b692e:
+.Barrage_Bolt2:
 	ld hl, wSceneObj1
 	lb de, $48, $46
 	ld c, $12
-	jr .asm_b68f6
+	jr .place_bolt
 
-.Func_b6938:
+.Barrage_Bolt3:
 	ld hl, wSceneObj2
 	lb de, $42, $2e
 	ld c, $17
-	jr .asm_b68f6
+	jr .place_bolt
 
-.Func_b6942:
+.Barrage_Bolt4:
 	ld hl, wSceneObj1
 	lb de, $3e, $38
 	ld c, $12
-	jr .asm_b68f6
+	jr .place_bolt
 
-.Func_b694c:
+.Barrage_Bolt5:
 	ld hl, wSceneObj10
 	lb de, $3b, $1f
 	ld c, $12
@@ -5867,21 +5867,21 @@ SOWFunc_CanyonThunder:
 	set 2, l
 	ld a, c
 	call SetSceneObjState
-	jr .asm_b6908
+	jr .bolt_sfx
 
-.Func_b6960:
+.Barrage_End:
 	xor a
 	ld [wSceneObj2ScriptStep], a
 	ld [wSceneObj2ScriptCounter], a
 	ret
 
-.Func_b6968:
+.FadeEvery2Frames:
 	ld a, [wOWFuncCounter]
 	bit 0, a
 	ret z
 	jp OWFuncFadePals
 
-.Func_b6971:
+.FlashWhite:
 	ld hl, wTempPals1
 	ld de, wTempBGPals
 	ld b, 8 palettes
@@ -5904,7 +5904,7 @@ SOWFunc_CanyonThunder:
 	jp AdvanceOWFunc
 
 FillPalsWithFlashColour:
-.asm_b69a6
+.loop
 	vc_patch FPA_80_BG_Flash_Palette_1_0
 	IF DEF(_VC)
 		ld a, $4a
@@ -5922,31 +5922,31 @@ FillPalsWithFlashColour:
 	vc_patch_end
 	ld [hli], a
 	dec b
-	jr nz, .asm_b69a6
+	jr nz, .loop
 	ret
 
 SOWFunc_RaiseTower:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait30
 	dw .StartDust
-	dw .Wait2
+	dw .Wait45
 	dw .RaiseTower
 	dw .RaiseTower
 	dw .RaiseTower
 	dw .FinishRaiseTower
-	dw .Func_b6a0f
-	dw .Wait3
-	dw .Func_b6a4b
-	dw .Wait4
+	dw .SettleTower
+	dw .Wait40_1
+	dw .HideObjsAndPatchTiles
+	dw .Wait40_2
 	dw EndOWFunc
 
-.Wait1:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
-.Wait4:
+.Wait40_2:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -5957,12 +5957,12 @@ SOWFunc_RaiseTower:
 	play_sfx SFX_TOWER_RISE
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait45:
 	ld a, 45
 	jp WaitOWFunc
 
 .RaiseTower:
-	call .Func_b6a16
+	call .move_tower_up
 	ret nz
 	ld hl, wSceneObj3YCoord
 	ld a, $10
@@ -5975,20 +5975,20 @@ SOWFunc_RaiseTower:
 	jp AdvanceOWFunc
 
 .FinishRaiseTower:
-	call .Func_b6a16
+	call .move_tower_up
 	cp $50
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b6a0f:
-	call .Func_b6a2e
+.SettleTower:
+	call .move_tower_up_slowly
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b6a16:
+.move_tower_up:
 	ld a, [wGlobalCounter]
 	and %111
-	jr z, .asm_b6a28
+	jr z, .move_up
 	and $01
 	ret nz
 	ld hl, wSceneObj3YCoord
@@ -5996,16 +5996,16 @@ SOWFunc_RaiseTower:
 	ld a, [hl]
 	cp $48
 	ret
-.asm_b6a28
+.move_up
 	ld hl, wSceneObj3YCoord
 	ld a, [hl]
 	inc [hl]
 	ret
 
-.Func_b6a2e:
+.move_tower_up_slowly:
 	ld a, [wGlobalCounter]
 	and %1111
-	jr z, .asm_b6a40
+	jr z, .move_up_slowly
 	and $03
 	ret nz
 	ld hl, wSceneObj3YCoord
@@ -6014,17 +6014,17 @@ SOWFunc_RaiseTower:
 	cp $48
 	ret
 
-.asm_b6a40
+.move_up_slowly
 	ld hl, wSceneObj3YCoord
 	ld a, [hl]
 	inc [hl]
 	ret
 
-.Wait3:
+.Wait40_1:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b6a4b:
+.HideObjsAndPatchTiles:
 	ld a, $00
 	ld hl, wSceneObj2State
 	call SetSceneObjState
@@ -6036,48 +6036,48 @@ SOWFunc_RaiseTower:
 	jp AdvanceOWFunc
 
 SOWFunc_Fan:
-	call .Func_b6af2
-	call .Func_b6b48
+	call .UpdateWind1
+	call .UpdateWind2
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b6a86
-	dw .Func_b6a90
-	dw .Func_b6aa3
-	dw .Func_b6aa8
-	dw .Func_b6ab0
-	dw .Func_b6abe
-	dw .Func_b6acf
-	dw .Func_b6ad4
-	dw .Func_b6aea
-	dw .Func_b6a8b
+	dw .Wait20_1
+	dw .StartFan
+	dw .Wait24
+	dw .StartWind1
+	dw .StartWind2
+	dw .WaitObj9Frame21
+	dw .Wait12
+	dw .RaiseObj9
+	dw .WaitWind2Done
+	dw .Wait20_2
 	dw EndOWFunc
 
-.Func_b6a86:
+.Wait20_1:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b6a8b:
+.Wait20_2:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b6a90:
+.StartFan:
 	ld a, $1a
 	ld hl, wSceneObj8State
 	call SetSceneObjState
 	play_sfx SFX_12F
 	jp AdvanceOWFunc
 
-.Func_b6aa3:
+.Wait24:
 	ld a, 24
 	jp WaitOWFunc
 
-.Func_b6aa8:
+.StartWind1:
 	ld a, $01
 	ld [wSceneObj1ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b6ab0:
+.StartWind2:
 	ld a, [wOWFuncCounter]
 	cp $0a
 	ret nz
@@ -6085,7 +6085,7 @@ SOWFunc_Fan:
 	ld [wSceneObj2ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b6abe:
+.WaitObj9Frame21:
 	ld a, [wSceneObj9Frame]
 	cp $21
 	ret nz
@@ -6094,11 +6094,11 @@ SOWFunc_Fan:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b6acf:
+.Wait12:
 	ld a, 12
 	jp WaitOWFunc
 
-.Func_b6ad4:
+.RaiseObj9:
 	ld hl, wOWFuncCounter
 	ld a, [hl]
 	cp $08
@@ -6112,28 +6112,28 @@ SOWFunc_Fan:
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b6aea:
+.WaitWind2Done:
 	ld a, [wSceneObj2ScriptStep]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b6af2:
+.UpdateWind1:
 	ld hl, wSceneObj1ScriptStep
 	ld a, [hl]
 	and a
 	ret z
 	dec a
 	jumptable
-	dw .Func_b6b08
-	dw .Func_b6b22
-	dw .Func_b6b08
-	dw .Func_b6b22
-	dw .Func_b6b08
-	dw .Func_b6b22
-	dw .Func_b6b3b
+	dw .Wind1_Spawn
+	dw .Wind1_Drift
+	dw .Wind1_Spawn
+	dw .Wind1_Drift
+	dw .Wind1_Spawn
+	dw .Wind1_Drift
+	dw .Wind1_End
 
-.Func_b6b08:
+.Wind1_Spawn:
 	ld a, $18
 	ld hl, wSceneObj1State
 	call SetSceneObjState
@@ -6148,7 +6148,7 @@ SOWFunc_Fan:
 	ld [w2d123], a
 	ret
 
-.Func_b6b22:
+.Wind1_Drift:
 	ld hl, w2d123
 	inc [hl]
 	ld a, [hl]
@@ -6167,7 +6167,7 @@ SOWFunc_Fan:
 	inc [hl]
 	ret
 
-.Func_b6b3b:
+.Wind1_End:
 	ld a, $00
 	ld hl, wSceneObj1State
 	call SetSceneObjState
@@ -6175,24 +6175,24 @@ SOWFunc_Fan:
 	ld [wSceneObj1ScriptStep], a
 	ret
 
-.Func_b6b48:
+.UpdateWind2:
 	ld hl, wSceneObj2ScriptStep
 	ld a, [hl]
 	and a
 	ret z
 	dec a
 	jumptable
-	dw .Func_b6b62
-	dw .Func_b6b7c
-	dw .Func_b6b62
-	dw .Func_b6b7c
-	dw .Func_b6b62
-	dw .Func_b6b7c
-	dw .Func_b6b95
-	dw .Func_b6ba2
-	dw .Func_b6bb8
+	dw .Wind2_Spawn
+	dw .Wind2_Drift
+	dw .Wind2_Spawn
+	dw .Wind2_Drift
+	dw .Wind2_Spawn
+	dw .Wind2_Drift
+	dw .Wind2_Hide
+	dw .Wind2_WaitFanFrame4a
+	dw .Wind2_HideFan
 
-.Func_b6b62:
+.Wind2_Spawn:
 	ld a, $18
 	ld hl, wSceneObj2State
 	call SetSceneObjState
@@ -6207,7 +6207,7 @@ SOWFunc_Fan:
 	ld [wSceneObj2ScriptCounter], a
 	ret
 
-.Func_b6b7c:
+.Wind2_Drift:
 	ld hl, wSceneObj2ScriptCounter
 	inc [hl]
 	ld a, [hl]
@@ -6226,7 +6226,7 @@ SOWFunc_Fan:
 	inc [hl]
 	ret
 
-.Func_b6b95:
+.Wind2_Hide:
 	ld a, $00
 	ld hl, wSceneObj2State
 	call SetSceneObjState
@@ -6234,7 +6234,7 @@ SOWFunc_Fan:
 	inc [hl]
 	ret
 
-.Func_b6ba2:
+.Wind2_WaitFanFrame4a:
 	ld a, [wSceneObj8Frame]
 	cp $4a
 	ret nz
@@ -6248,7 +6248,7 @@ SOWFunc_Fan:
 	ld [hl], a
 	ret
 
-.Func_b6bb8:
+.Wind2_HideFan:
 	ld hl, wSceneObj2ScriptCounter
 	inc [hl]
 	ld a, [hl]
@@ -6266,7 +6266,7 @@ SOWFunc_SummonSnake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
@@ -6275,7 +6275,7 @@ SOWFunc_SummonSnake:
 	dw .WaitSnakeComeOut
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
@@ -6322,28 +6322,28 @@ SOWFunc_Earthquake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b6c53
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b6c5d
-	dw .Func_b6c73
-	dw .Func_b6c78
-	dw .Func_b6c91
-	dw .Func_b6c97
-	dw .Func_b6ca4
-	dw .Func_b6c58
+	dw .StartShake
+	dw .Wait120
+	dw .PatchTilesAndShowSmoke
+	dw .WaitSmokeGone
+	dw .ShowSmoke2
+	dw .StopShake
+	dw .Wait60
 	dw EndOWFunc
 
-.Func_b6c53:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b6c58:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b6c5d:
+.StartShake:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $01
@@ -6356,25 +6356,25 @@ SOWFunc_Earthquake:
 	ld [hli], a
 	jp AdvanceOWFunc
 
-.Func_b6c73:
+.Wait120:
 	ld a, 120
 	jp WaitOWFunc
 
-.Func_b6c78:
+.PatchTilesAndShowSmoke:
 	ld hl, SOWTilemapPatch_Earthquake
 	call ApplyOWTilemapPatchesAndRedraw
 	play_sfx SFX_EARTHQUAKE
-.asm_b6c86
+.show_smoke
 	ld a, $1b
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b6c91:
+.WaitSmokeGone:
 	ld hl, wSceneObj2State
 	jp WaitOWObjDisappear
 
-.Func_b6c97:
+.ShowSmoke2:
 	ld hl, wSceneObj2YCoord
 	ld a, $02
 	add [hl]
@@ -6382,9 +6382,9 @@ SOWFunc_Earthquake:
 	ld a, $fe
 	add [hl]
 	ld [hl], a
-	jr .asm_b6c86
+	jr .show_smoke
 
-.Func_b6ca4:
+.StopShake:
 	ld a, $03
 	ld [wOWUIObj1YCoord], a
 	ld hl, w2d03e
@@ -6400,19 +6400,19 @@ SOWFunc_GreenMusicBox:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait20
 	dw .PlayMusicBoxSFX
 	dw .WaitMusic
 	dw .BlowUpCave
 	dw .HideSmoke
-	dw .Wait2
+	dw .Wait40
 	dw EndOWFunc
 
-.Wait1:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Wait2:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
@@ -6442,45 +6442,45 @@ EOWFunc_Explosives:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b6d3d
+	dw .Wait20_1
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
 	dw .CheckMapSide
 
 	; SOUTH
-	dw .Func_b6d5a
-	dw .Func_b6d6d
-	dw .Func_b6d73
-	dw .Func_b6d6d
-	dw .Func_b6d83
-	dw .Func_b6d6d
-	dw .Func_b6d42
+	dw .Explode
+	dw .WaitExplosionGone
+	dw .Explode2
+	dw .WaitExplosionGone
+	dw .Explode3
+	dw .WaitExplosionGone
+	dw .Wait40
 	dw EndOWFunc
 
 	; EAST
-	dw .Func_b6d88
-	dw .Func_b6d6d
-	dw .Func_b6d92
-	dw .Func_b6dcd
-	dw .Func_b6d97
-	dw .Func_b6d9c
+	dw .EastExplode
+	dw .WaitExplosionGone
+	dw .Wait20_2
+	dw .FadeOutLevelName
+	dw .Wait10
+	dw .LoadColossalHoleName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b6daa
-	dw .Func_b6db4
-	dw .Func_b6d47
+	dw .EastExplode2
+	dw .EastExplode3
+	dw .Wait50
 	dw EndOWFunc
 
-.Func_b6d3d:
+.Wait20_1:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b6d42:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b6d47:
+.Wait50:
 	ld a, 50
 	jp WaitOWFunc
 
@@ -6492,21 +6492,21 @@ EOWFunc_Explosives:
 	ld [wOWFuncStep], a
 	ret
 
-.Func_b6d5a:
+.Explode:
 	ld a, $1c
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-.asm_b6d62
+.explosion_sfx
 	play_sfx SFX_EXPLOSION
 	jp AdvanceOWFunc
 
-.Func_b6d6d:
+.WaitExplosionGone:
 	ld hl, wSceneObj2State
 	jp WaitOWObjDisappear
 
-.Func_b6d73:
+.Explode2:
 	lb de, -5, 4
-.asm_b6d76
+.place_explosion
 	ld hl, wSceneObj2YCoord
 	ld a, $20
 	add d
@@ -6514,27 +6514,27 @@ EOWFunc_Explosives:
 	ld a, $44
 	add e
 	ld [hl], a
-	jr .Func_b6d5a
+	jr .Explode
 
-.Func_b6d83:
+.Explode3:
 	lb de, 3, 5
-	jr .asm_b6d76
+	jr .place_explosion
 
-.Func_b6d88:
+.EastExplode:
 	ld a, $08
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jr .asm_b6d62
+	jr .explosion_sfx
 
-.Func_b6d92:
+.Wait20_2:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b6d97:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
-.Func_b6d9c:
+.LoadColossalHoleName:
 	ld b, EAST
 	ld d, OWEAST_THE_COLOSSAL_HOLE
 	call LoadLevelName
@@ -6542,13 +6542,13 @@ EOWFunc_Explosives:
 	ld [wPalConfig1TotalSteps], a
 	jp AdvanceOWFunc
 
-.Func_b6daa:
+.EastExplode2:
 	ld a, $22
 	ld hl, wSceneObj1State
 	call SetSceneObjState
-	jr .asm_b6d62
+	jr .explosion_sfx
 
-.Func_b6db4:
+.EastExplode3:
 	ld a, [wOWFuncCounter]
 	cp $14
 	ret c
@@ -6560,9 +6560,9 @@ EOWFunc_Explosives:
 	ld a, $22
 	ld hl, wSceneObj2State
 	call SetSceneObjState
-	jr .asm_b6d62
+	jr .explosion_sfx
 
-.Func_b6dcd:
+.FadeOutLevelName:
 	ld a, $03
 	ld [wLevelNameFadeState], a
 	farcall FadeOutLevelName
@@ -6575,18 +6575,18 @@ SOWFunc_FullMoon:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Wait1
+	dw .Wait40
 	dw .PlayGongSFX
-	dw .Wait2
+	dw .Wait30
 	dw .MoveMoon
-	dw .Wait3
+	dw .Wait60
 	dw EndOWFunc
 
-.Wait1:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Wait3:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -6594,7 +6594,7 @@ SOWFunc_FullMoon:
 	play_sfx SFX_GONG
 	jp AdvanceOWFunc
 
-.Wait2:
+.Wait30:
 	ld a, 30
 	jp WaitOWFunc
 
@@ -6608,11 +6608,11 @@ SOWFunc_FullMoon:
 	inc [hl]
 	ld a, [hl]
 	cp $7b
-	jr z, .asm_b6e2c
+	jr z, .play_moon_sfx
 	cp $80
 	ret nz
 	jp AdvanceOWFunc
-.asm_b6e2c
+.play_moon_sfx
 	play_sfx SFX_BEANSTALK_GROW
 	ret
 
@@ -6727,30 +6727,30 @@ EastOWFunctions:
 	dw EOWFunc_Daytime         ; EOWFUNC_DAYTIME
 
 EOWFunc_FreezeSea:
-	call .Func_b6f77
-	call .Func_b6fae
-	call .Func_b7056
-	call .Func_b6ffe
+	call .MoveObj1
+	call .UpdateTileColumns1
+	call .UpdateTileColumns3
+	call .UpdateTileColumns2
 
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b6ee5
-	dw .Func_b6ef4
-	dw .Func_b6f00
-	dw .Func_b6f0c
-	dw .Func_b6f11
-	dw .Func_b6f23
-	dw .Func_b6f3a
-	dw .Func_b6f4a
-	dw .Func_b6eea
+	dw .Wait60
+	dw .PatchSeaTiles
+	dw .StartObj1Move
+	dw .Wait14
+	dw .StartTileColumns3
+	dw .StartTileColumns1
+	dw .StartTileColumns2
+	dw .WaitObj1Done
+	dw .Wait60_2
 	dw EndOWFunc
 
-.Func_b6ee5:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b6eea:
+.Wait60_2:
 	ld a, 60
 	jp WaitOWFunc
 
@@ -6758,68 +6758,68 @@ EOWFunc_FreezeSea:
 	ld a, 2
 	jp WaitOWFunc
 
-.Func_b6ef4:
+.PatchSeaTiles:
 	ld hl, EOWTilemapPatch_FreezeSea
 	call ApplyOWTilemapPatchesAndRedraw
-	call .Func_b6f52
+	call .load_frozen_sea_pal
 	jp AdvanceOWFunc
 
-.Func_b6f00:
+.StartObj1Move:
 	xor a
 	ld [w2d046], a
 	ld a, $01
 	ld [wSceneObj1Unk7], a
 	jp AdvanceOWFunc
 
-.Func_b6f0c:
+.Wait14:
 	ld a, 14
 	jp WaitOWFunc
 
-.Func_b6f11:
+.StartTileColumns3:
 	ld a, $01
 	ld [w2d150], a
 	ld hl, w2d151
 	play_sfx SFX_SEA_FREEZE
-	jr .asm_b6f31
+	jr .set_column_list
 
-.Func_b6f23:
+.StartTileColumns1:
 	ld a, [wOWFuncCounter]
 	cp $04
 	ret nz
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld hl, wOWUIObj1XCoord
-.asm_b6f31
+.set_column_list
 	ld de, .data
 	ld [hl], e
 	inc l
 	ld [hl], d
 	jp AdvanceOWFunc
 
-.Func_b6f3a:
+.StartTileColumns2:
 	ld a, [wOWFuncCounter]
 	cp $04
 	ret nz
 	ld a, $01
 	ld [wOWUIObj2YCoord], a
 	ld hl, wOWUIObj2XCoord
-	jr .asm_b6f31
+	jr .set_column_list
 
-.Func_b6f4a:
+.WaitObj1Done:
 	ld a, [wSceneObj1Unk7]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b6f52:
+.load_frozen_sea_pal:
 	ld hl, EastOWNightPals palette 4
 	ld de, wTempPals1 palette 4
 	ld c, 1 palettes
 	ld b, BANK(EastOWNightPals)
 	call CopyFarBytes
-	jr .asm_b6f64
+	jr .update_pal
 	call LoadUnfrozenSeaPal
-.asm_b6f64
+.update_pal
 	ld hl, wPalConfig1
 	ld a, LOW(rBGPI)
 	ld [hli], a
@@ -6833,22 +6833,22 @@ EOWFunc_FreezeSea:
 	ld [hli], a
 	ret
 
-.Func_b6f77:
+.MoveObj1:
 	ld a, [wSceneObj1Unk7]
 	and a
 	ret z
 	dec a
-	jr z, .asm_b6f83
+	jr z, .obj1_start_move
 	dec a
-	jr z, .asm_b6f8c
+	jr z, .obj1_move
 	ret
-.asm_b6f83
+.obj1_start_move
 	xor a
 	ld [wSceneObj1ScriptStep], a
 	ld hl, wSceneObj1Unk7
 	inc [hl]
 	ret
-.asm_b6f8c
+.obj1_move
 	ld hl, wSceneObj1ScriptStep
 	inc [hl]
 	ld c, [hl]
@@ -6858,7 +6858,7 @@ EOWFunc_FreezeSea:
 	ld a, [hl]
 	add $18
 	cp $c0
-	jr nc, .asm_b6fa9
+	jr nc, .obj1_done
 	cp $78
 	ret c
 	ld a, c
@@ -6867,12 +6867,12 @@ EOWFunc_FreezeSea:
 	ld hl, wSceneObj1YCoord
 	dec [hl]
 	ret
-.asm_b6fa9
+.obj1_done
 	xor a
 	ld [wSceneObj1Unk7], a
 	ret
 
-.Func_b6fae:
+.UpdateTileColumns1:
 	ld a, [wOWUIObj1YCoord]
 	and a
 	ret z
@@ -6889,7 +6889,7 @@ EOWFunc_FreezeSea:
 	ld l, a
 	ld a, [hli]
 	cp $80
-	jr z, .asm_b6ff9
+	jr z, .columns1_done
 	ld [wOWUIObj1Attributes], a
 	ld a, [hli]
 	ld [wOWUIObj1Duration], a
@@ -6907,12 +6907,12 @@ EOWFunc_FreezeSea:
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
-.asm_b6ff9
+.columns1_done
 	xor a
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b6ffe:
+.UpdateTileColumns2:
 	ld a, [wOWUIObj2YCoord]
 	and a
 	ret z
@@ -6929,7 +6929,7 @@ EOWFunc_FreezeSea:
 	ld l, a
 	ld a, [hli]
 	cp $80
-	jr z, .asm_b7051
+	jr z, .columns2_done
 	ld [wOWUIObj2Attributes], a
 	ld a, [hli]
 	ld [wOWUIObj2Duration], a
@@ -6953,12 +6953,12 @@ EOWFunc_FreezeSea:
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
-.asm_b7051
+.columns2_done
 	xor a
 	ld [wOWUIObj2YCoord], a
 	ret
 
-.Func_b7056:
+.UpdateTileColumns3:
 	ld a, [w2d150]
 	and a
 	ret z
@@ -6975,7 +6975,7 @@ EOWFunc_FreezeSea:
 	ld l, a
 	ld a, [hli]
 	cp $80
-	jr z, .asm_b70a9
+	jr z, .columns3_done
 	ld [wd153], a
 	ld a, [hli]
 	ld [wd154], a
@@ -6999,7 +6999,7 @@ EOWFunc_FreezeSea:
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	ret
-.asm_b70a9
+.columns3_done
 	xor a
 	ld [w2d150], a
 	ret
@@ -7031,64 +7031,64 @@ EOWFunc_Earthquake:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b7138
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b7142
-	dw .Func_b7160
-	dw .Func_b716b
-	dw .Func_b7170
-	dw .Func_b7188
-	dw .Func_b7195
-	dw .Func_b71a2
-	dw .Func_b71af
-	dw .Func_b71bc
-	dw .Func_b71c9
-	dw .Func_b71d9
-	dw .Func_b71e4
-	dw .Func_b71ed
-	dw .Func_b713d
+	dw .SetSinkAreaPriority
+	dw .SetObj6State03
+	dw .Wait10
+	dw .StartShake
+	dw .SinkObj6_1
+	dw .SinkObj6_2
+	dw .SinkObj6_3
+	dw .SinkObj6_4
+	dw .SinkObj6_5
+	dw .StopShake
+	dw .SetObj6State05
+	dw .WaitObj6Frame09
+	dw .PatchTiles
+	dw .Wait40
 	dw EndOWFunc
 
-.Func_b7138:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b713d:
+.Wait40:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b7142:
+.SetSinkAreaPriority:
 	ld b, $04
 	hlbgcoord 2, 10, wAttrmap
-.asm_b7147
+.loop_row_1
 	set B_BG_PRIO, [hl]
 	inc hl
 	dec b
-	jr nz, .asm_b7147
+	jr nz, .loop_row_1
 	ld b, $04
 	hlbgcoord 2, 11, wAttrmap
-.asm_b7152
+.loop_row_2
 	set B_BG_PRIO, [hl]
 	inc hl
 	dec b
-	jr nz, .asm_b7152
+	jr nz, .loop_row_2
 	ld a, TRUE
 	ld [wOWPendingTileUpdate], a
 	jp AdvanceOWFunc
 
-.Func_b7160:
+.SetObj6State03:
 	ld a, $03
 	ld hl, wSceneObj6State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b716b:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
-.Func_b7170:
+.StartShake:
 	ld a, $01
 	ld [wOWUIObj1YCoord], a
 	ld a, $06
@@ -7099,7 +7099,7 @@ EOWFunc_Earthquake:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b7188:
+.SinkObj6_1:
 	ld a, [wOWFuncCounter]
 	cp $0a
 	ret c
@@ -7107,7 +7107,7 @@ EOWFunc_Earthquake:
 	inc [hl]
 	jp AdvanceOWFunc
 
-.Func_b7195:
+.SinkObj6_2:
 	ld a, [wOWFuncCounter]
 	cp $20
 	ret c
@@ -7115,7 +7115,7 @@ EOWFunc_Earthquake:
 	inc [hl]
 	jp AdvanceOWFunc
 
-.Func_b71a2:
+.SinkObj6_3:
 	ld a, [wOWFuncCounter]
 	cp $1c
 	ret c
@@ -7123,7 +7123,7 @@ EOWFunc_Earthquake:
 	inc [hl]
 	jp AdvanceOWFunc
 
-.Func_b71af:
+.SinkObj6_4:
 	ld a, [wOWFuncCounter]
 	cp $18
 	ret c
@@ -7131,7 +7131,7 @@ EOWFunc_Earthquake:
 	inc [hl]
 	jp AdvanceOWFunc
 
-.Func_b71bc:
+.SinkObj6_5:
 	ld a, [wOWFuncCounter]
 	cp $14
 	ret c
@@ -7139,7 +7139,7 @@ EOWFunc_Earthquake:
 	inc [hl]
 	jp AdvanceOWFunc
 
-.Func_b71c9:
+.StopShake:
 	ld a, $03
 	ld [wOWUIObj1YCoord], a
 	ld a, $07
@@ -7147,19 +7147,19 @@ EOWFunc_Earthquake:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b71d9:
+.SetObj6State05:
 	ld a, $05
 	ld hl, wSceneObj6State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b71e4:
+.WaitObj6Frame09:
 	ld a, [wSceneObj6Frame]
 	cp $09
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b71ed:
+.PatchTiles:
 	ld a, [wOWFuncCounter]
 	cp $09
 	ret c
@@ -7168,7 +7168,7 @@ EOWFunc_Earthquake:
 	jp AdvanceOWFunc
 
 UpdateOWSceneScreenShake:
-	call .Func_b7273
+	call .RunShakeScript
 	ld hl, wOWUIObj1YCoord
 	ld a, [hli]
 	and a
@@ -7176,24 +7176,24 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b721f
-	dw .Func_b721e
-	dw .Func_b7231
-	dw .Func_b723f
-	dw .Func_b7249
-	dw .Func_b7245
-	dw .Func_b7249
-	dw .Func_b7257
-	dw .Func_b725b
-	dw .Func_b7265
-	dw .Func_b7269
+	dw .StartScript01
+	dw .DoNothing
+	dw .WaitStep01ThenStop
+	dw .WaitStep01ThenStart11
+	dw .WaitStep11ThenStop
+	dw .StartScript11
+	dw .WaitStep11ThenStop
+	dw .StartScript15
+	dw .WaitScriptEnd_1
+	dw .StartScript1e
+	dw .WaitScriptEnd_2
 
-.Func_b721e:
+.DoNothing:
 	ret
 
-.Func_b721f:
+.StartScript01:
 	ld a, $01
-.asm_b7221
+.start_script
 	ld [wOWUIObj1Frame], a
 	xor a
 	ld [wOWUIObj1Attributes], a
@@ -7203,7 +7203,7 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1XCoord], a
 	ret
 
-.Func_b7231:
+.WaitStep01ThenStop:
 	ld a, [wOWUIObj1Frame]
 	cp $01
 	ret nz
@@ -7212,15 +7212,15 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b723f:
+.WaitStep01ThenStart11:
 	ld a, [wOWUIObj1Frame]
 	cp $01
 	ret nz
-.Func_b7245:
+.StartScript11:
 	ld a, $11
-	jr .asm_b7221
+	jr .start_script
 
-.Func_b7249:
+.WaitStep11ThenStop:
 	ld a, [wOWUIObj1Frame]
 	cp $11
 	ret nz
@@ -7229,11 +7229,11 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b7257:
+.StartScript15:
 	ld a, $15
-	jr .asm_b7221
+	jr .start_script
 
-.Func_b725b:
+.WaitScriptEnd_1:
 	ld a, [wOWUIObj1Frame]
 	and a
 	ret nz
@@ -7241,11 +7241,11 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b7265:
+.StartScript1e:
 	ld a, $1e
-	jr .asm_b7221
+	jr .start_script
 
-.Func_b7269:
+.WaitScriptEnd_2:
 	ld a, [wOWUIObj1Frame]
 	and a
 	ret nz
@@ -7253,7 +7253,7 @@ UpdateOWSceneScreenShake:
 	ld [wOWUIObj1YCoord], a
 	ret
 
-.Func_b7273:
+.RunShakeScript:
 	ld hl, wOWUIObj1Frame
 	ld a, [hli]
 	and a
@@ -7261,131 +7261,131 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b72f8
-	dw .Func_b72e0
-	dw .Func_b730b
-	dw .Func_b72e0
-	dw .Func_b7300
-	dw .Func_b72e0
-	dw .Func_b730b
-	dw .Func_b72e0
-	dw .Func_b7300
-	dw .Func_b72e0
-	dw .Func_b730b
-	dw .Func_b72e0
-	dw .Func_b7300
-	dw .Func_b72e0
-	dw .Func_b730b
-	dw .Func_b72e8
-	dw .Func_b7311
-	dw .Func_b72c8
-	dw .Func_b7322
-	dw .Func_b72d0
-	dw .Func_b733b
-	dw .Func_b72c8
-	dw .Func_b7379
-	dw .Func_b72c8
-	dw .Func_b7387
-	dw .Func_b72c8
-	dw .Func_b7379
-	dw .Func_b72c8
-	dw .Func_b734c
-	dw .Func_b7363
-	dw .Func_b72c8
-	dw .Func_b7334
-	dw .Func_b72c8
-	dw .Func_b735c
-	dw .Func_b72c8
-	dw .Func_b7334
-	dw .Func_b72c8
-	dw .Func_b7371
+	dw .Up1SFX
+	dw .Hold1
+	dw .Down1
+	dw .Hold1
+	dw .Up1
+	dw .Hold1
+	dw .Down1
+	dw .Hold1
+	dw .Up1
+	dw .Hold1
+	dw .Down1
+	dw .Hold1
+	dw .Up1
+	dw .Hold1
+	dw .Down1
+	dw .Hold1Loop
+	dw .Up4SFX
+	dw .Hold3
+	dw .Down4
+	dw .Hold3Loop
+	dw .Right4SFX
+	dw .Hold3
+	dw .Left8
+	dw .Hold3
+	dw .Right8
+	dw .Hold3
+	dw .Left8
+	dw .Hold3
+	dw .Right4End
+	dw .Right1SFX
+	dw .Hold3
+	dw .Left2
+	dw .Hold3
+	dw .Right2
+	dw .Hold3
+	dw .Left2
+	dw .Hold3
+	dw .Right1End
 
-.Func_b72c8:
+.Hold3:
 	ld a, [wOWUIObj1Attributes]
 	cp $03
 	ret c
-	jr .asm_b7304
-.Func_b72d0:
+	jr .next_step
+.Hold3Loop:
 	ld a, [wOWUIObj1Attributes]
 	cp $03
 	ret c
 	ld a, [wOWUIObj1Frame]
 	sub $04
 	ld [wOWUIObj1Frame], a
-	jr .asm_b7304
-.Func_b72e0:
+	jr .next_step
+.Hold1:
 	ld a, [wOWUIObj1Attributes]
 	cp $01
 	ret c
-	jr .asm_b7304
-.Func_b72e8:
+	jr .next_step
+.Hold1Loop:
 	ld a, [wOWUIObj1Attributes]
 	cp $01
 	ret c
 	ld a, [wOWUIObj1Frame]
 	sub $10
 	ld [wOWUIObj1Frame], a
-	jr .asm_b7304
-.Func_b72f8:
+	jr .next_step
+.Up1SFX:
 	play_sfx SFX_RUMBLE
-.Func_b7300:
+.Up1:
 	ld hl, wSCY
 	dec [hl]
-.asm_b7304
+.next_step
 	xor a
 	ld hl, wOWUIObj1Attributes
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_b730b:
+.Down1:
 	ld hl, wSCY
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b7311:
+.Up4SFX:
 	ld hl, wSCY
 	dec [hl]
 	dec [hl]
 	dec [hl]
 	dec [hl]
 	play_sfx SFX_RUMBLE
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b7322:
+.Down4:
 	ld hl, wSCY
 	inc [hl]
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b732b:
+.UnreferencedLeft4:
 	ld hl, wSCX
 	dec [hl]
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b7334:
+.Left2:
 	ld hl, wSCX
 	dec [hl]
 	dec [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b733b:
+.Right4SFX:
 	play_sfx SFX_SLAM
-.Func_b7343:
+.Right4:
 	ld hl, wSCX
 	inc [hl]
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b734c:
-	call .Func_b7343
+.Right4End:
+	call .Right4
 	xor a
 	ld [wOWUIObj1Frame], a
 	ret
@@ -7395,28 +7395,28 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b735c:
+.Right2:
 	ld hl, wSCX
 	inc [hl]
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b7363:
+.Right1SFX:
 	play_sfx SFX_SLAM
-.asm_b736b
+.right_1
 	ld hl, wSCX
 	inc [hl]
-	jr .asm_b7304
+	jr .next_step
 
-.Func_b7371:
-	call .asm_b736b
+.Right1End:
+	call .right_1
 	xor a
 	ld [wOWUIObj1Frame], a
 	ret
 
-.Func_b7379:
+.Left8:
 	ld hl, wSCX
 	dec [hl]
 	dec [hl]
@@ -7426,9 +7426,9 @@ UpdateOWSceneScreenShake:
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	jp .asm_b7304
+	jp .next_step
 
-.Func_b7387:
+.Right8:
 	ld hl, wSCX
 	inc [hl]
 	inc [hl]
@@ -7438,70 +7438,70 @@ UpdateOWSceneScreenShake:
 	inc [hl]
 	inc [hl]
 	inc [hl]
-	jp .asm_b7304
+	jp .next_step
 
 EOWFunc_FormCastle:
-	call .Func_b74cb
+	call .UpdatePalFade
 
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b73c4
-	dw .Func_b73ce
-	dw .Func_b73e1
-	dw .Func_b73e6
-	dw .Func_b73ee
-	dw .Func_b742b
-	dw .Func_b7430
-	dw .Func_b743b
-	dw .Func_b744a
-	dw .Func_b7459
-	dw .Func_b7468
-	dw .Func_b7477
-	dw .Func_b7486
-	dw .Func_b7495
-	dw .Func_b74a0
-	dw .Func_b74a5
-	dw .Func_b74b0
-	dw .Func_b73c9
+	dw .Wait60
+	dw .SetObj1State10
+	dw .Wait40_2
+	dw .SetUnusedW2d121
+	dw .MoveObj1AndFadePals
+	dw .Wait20
+	dw .SetObj1State11
+	dw .PatchCastle6
+	dw .PatchCastle5
+	dw .PatchCastle4
+	dw .PatchCastle3
+	dw .PatchCastle2
+	dw .PatchCastle1
+	dw .SetObj7State12
+	dw .Wait10
+	dw .HideObj1
+	dw .FadePalsBack
+	dw .Wait40_1
 	dw EndOWFunc
 
-.Func_b73c4:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b73c9:
+.Wait40_1:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b73ce:
+.SetObj1State10:
 	ld a, $10
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	play_sfx SFX_CASTLE_FORM
 	jp AdvanceOWFunc
 
-.Func_b73e1:
+.Wait40_2:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b73e6:
+.SetUnusedW2d121:
 	ld a, $01
 	ld [wUnused_2d121], a
 	jp AdvanceOWFunc
 
-.Func_b73ee:
-	call .Func_b741b
+.MoveObj1AndFadePals:
+	call .move_obj1
 	ld a, [wSceneObj1Unk7]
 	cp $30
-	jr z, .asm_b7404
+	jr z, .start_pal_fade
 	cp $50
-	jr z, .asm_b7410
+	jr z, .next_fade_index
 	and a
 	ret nz
-	call .asm_b7410
+	call .next_fade_index
 	jp AdvanceOWFunc
-.asm_b7404
+.start_pal_fade
 	ld a, [wOWFuncCounter]
 	and $03
 	ret z
@@ -7509,7 +7509,7 @@ EOWFunc_FormCastle:
 	ld [wOWUIObj2YCoord], a
 	ret
 
-.asm_b7410
+.next_fade_index
 	ld a, [wOWFuncCounter]
 	and $03
 	ret z
@@ -7517,7 +7517,7 @@ EOWFunc_FormCastle:
 	inc [hl]
 	ret
 
-.Func_b741b:
+.move_obj1:
 	ld a, [wOWFuncCounter]
 	and $03
 	ret z
@@ -7526,17 +7526,17 @@ EOWFunc_FormCastle:
 	call ApplyOWMovement
 	ret
 
-.Func_b742b:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b7430:
+.SetObj1State11:
 	ld a, $11
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b743b:
+.PatchCastle6:
 	ld a, [wOWFuncCounter]
 	cp $28
 	ret c
@@ -7544,7 +7544,7 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b744a:
+.PatchCastle5:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
@@ -7552,7 +7552,7 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b7459:
+.PatchCastle4:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
@@ -7560,7 +7560,7 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b7468:
+.PatchCastle3:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
@@ -7568,7 +7568,7 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b7477:
+.PatchCastle2:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
@@ -7576,7 +7576,7 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b7486:
+.PatchCastle1:
 	ld a, [wOWFuncCounter]
 	cp $05
 	ret c
@@ -7584,54 +7584,54 @@ EOWFunc_FormCastle:
 	call ApplyOWTilemapPatchesAndRedraw
 	jp AdvanceOWFunc
 
-.Func_b7495:
+.SetObj7State12:
 	ld a, $12
 	ld hl, wSceneObj7State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b74a0:
+.Wait10:
 	ld a, 10
 	jp WaitOWFunc
 
-.Func_b74a5:
+.HideObj1:
 	ld a, $00
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b74b0:
+.FadePalsBack:
 	ld a, [wOWFuncCounter]
 	cp $0a
-	jr z, .asm_b74c6
+	jr z, .prev_fade_index
 	cp $14
-	jr z, .asm_b74c6
+	jr z, .prev_fade_index
 	cp $21
 	ret nz
 	ld a, $04
 	ld [wOWUIObj2YCoord], a
 	jp AdvanceOWFunc
-.asm_b74c6
+.prev_fade_index
 	ld hl, wOWUIObj2Frame
 	dec [hl]
 	ret
 
-.Func_b74cb:
+.UpdatePalFade:
 	ld hl, wOWUIObj2YCoord
 	ld a, [hli]
 	and a
 	ret z
 	inc [hl]
 	dec a
-	jr z, .asm_b74df
+	jr z, .fade_step_1
 	dec a
-	jr z, .asm_b7511
+	jr z, .fade_step_2
 	dec a
-	jr z, .asm_b7522
+	jr z, .fade_step_3
 	dec a
-	jr z, .asm_b7539
+	jr z, .fade_step_4
 	ret
-.asm_b74df
+.fade_step_1
 	ld hl, wPalConfig1Index
 	ld a, BGPI_AUTOINC | palette 0
 	ld [hli], a
@@ -7658,15 +7658,15 @@ EOWFunc_FormCastle:
 	ld b, BANK(EastOWGreyPals)
 	call CopyFarBytes
 
-.asm_b750a
+.next_fade_step
 	xor a
 	ld hl, wOWUIObj2XCoord
 	ld [hld], a
 	inc [hl]
 	ret
 
-.asm_b7511
-	call .Func_b7544
+.fade_step_2
+	call .get_fade_delays
 	ld b, [hl]
 	ld a, [wOWUIObj2XCoord]
 	cp b
@@ -7674,9 +7674,9 @@ EOWFunc_FormCastle:
 	ld hl, wPalConfig1
 	ld a, LOW(rBGPI)
 	ld [hli], a
-	jr .asm_b750a
-.asm_b7522
-	call .Func_b7544
+	jr .next_fade_step
+.fade_step_3
+	call .get_fade_delays
 	inc hl
 	ld b, [hl]
 	ld a, [wOWUIObj2XCoord]
@@ -7691,7 +7691,7 @@ EOWFunc_FormCastle:
 	dec [hl]
 	ret
 
-.asm_b7539
+.fade_step_4
 	ld hl, wPalConfig2
 	ld a, LOW(rBGPI)
 	ld [hli], a
@@ -7699,7 +7699,7 @@ EOWFunc_FormCastle:
 	ld [wOWUIObj2YCoord], a
 	ret
 
-.Func_b7544:
+.get_fade_delays:
 	ld a, [wOWUIObj2Frame]
 	add a
 	ld e, a
@@ -7735,64 +7735,64 @@ EOWFunc_FormCastle:
 	db $18, $b2
 
 EOWFunc_VulcanoEruption:
-	call .Func_b774c
+	call .UpdateRockLauncher
 	call UpdateOWSceneScreenShake
-	call .Func_b762d
-	call .Func_b766c
-	call .Func_b76a9
-	call .Func_b76e6
-	call .Func_b7719
+	call .UpdateObj10
+	call .UpdateObj12
+	call .UpdateObj13
+	call .UpdateObj14
+	call .UpdateObj15
 	call PlayVolcanoRumbleSFX
 
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b75b6
-	dw .Func_b75c3
-	dw .Func_b75d0
-	dw .Func_b75d8
-	dw .Func_b75dd
-	dw .Func_b75ed
-	dw .Func_b75fb
-	dw .Func_b7609
-	dw .Func_b7617
-	dw .Func_b7625
-	dw .Func_b75be
+	dw .StartRumbleSFX
+	dw .StartShakeAndRocks
+	dw .WaitShakeEnd
+	dw .Wait56
+	dw .StartObj10
+	dw .StartObj13
+	dw .StartObj14
+	dw .StartObj12
+	dw .StartObj15
+	dw .WaitObj15Done
+	dw .Wait180
 	dw EndOWFunc
 
-.Func_b75b6:
+.StartRumbleSFX:
 	ld a, $01
 	ld [wOWUIObj2Attributes], a
 	jp AdvanceOWFunc
 
-.Func_b75be:
+.Wait180:
 	ld a, 180
 	jp WaitOWFunc
 
-.Func_b75c3:
+.StartShakeAndRocks:
 	ld a, $0a
 	ld [wOWUIObj1YCoord], a
 	ld a, $01
 	ld [wOWUIObj1State], a
 	jp AdvanceOWFunc
 
-.Func_b75d0:
+.WaitShakeEnd:
 	ld a, [wOWUIObj1YCoord]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b75d8:
+.Wait56:
 	ld a, 56
 	jp WaitOWFunc
 
-.Func_b75dd:
+.StartObj10:
 	play_sfx SFX_VOLCANO_ERUPTION
 	ld a, $01
 	ld [wSceneObj10ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b75ed:
+.StartObj13:
 	ld a, [wOWFuncCounter]
 	cp $08
 	ret c
@@ -7800,7 +7800,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj13ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b75fb:
+.StartObj14:
 	ld a, [wOWFuncCounter]
 	cp $3c
 	ret c
@@ -7808,7 +7808,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj14ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b7609:
+.StartObj12:
 	ld a, [wOWFuncCounter]
 	cp $08
 	ret c
@@ -7816,7 +7816,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj12ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b7617:
+.StartObj15:
 	ld a, [wOWFuncCounter]
 	cp $08
 	ret c
@@ -7824,13 +7824,13 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj15ScriptStep], a
 	jp AdvanceOWFunc
 
-.Func_b7625:
+.WaitObj15Done:
 	ld a, [wSceneObj15ScriptStep]
 	and a
 	ret nz
 	jp AdvanceOWFunc
 
-.Func_b762d:
+.UpdateObj10:
 	ld hl, wSceneObj10ScriptStep
 	ld a, [hli]
 	and a
@@ -7838,38 +7838,38 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b763e
-	dw .Func_b764e
-	dw .Func_b7656
-	dw .Func_b765f
+	dw .Obj10_Show
+	dw .Obj10_WaitState0b
+	dw .Obj10_Wait90
+	dw .Obj10_Hide
 
-.Func_b763e:
+.Obj10_Show:
 	ld a, $0a
 	ld hl, wSceneObj10State
 	call SetSceneObjState
-.asm_b7646
+.obj10_next_step
 	ld hl, wSceneObj10ScriptStep
-.asm_b7649
+.next_script_step
 	inc [hl]
 	inc l
 	xor a
 	ld [hl], a
 	ret
 
-.Func_b764e:
+.Obj10_WaitState0b:
 	ld a, [wSceneObj10State]
 	cp $0b
 	ret nz
-	jr .asm_b7646
+	jr .obj10_next_step
 
-.Func_b7656:
+.Obj10_Wait90:
 	ld a, $5a
 	ld hl, wSceneObj10ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b7646
+	jr .obj10_next_step
 
-.Func_b765f:
+.Obj10_Hide:
 	ld a, $00
 	ld hl, wSceneObj10State
 	call SetSceneObjState
@@ -7877,7 +7877,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj10ScriptStep], a
 	ret
 
-.Func_b766c:
+.UpdateObj12:
 	ld hl, wSceneObj12ScriptStep
 	ld a, [hli]
 	and a
@@ -7885,33 +7885,33 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b767d
-	dw .Func_b768b
-	dw .Func_b7693
-	dw .Func_b769c
+	dw .Obj12_Show
+	dw .Obj12_WaitState0e
+	dw .Obj12_Wait90
+	dw .Obj12_Hide
 
-.Func_b767d:
+.Obj12_Show:
 	ld a, $0d
 	ld hl, wSceneObj12State
 	call SetSceneObjState
-.asm_b7685
+.obj12_next_step
 	ld hl, wSceneObj12ScriptStep
-	jp .asm_b7649
+	jp .next_script_step
 
-.Func_b768b:
+.Obj12_WaitState0e:
 	ld a, [wSceneObj12State]
 	cp $0e
 	ret nz
-	jr .asm_b7685
+	jr .obj12_next_step
 
-.Func_b7693:
+.Obj12_Wait90:
 	ld a, $5a
 	ld hl, wSceneObj12ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b7685
+	jr .obj12_next_step
 
-.Func_b769c:
+.Obj12_Hide:
 	ld a, $00
 	ld hl, wSceneObj12State
 	call SetSceneObjState
@@ -7919,7 +7919,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj12ScriptStep], a
 	ret
 
-.Func_b76a9:
+.UpdateObj13:
 	ld hl, wSceneObj13ScriptStep
 	ld a, [hli]
 	and a
@@ -7927,33 +7927,33 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b76ba
-	dw .Func_b76c8
-	dw .Func_b76d0
-	dw .Func_b76d9
+	dw .Obj13_Show
+	dw .Obj13_WaitState0e
+	dw .Obj13_Wait90
+	dw .Obj13_Hide
 
-.Func_b76ba:
+.Obj13_Show:
 	ld a, $0d
 	ld hl, wSceneObj13State
 	call SetSceneObjState
-.asm_b76c2
+.obj13_next_step
 	ld hl, wSceneObj13ScriptStep
-	jp .asm_b7649
+	jp .next_script_step
 
-.Func_b76c8:
+.Obj13_WaitState0e:
 	ld a, [wSceneObj13State]
 	cp $0e
 	ret nz
-	jr .asm_b76c2
+	jr .obj13_next_step
 
-.Func_b76d0:
+.Obj13_Wait90:
 	ld a, $5a
 	ld hl, wSceneObj13ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b76c2
+	jr .obj13_next_step
 
-.Func_b76d9:
+.Obj13_Hide:
 	ld a, $00
 	ld hl, wSceneObj13State
 	call SetSceneObjState
@@ -7961,7 +7961,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj13ScriptStep], a
 	ret
 
-.Func_b76e6:
+.UpdateObj14:
 	ld hl, wSceneObj14ScriptStep
 	ld a, [hli]
 	and a
@@ -7969,26 +7969,26 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b76f5
-	dw .Func_b7703
-	dw .Func_b770c
+	dw .Obj14_Show
+	dw .Obj14_Wait90
+	dw .Obj14_Hide
 
-.Func_b76f5:
+.Obj14_Show:
 	ld a, $0e
 	ld hl, wSceneObj14State
 	call SetSceneObjState
-.asm_b76fd
+.obj14_next_step
 	ld hl, wSceneObj14ScriptStep
-	jp .asm_b7649
+	jp .next_script_step
 
-.Func_b7703:
+.Obj14_Wait90:
 	ld a, $5a
 	ld hl, wSceneObj14ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b76fd
+	jr .obj14_next_step
 
-.Func_b770c:
+.Obj14_Hide:
 	ld a, $00
 	ld hl, wSceneObj14State
 	call SetSceneObjState
@@ -7996,7 +7996,7 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj14ScriptStep], a
 	ret
 
-.Func_b7719:
+.UpdateObj15:
 	ld hl, wSceneObj15ScriptStep
 	ld a, [hli]
 	and a
@@ -8004,26 +8004,26 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b7728
-	dw .Func_b7736
-	dw .Func_b773f
+	dw .Obj15_Show
+	dw .Obj15_Wait90
+	dw .Obj15_Hide
 
-.Func_b7728:
+.Obj15_Show:
 	ld a, $0e
 	ld hl, wSceneObj15State
 	call SetSceneObjState
-.asm_b7730
+.obj15_next_step
 	ld hl, wSceneObj15ScriptStep
-	jp .asm_b7649
+	jp .next_script_step
 
-.Func_b7736:
+.Obj15_Wait90:
 	ld a, $5a
 	ld hl, wSceneObj15ScriptCounter
 	cp [hl]
 	ret nc
-	jr .asm_b7730
+	jr .obj15_next_step
 
-.Func_b773f:
+.Obj15_Hide:
 	ld a, $00
 	ld hl, wSceneObj15State
 	call SetSceneObjState
@@ -8031,9 +8031,9 @@ EOWFunc_VulcanoEruption:
 	ld [wSceneObj15ScriptStep], a
 	ret
 
-.Func_b774c:
-	call WOWFunc_VulcanoEruption.Func_b5f58
-	call WOWFunc_VulcanoEruption.Func_b5fb9
+.UpdateRockLauncher:
+	call WOWFunc_VulcanoEruption.UpdateLeftRock
+	call WOWFunc_VulcanoEruption.UpdateRightRock
 	ld hl, wOWUIObj1State
 	ld a, [hli]
 	and a
@@ -8041,12 +8041,12 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	dec a
 	jumptable
-	dw .Func_b7772
-	dw .Func_b777f
-	dw .Func_b778c
-	dw .Func_b77a6
+	dw .LaunchLeftRock1
+	dw .LaunchRightRock
+	dw .LaunchLeftRock2
+	dw .StopLauncher
 
-.Func_b7763:
+.rock_sfx_and_next:
 	play_sfx SFX_TEMPLE_ROCK
 	ld hl, wSceneWarioUnk7
 	xor a
@@ -8054,29 +8054,29 @@ EOWFunc_VulcanoEruption:
 	inc [hl]
 	ret
 
-.Func_b7772:
+.LaunchLeftRock1:
 	ld a, [wSceneWarioUnk7]
 	cp $50
 	ret c
 	ld a, $05
 	ld [wSceneObj1ScriptStep], a
-	jr .Func_b7763
+	jr .rock_sfx_and_next
 
-.Func_b777f:
+.LaunchRightRock:
 	ld a, [wSceneWarioUnk7]
 	cp $3c
 	ret c
 	ld a, $07
 	ld [wSceneObj3ScriptStep], a
-	jr .Func_b7763
+	jr .rock_sfx_and_next
 
-.Func_b778c:
+.LaunchLeftRock2:
 	ld a, [wSceneWarioUnk7]
 	cp $50
 	ret c
 	ld a, $07
 	ld [wSceneObj1ScriptStep], a
-	jr .Func_b7763
+	jr .rock_sfx_and_next
 
 ; unreachable
 	ld a, [wSceneWarioUnk7]
@@ -8084,32 +8084,32 @@ EOWFunc_VulcanoEruption:
 	ret c
 	ld a, $05
 	ld [wSceneObj3ScriptStep], a
-	jr .Func_b7763
-.Func_b77a6:
+	jr .rock_sfx_and_next
+.StopLauncher:
 	xor a
 	ld [wOWUIObj1State], a
 	ret
 
 EOWFunc_BurnVines:
-	call .Func_b77ce
+	call .PlayObj1StateSFX
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b7803
-	dw .Func_b780d
-	dw .Func_b7818
-	dw .Func_b781d
-	dw .Func_b7828
-	dw .Func_b782d
-	dw .Func_b7838
-	dw .Func_b783d
-	dw .Func_b7847
-	dw .Func_b784c
-	dw .Func_b7857
-	dw .Func_b7808
+	dw .Wait40_1
+	dw .SetObj1State15
+	dw .Wait60
+	dw .SetObj1State16
+	dw .Wait30_2
+	dw .SetObj1State14
+	dw .Wait90
+	dw .HideObj9
+	dw .Wait40_2
+	dw .SetObj1State18
+	dw .WaitObj1Disappear
+	dw .Wait30_1
 	dw EndOWFunc
 
-.Func_b77ce:
+.PlayObj1StateSFX:
 	ld hl, w2d123
 	inc [hl]
 	ld a, [hl]
@@ -8119,76 +8119,76 @@ EOWFunc_BurnVines:
 	ld [hl], a
 	ld a, [wSceneObj1State]
 	cp $15
-	jr z, .asm_b77fa
+	jr z, .burn_vines_2_sfx
 	cp $16
-	jr z, .asm_b77f1
+	jr z, .burn_vines_1_sfx
 	cp $14
-	jr z, .asm_b77e8
+	jr z, .fire_sfx
 	ret
-.asm_b77e8
+.fire_sfx
 	play_sfx SFX_FIRE
 	ret
-.asm_b77f1
+.burn_vines_1_sfx
 	play_sfx SFX_BURN_VINES_1
 	ret
-.asm_b77fa
+.burn_vines_2_sfx
 	play_sfx SFX_BURN_VINES_2
 	ret
 
-.Func_b7803:
+.Wait40_1:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b7808:
+.Wait30_1:
 	ld a, 30
 	jp WaitOWFunc
-.Func_b780d:
+.SetObj1State15:
 	ld a, $15
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b7818:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b781d:
+.SetObj1State16:
 	ld a, $16
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b7828:
+.Wait30_2:
 	ld a, 30
 	jp WaitOWFunc
 
-.Func_b782d:
+.SetObj1State14:
 	ld a, $14
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b7838:
+.Wait90:
 	ld a, 90
 	jp WaitOWFunc
 
-.Func_b783d:
+.HideObj9:
 	ld a, $00
 	ld hl, wSceneObj9State
 	call SetSceneObjState
-	jr .Func_b780d
+	jr .SetObj1State15
 
-.Func_b7847:
+.Wait40_2:
 	ld a, 40
 	jp WaitOWFunc
 
-.Func_b784c:
+.SetObj1State18:
 	ld a, $18
 	ld hl, wSceneObj1State
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b7857:
+.WaitObj1Disappear:
 	ld hl, wSceneObj1State
 	jp WaitOWObjDisappear
 
@@ -8196,28 +8196,28 @@ EOWFunc_ShowWarpedVoid:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b786d
-	dw .Func_b7877
-	dw .Func_b788a
-	dw .Func_b7872
+	dw .Wait60
+	dw .SetObj5State1b
+	dw .WaitObj5State19
+	dw .Wait160
 	dw EndOWFunc
 
-.Func_b786d:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b7872:
+.Wait160:
 	ld a, 160
 	jp WaitOWFunc
 
-.Func_b7877:
+.SetObj5State1b:
 	ld a, $1b
 	ld hl, wSceneObj5State
 	call SetSceneObjState
 	play_sfx SFX_WARPED_VOID_APPEAR
 	jp AdvanceOWFunc
 
-.Func_b788a:
+.WaitObj5State19:
 	ld hl, wSceneObj5State
 	ld b, $19
 	jp WaitOWObjState
@@ -8226,25 +8226,25 @@ EOWFunc_RaisePipe:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b78aa
+	dw .Wait20
 	dw LoadOWSceneLevelName
 	dw WaitOWSceneLevelNameFadeIn
 	dw WaitOWScene16Frames
-	dw .Func_b78b4
-	dw .Func_b78c4
-	dw .Func_b78d5
-	dw .Func_b78af
+	dw .ShowObj8
+	dw .PlayRaiseSFX
+	dw .WaitObj8State1c
+	dw .Wait60
 	dw EndOWFunc
 
-.Func_b78aa:
+.Wait20:
 	ld a, 20
 	jp WaitOWFunc
 
-.Func_b78af:
+.Wait60:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b78b4:
+.ShowObj8:
 	ld a, $37
 	ld [wSceneObj8], a
 	ld a, $1d
@@ -8252,14 +8252,14 @@ EOWFunc_RaisePipe:
 	call SetSceneObjState
 	jp AdvanceOWFunc
 
-.Func_b78c4:
+.PlayRaiseSFX:
 	ld a, [wOWFuncCounter]
 	cp $10
 	ret c
 	play_sfx SFX_FAT_WALK
 	jp AdvanceOWFunc
 
-.Func_b78d5:
+.WaitObj8State1c:
 	ld b, $1c
 	ld hl, wSceneObj8State
 	jp WaitOWObjState
@@ -8268,20 +8268,20 @@ EOWFunc_Daytime:
 	ld a, [wOWFuncStep]
 	jumptable
 	dw AdvanceOWFunc
-	dw .Func_b78eb
-	dw .Func_b78f5
-	dw .Func_b78f0
+	dw .Wait60_1
+	dw .DaytimeTransition
+	dw .Wait60_2
 	dw EndOWFunc
 
-.Func_b78eb:
+.Wait60_1:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b78f0:
+.Wait60_2:
 	ld a, 60
 	jp WaitOWFunc
 
-.Func_b78f5:
+.DaytimeTransition:
 	farcall DaytimeTransition
 	ld a, [wOWPalTransitionState]
 	and a
@@ -8350,7 +8350,7 @@ UpdateNorthOWObjMapAnim:
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
-	dw .Func_b79de
+	dw .Obj3BreakWhenWarioNear
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
@@ -8359,7 +8359,7 @@ UpdateNorthOWObjMapAnim:
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
-	dw .Func_b7a32
+	dw .Obj2ReactToWario
 	dw OWFunc_DoNothing
 	dw UpdateNorthLeaves
 	dw UpdateNorthLeaves
@@ -8369,10 +8369,10 @@ UpdateNorthOWObjMapAnim:
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
-	dw .Func_b79fa
-	dw .Func_b7a08
-	dw .Func_b7a16
-	dw .Func_b7a24
+	dw .Obj15WaitForDay
+	dw .Obj15WaitForNight
+	dw .Obj14WaitForDay
+	dw .Obj14WaitForNight
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
@@ -8390,7 +8390,7 @@ UpdateNorthOWObjMapAnim:
 	dw OWFunc_DoNothing
 	dw OWFunc_DoNothing
 
-.Func_b79de:
+.Obj3BreakWhenWarioNear:
 	ld a, [wCurEvent]
 	and a
 	ret nz
@@ -8403,7 +8403,7 @@ UpdateNorthOWObjMapAnim:
 	play_sfx SFX_BLOCK_BREAK
 	ret
 
-.Func_b79fa:
+.Obj15WaitForDay:
 	ld a, [wOWIsNight]
 	and a
 	ret nz
@@ -8412,7 +8412,7 @@ UpdateNorthOWObjMapAnim:
 	call SetSceneObjState
 	ret
 
-.Func_b7a08:
+.Obj15WaitForNight:
 	ld a, [wOWIsNight]
 	and a
 	ret z
@@ -8421,7 +8421,7 @@ UpdateNorthOWObjMapAnim:
 	call SetSceneObjState
 	ret
 
-.Func_b7a16:
+.Obj14WaitForDay:
 	ld a, [wOWIsNight]
 	and a
 	ret nz
@@ -8430,7 +8430,7 @@ UpdateNorthOWObjMapAnim:
 	call SetSceneObjState
 	ret
 
-.Func_b7a24:
+.Obj14WaitForNight:
 	ld a, [wOWIsNight]
 	and a
 	ret z
@@ -8439,32 +8439,32 @@ UpdateNorthOWObjMapAnim:
 	call SetSceneObjState
 	ret
 
-.Func_b7a32:
-	call .Func_b7a5a
+.Obj2ReactToWario:
+	call .check_wario_near_obj2
 	ld hl, wSceneObj2ScriptCounter
-	jr z, .asm_b7a3f
+	jr z, .obj2_check_wario
 	inc [hl]
 	ld a, [hl]
 	cp $78
 	ret c
 
-.asm_b7a3f
+.obj2_check_wario
 	xor a
 	ld [hl], a
 	ld [wSceneObj2ScriptStep], a
-	call .Func_b7a5a
+	call .check_wario_near_obj2
 	ld b, $1d
-	jr nz, .asm_b7a52
+	jr nz, .obj2_set_state
 	ld a, $01
 	ld [wSceneObj2ScriptStep], a
 	ld b, $0d
-.asm_b7a52
+.obj2_set_state
 	ld a, b
 	ld hl, wSceneObj2State
 	call SetSceneObjState
 	ret
 
-.Func_b7a5a:
+.check_wario_near_obj2:
 	ld a, [wCurEvent]
 	and a
 	ret nz
@@ -8531,7 +8531,7 @@ WestOWObj8WaitForNight:
 	ld hl, wSceneObj8Unk7
 	ld a, [hl]
 	and a
-	jr nz, .asm_b7ad7
+	jr nz, .wait_night
 	ld a, [wSceneObj7State]
 	and a
 	ret nz
@@ -8539,26 +8539,26 @@ WestOWObj8WaitForNight:
 	and a
 	ret nz
 	inc [hl]
-.asm_b7ad7
+.wait_night
 	ld a, [wOWIsNight]
 	and a
-	jr nz, .asm_b7af0
+	jr nz, .is_night
 	ld a, [wOWPalTransitionState]
 	cp $02
 	ret nz
 	ld a, $07
-.asm_b7ae5
+.set_obj7_state
 	ld hl, wSceneObj7State
 	call SetSceneObjState
 	xor a
 	ld [wSceneObj8Unk7], a
 	ret
-.asm_b7af0
+.is_night
 	ld a, $08
 	ld [wSceneObj8State], a
 	xor a
 	ld [wSceneObj8Duration], a
-	jr .asm_b7ae5
+	jr .set_obj7_state
 
 WestOWObj8WaitForDay:
 	ld a, [wCurEvent]
@@ -8567,19 +8567,19 @@ WestOWObj8WaitForDay:
 	ld hl, wSceneObj8Unk7
 	ld a, [hl]
 	and a
-	jr nz, .asm_b7b0d
+	jr nz, .wait_day
 	ld a, [wOWPalTransitionState]
 	and a
 	ret nz
 	inc [hl]
-.asm_b7b0d
+.wait_day
 	ld a, [wOWIsNight]
 	and a
-	jr z, .asm_b7b19
+	jr z, .is_day
 	ld a, [wOWPalTransitionState]
 	cp $02
 	ret nz
-.asm_b7b19
+.is_day
 	ld a, $06
 	ld [wSceneObj8State], a
 	xor a
@@ -8590,22 +8590,22 @@ WestOWObj8WaitForDay:
 WestOWObj5ReactToWario:
 	call CheckWarioNearWestOWObj5
 	ld hl, wSceneObj5ScriptCounter
-	jr z, .asm_b7b33
+	jr z, .check_wario
 	inc [hl]
 	ld a, [hl]
 	cp $78
 	ret c
-.asm_b7b33
+.check_wario
 	xor a
 	ld [hl], a
 	ld [wSceneObj5ScriptStep], a
 	call CheckWarioNearWestOWObj5
 	ld b, $13
-	jr nz, .asm_b7b46
+	jr nz, .set_state
 	ld a, $01
 	ld [wSceneObj5ScriptStep], a
 	ld b, $10
-.asm_b7b46
+.set_state
 	ld a, b
 	ld hl, wSceneObj5State
 	call SetSceneObjState
@@ -8669,51 +8669,51 @@ EastOWObj7WaitForDay:
 	ret nz
 	ld a, [wOWIsNight]
 	and a
-	jr z, .asm_b7bc2
+	jr z, .is_day
 	ld a, [wOWPalTransitionState]
 	cp $02
 	ret nz
-.asm_b7bb9
+.set_state
 	ld a, $13
 	ld hl, wSceneObj7State
 	call SetSceneObjState
 	ret
-.asm_b7bc2
+.is_day
 	ld a, [wOWPalTransitionState]
 	and a
 	ret nz
-	jr .asm_b7bb9
+	jr .set_state
 
 EastOWObj7WaitForNight:
 	call EastOWObj7CheckSkip
 	ret nz
 	ld a, [wOWIsNight]
 	and a
-	jr nz, .asm_b7be2
+	jr nz, .is_night
 	ld a, [wOWPalTransitionState]
 	cp $02
 	ret nz
-.asm_b7bd9
+.set_state
 	ld a, $12
 	ld hl, wSceneObj7State
 	call SetSceneObjState
 	ret
-.asm_b7be2
+.is_night
 	ld a, [wOWPalTransitionState]
 	and a
 	ret nz
-	jr .asm_b7bd9
+	jr .set_state
 
 EastOWObj7CheckSkip:
 	ld a, [wOWSceneAction]
 	cp UNLOCK_LEVEL
-	jr z, .asm_b7bf9
+	jr z, .skip
 	cp HIGHLIGHT_LEVEL
-	jr z, .asm_b7bf9
+	jr z, .skip
 	ld a, [wCurEvent]
 	and a
 	ret
-.asm_b7bf9
+.skip
 	ld a, $00
 	ld hl, wSceneObj7State
 	call SetSceneObjState
@@ -8774,22 +8774,22 @@ UpdateSouthOWObjMapAnim:
 SouthOWObj7ReactToWario:
 	call CheckWarioNearSouthOWObj7
 	ld hl, wSceneObj7ScriptCounter
-	jr z, .asm_b7c69
+	jr z, .check_wario
 	inc [hl]
 	ld a, [hl]
 	cp $78
 	ret c
-.asm_b7c69
+.check_wario
 	xor a
 	ld [hl], a
 	ld [wSceneObj7ScriptStep], a
 	call CheckWarioNearSouthOWObj7
 	ld b, $1d
-	jr nz, .asm_b7c7c
+	jr nz, .set_state
 	ld a, $01
 	ld [wSceneObj7ScriptStep], a
 	ld b, $14
-.asm_b7c7c
+.set_state
 	ld a, b
 	ld hl, wSceneObj7State
 	call SetSceneObjState
@@ -8832,15 +8832,15 @@ MoveSouthOWObj14Diagonally:
 	ret nz
 	ld a, [wOWIsNightTarget]
 	and a
-	jr z, .asm_b7ce7
-	jr .asm_b7cc0 ; unnecessary jump
-.asm_b7cc0
+	jr z, .move_to_day_pos
+	jr .move_to_night_pos ; unnecessary jump
+.move_to_night_pos
 	ld a, [wSceneObj14XCoord]
 	cp $80
 	ret z
 	ld a, [wSouthOWObj14MoveStarted]
 	and a
-	call z, .Func_b7cda
+	call z, .reset_position_once
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
@@ -8850,7 +8850,7 @@ MoveSouthOWObj14Diagonally:
 	inc [hl]
 	ret
 
-.Func_b7cda:
+.reset_position_once:
 	ld hl, wSouthOWObj14MoveStarted
 	inc [hl]
 	ld hl, wSceneObj14YCoord
@@ -8859,13 +8859,13 @@ MoveSouthOWObj14Diagonally:
 	ld [hl], $70
 	ret
 
-.asm_b7ce7
+.move_to_day_pos
 	ld a, [wSceneObj14XCoord]
 	cp $70
 	ret z
 	ld a, [wSouthOWObj14MoveStarted]
 	and a
-	call z, .Func_b7d0d
+	call z, .set_moved
 	ld a, [wGlobalCounter]
 	and %11
 	ret nz
@@ -8882,7 +8882,7 @@ MoveSouthOWObj14Diagonally:
 	ld [hl], $70
 	ret
 
-.Func_b7d0d:
+.set_moved:
 	ld hl, wSouthOWObj14MoveStarted
 	inc [hl]
 	ret

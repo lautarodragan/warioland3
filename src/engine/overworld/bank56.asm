@@ -134,12 +134,12 @@ WaitTempleRockRespawn:
 	dec l
 	ld a, [hld] ; size
 	and a
-	jr z, .asm_1580d6
+	jr z, .clear_action
 	dec l
 	ld a, $01
 	ld [hl], a ; action
 	jr StubTempleRockFunc
-.asm_1580d6
+.clear_action
 	ld [hld], a ; counter
 	ld [hl], a  ; action
 StubTempleRockFunc:
@@ -386,28 +386,28 @@ BounceTempleRockLeft:
 	jp ApplyOWMovement
 
 UpdateTransformationSparkles:
-	call .Func_15849a
-	call .Func_1584da
-	call .Func_158529
-	call .Func_15858c
-	call .Func_1585e1
+	call .UpdateLight
+	call .UpdateSparkle1
+	call .UpdateSparkle2
+	call .UpdateSparkle3
+	call .UpdateSparkle4
 	ret
 
-.Func_15849a:
+.UpdateLight:
 	ld hl, wSceneAuxStep
 	ld a, [hli]
 	inc [hl]
 	jumptable
-	dw .Func_1584a6
-	dw .Func_1584ab
-	dw .Func_1584c4
+	dw .LightIdle
+	dw .SpawnLight
+	dw .LowerLight
 
-.Func_1584a6:
+.LightIdle:
 	xor a
 	ld [wSceneAuxStepCounter], a
 	ret
 
-.Func_1584ab:
+.SpawnLight:
 	ld hl, wSceneObj1YCoord
 	ld a, $18
 	ld [hli], a
@@ -422,7 +422,7 @@ UpdateTransformationSparkles:
 	inc [hl]
 	ret
 
-.Func_1584c4:
+.LowerLight:
 	ld a, [wSceneAuxStepCounter]
 	and $03
 	ret nz
@@ -436,29 +436,29 @@ UpdateTransformationSparkles:
 	ld [wSceneAuxStep], a
 	ret
 
-.Func_1584da:
+.UpdateSparkle1:
 	ld hl, wTempleMusicBox1
 	ld a, [hli]
 	inc [hl]
 	ld b, h
 	ld c, l
 	jumptable
-	dw .Func_1584e8
-	dw .Func_1584f4
-	dw .Func_15850d
+	dw .Sparkle1_WaitLight
+	dw .Sparkle1_Spawn
+	dw .Sparkle1_Rise
 
-.Func_1584e8:
+.Sparkle1_WaitLight:
 	ld a, [wSceneObj1State]
 	and a
 	ret z
-.asm_1584ed
+.sparkle1_next_step
 	ld hl, wTempleMusicBox1Counter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_1584f4:
+.Sparkle1_Spawn:
 	ld hl, wSceneObj5
 	ld a, [wSceneObj1YCoord]
 	sub $08
@@ -469,11 +469,11 @@ UpdateTransformationSparkles:
 	ld a, $15
 	ld hl, wSceneObj5State
 	call SetSceneObjState
-	jr .asm_1584ed
+	jr .sparkle1_next_step
 
-.Func_15850d:
-	call .Func_15864a
-	jr z, .asm_158521
+.Sparkle1_Rise:
+	call .get_rise_offset_1
+	jr z, .sparkle1_done
 	ld hl, wSceneObj5
 	add [hl]
 	ld [hl], a
@@ -483,43 +483,43 @@ UpdateTransformationSparkles:
 	ld a, $14
 	ld [wSceneObj5State], a
 	ret
-.asm_158521
+.sparkle1_done
 	xor a
 	ld [wSceneObj5State], a
 	ld [wTempleMusicBox1], a
 	ret
 
-.Func_158529:
+.UpdateSparkle2:
 	ld hl, wPlanePart2Counter
 	ld a, [hli]
 	inc [hl]
 	ld b, h
 	ld c, l
 	jumptable
-	dw .Func_15853b
-	dw .Func_158547
-	dw .Func_15854d
-	dw .Func_158566
-	dw .Func_158580
+	dw .Sparkle2_WaitLight
+	dw .Sparkle2_Wait10
+	dw .Sparkle2_Spawn
+	dw .Sparkle2_Rise
+	dw .Sparkle2_Repeat
 
-.Func_15853b:
+.Sparkle2_WaitLight:
 	ld a, [wSceneObj1State]
 	and a
 	ret z
-.asm_158540
+.sparkle2_next_step
 	ld hl, wTempleMusicBox3
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_158547:
+.Sparkle2_Wait10:
 	ld a, [bc]
 	cp $0a
 	ret c
-	jr .asm_158540
+	jr .sparkle2_next_step
 
-.Func_15854d:
+.Sparkle2_Spawn:
 	ld hl, wSceneObj6
 	ld a, [wSceneObj1YCoord]
 	sub $08
@@ -530,11 +530,11 @@ UpdateTransformationSparkles:
 	ld a, $15
 	ld hl, wSceneObj6State
 	call SetSceneObjState
-	jr .asm_158540
+	jr .sparkle2_next_step
 
-.Func_158566:
-	call .Func_15864a
-	jr z, .asm_15857a
+.Sparkle2_Rise:
+	call .get_rise_offset_1
+	jr z, .sparkle2_despawn
 	ld hl, wSceneObj6
 	add [hl]
 	ld [hl], a
@@ -544,43 +544,43 @@ UpdateTransformationSparkles:
 	ld a, $14
 	ld [wSceneObj6State], a
 	ret
-.asm_15857a
+.sparkle2_despawn
 	xor a
 	ld [wSceneObj6State], a
-	jr .asm_158540
+	jr .sparkle2_next_step
 
-.Func_158580:
+.Sparkle2_Repeat:
 	ld a, [wSceneObj1State]
 	and a
-	jr z, .asm_158588
+	jr z, .sparkle2_set_step
 	ld a, $02
-.asm_158588
+.sparkle2_set_step
 	ld [wPlanePart2Counter], a
 	ret
 
-.Func_15858c:
+.UpdateSparkle3:
 	ld hl, wTempleMusicBox4
 	ld a, [hli]
 	inc [hl]
 	ld b, h
 	ld c, l
 	jumptable
-	dw .Func_15859a
-	dw .Func_1585a6
-	dw .Func_1585bf
+	dw .Sparkle3_WaitLight
+	dw .Sparkle3_Spawn
+	dw .Sparkle3_Rise
 
-.Func_15859a:
+.Sparkle3_WaitLight:
 	ld a, [wSceneObj1State]
 	and a
 	ret z
-.asm_15859f
+.sparkle3_next_step
 	ld hl, wTempleMusicBox4Counter
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_1585a6:
+.Sparkle3_Spawn:
 	ld hl, wSceneObj7
 	ld a, [wSceneObj1YCoord]
 	sub $06
@@ -591,62 +591,62 @@ UpdateTransformationSparkles:
 	ld a, $15
 	ld hl, wSceneObj7State
 	call SetSceneObjState
-	jr .asm_15859f
+	jr .sparkle3_next_step
 
-.Func_1585bf:
-	call .Func_15866e
-	jr z, .asm_1585d9
+.Sparkle3_Rise:
+	call .get_rise_offset_2
+	jr z, .sparkle3_done
 	ld hl, wSceneObj7
 	add [hl]
 	ld [hli], a
 	ld a, [bc]
 	and $01
-	jr z, .asm_1585cf
+	jr z, .sparkle3_drifted
 	dec [hl]
-.asm_1585cf
+.sparkle3_drifted
 	ld a, [bc]
 	cp $03
 	ret nz
 	ld a, $14
 	ld [wSceneObj7State], a
 	ret
-.asm_1585d9
+.sparkle3_done
 	xor a
 	ld [wSceneObj7State], a
 	ld [wTempleMusicBox4], a
 	ret
 
-.Func_1585e1:
+.UpdateSparkle4:
 	ld hl, wTempleMusicBox5Counter
 	ld a, [hli]
 	inc [hl]
 	ld b, h
 	ld c, l
 	jumptable
-	dw .Func_1585f3
-	dw .Func_1585ff
-	dw .Func_158605
-	dw .Func_15861e
-	dw .Func_15863e
+	dw .Sparkle4_WaitLight
+	dw .Sparkle4_Wait8
+	dw .Sparkle4_Spawn
+	dw .Sparkle4_Rise
+	dw .Sparkle4_Repeat
 
-.Func_1585f3:
+.Sparkle4_WaitLight:
 	ld a, [wSceneObj1State]
 	and a
 	ret z
-.asm_1585f8
+.sparkle4_next_step
 	ld hl, wPalFade2Colour3GreenUnk1
 	xor a
 	ld [hld], a
 	inc [hl]
 	ret
 
-.Func_1585ff:
+.Sparkle4_Wait8:
 	ld a, [bc]
 	cp $08
 	ret c
-	jr .asm_1585f8
+	jr .sparkle4_next_step
 
-.Func_158605:
+.Sparkle4_Spawn:
 	ld hl, wSceneObj8
 	ld a, [wSceneObj1YCoord]
 	sub $10
@@ -657,40 +657,40 @@ UpdateTransformationSparkles:
 	ld a, $15
 	ld hl, wSceneObj8State
 	call SetSceneObjState
-	jr .asm_1585f8
+	jr .sparkle4_next_step
 
-.Func_15861e:
-	call .Func_15866e
-	jr z, .asm_158638
+.Sparkle4_Rise:
+	call .get_rise_offset_2
+	jr z, .sparkle4_despawn
 	ld hl, wSceneObj8
 	add [hl]
 	ld [hli], a
 	ld a, [bc]
 	and $01
-	jr z, .asm_15862e
+	jr z, .sparkle4_drifted
 	inc [hl]
-.asm_15862e
+.sparkle4_drifted
 	ld a, [bc]
 	cp $03
 	ret nz
 	ld a, $14
 	ld [wSceneObj8State], a
 	ret
-.asm_158638
+.sparkle4_despawn
 	xor a
 	ld [wSceneObj8State], a
-	jr .asm_1585f8
+	jr .sparkle4_next_step
 
-.Func_15863e:
+.Sparkle4_Repeat:
 	ld a, [wSceneObj1State]
 	and a
-	jr z, .asm_158646
+	jr z, .sparkle4_set_step
 	ld a, $02
-.asm_158646
+.sparkle4_set_step
 	ld [wTempleMusicBox5Counter], a
 	ret
 
-.Func_15864a:
+.get_rise_offset_1:
 	ld hl, .data_1
 	ld a, [bc]
 	ld e, a
@@ -704,7 +704,7 @@ UpdateTransformationSparkles:
 .data_1
 	db -1, -1, -1, -1, -2, -1, -2, -1, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, $80
 
-.Func_15866e:
+.get_rise_offset_2:
 	ld hl, .data_2
 	ld a, [bc]
 	ld e, a
@@ -719,343 +719,343 @@ UpdateTransformationSparkles:
 	db -1, -1, -1, -1, -2, -1, -2, -1, -2, -2, -2, -2, -2, -2, -2, -2, $80
 
 UpdateNOWPrologueParticles:
-	call .Func_1586a1
-	call .Func_158785
-	call .Func_1586ed
-	call .Func_1587d1
-	call .Func_158739
-	call .Func_15881d
+	call .UpdateObj2
+	call .UpdateObj3
+	call .UpdateObj5
+	call .UpdateObj8
+	call .UpdateObj9
+	call .UpdateObj10
 	ret
 
-.Func_1586a1:
+.UpdateObj2:
 	ld a, [w2d150]
 	jumptable
-	dw .Func_1586b5
-	dw .Func_1586c1
-	dw .Func_1586d1
-	dw .Func_1586b6
-	dw .Func_1586dd
-	dw .Func_1586c9
-	dw .Func_1586e2
-	dw .Func_1586e7
+	dw .Obj2_None
+	dw .Obj2_PlaceUpLeft
+	dw .Obj2_Arc1
+	dw .Obj2_PlaceCenter
+	dw .Obj2_Arc2
+	dw .Obj2_PlaceDownLeft
+	dw .Obj2_Arc3
+	dw .Obj2_Loop
 
-.Func_1586b5:
+.Obj2_None:
 	ret
 
-.Func_1586b6:
+.Obj2_PlaceCenter:
 	ld hl, wSceneObj2
-	call .Func_158869
-.asm_1586bc
+	call .place_center
+.obj2_next_step
 	ld hl, w2d150
 	inc [hl]
 	ret
 
-.Func_1586c1:
+.Obj2_PlaceUpLeft:
 	ld hl, wSceneObj2
-	call .Func_15887b
-	jr .asm_1586bc
+	call .place_up_left
+	jr .obj2_next_step
 
-.Func_1586c9:
+.Obj2_PlaceDownLeft:
 	ld hl, wSceneObj2
-	call .Func_158889
-	jr .asm_1586bc
+	call .place_down_left
+	jr .obj2_next_step
 
-.Func_1586d1:
+.Obj2_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_1586d4
+.obj2_move
 	ld hl, wSceneObj2
 	call ApplyOWMovement
 	ret nz
-	jr .asm_1586bc
+	jr .obj2_next_step
 
-.Func_1586dd:
+.Obj2_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_1586d4
+	jr .obj2_move
 
-.Func_1586e2:
+.Obj2_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_1586d4
+	jr .obj2_move
 
-.Func_1586e7:
+.Obj2_Loop:
 	ld a, $01
 	ld [w2d150], a
 	ret
 
-.Func_1586ed:
+.UpdateObj5:
 	ld a, [wNOWPrologueObj5ParticleStep]
 	jumptable
-	dw .Func_158701
-	dw .Func_158702
-	dw .Func_158729
-	dw .Func_158715
-	dw .Func_15872e
-	dw .Func_15870d
-	dw .Func_15871d
-	dw .Func_158733
+	dw .Obj5_None
+	dw .Obj5_PlaceCenter
+	dw .Obj5_Arc2
+	dw .Obj5_PlaceDownLeft
+	dw .Obj5_Arc3
+	dw .Obj5_PlaceUpLeft
+	dw .Obj5_Arc1
+	dw .Obj5_Loop
 
-.Func_158701:
+.Obj5_None:
 	ret
 
-.Func_158702:
+.Obj5_PlaceCenter:
 	ld hl, wSceneObj5
-	call .Func_158869
-.asm_158708
+	call .place_center
+.obj5_next_step
 	ld hl, wNOWPrologueObj5ParticleStep
 	inc [hl]
 	ret
 
-.Func_15870d:
+.Obj5_PlaceUpLeft:
 	ld hl, wSceneObj5
-	call .Func_15887b
-	jr .asm_158708
+	call .place_up_left
+	jr .obj5_next_step
 
-.Func_158715:
+.Obj5_PlaceDownLeft:
 	ld hl, wSceneObj5
-	call .Func_158889
-	jr .asm_158708
+	call .place_down_left
+	jr .obj5_next_step
 
-.Func_15871d:
+.Obj5_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_158720
+.obj5_move
 	ld hl, wSceneObj5
 	call ApplyOWMovement
 	ret nz
-	jr .asm_158708
+	jr .obj5_next_step
 
-.Func_158729:
+.Obj5_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_158720
+	jr .obj5_move
 
-.Func_15872e:
+.Obj5_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_158720
+	jr .obj5_move
 
-.Func_158733:
+.Obj5_Loop:
 	ld a, $01
 	ld [wNOWPrologueObj5ParticleStep], a
 	ret
 
-.Func_158739:
+.UpdateObj9:
 	ld a, [wd154]
 	jumptable
-	dw .Func_15874d
-	dw .Func_158761
-	dw .Func_15877a
-	dw .Func_158759
-	dw .Func_158769
-	dw .Func_15874e
-	dw .Func_158775
-	dw .Func_15877f
+	dw .Obj9_None
+	dw .Obj9_PlaceDownLeft
+	dw .Obj9_Arc3
+	dw .Obj9_PlaceUpLeft
+	dw .Obj9_Arc1
+	dw .Obj9_PlaceCenter
+	dw .Obj9_Arc2
+	dw .Obj9_Loop
 
-.Func_15874d:
+.Obj9_None:
 	ret
 
-.Func_15874e:
+.Obj9_PlaceCenter:
 	ld hl, wSceneObj9
-	call .Func_158869
-.asm_158754
+	call .place_center
+.obj9_next_step
 	ld hl, wd154
 	inc [hl]
 	ret
 
-.Func_158759:
+.Obj9_PlaceUpLeft:
 	ld hl, wSceneObj9
-	call .Func_15887b
-	jr .asm_158754
+	call .place_up_left
+	jr .obj9_next_step
 
-.Func_158761:
+.Obj9_PlaceDownLeft:
 	ld hl, wSceneObj9
-	call .Func_158889
-	jr .asm_158754
+	call .place_down_left
+	jr .obj9_next_step
 
-.Func_158769:
+.Obj9_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_15876c
+.obj9_move
 	ld hl, wSceneObj9
 	call ApplyOWMovement
 	ret nz
-	jr .asm_158754
+	jr .obj9_next_step
 
-.Func_158775:
+.Obj9_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_15876c
+	jr .obj9_move
 
-.Func_15877a:
+.Obj9_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_15876c
+	jr .obj9_move
 
-.Func_15877f:
+.Obj9_Loop:
 	ld a, $01
 	ld [wd154], a
 	ret
 
-.Func_158785:
+.UpdateObj3:
 	ld a, [w2d151]
 	jumptable
-	dw .Func_158799
-	dw .Func_1587a5
-	dw .Func_1587b5
-	dw .Func_15879a
-	dw .Func_1587c1
-	dw .Func_1587ad
-	dw .Func_1587c6
-	dw .Func_1587cb
+	dw .Obj3_None
+	dw .Obj3_PlaceUpRight
+	dw .Obj3_Arc1
+	dw .Obj3_PlaceCenter
+	dw .Obj3_Arc2
+	dw .Obj3_PlaceDownRight
+	dw .Obj3_Arc3
+	dw .Obj3_Loop
 
-.Func_158799:
+.Obj3_None:
 	ret
 
-.Func_15879a:
+.Obj3_PlaceCenter:
 	ld hl, wSceneObj3
-	call .Func_158869
-.asm_1587a0
+	call .place_center
+.obj3_next_step
 	ld hl, w2d151
 	inc [hl]
 	ret
 
-.Func_1587a5:
+.Obj3_PlaceUpRight:
 	ld hl, wSceneObj3
-	call .Func_158882
-	jr .asm_1587a0
+	call .place_up_right
+	jr .obj3_next_step
 
-.Func_1587ad:
+.Obj3_PlaceDownRight:
 	ld hl, wSceneObj3
-	call .Func_158890
-	jr .asm_1587a0
+	call .place_down_right
+	jr .obj3_next_step
 
-.Func_1587b5:
+.Obj3_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_1587b8
+.obj3_move
 	ld hl, wSceneObj3
 	call ApplyOWMovement_Mirrored
 	ret nz
-	jr .asm_1587a0
+	jr .obj3_next_step
 
-.Func_1587c1:
+.Obj3_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_1587b8
+	jr .obj3_move
 
-.Func_1587c6:
+.Obj3_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_1587b8
+	jr .obj3_move
 
-.Func_1587cb:
+.Obj3_Loop:
 	ld a, $01
 	ld [w2d151], a
 	ret
 
-.Func_1587d1:
+.UpdateObj8:
 	ld a, [wd153]
 	jumptable
-	dw .Func_1587e5
-	dw .Func_1587e6
-	dw .Func_15880d
-	dw .Func_1587f9
-	dw .Func_158812
-	dw .Func_1587f1
-	dw .Func_158801
-	dw .Func_158817
+	dw .Obj8_None
+	dw .Obj8_PlaceCenter
+	dw .Obj8_Arc2
+	dw .Obj8_PlaceDownRight
+	dw .Obj8_Arc3
+	dw .Obj8_PlaceUpRight
+	dw .Obj8_Arc1
+	dw .Obj8_Loop
 
-.Func_1587e5:
+.Obj8_None:
 	ret
 
-.Func_1587e6:
+.Obj8_PlaceCenter:
 	ld hl, wSceneObj8
-	call .Func_158869
-.asm_1587ec
+	call .place_center
+.obj8_next_step
 	ld hl, wd153
 	inc [hl]
 	ret
 
-.Func_1587f1:
+.Obj8_PlaceUpRight:
 	ld hl, wSceneObj8
-	call .Func_158882
-	jr .asm_1587ec
+	call .place_up_right
+	jr .obj8_next_step
 
-.Func_1587f9:
+.Obj8_PlaceDownRight:
 	ld hl, wSceneObj8
-	call .Func_158890
-	jr .asm_1587ec
+	call .place_down_right
+	jr .obj8_next_step
 
-.Func_158801:
+.Obj8_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_158804
+.obj8_move
 	ld hl, wSceneObj8
 	call ApplyOWMovement_Mirrored
 	ret nz
-	jr .asm_1587ec
+	jr .obj8_next_step
 
-.Func_15880d:
+.Obj8_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_158804
+	jr .obj8_move
 
-.Func_158812:
+.Obj8_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_158804
+	jr .obj8_move
 
-.Func_158817:
+.Obj8_Loop:
 	ld a, $01
 	ld [wd153], a
 	ret
 
-.Func_15881d:
+.UpdateObj10:
 	ld a, [wNOWPrologueObj10ParticleStep]
 	jumptable
-	dw .Func_158831
-	dw .Func_158845
-	dw .Func_15885e
-	dw .Func_158832
-	dw .Func_158859
-	dw .Func_15883d
-	dw .Func_15884d
-	dw .Func_158863
+	dw .Obj10_None
+	dw .Obj10_PlaceDownRight
+	dw .Obj10_Arc3
+	dw .Obj10_PlaceCenter
+	dw .Obj10_Arc2
+	dw .Obj10_PlaceUpRight
+	dw .Obj10_Arc1
+	dw .Obj10_Loop
 
-.Func_158831:
+.Obj10_None:
 	ret
 
-.Func_158832:
+.Obj10_PlaceCenter:
 	ld hl, wSceneObj10
-	call .Func_158869
-.asm_158838
+	call .place_center
+.obj10_next_step
 	ld hl, wNOWPrologueObj10ParticleStep
 	inc [hl]
 	ret
 
-.Func_15883d:
+.Obj10_PlaceUpRight:
 	ld hl, wSceneObj10
-	call .Func_158882
-	jr .asm_158838
+	call .place_up_right
+	jr .obj10_next_step
 
-.Func_158845:
+.Obj10_PlaceDownRight:
 	ld hl, wSceneObj10
-	call .Func_158890
-	jr .asm_158838
+	call .place_down_right
+	jr .obj10_next_step
 
-.Func_15884d:
+.Obj10_Arc1:
 	ld de, NOWPrologueParticleArc1
-.asm_158850
+.obj10_move
 	ld hl, wSceneObj10
 	call ApplyOWMovement_Mirrored
 	ret nz
-	jr .asm_158838
+	jr .obj10_next_step
 
-.Func_158859:
+.Obj10_Arc2:
 	ld de, NOWPrologueParticleArc2
-	jr .asm_158850
+	jr .obj10_move
 
-.Func_15885e:
+.Obj10_Arc3:
 	ld de, NOWPrologueParticleArc3
-	jr .asm_158850
+	jr .obj10_move
 
-.Func_158863:
+.Obj10_Loop:
 	ld a, $01
 	ld [wNOWPrologueObj10ParticleStep], a
 	ret
 
-.Func_158869:
+.place_center:
 	ld a, $30
 	ld [hli], a ; y
 	ld a, $50
-.asm_15886e
+.set_x_and_state
 	ld [hli], a ; x
 	set 2, l
 	ldh a, [rDIV]
@@ -1064,29 +1064,29 @@ UpdateNOWPrologueParticles:
 	add b
 	jp SetSceneObjState
 
-.Func_15887b:
+.place_up_left:
 	ld a, $2e
 	ld [hli], a ; y
 	ld a, $4e
-	jr .asm_15886e
+	jr .set_x_and_state
 
-.Func_158882:
+.place_up_right:
 	ld a, $2e
 	ld [hli], a ; y
 	ld a, $52
-	jr .asm_15886e
+	jr .set_x_and_state
 
-.Func_158889:
+.place_down_left:
 	ld a, $31
 	ld [hli], a ; y
 	ld a, $4f
-	jr .asm_15886e
+	jr .set_x_and_state
 
-.Func_158890:
+.place_down_right:
 	ld a, $31
 	ld [hli], a ; y
 	ld a, $51
-	jr .asm_15886e
+	jr .set_x_and_state
 
 NOWPrologueParticleArc1:
 	db  0,  0
@@ -1215,16 +1215,16 @@ _InitBestTimeList:
 	ld a, [wCurMapSide]
 	rra
 	and a
-	jr z, .asm_158990
+	jr z, .set_scy
 	ld a, $70
-.asm_158990
+.set_scy
 	ldh [rSCY], a
 	ld [wSCY], a
 
 	ld a, $02
 	ldh [rWBK], a
-	call .VBlank_158a14
-	call .Func_158a09
+	call .VBlank_BestTimeList
+	call .clear_ram
 
 	ld hl, BestTimeListPals
 	call LoadPalsToTempPals1
@@ -1240,14 +1240,14 @@ _InitBestTimeList:
 	inc [hl]
 	ret
 
-.Func_158a09:
+.clear_ram:
 	ld hl, wCollectionRow
 	ld bc, $800
 	xor a
 	call WriteAToHL_BCTimes
 	ret
 
-.VBlank_158a14:
+.VBlank_BestTimeList:
 	ld hl, .func
 	ld de, wVBlankFunc
 	ld b, .func_end - .func
@@ -1270,7 +1270,7 @@ _InitBestTimeList:
 _BestTimeList:
 	ld a, [wCollectionRow]
 	and a
-	jr nz, .asm_158a76
+	jr nz, .auto_scroll
 	ld hl, wSCY
 	ld a, [wJoypadDown]
 	bit B_PAD_UP, a
@@ -1283,12 +1283,12 @@ _BestTimeList:
 	inc [hl]
 	ld a, [hl]
 	and a
-	jr nz, .asm_158a5a
+	jr nz, .check_exit
 	ld hl, wCollectionRow
 	inc [hl]
 	xor a
 	ld [wColourFadeDiff], a
-.asm_158a5a
+.check_exit
 	ld a, [wJoypadPressed]
 	and PAD_B | PAD_START
 	ret z
@@ -1300,7 +1300,7 @@ _BestTimeList:
 	and a
 	ret z
 	dec [hl]
-.asm_158a6a
+.reset_idle
 	xor a
 	ld [wCollectionCol], a
 	ret
@@ -1309,51 +1309,51 @@ _BestTimeList:
 	cp $70
 	ret z
 	inc [hl]
-	jr .asm_158a6a
-.asm_158a76
-	call .Func_158ac2
+	jr .reset_idle
+.auto_scroll
+	call .StopAutoScrollOnInput
 	ret c
 	ld a, [wColourFadeDiff]
 	and a
-	jr z, .asm_158a8c
+	jr z, .scroll_down
 	dec a
-	jr z, .asm_158a9f
+	jr z, .wait_bottom
 	dec a
-	jr z, .asm_158aa9
+	jr z, .scroll_up
 	dec a
-	jr z, .asm_158ab2
+	jr z, .wait_top
 	debug_nop
 
-.asm_158a8c
+.scroll_down
 	ld hl, wSCY
 	ld a, [hl]
 	cp $70
-	jr nc, .asm_158a96
+	jr nc, .next_scroll_step
 	inc [hl]
 	ret
-.asm_158a96
+.next_scroll_step
 	xor a
 	ld [wCollectionLinkStateCounter], a
 	ld hl, wColourFadeDiff
 	inc [hl]
 	ret
 
-.asm_158a9f
+.wait_bottom
 	ld hl, wCollectionLinkStateCounter
 	inc [hl]
 	ld a, [hl]
 	cp $b4
 	ret c
-	jr .asm_158a96
-.asm_158aa9
+	jr .next_scroll_step
+.scroll_up
 	ld hl, wSCY
 	ld a, [hl]
 	and a
-	jr z, .asm_158a96
+	jr z, .next_scroll_step
 	dec [hl]
 	ret
 
-.asm_158ab2
+.wait_top
 	ld hl, wCollectionLinkStateCounter
 	inc [hl]
 	ld a, [hl]
@@ -1364,7 +1364,7 @@ _BestTimeList:
 	ld [wColourFadeDiff], a
 	ret
 
-.Func_158ac2:
+.StopAutoScrollOnInput:
 	ld a, [wJoypadPressed]
 	and PAD_A | PAD_B | PAD_START | PAD_UP | PAD_DOWN
 	ret z

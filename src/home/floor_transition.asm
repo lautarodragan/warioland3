@@ -14,18 +14,18 @@ UpdateFloor::
 GetFloorForYPos::
 	ld a, [wWarioYPos + 0]
 	dec a
-	jr z, .asm_115b ; == 1
+	jr z, .y_hi_1 ; == 1
 	dec a
-	jr z, .asm_115f ; == 2
+	jr z, .y_hi_2 ; == 2
 	ld c, 5
-	jr .asm_1161
-.asm_115b
+	jr .check_half
+.y_hi_1
 	ld c, 3
-	jr .asm_1161
-.asm_115f
+	jr .check_half
+.y_hi_2
 	ld c, 1
 
-.asm_1161
+.check_half
 	ld a, [wWarioYPos + 1]
 	cp $80
 	ret nc
@@ -83,12 +83,12 @@ StartDownwardsFloorTransition::
 	ld a, c
 	ld [wFloor], a
 	cp 5
-	jr z, .asm_11ba
+	jr z, .to_floor_5
 	ld a, $80
-	jr .asm_11bc
-.asm_11ba
+	jr .set_timer
+.to_floor_5
 	ld a, $68
-.asm_11bc
+.set_timer
 	ld [wFloorTransitionTimer], a
 	play_sfx SFX_PIPE_EXIT
 	ld a, FLOOR_TRANSITION_UP

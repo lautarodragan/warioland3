@@ -205,9 +205,9 @@ UpdateActionHelp:
 	call ProcessDPadRepeat
 	ld a, [wPowerUpLevel]
 	and ACTION_HELP_TITLE_SCREEN | ACTION_HELP_LEVEL_CLEAR
-	jr nz, .asm_1f81d9
+	jr nz, .skip_selection
 	call HandleActionHelpPowerUpSelection
-.asm_1f81d9
+.skip_selection
 	call ExecuteMainPowerUpActionHelp
 
 	; bottom cursor

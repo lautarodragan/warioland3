@@ -16,11 +16,11 @@ InitGolfCourseMenu:
 
 	ld a, [wGolfMenuOption]
 	and a
-	jr nz, .asm_1c85b3
+	jr nz, .clear_golf_ram
 	ld a, $01
 	ld [wGolfMode], a
 
-.asm_1c85b3
+.clear_golf_ram
 	; clear all Golf RAM starting from wPredeterminedGolfHole onwards
 	ld hl, wPredeterminedGolfHole
 	ld bc, SIZEOF("Golf RAM") - (wPredeterminedGolfHole - STARTOF("Golf RAM"))

@@ -28,9 +28,9 @@ HiddenFigureFunc:
 	ld hl, wCurObjFlags
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4cb9e)
+	ld a, HIGH(.Intro)
 	ld [hld], a
-	ld a, LOW(.Func_4cb9e)
+	ld a, LOW(.Intro)
 	ld [hld], a
 	ld l, OBJ_SUBSTATE
 	res OBJSUBFLAG_UNINITIALISED_F, [hl]
@@ -45,7 +45,7 @@ HiddenFigureFunc:
 	ld bc, ObjParams_HiddenFigureRightHand
 	jp CreateObjectAtRelativePos
 
-.Func_4cb9e:
+.Intro:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
@@ -58,35 +58,35 @@ HiddenFigureFunc:
 	ld a, $00
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4cbc4)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_4cbc4)
+	ld a, LOW(.Main)
 	ld [hld], a
 	ld a, BOSS_HIDDEN_FIGURE
 	ld [wBossState], a
 	call UpdateLevelMusic
 	ret
 
-.Func_4cbc4:
+.Main:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjVar1]
 	jumptable
-	dw .Func_4cbf5
-	dw .Func_4cc05
-	dw .Func_4cce2
-	dw .Func_4ccf6
-	dw .Func_4cd45
-	dw .Func_4cd59
-	dw .Func_4cc3c
-	dw .Func_4cc87
-	dw .Func_4cbe8
-	dw .Func_4cd28
-	dw .Func_4cd8b
+	dw .Idle
+	dw .ChooseAttack
+	dw .StartLeftSwipe
+	dw .LeftSwipe
+	dw .StartRightSwipe
+	dw .RightSwipe
+	dw .StartGrab
+	dw .Grab
+	dw .HoldCaughtWario
+	dw .WaitLeftHandStunned
+	dw .WaitRightHandStunned
 
-.Func_4cbe8:
+.HoldCaughtWario:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -97,55 +97,55 @@ HiddenFigureFunc:
 	ld [wAutoMoveState], a
 	ret
 
-.Func_4cbf5:
+.Idle:
 	ld hl, wCurObjStateDuration
 	ld a, [wHiddenFigureSwipeInterrupted]
 	and a
-	jr nz, .asm_4cc00
+	jr nz, .end_idle
 	dec [hl]
 	ret nz
-.asm_4cc00
+.end_idle
 	inc l
 	ld a, $01
 	ld [hli], a
 	ret
 
-.Func_4cc05:
+.ChooseAttack:
 	ld hl, wCurObjStateDuration
 	ld a, $01
 	ld [hli], a
 	ld a, [wHiddenFigureSwipeCount]
 	cp $02
-	jr nc, .asm_4cc19
+	jr nc, .choose_grab
 	ld e, a
 	ld a, [wHiddenFigureSwipeInterrupted]
 	and a
-	jr z, .asm_4cc24
-.asm_4cc19
+	jr z, .choose_swipe
+.choose_grab
 	xor a
 	ld [wHiddenFigureSwipeInterrupted], a
 	ld [wHiddenFigureSwipeCount], a
 	ld b, $06
-	jr .asm_4cc36
-.asm_4cc24
+	jr .set_phase
+.choose_swipe
 	ld a, [wWarioScreenXPos]
 	cp $58
-	jr nc, .asm_4cc2f
+	jr nc, .swipe_right
 	ld b, $02
-	jr .asm_4cc31
-.asm_4cc2f
+	jr .count_swipe
+.swipe_right
 	ld b, $04
-.asm_4cc31
+.count_swipe
 	inc e
 	ld a, e
 	ld [wHiddenFigureSwipeCount], a
-.asm_4cc36
+.set_phase
 	ld [hl], b
 	ld hl, wHiddenFigureAttackCounter
 	inc [hl]
 	ret
 
-.Func_4cc3c:
+.StartGrab:
 	ld a, [wHiddenFigureLeftHandSlamming]
 	and a
 	ret nz
@@ -165,61 +165,61 @@ HiddenFigureFunc:
 	ld b, $03
 	ld a, [wHiddenFigureRemainingHits]
 	cp $04
-	jr z, .asm_4cc82
+	jr z, .set_grab_attack
 	cp $03
-	jr nc, .asm_4cc7b
+	jr nc, .random_grab
 	ld a, [wWarioScreenXPos]
 	cp $30
-	jr c, .asm_4cc7b
+	jr c, .random_grab
 	cp $80
-	jr nc, .asm_4cc7b
+	jr nc, .random_grab
 	ld a, [wHiddenFigureAttackCounter]
 	rra
-	jr c, .asm_4cc7b
+	jr c, .random_grab
 	ld a, $60
 	ld [wCurObjStateDuration], a
 	ld b, $08
-	jr .asm_4cc82
-.asm_4cc7b
+	jr .set_grab_attack
+.random_grab
 	ldh a, [rDIV]
 	rra
-	jr c, .asm_4cc82
+	jr c, .set_grab_attack
 	ld b, $07
-.asm_4cc82
+.set_grab_attack
 	ld a, b
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cc87:
+.Grab:
 	ld hl, wHiddenFigureBodyGrabResult
 	ld a, [hl]
 	and a
-	jr z, .asm_4cc9e
+	jr z, .shake
 	cp $80
-	jr z, .asm_4cc94
+	jr z, .caught_wario
 	dec [hl]
 	ret
-.asm_4cc94
+.caught_wario
 	ld hl, wCurObjStateDuration
 	ld a, $a0
 	ld [hli], a
 	ld a, $08
 	ld [hl], a
 	ret
-.asm_4cc9e
+.shake
 	ld a, [wHiddenFigureAttack]
 	cp $07
-	jr z, .asm_4ccae
+	jr z, .shake_grab2
 	cp $08
-	jr z, .asm_4ccb3
+	jr z, .shake_grab3
 	ld bc, HiddenFigureGrab1SCYShake
-	jr .asm_4ccb6
-.asm_4ccae
+	jr .apply_shake
+.shake_grab2
 	ld bc, HiddenFigureGrab2SCYShake
-	jr .asm_4ccb6
-.asm_4ccb3
+	jr .apply_shake
+.shake_grab3
 	ld bc, HiddenFigureGrab3SCYShake
-.asm_4ccb6
+.apply_shake
 	call ApplyHiddenFigureSCYShakeTable
 	ld hl, wCurObjStateDuration
 	dec [hl]
@@ -235,18 +235,18 @@ HiddenFigureFunc:
 	ret nz
 	ld hl, wHiddenFigureGrabsLeft
 	dec [hl]
-	jr z, .asm_4ccde
+	jr z, .reset_grabs
 	ld a, $06
 	ld [wCurObjVar1], a
 	ld hl, wHiddenFigureAttackCounter
 	inc [hl]
 	ret
-.asm_4ccde
+.reset_grabs
 	ld a, $02
 	ld [hl], a
 	ret
 
-.Func_4cce2:
+.StartLeftSwipe:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -261,7 +261,7 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4ccf6:
+.LeftSwipe:
 	ld bc, HiddenFigureSwipeSCYShake
 	call ApplyHiddenFigureSCYShakeTable
 	ld bc, HiddenFigureLeftSwipeSCX
@@ -273,13 +273,13 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ld a, [wHiddenFigureLeftHandStunned]
 	and a
-	jr nz, .asm_4cd19
+	jr nz, .left_hand_stunned
 	ld a, $1e
 	ld [hli], a
 	ld a, $00
 	ld [hl], a
 	ret
-.asm_4cd19
+.left_hand_stunned
 	ld hl, wCurObjStateDuration
 	ld a, $04
 	ld [hli], a
@@ -289,10 +289,10 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cd28:
+.WaitLeftHandStunned:
 	ld a, [wHiddenFigureRemainingHits]
 	and a
-	jp z, .asm_4cda8
+	jp z, .defeated
 	ld a, [wHiddenFigureLeftHandStunned]
 	and a
 	ret nz
@@ -307,7 +307,7 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cd45:
+.StartRightSwipe:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -322,7 +322,7 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cd59:
+.RightSwipe:
 	ld bc, HiddenFigureSwipeSCYShake
 	call ApplyHiddenFigureSCYShakeTable
 	ld bc, HiddenFigureRightSwipeSCX
@@ -334,13 +334,13 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ld a, [wHiddenFigureRightHandStunned]
 	and a
-	jr nz, .asm_4cd7c
+	jr nz, .right_hand_stunned
 	ld a, $1e
 	ld [hli], a
 	ld a, $00
 	ld [hl], a
 	ret
-.asm_4cd7c
+.right_hand_stunned
 	ld hl, wCurObjStateDuration
 	ld a, $04
 	ld [hli], a
@@ -350,10 +350,10 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cd8b:
+.WaitRightHandStunned:
 	ld a, [wHiddenFigureRemainingHits]
 	and a
-	jp z, .asm_4cda8
+	jp z, .defeated
 	ld a, [wHiddenFigureRightHandStunned]
 	and a
 	ret nz
@@ -368,11 +368,11 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.asm_4cda8
+.defeated
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4cdbc)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_4cdbc)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ld a, $82
 	ld [wCurObjStateDuration], a
@@ -380,7 +380,7 @@ HiddenFigureFunc:
 	ld [wHiddenFigureAttack], a
 	ret
 
-.Func_4cdbc:
+.Defeated:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
@@ -394,28 +394,28 @@ HiddenFigureFunc:
 	ret nz
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr nz, .asm_4cdf4
+	jr nz, .hit_sfx_timer
 	ld a, $82
 	ld [hli], a
 	xor a
 	ld [hl], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4ce01)
+	ld a, HIGH(.DefeatedSink)
 	ld [hld], a
-	ld a, LOW(.Func_4ce01)
+	ld a, LOW(.DefeatedSink)
 	ld [hld], a
 	ld a, $01
 	ld [wHiddenFigureDefeatStarted], a
 	play_sfx SFX_HIDDEN_FIGURE_DEFEATED
 	ret
-.asm_4cdf4
+.hit_sfx_timer
 	ld a, [hl]
 	and $3f
 	ret nz
 	play_sfx SFX_HIDDEN_FIGURE_HIT
 	ret
 
-.Func_4ce01:
+.DefeatedSink:
 	ld a, $02
 	ld [wCurObjFrameDuration], a
 	ld a, no_actions_for 1
@@ -430,7 +430,7 @@ HiddenFigureFunc:
 	and a
 	ret z
 	dec [hl]
-	jr z, .asm_4ce31
+	jr z, .end_level
 	call FlashHiddenFigurePals
 	ld a, [wCurObjStateDuration]
 	and $03
@@ -438,7 +438,7 @@ HiddenFigureFunc:
 	ld hl, wHiddenFigureSCYShake
 	dec [hl]
 	ret
-.asm_4ce31
+.end_level
 	ld a, LVLEND_EPILOGUE
 	ld [wLevelEndScreen], a
 	jp SetHiddenFigurePals
@@ -447,14 +447,14 @@ HiddenFigureFace_StartLaugh:
 	ld a, $3c
 	ld [wCurObjStateDuration], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(HiddenFigureFaceFunc.Func_4cf55)
+	ld a, HIGH(HiddenFigureFaceFunc.Laugh)
 	ld [hld], a
-	ld a, LOW(HiddenFigureFaceFunc.Func_4cf55)
+	ld a, LOW(HiddenFigureFaceFunc.Laugh)
 	ld [hld], a
 	ret
 
 HiddenFigureFaceFunc:
-.Func_4ce47:
+.Main:
 	ld hl, wHiddenFigureBodyGrabResult
 	ld a, [hl]
 	cp $80
@@ -462,16 +462,16 @@ HiddenFigureFaceFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4ce63
+	jr z, .look
 	and $fe
 	cp $28
-	jr z, .asm_4ceba
+	jr z, .hit
 	xor a
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
-.asm_4ce63
+.look
 	ld a, [wCurObjFramesetOffset]
 	cp $04
 	ret nz
@@ -480,41 +480,41 @@ HiddenFigureFaceFunc:
 	ret nz
 	ld a, [wHiddenFigureLeftHandStunned]
 	and a
-	jr nz, .asm_4ce9d
+	jr nz, .look_angry
 	ld a, [wHiddenFigureRightHandStunned]
 	and a
-	jr nz, .asm_4ce9d
+	jr nz, .look_angry
 	ld a, [wHiddenFigureRemainingHits]
 	dec a
-	jr z, .asm_4ce9d
+	jr z, .look_angry
 	ld a, [wWarioScreenXPos]
 	cp $38
-	jr nc, .asm_4ce8d
+	jr nc, .look_not_left
 	ld de, HiddenFigureFrameset_6a07a
 	jp SetObjectFramesetPtr
-.asm_4ce8d
+.look_not_left
 	cp $78
-	jr nc, .asm_4ce97
+	jr nc, .look_right
 	ld de, HiddenFigureFrameset_6a06c
 	jp SetObjectFramesetPtr
-.asm_4ce97
+.look_right
 	ld de, HiddenFigureFrameset_6a07f
 	jp SetObjectFramesetPtr
-.asm_4ce9d
+.look_angry
 	ld a, [wWarioScreenXPos]
 	cp $38
-	jr nc, .asm_4ceaa
+	jr nc, .angry_not_left
 	ld de, HiddenFigureFrameset_6a092
 	jp SetObjectFramesetPtr
-.asm_4ceaa
+.angry_not_left
 	cp $78
-	jr nc, .asm_4ceb4
+	jr nc, .angry_right
 	ld de, HiddenFigureFrameset_6a08d
 	jp SetObjectFramesetPtr
-.asm_4ceb4
+.angry_right
 	ld de, HiddenFigureFrameset_6a097
 	jp SetObjectFramesetPtr
-.asm_4ceba
+.hit
 	xor a
 	ld [hl], a
 	ld de, HiddenFigureFrameset_6a084
@@ -522,9 +522,9 @@ HiddenFigureFaceFunc:
 	ld a, $3c
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4cf13)
+	ld a, HIGH(.Hit)
 	ld [hld], a
-	ld a, LOW(.Func_4cf13)
+	ld a, LOW(.Hit)
 	ld [hld], a
 	ld a, $01
 	ld [wHiddenFigureHandsFlinch], a
@@ -533,11 +533,11 @@ HiddenFigureFaceFunc:
 	and a
 	ret z
 	dec [hl]
-	jr nz, .asm_4cf03
+	jr nz, .check_last_hit
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4cf3f)
+	ld a, HIGH(.Defeated)
 	ld [hld], a
-	ld a, LOW(.Func_4cf3f)
+	ld a, LOW(.Defeated)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set 3, [hl]
@@ -550,35 +550,35 @@ HiddenFigureFaceFunc:
 	ld [wAutoMoveState], a
 	ret
 
-.asm_4cf03
+.check_last_hit
 	ld a, [hl]
 	dec a
 	ret nz
 	play_music2 MUSIC_HIDDEN_FIGURE_BATTLE_2
 	ret
 
-.Func_4cf13:
+.Hit:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_4cf29
+	jr z, .end_hit
 	ld a, [hl]
 	cp $2c
 	play_sfx z, SFX_HIDDEN_FIGURE_HIT
 	jp FlashHiddenFigurePals
-.asm_4cf29
+.end_hit
 	xor a
 	ld [wHiddenFigureHandsFlinch], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4ce47)
+	ld a, HIGH(.Main)
 	ld [hld], a
-	ld a, LOW(.Func_4ce47)
+	ld a, LOW(.Main)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	call SetHiddenFigurePals
-	jp .asm_4ce9d
+	jp .look_angry
 
-.Func_4cf3f:
+.Defeated:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -590,7 +590,7 @@ HiddenFigureFaceFunc:
 	play_sfx SFX_HIDDEN_FIGURE_HIT
 	ret
 
-.Func_4cf55:
+.Laugh:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -610,13 +610,13 @@ ApplyHiddenFigureSCYShakeTable:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4cf7f
+	jr nz, .next_offset
 	dec c
 	ld a, [bc]
-	jr .asm_4cf80
-.asm_4cf7f
+	jr .got_offset
+.next_offset
 	inc [hl]
-.asm_4cf80
+.got_offset
 	ld hl, wHiddenFigureSCYShake
 	ld c, [hl]
 	add c
@@ -630,13 +630,13 @@ ApplyHiddenFigureSCXTable:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4cf96
+	jr nz, .next_offset
 	dec c
 	ld a, [bc]
-	jr .asm_4cf97
-.asm_4cf96
+	jr .got_offset
+.next_offset
 	inc [hl]
-.asm_4cf97
+.got_offset
 	ld hl, wHiddenFigureSCX
 	ld c, [hl]
 	add c
@@ -650,23 +650,23 @@ ApplyCurObjYTable:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4cfad
+	jr nz, .next_offset
 	dec c
 	ld a, [bc]
-	jr .asm_4cfae
-.asm_4cfad
+	jr .got_offset
+.next_offset
 	inc [hl]
-.asm_4cfae
+.got_offset
 	ld l, OBJ_Y_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_4cfba
+	jr nc, .negative
 	add c
 	ld [hli], a
 	ret nc
 	inc [hl]
 	ret
-.asm_4cfba
+.negative
 	add c
 	ld [hli], a
 	ret c
@@ -680,23 +680,23 @@ ApplyCurObjXTable:
 	ld c, a
 	ld a, [bc]
 	cp $80
-	jr nz, .asm_4cfce
+	jr nz, .next_offset
 	dec c
 	ld a, [bc]
-	jr .asm_4cfcf
-.asm_4cfce
+	jr .got_offset
+.next_offset
 	inc [hl]
-.asm_4cfcf
+.got_offset
 	ld l, OBJ_X_POS
 	cp $80
 	ld c, [hl]
-	jr nc, .asm_4cfdb
+	jr nc, .negative
 	add c
 	ld [hli], a
 	ret nc
 	inc [hl]
 	ret
-.asm_4cfdb
+.negative
 	add c
 	ld [hli], a
 	ret c
@@ -706,20 +706,20 @@ ApplyCurObjXTable:
 FlashHiddenFigurePals:
 	ld a, [wGlobalCounter]
 	and %1111
-	jr z, .asm_4cfef
+	jr z, .normal_pals
 	cp $08
 	ret nz
 	ld hl, HiddenFigureFlashPals
-	jr .asm_4cffe
-.asm_4cfef
+	jr .set_pals
+.normal_pals
 	ld a, [wHiddenFigureRemainingHits]
 	cp $02
-	jr c, .asm_4cffb
+	jr c, .last_hit_pals
 	ld hl, HiddenFigurePals
-	jr .asm_4cffe
-.asm_4cffb
+	jr .set_pals
+.last_hit_pals
 	ld hl, HiddenFigureLastHitPals
-.asm_4cffe
+.set_pals
 	ld c, 0
 	ld b, 6
 	jp SetBGPals
@@ -727,12 +727,12 @@ FlashHiddenFigurePals:
 SetHiddenFigurePals:
 	ld a, [wHiddenFigureRemainingHits]
 	cp $02
-	jr c, .asm_4d011
+	jr c, .last_hit_pals
 	ld hl, HiddenFigurePals
-	jr .asm_4d014
-.asm_4d011
+	jr .set_pals
+.last_hit_pals
 	ld hl, HiddenFigureLastHitPals
-.asm_4d014
+.set_pals
 	ld c, 0
 	ld b, 6
 	jp SetBGPals
@@ -866,9 +866,9 @@ HiddenFigurePals:
 
 HiddenFigureLeftHandFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d0c7)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4d0c7)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -881,35 +881,35 @@ HiddenFigureLeftHandFunc:
 	ld [wHiddenFigureLeftHandRestPos + 3], a
 	ret
 
-.Func_4d0c7:
+.Idle:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wHiddenFigureAttack]
 	cp $01
-	jr z, .asm_4d0f3
+	jr z, .start_swipe
 	cp $03
-	jr z, .asm_4d100
+	jr z, .start_grab
 	cp $07
-	jr z, .asm_4d100
+	jr z, .start_grab
 	cp $08
-	jr z, .asm_4d100
+	jr z, .start_grab
 	cp $05
-	jr z, .asm_4d11d
+	jr z, .start_slam
 	cp $06
-	jr z, .asm_4d142
+	jr z, .start_wait_defeat
 	ld a, [wHiddenFigureHandsFlinch]
 	and a
 	ret z
-	jr .asm_4d14c
-.asm_4d0f3
+	jr .start_flinch
+.start_swipe
 	ld a, $01
 	ld [wHiddenFigureHandsFlinch], a
-	ld bc, .Func_4d2c8
+	ld bc, .Swipe
 	ld de, HiddenFigureFrameset_6a13a
-	jr .asm_4d154
-.asm_4d100
+	jr .set_update_func
+.start_grab
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -923,10 +923,10 @@ HiddenFigureLeftHandFunc:
 	ld [hli], a
 	ld a, $00
 	ld [hli], a
-	ld bc, .Func_4d1b1
+	ld bc, .Grab
 	ld de, HiddenFigureFrameset_6a0bc
-	jr .asm_4d154
-.asm_4d11d
+	jr .set_update_func
+.start_slam
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -936,26 +936,26 @@ HiddenFigureLeftHandFunc:
 	ld [wHiddenFigureLeftHandSlamming], a
 	ld a, [wHiddenFigureRemainingHits]
 	dec a
-	jr z, .asm_4d135
+	jr z, .slam_last_hit
 	ld a, $3c
-	jr .asm_4d137
-.asm_4d135
+	jr .set_slam_delay
+.slam_last_hit
 	ld a, $1e
-.asm_4d137
+.set_slam_delay
 	ld [wCurObjStateDuration], a
-	ld bc, .Func_4d164
+	ld bc, .Slam
 	ld de, HiddenFigureFrameset_6a0d4
-	jr .asm_4d154
-.asm_4d142
+	jr .set_update_func
+.start_wait_defeat
 	set 3, [hl]
-	ld bc, .Func_4d37f
+	ld bc, .WaitDefeat
 	ld de, HiddenFigureFrameset_6a0d4
-	jr .asm_4d154
-.asm_4d14c
-	ld bc, .Func_4d19e
+	jr .set_update_func
+.start_flinch
+	ld bc, .Flinch
 	ld de, HiddenFigureFrameset_6a0d4
-	jr .asm_4d154
-.asm_4d154
+	jr .set_update_func
+.set_update_func
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, b
 	ld [hld], a
@@ -968,37 +968,37 @@ HiddenFigureLeftHandFunc:
 	ld [hl], a
 	jp SetObjectFramesetPtr
 
-.Func_4d164:
+.Slam:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_4d17a
+	jr z, .slam_down
 	dec [hl]
 	ld a, [wHiddenFigureRemainingHits]
 	and a
-	jr z, .asm_4d197
+	jr z, .end_slam
 	ld a, [wHiddenFigureAttack]
 	cp $00
-	jr z, .asm_4d197
+	jr z, .end_slam
 	ret
-.asm_4d17a
+.slam_down
 	ld bc, HiddenFigureHandSlamY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $0a
-	jr nz, .asm_4d194
+	jr nz, .check_slam_end
 	play_sfx SFX_SLAM
 	ld b, $18
 	jp DoGroundShake
-.asm_4d194
+.check_slam_end
 	cp $3f
 	ret nz
-.asm_4d197
+.end_slam
 	xor a
 	ld [wHiddenFigureLeftHandSlamming], a
-	jp .asm_4d34c
+	jp .return_to_idle
 
-.Func_4d19e:
+.Flinch:
 	ld bc, HiddenFigureHandFlinchY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
@@ -1006,22 +1006,22 @@ HiddenFigureLeftHandFunc:
 	ret nz
 	xor a
 	ld [wHiddenFigureHandsFlinch], a
-	jp .asm_4d34c
+	jp .return_to_idle
 
-.Func_4d1b1:
+.Grab:
 	ld hl, wHiddenFigureLeftHandGrabResult
 	ld a, [hl]
 	and a
-	jr z, .asm_4d1f8
+	jr z, .check_hit
 	cp $80
-	jr z, .asm_4d1be
+	jr z, .caught_wario
 	dec [hl]
 	ret
-.asm_4d1be
+.caught_wario
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d379)
+	ld a, HIGH(.HoldWario)
 	ld [hld], a
-	ld a, LOW(.Func_4d379)
+	ld a, LOW(.HoldWario)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -1042,54 +1042,54 @@ HiddenFigureLeftHandFunc:
 	call SetObjectFramesetPtr
 	stop_music2
 	ret
-.asm_4d1f8
+.check_hit
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4d225
+	jr z, .move
 	cp $2f
-	jr nz, .asm_4d20f
+	jr nz, .check_attacked
 	play_sfx SFX_0CD
 	ld a, $80
-	jr .asm_4d217
-.asm_4d20f
+	jr .set_grab_result
+.check_attacked
 	and $fe
 	cp $04
-	jr nz, .asm_4d223
+	jr nz, .clear_state
 	ld a, $0a
-.asm_4d217
+.set_grab_result
 	ld [wHiddenFigureBodyGrabResult], a
 	ld [wHiddenFigureLeftHandGrabResult], a
 	ld [wHiddenFigureRightHandGrabResult], a
 	xor a
 	ld [hl], a
 	ret
-.asm_4d223
+.clear_state
 	xor a
 	ld [hl], a
-.asm_4d225
+.move
 	ld a, [wHiddenFigureAttack]
 	cp $08
-	jr z, .asm_4d280
+	jr z, .grab3
 	ld bc, HiddenFigureLeftHandGrabX
 	call ApplyCurObjXTable
 	ld a, [wHiddenFigureAttack]
 	cp $07
-	jr z, .asm_4d23e
+	jr z, .grab2_y
 	ld bc, HiddenFigureHandGrab1Y
-	jr .asm_4d241
-.asm_4d23e
+	jr .apply_grab_y
+.grab2_y
 	ld bc, HiddenFigureHandGrab2Y
-.asm_4d241
+.apply_grab_y
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
-	jr nz, .asm_4d251
+	jr nz, .check_push_frame
 	ld de, HiddenFigureFrameset_6a0ef
 	jp SetObjectFramesetPtr
-.asm_4d251
+.check_push_frame
 	cp $62
-	jr nz, .asm_4d264
+	jr nz, .check_drag_frame
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1097,9 +1097,9 @@ HiddenFigureLeftHandFunc:
 	ld [hld], a
 	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
-.asm_4d264
+.check_drag_frame
 	cp $61
-	jr nz, .asm_4d27a
+	jr nz, .check_grab_end
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1107,23 +1107,23 @@ HiddenFigureLeftHandFunc:
 	ld [hld], a
 	play_sfx SFX_FAT_WALK
 	ret
-.asm_4d27a
+.check_grab_end
 	cp $7f
 	ret nz
-	jp .asm_4d34c
-.asm_4d280
+	jp .return_to_idle
+.grab3
 	ld bc, HiddenFigureLeftHandGrab3X
 	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandGrab3Y
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
-	jr nz, .asm_4d299
+	jr nz, .grab3_check_push
 	ld de, HiddenFigureFrameset_6a0ef
 	jp SetObjectFramesetPtr
-.asm_4d299
+.grab3_check_push
 	cp $4e
-	jr nz, .asm_4d2ac
+	jr nz, .grab3_check_drag
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1131,9 +1131,9 @@ HiddenFigureLeftHandFunc:
 	ld [hld], a
 	ld de, HiddenFigureFrameset_6a0c3
 	jp SetObjectFramesetPtr
-.asm_4d2ac
+.grab3_check_drag
 	cp $4d
-	jr nz, .asm_4d2c2
+	jr nz, .grab3_check_end
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1141,26 +1141,26 @@ HiddenFigureLeftHandFunc:
 	ld [hld], a
 	play_sfx SFX_FAT_WALK
 	ret
-.asm_4d2c2
+.grab3_check_end
 	cp $5f
 	ret nz
-	jp .asm_4d34c
+	jp .return_to_idle
 
-.Func_4d2c8:
+.Swipe:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4d316
+	jr z, .swipe_move
 	cp $0a
-	jr nz, .asm_4d30f
+	jr nz, .swipe_interrupted
 	ld a, $2e
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(HiddenFigureRightHandFunc.Func_4d655)
+	ld a, HIGH(HiddenFigureRightHandFunc.Stunned)
 	ld [hld], a
-	ld a, LOW(HiddenFigureRightHandFunc.Func_4d655)
+	ld a, LOW(HiddenFigureRightHandFunc.Stunned)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1183,28 +1183,28 @@ HiddenFigureLeftHandFunc:
 	stop_sfx
 	ld de, HiddenFigureFrameset_6a0b2
 	jp SetObjectFramesetPtr
-.asm_4d30f
+.swipe_interrupted
 	ld a, $01
 	ld [wHiddenFigureSwipeInterrupted], a
 	xor a
 	ld [hl], a
-.asm_4d316
+.swipe_move
 	ld bc, HiddenFigureLeftHandSwipeX
 	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandSwipeY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $10
-	jr nz, .asm_4d333
+	jr nz, .check_sting_front
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hld], a
 	ret
-.asm_4d333
+.check_sting_front
 	cp $3c
-	jr nz, .asm_4d349
+	jr nz, .check_swipe_end
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1212,15 +1212,15 @@ HiddenFigureLeftHandFunc:
 	ld [hld], a
 	play_sfx SFX_HIDDEN_FIGURE_HAND_1
 	ret
-.asm_4d349
+.check_swipe_end
 	cp $7f
 	ret nz
 
-.asm_4d34c
+.return_to_idle
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d0c7)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4d0c7)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1243,12 +1243,12 @@ HiddenFigureLeftHandFunc:
 	ld de, HiddenFigureFrameset_6a128
 	jp SetObjectFramesetPtr
 
-.Func_4d379:
+.HoldWario:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_4d37f:
+.WaitDefeat:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wHiddenFigureDefeatStarted]
@@ -1259,13 +1259,13 @@ HiddenFigureLeftHandFunc:
 	ld a, $20
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4d39b)
+	ld a, HIGH(.DefeatRise)
 	ld [hld], a
-	ld a, LOW(.Func_4d39b)
+	ld a, LOW(.DefeatRise)
 	ld [hld], a
 	ret
 
-.Func_4d39b:
+.DefeatRise:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1279,9 +1279,9 @@ HiddenFigureLeftHandFunc:
 
 HiddenFigureRightHandFunc:
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d3c8)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4d3c8)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld l, OBJ_Y_POS
 	ld a, [hli]
@@ -1294,35 +1294,35 @@ HiddenFigureRightHandFunc:
 	ld [wHiddenFigureRightHandRestPos + 3], a
 	ret
 
-.Func_4d3c8:
+.Idle:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ld a, [wHiddenFigureAttack]
 	cp $02
-	jr z, .asm_4d3f4
+	jr z, .start_swipe
 	cp $03
-	jr z, .asm_4d401
+	jr z, .start_grab
 	cp $07
-	jr z, .asm_4d401
+	jr z, .start_grab
 	cp $08
-	jr z, .asm_4d401
+	jr z, .start_grab
 	cp $04
-	jr z, .asm_4d41e
+	jr z, .start_slam
 	cp $06
-	jr z, .asm_4d443
+	jr z, .start_wait_defeat
 	ld a, [wHiddenFigureHandsFlinch]
 	and a
 	ret z
-	jr .asm_4d44d
-.asm_4d3f4
+	jr .start_flinch
+.start_swipe
 	ld a, $01
 	ld [wHiddenFigureHandsFlinch], a
-	ld bc, .Func_4d571
+	ld bc, .Swipe
 	ld de, HiddenFigureFrameset_6a145
-	jr .asm_4d455
-.asm_4d401
+	jr .set_update_func
+.start_grab
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1336,10 +1336,10 @@ HiddenFigureRightHandFunc:
 	ld [hli], a
 	ld a, $0b
 	ld [hli], a
-	ld bc, .Func_4d4b2
+	ld bc, .Grab
 	ld de, HiddenFigureFrameset_6a0c8
-	jr .asm_4d455
-.asm_4d41e
+	jr .set_update_func
+.start_slam
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1349,26 +1349,26 @@ HiddenFigureRightHandFunc:
 	ld [wHiddenFigureRightHandSlamming], a
 	ld a, [wHiddenFigureRemainingHits]
 	dec a
-	jr z, .asm_4d436
+	jr z, .slam_last_hit
 	ld a, $3c
-	jr .asm_4d438
-.asm_4d436
+	jr .set_slam_delay
+.slam_last_hit
 	ld a, $1e
-.asm_4d438
+.set_slam_delay
 	ld [wCurObjStateDuration], a
-	ld bc, .Func_4d465
+	ld bc, .Slam
 	ld de, HiddenFigureFrameset_6a0fe
-	jr .asm_4d455
-.asm_4d443
+	jr .set_update_func
+.start_wait_defeat
 	set 3, [hl]
-	ld bc, .Func_4d628
+	ld bc, .WaitDefeat
 	ld de, HiddenFigureFrameset_6a0fe
-	jr .asm_4d455
-.asm_4d44d
-	ld bc, .Func_4d49f
+	jr .set_update_func
+.start_flinch
+	ld bc, .Flinch
 	ld de, HiddenFigureFrameset_6a0fe
-	jr .asm_4d455
-.asm_4d455
+	jr .set_update_func
+.set_update_func
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, b
 	ld [hld], a
@@ -1381,37 +1381,37 @@ HiddenFigureRightHandFunc:
 	ld [hl], a
 	jp SetObjectFramesetPtr
 
-.Func_4d465:
+.Slam:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_4d47b
+	jr z, .slam_down
 	dec [hl]
 	ld a, [wHiddenFigureRemainingHits]
 	and a
-	jr z, .asm_4d498
+	jr z, .end_slam
 	ld a, [wHiddenFigureAttack]
 	cp $00
-	jr z, .asm_4d498
+	jr z, .end_slam
 	ret
-.asm_4d47b
+.slam_down
 	ld bc, HiddenFigureHandSlamY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
 	cp $0a
-	jr nz, .asm_4d495
+	jr nz, .check_slam_end
 	play_sfx SFX_SLAM
 	ld b, $18
 	jp DoGroundShake
-.asm_4d495
+.check_slam_end
 	cp $3f
 	ret nz
-.asm_4d498
+.end_slam
 	xor a
 	ld [wHiddenFigureRightHandSlamming], a
-	jp .asm_4d5f5
+	jp .return_to_idle
 
-.Func_4d49f:
+.Flinch:
 	ld bc, HiddenFigureHandFlinchY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar3]
@@ -1419,35 +1419,35 @@ HiddenFigureRightHandFunc:
 	ret nz
 	xor a
 	ld [wHiddenFigureHandsFlinch], a
-	jp .asm_4d5f5
+	jp .return_to_idle
 
-.Func_4d4b2:
+.Grab:
 	ld hl, wHiddenFigureRightHandGrabResult
 	ld a, [hl]
 	and a
-	jr z, .asm_4d4d2
+	jr z, .check_hit
 	cp $80
-	jr z, .asm_4d4bf
+	jr z, .caught_wario
 	dec [hl]
 	ret
-.asm_4d4bf
+.caught_wario
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d622)
+	ld a, HIGH(.HoldWario)
 	ld [hld], a
-	ld a, LOW(.Func_4d622)
+	ld a, LOW(.HoldWario)
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld de, HiddenFigureFrameset_6a11c
 	jp SetObjectFramesetPtr
-.asm_4d4d2
+.check_hit
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4d4ef
+	jr z, .move
 	and $fe
 	cp $04
-	jr nz, .asm_4d4ed
+	jr nz, .clear_state
 	ld a, $0a
 	ld [wHiddenFigureBodyGrabResult], a
 	ld [wHiddenFigureLeftHandGrabResult], a
@@ -1455,80 +1455,80 @@ HiddenFigureRightHandFunc:
 	xor a
 	ld [hl], a
 	ret
-.asm_4d4ed
+.clear_state
 	xor a
 	ld [hl], a
-.asm_4d4ef
+.move
 	ld a, [wHiddenFigureAttack]
 	cp $08
-	jr z, .asm_4d540
+	jr z, .grab3
 	ld bc, HiddenFigureRightHandGrabX
 	call ApplyCurObjXTable
 	ld a, [wHiddenFigureAttack]
 	cp $07
-	jr z, .asm_4d508
+	jr z, .grab2_y
 	ld bc, HiddenFigureHandGrab1Y
-	jr .asm_4d50b
-.asm_4d508
+	jr .apply_grab_y
+.grab2_y
 	ld bc, HiddenFigureHandGrab2Y
-.asm_4d50b
+.apply_grab_y
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
-	jr nz, .asm_4d523
+	jr nz, .check_push_frame
 	play_sfx SFX_HIDDEN_FIGURE_HAND_3
 	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
-.asm_4d523
+.check_push_frame
 	cp $62
-	jr nz, .asm_4d52d
+	jr nz, .check_sfx_frame
 	ld de, HiddenFigureFrameset_6a0cf
 	jp SetObjectFramesetPtr
-.asm_4d52d
+.check_sfx_frame
 	cp $32
-	jr nz, .asm_4d53a
+	jr nz, .check_grab_end
 	play_sfx SFX_HIDDEN_FIGURE_HAND_2
 	ret
-.asm_4d53a
+.check_grab_end
 	cp $7f
 	ret nz
-	jp .asm_4d5f5
-.asm_4d540
+	jp .return_to_idle
+.grab3
 	ld bc, HiddenFigureRightHandGrab3X
 	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandGrab3Y
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $13
-	jr nz, .asm_4d561
+	jr nz, .grab3_check_push
 	play_sfx SFX_HIDDEN_FIGURE_HAND_2
 	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
-.asm_4d561
+.grab3_check_push
 	cp $4e
-	jr nz, .asm_4d56b
+	jr nz, .grab3_check_end
 	ld de, HiddenFigureFrameset_6a0cf
 	jp SetObjectFramesetPtr
-.asm_4d56b
+.grab3_check_end
 	cp $5f
 	ret nz
-	jp .asm_4d5f5
+	jp .return_to_idle
 
-.Func_4d571:
+.Swipe:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4d5bf
+	jr z, .swipe_move
 	cp $0a
-	jr nz, .asm_4d5b8
+	jr nz, .swipe_interrupted
 	ld a, $2e
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	set OBJFLAG_PRIORITY_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4d655)
+	ld a, HIGH(.Stunned)
 	ld [hld], a
-	ld a, LOW(.Func_4d655)
+	ld a, LOW(.Stunned)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1551,28 +1551,28 @@ HiddenFigureRightHandFunc:
 	stop_sfx
 	ld de, HiddenFigureFrameset_6a0b7
 	jp SetObjectFramesetPtr
-.asm_4d5b8
+.swipe_interrupted
 	ld a, $01
 	ld [wHiddenFigureSwipeInterrupted], a
 	xor a
 	ld [hl], a
-.asm_4d5bf
+.swipe_move
 	ld bc, HiddenFigureRightHandSwipeX
 	call ApplyCurObjXTable
 	ld bc, HiddenFigureHandSwipeY
 	call ApplyCurObjYTable
 	ld a, [wCurObjVar2]
 	cp $10
-	jr nz, .asm_4d5dc
+	jr nz, .check_sting_front
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_BOTTOM_STING_SMASHABLE_TOP
 	ld [hld], a
 	ret
-.asm_4d5dc
+.check_sting_front
 	cp $3c
-	jr nz, .asm_4d5f2
+	jr nz, .check_swipe_end
 	ld hl, wCurObjInteractionType
 	ld a, [hl]
 	and HEAVY_OBJ
@@ -1580,14 +1580,14 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	play_sfx SFX_HIDDEN_FIGURE_HAND_1
 	ret
-.asm_4d5f2
+.check_swipe_end
 	cp $7f
 	ret nz
-.asm_4d5f5
+.return_to_idle
 	ld hl, wCurObjUpdateFunction + 1
-	ld a, HIGH(.Func_4d3c8)
+	ld a, HIGH(.Idle)
 	ld [hld], a
-	ld a, LOW(.Func_4d3c8)
+	ld a, LOW(.Idle)
 	ld [hld], a
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -1610,12 +1610,12 @@ HiddenFigureRightHandFunc:
 	ld de, HiddenFigureFrameset_6a131
 	jp SetObjectFramesetPtr
 
-.Func_4d622:
+.HoldWario:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ret
 
-.Func_4d628:
+.WaitDefeat:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wHiddenFigureDefeatStarted]
@@ -1626,13 +1626,13 @@ HiddenFigureRightHandFunc:
 	ld a, $1e
 	ld [hli], a
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(.Func_4d644)
+	ld a, HIGH(.DefeatSink)
 	ld [hld], a
-	ld a, LOW(.Func_4d644)
+	ld a, LOW(.DefeatSink)
 	ld [hld], a
 	ret
 
-.Func_4d644:
+.DefeatSink:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
@@ -1644,7 +1644,7 @@ HiddenFigureRightHandFunc:
 	jp c, MoveObjectDown
 	ret
 
-.Func_4d655:
+.Stunned:
 	ld hl, wSCYShake
 	ld a, [wHiddenFigureBaseSCY]
 	add [hl]
@@ -1654,45 +1654,45 @@ HiddenFigureRightHandFunc:
 	ld a, [wCurObjState]
 	ld e, a
 	cp $2d
-	jr z, .asm_4d67c
+	jr z, .dispatch
 	ld a, [wGlobalCounter]
 	and %1111
 	play_sfx z, SFX_WHIRR
-.asm_4d67c
+.dispatch
 	ld a, e
 	jumptable
-	dw .Func_4d7dc
-	dw .Func_4d7e6
-	dw .Func_4d83a
-	dw .Func_4d844
-	dw .Func_4d83a
-	dw .Func_4d844
-	dw .Func_4d899
-	dw .Func_4d8b1
-	dw .Func_4d83a
-	dw .Func_4d844
-	dw .Func_4d824
-	dw .Func_4d83a
-	dw .Func_4d844
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d859
-	dw .Func_4d861
-	dw .Func_4d86f
-	dw .Func_4d876
-	dw .Func_4d8e1
-	dw .Func_4d8c9
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
+	dw .Default_4d7dc
+	dw .Land
+	dw .Default_4d83a
+	dw .Default_4d844
+	dw .Default_4d83a
+	dw .Default_4d844
+	dw .PickedUpLeftStart
+	dw .PickedUpRightStart
+	dw .Default_4d83a
+	dw .Default_4d844
+	dw .VanishTouch
+	dw .Default_4d83a
+	dw .Default_4d844
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .State14
+	dw .State15
+	dw .StunLeftStart
+	dw .StunRightStart
+	dw .State18
+	dw .State19
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
 	dw ObjState_Bounce1LeftStart
 	dw ObjState_Bounce1RightStart
 	dw ObjState_Bounce2LeftStart
@@ -1701,40 +1701,40 @@ HiddenFigureRightHandFunc:
 	dw ObjState_Bounce3RightStart
 	dw ObjState_FallLeftStart
 	dw ObjState_FallRightStart
-	dw .Func_4d844
-	dw .Func_4d83a
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d750
-	dw .Func_4d73e
-	dw .Func_4d7dc
+	dw .Default_4d844
+	dw .Default_4d83a
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Special1
+	dw .Special2
+	dw .Default_4d7dc
 	dw ObjState_Fall
-	dw .Func_4d7fd
+	dw .Walk
 	dw ObjState_BumpLeft
 	dw ObjState_BumpRight
-	dw .Func_4d7dc
-	dw .Func_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
 	dw ObjState_PickedUpLeft
 	dw ObjState_PickedUpRight
 	dw ObjState_Bounce2Right
 	dw ObjState_Bounce2Left
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
 	dw ObjState_StandingFall
 	dw ObjState_Drop
-	dw .Func_4d7dc
+	dw .Default_4d7dc
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_4d87d
-	dw .Func_4d88b
-	dw .Func_4d8f0
-	dw .Func_4d8d8
+	dw .StunLeft
+	dw .StunRight
+	dw .State48
+	dw .State49
 	dw ObjState_GrabbedChargeLeft
 	dw ObjState_GrabbedChargeRight
 	dw ObjState_FullThrowLeft
@@ -1749,16 +1749,16 @@ HiddenFigureRightHandFunc:
 	dw ObjState_Bounce3Right
 	dw ObjState_FallLeft
 	dw ObjState_FallRight
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
-	dw .Func_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
+	dw .Default_4d7dc
 
-.Func_4d73e:
+.Special2:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
@@ -1767,12 +1767,12 @@ HiddenFigureRightHandFunc:
 	play_sfx SFX_VANISH
 	ret
 
-.Func_4d750:
+.Special1:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [wCurObjId]
 	cp HIDDEN_FIGURE_RIGHT_HAND
-	jr z, .asm_4d780
+	jr z, .right_hand_check
 	ld hl, wHiddenFigureLeftHandRestPos
 	ld a, [hli]
 	ld e, a
@@ -1784,20 +1784,20 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	cp e
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp d
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp b
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	xor a
 	ld [wHiddenFigureLeftHandStunned], a
-	jp HiddenFigureLeftHandFunc.asm_4d34c
-.asm_4d780
+	jp HiddenFigureLeftHandFunc.return_to_idle
+.right_hand_check
 	ld hl, wHiddenFigureRightHandRestPos
 	ld a, [hli]
 	ld e, a
@@ -1809,61 +1809,61 @@ HiddenFigureRightHandFunc:
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	cp e
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp d
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp c
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	ld a, [hli]
 	cp b
-	jr nz, .asm_4d7a4
+	jr nz, .return_to_rest
 	xor a
 	ld [wHiddenFigureRightHandStunned], a
-	jp .asm_4d5f5
-.asm_4d7a4
+	jp .return_to_idle
+.return_to_rest
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	cp e
-	jr nz, .asm_4d7ae
+	jr nz, .move_up
 	ld a, [hl]
 	cp d
-	jr z, .asm_4d7b1
-.asm_4d7ae
+	jr z, .move_horizontal
+.move_up
 	call MoveObjectUp
-.asm_4d7b1
+.move_horizontal
 	ld l, OBJ_X_POS + 1
 	ld a, [hld]
 	cp b
-	jr z, .asm_4d7bb
-	jr c, .asm_4d7c6
-	jr .asm_4d7c1
-.asm_4d7bb
+	jr z, .compare_x_lo
+	jr c, .move_right
+	jr .move_left
+.compare_x_lo
 	ld a, [hl]
 	cp c
-	jr z, .asm_4d7c9
-	jr c, .asm_4d7c6
-.asm_4d7c1
+	jr z, .blink
+	jr c, .move_right
+.move_left
 	call MoveObjectLeft
-	jr .asm_4d7c9
-.asm_4d7c6
+	jr .blink
+.move_right
 	call MoveObjectRight
-.asm_4d7c9
+.blink
 	ld a, [wGlobalCounter]
 	and %11
 	ld hl, wCurObjFlags
 	ld a, [hl]
-	jr nz, .asm_4d7d8
+	jr nz, .show
 	set 4, a
 	ld [hl], a
 	ret
-.asm_4d7d8
+.show
 	res 4, a
 	ld [hl], a
 	ret
 
-.Func_4d7dc:
+.Default_4d7dc:
 	ld hl, wCurObjState
 	ld a, $30
 	ld [hld], a
@@ -1872,19 +1872,19 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ret
 
-.Func_4d7e6:
+.Land:
 	ld hl, wCurObjState
 	ld a, $31
 	ld [hld], a
 	ld a, [wHiddenFigureHandWasGrabbed]
 	cp $01
-	jr z, .asm_4d7f5
+	jr z, .set_walk_duration
 	ld a, $46
-.asm_4d7f5
+.set_walk_duration
 	ld [wCurObjStateDuration], a
 	ld hl, wCurObjFlags
 	res OBJFLAG_GRABBED_F, [hl]
-.Func_4d7fd:
+.Walk:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -1899,14 +1899,14 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_4d81e
+	jr c, .recover_facing_right
 	ld de, HiddenFigureFrameset_6a0fe
 	jp SetObjectFramesetPtr
-.asm_4d81e
+.recover_facing_right
 	ld de, HiddenFigureFrameset_6a0d4
 	jp SetObjectFramesetPtr
 
-.Func_4d824:
+.VanishTouch:
 	play_sfx SFX_VANISH
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -1914,19 +1914,19 @@ HiddenFigureRightHandFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .Func_4d844
-.Func_4d83a:
+	jr c, .Default_4d844
+.Default_4d83a:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $38
-	jr .asm_4d84c
-.Func_4d844:
+	jr .set_wobble
+.Default_4d844:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, $39
-.asm_4d84c
+.set_wobble
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	ld a, $04
@@ -1938,16 +1938,16 @@ HiddenFigureRightHandFunc:
 	ld [hli], a
 	ret
 
-.Func_4d859:
+.State14:
 	ld hl, wCurObjState
 	ld a, $44
 	ld [hld], a
-	jr .asm_4d867
-.Func_4d861:
+	jr .set_fall
+.State15:
 	ld hl, wCurObjState
 	ld a, $45
 	ld [hld], a
-.asm_4d867
+.set_fall
 	ld l, OBJ_VAR_2
 	ld a, $02
 	ld [hli], a
@@ -1955,19 +1955,19 @@ HiddenFigureRightHandFunc:
 	ld [hli], a
 	ret
 
-.Func_4d86f:
+.StunLeftStart:
 	ld hl, wCurObjState
 	ld a, $46
 	ld [hld], a
 	ret
 
-.Func_4d876:
+.StunRightStart:
 	ld hl, wCurObjState
 	ld a, $47
 	ld [hld], a
 	ret
 
-.Func_4d87d:
+.StunLeft:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -1976,7 +1976,7 @@ HiddenFigureRightHandFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4d88b:
+.StunRight:
 	ld hl, wCurObjVar2
 	ld a, [hl]
 	and a
@@ -1985,7 +1985,7 @@ HiddenFigureRightHandFunc:
 	ld [wCurObjState], a
 	ret
 
-.Func_4d899:
+.PickedUpLeftStart:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
@@ -2000,7 +2000,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	jp ObjState_PickedUpLeft
 
-.Func_4d8b1:
+.PickedUpRightStart:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
@@ -2015,7 +2015,7 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	jp ObjState_PickedUpRight
 
-.Func_4d8c9:
+.State19:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
@@ -2023,12 +2023,12 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set 2, [hl]
-.Func_4d8d8:
+.State49:
 	ld a, [wDirection]
 	and a
 	jp nz, ObjState_GrabbedRight
-	jr .Func_4d8e1
-.Func_4d8e1:
+	jr .State18
+.State18:
 	ld a, $01
 	ld [wHiddenFigureHandWasGrabbed], a
 	ld hl, wCurObjState
@@ -2036,8 +2036,8 @@ HiddenFigureRightHandFunc:
 	ld [hld], a
 	ld l, OBJ_FLAGS
 	set 2, [hl]
-.Func_4d8f0:
+.State48:
 	ld a, [wDirection]
 	and a
 	jp z, ObjState_GrabbedLeft
-	jp .Func_4d8c9
+	jp .State19

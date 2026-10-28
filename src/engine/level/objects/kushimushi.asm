@@ -28,26 +28,26 @@ KushimushiVerticalFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_42a68
+	jr z, .move_vertical
 	cp $0e
-	jr z, .asm_42a16
+	jr z, .pause_after_hit_vertical
 	cp $0d
-	jr z, .asm_42a16
+	jr z, .pause_after_hit_vertical
 	cp $0a
 	jp z, VanishObject2
 	cp $28
-	jr z, .asm_42a2d
+	jr z, .set_hit_by_obj_left
 	cp $29
-	jr z, .asm_42a35
+	jr z, .set_hit_by_obj_right
 	cp $04
-	jr z, .asm_42a45
+	jr z, .set_attacked_left
 	cp $05
-	jr z, .asm_42a3d
+	jr z, .set_attacked_right
 	rra
-	jr nc, .asm_42a35
-	jr .asm_42a2d
+	jr nc, .set_hit_by_obj_right
+	jr .set_hit_by_obj_left
 
-.asm_42a16
+.pause_after_hit_vertical
 	xor a
 	ld [hl], a
 	ld l, OBJ_VAR_2
@@ -55,35 +55,35 @@ KushimushiVerticalFunc:
 	ld [hld], a
 	ld a, [hl]
 	and a
-	jr z, .asm_42a27
+	jr z, .pause_moving_down
 	ld de, KushimushiFrameset_6862a
 	jp SetObjectFramesetPtr
-.asm_42a27
+.pause_moving_down
 	ld de, KushimushiFrameset_6862f
 	jp SetObjectFramesetPtr
-.asm_42a2d
+.set_hit_by_obj_left
 	ld a, HIGH(ObjState_HitByObjLeft)
 	ld c, LOW(ObjState_HitByObjLeft)
 	ld b, $02
-	jr .asm_42a4b
+	jr .set_knocked_back
 
-.asm_42a35
+.set_hit_by_obj_right
 	ld a, HIGH(ObjState_HitByObjRight)
 	ld c, LOW(ObjState_HitByObjRight)
 	ld b, $02
-	jr .asm_42a4b
+	jr .set_knocked_back
 
-.asm_42a3d
+.set_attacked_right
 	ld a, HIGH(ObjState_AttackedRight)
 	ld c, LOW(ObjState_AttackedRight)
 	ld b, $02
-	jr .asm_42a4b
+	jr .set_knocked_back
 
-.asm_42a45
+.set_attacked_left
 	ld a, HIGH(ObjState_AttackedLeft)
 	ld c, LOW(ObjState_AttackedLeft)
 	ld b, $02
-.asm_42a4b
+.set_knocked_back
 	ld l, OBJ_FLAGS
 	set OBJFLAG_NO_COLLISION_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -102,17 +102,17 @@ KushimushiVerticalFunc:
 	ld de, KushimushiFrameset_68698
 	jp SetObjectFramesetPtr
 
-.asm_42a68
+.move_vertical
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jr z, .asm_42a75
+	jr z, .step_vertical
 	dec [hl]
 	ld a, 2
 	ld [wCurObjFrameDuration], a
 	ret
 
-.asm_42a75
+.step_vertical
 	ld a, [wGlobalCounter]
 	rra
 	ret c
@@ -135,7 +135,7 @@ KushimushiVerticalFunc:
 	ld b, $1
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
-	jr .asm_42ac3
+	jr .set_vertical_phase
 .turn_around_up
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
@@ -143,7 +143,7 @@ KushimushiVerticalFunc:
 	ld b, $2
 	ld c, OBJ_INTERACTION_TOP_STING
 	ld a, 96
-	jr .asm_42ac3
+	jr .set_vertical_phase
 .move_up
 	dec [hl] ; OBJ_STATE_DURATION
 	jp nz, MoveObjectUp
@@ -151,7 +151,7 @@ KushimushiVerticalFunc:
 	ld b, $3
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
-	jr .asm_42ac3
+	jr .set_vertical_phase
 .turn_around_down
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
@@ -159,7 +159,7 @@ KushimushiVerticalFunc:
 	ld b, $0
 	ld c, OBJ_INTERACTION_BOTTOM_STING
 	ld a, 96
-.asm_42ac3
+.set_vertical_phase
 	ld [hli], a ; OBJ_STATE_DURATION
 	ld [hl], b ; OBJ_VAR_1
 	ld l, OBJ_INTERACTION_TYPE
@@ -169,29 +169,29 @@ KushimushiVerticalFunc:
 	ld [hl], a
 	jp SetObjectFramesetPtr
 
-.Func_42acf:
+.Update_42acf:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_42b15
+	jr z, .move_horizontal
 	cp $0b
-	jr z, .asm_42afe
+	jr z, .pause_after_hit_horizontal
 	cp $0c
-	jr z, .asm_42afe
+	jr z, .pause_after_hit_horizontal
 	cp $0a
 	jp z, VanishObject2
 	cp $28
-	jp z, .asm_42a2d
+	jp z, .set_hit_by_obj_left
 	cp $29
-	jp z, .asm_42a35
+	jp z, .set_hit_by_obj_right
 	cp $04
-	jp z, .asm_42a45
+	jp z, .set_attacked_left
 	cp $05
-	jp z, .asm_42a3d
+	jp z, .set_attacked_right
 	rra
-	jp nc, .asm_42a35
-	jp .asm_42a2d
-.asm_42afe
+	jp nc, .set_hit_by_obj_right
+	jp .set_hit_by_obj_left
+.pause_after_hit_horizontal
 	xor a
 	ld [hl], a
 	ld l, OBJ_VAR_2
@@ -199,21 +199,21 @@ KushimushiVerticalFunc:
 	ld [hld], a
 	ld a, [hl]
 	and a
-	jr z, .asm_42b0f
+	jr z, .pause_moving_right
 	ld de, KushimushiFrameset_68620
 	jp SetObjectFramesetPtr
-.asm_42b0f
+.pause_moving_right
 	ld de, KushimushiFrameset_68625
 	jp SetObjectFramesetPtr
-.asm_42b15
+.move_horizontal
 	ld l, OBJ_VAR_2
 	ld a, [hl]
 	and a
-	jr z, .asm_42b1d
+	jr z, .step_horizontal
 	dec [hl]
 	ret
 
-.asm_42b1d
+.step_horizontal
 	ld a, [wGlobalCounter]
 	rra
 	ret c
@@ -236,7 +236,7 @@ KushimushiVerticalFunc:
 	ld b, $1
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
-	jr .asm_42b71
+	jr .set_horizontal_phase
 .turn_around_left
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
@@ -251,7 +251,7 @@ KushimushiVerticalFunc:
 	ld b, $3
 	ld c, OBJ_INTERACTION_01
 	ld a, 22
-	jr .asm_42b71
+	jr .set_horizontal_phase
 .turn_around_right
 	dec [hl] ; OBJ_STATE_DURATION
 	ret nz
@@ -265,7 +265,7 @@ KushimushiVerticalFunc:
 	ld [hl], a
 	ld l, OBJ_STATE_DURATION
 	ld a, 96
-.asm_42b71
+.set_horizontal_phase
 	ld [hli], a ; OBJ_STATE_DURATION
 	ld [hl], b ; OBJ_VAR_1
 	ld l, OBJ_INTERACTION_TYPE
@@ -279,9 +279,9 @@ KushimushiHorizontalFunc:
 	ld hl, wCurObjFlags
 	res OBJFLAG_INVISIBLE_F, [hl]
 	ld l, OBJ_UPDATE_FUNCTION + 1
-	ld a, HIGH(KushimushiVerticalFunc.Func_42acf)
+	ld a, HIGH(KushimushiVerticalFunc.Update_42acf)
 	ld [hld], a
-	ld a, LOW(KushimushiVerticalFunc.Func_42acf)
+	ld a, LOW(KushimushiVerticalFunc.Update_42acf)
 	ld [hld], a
 	ld de, KushimushiFrameset_68611
 	call SetObjectFramesetPtr
