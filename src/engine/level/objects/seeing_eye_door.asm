@@ -34,14 +34,14 @@ SeeingEyeDoorFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_454e9
+	jr c, .wario_to_right
 	ld a, $5a
 	ld de, SeeingEyeDoorFrameset_68c47
-	jr .asm_454ee
-.asm_454e9
+	jr .set_look_dir
+.wario_to_right
 	ld a, $2e
 	ld de, SeeingEyeDoorFrameset_68c59
-.asm_454ee
+.set_look_dir
 	ld [wCurObjVar1], a
 	call SetObjectFramesetPtr
 	jr .Default
@@ -65,9 +65,9 @@ SeeingEyeDoorFunc:
 .set_look_around
 	ld a, [wCurObjVar1]
 	cp $2e
-	jr z, .asm_45545
+	jr z, .set_wait_for_wario
 	cp $5a
-	jr z, .asm_45545
+	jr z, .set_wait_for_wario
 	ld a, [wWarioScreenXPos]
 	add $2a
 	ld b, a
@@ -89,7 +89,7 @@ SeeingEyeDoorFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-.asm_45545
+.set_wait_for_wario
 	ld de, SeeingEyeDoorFrameset_68c36
 	call SetObjectFramesetPtr
 	ld l, OBJ_UPDATE_FUNCTION + 1
@@ -117,51 +117,51 @@ SeeingEyeDoorFunc:
 	ld hl, wCurObjState
 	ld a, [hl]
 	and a
-	jr z, .asm_4557e
+	jr z, .check_look_dir
 	xor a
 	ld [hl], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
-.asm_4557e
+.check_look_dir
 	ld l, OBJ_VAR_1
 	ld a, [hl]
 	cp $5c
-	jr z, .asm_45597
+	jr z, .looking_center
 	cp $2d
-	jr z, .asm_455ba
+	jr z, .looking_right
 	cp $2e
-	jr z, .asm_455e7
+	jr z, .looking_far_right
 	cp $5b
-	jr z, .asm_45602
+	jr z, .looking_left
 	cp $5a
-	jp z, .asm_4562f
+	jp z, .looking_far_left
 	ret
 
-.asm_45597
+.looking_center
 	ld a, e
 	add $17
 	cp d
-	jr c, .asm_455a9
+	jr c, .look_right
 	ld a, e
 	sub $18
 	cp d
 	ret c
 	ld a, $5b
 	ld de, SeeingEyeDoorFrameset_68c4a
-	jr .asm_455ae
-.asm_455a9
+	jr .set_look
+.look_right
 	ld a, $2d
 	ld de, SeeingEyeDoorFrameset_68c56
-.asm_455ae
+.set_look
 	ld [hl], a
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	jp SetObjectFramesetPtr
 
-.asm_455ba
+.looking_right
 	ld a, e
 	add $46
 	cp d
-	jr c, .asm_455d6
+	jr c, .look_far_right
 	ld a, e
 	add $17
 	cp d
@@ -172,14 +172,14 @@ SeeingEyeDoorFunc:
 	ld de, SeeingEyeDoorFrameset_68c50
 	jp SetObjectFramesetPtr
 
-.asm_455d6
+.look_far_right
 	play_sfx SFX_SEEING_EYE_DOOR_LOOK
 	ld a, $2e
 	ld [hl], a
 	ld de, SeeingEyeDoorFrameset_68c59
 	jp SetObjectFramesetPtr
 
-.asm_455e7
+.looking_far_right
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, e
@@ -192,11 +192,11 @@ SeeingEyeDoorFunc:
 	ld de, SeeingEyeDoorFrameset_68c56
 	jp SetObjectFramesetPtr
 
-.asm_45602
+.looking_left
 	ld a, e
 	sub $18
 	cp d
-	jr c, .asm_4561e
+	jr c, .look_center_from_left
 	ld a, e
 	sub $47
 	cp d
@@ -207,14 +207,14 @@ SeeingEyeDoorFunc:
 	ld de, SeeingEyeDoorFrameset_68c47
 	jp SetObjectFramesetPtr
 
-.asm_4561e
+.look_center_from_left
 	play_sfx SFX_SEEING_EYE_DOOR
 	ld a, $5c
 	ld [hl], a
 	ld de, SeeingEyeDoorFrameset_68c50
 	jp SetObjectFramesetPtr
 
-.asm_4562f
+.looking_far_left
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, e
