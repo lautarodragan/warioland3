@@ -152,7 +152,7 @@ ParaGoomFunc:
 	ld a, [wCurObjScreenXPos]
 	add $2a
 	cp b
-	jr c, .asm_4148d
+	jr c, .face_right
 	res OBJFLAG_PRIORITY_F, [hl]
 	dec l
 	xor a
@@ -164,9 +164,9 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
-	jr .asm_414a0
+	jr .check_floor
 
-.asm_4148d
+.face_right
 	set OBJFLAG_PRIORITY_F, [hl]
 	dec l
 	xor a
@@ -178,7 +178,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
-.asm_414a0
+.check_floor
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -196,7 +196,7 @@ ParaGoomFunc:
 	ld [hld], a
 	xor a
 	ld [wCurObjStateDuration], a
-	jr .asm_41505
+	jr .extend_propeller
 
 .StandingFallStart:
 	ld hl, wCurObjState
@@ -204,39 +204,39 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
-	jr z, .asm_414e4
+	jr z, .propeller_standing_fall
 	ld a, [hld]
 	rlca
-	jr c, .asm_414d8
+	jr c, .standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, ParaGoomFrameset_684e7
-	jr .asm_414dd
+	jr .set_standing_fall_frameset
 
-.asm_414d8
+.standing_fall_right
 	xor a
 	ld [hld], a
 	ld de, ParaGoomFrameset_6850a
-.asm_414dd
+.set_standing_fall_frameset
 	call SetObjectFramesetPtr
 	ld a, $38
 	ld [hld], a
 	ret
 
-.asm_414e4
+.propeller_standing_fall
 	ld a, [hld]
 	rlca
-	jr c, .asm_414ef
+	jr c, .propeller_fall_right
 	xor a
 	ld [hld], a
 	ld de, ParaGoomFrameset_6852d
-	jr .asm_414f4
+	jr .set_propeller_fall_frameset
 
-.asm_414ef
+.propeller_fall_right
 	xor a
 	ld [hld], a
 	ld de, ParaGoomFrameset_68546
-.asm_414f4
+.set_propeller_fall_frameset
 	call SetObjectFramesetPtr
 	ld a, $29
 	ld [hld], a
@@ -249,7 +249,7 @@ ParaGoomFunc:
 	jp z, .State5b
 	dec [hl]
 	ret nz
-.asm_41505
+.extend_propeller
 	ld de, ParaGoomFrameset_684ba
 	call SetObjectFramesetPtr
 	ld l, OBJ_INTERACTION_TYPE
@@ -264,7 +264,7 @@ ParaGoomFunc:
 .Special2:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_41528
+	jr c, .retract_count_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -272,16 +272,16 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_41528
+.retract_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	jr .asm_41570
+	jr .walk_without_propeller
 
 .Special1:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_41540
+	jr c, .extend_count_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -289,11 +289,11 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_41540
+.extend_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-.asm_41545
+.walk_with_propeller
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_WALK
 	ld [hld], a
@@ -318,29 +318,29 @@ ParaGoomFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
-.asm_41570
+.walk_without_propeller
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_41586
+	jr c, .walk_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $06
 	ld [hld], a
 	ld a, $f6
 	ld [hld], a
 	ld de, ParaGoomFrameset_68439
-	jr .asm_41591
+	jr .set_walk_frameset
 
-.asm_41586
+.walk_facing_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $09
 	ld [hld], a
 	ld a, $f9
 	ld [hld], a
 	ld de, ParaGoomFrameset_68442
-.asm_41591
+.set_walk_frameset
 	call SetObjectFramesetPtr
 	ld a, $0a
 	ld [hli], a
@@ -349,7 +349,7 @@ ParaGoomFunc:
 .Walk:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_415a9
+	jr c, .walking
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -357,11 +357,11 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_415a9
+.walking
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_415bb
+	jr z, .propeller_timer
 	dec [hl]
 	ret nz
 	ld l, OBJ_INTERACTION_TYPE
@@ -371,13 +371,13 @@ ParaGoomFunc:
 	ld [hld], a
 	ret
 
-.asm_415bb
+.propeller_timer
 	inc l
 	inc [hl]
-	jr nz, .asm_41611
+	jr nz, .walk_on
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
-	jr nz, .asm_415e9
+	jr nz, .start_extend
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_2
 	ld [hld], a
@@ -396,7 +396,7 @@ ParaGoomFunc:
 	ld [hl], a
 	ret
 
-.asm_415e9
+.start_extend
 	ld l, OBJ_STATE
 	ld a, OBJSTATE_SPECIAL_1
 	ld [hld], a
@@ -418,7 +418,7 @@ ParaGoomFunc:
 	ld [hld], a
 	ret
 
-.asm_41611
+.walk_on
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	ldh [hYPosLo], a
@@ -430,12 +430,12 @@ ParaGoomFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_Down
 	and a
-	jr nz, .asm_4162c
+	jr nz, .on_floor
 	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
-.asm_4162c
+.on_floor
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -443,7 +443,7 @@ ParaGoomFunc:
 	ld [hli], a
 	ld a, [wCurObjSubState]
 	rlca
-	jr c, .asm_41677
+	jr c, .walk_right
 	ld a, [wCurObjCollBoxLeft]
 	cpl
 	inc a
@@ -451,11 +451,11 @@ ParaGoomFunc:
 	ld a, [hl]
 	and $0f
 	sub b
-	jr nc, .asm_4164e
+	jr nc, .check_wall_left
 	call ProcessBlockOnLeft
 	and $0f
-	jr z, .asm_41671
-.asm_4164e
+	jr z, .turn_at_edge_left
+.check_wall_left
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -476,23 +476,23 @@ ParaGoomFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectLeft_Slow
-.asm_41671
+.turn_at_edge_left
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
-.asm_41677
+.walk_right
 	ld a, [wCurObjCollBoxRight]
 	ld b, a
 	ld a, [hl]
 	and $0f
 	add b
 	cp $10
-	jr c, .asm_4168a
+	jr c, .check_wall_right
 	call ProcessBlockOnRight
 	and $0f
-	jr z, .asm_416aa
-.asm_4168a
+	jr z, .turn_at_edge_right
+.check_wall_right
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -510,7 +510,7 @@ ParaGoomFunc:
 	call ProcessBlock_Side
 	and a
 	jp z, MoveObjectRight_Slow
-.asm_416aa
+.turn_at_edge_right
 	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
@@ -519,20 +519,20 @@ ParaGoomFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
-	jr .asm_416be
+	jr .set_bump
 
 .BumpRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
-.asm_416be
+.set_bump
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
-	jr z, .asm_416ed
+	jr z, .propeller_bump
 	ld a, [hld]
 	rlca
 	ld_obj_frameset ParaGoomFrameset_68439, ParaGoomFrameset_68442
-.asm_416d1
+.set_bump_frameset
 	call SetObjectFramesetPtr
 	ld a, $0c
 	ld [hld], a
@@ -550,16 +550,16 @@ ParaGoomFunc:
 	ld [hld], a
 	ret
 
-.asm_416ed
+.propeller_bump
 	ld a, [hld]
 	rlca
-	jr c, .asm_416f6
+	jr c, .propeller_bump_right
 	ld de, ParaGoomFrameset_6844b
-	jr .asm_416d1
+	jr .set_bump_frameset
 
-.asm_416f6
+.propeller_bump_right
 	ld de, ParaGoomFrameset_68454
-	jr .asm_416d1
+	jr .set_bump_frameset
 
 .StunLeftStart:
 	ld hl, wCurObjState
@@ -623,24 +623,24 @@ ParaGoomFunc:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
-	jr .asm_41775
+	jr .set_fall
 
 .State15:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
-.asm_41775
+.set_fall
 	ld a, [hld]
 	rlca
-	jr c, .asm_41781
+	jr c, .fall_facing_right
 	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
-	jr .asm_41787
+	jr .set_fall_vars
 
-.asm_41781
+.fall_facing_right
 	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
-.asm_41787
+.set_fall_vars
 	inc l
 	inc l
 	ld a, $02
@@ -671,12 +671,12 @@ ParaGoomFunc:
 .State3f:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_417be
+	jr c, .count_down
 	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
-.asm_417be
+.count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
@@ -705,7 +705,7 @@ ParaGoomFunc:
 .State40:
 	ld hl, wCurObjStateDuration
 	dec [hl]
-	jr z, .asm_4180d
+	jr z, .start_hover
 	ld l, OBJ_Y_POS
 	ld a, [hli]
 	sub $08
@@ -719,10 +719,10 @@ ParaGoomFunc:
 	ldh [hXPosHi], a
 	call ProcessBlock_UpSide
 	and $0f
-	jr nz, .asm_4180d
+	jr nz, .start_hover
 	ld bc, ParaGoomData_60530
 	jp ApplyObjYMovement
-.asm_4180d
+.start_hover
 	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld de, ParaGoomFrameset_684b7
@@ -760,7 +760,7 @@ ParaGoomFunc:
 	ld [wObjSlopeInteraction], a
 	call ProcessBlock_Landing
 	and a
-	jr nz, .asm_41857
+	jr nz, .landed
 	ld a, [wIsInWaterOrSand]
 	and a
 	ret z
@@ -768,7 +768,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_41857
+.landed
 	ld hl, wCurObjYPos
 	ldh a, [hYPosLo]
 	ld [hli], a
@@ -786,7 +786,7 @@ ParaGoomFunc:
 .State5c:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_41880
+	jr c, .land_count_down
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -794,7 +794,7 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_41880
+.land_count_down
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
@@ -808,34 +808,34 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
-	jr z, .asm_418ae
+	jr z, .propeller_turn
 	ld a, [hld]
 	rlca
-	jr c, .asm_418a4
+	jr c, .turn_facing_right
 	ld de, ParaGoomFrameset_684cb
 	call SetObjectFramesetPtr
-	jr .asm_418aa
+	jr .set_turn_duration
 
-.asm_418a4
+.turn_facing_right
 	ld de, ParaGoomFrameset_684d2
 	call SetObjectFramesetPtr
-.asm_418aa
+.set_turn_duration
 	ld a, $44
 	ld [hli], a
 	ret
 
-.asm_418ae
+.propeller_turn
 	ld a, [hld]
 	rlca
-	jr c, .asm_418ba
+	jr c, .propeller_turn_right
 	ld de, ParaGoomFrameset_684d9
 	call SetObjectFramesetPtr
-	jr .asm_418c0
+	jr .set_propeller_turn_duration
 
-.asm_418ba
+.propeller_turn_right
 	ld de, ParaGoomFrameset_684e0
 	call SetObjectFramesetPtr
-.asm_418c0
+.set_propeller_turn_duration
 	ld a, $44
 	ld [hli], a
 	ret
@@ -843,7 +843,7 @@ ParaGoomFunc:
 .TurnAround:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr c, .asm_418d5
+	jr c, .turning
 	ldh a, [rDIV]
 	rra
 	ld a, $04
@@ -851,21 +851,21 @@ ParaGoomFunc:
 	ld [wCurObjState], a
 	ret
 
-.asm_418d5
+.turning
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $27
-	jr z, .asm_418ef
+	jr z, .flip_direction
 	dec [hl]
 	jp nz, ObjCheckFloorOrStandingFall
 	ld a, [wCurObjCollBoxTop]
 	cp $ef
-	jp z, .asm_41545
+	jp z, .walk_with_propeller
 	ld a, OBJSTATE_LAND
 	ld [wCurObjState], a
 	ret
 
-.asm_418ef
+.flip_direction
 	dec [hl]
 	ld l, OBJ_INTERACTION_TYPE
 	ld a, [hl]
@@ -875,11 +875,11 @@ ParaGoomFunc:
 	ld l, OBJ_SUBSTATE
 	ld a, [hl]
 	rlca
-	jr c, .asm_41901
+	jr c, .face_left
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
-.asm_41901
+.face_left
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
@@ -896,26 +896,26 @@ ParaGoomFunc:
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
-	jr .asm_41924
+	jr .set_wobble
 
 .WobbleRightStart:
 	ld hl, wCurObjAction
 	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
-.asm_41924
+.set_wobble
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_41931
+	jr c, .wobble_facing_right
 	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
-	jr .asm_41937
+	jr .set_wobble_vars
 
-.asm_41931
+.wobble_facing_right
 	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
-.asm_41937
+.set_wobble_vars
 	ld a, $04
 	ld [hli], a
 	inc l
@@ -940,12 +940,12 @@ ParaGoomFunc:
 .State0b:
 	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
-	jr .asm_41960
+	jr .set_hit_wario
 
 .State0c:
 	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
-.asm_41960
+.set_hit_wario
 	ld hl, wCurObjFrameDuration
 	xor a
 	ld [hli], a
@@ -985,28 +985,28 @@ ParaGoomFunc:
 	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
-	jr .asm_419b8
+	jr .set_knocked_back
 
 .State28:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_419b8
+	jr .set_knocked_back
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
-	jr .asm_419b8
+	jr .set_knocked_back
 
 .AttackedRightStart:
 	ld hl, wCurObjState
 	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
-.asm_419b8
+.set_knocked_back
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld a, [hl]
@@ -1018,10 +1018,10 @@ ParaGoomFunc:
 	ld [hl], b
 	ld a, c
 	rlca
-	jr c, .asm_419cf
+	jr c, .knocked_back_facing_right
 	ld de, ParaGoomFrameset_684aa
 	jp SetObjectFramesetPtr
-.asm_419cf
+.knocked_back_facing_right
 	ld de, ParaGoomFrameset_684af
 	jp SetObjectFramesetPtr
 .PickedUpLeftStart:
@@ -1056,15 +1056,15 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_41a0d
+	jr c, .grabbed_right_facing_right
 	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
-	jr .asm_41a13
+	jr .set_grabbed_right
 
-.asm_41a0d
+.grabbed_right_facing_right
 	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
-.asm_41a13
+.set_grabbed_right
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
 	ld [hld], a
@@ -1088,15 +1088,15 @@ ParaGoomFunc:
 	ld [hld], a
 	ld a, [hld]
 	rlca
-	jr c, .asm_41a41
+	jr c, .grabbed_left_facing_right
 	ld de, ParaGoomFrameset_684aa
 	call SetObjectFramesetPtr
-	jr .asm_41a47
+	jr .set_grabbed_left
 
-.asm_41a41
+.grabbed_left_facing_right
 	ld de, ParaGoomFrameset_684af
 	call SetObjectFramesetPtr
-.asm_41a47
+.set_grabbed_left
 	ld l, OBJ_COLLBOX_RIGHT
 	ld a, $05
 	ld [hld], a
