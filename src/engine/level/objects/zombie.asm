@@ -255,7 +255,7 @@ ZombieFunc:
 	cp TRANSFORMATION_ZOMBIE_WARIO
 	jr nz, .asm_45cb2
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .asm_45cba
 .asm_45c70
 	dec l
@@ -300,7 +300,7 @@ ZombieFunc:
 
 .asm_45cb2
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, VanishAndDespawnObject
 	jr .asm_45c70
 .asm_45cba
@@ -605,9 +605,9 @@ ZombieHeadFunc:
 	ld a, [hld]
 	and a
 	ret z
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jp c, ZombieFunc.asm_45c83
-	cp $0f
+	cp OBJSTATE_STUNNED_START
 	jp nc, ZombieFunc.asm_45c83
 	ld a, [hld]
 	rlca

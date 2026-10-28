@@ -22,12 +22,12 @@ WaterDropFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_49df7
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_49da6
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .asm_49dbd
 .asm_49d92
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [hl], a
 	ld de, WaterDropFrameset_69775
 	call SetObjectFramesetPtr
@@ -35,19 +35,19 @@ WaterDropFunc:
 	ld [hli], a
 	play_sfx SFX_WATER_DROP
 .asm_49da6
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz
 	ld l, OBJ_FLAGS
 	set OBJFLAG_INVISIBLE_F, [hl]
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ld a, $3c
 	ld [wCurObjStateDuration], a
 .asm_49dbd
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]

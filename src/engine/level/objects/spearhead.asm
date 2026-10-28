@@ -807,13 +807,13 @@ SpearheadFunc:
 
 .WobbleLeftStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .set_wobble_state
 .WobbleRightStart:
 	ld hl, wCurObjAction
-	ld a, 15 | (1 << 7)
+	ld a, no_actions_for 15
 	ld [hld], a
 	ld a, OBJSTATE_WOBBLE_RIGHT
 .set_wobble_state:
@@ -1021,7 +1021,7 @@ SpearheadFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, 31 | (1 << 7)
+	ld a, no_actions_for 31
 	ld [hld], a
 	ld a, OBJSTATE_DROP
 	ld [hld], a ; OBJ_STATE

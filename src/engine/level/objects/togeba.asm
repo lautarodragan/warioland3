@@ -153,7 +153,7 @@ TogebaFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_48eb3
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr nz, .asm_48e99
 	xor a
 	ld [hl], a

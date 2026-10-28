@@ -46,19 +46,19 @@ PneumoFunc:
 	ld a, [hl]
 	and a
 	jr z, .substate_table
-	cp $0e
+	cp OBJSTATE_HIT_WARIO_DOWN_START
 	jr z, .asm_45672
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_456c7
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr c, .asm_45677
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .asm_456ca
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_456d2
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .asm_456da
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_456e2
 	rra
 	jr nc, .asm_456d2

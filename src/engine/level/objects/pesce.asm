@@ -159,10 +159,10 @@ PesceFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_51e40
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jr z, .asm_51dcb
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jp z, .asm_51d76
 	xor a
 	ld [hl], a
@@ -1167,11 +1167,11 @@ FlyFunc:
 .Update:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_52545
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .asm_5255e
-	cp $5c
+	cp OBJSTATE_5C
 	jr z, .asm_5257d
 	jr .asm_52591
 .asm_52545
@@ -1182,7 +1182,7 @@ FlyFunc:
 	jp nz, MoveObjectDown
 	ld a, $70
 	ld [hl], a
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ld a, $01
 	ld [wPesceFlyActive], a
@@ -1201,7 +1201,7 @@ FlyFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [wCurObjState], a
 	ret
 .asm_5257d

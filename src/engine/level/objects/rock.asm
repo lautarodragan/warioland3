@@ -17,7 +17,7 @@ RockFunc:
 	ld [hld], a
 	ld a, $00
 	ld [hl], a
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [wCurObjState], a
 	ret
 
@@ -123,7 +123,7 @@ RockFunc:
 	dw ObjState_FullThrowRight
 
 .Destroy:
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	ld de, RockFrameset_69c01
 	call SetObjectFramesetPtr
@@ -149,12 +149,12 @@ RockFunc:
 
 .BumpLeftStart:
 	ld hl, wCurObjState
-	ld a, $32
+	ld a, OBJSTATE_BUMP_LEFT
 	ld [hld], a
 	jr .asm_4aa35
 .BumpRightStart:
 	ld hl, wCurObjState
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a
 .asm_4aa35
 	ld a, $0c
@@ -163,10 +163,10 @@ RockFunc:
 	ld [wCurObjVar2], a
 	ret
 .State14:
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	jr .asm_4aa46
 .State15:
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 .asm_4aa46
 	ld [wCurObjState], a
 	xor a
@@ -176,7 +176,7 @@ RockFunc:
 	ret
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -188,7 +188,7 @@ RockFunc:
 	jp ObjState_PickedUpLeft
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -200,7 +200,7 @@ RockFunc:
 	jp ObjState_PickedUpRight
 
 .State19:
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	set OBJFLAG_GRABBED_F, [hl]
@@ -215,7 +215,7 @@ RockFunc:
 	jr .State18
 
 .State18:
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [wCurObjState], a
 	ld hl, wCurObjFlags
 	set OBJFLAG_GRABBED_F, [hl]
@@ -231,9 +231,9 @@ RockFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a
@@ -241,12 +241,12 @@ RockFunc:
 	ret
 
 .FullThrowLeftStart:
-	ld a, $5e
+	ld a, OBJSTATE_FULL_THROW_LEFT
 	ld [wCurObjState], a
 	jp ObjState_FullThrowLeft
 
 .FullThrowRightStart:
-	ld a, $5f
+	ld a, OBJSTATE_FULL_THROW_RIGHT
 	ld [wCurObjState], a
 	jp ObjState_FullThrowRight
 

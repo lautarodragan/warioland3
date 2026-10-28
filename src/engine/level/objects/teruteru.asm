@@ -134,7 +134,7 @@ TeruteruFunc:
 	dw .Default
 
 .State0e:
-	ld a, $5b
+	ld a, OBJSTATE_5B
 	ld [wCurObjState], a
 	ret
 
@@ -169,7 +169,7 @@ TeruteruFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	ret nz
-	ld a, $2e
+	ld a, OBJSTATE_SPECIAL_2
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68b8b
 	call SetObjectFramesetPtr
@@ -201,7 +201,7 @@ TeruteruFunc:
 .asm_44a43
 	jp MoveObjectDown_Fast
 .asm_44a46
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68bae
 	call SetObjectFramesetPtr
@@ -250,7 +250,7 @@ TeruteruFunc:
 	set OBJSUBFLAG_HDIR_F, [hl]
 .Land:
 	ld hl, wCurObjState
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -298,7 +298,7 @@ TeruteruFunc:
 	cp $18
 	jr nc, .asm_44afd
 .asm_44aee
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68b84
 	call SetObjectFramesetPtr
@@ -329,7 +329,7 @@ TeruteruFunc:
 	call SetObjectFramesetPtr
 	ld a, 26
 	ld [hli], a
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ret
 
@@ -359,7 +359,7 @@ TeruteruFunc:
 
 .asm_44b4c
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -372,7 +372,7 @@ TeruteruFunc:
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	call DecrementRemainingBossHits
 	ld a, [hl]
@@ -391,13 +391,13 @@ TeruteruFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	call DecrementRemainingBossHits
 	ld a, [hl]
@@ -416,16 +416,16 @@ TeruteruFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [wCurObjState], a
 	jr .asm_44bc5
 .State15:
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [wCurObjState], a
 .asm_44bc5
 	ld de, TeruteruFrameset_68ba5
@@ -447,7 +447,7 @@ TeruteruFunc:
 	ret
 
 .State0f:
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [wCurObjState], a
 	ld a, $64
 	ld [wCurObjStateDuration], a
@@ -462,7 +462,7 @@ TeruteruFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_44c05
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -470,13 +470,13 @@ TeruteruFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -498,21 +498,21 @@ TeruteruFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, MoveObjectUp
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .BumpLeftStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_44c51
 .BumpRightStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_44c51
 	ld [hld], a
 	ld de, TeruteruFrameset_68ba5
@@ -537,25 +537,25 @@ TeruteruFunc:
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .asm_44c96
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_44c96
 .AttackedLeftStart:
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_44c96
 .AttackedRightStart:
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
 .asm_44c96
@@ -574,7 +574,7 @@ TeruteruFunc:
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -587,7 +587,7 @@ TeruteruFunc:
 
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -599,7 +599,7 @@ TeruteruFunc:
 	jp ObjState_PickedUpRight
 
 .State19:
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
@@ -626,7 +626,7 @@ TeruteruFunc:
 	jr .State18
 
 .State18:
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [wCurObjState], a
 	ld de, TeruteruFrameset_68ba5
 	call SetObjectFramesetPtr
@@ -649,9 +649,9 @@ TeruteruFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a

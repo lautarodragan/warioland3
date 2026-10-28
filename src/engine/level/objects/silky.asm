@@ -121,7 +121,7 @@ SilkyFunc:
 
 .FullThrowLeftStart:
 	ld hl, wCurObjState
-	ld a, $5e
+	ld a, OBJSTATE_FULL_THROW_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -136,7 +136,7 @@ SilkyFunc:
 
 .FullThrowRightStart:
 	ld hl, wCurObjState
-	ld a, $5f
+	ld a, OBJSTATE_FULL_THROW_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -156,7 +156,7 @@ SilkyFunc:
 	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $30
+	ld a, OBJSTATE_FALL
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -194,7 +194,7 @@ SilkyFunc:
 
 .StandingFallStart:
 	ld hl, wCurObjState
-	ld a, $41
+	ld a, OBJSTATE_STANDING_FALL
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -247,7 +247,7 @@ SilkyFunc:
 	or OBJ_INTERACTION_TOUCH
 	ld [hld], a
 	ld l, OBJ_STATE
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -303,7 +303,7 @@ SilkyFunc:
 	jr .asm_42f38
 
 .asm_42f32
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -311,7 +311,7 @@ SilkyFunc:
 	call SetObjectFramesetPtr
 	ld a, $23
 	ld [hli], a
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [wCurObjState], a
 	ret
 
@@ -339,7 +339,7 @@ SilkyFunc:
 	call ProcessBlock_Down
 	and a
 	jr nz, .asm_42f70
-	ld a, $11
+	ld a, OBJSTATE_STANDING_FALL_START
 	ld [wCurObjState], a
 	ret
 
@@ -377,7 +377,7 @@ SilkyFunc:
 	and a
 	jp z, MoveObjectLeft_Slow
 .asm_42fab
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -408,13 +408,13 @@ SilkyFunc:
 	and a
 	jp z, MoveObjectRight_Slow
 .asm_42fdf
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .StunLeftStart:
 	ld hl, wCurObjState
-	ld a, $46
+	ld a, OBJSTATE_STUN_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -435,13 +435,13 @@ SilkyFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .StunRightStart:
 	ld hl, wCurObjState
-	ld a, $47
+	ld a, OBJSTATE_STUN_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -462,19 +462,19 @@ SilkyFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $0f
+	ld a, OBJSTATE_STUNNED_START
 	ld [wCurObjState], a
 	ret
 
 .State14:
 	ld hl, wCurObjState
-	ld a, $44
+	ld a, OBJSTATE_FALL_LEFT
 	ld [hld], a
 	jr .asm_43059
 
 .State15:
 	ld hl, wCurObjState
-	ld a, $45
+	ld a, OBJSTATE_FALL_RIGHT
 	ld [hld], a
 .asm_43059
 	ld a, [hld]
@@ -508,7 +508,7 @@ SilkyFunc:
 
 .State0f:
 	ld hl, wCurObjState
-	ld a, $3f
+	ld a, OBJSTATE_STUNNED
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -522,7 +522,7 @@ SilkyFunc:
 	ld a, [wGroundShakeCounter]
 	cp $10
 	jr c, .asm_430ad
-	ld a, $1c
+	ld a, OBJSTATE_RANDOM_WOBBLE_START
 	ld [wCurObjState], a
 	ret
 
@@ -530,13 +530,13 @@ SilkyFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ObjCheckFloorOrDrop
-	ld a, $10
+	ld a, OBJSTATE_RECOVER_START
 	ld [wCurObjState], a
 	ret
 
 .State10:
 	ld hl, wCurObjState
-	ld a, $40
+	ld a, OBJSTATE_RECOVER
 	ld [hld], a
 	dec l
 	xor a
@@ -547,13 +547,13 @@ SilkyFunc:
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jp nz, ApplyObjHopYVel
-	ld a, $00
+	ld a, OBJSTATE_DEFAULT
 	ld [wCurObjState], a
 	ret
 
 .TurnAroundStart:
 	ld hl, wCurObjState
-	ld a, $43
+	ld a, OBJSTATE_TURN_AROUND
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -587,30 +587,30 @@ SilkyFunc:
 	rlca
 	jr c, .asm_4311d
 	ld hl, wCurObjState
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [hld], a
 	set OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
 .asm_4311d
 	ld hl, wCurObjState
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [hld], a
 	res OBJSUBFLAG_HDIR_F, [hl]
 	ret
 
 .BumpLeftStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $38
+	ld a, OBJSTATE_WOBBLE_LEFT
 	jr .asm_43138
 
 .BumpRightStart:
 	ld hl, wCurObjAction
-	ld a, $8f
+	ld a, no_actions_for 15
 	ld [hld], a
-	ld a, $39
+	ld a, OBJSTATE_WOBBLE_RIGHT
 .asm_43138
 	ld [hld], a
 	ld a, [hld]
@@ -637,12 +637,12 @@ SilkyFunc:
 	ret
 
 .State0b:
-	ld a, $3b
+	ld a, OBJSTATE_HIT_WARIO_RIGHT
 	ld [wCurObjState], a
 	jr .asm_4316e
 
 .State0c:
-	ld a, $3c
+	ld a, OBJSTATE_HIT_WARIO_LEFT
 	ld [wCurObjState], a
 .asm_4316e
 	ld hl, wCurObjFrameDuration
@@ -662,7 +662,7 @@ SilkyFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideRight
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
@@ -675,34 +675,34 @@ SilkyFunc:
 	ld a, [hl]
 	and a
 	jp nz, ObjState_BumpSlideLeft
-	ld a, $13
+	ld a, OBJSTATE_TURN_AROUND_START
 	ld [wCurObjState], a
 	ret
 
 .State29:
 	ld hl, wCurObjState
-	ld a, $59
+	ld a, OBJSTATE_HIT_BY_OBJ_RIGHT
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
 .State28:
 	ld hl, wCurObjState
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
 .AttackedLeftStart:
 	ld hl, wCurObjState
-	ld a, $34
+	ld a, OBJSTATE_ATTACKED_LEFT
 	ld [hld], a
 	ld b, $02
 	jr .asm_431c6
 
 .AttackedRightStart:
 	ld hl, wCurObjState
-	ld a, $35
+	ld a, OBJSTATE_ATTACKED_RIGHT
 	ld [hld], a
 	ld b, $02
 .asm_431c6
@@ -721,7 +721,7 @@ SilkyFunc:
 
 .PickedUpLeftStart:
 	ld hl, wCurObjState
-	ld a, $36
+	ld a, OBJSTATE_PICKED_UP_LEFT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -733,7 +733,7 @@ SilkyFunc:
 	jp ObjState_PickedUpLeft
 .PickedUpRightStart:
 	ld hl, wCurObjState
-	ld a, $37
+	ld a, OBJSTATE_PICKED_UP_RIGHT
 	ld [hld], a
 	dec l
 	ld a, $41
@@ -746,7 +746,7 @@ SilkyFunc:
 
 .State19:
 	ld hl, wCurObjState
-	ld a, $49
+	ld a, OBJSTATE_GRABBED_RIGHT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -771,7 +771,7 @@ SilkyFunc:
 
 .State18:
 	ld hl, wCurObjState
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a
 	ld a, [hld]
 	rlca
@@ -796,9 +796,9 @@ SilkyFunc:
 
 .State12:
 	ld hl, wCurObjAction
-	ld a, $9f
+	ld a, no_actions_for 31
 	ld [hld], a
-	ld a, $42
+	ld a, OBJSTATE_DROP
 	ld [hld], a
 	dec l
 	xor a

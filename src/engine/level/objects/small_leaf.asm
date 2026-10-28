@@ -33,10 +33,10 @@ SmallLeafFunc:
 	call SetOneWayPlatformAction
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_43747
 	and $fe
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_43747
 	xor a
 	ld [hl], a
@@ -61,10 +61,10 @@ SmallLeafFunc:
 .Update2:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_43747
 	and $fe
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START ; or OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_43747
 	xor a
 	ld [hl], a

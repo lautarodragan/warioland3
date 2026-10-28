@@ -470,7 +470,7 @@ YellowBellyBodyFunc:
 	ld a, [hl]
 	and a
 	jr z, .asm_516bf
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .release_pump
 	xor a
 	ld [hld], a
@@ -868,19 +868,19 @@ PumpFunc:
 .OnFloor:
 	ld hl, wCurObjState
 	ld a, [hl]
-	cp $31
+	cp OBJSTATE_WALK
 	jr z, .asm_5198b
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jp z, .asm_519e3
-	cp $3a
+	cp OBJSTATE_RESIST_VANISH
 	jp z, .asm_51a03
-	cp $58
+	cp OBJSTATE_HIT_BY_OBJ_LEFT
 	jp z, .asm_51a1d
 	and $fe
 	ret z
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jp z, .asm_51a16
-	ld a, $31
+	ld a, OBJSTATE_WALK
 	ld [hld], a
 	ld a, [wWarioScreenXPos]
 	add $2a
@@ -954,7 +954,7 @@ PumpFunc:
 	jr .asm_519b9
 
 .asm_519e3
-	ld a, $3a
+	ld a, OBJSTATE_RESIST_VANISH
 	ld [hl], a
 	ld [wYellowBellyHitRequest], a
 	xor a
@@ -982,7 +982,7 @@ PumpFunc:
 	jp ApplyObjYMovement
 
 .asm_51a16
-	ld a, $58
+	ld a, OBJSTATE_HIT_BY_OBJ_LEFT
 	ld [hl], a
 	xor a
 	ld [wYellowBellyPumpOut], a
@@ -1052,9 +1052,9 @@ YellowBellyArrowFunc:
 .FlyLeft:
 	call .CheckPastWario
 	ld a, [wCurObjState]
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .asm_51a9b
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_51a9b
 	and a
 	jr nz, .asm_51af7
@@ -1101,9 +1101,9 @@ YellowBellyArrowFunc:
 .FlyRight:
 	call .CheckPastWario
 	ld a, [wCurObjState]
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .asm_51b25
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_51b25
 	and a
 	jr nz, .asm_51af7
@@ -1313,7 +1313,7 @@ YellowBellyPlatformFunc:
 
 .WaitForDefeat:
 	ld a, [wCurObjState]
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	ret nz
 	ld de, YellowBellyFrameset_69896
 	call SetObjectFramesetPtr

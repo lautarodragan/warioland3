@@ -75,9 +75,9 @@ PillarPlatformFunc:
 	ld a, [hl]
 	and a
 	ret z
-	cp $2b
+	cp OBJSTATE_2B
 	jr z, .asm_49cf9
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_49d13
 	xor a
 	ld [hl], a

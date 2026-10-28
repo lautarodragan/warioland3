@@ -39,7 +39,7 @@ WaterSparkFunc:
 	ret
 
 .Spark:
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [wCurObjAction], a
 	ld hl, wCurObjStateDuration
 	dec [hl]
