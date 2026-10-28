@@ -263,9 +263,9 @@ UpdateObjectFrame::
 	ld b, a
 	ld a, [bc]
 	cp $ff
-	jr nz, .asm_312a
+	jr nz, .set_frame
 	ld a, [de] ; first frame
-.asm_312a
+.set_frame
 	ld [wCurObjFrame], a
 	jr HomeJumpRet
 

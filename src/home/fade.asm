@@ -18,7 +18,7 @@ FadeBGToWhite::
 	cp 2
 	jr nc, .lighten
 	dec a
-	jr z, .asm_496
+	jr z, .load_pals
 	ld a, $01
 	ld [wUnused_c186], a
 	call VBlank_StorePals
@@ -26,7 +26,7 @@ FadeBGToWhite::
 	inc [hl]
 	ret
 
-.asm_496
+.load_pals
 	call VBlank_LoadPalsFromWRAM
 
 .lighten
@@ -146,12 +146,12 @@ FadeBGToWhite::
 	ld b, 33
 	ld a, [wFadeSpeed]
 	and a
-	jr z, .asm_52d ; FADE_SPEED_SLOW
+	jr z, .check_done ; FADE_SPEED_SLOW
 	ld b, 18
 	dec a
-	jr z, .asm_52d ; FADE_SPEED_NORMAL
+	jr z, .check_done ; FADE_SPEED_NORMAL
 	ld b, 10
-.asm_52d
+.check_done
 	ld a, [hl]
 	cp b
 	ret c
@@ -176,22 +176,22 @@ FadeBGToWhite::
 UnreferencedSlowFadeBGToBlack:
 	ld a, [wPalFadeCounter]
 	cp $02
-	jr nc, .asm_568
+	jr nc, .darken
 	dec a
-	jr z, .asm_565
+	jr z, .load_pals
 	ld a, $01
 	ld [wUnused_c186], a
 	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ret
-.asm_565
+.load_pals
 	call VBlank_LoadPalsFromWRAM
-.asm_568
+.darken
 	ld hl, wCurRGB
 	ld de, wTempBGPals
 	ld b, 8 palettes
-.asm_570
+.loop_colors
 	ld a, [de]
 	and $1f
 	ld [hli], a
@@ -218,21 +218,21 @@ UnreferencedSlowFadeBGToBlack:
 	ld [hl], a
 	ld a, [hl]
 	and a
-	jr z, .asm_591
+	jr z, .dec_green
 	dec [hl]
-.asm_591
+.dec_green
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_597
+	jr z, .dec_red
 	dec [hl]
-.asm_597
+.dec_red
 	dec l
 	ld a, [hl]
 	and a
-	jr z, .asm_59d
+	jr z, .convert_rgb
 	dec [hl]
-.asm_59d
+.convert_rgb
 	ld a, [hli]
 	ld c, a
 	ld a, [hl]
@@ -260,7 +260,7 @@ UnreferencedSlowFadeBGToBlack:
 	inc e
 	dec l
 	dec b
-	jr nz, .asm_570
+	jr nz, .loop_colors
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ld a, [hl]
@@ -300,9 +300,9 @@ SlowFadeFromWhite::
 DarkenBGToPal::
 	ld a, [wPalFadeCounter]
 	cp 2
-	jr nc, .asm_60b
+	jr nc, .darken
 	dec a
-	jr z, .asm_608
+	jr z, .load_pals
 	ld a, $01
 	ld [wUnused_c186], a
 	call VBlank_StorePals
@@ -310,10 +310,10 @@ DarkenBGToPal::
 	inc [hl] ; set up to begin fade
 	ret
 
-.asm_608
+.load_pals
 	call VBlank_LoadPalsFromWRAM
 
-.asm_60b
+.darken
 	ld hl, wTargetRGB
 	ld de, wTempPals1
 	ld b, 8 palettes
@@ -475,12 +475,12 @@ DarkenBGToPal::
 	ld b, 33
 	ld a, [wFadeSpeed]
 	and a
-	jr z, .asm_6db ; FADE_SPEED_SLOW
+	jr z, .check_done ; FADE_SPEED_SLOW
 	ld b, 18
 	dec a
-	jr z, .asm_6db ; FADE_SPEED_NORMAL
+	jr z, .check_done ; FADE_SPEED_NORMAL
 	ld b, 10
-.asm_6db
+.check_done
 	ld a, [hl]
 	cp b
 	ret c
@@ -679,22 +679,22 @@ SlowFadeInScreen::
 UnreferencedFadeToTargetRGB:
 	ld a, [wPalFadeCounter]
 	cp $02
-	jr nc, .asm_7e9
+	jr nc, .fade
 	dec a
-	jr z, .asm_7e6
+	jr z, .load_pals
 	ld a, $01
 	ld [wUnused_c186], a
 	call VBlank_StorePals
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ret
-.asm_7e6
+.load_pals
 	call VBlank_LoadPalsFromWRAM
-.asm_7e9
+.fade
 	ld hl, wTargetRed
 	ld de, wTempPals1
 	ld b, $40
-.asm_7f1
+.loop_colors
 	ld a, [de]
 	and $1f
 	ld [hli], a
@@ -749,25 +749,25 @@ UnreferencedFadeToTargetRGB:
 	ld c, a
 	ld a, [hl]
 	cp c
-	jr z, .asm_835
+	jr z, .inc_green
 	inc [hl]
-.asm_835
+.inc_green
 	dec l
 	ld a, [wTargetGreen]
 	ld c, a
 	ld a, [hl]
 	cp c
-	jr z, .asm_83f
+	jr z, .inc_red
 	inc [hl]
-.asm_83f
+.inc_red
 	dec l
 	ld a, [wTargetRed]
 	ld c, a
 	ld a, [hl]
 	cp c
-	jr z, .asm_849
+	jr z, .convert_rgb
 	inc [hl]
-.asm_849
+.convert_rgb
 	ld a, [hli]
 	ld c, a
 	ld a, [hl]
@@ -796,7 +796,7 @@ UnreferencedFadeToTargetRGB:
 	ld d, $c0
 	ld hl, wTargetRed
 	dec b
-	jr nz, .asm_7f1
+	jr nz, .loop_colors
 	ld hl, wPalFadeCounter
 	inc [hl]
 	ld a, [hl]
@@ -830,10 +830,10 @@ VBlank_StorePals::
 	ret
 
 .Func:
-	jp .asm_8a9
+	jp .store_pals
 .end
 
-.asm_8a9
+.store_pals
 	ld a, [wSCY]
 	ldh [rSCY], a
 	ld a, [wSCX]
@@ -856,10 +856,10 @@ VBlank_LoadPalsFromWRAM::
 	ret
 
 .Func:
-	jp .asm_8d0
+	jp .load_pals
 .end
 
-.asm_8d0
+.load_pals
 	ld a, [wSCY]
 	ldh [rSCY], a
 	ld a, [wSCX]

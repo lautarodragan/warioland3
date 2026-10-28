@@ -222,7 +222,7 @@ InitMapSide:
 	ld a, [wDayNight]
 	ld b, a
 	bit 7, a
-	jr nz, .asm_8059b
+	jr nz, .switch_day_night
 	ld hl, wDayNight
 	ld a, [hl]
 	swap a
@@ -232,8 +232,8 @@ InitMapSide:
 	srl [hl]
 	rra
 	rl [hl]
-	jr .asm_805be
-.asm_8059b
+	jr .got_day_night
+.switch_day_night
 	call SwitchDayNight
 	ld a, b
 	res 7, a
@@ -242,7 +242,7 @@ InitMapSide:
 
 	ld a, [wTransitionParam]
 	and a
-	jr nz, .asm_805be
+	jr nz, .got_day_night
 	ld a, [wOWIsNight]
 	xor $1
 	ld [wOWIsNight], a
@@ -251,7 +251,7 @@ InitMapSide:
 	rra
 	rl [hl]
 	res 7, [hl]
-.asm_805be
+.got_day_night
 	ld a, [wOWIsNight]
 	ld [wOWIsNightTarget], a
 	xor a
@@ -333,9 +333,9 @@ InitMapSideCommon:
 	ld c, a
 	and MODE_GAME_CLEARED
 	bit MODE_TIME_ATTACK_F, c
-	jr z, .asm_80669
+	jr z, .set_missing_indicators
 	xor a
-.asm_80669
+.set_missing_indicators
 	ld [wMissingTreasureIndicatorsEnabled], a
 	call InitOWAnimations
 
@@ -345,9 +345,9 @@ InitMapSideCommon:
 	ld a, [wOWBarsState]
 	and a
 	ld a, $ec
-	jr nz, .asm_806b6
+	jr nz, .set_scroll
 	ld a, $04
-.asm_806b6
+.set_scroll
 	ldh [rSCY], a
 	ld [wSCY], a
 	xor a
@@ -378,14 +378,14 @@ InitMapSideCommon:
 
 	ld a, [wGameModeFlags]
 	bit MODE_TIME_ATTACK_F, a
-	jr nz, .asm_80753
+	jr nz, .time_attack_bar
 	decompress_tilemap OverworldBottomBarTreasuresTilemap, v0BGMap1
 	decompress_attrmap OverworldBottomBarTreasuresAttrmap, v1BGMap1
-	jr .asm_80790
-.asm_80753
+	jr .got_bottom_bar
+.time_attack_bar
 	decompress_tilemap OverworldBottomBarTimeAttackTilemap, v0BGMap1
 	decompress_attrmap OverworldBottomBarTimeAttackAttrmap, v1BGMap1
-.asm_80790
+.got_bottom_bar
 	xor a
 	ld [wWX], a
 	ldh [rWX], a
@@ -425,7 +425,7 @@ InitMapSideCommon:
 
 	ld a, [wOWBarsState]
 	cp OWBARS_INPUT_TOP
-	jr nz, .asm_80809
+	jr nz, .load_level_name
 	call UpdateTopBar.InitTopBarButtons
 	hlbgcoord 0, 21, wAttrmap
 	debgcoord 0, 30
@@ -444,18 +444,18 @@ InitMapSideCommon:
 	ld [wTransitionParam], a
 	call PlayOverworldMusic
 
-.asm_80809
+.load_level_name
 	call LoadLevelNameIfValid
 	ld a, [wMapSideLevelID]
 	cp OW_EXITS
 	ld b, $01
-	jr c, .asm_80821
+	jr c, .set_level_name_fade
 	xor a
 	ld hl, wTempPals1 palette 7 color 1
 	ld bc, $6
 	call WriteAToHL_BCTimes
 	ld b, $00
-.asm_80821
+.set_level_name_fade
 	ld a, b
 	ld [wLevelNameFadeState], a
 	farcall DrawCoinCount
@@ -583,10 +583,10 @@ InitMapSideForScene_West:
 InitMapSideForScene_South:
 	ld a, [wCurEvent]
 	cp EVENT_SUMMON_MOON
-	jr nz, .asm_8093c
+	jr nz, .load_gfx
 	ld a, $01
 	ld [wOWIsNight], a
-.asm_8093c
+.load_gfx
 	call LoadPalsForOWScene
 	call LoadOverworld5Gfx
 	call LoadOverworldCommonGfx
@@ -785,17 +785,17 @@ InitOWAnimations:
 
 	ld a, [wCurMapSide]
 	cp WEST
-	jr z, .asm_80bbd
+	jr z, .set_cloud_type
 	cp SOUTH
-	jr z, .asm_80bc3
+	jr z, .south
 	cp EAST
-	jr z, .asm_80bbd
+	jr z, .set_cloud_type
 	ret
-.asm_80bbd
+.set_cloud_type
 	ld a, $01
 	ld [wCloudType], a
 	ret
-.asm_80bc3
+.south
 	ld a, $04
 	ld [wOWBigCloud4AnimDuration], a
 	ret

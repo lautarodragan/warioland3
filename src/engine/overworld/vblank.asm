@@ -30,7 +30,7 @@ VBlank_Overworld:
 	ld hl, wPalConfig1
 	ld a, [hl]
 	and a
-	jr z, .asm_80c5b
+	jr z, .hdma
 	ld c, a
 	xor a
 	ld [hli], a
@@ -42,7 +42,7 @@ VBlank_Overworld:
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a
-.asm_80c48
+.loop_pals
 	ld a, [hli]
 	ld [$ff00+c], a
 	ld a, [hli]
@@ -60,9 +60,9 @@ VBlank_Overworld:
 	ld a, [hli]
 	ld [$ff00+c], a
 	dec b
-	jr nz, .asm_80c48
+	jr nz, .loop_pals
 
-.asm_80c5b
+.hdma
 	ld a, [wHDMABank]
 	ld b, a
 	ld a, [wROMBank]
@@ -72,7 +72,7 @@ VBlank_Overworld:
 	ld hl, wHDMA
 	ld a, [hl]
 	and a
-	jr z, .asm_80c84
+	jr z, .hdma_vram1
 	ld b, [hl]
 	xor a
 	ld [hli], a
@@ -92,11 +92,11 @@ VBlank_Overworld:
 	inc c
 	ld [$ff00+c], a
 
-.asm_80c84
+.hdma_vram1
 	ld hl, wHDMAVRAM1
 	ld a, [hl]
 	and a
-	jr z, .asm_80ca2
+	jr z, .done
 	ld b, a
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
@@ -117,7 +117,7 @@ VBlank_Overworld:
 	ld a, [hli]
 	inc c
 	ld [$ff00+c], a
-.asm_80ca2
+.done
 	pop af
 	bankswitch
 	xor a
@@ -184,7 +184,7 @@ VBlank_OWScene:
 .skip_update_tiles
 	ld a, [wHDMABank]
 	and a
-	jr z, .asm_80d1b
+	jr z, .no_hdma
 	ld b, a
 	ld a, [wROMBank]
 	push af
@@ -194,7 +194,7 @@ VBlank_OWScene:
 	pop af
 	bankswitch
 
-.asm_80d1b
+.no_hdma
 	xor a
 	ldh [rVBK], a
 	ld b, BANK(CopyCommonOWAnimTilesToVRAM)

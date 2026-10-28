@@ -66,20 +66,20 @@ UnreferencedConvertToBCD:
 	ld de, $9c
 .loop_1
 	cp 100
-	jr c, .asm_110e
+	jr c, .tens
 	add hl, de
 	sub 100
 	jr .loop_1
-.asm_110e
+.tens
 	ld b, $00
 	ld de, $6
 .loop_2
 	cp 10
-	jr c, .asm_111c
+	jr c, .add_ones
 	add hl, de
 	sub 10
 	jr .loop_2
-.asm_111c
+.add_ones
 	add hl, bc
 	ret
 
@@ -91,11 +91,11 @@ UnreferencedConvertBCDToBinary:
 	ld de, -$9c
 .loop_1
 	and a
-	jr z, .asm_112d
+	jr z, .tens
 	add hl, de
 	dec a
 	jr .loop_1
-.asm_112d
+.tens
 	ld b, h
 	ld c, l
 	pop hl
@@ -105,11 +105,11 @@ UnreferencedConvertBCDToBinary:
 	ld de, -$6
 .loop_2
 	cp 16
-	jr c, .asm_1141
+	jr c, .add_ones
 	add hl, de
 	sub 16
 	jr .loop_2
-.asm_1141
+.add_ones
 	add hl, bc
 	pop de
 	add hl, de

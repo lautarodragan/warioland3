@@ -143,7 +143,7 @@ UpdateEpilogueSceneObj:
 
 ; unreachable
 	call UpdateSceneObjAnim_CreditsOAM
-.asm_ac10a
+.unreferenced_draw
 	ld de, EpilogueSceneObjOAM_15e97d
 	jp LoadSceneObjSprite_CreditsOAM
 
@@ -151,7 +151,7 @@ UpdateEpilogueSceneObj:
 	call UpdateSceneObjAnim_CreditsOAM
 	ld e, $00
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .asm_ac10a
+	jr nz, .unreferenced_draw
 	jr UpdateEpilogueSceneObj
 
 .None:
@@ -261,9 +261,9 @@ UpdateEpilogueSceneObj:
 .follow_wario:
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_CARRY_WALK
-	jp z, .asm_ac254
+	jp z, .carry_walk_bob
 	cp SCENEWARIO_PICKUP
-	jp z, .asm_ac275
+	jp z, .pick_up
 	ret
 
 .State14:
@@ -304,13 +304,13 @@ UpdateEpilogueSceneObj:
 	inc a
 	ld [bc], a
 	cp $01
-	jr z, .asm_ac215
+	jr z, .play_beanstalk_sfx
 	cp $28
 	ret c
 	xor a
 	ld [bc], a
 	ret
-.asm_ac215
+.play_beanstalk_sfx
 	play_sfx SFX_BEANSTALK_GROW
 	ret
 
@@ -343,24 +343,24 @@ UpdateEpilogueSceneObj:
 	ld de, EpilogueSceneObjFrameset_15ee8a
 	jp .animate_and_draw
 
-.asm_ac254
+.carry_walk_bob
 	inc c
 	ld a, [wSceneWarioFrame]
 	ld e, a
 	ld a, [bc]
 	and a
-	jr z, .asm_ac267
+	jr z, .bob_up
 	dec a
-	jr z, .asm_ac261
+	jr z, .bob_down
 	ret
-.asm_ac261
+.bob_down
 	ld d, $01
 	ld a, 26
-	jr .asm_ac26b
-.asm_ac267
+	jr .check_bob_frame
+.bob_up
 	ld d, $ff
 	ld a, 25
-.asm_ac26b
+.check_bob_frame
 	cp e
 	ret nz ; not target frame
 	ld a, [bc]
@@ -371,7 +371,7 @@ UpdateEpilogueSceneObj:
 	ld [hl], a
 	ret
 
-.asm_ac275
+.pick_up
 	inc c
 	ld a, [wSceneWarioFrame]
 	ld e, a
@@ -379,20 +379,20 @@ UpdateEpilogueSceneObj:
 	cp $80
 	ret z
 	and a
-	jr z, .asm_ac286
+	jr z, .pick_up_frame_0
 	dec a
-	jr z, .asm_ac29c
-	jr .asm_ac2a6
-.asm_ac286
+	jr z, .pick_up_frame_1
+	jr .pick_up_frame_2
+.pick_up_frame_0
 	ld a, $00
 	cp e
 	ret nz
 	ld d, $fc
 	ld e, $ea
-.asm_ac28e
+.next_pick_up_pos
 	ld a, [bc]
 	inc a
-.asm_ac290
+.set_pick_up_pos
 	ld [bc], a
 	ld a, [wSceneWarioYCoord]
 	add d
@@ -401,21 +401,21 @@ UpdateEpilogueSceneObj:
 	add e
 	ld [hld], a
 	ret
-.asm_ac29c
+.pick_up_frame_1
 	ld a, $01
 	cp e
 	ret nz
 	ld d, $f0
 	ld e, $ec
-	jr .asm_ac28e
-.asm_ac2a6
+	jr .next_pick_up_pos
+.pick_up_frame_2
 	ld a, $02
 	cp e
 	ret nz
 	ld a, $80
 	ld d, $de
 	ld e, $f9
-	jr .asm_ac290
+	jr .set_pick_up_pos
 
 UpdateTempleSceneObjs_Front:
 	ld bc, wCurSceneObjState
@@ -583,7 +583,7 @@ UpdateTempleSceneObjAnimation:
 
 .animate_and_draw_3:
 	call UpdateSceneObjAnim_CreditsOAM
-.asm_ac3c4
+.draw_3
 	ld de, HiddenFigureOAM_18c88a
 	ld b, BANK(HiddenFigureOAM_18c88a)
 	jp LoadOWSpriteWithScroll
@@ -594,7 +594,7 @@ UpdateTempleSceneObjAnimation:
 
 .set_state_if_finished_3:
 	call SetObjStateIfAnimationIsFinished
-	jr nz, .asm_ac3c4
+	jr nz, .draw_3
 	jp UpdateTempleSceneObjAnimation
 
 UpdatePrologueSceneObjects:
@@ -777,10 +777,10 @@ PlaySceneWarioStepSFX:
 	ld c, $24
 	ld a, [hl]
 	cp c
-	jr c, .asm_ac514
+	jr c, .done
 	xor a
 	ld [wSceneWarioSFXCounter], a
-.asm_ac514
+.done
 	ret
 
 PlaySceneWarioRunSFX:
@@ -980,18 +980,18 @@ UpdateSceneWario:
 	ld b, SCENEWARIO_LOOK_TURN_FORWARD
 	call .SetStateIfFinished
 
-.asm_ac65f
+.look_around_sfx
 	ld a, [wSceneWarioState]
 	cp SCENEWARIO_LOOK_BACK
 	ret z
 	ld hl, wSceneWarioFrame
 	ld a, [wSceneWarioSFXCounter]
 	and a
-	jr z, .asm_ac67e
+	jr z, .look_check_frame
 	dec a
-	jr z, .asm_ac672
+	jr z, .look_wait_frame_change
 	ret
-.asm_ac672
+.look_wait_frame_change
 	ld a, [hl]
 	cp $00
 	ret z
@@ -1000,14 +1000,14 @@ UpdateSceneWario:
 	xor a
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac67e
+.look_check_frame
 	ld a, [hl]
 	cp $00
-	jr z, .asm_ac688
+	jr z, .look_play_sfx
 	cp $04
-	jr z, .asm_ac688
+	jr z, .look_play_sfx
 	ret
-.asm_ac688
+.look_play_sfx
 	play_sfx SFX_TIPTOE_2
 	ld a, $01
 	ld [wSceneWarioSFXCounter], a
@@ -1028,14 +1028,14 @@ UpdateSceneWario:
 	call .UpdateAnimation
 	ld b, SCENEWARIO_TURN_LEFT_END
 	call .SetStateIfFinished
-	jr .asm_ac65f
+	jr .look_around_sfx
 
 .LookTurnRight:
 	ld de, SceneWarioFrameset_aa6ca
 	call .UpdateAnimation
 	ld b, SCENEWARIO_TURN_RIGHT_END
 	call .SetStateIfFinished
-	jr .asm_ac65f
+	jr .look_around_sfx
 
 .OnFire:
 	ld de, SceneWarioFrameset_aa8ec
@@ -1072,41 +1072,41 @@ UpdateSceneWario:
 	ld hl, wSceneWarioFrame
 	ld a, [wSceneWarioSFXCounter]
 	and a
-	jr z, .asm_ac718
+	jr z, .look_up_check_frame
 	dec a
-	jr z, .asm_ac70a
+	jr z, .look_up_wait_leave_0d
 	dec a
-	jr z, .asm_ac713
+	jr z, .look_up_wait_leave_0c
 	ret
-.asm_ac70a
+.look_up_wait_leave_0d
 	ld a, [hl]
 	cp $0d
-.asm_ac70d
+.look_up_reset_if_changed
 	ret z
 	xor a
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac713
+.look_up_wait_leave_0c
 	ld a, [hl]
 	cp $0c
-	jr .asm_ac70d
-.asm_ac718
+	jr .look_up_reset_if_changed
+.look_up_check_frame
 	ld a, [hl]
 	cp $0c
-	jr z, .asm_ac730
+	jr z, .look_up_play_tiptoe_1
 	cp $0d
-	jr z, .asm_ac722
+	jr z, .look_up_play_tiptoe_3
 	ret
-.asm_ac722
+.look_up_play_tiptoe_3
 	play_sfx SFX_TIPTOE_3
 	ld a, $01
-.asm_ac72c
+.look_up_set_sfx_counter
 	ld [wSceneWarioSFXCounter], a
 	ret
-.asm_ac730
+.look_up_play_tiptoe_1
 	play_sfx SFX_TIPTOE_1
 	ld a, $02
-	jr .asm_ac72c
+	jr .look_up_set_sfx_counter
 
 .CrashLandLeft:
 	ld de, SceneWarioFrameset_aa924
@@ -1303,13 +1303,13 @@ UpdateSceneWario:
 
 .PanicRunLeft:
 	ld de, SceneWarioFrameset_16b5a
-.asm_ac8a7
+.panic_run
 	call .UpdateAnimation
 	jp PlaySceneWarioRunSFX
 
 .PanicRunRight:
 	ld de, SceneWarioFrameset_16b63
-	jr .asm_ac8a7
+	jr .panic_run
 
 .IdleFront:
 	ld de, SceneWarioFrameset_1fc316
@@ -1681,7 +1681,7 @@ NextTextPageOrEnd:
 	add hl, bc
 	ld a, [hl]
 	cp '▼'
-	jp z, .asm_acb20 ; can be jr
+	jp z, .end_of_text ; can be jr
 	ld hl, wSceneObj1State
 	ld a, $01
 	call SetSceneObjState
@@ -1693,7 +1693,7 @@ NextTextPageOrEnd:
 	ld [wOWStepCounter], a
 	ret
 
-.asm_acb20
+.end_of_text
 	call AdvanceTempleOWStep
 	scf
 	ret
@@ -1765,7 +1765,7 @@ _InitTempleScene:
 	ld a, [wTempBank]
 	ldh [hCallFuncBank], a
 	hcall Decompress
-	jr .asm_acc68
+	jr .init_scene_wario
 
 .set_regular_temple_scene
 	ld [wTempleScene], a
@@ -1783,7 +1783,7 @@ _InitTempleScene:
 	hcall Decompress
 	call LoadNextObjectiveText
 
-.asm_acc68
+.init_scene_wario
 	ld a, $60
 	ld [wSceneWarioYCoord], a
 	ld a, $e8
@@ -2617,9 +2617,9 @@ HiddenFigureRevealScene:
 	ld c, $07
 	ld a, [wPalConfig1TotalSteps]
 	cp $14
-	jr c, .asm_ad1f1
+	jr c, .fade_on_interval
 	ld c, $03
-.asm_ad1f1
+.fade_on_interval
 	ld a, [wOWStepCounter]
 	and c
 	ret nz
@@ -3854,7 +3854,7 @@ _GolfBuilding:
 .all_crayons
 	ld a, [wOWLevel]
 	cp LEVEL_GOLF_BUILDING
-	jr nz, .asm_ada97
+	jr nz, .not_golf_building
 	ld de, wSceneWarioYCoord
 	ld a, $58
 	ld [de], a
@@ -3869,7 +3869,7 @@ _GolfBuilding:
 	call SetSceneWarioState
 	ret
 
-.asm_ada97
+.not_golf_building
 	call .place_wario_by_map_side
 	ld hl, wOWGolfBuildingScene
 	inc [hl]
@@ -4105,27 +4105,27 @@ _UpdateGolfBuilding:
 .WalkRightAndExit:
 	ld a, [wOWGolfBuildingStep]
 	and a
-	jr z, .asm_adc65
+	jr z, .walk_right_exit_start
 	dec a
-	jr z, .asm_adc6c
+	jr z, .walk_right_exit_move
 	dec a
-	jr z, .asm_adc78
+	jr z, .walk_right_exit_wait
 	dec a
 	call z, .exit
 	ret
 
-.asm_adc65
+.walk_right_exit_start
 	ld a, $08
 	call SetSceneWarioState
 	jr .next_step
-.asm_adc6c
+.walk_right_exit_move
 	call ApplySceneWarioMovementRight
 	cp $90
 	ret nz
 	xor a
 	call SetSceneWarioState
 	jr .next_step
-.asm_adc78
+.walk_right_exit_wait
 	ld a, [bc]
 	cp $14
 	ret c
@@ -4134,27 +4134,27 @@ _UpdateGolfBuilding:
 .WalkLeftAndExit:
 	ld a, [wOWGolfBuildingStep]
 	and a
-	jr z, .asm_adc8f
+	jr z, .walk_left_exit_start
 	dec a
-	jr z, .asm_adc96
+	jr z, .walk_left_exit_move
 	dec a
-	jr z, .asm_adca2
+	jr z, .walk_left_exit_wait
 	dec a
 	call z, .exit
 	ret
 
-.asm_adc8f
+.walk_left_exit_start
 	ld a, $07
 	call SetSceneWarioState
 	jr .next_step
-.asm_adc96
+.walk_left_exit_move
 	call ApplySceneWarioMovementLeft
 	cp $10
 	ret nz
 	xor a
 	call SetSceneWarioState
 	jr .next_step
-.asm_adca2
+.walk_left_exit_wait
 	ld a, [bc]
 	cp $14
 	ret c
@@ -4163,24 +4163,24 @@ _UpdateGolfBuilding:
 .WalkRightToDoor:
 	ld a, [wOWGolfBuildingStep]
 	and a
-	jr z, .asm_adcb6
+	jr z, .walk_right_door_start
 	dec a
-	jr z, .asm_adcbe
+	jr z, .walk_right_door_move
 	dec a
-	jr z, .asm_adccc
+	jr z, .walk_right_door_wait
 	ret
-.asm_adcb6
+.walk_right_door_start
 	ld a, $08
 	call SetSceneWarioState
 	jp .next_step
-.asm_adcbe
+.walk_right_door_move
 	call ApplySceneWarioMovementRight
 	cp $50
 	ret nz
 	ld a, $0d
 	call SetSceneWarioState
 	jp .next_step
-.asm_adccc
+.walk_right_door_wait
 	ld a, [bc]
 	cp $08
 	ret c
@@ -4192,24 +4192,24 @@ _UpdateGolfBuilding:
 .WalkLeftToDoor:
 	ld a, [wOWGolfBuildingStep]
 	and a
-	jr z, .asm_adce7
+	jr z, .walk_left_door_start
 	dec a
-	jr z, .asm_adcef
+	jr z, .walk_left_door_move
 	dec a
-	jr z, .asm_adcfd
+	jr z, .walk_left_door_wait
 	ret
-.asm_adce7
+.walk_left_door_start
 	ld a, $07
 	call SetSceneWarioState
 	jp .next_step
-.asm_adcef
+.walk_left_door_move
 	call ApplySceneWarioMovementLeft
 	cp $50
 	ret nz
 	ld a, $0c
 	call SetSceneWarioState
 	jp .next_step
-.asm_adcfd
+.walk_left_door_wait
 	ld a, [bc]
 	cp $08
 	ret c

@@ -3531,10 +3531,10 @@ origin/master at the time of the pass (the renames did not move lines).
 sound stands for (an animation frame, a cutscene step or a boss state
 with no clearer meaning), so these keep their numbers:
 
-- `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.asm_ac730`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.asm_9f295`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f978`)
+- `SFX_011`: overworld/bank2b_1.asm:1107 (`UpdateSceneWario.look_up_play_tiptoe_1`), overworld/bank27.asm:6186 (`UpdateCutsceneLevelObj_SummonSun.wait_frame_01`), overworld/bank27.asm:7212 (`UpdateCutsceneObjs_RevealDarkRoom.play_tiptoe_1`)
 - `SFX_064`: level/objects/zombie.asm:375 (`ZombieFunc.asm_45d1d`)
 - `SFX_07B`: level/objects/seeing_eye_door.asm:169 (`SeeingEyeDoorFunc.asm_455ba`), level/objects/seeing_eye_door.asm:211 (`SeeingEyeDoorFunc.asm_4561e`)
-- `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.asm_49ee2`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.asm_b6675`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.asm_b6696`)
+- `SFX_07F`: level/objects/tadpole.asm:105 (`TadpoleFunc.asm_49ee2`), level/objects/mizuuo.asm:110 (`MizuuoFunc.Update3`), overworld/bank2d.asm:5405 (`SOWFunc_SendSeeds.PlayFlyingSFX`), overworld/bank2d.asm:5448 (`SOWFunc_SendSeeds.start_seed1`), overworld/bank2d.asm:5467 (`SOWFunc_SendSeeds.start_seed3`)
 - `SFX_088`: level/objects/omodonmeka.asm:361 (`OmodonmekaFunc.asm_423b8`)
 - `SFX_08D`: level/objects/shoot.asm:630 (`ShootFunc.MoveLeftOrRight`), level/objects/shoot.asm:639 (`ShootFunc.moving_right`), level/objects/octohon.asm:270 (`BigOctohonFunc.asm_4a6f3`), overworld/bank27.asm:5490 (`Cutscene44Func.WaitThenPlaySFX08D`)
 - `SFX_08F`: level/objects/big_leaf.asm:208 (`BigLeaf2Func.asm_42ccd`), overworld/bank27.asm:7460 (`UpdateCutsceneLevelObj_FeedOctohon.PlaySFX08FEvery40Frames`)
@@ -3552,34 +3552,34 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_0B8`: level/objects/scowler.asm:1090 (`UpdateScowlerInkBlackout.asm_54c5f`)
 - `SFX_0B9`: level/objects/yellow_belly.asm:677 (`YellowBellyBodyFunc.asm_5180a`), level/objects/pesce.asm:253 (`PesceFunc.asm_51ed4`)
 - `SFX_0BF`: level/objects/jamano.asm:881 (`SkullFunc.asm_553a8`)
-- `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.asm_564ce`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.asm_9f8d1`)
+- `SFX_0C4`: level/objects/wolfenboss.asm:991 (`IgaguriFunc.asm_564ce`), overworld/bank27.asm:4328 (`Cutscene3dFunc.WaitThenNextObj2StateSFX`), overworld/bank27.asm:7111 (`UpdateCutsceneObjs_SprayIronWall.play_sfx_0c4`)
 - `SFX_0C5`: level/objects/wolfenboss.asm:975 (`IgaguriFunc.asm_564b1`)
 - `SFX_0C9`: level/objects/shoot.asm:135 (`ShootFunc.asm_566a9`)
 - `SFX_0CB`: level/objects/hidden_figure.asm:1213 (`HiddenFigureLeftHandFunc.asm_4d333`), level/objects/hidden_figure.asm:1581 (`HiddenFigureRightHandFunc.asm_4d5dc`)
 - `SFX_0D0`: level/objects/hidden_figure.asm:1490 (`HiddenFigureRightHandFunc.asm_4d52d`), level/objects/hidden_figure.asm:1504 (`HiddenFigureRightHandFunc.asm_4d540`)
 - `SFX_0D1`: level/objects/hidden_figure.asm:1479 (`HiddenFigureRightHandFunc.asm_4d50b`)
-- `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.asm_811b1`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.asm_9a68f`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
+- `SFX_0EB`: overworld/bank20.asm:452 (`MapSide_Walk.walked_to_exit`), overworld/bank26.asm:512 (`HandleTreasureCollectionInput.page_turned`), overworld/bank26.asm:618 (`HandleTreasureCollectionInput.change_page`), overworld/bank2b_2.asm:3473 (`_UpdateEpilogue.WaitObj1ThenFlash`)
 - `SFX_0EE`: golf/hole.asm:1999 (`GolfHoleState_SpecialTerrain.asm_1c9743`)
 - `SFX_0F0`: golf/hole.asm:1968 (`GolfHoleState_SpecialTerrain.asm_1c9708`)
-- `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.asm_ac688`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.asm_9f982`)
-- `SFX_0F2`: overworld/bank2b_1.asm:1101 (`UpdateSceneWario.asm_ac722`)
+- `SFX_0F1`: overworld/bank2b_1.asm:1011 (`UpdateSceneWario.look_play_sfx`), overworld/bank27.asm:7215 (`UpdateCutsceneObjs_RevealDarkRoom.play_tiptoe_2`)
+- `SFX_0F2`: overworld/bank2b_1.asm:1101 (`UpdateSceneWario.look_up_play_tiptoe_3`)
 - `SFX_0F3`: overworld/bank2b_1.asm:703 (`UpdatePrologueSceneObj.State0a`)
 - `SFX_0F4`: overworld/bank2b_1.asm:716 (`UpdatePrologueSceneObj.State0c`)
 - `SFX_101`: level/objects/yellow_belly.asm:529 (`YellowBellyBodyFunc.asm_516ec`), level/objects/wolfenboss.asm:791 (`IgaguriFunc.done_grow`), overworld/bank27.asm:2663 (`Cutscene02Func.ShowCut`)
 - `SFX_109`: overworld/bank27.asm:1800 (`Cutscene07Func.WaitObj2Frame00SFX`)
 - `SFX_10B`: overworld/bank27.asm:1841 (`Cutscene07Func.PlaySFX10B`)
 - `SFX_10C`: overworld/bank27.asm:1497 (`Cutscene03Func.PlaySFX10C`)
-- `SFX_10E`: overworld/bank27.asm:2313 (`Cutscene1eFunc.SetObj2State01SFX`), overworld/bank27.asm:6769 (`UpdateCutsceneObjs_RemoveWarps.asm_9f699`)
+- `SFX_10E`: overworld/bank27.asm:2313 (`Cutscene1eFunc.SetObj2State01SFX`), overworld/bank27.asm:6769 (`UpdateCutsceneObjs_RemoveWarps.play_sfx_10e`)
 - `SFX_10F`: overworld/bank27.asm:5715 (`Cutscene14Func.play_sfx_10f_every_10_frames`)
 - `SFX_110`: overworld/bank27.asm:5742 (`Cutscene14Func.play_obj5_sfx`)
-- `SFX_111`: overworld/bank27.asm:5745 (`Cutscene14Func.asm_9ede8`)
-- `SFX_113`: overworld/bank20.asm:263 (`HandleTempleHintInput.asm_81092`), overworld/bank20.asm:894 (`PathPreview_Wait`), overworld/bank27.asm:2105 (`Cutscene11Func.play_sfx_113`), overworld/bank27.asm:3147 (`Cutscene04Func.RaiseObj3SFX`), overworld/bank2d.asm:3183 (`NOWFunc_BottomBar.RaiseBBtnIndicator`), overworld/bank2d.asm:3210 (`NOWFunc_BottomBar.StartOpenBottomBar`)
-- `SFX_114`: overworld/bank27.asm:5796 (`Cutscene14Func.asm_9ee3c`)
-- `SFX_115`: overworld/bank27.asm:5799 (`Cutscene14Func.asm_9ee45`)
-- `SFX_116`: overworld/bank27.asm:5802 (`Cutscene14Func.asm_9ee4e`)
+- `SFX_111`: overworld/bank27.asm:5745 (`Cutscene14Func.play_eruption_3_sfx`)
+- `SFX_113`: overworld/bank20.asm:263 (`HandleTempleHintInput.show_hint`), overworld/bank20.asm:894 (`PathPreview_Wait`), overworld/bank27.asm:2105 (`Cutscene11Func.play_sfx_113`), overworld/bank27.asm:3147 (`Cutscene04Func.RaiseObj3SFX`), overworld/bank2d.asm:3183 (`NOWFunc_BottomBar.RaiseBBtnIndicator`), overworld/bank2d.asm:3210 (`NOWFunc_BottomBar.StartOpenBottomBar`)
+- `SFX_114`: overworld/bank27.asm:5796 (`Cutscene14Func.play_eruption_4_sfx`)
+- `SFX_115`: overworld/bank27.asm:5799 (`Cutscene14Func.play_eruption_5_sfx`)
+- `SFX_116`: overworld/bank27.asm:5802 (`Cutscene14Func.play_eruption_6_sfx`)
 - `SFX_117`: overworld/bank27.asm:2815 (`Cutscene0dFunc.PlaceObj3SFX`)
-- `SFX_125`: overworld/bank2d.asm:8132 (`EOWFunc_BurnVines.asm_b77f1`)
-- `SFX_126`: overworld/bank2d.asm:8135 (`EOWFunc_BurnVines.asm_b77fa`)
+- `SFX_125`: overworld/bank2d.asm:8132 (`EOWFunc_BurnVines.burn_vines_1_sfx`)
+- `SFX_126`: overworld/bank2d.asm:8135 (`EOWFunc_BurnVines.burn_vines_2_sfx`)
 - `SFX_12C`: overworld/bank27.asm:3033 (`Cutscene49Func.WaitObj2State01ThenOpen`)
 - `SFX_12F`: overworld/bank2d.asm:1828 (`PlaySFX12F`), overworld/bank2d.asm:6068 (`SOWFunc_Fan.StartFan`)
 - `SFX_132`: overworld/bank27.asm:4466 (`Cutscene4aFunc.WaitObj2Frame06SFX`), overworld/bank27.asm:5102 (`Cutscene58Func.start_objs_10_and_11`), overworld/bank27.asm:6533 (`UpdateCutsceneObjs_MakeWire.PlaySFX132Every16Frames`)
@@ -3876,3 +3876,94 @@ labels follow them (`.got_frameset_1`/`_2`).
 - Grab Glove and Super Grab Glove repeat the same lift and thrown-arc
   code three times each with different constants. They could be shared
   routines.
+
+## Jump labels: overworld, home and audio
+
+All 558 address-named local jump labels (`.asm_xxxxx`) in
+`src/engine/overworld/` (all subdirectories), `src/home/` and `src/audio/`
+were named from the code at each label and its callers. Each batch was
+built and compared with the ROM from `origin/master`: byte-identical
+every time. None are left.
+
+| File | Labels |
+|---|---|
+| overworld/bank27.asm | 151 |
+| overworld/bank2d.asm | 107 |
+| overworld/bank20.asm | 52 |
+| overworld/bank2b_2.asm | 51 |
+| audio/engine.asm | 46 |
+| overworld/bank2b_1.asm | 42 |
+| overworld/bank56.asm | 35 |
+| home/fade.asm | 19 |
+| overworld/init.asm | 11 |
+| overworld/bank21.asm | 11 |
+| overworld/bank26.asm | 11 |
+| overworld/vblank.asm | 5 |
+| home/load_level.asm, home/clear_transformation.asm | 4 each |
+| home/wario_mechanics2.asm | 3 |
+| home/object_pos.asm, object_mechanics.asm, load_golf_sprite.asm, door_transition.asm; overworld/bank76.asm, cutscene/prologue/init.asm | 1 each |
+
+The only qualified reference was `InitCutscene15.init_window` (from the
+golden snake door init in bank27); the label references in this survey's
+sound-effect lists were updated to the new names.
+
+**Conventions:**
+
+- Lowercase snake_case throughout, as the files already use for
+  helpers (CamelCase stays for jump-table steps).
+- Cutscene object animation routines (`UpdateCutsceneObjs_*`,
+  `UpdateCutsceneLevelObj_*`) all have the same shape, and all get the
+  same names: `.update_obj` (the per-object entry, also the target after
+  a state change), `.draw`, `.state_NN` for the branch taken when the
+  frameset index (the `cp $NN` before it) matches, and
+  `.set_state_when_finished` where several states share the call. This
+  follows the earlier `AnimateNorthOWObj2.draw` /
+  `.set_state_when_finished` and the existing `.update_obj` locals.
+- bank2d's `Init?OWObjects_*` routines branch on `c`, the event unlock
+  state ($80 = the scene plays now, 1 = already happened, 0 = locked):
+  `.pending`, `.done`, `.apply_patch` (the tilemap patch for the
+  finished scene) and `.init_objN` for the shared "place object N"
+  tail.
+- Sound branches are `.play_<sound>_sfx` (`.play_tornado_sfx`,
+  `.yellow_sfx` .. `.gold_sfx` in `MusicBoxCutsceneFunc`); "wait for
+  frame N, play once" helpers use `.wait_frame_NN` and `.toggle_flag`.
+- Step advances are `.next_step`, `.objN_next_step`,
+  `.next_sub_step`, `.next_script_step`; the identical palette-fade
+  tails in bank21 are all `.step_fade`.
+- Numbers appear only where they are data: cell, frame, step or line
+  indices (`ProcessCollectionLinkState.check_cell_1` .. `_6`,
+  `UpdateEpilogueSceneObj.pick_up_frame_0` .. `_2`,
+  `_UpdateEpilogue.lift_step_4`/`_6`/`_7`, `EOWFunc_FormCastle.fade_step_1`
+  .. `_4`), and in `_UpdateEpilogue`'s old man talk table
+  (`.anim_0c_line_1`: set animation state $0c when the text reaches line
+  1), where the state values have no names.
+- The audio envelope code (`ProcessTrack`) is named after the envelope
+  phase: `.fade_in_step`, `.sustain_step`, `.fade_out_step`,
+  `.start_release`, `.release_countdown`, `.stop_track`, then
+  `.update_volume` / `.update_registers`.
+
+**Findings:**
+
+- `_PlaySFX.fill_free_channels_first` (fill inactive channels first,
+  then replace lower-priority ones) is only reached when bit 7 of
+  `wStartChannel` is set, which never happens (the code already says
+  "jump never taken").
+- `UpdateCutsceneObjs_Rainstorm`: the `jr z, .update_obj` after
+  `SetSceneObjStateWhenAnimFinished` can't be taken (existing comment).
+- `UpdateEpilogueSceneObj.unreferenced_draw` sits between two
+  "unreachable" blocks and is reached only from them (the first falls
+  through into it, the second jumps back to it), so all of it is dead.
+- `ProcessTrack` has an unreachable `dec hl` just before
+  `.start_release`; `UpdateVibrato.vibrato_done`,
+  `UpdatePlaneParts.advance_aux_step` and
+  `MoveSouthOWObj14Diagonally.move_to_night_pos` are each reached by a
+  jump to the next line.
+- `SetGolfBGPals.load_pals` is shared with an unlabeled, unreachable
+  `ld de, rOBPI` / `ld c, 4` entry right after the `jr`: an OB palette
+  version with no caller.
+- `UpdateCutsceneObjs_OpenParaGoomCage.state_02` and `.state_04` are two
+  identical blocks (both set state 0); `Prologue_WarioFallFromPlane`
+  uses `.sub_wait4` for sub-steps 2 and 5.
+- `_UpdateEpilogue`'s old man talk animation is keyed by text page and
+  differs between languages: on page 5 the Japanese text switches at
+  line 2 (`.anim_0d_line_2`), the English at line 1 (`.anim_0d_line_1`).

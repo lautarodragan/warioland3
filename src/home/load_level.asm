@@ -112,7 +112,7 @@ ReloadLevelObjects::
 	and a
 	ret z ; done
 	bit 7, a
-	jr nz, .asm_f85
+	jr nz, .copy_run
 
 	ld b, a ; num rows
 	inc de
@@ -120,7 +120,7 @@ ReloadLevelObjects::
 	and $80
 	ld [wRepeatByte], a
 	inc de
-.asm_f61
+.loop_repeat
 	ld a, [wRepeatByte]
 	or [hl]
 	ld [hli], a
@@ -129,7 +129,7 @@ ReloadLevelObjects::
 	jr z, .next_row_1
 .next_repeat
 	dec b
-	jr nz, .asm_f61
+	jr nz, .loop_repeat
 	jr .loop_data
 .next_row_1
 	ld l, LOW(STARTOF(SRAM))
@@ -144,7 +144,7 @@ ReloadLevelObjects::
 .skip_sram_switch
 	jr .next_repeat
 
-.asm_f85
+.copy_run
 	and %01111111
 	ld b, a
 	inc de
@@ -156,19 +156,19 @@ ReloadLevelObjects::
 	inc de
 	ld a, l
 	cp c
-	jr z, .asm_f98
-.asm_f93
+	jr z, .next_row_copy
+.next_copy
 	dec b
 	jr nz, .loop_copy
 	jr .loop_data
-.asm_f98
+.next_row_copy
 	ld l, LOW(STARTOF(SRAM))
 	inc h
 	ld a, h
 	cp $c0
-	jr nz, .asm_f93
+	jr nz, .next_copy
 	ld h, HIGH(STARTOF(SRAM))
 	ld a, [wSRAMBank]
 	inc a
 	sramswitch
-	jr .asm_f93
+	jr .next_copy

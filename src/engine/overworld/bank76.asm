@@ -44,9 +44,9 @@ UpdateCommonOWAnimations:
 	ld a, [hl] ; wOWCliffsAnimFrame
 	inc a
 	cp $3 + $1
-	jr nz, .asm_1d8b4b
+	jr nz, .got_frame
 	xor a
-.asm_1d8b4b
+.got_frame
 	ld [hl], a
 	ld b, a
 	add HIGH(OverworldCliffs1Gfx)

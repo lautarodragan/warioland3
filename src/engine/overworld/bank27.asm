@@ -187,7 +187,7 @@ InitCutscene15:
 	ld b, BANK(OpenBlueSnakeDoorCutscenePals_b8e80)
 	ld hl, OpenBlueSnakeDoorCutscenePals_b8e80
 	call LoadFarPalsToTempPals2
-.asm_9c367
+.init_window
 	ld a, LCDC_WINDOW
 	ld [wLCDCFlagsToFlip], a
 	ld a, $28
@@ -332,7 +332,7 @@ InitCutscene49:
 	ld b, BANK(OpenGoldenSnakeDoorCutscenePals_b8e40)
 	ld hl, OpenGoldenSnakeDoorCutscenePals_b8e40
 	call LoadFarPalsToTempPals2
-	jp InitCutscene15.asm_9c367
+	jp InitCutscene15.init_window
 
 InitCutscene1f:
 	ld b, BANK(LeavesFallCutscenePals_b8280)
@@ -1183,28 +1183,28 @@ CutsceneScreenShake:
 	ld a, [wCutsceneShakeStep]
 	ld c, $fc
 	and a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $04
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $fd
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $03
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $fe
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $02
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $ff
 	dec a
-	jr z, .asm_9cdfb
+	jr z, .shake_step
 	ld c, $01
-	jr .asm_9ce0c
-.asm_9cdfb
+	jr .last_shake_step
+.shake_step
 	ld a, [hl]
 	cp $06
 	ret c
@@ -1217,7 +1217,7 @@ CutsceneScreenShake:
 	ld [hld], a
 	inc [hl]
 	ret
-.asm_9ce0c
+.last_shake_step
 	ld a, [hl]
 	cp $06
 	ret c
@@ -1532,15 +1532,15 @@ Cutscene06Func:
 .BobObj2:
 	ld a, [bc]
 	cp $01
-	jr z, .asm_9d068
+	jr z, .play_tree_fall_sfx
 	ld b, a
 	and $03
 	ret nz
 	ld a, $ff
 	bit 2, b
-	jr nz, .asm_9d05c
+	jr nz, .apply_bob
 	ld a, $01
-.asm_9d05c
+.apply_bob
 	ld hl, wSceneObj2YCoord
 	add [hl]
 	ld [hl], a
@@ -1548,7 +1548,7 @@ Cutscene06Func:
 	cp $20
 	ret c
 	jp AdvanceCutsceneFunc
-.asm_9d068
+.play_tree_fall_sfx
 	play_sfx SFX_TREE_FALL
 	ret
 
@@ -1559,15 +1559,15 @@ Cutscene06Func:
 .LiftObj2:
 	ld a, [bc]
 	cp $01
-	jr z, .asm_9d093
+	jr z, .play_rock_sfx
 	ld b, $ff
 	cp $08
-	jr c, .asm_9d087
+	jr c, .apply_lift
 	dec b
 	cp $10
-	jr c, .asm_9d087
+	jr c, .apply_lift
 	dec b
-.asm_9d087
+.apply_lift
 	ld a, b
 	ld hl, wSceneObj2YCoord
 	add [hl]
@@ -1575,7 +1575,7 @@ Cutscene06Func:
 	cp $20
 	ret nc
 	jp AdvanceCutsceneFunc
-.asm_9d093
+.play_rock_sfx
 	play_sfx SFX_TEMPLE_ROCK
 	ret
 
@@ -2218,9 +2218,9 @@ Cutscene1bFunc:
 	ld hl, wSceneObj5
 	ld a, [hl]
 	cp $44
-	jr c, .asm_9d510
+	jr c, .lower_on_interval
 	ld b, $07
-.asm_9d510
+.lower_on_interval
 	ld a, [wOWStepCounter]
 	and b
 	ret nz
@@ -2552,29 +2552,29 @@ MusicBoxCutsceneFunc:
 	ld a, [wSceneObj2State]
 	dec a
 	cp $01
-	jr z, .asm_9d765
+	jr z, .yellow_sfx
 	cp $03
-	jr z, .asm_9d76e
+	jr z, .blue_sfx
 	cp $05
-	jr z, .asm_9d777
+	jr z, .green_sfx
 	cp $07
-	jr z, .asm_9d780
+	jr z, .red_sfx
 	cp $09
-	jr z, .asm_9d789
+	jr z, .gold_sfx
 	ret
-.asm_9d765
+.yellow_sfx
 	play_sfx SFX_YELLOW_MUSIC_BOX
 	ret
-.asm_9d76e
+.blue_sfx
 	play_sfx SFX_BLUE_MUSIC_BOX
 	ret
-.asm_9d777
+.green_sfx
 	play_sfx SFX_GREEN_MUSIC_BOX
 	ret
-.asm_9d780
+.red_sfx
 	play_sfx SFX_RED_MUSIC_BOX
 	ret
-.asm_9d789
+.gold_sfx
 	play_sfx SFX_GOLD_MUSIC_BOX
 	ret
 
@@ -3023,7 +3023,7 @@ Cutscene49Func:
 .WaitObj2State01ThenOpen:
 	ld a, [wSceneObj2State]
 	cp $01
-	jr z, .asm_9daa6
+	jr z, .open_doors
 	ld a, [wSceneObj2Frame]
 	cp $03
 	ret nz
@@ -3032,7 +3032,7 @@ Cutscene49Func:
 	ret nz
 	play_sfx SFX_OPEN_GOLDEN_SNAKE_DOOR
 	ret
-.asm_9daa6
+.open_doors
 	ld a, $02
 	ld hl, wSceneObj2State
 	call SetSceneObjState
@@ -3201,13 +3201,13 @@ Cutscene24Func:
 	inc [hl]
 	ld a, [hl]
 	cp $30
-	jr z, .asm_9dbdc
+	jr z, .play_appear_sfx
 	cp SCREEN_WIDTH_PX
 	ret nz
 	xor a
 	ld [wSceneObj3State], a
 	jp AdvanceCutsceneFunc
-.asm_9dbdc
+.play_appear_sfx
 	play_sfx SFX_WARPED_VOID_APPEAR
 	ret
 
@@ -3239,10 +3239,10 @@ Cutscene24Func:
 .get_fall_speed:
 	ld a, [hl]
 	cp $44
-	jr c, .asm_9dc16
+	jr c, .got_fall_index
 	ld a, $40
 	ld [hl], a
-.asm_9dc16
+.got_fall_index
 	ld e, a
 	ld d, $00
 	ld hl, .data_9dc1f
@@ -3305,11 +3305,11 @@ Cutscene1fFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $2e
-	jr z, .asm_9dcc1
+	jr z, .play_tornado_sfx
 	cp $4a
 	ret nz
 	jp AdvanceCutsceneFunc
-.asm_9dcc1
+.play_tornado_sfx
 	play_sfx SFX_TORNADO
 	ret
 
@@ -3384,10 +3384,10 @@ Cutscene21Func:
 	ld hl, wSceneObj2YCoord
 	ld a, [bc]
 	and $03
-	jr nz, .asm_9dd48
+	jr nz, .get_coord
 	dec [hl]
 
-.asm_9dd48
+.get_coord
 	ld a, [hl]
 	ret
 
@@ -3395,17 +3395,17 @@ Cutscene21Func:
 	ld hl, wSceneObj2XCoord
 	ld a, [bc]
 	bit 0, a
-	jr z, .asm_9dd48
+	jr z, .get_coord
 	inc [hl]
-	jr .asm_9dd48
+	jr .get_coord
 
 .move_obj2_left_slowly:
 	ld hl, wSceneObj2XCoord
 	ld a, [bc]
 	bit 0, a
-	jr z, .asm_9dd48
+	jr z, .get_coord
 	dec [hl]
-	jr .asm_9dd48
+	jr .get_coord
 
 .PlaceObjs:
 	ld hl, wSceneObj3YCoord
@@ -3446,32 +3446,32 @@ Cutscene21Func:
 
 .SetObj3State03:
 	ld a, $03
-.asm_9dda3
+.set_obj3_state
 	ld [wSceneObj3State], a
 	jp AdvanceCutsceneFunc
 
 .MoveObj2RightToObj4:
 	call .move_obj2_right_slowly
 	ld b, $58
-.asm_9ddae
+.check_reached
 	cp b
 	ret nz
 	jp AdvanceCutsceneFunc
 
 .SetObj4State03:
 	ld a, $03
-.asm_9ddb5
+.set_obj4_state
 	ld [wSceneObj4State], a
 	jp AdvanceCutsceneFunc
 
 .MoveObj2RightToObj5:
 	call .move_obj2_right_slowly
 	ld b, $68
-	jr .asm_9ddae
+	jr .check_reached
 
 .SetObj5State03:
 	ld a, $03
-.asm_9ddc4
+.set_obj5_state
 	ld [wSceneObj5State], a
 	jp AdvanceCutsceneFunc
 
@@ -3486,34 +3486,34 @@ Cutscene21Func:
 .MoveObj2LeftToObj5:
 	call .move_obj2_left_slowly
 	ld b, $68
-	jr .asm_9ddae
+	jr .check_reached
 
 .SetObj5State04:
 	ld a, $04
-	jr .asm_9ddc4
+	jr .set_obj5_state
 
 .MoveObj2LeftToObj4:
 	call .move_obj2_left_slowly
 	ld b, $58
-	jr .asm_9ddae
+	jr .check_reached
 
 .SetObj4State04:
 	ld a, $04
-	jr .asm_9ddb5
+	jr .set_obj4_state
 
 .MoveObj2LeftToObj3:
 	call .move_obj2_left_slowly
 	ld b, $48
-	jr .asm_9ddae
+	jr .check_reached
 
 .SetObj3State04:
 	ld a, $04
-	jr .asm_9dda3
+	jr .set_obj3_state
 
 .MoveObj2UpOffScreen:
 	call .move_obj2_up_slowly
 	ld b, $20
-	jr .asm_9ddae
+	jr .check_reached
 
 .HideObj2:
 	xor a
@@ -3732,45 +3732,45 @@ Cutscene30Func:
 	dec [hl]
 	ld a, [hl]
 	cp $48
-	jr z, .asm_9df8d
+	jr z, .start_obj4
 	cp $44
-	jr z, .asm_9df9c
+	jr z, .start_obj5
 	cp $3c
-	jr z, .asm_9dfa1
+	jr z, .start_obj6
 	cp $20
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.asm_9df8d
+.start_obj4
 	ld hl, wSceneObj4State
-.asm_9df90
+.start_obj
 	ld a, $04
 	ld [hl], a
 	play_sfx SFX_UNDERWATER_THRUST
 	ret
 
-.asm_9df9c
+.start_obj5
 	ld hl, wSceneObj5State
-	jr .asm_9df90
+	jr .start_obj
 
-.asm_9dfa1
+.start_obj6
 	ld hl, wSceneObj6State
-	jr .asm_9df90
+	jr .start_obj
 
 .RaiseObj5:
 	ld de, wSceneObj5State
 	ld hl, wSceneObj5
-	jr .asm_9dfbc
+	jr .raise_obj
 
 .RaiseObj6:
 	ld de, wSceneObj6State
 	ld hl, wSceneObj6
-	jr .asm_9dfbc
+	jr .raise_obj
 
 .RaiseObj4:
 	ld de, wSceneObj4State
 	ld hl, wSceneObj4
-.asm_9dfbc
+.raise_obj
 	ld a, [de]
 	and a
 	ret z
@@ -3906,11 +3906,11 @@ Cutscene3aFunc:
 	ld a, [hli]
 	inc [hl]
 	cp $50
-	jr z, .asm_9e0ad
+	jr z, .play_switch_sfx
 	cp $4c
 	ret nz
 	jp AdvanceCutsceneFunc
-.asm_9e0ad
+.play_switch_sfx
 	play_sfx SFX_SWITCH
 	ret
 
@@ -4021,13 +4021,13 @@ Cutscene3aFunc:
 	inc [hl]
 	ld a, [hl]
 	cp $01
-	jr z, .asm_9e168
+	jr z, .play_snow_drop_sfx
 	cp $1b
 	ret c
 	xor a
 	ld [hl], a
 	ret
-.asm_9e168
+.play_snow_drop_sfx
 	play_sfx SFX_FALLING_SNOW_DROP
 	ret
 
@@ -4105,10 +4105,10 @@ Cutscene3cFunc:
 .get_fall_speed:
 	ld a, [bc]
 	cp $2c
-	jr c, .asm_9e1fc
+	jr c, .got_fall_index
 	ld a, $28
 	ld [bc], a
-.asm_9e1fc
+.got_fall_index
 	ld c, a
 	ld b, $00
 	ld hl, .data_9e205
@@ -4801,13 +4801,13 @@ Cutscene51Func:
 	inc [hl]
 	ld a, [hl]
 	cp $01
-	jr z, .asm_9e6e6
+	jr z, .play_rumble_sfx
 	cp $10
 	ret c
 	xor a
 	ld [hl], a
 	ret
-.asm_9e6e6
+.play_rumble_sfx
 	play_sfx SFX_RUMBLE
 	ret
 
@@ -5510,11 +5510,11 @@ Cutscene44Func:
 	ld a, [hl]
 	inc [hl]
 	cp $30
-	jr c, .asm_9ebdd
+	jr c, .got_speed_index
 	xor a
 	ld [hl], a
 	jr .get_obj3_speed
-.asm_9ebdd
+.got_speed_index
 	ld c, a
 	ld b, $00
 	ld hl, .data_9ebe6
@@ -5738,10 +5738,10 @@ Cutscene14Func:
 	ld [hl], a
 	ld a, [wSceneObj5Frame]
 	cp $09
-	jr nc, .asm_9ede8
+	jr nc, .play_eruption_3_sfx
 	play_sfx SFX_VOLCANO_ERUPTION_2
 	ret
-.asm_9ede8
+.play_eruption_3_sfx
 	play_sfx SFX_VOLCANO_ERUPTION_3
 	ret
 
@@ -5755,12 +5755,12 @@ Cutscene14Func:
 	ld a, [wOWStepCounter]
 	ld b, $01
 	cp $08
-	jr c, .asm_9ee0b
+	jr c, .apply_rise
 	inc b
 	cp $10
-	jr c, .asm_9ee0b
+	jr c, .apply_rise
 	inc b
-.asm_9ee0b
+.apply_rise
 	ld a, b
 	ld hl, wSceneObj5
 	add [hl]
@@ -5786,19 +5786,19 @@ Cutscene14Func:
 	inc [hl]
 	ld a, [hl]
 	cp $0a
-	jr z, .asm_9ee3c
+	jr z, .play_eruption_4_sfx
 	cp $14
-	jr z, .asm_9ee45
+	jr z, .play_eruption_5_sfx
 	cp $1e
-	jr z, .asm_9ee4e
+	jr z, .play_eruption_6_sfx
 	ret
-.asm_9ee3c
+.play_eruption_4_sfx
 	play_sfx SFX_VOLCANO_ERUPTION_4
 	ret
-.asm_9ee45
+.play_eruption_5_sfx
 	play_sfx SFX_VOLCANO_ERUPTION_5
 	ret
-.asm_9ee4e
+.play_eruption_6_sfx
 	play_sfx SFX_VOLCANO_ERUPTION_6
 	ret
 
@@ -5924,9 +5924,9 @@ SetSceneObjStateWhenAnimFinished:
 
 UpdateCutsceneObjs_OpenNorthGate:
 	ld bc, wSceneObj3State
-	call .asm_9f0e9
+	call .update_obj
 	ld bc, wSceneObj2State
-.asm_9f0e9
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -5934,21 +5934,21 @@ UpdateCutsceneObjs_OpenNorthGate:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $05
-	jr z, .asm_9f103
+	jr z, .state_05
 	cp $06
-	jr z, .asm_9f107
-.asm_9f0fd
+	jr z, .state_06
+.draw
 	ld de, OpenNorthGateCutsceneOAM_bd1fd
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f103
+.state_05
 	ld b, $00
-	jr .asm_9f109
-.asm_9f107
+	jr .set_state_when_finished
+.state_06
 	ld b, $07
-.asm_9f109
+.set_state_when_finished
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f0e9
-	jr .asm_9f0fd
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw OpenNorthGateCutsceneFrameset_bd348
@@ -5961,7 +5961,7 @@ UpdateCutsceneObjs_OpenNorthGate:
 
 UpdateCutsceneObjs_Rainstorm:
 	ld bc, wSceneObj2State
-.asm_9f121
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -5969,17 +5969,17 @@ UpdateCutsceneObjs_Rainstorm:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f137
+	jr z, .state_02
 
-.asm_9f131
+.draw
 	ld de, RainstormCutsceneOAM_bd377
 	jp LoadCutsceneObjSprite_OWOAM2
 
-.asm_9f137
+.state_02
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f121 ; ?? this will never happen
-	jr .asm_9f131
+	jr z, .update_obj ; ?? this will never happen
+	jr .draw
 
 .framesets
 	dw RainstormCutsceneFrameset_bd43a
@@ -6028,23 +6028,23 @@ UpdateCutsceneObjs_FixElevator:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $06
-	jr z, .asm_9f1a8
+	jr z, .state_06
 	cp $08
-	jr z, .asm_9f1ac
+	jr z, .state_08
 	cp $05
 	call z, .PlayFixElevatorSFXAtAnimEnd
-.asm_9f1a2
+.draw
 	ld de, FixElevatorCutsceneOAM_bd46f
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f1a8
+.state_06
 	ld b, $07
-	jr .asm_9f1ae
-.asm_9f1ac
+	jr .set_state_when_finished
+.state_08
 	ld b, $00
-.asm_9f1ae
+.set_state_when_finished
 	call SetSceneObjStateWhenAnimFinished
 	jr z, .update_obj
-	jr .asm_9f1a2
+	jr .draw
 
 .PlayFixElevatorSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
@@ -6134,10 +6134,10 @@ UpdateCutsceneLevelObj_SummonSun:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $02
-	jr z, .asm_9f266
+	jr z, .state_02
 	cp $01
-	jr z, .asm_9f27a
-.asm_9f25b
+	jr z, .state_01
+.draw
 	ld de, OwlOAM_188e16
 	call _ObjOAM3
 	ret
@@ -6146,9 +6146,9 @@ UpdateCutsceneLevelObj_SummonSun:
 	dw OwlFrameset_692e7
 	dw OwlFrameset_69335
 
-.asm_9f266
+.state_02
 	call .PlayFlapSFXAtAnimEnd
-	jr .asm_9f25b
+	jr .draw
 
 .PlayFlapSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
@@ -6157,9 +6157,9 @@ UpdateCutsceneLevelObj_SummonSun:
 	play_sfx SFX_FLAP
 	ret
 
-.asm_9f27a
+.state_01
 	call .PlayTiptoeSFXOnFrame01
-	jr .asm_9f25b
+	jr .draw
 
 .PlayTiptoeSFXOnFrame01:
 	ld d, h
@@ -6172,13 +6172,13 @@ UpdateCutsceneLevelObj_SummonSun:
 	ld a, [de]
 	and a
 	ld a, $01
-	jr nz, .asm_9f295
+	jr nz, .wait_frame_01
 	cp c
 	ret z
 	ld a, $01
 	ld [de], a
 	ret
-.asm_9f295
+.wait_frame_01
 	cp c
 	ret nz
 	xor a
@@ -6211,7 +6211,7 @@ UpdateCutsceneObjs_ExplodeBombs:
 
 UpdateCutsceneObjs_TreasureMap:
 	ld bc, wSceneObj2State
-.asm_9f2d0
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6219,15 +6219,15 @@ UpdateCutsceneObjs_TreasureMap:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
-	jr z, .asm_9f2e6
-.asm_9f2e0
+	jr z, .state_01
+.draw
 	ld de, TreasureMapCutsceneOAM_bda01
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f2e6
+.state_01
 	ld b, $02
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f2d0
-	jr .asm_9f2e0
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw TreasureMapCutsceneFrameset_bdaa2
@@ -6319,13 +6319,13 @@ UpdateCutsceneObjs_FootStone:
 
 UpdateCutsceneObjs_OpenSnakeDoor:
 	ld bc, wSceneObj2State
-	call .asm_9f3a2
+	call .update_obj
 	ld bc, wSceneObj3State
-	call .asm_9f3a2
+	call .update_obj
 	ld bc, wSceneObj4State
-	call .asm_9f3a2
+	call .update_obj
 	ld bc, wSceneObj5State
-.asm_9f3a2
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6333,15 +6333,15 @@ UpdateCutsceneObjs_OpenSnakeDoor:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
-	jr z, .asm_9f3b8
-.asm_9f3b2
+	jr z, .state_04
+.draw
 	ld de, OpenSnakeDoorCutsceneOAM_bdce6
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f3b8
+.state_04
 	ld b, $01
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f3a2
-	jr .asm_9f3b2
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw OpenSnakeDoorCutsceneFrameset_bddcc
@@ -6400,9 +6400,9 @@ UpdateCutsceneObjs_OpenTreeMouth:
 
 UpdateCutsceneObjs_LeavesFall:
 	ld bc, wSceneObj2State
-	call .asm_9f42c
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f42c
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6410,18 +6410,18 @@ UpdateCutsceneObjs_LeavesFall:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f446
+	jr z, .state_02
 	cp $03
-	jr z, .asm_9f47e
-.asm_9f440
+	jr z, .state_03
+.draw
 	ld de, LeavesFallCutsceneOAM_bdfa5
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f446
+.state_02
 	call .PlayFatWalkSFXOnFrame07Or08
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f42c
-	jr .asm_9f440
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw LeavesFallCutsceneFrameset_be1b0
@@ -6435,24 +6435,24 @@ UpdateCutsceneObjs_LeavesFall:
 	ld a, [wSceneObj3MovementStep]
 	ld b, a
 	and a
-	jr z, .asm_9f46b
+	jr z, .wait_frame_07
 	ld a, $08
 	cp c
 	ret nz
-	jr .asm_9f46f
-.asm_9f46b
+	jr .toggle_and_play_sfx
+.wait_frame_07
 	ld a, $07
 	cp c
 	ret nz
-.asm_9f46f
+.toggle_and_play_sfx
 	ld a, b
 	xor $1
 	ld [wSceneObj3MovementStep], a
 	play_sfx SFX_FAT_WALK
 	ret
-.asm_9f47e
+.state_03
 	call .PlayThunderSFXEvery26Frames
-	jr .asm_9f440
+	jr .draw
 
 .PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj3MovementStep
@@ -6460,13 +6460,13 @@ UpdateCutsceneObjs_LeavesFall:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f493
+	jr z, .play_thunder_sfx
 	cp $1a
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f493
+.play_thunder_sfx
 	play_sfx SFX_THUNDER
 	ret
 
@@ -6487,10 +6487,10 @@ UpdateCutsceneObjs_MakeWire:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
-	jr z, .asm_9f4d3
+	jr z, .state_01
 	cp $02
-	jr z, .asm_9f4ec
-.asm_9f4c5
+	jr z, .state_02
+.draw
 	ld de, MakeWireCutsceneOAM_be206
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -6500,9 +6500,9 @@ UpdateCutsceneObjs_MakeWire:
 	dw MakeWireCutsceneFrameset_be2d3
 	dw MakeWireCutsceneFrameset_be2d6
 
-.asm_9f4d3
+.state_01
 	call .PlayMakeWireSFXEvery12Frames
-	jr .asm_9f4c5
+	jr .draw
 
 .PlayMakeWireSFXEvery12Frames:
 	ld de, wSceneObj2MovementStep
@@ -6516,10 +6516,10 @@ UpdateCutsceneObjs_MakeWire:
 	play_sfx SFX_MAKE_WIRE
 	ret
 
-.asm_9f4ec
+.state_02
 	call .PlayMakeWireSFXEvery12Frames
 	call .PlayTurnSFXEvery16Frames
-	jr .asm_9f4c5
+	jr .draw
 
 .PlayTurnSFXEvery16Frames:
 	ld de, wSceneObj3MovementStep
@@ -6544,17 +6544,17 @@ UpdateCutsceneObjs_TorchForest:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
-	jr z, .asm_9f529
-.asm_9f521
+	jr z, .state_01
+.draw
 	ld de, TorchForestCutsceneOAM_be2d9
 	jp LoadCutsceneObjSprite_OWOAM2
 
 .framesets
 	dw TorchForestCutsceneFrameset_be3c5
 
-.asm_9f529
+.state_01
 	call .PlayFireSFXEvery14Frames
-	jr .asm_9f521
+	jr .draw
 
 .PlayFireSFXEvery14Frames:
 	ld de, wSceneObj2MovementStep
@@ -6562,13 +6562,13 @@ UpdateCutsceneObjs_TorchForest:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f53e
+	jr z, .play_fire_sfx
 	cp $0e
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f53e
+.play_fire_sfx
 	play_sfx SFX_FIRE
 	ret
 
@@ -6576,11 +6576,11 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	ld de, wSceneObj2
 	call DrawCutsceneOverlayFrame0
 	ld bc, wSceneObj2State
-	call .asm_9f559
+	call .update_obj
 	ld de, wSceneObj2
 	jp DrawCutsceneOverlayFrame1
 
-.asm_9f559
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6588,27 +6588,27 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f573
+	jr z, .state_02
 	cp $03
-	jr z, .asm_9f582
-.asm_9f56d
+	jr z, .state_03
+.draw
 	ld de, RevealWarpedVoidCutsceneOAM_be3ce
 	jp LoadCutsceneObjSprite_OWOAM2
 
-.asm_9f573
+.state_02
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f559
-	jr .asm_9f56d
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw RevealWarpedVoidCutsceneFrameset_be7e6
 	dw RevealWarpedVoidCutsceneFrameset_be7e9
 	dw RevealWarpedVoidCutsceneFrameset_be802
 
-.asm_9f582
+.state_03
 	call .PlayElectricShockSFXEvery16Frames
-	jr .asm_9f56d
+	jr .draw
 
 .PlayElectricShockSFXEvery16Frames:
 	ld de, wSceneObj2MovementStep
@@ -6616,13 +6616,13 @@ UpdateCutsceneObjs_RevealWarpedVoid:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f597
+	jr z, .play_electric_shock_sfx
 	cp $10
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f597
+.play_electric_shock_sfx
 	play_sfx SFX_ELECTRIC_SHOCK
 	ret
 
@@ -6644,16 +6644,16 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f5d1
-.asm_9f5cb
+	jr z, .state_02
+.draw
 	ld de, RaiseIceBlocksCutsceneOAM_be807
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f5d1
+.state_02
 	call .PlayPumpSFXOnFrame03
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
 	jr z, .update_obj
-	jr .asm_9f5cb
+	jr .draw
 
 .framesets
 	dw RaiseIceBlocksCutsceneFrameset_be8de
@@ -6668,15 +6668,15 @@ UpdateCutsceneObjs_RaiseIceBlocks:
 	ld b, a
 	and a
 	ld a, $03
-	jr z, .asm_9f5f6
+	jr z, .wait_frame_03
 	cp c
 	ret z
-	jr .asm_9f600
-.asm_9f5f6
+	jr .toggle_flag
+.wait_frame_03
 	cp c
 	ret nz
 	play_sfx SFX_PUMP
-.asm_9f600
+.toggle_flag
 	ld a, b
 	xor $1
 	ld [wSceneObj2MovementStep], a
@@ -6691,8 +6691,8 @@ UpdateCutsceneObjs_RaisePipe:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f624
-.asm_9f61a
+	jr z, .state_02
+.draw
 	ld de, RaisePipeCutsceneOAM_be8fe
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -6700,9 +6700,9 @@ UpdateCutsceneObjs_RaisePipe:
 	dw RaisePipeCutsceneFrameset_be9fa
 	dw RaisePipeCutsceneFrameset_be9fd
 
-.asm_9f624
+.state_02
 	call .PlayMuddeeSwimSFXAtAnimEnd
-	jr .asm_9f61a
+	jr .draw
 
 .PlayMuddeeSwimSFXAtAnimEnd:
 	ld a, [wOWAnimationFinished]
@@ -6713,17 +6713,17 @@ UpdateCutsceneObjs_RaisePipe:
 
 UpdateCutsceneObjs_RemoveWarps:
 	ld bc, wSceneObj2State
-	call .asm_9f659
+	call .update_obj
 	ld bc, wSceneObj3State
-	call .asm_9f659
+	call .update_obj
 	ld bc, wSceneObj4State
-	call .asm_9f659
+	call .update_obj
 	ld bc, wSceneObj5State
-	call .asm_9f659
+	call .update_obj
 	ld bc, wSceneObj6State
-	call .asm_9f659
+	call .update_obj
 	ld bc, wSceneObj7State
-.asm_9f659
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6731,17 +6731,17 @@ UpdateCutsceneObjs_RemoveWarps:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
-	jr z, .asm_9f673
+	jr z, .state_04
 	cp $02
-	jr z, .asm_9f684
-.asm_9f66d
+	jr z, .state_02
+.draw
 	ld de, RemoveWarpsCutsceneOAM_bea06
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f673
+.state_04
 	ld b, $00
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f659
-	jr .asm_9f66d
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw RemoveWarpsCutsceneFrameset_beacc
@@ -6749,9 +6749,9 @@ UpdateCutsceneObjs_RemoveWarps:
 	dw RemoveWarpsCutsceneFrameset_beae4
 	dw RemoveWarpsCutsceneFrameset_beaed
 
-.asm_9f684
+.state_02
 	call .PlaySFX10EEvery72Frames
-	jr .asm_9f66d
+	jr .draw
 
 .PlaySFX10EEvery72Frames:
 	ld de, wSceneObj3MovementStep
@@ -6759,23 +6759,23 @@ UpdateCutsceneObjs_RemoveWarps:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f699
+	jr z, .play_sfx_10e
 	cp $48
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f699
+.play_sfx_10e
 	play_sfx SFX_10E
 	ret
 
 UpdateCutsceneObjs_CollectDemonsBlood:
 	ld bc, wSceneObj4State
-	call .asm_9f6b1
+	call .update_obj
 	ld bc, wSceneObj2State
-	call .asm_9f6b1
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f6b1
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6783,31 +6783,31 @@ UpdateCutsceneObjs_CollectDemonsBlood:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f6cf
+	jr z, .state_02
 	cp $05
-	jr z, .asm_9f6dd
+	jr z, .state_05
 	cp $06
-	jr z, .asm_9f6e1
-.asm_9f6c9
+	jr z, .state_06
+.draw
 	ld de, CollectDemonsBloodCutsceneOAM_beafc
 	jp LoadCutsceneObjSprite_OWOAM2
 
-.asm_9f6cf
+.state_02
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr nz, .asm_9f6c9
+	jr nz, .draw
 	ld a, $04
 	ld [wSceneObj3State], a
-	jr .asm_9f6b1
-.asm_9f6dd
+	jr .update_obj
+.state_05
 	ld b, $00
-	jr .asm_9f6e3
-.asm_9f6e1
+	jr .set_state_when_finished
+.state_06
 	ld b, $07
-.asm_9f6e3
+.set_state_when_finished
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f6b1
-	jr .asm_9f6c9
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw CollectDemonsBloodCutsceneFrameset_bebda
@@ -6830,8 +6830,8 @@ UpdateCutsceneObjs_PlacePropeller:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f71d
-.asm_9f711
+	jr z, .state_02
+.draw
 	ld de, PlacePropellerCutsceneOAM_bebef
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -6840,9 +6840,9 @@ UpdateCutsceneObjs_PlacePropeller:
 	dw PlacePropellerCutsceneFrameset_becca
 	dw PlacePropellerCutsceneFrameset_becd3
 
-.asm_9f71d
+.state_02
 	call .PlayFanSpinSFXEvery12Frames
-	jr .asm_9f711
+	jr .draw
 
 .PlayFanSpinSFXEvery12Frames:
 	ld de, wSceneObj2MovementStep
@@ -6850,21 +6850,21 @@ UpdateCutsceneObjs_PlacePropeller:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f732
+	jr z, .play_fan_spin_sfx
 	cp $0c
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f732
+.play_fan_spin_sfx
 	play_sfx SFX_FAN_SPIN
 	ret
 
 UpdateCutsceneObjs_CutBaloon:
 	ld bc, wSceneObj2State
-	call .asm_9f744
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f744
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6881,9 +6881,9 @@ UpdateCutsceneObjs_CutBaloon:
 
 UpdateCutsceneObjs_OpenParaGoomCage:
 	ld bc, wSceneObj2State
-	call .asm_9f765
+	call .update_obj
 	ld bc, wSceneObj4State
-.asm_9f765
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6891,26 +6891,26 @@ UpdateCutsceneObjs_OpenParaGoomCage:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f783
+	jr z, .state_02
 	cp $04
-	jr z, .asm_9f787
+	jr z, .state_04
 	cp $06
-	jr z, .asm_9f78b
-.asm_9f77d
+	jr z, .state_06
+.draw
 	ld de, OpenParaGoomCageCutsceneOAM_bed42
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f783
+.state_02
 	ld b, $00
-	jr .asm_9f78d
-.asm_9f787
+	jr .set_state_when_finished
+.state_04
 	ld b, $00
-	jr .asm_9f78d
-.asm_9f78b
+	jr .set_state_when_finished
+.state_06
 	ld b, $07
-.asm_9f78d
+.set_state_when_finished
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f765
-	jr .asm_9f77d
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw OpenParaGoomCageCutsceneFrameset_bee4d
@@ -6938,9 +6938,9 @@ UpdateCutsceneLevelObj_OpenParaGoomCage:
 
 UpdateCutsceneObjs_OpenSkyDoor:
 	ld bc, wSceneObj2State
-	call .asm_9f7c4
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f7c4
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6957,7 +6957,7 @@ UpdateCutsceneObjs_OpenSkyDoor:
 
 UpdateCutsceneObjs_ExtinguishFire:
 	ld bc, wSceneObj2State
-.asm_9f7df
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -6965,26 +6965,26 @@ UpdateCutsceneObjs_ExtinguishFire:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f7f9
+	jr z, .state_02
 	cp $03
-	jr z, .asm_9f808
-.asm_9f7f3
+	jr z, .state_03
+.draw
 	ld de, ExtinguishFireCutsceneOAM_befd5
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f7f9
+.state_02
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f7df
-	jr .asm_9f7f3
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw ExtinguishFireCutsceneFrameset_bf100
 	dw ExtinguishFireCutsceneFrameset_bf103
 	dw ExtinguishFireCutsceneFrameset_bf110
 
-.asm_9f808
+.state_03
 	call .PlayThunderSFXEvery26Frames
-	jr .asm_9f7f3
+	jr .draw
 
 .PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj2MovementStep
@@ -7007,8 +7007,8 @@ UpdateCutsceneLevelObj_ExtinguishFire:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
-	jr z, .asm_9f83e
-.asm_9f834
+	jr z, .state_01
+.draw
 	ld de, FireOAM_18aba0
 	jp _ObjOAM3
 
@@ -7016,9 +7016,9 @@ UpdateCutsceneLevelObj_ExtinguishFire:
 	dw FireFrameset_69c0a
 	dw ExtinguishFireCutsceneFrameset_69c13
 
-.asm_9f83e
+.state_01
 	call .PlayFireSFXEvery14Frames
-	jr .asm_9f834
+	jr .draw
 
 .PlayFireSFXEvery14Frames:
 	ld de, wSceneObj3MovementStep
@@ -7045,9 +7045,9 @@ UpdateCutsceneObjs_PlaceBrick:
 
 UpdateCutsceneObjs_SprayIronWall:
 	ld bc, wSceneObj2State
-	call .asm_9f873
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f873
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7055,18 +7055,18 @@ UpdateCutsceneObjs_SprayIronWall:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f8a3
+	jr z, .state_02
 	cp $03
-	jr z, .asm_9f88d
-.asm_9f887
+	jr z, .state_03
+.draw
 	ld de, SprayIronWallCutsceneOAM_bf157
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f88d
+.state_03
 	call .PlaySFX0C4Every10Frames
 	ld b, $05
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f873
-	jr .asm_9f887
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw SprayIronWallCutsceneFrameset_bf28c
@@ -7075,9 +7075,9 @@ UpdateCutsceneObjs_SprayIronWall:
 	dw SprayIronWallCutsceneFrameset_bf2a5
 	dw SprayIronWallCutsceneFrameset_bf2a8
 
-.asm_9f8a3
+.state_02
 	call .PlayThunderSFXEvery26Frames
-	jr .asm_9f887
+	jr .draw
 
 .PlayThunderSFXEvery26Frames:
 	ld de, wSceneObj2MovementStep
@@ -7085,13 +7085,13 @@ UpdateCutsceneObjs_SprayIronWall:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f8b8
+	jr z, .play_thunder_sfx
 	cp $1a
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f8b8
+.play_thunder_sfx
 	play_sfx SFX_THUNDER
 	ret
 
@@ -7101,21 +7101,21 @@ UpdateCutsceneObjs_SprayIronWall:
 	inc a
 	ld [de], a
 	cp $01
-	jr z, .asm_9f8d1
+	jr z, .play_sfx_0c4
 	cp $0a
 	ret c
 	xor a
 	ld [de], a
 	ret
-.asm_9f8d1
+.play_sfx_0c4
 	play_sfx SFX_0C4
 	ret
 
 UpdateCutsceneObjs_MixChemicals:
 	ld bc, wSceneObj2State
-	call .asm_9f8e3
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f8e3
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7123,11 +7123,11 @@ UpdateCutsceneObjs_MixChemicals:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $03
-	jr z, .asm_9f8f9
-	.asm_9f8f3
+	jr z, .state_03
+.draw
 	ld de, MixChemicalsCutsceneOAM_bf2ab
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f8f9
+.state_03
 	ld b, $00
 	call .set_state_when_anim_finished
 	ld hl, wSceneObj2MovementStep
@@ -7144,8 +7144,8 @@ UpdateCutsceneObjs_MixChemicals:
 
 .set_state_when_anim_finished:
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f8e3
-	jr .asm_9f8f3
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw MixChemicalsCutsceneFrameset_bf43b
@@ -7154,7 +7154,7 @@ UpdateCutsceneObjs_MixChemicals:
 
 UpdateCutsceneObjs_RevealDarkRoom:
 	ld bc, wSceneObj2State
-.asm_9f922
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7162,23 +7162,23 @@ UpdateCutsceneObjs_RevealDarkRoom:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
-	jr z, .asm_9f93c
+	jr z, .state_01
 	cp $02
-	jr z, .asm_9f943
-.asm_9f936
+	jr z, .state_02
+.draw
 	ld de, RevealDarkRoomCutsceneOAM_bf460
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f93c
+.state_01
 	call .PlaySFXOnFrames
 	ld b, $02
-	jr .asm_9f948
-.asm_9f943
+	jr .set_state_when_finished
+.state_02
 	call .PlaySFXOnFrames
 	ld b, $01
-.asm_9f948
+.set_state_when_finished
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f922
-	jr .asm_9f936
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw RevealDarkRoomCutsceneFrameset_bf5e0
@@ -7190,7 +7190,7 @@ UpdateCutsceneObjs_RevealDarkRoom:
 	ld a, [wSceneObj2MovementStep]
 	ld b, a
 	and a
-	jr z, .asm_9f96a
+	jr z, .check_frame
 	ld a, c
 	cp $02
 	ret z
@@ -7198,22 +7198,22 @@ UpdateCutsceneObjs_RevealDarkRoom:
 	ret z
 	cp $05
 	ret z
-	jr .asm_9f98a
-.asm_9f96a
+	jr .toggle_flag
+.check_frame
 	ld a, c
 	cp $02
-	jr z, .asm_9f978
+	jr z, .play_tiptoe_1
 	cp $04
-	jr z, .asm_9f982
+	jr z, .play_tiptoe_2
 	cp $05
-	jr z, .asm_9f982
+	jr z, .play_tiptoe_2
 	ret nz
-.asm_9f978
+.play_tiptoe_1
 	play_sfx SFX_TIPTOE_1
-	jr .asm_9f98a
-.asm_9f982
+	jr .toggle_flag
+.play_tiptoe_2
 	play_sfx SFX_TIPTOE_2
-.asm_9f98a
+.toggle_flag
 	ld a, b
 	xor $01
 	ld [wSceneObj2MovementStep], a
@@ -7221,9 +7221,9 @@ UpdateCutsceneObjs_RevealDarkRoom:
 
 UpdateCutsceneObjs_SummonMoon:
 	ld bc, wSceneObj2State
-	call .asm_9f99a
+	call .update_obj
 	ld bc, wSceneObj3State
-.asm_9f99a
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7231,15 +7231,15 @@ UpdateCutsceneObjs_SummonMoon:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $04
-	jr z, .asm_9f9b0
-.asm_9f9aa
+	jr z, .state_04
+.draw
 	ld de, SummonMoonCutsceneOAM_bf611
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f9b0
+.state_04
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f99a
-	jr .asm_9f9aa
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw SummonMoonCutsceneFrameset_bf65d
@@ -7249,11 +7249,11 @@ UpdateCutsceneObjs_SummonMoon:
 
 UpdateCutsceneObjs_OpenCraterHole:
 	ld bc, wSceneObj11State
-	call .asm_9f9d0
+	call .update_obj
 	ld bc, wSceneObj10State
-	call .asm_9f9d0
+	call .update_obj
 	ld bc, wSceneObj2State
-.asm_9f9d0
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7261,15 +7261,15 @@ UpdateCutsceneObjs_OpenCraterHole:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9f9e6
-.asm_9f9e0
+	jr z, .state_02
+.draw
 	ld de, OpenCraterHoleCutsceneOAM_bf66d
 	jp LoadCutsceneObjSprite_OWOAM2
-.asm_9f9e6
+.state_02
 	ld b, $01
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9f9d0
-	jr .asm_9f9e0
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw OpenCraterHoleCutsceneFrameset_bf6df
@@ -7285,10 +7285,10 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
-	jr z, .asm_9fa16
+	jr z, .state_01
 	cp $02
-	jr z, .asm_9fa2f
-.asm_9fa0c
+	jr z, .state_02
+.draw
 	ld de, WallCrackOAM_18c806
 	jp _ObjOAM4
 
@@ -7296,9 +7296,9 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	dw WallCrackFrameset_6a052
 	dw WallCrackFrameset_6a05f
 
-.asm_9fa16
+.state_01
 	call .PlayOpenCraterHoleSFXEvery27Frames
-	jr .asm_9fa0c
+	jr .draw
 
 .PlayOpenCraterHoleSFXEvery27Frames:
 	ld de, wSceneObj3MovementStep
@@ -7311,9 +7311,9 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	ld [de], a
 	play_sfx SFX_OPEN_CRATER_HOLE
 	ret
-.asm_9fa2f
+.state_02
 	call .PlayFallingSnowDropSFXEvery27Frames
-	jr .asm_9fa0c
+	jr .draw
 
 .PlayFallingSnowDropSFXEvery27Frames:
 	ld de, wSceneObj3MovementStep
@@ -7329,23 +7329,23 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 
 UpdateCutsceneObjs_DrillHoles:
 	ld bc, wSceneObj10State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj11State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj2State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj3State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj4State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj5State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj6State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj7State
-	call .asm_9fa7b
+	call .update_obj
 	ld bc, wSceneObj8State
-.asm_9fa7b
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7353,8 +7353,8 @@ UpdateCutsceneObjs_DrillHoles:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $02
-	jr z, .asm_9fa9b
-.asm_9fa8b
+	jr z, .state_02
+.draw
 	ld de, DrillHolesCutsceneOAM_bf6f0
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -7365,9 +7365,9 @@ UpdateCutsceneObjs_DrillHoles:
 	dw DrillHolesCutsceneFrameset_bf835
 	dw DrillHolesCutsceneFrameset_bf83e
 
-.asm_9fa9b
+.state_02
 	call .PlayPlane1SFXEvery12Frames
-	jr .asm_9fa8b
+	jr .draw
 
 .PlayPlane1SFXEvery12Frames:
 	ld de, wSceneObj2MovementStep
@@ -7390,8 +7390,8 @@ UpdateCutsceneObjs_FeedOctohon:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	cp $01
-	jr z, .asm_9fad1
-.asm_9fac7
+	jr z, .state_01
+.draw
 	ld de, FeedOctohonCutsceneOAM_bf847
 	jp LoadCutsceneObjSprite_OWOAM2
 
@@ -7399,9 +7399,9 @@ UpdateCutsceneObjs_FeedOctohon:
 	dw FeedOctohonCutsceneFrameset_bf923
 	dw FeedOctohonCutsceneFrameset_bf92a
 
-.asm_9fad1
+.state_01
 	call .PlaySparkleSFXEvery48Frames
-	jr .asm_9fac7
+	jr .draw
 
 .PlaySparkleSFXEvery48Frames:
 	ld de, wSceneObj2MovementStep
@@ -7417,7 +7417,7 @@ UpdateCutsceneObjs_FeedOctohon:
 
 UpdateCutsceneLevelObj_FeedOctohon:
 	ld bc, wSceneObj3State
-.asm_9faed
+.update_obj
 	ld a, [bc]
 	and a
 	ret z
@@ -7425,28 +7425,28 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_ObjFramesets
 	cp $01
-	jr z, .asm_9fb1a
+	jr z, .state_01
 	cp $03
-	jr z, .asm_9fb33
+	jr z, .state_03
 	cp $02
-	jr z, .asm_9fb0b
-.asm_9fb05
+	jr z, .state_02
+.draw
 	ld de, OctohonOAM_18a895
 	jp _ObjOAM3
-.asm_9fb0b
+.state_02
 	ld b, $03
 	call SetSceneObjStateWhenAnimFinished
-	jr z, .asm_9faed
-	jr .asm_9fb05
+	jr z, .update_obj
+	jr .draw
 
 .framesets
 	dw OctohonFrameset_69b38
 	dw FeedOctohonCutsceneFrameset_69ba0
 	dw OctohonFrameset_69b60
 
-.asm_9fb1a
+.state_01
 	call .PlayBigOctoSFX2Every40Frames
-	jr .asm_9fb05
+	jr .draw
 
 .PlayBigOctoSFX2Every40Frames:
 	ld de, wSceneObj4YCoord
@@ -7460,9 +7460,9 @@ UpdateCutsceneLevelObj_FeedOctohon:
 	play_sfx SFX_BIG_OCTO_2
 	ret
 
-.asm_9fb33
+.state_03
 	call .PlaySmallSplashSFXEvery40Frames
-	jr .asm_9fb05
+	jr .draw
 
 .PlaySmallSplashSFXEvery40Frames:
 	ld de, wSceneObj4YCoord
@@ -7567,22 +7567,22 @@ UpdateCutsceneObjs_VolcanoEruption:
 	and a
 	ret z
 	cp $05
-	jr z, .asm_9fbdc
+	jr z, .state_05
 	ld hl, .framesets
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
-.asm_9fbd5
+.draw
 	ld de, SharedCutsceneOAM_bcfb3
 	call LoadCutsceneObjSprite_OWOAM2
 	ret
-.asm_9fbdc
+.state_05
 	ld hl, .framesets
 	call GetCutsceneObjFrameset
 	call UpdateCutsceneObjAnim_OWOAM2
 	ld b, $06
 	call SetSceneObjStateWhenAnimFinished
 	jr z, .update_obj
-	jr .asm_9fbd5
+	jr .draw
 
 .framesets
 	dw VolcanoEruptionCutsceneFrameset_bd1b7
@@ -7659,14 +7659,14 @@ UpdateCutsceneObjs_CutTree:
 .one
 	ld de, CutTreeCutsceneFrameset_bc1f3
 	call UpdateOWAnimation
-	jr .asm_9fc85
+	jr .draw
 .two
 	ld de, CutTreeCutsceneFrameset_bc1e8
 	call UpdateOWAnimation
 	ld b, $00
 	call SetSceneObjStateWhenAnimFinished
 	jr z, .start
-.asm_9fc85
+.draw
 	ld de, CutTreeCutsceneOAM_bc122
 	jp LoadCutsceneObjSprite_OWOAM2
 

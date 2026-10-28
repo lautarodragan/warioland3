@@ -30,7 +30,7 @@ IDENT = re.compile(r"[A-Za-z_.][A-Za-z0-9_.]*")
 PATH = re.compile(r"^(?:src|tests|tools|book|\.github)/[\w./*-]*$|^[\w.-]+(?:/[\w.*-]+)+\.\w+$")
 FILE = re.compile(r"^[\w.-]+\.(?:asm|inc|link|py|yml|md|png|tilemap|attrmap|txt|sha1)$")
 # files the build makes, which a fresh checkout doesn't have
-GENERATED = {"warioland3.gbc", "warioland3.sym", "warioland3.map", "base.gbc"}
+GENERATED = {"warioland3.gbc", "warioland3.sym", "warioland3.map", "base.gbc", "tests/output"}
 
 
 def code_identifiers():
@@ -112,7 +112,7 @@ def main():
                         pass
                     elif PATH.match(chunk):
                         p = chunk.rstrip("/")
-                        if "*" not in p and not (ROOT / p).exists() and not any(f.endswith("/" + p) for f in files):
+                        if "*" not in p and p not in GENERATED and not (ROOT / p).exists() and not any(f.endswith("/" + p) for f in files):
                             problems.append((page.name, n, chunk, "path"))
                         continue
                     elif FILE.match(chunk):
