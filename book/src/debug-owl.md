@@ -208,13 +208,13 @@ graphics sets, unused slots included, and its object list is positional:
 entry n is the object whose graphics are in slot n (entries past the fourth
 are variants, like `NobiiruLeft`/`NobiiruRight`). Empty slots get
 `DummyObjectData` in the list, or the list ends (`NULL`) before them, and
-graphics from `ObjectGroup0`, the empty group: `SpearheadGfx`, `WebberGfx`,
+graphics from `ObjectGroup_Empty`, the empty group: `SpearheadGfx`, `WebberGfx`,
 `FutamoguGfx`, `TorchGfx` for slots 1-4. The entry alone isn't enough:
 bosses and enemies made of several slots (`Sun1`/`Sun2`, `RoboMouse1`/`2`)
 have short lists with entries missing for slots they draw from. So
 `SetOwlTileOffset` (Object Loading bank, next to the debug spawn) takes the
 first slot whose entry is `DummyObjectData` or past the end **and** whose
-graphics are that slot's filler from `ObjectGroup0`; bosses (groups with a
+graphics are that slot's filler from `ObjectGroup_Empty`; bosses (groups with a
 GFX bank offset) and The Temple's hidden figure always get slot 1.
 `test_free_slot_rule_matches_oam_data` checks that rule against every
 group: no object in a group has OAM drawing from a slot the rule calls

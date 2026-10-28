@@ -96,7 +96,7 @@ _DebugSpawnOwlFromROM::
 ; Groups load graphics into all four slots, and their object lists are
 ; positional: entry n is the object whose graphics are in slot n. A slot is
 ; unused when its entry is DummyObjectData or the list ends before it, and
-; the group loads the slot's filler graphics there (the ones in ObjectGroup0,
+; the group loads the slot's filler graphics there (the ones in ObjectGroup_Empty,
 ; the empty group). The filler check rules out the bosses and the multi-slot
 ; enemies (like Sun1/Sun2), whose short lists leave entries out of slots they
 ; do use.
@@ -158,11 +158,11 @@ SetOwlTileOffset:
 	ld a, c
 	swap a
 	rrca ; slot * 2
-	add LOW(ObjectGroup0 + 1)
+	add LOW(ObjectGroup_Empty + 1)
 	ld l, a
-	adc HIGH(ObjectGroup0 + 1)
+	adc HIGH(ObjectGroup_Empty + 1)
 	sub l
-	ld h, a ; slot's filler graphics in ObjectGroup0
+	ld h, a ; slot's filler graphics in ObjectGroup_Empty
 	ld a, [de]
 	cp [hl]
 	jr nz, .not_filler

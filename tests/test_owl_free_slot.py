@@ -268,7 +268,7 @@ def test_free_slot_rule_matches_oam_data():
     """SetOwlTileOffset's rule for an unused slot, checked against which
     VRAM1 tiles each group's objects' OAM tables draw: a slot is unused when
     the group's object list has DummyObjectData for it (or ends before it)
-    and the group loads the slot's filler graphics, ObjectGroup0's. No object
+    and the group loads the slot's filler graphics, ObjectGroup_Empty's. No object
     of the group may draw from a slot the rule calls unused."""
     oam_data = {
         name: oam
@@ -295,7 +295,7 @@ def test_free_slot_rule_matches_oam_data():
             pointers = re.findall(r"dw (\w+)", block)
             objects = pointers[4 : pointers.index("NULL")]
             groups[m.group(1)] = (int(m.group(2), 16), pointers[:4], objects)
-    filler = groups["ObjectGroup0"][1]
+    filler = groups["ObjectGroup_Empty"][1]
     num_free = 0
     for name, (bank_offset, gfx, objects) in groups.items():
         if bank_offset:  # bosses: SetOwlTileOffset picks slot 1

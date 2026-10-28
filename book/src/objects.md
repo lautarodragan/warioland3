@@ -86,7 +86,11 @@ their update function (`ClearGateFunc.Update`).
 Each room header names an object group (`wObjectGroup`).
 `LoadObjectGroupData` (`load_objects.asm`) reads `ObjectGroups`: one entry
 per `OBJECT_GROUP_*` constant (146 of them), pairing a common-objects set
-with one of the 118 `ObjectGroupN` lists (`src/data/object_groups.asm`). It:
+with one of the 118 `ObjectGroup_*` lists (`src/data/object_groups.asm`).
+Both are named after the level that uses them (see
+[Levels and rooms](levels-and-rooms.md)); a list that several groups share
+(with different common-objects colours) is named after the first of them,
+with the others in a comment above it. It:
 
 1. resets `wOwlTileOffset` (this fork, see [The debug owl](debug-owl.md))
    and fills all 16 `wObjDataPointers` with `DummyObjectData`;

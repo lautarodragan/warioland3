@@ -1,4 +1,4 @@
-ObjectGroup0:
+ObjectGroup_Empty:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -13,7 +13,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup1:
+ObjectGroup_BeneathTheWaves1:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -32,7 +32,8 @@ INCLUDE "gfx/pals/count_richtertoffen.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
-ObjectGroup2:
+; also OBJECT_GROUP_UNUSED_039
+ObjectGroup_Shared1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -51,7 +52,8 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/torch.pal"
 
-ObjectGroup3:
+; also OBJECT_GROUP_OUT_OF_THE_WOODS_2, OBJECT_GROUP_SHARED_13, OBJECT_GROUP_UNUSED_103
+ObjectGroup_Shared2:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -70,7 +72,8 @@ INCLUDE "gfx/pals/count_richtertoffen.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup4:
+; also OBJECT_GROUP_THE_TIDAL_COAST_2
+ObjectGroup_Shared12:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -89,7 +92,7 @@ INCLUDE "gfx/pals/webber1.pal"
 INCLUDE "gfx/pals/omodon.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup5:
+ObjectGroup_CaveOfFlames1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -108,7 +111,7 @@ INCLUDE "gfx/pals/webber1.pal"
 INCLUDE "gfx/pals/omodon.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup6:
+ObjectGroup_Shared3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -128,7 +131,7 @@ INCLUDE "gfx/pals/kushimushi.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup7:
+ObjectGroup_OutOfTheWoods6:
 	db $00 ; GFX bank offset
 
 	dw MizuuoGfx
@@ -144,7 +147,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup8:
+ObjectGroup_OutOfTheWoods4:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -164,7 +167,7 @@ INCLUDE "gfx/pals/kushimushi.pal"
 INCLUDE "gfx/pals/big_leaf.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup9:
+ObjectGroup_OutOfTheWoods7:
 	db $00 ; GFX bank offset
 
 	dw MizuuoGfx
@@ -182,7 +185,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/big_leaf.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup10:
+ObjectGroup_Shared4:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -200,7 +203,8 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup11:
+; also OBJECT_GROUP_SHARED_8
+ObjectGroup_Shared5:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -219,7 +223,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup12:
+ObjectGroup_Shared11:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -238,7 +242,8 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup13:
+; also OBJECT_GROUP_THE_POOL_OF_RAIN_2
+ObjectGroup_OutOfTheWoods1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -257,7 +262,8 @@ INCLUDE "gfx/pals/webber2.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/small_leaf.pal"
 
-ObjectGroup14:
+; also OBJECT_GROUP_SHARED_27
+ObjectGroup_Shared6:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -276,7 +282,8 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/torch.pal"
 
-ObjectGroup15:
+; also OBJECT_GROUP_BENEATH_THE_WAVES_6
+ObjectGroup_Shared7:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -295,7 +302,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup16:
+ObjectGroup_TheVastPlain1:
 	db $00 ; GFX bank offset
 
 	dw MadSciensteinGfx
@@ -315,7 +322,8 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/futamogu1.pal"
 INCLUDE "gfx/pals/teruteru.pal"
 
-ObjectGroup17:
+; also OBJECT_GROUP_THE_POOL_OF_RAIN_4
+ObjectGroup_Shared9:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -334,7 +342,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 
-ObjectGroup18:
+ObjectGroup_Shared10:
 	db $00 ; GFX bank offset
 
 	dw MadSciensteinGfx
@@ -354,7 +362,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/electric_lamp.pal"
 
-ObjectGroup19:
+ObjectGroup_TheVastPlain2:
 	db $00 ; GFX bank offset
 
 	dw Sun1Gfx
@@ -371,7 +379,7 @@ INCLUDE "gfx/pals/sun.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup20:
+ObjectGroup_TheVastPlain4:
 	db $00 ; GFX bank offset
 
 	dw Moon1Gfx
@@ -388,7 +396,7 @@ INCLUDE "gfx/pals/moon.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup21:
+ObjectGroup_TheTidalCoast1:
 	db $00 ; GFX bank offset
 
 	dw UnusedFlowerGfx
@@ -407,7 +415,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/torch.pal"
 
-ObjectGroup22:
+ObjectGroup_DesertRuins1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -426,7 +434,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hand1.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup23:
+ObjectGroup_DesertRuins3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -442,7 +450,8 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup24:
+; also OBJECT_GROUP_BENEATH_THE_WAVES_3, OBJECT_GROUP_THE_TIDAL_COAST_3
+ObjectGroup_Shared14:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -461,7 +470,8 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup25:
+; also OBJECT_GROUP_SHARED_16
+ObjectGroup_Shared15:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -480,7 +490,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/water_drop.pal"
 
-ObjectGroup26:
+ObjectGroup_TheWestCrater2:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -500,7 +510,8 @@ INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/cart.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup27:
+; also OBJECT_GROUP_UNUSED_066
+ObjectGroup_TheVolcanosBase1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -520,7 +531,7 @@ INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/cart.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup28:
+ObjectGroup_TheVolcanosBase4:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -540,7 +551,7 @@ INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/cart.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup29:
+ObjectGroup_SeaTurtleRocks3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -559,7 +570,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/cart.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup30:
+ObjectGroup_TheVolcanosBase3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -579,7 +590,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
-ObjectGroup31:
+ObjectGroup_Shared22:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -598,7 +609,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
-ObjectGroup32:
+ObjectGroup_SeaTurtleRocks1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -617,7 +628,8 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/electric_lamp.pal"
 
-ObjectGroup33:
+; also OBJECT_GROUP_THE_STAGNANT_SWAMP_1
+ObjectGroup_ThePeacefulVillage4:
 	db $00 ; GFX bank offset
 
 	dw RoboMouse1Gfx
@@ -634,7 +646,8 @@ INCLUDE "gfx/pals/robo_mouse.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup34:
+; also OBJECT_GROUP_CASTLE_OF_ILLUSIONS_5
+ObjectGroup_Shared17:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -653,7 +666,8 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/togeba.pal"
 
-ObjectGroup35:
+; also OBJECT_GROUP_UNUSED_046, OBJECT_GROUP_THE_BIG_BRIDGE_4
+ObjectGroup_BeneathTheWaves4:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -672,7 +686,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup36:
+ObjectGroup_TheBigBridge2:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -692,7 +706,7 @@ INCLUDE "gfx/pals/webber2.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
-ObjectGroup37:
+ObjectGroup_TheColossalHole1:
 	db $00 ; GFX bank offset
 
 	dw OwlGfx
@@ -711,7 +725,7 @@ INCLUDE "gfx/pals/webber1.pal"
 INCLUDE "gfx/pals/omodon.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup38:
+ObjectGroup_TheColossalHole3:
 	db $00 ; GFX bank offset
 
 	dw OwlGfx
@@ -730,7 +744,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup39:
+ObjectGroup_Shared18:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -753,7 +767,8 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zip_line.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
-ObjectGroup40:
+; also OBJECT_GROUP_SHARED_21
+ObjectGroup_Shared19:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -772,7 +787,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup41:
+ObjectGroup_OutOfTheWoods3:
 	db $04 ; GFX bank offset
 
 	dw Anonster1Gfx
@@ -786,7 +801,8 @@ ObjectGroup41:
 
 INCLUDE "gfx/pals/anonster.pal"
 
-ObjectGroup42:
+; also OBJECT_GROUP_TOWER_OF_REVIVAL_1
+ObjectGroup_Shared20:
 	db $00 ; GFX bank offset
 
 	dw StoveGfx
@@ -806,7 +822,8 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/flame_block.pal"
 INCLUDE "gfx/pals/torch.pal"
 
-ObjectGroup43:
+; also OBJECT_GROUP_FOREST_OF_FEAR_3
+ObjectGroup_TheColossalHole5:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -825,7 +842,8 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup44:
+; also OBJECT_GROUP_FOREST_OF_FEAR_2, OBJECT_GROUP_FOREST_OF_FEAR_1
+ObjectGroup_CastleOfIllusions2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -843,7 +861,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup45:
+ObjectGroup_TheVolcanosBase2:
 	db $04 ; GFX bank offset
 
 	dw DollBoy1Gfx
@@ -860,7 +878,7 @@ ObjectGroup45:
 
 INCLUDE "gfx/pals/doll_boy.pal"
 
-ObjectGroup46:
+ObjectGroup_TheVastPlain3:
 	db $00 ; GFX bank offset
 
 	dw MadSciensteinGfx
@@ -880,7 +898,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup47:
+ObjectGroup_TheGrasslands3:
 	db $04 ; GFX bank offset
 
 	dw Wormwould1Gfx
@@ -894,7 +912,7 @@ ObjectGroup47:
 
 INCLUDE "gfx/pals/wormwould.pal"
 
-ObjectGroup48:
+ObjectGroup_CastleOfIllusions3:
 	db $00 ; GFX bank offset
 
 	dw OwlGfx
@@ -911,7 +929,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup49:
+ObjectGroup_ThePoolOfRain1:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -932,7 +950,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/futamogu2.pal"
 INCLUDE "gfx/pals/pillar_platform.pal"
 
-ObjectGroup50:
+ObjectGroup_ThePeacefulVillage1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -951,7 +969,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup51:
+ObjectGroup_ThePeacefulVillage5:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -970,7 +988,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup52:
+ObjectGroup_DesertRuins2:
 	db $04 ; GFX bank offset
 
 	dw YellowBelly1Gfx
@@ -984,7 +1002,7 @@ ObjectGroup52:
 
 INCLUDE "gfx/pals/yellow_belly.pal"
 
-ObjectGroup53:
+ObjectGroup_ATownInChaos3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1003,7 +1021,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/water_drop.pal"
 
-ObjectGroup54:
+ObjectGroup_ThePeacefulVillage2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1022,7 +1040,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup55:
+ObjectGroup_Shared23:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -1041,7 +1059,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/zip_line.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup56:
+ObjectGroup_BankOfTheWildRiver3:
 	db $04 ; GFX bank offset
 
 	dw Pesce1Gfx
@@ -1058,7 +1076,7 @@ ObjectGroup56:
 
 INCLUDE "gfx/pals/pesce.pal"
 
-ObjectGroup57:
+ObjectGroup_Shared24:
 	db $00 ; GFX bank offset
 
 	dw StoveGfx
@@ -1076,7 +1094,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup58:
+ObjectGroup_ATownInChaos2:
 	db $00 ; GFX bank offset
 
 	dw StoveGfx
@@ -1095,7 +1113,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup59:
+ObjectGroup_TheGrasslands5:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -1115,7 +1133,8 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
-ObjectGroup60:
+; also OBJECT_GROUP_THE_PEACEFUL_VILLAGE_3
+ObjectGroup_TheBigBridge1:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -1134,7 +1153,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/tadpole.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup61:
+ObjectGroup_BankOfTheWildRiver2:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -1153,7 +1172,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/water_drop.pal"
 
-ObjectGroup62:
+ObjectGroup_TowerOfRevival3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1173,7 +1192,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/spark.pal"
 
-ObjectGroup63:
+ObjectGroup_TheStagnantSwamp3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1192,7 +1211,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
-ObjectGroup64:
+ObjectGroup_TheColossalHole4:
 	db $00 ; GFX bank offset
 
 	dw Sun1Gfx
@@ -1210,7 +1229,7 @@ INCLUDE "gfx/pals/sun.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup65:
+ObjectGroup_TheGrasslands2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1229,7 +1248,7 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup66:
+ObjectGroup_TheEastCrater1:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -1248,7 +1267,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/wall_crack.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup67:
+ObjectGroup_TheEastCrater4:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -1267,7 +1286,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/fire.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup68:
+ObjectGroup_TheEastCrater3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1287,7 +1306,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/kobatto.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
-ObjectGroup69:
+ObjectGroup_TheEastCrater2:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -1306,7 +1325,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/wall_crack.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup70:
+ObjectGroup_SeaTurtleRocks2:
 	db $04 ; GFX bank offset
 
 	dw Scowler1Gfx
@@ -1320,7 +1339,7 @@ ObjectGroup70:
 
 INCLUDE "gfx/pals/scowler.pal"
 
-ObjectGroup71:
+ObjectGroup_BankOfTheWildRiver1:
 	db $00 ; GFX bank offset
 
 	dw WaterSparkGfx
@@ -1339,7 +1358,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup72:
+ObjectGroup_Shared25:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -1358,7 +1377,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/octohon.pal"
 
-ObjectGroup73:
+ObjectGroup_Shared26:
 	db $00 ; GFX bank offset
 
 	dw HaridamaGfx
@@ -1377,7 +1396,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/bubble.pal"
 INCLUDE "gfx/pals/octohon.pal"
 
-ObjectGroup74:
+ObjectGroup_TheSteepCanyon1:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -1396,7 +1415,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hand2.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup75:
+ObjectGroup_TheSteepCanyon2:
 	db $00 ; GFX bank offset
 
 	dw OwlGfx
@@ -1416,7 +1435,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/spark.pal"
 
-ObjectGroup76:
+ObjectGroup_TheFrigidSea1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1435,7 +1454,8 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/rock.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup77:
+; also OBJECT_GROUP_THE_FRIGID_SEA_2
+ObjectGroup_Shared28:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1454,7 +1474,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/falling_snow.pal"
 
-ObjectGroup78:
+ObjectGroup_TheWestCrater1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1473,7 +1493,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup79:
+ObjectGroup_TheGrasslands6:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -1492,7 +1512,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup80:
+ObjectGroup_TheGrasslands4:
 	db $00 ; GFX bank offset
 
 	dw StoveGfx
@@ -1509,7 +1529,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup81:
+ObjectGroup_Shared29:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1528,7 +1548,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/fire.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup82:
+ObjectGroup_TheStagnantSwamp4:
 	db $04 ; GFX bank offset
 
 	dw Jamano1Gfx
@@ -1543,7 +1563,7 @@ ObjectGroup82:
 
 INCLUDE "gfx/pals/jamano.pal"
 
-ObjectGroup83:
+ObjectGroup_Shared30:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1562,7 +1582,7 @@ INCLUDE "gfx/pals/webber1.pal"
 INCLUDE "gfx/pals/omodon.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup84:
+ObjectGroup_TheColossalHole2:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -1581,7 +1601,8 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup85:
+; also OBJECT_GROUP_SHARED_33
+ObjectGroup_Shared31:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1600,7 +1621,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup86:
+ObjectGroup_TheStagnantSwamp2:
 	db $04 ; GFX bank offset
 
 	dw Muddee1Gfx
@@ -1615,7 +1636,7 @@ ObjectGroup86:
 
 INCLUDE "gfx/pals/muddee.pal"
 
-ObjectGroup87:
+ObjectGroup_ThePoolOfRain3:
 	db $04 ; GFX bank offset
 
 	dw Wolfenboss1Gfx
@@ -1629,7 +1650,7 @@ ObjectGroup87:
 
 INCLUDE "gfx/pals/wolfenboss.pal"
 
-ObjectGroup88:
+ObjectGroup_TheWarpedVoid2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1648,7 +1669,7 @@ INCLUDE "gfx/pals/count_richtertoffen.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup89:
+ObjectGroup_TheWarpedVoid1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1667,7 +1688,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/omodon.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup90:
+ObjectGroup_TheGrasslands1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1687,7 +1708,8 @@ INCLUDE "gfx/pals/orange_bird.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/nobiiru.pal"
 
-ObjectGroup91:
+; also OBJECT_GROUP_THE_FRIGID_SEA_3
+ObjectGroup_Shared32:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1704,7 +1726,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup92:
+ObjectGroup_OutOfTheWoods5:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -1722,7 +1744,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup93:
+ObjectGroup_TowerOfRevival2:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -1741,7 +1763,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup94:
+ObjectGroup_CastleOfIllusions1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1760,7 +1782,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup95:
+ObjectGroup_ATownInChaos5:
 	db $04 ; GFX bank offset
 
 	dw Shoot1Gfx
@@ -1777,7 +1799,7 @@ ObjectGroup95:
 
 INCLUDE "gfx/pals/shoot.pal"
 
-ObjectGroup96:
+ObjectGroup_TowerOfRevival4:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1797,7 +1819,7 @@ INCLUDE "gfx/pals/appleby.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/spark.pal"
 
-ObjectGroup97:
+ObjectGroup_CaveOfFlames4:
 	db $00 ; GFX bank offset
 
 	dw MadSciensteinGfx
@@ -1817,7 +1839,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/tadpole.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup98:
+ObjectGroup_ATownInChaos1:
 	db $00 ; GFX bank offset
 
 	dw SilkyGfx
@@ -1836,7 +1858,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup99:
+ObjectGroup_TheBigBridge5:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1853,7 +1875,7 @@ INCLUDE "gfx/pals/webber2.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup100:
+ObjectGroup_TheBigBridge3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1872,7 +1894,8 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup101:
+; also OBJECT_GROUP_ABOVE_THE_CLOUDS_2
+ObjectGroup_AboveTheClouds1:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1892,7 +1915,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/spark.pal"
 
-ObjectGroup102:
+ObjectGroup_Shared34:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -1911,7 +1934,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/zombie.pal"
 INCLUDE "gfx/pals/clear_gate.pal"
 
-ObjectGroup103:
+ObjectGroup_AboveTheClouds3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1930,7 +1953,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/rock.pal"
 INCLUDE "gfx/pals/togeba.pal"
 
-ObjectGroup104:
+ObjectGroup_AboveTheClouds5:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1949,7 +1972,7 @@ INCLUDE "gfx/pals/blue_bird.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup105:
+ObjectGroup_AboveTheClouds4:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -1968,7 +1991,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/beam_bot.pal"
 
-ObjectGroup106:
+ObjectGroup_TheColossalHole6:
 	db $00 ; GFX bank offset
 
 	dw Moon1Gfx
@@ -1986,7 +2009,7 @@ INCLUDE "gfx/pals/moon.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup107:
+ObjectGroup_BeneathTheWaves5:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2005,7 +2028,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/brrr_bear.pal"
 
-ObjectGroup108:
+ObjectGroup_CaveOfFlames3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2024,7 +2047,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/doughnuteer.pal"
 INCLUDE "gfx/pals/togeba.pal"
 
-ObjectGroup109:
+ObjectGroup_CaveOfFlames2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2043,7 +2066,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/spear_bot.pal"
 INCLUDE "gfx/pals/omodonmeka.pal"
 
-ObjectGroup110:
+ObjectGroup_TheWestCrater3:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2062,7 +2085,7 @@ INCLUDE "gfx/pals/hammer_bot.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup111:
+ObjectGroup_TheEastCrater5:
 	db $00 ; GFX bank offset
 
 	dw SnakeGfx
@@ -2081,7 +2104,7 @@ INCLUDE "gfx/pals/para_goom.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/fire_bot.pal"
 
-ObjectGroup112:
+ObjectGroup_TheEastCrater6:
 	db $00 ; GFX bank offset
 
 	dw PrinceFroggyGfx
@@ -2100,7 +2123,7 @@ INCLUDE "gfx/pals/pneumo.pal"
 INCLUDE "gfx/pals/wall_crack.pal"
 INCLUDE "gfx/pals/barrel.pal"
 
-ObjectGroup113:
+ObjectGroup_BankOfTheWildRiver4:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2119,7 +2142,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/rock.pal"
 INCLUDE "gfx/pals/torch.pal"
 
-ObjectGroup114:
+ObjectGroup_CastleOfIllusions4:
 	db $00 ; GFX bank offset
 
 	dw StoveGfx
@@ -2137,7 +2160,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup115:
+ObjectGroup_CastleOfIllusions6:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2155,7 +2178,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/hebarii.pal"
 INCLUDE "gfx/pals/dummy.pal"
 
-ObjectGroup116:
+ObjectGroup_BeneathTheWaves2:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
@@ -2174,7 +2197,7 @@ INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/dummy.pal"
 INCLUDE "gfx/pals/teruteru.pal"
 
-ObjectGroup117:
+ObjectGroup_ATownInChaos4:
 	db $00 ; GFX bank offset
 
 	dw SpearheadGfx
