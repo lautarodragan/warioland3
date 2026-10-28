@@ -108,7 +108,7 @@ BirdFunc:
 .asm_43327
 	ld a, $23
 	ld [hli], a
-	ld a, $2f
+	ld a, OBJSTATE_SPECIAL_3
 	ld [wCurObjState], a
 	play_sfx SFX_BIRD_ALERT
 	ret
@@ -144,21 +144,21 @@ BirdFunc:
 	ld a, [hl]
 	and a
 	jp z, .Idle
-	cp $2f
+	cp OBJSTATE_SPECIAL_3
 	jr z, .Special3
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jr z, .asm_4338f
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jr z, .asm_43394
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_433c7
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .asm_433ca
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_433d2
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .asm_433e2
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_433da
 	rra
 	jr nc, .asm_433d2
@@ -251,7 +251,7 @@ BirdFunc:
 
 .BlueBirdWait:
 	ld hl, wCurObjAction
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [hld], a
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
@@ -269,7 +269,7 @@ BirdFunc:
 
 .BlueBirdLand:
 	ld hl, wCurObjAction
-	ld a, $81
+	ld a, no_actions_for 1
 	ld [hld], a
 	ld a, [hl]
 	and a
@@ -278,7 +278,7 @@ BirdFunc:
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE
-	ld a, $01
+	ld a, OBJSTATE_LAND
 	ld [hld], a
 	ld a, [hl]
 	rlca

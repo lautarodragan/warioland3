@@ -28,6 +28,11 @@ DEF BARREL_FLASH_DELAY          EQU  70 ; delay before a barrel starts flashing
 DEF BARREL_FLASH_DURATION       EQU 240 ; duration of barrel flashing
 DEF HAMMER_PLATFORM_DURATION    EQU 140 ; duration for hammer platform movement (going up or down)
 
+; Doll Boy's own states (see DollBoyFunc.WalkingPhase)
+DEF OBJSTATE_DOLLBOY_JUMP_DOWN EQU OBJSTATE_5A ; jump to the platform below
+DEF OBJSTATE_DOLLBOY_JUMP_UP   EQU OBJSTATE_5B ; jump to the platform above
+DEF OBJSTATE_DOLLBOY_STUNNED   EQU OBJSTATE_5C ; stunned and vulnerable
+
 DollBoyFunc:
 	ld a, TRUE
 	ld [wIsBossBattle], a
@@ -330,11 +335,11 @@ DollBoyFunc:
 	jp CreateObjectAtRelativePos
 
 .asm_50cc4
-	ld a, $32 ; wCurObjState
+	ld a, OBJSTATE_BUMP_LEFT ; wCurObjState
 	ld [hld], a
 	jr .asm_50ccc
 .asm_50cc9
-	ld a, $33
+	ld a, OBJSTATE_BUMP_RIGHT
 	ld [hld], a ; wCurObjState
 .asm_50ccc
 	ld a, 12
@@ -345,7 +350,7 @@ DollBoyFunc:
 
 .set_stunned
 	play_sfx SFX_DOLL_BOY_STUNNED
-	ld a, $5c
+	ld a, OBJSTATE_DOLLBOY_STUNNED
 	ld [hld], a ; wCurObjState
 	ld a, [hld] ; wCurObjSubState
 	rlca
@@ -449,28 +454,28 @@ DollBoyFunc:
 	ld a, [hl]
 	and a
 	jp z, .switch_direction
-	cp $5a
+	cp OBJSTATE_DOLLBOY_JUMP_DOWN
 	jp z, .jump_platform_below
-	cp $5b
+	cp OBJSTATE_DOLLBOY_JUMP_UP
 	jp z, .jump_platform_above
-	cp $5c
+	cp OBJSTATE_DOLLBOY_STUNNED
 	jp z, .update_stunned
-	cp $02
+	cp OBJSTATE_BUMP_LEFT_START
 	jp z, .asm_50cc4
-	cp $03
+	cp OBJSTATE_BUMP_RIGHT_START
 	jp z, .asm_50cc9
-	cp $32
+	cp OBJSTATE_BUMP_LEFT
 	jp z, ObjState_BumpLeft
-	cp $33
+	cp OBJSTATE_BUMP_RIGHT
 	jp z, ObjState_BumpRight
-	cp $0b
+	cp OBJSTATE_HIT_WARIO_RIGHT_START
 	jp z, .show_stars_left
-	cp $0c
+	cp OBJSTATE_HIT_WARIO_LEFT_START
 	jp z, .show_stars_right
 	and $fe
-	cp $08
+	cp OBJSTATE_WOBBLE_LEFT_START ; or OBJSTATE_WOBBLE_RIGHT_START
 	jp z, .set_stunned
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .asm_50de0
 	ld a, [wCurObjVar1]
 	inc a
@@ -483,7 +488,7 @@ DollBoyFunc:
 	ld a, [wCurObjVar1]
 	inc a
 	jp nz, .set_stunned
-	ld a, $48
+	ld a, OBJSTATE_GRABBED_LEFT
 	ld [hld], a ; wCurObjState
 	ld a, [hl] ; wCurObjSubState
 	and OBJSUBFLAGS_MASK
@@ -594,13 +599,13 @@ DollBoyFunc:
 	cp -$1f
 	jr nc, .handle_walk_movement
 	; jump to platform below
-	ld a, $5a
+	ld a, OBJSTATE_DOLLBOY_JUMP_DOWN
 	jr .asm_50eb1
 .asm_50eab
 	cp $20
 	jr c, .handle_walk_movement
 	; jump to platform above
-	ld a, $5b
+	ld a, OBJSTATE_DOLLBOY_JUMP_UP
 .asm_50eb1
 	ld l, OBJ_STATE
 	ld [hld], a ; wCurObjState
@@ -980,7 +985,7 @@ DollBoyBarrelFunc:
 .not_on_screen
 	ld l, OBJ_STATE
 	ld a, [hld]
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .attacked
 	ld l, OBJ_STATE_DURATION
 	dec [hl]

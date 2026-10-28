@@ -35,7 +35,7 @@ ApplebyFunc:
 	call SetObjectFramesetPtr
 	ld a, 29
 	ld [hli], a
-	ld a, $5a
+	ld a, OBJSTATE_5A
 	ld [wCurObjState], a
 	ld l, OBJ_FLAGS
 	res OBJFLAG_NO_COLLISION_F, [hl]
@@ -46,15 +46,15 @@ ApplebyFunc:
 	ld a, [hl]
 	and a
 	jr z, .Hidden
-	cp $2a
+	cp OBJSTATE_ACTIVATE
 	jp c, .HandleHit
-	cp $5a
+	cp OBJSTATE_5A
 	jr z, .asm_47a1e
-	cp $5b
+	cp OBJSTATE_5B
 	jr z, .asm_47a6b
-	cp $5c
+	cp OBJSTATE_5C
 	jr z, .asm_47a4a
-	cp $2d
+	cp OBJSTATE_SPECIAL_1
 	jr z, .asm_47a33
 	ret
 
@@ -145,23 +145,23 @@ ApplebyFunc:
 	call SetObjectFramesetPtr
 	ld a, 122
 	ld [hli], a
-	ld a, $5c
+	ld a, OBJSTATE_5C
 	ld [wCurObjState], a
 	ret
 
 .HandleHit:
-	cp $0a
+	cp OBJSTATE_VANISH_TOUCH
 	jr z, .asm_47ad5
-	cp $04
+	cp OBJSTATE_ATTACKED_LEFT_START
 	jr z, .asm_47ae8
-	cp $05
+	cp OBJSTATE_ATTACKED_RIGHT_START
 	jr z, .asm_47af0
-	cp $28
+	cp OBJSTATE_HIT_BY_OBJ_LEFT_START
 	jr z, .asm_47ad8
-	cp $29
+	cp OBJSTATE_HIT_BY_OBJ_RIGHT_START
 	jr z, .asm_47ae0
 .asm_47ac4
-	ld a, $2d
+	ld a, OBJSTATE_SPECIAL_1
 	ld [hl], a
 	ld de, ApplebyFrameset_68a09
 	call SetObjectFramesetPtr
@@ -303,9 +303,9 @@ AppleFunc:
 	inc [hl]
 .asm_47b9c
 	ld a, [wCurObjState]
-	cp $18
+	cp OBJSTATE_TRIGGERED
 	jr z, .destroy
-	cp $19
+	cp OBJSTATE_NO_EFFECT
 	jr z, .asm_47bb2
 	ld bc, ApplebyData_60670
 	jp ApplyObjYMovement
