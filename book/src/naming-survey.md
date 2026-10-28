@@ -3341,8 +3341,12 @@ Labels that carried those numbers were renamed too: `SetObjAction_0D` ->
   the direction of motion.
 - `ObjInteraction_TopSting` stings on `INTERACTION_UP` and steps on
   `INTERACTION_DOWN`, and `ObjInteraction_BottomSting` does the reverse,
-  while `Walkable` and `SolidPlatform` stand on `INTERACTION_UP`. One of
-  the two sting names may be the wrong way round.
+  while `Walkable` and `SolidPlatform` stand on `INTERACTION_UP`. Checked
+  afterwards: the names are right. `INTERACTION_UP` is Wario touching the
+  object's top (where `Walkable` lets him stand), so `TopSting` stings from
+  above and lets him step on its underside, and `BottomSting` the reverse.
+  Kushimushi, on its thread, switches to `TOP_STING` at one turn and
+  `BOTTOM_STING` at the other; Para-Goom's spiky form is `TOP_STING`.
 - Many objects still use raw state literals (`cp $18`, `ld a, $3b`,
   `ld a, $5a`...). Only the one in `update_objects.asm` was converted.
 
