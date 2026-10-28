@@ -36,6 +36,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 21 | Sixth pass, sound effects: 151 `SFX_*` constants, their sound data labels and the code labels named after their numbers; see "Sixth pass: sound effects" | 151 |
 | 22 | Sixth pass, substates and other constants: `SST_*`, audio commands, flags and struct fields, `GRAB_PICK_UP_BLOCKED`, `ROOMTRANSITION_*`, `EVENT_NONE`, `unk` gfx files; see "Sixth pass: substates and other constants" | ~45 |
 | 23 | Sound effects named by owner and order (one scene or object each), e.g. `SFX_VOLCANO_ERUPTION_1`..`6` | 40 |
+| 24 | Object state, action and interaction literals written as constants (972 lines), object-local aliases for `OBJSTATE_5A`-`5C`; see "Object state literals" | 972 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3348,8 +3349,8 @@ Labels that carried those numbers were renamed too: `SetObjAction_0D` ->
   above and lets him step on its underside, and `BottomSting` the reverse.
   Kushimushi, on its thread, switches to `TOP_STING` at one turn and
   `BOTTOM_STING` at the other; Para-Goom's spiky form is `TOP_STING`.
-- Many objects still use raw state literals (`cp $18`, `ld a, $3b`,
-  `ld a, $5a`...). Only the one in `update_objects.asm` was converted.
+- Many objects still used raw state literals (`cp $18`, `ld a, $3b`,
+  `ld a, $5a`...); see "Object state literals" below, which converted them.
 
 ## Sixth pass: sound effects
 
