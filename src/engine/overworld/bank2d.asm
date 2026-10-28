@@ -8129,10 +8129,10 @@ EOWFunc_BurnVines:
 	play_sfx SFX_FIRE
 	ret
 .asm_b77f1
-	play_sfx SFX_125
+	play_sfx SFX_BURN_VINES_1
 	ret
 .asm_b77fa
-	play_sfx SFX_126
+	play_sfx SFX_BURN_VINES_2
 	ret
 
 .Wait40_1:

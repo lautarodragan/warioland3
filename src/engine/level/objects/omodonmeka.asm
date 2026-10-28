@@ -358,7 +358,7 @@ OmodonmekaFunc:
 	ld [hl], a
 	ld a, $00
 	ld [wCurObjCollBoxBottom], a
-	play_sfx SFX_088
+	play_sfx SFX_OMODONMEKA
 	ret
 
 .Fall:

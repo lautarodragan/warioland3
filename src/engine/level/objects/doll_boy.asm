@@ -226,7 +226,7 @@ DollBoyFunc:
 	ld [hl], a
 .spawn_hammer
 	inc [hl] ; next hammer range
-	play_sfx SFX_0A2
+	play_sfx SFX_DOLL_BOY
 	ld bc, ObjParams_DollBoyHammer
 	jp CreateObjectAtRelativePos
 
@@ -620,7 +620,7 @@ DollBoyFunc:
 	jr nz, .no_sfx
 	ld a, [wCurObjFrameDuration]
 	cp $01
-	play_sfx z, SFX_0A2
+	play_sfx z, SFX_DOLL_BOY
 .no_sfx
 	ld hl, wCurObjYPos
 	ld a, [hli]

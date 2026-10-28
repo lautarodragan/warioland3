@@ -372,7 +372,7 @@ ZombieFunc:
 	call SetObjectFramesetPtr
 	ld a, 50
 	ld [hli], a
-	play_sfx SFX_064
+	play_sfx SFX_ZOMBIE
 	ret
 
 .asm_45d32

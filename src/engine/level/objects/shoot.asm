@@ -132,7 +132,7 @@ ShootFunc:
 	jp .set_standing
 
 .asm_566a9
-	play_sfx SFX_0C9
+	play_sfx SFX_SHOOT
 	ld a, [wCurObjSubState]
 	rlca
 	jr nc, .asm_566bd

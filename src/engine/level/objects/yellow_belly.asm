@@ -550,7 +550,7 @@ YellowBellyBodyFunc:
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	jp z, .start_shooting
-	play_sfx SFX_0A8
+	play_sfx SFX_YELLOW_BELLY
 .asm_51729
 	ld hl, wCurObjYPos
 	ld a, [hli]

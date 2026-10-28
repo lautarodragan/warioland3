@@ -1965,7 +1965,7 @@ GolfHoleState_SpecialTerrain:
 .asm_1c9708
 	ld a, [wGolfOverlayTextDuration]
 	and a
-	play_sfx z, SFX_0F0
+	play_sfx z, SFX_GOLF_SPECIAL_TERRAIN_1
 .asm_1c9716
 	ld a, [wGolfOverlayTextCurrentFrame]
 	ld [wGolfOverlayTextFrame], a
@@ -1996,7 +1996,7 @@ GolfHoleState_SpecialTerrain:
 	ld hl, wGolfParaGoomYPos
 	ld a, [hli]
 	or [hl]
-	play_sfx z, SFX_0EE
+	play_sfx z, SFX_GOLF_SPECIAL_TERRAIN_2
 
 	ld hl, wLastGolfParaGoomYPos
 	ld a, [hli]

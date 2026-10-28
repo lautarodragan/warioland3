@@ -171,7 +171,7 @@ SoundHeaders:
 	sfx Sfx_Earthquake,                  $00, 239, CHAN8_F, 1 ; SFX_EARTHQUAKE
 	sfx Sfx_Click,                       $00, 237, CHAN8_F, 1 ; SFX_CLICK
 	sfx Sfx_Slam,                        $00, 239, CHAN8_F, 1 ; SFX_SLAM
-	sfx Sfx_064,                         $00, 220, CHAN5_F, 1 ; SFX_064
+	sfx Sfx_Zombie,                      $00, 220, CHAN5_F, 1 ; SFX_ZOMBIE
 	sfx Sfx_GolfBunker,                  $00, 221, CHAN8_F, 1 ; SFX_GOLF_BUNKER
 	sfx Sfx_BallBounce,                  $00, 220, CHAN5_F, 1 ; SFX_BALL_BOUNCE
 	sfx Sfx_EnemyThrow,                  $00, 220, CHAN5_F, 1 ; SFX_ENEMY_THROW
@@ -194,7 +194,7 @@ SoundHeaders:
 	sfx Sfx_StoveRattle,                 $00, 240, CHAN8_F, 1 ; SFX_STOVE_RATTLE
 	sfx Sfx_NobiiruExtend,               $00, 227, CHAN8_F, 1 ; SFX_NOBIIRU_EXTEND
 	sfx Sfx_SeeingEyeDoorLook,           $00, 227, CHAN8_F, 1 ; SFX_SEEING_EYE_DOOR_LOOK
-	sfx Sfx_07b,                         $00, 227, CHAN8_F, 1 ; SFX_07B
+	sfx Sfx_SeeingEyeDoor,               $00, 227, CHAN8_F, 1 ; SFX_SEEING_EYE_DOOR
 	sfx Sfx_Beam,                        $00, 220, CHAN5_F, 2 ; SFX_BEAM
 	sfx Sfx_FanSpin,                     $00, 221, CHAN8_F, 1 ; SFX_FAN_SPIN
 	sfx Sfx_EnemyShoot,                  $00, 239, CHAN5_F, 1 ; SFX_ENEMY_SHOOT
@@ -207,7 +207,7 @@ SoundHeaders:
 	sfx Sfx_MuddeeSwim,                  $00, 220, CHAN7_F, 1 ; SFX_MUDDEE_SWIM
 	sfx Sfx_BarrelJump,                  $00, 220, CHAN5_F, 1 ; SFX_BARREL_JUMP
 	sfx Sfx_OmodonmekaLift,              $00, 220, CHAN8_F, 1 ; SFX_OMODONMEKA_LIFT
-	sfx Sfx_088,                         $00, 220, CHAN5_F, 2 ; SFX_088
+	sfx Sfx_Omodonmeka,                  $00, 220, CHAN5_F, 2 ; SFX_OMODONMEKA
 	sfx Sfx_SnakeSpitFire,               $00, 227, CHAN8_F, 1 ; SFX_SNAKE_SPIT_FIRE
 	sfx Sfx_SnakePrepareFire,            $00, 227, CHAN5_F, 2 ; SFX_SNAKE_PREPARE_FIRE
 	sfx Sfx_SnakeSink,                   $00, 220, CHAN5_F, 1 ; SFX_SNAKE_SINK
@@ -218,54 +218,54 @@ SoundHeaders:
 	filler_sounds 17
 
 	sfx Sfx_WaterDrop,                   $00, 234, CHAN8_F, 1 ; SFX_WATER_DROP
-	sfx Sfx_0a2,                         $00, 234, CHAN5_F, 2 ; SFX_0A2
+	sfx Sfx_DollBoy,                     $00, 234, CHAN5_F, 2 ; SFX_DOLL_BOY
 	sfx Sfx_BossDefeatFall,              $00, 239, CHAN5_F, 1 ; SFX_BOSS_DEFEAT_FALL
 	sfx Sfx_DollBoyStunned,              $00, 239, CHAN7_F, 1 ; SFX_DOLL_BOY_STUNNED
 	sfx Sfx_YellowBellySpawnPump,        $00, 220, CHAN5_F, 1 ; SFX_YELLOW_BELLY_SPAWN_PUMP
-	sfx Sfx_0a6,                         $00, 220, CHAN7_F, 1 ; SFX_0A6
+	sfx Sfx_WormwouldAttack,             $00, 220, CHAN7_F, 1 ; SFX_WORMWOULD_ATTACK
 	sfx Sfx_WormwouldHurt,               $00, 239, CHAN7_F, 1 ; SFX_WORMWOULD_HURT
-	sfx Sfx_0a8,                         $00, 239, CHAN5_F, 2 ; SFX_0A8
+	sfx Sfx_YellowBelly,                 $00, 239, CHAN5_F, 2 ; SFX_YELLOW_BELLY
 	sfx Sfx_BossDefeated,                $00, 239, CHAN7_F, 1 ; SFX_BOSS_DEFEATED
 	sfx Sfx_WolfenbossSmoke,             $00, 239, CHAN5_F, 2 ; SFX_WOLFENBOSS_SMOKE
-	sfx Sfx_0ab,                         $00, 239, CHAN5_F, 1 ; SFX_0AB
+	sfx Sfx_Scowler,                     $00, 239, CHAN5_F, 1 ; SFX_SCOWLER
 	sfx Sfx_ScowlerDefeated,             $00, 239, CHAN5_F, 1 ; SFX_SCOWLER_DEFEATED
-	sfx Sfx_0ad,                         $00, 220, CHAN5_F, 1 ; SFX_0AD
-	sfx Sfx_0ae,                         $00, 220, CHAN5_F, 1 ; SFX_0AE
+	sfx Sfx_Pesce2,                      $00, 220, CHAN5_F, 1 ; SFX_PESCE_2
+	sfx Sfx_Pesce1,                      $00, 220, CHAN5_F, 1 ; SFX_PESCE_1
 	sfx Sfx_AnonsterWalk,                $00, 220, CHAN5_F, 1 ; SFX_ANONSTER_WALK
-	sfx Sfx_0b0,                         $00, 220, CHAN5_F, 2 ; SFX_0B0
-	sfx Sfx_0b1,                         $00, 239, CHAN5_F, 1 ; SFX_0B1
+	sfx Sfx_Anonster1,                   $00, 220, CHAN5_F, 2 ; SFX_ANONSTER_1
+	sfx Sfx_Anonster2,                   $00, 239, CHAN5_F, 1 ; SFX_ANONSTER_2
 	sfx Sfx_0b2,                         $00, 239, CHAN5_F, 2 ; SFX_0B2
 	sfx Sfx_ScowlerStunned,              $00, 239, CHAN5_F, 1 ; SFX_SCOWLER_STUNNED
 	sfx Sfx_ScowlerStomped,              $00, 239, CHAN5_F, 1 ; SFX_SCOWLER_STOMPED
-	sfx Sfx_0b5,                         $00, 238, CHAN5_F, 2 ; SFX_0B5
+	sfx Sfx_ScowlerInk1,                 $00, 238, CHAN5_F, 2 ; SFX_SCOWLER_INK_1
 	sfx Sfx_ScowlerBlackout,             $00, 238, CHAN5_F, 2 ; SFX_SCOWLER_BLACKOUT
 	sfx Sfx_0b7,                         $00, 239, CHAN5_F, 2 ; SFX_0B7
-	sfx Sfx_0b8,                         $00, 239, CHAN5_F, 2 ; SFX_0B8
+	sfx Sfx_ScowlerInk2,                 $00, 239, CHAN5_F, 2 ; SFX_SCOWLER_INK_2
 	sfx Sfx_0b9,                         $00, 220, CHAN5_F, 1 ; SFX_0B9
 	sfx Sfx_Pump,                        $00, 220, CHAN5_F, 2 ; SFX_PUMP
 	sfx Sfx_PesceHit,                    $00, 220, CHAN5_F, 2 ; SFX_PESCE_HIT
 	sfx Sfx_JamanoTurn,                  $00, 239, CHAN5_F, 1 ; SFX_JAMANO_TURN
 	sfx Sfx_JamanoDefeatPose,            $00, 239, CHAN5_F, 1 ; SFX_JAMANO_DEFEAT_POSE
 	sfx Sfx_PesceFly,                    $00, 239, CHAN7_F, 1 ; SFX_PESCE_FLY
-	sfx Sfx_0bf,                         $00, 239, CHAN7_F, 1 ; SFX_0BF
+	sfx Sfx_JamanoSkull,                 $00, 239, CHAN7_F, 1 ; SFX_JAMANO_SKULL
 	sfx Sfx_MuddeeHurt,                  $00, 239, CHAN7_F, 1 ; SFX_MUDDEE_HURT
 	sfx Sfx_MuddeeBubble,                $00, 238, CHAN5_F, 2 ; SFX_MUDDEE_BUBBLE
 	sfx Sfx_MagicSpiralGrow,             $00, 230, CHAN5_F, 1 ; SFX_MAGIC_SPIRAL_GROW
 	sfx Sfx_WolfenbossHover,             $00, 219, CHAN5_F, 1 ; SFX_WOLFENBOSS_HOVER
 	sfx Sfx_0c4,                         $00, 220, CHAN5_F, 1 ; SFX_0C4
-	sfx Sfx_0c5,                         $00, 220, CHAN5_F, 1 ; SFX_0C5
+	sfx Sfx_Igaguri,                     $00, 220, CHAN5_F, 1 ; SFX_IGAGURI
 	sfx Sfx_ShootTaunt,                  $00, 220, CHAN5_F, 1 ; SFX_SHOOT_TAUNT
 	sfx Sfx_ShootGoal,                   $00, 239, CHAN5_F, 2 ; SFX_SHOOT_GOAL
 	sfx Sfx_ShootJump,                   $00, 220, CHAN5_F, 1 ; SFX_SHOOT_JUMP
-	sfx Sfx_0c9,                         $00, 220, CHAN5_F, 1 ; SFX_0C9
+	sfx Sfx_Shoot,                       $00, 220, CHAN5_F, 1 ; SFX_SHOOT
 	sfx Sfx_BossAppear,                  $00, 240, CHAN5_F, 2 ; SFX_BOSS_APPEAR
-	sfx Sfx_0cb,                         $00, 239, CHAN8_F, 1 ; SFX_0CB
+	sfx Sfx_HiddenFigureHand1,           $00, 239, CHAN8_F, 1 ; SFX_HIDDEN_FIGURE_HAND_1
 	sfx Sfx_0cc,                         $00, 220, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_LAUGH
 	sfx Sfx_HiddenFigureGrab,            $00, 220, CHAN5_F, 3 ; SFX_HIDDEN_FIGURE_GRAB
 	sfx Sfx_HiddenFigureHit,             $00, 240, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_HIT
 	sfx Sfx_HiddenFigureDefeated,        $00, 220, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_DEFEATED
-	sfx Sfx_0d0,                         $00, 239, CHAN5_F, 1 ; SFX_0D0
-	sfx Sfx_0d1,                         $00, 239, CHAN5_F, 2 ; SFX_0D1
+	sfx Sfx_HiddenFigureHand2,           $00, 239, CHAN5_F, 1 ; SFX_HIDDEN_FIGURE_HAND_2
+	sfx Sfx_HiddenFigureHand3,           $00, 239, CHAN5_F, 2 ; SFX_HIDDEN_FIGURE_HAND_3
 	filler_sounds 15
 
 	sfx Sfx_PipeExit,                    $00, 255, CHAN5_F, 1 ; SFX_PIPE_EXIT
@@ -281,13 +281,13 @@ SoundHeaders:
 	sfx Sfx_0eb,                         $00, 220, CHAN5_F, 2 ; SFX_0EB
 	sfx Sfx_ActionHelpButton,            $00, 220, CHAN7_F, 1 ; SFX_ACTION_HELP_BUTTON
 	sfx Sfx_GolfChargeShot,              $00, 220, CHAN8_F, 1 ; SFX_GOLF_CHARGE_SHOT
-	sfx Sfx_0ee,                         $00, 220, CHAN5_F, 1 ; SFX_0EE
+	sfx Sfx_GolfSpecialTerrain2,         $00, 220, CHAN5_F, 1 ; SFX_GOLF_SPECIAL_TERRAIN_2
 	sfx Sfx_GolfHoleIn,                  $00, 237, CHAN5_F, 1 ; SFX_GOLF_HOLE_IN
-	sfx Sfx_0f0,                         $00, 220, CHAN5_F, 1 ; SFX_0F0
+	sfx Sfx_GolfSpecialTerrain1,         $00, 220, CHAN5_F, 1 ; SFX_GOLF_SPECIAL_TERRAIN_1
 	sfx Sfx_0f1,                         $00, 237, CHAN5_F, 1 ; SFX_0F1
 	sfx Sfx_0f2,                         $00, 220, CHAN5_F, 1 ; SFX_0F2
-	sfx Sfx_0f3,                         $00, 220, CHAN8_F, 1 ; SFX_0F3
-	sfx Sfx_0f4,                         $00, 220, CHAN5_F, 1 ; SFX_0F4
+	sfx Sfx_Prologue1,                   $00, 220, CHAN8_F, 1 ; SFX_PROLOGUE_1
+	sfx Sfx_Prologue2,                   $00, 220, CHAN5_F, 1 ; SFX_PROLOGUE_2
 	sfx Sfx_Snore,                       $00, 220, CHAN8_F, 1 ; SFX_SNORE
 	sfx Sfx_Plane1,                      $00, 220, CHAN8_F, 1 ; SFX_PLANE1
 	sfx Sfx_Plane2,                      $00, 220, CHAN8_F, 1 ; SFX_PLANE2
@@ -304,21 +304,21 @@ SoundHeaders:
 	sfx Sfx_Emote,                       $00, 237, CHAN7_F, 1 ; SFX_EMOTE
 	sfx Sfx_HammerBotWalk,               $00, 219, CHAN5_F, 1 ; SFX_HAMMER_BOT_WALK
 	sfx Sfx_GateOpen,                    $00, 220, CHAN5_F, 1 ; SFX_GATE_OPEN
-	sfx Sfx_109,                         $00, 220, CHAN5_F, 2 ; SFX_109
+	sfx Sfx_FixElevator1,                $00, 220, CHAN5_F, 2 ; SFX_FIX_ELEVATOR_1
 	sfx Sfx_FixElevator,                 $00, 220, CHAN8_F, 1 ; SFX_FIX_ELEVATOR
-	sfx Sfx_10b,                         $00, 220, CHAN5_F, 1 ; SFX_10B
-	sfx Sfx_10c,                         $00, 220, CHAN8_F, 1 ; SFX_10C
+	sfx Sfx_FixElevator2,                $00, 220, CHAN5_F, 1 ; SFX_FIX_ELEVATOR_2
+	sfx Sfx_OpenNorthGate,               $00, 220, CHAN8_F, 1 ; SFX_OPEN_NORTH_GATE
 	sfx Sfx_10d,                         $00, 236, CHAN5_F, 1 ; SFX_TEMPLE_ROCK
 	sfx Sfx_10e,                         $00, 220, CHAN5_F, 2 ; SFX_10E
-	sfx Sfx_10f,                         $00, 220, CHAN8_F, 1 ; SFX_10F
-	sfx Sfx_110,                         $00, 220, CHAN5_F, 2 ; SFX_110
-	sfx Sfx_111,                         $00, 220, CHAN8_F, 1 ; SFX_111
+	sfx Sfx_VolcanoEruption1,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_1
+	sfx Sfx_VolcanoEruption2,            $00, 220, CHAN5_F, 2 ; SFX_VOLCANO_ERUPTION_2
+	sfx Sfx_VolcanoEruption3,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_3
 	sfx Sfx_ItemRaise,                   $00, 220, CHAN5_F, 3 ; SFX_ITEM_RAISE
 	sfx Sfx_113,                         $00, 220, CHAN5_F, 1 ; SFX_113
-	sfx Sfx_114,                         $00, 220, CHAN8_F, 1 ; SFX_114
-	sfx Sfx_115,                         $00, 220, CHAN8_F, 1 ; SFX_115
-	sfx Sfx_116,                         $00, 220, CHAN8_F, 1 ; SFX_116
-	sfx Sfx_117,                         $00, 220, CHAN5_F, 2 ; SFX_117
+	sfx Sfx_VolcanoEruption4,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_4
+	sfx Sfx_VolcanoEruption5,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_5
+	sfx Sfx_VolcanoEruption6,            $00, 220, CHAN8_F, 1 ; SFX_VOLCANO_ERUPTION_6
+	sfx Sfx_SummonSnakes,                $00, 220, CHAN5_F, 2 ; SFX_SUMMON_SNAKES
 	sfx Sfx_Flute,                       $00, 220, CHAN5_F, 2 ; SFX_FLUTE
 	sfx Sfx_ItemFall,                    $00, 220, CHAN5_F, 1 ; SFX_ITEM_FALL
 	sfx Sfx_BeanstalkGrow,               $00, 220, CHAN5_F, 1 ; SFX_BEANSTALK_GROW
@@ -332,23 +332,23 @@ SoundHeaders:
 	sfx Sfx_GoldMusicBox,                $00, 220, CHAN5_F, 1 ; SFX_GOLD_MUSIC_BOX
 	sfx Sfx_BridgeLower,                 $00, 220, CHAN5_F, 1 ; SFX_BRIDGE_LOWER
 	sfx Sfx_Lightning,                   $00, 220, CHAN8_F, 1 ; SFX_LIGHTNING
-	sfx Sfx_125,                         $00, 220, CHAN8_F, 1 ; SFX_125
-	sfx Sfx_126,                         $00, 220, CHAN8_F, 1 ; SFX_126
+	sfx Sfx_BurnVines1,                  $00, 220, CHAN8_F, 1 ; SFX_BURN_VINES_1
+	sfx Sfx_BurnVines2,                  $00, 220, CHAN8_F, 1 ; SFX_BURN_VINES_2
 	sfx Sfx_VolcanoEruption,             $00, 220, CHAN6_F, 2 ; SFX_VOLCANO_ERUPTION
 	sfx Sfx_WarpedVoidAppear,            $00, 220, CHAN5_F, 1 ; SFX_WARPED_VOID_APPEAR
 	sfx Sfx_Explosion,                   $00, 239, CHAN8_F, 1 ; SFX_EXPLOSION
 	sfx Sfx_Step,                        $00, 220, CHAN8_F, 1 ; SFX_STEP
 	sfx Sfx_PayCoins,                    $00, 220, CHAN7_F, 1 ; SFX_PAY_COINS
-	sfx Sfx_12c,                         $00, 220, CHAN5_F, 2 ; SFX_12C
+	sfx Sfx_OpenGoldenSnakeDoor,         $00, 220, CHAN5_F, 2 ; SFX_OPEN_GOLDEN_SNAKE_DOOR
 	sfx Sfx_CrayonScribble,              $00, 220, CHAN8_F, 1 ; SFX_CRAYON_SCRIBBLE
 	sfx Sfx_CastleForm,                  $00, 220, CHAN5_F, 4 ; SFX_CASTLE_FORM
 	sfx Sfx_12f,                         $00, 220, CHAN8_F, 1 ; SFX_12F
 	sfx Sfx_TextPrint,                   $00, 220, CHAN8_F, 1 ; SFX_TEXT_PRINT
 	sfx Sfx_TreeMouthOpen,               $00, 220, CHAN8_F, 1 ; SFX_TREE_MOUTH_OPEN
 	sfx Sfx_132,                         $00, 220, CHAN5_F, 1 ; SFX_132
-	sfx Sfx_133,                         $00, 220, CHAN7_F, 1 ; SFX_133
-	sfx Sfx_134,                         $00, 220, CHAN5_F, 1 ; SFX_134
-	sfx Sfx_135,                         $00, 220, CHAN5_F, 1 ; SFX_135
+	sfx Sfx_MakeWire,                    $00, 220, CHAN7_F, 1 ; SFX_MAKE_WIRE
+	sfx Sfx_GameOver,                    $00, 220, CHAN5_F, 1 ; SFX_GAME_OVER
+	sfx Sfx_OpenCraterHole,              $00, 220, CHAN5_F, 1 ; SFX_OPEN_CRATER_HOLE
 	sfx Sfx_136,                         $00, 236, CHAN6_F, 1 ; SFX_136
 	sfx Sfx_SceneWarioRun,               $00, 226, CHAN8_F, 1 ; SFX_SCENE_WARIO_RUN
-	sfx Sfx_138,                         $00, 220, CHAN8_F, 1 ; SFX_138
+	sfx Sfx_EpilogueObj,                 $00, 220, CHAN8_F, 1 ; SFX_EPILOGUE_OBJ

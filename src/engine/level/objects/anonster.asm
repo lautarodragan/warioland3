@@ -152,7 +152,7 @@ AnonsterFunc:
 	inc l
 	ld a, [hl]
 	dec a
-	play_sfx z, SFX_0B0
+	play_sfx z, SFX_ANONSTER_1
 	ld hl, wCurObjYPos
 	ld a, [hli]
 	sub $04
@@ -340,7 +340,7 @@ AnonsterFunc:
 	ld [hld], a
 	ld a, LOW(.RiseToCeiling)
 	ld [hld], a
-	play_sfx SFX_0B1
+	play_sfx SFX_ANONSTER_2
 .RiseToCeiling:
 	ld a, no_actions_for 1
 	ld [wCurObjAction], a
@@ -814,7 +814,7 @@ AnonsterFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $4e
-	play_sfx z, SFX_0B1
+	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
 	ret nz
 	ld a, [wCurObjSubState]
@@ -921,7 +921,7 @@ AnonsterFunc:
 	and a
 	jr z, .asm_506f5
 	cp $a4
-	play_sfx z, SFX_0B1
+	play_sfx z, SFX_ANONSTER_2
 	dec [hl]
 	ret nz
 	ld hl, wCurObjMapPtrHi

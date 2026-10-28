@@ -1374,7 +1374,7 @@ Cutscene03Func:
 	dw .Wait30_3
 	dw .PlaceObj3OnObj2
 	dw .WaitObj3State07
-	dw .PlaySFX10C
+	dw .PlayOpenNorthGateSFX
 	dw .Wait30_4
 	dw CutsceneFadeToWhite
 	dw EndCutsceneDelay_40Frames
@@ -1493,8 +1493,8 @@ Cutscene03Func:
 	ret nz
 	jp AdvanceCutsceneFunc
 
-.PlaySFX10C:
-	play_sfx SFX_10C
+.PlayOpenNorthGateSFX:
+	play_sfx SFX_OPEN_NORTH_GATE
 	jp AdvanceCutsceneFunc
 
 .Wait30_4:
@@ -1744,7 +1744,7 @@ Cutscene07Func:
 	dw .SetObj4State08SFX
 	dw .WaitObj4Disappear
 	dw .Wait50_3
-	dw .PlaySFX10B
+	dw .PlayFixElevatorSFX2
 	dw .RaiseObj2
 	dw EndCutsceneDelay_60Frames
 
@@ -1797,7 +1797,7 @@ Cutscene07Func:
 	ld a, [wSceneObj2Frame]
 	and a
 	ret nz
-	play_sfx SFX_109
+	play_sfx SFX_FIX_ELEVATOR_1
 	jp AdvanceCutsceneFunc
 
 .WaitObj2FrameNot00:
@@ -1837,8 +1837,8 @@ Cutscene07Func:
 	ld c, 50
 	jp WaitCutsceneFunc
 
-.PlaySFX10B:
-	play_sfx SFX_10B
+.PlayFixElevatorSFX2:
+	play_sfx SFX_FIX_ELEVATOR_2
 	jp AdvanceCutsceneFunc
 
 .RaiseObj2:
@@ -2812,7 +2812,7 @@ Cutscene0dFunc:
 	ld a, $02
 	ld hl, wSceneObj3State
 	call SetSceneObjState
-	play_sfx SFX_117
+	play_sfx SFX_SUMMON_SNAKES
 	jp AdvanceCutsceneFunc
 
 .MoveObj3LeftThenShowObj4:
@@ -3030,7 +3030,7 @@ Cutscene49Func:
 	ld a, [wSceneObj2Duration]
 	and a
 	ret nz
-	play_sfx SFX_12C
+	play_sfx SFX_OPEN_GOLDEN_SNAKE_DOOR
 	ret
 .asm_9daa6
 	ld a, $02
@@ -5700,11 +5700,11 @@ Cutscene14Func:
 	jp AdvanceCutsceneFunc
 
 .Wait120:
-	call .play_sfx_10f_every_10_frames
+	call .play_volcano_sfx_every_10_frames
 	ld c, 120
 	jp WaitCutsceneFunc
 
-.play_sfx_10f_every_10_frames:
+.play_volcano_sfx_every_10_frames:
 	ld hl, wCutsceneSFXCounter
 	inc [hl]
 	ld a, [hl]
@@ -5712,7 +5712,7 @@ Cutscene14Func:
 	ret c
 	xor a
 	ld [hl], a
-	play_sfx SFX_10F
+	play_sfx SFX_VOLCANO_ERUPTION_1
 	ret
 
 .SetObj5State05:
@@ -5739,10 +5739,10 @@ Cutscene14Func:
 	ld a, [wSceneObj5Frame]
 	cp $09
 	jr nc, .asm_9ede8
-	play_sfx SFX_110
+	play_sfx SFX_VOLCANO_ERUPTION_2
 	ret
 .asm_9ede8
-	play_sfx SFX_111
+	play_sfx SFX_VOLCANO_ERUPTION_3
 	ret
 
 .Wait90:
@@ -5793,13 +5793,13 @@ Cutscene14Func:
 	jr z, .asm_9ee4e
 	ret
 .asm_9ee3c
-	play_sfx SFX_114
+	play_sfx SFX_VOLCANO_ERUPTION_4
 	ret
 .asm_9ee45
-	play_sfx SFX_115
+	play_sfx SFX_VOLCANO_ERUPTION_5
 	ret
 .asm_9ee4e
-	play_sfx SFX_116
+	play_sfx SFX_VOLCANO_ERUPTION_6
 	ret
 
 .Exit:
@@ -6501,10 +6501,10 @@ UpdateCutsceneObjs_MakeWire:
 	dw MakeWireCutsceneFrameset_be2d6
 
 .asm_9f4d3
-	call .PlaySFX133Every12Frames
+	call .PlayMakeWireSFXEvery12Frames
 	jr .asm_9f4c5
 
-.PlaySFX133Every12Frames:
+.PlayMakeWireSFXEvery12Frames:
 	ld de, wSceneObj2MovementStep
 	ld a, [de]
 	inc a
@@ -6513,11 +6513,11 @@ UpdateCutsceneObjs_MakeWire:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_133
+	play_sfx SFX_MAKE_WIRE
 	ret
 
 .asm_9f4ec
-	call .PlaySFX133Every12Frames
+	call .PlayMakeWireSFXEvery12Frames
 	call .PlaySFX132Every16Frames
 	jr .asm_9f4c5
 
@@ -7297,10 +7297,10 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	dw WallCrackFrameset_6a05f
 
 .asm_9fa16
-	call .PlaySFX135Every27Frames
+	call .PlayOpenCraterHoleSFXEvery27Frames
 	jr .asm_9fa0c
 
-.PlaySFX135Every27Frames:
+.PlayOpenCraterHoleSFXEvery27Frames:
 	ld de, wSceneObj3MovementStep
 	ld a, [de]
 	inc a
@@ -7309,7 +7309,7 @@ UpdateCutsceneLevelObj_OpenCraterHole:
 	ret c
 	xor a
 	ld [de], a
-	play_sfx SFX_135
+	play_sfx SFX_OPEN_CRATER_HOLE
 	ret
 .asm_9fa2f
 	call .PlayFallingSnowDropSFXEvery27Frames

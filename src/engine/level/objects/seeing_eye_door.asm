@@ -166,7 +166,7 @@ SeeingEyeDoorFunc:
 	add $17
 	cp d
 	ret c
-	play_sfx SFX_07B
+	play_sfx SFX_SEEING_EYE_DOOR
 	ld a, $5c
 	ld [hl], a
 	ld de, SeeingEyeDoorFrameset_68c50
@@ -208,7 +208,7 @@ SeeingEyeDoorFunc:
 	jp SetObjectFramesetPtr
 
 .asm_4561e
-	play_sfx SFX_07B
+	play_sfx SFX_SEEING_EYE_DOOR
 	ld a, $5c
 	ld [hl], a
 	ld de, SeeingEyeDoorFrameset_68c50

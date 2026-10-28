@@ -271,7 +271,7 @@ PesceFunc:
 	jr nz, .asm_51f12
 	ld a, [wCurObjFrameDuration]
 	cp $01
-	play_sfx z, SFX_0AE
+	play_sfx z, SFX_PESCE_1
 .asm_51f12
 	ld hl, wCurObjYPos
 	ld a, [hli]
@@ -557,7 +557,7 @@ PesceFunc:
 	jp SetObjectFramesetPtr
 
 .asm_52108
-	play_sfx SFX_0AD
+	play_sfx SFX_PESCE_2
 	ld a, [wCurObjSubState]
 	ld b, a
 	ld a, [wPesceHits]

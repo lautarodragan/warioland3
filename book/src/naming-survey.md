@@ -35,6 +35,7 @@ batch left the ROM byte-identical, and the emulator tests passed.
 | 20 | Sixth pass, objects: 49 `OBJSTATE_*` (+3 aliases), 20 `OBJ_INTERACTION_*`, 9 `OBJACTION_*` and the labels named after their numbers; see "Sixth pass: object states and interactions" | 81 |
 | 21 | Sixth pass, sound effects: 151 `SFX_*` constants, their sound data labels and the code labels named after their numbers; see "Sixth pass: sound effects" | 151 |
 | 22 | Sixth pass, substates and other constants: `SST_*`, audio commands, flags and struct fields, `GRAB_PICK_UP_BLOCKED`, `ROOMTRANSITION_*`, `EVENT_NONE`, `unk` gfx files; see "Sixth pass: substates and other constants" | ~45 |
+| 23 | Sound effects named by owner and order (one scene or object each), e.g. `SFX_VOLCANO_ERUPTION_1`..`6` | 40 |
 
 Also fixed: the literal update-function pointers (togeba, seeing eye door)
 and data tables addressed by literal (bubble, coin).
@@ -3583,6 +3584,26 @@ with no clearer meaning), so these keep their numbers:
 - `SFX_134`: game_over/core.asm:76 (`UpdateGameOverScreen`)
 - `SFX_135`: overworld/bank27.asm:7312 (`UpdateCutsceneLevelObj_OpenCraterHole.PlaySFX135Every27Frames`)
 - `SFX_138`: overworld/bank2b_1.asm:200 (`UpdateEpilogueSceneObj.PlaySFXEvery30Frames`)
+
+**Named afterwards by owner and order** (batch 23): sounds that only one
+scene or object plays get its name, numbered in the order they play (or by
+position in the code, for objects) when it plays several:
+`SFX_VOLCANO_ERUPTION_1`..`6` (`10F`, `110`, `111`, `114`, `115`, `116`),
+`SFX_FIX_ELEVATOR_1`/`2` (`109`/`10B`), `SFX_OPEN_NORTH_GATE` (`10C`),
+`SFX_SUMMON_SNAKES` (`117`), `SFX_OPEN_GOLDEN_SNAKE_DOOR` (`12C`),
+`SFX_MAKE_WIRE` (`133`), `SFX_OPEN_CRATER_HOLE` (`135`),
+`SFX_BURN_VINES_1`/`2` (`125`/`126`), `SFX_GAME_OVER` (`134`),
+`SFX_EPILOGUE_OBJ` (`138`), `SFX_PROLOGUE_1`/`2` (`0F3`/`0F4`),
+`SFX_GOLF_SPECIAL_TERRAIN_1`/`2` (`0F0`/`0EE`), `SFX_ZOMBIE` (`064`),
+`SFX_OMODONMEKA` (`088`), `SFX_WORMWOULD_ATTACK` (`0A6`), `SFX_DOLL_BOY`
+(`0A2`), `SFX_SEEING_EYE_DOOR` (`07B`), `SFX_YELLOW_BELLY` (`0A8`),
+`SFX_SCOWLER` (`0AB`), `SFX_SCOWLER_INK_1`/`2` (`0B5`/`0B8`),
+`SFX_PESCE_1`/`2` (`0AE`/`0AD`), `SFX_ANONSTER_1`/`2` (`0B0`/`0B1`),
+`SFX_JAMANO_SKULL` (`0BF`), `SFX_IGAGURI` (`0C5`), `SFX_SHOOT` (`0C9`),
+`SFX_HIDDEN_FIGURE_HAND_1`..`3` (`0CB`, `0D0`, `0D1`). Their sound data
+labels follow (`Sfx_VolcanoEruption1`, ...). Still numbered: the 15 shared
+by unrelated callers (`011`, `07F`, `08D`, `08F`, `0B2`, `0B7`, `0B9`,
+`0C4`, `0EB`, `0F1`, `101`, `10E`, `113`, `12F`, `132`) and `0F2`.
 
 **Unused, left numbered:** `SFX_136` has its own sound data (`Sfx_136`) but
 nothing plays it; its constant comment now says "(unused)". The 58

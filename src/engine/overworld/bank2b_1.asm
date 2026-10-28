@@ -197,7 +197,7 @@ UpdateEpilogueSceneObj:
 	ret c ; < 30
 	xor a
 	ld [bc], a ; scene obj MovementStep
-	play_sfx SFX_138
+	play_sfx SFX_EPILOGUE_OBJ
 	ret
 
 .State09:
@@ -700,7 +700,7 @@ UpdatePrologueSceneObj:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_0F3
+	play_sfx SFX_PROLOGUE_1
 	ret
 
 .State0b:
@@ -713,7 +713,7 @@ UpdatePrologueSceneObj:
 	ld a, [wOWAnimationFinished]
 	cp $ff
 	ret nz
-	play_sfx SFX_0F4
+	play_sfx SFX_PROLOGUE_2
 	ret
 
 .State0d:

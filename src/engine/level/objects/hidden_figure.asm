@@ -1210,7 +1210,7 @@ HiddenFigureLeftHandFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
 	ld [hld], a
-	play_sfx SFX_0CB
+	play_sfx SFX_HIDDEN_FIGURE_HAND_1
 	ret
 .asm_4d349
 	cp $7f
@@ -1476,7 +1476,7 @@ HiddenFigureRightHandFunc:
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d523
-	play_sfx SFX_0D1
+	play_sfx SFX_HIDDEN_FIGURE_HAND_3
 	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
 .asm_4d523
@@ -1487,7 +1487,7 @@ HiddenFigureRightHandFunc:
 .asm_4d52d
 	cp $32
 	jr nz, .asm_4d53a
-	play_sfx SFX_0D0
+	play_sfx SFX_HIDDEN_FIGURE_HAND_2
 	ret
 .asm_4d53a
 	cp $7f
@@ -1501,7 +1501,7 @@ HiddenFigureRightHandFunc:
 	ld a, [wCurObjVar2]
 	cp $13
 	jr nz, .asm_4d561
-	play_sfx SFX_0D0
+	play_sfx SFX_HIDDEN_FIGURE_HAND_2
 	ld de, HiddenFigureFrameset_6a119
 	jp SetObjectFramesetPtr
 .asm_4d561
@@ -1578,7 +1578,7 @@ HiddenFigureRightHandFunc:
 	and HEAVY_OBJ
 	or OBJ_INTERACTION_FRONT_STING_SMASHABLE_TOP
 	ld [hld], a
-	play_sfx SFX_0CB
+	play_sfx SFX_HIDDEN_FIGURE_HAND_1
 	ret
 .asm_4d5f2
 	cp $7f

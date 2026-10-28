@@ -209,7 +209,7 @@ WormwouldFunc:
 	ld l, OBJ_STATE_DURATION
 	ld a, [hl]
 	cp 16
-	play_sfx z, SFX_0A6
+	play_sfx z, SFX_WORMWOULD_ATTACK
 	dec [hl]
 	ret nz
 	ld l, OBJ_STATE

@@ -162,7 +162,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_EARTHQUAKE                   ; 161
 	const SFX_CLICK                        ; 162
 	const SFX_SLAM                         ; 163
-	const SFX_064                          ; 164
+	const SFX_ZOMBIE                       ; 164
 	const SFX_GOLF_BUNKER                  ; 165
 	const SFX_BALL_BOUNCE                  ; 166
 	const SFX_ENEMY_THROW                  ; 167
@@ -185,7 +185,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_STOVE_RATTLE                 ; 178
 	const SFX_NOBIIRU_EXTEND               ; 179
 	const SFX_SEEING_EYE_DOOR_LOOK         ; 17a
-	const SFX_07B                          ; 17b
+	const SFX_SEEING_EYE_DOOR              ; 17b
 	const SFX_BEAM                         ; 17c
 	const SFX_FAN_SPIN                     ; 17d
 	const SFX_ENEMY_SHOOT                  ; 17e
@@ -198,7 +198,7 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_MUDDEE_SWIM                  ; 185
 	const SFX_BARREL_JUMP                  ; 186
 	const SFX_OMODONMEKA_LIFT              ; 187
-	const SFX_088                          ; 188
+	const SFX_OMODONMEKA                   ; 188
 	const SFX_SNAKE_SPIT_FIRE              ; 189
 	const SFX_SNAKE_PREPARE_FIRE           ; 18a
 	const SFX_SNAKE_SINK                   ; 18b
@@ -224,54 +224,54 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_09F                          ; 19f (unused)
 	const SFX_0A0                          ; 1a0 (unused)
 	const SFX_WATER_DROP                   ; 1a1
-	const SFX_0A2                          ; 1a2
+	const SFX_DOLL_BOY                     ; 1a2
 	const SFX_BOSS_DEFEAT_FALL             ; 1a3
 	const SFX_DOLL_BOY_STUNNED             ; 1a4
 	const SFX_YELLOW_BELLY_SPAWN_PUMP      ; 1a5
-	const SFX_0A6                          ; 1a6
+	const SFX_WORMWOULD_ATTACK             ; 1a6
 	const SFX_WORMWOULD_HURT               ; 1a7
-	const SFX_0A8                          ; 1a8
+	const SFX_YELLOW_BELLY                 ; 1a8
 	const SFX_BOSS_DEFEATED                ; 1a9
 	const SFX_WOLFENBOSS_SMOKE             ; 1aa
-	const SFX_0AB                          ; 1ab
+	const SFX_SCOWLER                      ; 1ab
 	const SFX_SCOWLER_DEFEATED             ; 1ac
-	const SFX_0AD                          ; 1ad
-	const SFX_0AE                          ; 1ae
+	const SFX_PESCE_2                      ; 1ad
+	const SFX_PESCE_1                      ; 1ae
 	const SFX_ANONSTER_WALK                ; 1af
-	const SFX_0B0                          ; 1b0
-	const SFX_0B1                          ; 1b1
+	const SFX_ANONSTER_1                   ; 1b0
+	const SFX_ANONSTER_2                   ; 1b1
 	const SFX_0B2                          ; 1b2
 	const SFX_SCOWLER_STUNNED              ; 1b3
 	const SFX_SCOWLER_STOMPED              ; 1b4
-	const SFX_0B5                          ; 1b5
+	const SFX_SCOWLER_INK_1                ; 1b5
 	const SFX_SCOWLER_BLACKOUT             ; 1b6
 	const SFX_0B7                          ; 1b7
-	const SFX_0B8                          ; 1b8
+	const SFX_SCOWLER_INK_2                ; 1b8
 	const SFX_0B9                          ; 1b9
 	const SFX_PUMP                         ; 1ba
 	const SFX_PESCE_HIT                    ; 1bb
 	const SFX_JAMANO_TURN                  ; 1bc
 	const SFX_JAMANO_DEFEAT_POSE           ; 1bd
 	const SFX_PESCE_FLY                    ; 1be
-	const SFX_0BF                          ; 1bf
+	const SFX_JAMANO_SKULL                 ; 1bf
 	const SFX_MUDDEE_HURT                  ; 1c0
 	const SFX_MUDDEE_BUBBLE                ; 1c1
 	const SFX_MAGIC_SPIRAL_GROW            ; 1c2
 	const SFX_WOLFENBOSS_HOVER             ; 1c3
 	const SFX_0C4                          ; 1c4
-	const SFX_0C5                          ; 1c5
+	const SFX_IGAGURI                      ; 1c5
 	const SFX_SHOOT_TAUNT                  ; 1c6
 	const SFX_SHOOT_GOAL                   ; 1c7
 	const SFX_SHOOT_JUMP                   ; 1c8
-	const SFX_0C9                          ; 1c9
+	const SFX_SHOOT                        ; 1c9
 	const SFX_BOSS_APPEAR                  ; 1ca
-	const SFX_0CB                          ; 1cb
+	const SFX_HIDDEN_FIGURE_HAND_1         ; 1cb
 	const SFX_HIDDEN_FIGURE_LAUGH          ; 1cc
 	const SFX_HIDDEN_FIGURE_GRAB           ; 1cd
 	const SFX_HIDDEN_FIGURE_HIT            ; 1ce
 	const SFX_HIDDEN_FIGURE_DEFEATED       ; 1cf
-	const SFX_0D0                          ; 1d0
-	const SFX_0D1                          ; 1d1
+	const SFX_HIDDEN_FIGURE_HAND_2         ; 1d0
+	const SFX_HIDDEN_FIGURE_HAND_3         ; 1d1
 	const SFX_0D2                          ; 1d2 (unused)
 	const SFX_0D3                          ; 1d3 (unused)
 	const SFX_0D4                          ; 1d4 (unused)
@@ -300,13 +300,13 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_0EB                          ; 1eb
 	const SFX_ACTION_HELP_BUTTON           ; 1ec
 	const SFX_GOLF_CHARGE_SHOT             ; 1ed
-	const SFX_0EE                          ; 1ee
+	const SFX_GOLF_SPECIAL_TERRAIN_2       ; 1ee
 	const SFX_GOLF_HOLE_IN                 ; 1ef
-	const SFX_0F0                          ; 1f0
+	const SFX_GOLF_SPECIAL_TERRAIN_1       ; 1f0
 	const SFX_0F1                          ; 1f1
 	const SFX_0F2                          ; 1f2
-	const SFX_0F3                          ; 1f3
-	const SFX_0F4                          ; 1f4
+	const SFX_PROLOGUE_1                   ; 1f3
+	const SFX_PROLOGUE_2                   ; 1f4
 	const SFX_SNORE                        ; 1f5
 	const SFX_PLANE1                       ; 1f6
 	const SFX_PLANE2                       ; 1f7
@@ -328,21 +328,21 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_EMOTE                        ; 206
 	const SFX_HAMMER_BOT_WALK              ; 207
 	const SFX_GATE_OPEN                    ; 208
-	const SFX_109                          ; 209
+	const SFX_FIX_ELEVATOR_1               ; 209
 	const SFX_FIX_ELEVATOR                 ; 20a
-	const SFX_10B                          ; 20b
-	const SFX_10C                          ; 20c
+	const SFX_FIX_ELEVATOR_2               ; 20b
+	const SFX_OPEN_NORTH_GATE              ; 20c
 	const SFX_TEMPLE_ROCK                  ; 20d
 	const SFX_10E                          ; 20e
-	const SFX_10F                          ; 20f
-	const SFX_110                          ; 210
-	const SFX_111                          ; 211
+	const SFX_VOLCANO_ERUPTION_1           ; 20f
+	const SFX_VOLCANO_ERUPTION_2           ; 210
+	const SFX_VOLCANO_ERUPTION_3           ; 211
 	const SFX_ITEM_RAISE                   ; 212
 	const SFX_113                          ; 213
-	const SFX_114                          ; 214
-	const SFX_115                          ; 215
-	const SFX_116                          ; 216
-	const SFX_117                          ; 217
+	const SFX_VOLCANO_ERUPTION_4           ; 214
+	const SFX_VOLCANO_ERUPTION_5           ; 215
+	const SFX_VOLCANO_ERUPTION_6           ; 216
+	const SFX_SUMMON_SNAKES                ; 217
 	const SFX_FLUTE                        ; 218
 	const SFX_ITEM_FALL                    ; 219
 	const SFX_BEANSTALK_GROW               ; 21a
@@ -356,24 +356,24 @@ DEF NUM_MUSICS EQU const_value - 1
 	const SFX_GOLD_MUSIC_BOX               ; 222
 	const SFX_BRIDGE_LOWER                 ; 223
 	const SFX_LIGHTNING                    ; 224
-	const SFX_125                          ; 225
-	const SFX_126                          ; 226
+	const SFX_BURN_VINES_1                 ; 225
+	const SFX_BURN_VINES_2                 ; 226
 	const SFX_VOLCANO_ERUPTION             ; 227
 	const SFX_WARPED_VOID_APPEAR           ; 228
 	const SFX_EXPLOSION                    ; 229
 	const SFX_STEP                         ; 22a
 	const SFX_PAY_COINS                    ; 22b
-	const SFX_12C                          ; 22c
+	const SFX_OPEN_GOLDEN_SNAKE_DOOR       ; 22c
 	const SFX_CRAYON_SCRIBBLE              ; 22d
 	const SFX_CASTLE_FORM                  ; 22e
 	const SFX_12F                          ; 22f
 	const SFX_TEXT_PRINT                   ; 230
 	const SFX_TREE_MOUTH_OPEN              ; 231
 	const SFX_132                          ; 232
-	const SFX_133                          ; 233
-	const SFX_134                          ; 234
-	const SFX_135                          ; 235
+	const SFX_MAKE_WIRE                    ; 233
+	const SFX_GAME_OVER                    ; 234
+	const SFX_OPEN_CRATER_HOLE             ; 235
 	const SFX_136                          ; 236 (unused)
 	const SFX_SCENE_WARIO_RUN              ; 237
-	const SFX_138                          ; 238
+	const SFX_EPILOGUE_OBJ                 ; 238
 DEF NUM_SOUNDS EQU const_value

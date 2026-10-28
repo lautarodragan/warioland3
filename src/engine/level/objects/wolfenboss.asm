@@ -972,7 +972,7 @@ IgaguriFunc:
 .asm_564b1
 	ld a, [wGlobalCounter]
 	and %11111
-	play_sfx z, SFX_0C5
+	play_sfx z, SFX_IGAGURI
 	ld l, OBJ_STATE_DURATION
 	dec [hl]
 	ret nz

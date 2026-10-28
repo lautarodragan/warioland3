@@ -374,7 +374,7 @@ ScowlerFunc:
 .asm_54782
 	ld a, [wGlobalCounter]
 	and %111
-	play_sfx z, SFX_0AB
+	play_sfx z, SFX_SCOWLER
 	ld hl, wCurObjStateDuration
 	dec [hl]
 	jr nz, .asm_5479c
@@ -1068,7 +1068,7 @@ UpdateScowlerInkBlackout:
 	play_sfx SFX_0B7
 	jr .asm_54c39
 .asm_54c31
-	play_sfx SFX_0B5
+	play_sfx SFX_SCOWLER_INK_1
 .asm_54c39
 	ld hl, ScowlerPals_54c9f
 	call WriteScowlerOBPals
@@ -1087,7 +1087,7 @@ UpdateScowlerInkBlackout:
 	jp BlackOutBGPals
 
 .asm_54c5f
-	play_sfx SFX_0B8
+	play_sfx SFX_SCOWLER_INK_2
 	xor a
 	ld [hl], a
 	ld hl, ScowlerPals_54c87

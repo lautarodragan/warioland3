@@ -73,7 +73,7 @@ UpdateGameOverScreen:
 	dec [hl]
 	jp nz, .asm_db3a9
 
-	play_sfx SFX_134
+	play_sfx SFX_GAME_OVER
 	ld hl, wGameOverWarioVar
 	inc [hl]
 	jr .asm_db3a9

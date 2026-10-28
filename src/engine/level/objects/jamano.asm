@@ -878,7 +878,7 @@ SkullFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	cp $f7
-	play_sfx z, SFX_0BF
+	play_sfx z, SFX_JAMANO_SKULL
 	dec [hl]
 	ret nz
 	xor a
