@@ -29,11 +29,11 @@ TogebaFunc:
 .Upright:
 	ld a, [wGroundShakeCounter]
 	cp $10
-	jr nc, .asm_48de3
+	jr nc, .start_flip_over
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr nz, .asm_48dda
+	jr nz, .count_down
 	ld l, OBJ_STATE
 	ld a, [hl]
 	and a
@@ -48,14 +48,14 @@ TogebaFunc:
 	res OBJFLAG_NO_COLLISION_F, [hl]
 	ret
 
-.asm_48dda
+.count_down
 	dec [hl]
 	ret nz
 	ld de, TogebaFrameset_69230
 	call SetObjectFramesetPtr
 	ret
 
-.asm_48de3
+.start_flip_over
 	ld hl, wCurObjUpdateFunction + 1
 	ld a, HIGH(.FlipOver)
 	ld [hld], a
@@ -143,26 +143,26 @@ TogebaFunc:
 	ld hl, wCurObjStateDuration
 	ld a, [hl]
 	and a
-	jr z, .asm_48e82
+	jr z, .check_state
 	dec [hl]
-	jr nz, .asm_48e82
+	jr nz, .check_state
 	ld de, TogebaFrameset_69263
 	call SetObjectFramesetPtr
-.asm_48e82
+.check_state
 	ld l, OBJ_STATE
 	ld a, [hl]
 	and a
-	jr z, .asm_48eb3
+	jr z, .sink
 	cp OBJSTATE_VANISH_TOUCH
-	jr nz, .asm_48e99
+	jr nz, .hit
 	xor a
 	ld [hl], a
 	ld de, TogebaFrameset_6926c
 	call SetObjectFramesetPtr
 	ld a, $1b
 	ld [hli], a
-	jr .asm_48eb3
-.asm_48e99
+	jr .sink
+.hit
 	xor a
 	ld [hl], a
 	ld de, TogebaFrameset_6927c
@@ -171,7 +171,7 @@ TogebaFunc:
 	ld [hli], a
 	ld a, [wCurObjActionSide]
 	rla
-	jr nc, .asm_48eb3
+	jr nc, .sink
 	ld l, OBJ_UPDATE_FUNCTION + 1
 	ld a, HIGH(.FlippedBounce)
 	ld [hld], a
@@ -179,7 +179,7 @@ TogebaFunc:
 	ld [hld], a
 	ret
 
-.asm_48eb3
+.sink
 	ld a, [wGlobalCounter]
 	rra
 	ret nc
