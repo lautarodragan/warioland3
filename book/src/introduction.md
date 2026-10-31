@@ -9,8 +9,8 @@ who want to read or change the code. If you only want to play, the
 how to apply it.
 
 The fork adds an in-game debug menu (SELECT during a level) with FORM, POWER,
-GOLF, OWL and TREASURE entries, a few quality-of-life changes (holding B to keep
-swimming or flying as a bat), emulator tests that play the game, and names for
+GOLF, OWL and TREASURE entries, a few quality-of-life changes (holding A or B to keep
+swimming, or A to keep flying as a bat), emulator tests that play the game, and names for
 most of the labels the disassembly still had as addresses.
 
 ## Where things are

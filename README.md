@@ -17,8 +17,8 @@ The menu allows cycling through:
 Navigate with UP/DOWN. FORM, POWER and TREASURE cycle with LEFT/RIGHT (FORM and POWER show ◀ ▶ on the selected row); GOLF, OWL and TREASURE apply with A. Exit with B or SELECT. The menu plays the pause menu's music. How it works is in the [book](https://lautarodragan.github.io/warioland3/debug-menu.html).
 
 Other features:
-- Auto swim while holding down B rather than having to continuously press it
-- Auto fly in vampire mode holding down B, same as autoswim
+- Auto swim while holding down A or B rather than having to continuously press it
+- Auto fly as Vampire Wario's bat while holding down A, same as autoswim
 - Pressing SELECT while in a FORM will automatically turn you back into normal Wario first. Press SELECT again to open the DEBUG menu. This applies whenever you're in a non-normal form, regardless of whether you activated it via the DEBUG MENU or through normal gameplay.
 
 ## Why

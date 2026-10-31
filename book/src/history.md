@@ -9,8 +9,9 @@ and deciding what to do.
 
 The first version of the menu (PR #1) had FORM, POWER, GOLF and INVNBL rows on
 a plain font screen, with its own game state, `ST_DEBUG_MENU`. Two
-quality-of-life changes came with it: holding B keeps Wario swimming, and
-keeps Vampire Wario flying as a bat. A transformed Wario pressing SELECT turns
+quality-of-life changes came with it: holding A or B keeps Wario swimming
+(`HandleUnderwaterThrustingInput` restarts the stroke), and holding A keeps
+Vampire Wario flying as a bat (`UpdateState_BatIdling`). A transformed Wario pressing SELECT turns
 back to normal instead of opening the menu.
 
 GOLF reloaded the room so the golf win would take effect. That turned out to be
