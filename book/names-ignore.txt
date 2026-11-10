@@ -32,3 +32,9 @@ FOO_F
 
 # only in the commit make ips rebuilds the original game from
 rom.sha1
+
+# the debug owl's names before the barrel generalized them (debug-owl.md)
+wOwlTileOffset
+RelocateOwlSprites
+DebugMenu_SpawnOwl
+LoadOwlGfxForOwlWario

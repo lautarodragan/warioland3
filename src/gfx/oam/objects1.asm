@@ -3008,7 +3008,7 @@ BirdOAM_1819e3:
 	frame_oam -15,   4, $54, 5 | OAM_BANK1 | OAM_XFLIP
 	db $80
 
-BarrelOAM_181b0f:
+BarrelOAM_181b0f::
 	dw .frame_0
 	dw .frame_1
 	dw .frame_2

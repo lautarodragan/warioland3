@@ -66,26 +66,80 @@ DrawWario::
 	ret
 
 ; The objects whose graphics the debug menu can put in an enemy graphics slot
-; (wDebugGfxSlot), by DEBUG_GFX_* kind: the object's ID, and the tile offset
-; of the slot its OAM data draws from (its palette is that slot's: 4-7).
+; (wDebugGfxSlot), by DEBUG_GFX_* kind: the object's ID, the tile offset of
+; the slot its OAM data draws from (its palette is that slot's: 4-7), and its
+; OAM data. Object IDs aren't unique (OWL is FALLING_SNOW_SPAWNER's too,
+; BARREL2 the torch embers'), so an object is of a kind when it has both the
+; ID and the OAM data (IsObjOfKind).
 DebugGfxKinds::
 	db OWL,     $00 ; DEBUG_GFX_OWL: slot 1, palette 4
+	dw OwlOAM_188e16
 	db BARREL2, $c0 ; DEBUG_GFX_BARREL: slot 4, palette 7
+	dw BarrelOAM_181b0f
 .end
-	ASSERT DebugGfxKinds.end - DebugGfxKinds == NUM_DEBUG_GFX_KINDS * 2
+	ASSERT DebugGfxKinds.end - DebugGfxKinds == NUM_DEBUG_GFX_KINDS * 4
 
+; input:
+; - e = kind * 2 (as in DEBUG_GFX_KIND_MASK)
 ; output:
-; - a = ID of the object whose graphics are in wDebugGfxSlot
 ; - de = its entry in DebugGfxKinds
-GetDebugGfxObjID::
-	ld a, [wDebugGfxSlot]
-	and DEBUG_GFX_KIND_MASK
+; - a = its object ID
+GetDebugGfxKindEntry::
+	ld a, e
+	add a
 	add LOW(DebugGfxKinds)
 	ld e, a
 	adc HIGH(DebugGfxKinds)
 	sub e
 	ld d, a
 	ld a, [de]
+	ret
+
+; output:
+; - de = the entry in DebugGfxKinds of the kind in wDebugGfxSlot
+; - a = its object ID
+GetDebugGfxKind::
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	ld e, a
+	jr GetDebugGfxKindEntry
+
+; Whether an object is of the kind in wDebugGfxSlot (IsObjOfKind).
+; input:
+; - hl = OBJ_ID of the object
+; output:
+; - z if it is
+; Clobbers a and de.
+IsDebugGfxObj::
+	call GetDebugGfxKind
+;	fallthrough
+
+; Whether an object is of a kind: its ID and its OAM data are the kind's.
+; input:
+; - de = the kind's entry in DebugGfxKinds
+; - hl = OBJ_ID of the object
+; output:
+; - z if it is
+; Clobbers a and de.
+IsObjOfKind::
+	ld a, [de]
+	cp [hl]
+	ret nz
+	inc de
+	inc de
+	push hl
+	ld a, l
+	add OBJ_OAM_PTR - OBJ_ID
+	ld l, a
+	ld a, [de]
+	cp [hl]
+	jr nz, .done
+	inc de
+	inc hl
+	ld a, [de]
+	cp [hl]
+.done
+	pop hl
 	ret
 
 ; Moves the sprites of the object whose graphics are in wDebugGfxSlot from
@@ -96,7 +150,7 @@ GetDebugGfxObjID::
 ; be the object's (Wario's own sprites are in VRAM0, so Owl Wario's frames
 ; qualify).
 RelocateDebugObjSprites::
-	call GetDebugGfxObjID
+	call GetDebugGfxKind
 	inc de
 	ld a, [de]
 	ld b, a ; tile offset of the object's own slot
@@ -145,23 +199,24 @@ RelocateDebugObjSprites::
 	jr .loop
 
 ; Whether the object whose graphics are in wDebugGfxSlot is still around
-; (IsObjAround).
+; (IsKindAround).
 ; Needs WRAM bank "Level Objects WRAM".
 ; output:
 ; - z if it is, nz if it's gone
 IsDebugGfxObjAround::
-	call GetDebugGfxObjID
+	call GetDebugGfxKind
 ;	fallthrough
 
-; Whether an object is around: an active object with its ID, and for the
-; owl also Owl Wario or the owl flying off (PARTICLE_OWL).
+; Whether an object of a kind is around: an active object of it
+; (IsObjOfKind), and for the owl also Owl Wario or the owl flying off
+; (PARTICLE_OWL).
 ; Needs WRAM bank "Level Objects WRAM".
 ; input:
-; - a = object ID
+; - de = the kind's entry in DebugGfxKinds
 ; output:
 ; - z if it is, nz if it's gone
-IsObjAround::
-	ld c, a
+IsKindAround::
+	ld a, [de]
 	cp OWL
 	jr nz, .objects
 	ld a, [wTransformation]
@@ -173,18 +228,21 @@ FOR n, 0, MAX_NUM_PARTICLES
 	ret z
 ENDR
 .objects
+	ld b, d
+	ld c, e
 	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
-	ld hl, wObj1
+	ld hl, wObj1 + OBJ_ID
 .loop_objs
-	ld a, [hl] ; OBJ_FLAGS
-	rra
-	jr nc, .next_obj ; OBJFLAG_ACTIVE not set
 	ld a, l
-	add OBJ_ID
+	sub OBJ_ID
 	ld e, a
 	ld d, h
-	ld a, [de]
-	cp c
+	ld a, [de] ; OBJ_FLAGS
+	rra
+	jr nc, .next_obj ; OBJFLAG_ACTIVE not set
+	ld d, b
+	ld e, c
+	call IsObjOfKind
 	ret z
 .next_obj
 	ld a, l

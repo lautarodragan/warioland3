@@ -21,7 +21,7 @@ menu's music and gives the level's back when it closes.
 | File | What |
 |---|---|
 | `src/engine/debug_menu/debug_menu.asm` | the menu: state table, input, drawing, FORM/POWER/GOLF/TREASURE, the OWL/BARREL spawn entry point (`DebugMenu_SpawnObject`) |
-| `src/engine/debug_menu/spawn_object.asm` | `_DebugSpawnObject` and the helpers for objects spawned where their graphics aren't (`_DebugSpawnObjectFromROM`, `SetDebugGfxSlot`, `LoadDebugObjGfx`...), kept in the "Object Loading" section next to `SpawnObject` |
+| `src/engine/debug_menu/spawn_object.asm` | `_DebugSpawnObject` and the helpers for objects spawned where their graphics aren't (`_DebugSpawnObjectOfKind`, `SetDebugGfxSlot`, `LoadDebugObjGfx`...), kept in the "Object Loading" section next to `SpawnObject` |
 | `src/engine/debug_menu/clear_gates.asm` | `_DebugMoveClearGates`, for GOLF |
 | `src/debug_menu.asm` | the "Debug Menu" section, placed by `src/layout.link` |
 | `src/engine/level/update_level.asm` | the SELECT trigger (`UpdateLevel.open_debug_menu`) |

@@ -3,32 +3,36 @@
 
 DEF DEBUG_SPAWN_X_OFFSET EQU 24 ; pixels to Wario's right
 
-; Spawns the object with ID c next to Wario, using the current room's object
-; group data for it (so its OAM, palette and graphics slot are the ones the
-; room loaded). Does nothing if the group has no such object, or if every
-; object slot is taken.
+; Spawns the object whose data is at bc (e.g. OwlData) next to Wario, if the
+; current room's object group has it (so its OAM, palette and graphics slot
+; are the ones the room loaded). Does nothing if the group doesn't have it,
+; or if every object slot is taken.
+; It looks the object up by its data pointer, not its ID: IDs aren't unique
+; (OWL and FALLING_SNOW_SPAWNER are both $29).
 ; The object has no object map entry: it vanishes when it goes offscreen
 ; or the room is left, instead of being written back into the map.
 ; Needs WRAM bank "Level Objects WRAM".
 ; input:
-; - c = object ID
+; - bc = the object's data (in the object data bank)
 ; output:
 ; - b = TRUE if spawned, FALSE otherwise
 _DebugSpawnObject::
-	ld b, FALSE
 	ld hl, wObjDataPtr01
 	ASSERT HIGH(wObjDataPtr01) == HIGH(wObjDataPointersEnd)
 .find_data
 	ld a, l
 	cp LOW(wObjDataPointersEnd)
-	ret z
+	jr z, .not_found
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	ld a, [de] ; OBJ_ID
+	cp b
+	jr nz, .find_data
+	ld a, e
 	cp c
 	jr nz, .find_data
+	ld b, FALSE
 .got_data
 	ld h, HIGH(wObj1)
 FOR n, 1, NUM_OBJECTS + 1
@@ -37,6 +41,10 @@ FOR n, 1, NUM_OBJECTS + 1
 	rra
 	jr nc, .got_obj ; OBJFLAG_ACTIVE not set
 ENDR
+	ret
+
+.not_found
+	ld b, FALSE
 	ret
 
 .got_obj
@@ -66,14 +74,15 @@ ENDR
 	ld b, TRUE
 	ret
 
-; Like _DebugSpawnObject, but spawns an object the debug menu can put
-; anywhere (DEBUG_GFX_* kinds: the owl, the barrel) from its ROM data, for
-; rooms whose object group doesn't have it. If the group loads its graphics
-; anyway, in the slot its OAM data draws from (the barrel's, with
-; Barrel1Data), they're used as they are. Otherwise its graphics go into an
-; enemy graphics slot the group doesn't use, or one it lends until the
-; object's gone, set in wDebugGfxSlot (SetDebugGfxSlot); the caller has to
-; load them there (LoadDebugObjGfx).
+; Spawns an object the debug menu can put anywhere (DEBUG_GFX_* kinds: the
+; owl, the barrel) next to Wario. If the room's object group has it, it's
+; spawned from the group's data (_DebugSpawnObject, looked up by its data
+; pointer: object IDs aren't unique). Otherwise from its ROM data, and if
+; the group loads its graphics anyway, in the slot its OAM data draws from
+; (the barrel's, with Barrel1Data), they're used as they are. Otherwise its
+; graphics go into an enemy graphics slot the group doesn't use, or one it
+; lends until the object's gone, set in wDebugGfxSlot (SetDebugGfxSlot); the
+; caller has to load them there (LoadDebugObjGfx).
 ; Only one kind's graphics can be elsewhere at a time: while another kind's
 ; object is still around (IsDebugGfxObjAround), this one isn't spawned. (The
 ; owl in slot 1, its own slot, isn't elsewhere: SetDebugGfxSlot keeps slot 1
@@ -85,8 +94,19 @@ ENDR
 ; - b = TRUE if spawned, FALSE otherwise (no free object slot, or another
 ;   kind's graphics are elsewhere)
 ; - c = TRUE if its graphics have to be loaded
-_DebugSpawnObjectFromROM::
+_DebugSpawnObjectOfKind::
 	sla e ; kind * 2, as in wDebugGfxSlot (DEBUG_GFX_KIND_MASK)
+	call GetDebugGfxKindData
+	ld a, [hli]
+	ld c, a
+	ld b, [hl] ; object data
+	push de
+	call _DebugSpawnObject
+	pop de
+	ld c, FALSE
+	ld a, b
+	and a
+	ret nz ; the group has it
 	push de
 	call IsDebugGfxKindNative
 	pop de
@@ -179,13 +199,12 @@ IsDebugGfxKindNative:
 	ld a, [hli]
 	ld c, a
 	ld b, [hl] ; its graphics
-	ld a, e
-	add LOW(DebugGfxKinds + 1)
-	ld l, a
-	adc HIGH(DebugGfxKinds + 1)
-	sub l
-	ld h, a
-	ld d, [hl] ; tile offset of its slot
+	push de
+	call GetDebugGfxKindEntry
+	inc de
+	ld a, [de]
+	pop de
+	ld d, a ; tile offset of its slot
 	ld a, [wDebugGfxSlot]
 	bit DEBUG_GFX_BORROWED_F, a
 	jr z, .not_borrowed
@@ -288,8 +307,9 @@ SetDebugGfxSlot:
 	ASSERT DEBUG_GFX_OWL == 0
 	and a
 	jr z, .got_kept_slots ; a = 0
-	ld a, OWL
-	call IsObjAround
+	ld e, DEBUG_GFX_OWL * 2
+	call GetDebugGfxKindEntry
+	call IsKindAround
 	ld a, 0
 	jr nz, .got_kept_slots
 	inc a ; slot 1
@@ -381,10 +401,7 @@ SetDebugGfxSlot:
 	ld l, a
 	; not the new object itself: its frames draw from the slot its graphics
 	; aren't in
-	push bc
-	call GetDebugGfxObjID
-	pop bc
-	cp [hl]
+	call IsDebugGfxObj
 	call nz, GetObjFrameSlots
 	pop hl
 .next_obj
@@ -628,15 +645,9 @@ LoadDebugObjGfxForRoom:
 ; input:
 ; - e = kind * 2
 .LoadKind:
-	ld a, e
-	add LOW(DebugGfxKinds)
-	ld l, a
-	adc HIGH(DebugGfxKinds)
-	sub l
-	ld h, a
-	ld a, [hl]
 	push de
-	call IsObjAround
+	call GetDebugGfxKindEntry
+	call IsKindAround
 	pop de
 	ret nz
 	ld a, [wDebugGfxSlot]

@@ -14,6 +14,7 @@ for what the barrel's tiles, palette and sprites look like.
 
 from game import OUT_OF_THE_WOODS_DAY_1, ROOT
 from routes.debug_barrel import GRAB_AND_CARRY, THROW
+from routes.out_of_the_woods import TO_GREY_CHEST, TO_GREY_KEY
 from test_owl import (
     OWL_STATUS_FAILED,
     SLOT_TILES,
@@ -48,6 +49,10 @@ THE_BIG_BRIDGE_DAY_1 = 0x68
 ABOVE_THE_CLOUDS_DAY_1 = 0x88
 THE_TEMPLE = 0xC8
 
+# The step of Out of the Woods' route (TO_GREY_KEY + TO_GREY_CHEST) at which
+# Wario is in the room with torches before the grey chest.
+TORCH_ROOM_STEP = 94
+
 BARREL_GFX = (ROOT / "src/gfx/enemies/barrel.2bpp").read_bytes()
 BARREL_TILES = 0xC0  # slot 4, where its OAM data draws from
 BARREL_PAL = 7
@@ -67,8 +72,15 @@ def barrel_pal_rgb(game, pal):
     return colours
 
 
+def obj_oam(game, n):
+    addr = game.addr(f"wObj{n}OAMPtr")
+    return game.pb.memory[1, addr] | game.pb.memory[1, addr + 1] << 8
+
+
 def barrels(game):
-    return [slot for slot, _, obj_id in game.objects() if obj_id == BARREL2]
+    """Active barrels: BARREL2's ID and OAM data (torch embers have its ID)."""
+    oam = game.addr("BarrelOAM_181b0f")
+    return [n for n, _, obj_id in game.objects() if obj_id == BARREL2 and obj_oam(game, n) == oam]
 
 
 def barrel_sprites(game, tiles, pal):
@@ -309,3 +321,42 @@ def test_barrel_saved_and_continued(game, golden):
     assert slot_tiles(game, 2) == BARREL_GFX
     assert barrel_sprites(game, 0x40, 5) == [(0, 5), (2, 5)]
     golden("desert_ruins_debug_barrel_saved", game.screenshot())
+
+
+def test_barrel_next_to_torch_embers(game, golden):
+    # Object IDs aren't unique: the torches' embers are $05, like BARREL2
+    # (and OWL is FALLING_SNOW_SPAWNER's $29). The barrel is told apart by
+    # its ID and its OAM data together (IsObjOfKind), so the embers in the
+    # torch room near Out of the Woods' grey chest (group 001, all four
+    # slots used: the barrel borrows one) keep drawing from the torch's slot
+    # 4 in palette 7, and only the barrel's own sprites are moved.
+    game.new_game_to_overworld()
+    game.enter_level()
+    route = TO_GREY_KEY + TO_GREY_CHEST
+    game.play(route[:TORCH_ROOM_STEP])
+    spawn_barrel(game)
+    assert game.read("wDebugMenuBarrelStatus") == BARREL_STATUS_SPAWNED
+    game.close_debug_menu()
+    gfx = game.read("wDebugGfxSlot")
+    assert gfx & DEBUG_GFX_BORROWED and gfx & 0b110 == DEBUG_GFX_BARREL
+    slot = (gfx >> 6) + 1
+    assert slot != 4
+    tiles, pal = (slot - 1) * SLOT_TILES, slot + 3
+    torch_oam = game.addr("TorchOAM_180838")
+    embers = 0
+
+    def check():
+        nonlocal embers
+        for n, flags, obj_id in game.objects():
+            if obj_id == BARREL2 and obj_oam(game, n) == torch_oam and flags & 2:
+                embers += 1
+        # Nothing but the barrel (a 2-sprite frame, or a 6-sprite breaking
+        # one) draws from its slot.
+        in_slot = [s for s in vram1_sprites(game) if tiles <= s[0] < tiles + SLOT_TILES]
+        assert len(in_slot) in (0, 2, 6), in_slot
+
+    game.play(route[TORCH_ROOM_STEP : TORCH_ROOM_STEP + 3] + [("", 60)], on_frame=check)
+    assert embers
+    assert len(barrels(game)) == 1
+    assert barrel_sprites(game, tiles, pal) == [(0, pal), (2, pal)]
+    golden("out_of_the_woods_debug_barrel_torch_room", game.screenshot())

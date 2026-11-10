@@ -162,7 +162,7 @@ owl, slot 1 holds some other enemy, so a spawned owl drew garbage. The new
 spawn (`_DebugSpawnObject`, Object Loading bank) only spawns objects the
 current room's object group has, using that group's data.
 
-In rooms whose group has no owl, `_DebugSpawnObjectFromROM` spawns one from
+In rooms whose group has no owl, `_DebugSpawnObjectOfKind` spawns one from
 `OwlData` instead, and the menu loads `OwlGfx` into slot 1 (VRAM1 `$8000`)
 and the owl palette into object palette 4 when it closes. That has to happen
 in `DebugMenu_Exit` after `LoadBackupVRAM`, while the LCD is still off: the
@@ -233,7 +233,7 @@ slot free.
 tile offset: `$00` for slot 1 / palette 4 (the default, and always the case
 in rooms whose group has the owl), `$40`/`$80`/`$c0` for slots 2-4 / palettes
 5-7 (plus a flag for a borrowed slot, see below). `LoadObjectGroupData` resets it to `$00` on every room load. It's set
-by `_DebugSpawnObjectFromROM` (after a spawn in a room without the owl) and by
+by `_DebugSpawnObjectOfKind` (after a spawn in a room without the owl) and by
 `LoadDebugObjGfxForRoom` (Owl Wario flying into such a room), and
 `LoadDebugObjGfx` loads the owl's graphics and palette at that offset.
 
@@ -511,8 +511,9 @@ tiles in palette 7. So it's the owl's problem again, with a different slot,
 and the owl's machinery now takes a kind of object.
 
 **Kinds.** `DEBUG_GFX_OWL` (0) and `DEBUG_GFX_BARREL` (1). The home bank's
-`DebugGfxKinds` gives each kind's object ID and the tile offset of the slot
-its OAM data draws from (`$00` for the owl, `$c0` for the barrel); the Object
+`DebugGfxKinds` gives each kind's object ID, the tile offset of the slot
+its OAM data draws from (`$00` for the owl, `$c0` for the barrel) and that
+OAM data; the Object
 Loading bank's `DebugGfxKindData` its ROM object data, graphics (and bank) and
 palette. `wDebugGfxSlot` (formerly `wOwlTileOffset`) keeps the kind in bits
 1-2 (`DEBUG_GFX_KIND_MASK`), next to the slot (bits 6-7) and
@@ -522,18 +523,28 @@ slot 1, its own), and every existing check of `wDebugGfxSlot != 0` is the
 same instruction. A barrel in a free slot 1 reads `$02`, not 0, so its
 sprites do get moved.
 
+**Telling the objects apart.** Object IDs aren't unique: `OWL` is also
+`FALLING_SNOW_SPAWNER` (`$29`), and `BARREL2` (`$05`) is also the torches'
+embers (`TORCH_EMBER_*`) and the unused flower's projectiles. So the room's
+group is searched by data pointer (`_DebugSpawnObject` takes `OwlData` or
+`Barrel2Data`), and an object is of a kind when it has the kind's ID *and*
+its OAM data (`IsObjOfKind`, home bank, comparing `OBJ_OAM_PTR`). Going by
+the ID alone, the embers in Out of the Woods' torch room near the grey chest
+were moved into the barrel's slot with it, and counted as the barrel still
+being around (`test_barrel_next_to_torch_embers`, which fails that way).
+
 **What changed.**
 
 - `RelocateDebugObjSprites` moves the kind's sprites from its own slot to
   the one in `wDebugGfxSlot`: tiles by the difference, and the own slot's
   palette (4 + its slot) to the new slot's. For the owl that's what
   `RelocateOwlSprites` did.
-- `DrawObjects_DebugGfx` relocates the sprites of objects with the kind's ID
-  (it was `OWL`); `DrawWario` and `ParticleAnim_Owl` relocate only when the
+- `DrawObjects_DebugGfx` relocates the sprites of objects of the kind
+  (`IsDebugGfxObj`; it was the `OWL` ID); `DrawWario` and `ParticleAnim_Owl` relocate only when the
   kind is the owl (Owl Wario and the released owl are always the owl).
 - "Gone" (`IsDebugGfxObjAround`, home bank, shared by
-  `UpdateBorrowedDebugGfxSlot` and the spawn): no active object with the
-  kind's ID, and for the owl also no Owl Wario and no owl particle. A barrel
+  `UpdateBorrowedDebugGfxSlot` and the spawn): no active object of the
+  kind (`IsKindAround`), and for the owl also no Owl Wario and no owl particle. A barrel
   that vanishes becomes the "stars" object (another ID), and one that breaks
   despawns at the end of its breaking frames, which are relocated too.
 - `SetDebugGfxSlot`, `LoadDebugObjGfx`, `RefuseBorrowedSlotObjects`, the
@@ -552,7 +563,7 @@ sprites do get moved.
 
 **Where the graphics come from.** In order:
 
-1. The group has `BARREL2` in its list: `_DebugSpawnObject` spawns it from
+1. The group has `Barrel2Data` in its list: `_DebugSpawnObject` spawns it from
    the group's data, nothing to load (The Big Bridge, the craters...).
 2. The group loads the kind's graphics into its own slot anyway
    (`IsDebugGfxKindNative` compares the group's graphics pointer for that
@@ -591,9 +602,9 @@ and the barrel's sprites against the ones it draws there.
 **Menu.** BARREL is row 12, between OWL and TREASURE (`DEBUG_MENU_BARREL`,
 cursor 4; TREASURE is 5 now); see [The debug menu](debug-menu.md).
 
-**Cost.** About 400 bytes of ROM: 225 in the Object Loading bank, 100 in the
-home bank, 122 in bank 3 (the menu), 48 fewer in Update Objects (the "gone"
-check moved to the home bank); one byte of WRAM (`wDebugMenuBarrelStatus`).
+**Cost.** About 400 bytes of ROM: about 240 in the Object Loading bank
+(which has 4.8 KB left), 137 in the home bank, 80 in bank 3 (the menu), 51
+fewer in Update Objects (the "gone" check moved to the home bank); one byte of WRAM (`wDebugMenuBarrelStatus`).
 No new code where nothing was spawned, and no cycle added to a room load
 without one.
 
@@ -603,7 +614,8 @@ tiles, colours and sprites), grabbed, carried and thrown there (Wario never
 in a solid block, cartridge RAM still on), in Out of the Woods (slot 2
 borrowed, Applebys refused, the barrel thrown at the spearhead breaking in
 slot 2, and the slot, palettes, object data and V-Blank jump given back as
-the room loaded them), refused next to a debug owl in slot 2, next to an owl
+the room loaded them), next to torch embers (same ID, not moved), refused
+next to a debug owl in slot 2, next to an owl
 in slot 1 in Above the Clouds (same visit and two visits; the owl refused
 after the barrel), refused in The Temple, and saved and continued.
 

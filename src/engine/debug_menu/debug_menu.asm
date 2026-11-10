@@ -432,7 +432,7 @@ DebugMenu_ApplyForm:
 ; -----------------------------------------------------------------------
 ; OWL and BARREL: spawn an owl or a barrel next to Wario (from the room's
 ; object group if it has one, otherwise from ROM, see
-; _DebugSpawnObjectFromROM), and record the outcome in the row's status
+; _DebugSpawnObjectOfKind), and record the outcome in the row's status
 ; (1 = spawned, 2 = not: no free object slot, a boss battle, or the other
 ; one's graphics are in use).
 ; input:
@@ -456,29 +456,9 @@ DebugMenu_SpawnObject:
 	and a
 	ld a, 2
 	ret nz
-	ld a, e
-	add a
-	add LOW(DebugGfxKinds)
-	ld l, a
-	adc HIGH(DebugGfxKinds)
-	sub l
-	ld h, a
-	ld c, [hl] ; object ID
 	push de
 	push_wram BANK("Level Objects WRAM")
-	farcall _DebugSpawnObject
-	pop_wram
-	pop de
-	ld a, b
-	and a
-	ld a, 1
-	ret nz
-	; This room's object group has no such object: spawn one from ROM, and
-	; load its graphics when the menu closes (VRAM is restored then), unless
-	; the group has them anyway.
-	push de
-	push_wram BANK("Level Objects WRAM")
-	farcall _DebugSpawnObjectFromROM
+	farcall _DebugSpawnObjectOfKind
 	pop_wram
 	pop de
 	ld a, b
@@ -1120,7 +1100,7 @@ UpdateDebugMenu:
 ; (wDebugMenuGfxPending), with the LCD off and after VRAM is restored.
 ; wDebugGfxSlot has the last kind spawned. An owl spawned before a barrel in
 ; the same visit went into slot 1, its own, which wDebugGfxSlot then no
-; longer says (only one kind can be elsewhere, see _DebugSpawnObjectFromROM).
+; longer says (only one kind can be elsewhere, see _DebugSpawnObjectOfKind).
 DebugMenu_LoadGfx:
 	ASSERT DEBUG_GFX_OWL == 0
 	bit DEBUG_GFX_OWL, a

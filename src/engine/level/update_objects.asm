@@ -444,8 +444,6 @@ DrawObjects_WithPriority_DebugGfx:
 ; input:
 ; - c = OBJ_FLAGS (masked like in those) of the objects to draw
 DrawObjects_DebugGfx:
-	call GetDebugGfxObjID
-	ld b, a
 	ld hl, wObj1Flags
 .loop
 	ld a, [hl]
@@ -457,8 +455,7 @@ DrawObjects_DebugGfx:
 	ld a, l
 	add OBJ_ID
 	ld l, a
-	ld a, [hl]
-	cp b
+	call IsDebugGfxObj
 	ld a, [wVirtualOAMByteSize]
 	push af ; z if it's the object
 	ld a, l

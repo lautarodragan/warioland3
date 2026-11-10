@@ -273,7 +273,7 @@ def test_free_slot_rule_matches_oam_data():
     oam_data = {
         name: oam
         for name, oam in re.findall(
-            r"^(\w+Data):\s+object_data\s+\w+,\s+(\w+),",
+            r"^(\w+Data)::?\s+object_data\s+\w+,\s+(\w+),",
             (SRC / "data/object_data.asm").read_text(),
             re.M,
         )
