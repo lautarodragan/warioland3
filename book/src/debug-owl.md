@@ -9,6 +9,13 @@ confirmed; notes below capture what was tried and what was learned.
 > **Update (second attempt): root cause found and fixed.** See
 > [Resolution](#resolution) at the end. The OWL entry is back, with
 > emulator tests in `tests/test_owl.py`.
+>
+> **Later: the barrel.** The graphics machinery below was generalized so
+> that the BARREL row can use it too, and its owl-specific names were
+> renamed (`wOwlTileOffset` is `wDebugGfxSlot`, `OWL_SLOT_*` are
+> `DEBUG_GFX_*`, `RelocateOwlSprites` is `RelocateDebugObjSprites`, and so
+> on). The sections below use the new names. See
+> [The barrel (and other objects)](#the-barrel-and-other-objects).
 
 ---
 
@@ -155,7 +162,7 @@ owl, slot 1 holds some other enemy, so a spawned owl drew garbage. The new
 spawn (`_DebugSpawnObject`, Object Loading bank) only spawns objects the
 current room's object group has, using that group's data.
 
-In rooms whose group has no owl, `_DebugSpawnOwlFromROM` spawns one from
+In rooms whose group has no owl, `_DebugSpawnObjectFromROM` spawns one from
 `OwlData` instead, and the menu loads `OwlGfx` into slot 1 (VRAM1 `$8000`)
 and the owl palette into object palette 4 when it closes. That has to happen
 in `DebugMenu_Exit` after `LoadBackupVRAM`, while the LCD is still off: the
@@ -174,8 +181,8 @@ Canyon's cracked column, down into the room below).
 Owl Wario draws the owl he holds from enemy graphics slot 1 too, though, and
 a room change loads the new room's object group into the slots. In a room
 whose group has no owl, he flew on holding the new slot-1 enemy's tiles,
-in its colours. Now `LoadObjectGroupData` ends with `LoadOwlGfxForOwlWario`,
-which loads the owl's graphics and palette (`LoadOwlGfx`, also used by the
+in its colours. Now `LoadObjectGroupData` ends with `LoadDebugObjGfxForRoom`,
+which loads the owl's graphics and palette (`LoadDebugObjGfx`, also used by the
 debug menu) when Wario is Owl Wario and the group has no owl. In rooms whose
 group has the owl (all the ones a real owl is grabbed in, at least), it does
 nothing.
@@ -212,7 +219,7 @@ graphics from `ObjectGroup_Empty`, the empty group: `SpearheadGfx`, `WebberGfx`,
 `FutamoguGfx`, `TorchGfx` for slots 1-4. The entry alone isn't enough:
 bosses and enemies made of several slots (`Sun1`/`Sun2`, `RoboMouse1`/`2`)
 have short lists with entries missing for slots they draw from. So
-`SetOwlTileOffset` (Object Loading bank, next to the debug spawn) takes the
+`SetDebugGfxSlot` (Object Loading bank, next to the debug spawn) takes the
 first slot whose entry is `DummyObjectData` or past the end **and** whose
 graphics are that slot's filler from `ObjectGroup_Empty`; bosses (groups with a
 GFX bank offset) and The Temple's hidden figure always get slot 1.
@@ -222,22 +229,22 @@ unused (the clear gates' shared table, whose frames per slot
 `ClearGate1-3Func` choose, aside). 78 of the 118 groups leave at least one
 slot free.
 
-**Design.** `wOwlTileOffset` (WRAM0) says where the owl's graphics are, as a
+**Design.** `wDebugGfxSlot` (WRAM0) says where the owl's graphics are, as a
 tile offset: `$00` for slot 1 / palette 4 (the default, and always the case
 in rooms whose group has the owl), `$40`/`$80`/`$c0` for slots 2-4 / palettes
 5-7 (plus a flag for a borrowed slot, see below). `LoadObjectGroupData` resets it to `$00` on every room load. It's set
-by `_DebugSpawnOwlFromROM` (after a spawn in a room without the owl) and by
-`LoadOwlGfxForOwlWario` (Owl Wario flying into such a room), and
-`LoadOwlGfx` loads the owl's graphics and palette at that offset.
+by `_DebugSpawnObjectFromROM` (after a spawn in a room without the owl) and by
+`LoadDebugObjGfxForRoom` (Owl Wario flying into such a room), and
+`LoadDebugObjGfx` loads the owl's graphics and palette at that offset.
 
 The owl's OAM data stays as it is; its sprites are moved to the slot after
-they're written to virtual OAM, by `RelocateOwlSprites` (home bank): for each
+they're written to virtual OAM, by `RelocateDebugObjSprites` (home bank): for each
 VRAM1 sprite from a given virtual OAM offset to the end, add the offset to
 the tile, and turn palette 4 into the slot's. It's called only when
-`wOwlTileOffset` isn't 0, from the three places that draw the owl:
+`wDebugGfxSlot` isn't 0, from the three places that draw the owl:
 
 1. the spawned owl object: `DrawObjects_WithPriority`/`_WithPriority` switch
-   to `DrawObjects_OwlElsewhere`, the same loop over the objects but
+   to `DrawObjects_DebugGfx`, the same loop over the objects but
    relocating the sprites `UpdateObjSprite` wrote for an `OWL` object;
 2. and 4. Owl Wario holding it, in this room or one he flew into:
    `DrawWario` relocates his sprites when he's Owl Wario (his own sprites
@@ -306,7 +313,7 @@ gone about 40 frames after the owl flies off (1028 and 466 frames).
   background's tiles `$80`-`$ff`), 114 of its 128 tiles drawn. VRAM1
   `$8000`-`$8fff` is the four slots. There's no range of 50 free tiles, let
   alone 64.
-- *Borrow a slot nothing active draws from: yes.* `SetOwlTileOffset` looks
+- *Borrow a slot nothing active draws from: yes.* `SetDebugGfxSlot` looks
   at every active object's current frame (`GetObjFrameSlots`, home bank: the
   object's OAM data, in the bank its ID picks, as `UpdateObjSprite` reads
   it) and takes the first slot none draws from, or slot 1. A first version
@@ -329,7 +336,7 @@ gone about 40 frames after the owl flies off (1028 and 466 frames).
   `RefusedObjectData`, whose update function despawns it before it's drawn
   and leaves it in the object map (`DespawnObject`), like an object that went
   offscreen. Once the owl is gone the entries are put back
-  (`wOwlSlotObjDataBackup`, in an unused part of WRAM bank 1), and those
+  (`wDebugGfxSlotObjDataBackup`, in an unused part of WRAM bank 1), and those
   objects spawn again as Wario comes across them, the way the game spawns
   everything. Accepting the glitch was the alternative; refusing means one
   kind of enemy is missing while the debug owl is around, which seems the
@@ -340,15 +347,15 @@ gone about 40 frames after the owl flies off (1028 and 466 frames).
   parts.
 - *Give the slot back once the owl is gone: yes.* "Gone" is: no active owl
   object, Wario isn't Owl Wario, and no owl particle (the released owl flying
-  off). `LoadOwlGfx` saves the slot's 64 tiles and its palette
-  (`wOwlSlotTilesBackup`, an unused part of WRAM bank 3) before loading the
+  off). `LoadDebugObjGfx` saves the slot's 64 tiles and its palette
+  (`wDebugGfxSlotTilesBackup`, an unused part of WRAM bank 3) before loading the
   owl's, while the LCD is off anyway. Giving them back happens with the LCD
   on: the level's V-Blank function is redirected to
-  `OwlSlotRestoreVBlankFunc` (home bank, in the same page as
+  `DebugGfxSlotRestoreVBlankFunc` (home bank, in the same page as
   `LevelVBlankFunc`, so that only the low byte of the jump in `wVBlankFunc`
   changes and a V-Blank can't catch it half written), which copies 256 bytes
   per V-Blank with a general purpose DMA (four V-Blanks), then the palette,
-  clears `wOwlTileOffset` and puts the jump back. Why 256 bytes: V-Blank is
+  clears `wDebugGfxSlot` and puts the jump back. Why 256 bytes: V-Blank is
   4560 dots; a GDMA takes 32 dots per 16 bytes (512 for 256 bytes), and the
   level's own V-Blank work can take about 2600 dots (OAM DMA, and up to 52
   background tiles per VRAM bank from its tile queue, about 22 dots each in
@@ -359,27 +366,27 @@ gone about 40 frames after the owl flies off (1028 and 466 frames).
   again instead of saving them would need the buffer anyway, plus a frame's
   worth of CPU right then.
 
-**How the state is kept.** `wOwlTileOffset` gets a flag, `OWL_SLOT_BORROWED`
-(bit 0: a borrowed slot 1 reads `$01`, so the existing `wOwlTileOffset != 0`
+**How the state is kept.** `wDebugGfxSlot` gets a flag, `DEBUG_GFX_BORROWED`
+(bit 0: a borrowed slot 1 reads `$01`, so the existing `wDebugGfxSlot != 0`
 checks in the draw loops take the owl's path, and there's no new check where
-there's no owl; `RelocateOwlSprites` and `LoadOwlGfx` mask it off).
-`wOwlSlotRestore` (WRAM0, from the padding after `wOwlCameraDisplaced`) has
-`OWL_SLOT_SAVE_PENDING` until `LoadOwlGfx` has saved the slot, and the count
-of chunks given back. `LoadObjectGroupData` already clears `wOwlTileOffset`
+there's no owl; `RelocateDebugObjSprites` and `LoadDebugObjGfx` mask it off).
+`wDebugGfxSlotRestore` (WRAM0, from the padding after `wOwlCameraDisplaced`) has
+`DEBUG_GFX_SAVE_PENDING` until `LoadDebugObjGfx` has saved the slot, and the count
+of chunks given back. `LoadObjectGroupData` already clears `wDebugGfxSlot`
 on every room load, which ends a borrow (the new room's graphics and object
 data are loaded anyway); the redirected V-Blank function checks the flag and
-puts the jump back by itself. `UpdateBorrowedOwlSlot` (Update Objects bank)
+puts the jump back by itself. `UpdateBorrowedDebugGfxSlot` (Update Objects bank)
 runs once a frame from `DrawObjects_WithPriority`'s owl path: it sees the owl
 go, starts giving the slot back, and redirects the V-Blank function again
 after a menu or the pause menu (they install their own, then
 `LevelVBlankFunc` again, and back up and restore VRAM, so the chunks copied
 so far survive). A new owl spawned while the slot is being given back takes
-it over (`SetOwlTileOffset`): same slot, its objects refused again, the
-backup kept, and `LoadOwlGfx` writes the owl's tiles over what was copied
+it over (`SetDebugGfxSlot`): same slot, its objects refused again, the
+backup kept, and `LoadDebugObjGfx` writes the owl's tiles over what was copied
 back.
 
 **Cost.** Nothing is added where there's no debug owl: the new code runs only
-behind the existing `wOwlTileOffset` checks or from the debug menu's owl
+behind the existing `wDebugGfxSlot` checks or from the debug menu's owl
 paths. About 570 bytes of ROM (212 in the home bank), 1 byte of WRAM0, and
 $426 bytes in unused parts of WRAM banks 1 and 3 (no code addresses them,
 and they stay empty through a playthrough of Out of the Woods). While a slot
@@ -387,7 +394,7 @@ is borrowed, about 150 cycles a frame for the "gone" check; at the end, a
 512 dot DMA in four V-Blanks.
 
 **Timing.** Some of the new work happens with the LCD off (the menu's exit
-draws the level's objects once, `LoadOwlGfx` saves 1 KB), which moves the
+draws the level's objects once, `LoadDebugObjGfx` saves 1 KB), which moves the
 frame timing against `DIV` after a debug owl spawn, even into a free slot:
 in `test_steep_canyon_debug_owl_to_next_room`, `DIV` reads one higher at the
 same frame from the menu's exit on, so a coin comes out where it didn't
@@ -467,7 +474,7 @@ worked everywhere; these didn't:
 - **Saving.** Saving from the pause menu keeps the level's objects, so a
   spawned owl comes back on CONTINUE, but the room's graphics are loaded
   from its object group again, and the owl drew with the tiles of the
-  room's slot 1 enemy. `LoadOwlGfxForOwlWario` now also loads the owl's
+  room's slot 1 enemy. `LoadDebugObjGfxForRoom` now also loads the owl's
   graphics (into a free slot, if there is one) when an owl object is active (that only happens after a
   CONTINUE: objects are cleared before every other room load). Saving as
   Owl Wario already worked.
@@ -491,3 +498,117 @@ shifted. That was the debug menu itself, not the owl, and it's fixed: the
 floor is the window layer, and the menu closed with `LCDC_DEFAULT` (window
 off) instead of the level's own `rLCDC` (see
 [The debug menu](debug-menu.md#opening-and-closing)).
+
+## The barrel (and other objects)
+
+The debug menu's BARREL row spawns the grabbable barrel (`BARREL2`,
+`Barrel2Data`/`Barrel2Func`): with the Grab Glove (POWER 4 or more) Wario
+picks it up by walking into it, carries it over his head and throws it with
+B; it flies off and vanishes, or breaks against what it hits. Only about ten
+object groups have the barrel, all in slot 4 (`BarrelGfx`, palette
+`barrel.pal`), and its OAM data (`BarrelOAM_181b0f`) draws only from slot 4's
+tiles in palette 7. So it's the owl's problem again, with a different slot,
+and the owl's machinery now takes a kind of object.
+
+**Kinds.** `DEBUG_GFX_OWL` (0) and `DEBUG_GFX_BARREL` (1). The home bank's
+`DebugGfxKinds` gives each kind's object ID and the tile offset of the slot
+its OAM data draws from (`$00` for the owl, `$c0` for the barrel); the Object
+Loading bank's `DebugGfxKindData` its ROM object data, graphics (and bank) and
+palette. `wDebugGfxSlot` (formerly `wOwlTileOffset`) keeps the kind in bits
+1-2 (`DEBUG_GFX_KIND_MASK`), next to the slot (bits 6-7) and
+`DEBUG_GFX_BORROWED` (bit 0). The owl is kind 0, so everything the owl did
+reads exactly as before: 0 still means "nothing out of place" (or the owl in
+slot 1, its own), and every existing check of `wDebugGfxSlot != 0` is the
+same instruction. A barrel in a free slot 1 reads `$02`, not 0, so its
+sprites do get moved.
+
+**What changed.**
+
+- `RelocateDebugObjSprites` moves the kind's sprites from its own slot to
+  the one in `wDebugGfxSlot`: tiles by the difference, and the own slot's
+  palette (4 + its slot) to the new slot's. For the owl that's what
+  `RelocateOwlSprites` did.
+- `DrawObjects_DebugGfx` relocates the sprites of objects with the kind's ID
+  (it was `OWL`); `DrawWario` and `ParticleAnim_Owl` relocate only when the
+  kind is the owl (Owl Wario and the released owl are always the owl).
+- "Gone" (`IsDebugGfxObjAround`, home bank, shared by
+  `UpdateBorrowedDebugGfxSlot` and the spawn): no active object with the
+  kind's ID, and for the owl also no Owl Wario and no owl particle. A barrel
+  that vanishes becomes the "stars" object (another ID), and one that breaks
+  despawns at the end of its breaking frames, which are relocated too.
+- `SetDebugGfxSlot`, `LoadDebugObjGfx`, `RefuseBorrowedSlotObjects`, the
+  V-Blank give-back: the same as for the owl, for whichever kind
+  `wDebugGfxSlot` says. When choosing a slot to borrow, the objects of the
+  new kind are left out (their frames still draw from their own slot), as
+  `OWL` was.
+- `LoadDebugObjGfxForRoom` (formerly `LoadOwlGfxForOwlWario`): Owl Wario
+  flying into a room, as before; and after a CONTINUE, for each kind (the
+  owl first), an active object of it in a room whose group doesn't have its
+  graphics. Without Owl Wario and active objects, which is every room load
+  but a CONTINUE's, its loop takes 14 cycles a round like the owl-only
+  version (two `nop`s make up for it): it runs with the LCD off, so a
+  different count would have moved every level's frame timing against `DIV`
+  and changed how enemies behave in every test. No level golden changed.
+
+**Where the graphics come from.** In order:
+
+1. The group has `BARREL2` in its list: `_DebugSpawnObject` spawns it from
+   the group's data, nothing to load (The Big Bridge, the craters...).
+2. The group loads the kind's graphics into its own slot anyway
+   (`IsDebugGfxKindNative` compares the group's graphics pointer for that
+   slot): spawned from ROM data, with the group's graphics and palette. That
+   covers the groups with `Barrel1Data` (the barrels Wario stands on, same
+   graphics and OAM): The Grasslands, Above the Clouds and a shared group.
+   Not if the debug menu borrowed that very slot.
+3. Otherwise from ROM data, into a free or borrowed slot, as the owl.
+
+**One kind at a time.** There's one `wDebugGfxSlot`, so only one kind can be
+out of its own slot. Spawning another kind while the first one's object is
+still around shows `NO`; once it's gone, the new kind takes the slot over
+(a borrowed slot being given back keeps its backup, as with a second owl).
+The one exception is the owl in slot 1, its own: that's `wDebugGfxSlot` 0,
+so nothing's out of place, and a barrel can come too. `SetDebugGfxSlot`
+then keeps slot 1 for the owl (`hTemp`): a free slot 1 isn't taken, and
+when borrowing, slot 1 counts as in use (Owl Wario's owl isn't an object),
+with slot 2 as the last resort instead of 1. In Above the Clouds' start
+room (slots 1 and 3 free) the owl goes into slot 1 and the barrel into 3.
+The other way round, a barrel first, the owl is refused while the barrel is
+around (the owl would take slot 1 and `wDebugGfxSlot` with it). Both in the
+same visit to the menu: `wDebugMenuGfxPending` has a bit per kind, and
+`DebugMenu_LoadGfx` loads the owl into slot 1 before the barrel's slot.
+
+Another room's barrels aren't a problem: a held barrel is still an object,
+cleared on a room load like any other (objects don't go through doors).
+
+**Palette.** The barrel's palette (`barrel.pal`, as every barrel group has
+it in palette 7) goes into the slot's palette. `test_barrel_in_free_slot`
+compares the colours the game wrote to the LCD (`rOBPD`) for the slot's
+palette, and the slot's tiles, against The Big Bridge's palette 7 and slot 4,
+and the barrel's sprites against the ones it draws there.
+
+**Boss battles.** `NO`, like the owl (`wIsBossBattle`), and VRAM untouched.
+
+**Menu.** BARREL is row 12, between OWL and TREASURE (`DEBUG_MENU_BARREL`,
+cursor 4; TREASURE is 5 now); see [The debug menu](debug-menu.md).
+
+**Cost.** About 400 bytes of ROM: 225 in the Object Loading bank, 100 in the
+home bank, 122 in bank 3 (the menu), 48 fewer in Update Objects (the "gone"
+check moved to the home bank); one byte of WRAM (`wDebugMenuBarrelStatus`).
+No new code where nothing was spawned, and no cycle added to a room load
+without one.
+
+**Tests** (`tests/test_barrel.py`): spawned in The Big Bridge (the group's
+own barrel), in Desert Ruins (free slot 2, checked against The Big Bridge's
+tiles, colours and sprites), grabbed, carried and thrown there (Wario never
+in a solid block, cartridge RAM still on), in Out of the Woods (slot 2
+borrowed, Applebys refused, the barrel thrown at the spearhead breaking in
+slot 2, and the slot, palettes, object data and V-Blank jump given back as
+the room loaded them), refused next to a debug owl in slot 2, next to an owl
+in slot 1 in Above the Clouds (same visit and two visits; the owl refused
+after the barrel), refused in The Temple, and saved and continued.
+
+**Left as it is.** The owl's (objects already drawing from a borrowed slot
+keep its tiles until they go, projectiles aren't refused), and: a barrel
+first, then an owl in the same room, is refused while the barrel is around;
+a group's own barrels are refused, like any enemy of the slot, if a debug
+owl borrowed slot 4 and a barrel then takes that slot over.

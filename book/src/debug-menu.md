@@ -9,6 +9,7 @@ turns him back to normal first, and a second SELECT opens it.
 | POWER | LEFT/RIGHT | power-up level 0-9 |
 | GOLF | A | gives or takes the current area's golf win |
 | OWL | A | spawns a sleeping owl next to Wario ([The debug owl](debug-owl.md)) |
+| BARREL | A | spawns a grabbable barrel next to Wario ([The barrel](debug-owl.md#the-barrel-and-other-objects)) |
 | TREASURE | LEFT/RIGHT to pick, A to apply | gives or takes any level's treasure; shows OPEN or CLOSED, like the chest |
 
 UP/DOWN moves the cursor; B or SELECT closes the menu. FORM and POWER show
@@ -19,8 +20,8 @@ menu's music and gives the level's back when it closes.
 
 | File | What |
 |---|---|
-| `src/engine/debug_menu/debug_menu.asm` | the menu: state table, input, drawing, FORM/POWER/GOLF/TREASURE, owl spawn entry point |
-| `src/engine/debug_menu/spawn_object.asm` | `_DebugSpawnObject` and the owl's spawn helpers, kept in the "Object Loading" section next to `SpawnObject` |
+| `src/engine/debug_menu/debug_menu.asm` | the menu: state table, input, drawing, FORM/POWER/GOLF/TREASURE, the OWL/BARREL spawn entry point (`DebugMenu_SpawnObject`) |
+| `src/engine/debug_menu/spawn_object.asm` | `_DebugSpawnObject` and the helpers for objects spawned where their graphics aren't (`_DebugSpawnObjectFromROM`, `SetDebugGfxSlot`, `LoadDebugObjGfx`...), kept in the "Object Loading" section next to `SpawnObject` |
 | `src/engine/debug_menu/clear_gates.asm` | `_DebugMoveClearGates`, for GOLF |
 | `src/debug_menu.asm` | the "Debug Menu" section, placed by `src/layout.link` |
 | `src/engine/level/update_level.asm` | the SELECT trigger (`UpdateLevel.open_debug_menu`) |
@@ -38,7 +39,8 @@ and its animated tile state, finds the current form's row, loads the screen,
 turns the LCD on and plays `MUSIC_PAUSE_MENU`.
 
 `DebugMenu_Exit` does the reverse: it redraws the level's objects, restores
-VRAM, loads the owl's graphics if the menu spawned one, reapplies Wario's palette
+VRAM, loads the graphics of the owl or barrel the menu spawned in a room
+without them (`wDebugMenuGfxPending`, a bit per kind), reapplies Wario's palette
 (FORM may have changed it), restores the animated tiles and the level music, turns the LCD back on with
 the level's own `rLCDC`, and returns to the saved substate with
 `ReturnToPendingLevelState`.
@@ -63,8 +65,13 @@ labels). Run it again after changing the layout:
 python3 tools/debug_menu_bgmap.py
 ```
 
+The rows are two map rows apart, from FORM on row 4 (right under the frame's
+top) to TREASURE on row 14, with its value on row 15; BARREL took the place of
+the gap that used to be above FORM.
+
 The code draws only what changes: the cursor, the values and the selected row's
-arrows. The arrows are two tiles defined in `debug_menu.asm`
+arrows. OWL and BARREL show `OK` or `NO` for the last try
+(`DebugMenu_DrawSpawnStatus`). The arrows are two tiles defined in `debug_menu.asm`
 (`DebugMenuArrowTiles`, written as 2bpp backtick literals). They are copied
 over font tiles `$5e`/`$5f` when the screen loads.
 

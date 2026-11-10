@@ -4291,7 +4291,7 @@ the data labels).
   `BLOCK_FUNCTION_TABLE_UNUSED_89` does. Two indices no room uses are
   loaded by code and named for it instead: `OBJECT_GROUP_EMPTY`
   (`ObjectGroup_Empty`, the group with no objects whose gfx
-  `SetOwlTileOffset` treats as slot fillers) and `ANIMATED_TILES_GFX_MENU`
+  `SetDebugGfxSlot` treats as slot fillers) and `ANIMATED_TILES_GFX_MENU`
   (the musical coins screen and `InitGolfCourseMenu`, which had it as a raw
   `$0f`).
 

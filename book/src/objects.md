@@ -92,7 +92,7 @@ Both are named after the level that uses them (see
 (with different common-objects colours) is named after the first of them,
 with the others in a comment above it. It:
 
-1. resets `wOwlTileOffset` (this fork, see [The debug owl](debug-owl.md))
+1. resets `wDebugGfxSlot` (this fork, see [The debug owl](debug-owl.md))
    and fills all 16 `wObjDataPointers` with `DummyObjectData`;
 2. from the common-objects set (`CommonObjects_Grey`, `_Red`, `_Green`,
    `_Blue`, `_Special`): the chest, key and musical coin data
