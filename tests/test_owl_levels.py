@@ -7,7 +7,8 @@ worth keeping as tests; the rest behave like the ones here. See book/src/debug-o
 
 import pytest
 
-from game import OWL, THE_STEEP_CANYON_DAY_1
+from game import OBJFLAG_TRANSIENT, OWL, THE_STEEP_CANYON_DAY_1
+from test_debug_menu_golf import door_to
 from routes.debug_owl import (
     BENEATH_THE_WAVES_DIVE,
     BENEATH_THE_WAVES_GRAB_UNDERWATER,
@@ -35,6 +36,7 @@ from test_owl_cases import NUM_OBJECTS, TRANSFORMATION_NONE, WST_RELEASING_OWL, 
 
 # src/constants/level_constants.asm
 OUT_OF_THE_WOODS_DAY_1 = 0x00
+FOREST_OF_FEAR_DAY_1 = 0xC0
 THE_POOL_OF_RAIN_DAY_1 = 0x40
 THE_VAST_PLAIN_NIGHT_1 = 0x14
 BENEATH_THE_WAVES_DAY_1 = 0x50
@@ -330,3 +332,31 @@ def test_debug_owl_saved_and_continued(game, golden):
     game.play(GRAB_SPAWNED_OWL)
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
     golden("any_level_saved_owl_grabbed", game.screenshot())
+
+
+def test_debug_owl_not_the_snow_spawner(game, golden):
+    # OWL and FALLING_SNOW_SPAWNER share the object ID $29. Forest of Fear's
+    # blue chest room loads the snow spawner, and the menu used to look the
+    # owl up in the room's object group by ID: it spawned the spawner, whose
+    # snow froze Wario into a snowball. It looks the owl up by its data now.
+    game.new_game_to_overworld()
+    game.enter_level(FOREST_OF_FEAR_DAY_1)
+    door_to(game, 1)
+    spawn_owl(game)
+    assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
+    owl_func = game.addr("OwlFunc")
+    spawned = [
+        slot for slot, flags, obj_id in game.objects()
+        if obj_id == OWL and flags & OBJFLAG_TRANSIENT
+    ]
+    assert len(spawned) == 1
+    assert update_function(game, spawned[0]) == owl_func
+    game.close_debug_menu()
+    game.tick(120)
+    assert game.read("wTransformation") == TRANSFORMATION_NONE
+    golden("debug_owl_forest_of_fear_snow_room", game.screenshot())
+
+
+def update_function(game, slot):
+    bank, addr = game.pb.symbol_lookup(f"wObj{slot}UpdateFunction")
+    return game.pb.memory[bank, addr] | game.pb.memory[bank, addr + 1] << 8

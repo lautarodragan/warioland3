@@ -441,7 +441,7 @@ DebugMenu_SpawnOwl:
 	ld a, 2
 	jr nz, .got_status
 	push_wram BANK("Level Objects WRAM")
-	ld c, OWL
+	ld bc, OwlData
 	farcall _DebugSpawnObject
 	pop_wram
 	ld a, b

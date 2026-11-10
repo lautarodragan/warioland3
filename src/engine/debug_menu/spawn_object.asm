@@ -3,32 +3,36 @@
 
 DEF DEBUG_SPAWN_X_OFFSET EQU 24 ; pixels to Wario's right
 
-; Spawns the object with ID c next to Wario, using the current room's object
-; group data for it (so its OAM, palette and graphics slot are the ones the
-; room loaded). Does nothing if the group has no such object, or if every
-; object slot is taken.
+; Spawns the object whose data is at bc (e.g. OwlData) next to Wario, if the
+; current room's object group has it (so its OAM, palette and graphics slot
+; are the ones the room loaded). Does nothing if the group doesn't have it,
+; or if every object slot is taken.
+; It looks the object up by its data pointer, not its ID: IDs aren't unique
+; (OWL and FALLING_SNOW_SPAWNER are both $29).
 ; The object has no object map entry: it vanishes when it goes offscreen
 ; or the room is left, instead of being written back into the map.
 ; Needs WRAM bank "Level Objects WRAM".
 ; input:
-; - c = object ID
+; - bc = the object's data (in the object data bank)
 ; output:
 ; - b = TRUE if spawned, FALSE otherwise
 _DebugSpawnObject::
-	ld b, FALSE
 	ld hl, wObjDataPtr01
 	ASSERT HIGH(wObjDataPtr01) == HIGH(wObjDataPointersEnd)
 .find_data
 	ld a, l
 	cp LOW(wObjDataPointersEnd)
-	ret z
+	jr z, .not_found
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	ld a, [de] ; OBJ_ID
+	cp b
+	jr nz, .find_data
+	ld a, e
 	cp c
 	jr nz, .find_data
+	ld b, FALSE
 .got_data
 	ld h, HIGH(wObj1)
 FOR n, 1, NUM_OBJECTS + 1
@@ -37,6 +41,10 @@ FOR n, 1, NUM_OBJECTS + 1
 	rra
 	jr nc, .got_obj ; OBJFLAG_ACTIVE not set
 ENDR
+	ret
+
+.not_found
+	ld b, FALSE
 	ret
 
 .got_obj
