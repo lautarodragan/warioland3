@@ -703,16 +703,26 @@ DEF NUM_OBJECT_GROUPS EQU const_value
 	const_def 240
 	const OBJECT_GROUP_HIDDEN_FIGURE ; $f0
 
-; wOwlTileOffset: where the debug menu's owl has its graphics
-DEF OWL_SLOT_MASK         EQU %11000000 ; tile offset of the enemy graphics slot
-DEF OWL_SLOT_BORROWED_F   EQU 0 ; the slot belongs to one of the room's enemies
-DEF OWL_SLOT_BORROWED     EQU 1 << OWL_SLOT_BORROWED_F
+; wDebugGfxSlot: which object the debug menu put in an enemy graphics slot
+; of a room whose object group doesn't have it, and where
+DEF DEBUG_GFX_SLOT_MASK  EQU %11000000 ; tile offset of the enemy graphics slot
+DEF DEBUG_GFX_KIND_MASK  EQU %00000110 ; whose graphics: DEBUG_GFX_* * 2
+DEF DEBUG_GFX_BORROWED_F EQU 0 ; the slot belongs to one of the room's enemies
+DEF DEBUG_GFX_BORROWED   EQU 1 << DEBUG_GFX_BORROWED_F
 
-; wOwlSlotRestore, while OWL_SLOT_BORROWED is set
-DEF OWL_SLOT_SAVE_PENDING_F EQU 7 ; the slot's own graphics aren't saved yet
-DEF OWL_SLOT_SAVE_PENDING   EQU 1 << OWL_SLOT_SAVE_PENDING_F
-; the rest counts the slot's chunks given back: 0 while the owl is around,
+; kinds of objects in wDebugGfxSlot, in the order of DebugGfxKinds and
+; DebugGfxKindData
+	const_def
+	const DEBUG_GFX_OWL    ; 0: OWL, from slot 1 (so 0 means no relocation)
+	const DEBUG_GFX_BARREL ; 1: BARREL2, from slot 4
+DEF NUM_DEBUG_GFX_KINDS EQU const_value
+ASSERT NUM_DEBUG_GFX_KINDS * 2 <= DEBUG_GFX_KIND_MASK + 2
+
+; wDebugGfxSlotRestore, while DEBUG_GFX_BORROWED is set
+DEF DEBUG_GFX_SAVE_PENDING_F EQU 7 ; the slot's own graphics aren't saved yet
+DEF DEBUG_GFX_SAVE_PENDING   EQU 1 << DEBUG_GFX_SAVE_PENDING_F
+; the rest counts the slot's chunks given back: 0 while its object is around,
 ; then 1 + the chunk the next V-Blank copies
-DEF OWL_SLOT_RESTORE_MASK   EQU %00000111
-DEF OWL_SLOT_CHUNK_SIZE     EQU $100 ; bytes copied in one V-Blank
-DEF OWL_SLOT_NUM_CHUNKS     EQU ($40 tiles) / OWL_SLOT_CHUNK_SIZE
+DEF DEBUG_GFX_RESTORE_MASK   EQU %00000111
+DEF DEBUG_GFX_CHUNK_SIZE     EQU $100 ; bytes copied in one V-Blank
+DEF DEBUG_GFX_NUM_CHUNKS     EQU ($40 tiles) / DEBUG_GFX_CHUNK_SIZE

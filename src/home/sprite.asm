@@ -38,15 +38,15 @@ DrawWario::
 	ld [wCurSpriteFrame], a
 	ld a, [wWarioAttributes]
 	ld [wCurSpriteAttributes], a
-	ld a, [wOwlTileOffset]
+	ld a, [wDebugGfxSlot]
 	and a
-	jr nz, .owl_elsewhere
+	jr nz, .debug_gfx
 	call LoadSprite
 	pop af
 	bankswitch
 	ret
 
-.owl_elsewhere
+.debug_gfx
 	; Owl Wario's frames draw the owl from slot 1's tiles
 	ld a, [wVirtualOAMByteSize]
 	push af
@@ -55,25 +55,67 @@ DrawWario::
 	ld l, a
 	ld a, [wTransformation]
 	cp TRANSFORMATION_OWL_WARIO
-	call z, RelocateOwlSprites
+	jr nz, .done
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	ASSERT DEBUG_GFX_OWL == 0
+	call z, RelocateDebugObjSprites ; the owl's graphics are elsewhere
+.done
 	pop af
 	bankswitch
 	ret
 
-; Moves the owl's sprites from enemy graphics slot 1 to where its graphics
-; are (wOwlTileOffset): from virtual OAM byte offset l to the end, VRAM1
-; tiles move by the offset and object palette 4 becomes the slot's palette.
-; Every VRAM1 sprite in that range has to be the owl's (Wario's own sprites
-; are in VRAM0, so Owl Wario's frames qualify).
-RelocateOwlSprites::
-	ld h, HIGH(wVirtualOAM)
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+; The objects whose graphics the debug menu can put in an enemy graphics slot
+; (wDebugGfxSlot), by DEBUG_GFX_* kind: the object's ID, and the tile offset
+; of the slot its OAM data draws from (its palette is that slot's: 4-7).
+DebugGfxKinds::
+	db OWL,     $00 ; DEBUG_GFX_OWL: slot 1, palette 4
+	db BARREL2, $c0 ; DEBUG_GFX_BARREL: slot 4, palette 7
+.end
+	ASSERT DebugGfxKinds.end - DebugGfxKinds == NUM_DEBUG_GFX_KINDS * 2
+
+; output:
+; - a = ID of the object whose graphics are in wDebugGfxSlot
+; - de = its entry in DebugGfxKinds
+GetDebugGfxObjID::
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	add LOW(DebugGfxKinds)
+	ld e, a
+	adc HIGH(DebugGfxKinds)
+	sub e
 	ld d, a
+	ld a, [de]
+	ret
+
+; Moves the sprites of the object whose graphics are in wDebugGfxSlot from
+; the enemy graphics slot its OAM data draws from (DebugGfxKinds: slot 1 for
+; the owl, 4 for the barrel) to where its graphics are: from virtual OAM byte
+; offset l to the end, VRAM1 tiles move by the difference and that slot's
+; object palette becomes the slot's. Every VRAM1 sprite in that range has to
+; be the object's (Wario's own sprites are in VRAM0, so Owl Wario's frames
+; qualify).
+RelocateDebugObjSprites::
+	call GetDebugGfxObjID
+	inc de
+	ld a, [de]
+	ld b, a ; tile offset of the object's own slot
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
+	ld c, a
+	sub b
+	ld d, a ; how far its tiles move
+	ld a, c
 	rlca
 	rlca
 	add 4
 	ld e, a ; slot 1-4 -> palette 4-7
+	ld a, b
+	rlca
+	rlca
+	add 4
+	ld b, a ; the object's own palette
+	ld h, HIGH(wVirtualOAM)
 	ld a, [wVirtualOAMByteSize]
 	ld c, a
 .loop
@@ -86,11 +128,10 @@ RelocateOwlSprites::
 	ld a, [hl] ; SPRITEOAMSTRUCT_ATTRIBUTES
 	bit B_OAM_BANK1, a
 	jr z, .next
-	ld b, a
 	and OAM_PALETTE
-	cp 4
-	ld a, b
+	cp b
 	jr nz, .tile
+	ld a, [hl]
 	and ~OAM_PALETTE
 	or e
 	ld [hl], a
@@ -102,6 +143,56 @@ RelocateOwlSprites::
 .next
 	inc l
 	jr .loop
+
+; Whether the object whose graphics are in wDebugGfxSlot is still around
+; (IsObjAround).
+; Needs WRAM bank "Level Objects WRAM".
+; output:
+; - z if it is, nz if it's gone
+IsDebugGfxObjAround::
+	call GetDebugGfxObjID
+;	fallthrough
+
+; Whether an object is around: an active object with its ID, and for the
+; owl also Owl Wario or the owl flying off (PARTICLE_OWL).
+; Needs WRAM bank "Level Objects WRAM".
+; input:
+; - a = object ID
+; output:
+; - z if it is, nz if it's gone
+IsObjAround::
+	ld c, a
+	cp OWL
+	jr nz, .objects
+	ld a, [wTransformation]
+	cp TRANSFORMATION_OWL_WARIO
+	ret z
+FOR n, 0, MAX_NUM_PARTICLES
+	ld a, [wParticle{u:n} + PARTICLE_STRUCT_ID]
+	cp PARTICLE_OWL
+	ret z
+ENDR
+.objects
+	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
+	ld hl, wObj1
+.loop_objs
+	ld a, [hl] ; OBJ_FLAGS
+	rra
+	jr nc, .next_obj ; OBJFLAG_ACTIVE not set
+	ld a, l
+	add OBJ_ID
+	ld e, a
+	ld d, h
+	ld a, [de]
+	cp c
+	ret z
+.next_obj
+	ld a, l
+	add OBJ_STRUCT_LENGTH
+	ld l, a
+	jr nc, .loop_objs
+	or 1 ; nz: gone
+	ret
 
 ; Adds to b the enemy graphics slots (bit n for slot n + 1) that the
 ; current frame of an object draws from (its VRAM1 sprites), going through

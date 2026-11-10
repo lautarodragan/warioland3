@@ -66,59 +66,167 @@ ENDR
 	ld b, TRUE
 	ret
 
-; Like _DebugSpawnObject, but spawns an owl from its ROM data, for rooms
-; whose object group has no owl. Its graphics go into an enemy graphics slot
-; the group doesn't use, or one it lends until the owl's gone, set in
-; wOwlTileOffset (SetOwlTileOffset); the caller has to load them there
-; (LoadOwlGfx).
+; Like _DebugSpawnObject, but spawns an object the debug menu can put
+; anywhere (DEBUG_GFX_* kinds: the owl, the barrel) from its ROM data, for
+; rooms whose object group doesn't have it. If the group loads its graphics
+; anyway, in the slot its OAM data draws from (the barrel's, with
+; Barrel1Data), they're used as they are. Otherwise its graphics go into an
+; enemy graphics slot the group doesn't use, or one it lends until the
+; object's gone, set in wDebugGfxSlot (SetDebugGfxSlot); the caller has to
+; load them there (LoadDebugObjGfx).
+; Only one kind's graphics can be elsewhere at a time: while another kind's
+; object is still around (IsDebugGfxObjAround), this one isn't spawned. (The
+; owl in slot 1, its own slot, isn't elsewhere: SetDebugGfxSlot keeps slot 1
+; for it.)
 ; Needs WRAM bank "Level Objects WRAM".
+; input:
+; - e = DEBUG_GFX_* kind
 ; output:
-; - b = TRUE if spawned, FALSE otherwise (no free object slot)
-_DebugSpawnOwlFromROM::
-	ld b, FALSE
-	ld de, OwlData
-	call _DebugSpawnObject.got_data
-	ld a, b
-	and a
-	ret z
-	call SetOwlTileOffset
-	ld b, TRUE
+; - b = TRUE if spawned, FALSE otherwise (no free object slot, or another
+;   kind's graphics are elsewhere)
+; - c = TRUE if its graphics have to be loaded
+_DebugSpawnObjectFromROM::
+	sla e ; kind * 2, as in wDebugGfxSlot (DEBUG_GFX_KIND_MASK)
+	push de
+	call IsDebugGfxKindNative
+	pop de
+	jr nc, .elsewhere
+	call .spawn
+	ld c, FALSE
 	ret
 
-; Sets wOwlTileOffset to the first enemy graphics slot the room's object
-; group doesn't use. If it uses all four, the owl borrows one of them
-; (OWL_SLOT_BORROWED): the first no active object draws from, or slot 1.
-; The slot's graphics and palette are saved when the owl's are loaded
-; (LoadOwlGfx), its objects aren't spawned meanwhile
-; (RefuseBorrowedSlotObjects), and it's given back once the owl's gone
-; (UpdateBorrowedOwlSlot). Bosses and The Temple's hidden figure always lend
-; slot 1, and keep spawning their parts.
-; Groups load graphics into all four slots, and their object lists are
-; positional: entry n is the object whose graphics are in slot n. A slot is
-; unused when its entry is DummyObjectData or the list ends before it, and
-; the group loads the slot's filler graphics there (the ones in ObjectGroup_Empty,
-; the empty group). The filler check rules out the bosses and the multi-slot
-; enemies (like Sun1/Sun2), whose short lists leave entries out of slots they
-; do use.
-; Needs WRAM bank "Level Objects WRAM".
-SetOwlTileOffset:
-	ld a, [wOwlTileOffset]
-	bit OWL_SLOT_BORROWED_F, a
-	jr z, .find
-	; Another owl has borrowed a slot already. It's still around, or the
-	; slot is being given back: keep it, and give it back later.
-	ld hl, wOwlSlotRestore
-	ld a, [hl]
-	and OWL_SLOT_RESTORE_MASK
-	ret z ; still around
-	xor [hl]
-	ld [hl], a
-	jp RefuseBorrowedSlotObjects ; again
+.elsewhere
+	ld a, [wDebugGfxSlot]
+	and a
+	jr z, .spawn_elsewhere
+	and DEBUG_GFX_KIND_MASK
+	cp e
+	jr z, .spawn_elsewhere
+	push de
+	call IsDebugGfxObjAround
+	pop de
+	ld bc, FALSE << 8 | FALSE
+	ret z ; another kind's object has the slot
+.spawn_elsewhere
+	push de
+	call .spawn
+	pop de
+	ld a, b
+	and a
+	ld c, a
+	ret z
+	call SetDebugGfxSlot
+	ld bc, TRUE << 8 | TRUE
+	ret
 
-.find
+; input: e = kind * 2
+.spawn
+	call GetDebugGfxKindData
+	ld a, [hli]
+	ld e, a
+	ld d, [hl] ; object data
+	ld b, FALSE
+	jp _DebugSpawnObject.got_data
+
+; input:
+; - e = kind * 2
+; output:
+; - hl = its entry in DebugGfxKindData
+GetDebugGfxKindData:
+	ld a, e
+	add a
+	add a ; * DEBUG_GFX_KIND_DATA_LENGTH
+	add LOW(DebugGfxKindData)
+	ld l, a
+	adc HIGH(DebugGfxKindData)
+	sub l
+	ld h, a
+	ret
+
+; By DEBUG_GFX_* kind, like DebugGfxKinds (home bank)
+DebugGfxKindData:
+	; object data, graphics, their bank, palette, padding
+	dw OwlData
+	dw OwlGfx
+	db BANK(OwlGfx)
+	dw .owl_pal
+	db 0
+DEF DEBUG_GFX_KIND_DATA_LENGTH EQU @ - DebugGfxKindData
+	ASSERT DEBUG_GFX_KIND_DATA_LENGTH == 8
+
+	dw Barrel2Data
+	dw BarrelGfx
+	db BANK(BarrelGfx)
+	dw .barrel_pal
+	db 0
+	ASSERT @ - DebugGfxKindData == NUM_DEBUG_GFX_KINDS * DEBUG_GFX_KIND_DATA_LENGTH
+
+.owl_pal
+INCLUDE "gfx/pals/owl.pal"
+.barrel_pal
+INCLUDE "gfx/pals/barrel.pal"
+
+; Whether the room's object group loads a kind's graphics into the slot its
+; OAM data draws from (and the debug menu hasn't borrowed that slot).
+; input:
+; - e = kind * 2
+; output:
+; - carry if it does
+IsDebugGfxKindNative:
+	call GetDebugGfxKindData
+	inc hl
+	inc hl
+	ld a, [hli]
+	ld c, a
+	ld b, [hl] ; its graphics
+	ld a, e
+	add LOW(DebugGfxKinds + 1)
+	ld l, a
+	adc HIGH(DebugGfxKinds + 1)
+	sub l
+	ld h, a
+	ld d, [hl] ; tile offset of its slot
+	ld a, [wDebugGfxSlot]
+	bit DEBUG_GFX_BORROWED_F, a
+	jr z, .not_borrowed
+	and DEBUG_GFX_SLOT_MASK
+	cp d
+	ret z ; no carry: borrowed
+.not_borrowed
+	push de
+	call GetObjectGroupLists
+	pop de
+	ccf
+	ret nc ; a boss
+	ld a, d
+	swap a
+	rrca ; slot * 2
+	add l
+	ld l, a
+	adc h
+	sub l
+	ld h, a
+	ld a, [hli]
+	cp c
+	jr nz, .no
+	ld a, [hl]
+	cp b
+	jr nz, .no
+	scf
+	ret
+.no
+	and a
+	ret
+
+; output:
+; - hl = the room's object group's graphics list (4 pointers), followed by
+;   its object list
+; - carry if it's a boss's group or The Temple's hidden figure (no lists
+;   to go by)
+GetObjectGroupLists:
 	ld a, [wObjectGroup]
 	cp OBJECT_GROUP_HIDDEN_FIGURE
-	jp z, .borrow_slot_1
+	jr z, .boss
 	ld l, a
 	ld h, 0
 	add hl, hl
@@ -130,7 +238,66 @@ SetOwlTileOffset:
 	ld l, a
 	ld a, [hli] ; GFX bank offset
 	and a
-	jp nz, .borrow_slot_1 ; a boss: they use all four slots
+	ret z
+.boss
+	scf
+	ret
+
+; Sets wDebugGfxSlot to the first enemy graphics slot the room's object
+; group doesn't use, for a kind of object. If it uses all four, the object
+; borrows one of them (DEBUG_GFX_BORROWED): the first no active object draws
+; from, or slot 1. The slot's graphics and palette are saved when the
+; object's are loaded (LoadDebugObjGfx), its objects aren't spawned meanwhile
+; (RefuseBorrowedSlotObjects), and it's given back once the object's gone
+; (UpdateBorrowedDebugGfxSlot). Bosses and The Temple's hidden figure always
+; lend slot 1, and keep spawning their parts.
+; Groups load graphics into all four slots, and their object lists are
+; positional: entry n is the object whose graphics are in slot n. A slot is
+; unused when its entry is DummyObjectData or the list ends before it, and
+; the group loads the slot's filler graphics there (the ones in ObjectGroup_Empty,
+; the empty group). The filler check rules out the bosses and the multi-slot
+; enemies (like Sun1/Sun2), whose short lists leave entries out of slots they
+; do use.
+; An owl in slot 1, the one its OAM data draws from, is wDebugGfxSlot 0, as
+; when nothing's elsewhere: while an owl is around, another kind keeps off
+; slot 1.
+; Needs WRAM bank "Level Objects WRAM".
+; input:
+; - e = kind * 2
+SetDebugGfxSlot:
+	ld a, [wDebugGfxSlot]
+	bit DEBUG_GFX_BORROWED_F, a
+	jr z, .find
+	; A slot is borrowed already. Its object is still around (the same kind),
+	; or the slot is being given back: keep it, and give it back later.
+	and ~DEBUG_GFX_KIND_MASK
+	or e
+	ld [wDebugGfxSlot], a
+	ld hl, wDebugGfxSlotRestore
+	ld a, [hl]
+	and DEBUG_GFX_RESTORE_MASK
+	ret z ; still around
+	xor [hl]
+	ld [hl], a
+	jp RefuseBorrowedSlotObjects ; again
+
+.find
+	ld a, e
+	ld [wDebugGfxSlot], a ; the kind; its slot is ORed in
+	; slots kept for the owl (bit n for slot n + 1)
+	ASSERT DEBUG_GFX_OWL == 0
+	and a
+	jr z, .got_kept_slots ; a = 0
+	ld a, OWL
+	call IsObjAround
+	ld a, 0
+	jr nz, .got_kept_slots
+	inc a ; slot 1
+.got_kept_slots
+	ldh [hTemp], a
+
+	call GetObjectGroupLists
+	jp c, .borrow_slot_1 ; a boss: they use all four slots
 	ld d, h
 	ld e, l ; graphics list
 	ld bc, 4 * 2
@@ -154,6 +321,13 @@ SetOwlTileOffset:
 	cp HIGH(DummyObjectData)
 	jr nz, .next
 .no_object
+	ld a, c
+	and a
+	jr nz, .check_filler
+	ldh a, [hTemp]
+	and a
+	jr nz, .next ; slot 1 is kept for the owl
+.check_filler
 	push hl
 	ld a, c
 	swap a
@@ -173,8 +347,10 @@ SetOwlTileOffset:
 	cp [hl]
 	jr nz, .not_filler
 	pop hl
+	ld hl, wDebugGfxSlot
 	ld a, c
-	ld [wOwlTileOffset], a
+	or [hl]
+	ld [hl], a
 	ret
 
 .not_filler
@@ -189,8 +365,10 @@ SetOwlTileOffset:
 
 ; All four slots are used. Borrow the first one no active object draws
 ; from now, going by the current frame of each (an object's frames normally
-; keep to its slot); if there's none, slot 1.
-	ld b, 0 ; slots in use, bit n for slot n + 1
+; keep to its slot), and not one kept for the owl; if there's none, the
+; first one not kept.
+	ldh a, [hTemp]
+	ld b, a ; slots in use, bit n for slot n + 1
 	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
 	ld hl, wObj1
 .loop_objs
@@ -201,8 +379,12 @@ SetOwlTileOffset:
 	ld a, l
 	add OBJ_ID
 	ld l, a
-	ld a, [hl]
-	cp OWL
+	; not the new object itself: its frames draw from the slot its graphics
+	; aren't in
+	push bc
+	call GetDebugGfxObjID
+	pop bc
+	cp [hl]
 	call nz, GetObjFrameSlots
 	pop hl
 .next_obj
@@ -218,37 +400,44 @@ SetOwlTileOffset:
 	add $40
 	ld c, a
 	jr nz, .loop_slots
+	; all are in use: slot 1, or 2 if slot 1 is kept
+	ldh a, [hTemp]
+	and a
+	jr z, .got_slot
+	ld c, $40
 .got_slot
-	ld a, c ; $00 (slot 1) if all are in use
+	ld a, c
 	call .borrow
 	jr RefuseBorrowedSlotObjects
 
 .borrow_slot_1
 	xor a
 .borrow
-	or OWL_SLOT_BORROWED
-	ld [wOwlTileOffset], a
-	ld a, OWL_SLOT_SAVE_PENDING
-	ld [wOwlSlotRestore], a
+	or DEBUG_GFX_BORROWED
+	ld hl, wDebugGfxSlot
+	or [hl]
+	ld [hl], a
+	ld a, DEBUG_GFX_SAVE_PENDING
+	ld [wDebugGfxSlotRestore], a
 	ret
 
 ; While the owl has a slot borrowed, the room's objects that draw from it
 ; aren't spawned, so that none draws with the owl's tiles: their entries in
 ; wObjDataPtr01-13 (whose first frame draws from the slot) point to
-; RefusedObjectData, which leaves them in the object map. UpdateBorrowedOwlSlot
-; puts the entries back (wOwlSlotObjDataBackup) once the owl's gone; from
+; RefusedObjectData, which leaves them in the object map. UpdateBorrowedDebugGfxSlot
+; puts the entries back (wDebugGfxSlotObjDataBackup) once the owl's gone; from
 ; then on they're spawned again as Wario comes across them.
 ; Objects already active keep drawing from the slot until they're gone:
-; SetOwlTileOffset borrows a slot none uses, if it can.
+; SetDebugGfxSlot borrows a slot none uses, if it can.
 ; Needs WRAM bank "Level Objects WRAM".
 RefuseBorrowedSlotObjects:
 	ld hl, wObjDataPtr01
-	ld de, wOwlSlotObjDataBackup
+	ld de, wDebugGfxSlotObjDataBackup
 	ld b, wObjDataPointersEnd - wObjDataPtr01
 	ASSERT wObjDataPointersEnd - wObjDataPtr01 == 13 * 2
 	call CopyHLToDE_Short
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
 	rlca
 	rlca
 	inc a
@@ -305,25 +494,25 @@ RefuseBorrowedSlotObjects:
 	jr nz, .loop
 	ret
 
-; Loads the owl's graphics into the enemy graphics slot in wOwlTileOffset
-; and its palette into that slot's object palette. A slot borrowed from the
-; room's enemies is saved first, to be given back.
+; Loads the graphics of the object in wDebugGfxSlot into the enemy graphics
+; slot there, and its palette into that slot's object palette. A slot
+; borrowed from the room's enemies is saved first, to be given back.
 ; The LCD must be off.
-LoadOwlGfx::
-	ld a, [wOwlTileOffset]
-	bit OWL_SLOT_BORROWED_F, a
+LoadDebugObjGfx::
+	ld a, [wDebugGfxSlot]
+	bit DEBUG_GFX_BORROWED_F, a
 	jr z, .load
-	ld hl, wOwlSlotRestore
-	bit OWL_SLOT_SAVE_PENDING_F, [hl]
+	ld hl, wDebugGfxSlotRestore
+	bit DEBUG_GFX_SAVE_PENDING_F, [hl]
 	jr z, .load
-	res OWL_SLOT_SAVE_PENDING_F, [hl]
-	push_wram BANK(wOwlSlotTilesBackup)
+	res DEBUG_GFX_SAVE_PENDING_F, [hl]
+	push_wram BANK(wDebugGfxSlotTilesBackup)
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	call .GetSlot
 	ld h, a
 	ld l, LOW(v1Tiles0)
-	ld de, wOwlSlotTilesBackup
+	ld de, wDebugGfxSlotTilesBackup
 	ld bc, $40 tiles
 	call CopyHLToDE_BC
 	xor a ; VRAM0
@@ -331,40 +520,55 @@ LoadOwlGfx::
 	call .GetPal
 	ld h, d
 	ld l, e
-	ld de, wOwlSlotPalBackup
+	ld de, wDebugGfxSlotPalBackup
 	ld b, 1 palettes
 	call CopyHLToDE_Short
 	pop_wram
 
 .load
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	ld e, a
+	call GetDebugGfxKindData
+	inc hl
+	inc hl
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a ; graphics
+	ld a, [hli]
+	ldh [hCallFuncBank], a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	push hl ; palette
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	call .GetSlot
 	ld b, a
-	ld c, LOW(v1Tiles0) ; v1Tiles0 tile wOwlTileOffset
-	ld hl, OwlGfx
-	ld a, BANK(OwlGfx)
-	ldh [hCallFuncBank], a
+	ld c, LOW(v1Tiles0) ; the slot's first tile
+	ld h, d
+	ld l, e
 	hcall Decompress
 	xor a ; VRAM0
 	ldh [rVBK], a
 	call .GetPal
-	ld hl, .pal
+	pop hl
 	ld b, 1 palettes
 	jp CopyHLToDE_Short
 
 ; output: a = HIGH of the slot's first tile
 .GetSlot:
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
 	swap a
 	or HIGH(v1Tiles0)
 	ret
 
 ; output: de = the slot's palette in wTempPals2
 .GetPal:
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
 	rrca
 	rrca
 	rrca ; slot * 1 palettes
@@ -373,58 +577,78 @@ LoadOwlGfx::
 	ld d, HIGH(wTempPals2 palette 4)
 	ret
 
-.pal
-INCLUDE "gfx/pals/owl.pal"
-
 ; Owl Wario draws the owl he holds from his own frames, so a room he flies
 ; into has to have the owl's graphics, even if its object group has no owl
 ; (only the debug menu's owl gets him into such a room). They go into a slot
 ; the group doesn't use, if any.
-; The same goes for a debug menu owl in a level resumed from a save: saving
-; keeps the objects, and the room's graphics are loaded from its group again.
+; The same goes for a debug menu owl or barrel in a level resumed from a
+; save: saving keeps the objects, and the room's graphics are loaded from its
+; group again. The owl's first, so that an owl and a barrel get the slots they
+; had (the owl slot 1, then the barrel another one).
 ; Called by LoadObjectGroupData, after the group's graphics and palettes.
+; Without Owl Wario or active objects (every room load but a CONTINUE's:
+; objects are cleared before the others), this takes as many cycles as the
+; owl-only version did: it runs with the LCD off, and would move the frame
+; timing against DIV, which enemies use for randomness.
 ; Needs WRAM bank "Level Objects WRAM".
-LoadOwlGfxForOwlWario:
+LoadDebugObjGfxForRoom:
 	ld a, [wTransformation]
 	cp TRANSFORMATION_OWL_WARIO
-	jr z, .check_group
-	; Is there an owl object? (Only after resuming a save: objects are
-	; cleared before a room is loaded otherwise.)
+	jr z, .found
+	; Are there active objects? (Only after resuming a save.)
 	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
-	ld hl, wObj1 + OBJ_ID
+	ld hl, wObj1
 .loop_objs
-	ld a, [hl]
-	cp OWL
-	jr nz, .next_obj
-	ld a, l
-	sub OBJ_ID
-	ld e, a
-	ld d, h
-	ld a, [de] ; OBJ_FLAGS
+	ld a, [hl] ; OBJ_FLAGS
 	rra
-	jr c, .check_group ; OBJFLAG_ACTIVE set
-.next_obj
+	nop
+	nop ; 14 cycles a round, like the owl-only version's loop
+	jr c, .found
 	ld a, l
 	add OBJ_STRUCT_LENGTH
 	ld l, a
 	jr nc, .loop_objs
 	ret
 
-.check_group
-	ld hl, wObjDataPtr01
-.loop
-	ld a, l
-	cp LOW(wObjDataPointersEnd)
-	jr z, .no_owl
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [de] ; OBJ_ID
-	cp OWL
-	ret z ; the group has the owl, and so its graphics
-	jr .loop
+.found
+	ld e, 0 ; kind * 2
+.loop_kinds
+	push de
+	call .LoadKind
+	pop de
+	inc e
+	inc e
+	ld a, e
+	cp NUM_DEBUG_GFX_KINDS * 2
+	jr nz, .loop_kinds
+	ret
 
-.no_owl
-	call SetOwlTileOffset
-	jp LoadOwlGfx
+; Loads a kind's graphics if one of its objects is around and the group
+; doesn't have them, unless another kind's are elsewhere already.
+; input:
+; - e = kind * 2
+.LoadKind:
+	ld a, e
+	add LOW(DebugGfxKinds)
+	ld l, a
+	adc HIGH(DebugGfxKinds)
+	sub l
+	ld h, a
+	ld a, [hl]
+	push de
+	call IsObjAround
+	pop de
+	ret nz
+	ld a, [wDebugGfxSlot]
+	and a
+	jr z, .check_group
+	and DEBUG_GFX_KIND_MASK
+	cp e
+	ret nz
+.check_group
+	push de
+	call IsDebugGfxKindNative
+	pop de
+	ret c ; the group has its graphics
+	call SetDebugGfxSlot
+	jp LoadDebugObjGfx

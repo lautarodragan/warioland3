@@ -34,12 +34,12 @@ THE_STEEP_CANYON_DAY_4 = 0x7B
 FOOT_OF_STONE = 0x3F
 RUST_SPRAY = 0x2D
 CURSOR_POWER = 1
-CURSOR_TREASURE = 4
+CURSOR_TREASURE = 5
 N5_RED = 4 * 4 + 1  # TREASURE row index: level * 4 + colour
 N8_BLUE = 20 * 4 + 3  # LEVEL_CASTLE_OF_ILLUSIONS
 NUM_TREASURE_ROWS = 25 * 4
 SPEARHEAD = 0x00
-OWL_SLOT_BORROWED = 1 << 0
+DEBUG_GFX_BORROWED = 1 << 0
 
 
 def test_steep_canyon_to_the_owl(game, golden):
@@ -135,7 +135,7 @@ def test_steep_canyon_debug_owl_to_next_room(game, golden):
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
     # Like the first variant's, this start room leaves slot 2 unused.
-    assert game.read("wOwlTileOffset") == 0x40
+    assert game.read("wDebugGfxSlot") == 0x40
     golden("steep_canyon_column_debug_owl", game.screenshot())
 
     in_bounds = never_in_solid_blocks(game, "THE_STEEP_CANYON_DAY_4")
@@ -155,7 +155,7 @@ def test_steep_canyon_debug_owl_to_next_room(game, golden):
     game.play(COLUMN_FLY_TO_NEXT_ROOM, on_frame=in_bounds)
     assert game.read("wLevelRoomID") != room
     assert game.read("wTransformation") == TRANSFORMATION_OWL_WARIO
-    assert game.read("wOwlTileOffset") == OWL_SLOT_BORROWED
+    assert game.read("wDebugGfxSlot") == DEBUG_GFX_BORROWED
     assert owl_tiles_in_slot(game, 1)
     assert sprites_in_slot(game, 1) == {0, 4}
     assert SPEARHEAD not in [obj_id for _, _, obj_id in game.objects()]

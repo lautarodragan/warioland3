@@ -41,9 +41,9 @@ WST_RELEASING_OWL = 0xBB
 TRANSFORMATION_NONE = 0x00
 PAL_SIZE = 8
 # src/constants/object_constants.asm
-OWL_SLOT_BORROWED = 1 << 0
-OWL_SLOT_RESTORE_MASK = 0b111
-OWL_SLOT_NUM_CHUNKS = 4
+DEBUG_GFX_BORROWED = 1 << 0
+DEBUG_GFX_RESTORE_MASK = 0b111
+DEBUG_GFX_NUM_CHUNKS = 4
 
 
 def spawn_owl_in_desert_ruins(game):
@@ -60,7 +60,7 @@ def spawn_owl_in_desert_ruins(game):
 
 def test_desert_ruins_debug_owl_in_free_slot(game, golden):
     spearhead = spawn_owl_in_desert_ruins(game)
-    assert game.read("wOwlTileOffset") == 0x40
+    assert game.read("wDebugGfxSlot") == 0x40
     assert owl_tiles_in_slot(game, 2)
     assert slot_tiles(game, 1) == spearhead
     # The sleeping owl, from slot 2 in palette 5 (2 for its eyes and beak);
@@ -138,8 +138,8 @@ def out_of_the_woods_room(game):
 
 def assert_slot_given_back(game, room):
     tiles, pals, ptrs = room
-    assert game.read("wOwlTileOffset") == 0
-    assert game.read("wOwlSlotRestore") == 0
+    assert game.read("wDebugGfxSlot") == 0
+    assert game.read("wDebugGfxSlotRestore") == 0
     assert [slot_tiles(game, slot) for slot in range(1, 5)] == tiles
     assert [ob_pal(game, pal) for pal in range(4, 8)] == pals
     assert obj_data_ptrs(game) == ptrs
@@ -160,7 +160,7 @@ def borrow_slot_in_out_of_the_woods(game):
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
-    assert game.read("wOwlTileOffset") == 0x40 | OWL_SLOT_BORROWED
+    assert game.read("wDebugGfxSlot") == 0x40 | DEBUG_GFX_BORROWED
     assert owl_tiles_in_slot(game, 2)
     tiles, _, ptrs = room
     assert slot_tiles(game, 1) == tiles[0]
@@ -201,10 +201,10 @@ def test_debug_owl_borrows_an_idle_slot(game, golden):
     restoring = False
     for _ in range(90):
         game.tick()
-        if game.read("wOwlSlotRestore") & OWL_SLOT_RESTORE_MASK:
+        if game.read("wDebugGfxSlotRestore") & DEBUG_GFX_RESTORE_MASK:
             restoring = True
-            assert vblank_target(game) == game.addr("OwlSlotRestoreVBlankFunc")
-        if game.read("wOwlTileOffset") == 0:
+            assert vblank_target(game) == game.addr("DebugGfxSlotRestoreVBlankFunc")
+        if game.read("wDebugGfxSlot") == 0:
             break
     assert restoring
     assert_slot_given_back(game, room)
@@ -224,19 +224,19 @@ def test_owl_slot_given_back_after_select(game):
 def open_menu_while_giving_back(game):
     grab_and_let_go_in_out_of_the_woods(game)
     game.wait_until(
-        lambda: game.read("wOwlSlotRestore") & OWL_SLOT_RESTORE_MASK, timeout=120, what="restore"
+        lambda: game.read("wDebugGfxSlotRestore") & DEBUG_GFX_RESTORE_MASK, timeout=120, what="restore"
     )
     game.open_debug_menu()
     # Opened before the last of the slot's chunks was copied back.
-    assert 1 <= game.read("wOwlSlotRestore") & OWL_SLOT_RESTORE_MASK <= OWL_SLOT_NUM_CHUNKS
-    assert game.read("wOwlTileOffset") == 0x40 | OWL_SLOT_BORROWED
+    assert 1 <= game.read("wDebugGfxSlotRestore") & DEBUG_GFX_RESTORE_MASK <= DEBUG_GFX_NUM_CHUNKS
+    assert game.read("wDebugGfxSlot") == 0x40 | DEBUG_GFX_BORROWED
 
 
 def test_owl_slot_given_back_across_the_menu(game):
     room = borrow_slot_in_out_of_the_woods(game)
     open_menu_while_giving_back(game)
     # The menu has its own V-Blank function; after it, the level's goes
-    # through OwlSlotRestoreVBlankFunc again until the slot's back.
+    # through DebugGfxSlotRestoreVBlankFunc again until the slot's back.
     game.close_debug_menu()
     assert_slot_given_back(game, room)
 
@@ -251,8 +251,8 @@ def test_new_owl_takes_the_slot_over(game):
     game.menu_press("a")
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_SPAWNED
     game.close_debug_menu()
-    assert game.read("wOwlTileOffset") == 0x40 | OWL_SLOT_BORROWED
-    assert game.read("wOwlSlotRestore") == 0
+    assert game.read("wDebugGfxSlot") == 0x40 | DEBUG_GFX_BORROWED
+    assert game.read("wDebugGfxSlotRestore") == 0
     assert owl_tiles_in_slot(game, 2)
     assert obj_data_ptrs(game)[1] == game.addr("RefusedObjectData")
     assert vblank_target(game) == game.addr("LevelVBlankFunc")
@@ -265,7 +265,7 @@ def test_new_owl_takes_the_slot_over(game):
 
 
 def test_free_slot_rule_matches_oam_data():
-    """SetOwlTileOffset's rule for an unused slot, checked against which
+    """SetDebugGfxSlot's rule for an unused slot, checked against which
     VRAM1 tiles each group's objects' OAM tables draw: a slot is unused when
     the group's object list has DummyObjectData for it (or ends before it)
     and the group loads the slot's filler graphics, ObjectGroup_Empty's. No object
@@ -298,7 +298,7 @@ def test_free_slot_rule_matches_oam_data():
     filler = groups["ObjectGroup_Empty"][1]
     num_free = 0
     for name, (bank_offset, gfx, objects) in groups.items():
-        if bank_offset:  # bosses: SetOwlTileOffset picks slot 1
+        if bank_offset:  # bosses: SetDebugGfxSlot picks slot 1
             continue
         used = set().union(
             *(oam_slots.get(oam_data[obj], set()) for obj in objects if obj != "DummyObjectData")

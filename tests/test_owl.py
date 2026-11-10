@@ -105,9 +105,9 @@ def owl_tiles_in_slot(game, slot):
 
 
 def owl_tiles_where_expected(game):
-    """Whether the owl's tiles are in the slot wOwlTileOffset names (slot 1
+    """Whether the owl's tiles are in the slot wDebugGfxSlot names (slot 1
     when it's 0)."""
-    return owl_tiles_in_slot(game, game.read("wOwlTileOffset") // SLOT_TILES + 1)
+    return owl_tiles_in_slot(game, game.read("wDebugGfxSlot") // SLOT_TILES + 1)
 
 
 def vram1_sprites(game):
@@ -144,7 +144,7 @@ def test_debug_owl_spawn_in_room_without_owl(game, golden):
 
     game.close_debug_menu()
     assert len(spawned_owls(game)) == 1
-    assert game.read("wOwlTileOffset") == 0x40
+    assert game.read("wDebugGfxSlot") == 0x40
     assert owl_tiles_in_slot(game, 2)
     assert slot_tiles(game, 1) == prince_froggy
     # Palette 2 is the owl's eyes and beak, as with the real owl.

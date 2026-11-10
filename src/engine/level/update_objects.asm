@@ -391,10 +391,10 @@ ENDR
 	ret
 
 DrawObjects_WithPriority::
-	ld a, [wOwlTileOffset]
+	ld a, [wDebugGfxSlot]
 	and a
 	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN | OBJFLAG_PRIORITY
-	jp nz, DrawObjects_WithPriority_Owl
+	jp nz, DrawObjects_WithPriority_DebugGfx
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -410,10 +410,10 @@ ENDR
 	ret
 
 DrawObjects_NoPriority::
-	ld a, [wOwlTileOffset]
+	ld a, [wDebugGfxSlot]
 	and a
 	ld c, OBJFLAG_ACTIVE | OBJFLAG_ON_SCREEN
-	jp nz, DrawObjects_OwlElsewhere
+	jp nz, DrawObjects_DebugGfx
 FOR n, 1, NUM_OBJECTS + 1
 	ld hl, wObj{u:n}Flags
 	ld a, [hl]
@@ -428,21 +428,24 @@ FOR n, 1, NUM_OBJECTS + 1
 ENDR
 	ret
 
-; DrawObjects_WithPriority while the debug menu's owl has its graphics
-; somewhere else than in an owl object group (wOwlTileOffset != 0): once a
-; frame, see whether a slot it borrowed can be given back.
-DrawObjects_WithPriority_Owl:
+; DrawObjects_WithPriority while the debug menu has put an object's graphics
+; somewhere else than in the slot its OAM data draws from (wDebugGfxSlot != 0):
+; once a frame, see whether a slot it borrowed can be given back.
+DrawObjects_WithPriority_DebugGfx:
 	push bc
-	call UpdateBorrowedOwlSlot
+	call UpdateBorrowedDebugGfxSlot
 	pop bc
 ;	fallthrough
 
 ; Like DrawObjects_WithPriority and DrawObjects_NoPriority, for when the
-; owl's graphics aren't in enemy graphics slot 1 (wOwlTileOffset != 0): the
-; owl's sprites are moved to their slot as they're drawn.
+; debug menu has put an object's graphics somewhere else than in the slot its
+; OAM data draws from (wDebugGfxSlot != 0): that object's sprites are moved
+; to their slot as they're drawn.
 ; input:
 ; - c = OBJ_FLAGS (masked like in those) of the objects to draw
-DrawObjects_OwlElsewhere:
+DrawObjects_DebugGfx:
+	call GetDebugGfxObjID
+	ld b, a
 	ld hl, wObj1Flags
 .loop
 	ld a, [hl]
@@ -451,25 +454,22 @@ DrawObjects_OwlElsewhere:
 	jr nz, .next
 	push hl
 	push bc
-	ld a, [wVirtualOAMByteSize]
-	ld b, a
 	ld a, l
 	add OBJ_ID
 	ld l, a
 	ld a, [hl]
-	cp OWL
-	push af
-	push bc
+	cp b
+	ld a, [wVirtualOAMByteSize]
+	push af ; z if it's the object
 	ld a, l
 	add OBJ_SCREEN_Y_POS - OBJ_ID
 	ld e, a
 	call UpdateObjSprite
-	pop bc
 	pop af
-	jr nz, .not_owl
-	ld l, b
-	call RelocateOwlSprites
-.not_owl
+	jr nz, .not_it
+	ld l, a
+	call RelocateDebugObjSprites
+.not_it
 	pop bc
 	pop hl
 .next
@@ -480,57 +480,32 @@ DrawObjects_OwlElsewhere:
 	jr nz, .loop
 	ret
 
-; If the owl borrowed one of the room's enemy graphics slots
-; (OWL_SLOT_BORROWED), gives it back once the owl's gone: no owl object, no
-; Owl Wario, and no owl flying off (PARTICLE_OWL). The slot's objects can
-; spawn again from then on (RefuseBorrowedSlotObjects). Its graphics, saved in
-; wOwlSlotTilesBackup, are copied back to VRAM with the LCD on, a chunk each
-; V-Blank (OwlSlotRestoreVBlankFunc), and then its palette; that clears
-; wOwlTileOffset. A new owl in the meantime takes the slot over again
-; (SetOwlTileOffset).
-; The level's V-Blank function is redirected to OwlSlotRestoreVBlankFunc
+; If the debug menu's object borrowed one of the room's enemy graphics slots
+; (DEBUG_GFX_BORROWED), gives it back once the object's gone
+; (IsDebugGfxObjAround: for the owl, also no Owl Wario and no owl flying off).
+; The slot's objects can spawn again from then on (RefuseBorrowedSlotObjects).
+; Its graphics, saved in wDebugGfxSlotTilesBackup, are copied back to VRAM
+; with the LCD on, a chunk each V-Blank (DebugGfxSlotRestoreVBlankFunc), and
+; then its palette; that clears wDebugGfxSlot. A new object in the meantime
+; takes the slot over again (SetDebugGfxSlot).
+; The level's V-Blank function is redirected to DebugGfxSlotRestoreVBlankFunc
 ; here, every frame, so that it's back after a menu.
-UpdateBorrowedOwlSlot:
-	ld a, [wOwlTileOffset]
-	bit OWL_SLOT_BORROWED_F, a
+UpdateBorrowedDebugGfxSlot:
+	ld a, [wDebugGfxSlot]
+	bit DEBUG_GFX_BORROWED_F, a
 	ret z
-	ld a, [wOwlSlotRestore]
-	and OWL_SLOT_RESTORE_MASK
+	ld a, [wDebugGfxSlotRestore]
+	and DEBUG_GFX_RESTORE_MASK
 	jr nz, .restoring
 
-	; is the owl still around?
-	ld a, [wTransformation]
-	cp TRANSFORMATION_OWL_WARIO
+	call IsDebugGfxObjAround
 	ret z
-FOR n, 0, MAX_NUM_PARTICLES
-	ld a, [wParticle{u:n} + PARTICLE_STRUCT_ID]
-	cp PARTICLE_OWL
-	ret z
-ENDR
-	ASSERT LOW(wObj1) == 0 && NUM_OBJECTS * OBJ_STRUCT_LENGTH == $100
-	ld hl, wObj1
-.loop_objs
-	ld a, [hl] ; OBJ_FLAGS
-	rra
-	jr nc, .next_obj ; OBJFLAG_ACTIVE not set
-	ld a, l
-	add OBJ_ID
-	ld e, a
-	ld d, h
-	ld a, [de]
-	cp OWL
-	ret z
-.next_obj
-	ld a, l
-	add OBJ_STRUCT_LENGTH
-	ld l, a
-	jr nc, .loop_objs
 
 	; gone: give the slot back, from its first chunk, and let its objects
 	; spawn again (RefuseBorrowedSlotObjects)
-	ld hl, wOwlSlotRestore
+	ld hl, wDebugGfxSlotRestore
 	inc [hl]
-	ld hl, wOwlSlotObjDataBackup
+	ld hl, wDebugGfxSlotObjDataBackup
 	ld de, wObjDataPtr01
 	ld b, wObjDataPointersEnd - wObjDataPtr01
 	call CopyHLToDE_Short
@@ -539,7 +514,7 @@ ENDR
 	; The jump in wVBlankFunc goes to LevelVBlankFunc in levels. Both
 	; functions are in the same page, so that one write changes it, even if
 	; a V-Blank comes in between.
-	ASSERT HIGH(OwlSlotRestoreVBlankFunc) == HIGH(LevelVBlankFunc)
+	ASSERT HIGH(DebugGfxSlotRestoreVBlankFunc) == HIGH(LevelVBlankFunc)
 	ld hl, wVBlankFunc + 1
 	ld a, [hli]
 	cp LOW(LevelVBlankFunc)
@@ -547,7 +522,7 @@ ENDR
 	ld a, [hld]
 	cp HIGH(LevelVBlankFunc)
 	ret nz
-	ld [hl], LOW(OwlSlotRestoreVBlankFunc)
+	ld [hl], LOW(DebugGfxSlotRestoreVBlankFunc)
 	ret
 
 DoObjectAction:

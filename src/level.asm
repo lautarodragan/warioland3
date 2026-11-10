@@ -785,7 +785,7 @@ SECTION "Enemy Gfx 1 Slot 4", ROMX
 TorchGfx:          INCBIN "gfx/enemies/torch.2bpp.rle"
 FireBotGfx:        INCBIN "gfx/enemies/fire_bot.2bpp.rle"
 BeamBotGfx:        INCBIN "gfx/enemies/beam_bot.2bpp.rle"
-BarrelGfx:         INCBIN "gfx/enemies/barrel.2bpp.rle"
+BarrelGfx::        INCBIN "gfx/enemies/barrel.2bpp.rle"
 SmallLeafGfx:      INCBIN "gfx/enemies/small_leaf.2bpp.rle"
 ElectricLampGfx:   INCBIN "gfx/enemies/electric_lamp.2bpp.rle"
 TeruteruGfx:       INCBIN "gfx/enemies/teruteru.2bpp.rle"

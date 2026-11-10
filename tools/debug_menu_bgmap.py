@@ -33,9 +33,9 @@ BLANK = 0x7F  # all colour 3: a flat cell of the text's background
 PAL_TITLE, PAL_LABEL, PAL_VALUE = 0, 5, 6
 
 # Rows and columns, shared with debug_menu.asm (DEBUG_MENU_*)
-ITEM_ROWS = {"FORM": 5, "POWER": 7, "GOLF": 9, "OWL": 11, "TREASURE": 13}
+ITEM_ROWS = {"FORM": 4, "POWER": 6, "GOLF": 8, "OWL": 10, "BARREL": 12, "TREASURE": 14}
 CURSOR_COL, LABEL_COL, VALUE_COL = 2, 3, 11
-TREASURE_VALUE_ROW, TREASURE_VALUE_COL = 14, 5
+TREASURE_VALUE_ROW, TREASURE_VALUE_COL = 15, 5
 
 pause_tiles = (BGMAPS / "pause_menu.tilemap").read_bytes()
 pause_attrs = (BGMAPS / "pause_menu.attrmap").read_bytes()

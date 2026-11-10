@@ -166,7 +166,7 @@ def test_debug_owl_floor_transitions(game, golden):
     # Appleby up here isn't spawned (it would draw with the owl's tiles).
     game.play([("up", 120)], on_frame=visible)
     assert game.read("wFloor") == 2
-    assert game.read("wOwlTileOffset") == 0x41
+    assert game.read("wDebugGfxSlot") == 0x41
     assert not any(obj_id == APPLEBY for _, _, obj_id in game.objects())
     golden("any_level_floor_up", game.screenshot())
 
@@ -185,7 +185,7 @@ def test_debug_owl_floor_transitions(game, golden):
     assert game.read("wTransformation") == TRANSFORMATION_NONE
     assert game.read("wOwlCameraDisplaced") == 0
     assert game.read("wSCY") == floor_1_scy
-    game.wait_until(lambda: game.read("wOwlTileOffset") == 0, timeout=120, what="slot given back")
+    game.wait_until(lambda: game.read("wDebugGfxSlot") == 0, timeout=120, what="slot given back")
     assert not any(owl_tiles_in_slot(game, slot) for slot in range(1, 5))
 
 

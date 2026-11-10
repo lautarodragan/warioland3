@@ -385,28 +385,28 @@ wHitFloorBlock::
 	db
 
 ; where the owl's graphics are, as a tile offset from v1Tiles0 (bits
-; OWL_SLOT_MASK): $00 for enemy graphics slot 1 (and object palette 4), as in
+; DEBUG_GFX_SLOT_MASK): $00 for enemy graphics slot 1 (and object palette 4), as in
 ; every owl object group, $40/$80/$c0 for slots 2-4 (palettes 5-7) when the
 ; debug menu put them in another slot. The owl's sprites are drawn with slot
 ; 1's tiles and palette 4, so they're moved to the slot as they're drawn
-; (RelocateOwlSprites) when this isn't 0.
-; OWL_SLOT_BORROWED is set when the slot belongs to one of the room's enemies
+; (RelocateDebugObjSprites) when this isn't 0.
+; DEBUG_GFX_BORROWED is set when the slot belongs to one of the room's enemies
 ; (it uses all four): its graphics and palette are given back once the owl's
-; gone (wOwlSlotRestore).
+; gone (wDebugGfxSlotRestore).
 ; Not in "Level WRAM": that's saved, and the save format has to stay the
 ; same. It doesn't need saving, as every room load sets it again.
-wOwlTileOffset::
+wDebugGfxSlot::
 	db
 
 ; TRUE while the camera isn't where the room's floor transitions put it,
-; after following Owl Wario (OwlWarioCamera). Not saved, like wOwlTileOffset.
+; after following Owl Wario (OwlWarioCamera). Not saved, like wDebugGfxSlot.
 wOwlCameraDisplaced::
 	db
 
-; while wOwlTileOffset has OWL_SLOT_BORROWED: OWL_SLOT_SAVE_PENDING until the
-; slot's graphics are saved to wOwlSlotTilesBackup, and how far giving them
-; back has got (OWL_SLOT_RESTORE_MASK, see UpdateBorrowedOwlSlot)
-wOwlSlotRestore::
+; while wDebugGfxSlot has DEBUG_GFX_BORROWED: DEBUG_GFX_SAVE_PENDING until the
+; slot's graphics are saved to wDebugGfxSlotTilesBackup, and how far giving them
+; back has got (DEBUG_GFX_RESTORE_MASK, see UpdateBorrowedDebugGfxSlot)
+wDebugGfxSlotRestore::
 	db
 
 	ds $32
@@ -2601,29 +2601,31 @@ wDebugMenuCursor::  db
 wDebugMenuFormIdx:: db
 ; 0 = no spawn tried, 1 = owl spawned, 2 = couldn't spawn
 wDebugMenuOwlStatus:: db
+; the same for the barrel
+wDebugMenuBarrelStatus:: db
 ; treasure on the TREASURE row: level * 4 + colour
 wDebugMenuTreasureIdx:: db
-; TRUE if an owl was spawned in a room without owl graphics, to load them
-; when the menu closes
-wDebugMenuOwlGfxPending:: db
+; bit n set if an object of DEBUG_GFX_* kind n (an owl, a barrel) was spawned
+; in a room without its graphics, to load them when the menu closes
+wDebugMenuGfxPending:: db
 ; rLCDC as the level had it (The Temple's battle also shows the window)
 wDebugMenuLevelLCDC:: db
 
-; the enemy graphics slot the debug menu's owl borrowed (OWL_SLOT_BORROWED),
+; the enemy graphics slot the debug menu's owl borrowed (DEBUG_GFX_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.
-SECTION "Owl Slot WRAM", WRAMX[$d600], BANK[3]
+SECTION "Debug Gfx Slot WRAM", WRAMX[$d600], BANK[3]
 
-wOwlSlotTilesBackup::
+wDebugGfxSlotTilesBackup::
 	ds $40 tiles
 
-wOwlSlotPalBackup::
+wDebugGfxSlotPalBackup::
 	ds 1 palettes
 
 ; wObjDataPtr01-13 as the room's object group has them, while the debug
 ; menu's owl has some replaced (RefuseBorrowedSlotObjects)
-SECTION "Owl Slot Objects WRAM", WRAMX[$d700], BANK[1]
+SECTION "Debug Gfx Slot Objects WRAM", WRAMX[$d700], BANK[1]
 
-wOwlSlotObjDataBackup::
+wDebugGfxSlotObjDataBackup::
 	ds 13 * 2
 
 SECTION "WRAM4", WRAMX

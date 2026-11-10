@@ -27,6 +27,7 @@ DEF NUM_DEBUG_POWERS EQU 10
 	const DEBUG_MENU_POWER
 	const DEBUG_MENU_GOLF
 	const DEBUG_MENU_OWL
+	const DEBUG_MENU_BARREL
 	const DEBUG_MENU_TREASURE
 DEF DEBUG_MENU_ITEMS EQU const_value
 
@@ -34,11 +35,12 @@ DEF DEBUG_MENU_ITEMS EQU const_value
 ; included, is in debug_menu.tilemap: see tools/debug_menu_bgmap.py)
 DEF DEBUG_MENU_CURSOR_X EQU 2
 DEF DEBUG_MENU_VALUE_X  EQU 11
-DEF DEBUG_MENU_FORM_Y     EQU 5
-DEF DEBUG_MENU_POWER_Y    EQU 7
-DEF DEBUG_MENU_GOLF_Y     EQU 9
-DEF DEBUG_MENU_OWL_Y      EQU 11
-DEF DEBUG_MENU_TREASURE_Y EQU 13
+DEF DEBUG_MENU_FORM_Y     EQU 4
+DEF DEBUG_MENU_POWER_Y    EQU 6
+DEF DEBUG_MENU_GOLF_Y     EQU 8
+DEF DEBUG_MENU_OWL_Y      EQU 10
+DEF DEBUG_MENU_BARREL_Y   EQU 12
+DEF DEBUG_MENU_TREASURE_Y EQU 14
 DEF DEBUG_MENU_TREASURE_VALUE_X EQU 5 ; on the row below its label
 ; the selected FORM/POWER row shows ◀ value ▶
 DEF DEBUG_MENU_LEFT_ARROW_X  EQU DEBUG_MENU_VALUE_X - 1
@@ -428,41 +430,77 @@ DebugMenu_ApplyForm:
 	ret
 
 ; -----------------------------------------------------------------------
-; Spawn an owl next to Wario (from the room's object group if it has one,
-; otherwise from ROM), and record the outcome in wDebugMenuOwlStatus
-; (1 = spawned, 2 = not: no free object slot, or a boss battle).
+; OWL and BARREL: spawn an owl or a barrel next to Wario (from the room's
+; object group if it has one, otherwise from ROM, see
+; _DebugSpawnObjectFromROM), and record the outcome in the row's status
+; (1 = spawned, 2 = not: no free object slot, a boss battle, or the other
+; one's graphics are in use).
+; input:
+; - e = DEBUG_GFX_* kind
+; - hl = wDebugMenuOwlStatus or wDebugMenuBarrelStatus
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
-DebugMenu_SpawnOwl:
+DebugMenu_SpawnObject:
+	push hl
+	call .Spawn
+	pop hl
+	ld [hl], a
+	ret
+
+; output: a = status
+.Spawn:
 	; Bosses keep their own graphics in the enemy slots, the owl's included
-	; (it would overwrite part of the boss): no owl in a boss battle.
+	; (it would overwrite part of the boss): no owl or barrel in a boss
+	; battle.
 	ld a, [wIsBossBattle]
 	and a
 	ld a, 2
-	jr nz, .got_status
+	ret nz
+	ld a, e
+	add a
+	add LOW(DebugGfxKinds)
+	ld l, a
+	adc HIGH(DebugGfxKinds)
+	sub l
+	ld h, a
+	ld c, [hl] ; object ID
+	push de
 	push_wram BANK("Level Objects WRAM")
-	ld c, OWL
 	farcall _DebugSpawnObject
 	pop_wram
+	pop de
 	ld a, b
 	and a
-	jr nz, .spawned
-	; This room's object group has no owl: spawn one from ROM, and load its
-	; graphics when the menu closes (VRAM is restored then), into an enemy
-	; graphics slot the group doesn't use (slot 1 if it uses all four).
+	ld a, 1
+	ret nz
+	; This room's object group has no such object: spawn one from ROM, and
+	; load its graphics when the menu closes (VRAM is restored then), unless
+	; the group has them anyway.
+	push de
 	push_wram BANK("Level Objects WRAM")
-	farcall _DebugSpawnOwlFromROM
+	farcall _DebugSpawnObjectFromROM
 	pop_wram
+	pop de
 	ld a, b
 	and a
 	ld a, 2
-	jr z, .got_status
-	ld a, TRUE
-	ld [wDebugMenuOwlGfxPending], a
+	ret z
+	ld a, c
+	and a
+	jr z, .spawned
+	; wDebugMenuGfxPending |= 1 << kind
+	inc e
+	xor a
+	scf
+.kind_bit
+	rla
+	dec e
+	jr nz, .kind_bit
+	ld hl, wDebugMenuGfxPending
+	or [hl]
+	ld [hl], a
 .spawned
 	ld a, 1
-.got_status
-	ld [wDebugMenuOwlStatus], a
 	ret
 
 ; -----------------------------------------------------------------------
@@ -624,23 +662,20 @@ DebugMenu_DrawItems1:
 	jp DebugMenu_DrawString
 
 DebugMenu_DrawItems2:
-	; OWL: LEFT/RIGHT spawns an owl, the value shows whether the last try
+	; OWL and BARREL: A spawns one, the value shows whether the last try
 	; worked
 	ld c, DEBUG_MENU_OWL
 	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_OWL_Y
 	call DebugMenu_DrawCursor
 	ld a, [wDebugMenuOwlStatus]
-	and a
-	jr z, .owl_status_done
-	dec a
-	ld de, DebugMenuStrOk
-	jr z, .draw_owl_status
-	ld de, DebugMenuStrNo
-.draw_owl_status
-	ld b, 3
 	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_OWL_Y
-	call DebugMenu_DrawString
-.owl_status_done
+	call DebugMenu_DrawSpawnStatus
+	ld c, DEBUG_MENU_BARREL
+	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_BARREL_Y
+	call DebugMenu_DrawCursor
+	ld a, [wDebugMenuBarrelStatus]
+	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_BARREL_Y
+	call DebugMenu_DrawSpawnStatus
 
 	; TREASURE: LEFT/RIGHT picks a level's treasure, A gives or takes it.
 	; Shows e.g. "N5 RED ON", on the row below the label.
@@ -687,6 +722,20 @@ DebugMenu_DrawItems2:
 	ld de, DebugMenuStrClosed
 .draw_treasure_status
 	ld b, 6
+	jp DebugMenu_DrawString
+
+; Write a spawn status (OWL, BARREL) to hl: nothing for 0 (no try yet), OK
+; for 1, NO for 2.
+; Clobbers: A, B, D, E, H, L
+DebugMenu_DrawSpawnStatus:
+	and a
+	ret z
+	dec a
+	ld de, DebugMenuStrOk
+	jr z, .draw
+	ld de, DebugMenuStrNo
+.draw
+	ld b, 3
 	jp DebugMenu_DrawString
 
 ; -----------------------------------------------------------------------
@@ -808,7 +857,8 @@ InitDebugMenu:
 	xor a
 	ld [wDebugMenuCursor], a
 	ld [wDebugMenuOwlStatus], a
-	ld [wDebugMenuOwlGfxPending], a
+	ld [wDebugMenuBarrelStatus], a
+	ld [wDebugMenuGfxPending], a
 	; Start the treasure row on this level's grey treasure
 	ld a, [wLevel]
 	srl a ; levels are 8 apart, treasures 4 apart
@@ -923,7 +973,7 @@ UpdateDebugMenu:
 	cp DEBUG_MENU_POWER
 	jr z, .change_power_fwd
 	cp DEBUG_MENU_TREASURE
-	jr nz, .not_right ; OWL and GOLF take A
+	jr nz, .not_right ; OWL, BARREL and GOLF take A
 ;	fallthrough
 .treasure_fwd:
 	ld a, [wDebugMenuTreasureIdx]
@@ -971,7 +1021,7 @@ UpdateDebugMenu:
 	cp DEBUG_MENU_POWER
 	jr z, .change_power_bwd
 	cp DEBUG_MENU_TREASURE
-	jr nz, .not_left ; OWL and GOLF take A
+	jr nz, .not_left ; OWL, BARREL and GOLF take A
 ;	fallthrough
 .treasure_bwd:
 	ld a, [wDebugMenuTreasureIdx]
@@ -1012,13 +1062,16 @@ UpdateDebugMenu:
 	jr .check_redraw
 
 .not_left:
-	; A: spawn an owl, toggle the golf win, or give or take the treasure
+	; A: spawn an owl or a barrel, toggle the golf win, or give or take the
+	; treasure
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .check_redraw
 	ld a, [wDebugMenuCursor]
 	cp DEBUG_MENU_OWL
 	jr z, .spawn_owl
+	cp DEBUG_MENU_BARREL
+	jr z, .spawn_barrel
 	cp DEBUG_MENU_TREASURE
 	jr z, .toggle_treasure
 	cp DEBUG_MENU_GOLF
@@ -1027,7 +1080,14 @@ UpdateDebugMenu:
 	ld c, 1
 	jr .check_redraw
 .spawn_owl
-	call DebugMenu_SpawnOwl
+	ld e, DEBUG_GFX_OWL
+	ld hl, wDebugMenuOwlStatus
+	jr .spawn
+.spawn_barrel
+	ld e, DEBUG_GFX_BARREL
+	ld hl, wDebugMenuBarrelStatus
+.spawn
+	call DebugMenu_SpawnObject
 	ld c, 1
 	jr .check_redraw
 .toggle_treasure
@@ -1056,6 +1116,29 @@ UpdateDebugMenu:
 .exit:
 	jp DebugMenu_Exit
 
+; Load the graphics of the owls and barrels spawned in rooms without them
+; (wDebugMenuGfxPending), with the LCD off and after VRAM is restored.
+; wDebugGfxSlot has the last kind spawned. An owl spawned before a barrel in
+; the same visit went into slot 1, its own, which wDebugGfxSlot then no
+; longer says (only one kind can be elsewhere, see _DebugSpawnObjectFromROM).
+DebugMenu_LoadGfx:
+	ASSERT DEBUG_GFX_OWL == 0
+	bit DEBUG_GFX_OWL, a
+	jr z, .load
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	jr z, .load ; the owl's
+	ld a, [wDebugGfxSlot]
+	push af
+	xor a ; the owl, in slot 1
+	ld [wDebugGfxSlot], a
+	farcall LoadDebugObjGfx
+	pop af
+	ld [wDebugGfxSlot], a
+.load
+	farcall LoadDebugObjGfx
+	ret
+
 DebugMenu_WaitVBlank:
 	ldh a, [rLY]
 	cp LY_VBLANK
@@ -1070,13 +1153,13 @@ DebugMenu_Exit:
 	call ClearVirtualOAM
 	farcall DrawLevelObjectsAfterLevelReturn
 	call LoadBackupVRAM
-	ld a, [wDebugMenuOwlGfxPending]
+	ld a, [wDebugMenuGfxPending]
 	and a
-	jr z, .owl_gfx_done
-	farcall LoadOwlGfx
-.owl_gfx_done
+	jr z, .gfx_done
+	call DebugMenu_LoadGfx
+.gfx_done
 	xor a
-	ld [wDebugMenuOwlGfxPending], a
+	ld [wDebugMenuGfxPending], a
 
 	; wTempPals2 is now back to the pre-menu snapshot. Re-apply the current
 	; Wario palette from wWarioPalsPtr, in case FORM changed it.

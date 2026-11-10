@@ -1,6 +1,6 @@
 LoadObjectGroupData::
 	xor a ; enemy graphics slot 1, where owl object groups have the owl
-	ld [wOwlTileOffset], a
+	ld [wDebugGfxSlot], a
 
 ; fills wObjDataPointers with Dummy Object
 	ld hl, wObjDataPointers
@@ -151,7 +151,7 @@ LoadObjectGroupData::
 
 .copy_pals
 	call LoadObjPals
-	jp LoadOwlGfxForOwlWario
+	jp LoadDebugObjGfxForRoom
 
 ; input:
 ; - de = block

@@ -1,16 +1,16 @@
 ; Level V-Blank function while a slot the debug menu's owl borrowed is given
-; back (UpdateBorrowedOwlSlot): copies the next chunk of its graphics from
-; wOwlSlotTilesBackup to VRAM1, with a general purpose DMA, before the level's
+; back (UpdateBorrowedDebugGfxSlot): copies the next chunk of its graphics from
+; wDebugGfxSlotTilesBackup to VRAM1, with a general purpose DMA, before the level's
 ; own V-Blank work. When they're all back, also its palette, and sets the
 ; jump in wVBlankFunc back to LevelVBlankFunc.
 ; Each chunk takes about an eighth of V-Blank. If Wario's graphics are being
 ; copied (wIsDMATransferPending), they take this V-Blank, and the chunk waits.
-OwlSlotRestoreVBlankFunc::
-	ld a, [wOwlTileOffset]
-	bit OWL_SLOT_BORROWED_F, a
+DebugGfxSlotRestoreVBlankFunc::
+	ld a, [wDebugGfxSlot]
+	bit DEBUG_GFX_BORROWED_F, a
 	jr z, .unhook
-	ld a, [wOwlSlotRestore]
-	and OWL_SLOT_RESTORE_MASK
+	ld a, [wDebugGfxSlotRestore]
+	and DEBUG_GFX_RESTORE_MASK
 	jr z, .unhook ; a new owl took the slot over
 	ld b, a ; 1 + chunk
 	ld a, [wIsDMATransferPending]
@@ -19,21 +19,21 @@ OwlSlotRestoreVBlankFunc::
 
 	ldh a, [rWBK]
 	push af
-	ld a, BANK(wOwlSlotTilesBackup)
+	ld a, BANK(wDebugGfxSlotTilesBackup)
 	ldh [rWBK], a
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
-	ASSERT LOW(wOwlSlotTilesBackup) == 0 && OWL_SLOT_CHUNK_SIZE == $100
+	ASSERT LOW(wDebugGfxSlotTilesBackup) == 0 && DEBUG_GFX_CHUNK_SIZE == $100
 	ld c, LOW(rVDMA_SRC_HIGH)
 	ld a, b
-	add HIGH(wOwlSlotTilesBackup) - 1
+	add HIGH(wDebugGfxSlotTilesBackup) - 1
 	ld [$ff00+c], a ; rVDMA_SRC_HIGH
 	inc c
 	xor a
 	ld [$ff00+c], a ; rVDMA_SRC_LOW
 	inc c
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
 	swap a
 	add b
 	add HIGH(v1Tiles0) - 1
@@ -42,23 +42,23 @@ OwlSlotRestoreVBlankFunc::
 	xor a
 	ld [$ff00+c], a ; rVDMA_DEST_LOW
 	inc c
-	ld a, OWL_SLOT_CHUNK_SIZE / 16 - 1 ; general purpose DMA
+	ld a, DEBUG_GFX_CHUNK_SIZE / 16 - 1 ; general purpose DMA
 	ld [$ff00+c], a ; rVDMA_LEN
 	xor a ; VRAM0
 	ldh [rVBK], a
 
 	ld a, b
-	cp OWL_SLOT_NUM_CHUNKS
+	cp DEBUG_GFX_NUM_CHUNKS
 	jr z, .last_chunk
-	ld hl, wOwlSlotRestore
+	ld hl, wDebugGfxSlotRestore
 	inc [hl]
 	pop af
 	ldh [rWBK], a
 	jr LevelVBlankFunc
 
 .last_chunk
-	ld a, [wOwlTileOffset]
-	and OWL_SLOT_MASK
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_SLOT_MASK
 	rrca
 	rrca
 	rrca ; slot * 1 palettes
@@ -69,7 +69,7 @@ OwlSlotRestoreVBlankFunc::
 	sub LOW(wTempPals2)
 	or OBPI_AUTOINC
 	ldh [rOBPI], a
-	ld hl, wOwlSlotPalBackup
+	ld hl, wDebugGfxSlotPalBackup
 	ld c, LOW(rOBPD)
 	ld b, 1 palettes
 .loop_pal
@@ -82,8 +82,8 @@ OwlSlotRestoreVBlankFunc::
 	pop af
 	ldh [rWBK], a
 	xor a
-	ld [wOwlTileOffset], a
-	ld [wOwlSlotRestore], a
+	ld [wDebugGfxSlot], a
+	ld [wDebugGfxSlotRestore], a
 .unhook
 	ld a, LOW(LevelVBlankFunc)
 	ld [wVBlankFunc + 1], a

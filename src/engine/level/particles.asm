@@ -1110,16 +1110,20 @@ ParticleAnim_Owl:
 	xor a
 	ld [wCurParticleAttributes], a
 	ld hl, ParticleOwlOAM
-	ld a, [wOwlTileOffset]
+	ld a, [wDebugGfxSlot]
 	and a
 	jp z, LoadParticleSprite
-	; the owl's graphics aren't in slot 1, where its frames expect them
 	ld a, [wVirtualOAMByteSize]
 	push af
 	call LoadParticleSprite
 	pop af
 	ld l, a
-	jp RelocateOwlSprites
+	ld a, [wDebugGfxSlot]
+	and DEBUG_GFX_KIND_MASK
+	ASSERT DEBUG_GFX_OWL == 0
+	ret nz ; another object's graphics are elsewhere, the owl's in slot 1
+	; the owl's graphics aren't in slot 1, where its frames expect them
+	jp RelocateDebugObjSprites
 
 ParticleAnim_TreasureGlow:
 	ld h, b
