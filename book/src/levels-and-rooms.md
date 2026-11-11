@@ -41,7 +41,7 @@ wLevel = (wOWLevel - 1) * 8 + variant + 4 * night
 `THE_TEMPLE` (`$c8`, 25 × 8) and `GOLF_BUILDING` (`$ff`) are set directly.
 Since the variant is only chosen here, a treasure that opens a new path takes
 effect the next time Wario enters from the map (see
-[The debug menu](debug-menu.md#treasures)).
+[The debug menu](debug-menu.md#the-treasure-page)).
 
 Variants share data wherever they can: `LevelHeaders`
 (`src/data/levels/rooms1.asm`) and `LevelBlockAndObjectMaps`

@@ -35,8 +35,8 @@ from test_owl_free_slot import (
 )
 
 BARREL2 = 0x05
-CURSOR_POWER = 1
-CURSOR_BARREL = 4
+CURSOR_OWL = 2  # the debug menu's MAIN page
+CURSOR_BARREL = 3
 BARREL_STATUS_SPAWNED = 1
 BARREL_STATUS_FAILED = 2
 GRAB_GLOVE = 4
@@ -98,15 +98,12 @@ def sram_enabled(game):
 
 
 def spawn_barrel(game, power=None):
-    """Opens the menu, optionally sets POWER, and presses A on BARREL."""
+    """Opens the menu, optionally sets POWER (on the POWER page), and
+    presses A on BARREL."""
     game.open_debug_menu()
     if power is not None:
-        game.menu_press("down", CURSOR_POWER)
-        game.menu_press("right", power)
-        assert game.read("wPowerUpLevel") == power
-        game.menu_press("down", CURSOR_BARREL - CURSOR_POWER)
-    else:
-        game.menu_press("down", CURSOR_BARREL)
+        game.debug_set_power(power)
+    game.menu_press("down", CURSOR_BARREL)
     assert game.read("wDebugMenuCursor") == CURSOR_BARREL
     game.menu_press("a")
 
@@ -287,7 +284,7 @@ def test_barrel_next_to_owl_in_slot_1(game, golden):
     golden("above_the_clouds_debug_owl_and_barrel", game.screenshot())
 
     game.open_debug_menu()
-    game.menu_press("down", CURSOR_BARREL - 1)
+    game.menu_press("down", CURSOR_OWL)
     game.menu_press("a")
     assert game.read("wDebugMenuOwlStatus") == OWL_STATUS_FAILED
 

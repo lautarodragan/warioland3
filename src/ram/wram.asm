@@ -2603,15 +2603,18 @@ wDebugMenuFormIdx:: db
 wDebugMenuOwlStatus:: db
 ; the same for the barrel
 wDebugMenuBarrelStatus:: db
-; treasure on the TREASURE row: level * 4 + colour
+; the TREASURE page's pick: level * 4 + colour
 wDebugMenuTreasureIdx:: db
 ; bit n set if an object of DEBUG_GFX_* kind n (an owl, a barrel) was spawned
 ; in a room without its graphics, to load them when the menu closes
 wDebugMenuGfxPending:: db
 ; rLCDC as the level had it (The Temple's battle also shows the window)
 wDebugMenuLevelLCDC:: db
-; the POWER screen's selection, a power-up level (0-9)
+; the POWER page's selection, a power-up level (0-9)
 wDebugPowerCursor:: db
+; the first sprite tile of the TREASURE page's icons, one of its two sets
+; (DEBUG_TREASURE_OBJ_TILE or the next DEBUG_TREASURE_OBJ_SET tiles)
+wDebugTreasureObjTile:: db
 
 ; the enemy graphics slot the debug menu's owl borrowed (DEBUG_GFX_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.

@@ -1,15 +1,15 @@
-; The debug menu's POWER screen: A on the POWER row. The ten power-up levels
+; The debug menu's POWER page (START from MAIN). The ten power-up levels
 ; (NONE and the nine power-ups, see wario_constants.asm), each with its
 ; treasure's graphics and palette, the ones owned in colour and the others
-; in grey. The D-pad moves the selection, A sets wPowerUpLevel to it, B or
-; SELECT goes back to the main screen.
+; in grey. The D-pad moves the selection, A sets wPowerUpLevel to it, START
+; goes on to the TREASURE page, B or SELECT closes the menu.
 ;
 ; The icons are sprites (two 8x16 each), with the treasures' own OB palettes
 ; (TreasurePals, picked with TreasureOBPals like the collection screen does),
-; their tiles copied from TreasureGfx into VRAM0 $8000-$827f. That part of
-; the font is never shown by the BG (which uses the $8800-$97ff tiles), so
-; the main screen doesn't need it back. All 8 BG palettes are the main
-; screen's: palette 7 is the icon cells'.
+; their tiles copied from TreasureGfx into VRAM0 $8000-$827f when the menu
+; opens. That part of the font is never shown by the BG (which uses the
+; $8800-$97ff tiles). All 8 BG palettes are the menu's: palette 7 is the
+; icon cells'. The TREASURE page uses the same cells, palettes and dim grey.
 
 ; treasure shown for each power-up level
 DebugPowerTreasures:
@@ -79,50 +79,58 @@ DebugMenu_SetPowerLevel:
 	ret
 
 ; -----------------------------------------------------------------------
-; A on the POWER row: switch to the POWER screen, the LCD off meanwhile
+; The ten power-ups' treasure tiles, 4 per level from tile 0 (VRAM0 $8000),
+; loaded with the menu's other tiles when it opens. The LCD must be off.
 ; -----------------------------------------------------------------------
-DebugMenu_OpenPowerScreen:
-	call DisableLCD
-	call DebugMenu_GetPowerLevel
-	cp NUM_DEBUG_POWERS
-	jr c, .got_cursor
-	xor a
-.got_cursor
-	ld [wDebugPowerCursor], a
-
-	; the icon cells' tiles
-	ld hl, DebugPowerCellTiles
-	ld de, v0Tiles2 tile DEBUG_POWER_CELL
-	ld b, 2 tiles
-	call CopyHLToDE
-
-	; the treasures' tiles, 4 per level from tile 0
+DebugMenu_LoadPowerTiles:
 	ld de, v0Tiles0
 	ld c, 0
-.loop_tiles
+.loop
 	push bc
 	ld b, 0
 	ld hl, DebugPowerTreasures
 	add hl, bc
-	ld l, [hl]
-	ld h, b
-	REPT 6 ; * NUM_TREASURE_TILES tiles
-		add hl, hl
-	ENDR
-	ld bc, TreasureGfx
-	add hl, bc
-	ld b, NUM_TREASURE_TILES tiles
-	ld a, BANK(TreasureGfx)
-	ldh [hCallFuncBank], a
-	hcall CopyHLToDE
+	ld a, [hl]
+	call DebugMenu_CopyTreasureTiles
 	pop bc
 	inc c
 	ld a, c
 	cp NUM_DEBUG_POWERS
-	jr nz, .loop_tiles
-	ASSERT NUM_TREASURE_TILES tiles == 1 << 6
+	jr nz, .loop
+	ret
 
-	; OB palettes: the dim grey, and the treasures' (OBPAL_TREASURE_*)
+; -----------------------------------------------------------------------
+; Copy treasure a's tiles (TreasureGfx, in its bank) to de, which ends up
+; past them. With the LCD on, at the start of a V-Blank.
+; Clobbers: A, B, H, L
+; -----------------------------------------------------------------------
+DebugMenu_CopyTreasureTiles:
+	ld l, a
+	ld h, 0
+	REPT 6 ; * NUM_TREASURE_TILES tiles
+		add hl, hl
+	ENDR
+	ASSERT NUM_TREASURE_TILES tiles == 1 << 6
+	ld a, LOW(TreasureGfx)
+	add l
+	ld l, a
+	ld a, HIGH(TreasureGfx)
+	adc h
+	ld h, a
+	call DebugMenu_StartVRAMWrite
+	ld b, NUM_TREASURE_TILES tiles
+	ld a, BANK(TreasureGfx)
+	ldh [hCallFuncBank], a
+	hcall CopyHLToDE
+	ei
+	ret
+
+; -----------------------------------------------------------------------
+; The OB palettes of the POWER and TREASURE pages, into wTempPals2 and the
+; hardware: the dim grey, and the treasures' (OBPAL_TREASURE_*). Loaded
+; with each of these pages: FORM changes Wario's, in the same palettes.
+; -----------------------------------------------------------------------
+DebugMenu_LoadTreasurePals:
 	ld hl, DebugPowerDimPal
 	ld de, wTempPals2 palette DEBUG_POWER_PAL_DIM
 	ld b, 1 palettes
@@ -133,44 +141,20 @@ DebugMenu_OpenPowerScreen:
 	ld a, BANK(TreasurePals)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE
-	call ApplyTempPals2ToOBPals
+	jp ApplyTempPals2ToOBPals
 
+; -----------------------------------------------------------------------
+; Load the POWER page (DebugMenu_ShowPage, the LCD off)
+; -----------------------------------------------------------------------
+DebugMenu_LoadPowerPage:
+	call DebugMenu_LoadTreasurePals
 	ld hl, DebugPowerTilemap
 	ld de, DebugPowerAttrmap
 	call DebugMenu_LoadMap
-	call ApplyTempPals1ToBGPals
 	ld a, [wDebugPowerCursor]
 	ld c, DEBUG_POWER_CELL_SELECTED
 	call DebugMenu_DrawPowerCell
-
-	call DebugMenu_BuildPowerOAM
-	ld a, HIGH(wVirtualOAM)
-	call hTransferVirtualOAM
-
-	ld a, LCDC_DEFAULT
-	ldh [rLCDC], a
-	ld a, SST_DEBUG_POWER_SCREEN
-	ld [wSubState], a
-	ret
-
-; -----------------------------------------------------------------------
-; B or SELECT on the POWER screen: back to the main screen, on POWER
-; -----------------------------------------------------------------------
-DebugMenu_ClosePowerScreen:
-	call DisableLCD
-	call ClearVirtualOAM
-	ld a, HIGH(wVirtualOAM)
-	call hTransferVirtualOAM
-	ld hl, DebugMenuTilemap
-	ld de, DebugMenuAttrmap
-	call DebugMenu_LoadMap
-	call ApplyTempPals1ToBGPals
-	call DebugMenu_DrawAll
-	ld a, LCDC_DEFAULT
-	ldh [rLCDC], a
-	ld a, SST_DEBUG_MENU_MAIN
-	ld [wSubState], a
-	ret
+	jp DebugMenu_BuildPowerOAM
 
 ; -----------------------------------------------------------------------
 ; The icons' sprites, two per level: the treasure's palette for the levels
@@ -259,6 +243,15 @@ DebugMenu_DrawPowerCell:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
+;	fallthrough
+
+; -----------------------------------------------------------------------
+; Draw an icon cell at hl (its top left corner in the BG map) with tile c
+; (DEBUG_POWER_CELL or _SELECTED), and the two lines of text to its right in
+; yellow (selected) or white. The LCD must be off or in V-Blank.
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_DrawCell:
 	ld a, c
 	ld [hli], a
 	ld [hl], a
@@ -266,7 +259,7 @@ DebugMenu_DrawPowerCell:
 	add hl, de
 	ld [hld], a
 	ld [hl], a
-	; the name's palette, on the two rows right of the cell
+	; the text's palette, on the two rows right of the cell
 	cp DEBUG_POWER_CELL_SELECTED
 	ld b, 6 ; cursor and values, yellow
 	jr z, .got_pal
@@ -294,13 +287,15 @@ DebugMenu_DrawPowerCell:
 	ret
 
 ; -----------------------------------------------------------------------
-; SST_DEBUG_POWER_SCREEN: the POWER screen's input
+; SST_DEBUG_POWER_PAGE: the POWER page's input
 ; -----------------------------------------------------------------------
-UpdateDebugPowerScreen:
+UpdateDebugPowerPage:
 	ld a, [wJoypadPressed]
 	ld b, a
 	and PAD_B | PAD_SELECT
-	jp nz, DebugMenu_ClosePowerScreen
+	jp nz, DebugMenu_Exit
+	bit B_PAD_START, b
+	jp nz, DebugMenu_NextPage
 	bit B_PAD_A, b
 	jr nz, .apply
 
@@ -342,8 +337,7 @@ UpdateDebugPowerScreen:
 
 	; redraw the two cells during V-Blank (LCD on)
 	push af
-	di
-	call DebugMenu_WaitVBlank
+	call DebugMenu_StartVRAMWrite
 	ld a, c
 	ld c, DEBUG_POWER_CELL
 	call DebugMenu_DrawPowerCell

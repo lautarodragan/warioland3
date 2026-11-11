@@ -51,7 +51,6 @@ THE_TEMPLE = 0xC8
 WST_OWL_FAST = 0xBA
 APPLEBY = 0x1D
 WST_SWIMMING_STATES = range(0x0A, 0x12)  # WST_DIVING .. WST_TRYING_SUBMERGE
-CURSOR_POWER = 1
 SCREEN_HEIGHT = 144
 OAM_Y_OFS = 16  # wWarioScreenYPos is in OAM coordinates
 OWL_WARIO_HEIGHT = 60  # from his feet to the top of the owl
@@ -253,8 +252,7 @@ def test_debug_owl_underwater(game, golden):
     game.new_game_to_overworld()
     game.enter_level(BENEATH_THE_WAVES_DAY_1)
     game.open_debug_menu()
-    game.menu_press("down", CURSOR_POWER)
-    game.menu_press("right", 9)
+    game.debug_set_power(9)
     game.close_debug_menu()
     game.play(BENEATH_THE_WAVES_DIVE)
     assert game.read("wWarioState") in WST_SWIMMING_STATES

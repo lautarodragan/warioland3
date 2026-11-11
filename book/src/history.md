@@ -70,7 +70,15 @@ row, and treasures read OPEN/CLOSED.
 
 POWER shows the top power-up's name instead of a digit, and A on it opens a
 second screen with the nine power-ups and their treasures, owned ones in
-colour. See [The POWER screen](debug-menu.md#the-power-screen).
+colour. See [The POWER page](debug-menu.md#the-power-page).
+
+## Pages
+
+The menu was split into three pages, cycled with START: MAIN (FORM, GOLF, OWL,
+BARREL, lower and less crowded), POWER (the POWER screen) and TREASURE (a level
+and its four treasures with their icons, replacing the TREASURE row), with a
+page indicator in a small font under the title. B or SELECT closes the menu
+from any page. See [The debug menu](debug-menu.md).
 
 ## GOLF without the room reload
 

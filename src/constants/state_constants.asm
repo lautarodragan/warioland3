@@ -54,8 +54,10 @@ DEF SST_PAUSE_SAVE_AND_CONTINUE EQU $18
 DEF SST_PAUSE_SAVE_AND_RESET    EQU $28
 
 ; ST_DEBUG_MENU substates
-DEF SST_DEBUG_MENU_MAIN    EQU $01 ; the main screen (UpdateDebugMenu)
-DEF SST_DEBUG_POWER_SCREEN EQU $02 ; the POWER screen (UpdateDebugPowerScreen)
+; (the pages, in the order START cycles through them)
+DEF SST_DEBUG_MENU_MAIN     EQU $01 ; MAIN (UpdateDebugMenu)
+DEF SST_DEBUG_POWER_PAGE    EQU $02 ; POWER (UpdateDebugPowerPage)
+DEF SST_DEBUG_TREASURE_PAGE EQU $03 ; TREASURE (UpdateDebugTreasurePage)
 
 ; ST_GOLF substates
 DEF SST_GOLF_HOLE EQU $4

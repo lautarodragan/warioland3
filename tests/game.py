@@ -26,6 +26,12 @@ SST_START_MENU = 0x07  # NEW GAME / CONTINUE on the title screen
 SST_OVERWORLD_UPDATE_MAP_SIDE = 0x0b  # map is idle and accepts input
 SST_LEVEL_UPDATE = 0x03  # UpdateLevel, i.e. normal gameplay
 SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
+# The debug menu's pages, in the order START cycles through them
+SST_DEBUG_MENU_MAIN = SST_DEBUG_MENU_UPDATE
+SST_DEBUG_POWER_PAGE = 0x02
+SST_DEBUG_TREASURE_PAGE = 0x03
+DEBUG_POWER_ROWS = 5  # the POWER page's columns
+NUM_LEVELS = 25
 
 # src/constants/object_constants.asm
 OBJFLAG_ACTIVE = 1 << 0
@@ -338,6 +344,43 @@ class Game:
         """Tap a button in a menu, giving each tap time to register."""
         for _ in range(times):
             self.press(button, wait=10)
+
+    def debug_menu_page(self, page):
+        """START until the debug menu shows `page` (SST_DEBUG_*)."""
+        for _ in range(3):
+            if self.state == (ST_DEBUG_MENU, page):
+                return
+            self.menu_press("start")
+        assert self.state == (ST_DEBUG_MENU, page)
+
+    def debug_set_power(self, level):
+        """On the debug menu's POWER page, select power-up level `level`
+        and apply it with A, then back to MAIN."""
+        self.debug_menu_page(SST_DEBUG_POWER_PAGE)
+        col, row = divmod(level, DEBUG_POWER_ROWS)
+        cur_col, cur_row = divmod(self.read("wDebugPowerCursor"), DEBUG_POWER_ROWS)
+        self.menu_press("right" if col > cur_col else "left", abs(col - cur_col))
+        self.menu_press("down" if row > cur_row else "up", abs(row - cur_row))
+        assert self.read("wDebugPowerCursor") == level
+        self.menu_press("a")
+        assert self.read("wPowerUpLevel") == level
+        self.debug_menu_page(SST_DEBUG_MENU_MAIN)
+
+    def debug_toggle_treasure(self, index):
+        """On the debug menu's TREASURE page, give or take treasure `index`
+        (level * 4 + colour) with A, then back to MAIN."""
+        self.debug_menu_page(SST_DEBUG_TREASURE_PAGE)
+        level, colour = divmod(index, 4)
+        cur_level, cur_colour = divmod(self.read("wDebugMenuTreasureIdx"), 4)
+        right = (level - cur_level) % NUM_LEVELS
+        if right <= NUM_LEVELS // 2:
+            self.menu_press("right", right)
+        else:
+            self.menu_press("left", NUM_LEVELS - right)
+        self.menu_press("down" if colour > cur_colour else "up", abs(colour - cur_colour))
+        assert self.read("wDebugMenuTreasureIdx") == index
+        self.menu_press("a")
+        self.debug_menu_page(SST_DEBUG_MENU_MAIN)
 
     def treasure_collected(self, treasure):
         bank, addr = self.pb.symbol_lookup("wTreasuresCollected")

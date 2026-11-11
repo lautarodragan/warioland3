@@ -1,9 +1,6 @@
-"""The debug menu's POWER screen (A on the POWER row)."""
+"""The debug menu's POWER page (START from MAIN)."""
 
-from game import ST_DEBUG_MENU, ST_LEVEL, SST_DEBUG_MENU_UPDATE
-
-SST_DEBUG_POWER_SCREEN = 0x02  # src/constants/state_constants.asm
-CURSOR_POWER = 1
+from game import SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE, ST_DEBUG_MENU, ST_LEVEL
 
 # src/constants/wario_constants.asm
 NO_POWER_UP = 0
@@ -17,9 +14,10 @@ JUMP_VEL_NORMAL = 2
 JUMP_VEL_HIGH_JUMP = 3
 
 
-def open_power_screen(game):
-    game.menu_press("a")
-    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_SCREEN)
+def open_power_page(game):
+    game.open_debug_menu()
+    game.menu_press("start")
+    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_PAGE)
 
 
 def jump_vel_table(game):
@@ -32,24 +30,17 @@ def jump_vel_table(game):
     return vel_table
 
 
-def test_debug_power_screen(game, golden):
+def test_debug_power_page(game, golden):
     game.new_game_to_overworld()
     game.enter_level()
+    game.write("wPowerUpLevel", GRAB_GLOVE)
     assert jump_vel_table(game) == JUMP_VEL_NORMAL
-
-    game.open_debug_menu()
-    game.menu_press("down")
-    # LEFT/RIGHT still step through the levels on the main screen; the
-    # value is the top power-up's name.
-    game.menu_press("right", GRAB_GLOVE)
-    assert game.read("wPowerUpLevel") == GRAB_GLOVE
-    golden("debug_menu_power_grab", game.screenshot())
 
     # The selection starts on the current level. Up to the Grab Glove in
     # colour, the rest in grey, each with its treasure.
-    open_power_screen(game)
+    open_power_page(game)
     assert game.read("wDebugPowerCursor") == GRAB_GLOVE
-    golden("debug_power_screen", game.screenshot())
+    golden("debug_power_page", game.screenshot())
 
     # Two columns of five: UP/DOWN within a column, LEFT/RIGHT between
     # them, no wrapping.
@@ -78,35 +69,35 @@ def test_debug_power_screen(game, golden):
     assert game.read("wDebugPowerCursor") == HIGH_JUMP_BOOTS
     game.menu_press("a")
     assert game.read("wPowerUpLevel") == HIGH_JUMP_BOOTS
-    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_SCREEN)
-    golden("debug_power_screen_boots", game.screenshot())
+    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_PAGE)
+    golden("debug_power_page_boots", game.screenshot())
 
-    # B goes back to the main screen, on POWER.
-    game.menu_press("b")
-    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_MENU_UPDATE)
-    assert game.read("wDebugMenuCursor") == CURSOR_POWER
-    golden("debug_menu_power_boots", game.screenshot())
-
-    # So does SELECT.
-    open_power_screen(game)
-    game.menu_press("select")
-    assert game.state == (ST_DEBUG_MENU, SST_DEBUG_MENU_UPDATE)
-    assert game.read("wDebugMenuCursor") == CURSOR_POWER
-
-    # Back in the level, with its graphics, and Wario has the boots.
+    # B closes the menu (SELECT too, see test_debug_menu.py): back in the
+    # level, with its graphics, and Wario has the boots.
     game.close_debug_menu()
     assert game.state[0] == ST_LEVEL
     golden("debug_power_level", game.screenshot())
     assert jump_vel_table(game) == JUMP_VEL_HIGH_JUMP
 
-    # And loses them when the POWER screen sets a lower level.
-    game.open_debug_menu()
-    game.menu_press("down")
-    open_power_screen(game)
+    # And loses them when the POWER page sets a lower level. The page
+    # starts on the current level again.
+    open_power_page(game)
+    assert game.read("wDebugPowerCursor") == HIGH_JUMP_BOOTS
     game.menu_press("up")
     assert game.read("wDebugPowerCursor") == SUPER_JUMP_SLAM_OVERALLS
     game.menu_press("a")
     assert game.read("wPowerUpLevel") == SUPER_JUMP_SLAM_OVERALLS
-    game.menu_press("b")
     game.close_debug_menu()
     assert jump_vel_table(game) == JUMP_VEL_NORMAL
+
+
+def test_debug_set_power(game, golden):
+    # The helper the other tests use to set a power-up level through the
+    # menu: from MAIN to POWER, select, A, and back to MAIN.
+    game.new_game_to_overworld()
+    game.enter_level()
+    game.open_debug_menu()
+    for level in (9, 0, 5, 3):
+        game.debug_set_power(level)
+        assert game.state == (ST_DEBUG_MENU, SST_DEBUG_MENU_MAIN)
+        assert game.read("wPowerUpLevel") == level

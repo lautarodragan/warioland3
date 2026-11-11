@@ -21,49 +21,75 @@ DebugFormTable:
 DEF NUM_DEBUG_FORMS  EQU 13
 DEF NUM_DEBUG_POWERS EQU 10
 
-; menu items, in wDebugMenuCursor order
+; The menu has three pages, cycled with START: MAIN, POWER and TREASURE.
+; Each is a substate (SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE,
+; SST_DEBUG_TREASURE_PAGE) with its own map; see tools/debug_menu_bgmap.py.
+
+; MAIN's rows, in wDebugMenuCursor order
 	const_def
 	const DEBUG_MENU_FORM
-	const DEBUG_MENU_POWER
 	const DEBUG_MENU_GOLF
 	const DEBUG_MENU_OWL
 	const DEBUG_MENU_BARREL
-	const DEBUG_MENU_TREASURE
 DEF DEBUG_MENU_ITEMS EQU const_value
 
 ; where the cursor and the values go (the rest of the screen, labels
 ; included, is in debug_menu.tilemap: see tools/debug_menu_bgmap.py)
 DEF DEBUG_MENU_CURSOR_X EQU 2
 DEF DEBUG_MENU_VALUE_X  EQU 11
-DEF DEBUG_MENU_FORM_Y     EQU 4
-DEF DEBUG_MENU_POWER_Y    EQU 6
-DEF DEBUG_MENU_GOLF_Y     EQU 8
-DEF DEBUG_MENU_OWL_Y      EQU 10
-DEF DEBUG_MENU_BARREL_Y   EQU 12
-DEF DEBUG_MENU_TREASURE_Y EQU 14
-DEF DEBUG_MENU_TREASURE_VALUE_X EQU 5 ; on the row below its label
-; the selected FORM/POWER row shows ◀ value ▶
+DEF DEBUG_MENU_FORM_Y   EQU 7
+DEF DEBUG_MENU_GOLF_Y   EQU 9
+DEF DEBUG_MENU_OWL_Y    EQU 11
+DEF DEBUG_MENU_BARREL_Y EQU 13
+; the selected FORM row shows ◀ value ▶
 DEF DEBUG_MENU_LEFT_ARROW_X  EQU DEBUG_MENU_VALUE_X - 1
-DEF DEBUG_MENU_FORM_RIGHT_ARROW_X  EQU DEBUG_MENU_VALUE_X + 5 ; after the widest name
-DEF DEBUG_MENU_POWER_RIGHT_ARROW_X EQU DEBUG_MENU_VALUE_X + 6
+DEF DEBUG_MENU_FORM_RIGHT_ARROW_X EQU DEBUG_MENU_VALUE_X + 5 ; after the widest name
 ; font tiles the arrows are loaded into (blank in the font)
 DEF DEBUG_MENU_LEFT_ARROW  EQU $5e
 DEF DEBUG_MENU_RIGHT_ARROW EQU $5f
+DEF DEBUG_MENU_BLANK EQU $7f ; all colour 3, like the maps' empty cells
+; inside the frame, the width of the TREASURE page's level name
+DEF DEBUG_MENU_INSIDE_X     EQU 2
+DEF DEBUG_MENU_INSIDE_WIDTH EQU 16
 
-; The POWER screen (A on the POWER row): the ten power-up levels in two
-; columns of five, each an icon cell (2x2 tiles) with the power-up's
-; treasure in it, as two sprites, and its name on two lines to its right.
+; The page indicator under the title, MAIN POWER TREASURE in a small font,
+; is DEBUG_MENU_PAGES_TILES font tiles from DEBUG_MENU_PAGES_TILE (over the
+; font's "c", "d"..., unused by the menu), in all three maps. Each page
+; loads its own version of them, the page's name in yellow
+; (gfx/debug_menu_pages.png, one row of tiles per page).
+DEF DEBUG_MENU_PAGES_TILE  EQU $62
+DEF DEBUG_MENU_PAGES_TILES EQU 12
+
+; The POWER page: the ten power-up levels in two columns of five, each an
+; icon cell (2x2 tiles) with the power-up's treasure in it, as two sprites,
+; and its name on two lines to its right.
 ; Shared with tools/debug_menu_bgmap.py, which draws the names and cells.
 DEF DEBUG_POWER_TOP_Y     EQU 5
 DEF DEBUG_POWER_ICON_X    EQU 2
 DEF DEBUG_POWER_COL_WIDTH EQU 8
 DEF DEBUG_POWER_ROWS      EQU 5
 DEF DEBUG_POWER_NAME_WIDTH EQU 6
-; the icon cells' tiles, over the font's "a" and "b" (unused by the menu);
-; the map flips them for the four corners
+; the icon cells' tiles (POWER and TREASURE), over the font's "a" and "b"
+; (unused by the menu); the map flips them for the four corners
 DEF DEBUG_POWER_CELL          EQU $60
 DEF DEBUG_POWER_CELL_SELECTED EQU $61
-DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for power-ups not owned
+DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
+
+; The TREASURE page: a level's code between ◀ ▶, its name centred on the
+; two rows below, a blank row, and its four treasures in a column, each an icon cell
+; and two lines, its colour and OPEN or CLOSED. Shared with
+; tools/debug_menu_bgmap.py.
+DEF DEBUG_TREASURE_CODE_X EQU 9
+DEF DEBUG_TREASURE_CODE_Y EQU 4
+DEF DEBUG_TREASURE_NAME_Y EQU 5
+DEF DEBUG_TREASURE_ICON_X EQU 6
+DEF DEBUG_TREASURE_TOP_Y  EQU 8
+; The treasures' sprite tiles, after the POWER page's (VRAM0 $8000-$827f):
+; two sets of four treasures, $8280-$837f and $8380-$847f. A new level's
+; treasures go into the set not shown, a treasure per V-Blank, and then the
+; sprites switch to it.
+DEF DEBUG_TREASURE_OBJ_TILE EQU NUM_DEBUG_POWERS * NUM_TREASURE_TILES
+DEF DEBUG_TREASURE_OBJ_SET  EQU NUM_LEVEL_TREASURES * NUM_TREASURE_TILES
 
 ; Strings for menu values (temple charmap)
 ; level codes, 2 bytes per level, in level order
@@ -72,8 +98,6 @@ DebugLevelCodes:
 	db "W1W2W3W4W5W6"
 	db "S1S2S3S4S5S6"
 	db "E1E2E3E4E5E6E7"
-; treasure colours, 3 bytes each, in LevelTreasureIDs order
-DebugTreasureColours: db "GRYREDGRNBLU"
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrOk:     db "OK "              ; 3 bytes
@@ -81,28 +105,15 @@ DebugMenuStrNo:     db "NO "              ; 3 bytes
 DebugMenuStrOpen:   db "OPEN  "           ; 6 bytes, chests
 DebugMenuStrClosed: db "CLOSED"           ; 6 bytes
 
-; POWER values, 6 bytes each, in power-up level order (the first line of
-; the POWER screen's names, see tools/debug_menu_bgmap.py)
-DebugPowerNames:
-	db "NONE  "
-	db "LEAD  " ; Lead Overalls
-	db "SWIM  " ; Swimming Flippers
-	db "SMASH " ; Head Smash Helmet
-	db "GRAB  " ; Grab Glove
-	db "GARLIC" ; Garlic
-	db "SLAM  " ; Super Jump Slam Overalls
-	db "JUMP  " ; High Jump Boots
-	db "FROG  " ; Prince Frog's Gloves
-	db "SUPER " ; Super Grab Gloves
-
 SETCHARMAP main
 
 _DebugMenuStateTable::
 	ld a, [wSubState]
 	jumptable
 	dw InitDebugMenu
-	dw UpdateDebugMenu
-	dw UpdateDebugPowerScreen
+	dw UpdateDebugMenu        ; SST_DEBUG_MENU_MAIN
+	dw UpdateDebugPowerPage   ; SST_DEBUG_POWER_PAGE
+	dw UpdateDebugTreasurePage ; SST_DEBUG_TREASURE_PAGE
 
 ; -----------------------------------------------------------------------
 ; Copy B bytes from [DE] to [HL+]
@@ -528,55 +539,8 @@ DebugMenu_ToggleGolf:
 	ret
 
 ; -----------------------------------------------------------------------
-; Treasure picked on the TREASURE row (wDebugMenuTreasureIdx = level * 4 +
-; colour, the LevelTreasureIDs layout).
-; output: a = treasure ID
-; -----------------------------------------------------------------------
-DebugMenu_GetTreasureID:
-	ld a, [wDebugMenuTreasureIdx]
-	ld e, a
-	ld d, 0
-	ld hl, LevelTreasureIDs_WithoutTemple
-	add hl, de
-	ld a, [hl]
-	ret
-
-; output: carry set if the picked treasure is collected
-; Clobbers: A, B, D, E, H, L
-DebugMenu_IsTreasureCollected:
-	call DebugMenu_GetTreasureID
-	ld b, a
-	push_wram BANK(wTreasuresCollected)
-	ld a, b
-	call IsTreasureCollected
-	ld b, a ; TRUE if collected
-	pop_wram
-	ld a, b
-	and a ; clears carry
-	ret z
-	scf
-	ret
-
-; Gives or takes the picked treasure. Level variants that need it change
-; the next time a level is entered from the map.
-; Clobbers: A, B, D, E, H, L
-DebugMenu_ToggleTreasure:
-	call DebugMenu_GetTreasureID
-	ld b, a
-	push_wram BANK(wTreasuresCollected)
-	ld a, b
-	call IsTreasureCollected
-	; hl = byte in wTreasuresCollected, d = the treasure's bit
-	ld a, [hl]
-	xor d
-	ld [hl], a
-	pop_wram
-	farcall UpdateNumCollectedTreasures
-	ret
-
-; -----------------------------------------------------------------------
-; Draw the cursor and the values (LCD must be off or in VBlank); the rest is
-; in debug_menu.tilemap
+; Draw the cursor and the values of MAIN (LCD must be off or in VBlank);
+; the rest is in debug_menu.tilemap
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawAll:
@@ -645,29 +609,6 @@ DebugMenu_DrawItems1:
 	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_FORM_Y
 	call DebugMenu_DrawArrows
 
-	; POWER: the top power-up's name
-	ld c, DEBUG_MENU_POWER
-	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_POWER_Y
-	call DebugMenu_DrawCursor
-	call DebugMenu_GetPowerLevel
-	ld e, a
-	add a ; 2*level
-	add e ; 3*level
-	add a ; 6*level
-	ld e, a
-	ld d, 0
-	ld hl, DebugPowerNames
-	add hl, de
-	ld d, h
-	ld e, l
-	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_POWER_Y
-	ld b, DEBUG_POWER_NAME_WIDTH
-	call DebugMenu_DrawString
-	ld c, DEBUG_MENU_POWER
-	ld b, DEBUG_MENU_POWER_RIGHT_ARROW_X - DEBUG_MENU_LEFT_ARROW_X
-	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_POWER_Y
-	call DebugMenu_DrawArrows
-
 	; GOLF: ON or OFF
 	ld c, DEBUG_MENU_GOLF
 	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_GOLF_Y
@@ -696,54 +637,7 @@ DebugMenu_DrawItems2:
 	call DebugMenu_DrawCursor
 	ld a, [wDebugMenuBarrelStatus]
 	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_BARREL_Y
-	call DebugMenu_DrawSpawnStatus
-
-	; TREASURE: LEFT/RIGHT picks a level's treasure, A gives or takes it.
-	; Shows e.g. "N5 RED ON", on the row below the label.
-	ld c, DEBUG_MENU_TREASURE
-	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_TREASURE_Y
-	call DebugMenu_DrawCursor
-	ld a, [wDebugMenuTreasureIdx]
-	srl a
-	srl a ; level
-	add a ; 2 bytes per code
-	ld e, a
-	ld d, 0
-	ld hl, DebugLevelCodes
-	add hl, de
-	ld d, h
-	ld e, l
-	hlbgcoord DEBUG_MENU_TREASURE_VALUE_X, DEBUG_MENU_TREASURE_Y + 1
-	ld b, 2
-	call DebugMenu_DrawString
-	ld a, $7e ; space
-	ld [hli], a
-	ld a, [wDebugMenuTreasureIdx]
-	and %11 ; colour
-	ld c, a
-	add a
-	add c ; 3 bytes per colour
-	ld e, a
-	ld d, 0
-	push hl
-	ld hl, DebugTreasureColours
-	add hl, de
-	ld d, h
-	ld e, l
-	pop hl
-	ld b, 3
-	call DebugMenu_DrawString
-	ld a, $7e ; space
-	ld [hli], a
-	push hl
-	call DebugMenu_IsTreasureCollected
-	pop hl
-	ld de, DebugMenuStrOpen
-	jr c, .draw_treasure_status
-	ld de, DebugMenuStrClosed
-.draw_treasure_status
-	ld b, 6
-	jp DebugMenu_DrawString
+;	fallthrough
 
 ; Write a spawn status (OWL, BARREL) to hl: nothing for 0 (no try yet), OK
 ; for 1, NO for 2.
@@ -760,16 +654,21 @@ DebugMenu_DrawSpawnStatus:
 	jp DebugMenu_DrawString
 
 ; -----------------------------------------------------------------------
-; Load the menu's screen: the font in VRAM0, the pause menu's graphics in
-; VRAM1 (for the frame), the map and the palettes. See
-; tools/debug_menu_bgmap.py for the layout. The LCD must be off.
+; Load the tiles all the pages use, once: the font in VRAM0 with the arrows,
+; the icon cells and the POWER page's treasures, and the pause menu's
+; graphics in VRAM1 (for the frame). The LCD must be off.
 ; -----------------------------------------------------------------------
-DebugMenu_LoadScreen:
+DebugMenu_LoadTiles:
 	farcall LoadFontTiles
 	ld hl, DebugMenuArrowTiles
 	ld de, v0Tiles2 tile DEBUG_MENU_LEFT_ARROW
 	ld b, 2 tiles
 	call CopyHLToDE_Short
+	ld hl, DebugPowerCellTiles
+	ld de, v0Tiles2 tile DEBUG_POWER_CELL
+	ld b, 2 tiles
+	call CopyHLToDE
+	call DebugMenu_LoadPowerTiles
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PauseMenuGfx
@@ -779,11 +678,67 @@ DebugMenu_LoadScreen:
 	hcall Decompress
 	xor a ; VRAM0
 	ldh [rVBK], a
-	ld hl, DebugMenuTilemap
-	ld de, DebugMenuAttrmap
+	ret
+
+; -----------------------------------------------------------------------
+; START: the next page (MAIN after TREASURE)
+; -----------------------------------------------------------------------
+DebugMenu_NextPage:
+	ld a, [wSubState]
+	inc a
+	cp SST_DEBUG_TREASURE_PAGE + 1
+	jr c, DebugMenu_ShowPage
+	ld a, SST_DEBUG_MENU_MAIN
 ;	fallthrough
 
-; Load a screen's map (tilemap hl, attrmap de) and the menu's BG palettes
+; -----------------------------------------------------------------------
+; Switch to page a (SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE or
+; SST_DEBUG_TREASURE_PAGE): its map, values and sprites, and the page
+; indicator's version for it. The LCD is off meanwhile.
+; -----------------------------------------------------------------------
+DebugMenu_ShowPage:
+	ld [wSubState], a
+	call DisableLCD
+	call ClearVirtualOAM
+
+	; the page indicator: this page's row of DebugMenuPagesGfx
+	ld a, [wSubState]
+	sub SST_DEBUG_MENU_MAIN
+	ld hl, DebugMenuPagesGfx
+	ld de, DEBUG_MENU_PAGES_TILES tiles
+	jr z, .got_pages_gfx
+.next_pages_gfx
+	add hl, de
+	dec a
+	jr nz, .next_pages_gfx
+.got_pages_gfx
+	ld de, v0Tiles2 tile DEBUG_MENU_PAGES_TILE
+	ld b, DEBUG_MENU_PAGES_TILES tiles
+	call CopyHLToDE
+
+	call .Load
+	call ApplyTempPals1ToBGPals
+	ld a, HIGH(wVirtualOAM)
+	call hTransferVirtualOAM
+	ld a, LCDC_DEFAULT
+	ldh [rLCDC], a
+	ret
+
+.Load:
+	ld a, [wSubState]
+	sub SST_DEBUG_MENU_MAIN
+	jumptable
+	dw DebugMenu_LoadMainPage
+	dw DebugMenu_LoadPowerPage
+	dw DebugMenu_LoadTreasurePage
+
+DebugMenu_LoadMainPage:
+	ld hl, DebugMenuTilemap
+	ld de, DebugMenuAttrmap
+	call DebugMenu_LoadMap
+	jp DebugMenu_DrawAll
+
+; Load a page's map (tilemap hl, attrmap de) and the menu's BG palettes
 ; into wTempPals1. The LCD must be off.
 DebugMenu_LoadMap:
 	ld bc, v0BGMap0
@@ -800,6 +755,27 @@ DebugMenu_LoadMap:
 	ld de, wTempPals1
 	ld b, 8 palettes
 	jp CopyHLToDE_Short
+
+; -----------------------------------------------------------------------
+; Wait for the start of the next V-Blank with interrupts off, to write
+; VRAM with the LCD on; the caller turns interrupts back on (ei) when done.
+; Returns right away (interrupts off too) if the LCD is off.
+; Clobbers: A
+; -----------------------------------------------------------------------
+DebugMenu_StartVRAMWrite:
+	di
+	ldh a, [rLCDC]
+	bit B_LCDC_ENABLE, a
+	ret z
+.wait_not_vblank
+	ldh a, [rLY]
+	cp LY_VBLANK
+	jr nc, .wait_not_vblank
+.wait_vblank
+	ldh a, [rLY]
+	cp LY_VBLANK
+	jr c, .wait_vblank
+	ret
 
 ; ◀ and ▶, in the font's style (glyph in colour 0 on colour 3), like its ▼
 DebugMenuArrowTiles:
@@ -824,12 +800,20 @@ DebugMenuArrowTiles:
 DebugMenuTilemap: INCBIN "data/bgmaps/debug_menu.tilemap.rle"
 DebugMenuAttrmap: INCBIN "data/bgmaps/debug_menu.attrmap.rle"
 
+; The page indicator, one row of DEBUG_MENU_PAGES_TILES tiles per page
+; (tools/debug_menu_bgmap.py draws it): the page's name in colour 0 (the
+; title's yellow), the others in colour 1 (dim), on colour 3
+DebugMenuPagesGfx: INCBIN "gfx/debug_menu_pages.2bpp"
+.end
+	ASSERT DebugMenuPagesGfx.end - DebugMenuPagesGfx == 3 * DEBUG_MENU_PAGES_TILES tiles
+
 ; The font draws its glyphs in colour 0 on colour 3: the text palettes are a
 ; text colour on the colour of what's behind it.
 DebugMenuPals:
-	; 0: title, yellow on the title band's dark blue
+	; 0: title, yellow on the title band's dark blue; colour 1 is the page
+	; indicator's other pages
 	rgb 31, 31,  0
-	rgb 21, 21, 21
+	rgb 15, 14, 27
 	rgb 10, 10, 10
 	rgb  7,  2, 23
 	; 1-4: the pause menu's (PauseMenuBGPals), for its gems, the checkered
@@ -863,9 +847,9 @@ DebugMenuPals:
 	rgb 21, 21, 21
 	rgb 10, 10, 10
 	rgb 11,  0,  1
-	; 7: the POWER screen's icon cells: white (behind the treasure sprites,
-	; whose colour 0 is the treasure palettes' white), the selected one's
-	; yellow frame, and the margin in the frame's dark red
+	; 7: the POWER and TREASURE pages' icon cells: white (behind the
+	; treasure sprites, whose colour 0 is the treasure palettes' white), the
+	; selected one's yellow frame, and the margin in the frame's dark red
 	rgb 31, 31, 31
 	rgb 31, 27,  0
 	rgb 26, 11,  1
@@ -886,22 +870,30 @@ InitDebugMenu:
 	ld a, [wAnimatedTilesGfx]
 	ld [wTempAnimatedTilesGroup], a
 
-	; Init cursor to first item; keep wDebugMenuFormIdx in sync with
-	; wTransformation so the display starts on the current form
+	; Each page's selection, kept while the menu is open: MAIN's cursor on
+	; FORM, POWER's on the current power-up level, TREASURE's on this
+	; level's grey treasure
 	xor a
 	ld [wDebugMenuCursor], a
 	ld [wDebugMenuOwlStatus], a
 	ld [wDebugMenuBarrelStatus], a
 	ld [wDebugMenuGfxPending], a
-	; Start the treasure row on this level's grey treasure
+	call DebugMenu_GetPowerLevel
+	cp NUM_DEBUG_POWERS
+	jr c, .got_power_cursor
+	xor a
+.got_power_cursor
+	ld [wDebugPowerCursor], a
 	ld a, [wLevel]
 	srl a ; levels are 8 apart, treasures 4 apart
 	and %11111100
-	cp NUM_LEVELS * 4
+	cp NUM_LEVELS * NUM_LEVEL_TREASURES
 	jr c, .got_treasure_idx
 	xor a ; the temple and the golf building have none
 .got_treasure_idx
 	ld [wDebugMenuTreasureIdx], a
+	ld a, DEBUG_TREASURE_OBJ_TILE
+	ld [wDebugTreasureObjTile], a
 
 	; Determine starting form index from current wTransformation
 	ld a, [wTransformation]
@@ -930,12 +922,7 @@ InitDebugMenu:
 	ld [wDebugMenuFormIdx], a
 .form_init_done:
 
-	call ClearVirtualOAM
-	call DebugMenu_LoadScreen
-	call ApplyTempPals1ToBGPals
-
-	call DebugMenu_DrawAll
-
+	call DebugMenu_LoadTiles
 	call VBlank_PauseMenu
 	xor a
 	ldh [rSCY], a
@@ -943,26 +930,26 @@ InitDebugMenu:
 	ld [wSCY], a
 	ld [wSCX], a
 
-	ld a, LCDC_DEFAULT
-	ldh [rLCDC], a
+	; MAIN, and the LCD on
+	ld a, SST_DEBUG_MENU_MAIN
+	call DebugMenu_ShowPage
 
 	; the pause menu's music (DebugMenu_Exit gives the level's back)
 	play_music MUSIC_PAUSE_MENU
-
-	ld hl, wSubState
-	inc [hl]
 	ret
 
 ; -----------------------------------------------------------------------
-; Substate 1: update debug menu (handle input, apply changes, draw)
+; SST_DEBUG_MENU_MAIN: MAIN's input
 ; -----------------------------------------------------------------------
 UpdateDebugMenu:
 	ld a, [wJoypadPressed]
 	ld b, a                ; save joypad
 
-	; B or SELECT: exit
+	; B or SELECT: exit; START: the next page
 	and PAD_B | PAD_SELECT
-	jp nz, .exit
+	jp nz, DebugMenu_Exit
+	bit B_PAD_START, b
+	jp nz, DebugMenu_NextPage
 
 	; Check for any actionable input
 	ld a, b
@@ -996,42 +983,13 @@ UpdateDebugMenu:
 	ld c, 1
 .not_down:
 
-	; RIGHT: cycle value forward
+	; RIGHT: next form (only FORM takes LEFT/RIGHT)
 	ld a, b
 	bit B_PAD_RIGHT, a
 	jr z, .not_right
-
 	ld a, [wDebugMenuCursor]
 	cp DEBUG_MENU_FORM
-	jr z, .change_form_fwd
-	cp DEBUG_MENU_POWER
-	jr z, .change_power_fwd
-	cp DEBUG_MENU_TREASURE
-	jr nz, .not_right ; OWL, BARREL and GOLF take A
-;	fallthrough
-.treasure_fwd:
-	ld a, [wDebugMenuTreasureIdx]
-	inc a
-	cp NUM_LEVELS * 4
-	jr c, .treasure_fwd_ok
-	xor a
-.treasure_fwd_ok:
-	ld [wDebugMenuTreasureIdx], a
-	ld c, 1
-	jr .not_right
-
-.change_power_fwd:
-	call DebugMenu_GetPowerLevel
-	inc a
-	cp NUM_DEBUG_POWERS
-	jr c, .power_fwd_ok
-	xor a
-.power_fwd_ok:
-	call DebugMenu_SetPowerLevel
-	ld c, 1
-	jr .not_right
-
-.change_form_fwd:
+	jr nz, .not_right
 	ld a, [wDebugMenuFormIdx]
 	inc a
 	cp NUM_DEBUG_FORMS
@@ -1043,45 +1001,14 @@ UpdateDebugMenu:
 	ld c, 1
 .not_right:
 
-	; LEFT: cycle value backward
+	; LEFT: previous form
 	; Reload joypad in case DebugMenu_ApplyForm clobbered b
 	ld a, [wJoypadPressed]
 	bit B_PAD_LEFT, a
 	jr z, .not_left
-
 	ld a, [wDebugMenuCursor]
 	cp DEBUG_MENU_FORM
-	jr z, .change_form_bwd
-	cp DEBUG_MENU_POWER
-	jr z, .change_power_bwd
-	cp DEBUG_MENU_TREASURE
-	jr nz, .not_left ; OWL, BARREL and GOLF take A
-;	fallthrough
-.treasure_bwd:
-	ld a, [wDebugMenuTreasureIdx]
-	and a
-	jr nz, .treasure_bwd_ok
-	ld a, NUM_LEVELS * 4
-.treasure_bwd_ok:
-	dec a
-	ld [wDebugMenuTreasureIdx], a
-	ld c, 1
-	jr .check_redraw
-
-.change_power_bwd:
-	call DebugMenu_GetPowerLevel
-	and a
-	jr z, .power_bwd_wrap
-	dec a
-	jr .power_bwd_ok
-.power_bwd_wrap:
-	ld a, NUM_DEBUG_POWERS - 1
-.power_bwd_ok:
-	call DebugMenu_SetPowerLevel
-	ld c, 1
-	jr .check_redraw
-
-.change_form_bwd:
+	jr nz, .not_left
 	ld a, [wDebugMenuFormIdx]
 	and a
 	jr z, .form_bwd_wrap
@@ -1096,20 +1023,15 @@ UpdateDebugMenu:
 	jr .check_redraw
 
 .not_left:
-	; A: spawn an owl or a barrel, toggle the golf win, or give or take the
-	; treasure
+	; A: spawn an owl or a barrel, or toggle the golf win
 	ld a, [wJoypadPressed]
 	bit B_PAD_A, a
 	jr z, .check_redraw
 	ld a, [wDebugMenuCursor]
-	cp DEBUG_MENU_POWER
-	jp z, DebugMenu_OpenPowerScreen
 	cp DEBUG_MENU_OWL
 	jr z, .spawn_owl
 	cp DEBUG_MENU_BARREL
 	jr z, .spawn_barrel
-	cp DEBUG_MENU_TREASURE
-	jr z, .toggle_treasure
 	cp DEBUG_MENU_GOLF
 	jr nz, .check_redraw
 	call DebugMenu_ToggleGolf
@@ -1125,10 +1047,6 @@ UpdateDebugMenu:
 .spawn
 	call DebugMenu_SpawnObject
 	ld c, 1
-	jr .check_redraw
-.toggle_treasure
-	call DebugMenu_ToggleTreasure
-	ld c, 1
 
 .check_redraw:
 	ld a, c
@@ -1137,20 +1055,13 @@ UpdateDebugMenu:
 
 	; Redraw during V-Blank (LCD stays on, no flash), half the rows in each
 	; of two V-Blanks
-	di
-	call DebugMenu_WaitVBlank
+	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawItems1
-.wait_vblank_end:
-	ldh a, [rLY]
-	cp LY_VBLANK
-	jr nc, .wait_vblank_end
-	call DebugMenu_WaitVBlank
+	ei
+	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawItems2
 	ei
 	ret
-
-.exit:
-	jp DebugMenu_Exit
 
 ; Load the graphics of the owls and barrels spawned in rooms without them
 ; (wDebugMenuGfxPending), with the LCD off and after VRAM is restored.
@@ -1173,12 +1084,6 @@ DebugMenu_LoadGfx:
 	ld [wDebugGfxSlot], a
 .load
 	farcall LoadDebugObjGfx
-	ret
-
-DebugMenu_WaitVBlank:
-	ldh a, [rLY]
-	cp LY_VBLANK
-	jr c, DebugMenu_WaitVBlank
 	ret
 
 ; -----------------------------------------------------------------------

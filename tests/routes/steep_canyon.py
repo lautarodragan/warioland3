@@ -35,9 +35,10 @@ UP_THE_SHAFT = [
 ]
 
 # Ground-pound so the Togeba below leaps up, jump onto it while it floats
-# down, and from it onto the ladder up through the ceiling.
+# down, and from it onto the ladder up through the ceiling. (Works after
+# any wait of 0-60 frames on arriving but 8, so it survives DIV drift.)
 TOGEBA_TO_LADDER = [
-    ("left", 20), ("a", 20), ("down", 40), ("left+up+a", 35), ("", 15),
+    ("left", 16), ("a", 20), ("down", 46), ("left+up+a", 35), ("", 5),
     ("left+up+a", 35), ("", 15), ("left+up+a", 35), ("", 15), ("up", 90),
 ]
 

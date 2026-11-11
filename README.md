@@ -6,16 +6,19 @@
 
 A "Debug Menu" (more like a "Cheat Menu", really), inspired by Metroid Fusion's debug menu.
 
-Accessible via SELECT during level play.
-The menu allows cycling through:
-- FORM: 13 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN/INVIS). Invisibility is one of them, as in the game.
-- POWER: power-up level 0-9, shown as the top power-up's name (NONE, LEAD, SWIM, SMASH, GRAB, GARLIC, SLAM, JUMP, FROG, SUPER). LEFT/RIGHT step through the levels; A opens the POWER screen: the nine power-ups (and NONE) with their treasures' graphics and colours, the ones Wario has in colour and the others in grey. Pick one with the D-pad and press A to get it and every power-up before it; B or SELECT goes back to the menu.
+Accessible via SELECT during level play. It has three pages: START goes to the next one (MAIN, POWER, TREASURE, and back to MAIN), and B or SELECT closes the menu from any of them. It opens on MAIN; while it's open, each page remembers its selection. A small MAIN POWER TREASURE under the title shows which page you're on.
+
+MAIN (UP/DOWN to pick a row):
+- FORM: 13 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN/INVIS), with LEFT/RIGHT (◀ ▶ show while it's selected). Invisibility is one of them, as in the game.
 - GOLF: press A to auto-win the current area's golf minigame (or take the win back). All a golf win does in the level is raise the "MINI GAME CLEAR" gates, so the gates already in the room go up (or down) right away, and the ones further on spawn that way. Wario stays where he is: nothing is reloaded. (If you close a gate on Wario, jump out of it.) See [GOLF and the room reload](https://lautarodragan.github.io/warioland3/debug-menu.html#golf-and-the-room-reload) for how it used to work and why it reset the game.
 - OWL: press A to spawn a sleeping owl next to Wario, in any level. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics go into a graphics slot the set doesn't use, or, if it uses all four, into one the room lends while the owl is around: one no enemy on screen is using, whose enemies don't appear meanwhile, and which gets its graphics back once the owl is gone. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot, and in boss battles.
 - BARREL: press A to spawn a barrel next to Wario, in any level: with the Grab Glove (POWER 4 or more) he can pick it up, carry it and throw it, like the real ones. Its graphics come the same way as the owl's (a free graphics slot, or one the room lends until the barrel is gone). Only one of the two can have its graphics moved to another slot at a time: BARREL shows NO while a debug owl whose graphics were moved is around, and OWL shows NO while such a barrel is around. Also NO when there's no free object slot, and in boss battles.
-- TREASURE: pick any level's treasure with LEFT/RIGHT (e.g. `N5 RED`) and press A to give it to Wario or take it back; it shows OPEN or CLOSED, like the treasure's chest. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
 
-Navigate with UP/DOWN. FORM, POWER and TREASURE cycle with LEFT/RIGHT (FORM and POWER show ◀ ▶ on the selected row); GOLF, OWL, BARREL and TREASURE apply with A, and A on POWER opens the POWER screen. Exit with B or SELECT. The menu plays the pause menu's music. How it works is in the [book](https://lautarodragan.github.io/warioland3/debug-menu.html).
+POWER: the ten power-up levels, NONE and the nine power-ups, each with its treasure's graphics and colours, the ones Wario has in colour and the others in grey. Pick one with the D-pad and press A to get it and every power-up before it.
+
+TREASURE: a level (code and name, e.g. `N5 THE TIDAL COAST`) and its four treasures, grey, red, green and blue, each with its icon (in colour if Wario has it, grey if not) and OPEN or CLOSED, like the chest. LEFT/RIGHT change the level, UP/DOWN pick a treasure, A gives it to Wario or takes it back. It starts on the current level. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
+
+The menu plays the pause menu's music. How it works is in the [book](https://lautarodragan.github.io/warioland3/debug-menu.html).
 
 Other features:
 - Auto swim while holding down A or B rather than having to continuously press it

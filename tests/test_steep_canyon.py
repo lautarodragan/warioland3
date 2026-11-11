@@ -33,11 +33,8 @@ THE_STEEP_CANYON_DAY_2 = 0x79
 THE_STEEP_CANYON_DAY_4 = 0x7B
 FOOT_OF_STONE = 0x3F
 RUST_SPRAY = 0x2D
-CURSOR_POWER = 1
-CURSOR_TREASURE = 5
-N5_RED = 4 * 4 + 1  # TREASURE row index: level * 4 + colour
-N8_BLUE = 20 * 4 + 3  # LEVEL_CASTLE_OF_ILLUSIONS
-NUM_TREASURE_ROWS = 25 * 4
+N5_RED = 4 * 4 + 1  # TREASURE page index: level * 4 + colour
+E3_BLUE = 20 * 4 + 3  # LEVEL_CASTLE_OF_ILLUSIONS
 SPEARHEAD = 0x00
 DEBUG_GFX_BORROWED = 1 << 0
 
@@ -47,11 +44,8 @@ def test_steep_canyon_to_the_owl(game, golden):
     game.enter_level()
 
     game.open_debug_menu()
-    game.menu_press("down", CURSOR_POWER)
-    game.menu_press("right", 9)
-    game.menu_press("down", CURSOR_TREASURE - CURSOR_POWER)
-    game.menu_press("right", N5_RED)
-    game.menu_press("a")
+    game.debug_set_power(9)
+    game.debug_toggle_treasure(N5_RED)
     game.close_debug_menu()
     assert game.treasure_collected(FOOT_OF_STONE)
     assert game.read("wPowerUpLevel") == 9
@@ -112,11 +106,8 @@ def test_steep_canyon_debug_owl_to_next_room(game, golden):
     game.new_game_to_overworld()
     game.enter_level()
     game.open_debug_menu()
-    game.menu_press("down", CURSOR_POWER)
-    game.menu_press("right", 9)
-    game.menu_press("down", CURSOR_TREASURE - CURSOR_POWER)
-    game.menu_press("left", NUM_TREASURE_ROWS - N8_BLUE)  # wraps around
-    game.menu_press("a")
+    game.debug_set_power(9)
+    game.debug_toggle_treasure(E3_BLUE)
     game.close_debug_menu()
     assert game.treasure_collected(RUST_SPRAY)
 
