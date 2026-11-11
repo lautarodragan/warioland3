@@ -104,8 +104,19 @@ DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
 ; two rows below, a blank row, and its four treasures in a column, each an icon cell
 ; and two lines, its colour and OPEN or CLOSED. Shared with
 ; tools/debug_menu_bgmap.py.
-DEF DEBUG_TREASURE_CODE_X EQU 9
-DEF DEBUG_TREASURE_CODE_Y EQU 4
+; The page's frame has a plain top edge, and the code is drawn a few pixels
+; higher than the font's rows, half on that edge's row: font tiles from
+; DEBUG_TREASURE_CODE_TILE on (over the font's "o", "p"..., unused by the
+; menu) hold the edge, its corner and ◀ ▶ (DEBUG_TREASURE_CODE_FIXED tiles,
+; loaded once), then the picked level's letter and digit, a top and a
+; bottom tile each, which the map always shows: debug_menu.asm only loads
+; their tiles (DebugMenuCodeGfx).
+DEF DEBUG_TREASURE_CODE_TILE  EQU $6e
+DEF DEBUG_TREASURE_CODE_FIXED EQU 6
+DEF DEBUG_TREASURE_CODE_TILES EQU DEBUG_TREASURE_CODE_TILE + DEBUG_TREASURE_CODE_FIXED
+; in DebugMenuCodeGfx, after the fixed tiles: N, W, S and E, then 1 to 7
+DEF DEBUG_CODE_GFX_LETTERS EQU DEBUG_TREASURE_CODE_FIXED
+DEF DEBUG_CODE_GFX_DIGITS  EQU DEBUG_CODE_GFX_LETTERS + 4 * 2
 DEF DEBUG_TREASURE_NAME_Y EQU 5
 DEF DEBUG_TREASURE_ICON_X EQU 6
 DEF DEBUG_TREASURE_TOP_Y  EQU 8
@@ -116,13 +127,30 @@ DEF DEBUG_TREASURE_TOP_Y  EQU 8
 DEF DEBUG_TREASURE_OBJ_TILE EQU NUM_DEBUG_POWERS * NUM_TREASURE_TILES
 DEF DEBUG_TREASURE_OBJ_SET  EQU NUM_LEVEL_TREASURES * NUM_TREASURE_TILES
 
-; Strings for menu values (temple charmap)
-; level codes, 2 bytes per level, in level order
+; A level's code, as its letter's and its digit's tiles in DebugMenuCodeGfx
+MACRO debug_level_code
+	ASSERT STRFIND("NWSE", "\1") != -1
+	db DEBUG_CODE_GFX_LETTERS + 2 * STRFIND("NWSE", "\1")
+	db DEBUG_CODE_GFX_DIGITS + 2 * (\2 - 1)
+ENDM
+
+; in level order
 DebugLevelCodes:
-	db "N1N2N3N4N5N6"
-	db "W1W2W3W4W5W6"
-	db "S1S2S3S4S5S6"
-	db "E1E2E3E4E5E6E7"
+	FOR N, 1, 7
+		debug_level_code N, N
+	ENDR
+	FOR N, 1, 7
+		debug_level_code W, N
+	ENDR
+	FOR N, 1, 7
+		debug_level_code S, N
+	ENDR
+	FOR N, 1, 8
+		debug_level_code E, N
+	ENDR
+	ASSERT @ - DebugLevelCodes == NUM_LEVELS * 2
+
+; Strings for menu values (temple charmap)
 DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrOk:     db "OK "              ; 3 bytes
@@ -784,6 +812,10 @@ DebugMenu_LoadTiles:
 	ld de, v0Tiles2 tile DEBUG_MENU_LEFT_ARROW
 	ld b, 2 tiles
 	call CopyHLToDE_Short
+	ld hl, DebugMenuCodeGfx
+	ld de, v0Tiles2 tile DEBUG_TREASURE_CODE_TILE
+	ld b, DEBUG_TREASURE_CODE_FIXED tiles
+	call CopyHLToDE ; crosses $9700
 	ld hl, DebugPowerCellTiles
 	ld de, v0Tiles2 tile DEBUG_POWER_CELL
 	ld b, 2 tiles
@@ -806,9 +838,11 @@ DebugMenu_LoadTiles:
 ; whole screen while the next page is drawn in BG map 0 under it:
 ;
 ; 1. The page on screen is copied to BG map 1, the part of it that differs
-;    from page to page (DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM; the
-;    rest, the title band and the frame, is the same on every page and was
-;    put there when the menu opened), in two V-Blanks, one per VRAM bank.
+;    from page to page (DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM, the
+;    frame's top edge included: the TREASURE page's is plain; the rest, the
+;    title band and the frame's sides and bottom, is the same on every page
+;    and was put there when the menu opened), in two V-Blanks, one per VRAM
+;    bank.
 ;    At the end of the second one the window goes on, showing the same
 ;    picture.
 ; 2. The next page is drawn in BG map 0, under the window: its map (GDMA,
@@ -824,7 +858,7 @@ DebugMenu_LoadTiles:
 ; -----------------------------------------------------------------------
 
 ; the rows the pages don't share
-DEF DEBUG_MENU_SWAP_TOP    EQU 4
+DEF DEBUG_MENU_SWAP_TOP    EQU 3
 DEF DEBUG_MENU_SWAP_BOTTOM EQU 16
 
 ; -----------------------------------------------------------------------
@@ -869,8 +903,8 @@ DebugMenu_NextPage:
 
 ; -----------------------------------------------------------------------
 ; Copy BG map 0's rows DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM, the
-; screen's columns, to BG map 1, in VRAM bank a. In a V-Blank: 13 rows of
-; 20 bytes, each byte 5 M-cycles (10 dots in double speed), about 2900
+; screen's columns, to BG map 1, in VRAM bank a. In a V-Blank: 14 rows of
+; 20 bytes, each byte 5 M-cycles (10 dots in double speed), about 3100
 ; dots of the V-Blank's 4560.
 ; Clobbers: A, B, D, E, H, L
 ; -----------------------------------------------------------------------
@@ -1112,6 +1146,13 @@ DebugTreasureAttrmap: INCBIN "data/bgmaps/debug_treasure.attrmap", 0, DEBUG_MENU
 DebugMenuPagesGfx: INCBIN "gfx/debug_menu_pages.2bpp"
 .end
 	ASSERT DebugMenuPagesGfx.end - DebugMenuPagesGfx == 3 * DEBUG_MENU_PAGES_TILES tiles
+
+; The TREASURE page's top edge and level code (tools/debug_menu_bgmap.py
+; draws them; see DEBUG_TREASURE_CODE_TILE), in the frame's palette, after
+; the page indicator, so 16-byte aligned too
+DebugMenuCodeGfx: INCBIN "gfx/debug_menu_code.2bpp"
+.end
+	ASSERT DebugMenuCodeGfx.end - DebugMenuCodeGfx == (DEBUG_CODE_GFX_DIGITS + 7 * 2) tiles
 	ASSERT DEBUG_MENU_MAP_SIZE % 16 == 0
 
 ; each page's map, in page order

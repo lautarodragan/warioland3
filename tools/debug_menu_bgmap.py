@@ -6,6 +6,7 @@ one per page, and the page indicator's graphics:
     src/data/bgmaps/debug_power.tilemap/.attrmap     POWER
     src/data/bgmaps/debug_treasure.tilemap/.attrmap  TREASURE
     src/gfx/debug_menu_pages.png                     the page indicator
+    src/gfx/debug_menu_code.png                      TREASURE's top edge and level code
 
     python3 tools/debug_menu_bgmap.py
 
@@ -37,6 +38,15 @@ icon cell (2x2) and a two-line name, white, or yellow when selected
 (debug_menu.asm redraws the selection). The TREASURE page has a level
 (code and name, drawn by debug_menu.asm) and its four treasures in a
 column, each a cell and two lines: its colour and OPEN or CLOSED.
+
+The TREASURE page's frame has a plain top edge, without the yellow band and
+its orange triangles, and its level code (◀ N1 ▶) is drawn 2-3 pixels
+higher than the font's rows, so that it's centred between that edge and the
+level's name. Those tiles are in debug_menu_code.png, drawn in the frame's
+palette (its yellow is the values' yellow, its colour 2 the inside's dark
+red): the edge and its corner, ◀ and ▶ (top and bottom halves), then the
+top and bottom halves of N, W, S and E and of 1 to 7, for debug_menu.asm
+to load the picked level's (DEBUG_TREASURE_CODE_*).
 """
 
 import sys
@@ -94,6 +104,26 @@ TREASURE_CODE_ROW, TREASURE_CODE_COL = 4, 9
 TREASURE_NAME_ROW = 5
 TREASURE_TOP_ROW, TREASURE_ICON_COL = 8, 6
 TREASURE_COLOURS = ["GREY", "RED", "GREEN", "BLUE"]
+
+# TREASURE's top edge and level code (debug_menu_code.png), font tiles from
+# CODE_TILE on (over the font's "o", "p"..., unused by the menu), in the
+# frame's palette (DEBUG_TREASURE_* in debug_menu.asm)
+CODE_PNG = ROOT / "src/gfx/debug_menu_code.png"
+PAL_FRAME = 4
+CODE_TILE = 0x6E
+EDGE, CORNER = CODE_TILE, CODE_TILE + 1
+ARROW_TILES = CODE_TILE + 2  # ◀ top, bottom, ▶ top, bottom
+CODE_TILES = CODE_TILE + 6  # the letter's top and bottom, the digit's
+FRAME_YELLOW, FRAME_DARK_RED = 0, 2
+# the glyph rows the code ends up on, counted from the top of its row: the
+# letters' (font rows 0-6) and the arrows' and digits' (rows 1-7) at -2 to 4
+LETTER_SHIFT, DIGIT_SHIFT = 2, 3
+CODE_LETTERS = "NWSE"
+# DebugMenuArrowTiles' ◀ and ▶ (0 is the glyph)
+ARROWS = [
+    ["33333333", "33330333", "33300333", "33000333", "30000333", "33000333", "33300333", "33330333"],
+    ["33333333", "30333333", "30033333", "30003333", "30000333", "30003333", "30033333", "30333333"],
+]
 
 # The page indicator: font tiles DEBUG_MENU_PAGES_TILE on (over the font's
 # "c", "d"..., unused by the menu), row 2 of the title band
@@ -195,6 +225,67 @@ def save_pages_png(strips, first, last):
         png.Writer((last - first + 1) * 8, len(rows), greyscale=True).write(f, rows)
 
 
+def read_tiles(path):
+    """A 2bpp-style greyscale PNG as tiles: lists of 8 rows of colour
+    indices (white is 0)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import png
+
+    width, height, rows, info = png.Reader(filename=str(path)).asDirect()
+    top = (1 << info["bitdepth"]) - 1
+    pixels = [[(top - v) * 3 // top for v in row] for row in rows]
+    return [
+        [pixels[ty * 8 + y][tx * 8 : tx * 8 + 8] for y in range(8)]
+        for ty in range(height // 8)
+        for tx in range(width // 8)
+    ]
+
+
+def code_tiles():
+    """debug_menu_code.png's tiles, in order (see the docstring)."""
+    pause_gfx = read_tiles(ROOT / "src/gfx/pause/pause_menu.png")
+    font = read_tiles(ROOT / "src/gfx/font.png")
+    top_edge = pause_gfx[0x100 + pause(8, 2)[0]]
+    corner = pause_gfx[0x100 + pause(8, 1)[0]]
+    side = pause_gfx[0x100 + pause(9, 1)[0]]
+    fill = [FRAME_DARK_RED] * 8
+    # the edge's lines, then the inside; the corner's lines, then the side's
+    # plain band
+    edge = top_edge[:4] + [fill] * 4
+    corner = corner[:4] + [side[0]] * 4
+
+    def halves(glyph, shift):
+        """glyph (font colours: 0 on 3) shift pixels up, as a top half (under
+        the edge's lines) and a bottom half"""
+        top = edge[:3] + [fill] * 5
+        bottom = [fill] * 8
+        out = [list(row) for row in top + bottom]
+        for y, row in enumerate(glyph):
+            for x, c in enumerate(row):
+                if c == 0:
+                    out[8 + y - shift][x] = FRAME_YELLOW
+        return [out[:8], out[8:]]
+
+    tiles = [edge, corner]
+    for arrow in ARROWS:
+        tiles += halves([[int(c) for c in row] for row in arrow], DIGIT_SHIFT)
+    for letter in CODE_LETTERS:
+        tiles += halves(font[0x100 + CHARS[letter]], LETTER_SHIFT)
+    for digit in "1234567":
+        tiles += halves(font[0x100 + CHARS[digit]], DIGIT_SHIFT)
+    return tiles
+
+
+def save_code_png(tiles):
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import png
+
+    grey = {0: 255, 1: 170, 2: 85, 3: 0}
+    rows = [[grey[c] for c in tile[y]] for tile in tiles for y in range(8)]
+    with open(CODE_PNG, "wb") as f:
+        png.Writer(8, len(rows), greyscale=True).write(f, rows)
+
+
 def frame(first, last):
     """The pause menu style frame the pages share, with the title band."""
     for row in range(18):
@@ -264,12 +355,23 @@ for i, lines in enumerate(POWER_NAMES):
     cell(row, col, lines)
 save("debug_power")
 
-# TREASURE
+save_code_png(code_tiles())
+
+# TREASURE: the plain top edge, and the code's tiles on it and under it
 new_map()
 frame(first, last)
-blank(TREASURE_CODE_ROW, TREASURE_CODE_COL - 2, TREASURE_CODE_COL + 3, PAL_VALUE)
-put(TREASURE_CODE_ROW, TREASURE_CODE_COL - 2, (LEFT_ARROW, PAL_VALUE))
-put(TREASURE_CODE_ROW, TREASURE_CODE_COL + 3, (RIGHT_ARROW, PAL_VALUE))
+put(3, 1, (CORNER, PAL_FRAME))
+put(3, 18, (CORNER, PAL_FRAME | X_FLIP))
+for col in range(2, 18):
+    put(3, col, (EDGE, PAL_FRAME))
+for col, tile in [
+    (TREASURE_CODE_COL - 2, ARROW_TILES),
+    (TREASURE_CODE_COL, CODE_TILES),
+    (TREASURE_CODE_COL + 1, CODE_TILES + 2),
+    (TREASURE_CODE_COL + 3, ARROW_TILES + 2),
+]:
+    put(TREASURE_CODE_ROW - 1, col, (tile, PAL_FRAME))
+    put(TREASURE_CODE_ROW, col, (tile + 1, PAL_FRAME))
 for i, colour in enumerate(TREASURE_COLOURS):
     cell(TREASURE_TOP_ROW + i * 2, TREASURE_ICON_COL, (colour, ""))
 save("debug_treasure")

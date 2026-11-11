@@ -254,11 +254,12 @@ half-drawn.
 
 The window shows BG map 1 (`$9c00`), unused by the pages, which are drawn in BG
 map 0. When the menu opens (LCD off), `DebugMenu_ShowFirstPage` also loads the
-LEVEL page's map into BG map 1: the title band and the frame, rows 0-3 and 17,
-are the same on every page and stay there. `DebugMenu_NextPage` then:
+LEVEL page's map into BG map 1: the title band and the frame's sides and
+bottom, rows 0-2 and 17, are the same on every page and stay there. `DebugMenu_NextPage` then:
 
-1. Copies the page on screen to BG map 1, rows 4-16 (`DEBUG_MENU_SWAP_TOP` to
-   `DEBUG_MENU_SWAP_BOTTOM`), the part that differs between pages:
+1. Copies the page on screen to BG map 1, rows 3-16 (`DEBUG_MENU_SWAP_TOP` to
+   `DEBUG_MENU_SWAP_BOTTOM`), the part that differs between pages (row 3 is
+   the frame's top edge, plain on the TREASURE page):
    `DebugMenu_CopyToWindowMap`, the tiles in one V-Blank and the attributes in
    the next. At the end of the second it puts the window at the top left
    (`rWY` 0, `rWX` 7) and turns it on (`LCDC_WIN_ON | LCDC_WIN_9C00`): the
@@ -294,8 +295,8 @@ in its V-Blank:
 
 | V-Blank | Work | Cost |
 |---|---|---|
-| copy, tiles | 13 rows × 20 bytes, unrolled (`ld a, [hli]`, `ld [de], a`, `inc e`: 5 M-cycles a byte) | about 2900 dots |
-| copy, attributes | the same, and `rWY`, `rWX`, `rLCDC` | about 2900 dots |
+| copy, tiles | 14 rows × 20 bytes, unrolled (`ld a, [hli]`, `ld [de], a`, `inc e`: 5 M-cycles a byte) | about 3100 dots |
+| copy, attributes | the same, and `rWY`, `rWX`, `rLCDC` | about 3100 dots |
 | map | GDMA, 2 × 36 blocks of 16 bytes; GDMA takes 32 dots a block in either speed | about 2300 dots |
 | values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name, then its statuses and cell | under 2000 dots each |
 | OB palettes | 64 bytes (`ApplyTempPals2ToOBPals`) | about 1000 dots |
@@ -386,7 +387,28 @@ take effect the next time Wario enters a level from the map, because
 
 The level names are in `src/engine/debug_menu/treasure_page.asm` (`DebugLevelNames`), each line with
 its column and length worked out by a macro. Changing the level redraws the
-code and the name in one V-Blank and the four statuses in the next. The icons
+code and the name in one V-Blank and the four statuses in the next.
+
+### The level code's padding
+
+The map's rows are 8 pixels apart, and the code's row sits between the
+frame's top edge and the name: drawn in the font's rows, ◀ N5 ▶ touched both.
+So this page's frame has a plain top edge, without the yellow band and its
+orange triangles (the sides keep theirs), and the code is drawn 2 or 3 pixels
+higher than its row (the letters, whose glyphs start a row higher than the
+digits' and the arrows', 2): 3 pixels from the edge and 3 from the name.
+
+Shifted, each glyph takes two tiles, its top half on the edge's row and its
+bottom half on its own. `tools/debug_menu_bgmap.py` draws them, with the edge
+and its corner, in `src/gfx/debug_menu_code.png`, from the font's and the
+pause menu's own tiles and in the frame's palette (4: its yellow is the
+values' yellow, and its colour 2 the inside's dark red). They go over the
+font's lowercase letters, which the menu doesn't use, from
+`DEBUG_TREASURE_CODE_TILE`: the edge, the corner and ◀ ▶'s halves are loaded
+once, when the menu opens. The map always shows the same four tiles for the
+code; a level change only loads its letter's and its digit's halves into
+them (`DebugLevelCodes`, two GDMAs of 2 blocks), in the V-Blank that draws
+its name. The icons
 come from two sets of sprite tiles (from `DEBUG_TREASURE_OBJ_TILE`, 16 tiles
 each): the new level's treasures go into the set not on screen, one treasure
 (64 bytes) per V-Blank, and then the sprites switch to it

@@ -170,9 +170,10 @@ DebugMenu_GetLevelName:
 	ret
 
 ; -----------------------------------------------------------------------
-; Draw the picked level's code and its name (de, from
-; DebugMenu_GetLevelName). The LCD must be off or in V-Blank.
-; Clobbers: A, B, D, E, H, L
+; Draw the picked level's code (its letter's and digit's tiles, by GDMA)
+; and its name (de, from DebugMenu_GetLevelName). The LCD must be off or in
+; V-Blank.
+; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawLevel:
 	push de
@@ -184,11 +185,14 @@ DebugMenu_DrawLevel:
 	ld d, 0
 	ld hl, DebugLevelCodes
 	add hl, de
-	ld d, h
-	ld e, l
-	hlbgcoord DEBUG_TREASURE_CODE_X, DEBUG_TREASURE_CODE_Y
-	ld b, 2
-	call DebugMenu_DrawString
+	ld a, [hli]
+	push hl
+	ld de, v0Tiles2 tile DEBUG_TREASURE_CODE_TILES
+	call .CopyHalves
+	pop hl
+	ld a, [hl]
+	ld de, v0Tiles2 tile (DEBUG_TREASURE_CODE_TILES + 2)
+	call .CopyHalves
 	pop de
 	hlbgcoord DEBUG_MENU_INSIDE_X, DEBUG_TREASURE_NAME_Y
 	call .Line
@@ -214,6 +218,18 @@ DebugMenu_DrawLevel:
 	ret z
 	ld b, a
 	jp DebugMenu_DrawString
+
+; tile a of DebugMenuCodeGfx and the next one (a top and a bottom half) to de
+.CopyHalves:
+	ld l, a
+	ld h, 0
+	REPT 4 ; tiles
+		add hl, hl
+	ENDR
+	ld bc, DebugMenuCodeGfx
+	add hl, bc
+	ld c, 2
+	jp DebugMenu_GDMA
 
 ; -----------------------------------------------------------------------
 ; Draw OPEN or CLOSED for the picked level's four treasures (all) or
