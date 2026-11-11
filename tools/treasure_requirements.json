@@ -1682,10 +1682,17 @@
   "WARP_REMOVAL_APPARATUS": {
    "level": "E7",
    "needs": {
-    "MYSTERY_HANDLE": "game data"
+    "MYSTERY_HANDLE": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the green chest is reached through the pipe the Mystery Handle raises."
+    }
    },
-   "status": "uncertain",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the green chest needs the Mystery Handle (the raised pipe)"
+    },
     {
      "by": "game data",
      "says": "the Mystery Handle raises a pipe and switches Forest of Fear to variant 3; the green chest is hinted right after it"
@@ -1694,19 +1701,35 @@
      "by": "Super Mario Wiki: Forest of Fear",
      "url": "https://www.mariowiki.com/Forest_of_Fear",
      "says": "the raised pipe is next to the grey chest"
+    },
+    {
+     "by": "J. J. W. Mezun: E7 Forest of Fear (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "when you get the Mystery Handle (E5, grey) this pipe rises, allowing entrance through it"
     }
    ],
-   "note": "Inferred from the game data; no guide found that says it.",
-   "check": "Before the Mystery Handle: is there any way to the green key and chest?"
+   "note": "Taro, in the game: the green chest is reached through the pipe the Mystery Handle raises.",
+   "check": "Before the Mystery Handle: is there any way to the green key and chest?",
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the green chest is reached through the pipe the Mystery Handle raises."
+   }
   },
   "KEY_CARD_RED": {
    "level": "E7",
    "needs": {
-    "MYSTERY_HANDLE": "guide",
+    "MYSTERY_HANDLE": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises."
+    },
     "SUPER_GRAB_GLOVES_T": "guide"
    },
    "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the red chest needs the Mystery Handle (the raised pipe)"
+    },
     {
      "by": "Super Mario Wiki: Forest of Fear",
      "url": "https://www.mariowiki.com/Forest_of_Fear",
@@ -1715,8 +1738,18 @@
     {
      "by": "game data",
      "says": "the Super Grab Gloves flash Forest of Fear"
+    },
+    {
+     "by": "J. J. W. Mezun: E7 Forest of Fear (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "when you get the Mystery Handle (E5, grey) this pipe rises, allowing entrance through it"
     }
-   ]
+   ],
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises."
+   },
+   "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises."
   },
   "KEY_CARD_BLUE": {
    "level": "E7",
