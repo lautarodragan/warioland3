@@ -568,7 +568,11 @@
    "needs": {
     "FLUTE": {
      "by": "verified in game by Taro",
-     "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed."
+     "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there."
+    },
+    "LEAD_OVERALLS_T": {
+     "by": "game data",
+     "note": "The green chest is under the floor of the Fire Robota's room, whose 4th and 5th columns are cracked blocks (BlockFunc_CrackedBlock_7b, tests/tools/level_map.py THE_PEACEFUL_VILLAGE_DAY_3, row 40, columns 118-119): a ground pound breaks them, so it needs the Lead Overalls, held long before the Flute."
     }
    },
    "status": "guide",
@@ -583,12 +587,17 @@
      "says": "\"It can be obtained after acquiring the Flute ... Alternatively, the treasure can be obtained if Wario has gotten the High Jump Boots ... The treasure can normally be only obtained at night because the door only opens at night. However, during the day, Wario must have at least gotten the Super Jump Slam Overalls\""
     },
     {
-     "by": "game data",
-     "says": "variant 1 has its own night block map (.the_peaceful_village_2); from the Flute on, night uses the day map; the Super Jump Slam Overalls flash the village"
+     "by": "Super Mario Wiki: The Peaceful Village (page read)",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "\"There is a pipe past the seeing-eye door that leads to a room with a Fire Robota. The fourth and fifth column of blocks on the floor are breakable with a Smash Attack, leading to an underground chamber, where the Green Chest is.\""
     },
     {
      "by": "game data",
-     "says": "the dark bricks above the green chest are BlockFunc_Free (a false wall Wario walks through), in variant 1 and after the Flute (tests/tools/level_map.py THE_PEACEFUL_VILLAGE_DAY_3, rows 39-44)"
+     "says": "the floor above the green chest has two columns of BlockFunc_CrackedBlock_7b (row 40, columns 118-119); CrackedBlockCollision breaks them on landing with a ground pound (or as Fat Wario)"
+    },
+    {
+     "by": "game data",
+     "says": "variant 1 has its own night block map (.the_peaceful_village_2); from the Flute on, night uses the day map; the Super Jump Slam Overalls flash the village"
     },
     {
      "by": "J. J. W. Mezun: N2 The Peaceful Village (Day) map",
@@ -596,13 +605,13 @@
      "says": "Snake only appears after the Flute (E1, grey) has been collected"
     }
    ],
-   "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed.",
+   "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The green chest is under the floor of the Fire Robota's room, whose 4th and 5th columns are cracked blocks (BlockFunc_CrackedBlock_7b, tests/tools/level_map.py THE_PEACEFUL_VILLAGE_DAY_3, row 40, columns 118-119): a ground pound breaks them, so it needs the Lead Overalls, held long before the Flute.",
    "check": "Is the Goblet's night-only door still there after the Flute (from then on the village loads variants 2-4, which use the day block map at night too)? If not, it needs the Super Jump Slam Overalls.",
    "verified": {
     "by": "verified in game by Taro",
-    "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed."
+    "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there."
    },
-   "checked": "Level page agrees with Taro's check (Flute; night door). Route read in full (snake, rooftops, night door E; invisibility potion; Smash Attack through the floor with the Lead Overalls, held long before): nothing else needed. Needs left as Taro verified them."
+   "checked": "Level page agrees with Taro's check (Flute; night door). Route read in full (snake, rooftops, night door E; invisibility potion; Smash Attack through the floor with the Lead Overalls, held long before): nothing else needed. Lead Overalls added for the cracked floor (an earlier note here said the floor was a false wall: that was the wrong chest)."
   },
   "DAY_OR_NIGHT_SPELL": {
    "level": "N2",
