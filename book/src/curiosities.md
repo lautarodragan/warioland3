@@ -53,6 +53,28 @@ headers as the ones before them (both of Out of the Woods' are
 is only what Wario can now do in it. The treasure map marks these as
 *opens paths in* instead of *changes*.
 
+Nothing else uses these variants either. The variant `SelectLevel` picks
+ends up in `wLevel` (level × 8 + variant, + 4 at night), and everything
+that reads it gets the same thing for both variants:
+
+- `LevelBlockAndObjectMaps` and `LevelHeaders`: the same map and rooms.
+- `LevelMusic`: its `level_music` macro repeats one song for all four
+  variants (and another for the four night ones).
+- The clear, musical coin and pause screens divide `wLevel` by 8 and keep
+  only the level.
+- The few comparisons with a level constant (`cp THE_TEMPLE` and such) never
+  name one of these variants.
+
+The Temple's hint doesn't use them (it walks `EventTreasures`, a list of
+treasures), and neither does the map's flashing of the levels a power-up
+helps in (each event's scene lists them in `OWSceneParams`). The code can't
+say why they exist. Maybe the power-ups were meant to change those levels
+and the levels ended up only needing their paths blocked until Wario has the
+power; or `LevelTreasureRequirements` just lists, for every level, which
+treasures matter to it, even where that changes nothing. Every level has
+room for four variants, and some are never used at all (above), which fits
+a structure planned with more room than the game needed.
+
 ## Other unused data
 
 - `OBJECT_GROUP_UNUSED_066` is an exact copy of
