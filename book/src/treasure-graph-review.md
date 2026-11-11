@@ -7,7 +7,7 @@ tools/treasure_requirements.json (as the "about" lines at its top say:
 "verified in game by Taro", with a note) and run
 python3 tools/treasure_graph.py, which rewrites the graph and this list.
 
-Where the graph's edges come from: game data (level open): 140, guide: 63, game data: 19, verified in game by Taro: 2.
+Where the graph's edges come from: game data (level open): 140, guide: 63, game data: 19, verified in game by Taro: 3.
 
 | Treasure | Level, chest | Now needs | Why it's here | What the sources say | Check in the game |
 |---|---|---|---|---|---|

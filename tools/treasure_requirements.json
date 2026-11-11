@@ -380,12 +380,17 @@
   },
   "GOBLET": {
    "level": "N2",
-   "needs": {},
+   "needs": {
+    "FLUTE": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed."
+    }
+   },
    "status": "guide",
    "sources": [
     {
      "by": "verified in game by Taro",
-     "says": "the night door to the Goblet never stops being available, also after the Flute"
+     "says": "the Goblet's part of the village is only reached through the snake, which appears after the Flute; the night door is always there"
     },
     {
      "by": "Super Mario Wiki: The Peaceful Village",
@@ -395,13 +400,22 @@
     {
      "by": "game data",
      "says": "variant 1 has its own night block map (.the_peaceful_village_2); from the Flute on, night uses the day map; the Super Jump Slam Overalls flash the village"
+    },
+    {
+     "by": "game data",
+     "says": "the dark bricks above the green chest are BlockFunc_Free (a false wall Wario walks through), in variant 1 and after the Flute (tests/tools/level_map.py THE_PEACEFUL_VILLAGE_DAY_3, rows 39-44)"
+    },
+    {
+     "by": "J. J. W. Mezun: N2 The Peaceful Village (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "Snake only appears after the Flute (E1, grey) has been collected"
     }
    ],
-   "note": "Taro, in the game: the night-only door to the Goblet is always there, also after the Flute. At night the green chest needs nothing besides the level being open (night comes by leaving a level, which switches day and night).",
+   "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed.",
    "check": "Is the Goblet's night-only door still there after the Flute (from then on the village loads variants 2-4, which use the day block map at night too)? If not, it needs the Super Jump Slam Overalls.",
    "verified": {
     "by": "verified in game by Taro",
-    "note": "Taro, in the game: the night-only door to the Goblet is always there, also after the Flute. At night the green chest needs nothing besides the level being open (night comes by leaving a level, which switches day and night)."
+    "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed."
    }
   },
   "DAY_OR_NIGHT_SPELL": {
