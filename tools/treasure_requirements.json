@@ -399,16 +399,16 @@
   "DAY_OR_NIGHT_SPELL": {
    "level": "N2",
    "needs": {
-    "LEAD_OVERALLS_T": {
+    "SUPER_JUMP_SLAM_OVERALLS_T": {
      "by": "verified in game by Taro",
-     "note": "The red frog-like enemy blocks the way to the blue key and chest; a ground pound makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
+     "note": "The red frog-like enemy blocks the way to the blue key and chest; a super ground pound (Super Jump Slam Overalls) makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
     }
    },
    "status": "guide",
    "sources": [
     {
      "by": "verified in game by Taro",
-     "says": "needs the ground pound (Lead Overalls): it makes the red enemy jump so Wario can get past it"
+     "says": "needs the super ground pound (Super Jump Slam Overalls): it makes the red enemy jump so Wario can get past it"
     },
     {
      "by": "Guía Nintendo: N2 The Peaceful Village",
@@ -439,11 +439,11 @@
      "says": "map of the level with the blue key and chest in the underground pipes"
     }
    ],
-   "note": "Verified in the game by Taro: the ground pound (Lead Overalls) is needed to make the red enemy jump and get past it. The heuristic (Super Jump Slam Overalls) was wrong here: the village isn't flashed by the Lead Overalls.",
+   "note": "Verified in the game by Taro: the super ground pound (Super Jump Slam Overalls) is needed to make the red enemy jump and get past it, as the heuristic said (the overalls flash the village on the map).",
    "check": "Right after the Axe, at night and by day: can Wario get the blue key and chest? If not, try again after the Flute, and after the Super Jump Slam Overalls.",
    "verified": {
     "by": "verified in game by Taro",
-    "note": "The red frog-like enemy blocks the way to the blue key and chest; a ground pound makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
+    "note": "The red frog-like enemy blocks the way to the blue key and chest; a super ground pound (Super Jump Slam Overalls) makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
    }
   },
   "CRAYON_BLUE_T": {
