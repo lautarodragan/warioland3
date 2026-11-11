@@ -75,6 +75,7 @@ LevelNamesEastENGfx:  INCBIN "gfx/gui/level_names_east_en.2bpp"
 SECTION "Bank 26", ROMX
 
 INCLUDE "engine/overworld/bank26.asm"
+INCLUDE "engine/overworld/collection_edit.asm"
 
 
 SECTION "Bank 27", ROMX

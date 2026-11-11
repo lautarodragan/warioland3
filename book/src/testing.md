@@ -77,6 +77,9 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to
   lends when it uses all four (see [The debug owl](debug-owl.md)).
 - `test_vampire.py` flies Vampire Wario's bat up and down a floor in a room whose
   camera moves a floor at a time.
+- `test_treasure_collection.py` turns the treasure collection's edit mode on
+  and off, gives and takes a treasure in it, and turns a page in it (see
+  [The treasure collection's edit mode](collection-edit.md)).
 - `test_pathfind.py` tests the path finder below.
 
 ## Routes and tools

@@ -100,6 +100,12 @@ ELEC (zapped Wario) and CRAZY (dizzy Wario) were hidden from FORM's list,
 entries and code kept, for an option to show or hide forms later. See
 [FORM's list](debug-menu.md#forms-list).
 
+## The treasure collection's edit mode
+
+SELECT on the treasure collection screen turns on an edit mode: the chests not
+opened show their treasure in grey, and A gives or takes the selected one. See
+[The treasure collection's edit mode](collection-edit.md).
+
 ## GOLF without the room reload
 
 Toggling GOLF reset the game to the title screen in 21 of 25 start rooms, and

@@ -777,6 +777,13 @@ wCameraRoomYScrollLimit::
 wIsOnSteppableObject::
 	db
 
+SECTION "Collection Edit WRAM", WRAM0
+
+; TRUE while the treasure collection is in its edit mode (this fork,
+; collection_edit.asm): kept across its pages, cleared when it opens
+wCollectionEditMode:: db
+
+
 SECTION "Sprites WRAM", WRAM0
 
 wVirtualOAM::

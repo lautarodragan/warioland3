@@ -12,6 +12,7 @@
 
 - [The debug menu](debug-menu.md)
 - [The debug owl](debug-owl.md)
+- [The treasure collection's edit mode](collection-edit.md)
 
 # Game systems
 

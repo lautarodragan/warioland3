@@ -192,6 +192,9 @@ _InitTreasureCollection:
 	ld [wCollectionCell], a
 	ld a, TRUE
 	ld [wIsCollectionOpen], a
+	; (this fork) the collection opens without its edit mode
+	xor a
+	ld [wCollectionEditMode], a
 
 .skip_jump_page
 	call GetCurrentCollectionCellRowAndColumn
@@ -199,6 +202,7 @@ _InitTreasureCollection:
 
 	ld hl, TreasureCollectionBGPals
 	call LoadPalsToTempPals1
+	call CollectionEdit_SetPals ; (this fork) the grey of the edit mode
 	ld hl, TreasureCollectionOBPals
 	call LoadPalsToTempPals2
 
@@ -220,6 +224,10 @@ _InitTreasureCollection:
 	decompress_tilemap TreasureCollectionTilemap, wTilemap
 
 	call ApplyPageTreasuresPals
+	; (this fork) in the edit mode, the chests not opened show their treasure
+	ld a, [wCollectionEditMode]
+	and a
+	call nz, CollectionEdit_SetPage
 
 	hlbgcoord 2, 1, wAttrmap
 	ld a, $1 | BG_BANK1
@@ -465,6 +473,19 @@ HandleTreasureCollectionInput:
 	ret
 
 .no_b_btn
+	; (this fork) SELECT turns the edit mode on and off, in which A gives or
+	; takes the selected treasure (collection_edit.asm)
+	ld a, [wJoypadPressed]
+	bit B_PAD_SELECT, a
+	jp nz, CollectionEdit_ToggleMode
+	ld a, [wCollectionEditMode]
+	and a
+	jr z, .not_edit_mode
+	ld a, [wJoypadPressed]
+	bit B_PAD_A, a
+	jp nz, CollectionEdit_ToggleTreasure
+	jp .no_a_btn ; the D-pad as usual, but no page scrolling with A
+.not_edit_mode
 	ld hl, wCollectionPage
 	ld a, [wJoypadDown]
 	ld b, a
