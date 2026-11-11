@@ -684,10 +684,18 @@
   "SUN_MEDALLION_BOTTOM": {
    "level": "W1",
    "needs": {
-    "SUPER_JUMP_SLAM_OVERALLS_T": "heuristic (power-up map flash + lowest chest)"
+    "SUPER_JUMP_SLAM_OVERALLS_T": {
+     "by": "guide",
+     "note": "J. J. W. Mezun's W1 map, read by Taro: two hard blocks next to door D, on the way to the blue key and chest, only break with the super ground pound."
+    }
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "J. J. W. Mezun: W1 Desert Ruins (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "two hard blocks next to door D are in the way; Taro reads them as needing the super ground pound (Super Jump Slam Overalls)"
+    },
     {
      "by": "game data",
      "says": "the Super Jump Slam Overalls flash Desert Ruins"
@@ -701,7 +709,8 @@
      "url": "https://www.mariowiki.com/Desert_Ruins",
      "says": "the blue chest is under Yellow Belly, beaten with Smash Attacks on its head"
     }
-   ]
+   ],
+   "note": "Mezun's W1 map, read by Taro: the way to the blue key and chest is blocked by two hard blocks that only the super ground pound breaks (Super Jump Slam Overalls), as the heuristic said. Not yet tried in the game."
   },
   "TUSK_BLUE": {
    "level": "W2",
