@@ -25,9 +25,9 @@ ST_DEBUG_MENU = 0x0f
 SST_START_MENU = 0x07  # NEW GAME / CONTINUE on the title screen
 SST_OVERWORLD_UPDATE_MAP_SIDE = 0x0b  # map is idle and accepts input
 SST_LEVEL_UPDATE = 0x03  # UpdateLevel, i.e. normal gameplay
-SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugMenu, accepting input
-# The debug menu's pages, in the order START cycles through them
-SST_DEBUG_MENU_MAIN = SST_DEBUG_MENU_UPDATE
+SST_DEBUG_MENU_UPDATE = 0x01  # UpdateDebugLevelPage, accepting input
+# The debug menu's pages, in the order SELECT cycles through them
+SST_DEBUG_LEVEL_PAGE = SST_DEBUG_MENU_UPDATE
 SST_DEBUG_POWER_PAGE = 0x02
 SST_DEBUG_TREASURE_PAGE = 0x03
 DEBUG_POWER_ROWS = 5  # the POWER page's columns
@@ -345,17 +345,35 @@ class Game:
         for _ in range(times):
             self.press(button, wait=10)
 
+    # Frames a page switch takes at most (the TREASURE page's, about 12;
+    # see "Switching pages" in book/src/debug-menu.md), with some margin.
+    PAGE_SWITCH_FRAMES = 30
+
+    def debug_next_page(self):
+        """SELECT: the debug menu's next page, and wait for it to show."""
+        self.press("select", wait=self.PAGE_SWITCH_FRAMES)
+
     def debug_menu_page(self, page):
-        """START until the debug menu shows `page` (SST_DEBUG_*)."""
+        """SELECT until the debug menu shows `page` (SST_DEBUG_*)."""
         for _ in range(3):
             if self.state == (ST_DEBUG_MENU, page):
                 return
-            self.menu_press("start")
+            self.debug_next_page()
         assert self.state == (ST_DEBUG_MENU, page)
+
+    def debug_set_form(self, index):
+        """On the debug menu's LEVEL page, with the cursor on FORM, RIGHT
+        until FORM is `index` (a DebugFormTable index; hidden forms are
+        skipped, so not the number of presses)."""
+        for _ in range(20):
+            if self.read("wDebugMenuFormIdx") == index:
+                return
+            self.menu_press("right")
+        assert self.read("wDebugMenuFormIdx") == index
 
     def debug_set_power(self, level):
         """On the debug menu's POWER page, select power-up level `level`
-        and apply it with A, then back to MAIN."""
+        and apply it with A, then back to LEVEL."""
         self.debug_menu_page(SST_DEBUG_POWER_PAGE)
         col, row = divmod(level, DEBUG_POWER_ROWS)
         cur_col, cur_row = divmod(self.read("wDebugPowerCursor"), DEBUG_POWER_ROWS)
@@ -364,11 +382,11 @@ class Game:
         assert self.read("wDebugPowerCursor") == level
         self.menu_press("a")
         assert self.read("wPowerUpLevel") == level
-        self.debug_menu_page(SST_DEBUG_MENU_MAIN)
+        self.debug_menu_page(SST_DEBUG_LEVEL_PAGE)
 
     def debug_toggle_treasure(self, index):
         """On the debug menu's TREASURE page, give or take treasure `index`
-        (level * 4 + colour) with A, then back to MAIN."""
+        (level * 4 + colour) with A, then back to LEVEL."""
         self.debug_menu_page(SST_DEBUG_TREASURE_PAGE)
         level, colour = divmod(index, 4)
         cur_level, cur_colour = divmod(self.read("wDebugMenuTreasureIdx"), 4)
@@ -380,7 +398,7 @@ class Game:
         self.menu_press("down" if colour > cur_colour else "up", abs(colour - cur_colour))
         assert self.read("wDebugMenuTreasureIdx") == index
         self.menu_press("a")
-        self.debug_menu_page(SST_DEBUG_MENU_MAIN)
+        self.debug_menu_page(SST_DEBUG_LEVEL_PAGE)
 
     def treasure_collected(self, treasure):
         bank, addr = self.pb.symbol_lookup("wTreasuresCollected")

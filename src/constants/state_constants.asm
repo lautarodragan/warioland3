@@ -54,8 +54,8 @@ DEF SST_PAUSE_SAVE_AND_CONTINUE EQU $18
 DEF SST_PAUSE_SAVE_AND_RESET    EQU $28
 
 ; ST_DEBUG_MENU substates
-; (the pages, in the order START cycles through them)
-DEF SST_DEBUG_MENU_MAIN     EQU $01 ; MAIN (UpdateDebugMenu)
+; (the pages, in the order SELECT cycles through them)
+DEF SST_DEBUG_LEVEL_PAGE    EQU $01 ; LEVEL (UpdateDebugLevelPage)
 DEF SST_DEBUG_POWER_PAGE    EQU $02 ; POWER (UpdateDebugPowerPage)
 DEF SST_DEBUG_TREASURE_PAGE EQU $03 ; TREASURE (UpdateDebugTreasurePage)
 

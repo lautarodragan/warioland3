@@ -1,15 +1,15 @@
 # Wario Land 3 + Debug/Cheat Menu
 
-<img src="wario-debug-menu.png" alt="The debug menu's three pages: MAIN, POWER and TREASURE" />
+<img src="wario-debug-menu.png" alt="The debug menu's three pages: LEVEL, POWER and TREASURE" />
 
 ## What
 
 A "Debug Menu" (more like a "Cheat Menu", really), inspired by Metroid Fusion's debug menu.
 
-Accessible via SELECT during level play. It has three pages: START goes to the next one (MAIN, POWER, TREASURE, and back to MAIN), and B or SELECT closes the menu from any of them. It opens on MAIN; while it's open, each page remembers its selection. A small MAIN POWER TREASURE under the title shows which page you're on.
+Accessible via SELECT during level play. It has three pages: SELECT goes to the next one (LEVEL, POWER, TREASURE, and back to LEVEL), and B or START closes the menu from any of them, START like leaving the pause menu. It opens on LEVEL; while it's open, each page remembers its selection. A small LEVEL POWER TREASURE under the title shows which page you're on. Pages switch with the screen on, so there's no white flash on a real Game Boy Color.
 
-MAIN (UP/DOWN to pick a row):
-- FORM: 13 transformation states (NONE/HOT/FLAT/STRNG/FAT/ELEC/PUFFY/ZOMBI/BUNCY/CRAZY/VAMPI/SNWMN/INVIS), with LEFT/RIGHT (◀ ▶ show while it's selected). Invisibility is one of them, as in the game.
+LEVEL (UP/DOWN to pick a row):
+- FORM: 12 states (NONE/HOT/FLAT/STRNG/FAT/PUFFY/ZOMBI/BUNCY/VAMPI/SNWMN/INVIS/ROLL), with LEFT/RIGHT (◀ ▶ show while it's selected). Invisibility is one of them, as in the game, and ROLL is rolling Wario: he rolls on until he hits a wall, and A hops. Zapped Wario (ELEC) and dizzy Wario (CRAZY) are hidden from the list for now (they're still in the code, for an option to show them later).
 - GOLF: press A to auto-win the current area's golf minigame (or take the win back). All a golf win does in the level is raise the "MINI GAME CLEAR" gates, so the gates already in the room go up (or down) right away, and the ones further on spawn that way. Wario stays where he is: nothing is reloaded. (If you close a gate on Wario, jump out of it.) See [GOLF and the room reload](https://lautarodragan.github.io/warioland3/debug-menu.html#golf-and-the-room-reload) for how it used to work and why it reset the game.
 - OWL: press A to spawn a sleeping owl next to Wario, in any level. It can be woken, grabbed and flown like a real owl. In rooms whose enemy set has no owl, its graphics go into a graphics slot the set doesn't use, or, if it uses all four, into one the room lends while the owl is around: one no enemy on screen is using, whose enemies don't appear meanwhile, and which gets its graphics back once the owl is gone. Wario can fly holding it into other rooms, as with the real one. Shows NO when there's no free object slot, and in boss battles.
 - BARREL: press A to spawn a barrel next to Wario, in any level: with the Grab Glove (POWER 4 or more) he can pick it up, carry it and throw it, like the real ones. Its graphics come the same way as the owl's (a free graphics slot, or one the room lends until the barrel is gone). Only one of the two can have its graphics moved to another slot at a time: BARREL shows NO while a debug owl whose graphics were moved is around, and OWL shows NO while such a barrel is around. Also NO when there's no free object slot, and in boss battles.
@@ -23,7 +23,7 @@ The menu plays the pause menu's music. How it works is in the [book](https://lau
 Other features:
 - Auto swim while holding down A or B rather than having to continuously press it
 - Auto fly as Vampire Wario's bat while holding down A, same as autoswim
-- Pressing SELECT while in a FORM will automatically turn you back into normal Wario first. Press SELECT again to open the DEBUG menu. This applies whenever you're in a non-normal form, regardless of whether you activated it via the DEBUG MENU or through normal gameplay.
+- Pressing SELECT while in a FORM (or rolling) will automatically turn you back into normal Wario first. Press SELECT again to open the DEBUG menu. This applies whenever you're in a non-normal form, regardless of whether you activated it via the DEBUG MENU or through normal gameplay.
 
 ## Why
 

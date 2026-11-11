@@ -21,7 +21,7 @@ def test_bat_floor_transitions(game, golden):
     game.new_game_to_overworld()
     game.enter_level(OUT_OF_THE_WOODS_DAY_1)
     game.open_debug_menu()
-    game.menu_press("right", FORM_VAMPIRE)
+    game.debug_set_form(FORM_VAMPIRE)
     game.close_debug_menu()
     assert game.read("wTransformation") == TRANSFORMATION_VAMPIRE_WARIO
     game.play([("b", 4), ("", 60)])  # turn into a bat

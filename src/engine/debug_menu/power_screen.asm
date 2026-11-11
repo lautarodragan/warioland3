@@ -1,8 +1,8 @@
-; The debug menu's POWER page (START from MAIN). The ten power-up levels
+; The debug menu's POWER page (SELECT from LEVEL). The ten power-up levels
 ; (NONE and the nine power-ups, see wario_constants.asm), each with its
 ; treasure's graphics and palette, the ones owned in colour and the others
-; in grey. The D-pad moves the selection, A sets wPowerUpLevel to it, START
-; goes on to the TREASURE page, B or SELECT closes the menu.
+; in grey. The D-pad moves the selection, A sets wPowerUpLevel to it, SELECT
+; goes on to the TREASURE page, B or START closes the menu.
 ;
 ; The icons are sprites (two 8x16 each), with the treasures' own OB palettes
 ; (TreasurePals, picked with TreasureOBPals like the collection screen does),
@@ -122,13 +122,13 @@ DebugMenu_CopyTreasureTiles:
 	ld a, BANK(TreasureGfx)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE
-	ei
-	ret
+	jp DebugMenu_EndVRAMWrite
 
 ; -----------------------------------------------------------------------
 ; The OB palettes of the POWER and TREASURE pages, into wTempPals2 and the
-; hardware: the dim grey, and the treasures' (OBPAL_TREASURE_*). Loaded
-; with each of these pages: FORM changes Wario's, in the same palettes.
+; hardware (in a V-Blank with the LCD on): the dim grey, and the
+; treasures' (OBPAL_TREASURE_*). Loaded with each of these pages: FORM
+; changes Wario's, in the same palettes.
 ; -----------------------------------------------------------------------
 DebugMenu_LoadTreasurePals:
 	ld hl, DebugPowerDimPal
@@ -141,19 +141,20 @@ DebugMenu_LoadTreasurePals:
 	ld a, BANK(TreasurePals)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE
-	jp ApplyTempPals2ToOBPals
+	call DebugMenu_StartVRAMWrite
+	call ApplyTempPals2ToOBPals
+	jp DebugMenu_EndVRAMWrite
 
 ; -----------------------------------------------------------------------
-; Load the POWER page (DebugMenu_ShowPage, the LCD off)
+; Load the POWER page, its map already in BG map 0 (DebugMenu_LoadPage)
 ; -----------------------------------------------------------------------
 DebugMenu_LoadPowerPage:
 	call DebugMenu_LoadTreasurePals
-	ld hl, DebugPowerTilemap
-	ld de, DebugPowerAttrmap
-	call DebugMenu_LoadMap
+	call DebugMenu_StartVRAMWrite
 	ld a, [wDebugPowerCursor]
 	ld c, DEBUG_POWER_CELL_SELECTED
 	call DebugMenu_DrawPowerCell
+	call DebugMenu_EndVRAMWrite
 	jp DebugMenu_BuildPowerOAM
 
 ; -----------------------------------------------------------------------
@@ -292,9 +293,9 @@ DebugMenu_DrawCell:
 UpdateDebugPowerPage:
 	ld a, [wJoypadPressed]
 	ld b, a
-	and PAD_B | PAD_SELECT
+	and PAD_B | PAD_START
 	jp nz, DebugMenu_Exit
-	bit B_PAD_START, b
+	bit B_PAD_SELECT, b
 	jp nz, DebugMenu_NextPage
 	bit B_PAD_A, b
 	jr nz, .apply
@@ -344,14 +345,10 @@ UpdateDebugPowerPage:
 	pop af
 	ld c, DEBUG_POWER_CELL_SELECTED
 	call DebugMenu_DrawPowerCell
-	ei
-	ret
+	jp DebugMenu_EndVRAMWrite
 
 .apply
 	ld a, [wDebugPowerCursor]
 	call DebugMenu_SetPowerLevel
 	; the sprites are copied to OAM at the next V-Blank
 	jp DebugMenu_BuildPowerOAM
-
-DebugPowerTilemap: INCBIN "data/bgmaps/debug_power.tilemap.rle"
-DebugPowerAttrmap: INCBIN "data/bgmaps/debug_power.attrmap.rle"

@@ -26,7 +26,9 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to
   `return_to_map`, `save_and_continue`, `open_debug_menu`, `menu_press`,
   `close_debug_menu`, and for the debug menu's pages `debug_menu_page`,
   `debug_set_power` (the POWER page) and `debug_toggle_treasure` (the
-  TREASURE page), which end on MAIN.
+  TREASURE page), which end on LEVEL, `debug_next_page` (SELECT, and the
+  frames a page switch takes) and `debug_set_form` (FORM, skipping the hidden
+  forms).
 - `snapshot`/`restore` for branching from a saved emulator state.
 - PyBoy hooks on symbols (`pb.hook_register(None, "Symbol", fn, None)`) to
   override a value at the right moment, e.g. the level a map entry loads.
@@ -37,11 +39,18 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to
   the grey chest, and checks the key/treasure flags, the clear screen and the
   treasure count. It only presses buttons; no RAM is written.
 - `test_debug_menu.py` opens the debug menu and exercises FORM and INVIS, the
-  controls (SELECT closes, A applies, LEFT/RIGHT do nothing on OWL and GOLF) and
-  the music, checking the RAM each one changes; cycles the pages with START
-  (each keeping its selection); closes the menu with B and SELECT from every
-  page, checking VRAM and the palettes come back; and gives and takes
-  treasures on the TREASURE page, changing levels.
+  controls (START closes, A applies, LEFT/RIGHT do nothing on OWL and GOLF) and
+  the music, checking the RAM each one changes; cycles the pages with SELECT
+  (each keeping its selection), and checks that the SELECT that opens the menu,
+  or one held down, switches no page or only one; closes the menu with B and
+  START from every page, checking VRAM, the palettes and the window come back;
+  gives and takes treasures on the TREASURE page, changing levels; checks
+  that FORM skips the hidden forms both ways; and rolls Wario with ROLL, lets
+  the roll end at a wall, and stops it with SELECT.
+- `test_debug_menu_pages.py` takes every frame of each page switch and checks
+  it's the old page or the new one (no white, blank or half-drawn frame), and
+  that every VRAM, palette and OAM write in the menu happens in V-Blank, with
+  the LCD on.
 - `test_debug_menu_power.py` sets power-up levels on the POWER page and checks
   Wario jumps with the High Jump Boots only when he has them.
 - `test_debug_menu_golf.py` toggles GOLF in every level's start room (and The
