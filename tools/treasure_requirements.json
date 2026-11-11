@@ -815,10 +815,17 @@
   "BLUE_MUSIC_BOX": {
    "level": "W4",
    "needs": {
-    "HEAD_SMASH_HELMET_T": "heuristic (power-up map flash + lowest chest)"
+    "HEAD_SMASH_HELMET_T": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the red chest needs the Head Smash Helmet. J. J. W. Mezun's W4 map also notes that the turtle referee only flies up and down, letting Wario jump up to the red chest, once Shoot is beaten."
+    }
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the red chest needs the Head Smash Helmet"
+    },
     {
      "by": "game data",
      "says": "the Head Smash Helmet flashes A Town in Chaos"
@@ -826,8 +833,18 @@
     {
      "by": "heuristic (power-up map flash + lowest chest)",
      "says": "the grey chest is taken by then, so the red one is the chest the helmet opens"
+    },
+    {
+     "by": "J. J. W. Mezun: W4 A Town in Chaos (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "once Shoot is beaten, the turtle referee flies up and down and Wario can jump up to the red chest"
     }
-   ]
+   ],
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the red chest needs the Head Smash Helmet. J. J. W. Mezun's W4 map also notes that the turtle referee only flies up and down, letting Wario jump up to the red chest, once Shoot is beaten."
+   },
+   "note": "Verified in the game by Taro: needs the Head Smash Helmet (the heuristic's guess was right). Inside the level, Shoot has to be beaten first: then the turtle referee flies up and down and Wario can jump up to the red chest (Mezun's map)."
   },
   "GOLDEN_LEFT_EYE": {
    "level": "W4",
