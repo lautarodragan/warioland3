@@ -381,8 +381,12 @@
   "GOBLET": {
    "level": "N2",
    "needs": {},
-   "status": "uncertain",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the night door to the Goblet never stops being available, also after the Flute"
+    },
     {
      "by": "Super Mario Wiki: The Peaceful Village",
      "url": "https://www.mariowiki.com/The_Peaceful_Village",
@@ -393,8 +397,12 @@
      "says": "variant 1 has its own night block map (.the_peaceful_village_2); from the Flute on, night uses the day map; the Super Jump Slam Overalls flash the village"
     }
    ],
-   "note": "At night with nothing else, per the wiki. Whether the night door is still there after the Flute isn't known; with the Super Jump Slam Overalls it works by day.",
-   "check": "Is the Goblet's night-only door still there after the Flute (from then on the village loads variants 2-4, which use the day block map at night too)? If not, it needs the Super Jump Slam Overalls."
+   "note": "Taro, in the game: the night-only door to the Goblet is always there, also after the Flute. At night the green chest needs nothing besides the level being open (night comes by leaving a level, which switches day and night).",
+   "check": "Is the Goblet's night-only door still there after the Flute (from then on the village loads variants 2-4, which use the day block map at night too)? If not, it needs the Super Jump Slam Overalls.",
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the night-only door to the Goblet is always there, also after the Flute. At night the green chest needs nothing besides the level being open (night comes by leaving a level, which switches day and night)."
+   }
   },
   "DAY_OR_NIGHT_SPELL": {
    "level": "N2",
