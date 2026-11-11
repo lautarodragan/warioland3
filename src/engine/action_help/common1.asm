@@ -262,7 +262,7 @@ HandleActionHelpPowerUpSelection:
 	play_sfx SFX_MENU_SCROLL
 	ret
 
-PowerUpOBPals:
+PowerUpOBPals::
 	table_width 1
 	db OBPAL_POWER_UP_RED    ; NO_POWER_UP
 	db OBPAL_POWER_UP_BLUE   ; LEAD_OVERALLS

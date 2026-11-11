@@ -43,8 +43,9 @@ VRAM_WRITERS = [
 
 # How many frames a switch may take (DebugMenu_NextPage)
 MAX_SWITCH_FRAMES = 14
-# DEBUG_CURSOR_ANIM_LENGTH: the TREASURE page's cursor's cycle, in frames
-CURSOR_ANIM_LENGTH = 12
+# The longest of the pages' cursors' cycles, in frames: the POWER page's
+# (DEBUG_POWER_CURSOR_ANIM_LENGTH; the TREASURE page's is 12)
+CURSOR_ANIM_LENGTH = 20
 
 
 class PPUWatch:
@@ -99,20 +100,27 @@ def test_debug_menu_page_switches_have_no_flash(game, golden):
     watch = PPUWatch(game)
     pages = [SST_DEBUG_POWER_PAGE, SST_DEBUG_TREASURE_PAGE, SST_DEBUG_LEVEL_PAGE]
     names = ["power", "treasure", "level"]
+    olds = [game.screenshot()]
     for page, name in zip(pages, names):
-        old = game.screenshot()
+        old = olds[-1]
         frames = switch_frames(game)
         new = frames[-1]
         assert game.state == (ST_DEBUG_MENU, page)
         assert not same(old, new)
-        # The TREASURE page's cursor is animated: the new page is any frame
-        # of its cycle (the last ones, well after the switch).
+        # The POWER and TREASURE pages' cursors are animated: a page is any
+        # frame of its cycle (the last ones, well after the switch). The old
+        # page can still show one more of its frames: the screen shows the
+        # sprites the frame before built.
         news = frames[-CURSOR_ANIM_LENGTH:]
         # Every frame is the old page or the new one: no blank, white or
         # half-drawn frame. The old one stays until the new one is ready.
         kinds = "".join(
-            "o" if same(f, old) else "n" if any(same(f, n) for n in news) else "x" for f in frames
+            "o" if any(same(f, o) for o in olds)
+            else "n" if any(same(f, n) for n in news)
+            else "x"
+            for f in frames
         )
+        olds = news
         assert "x" not in kinds, (name, kinds)
         switched = kinds.index("n")
         assert kinds == "o" * switched + "n" * (len(kinds) - switched), (name, kinds)

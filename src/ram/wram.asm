@@ -2621,6 +2621,9 @@ wDebugTreasureObjTile:: db
 ; the TREASURE page's cursor animation, frames since it started (to
 ; DEBUG_CURSOR_ANIM_LENGTH)
 wDebugTreasureCursorAnim:: db
+; the POWER page's cursor animation, frames since it started (to
+; DEBUG_POWER_CURSOR_ANIM_LENGTH)
+wDebugPowerCursorAnim:: db
 
 ; the enemy graphics slot the debug menu's owl borrowed (DEBUG_GFX_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.

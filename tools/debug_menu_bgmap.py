@@ -6,7 +6,8 @@ one per page, and the page indicator's graphics:
     src/data/bgmaps/debug_power.tilemap/.attrmap     POWER
     src/data/bgmaps/debug_treasure.tilemap/.attrmap  TREASURE
     src/gfx/debug_menu_pages.png                     the page indicator
-    src/gfx/debug_menu_code.png                      TREASURE's top edge and level code
+    src/gfx/debug_menu_code.png                      the plain frame and TREASURE's level code
+    src/gfx/debug_menu_power.png                     POWER's icons and cursor
 
     python3 tools/debug_menu_bgmap.py
 
@@ -78,7 +79,8 @@ CURSOR_COL, LABEL_COL, VALUE_COL = 2, 3, 11
 
 # The icon cells, POWER and TREASURE
 LEFT_ARROW, RIGHT_ARROW = 0x5E, 0x5F  # DEBUG_MENU_*_ARROW, loaded over the font
-CELL = 0x60  # over the font's "a"; the selected one (0x61) is over "b"
+CELL = 0x60  # over the font's "a"
+WHITE = 0x61  # over "b": all colour 0, behind POWER's icons
 NAME_WIDTH = 6  # DEBUG_POWER_NAME_WIDTH: the two lines right of a cell
 
 # POWER, shared with debug_menu.asm (DEBUG_POWER_*)
@@ -298,13 +300,48 @@ def code_tiles():
 
 
 def save_code_png(tiles):
+    save_tiles_png(CODE_PNG, tiles)
+
+
+# Action Help's power-up icons (src/gfx/misc/action_help_hud.png, as its BG
+# tiles $40-$75 show them: 16x16 with a black outline, NONE is Wario's face)
+# and its cursor (its OAM frames 14 and 15, tiles $a0 and $a2), as sprite
+# tiles for POWER: 4 per icon, the left column first (8x16 sprites).
+POWER_PNG = ROOT / "src/gfx/debug_menu_power.png"
+
+
+def power_tiles():
+    hud = read_tiles(ROOT / "src/gfx/misc/action_help_hud.png")
+    tiles = []
+    for i in range(10):
+        # BG tile ids under $80 are $9000 on, the PNG's tiles $100 on
+        top = 0x100 + (0x40 + 2 * i if i < 8 else 0x60 + 2 * (i - 8))
+        tiles += [hud[top], hud[top + 16], hud[top + 1], hud[top + 17]]
+    tiles += hud[0xA0:0xA4]  # the cursor's two frames, 8x16 each
+    return tiles
+
+
+def save_tiles_png(path, tiles):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import png
 
     grey = {0: 255, 1: 170, 2: 85, 3: 0}
     rows = [[grey[c] for c in tile[y]] for tile in tiles for y in range(8)]
-    with open(CODE_PNG, "wb") as f:
+    with open(path, "wb") as f:
         png.Writer(8, len(rows), greyscale=True).write(f, rows)
+
+
+def plain_frame():
+    """The frame without the yellow band and its triangles: its lines, then
+    the inside's dark red (debug_menu_code.png's pieces)."""
+    for row, (corner, edge) in [(3, (CORNER, EDGE)), (17, (BOTTOM_CORNER, BOTTOM))]:
+        put(row, 1, (corner, PAL_FRAME))
+        put(row, 18, (corner, PAL_FRAME | X_FLIP))
+        for col in range(2, 18):
+            put(row, col, (edge, PAL_FRAME))
+    for row in range(4, 17):
+        put(row, 1, (SIDE, PAL_FRAME))
+        put(row, 18, (SIDE, PAL_FRAME | X_FLIP))
 
 
 def frame(first, last):
@@ -337,12 +374,18 @@ def frame(first, last):
         put(PAGES_ROW, INSIDE_LEFT + first + i, (PAGES_TILE + i, PAL_TITLE))
 
 
-def cell(row, col, lines):
-    """An icon cell at (row, col) and two lines of text right of it."""
-    put(row, col, (CELL, PAL_CELL))
-    put(row, col + 1, (CELL, PAL_CELL | X_FLIP))
-    put(row + 1, col, (CELL, PAL_CELL | Y_FLIP))
-    put(row + 1, col + 1, (CELL, PAL_CELL | X_FLIP | Y_FLIP))
+def cell(row, col, lines, tile=None):
+    """An icon cell at (row, col) and two lines of text right of it: the
+    cell tile flipped for the corners, or one tile all over."""
+    if tile is None:
+        put(row, col, (CELL, PAL_CELL))
+        put(row, col + 1, (CELL, PAL_CELL | X_FLIP))
+        put(row + 1, col, (CELL, PAL_CELL | Y_FLIP))
+        put(row + 1, col + 1, (CELL, PAL_CELL | X_FLIP | Y_FLIP))
+    else:
+        for dy in range(2):
+            for dx in range(2):
+                put(row + dy, col + dx, (tile, PAL_CELL))
     for line, string in enumerate(lines):
         assert len(string) <= NAME_WIDTH, string
         text(row + line, col + 2, string, PAL_LABEL)
@@ -367,28 +410,23 @@ for label, row in ITEM_ROWS.items():
 put(ITEM_ROWS["FORM"], VALUE_COL - 1, (BLANK, PAL_VALUE))  # its ◀
 save("debug_level")
 
-# POWER
+# POWER: the plain frame, and white cells under Action Help's icons
 new_map()
 frame(first, last)
+plain_frame()
 for i, lines in enumerate(POWER_NAMES):
     row = POWER_TOP_ROW + (i % POWER_ROWS) * 2
     col = POWER_ICON_COL + (i // POWER_ROWS) * POWER_COL_WIDTH
-    cell(row, col, lines)
+    cell(row, col, lines, WHITE)
 save("debug_power")
 
 save_code_png(code_tiles())
+save_tiles_png(POWER_PNG, power_tiles())
 
 # TREASURE: the plain frame, and the code's tiles on its top edge and under it
 new_map()
 frame(first, last)
-for row, (corner, edge) in [(3, (CORNER, EDGE)), (17, (BOTTOM_CORNER, BOTTOM))]:
-    put(row, 1, (corner, PAL_FRAME))
-    put(row, 18, (corner, PAL_FRAME | X_FLIP))
-    for col in range(2, 18):
-        put(row, col, (edge, PAL_FRAME))
-for row in range(4, 17):
-    put(row, 1, (SIDE, PAL_FRAME))
-    put(row, 18, (SIDE, PAL_FRAME | X_FLIP))
+plain_frame()
 for col, tile in [
     (TREASURE_CODE_COL - 2, ARROW_TILES),
     (TREASURE_CODE_COL, CODE_TILES),

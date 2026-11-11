@@ -490,13 +490,17 @@ DebugMenu_AnimateTreasureCursor:
 ; SST_DEBUG_TREASURE_PAGE: the TREASURE page's input
 ; -----------------------------------------------------------------------
 UpdateDebugTreasurePage:
-	call DebugMenu_AnimateTreasureCursor
 	ld a, [wJoypadPressed]
 	ld b, a
 	and PAD_B | PAD_START
 	jp nz, DebugMenu_Exit
 	bit B_PAD_SELECT, b
 	jp nz, DebugMenu_NextPage
+	; the cursor's animation: not on a frame that leaves the page, whose
+	; sprites stay as they are until the next page shows
+	push bc
+	call DebugMenu_AnimateTreasureCursor
+	pop bc
 	bit B_PAD_A, b
 	jr nz, .toggle
 	ld a, [wDebugMenuTreasureIdx]

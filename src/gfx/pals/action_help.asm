@@ -1,4 +1,4 @@
-ActionHelpPals_1e4e6f:
+ActionHelpPals_1e4e6f::
 	rgb 31, 31, 31
 	rgb  9,  7, 31
 	rgb  9, 25, 31
@@ -121,7 +121,7 @@ ActionHelpBlackedOutBGPals:
 	rgb  6,  6, 31
 	rgb  0,  0,  7
 
-ActionHelpOBPals:
+ActionHelpOBPals::
 	rgb  0, 22, 16
 	rgb 31, 31, 31
 	rgb 31, 15, 10

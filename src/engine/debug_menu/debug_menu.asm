@@ -94,11 +94,20 @@ DEF DEBUG_POWER_ICON_X    EQU 2
 DEF DEBUG_POWER_COL_WIDTH EQU 8
 DEF DEBUG_POWER_ROWS      EQU 5
 DEF DEBUG_POWER_NAME_WIDTH EQU 6
-; the icon cells' tiles (POWER and TREASURE), over the font's "a" and "b"
-; (unused by the menu); the map flips them for the four corners
-DEF DEBUG_POWER_CELL          EQU $60
-DEF DEBUG_POWER_CELL_SELECTED EQU $61
+; over the font's "a" and "b" (unused by the menu): the TREASURE page's
+; icon cell (the map flips it for the four corners), and a white tile under
+; the POWER page's icons
+DEF DEBUG_POWER_CELL  EQU $60
+DEF DEBUG_POWER_WHITE EQU $61
 DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
+; The POWER page's icons and cursor are Action Help's (DebugMenuPowerGfx):
+; OB palette 0 is its icons' dim grey, 1 and 2 its cursor's two colours, and
+; 4-7 the power-ups' colours (OBPAL_POWER_UP_*, which PowerUpOBPals picks).
+DEF DEBUG_POWER_PAL_ICON_DIM EQU 0
+DEF DEBUG_POWER_PAL_CURSOR   EQU 1 ; and 2
+DEF DEBUG_POWER_CURSOR_OAM   EQU 0 ; its 2 sprites before the icons', over them
+DEF DEBUG_POWER_CURSOR_FRAME_DURATION EQU 10 ; as ActionHelpFrameset_1e6b8e
+DEF DEBUG_POWER_CURSOR_ANIM_LENGTH EQU 2 * DEBUG_POWER_CURSOR_FRAME_DURATION
 
 ; The TREASURE page: a level's code between ◀ ▶, its name centred on the
 ; two rows below, and its four treasures in a 2x2 grid, in reading order
@@ -152,6 +161,10 @@ DEF DEBUG_CURSOR_PAL  EQU 1
 DEF DEBUG_CURSOR_OAM  EQU 16 ; the first of its 4 sprites
 DEF DEBUG_CURSOR_FRAME_DURATION EQU 3
 DEF DEBUG_CURSOR_ANIM_LENGTH    EQU 4 * DEBUG_CURSOR_FRAME_DURATION ; 0 1 2 1
+; the POWER page's cursor's tiles (Action Help's), after the treasure
+; collection cursor's, still under $8800 (the BG's tiles)
+DEF DEBUG_POWER_CURSOR_TILE EQU DEBUG_CURSOR_TILE + 32
+	ASSERT DEBUG_POWER_CURSOR_TILE + 4 <= $80
 
 ; A level's code, as its letter's and its digit's tiles in DebugMenuCodeGfx
 MACRO debug_level_code
@@ -874,10 +887,12 @@ DebugMenu_LoadTiles:
 ;    At the end of the second one the window goes on, showing the same
 ;    picture.
 ; 2. The next page is drawn in BG map 0, under the window: its map (GDMA,
-;    one V-Blank), its values, OB palettes and sprite tiles, each in a
-;    V-Blank of its own (DebugMenu_LoadPage).
-; 3. In one V-Blank, the page indicator's tiles (GDMA), the sprites (OAM
-;    DMA) and the window off: the next page shows all at once.
+;    one V-Blank), its values and sprite tiles, each in a V-Blank of its
+;    own, and its OB palettes in wTempPals2 (DebugMenu_LoadPage).
+; 3. In one V-Blank, the page indicator's tiles (GDMA), the OB palettes,
+;    the sprites (OAM DMA) and the window off: the next page shows all at
+;    once. (The pages' OB palettes differ, so the old page's sprites keep
+;    theirs until then.)
 ;
 ; Every write to VRAM, OAM or the palettes is between
 ; DebugMenu_StartVRAMWrite (the start of a V-Blank) and
@@ -920,9 +935,11 @@ DebugMenu_NextPage:
 	; 2. the next page under it
 	call DebugMenu_LoadPage
 
-	; 3. and on screen
+	; 3. and on screen, with its OB palettes: the old page's sprites keep
+	; theirs until now (the pages' palettes differ)
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_LoadPagesGfx
+	call ApplyTempPals2ToOBPals
 	ld a, HIGH(wVirtualOAM)
 	call hTransferVirtualOAM
 	ld a, LCDC_DEFAULT
@@ -982,6 +999,7 @@ DebugMenu_ShowFirstPage:
 	call DebugMenu_LoadPageMap
 	call DebugMenu_LoadPage
 	call DebugMenu_LoadPagesGfx
+	call ApplyTempPals2ToOBPals
 	ld a, HIGH(wVirtualOAM)
 	call hTransferVirtualOAM
 	ld a, LCDC_DEFAULT

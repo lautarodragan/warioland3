@@ -222,19 +222,21 @@ was not possible: all 8 BG palettes are taken, and the words share tiles.
 | BG map | `debug_level` | `debug_power` | `debug_treasure` |
 | BG tiles (VRAM0 `$9000`-`$97ff`) | font, arrows `$5e`/`$5f`, indicator `$62`-`$6d` | the same, and the icon cells `$60`/`$61` | the same as POWER |
 | BG tiles (VRAM1) | pause menu graphics | same | same |
-| Sprite tiles (VRAM0 `$8000`-`$87ff`) | none shown | `$8000`-`$827f`: the 10 power-up treasures | `$8280`-`$837f` or `$8380`-`$847f`: the level's 4 treasures |
+| Sprite tiles (VRAM0 `$8000`-`$87ff`) | none shown | `$8000`-`$827f`: Action Help's 10 icons; its cursor from `DEBUG_POWER_CURSOR_TILE` | `$8280`-`$837f` or `$8380`-`$847f`: the level's 4 treasures; the collection screen's cursor from `DEBUG_CURSOR_TILE` |
 | BG palettes | 0-6 | 0-7 | 0-7 |
-| OB palettes | none | 0 (grey) and 4-7 (`TreasurePals`) | the same |
-| Sprites | none | 20 | 8 |
+| OB palettes | none | 0 (grey), 1-2 (cursor) and 4-7 (Action Help's icon colours) | 0 (grey), 1 (cursor), 2-3 (chests) and 4-7 (`TreasurePals`) |
+| Sprites | none | 22 | 20 |
 
 The tiles that don't change are loaded once, when the menu opens
 (`DebugMenu_LoadTiles`): the font, the arrows, the icon cells, the pause menu's
-graphics and the POWER page's treasures. `$8000`-`$87ff` is the start of the
+graphics, the POWER page's icons and both cursors. `$8000`-`$87ff` is the start of the
 font, which the BG never shows (it uses `$8800`-`$97ff`), so sprites can have
 it. The two pages' sprite tiles don't overlap, so going from one to the other
 reloads nothing but the TREASURE page's four treasures. The OB palettes are
 written to `wTempPals2` each time the POWER or TREASURE page is shown, because
-FORM changes Wario's palettes, which are the same OB palettes.
+FORM changes Wario's palettes, which are the same OB palettes. The two pages'
+OB palettes differ, so a page switch applies them in its last V-Blank, with
+the sprites: until then the old page's sprites keep their colours.
 
 Closing the menu from any page restores VRAM, `wTempPals1`/`wTempPals2` and OAM
 from the level's backup (`LoadBackupVRAM`, `DrawLevelObjectsAfterLevelReturn`),
@@ -298,10 +300,9 @@ in its V-Blank:
 | copy, tiles | 15 rows × 20 bytes, unrolled (`ld a, [hli]`, `ld [de], a`, `inc e`: 5 M-cycles a byte) | about 3300 dots |
 | copy, attributes | the same, and `rWY`, `rWX`, `rLCDC` | about 3300 dots |
 | map | GDMA, 2 × 36 blocks of 16 bytes; GDMA takes 32 dots a block in either speed | about 2300 dots |
-| values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name | under 2000 dots each |
-| OB palettes | 64 bytes (`ApplyTempPals2ToOBPals`) | about 1000 dots |
+| values | LEVEL's in two V-Blanks (as before); POWER's names' colours; TREASURE's code and name | under 2000 dots each |
 | TREASURE tiles | 4 V-Blanks, a treasure (64 bytes) each, as for a level change | |
-| show | GDMA, 12 blocks (the indicator), OAM DMA, `rLCDC` | about 1100 dots |
+| show | GDMA, 12 blocks (the indicator), the OB palettes (64 bytes, `ApplyTempPals2ToOBPals`), OAM DMA, `rLCDC` | about 2100 dots |
 
 A switch takes 6 frames to POWER or LEVEL and 11 to TREASURE (PyBoy), the
 old page showing meanwhile. The main loop doesn't run then (`DebugMenu_NextPage`
@@ -354,7 +355,7 @@ The TREASURE page gives or takes any level's treasure. It shows a level, its
 code between ◀ ▶ and its name on the two rows below (centred, split in two
 where it's too long, e.g. THE VOLCANO'S / BASE), and the level's four
 treasures in a 2x2 grid, in reading order: grey and red, then green and blue.
-Each is its icon in an icon cell like the POWER page's, with its chest to the
+Each is its icon in an icon cell (white with a dark red margin), with its chest to the
 right, open if Wario has the treasure and closed if not, as in the pause
 menu. The icons are in the treasure's own colours when Wario has it, in grey
 when he doesn't.
@@ -445,13 +446,13 @@ change takes six frames, with the LCD on, the music running on
 ## The POWER page
 
 The POWER page has the ten power-up levels: NONE and the nine power-ups, each
-with the treasure that gives it (NONE has the game's closed chest, treasure 0)
-and a short name on two lines. The levels are cumulative: level N means every
-power-up up to N, so the ones up to `wPowerUpLevel` are in their colours and
-the others in grey.
+with Action Help's icon for it (Wario's face for NONE) and a short name on two
+lines. The levels are cumulative: level N means every power-up up to N, so the
+ones up to `wPowerUpLevel` are in their colours and the others in grey. The
+frame is plain, like the TREASURE page's.
 
 ```text
-  [chest] NONE         [garlic] GARLIC
+  [wario] NONE         [garlic] GARLIC
   [lead]  LEAD         [slam]   SLAM
           OVRALL                OVRALL
   [flip]  SWIM         [boots]  JUMP
@@ -468,10 +469,11 @@ the others in grey.
 | LEFT/RIGHT | moves to the other column, same row |
 | A | sets `wPowerUpLevel` to the selection (`DebugMenu_SetPowerLevel`) |
 
-The selection starts on the current level when the menu opens. The selected
-cell gets a yellow frame and its name turns yellow. Setting `wPowerUpLevel` is
-all it takes: the game reads it whenever it checks a power-up (the jump with
-the High Jump Boots, swimming, grabbing...), nothing caches it.
+The selection starts on the current level when the menu opens. Action Help's
+cursor frames the selected icon and its name turns yellow. Setting
+`wPowerUpLevel` is all it takes: the game reads it whenever it checks a
+power-up (the jump with the High Jump Boots, swimming, grabbing...), nothing
+caches it.
 
 It was the POWER screen, opened with A on the menu's POWER row (whose LEFT/RIGHT
 also stepped through the levels) and left with B or SELECT. As a page it shows
@@ -479,24 +481,28 @@ the same thing.
 
 ### Icons
 
-The icons are sprites, two 8×16 each (the treasure graphics are interleaved
-for that, like the collection screen's): all 8 BG palettes are taken by the
-frame and the text, and each treasure colour needs its own palette. The
-TREASURE page's icons work the same way.
+The icons and the cursor are Action Help's (the power-up bar at the bottom of
+its screen), as sprites: there they're BG tiles, coloured with BG palettes, but
+here all 8 BG palettes are taken by the frame and the text.
 
-- Tiles: the 10 treasures' tiles (4 each, uncompressed `TreasureGfx` in bank
-  `$26`, indexed by treasure ID, copied by `DebugMenu_CopyTreasureTiles`) at
-  VRAM0 `$8000`-`$827f`. The icon cells' two tiles (`DebugPowerCellTiles`) go
-  over the font's `a` and `b` (`$60`, `$61`), which the menu doesn't use.
-- OB palettes: the treasures' own (`TreasurePals`, OB palettes 4-7, the
-  `OBPAL_TREASURE_*` that `TreasureOBPals` picks for each treasure, like the
-  collection and pause screens), and a light grey one in palette 0 for the
-  ones not owned (`DebugMenu_LoadTreasurePals`).
-- BG palette 7: the icon cells, white behind the sprites (whose colour 0 is
-  transparent; the treasure palettes' colour 0 is the same white), a 1-pixel
-  dark red margin so neighbouring cells stay apart, and the selected cell's
-  yellow frame. The map flips one corner tile for the four corners.
+- Tiles: `tools/debug_menu_bgmap.py` takes them from Action Help's graphics
+  (`src/gfx/misc/action_help_hud.png`) into `src/gfx/debug_menu_power.png`
+  (`DebugMenuPowerGfx`): the 10 icons, 16x16 with their black outline, 4 tiles
+  each in the order 8x16 sprites want them, and the cursor's two frames. The
+  icons go to VRAM0 `$8000`-`$827f`, the cursor to `DEBUG_POWER_CURSOR_TILE`.
+- OB palettes (`DebugMenu_LoadPowerPals`): Action Help's icon colours (its BG
+  palettes 4-7, `OBPAL_POWER_UP_*`, which `PowerUpOBPals` picks for each
+  level), a grey with the black outline in palette 0 for the ones not owned,
+  and the cursor's red and yellow (Action Help's OB palettes 7 and 4) in 1
+  and 2.
+- BG: each icon sits on a white cell (`DEBUG_POWER_WHITE`, over the font's
+  `b`), white like the icons' colour 0, which is transparent in a sprite.
+- The cursor: a 16x16 frame, a tile and its mirror image, on the selected
+  icon, alternating its red and yellow frames every 10 frames, as on Action
+  Help (`ActionHelpFrameset_1e6b8e`). Its 2 sprites come first in OAM, so they
+  are drawn over the icons' outlines.
 
-`DebugMenu_BuildPowerOAM` writes the 20 sprites to `wVirtualOAM`
-(`DebugMenu_BuildTreasureOAM` the TREASURE page's 8); A rebuilds them and the
+`DebugMenu_BuildPowerOAM` writes the 22 sprites to `wVirtualOAM`
+(`DebugMenu_BuildTreasureOAM` the TREASURE page's 20); A rebuilds them,
+`DebugMenu_AnimatePowerCursor` rebuilds the cursor's every frame, and the
 V-Blank handler copies them.
