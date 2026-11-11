@@ -66,6 +66,12 @@ FORM, as it is in the game. Later: SELECT also closes it, it plays the pause
 menu's music, OWL and GOLF apply with A, FORM and POWER show ◀ ▶ on the selected
 row, and treasures read OPEN/CLOSED.
 
+## The POWER screen
+
+POWER shows the top power-up's name instead of a digit, and A on it opens a
+second screen with the nine power-ups and their treasures, owned ones in
+colour. See [The POWER screen](debug-menu.md#the-power-screen).
+
 ## GOLF without the room reload
 
 Toggling GOLF reset the game to the title screen in 21 of 25 start rooms, and

@@ -45,10 +45,25 @@ DEF DEBUG_MENU_TREASURE_VALUE_X EQU 5 ; on the row below its label
 ; the selected FORM/POWER row shows ◀ value ▶
 DEF DEBUG_MENU_LEFT_ARROW_X  EQU DEBUG_MENU_VALUE_X - 1
 DEF DEBUG_MENU_FORM_RIGHT_ARROW_X  EQU DEBUG_MENU_VALUE_X + 5 ; after the widest name
-DEF DEBUG_MENU_POWER_RIGHT_ARROW_X EQU DEBUG_MENU_VALUE_X + 1
+DEF DEBUG_MENU_POWER_RIGHT_ARROW_X EQU DEBUG_MENU_VALUE_X + 6
 ; font tiles the arrows are loaded into (blank in the font)
 DEF DEBUG_MENU_LEFT_ARROW  EQU $5e
 DEF DEBUG_MENU_RIGHT_ARROW EQU $5f
+
+; The POWER screen (A on the POWER row): the ten power-up levels in two
+; columns of five, each an icon cell (2x2 tiles) with the power-up's
+; treasure in it, as two sprites, and its name on two lines to its right.
+; Shared with tools/debug_menu_bgmap.py, which draws the names and cells.
+DEF DEBUG_POWER_TOP_Y     EQU 5
+DEF DEBUG_POWER_ICON_X    EQU 2
+DEF DEBUG_POWER_COL_WIDTH EQU 8
+DEF DEBUG_POWER_ROWS      EQU 5
+DEF DEBUG_POWER_NAME_WIDTH EQU 6
+; the icon cells' tiles, over the font's "a" and "b" (unused by the menu);
+; the map flips them for the four corners
+DEF DEBUG_POWER_CELL          EQU $60
+DEF DEBUG_POWER_CELL_SELECTED EQU $61
+DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for power-ups not owned
 
 ; Strings for menu values (temple charmap)
 ; level codes, 2 bytes per level, in level order
@@ -66,6 +81,20 @@ DebugMenuStrNo:     db "NO "              ; 3 bytes
 DebugMenuStrOpen:   db "OPEN  "           ; 6 bytes, chests
 DebugMenuStrClosed: db "CLOSED"           ; 6 bytes
 
+; POWER values, 6 bytes each, in power-up level order (the first line of
+; the POWER screen's names, see tools/debug_menu_bgmap.py)
+DebugPowerNames:
+	db "NONE  "
+	db "LEAD  " ; Lead Overalls
+	db "SWIM  " ; Swimming Flippers
+	db "SMASH " ; Head Smash Helmet
+	db "GRAB  " ; Grab Glove
+	db "GARLIC" ; Garlic
+	db "SLAM  " ; Super Jump Slam Overalls
+	db "JUMP  " ; High Jump Boots
+	db "FROG  " ; Prince Frog's Gloves
+	db "SUPER " ; Super Grab Gloves
+
 SETCHARMAP main
 
 _DebugMenuStateTable::
@@ -73,6 +102,7 @@ _DebugMenuStateTable::
 	jumptable
 	dw InitDebugMenu
 	dw UpdateDebugMenu
+	dw UpdateDebugPowerScreen
 
 ; -----------------------------------------------------------------------
 ; Copy B bytes from [DE] to [HL+]
@@ -615,13 +645,24 @@ DebugMenu_DrawItems1:
 	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_FORM_Y
 	call DebugMenu_DrawArrows
 
-	; POWER: a digit
+	; POWER: the top power-up's name
 	ld c, DEBUG_MENU_POWER
 	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_POWER_Y
 	call DebugMenu_DrawCursor
-	ld a, [wPowerUpLevel]
-	add $30 ; digit in temple charmap ($30-$39)
-	ldcoord_a DEBUG_MENU_VALUE_X, DEBUG_MENU_POWER_Y
+	call DebugMenu_GetPowerLevel
+	ld e, a
+	add a ; 2*level
+	add e ; 3*level
+	add a ; 6*level
+	ld e, a
+	ld d, 0
+	ld hl, DebugPowerNames
+	add hl, de
+	ld d, h
+	ld e, l
+	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_POWER_Y
+	ld b, DEBUG_POWER_NAME_WIDTH
+	call DebugMenu_DrawString
 	ld c, DEBUG_MENU_POWER
 	ld b, DEBUG_MENU_POWER_RIGHT_ARROW_X - DEBUG_MENU_LEFT_ARROW_X
 	hlbgcoord DEBUG_MENU_LEFT_ARROW_X, DEBUG_MENU_POWER_Y
@@ -736,14 +777,25 @@ DebugMenu_LoadScreen:
 	ld a, BANK(PauseMenuGfx)
 	ldh [hCallFuncBank], a
 	hcall Decompress
-	ld hl, DebugMenuAttrmap
+	xor a ; VRAM0
+	ldh [rVBK], a
+	ld hl, DebugMenuTilemap
+	ld de, DebugMenuAttrmap
+;	fallthrough
+
+; Load a screen's map (tilemap hl, attrmap de) and the menu's BG palettes
+; into wTempPals1. The LCD must be off.
+DebugMenu_LoadMap:
+	ld bc, v0BGMap0
+	push de
+	call Decompress
+	pop hl
+	ld a, BANK("VRAM1")
+	ldh [rVBK], a
 	ld bc, v1BGMap0
 	call Decompress
 	xor a ; VRAM0
 	ldh [rVBK], a
-	ld hl, DebugMenuTilemap
-	ld bc, v0BGMap0
-	call Decompress
 	ld hl, DebugMenuPals
 	ld de, wTempPals1
 	ld b, 8 palettes
@@ -811,11 +863,13 @@ DebugMenuPals:
 	rgb 21, 21, 21
 	rgb 10, 10, 10
 	rgb 11,  0,  1
-	; 7: unused (was the instructions line), white on dark blue
+	; 7: the POWER screen's icon cells: white (behind the treasure sprites,
+	; whose colour 0 is the treasure palettes' white), the selected one's
+	; yellow frame, and the margin in the frame's dark red
 	rgb 31, 31, 31
-	rgb 21, 21, 21
-	rgb 10, 10, 10
-	rgb  7,  2, 23
+	rgb 31, 27,  0
+	rgb 26, 11,  1
+	rgb 11,  0,  1
 
 ; -----------------------------------------------------------------------
 ; Substate 0: initialise debug menu display
@@ -967,13 +1021,13 @@ UpdateDebugMenu:
 	jr .not_right
 
 .change_power_fwd:
-	ld a, [wPowerUpLevel]
+	call DebugMenu_GetPowerLevel
 	inc a
 	cp NUM_DEBUG_POWERS
 	jr c, .power_fwd_ok
 	xor a
 .power_fwd_ok:
-	ld [wPowerUpLevel], a
+	call DebugMenu_SetPowerLevel
 	ld c, 1
 	jr .not_right
 
@@ -1015,7 +1069,7 @@ UpdateDebugMenu:
 	jr .check_redraw
 
 .change_power_bwd:
-	ld a, [wPowerUpLevel]
+	call DebugMenu_GetPowerLevel
 	and a
 	jr z, .power_bwd_wrap
 	dec a
@@ -1023,7 +1077,7 @@ UpdateDebugMenu:
 .power_bwd_wrap:
 	ld a, NUM_DEBUG_POWERS - 1
 .power_bwd_ok:
-	ld [wPowerUpLevel], a
+	call DebugMenu_SetPowerLevel
 	ld c, 1
 	jr .check_redraw
 
@@ -1048,6 +1102,8 @@ UpdateDebugMenu:
 	bit B_PAD_A, a
 	jr z, .check_redraw
 	ld a, [wDebugMenuCursor]
+	cp DEBUG_MENU_POWER
+	jp z, DebugMenu_OpenPowerScreen
 	cp DEBUG_MENU_OWL
 	jr z, .spawn_owl
 	cp DEBUG_MENU_BARREL

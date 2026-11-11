@@ -2610,6 +2610,8 @@ wDebugMenuTreasureIdx:: db
 wDebugMenuGfxPending:: db
 ; rLCDC as the level had it (The Temple's battle also shows the window)
 wDebugMenuLevelLCDC:: db
+; the POWER screen's selection, a power-up level (0-9)
+wDebugPowerCursor:: db
 
 ; the enemy graphics slot the debug menu's owl borrowed (DEBUG_GFX_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.

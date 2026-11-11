@@ -1,4 +1,4 @@
-TreasureGfx:
+TreasureGfx::
 INCBIN "gfx/treasures/treasure_000.2bpp"
 INCBIN "gfx/treasures/yellow_music_box.2bpp"
 INCBIN "gfx/treasures/blue_music_box.2bpp"
@@ -1332,7 +1332,7 @@ FillBottomBarTreasureIDs:
 	call CopyHLToDE
 	ret
 
-TreasureOBPals:
+TreasureOBPals::
 	table_width 1
 	db OBPAL_TREASURE_YELLOW ; TREASURE_NONE
 	db OBPAL_TREASURE_YELLOW ; YELLOW_MUSIC_BOX

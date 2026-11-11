@@ -6,7 +6,7 @@ turns him back to normal first, and a second SELECT opens it.
 | Row | Control | Effect |
 |---|---|---|
 | FORM | LEFT/RIGHT | 13 states: NONE, HOT, FLAT, STRNG, FAT, ELEC, PUFFY, ZOMBI, BUNCY, CRAZY, VAMPI, SNWMN, INVIS |
-| POWER | LEFT/RIGHT | power-up level 0-9 |
+| POWER | LEFT/RIGHT, A | power-up level 0-9, shown as the top power-up's name; A opens [the POWER screen](#the-power-screen) |
 | GOLF | A | gives or takes the current area's golf win |
 | OWL | A | spawns a sleeping owl next to Wario ([The debug owl](debug-owl.md)) |
 | BARREL | A | spawns a grabbable barrel next to Wario ([The barrel](debug-owl.md#the-barrel-and-other-objects)) |
@@ -21,11 +21,12 @@ menu's music and gives the level's back when it closes.
 | File | What |
 |---|---|
 | `src/engine/debug_menu/debug_menu.asm` | the menu: state table, input, drawing, FORM/POWER/GOLF/TREASURE, the OWL/BARREL spawn entry point (`DebugMenu_SpawnObject`) |
+| `src/engine/debug_menu/power_screen.asm` | the POWER screen (`DebugMenu_OpenPowerScreen`, `UpdateDebugPowerScreen`, `DebugMenu_ClosePowerScreen`) and `DebugMenu_SetPowerLevel` |
 | `src/engine/debug_menu/spawn_object.asm` | `_DebugSpawnObject` and the helpers for objects spawned where their graphics aren't (`_DebugSpawnObjectOfKind`, `SetDebugGfxSlot`, `LoadDebugObjGfx`...), kept in the "Object Loading" section next to `SpawnObject` |
 | `src/engine/debug_menu/clear_gates.asm` | `_DebugMoveClearGates`, for GOLF |
 | `src/debug_menu.asm` | the "Debug Menu" section, placed by `src/layout.link` |
 | `src/engine/level/update_level.asm` | the SELECT trigger (`UpdateLevel.open_debug_menu`) |
-| `tools/debug_menu_bgmap.py` | generates `src/data/bgmaps/debug_menu.tilemap`/`.attrmap` |
+| `tools/debug_menu_bgmap.py` | generates `src/data/bgmaps/debug_menu.tilemap`/`.attrmap` and `src/data/bgmaps/debug_power.tilemap`/`.attrmap` |
 
 ## Opening and closing
 
@@ -78,7 +79,8 @@ over font tiles `$5e`/`$5f` when the screen loads.
 The font draws its glyphs in colour 0 on colour 3, so each text palette is a
 text colour on the colour of what's behind it. Palettes 1-4 are the pause
 menu's; 0 is the title (yellow on dark blue); 5 is the labels (white on dark
-red); 6 is the cursor and values (yellow on dark red).
+red); 6 is the cursor and values (yellow on dark red); 7 is the POWER screen's
+icon cells.
 
 The row and column constants (`DEBUG_MENU_*_Y`, `DEBUG_MENU_VALUE_X`, ...) are
 shared by `debug_menu.asm` and the generator script; change both together.
@@ -119,3 +121,72 @@ The TREASURE row starts on the current level's grey treasure. Treasures that
 open new paths (N5's Foot of Stone opening a secret door in S4, for example)
 take effect the next time Wario enters a level from the map, because
 `SelectLevel` picks the level's variant then, as in the real game.
+
+## The POWER screen
+
+A on the POWER row opens a second screen with the ten power-up levels: NONE
+and the nine power-ups, each with the treasure that gives it (NONE has the
+game's closed chest, treasure 0) and a short name on two lines. The levels are
+cumulative: level N means every power-up up to N, so the ones up to
+`wPowerUpLevel` are in their colours and the others in grey.
+
+```text
+  [chest] NONE         [garlic] GARLIC
+  [lead]  LEAD         [slam]   SLAM
+          OVRALL                OVRALL
+  [flip]  SWIM         [boots]  JUMP
+          FLIPPR                BOOTS
+  [helm]  SMASH        [frog]   FROG
+          HELMET                GLOVES
+  [glove] GRAB         [super]  SUPER
+          GLOVE                 GRAB
+```
+
+| Button | Effect |
+|---|---|
+| UP/DOWN | moves within a column (no wrapping) |
+| LEFT/RIGHT | moves to the other column, same row |
+| A | sets `wPowerUpLevel` to the selection (`DebugMenu_SetPowerLevel`), the screen stays |
+| B or SELECT | back to the main screen, cursor on POWER |
+
+The selection starts on the current level. The selected cell gets a yellow
+frame and its name turns yellow. LEFT/RIGHT on the main screen's POWER row
+still step through the levels, for quick changes; both go through
+`DebugMenu_SetPowerLevel`. Setting `wPowerUpLevel` is all the POWER row ever
+did and all it needs: the game reads it whenever it checks a power-up (the
+jump with the High Jump Boots, swimming, grabbing...), nothing caches it.
+
+The screen is a substate of its own, `SST_DEBUG_POWER_SCREEN` (2;
+`SST_DEBUG_MENU_MAIN` is 1). Switching screens turns the LCD off for a moment,
+like opening the menu.
+
+### Icons, VRAM and palettes
+
+The icons are sprites, two 8×16 each (the treasure graphics are interleaved
+for that, like the collection screen's): all 8 BG palettes are taken by the
+frame and the text, and each treasure colour needs its own palette.
+
+- Tiles: `DebugMenu_OpenPowerScreen` copies the 10 treasures' tiles (4 each,
+  uncompressed `TreasureGfx` in bank `$26`, indexed by treasure ID) to VRAM0
+  `$8000`-`$827f`. That's the start of the font, which the BG never shows (it
+  uses `$8800`-`$97ff`), so the main screen doesn't need it back. The icon
+  cells' two tiles (`DebugPowerCellTiles`) go over the font's `a` and `b`
+  (`$60`, `$61`), which the menu doesn't use either.
+- OB palettes: the treasures' own (`TreasurePals`, OB palettes 4-7, the
+  `OBPAL_TREASURE_*` that `TreasureOBPals` picks for each treasure, like the
+  collection and pause screens), and a light grey one in palette 0 for the
+  power-ups not owned. They're written to `wTempPals2`.
+- BG palette 7: the icon cells, white behind the sprites (whose colour 0 is
+  transparent; the treasure palettes' colour 0 is the same white), a 1-pixel
+  dark red margin so neighbouring cells stay apart, and the selected cell's
+  yellow frame. The map flips one corner tile for the four corners.
+
+`DebugMenu_BuildPowerOAM` writes the 20 sprites to `wVirtualOAM`; A rebuilds
+them and the V-Blank handler copies them. Going back clears OAM and reloads
+the main screen's maps (`DebugMenu_LoadMap`). Closing the menu restores VRAM,
+`wTempPals1`/`wTempPals2` and OAM from the level's backup as before
+(`LoadBackupVRAM`, `DrawLevelObjectsAfterLevelReturn`), so the screen leaves
+nothing behind.
+
+The layout constants (`DEBUG_POWER_*`) are shared with
+`tools/debug_menu_bgmap.py`, which draws the cells and the names.
