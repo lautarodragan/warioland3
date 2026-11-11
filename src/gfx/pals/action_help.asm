@@ -1,3 +1,11 @@
+; (this fork) BG palette 3 in Action Help's edit mode: the power-ups not
+; owned, in grey (engine/action_help/edit_mode.asm)
+ActionHelpEditPal::
+	rgb 31, 31, 31
+	rgb 21, 21, 21
+	rgb 11, 11, 11
+	rgb  0,  0,  0
+
 ActionHelpPals_1e4e6f::
 	rgb 31, 31, 31
 	rgb  9,  7, 31

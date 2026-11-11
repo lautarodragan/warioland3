@@ -14,6 +14,7 @@ INCLUDE "engine/action_help/power_ups/high_jump_boots.asm"
 INCLUDE "engine/action_help/power_ups/prince_frogs_gloves.asm"
 INCLUDE "engine/action_help/power_ups/super_grab_gloves.asm"
 INCLUDE "engine/action_help/common1.asm"
+INCLUDE "engine/action_help/edit_mode.asm"
 
 
 SECTION "Action Help 2", ROMX

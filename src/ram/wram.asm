@@ -783,6 +783,10 @@ SECTION "Collection Edit WRAM", WRAM0
 ; collection_edit.asm): kept across its pages, cleared when it opens
 wCollectionEditMode:: db
 
+; TRUE while Action Help is in its edit mode (this fork,
+; engine/action_help/edit_mode.asm), cleared when it opens
+wActionHelpEditMode:: db
+
 
 SECTION "Sprites WRAM", WRAM0
 

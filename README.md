@@ -25,6 +25,7 @@ Other features:
 - Auto fly as Vampire Wario's bat while holding down A, same as autoswim
 - Pressing SELECT while in a FORM (or rolling) will automatically turn you back into normal Wario first. Press SELECT again to open the DEBUG menu. This applies whenever you're in a non-normal form, regardless of whether you activated it via the DEBUG MENU or through normal gameplay.
 - The treasure collection (the map's top bar) has an edit mode: SELECT turns it on and off. In it, the chests not opened show their treasure in grey, and A gives or takes the selected treasure. See [the book](https://lautarodragan.github.io/warioland3/collection-edit.html).
+- Action Help (from the pause menu) has an edit mode too: SELECT turns it on and off. In it, the power-up bar shows every icon (the ones Wario has in colour, the others in grey instead of "?"), and A sets the power-up level to the selected one. See [the book](https://lautarodragan.github.io/warioland3/action-help-edit.html).
 
 ## Why
 

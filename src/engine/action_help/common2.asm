@@ -177,6 +177,17 @@ LoadActionHelpBGPals:
 	ld b, 8 palettes
 	call CopyHLToDE_Short
 	pop hl
+	; (this fork) in the edit mode, palette 3 is grey (edit_mode.asm), also
+	; blacked out: it's the bar's
+	ld a, [wActionHelpEditMode]
+	and a
+	jr z, .got_pals
+	ld hl, ActionHelpEditPal
+	ld de, wTempPals1 palette 3
+	ld b, 1 palettes
+	call CopyHLToDE_Short
+	ld hl, wTempPals1
+.got_pals
 
 	ld a, BGPI_AUTOINC | palette 0
 	ldh [rBGPI], a

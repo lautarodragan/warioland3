@@ -3,6 +3,7 @@ InitActionHelp:
 	play_music MUSIC_ACTION_HELP
 
 	xor a
+	ld [wActionHelpEditMode], a ; (this fork)
 	ld [wActionHelpState], a
 	ld [wTimer], a
 
@@ -186,8 +187,12 @@ UpdateActionHelp:
 	ld a, [wPowerUpLevel]
 	and $80
 	jr nz, .skip_handle_input
+	; (this fork) SELECT turns the edit mode on and off, where A sets the
+	; power-up level instead of closing Action Help (edit_mode.asm)
+	call ActionHelpEdit_HandleInput ; a = the buttons that close it
+	ld b, a
 	ld a, [wJoypadPressed]
-	and PAD_A | PAD_B | PAD_START
+	and b
 	jp nz, .CloseActionHelp
 
 .skip_handle_input

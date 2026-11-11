@@ -106,6 +106,12 @@ SELECT on the treasure collection screen turns on an edit mode: the chests not
 opened show their treasure in grey, and A gives or takes the selected one. See
 [The treasure collection's edit mode](collection-edit.md).
 
+## Action Help's edit mode
+
+SELECT on Action Help turns on an edit mode, like the collection's: the bar
+shows every power-up (the ones not owned in grey), and A sets the power-up
+level. See [Action Help's edit mode](action-help-edit.md).
+
 ## GOLF without the room reload
 
 Toggling GOLF reset the game to the title screen in 21 of 25 start rooms, and

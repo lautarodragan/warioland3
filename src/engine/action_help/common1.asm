@@ -214,6 +214,14 @@ HandleActionHelpPowerUpSelection:
 .power_up_changed
 	ld a, TRUE
 	ld [wActionHelpBlackedOut], a
+	; (this fork) in the edit mode, the whole bar (edit_mode.asm)
+	ld a, [wActionHelpEditMode]
+	and a
+	jr z, .not_edit_mode
+	call ActionHelpEdit_DrawBar
+	play_sfx SFX_MENU_SCROLL
+	ret
+.not_edit_mode
 
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
