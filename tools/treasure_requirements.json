@@ -5,294 +5,454 @@
   "Recording a check made in the game: set each need that was confirmed to {\"by\": \"verified in game by Taro\", \"note\": \"...\"}, delete the needs that turned out not to be needed (and add any that were missing), then add \"verified\": {\"by\": \"verified in game by Taro\", \"note\": \"...\"} to the treasure: that takes it off the review list. Then run python3 tools/treasure_graph.py to rewrite the page and the review list.",
   "check: what to try in the game, shown on the review list.",
   "status: guide = a guide says so and the game data agrees; data = from the game data (and the heuristic) alone; uncertain = sources missing, conflicting or not conclusive.",
-  "The guides were read through web search results: the sites couldn't be opened from where this was written. Check the page before relying on a detail."
+  "Guides: every level's Super Mario Wiki page was read in full (its wikitext, November 2026), and J. J. W. Mezun's treasure list and some of his level maps at warioland3.com. Each source marked \"(page read)\" quotes or closely paraphrases the page. Earlier sources taken from web search summaries were replaced; wario.fandom.com, strategywiki.org and gamefaqs couldn't be opened (bot challenge). A \"guide\" need now means one of those pages says it.",
+  "checked: what was checked for the treasure against the pages read, and how each need came out (confirmed, corrected or uncertain).",
+  "note: shown with the treasure; says when only one time of day works, or a later way to the chest that the needs leave out (needs are all-of: the earliest way is kept)."
  ],
  "treasures": {
   "AXE": {
    "level": "N1",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Out of the Woods (page read)",
+     "url": "https://www.mariowiki.com/Out_of_the_Woods",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "BLUE_TABLET": {
    "level": "N2",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Peaceful Village (page read)",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "GREEN_TABLET": {
    "level": "N3",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Vast Plain (page read)",
+     "url": "https://www.mariowiki.com/The_Vast_Plain",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "TOP_HALF_OF_SCROLL": {
    "level": "W1",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Desert Ruins (page read)",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "\"It is available as soon as the level is unlocked, but only during daytime at this point of the game, since the door to the temple is blocked during nighttime\""
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "note": "By day.",
+   "checked": "Read the chest's section: no needs, by day; confirmed."
   },
   "LEAD_OVERALLS_T": {
    "level": "W2",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Volcano's Base (page read)",
+     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "GEAR_1": {
    "level": "W3",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Pool of Rain (page read)",
+     "url": "https://www.mariowiki.com/The_Pool_of_Rain",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "GEAR_2": {
    "level": "W4",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: A Town in Chaos (page read)",
+     "url": "https://www.mariowiki.com/A_Town_in_Chaos",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "YELLOW_MUSIC_BOX": {
    "level": "S1",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Grasslands (page read)",
+     "url": "https://www.mariowiki.com/The_Grasslands",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "MAGIC_SEEDS": {
    "level": "S2",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Big Bridge (page read)",
+     "url": "https://www.mariowiki.com/The_Big_Bridge",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "SWIMMING_FLIPPERS_T": {
    "level": "S3",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Tower of Revival (page read)",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "FLUTE": {
    "level": "E1",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Stagnant Swamp (page read)",
+     "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "HEAD_SMASH_HELMET_T": {
    "level": "E2",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Frigid Sea (page read)",
+     "url": "https://www.mariowiki.com/The_Frigid_Sea",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "TRIDENT": {
    "level": "N4",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Bank of the Wild River (page read)",
+     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "YELLOW_BOOK": {
    "level": "N5",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast (page read)",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "GRAB_GLOVE_T": {
    "level": "S4",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Steep Canyon (page read)",
+     "url": "https://www.mariowiki.com/The_Steep_Canyon",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "RIGHT_GLASS_EYE": {
    "level": "W6",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The West Crater (page read)",
+     "url": "https://www.mariowiki.com/The_West_Crater",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "LEFT_GLASS_EYE": {
    "level": "E4",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Colossal Hole (page read)",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "GREEN_MUSIC_BOX": {
    "level": "N6",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Sea Turtle Rocks (page read)",
+     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "SCEPTER": {
    "level": "S5",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Cave of Flames (page read)",
+     "url": "https://www.mariowiki.com/Cave_of_Flames",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "SUPER_JUMP_SLAM_OVERALLS_T": {
    "level": "E3",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Castle of Illusions (page read)",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "EXPLOSIVE_PLUNGER_BOX": {
    "level": "W5",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Beneath the Waves (page read)",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "SUPER_GRAB_GLOVES_T": {
    "level": "E6",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The East Crater (page read)",
+     "url": "https://www.mariowiki.com/The_East_Crater",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "MYSTERY_HANDLE": {
    "level": "E5",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Warped Void (page read)",
+     "url": "https://www.mariowiki.com/The_Warped_Void",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "CRAYON_GREEN_T": {
    "level": "S6",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Above the Clouds (page read)",
+     "url": "https://www.mariowiki.com/Above_the_Clouds_(Wario_Land_3)",
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
+    },
     {
      "by": "game data",
      "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "BOTTOM_HALF_OF_SCROLL": {
    "level": "W1",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Desert Ruins (page read)",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "\"It is available as soon as the level is unlocked, but only during nighttime at this point of the game, since the door to the temple is blocked during daytime\""
+    },
     {
      "by": "game data",
      "says": "red chest, hinted together with the grey one as soon as Desert Ruins opens"
     }
-   ]
+   ],
+   "note": "At night.",
+   "checked": "Read the chest's section: no needs, at night; confirmed."
   },
   "FIRE_DRENCHER": {
    "level": "S6",
    "needs": {},
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Above the Clouds (page read)",
+     "url": "https://www.mariowiki.com/Above_the_Clouds_(Wario_Land_3)",
+     "says": "red chest: \"It is available as soon as the level is unlocked.\" (the route bounces off a Beam Robota to Head Smash a block and throws one: power-ups held long before Above the Clouds opens)"
+    },
     {
      "by": "game data",
      "says": "Above the Clouds opens straight into variant 2 (the Sky Key); the next change, the Scissors', comes after this chest in the hint order"
     }
-   ]
+   ],
+   "checked": "Read the chest's section: no needs, confirmed."
   },
   "WARP_COMPACT": {
    "level": "E7",
@@ -300,15 +460,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Forest of Fear",
+     "by": "Super Mario Wiki: Forest of Fear (page read)",
      "url": "https://www.mariowiki.com/Forest_of_Fear",
-     "says": "the Warp Compact (grey chest) is available as soon as the level is open"
+     "says": "grey chest: \"It is available as soon as the level is unlocked.\" The route it describes uses no power-up or other treasure."
     },
     {
      "by": "game data",
      "says": "the Super Grab Gloves flash Forest of Fear, but that's for the red Key Card"
     }
-   ]
+   ],
+   "checked": "Read the chest's section of the level page: no needs, confirmed."
   },
   "JAR": {
    "level": "N1",
@@ -318,15 +479,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "game data",
-     "says": "the Lead Overalls flash Out of the Woods (variant 2); the Jar is the chest hinted next there"
+     "by": "Super Mario Wiki: Out of the Woods (page read)",
+     "url": "https://www.mariowiki.com/Out_of_the_Woods",
+     "says": "\"It requires the Lead Overalls from The Volcano's Base's Gray Chest, which allows Wario to Smash Attack to bump Futamogu down and destroy damaged blocks beneath Wario.\""
     },
     {
-     "by": "Wario Wiki (Fandom): Wario Land 3 walkthrough",
-     "url": "https://wario.fandom.com/wiki/Wario_Land_3:_Walkthrough",
-     "says": "the way to the red key needs a Ground Pound (Lead Overalls)"
+     "by": "game data",
+     "says": "the Lead Overalls flash Out of the Woods (variant 2); the Jar is the chest hinted next there"
     }
-   ]
+   ],
+   "checked": "Lead Overalls confirmed by the level page (the Fandom walkthrough cited before could not be opened: Cloudflare; dropped)."
   },
   "PRINCE_FROGS_GLOVES_T": {
    "level": "N1",
@@ -334,13 +496,24 @@
     "POUCH": "game data",
     "EYE_OF_THE_STORM": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Out of the Woods (page read)",
+     "url": "https://www.mariowiki.com/Out_of_the_Woods",
+     "says": "\"It is available after obtaining both the Eye of the Storm from The Stagnant Swamp's Blue Chest and the Pouch from Cave of Flames' Green Chest.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Whirlwind and Sack, \"Combined with, makes leaves fall in the lake area o' N1 Out of the Woods, opening access to its green treasure.\""
+    },
     {
      "by": "game data",
      "says": "the falling leaves (Pouch + Eye of the Storm) switch Out of the Woods to variant 3, new room headers"
     }
-   ]
+   ],
+   "checked": "Pouch + Eye of the Storm (game data) confirmed by the level page."
   },
   "GOLD_MUSIC_BOX": {
    "level": "N1",
@@ -350,15 +523,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "game data",
-     "says": "the Gold Magic opens the tree's mouth and switches Out of the Woods to variant 4"
+     "by": "Super Mario Wiki: Out of the Woods (page read)",
+     "url": "https://www.mariowiki.com/Out_of_the_Woods",
+     "says": "\"It requires the Gold Magic from Castle of Illusions' Green Chest, which causes the mouth of the large tree to open wide after its nose is exposed to the magic, enabling it to be entered.\""
     },
     {
-     "by": "Wario Wiki (Fandom): Out of the Woods",
-     "url": "https://wario.fandom.com/wiki/Out_of_the_Woods",
-     "says": "the blue chest needs the Gold Magic from Castle of Illusions"
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Sand (Gold Magic): \"Blown into the big tree in N1 Out of the Woods, opening access inside o' the tree, where the blue treasure lies.\""
+    },
+    {
+     "by": "game data",
+     "says": "the Gold Magic opens the tree's mouth and switches Out of the Woods to variant 4"
     }
-   ]
+   ],
+   "checked": "Gold Magic confirmed by the level page (the Fandom page cited before could not be opened; dropped)."
   },
   "BLUE_BOOK": {
    "level": "N2",
@@ -368,15 +547,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Peaceful Village",
+     "by": "Super Mario Wiki: The Peaceful Village (page read)",
      "url": "https://www.mariowiki.com/The_Peaceful_Village",
-     "says": "the Blue Book only becomes obtainable after the Flute (a snake from a pot)"
+     "says": "\"It can be obtained after acquiring the Flute from The Stagnant Swamp's Gray Chest, which causes the snake to rise from the pot.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Flute: \"Makes the snakes appear in the pots in N2 The Peaceful Village, ... opening access to the red & green treasures o' N2\""
     },
     {
      "by": "game data",
      "says": "the Flute switches The Peaceful Village to variants 2-4: new room headers"
     }
-   ]
+   ],
+   "checked": "Flute confirmed by the level page."
   },
   "GOBLET": {
    "level": "N2",
@@ -393,9 +578,9 @@
      "says": "the Goblet's part of the village is only reached through the snake, which appears after the Flute; the night door is always there"
     },
     {
-     "by": "Super Mario Wiki: The Peaceful Village",
+     "by": "Super Mario Wiki: The Peaceful Village (page read)",
      "url": "https://www.mariowiki.com/The_Peaceful_Village",
-     "says": "the door to the Goblet only opens at night; by day Wario needs the Super Jump Slam Overalls (or the High Jump Boots) for a secret entrance"
+     "says": "\"It can be obtained after acquiring the Flute ... Alternatively, the treasure can be obtained if Wario has gotten the High Jump Boots ... The treasure can normally be only obtained at night because the door only opens at night. However, during the day, Wario must have at least gotten the Super Jump Slam Overalls\""
     },
     {
      "by": "game data",
@@ -416,7 +601,8 @@
    "verified": {
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the way to the Goblet needs the snake, which only comes out of its pot after the Flute (J. J. W. Mezun's N2 map notes the same); the night door itself is always there. The darker floor bricks above the green chest are not breakable: in the level data they are BlockFunc_Free (a walk-through false wall, which Mezun's maps shade darker), so no ground pound is needed."
-   }
+   },
+   "checked": "Level page agrees with Taro's check (Flute; night door). Route read in full (snake, rooftops, night door E; invisibility potion; Smash Attack through the floor with the Lead Overalls, held long before): nothing else needed. Needs left as Taro verified them."
   },
   "DAY_OR_NIGHT_SPELL": {
    "level": "N2",
@@ -433,14 +619,14 @@
      "says": "needs the super ground pound (Super Jump Slam Overalls): it makes the red enemy jump so Wario can get past it"
     },
     {
+     "by": "Super Mario Wiki: The Peaceful Village (page read)",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "\"It requires the Super Jump Slam Overalls from Castle of Illusions' Gray Chest.\" Route: leftmost house, \"Using a Super Smash near it [a red Prince Froggy] will cause it to recoil to the platforms above\", then the sewers to the key and chest."
+    },
+    {
      "by": "Guía Nintendo: N2 The Peaceful Village",
      "url": "https://www.guiasnintendo.com/3_GB_GameBoy/waland3/waland3_sp/n2.html",
      "says": "blue key: break the cracked pipes; the chest is further right from the key; no item named"
-    },
-    {
-     "by": "Super Mario Wiki: The Peaceful Village",
-     "url": "https://www.mariowiki.com/The_Peaceful_Village",
-     "says": "describes the way to the blue key and chest; names no treasure or power-up"
     },
     {
      "by": "TASVideos submission #6413 (All Chests)",
@@ -466,7 +652,8 @@
    "verified": {
     "by": "verified in game by Taro",
     "note": "The red frog-like enemy blocks the way to the blue key and chest; a super ground pound (Super Jump Slam Overalls) makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
-   }
+   },
+   "checked": "Level page agrees with Taro's check. Route read in full with Mezun's N2 day map: door A (leftmost house) is reached by the ladders from the start, no snake needed; nothing else needed. Needs left as Taro verified them."
   },
   "CRAYON_BLUE_T": {
    "level": "N3",
@@ -476,15 +663,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Vast Plain",
+     "by": "Super Mario Wiki: The Vast Plain (page read)",
      "url": "https://www.mariowiki.com/The_Vast_Plain",
-     "says": "the red chest requires the Lead Overalls"
+     "says": "\"It requires the Lead Overalls from The Volcano's Base's Gray Chest to access, which allows Wario to Smash Attack to bump Futamogu down\""
     },
     {
      "by": "game data",
      "says": "the Lead Overalls flash The Vast Plain (variant 2)"
     }
-   ]
+   ],
+   "checked": "Lead Overalls confirmed; route (Puffy Wario, Dash Attacks, Golf) needs nothing else."
   },
   "SKULL_RING_RED": {
    "level": "N3",
@@ -494,15 +682,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Vast Plain",
+     "by": "Super Mario Wiki: The Vast Plain (page read)",
      "url": "https://www.mariowiki.com/The_Vast_Plain",
-     "says": "the green chest needs the Magic Seeds: a vine leads to it"
+     "says": "\"It requires the Magic Seeds from The Big Bridge's Gray Chest, which causes vines to grow in this level, one of which leads to the area with this chest.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Seed: \"granting access to the red treasures o' W3 & S1 & the green treasure o' N3.\""
     },
     {
      "by": "game data",
      "says": "the Magic Seeds switch The Vast Plain to variant 3, a new block map"
     }
-   ]
+   ],
+   "checked": "Magic Seeds confirmed."
   },
   "RED_GEM": {
    "level": "N3",
@@ -513,15 +707,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Vast Plain",
+     "by": "Super Mario Wiki: The Vast Plain (page read)",
      "url": "https://www.mariowiki.com/The_Vast_Plain",
-     "says": "the blue chest requires both chemicals"
+     "says": "\"is inside the Blue Chest, which requires both the Red Chemical from Beneath the Waves' Green Chest and the Blue Chemical from The Steep Canyon's Blue Chest to obtain.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Blue Chemicals: \"Moves the 5-ton blocks in N3 The Vast Plain & W5 Beneath the Waves ... opening access to the blue chest 'hind each o' them.\""
     },
     {
      "by": "game data",
      "says": "the chemicals switch The Vast Plain to variant 4"
     }
-   ]
+   ],
+   "checked": "Both chemicals confirmed."
   },
   "MAGNIFYING_GLASS": {
    "level": "N4",
@@ -531,15 +731,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Bank of the Wild River",
+     "by": "Super Mario Wiki: Bank of the Wild River (page read)",
      "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
-     "says": "the Magnifying Glass requires the Super Smash (the Garlic, Tower of Revival's red chest) to reveal secret doors"
+     "says": "\"It requires the Super Smash from Tower of Revival's Red Chest to access, which is needed to reveal secret doors in this level.\" (the Super Smash is the Garlic)"
     },
     {
      "by": "game data",
      "says": "the Garlic flashes Bank of the Wild River (variant 2); the green chest is the Prince Frog's Gloves' and the blue one the Air Pump's"
     }
-   ]
+   ],
+   "checked": "Garlic confirmed (the source now cites this level's own page)."
   },
   "STATUE": {
    "level": "N4",
@@ -549,15 +750,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Tower of Revival",
-     "url": "https://www.mariowiki.com/Tower_of_Revival",
-     "says": "the Statue requires the Prince Frog's Glove"
+     "by": "Super Mario Wiki: Bank of the Wild River (page read)",
+     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
+     "says": "\"It requires the Prince Frog's Glove from Out of the Woods' Green Chest to acquire. This allows Wario to swim past the current to reach a new area.\""
     },
     {
      "by": "game data",
      "says": "the Prince Frog's Gloves flash Bank of the Wild River (variant 3)"
     }
-   ]
+   ],
+   "checked": "Prince Frog's Gloves confirmed (the source now cites this level's own page)."
   },
   "ROCKET": {
    "level": "N4",
@@ -567,15 +769,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Colossal Hole",
-     "url": "https://www.mariowiki.com/The_Colossal_Hole",
-     "says": "the Air Pump raises the glass containers in The Pool of Rain and Bank of the Wild River, reaching a higher area in the latter"
+     "by": "Super Mario Wiki: Bank of the Wild River (page read)",
+     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
+     "says": "\"It requires the Air-Pump from The Colossal Hole's Red Chest to acquire, which causes the glass container in the water to float on the surface.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Pump: \"Makes the underwater glass cylinder in N4 Bank of the Wild River & W3 The Pool of Rain rise up to the surface, opening access to the blue chest for each o' them.\""
     },
     {
      "by": "game data",
      "says": "the Air Pump switches Bank of the Wild River to variant 4"
     }
-   ]
+   ],
+   "checked": "Air Pump confirmed (own page now); the route carries a rock (Grab Glove, held long before)."
   },
   "FOOT_OF_STONE": {
    "level": "N5",
@@ -585,33 +793,41 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Tidal Coast",
+     "by": "Super Mario Wiki: The Tidal Coast (page read)",
      "url": "https://www.mariowiki.com/The_Tidal_Coast",
-     "says": "available after the Grab Glove, needed to break the Enemy Blocks in front of it"
+     "says": "\"It is available after obtaining the Grab Glove from The Steep Canyon's Gray Chest, which is required to break Enemy Blocks to reach the necessary key and chest.\""
     },
     {
      "by": "game data",
      "says": "the Grab Glove flashes The Tidal Coast"
     }
-   ]
+   ],
+   "checked": "Grab Glove confirmed."
   },
   "ELECTRIC_FAN_PROPELLER": {
    "level": "N5",
    "needs": {
     "STATUE": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast (page read)",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "\"It is accessible after the Statue from the Bank of the Wild River's Green Chest is collected, where it mends the grillage in order to be able to reach the chest. This treasure can only be collected at night\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Little Knitter (Statue): \"Knits the rest o' the climbable chain walls in N5 The Tidal Coast & S3 Tower of Revival, opening access to the green chest in each o' them.\""
+    },
     {
      "by": "game data",
      "says": "the Statue (makes a wire) switches The Tidal Coast to variant 3, new room headers"
-    },
-    {
-     "by": "Super Mario Wiki: The Tidal Coast",
-     "url": "https://www.mariowiki.com/The_Tidal_Coast",
-     "says": "the green chest is reached along the grillage path (the wire the Statue makes)"
     }
-   ]
+   ],
+   "note": "At night.",
+   "checked": "Statue (game data) confirmed by the level page; at night."
   },
   "GREEN_GEM": {
    "level": "N5",
@@ -621,15 +837,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Tidal Coast",
+     "by": "Super Mario Wiki: The Tidal Coast (page read)",
      "url": "https://www.mariowiki.com/The_Tidal_Coast",
-     "says": "the Green Gem requires the Sapling of Growth (the Octohon breaks the blocks of the maze)"
+     "says": "\"It requires the Sapling of Growth in A Town in Chaos' Blue Chest, which causes the Octohōn to grow big and strong so that it breaks the blocks that initially obstruct the maze.\""
     },
     {
      "by": "game data",
      "says": "the Sapling switches The Tidal Coast to variant 4"
     }
-   ]
+   ],
+   "checked": "Sapling of Growth confirmed."
   },
   "GOLDEN_RIGHT_EYE": {
    "level": "N6",
@@ -639,15 +856,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Sea Turtle Rocks",
+     "by": "Super Mario Wiki: Sea Turtle Rocks (page read)",
      "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
-     "says": "requires the Scepter, which clears the water and reveals an entrance"
+     "says": "\"It requires the Scepter from Cave of Flames' Gray Chest, which purifies the murky water to allow it to become clear, thus revealing an entrance that is originally obscured.\""
     },
     {
      "by": "game data",
      "says": "the Scepter switches Sea Turtle Rocks to variant 2"
     }
-   ]
+   ],
+   "checked": "Scepter confirmed."
   },
   "SUN_MEDALLION_TOP": {
    "level": "N6",
@@ -657,15 +875,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Desert Ruins",
-     "url": "https://www.mariowiki.com/Desert_Ruins",
-     "says": "Sea Turtle Rocks' green chest needs the Super Jump Slam Overalls to break the blocks at the entrance"
+     "by": "Super Mario Wiki: Sea Turtle Rocks (page read)",
+     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
+     "says": "\"To access it, the Super Jump Slam Overalls from Castle of Illusions' Gray Chest is required to break open the blocks obscuring the entrance to it.\""
     },
     {
      "by": "game data",
      "says": "the Super Jump Slam Overalls flash Sea Turtle Rocks"
     }
-   ]
+   ],
+   "checked": "Super Jump Slam Overalls confirmed (the source now cites this level's own page instead of Desert Ruins')."
   },
   "FULL_MOON_GONG": {
    "level": "N6",
@@ -675,15 +894,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Sea Turtle Rocks",
+     "by": "Super Mario Wiki: Sea Turtle Rocks (page read)",
      "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
-     "says": "the blue chest requires the Night Vision Scope"
+     "says": "\"is in the Blue Chest, which requires the Night Vision Scope from The East Crater's Green Chest. It increases the visibility of a dark room in a cave found in this level, which also reveals a door.\""
     },
     {
      "by": "game data",
      "says": "the Night Vision Scope switches Sea Turtle Rocks to variant 4"
     }
-   ]
+   ],
+   "checked": "Night Vision Scope confirmed."
   },
   "CRAYON_PINK_T": {
    "level": "W1",
@@ -693,15 +913,17 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Desert Ruins",
+     "by": "Super Mario Wiki: Desert Ruins (page read)",
      "url": "https://www.mariowiki.com/Desert_Ruins",
-     "says": "the pink Crayon (green chest) requires the Head Smash Helmet"
+     "says": "\"It requires the Head Smash Helmet from The Frigid Sea's Gray Chest ... If the Super Smash is not obtained, the room can only be visited at night since the moon gate can be broken with a powered-up Dash Attack.\""
     },
     {
      "by": "game data",
      "says": "the Head Smash Helmet flashes Desert Ruins"
     }
-   ]
+   ],
+   "note": "At night (by day only with the Garlic, which breaks the moon gate).",
+   "checked": "Head Smash Helmet confirmed; at night until the Garlic."
   },
   "SUN_MEDALLION_BOTTOM": {
    "level": "W1",
@@ -714,6 +936,11 @@
    "status": "guide",
    "sources": [
     {
+     "by": "Super Mario Wiki: Desert Ruins (page read)",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "\"It requires the Super Jump Slam Overalls from the Castle of Illusions' Gray Chest, which is used to Smash Attack the blocks within the moon temple to access a new path.\""
+    },
+    {
      "by": "J. J. W. Mezun: W1 Desert Ruins (Day) map",
      "url": "https://www.warioland3.com",
      "says": "two hard blocks next to door D are in the way; Taro reads them as needing the super ground pound (Super Jump Slam Overalls)"
@@ -725,14 +952,10 @@
     {
      "by": "heuristic (power-up map flash + lowest chest)",
      "says": "grey and red are open from the start and the green needs the Head Smash Helmet (Super Mario Wiki), so the blue one is the chest the overalls open"
-    },
-    {
-     "by": "Super Mario Wiki: Desert Ruins",
-     "url": "https://www.mariowiki.com/Desert_Ruins",
-     "says": "the blue chest is under Yellow Belly, beaten with Smash Attacks on its head"
     }
    ],
-   "note": "Mezun's W1 map, read by Taro: the way to the blue key and chest is blocked by two hard blocks that only the super ground pound breaks (Super Jump Slam Overalls), as the heuristic said. Not yet tried in the game."
+   "note": "Mezun's W1 map, read by Taro: the way to the blue key and chest is blocked by two hard blocks that only the super ground pound breaks (Super Jump Slam Overalls), as the heuristic said. Not yet tried in the game.",
+   "checked": "Super Jump Slam Overalls confirmed by the level page, as Taro read Mezun's map."
   },
   "TUSK_BLUE": {
    "level": "W2",
@@ -742,15 +965,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "game data",
-     "says": "the Foot of Stone switches The Volcano's Base to variant 4, a new block map (the landslide)"
+     "by": "Super Mario Wiki: The Volcano's Base (page read)",
+     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
+     "says": "\"It is accessible after obtaining the Foot of Stone in The Tidal Coast's Red Chest, which creates an earthquake strong enough to cause a collapse on the left side of the level\""
     },
     {
-     "by": "Super Mario Wiki: The Volcano's Base",
-     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
-     "says": "the blue key is four levels down by swimming, behind blocks broken from below (Swimming Flippers, Head Smash Helmet: both come before the Foot of Stone anyway)"
+     "by": "game data",
+     "says": "the Foot of Stone switches The Volcano's Base to variant 4, a new block map (the landslide)"
     }
-   ]
+   ],
+   "checked": "Foot of Stone (game data) confirmed; the route swims and breaks blocks from below (Swimming Flippers, Head Smash Helmet: both held before the Foot of Stone)."
   },
   "BLUE_GEM": {
    "level": "W2",
@@ -767,9 +991,14 @@
      "says": "the red chest doesn't need the Flute"
     },
     {
-     "by": "Super Mario Wiki: The Volcano's Base",
+     "by": "Super Mario Wiki: The Volcano's Base (page read)",
      "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
-     "says": "the carts run once the Truck Wheel is fitted; the ride ends at a platform with a door and a snake pot"
+     "says": "\"To access it, the Wheels from The Grasslands's Red Chest is needed, as they will repair the carts\"; route: roll from the first slope to the lower door, ladder and pipe up to the carts; the red key is \"reachable by crouching past the narrow gap\"."
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Wheels: \"Gives wheels to the little cars in W2 The Volcano's Base, allowing them to move, giving Wario access to W2's red treasure.\""
     },
     {
      "by": "game data",
@@ -786,7 +1015,8 @@
    "verified": {
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the red chest needs the Truck Wheel (the carts), not the Flute."
-   }
+   },
+   "checked": "Level page agrees with Taro's check. Whole route read with Mezun's W2 day map (door E, pipe F, the two cart rails): no other power-up, snake or switch on it. Needs left as Taro verified them."
   },
   "CROWN": {
    "level": "W2",
@@ -807,9 +1037,9 @@
      "says": "the green chest needs the Flute"
     },
     {
-     "by": "Super Mario Wiki: The Volcano's Base",
+     "by": "Super Mario Wiki: The Volcano's Base (page read)",
      "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
-     "says": "the Crown's key and chest are in the upper part of the mountain, reached with the carts"
+     "says": "\"It can be accessed after obtaining the Flute ... this treasure cannot be completed without the Wheels from The Grasslands's Red Chest either. The Green Key is located within the room next to the pot, where it is found by going underwater\""
     },
     {
      "by": "game data",
@@ -826,20 +1056,27 @@
    "verified": {
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the green chest needs the Flute too (the snake), besides the Truck Wheel's carts."
-   }
+   },
+   "checked": "Level page agrees with Taro's check (Truck Wheel + Flute). The key room is underwater (Swimming Flippers, held before the Flute). Needs left as Taro verified them."
   },
   "SKULL_RING_BLUE": {
    "level": "W3",
    "needs": {
     "MAGIC_SEEDS": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Pool of Rain (page read)",
+     "url": "https://www.mariowiki.com/The_Pool_of_Rain",
+     "says": "\"The Skull Ring in the Red Chest requires the Magic Seeds from The Big Bridge's Gray Chest. This causes the vine underneath the rock to grow, pushing that rock to the top of the area and revealing a door behind it.\""
+    },
     {
      "by": "game data",
      "says": "the Magic Seeds switch The Pool of Rain to variant 2, a new block map; the Skull Ring Blue is the only chest hinted between them and the Swimming Flippers"
     }
-   ]
+   ],
+   "checked": "Magic Seeds (game data) confirmed by the level page."
   },
   "ORNAMENTAL_FAN": {
    "level": "W3",
@@ -849,15 +1086,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Tower of Revival",
-     "url": "https://www.mariowiki.com/Tower_of_Revival",
-     "says": "the Ornamental Fan in The Pool of Rain needs the Swimming Flippers"
+     "by": "Super Mario Wiki: The Pool of Rain (page read)",
+     "url": "https://www.mariowiki.com/The_Pool_of_Rain",
+     "says": "\"The Ornamental Fan in the Green Chest requires the Swimming Flippers from the Tower of Revival's Gray Chest.\""
     },
     {
      "by": "game data",
      "says": "the Swimming Flippers flash The Pool of Rain"
     }
-   ]
+   ],
+   "checked": "Swimming Flippers confirmed (own page now)."
   },
   "CRAYON_YELLOW_T": {
    "level": "W3",
@@ -867,15 +1105,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Colossal Hole",
-     "url": "https://www.mariowiki.com/The_Colossal_Hole",
-     "says": "the Air Pump raises the glass containers in The Pool of Rain, so Wario can enter the room under them"
+     "by": "Super Mario Wiki: The Pool of Rain (page read)",
+     "url": "https://www.mariowiki.com/The_Pool_of_Rain",
+     "says": "\"The yellow Crayon in the Blue Chest requires the Air-Pump from The Colossal Hole's Red Chest, causing the glass container to float, thus making the door within it accessible.\""
     },
     {
      "by": "game data",
      "says": "the Air Pump switches The Pool of Rain to variant 4"
     }
-   ]
+   ],
+   "checked": "Air Pump confirmed (own page now)."
   },
   "BLUE_MUSIC_BOX": {
    "level": "W4",
@@ -890,6 +1129,11 @@
     {
      "by": "verified in game by Taro",
      "says": "the red chest needs the Head Smash Helmet"
+    },
+    {
+     "by": "Super Mario Wiki: A Town in Chaos (page read)",
+     "url": "https://www.mariowiki.com/A_Town_in_Chaos",
+     "says": "\"In order to access it, the Head Smash Helmet from The Frigid Sea's Gray Chest is needed to break an overhead damaged block that leads toward the chest.\""
     },
     {
      "by": "game data",
@@ -909,7 +1153,8 @@
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the red chest needs the Head Smash Helmet. J. J. W. Mezun's W4 map also notes that the turtle referee only flies up and down, letting Wario jump up to the red chest, once Shoot is beaten."
    },
-   "note": "Verified in the game by Taro: needs the Head Smash Helmet (the heuristic's guess was right). Inside the level, Shoot has to be beaten first: then the turtle referee flies up and down and Wario can jump up to the red chest (Mezun's map)."
+   "note": "Verified in the game by Taro: needs the Head Smash Helmet (the heuristic's guess was right). Inside the level, Shoot has to be beaten first: then the turtle referee flies up and down and Wario can jump up to the red chest (Mezun's map).",
+   "checked": "Level page agrees with Taro's check. Needs left as Taro verified them."
   },
   "GOLDEN_LEFT_EYE": {
    "level": "W4",
@@ -919,9 +1164,9 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: A Town in Chaos",
+     "by": "Super Mario Wiki: A Town in Chaos (page read)",
      "url": "https://www.mariowiki.com/A_Town_in_Chaos",
-     "says": "requires the Super Grab Gloves (to carry a Brrr Bear) and Vampire Wario"
+     "says": "\"To access it, the Super Grab Gloves from The East Crater's Gray Chest is required, which is required to bring a Brrr Bear to a position that makes use of Ice Skatin' Wario.\""
     },
     {
      "by": "TASVideos submission #6413 (All Chests)",
@@ -933,7 +1178,8 @@
      "says": "the Super Grab Gloves flash A Town in Chaos"
     }
    ],
-   "note": "At night."
+   "note": "At night.",
+   "checked": "Super Grab Gloves confirmed. The page doesn't mention night (TASVideos' note kept)."
   },
   "SAPLING_OF_GROWTH": {
    "level": "W4",
@@ -943,15 +1189,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Tidal Coast",
-     "url": "https://www.mariowiki.com/The_Tidal_Coast",
-     "says": "the Sapling of Growth needs the Electric Fan Propeller, which makes the town's machines blow"
+     "by": "Super Mario Wiki: A Town in Chaos (page read)",
+     "url": "https://www.mariowiki.com/A_Town_in_Chaos",
+     "says": "\"To access it, the Electric Fan Propeller from The Tidal Coast's Green Chest is required, which allows the electric fans to operate after it is switched on.\""
     },
     {
      "by": "game data",
      "says": "the propeller switches A Town in Chaos to variant 4"
     }
-   ]
+   ],
+   "checked": "Electric Fan Propeller confirmed (own page now)."
   },
   "CRAYON_RED_T": {
    "level": "W5",
@@ -961,28 +1208,40 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Beneath the Waves",
+     "by": "Super Mario Wiki: Beneath the Waves (page read)",
      "url": "https://www.mariowiki.com/Beneath_the_Waves",
-     "says": "the red Crayon requires the Prince Frog's Glove"
+     "says": "\"which requires the Prince Frog's Glove from Out of the Woods' Green Chest to obtain. It allows Wario to swim past currents to a new area\""
     },
     {
      "by": "game data",
      "says": "the Prince Frog's Gloves flash Beneath the Waves"
     }
-   ]
+   ],
+   "checked": "Prince Frog's Gloves confirmed."
   },
   "RED_CHEMICAL": {
    "level": "W5",
    "needs": {
     "SAPLING_OF_GROWTH": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Beneath the Waves (page read)",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "\"which requires the Sapling of Growth from A Town in Chaos' Blue Chest to obtain. This causes the Octohōn to grow big and thus able to break the grate\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Fruit (Sapling): \"opening access to the blue chest for the former [N5] & the green chest for the latter [W5].\""
+    },
     {
      "by": "game data",
      "says": "the Sapling of Growth switches Beneath the Waves to variant 3, new room headers; the Red Chemical can't need the chemicals' own change, so this is the chest it opens"
     }
-   ]
+   ],
+   "checked": "Sapling of Growth (game data) confirmed by the level page."
   },
   "CLUBS_CREST": {
    "level": "W5",
@@ -990,18 +1249,19 @@
     "RED_CHEMICAL": "game data",
     "BLUE_CHEMICAL": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Beneath the Waves (page read)",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "\"which requires both the Red Chemical from this level's Green Chest and the Blue Chemical from The Steep Canyon's Blue Chest to obtain.\""
+    },
     {
      "by": "game data",
      "says": "the chemicals switch Beneath the Waves to variant 4"
-    },
-    {
-     "by": "Super Mario Wiki: The Steep Canyon",
-     "url": "https://www.mariowiki.com/The_Steep_Canyon",
-     "says": "the chemicals soften the ground under the heavy blocks in The Vast Plain and Beneath the Waves"
     }
-   ]
+   ],
+   "checked": "Both chemicals (game data) confirmed by the level page (own page now)."
   },
   "SABER": {
    "level": "W6",
@@ -1011,33 +1271,40 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The West Crater",
+     "by": "Super Mario Wiki: The West Crater (page read)",
      "url": "https://www.mariowiki.com/The_West_Crater",
-     "says": "the Super Jump Slam Overalls are needed to get the Saber"
+     "says": "\"the Super Jump Slam Overalls from the Castle of Illusions' Gray Chest is required. This allows Wario to break the solid blocks leading to a pipe all the way down the main area.\""
     },
     {
      "by": "game data",
      "says": "the Super Jump Slam Overalls flash The West Crater"
     }
-   ]
+   ],
+   "checked": "Super Jump Slam Overalls confirmed."
   },
   "CASTLE_BRICK": {
    "level": "W6",
    "needs": {
     "FIRE_DRENCHER": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The West Crater (page read)",
+     "url": "https://www.mariowiki.com/The_West_Crater",
+     "says": "\"the Fire Drencher from Above the Clouds' Red Chest is required, causing the bonfires in a passageway to be extinguished.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Fire Extinguisher: \"Extinguishes the fire in the upper-left area o' W6 The West Crater, opening access to its green treasure.\""
+    },
     {
      "by": "game data",
      "says": "the Fire Drencher switches The West Crater to variant 3"
-    },
-    {
-     "by": "Super Mario Wiki: The West Crater",
-     "url": "https://www.mariowiki.com/The_West_Crater",
-     "says": "the Fire Drencher puts out the flames in The West Crater"
     }
-   ]
+   ],
+   "checked": "Fire Drencher (game data) confirmed by the level page."
   },
   "SPADES_CREST": {
    "level": "W6",
@@ -1047,15 +1314,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Castle of Illusions",
-     "url": "https://www.mariowiki.com/Castle_of_Illusions",
-     "says": "the Rust Spray makes the iron walls in The West Crater, The Steep Canyon and Cave of Flames breakable"
+     "by": "Super Mario Wiki: The West Crater (page read)",
+     "url": "https://www.mariowiki.com/The_West_Crater",
+     "says": "\"the Rust Spray from Castle of Illusions' Blue Chest is required, causing the iron wall to rust and making it destructible.\""
     },
     {
      "by": "game data",
      "says": "the Rust Spray switches The West Crater to variant 4"
     }
-   ]
+   ],
+   "checked": "Rust Spray confirmed (own page now)."
   },
   "TRUCK_WHEEL": {
    "level": "S1",
@@ -1065,33 +1333,35 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Grasslands",
+     "by": "Super Mario Wiki: The Grasslands (page read)",
      "url": "https://www.mariowiki.com/The_Grasslands",
-     "says": "the red chest's Truck Wheel requires the Magic Seeds"
+     "says": "\"It require the Magic Seeds from The Big Bridge's Gray Chest to access it, where a vine is grown to be able to be climbed on, to where the treasure is.\""
     },
     {
      "by": "game data",
      "says": "the Magic Seeds switch The Grasslands to variant 2, new room headers"
     }
-   ]
+   ],
+   "checked": "Magic Seeds confirmed. Route read with Mezun's S1 day map (vine (2) to door F; Golf; cracked blocks broken with the Lead Overalls' Smash Attack): nothing else needed."
   },
   "MAGIC_WAND": {
    "level": "S1",
    "needs": {
     "FLUTE": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Grasslands (page read)",
+     "url": "https://www.mariowiki.com/The_Grasslands",
+     "says": "\"requires the Flute found in The Stagnant Swamp's Gray Chest, which summons a snakes in several levels to use as a stepping stone, such as this one.\" The chest is reached underwater."
+    },
     {
      "by": "game data",
      "says": "the Flute switches The Grasslands to variant 3; the red chest is the Magic Seeds' and the blue one the High Jump Boots', so this is the one it opens"
-    },
-    {
-     "by": "Super Mario Wiki: The Grasslands",
-     "url": "https://www.mariowiki.com/The_Grasslands",
-     "says": "the green chest is reached underwater, through a door at the foot of the tree"
     }
-   ]
+   ],
+   "checked": "Flute (game data) confirmed by the level page; the underwater part needs the Swimming Flippers, held before the Flute."
   },
   "FIGHTER_MANNEQUIN": {
    "level": "S1",
@@ -1101,15 +1371,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Grasslands",
+     "by": "Super Mario Wiki: The Grasslands (page read)",
      "url": "https://www.mariowiki.com/The_Grasslands",
-     "says": "the Fighter Mannequin requires the High Jump Boots"
+     "says": "\"requires the High Jump Boots from The Colossal Hole's Green Chest. It allows Wario to reach a door that is previously too high for Wario to reach.\""
     },
     {
      "by": "game data",
      "says": "the High Jump Boots flash The Grasslands"
     }
-   ]
+   ],
+   "checked": "High Jump Boots confirmed."
   },
   "CRAYON_CYAN_T": {
    "level": "S2",
@@ -1119,15 +1390,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Wario Wiki (Fandom): The Big Bridge",
-     "url": "https://wario.fandom.com/wiki/The_Big_Bridge",
-     "says": "red chest: come back with the flippers and swim in through a cracked block"
+     "by": "Super Mario Wiki: The Big Bridge (page read)",
+     "url": "https://www.mariowiki.com/The_Big_Bridge",
+     "says": "\"requires the Swimming Flippers found in the Tower of Revival's Gray Chest. It allows Wario to swim in the water under the bridge, allowing him to go into an underwater room.\""
     },
     {
      "by": "game data",
      "says": "the Swimming Flippers flash The Big Bridge"
     }
-   ]
+   ],
+   "checked": "Swimming Flippers confirmed by the Super Mario Wiki page (the Fandom page cited before could not be opened; dropped)."
   },
   "POCKET_PET": {
    "level": "S2",
@@ -1137,15 +1409,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Wario Wiki (Fandom): The Big Bridge",
-     "url": "https://wario.fandom.com/wiki/The_Big_Bridge",
-     "says": "green chest: throw the barrel at the enemy blocks at the end of the bridge (Grab Glove)"
+     "by": "Super Mario Wiki: The Big Bridge (page read)",
+     "url": "https://www.mariowiki.com/The_Big_Bridge",
+     "says": "\"requires the Grab Glove found in The Steep Canyon's Gray Chest. It allows Wario to use a barrel to throw at Enemy Blocks.\""
     },
     {
      "by": "game data",
      "says": "the Grab Glove flashes The Big Bridge"
     }
-   ]
+   ],
+   "checked": "Grab Glove confirmed by the Super Mario Wiki page (the Fandom page cited before could not be opened; dropped)."
   },
   "LANTERN": {
    "level": "S2",
@@ -1155,15 +1428,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Cave of Flames",
-     "url": "https://www.mariowiki.com/Cave_of_Flames",
-     "says": "the Scepter purifies the water in The Frigid Sea, Sea Turtle Rocks and The Big Bridge"
+     "by": "Super Mario Wiki: The Big Bridge (page read)",
+     "url": "https://www.mariowiki.com/The_Big_Bridge",
+     "says": "\"requires the Scepter from Cave of Flames's Gray Chest to purify the water in a few levels, including this one.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Water Wand (Scepter): \"opening access to the red treasure o' N6, the blue treasure o' S2, & the green treasure o' E2.\""
     },
     {
      "by": "game data",
      "says": "the Scepter switches The Big Bridge to variant 4"
     }
-   ]
+   ],
+   "checked": "Scepter confirmed (own page now)."
   },
   "GARLIC_T": {
    "level": "S3",
@@ -1174,15 +1453,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Bank of the Wild River",
-     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
-     "says": "the Garlic's chest needs the blue snake door open: Right and Left Glass Eye"
+     "by": "Super Mario Wiki: Tower of Revival (page read)",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "\"requires the blue snake door in this level to be open. This requires both the Right Glass Eye from The West Crater's Gray Chest and the Left Glass Eye from The Colossal Hole's Gray Chest\""
     },
     {
      "by": "game data",
      "says": "the glass eyes switch Tower of Revival to variant 2"
     }
-   ]
+   ],
+   "checked": "Both glass eyes confirmed (own page now)."
   },
   "TREASURE_MAP": {
    "level": "S3",
@@ -1192,15 +1472,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Tower of Revival",
+     "by": "Super Mario Wiki: Tower of Revival (page read)",
      "url": "https://www.mariowiki.com/Tower_of_Revival",
-     "says": "the Treasure Map's chest depends on the Statue, which makes the grillage to climb higher"
+     "says": "\"requires the Statue from Bank of the Wild River's Green Chest. The Statue is required to build the chain-link fence so that Wario can move further up the tower.\""
     },
     {
      "by": "game data",
      "says": "the Statue switches Tower of Revival to variant 3"
     }
-   ]
+   ],
+   "checked": "Statue confirmed."
   },
   "SKY_KEY": {
    "level": "S3",
@@ -1211,15 +1492,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Tower of Revival",
+     "by": "Super Mario Wiki: Tower of Revival (page read)",
      "url": "https://www.mariowiki.com/Tower_of_Revival",
-     "says": "the blue chest is behind the golden snake door"
+     "says": "\"requires the golden snake door in this level to be unlocked. This requires both the Golden Right Eye from Sea Turtle Rocks's Red Chest and the Golden Left Eye from A Town in Chaos's Green Chest\""
     },
     {
      "by": "game data",
      "says": "the golden eyes switch Tower of Revival to variant 4"
     }
-   ]
+   ],
+   "checked": "Both golden eyes confirmed; the route throws a Brrr Bear (Super Grab Gloves, already needed by the Golden Left Eye)."
   },
   "TUSK_RED": {
    "level": "S4",
@@ -1229,33 +1511,36 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Tidal Coast",
-     "url": "https://www.mariowiki.com/The_Tidal_Coast",
-     "says": "The Steep Canyon's red chest needs the Foot of Stone (a fissure opens)"
+     "by": "Super Mario Wiki: The Steep Canyon (page read)",
+     "url": "https://www.mariowiki.com/The_Steep_Canyon",
+     "says": "\"requires the Foot of Stone from The Tidal Coast's Red Chest to create a fissure in the wall in this level.\""
     },
     {
      "by": "game data",
      "says": "the Foot of Stone switches The Steep Canyon to variant 2, a new block map"
     }
-   ]
+   ],
+   "checked": "Foot of Stone confirmed (own page now)."
   },
   "TELEPHONE": {
    "level": "S4",
    "needs": {
-    "PRINCE_FROGS_GLOVES_T": "guide"
+    "PRINCE_FROGS_GLOVES_T": "guide",
+    "FOOT_OF_STONE": "guide"
    },
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Steep Canyon",
+     "by": "Super Mario Wiki: The Steep Canyon (page read)",
      "url": "https://www.mariowiki.com/The_Steep_Canyon",
-     "says": "the Telephone needs the Prince Frog's Glove, to swim against the current in the fissure"
+     "says": "\"requires Frog Prince's Glove from Out of the Woods' Green Chest. This allows Wario to swim past the current within the fissure to access a new area.\" \"To get to the Green Key, first the room within the fissure must be entered\""
     },
     {
      "by": "game data",
      "says": "the Prince Frog's Gloves flash The Steep Canyon"
     }
-   ]
+   ],
+   "checked": "Prince Frog's Gloves confirmed; the Foot of Stone added: the way starts in the fissure it opens (the Tusk Red's room). Already held before the gloves, so the graph doesn't move."
   },
   "BLUE_CHEMICAL": {
    "level": "S4",
@@ -1265,15 +1550,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Steep Canyon",
+     "by": "Super Mario Wiki: The Steep Canyon (page read)",
      "url": "https://www.mariowiki.com/The_Steep_Canyon",
-     "says": "the Blue Chemical needs the Rust Spray, which makes the iron wall breakable"
+     "says": "\"requires the Rust Spray from Castle of Illusions' Blue Chest, which is used to spray at the then-indestructible iron wall to make it rust\""
     },
     {
      "by": "game data",
      "says": "the Rust Spray switches The Steep Canyon to variant 4"
     }
-   ]
+   ],
+   "checked": "Rust Spray confirmed."
   },
   "MINICAR": {
    "level": "S5",
@@ -1283,64 +1569,78 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Cave of Flames",
+     "by": "Super Mario Wiki: Cave of Flames (page read)",
      "url": "https://www.mariowiki.com/Cave_of_Flames",
-     "says": "the Minicar requires the High Jump Boots (bouncing off enemies)"
+     "says": "\"It requires the High Jump Boots from The Colossal Hole's Green Chest, where the ability to bounce off enemies is needed to be able to collect the treasure.\""
     },
     {
      "by": "game data",
      "says": "the High Jump Boots flash Cave of Flames"
     }
-   ]
+   ],
+   "checked": "High Jump Boots confirmed; the route also uses a powered-up Smash Attack (Super Jump Slam Overalls, held before the boots)."
   },
   "POUCH": {
    "level": "S5",
    "needs": {
     "EXPLOSIVE_PLUNGER_BOX": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Cave of Flames (page read)",
+     "url": "https://www.mariowiki.com/Cave_of_Flames",
+     "says": "\"It requires the Explosive Plunger Box found in Beneath the Waves's Gray Chest, causing the bomb in this level to blow up and destroy the wall near it.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Detonator: \"opening access to the green chest in S5, & the blue chest in E1 & E4.\""
+    },
     {
      "by": "game data",
      "says": "the Explosive Plunger Box switches Cave of Flames to variant 3; the red chest is the High Jump Boots', so this is the one it opens"
-    },
-    {
-     "by": "Super Mario Wiki: Beneath the Waves",
-     "url": "https://www.mariowiki.com/Beneath_the_Waves",
-     "says": "the Explosive Plunger Box sets off the bombs in The Stagnant Swamp, Cave of Flames and The Colossal Hole"
     }
-   ]
+   ],
+   "checked": "Explosive Plunger Box (game data) confirmed by the level page (own page now)."
   },
   "SCISSORS": {
    "level": "S5",
    "needs": {
     "RUST_SPRAY": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Cave of Flames (page read)",
+     "url": "https://www.mariowiki.com/Cave_of_Flames",
+     "says": "\"which requires the Rust Spray from the Castle of Illusions' Blue Chest to make the iron wall rusty and consequently breakable.\""
+    },
     {
      "by": "game data",
      "says": "the Rust Spray switches Cave of Flames to variant 4"
-    },
-    {
-     "by": "Super Mario Wiki: Castle of Illusions",
-     "url": "https://www.mariowiki.com/Castle_of_Illusions",
-     "says": "the Rust Spray makes iron walls in Cave of Flames breakable"
     }
-   ]
+   ],
+   "checked": "Rust Spray (game data) confirmed by the level page; the route also needs a high jump (High Jump Boots, held long before)."
   },
   "JACKHAMMER": {
    "level": "S6",
    "needs": {
     "SCISSORS": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Above the Clouds (page read)",
+     "url": "https://www.mariowiki.com/Above_the_Clouds_(Wario_Land_3)",
+     "says": "\"requires the Scissors from the Cave of Flames' Blue Chest to access. Originally, there is a balloon tied to a building at the entrance; after the Scissors is acquired, the string attached to the balloon is cut off\""
+    },
     {
      "by": "game data",
      "says": "the Scissors (cut the balloon loose) switch Above the Clouds to variant 3, new room headers"
     }
-   ]
+   ],
+   "checked": "Scissors (game data) confirmed by the level page."
   },
   "PICK_AXE": {
    "level": "S6",
@@ -1349,6 +1649,11 @@
    },
    "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: Above the Clouds (page read)",
+     "url": "https://www.mariowiki.com/Above_the_Clouds_(Wario_Land_3)",
+     "says": "\"requires the Full Moon Gong from Sea Turtle Rocks' Blue Chest to access. This causes a moon to appear in this level only during nighttime\""
+    },
     {
      "by": "YouTube: Above the Clouds (Night) - Blue Chest",
      "url": "https://www.youtube.com/watch?v=IFyNdYT_RWQ",
@@ -1359,7 +1664,8 @@
      "says": "the Full Moon Gong switches Above the Clouds to variant 4, with its own night block map"
     }
    ],
-   "note": "At night."
+   "note": "At night.",
+   "checked": "Full Moon Gong confirmed by the level page; at night."
   },
   "GREEN_FLOWER": {
    "level": "E1",
@@ -1369,15 +1675,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Stagnant Swamp",
+     "by": "Super Mario Wiki: The Stagnant Swamp (page read)",
      "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
-     "says": "the Green Flower requires the Foot of Stone, which lowers the swamp's water"
+     "says": "\"It requires the Foot of Stone from The Tidal Coast's Red Chest, which causes the swamp's water level to lower, revealing two pipes and a door in between them.\""
     },
     {
      "by": "game data",
      "says": "the Foot of Stone switches The Stagnant Swamp to variant 2, a new block map"
     }
-   ]
+   ],
+   "checked": "Foot of Stone confirmed."
   },
   "RED_MUSIC_BOX": {
    "level": "E1",
@@ -1387,33 +1694,35 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Stagnant Swamp",
+     "by": "Super Mario Wiki: The Stagnant Swamp (page read)",
      "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
-     "says": "the High Jump Boots are needed to reach the platforms to the key and chest"
+     "says": "\"The High Jump Boots in The Colossal Hole's Green Chest is required, in order to reach platforms that lead to where the key and chest are.\""
     },
     {
      "by": "game data",
      "says": "the High Jump Boots flash The Stagnant Swamp"
     }
-   ]
+   ],
+   "checked": "High Jump Boots confirmed."
   },
   "EYE_OF_THE_STORM": {
    "level": "E1",
    "needs": {
     "EXPLOSIVE_PLUNGER_BOX": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The Stagnant Swamp (page read)",
+     "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
+     "says": "\"the Explosive Plunger Box from Beneath the Waves' Gray Chest is required, where it causes the bombs to detonate and break the floors that they are attached to.\""
+    },
     {
      "by": "game data",
      "says": "the Explosive Plunger Box switches The Stagnant Swamp to variant 4"
-    },
-    {
-     "by": "Super Mario Wiki: Beneath the Waves",
-     "url": "https://www.mariowiki.com/Beneath_the_Waves",
-     "says": "it sets off the bombs in The Stagnant Swamp"
     }
-   ]
+   ],
+   "checked": "Explosive Plunger Box (game data) confirmed by the level page (own page now)."
   },
   "TEAPOT": {
    "level": "E2",
@@ -1423,15 +1732,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Frigid Sea",
+     "by": "Super Mario Wiki: The Frigid Sea (page read)",
      "url": "https://www.mariowiki.com/The_Frigid_Sea",
-     "says": "the Teapot (red chest) needs the Grab Glove"
+     "says": "\"the Grab Glove from The Steep Canyon's Gray Chest is required. This allows Wario to carry a rock to break any Enemy Blocks blocking the way.\""
     },
     {
      "by": "game data",
      "says": "the Grab Glove flashes The Frigid Sea"
     }
-   ]
+   ],
+   "checked": "Grab Glove confirmed."
   },
   "MAGICAL_FLAME": {
    "level": "E2",
@@ -1441,15 +1751,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Frigid Sea",
+     "by": "Super Mario Wiki: The Frigid Sea (page read)",
      "url": "https://www.mariowiki.com/The_Frigid_Sea",
-     "says": "the Magical Flame needs the Scepter: clear water shows the door underwater"
+     "says": "\"the Scepter from the Cave of Flames's Gray Chest is required to make the water of the sea clear, causing the door underwater to become visible.\""
     },
     {
      "by": "game data",
      "says": "the Scepter switches The Frigid Sea to variant 3"
     }
-   ]
+   ],
+   "checked": "Scepter confirmed."
   },
   "UFO": {
    "level": "E2",
@@ -1460,15 +1771,22 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Frigid Sea",
+     "by": "Super Mario Wiki: The Frigid Sea (page read)",
      "url": "https://www.mariowiki.com/The_Frigid_Sea",
-     "says": "the UFO needs both Sun Medallion halves: daytime on the east side"
+     "says": "\"the Top Half of Sun Medallion ... and the Bottom Half of Sun Medallion ... are required, so that daytime can happen on the eastern part of the world. For this level, it causes the frozen waterfall to melt. Alternatively, if the Prince Frog's Glove is collected ..., this treasure can also be collected regardless of the time of day.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Left Half o' Sun Stone: \"is 1 o' the ways to get the blue chest o' E2 The Frigid Sea.\""
     },
     {
      "by": "game data",
      "says": "the Sun Medallion switches The Frigid Sea to variant 4; the east side is always night without it (InitEastMapSide)"
     }
-   ]
+   ],
+   "note": "By day; at night it needs the Prince Frog's Gloves instead (swim the current under the waterfall).",
+   "checked": "Sun Medallion confirmed, by day; the Prince Frog's Gloves are an alternative that comes later, so the needs keep the earlier way."
   },
   "TORCH_T": {
    "level": "E3",
@@ -1479,15 +1797,17 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Castle of Illusions",
+     "by": "Super Mario Wiki: Castle of Illusions (page read)",
      "url": "https://www.mariowiki.com/Castle_of_Illusions",
-     "says": "the Torch requires both Sun Medallion halves, to be taken by day"
+     "says": "\"requires both the Top Half of Sun Medallion ... and the Bottom Half of Sun Medallion ..., so that daytime can occur in the East side of the world, thus the treasure can be collect in the daytime. Optionally, to collect it during nighttime, the Super Grab Gloves from The East Crater's Gray Chest is required.\""
     },
     {
      "by": "game data",
      "says": "the Sun Medallion switches Castle of Illusions to variant 2"
     }
-   ]
+   ],
+   "note": "By day; at night it needs the Super Grab Gloves instead (a Brrr Bear thrown at the Enemy Blocks).",
+   "checked": "Sun Medallion confirmed, by day; the Super Grab Gloves are a later alternative (at night), so the needs keep the earlier way."
   },
   "GOLD_MAGIC": {
    "level": "E3",
@@ -1497,15 +1817,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Castle of Illusions",
+     "by": "Super Mario Wiki: Castle of Illusions (page read)",
      "url": "https://www.mariowiki.com/Castle_of_Illusions",
-     "says": "the Gold Magic requires the Super Grab Gloves"
+     "says": "\"The Gold Magic in the Green Chest requires the Super Grab Gloves from The East Crater's Gray Chest. This allows the Hammer-bots to be carried around and be thrown at Enemy Blocks.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Box (Castle Brick): \"Fills the gaps in the green & blue chest rooms o' E3 Castle of Illusions, opening access to its blue treasure.\""
     },
     {
      "by": "game data",
      "says": "the Super Grab Gloves flash Castle of Illusions"
     }
-   ]
+   ],
+   "checked": "Super Grab Gloves confirmed. The West Crater's page says the Castle Brick fills gaps in the green and blue chest rooms, but this page's route to the green chest doesn't use it, Mezun's list gives the brick to the blue chest only, and the Super Grab Gloves load variant 3 here (the brick's is 4): not a need."
   },
   "RUST_SPRAY": {
    "level": "E3",
@@ -1515,15 +1841,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Castle of Illusions",
+     "by": "Super Mario Wiki: Castle of Illusions (page read)",
      "url": "https://www.mariowiki.com/Castle_of_Illusions",
-     "says": "the Rust Spray requires the Castle Brick, which bridges the gaps"
+     "says": "\"requires the Castle Brick from The West Crater, where they are used to bridge the gaps to make the doors across them accessible.\""
     },
     {
      "by": "game data",
      "says": "the Castle Brick switches Castle of Illusions to variant 4"
     }
-   ]
+   ],
+   "checked": "Castle Brick confirmed (own page now)."
   },
   "AIR_PUMP": {
    "level": "E4",
@@ -1533,15 +1860,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Colossal Hole",
+     "by": "Super Mario Wiki: The Colossal Hole (page read)",
      "url": "https://www.mariowiki.com/The_Colossal_Hole",
-     "says": "the Air Pump requires the Garlic, to break the solid blocks in front of the red key's room"
+     "says": "\"requires the Garlic from Tower of Revival's Red Chest. This allows Wario to break solid blocks obstructing both the Red Key's room and the Golf minigame room.\""
     },
     {
      "by": "game data",
      "says": "the Garlic flashes The Colossal Hole"
     }
-   ]
+   ],
+   "checked": "Garlic confirmed."
   },
   "HIGH_JUMP_BOOTS_T": {
    "level": "E4",
@@ -1552,15 +1880,22 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Sea Turtle Rocks",
-     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
-     "says": "the Sun Medallion is needed for The Colossal Hole's green chest (High Jump Boots)"
+     "by": "Super Mario Wiki: The Colossal Hole (page read)",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "\"It requires both the Top Half of Sun Medallion ... and the Bottom Half of Sun Medallion ..., so that daytime can happen on the eastern part of the world. ... this Chest cannot be obtained in the nighttime at first\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Left Half o' Sun Stone: \"This makes it possible to get the green treasure o' E4 The Colossol Hole\""
     },
     {
      "by": "game data",
      "says": "the Sun Medallion switches The Colossal Hole to variant 3"
     }
-   ]
+   ],
+   "note": "By day.",
+   "checked": "Sun Medallion confirmed (own page now); by day."
   },
   "LOCOMOTIVE": {
    "level": "E4",
@@ -1570,15 +1905,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Colossal Hole",
+     "by": "Super Mario Wiki: The Colossal Hole (page read)",
      "url": "https://www.mariowiki.com/The_Colossal_Hole",
-     "says": "the Locomotive requires blowing up the bomb with the Explosive Plunger Box"
+     "says": "\"requires blowing up the bomb found in this level using the Explosive Plunger Box from Beneath the Waves' Gray Chest. This causes the ceiling with an attached bomb to drop down, allowing the door originally below it to be entered.\""
     },
     {
      "by": "game data",
      "says": "the Explosive Plunger Box switches The Colossal Hole to variant 4"
     }
-   ]
+   ],
+   "checked": "Explosive Plunger Box confirmed. The route jumps off snakes' heads, but these pots aren't among the Flute's (N2, W2, S1 on both pages), and the Flute comes long before anyway."
   },
   "CRAYON_BROWN_T": {
    "level": "E5",
@@ -1588,15 +1924,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "warioland3.com treasure list",
+     "by": "Super Mario Wiki: The Warped Void (page read)",
+     "url": "https://www.mariowiki.com/The_Warped_Void",
+     "says": "\"requires the Remote Control found in the Forest of Fear's Green Chest, which is used to remove the circle portals in the level\" (the Remote Control is the Warp Removal Apparatus)"
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
      "url": "https://www.warioland3.com/treasures.html",
-     "says": "removing the warps opens The Warped Void's red and green treasures"
+     "says": "Remote Control: \"Causes the yellow warp balls in E5 The Warped Void to disappear, opening access to its red & green treasures.\""
     },
     {
      "by": "game data",
      "says": "the Warp Removal Apparatus switches The Warped Void to variant 3"
     }
-   ]
+   ],
+   "checked": "Warp Removal Apparatus confirmed by the level page and Mezun's list (read this time)."
   },
   "DEMONS_BLOOD": {
    "level": "E5",
@@ -1606,15 +1948,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "warioland3.com treasure list",
+     "by": "Super Mario Wiki: The Warped Void (page read)",
+     "url": "https://www.mariowiki.com/The_Warped_Void",
+     "says": "\"requires the Remote Control found in the Forest of Fear's Green Chest, which is used to remove the circle portals in the level\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
      "url": "https://www.warioland3.com/treasures.html",
-     "says": "removing the warps opens The Warped Void's red and green treasures"
+     "says": "Remote Control: \"Causes the yellow warp balls in E5 The Warped Void to disappear, opening access to its red & green treasures.\""
     },
     {
      "by": "game data",
      "says": "as for the brown Crayon"
     }
-   ]
+   ],
+   "checked": "Warp Removal Apparatus confirmed by the level page and Mezun's list (read this time)."
   },
   "HEART_CREST": {
    "level": "E5",
@@ -1625,15 +1973,16 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The Warped Void",
+     "by": "Super Mario Wiki: The Warped Void (page read)",
      "url": "https://www.mariowiki.com/The_Warped_Void",
-     "says": "the Heart Crest needs both Key Cards, to free the Paragoom"
+     "says": "\"requires both the red and blue Key Cards in the Forest of Fear's Red Chest and Blue Chest respectively, opening up a gate containing a Para-Goom so that it is free.\""
     },
     {
      "by": "game data",
      "says": "the Key Cards switch The Warped Void to variant 4"
     }
-   ]
+   ],
+   "checked": "Both Key Cards confirmed."
   },
   "DIAMONDS_CREST": {
    "level": "E6",
@@ -1643,41 +1992,59 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: The East Crater",
+     "by": "Super Mario Wiki: The East Crater (page read)",
      "url": "https://www.mariowiki.com/The_East_Crater",
-     "says": "the Diamonds Crest requires the Fire Drencher"
+     "says": "\"requires the Fire Drencher from Above the Clouds' Red Chest. This causes the fire in this level to be extinguished\""
     },
     {
      "by": "game data",
      "says": "the Fire Drencher switches The East Crater to variant 2"
     }
-   ]
+   ],
+   "checked": "Fire Drencher confirmed (Mezun's list names only W6 for the Fire Drencher, but the level page and the game data, variant 2, agree)."
   },
   "NIGHT_VISION_SCOPE": {
    "level": "E6",
    "needs": {
     "JACKHAMMER": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The East Crater (page read)",
+     "url": "https://www.mariowiki.com/The_East_Crater",
+     "says": "\"requires the Jackhammer from Above the Clouds' Green Chest. It is used to create perforations on the ground in a room, releasing wind from under it.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Drill: \"Drills dirt blocking streams in E6 The East Crater, opening access to its green treasure.\""
+    },
     {
      "by": "game data",
      "says": "the Jackhammer (drills holes) switches The East Crater to variant 3"
     }
-   ]
+   ],
+   "checked": "Jackhammer (game data) confirmed by the level page."
   },
   "EARTHEN_FIGURE": {
    "level": "E6",
    "needs": {
     "PICK_AXE": "game data"
    },
-   "status": "data",
+   "status": "guide",
    "sources": [
+    {
+     "by": "Super Mario Wiki: The East Crater (page read)",
+     "url": "https://www.mariowiki.com/The_East_Crater",
+     "says": "\"It requires the Pick-Axe from Above the Clouds' Blue Chest, which is used to chisel a tiny hole with a portal behind it\""
+    },
     {
      "by": "game data",
      "says": "the Pick Axe (opens the crater hole) switches The East Crater to variant 4"
     }
-   ]
+   ],
+   "checked": "Pick Axe (game data) confirmed by the level page."
   },
   "WARP_REMOVAL_APPARATUS": {
    "level": "E7",
@@ -1694,13 +2061,18 @@
      "says": "the green chest needs the Mystery Handle (the raised pipe)"
     },
     {
-     "by": "game data",
-     "says": "the Mystery Handle raises a pipe and switches Forest of Fear to variant 3; the green chest is hinted right after it"
+     "by": "Super Mario Wiki: Forest of Fear (page read)",
+     "url": "https://www.mariowiki.com/Forest_of_Fear",
+     "says": "\"requires the Mystery Handle in The Warped Void's Gray Chest, which raises the pipe on the right side of the level, allowing it to be entered.\""
     },
     {
-     "by": "Super Mario Wiki: Forest of Fear",
-     "url": "https://www.mariowiki.com/Forest_of_Fear",
-     "says": "the raised pipe is next to the grey chest"
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Valve (Mystery Handle): \"Raises warp pipe in E7 Forest of Fear, opening access to its red & green treasures.\""
+    },
+    {
+     "by": "game data",
+     "says": "the Mystery Handle raises a pipe and switches Forest of Fear to variant 3; the green chest is hinted right after it"
     },
     {
      "by": "J. J. W. Mezun: E7 Forest of Fear (Day) map",
@@ -1713,7 +2085,8 @@
    "verified": {
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the green chest is reached through the pipe the Mystery Handle raises."
-   }
+   },
+   "checked": "Level page agrees with Taro's check. Route read with Mezun's E7 day map (pipe C; a Spearhead thrown at Enemy Blocks, Grab Glove; Vampire Wario from the Kobatto, which are on the day map too): nothing else needed. Needs left as Taro verified them."
   },
   "KEY_CARD_RED": {
    "level": "E7",
@@ -1731,9 +2104,9 @@
      "says": "the red chest needs the Mystery Handle (the raised pipe)"
     },
     {
-     "by": "Super Mario Wiki: Forest of Fear",
+     "by": "Super Mario Wiki: Forest of Fear (page read)",
      "url": "https://www.mariowiki.com/Forest_of_Fear",
-     "says": "the red Key Card requires the Mystery Handle (the raised pipe) and the Super Grab Gloves"
+     "says": "\"requires the Mystery Handle in The Warped Void's Gray Chest, which raises the pipe on the right side of the level, allowing it to be entered. Additionally, it requires the Super Grab Gloves in The East Crater's Gray Chest.\""
     },
     {
      "by": "game data",
@@ -1749,7 +2122,8 @@
     "by": "verified in game by Taro",
     "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises."
    },
-   "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises."
+   "note": "Taro, in the game: the red chest is reached through the pipe the Mystery Handle raises.",
+   "checked": "Super Grab Gloves confirmed (a Hammer-bot is carried); the Mystery Handle need left as Taro verified it."
   },
   "KEY_CARD_BLUE": {
    "level": "E7",
@@ -1759,15 +2133,21 @@
    "status": "guide",
    "sources": [
     {
-     "by": "Super Mario Wiki: Forest of Fear",
+     "by": "Super Mario Wiki: Forest of Fear (page read)",
      "url": "https://www.mariowiki.com/Forest_of_Fear",
-     "says": "the blue Key Card requires the Demon's Blood (zombies in the graveyard)"
+     "says": "\"requires the Demon's Blood from the The Warped Void's Green Chest, which summons zombies in the graveyard within this level.\""
+    },
+    {
+     "by": "J. J. W. Mezun: treasure list (page read)",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "Blood: \"Makes Zombies appear in graveyard area o' E7 Forest of Fear, opening access to its blue treasure.\""
     },
     {
      "by": "game data",
      "says": "the Demon's Blood switches Forest of Fear to variant 4"
     }
-   ]
+   ],
+   "checked": "Demon's Blood confirmed."
   }
  }
 }
