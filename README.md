@@ -1,6 +1,6 @@
 # Wario Land 3 + Debug/Cheat Menu
 
-<img src="wario-debug-menu.png" />
+<img src="wario-debug-menu.png" alt="The debug menu's three pages: MAIN, POWER and TREASURE" />
 
 ## What
 
