@@ -16,7 +16,7 @@ LEVEL (UP/DOWN to pick a row):
 
 POWER: the ten power-up levels, NONE and the nine power-ups, each with its treasure's graphics and colours, the ones Wario has in colour and the others in grey. Pick one with the D-pad and press A to get it and every power-up before it.
 
-TREASURE: a level (code and name, e.g. `N5 THE TIDAL COAST`) and its four treasures, grey, red, green and blue, each with its icon (in colour if Wario has it, grey if not) and OPEN or CLOSED, like the chest. LEFT/RIGHT change the level, UP/DOWN pick a treasure, A gives it to Wario or takes it back. It starts on the current level. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
+TREASURE: a level (code and name, e.g. `N5 THE TIDAL COAST`) and its four treasures in a 2x2 grid, grey and red, then green and blue, each with its icon (in colour if Wario has it, grey if not) and its chest from the pause menu, open or closed. LEFT/RIGHT change the level, UP/DOWN pick a treasure in reading order, A gives it to Wario or takes it back. It starts on the current level. Treasures that open new paths (like N5's Foot of Stone opening a secret door in S4) take effect the next time you enter a level from the map, as in the real game.
 
 The menu plays the pause menu's music. How it works is in the [book](https://lautarodragan.github.io/warioland3/debug-menu.html).
 

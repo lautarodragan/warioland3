@@ -126,9 +126,10 @@ DebugMenu_CopyTreasureTiles:
 
 ; -----------------------------------------------------------------------
 ; The OB palettes of the POWER and TREASURE pages, into wTempPals2 and the
-; hardware (in a V-Blank with the LCD on): the dim grey, and the
-; treasures' (OBPAL_TREASURE_*). Loaded with each of these pages: FORM
-; changes Wario's, in the same palettes.
+; hardware (in a V-Blank with the LCD on): the dim grey, the treasures'
+; (OBPAL_TREASURE_*) and the TREASURE page's chests' (DEBUG_CHEST_PAL_*).
+; Loaded with each of these pages: FORM changes Wario's, in the same
+; palettes.
 ; -----------------------------------------------------------------------
 DebugMenu_LoadTreasurePals:
 	ld hl, DebugPowerDimPal
@@ -139,6 +140,13 @@ DebugMenu_LoadTreasurePals:
 	ld de, wTempPals2 palette OBPAL_TREASURE_YELLOW
 	ld b, 4 palettes
 	ld a, BANK(TreasurePals)
+	ldh [hCallFuncBank], a
+	hcall CopyHLToDE
+	ld hl, PauseMenuOBPals palette 3
+	ld de, wTempPals2 palette DEBUG_CHEST_PAL_GREY_RED
+	ld b, 2 palettes
+	ASSERT DEBUG_CHEST_PAL_GREEN_BLUE == DEBUG_CHEST_PAL_GREY_RED + 1
+	ld a, BANK(PauseMenuOBPals)
 	ldh [hCallFuncBank], a
 	hcall CopyHLToDE
 	call DebugMenu_StartVRAMWrite

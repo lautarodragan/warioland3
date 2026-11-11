@@ -101,9 +101,9 @@ DEF DEBUG_POWER_CELL_SELECTED EQU $61
 DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
 
 ; The TREASURE page: a level's code between ◀ ▶, its name centred on the
-; two rows below, a blank row, and its four treasures in a column, each an icon cell
-; and two lines, its colour and OPEN or CLOSED. Shared with
-; tools/debug_menu_bgmap.py.
+; two rows below, and its four treasures in a 2x2 grid, in reading order
+; (grey red / green blue), each an icon cell with its chest right of it, open
+; or closed, as in the pause menu. Shared with tools/debug_menu_bgmap.py.
 ; The page's frame has a plain top edge, and the code is drawn a few pixels
 ; higher than the font's rows, half on that edge's row: font tiles from
 ; DEBUG_TREASURE_CODE_TILE on (over the font's "o", "p"..., unused by the
@@ -118,8 +118,21 @@ DEF DEBUG_TREASURE_CODE_TILES EQU DEBUG_TREASURE_CODE_TILE + DEBUG_TREASURE_CODE
 DEF DEBUG_CODE_GFX_LETTERS EQU DEBUG_TREASURE_CODE_FIXED
 DEF DEBUG_CODE_GFX_DIGITS  EQU DEBUG_CODE_GFX_LETTERS + 4 * 2
 DEF DEBUG_TREASURE_NAME_Y EQU 5
-DEF DEBUG_TREASURE_ICON_X EQU 6
-DEF DEBUG_TREASURE_TOP_Y  EQU 8
+; the top left cell, and how far apart the cells are
+DEF DEBUG_TREASURE_GRID_X  EQU 5
+DEF DEBUG_TREASURE_GRID_Y  EQU 9
+DEF DEBUG_TREASURE_GRID_DX EQU 6
+DEF DEBUG_TREASURE_GRID_DY EQU 4
+; The chests are the pause menu's sprites, 16x16 (a tile and its mirror
+; image): their tiles are in VRAM1, where the menu loads PauseMenuGfx for the
+; frame. Grey and green are the same tiles, and red and blue, in two of the
+; pause menu's OB palettes, loaded into 2 and 3 (0 and 1 are Wario's, put
+; back when the menu closes).
+DEF DEBUG_CHEST_TILE       EQU $d6 ; grey/green, closed
+DEF DEBUG_CHEST_OPEN       EQU 2   ; + this when open
+DEF DEBUG_CHEST_RED_BLUE   EQU 4   ; + this for red and blue
+DEF DEBUG_CHEST_PAL_GREY_RED   EQU 2 ; PauseMenuOBPals' 3
+DEF DEBUG_CHEST_PAL_GREEN_BLUE EQU 3 ; PauseMenuOBPals' 4
 ; The treasures' sprite tiles, after the POWER page's (VRAM0 $8000-$827f):
 ; two sets of four treasures, $8280-$837f and $8380-$847f. A new level's
 ; treasures go into the set not shown, a treasure per V-Blank, and then the
@@ -155,8 +168,6 @@ DebugMenuStrOn:     db "ON "              ; 3 bytes
 DebugMenuStrOff:    db "OFF"              ; 3 bytes
 DebugMenuStrOk:     db "OK "              ; 3 bytes
 DebugMenuStrNo:     db "NO "              ; 3 bytes
-DebugMenuStrOpen:   db "OPEN  "           ; 6 bytes, chests
-DebugMenuStrClosed: db "CLOSED"           ; 6 bytes
 
 SETCHARMAP main
 

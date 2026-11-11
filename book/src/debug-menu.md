@@ -298,7 +298,7 @@ in its V-Blank:
 | copy, tiles | 14 rows × 20 bytes, unrolled (`ld a, [hli]`, `ld [de], a`, `inc e`: 5 M-cycles a byte) | about 3100 dots |
 | copy, attributes | the same, and `rWY`, `rWX`, `rLCDC` | about 3100 dots |
 | map | GDMA, 2 × 36 blocks of 16 bytes; GDMA takes 32 dots a block in either speed | about 2300 dots |
-| values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name, then its statuses and cell | under 2000 dots each |
+| values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name, then its cell | under 2000 dots each |
 | OB palettes | 64 bytes (`ApplyTempPals2ToOBPals`) | about 1000 dots |
 | TREASURE tiles | 4 V-Blanks, a treasure (64 bytes) each, as for a level change | |
 | show | GDMA, 12 blocks (the indicator), OAM DMA, `rLCDC` | about 1100 dots |
@@ -353,29 +353,34 @@ in most rooms. Why:
 The TREASURE page gives or takes any level's treasure. It shows a level, its
 code between ◀ ▶ and its name on the two rows below (centred, split in two
 where it's too long, e.g. THE VOLCANO'S / BASE), and the level's four
-treasures in a column, grey, red, green and blue: each its icon in an icon
-cell like the POWER page's, its colour and OPEN or CLOSED, like the chest. The
-icons are in the treasure's own colours when Wario has it, in grey when he
-doesn't.
+treasures in a 2x2 grid, in reading order: grey and red, then green and blue.
+Each is its icon in an icon cell like the POWER page's, with its chest to the
+right, open if Wario has the treasure and closed if not, as in the pause
+menu. The icons are in the treasure's own colours when Wario has it, in grey
+when he doesn't.
 
 ```text
         ◀ N5 ▶
    THE TIDAL COAST
 
-      [icon] GREY
-             CLOSED
-      [icon] RED
-             OPEN
-      [icon] GREEN
-             CLOSED
-      [icon] BLUE
-             OPEN
+   [icon][grey]   [icon][red]
+
+   [icon][green]  [icon][blue]
 ```
+
+The chests are the pause menu's own sprites (16x16, a tile and its mirror
+image, `DEBUG_CHEST_TILE`). Their tiles are already in VRAM1, where the menu
+loads `PauseMenuGfx` for the frame, so they cost no VRAM: grey and green are
+the same tiles, and red and blue, in two of the pause menu's OB palettes
+(`PauseMenuOBPals`), which `DebugMenu_LoadTreasurePals` loads into OB palettes
+2 and 3 (`DEBUG_CHEST_PAL_*`; 0 and 1 are Wario's, put back when the menu
+closes). The page's 16 sprites, the icons' 8 and the chests' 8, are at most 8
+on a line, under the hardware's 10.
 
 | Button | Effect |
 |---|---|
 | LEFT/RIGHT | the previous or next level, wrapping (E7 and N1), on the same colour |
-| UP/DOWN | the treasure (no wrapping) |
+| UP/DOWN | the treasure, in reading order (no wrapping) |
 | A | gives or takes the selected treasure (`DebugMenu_ToggleTreasure`) |
 
 The page starts on the current level's grey treasure (N1's in The Temple and
@@ -387,7 +392,8 @@ take effect the next time Wario enters a level from the map, because
 
 The level names are in `src/engine/debug_menu/treasure_page.asm` (`DebugLevelNames`), each line with
 its column and length worked out by a macro. Changing the level redraws the
-code and the name in one V-Blank and the four statuses in the next.
+code and the name in one V-Blank. Giving or taking a treasure only rebuilds
+the sprites (`DebugMenu_BuildTreasureOAM`): the icon's palette and the chest.
 
 ### The level code's padding
 

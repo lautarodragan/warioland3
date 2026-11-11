@@ -80,6 +80,11 @@ and its four treasures with their icons, replacing the TREASURE row), with a
 page indicator in a small font under the title. B or SELECT closes the menu
 from any page. See [The debug menu](debug-menu.md).
 
+Later, the TREASURE page's level code got padding (a plain top edge, and the
+code drawn a few pixels higher than the font's rows), and its treasures went
+into a 2x2 grid, each with the pause menu's chest, open or closed, instead of
+its colour and OPEN or CLOSED in text.
+
 ## Page switches without the white flash
 
 Tried on a Game Boy Color, switching pages flashed white: the switch turned

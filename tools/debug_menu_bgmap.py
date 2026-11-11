@@ -36,8 +36,8 @@ current page's version of them, one row of debug_menu_pages.png.
 The POWER page lists the ten power-up levels in two columns of five: an
 icon cell (2x2) and a two-line name, white, or yellow when selected
 (debug_menu.asm redraws the selection). The TREASURE page has a level
-(code and name, drawn by debug_menu.asm) and its four treasures in a
-column, each a cell and two lines: its colour and OPEN or CLOSED.
+(code and name, drawn by debug_menu.asm) and its four treasures in a 2x2
+grid, each a cell with its chest (a sprite) right of it.
 
 The TREASURE page's frame has a plain top edge, without the yellow band and
 its orange triangles, and its level code (◀ N1 ▶) is drawn 2-3 pixels
@@ -99,11 +99,12 @@ POWER_NAMES = [
 # TREASURE, shared with debug_menu.asm (DEBUG_TREASURE_*): the level code
 # between ◀ ▶ (centred, the arrows always shown: LEFT/RIGHT change the
 # level), its name on the two rows below (debug_menu.asm centres each line),
-# a blank row, and the four treasures, a cell and two lines each
+# and the four treasures in a 2x2 grid (grey red / green blue), each an icon
+# cell with its chest right of it (a sprite, debug_menu.asm)
 TREASURE_CODE_ROW, TREASURE_CODE_COL = 4, 9
 TREASURE_NAME_ROW = 5
-TREASURE_TOP_ROW, TREASURE_ICON_COL = 8, 6
-TREASURE_COLOURS = ["GREY", "RED", "GREEN", "BLUE"]
+TREASURE_GRID_ROW, TREASURE_GRID_COL = 9, 5  # the top left cell
+TREASURE_GRID_DROW, TREASURE_GRID_DCOL = 4, 6
 
 # TREASURE's top edge and level code (debug_menu_code.png), font tiles from
 # CODE_TILE on (over the font's "o", "p"..., unused by the menu), in the
@@ -372,6 +373,8 @@ for col, tile in [
 ]:
     put(TREASURE_CODE_ROW - 1, col, (tile, PAL_FRAME))
     put(TREASURE_CODE_ROW, col, (tile + 1, PAL_FRAME))
-for i, colour in enumerate(TREASURE_COLOURS):
-    cell(TREASURE_TOP_ROW + i * 2, TREASURE_ICON_COL, (colour, ""))
+for i in range(4):
+    row = TREASURE_GRID_ROW + i // 2 * TREASURE_GRID_DROW
+    col = TREASURE_GRID_COL + i % 2 * TREASURE_GRID_DCOL
+    cell(row, col, ())
 save("debug_treasure")

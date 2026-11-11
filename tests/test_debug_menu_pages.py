@@ -38,7 +38,6 @@ VRAM_WRITERS = [
     "DebugMenu_DrawCell",
     "DebugMenu_DrawTreasureCell",
     "DebugMenu_DrawLevel",
-    "DebugMenu_DrawTreasureStatus",
     "ApplyTempPals2ToOBPals",
     "DebugMenu_EndVRAMWrite",  # the end of each write
 ]

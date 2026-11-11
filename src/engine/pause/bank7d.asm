@@ -254,7 +254,7 @@ PauseMenuBGPals:
 	rgb  9, 10, 31
 	rgb  0,  0,  0
 
-PauseMenuOBPals:
+PauseMenuOBPals::
 	rgb  0, 22, 16
 	rgb 21, 21, 19
 	rgb 10, 10,  8

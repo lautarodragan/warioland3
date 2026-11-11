@@ -231,6 +231,11 @@ def test_debug_menu_treasure(game, golden):
     game.menu_press("a")
     assert game.num_collected_treasures() == 2
     golden("debug_treasure_n5_mixed", game.screenshot())
+    # The chests (sprites 8-15, two each, after the icons'): open for the two
+    # owned, red and blue; grey and green closed.
+    oam = game.addr("wVirtualOAM")
+    chest_tiles = [game.pb.memory[oam + (8 + 2 * i) * 4 + 2] for i in range(4)]
+    assert chest_tiles == [0xD6, 0xDC, 0xD6, 0xDC]
 
     # LEFT from N1 wraps to E7, keeping the colour.
     game.menu_press("left", 5)

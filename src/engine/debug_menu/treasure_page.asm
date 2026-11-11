@@ -1,10 +1,11 @@
 ; The debug menu's TREASURE page (SELECT from POWER). A level's code and
-; name, and its four treasures (grey, red, green, blue), each with its icon,
-; its colour and OPEN or CLOSED, like the chest. The icons are sprites like
+; name, and its four treasures in a 2x2 grid (grey red / green blue), each
+; its icon with its chest, open if Wario has it. The icons are sprites like
 ; the POWER page's, with the same palettes: in the treasure's colours if
-; owned, in grey if not.
+; owned, in grey if not. The chests are the pause menu's sprites.
 ;
-; LEFT/RIGHT change the level (wrapping), UP/DOWN pick a treasure, A gives
+; LEFT/RIGHT change the level (wrapping), UP/DOWN pick a treasure in
+; reading order (no wrapping), A gives
 ; or takes it, SELECT goes back to LEVEL, B or START closes the menu.
 ; wDebugMenuTreasureIdx is the pick, level * 4 + colour (the
 ; LevelTreasureIDs layout); the page starts on the current level.
@@ -122,8 +123,8 @@ DebugMenu_ToggleTreasure:
 
 ; -----------------------------------------------------------------------
 ; Load the TREASURE page, its map already in BG map 0 (DebugMenu_LoadPage):
-; the code and name in a V-Blank, the statuses and the selected cell in
-; the next one, the icons' tiles in four more
+; the code and name in a V-Blank, the selected cell in the next one, the
+; icons' tiles in four more
 ; -----------------------------------------------------------------------
 DebugMenu_LoadTreasurePage:
 	call DebugMenu_LoadTreasurePals
@@ -132,7 +133,6 @@ DebugMenu_LoadTreasurePage:
 	call DebugMenu_DrawLevel
 	call DebugMenu_EndVRAMWrite
 	call DebugMenu_StartVRAMWrite
-	call DebugMenu_DrawTreasureStatuses
 	ld a, [wDebugMenuTreasureIdx]
 	and %11
 	ld c, DEBUG_POWER_CELL_SELECTED
@@ -232,57 +232,49 @@ DebugMenu_DrawLevel:
 	jp DebugMenu_GDMA
 
 ; -----------------------------------------------------------------------
-; Draw OPEN or CLOSED for the picked level's four treasures (all) or
-; treasure c (DebugMenu_DrawTreasureStatus), under its colour. The LCD must
-; be off or in V-Blank.
-; Clobbers: A, B, D, E, H, L (and C for all four)
-; -----------------------------------------------------------------------
-DebugMenu_DrawTreasureStatuses:
-	ld c, 0
-.loop
-	call DebugMenu_DrawTreasureStatus
-	inc c
-	ld a, c
-	cp NUM_LEVEL_TREASURES
-	jr nz, .loop
-	ret
-
-DebugMenu_DrawTreasureStatus:
-	call DebugMenu_GetLevelTreasureID
-	call DebugMenu_IsCollected
-	ld de, DebugMenuStrOpen
-	jr c, .got_status
-	ld de, DebugMenuStrClosed
-.got_status
-	; hl = the second line right of treasure c's cell, 2 map rows apart
-	ld a, c
-	swap a
-	add a
-	add a ; * 2 * TILEMAP_WIDTH
-	ld l, a
-	ld h, 0
-	push bc
-	ld bc, (DEBUG_TREASURE_TOP_Y + 1) * TILEMAP_WIDTH + DEBUG_TREASURE_ICON_X + 2 + v0BGMap0
-	add hl, bc
-	pop bc
-	ld b, DEBUG_POWER_NAME_WIDTH
-	jp DebugMenu_DrawString
-
-; -----------------------------------------------------------------------
-; Draw treasure a's cell (the picked level's) with tile c, and its colour
-; and status in yellow (DEBUG_POWER_CELL_SELECTED) or white. The LCD must
-; be off or in V-Blank.
-; Clobbers: A, B, C, D, E, H, L
+; Draw treasure a's cell (the picked level's, in the grid) with tile c
+; (DEBUG_POWER_CELL or _SELECTED). The LCD must be off or in V-Blank.
+; Clobbers: A, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawTreasureCell:
-	swap a
-	add a
-	add a ; * 2 * TILEMAP_WIDTH
-	ld l, a
-	ld h, 0
-	ld de, DEBUG_TREASURE_TOP_Y * TILEMAP_WIDTH + DEBUG_TREASURE_ICON_X + v0BGMap0
+	ld hl, DEBUG_TREASURE_GRID_Y * TILEMAP_WIDTH + DEBUG_TREASURE_GRID_X + v0BGMap0
+	ld de, DEBUG_TREASURE_GRID_DX
+	bit 0, a
+	jr z, .left
 	add hl, de
-	jp DebugMenu_DrawCell
+.left
+	ld de, DEBUG_TREASURE_GRID_DY * TILEMAP_WIDTH
+	bit 1, a
+	jr z, .top
+	add hl, de
+.top
+	ld a, c
+	ld [hli], a
+	ld [hl], a
+	ld de, TILEMAP_WIDTH
+	add hl, de
+	ld [hld], a
+	ld [hl], a
+	ret
+
+; Each treasure's icon position in the grid (OAM y, x), in reading order
+DebugTreasureGridPos:
+	FOR I, 4
+		db (DEBUG_TREASURE_GRID_Y + I / 2 * DEBUG_TREASURE_GRID_DY) * TILE_HEIGHT + OAM_Y_OFS
+		db (DEBUG_TREASURE_GRID_X + I % 2 * DEBUG_TREASURE_GRID_DX) * TILE_WIDTH + OAM_X_OFS
+	ENDR
+
+; output: hl = treasure c's position in DebugTreasureGridPos
+; Clobbers: A
+DebugMenu_GetTreasureGridPos:
+	ld a, c
+	add a
+	add LOW(DebugTreasureGridPos)
+	ld l, a
+	adc HIGH(DebugTreasureGridPos)
+	sub l
+	ld h, a
+	ret
 
 ; -----------------------------------------------------------------------
 ; Copy the picked level's four treasures' tiles to the set at
@@ -313,18 +305,17 @@ DebugMenu_LoadTreasureTiles:
 
 ; -----------------------------------------------------------------------
 ; The icons' sprites, two per treasure: the treasure's palette if owned,
-; the dim one if not.
+; the dim one if not. Then the chests', two each, right of the cells.
 ; -----------------------------------------------------------------------
 DebugMenu_BuildTreasureOAM:
 	ld de, wVirtualOAM
 	ld c, 0
 .loop
-	ld a, c
-	swap a ; 16 pixels (2 map rows) apart
-	add DEBUG_TREASURE_TOP_Y * TILE_HEIGHT + OAM_Y_OFS
+	call DebugMenu_GetTreasureGridPos
+	ld a, [hli]
 	ld [de], a ; y
 	inc e
-	ld a, DEBUG_TREASURE_ICON_X * TILE_WIDTH + OAM_X_OFS
+	ld a, [hl]
 	ld [de], a ; x
 	inc e
 	ld a, c ; tile: 4 per treasure, the left column first
@@ -381,6 +372,65 @@ DebugMenu_BuildTreasureOAM:
 	ld a, c
 	cp NUM_LEVEL_TREASURES
 	jr nz, .loop
+
+	ld c, 0
+.chest_loop
+	push de
+	call DebugMenu_GetLevelTreasureID
+	call DebugMenu_IsCollected
+	pop de
+	sbc a ; $ff if owned
+	and DEBUG_CHEST_OPEN
+	ld b, a
+	bit 0, c
+	jr z, .grey_green
+	ld a, DEBUG_CHEST_RED_BLUE
+	add b
+	ld b, a
+.grey_green
+	call DebugMenu_GetTreasureGridPos
+	ld a, [hli]
+	ld [de], a ; y
+	inc e
+	ld a, [hl]
+	add 2 * TILE_WIDTH ; right of the cell
+	ld [de], a ; x
+	inc e
+	ld a, DEBUG_CHEST_TILE
+	add b
+	ld [de], a
+	inc e
+	ld a, c
+	cp 2
+	ld a, DEBUG_CHEST_PAL_GREY_RED | OAM_BANK1
+	jr c, .got_chest_pal
+	ld a, DEBUG_CHEST_PAL_GREEN_BLUE | OAM_BANK1
+.got_chest_pal
+	ld [de], a
+	inc e
+	; the right half: the same tile, mirrored, 8 pixels right
+	ld h, d
+	ld a, e
+	sub OBJ_SIZE
+	ld l, a
+	ld a, [hli] ; y
+	ld [de], a
+	inc e
+	ld a, [hli] ; x
+	add TILE_WIDTH
+	ld [de], a
+	inc e
+	ld a, [hli] ; tile
+	ld [de], a
+	inc e
+	ld a, [hl]
+	or OAM_XFLIP
+	ld [de], a
+	inc e
+	inc c
+	ld a, c
+	cp NUM_LEVEL_TREASURES
+	jr nz, .chest_loop
 	ret
 
 ; -----------------------------------------------------------------------
@@ -451,13 +501,10 @@ UpdateDebugTreasurePage:
 	add NUM_LEVELS * NUM_LEVEL_TREASURES
 .got_level
 	ld [wDebugMenuTreasureIdx], a
-	; the code and name in a V-Blank, the statuses in the next one
+	; the code and name in a V-Blank
 	call DebugMenu_GetLevelName
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawLevel
-	call DebugMenu_EndVRAMWrite
-	call DebugMenu_StartVRAMWrite
-	call DebugMenu_DrawTreasureStatuses
 	call DebugMenu_EndVRAMWrite
 	; the icons: the new level's tiles into the other set, then the sprites
 	; switch to it (the V-Blank handler copies them to OAM)
@@ -469,11 +516,6 @@ UpdateDebugTreasurePage:
 	jp DebugMenu_BuildTreasureOAM
 
 .toggle
+	; the icon's palette and the chest change: only the sprites
 	call DebugMenu_ToggleTreasure
-	ld a, [wDebugMenuTreasureIdx]
-	and %11
-	ld c, a
-	call DebugMenu_StartVRAMWrite
-	call DebugMenu_DrawTreasureStatus
-	call DebugMenu_EndVRAMWrite
 	jp DebugMenu_BuildTreasureOAM
