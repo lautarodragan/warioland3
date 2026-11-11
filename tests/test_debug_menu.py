@@ -213,6 +213,21 @@ def test_debug_menu_treasure(game, golden):
     game.menu_press("down")
     assert game.read("wDebugMenuTreasureIdx") == N5_RED
     golden("debug_treasure_n5_red", game.screenshot())
+    # The cursor (sprites 16-19, the treasure collection screen's corners)
+    # frames the red treasure and its chest, and opens and closes.
+    oam = game.addr("wVirtualOAM")
+
+    def sprite(n):
+        return [game.pb.memory[oam + n * 4 + i] for i in range(4)]
+
+    icon_y, icon_x = sprite(2)[:2]  # the red icon's left half
+    assert sprite(16)[1] == icon_x - 3  # top left, 11 pixels left of the cell's middle
+    assert sprite(18)[1] == icon_x + 27  # top right, 3 right of the chest's middle
+    tiles = set()
+    for _ in range(12):
+        game.tick()
+        tiles.add(sprite(16)[2])
+    assert len(tiles) == 3  # its three frames
 
     game.menu_press("a")
     assert game.treasure_collected(FOOT_OF_STONE)

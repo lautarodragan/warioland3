@@ -110,7 +110,7 @@ INCBIN "gfx/gui/numbers.2bpp"
 TreasureCollectionGfx:
 INCBIN "gfx/gui/treasure_collection.2bpp.rle"
 
-TreasureCollectionCursorGfx:
+TreasureCollectionCursorGfx::
 INCBIN "gfx/gui/treasure_collection_cursor.2bpp.rle"
 
 TreasureCollectionTilemap: INCBIN "data/bgmaps/treasure_collection.tilemap.rle"
@@ -1540,7 +1540,7 @@ TreasureCollectionObjFrameset4:
 	db  10,  4
 	db $ff
 
-TreasureCollectionOBPals:
+TreasureCollectionOBPals::
 	rgb 31, 31, 31
 	rgb 10, 31, 10
 	rgb  0, 20,  0

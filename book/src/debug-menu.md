@@ -298,7 +298,7 @@ in its V-Blank:
 | copy, tiles | 15 rows × 20 bytes, unrolled (`ld a, [hli]`, `ld [de], a`, `inc e`: 5 M-cycles a byte) | about 3300 dots |
 | copy, attributes | the same, and `rWY`, `rWX`, `rLCDC` | about 3300 dots |
 | map | GDMA, 2 × 36 blocks of 16 bytes; GDMA takes 32 dots a block in either speed | about 2300 dots |
-| values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name, then its cell | under 2000 dots each |
+| values | LEVEL's in two V-Blanks (as before); a POWER cell; TREASURE's code and name | under 2000 dots each |
 | OB palettes | 64 bytes (`ApplyTempPals2ToOBPals`) | about 1000 dots |
 | TREASURE tiles | 4 V-Blanks, a treasure (64 bytes) each, as for a level change | |
 | show | GDMA, 12 blocks (the indicator), OAM DMA, `rLCDC` | about 1100 dots |
@@ -377,13 +377,30 @@ the same tiles, and red and blue, in two of the pause menu's OB palettes
 closes). Behind each chest is the pause menu's black box, a BG cell
 drawn by `tools/debug_menu_bgmap.py` in the frame's palette (a tile and its
 mirror image, among the fixed tiles from `DEBUG_TREASURE_CODE_TILE`), with its
-four yellow dots, which show between the lid and the body of an open chest. The page's 16 sprites, the icons' 8 and the chests' 8, are at most 8
-on a line, under the hardware's 10.
+four yellow dots, which show between the lid and the body of an open chest.
+
+The picked treasure and its chest are framed by the treasure collection
+screen's cursor: four corners, a 8x16 sprite each (the right ones are the
+left ones mirrored), that open and close a pixel at a time. They're that
+screen's own tiles (`TreasureCollectionCursorGfx`, loaded at
+`DEBUG_CURSOR_TILE`, after the icons' two sets), palette
+(`TreasureCollectionOBPals`, into OB palette 1, `DEBUG_CURSOR_PAL`) and
+animation (`TreasureCollectionObjFrameset1`: its frames 0, 1, 2, 1, 3 frames
+each, `DebugCursorAnim`). Since every corner is its own sprite, framing the
+wider pair only takes moving the right ones 16 pixels further. Each frame,
+`DebugMenu_AnimateTreasureCursor` moves on the animation and
+`DebugMenu_BuildCursorOAM` rewrites the cursor's 4 sprites, which the V-Blank
+handler copies to OAM; UP/DOWN only rebuild them.
+
+The page's 20 sprites are at most 10 on a line, the hardware's limit: a row
+of the grid has 8 (two icons and two chests), and the cursor's top and
+bottom corners never share a line, as in the collection screen, so it adds
+2.
 
 | Button | Effect |
 |---|---|
 | LEFT/RIGHT | the previous or next level, wrapping (E7 and N1), on the same colour |
-| UP/DOWN | the treasure, in reading order (no wrapping) |
+| UP/DOWN | the treasure, in reading order (no wrapping): the cursor moves |
 | A | gives or takes the selected treasure (`DebugMenu_ToggleTreasure`) |
 
 The page starts on the current level's grey treasure (N1's in The Temple and

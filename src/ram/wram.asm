@@ -2618,6 +2618,9 @@ wDebugPowerCursor:: db
 ; the first sprite tile of the TREASURE page's icons, one of its two sets
 ; (DEBUG_TREASURE_OBJ_TILE or the next DEBUG_TREASURE_OBJ_SET tiles)
 wDebugTreasureObjTile:: db
+; the TREASURE page's cursor animation, frames since it started (to
+; DEBUG_CURSOR_ANIM_LENGTH)
+wDebugTreasureCursorAnim:: db
 
 ; the enemy graphics slot the debug menu's owl borrowed (DEBUG_GFX_BORROWED),
 ; as it was, to give it back when the owl's gone. Aligned for HDMA.

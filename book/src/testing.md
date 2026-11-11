@@ -44,7 +44,8 @@ Every run writes its screenshots (and a `.diff.png` on mismatch) to
   (each keeping its selection), and checks that the SELECT that opens the menu,
   or one held down, switches no page or only one; closes the menu with B and
   START from every page, checking VRAM, the palettes and the window come back;
-  gives and takes treasures on the TREASURE page, changing levels; checks
+  gives and takes treasures on the TREASURE page, changing levels, and
+  checks its chests and its cursor (framing the pick, animated); checks
   that FORM skips the hidden forms both ways; and rolls Wario with ROLL, lets
   the roll end at a wall, and stops it with SELECT.
 - `test_debug_menu_pages.py` takes every frame of each page switch and checks

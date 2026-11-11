@@ -123,8 +123,7 @@ DebugMenu_ToggleTreasure:
 
 ; -----------------------------------------------------------------------
 ; Load the TREASURE page, its map already in BG map 0 (DebugMenu_LoadPage):
-; the code and name in a V-Blank, the selected cell in the next one, the
-; icons' tiles in four more
+; the code and name in a V-Blank, the icons' tiles in four more
 ; -----------------------------------------------------------------------
 DebugMenu_LoadTreasurePage:
 	call DebugMenu_LoadTreasurePals
@@ -132,12 +131,8 @@ DebugMenu_LoadTreasurePage:
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawLevel
 	call DebugMenu_EndVRAMWrite
-	call DebugMenu_StartVRAMWrite
-	ld a, [wDebugMenuTreasureIdx]
-	and %11
-	ld c, DEBUG_POWER_CELL_SELECTED
-	call DebugMenu_DrawTreasureCell
-	call DebugMenu_EndVRAMWrite
+	xor a
+	ld [wDebugTreasureCursorAnim], a
 	call DebugMenu_LoadTreasureTiles
 	jp DebugMenu_BuildTreasureOAM
 
@@ -230,32 +225,6 @@ DebugMenu_DrawLevel:
 	add hl, bc
 	ld c, 2
 	jp DebugMenu_GDMA
-
-; -----------------------------------------------------------------------
-; Draw treasure a's cell (the picked level's, in the grid) with tile c
-; (DEBUG_POWER_CELL or _SELECTED). The LCD must be off or in V-Blank.
-; Clobbers: A, D, E, H, L
-; -----------------------------------------------------------------------
-DebugMenu_DrawTreasureCell:
-	ld hl, DEBUG_TREASURE_GRID_Y * TILEMAP_WIDTH + DEBUG_TREASURE_GRID_X + v0BGMap0
-	ld de, DEBUG_TREASURE_GRID_DX
-	bit 0, a
-	jr z, .left
-	add hl, de
-.left
-	ld de, DEBUG_TREASURE_GRID_DY * TILEMAP_WIDTH
-	bit 1, a
-	jr z, .top
-	add hl, de
-.top
-	ld a, c
-	ld [hli], a
-	ld [hl], a
-	ld de, TILEMAP_WIDTH
-	add hl, de
-	ld [hld], a
-	ld [hl], a
-	ret
 
 ; Each treasure's icon position in the grid (OAM y, x), in reading order
 DebugTreasureGridPos:
@@ -431,12 +400,97 @@ DebugMenu_BuildTreasureOAM:
 	ld a, c
 	cp NUM_LEVEL_TREASURES
 	jr nz, .chest_loop
+;	fallthrough
+
+; -----------------------------------------------------------------------
+; The cursor's sprites around the picked treasure and its chest, in its
+; frame of the animation (wDebugTreasureCursorAnim)
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_BuildCursorOAM:
+	ld a, [wDebugTreasureCursorAnim]
+	ld e, a
+	ld d, 0
+	ld hl, DebugCursorAnim
+	add hl, de
+	ld b, [hl] ; frame, 0-2
+	ld a, [wDebugMenuTreasureIdx]
+	and %11
+	ld c, a
+	call DebugMenu_GetTreasureGridPos
+	; the top corners 23 pixels above the cell's middle, a pixel lower each
+	; frame (the corners in their tiles move the other way, and out)
+	ld a, [hli]
+	add TILE_HEIGHT - 23
+	add b
+	ld d, a
+	; the left ones 11 pixels left of the cell's middle
+	ld a, [hl]
+	add TILE_WIDTH - 11
+	ld e, a
+	; tiles: 4 per frame, the top corner's, then the bottom one's
+	ld a, b
+	add a
+	add a
+	add DEBUG_CURSOR_TILE
+	ld b, a
+	ld hl, wVirtualOAM + DEBUG_CURSOR_OAM * OBJ_SIZE
+	ld c, DEBUG_CURSOR_PAL
+	call .Pair
+	; the right ones 3 pixels right of the chest's middle, mirrored
+	ld a, e
+	add 3 * TILE_WIDTH + 3 - (TILE_WIDTH - 11)
+	ld e, a
+	ld c, DEBUG_CURSOR_PAL | OAM_XFLIP
+;	fallthrough
+
+; a top corner at (e, d) and the bottom one 16 pixels below it
+.Pair:
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, d
+	add 2 * TILE_HEIGHT
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, b
+	add 2
+	ld [hli], a
+	ld a, c
+	ld [hli], a
 	ret
+
+; the frame for each frame of the animation (TreasureCollectionObjFrameset1)
+DebugCursorAnim:
+	FOR I, DEBUG_CURSOR_ANIM_LENGTH
+		db (I / DEBUG_CURSOR_FRAME_DURATION) - 2 * (I >= 3 * DEBUG_CURSOR_FRAME_DURATION)
+	ENDR
+
+; -----------------------------------------------------------------------
+; The cursor's animation, every frame
+; -----------------------------------------------------------------------
+DebugMenu_AnimateTreasureCursor:
+	ld hl, wDebugTreasureCursorAnim
+	ld a, [hl]
+	inc a
+	cp DEBUG_CURSOR_ANIM_LENGTH
+	jr c, .got_frame
+	xor a
+.got_frame
+	ld [hl], a
+	jr DebugMenu_BuildCursorOAM
 
 ; -----------------------------------------------------------------------
 ; SST_DEBUG_TREASURE_PAGE: the TREASURE page's input
 ; -----------------------------------------------------------------------
 UpdateDebugTreasurePage:
+	call DebugMenu_AnimateTreasureCursor
 	ld a, [wJoypadPressed]
 	ld b, a
 	and PAD_B | PAD_START
@@ -473,21 +527,8 @@ UpdateDebugTreasurePage:
 	cp c
 	ret z
 	ld [wDebugMenuTreasureIdx], a
-
-	; redraw the two cells during V-Blank (LCD on)
-	push bc
-	call DebugMenu_StartVRAMWrite
-	pop bc
-	push bc
-	ld a, c
-	and %11
-	ld c, DEBUG_POWER_CELL
-	call DebugMenu_DrawTreasureCell
-	pop bc
-	ld a, b
-	ld c, DEBUG_POWER_CELL_SELECTED
-	call DebugMenu_DrawTreasureCell
-	jp DebugMenu_EndVRAMWrite
+	; the cursor moves (the V-Blank handler copies the sprites to OAM)
+	jp DebugMenu_BuildCursorOAM
 
 .next_level
 	add NUM_LEVEL_TREASURES

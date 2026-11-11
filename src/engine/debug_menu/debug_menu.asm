@@ -140,6 +140,18 @@ DEF DEBUG_CHEST_PAL_GREEN_BLUE EQU 3 ; PauseMenuOBPals' 4
 ; sprites switch to it.
 DEF DEBUG_TREASURE_OBJ_TILE EQU NUM_DEBUG_POWERS * NUM_TREASURE_TILES
 DEF DEBUG_TREASURE_OBJ_SET  EQU NUM_LEVEL_TREASURES * NUM_TREASURE_TILES
+; The cursor around the picked treasure and its chest is the treasure
+; collection screen's: four corners, a sprite each (the right ones mirrored),
+; that open and close a pixel at a time (its TreasureCollectionObjFrameset1
+; and TreasureCollectionObjOAM's frames 0-2, but wider). Its tiles
+; (TreasureCollectionCursorGfx) go after the treasures' two sets, its
+; palette (TreasureCollectionOBPals' first) into OB palette 1, and its
+; sprites after the icons' and the chests'.
+DEF DEBUG_CURSOR_TILE EQU DEBUG_TREASURE_OBJ_TILE + 2 * DEBUG_TREASURE_OBJ_SET
+DEF DEBUG_CURSOR_PAL  EQU 1
+DEF DEBUG_CURSOR_OAM  EQU 16 ; the first of its 4 sprites
+DEF DEBUG_CURSOR_FRAME_DURATION EQU 3
+DEF DEBUG_CURSOR_ANIM_LENGTH    EQU 4 * DEBUG_CURSOR_FRAME_DURATION ; 0 1 2 1
 
 ; A level's code, as its letter's and its digit's tiles in DebugMenuCodeGfx
 MACRO debug_level_code
@@ -833,6 +845,11 @@ DebugMenu_LoadTiles:
 	ld b, 2 tiles
 	call CopyHLToDE
 	call DebugMenu_LoadPowerTiles
+	ld hl, TreasureCollectionCursorGfx
+	ld bc, v0Tiles0 tile DEBUG_CURSOR_TILE
+	ld a, BANK(TreasureCollectionCursorGfx)
+	ldh [hCallFuncBank], a
+	hcall Decompress
 	ld a, BANK("VRAM1")
 	ldh [rVBK], a
 	ld hl, PauseMenuGfx
