@@ -22,7 +22,8 @@
 <text x="135" y="103" fill="#ffd34d" font-weight="bold">music box</text>
 <text x="230" y="103" fill="#7ee2b8" font-weight="bold">opens: new level</text>
 <text x="381" y="103" fill="#d9b3ff">changes: new variant</text>
-<text x="563" y="103" fill="#98a2ad">▶ cutscene</text>
+<text x="563" y="103" fill="#ffb98a">opens paths in: same level, new reach</text>
+<text x="879" y="103" fill="#98a2ad">▶ cutscene</text>
 <rect x="8" y="113" width="946" height="26" rx="5" fill="#2b313a"/>
 <text x="16" y="132" font-weight="bold" fill="#f2f5f8">Stage 1: north side, until the west side opens</text>
 <text x="16" y="162" fill="#98a2ad">1</text>
@@ -59,7 +60,7 @@
 <text x="106" y="288" fill="#ffd34d" font-weight="bold">Lead Overalls</text>
 <polygon points="228.0,276.5 226.3,280.7 221.8,281.0 225.3,283.9 224.1,288.3 228.0,285.8 231.8,288.3 230.6,283.9 234.2,281.0 229.6,280.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="288" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="288"><tspan fill="#d9b3ff" xml:space="preserve">changes N1, N3</tspan></text>
+<text x="512.1000000000001" y="288"><tspan fill="#ffb98a" xml:space="preserve">opens paths in N1, N3</tspan></text>
 <text x="16" y="316" fill="#98a2ad">7</text>
 <rect x="66" y="301" width="34" height="20" rx="4" fill="#f0645c"/>
 <text x="83" y="316" text-anchor="middle" font-weight="bold" fill="#0d1117">N1</text>
@@ -107,7 +108,7 @@
 <text x="106" y="498" fill="#ffd34d" font-weight="bold">Swimming Flippers</text>
 <polygon points="262.7,486.5 261.1,490.7 256.5,491.0 260.1,493.9 258.9,498.3 262.7,495.8 266.6,498.3 265.4,493.9 268.9,491.0 264.4,490.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="498" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="498"><tspan fill="#d9b3ff" xml:space="preserve">changes W3, S2</tspan></text>
+<text x="512.1000000000001" y="498"><tspan fill="#ffb98a" xml:space="preserve">opens paths in W3, S2</tspan></text>
 <text x="16" y="526" fill="#98a2ad">15</text>
 <rect x="66" y="511" width="34" height="20" rx="4" fill="#4cc55f"/>
 <text x="83" y="526" text-anchor="middle" font-weight="bold" fill="#0d1117">W3</text>
@@ -138,7 +139,7 @@
 <text x="106" y="652" fill="#ffd34d" font-weight="bold">Head Smash Helmet</text>
 <polygon points="262.7,640.5 261.1,644.7 256.5,645.0 260.1,647.9 258.9,652.3 262.7,649.8 266.6,652.3 265.4,647.9 268.9,645.0 264.4,644.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="652" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="652"><tspan fill="#d9b3ff" xml:space="preserve">changes W1, W4</tspan></text>
+<text x="512.1000000000001" y="652"><tspan fill="#ffb98a" xml:space="preserve">opens paths in W1, W4</tspan></text>
 <text x="16" y="680" fill="#98a2ad">20</text>
 <rect x="66" y="665" width="34" height="20" rx="4" fill="#f0645c"/>
 <text x="83" y="680" text-anchor="middle" font-weight="bold" fill="#0d1117">W4</text>
@@ -162,7 +163,7 @@
 <text x="106" y="736" fill="#ffd34d" font-weight="bold">Grab Glove</text>
 <polygon points="201.9,724.5 200.3,728.7 195.7,729.0 199.2,731.9 198.1,736.3 201.9,733.8 205.7,736.3 204.6,731.9 208.1,729.0 203.5,728.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="736" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="736"><tspan fill="#d9b3ff" xml:space="preserve">changes N5, S2, E2</tspan></text>
+<text x="512.1000000000001" y="736"><tspan fill="#ffb98a" xml:space="preserve">opens paths in N5, S2, E2</tspan></text>
 <text x="16" y="764" fill="#98a2ad">24</text>
 <rect x="66" y="749" width="34" height="20" rx="4" fill="#f0645c"/>
 <text x="83" y="764" text-anchor="middle" font-weight="bold" fill="#0d1117">N5</text>
@@ -199,7 +200,7 @@
 <text x="106" y="848" fill="#ffd34d" font-weight="bold">Garlic</text>
 <polygon points="167.1,836.5 165.5,840.7 161.0,841.0 164.5,843.9 163.3,848.3 167.1,845.8 171.0,848.3 169.8,843.9 173.3,841.0 168.8,840.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="848" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="848"><tspan fill="#7ee2b8" font-weight="bold" xml:space="preserve">opens N6</tspan><tspan fill="#d9b3ff" xml:space="preserve">  changes N4, E4</tspan></text>
+<text x="512.1000000000001" y="848"><tspan fill="#7ee2b8" font-weight="bold" xml:space="preserve">opens N6</tspan><tspan fill="#ffb98a" xml:space="preserve">  opens paths in N4, E4</tspan></text>
 <text x="16" y="876" fill="#98a2ad">31</text>
 <rect x="66" y="861" width="34" height="20" rx="4" fill="#a3acb6"/>
 <text x="83" y="876" text-anchor="middle" font-weight="bold" fill="#0d1117">N6</text>
@@ -229,7 +230,7 @@
 <text x="106" y="960" fill="#ffd34d" font-weight="bold">Super Jump Slam Overalls</text>
 <polygon points="323.6,948.5 321.9,952.7 317.4,953.0 320.9,955.9 319.7,960.3 323.6,957.8 327.4,960.3 326.2,955.9 329.7,953.0 325.2,952.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="960" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="960"><tspan fill="#d9b3ff" xml:space="preserve">changes N2, N6, W1, W6</tspan></text>
+<text x="512.1000000000001" y="960"><tspan fill="#ffb98a" xml:space="preserve">opens paths in N2, N6, W1, W6</tspan></text>
 <text x="16" y="988" fill="#98a2ad">36-37</text>
 <rect x="66" y="973" width="34" height="20" rx="4" fill="#4cc55f"/>
 <text x="83" y="988" text-anchor="middle" font-weight="bold" fill="#0d1117">N6</text>
@@ -246,7 +247,7 @@
 <text x="106" y="1016" fill="#ffd34d" font-weight="bold">High Jump Boots</text>
 <polygon points="245.4,1004.5 243.7,1008.7 239.2,1009.0 242.7,1011.9 241.5,1016.3 245.4,1013.8 249.2,1016.3 248.0,1011.9 251.5,1009.0 247.0,1008.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="1016" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="1016"><tspan fill="#d9b3ff" xml:space="preserve">changes S1, S5, E1</tspan></text>
+<text x="512.1000000000001" y="1016"><tspan fill="#ffb98a" xml:space="preserve">opens paths in S1, S5, E1</tspan></text>
 <text x="16" y="1044" fill="#98a2ad">39</text>
 <rect x="66" y="1029" width="34" height="20" rx="4" fill="#4cc55f"/>
 <text x="83" y="1044" text-anchor="middle" font-weight="bold" fill="#0d1117">E1</text>
@@ -276,7 +277,7 @@
 <text x="106" y="1128" fill="#ffd34d" font-weight="bold">Prince Frog&#x27;s Gloves</text>
 <polygon points="288.8,1116.5 287.2,1120.7 282.6,1121.0 286.1,1123.9 285.0,1128.3 288.8,1125.8 292.6,1128.3 291.5,1123.9 295.0,1121.0 290.4,1120.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="1128" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="1128"><tspan fill="#d9b3ff" xml:space="preserve">changes N4, W5, S4</tspan></text>
+<text x="512.1000000000001" y="1128"><tspan fill="#ffb98a" xml:space="preserve">opens paths in N4, W5, S4</tspan></text>
 <text x="16" y="1156" fill="#98a2ad">44</text>
 <rect x="66" y="1141" width="34" height="20" rx="4" fill="#4cc55f"/>
 <text x="83" y="1156" text-anchor="middle" font-weight="bold" fill="#0d1117">N4</text>
@@ -295,7 +296,7 @@
 <text x="106" y="1212" fill="#ffd34d" font-weight="bold">Super Grab Gloves</text>
 <polygon points="262.7,1200.5 261.1,1204.7 256.5,1205.0 260.1,1207.9 258.9,1212.3 262.7,1209.8 266.6,1212.3 265.4,1207.9 268.9,1205.0 264.4,1204.7" fill="#ffd34d"/>
 <text x="492.10000000000014" y="1212" fill="#98a2ad">→</text>
-<text x="512.1000000000001" y="1212"><tspan fill="#d9b3ff" xml:space="preserve">changes W4, E3, E7</tspan></text>
+<text x="512.1000000000001" y="1212"><tspan fill="#ffb98a" xml:space="preserve">opens paths in W4, E3, E7</tspan></text>
 <text x="16" y="1240" fill="#98a2ad">47</text>
 <rect x="66" y="1225" width="34" height="20" rx="4" fill="#4cc55f"/>
 <text x="83" y="1240" text-anchor="middle" font-weight="bold" fill="#0d1117">E3</text>

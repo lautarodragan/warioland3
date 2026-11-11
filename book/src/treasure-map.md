@@ -13,7 +13,11 @@ chest's colour, with the level they're in (N1-N6, W1-W6, S1-S6, E1-E7, in
 map order on each side). Gold names are power-ups (★) and music boxes (♪).
 After the arrow: what the event does on the map. **opens** means a level
 that couldn't be reached before; *changes* means a level that will now load
-a different variant, with new routes; ▶ means the event has a cutscene.
+a different variant, with new routes; *opens paths in* marks the levels a
+power-up flashes on the map: the game switches them to another variant too,
+but one with the same map and rooms, so nothing in the level changes; what's
+new is that Wario can now take paths he couldn't before. ▶ means the event
+has a cutscene.
 Click the picture to open it at full size. The same data is in the tables
 below.
 
@@ -75,7 +79,7 @@ order.
 | # | Treasure (level, chest) | Then |
 |---|---|---|
 | 4-5 | Top Half of Scroll (W1 grey) + Bottom Half of Scroll (W1 red) | drives the tornado away, opens W2 The Volcano's Base; cutscene |
-| 6 | **Lead Overalls** (W2 grey, power-up 1) | changes N1, N3 |
+| 6 | **Lead Overalls** (W2 grey, power-up 1) | opens paths in N1, N3 |
 | 7 | Jar (N1 red) | brings a rainstorm, opens W3 The Pool of Rain, W4 A Town in Chaos; cutscene |
 | 8-9 | Gear 1 (W3 grey) + Gear 2 (W4 grey) | fixes the elevator, opens S1 The Grasslands (south side reachable); cutscene |
 
@@ -86,7 +90,7 @@ order.
 | 10 | **Yellow Music Box** (S1 grey, music box) | opens S2 The Big Bridge; cutscene |
 | 11 | Magic Seeds (S2 grey) | plants the magic seeds, changes N3, W3, S1; cutscene |
 | 12-13 | Skull Ring Red (N3 green) + Skull Ring Blue (W3 red) | raises the tower, opens S3 Tower of Revival; cutscene |
-| 14 | **Swimming Flippers** (S3 grey, power-up 2) | changes W3, S2 |
+| 14 | **Swimming Flippers** (S3 grey, power-up 2) | opens paths in W3, S2 |
 | 15 | Ornamental Fan (W3 green) | blows the mist away, opens E1 The Stagnant Swamp (east side reachable); cutscene |
 
 ### Stage 4: all four sides, up to the Gold Music Box
@@ -95,27 +99,27 @@ order.
 |---|---|---|
 | 16 | Flute (E1 grey) | summons the snakes, changes N2, W2, S1; cutscene |
 | 17-18 | Blue Book (N2 red) + Magic Wand (S1 green) | freezes the sea, opens E2 The Frigid Sea; cutscene |
-| 19 | **Head Smash Helmet** (E2 grey, power-up 3) | changes W1, W4 |
+| 19 | **Head Smash Helmet** (E2 grey, power-up 3) | opens paths in W1, W4 |
 | 20 | **Blue Music Box** (W4 red, music box) | opens N4 Bank of the Wild River, N5 The Tidal Coast; cutscene |
 | 21-22 | Trident (N4 grey) + Yellow Book (N5 grey) | summons lightning, opens S4 The Steep Canyon; cutscene |
-| 23 | **Grab Glove** (S4 grey, power-up 4) | changes N5, S2, E2 |
+| 23 | **Grab Glove** (S4 grey, power-up 4) | opens paths in N5, S2, E2 |
 | 24 | Foot of Stone (N5 red) | an earthquake, changes W2, S4, E1; cutscene |
 | 25-27 | Tusk Blue (W2 blue) + Tusk Red (S4 red) + Green Flower (E1 red) | the volcano erupts, opens W6 The West Crater, E4 The Colossal Hole; cutscene |
 | 28-29 | Right Glass Eye (W6 grey) + Left Glass Eye (E4 grey) | opens the blue snake door, changes S3; cutscene |
-| 30 | **Garlic** (S3 red, power-up 5) | opens N6 Sea Turtle Rocks, changes N4, E4 |
+| 30 | **Garlic** (S3 red, power-up 5) | opens N6 Sea Turtle Rocks, opens paths in N4, E4 |
 | 31 | **Green Music Box** (N6 grey, music box) | opens S5 Cave of Flames; cutscene |
 | 32 | Scepter (S5 grey) | purifies the water, changes N6, S2, E2; cutscene |
 | 33-34 | Lantern (S2 blue) + Magical Flame (E2 green) | makes the castle appear, opens E3 Castle of Illusions; cutscene |
-| 35 | **Super Jump Slam Overalls** (E3 grey, power-up 6) | changes N2, N6, W1, W6 |
+| 35 | **Super Jump Slam Overalls** (E3 grey, power-up 6) | opens paths in N2, N6, W1, W6 |
 | 36-37 | Sun Medallion Top (N6 green) + Sun Medallion Bottom (W1 blue) | brings daytime to the east side, changes E2, E3, E4; cutscene |
-| 38 | **High Jump Boots** (E4 green, power-up 7) | changes S1, S5, E1 |
+| 38 | **High Jump Boots** (E4 green, power-up 7) | opens paths in S1, S5, E1 |
 | 39 | **Red Music Box** (E1 green, music box) | opens W5 Beneath the Waves; cutscene |
 | 40 | Explosive Plunger Box (W5 grey) | sets off the explosives, changes S5, E1, E4; cutscene |
 | 41-42 | Pouch (S5 green) + Eye of the Storm (E1 blue) | makes the leaves fall, changes N1; cutscene |
-| 43 | **Prince Frog's Gloves** (N1 green, power-up 8) | changes N4, W5, S4 |
+| 43 | **Prince Frog's Gloves** (N1 green, power-up 8) | opens paths in N4, W5, S4 |
 | 44 | Statue (N4 green) | makes a wire, changes N5, S3; cutscene |
 | 45 | Treasure Map (S3 green) | reads the treasure map, opens E6 The East Crater; cutscene |
-| 46 | **Super Grab Gloves** (E6 grey, power-up 9) | changes W4, E3, E7 |
+| 46 | **Super Grab Gloves** (E6 grey, power-up 9) | opens paths in W4, E3, E7 |
 | 47 | Gold Magic (E3 green) | opens the tree's mouth, changes N1; cutscene |
 | 48 | **Gold Music Box** (N1 blue, music box) | lights up the Temple; cutscene |
 <!-- end: sequence -->

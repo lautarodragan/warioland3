@@ -216,6 +216,17 @@ class Data:
                 if a != "TREASURE_NONE" or b != "TREASURE_NONE":
                     self.variants.setdefault(name, {})[int(v)] = tuple(t for t in (a, b) if t != "TREASURE_NONE")
 
+        # each level variant's block/object map and room headers, day and
+        # night: two variants with the same ones are the same level, and a
+        # treasure that "changes" a level only to such a twin (the power-ups)
+        # changes nothing in it: it opens paths Wario couldn't take before
+        self.variant_data = {}
+        for path, table in (("data/levels/level_maps.asm", "LevelBlockAndObjectMaps"),
+                            ("data/levels/rooms1.asm", "LevelHeaders")):
+            for label, name, time, v in re.findall(
+                    r"\tdw ([.\w]+)\s*; (\w+?)_(DAY|NIGHT)_(\d)\n", "\n".join(block(read(path), table)) + "\n"):
+                self.variant_data.setdefault((name, int(v)), {})[(table, time)] = label
+
         bank20 = read("engine/overworld/bank20.asm")
         # EventTreasures
         rows = [strip(l).split()[1] for l in block(bank20, "EventTreasures") if strip(l).startswith("db ")]
@@ -393,16 +404,22 @@ def analyse(d):
         for level in d.variants:
             v = select_variant(d, level, held)
             if v != selected[level]:
-                variants.append((level, v))
+                variants.append((level, selected[level], v))
                 selected[level] = v
             seen_variants[level].add(v)
         # plus the levels the map flashes: all are variant changes but the
         # Truck Wheel's, which works through the cart object instead
         # (CartVariableFunc checks the treasure itself)
-        changed = side_order(d, ({l for l, _ in variants} | set(highlights)) - set(new_levels) - {"THE_TEMPLE"})
+        # a power-up that "changes" a level only to an identical variant
+        # changes nothing there: Wario can now take paths he couldn't
+        # (the Sun Medallion's identical variants are a change of time of day)
+        same = {l for l, old, v in variants
+                if any(t in d.power for t in ts) and d.variant_data.get((l, old)) == d.variant_data.get((l, v))}
+        changed = side_order(d, ({l for l, _, _ in variants} | set(highlights)) - same - set(new_levels) - {"THE_TEMPLE"})
+        paths_in = side_order(d, same - set(new_levels))
         steps.append(dict(
             event=ev, treasures=ts, new_levels=new_levels, paths=paths, highlights=highlights,
-            funcs=funcs, variants=variants, changed=changed,
+            funcs=funcs, variants=variants, changed=changed, paths_in=paths_in,
             cutscene=d.cutscene.get(ev, False),
             main=d.events.index(ev) <= d.events.index(d.hint_last),
             side=next((side for side, e in d.side_events if e == ev), None),
@@ -451,6 +468,8 @@ def effects(d, s):
         out.append(("opens", "lights up the Temple"))
     if s["changed"]:
         out.append(("changes", "changes " + ", ".join(d.code(l) for l in s["changed"])))
+    if s["paths_in"]:
+        out.append(("paths", "opens paths in " + ", ".join(d.code(l) for l in s["paths_in"])))
     if ev == "EVENT_DAY_OR_NIGHT_SPELL":
         out.append(("note", "day/night button on the map"))
     return out
@@ -548,7 +567,7 @@ def md_levels(d, steps):
 CHEST = {"grey": "#a3acb6", "red": "#f0645c", "green": "#4cc55f", "blue": "#5b9cf2"}
 INK = {
     "bg": "#16191e", "band": "#2b313a", "title": "#f2f5f8", "text": "#e3e8ee", "dim": "#98a2ad",
-    "chip_text": "#0d1117", "gold": "#ffd34d", "opens": "#7ee2b8", "changes": "#d9b3ff", "note": "#98a2ad",
+    "chip_text": "#0d1117", "gold": "#ffd34d", "opens": "#7ee2b8", "changes": "#d9b3ff", "paths": "#ffb98a", "note": "#98a2ad",
 }
 FONT = 13
 CHAR_W = 7.9  # rough width of a character at FONT px in Verdana / DejaVu Sans
@@ -662,6 +681,7 @@ def svg(d, steps):
         (INK["gold"], ' font-weight="bold"', "music box"),
         (INK["opens"], ' font-weight="bold"', "opens: new level"),
         (INK["changes"], "", "changes: new variant"),
+        (INK["paths"], "", "opens paths in: same level, new reach"),
         (INK["dim"], "", "▶ cutscene"),
     ):
         if words in ("power-up", "music box"):
@@ -711,7 +731,7 @@ def effect_svg_text(d, s):
 def effect_svg_spans(d, s):
     style = {
         "action": (INK["text"], ""), "opens": (INK["opens"], ' font-weight="bold"'),
-        "side": (INK["opens"], ""), "changes": (INK["changes"], ""), "note": (INK["note"], ' font-style="italic"'),
+        "side": (INK["opens"], ""), "changes": (INK["changes"], ""), "paths": (INK["paths"], ""), "note": (INK["note"], ' font-style="italic"'),
         "cutscene": (INK["dim"], ""), "none": (INK["dim"], ' font-style="italic"'),
     }
     out = []

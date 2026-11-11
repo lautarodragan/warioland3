@@ -23,6 +23,36 @@ pixel:
 The last row puts `ROOM_UNUSED_063` on the first room of Out of the Woods:
 the forest's map, drawn with the town's blocks.
 
+## Level variants that never load
+
+Each level has up to four variants, and `SelectLevel` picks one by the
+treasures Wario holds (`LevelTreasureRequirements`; see
+[The treasure map](treasure-map.md)). Three of them never load in the order
+the Temple's hint gives the treasures, and two of those can't load in any
+order:
+
+- **The Peaceful Village** and **The Warped Void** ask for the same treasure
+  for variants 2 and 3 (the Flute; the Warp Removal Apparatus).
+  `SelectLevel` tries variant 3 first, so variant 2 is never picked. It
+  wouldn't matter anyway: both pairs share their room headers
+  (`ThePeacefulVillageDay2To4RoomHeaders`, `TheWarpedVoid2To3RoomHeaders`).
+- **The Volcano's Base** variant 2 needs the Truck Wheel, which the hint
+  gives after the Flute and the Foot of Stone, and those already select
+  variants 3 and 4. Its room headers are variant 1's anyway
+  (`TheVolcanosBaseDay1To2RoomHeaders`), and the Truck Wheel works through
+  the cart object instead (`CartVariableFunc` checks `TRUCK_WHEEL`).
+
+## Power-ups "change" levels into identical copies
+
+When Wario gets a power-up, the map flashes the levels where it helps, and
+`LevelTreasureRequirements` switches each of them to another variant: the
+Lead Overalls select variant 2 of Out of the Woods and The Vast Plain, for
+example. But those variants use the same block map and the same room
+headers as the ones before them (both of Out of the Woods' are
+`OutOfTheWoodsDay1To2RoomHeaders`). Nothing in the level changes: what's new
+is only what Wario can now do in it. The treasure map marks these as
+*opens paths in* instead of *changes*.
+
 ## Other unused data
 
 - `OBJECT_GROUP_UNUSED_066` is an exact copy of
