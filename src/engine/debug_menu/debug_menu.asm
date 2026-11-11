@@ -104,15 +104,16 @@ DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
 ; two rows below, and its four treasures in a 2x2 grid, in reading order
 ; (grey red / green blue), each an icon cell with its chest right of it, open
 ; or closed, as in the pause menu. Shared with tools/debug_menu_bgmap.py.
-; The page's frame has a plain top edge, and the code is drawn a few pixels
-; higher than the font's rows, half on that edge's row: font tiles from
-; DEBUG_TREASURE_CODE_TILE on (over the font's "o", "p"..., unused by the
-; menu) hold the edge, its corner and ◀ ▶ (DEBUG_TREASURE_CODE_FIXED tiles,
+; The page's frame is plain (its lines, without the band and its
+; triangles), and the code is drawn a few pixels higher than the font's
+; rows, half on the top edge's row: font tiles from DEBUG_TREASURE_CODE_TILE
+; on (over the font's "o", "p"..., unused by the menu) hold the frame's
+; pieces and ◀ ▶ (DEBUG_TREASURE_CODE_FIXED tiles,
 ; loaded once), then the picked level's letter and digit, a top and a
 ; bottom tile each, which the map always shows: debug_menu.asm only loads
 ; their tiles (DebugMenuCodeGfx).
 DEF DEBUG_TREASURE_CODE_TILE  EQU $6e
-DEF DEBUG_TREASURE_CODE_FIXED EQU 6
+DEF DEBUG_TREASURE_CODE_FIXED EQU 9
 DEF DEBUG_TREASURE_CODE_TILES EQU DEBUG_TREASURE_CODE_TILE + DEBUG_TREASURE_CODE_FIXED
 ; in DebugMenuCodeGfx, after the fixed tiles: N, W, S and E, then 1 to 7
 DEF DEBUG_CODE_GFX_LETTERS EQU DEBUG_TREASURE_CODE_FIXED
@@ -850,10 +851,9 @@ DebugMenu_LoadTiles:
 ;
 ; 1. The page on screen is copied to BG map 1, the part of it that differs
 ;    from page to page (DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM, the
-;    frame's top edge included: the TREASURE page's is plain; the rest, the
-;    title band and the frame's sides and bottom, is the same on every page
-;    and was put there when the menu opened), in two V-Blanks, one per VRAM
-;    bank.
+;    frame included: the TREASURE page's is plain; the rest, the title
+;    band, is the same on every page and was put there when the menu
+;    opened), in two V-Blanks, one per VRAM bank.
 ;    At the end of the second one the window goes on, showing the same
 ;    picture.
 ; 2. The next page is drawn in BG map 0, under the window: its map (GDMA,
@@ -870,7 +870,7 @@ DebugMenu_LoadTiles:
 
 ; the rows the pages don't share
 DEF DEBUG_MENU_SWAP_TOP    EQU 3
-DEF DEBUG_MENU_SWAP_BOTTOM EQU 16
+DEF DEBUG_MENU_SWAP_BOTTOM EQU 17
 
 ; -----------------------------------------------------------------------
 ; SELECT: the next page (LEVEL after TREASURE)
@@ -914,8 +914,8 @@ DebugMenu_NextPage:
 
 ; -----------------------------------------------------------------------
 ; Copy BG map 0's rows DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM, the
-; screen's columns, to BG map 1, in VRAM bank a. In a V-Blank: 14 rows of
-; 20 bytes, each byte 5 M-cycles (10 dots in double speed), about 3100
+; screen's columns, to BG map 1, in VRAM bank a. In a V-Blank: 15 rows of
+; 20 bytes, each byte 5 M-cycles (10 dots in double speed), about 3300
 ; dots of the V-Blank's 4560.
 ; Clobbers: A, B, D, E, H, L
 ; -----------------------------------------------------------------------

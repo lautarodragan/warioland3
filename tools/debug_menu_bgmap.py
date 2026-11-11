@@ -39,12 +39,13 @@ icon cell (2x2) and a two-line name, white, or yellow when selected
 (code and name, drawn by debug_menu.asm) and its four treasures in a 2x2
 grid, each a cell with its chest (a sprite) right of it.
 
-The TREASURE page's frame has a plain top edge, without the yellow band and
-its orange triangles, and its level code (◀ N1 ▶) is drawn 2-3 pixels
+The TREASURE page's frame is plain, without the yellow band and its orange
+triangles (only its lines, then the inside's dark red), and its level code (◀ N1 ▶) is drawn 2-3 pixels
 higher than the font's rows, so that it's centred between that edge and the
 level's name. Those tiles are in debug_menu_code.png, drawn in the frame's
 palette (its yellow is the values' yellow, its colour 2 the inside's dark
-red): the edge and its corner, ◀ and ▶ (top and bottom halves), then the
+red): the top edge and corner, the side, the bottom edge and corner, ◀ and
+▶ (top and bottom halves), then the
 top and bottom halves of N, W, S and E and of 1 to 7, for debug_menu.asm
 to load the picked level's (DEBUG_TREASURE_CODE_*).
 """
@@ -112,9 +113,9 @@ TREASURE_GRID_DROW, TREASURE_GRID_DCOL = 4, 6
 CODE_PNG = ROOT / "src/gfx/debug_menu_code.png"
 PAL_FRAME = 4
 CODE_TILE = 0x6E
-EDGE, CORNER = CODE_TILE, CODE_TILE + 1
-ARROW_TILES = CODE_TILE + 2  # ◀ top, bottom, ▶ top, bottom
-CODE_TILES = CODE_TILE + 6  # the letter's top and bottom, the digit's
+EDGE, CORNER, SIDE, BOTTOM, BOTTOM_CORNER = range(CODE_TILE, CODE_TILE + 5)
+ARROW_TILES = CODE_TILE + 5  # ◀ top, bottom, ▶ top, bottom
+CODE_TILES = CODE_TILE + 9  # the letter's top and bottom, the digit's
 FRAME_YELLOW, FRAME_DARK_RED = 0, 2
 # the glyph rows the code ends up on, counted from the top of its row: the
 # letters' (font rows 0-6) and the arrows' and digits' (rows 1-7) at -2 to 4
@@ -249,11 +250,15 @@ def code_tiles():
     top_edge = pause_gfx[0x100 + pause(8, 2)[0]]
     corner = pause_gfx[0x100 + pause(8, 1)[0]]
     side = pause_gfx[0x100 + pause(9, 1)[0]]
+    bottom = pause_gfx[0x100 + pause(12, 2)[0]]
+    bottom_corner = pause_gfx[0x100 + pause(12, 1)[0]]
     fill = [FRAME_DARK_RED] * 8
-    # the edge's lines, then the inside; the corner's lines, then the side's
-    # plain band
+    # each piece's lines (the outer half), then the inside instead of the band
+    side = [row[:4] + [FRAME_DARK_RED] * 4 for row in side]
     edge = top_edge[:4] + [fill] * 4
     corner = corner[:4] + [side[0]] * 4
+    bottom = [fill] * 4 + bottom[4:]
+    bottom_corner = [side[0]] * 4 + bottom_corner[4:]
 
     def halves(glyph, shift):
         """glyph (font colours: 0 on 3) shift pixels up, as a top half (under
@@ -267,7 +272,7 @@ def code_tiles():
                     out[8 + y - shift][x] = FRAME_YELLOW
         return [out[:8], out[8:]]
 
-    tiles = [edge, corner]
+    tiles = [edge, corner, side, bottom, bottom_corner]
     for arrow in ARROWS:
         tiles += halves([[int(c) for c in row] for row in arrow], DIGIT_SHIFT)
     for letter in CODE_LETTERS:
@@ -358,13 +363,17 @@ save("debug_power")
 
 save_code_png(code_tiles())
 
-# TREASURE: the plain top edge, and the code's tiles on it and under it
+# TREASURE: the plain frame, and the code's tiles on its top edge and under it
 new_map()
 frame(first, last)
-put(3, 1, (CORNER, PAL_FRAME))
-put(3, 18, (CORNER, PAL_FRAME | X_FLIP))
-for col in range(2, 18):
-    put(3, col, (EDGE, PAL_FRAME))
+for row, (corner, edge) in [(3, (CORNER, EDGE)), (17, (BOTTOM_CORNER, BOTTOM))]:
+    put(row, 1, (corner, PAL_FRAME))
+    put(row, 18, (corner, PAL_FRAME | X_FLIP))
+    for col in range(2, 18):
+        put(row, col, (edge, PAL_FRAME))
+for row in range(4, 17):
+    put(row, 1, (SIDE, PAL_FRAME))
+    put(row, 18, (SIDE, PAL_FRAME | X_FLIP))
 for col, tile in [
     (TREASURE_CODE_COL - 2, ARROW_TILES),
     (TREASURE_CODE_COL, CODE_TILES),
