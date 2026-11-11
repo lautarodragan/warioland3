@@ -108,12 +108,12 @@ DEF DEBUG_POWER_PAL_DIM EQU 0 ; OB palette for treasures not owned
 ; triangles), and the code is drawn a few pixels higher than the font's
 ; rows, half on the top edge's row: font tiles from DEBUG_TREASURE_CODE_TILE
 ; on (over the font's "o", "p"..., unused by the menu) hold the frame's
-; pieces and ◀ ▶ (DEBUG_TREASURE_CODE_FIXED tiles,
+; pieces, ◀ ▶ and the chests' black box (DEBUG_TREASURE_CODE_FIXED tiles,
 ; loaded once), then the picked level's letter and digit, a top and a
 ; bottom tile each, which the map always shows: debug_menu.asm only loads
 ; their tiles (DebugMenuCodeGfx).
 DEF DEBUG_TREASURE_CODE_TILE  EQU $6e
-DEF DEBUG_TREASURE_CODE_FIXED EQU 9
+DEF DEBUG_TREASURE_CODE_FIXED EQU 11
 DEF DEBUG_TREASURE_CODE_TILES EQU DEBUG_TREASURE_CODE_TILE + DEBUG_TREASURE_CODE_FIXED
 ; in DebugMenuCodeGfx, after the fixed tiles: N, W, S and E, then 1 to 7
 DEF DEBUG_CODE_GFX_LETTERS EQU DEBUG_TREASURE_CODE_FIXED

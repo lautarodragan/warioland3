@@ -45,7 +45,7 @@ higher than the font's rows, so that it's centred between that edge and the
 level's name. Those tiles are in debug_menu_code.png, drawn in the frame's
 palette (its yellow is the values' yellow, its colour 2 the inside's dark
 red): the top edge and corner, the side, the bottom edge and corner, ◀ and
-▶ (top and bottom halves), then the
+▶ (top and bottom halves), the box behind a chest (its left half), then the
 top and bottom halves of N, W, S and E and of 1 to 7, for debug_menu.asm
 to load the picked level's (DEBUG_TREASURE_CODE_*).
 """
@@ -115,8 +115,10 @@ PAL_FRAME = 4
 CODE_TILE = 0x6E
 EDGE, CORNER, SIDE, BOTTOM, BOTTOM_CORNER = range(CODE_TILE, CODE_TILE + 5)
 ARROW_TILES = CODE_TILE + 5  # ◀ top, bottom, ▶ top, bottom
-CODE_TILES = CODE_TILE + 9  # the letter's top and bottom, the digit's
-FRAME_YELLOW, FRAME_DARK_RED = 0, 2
+CHEST_BOX = CODE_TILE + 9  # the left half's top and bottom, mirrored for the right
+CODE_TILES = CODE_TILE + 11  # the letter's top and bottom, the digit's
+assert CODE_TILES + 4 <= CHARS[" "]
+FRAME_YELLOW, FRAME_DARK_RED, FRAME_BLACK = 0, 2, 3
 # the glyph rows the code ends up on, counted from the top of its row: the
 # letters' (font rows 0-6) and the arrows' and digits' (rows 1-7) at -2 to 4
 LETTER_SHIFT, DIGIT_SHIFT = 2, 3
@@ -273,8 +275,21 @@ def code_tiles():
         return [out[:8], out[8:]]
 
     tiles = [edge, corner, side, bottom, bottom_corner]
+    arrows = []
     for arrow in ARROWS:
-        tiles += halves([[int(c) for c in row] for row in arrow], DIGIT_SHIFT)
+        arrows += halves([[int(c) for c in row] for row in arrow], DIGIT_SHIFT)
+    tiles += arrows
+
+    # The box behind each chest, as in the pause menu (its tiles $6e, $f9,
+    # $0c under the chests' sprites): black, a pixel in from the 16x16 cell,
+    # with four yellow dots between the lid and the body. Left half; the map
+    # mirrors it.
+    box = [[FRAME_DARK_RED] * 8 for _ in range(16)]
+    for y in range(1, 15):
+        for x in range(1, 8):
+            box[y][x] = FRAME_BLACK
+    box[4][6] = box[6][4] = FRAME_YELLOW
+    tiles += [box[:8], box[8:]]
     for letter in CODE_LETTERS:
         tiles += halves(font[0x100 + CHARS[letter]], LETTER_SHIFT)
     for digit in "1234567":
@@ -386,4 +401,8 @@ for i in range(4):
     row = TREASURE_GRID_ROW + i // 2 * TREASURE_GRID_DROW
     col = TREASURE_GRID_COL + i % 2 * TREASURE_GRID_DCOL
     cell(row, col, ())
+    # the chest's box, right of the cell (debug_menu.asm draws the chest)
+    for dy in range(2):
+        put(row + dy, col + 2, (CHEST_BOX + dy, PAL_FRAME))
+        put(row + dy, col + 3, (CHEST_BOX + dy, PAL_FRAME | X_FLIP))
 save("debug_treasure")

@@ -374,7 +374,10 @@ loads `PauseMenuGfx` for the frame, so they cost no VRAM: grey and green are
 the same tiles, and red and blue, in two of the pause menu's OB palettes
 (`PauseMenuOBPals`), which `DebugMenu_LoadTreasurePals` loads into OB palettes
 2 and 3 (`DEBUG_CHEST_PAL_*`; 0 and 1 are Wario's, put back when the menu
-closes). The page's 16 sprites, the icons' 8 and the chests' 8, are at most 8
+closes). Behind each chest is the pause menu's black box, a BG cell
+drawn by `tools/debug_menu_bgmap.py` in the frame's palette (a tile and its
+mirror image, among the fixed tiles from `DEBUG_TREASURE_CODE_TILE`), with its
+four yellow dots, which show between the lid and the body of an open chest. The page's 16 sprites, the icons' 8 and the chests' 8, are at most 8
 on a line, under the hardware's 10.
 
 | Button | Effect |
