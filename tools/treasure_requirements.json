@@ -755,11 +755,17 @@
   "BLUE_GEM": {
    "level": "W2",
    "needs": {
-    "TRUCK_WHEEL": "guide",
-    "FLUTE": "game data"
+    "TRUCK_WHEEL": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the red chest needs the Truck Wheel (the carts), not the Flute."
+    }
    },
-   "status": "uncertain",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the red chest doesn't need the Flute"
+    },
     {
      "by": "Super Mario Wiki: The Volcano's Base",
      "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
@@ -768,19 +774,38 @@
     {
      "by": "game data",
      "says": "the cart checks TRUCK_WHEEL itself (CartVariableFunc); the Flute switches The Volcano's Base to variant 3, new room headers"
+    },
+    {
+     "by": "J. J. W. Mezun: W2 The Volcano's Base (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "the carts appear once the Truck Wheel (S1 red) is collected and carry Wario forward when he jumps on them; the snake by door G comes out of its pot after the Flute"
     }
    ],
-   "note": "The Truck Wheel is certain. The Flute is inferred: its change of this level has to open something, and nothing there is hinted between the Flute and the Foot of Stone.",
-   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the red key and chest?"
+   "note": "Taro, in the game: the red chest needs the Truck Wheel (the carts), not the Flute.",
+   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the red key and chest?",
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the red chest needs the Truck Wheel (the carts), not the Flute."
+   }
   },
   "CROWN": {
    "level": "W2",
    "needs": {
-    "TRUCK_WHEEL": "guide",
-    "FLUTE": "game data"
+    "TRUCK_WHEEL": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the green chest needs the Flute too (the snake), besides the Truck Wheel's carts."
+    },
+    "FLUTE": {
+     "by": "verified in game by Taro",
+     "note": "Taro, in the game: the green chest needs the Flute too (the snake), besides the Truck Wheel's carts."
+    }
    },
-   "status": "uncertain",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "the green chest needs the Flute"
+    },
     {
      "by": "Super Mario Wiki: The Volcano's Base",
      "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
@@ -789,10 +814,19 @@
     {
      "by": "game data",
      "says": "as for the Blue Gem"
+    },
+    {
+     "by": "J. J. W. Mezun: W2 The Volcano's Base (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "the carts appear once the Truck Wheel (S1 red) is collected and carry Wario forward when he jumps on them; the snake by door G comes out of its pot after the Flute"
     }
    ],
-   "note": "The Truck Wheel per the wiki; the Flute as for the Blue Gem.",
-   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the green key and chest?"
+   "note": "Taro, in the game: the green chest needs the Flute too (the snake), besides the Truck Wheel's carts.",
+   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the green key and chest?",
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "Taro, in the game: the green chest needs the Flute too (the snake), besides the Truck Wheel's carts."
+   }
   },
   "SKULL_RING_BLUE": {
    "level": "W3",
