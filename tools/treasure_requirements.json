@@ -1,0 +1,1642 @@
+{
+ "about": [
+  "What each treasure needs inside its level, besides the level being open (tools/treasure_graph.py works that out from the game data).",
+  "needs: treasure -> where that need comes from, one of: \"guide\" (a guide says it), \"game data\" (a treasure's change of this level, LevelTreasureRequirements / OWSceneParams, matched to this chest), \"heuristic (power-up map flash + lowest chest)\" (a power-up flashes this level on the map and this is the lowest-colour chest not yet obtainable there), \"verified in game by Taro\". The value can also be {\"by\": one of those, \"note\": \"free text\"}. A power-up treasure (LEAD_OVERALLS_T ... SUPER_GRAB_GLOVES_T) means that power-up level or higher.",
+  "Recording a check made in the game: set each need that was confirmed to {\"by\": \"verified in game by Taro\", \"note\": \"...\"}, delete the needs that turned out not to be needed (and add any that were missing), then add \"verified\": {\"by\": \"verified in game by Taro\", \"note\": \"...\"} to the treasure: that takes it off the review list. Then run python3 tools/treasure_graph.py to rewrite the page and the review list.",
+  "check: what to try in the game, shown on the review list.",
+  "status: guide = a guide says so and the game data agrees; data = from the game data (and the heuristic) alone; uncertain = sources missing, conflicting or not conclusive.",
+  "The guides were read through web search results: the sites couldn't be opened from where this was written. Check the page before relying on a detail."
+ ],
+ "treasures": {
+  "AXE": {
+   "level": "N1",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "BLUE_TABLET": {
+   "level": "N2",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "GREEN_TABLET": {
+   "level": "N3",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "TOP_HALF_OF_SCROLL": {
+   "level": "W1",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "LEAD_OVERALLS_T": {
+   "level": "W2",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "GEAR_1": {
+   "level": "W3",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "GEAR_2": {
+   "level": "W4",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "YELLOW_MUSIC_BOX": {
+   "level": "S1",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "MAGIC_SEEDS": {
+   "level": "S2",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "SWIMMING_FLIPPERS_T": {
+   "level": "S3",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "FLUTE": {
+   "level": "E1",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "HEAD_SMASH_HELMET_T": {
+   "level": "E2",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "TRIDENT": {
+   "level": "N4",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "YELLOW_BOOK": {
+   "level": "N5",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "GRAB_GLOVE_T": {
+   "level": "S4",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "RIGHT_GLASS_EYE": {
+   "level": "W6",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "LEFT_GLASS_EYE": {
+   "level": "E4",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "GREEN_MUSIC_BOX": {
+   "level": "N6",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "SCEPTER": {
+   "level": "S5",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "SUPER_JUMP_SLAM_OVERALLS_T": {
+   "level": "E3",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "EXPLOSIVE_PLUNGER_BOX": {
+   "level": "W5",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "SUPER_GRAB_GLOVES_T": {
+   "level": "E6",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "MYSTERY_HANDLE": {
+   "level": "E5",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "CRAYON_GREEN_T": {
+   "level": "S6",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "grey chest, hinted as soon as the level opens: nothing changes the level before it"
+    }
+   ]
+  },
+  "BOTTOM_HALF_OF_SCROLL": {
+   "level": "W1",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "red chest, hinted together with the grey one as soon as Desert Ruins opens"
+    }
+   ]
+  },
+  "FIRE_DRENCHER": {
+   "level": "S6",
+   "needs": {},
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "Above the Clouds opens straight into variant 2 (the Sky Key); the next change, the Scissors', comes after this chest in the hint order"
+    }
+   ]
+  },
+  "WARP_COMPACT": {
+   "level": "E7",
+   "needs": {},
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Forest of Fear",
+     "url": "https://www.mariowiki.com/Forest_of_Fear",
+     "says": "the Warp Compact (grey chest) is available as soon as the level is open"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Grab Gloves flash Forest of Fear, but that's for the red Key Card"
+    }
+   ]
+  },
+  "JAR": {
+   "level": "N1",
+   "needs": {
+    "LEAD_OVERALLS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Lead Overalls flash Out of the Woods (variant 2); the Jar is the chest hinted next there"
+    },
+    {
+     "by": "Wario Wiki (Fandom): Wario Land 3 walkthrough",
+     "url": "https://wario.fandom.com/wiki/Wario_Land_3:_Walkthrough",
+     "says": "the way to the red key needs a Ground Pound (Lead Overalls)"
+    }
+   ]
+  },
+  "PRINCE_FROGS_GLOVES_T": {
+   "level": "N1",
+   "needs": {
+    "POUCH": "game data",
+    "EYE_OF_THE_STORM": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the falling leaves (Pouch + Eye of the Storm) switch Out of the Woods to variant 3, new room headers"
+    }
+   ]
+  },
+  "GOLD_MUSIC_BOX": {
+   "level": "N1",
+   "needs": {
+    "GOLD_MAGIC": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Gold Magic opens the tree's mouth and switches Out of the Woods to variant 4"
+    },
+    {
+     "by": "Wario Wiki (Fandom): Out of the Woods",
+     "url": "https://wario.fandom.com/wiki/Out_of_the_Woods",
+     "says": "the blue chest needs the Gold Magic from Castle of Illusions"
+    }
+   ]
+  },
+  "BLUE_BOOK": {
+   "level": "N2",
+   "needs": {
+    "FLUTE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Peaceful Village",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "the Blue Book only becomes obtainable after the Flute (a snake from a pot)"
+    },
+    {
+     "by": "game data",
+     "says": "the Flute switches The Peaceful Village to variants 2-4: new room headers"
+    }
+   ]
+  },
+  "GOBLET": {
+   "level": "N2",
+   "needs": {},
+   "status": "uncertain",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Peaceful Village",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "the door to the Goblet only opens at night; by day Wario needs the Super Jump Slam Overalls (or the High Jump Boots) for a secret entrance"
+    },
+    {
+     "by": "game data",
+     "says": "variant 1 has its own night block map (.the_peaceful_village_2); from the Flute on, night uses the day map; the Super Jump Slam Overalls flash the village"
+    }
+   ],
+   "note": "At night with nothing else, per the wiki. Whether the night door is still there after the Flute isn't known; with the Super Jump Slam Overalls it works by day.",
+   "check": "Is the Goblet's night-only door still there after the Flute (from then on the village loads variants 2-4, which use the day block map at night too)? If not, it needs the Super Jump Slam Overalls."
+  },
+  "DAY_OR_NIGHT_SPELL": {
+   "level": "N2",
+   "needs": {
+    "SUPER_JUMP_SLAM_OVERALLS_T": "heuristic (power-up map flash + lowest chest)"
+   },
+   "status": "uncertain",
+   "sources": [
+    {
+     "by": "Guía Nintendo: N2 The Peaceful Village",
+     "url": "https://www.guiasnintendo.com/3_GB_GameBoy/waland3/waland3_sp/n2.html",
+     "says": "blue key: break the cracked pipes; the chest is further right from the key; no item named"
+    },
+    {
+     "by": "Super Mario Wiki: The Peaceful Village",
+     "url": "https://www.mariowiki.com/The_Peaceful_Village",
+     "says": "describes the way to the blue key and chest; names no treasure or power-up"
+    },
+    {
+     "by": "TASVideos submission #6413 (All Chests)",
+     "url": "https://tasvideos.org/6413S",
+     "says": "bounces off an enemy to skip a ladder on the way to this chest"
+    },
+    {
+     "by": "game data",
+     "says": "the Flute's change of the village is the Blue Book's; the Super Jump Slam Overalls flash the village"
+    },
+    {
+     "by": "heuristic (power-up map flash + lowest chest)",
+     "says": "the Super Jump Slam Overalls flash the village when the grey and red chests are taken and the Goblet can be taken at night, so the chest they open would be the blue one"
+    }
+   ],
+   "note": "No guide names a requirement. The Super Mario Wiki gives the Super Jump Slam Overalls flash to the Goblet (its daytime entrance); if that's the whole story, nothing is left for this chest and it can be taken as soon as the village opens (videos of it are at night). The heuristic says the Super Jump Slam Overalls. Not checked in an emulator.",
+   "check": "Right after the Axe, at night and by day: can Wario get the blue key and chest? If not, try again after the Flute, and after the Super Jump Slam Overalls."
+  },
+  "CRAYON_BLUE_T": {
+   "level": "N3",
+   "needs": {
+    "LEAD_OVERALLS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Vast Plain",
+     "url": "https://www.mariowiki.com/The_Vast_Plain",
+     "says": "the red chest requires the Lead Overalls"
+    },
+    {
+     "by": "game data",
+     "says": "the Lead Overalls flash The Vast Plain (variant 2)"
+    }
+   ]
+  },
+  "SKULL_RING_RED": {
+   "level": "N3",
+   "needs": {
+    "MAGIC_SEEDS": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Vast Plain",
+     "url": "https://www.mariowiki.com/The_Vast_Plain",
+     "says": "the green chest needs the Magic Seeds: a vine leads to it"
+    },
+    {
+     "by": "game data",
+     "says": "the Magic Seeds switch The Vast Plain to variant 3, a new block map"
+    }
+   ]
+  },
+  "RED_GEM": {
+   "level": "N3",
+   "needs": {
+    "RED_CHEMICAL": "guide",
+    "BLUE_CHEMICAL": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Vast Plain",
+     "url": "https://www.mariowiki.com/The_Vast_Plain",
+     "says": "the blue chest requires both chemicals"
+    },
+    {
+     "by": "game data",
+     "says": "the chemicals switch The Vast Plain to variant 4"
+    }
+   ]
+  },
+  "MAGNIFYING_GLASS": {
+   "level": "N4",
+   "needs": {
+    "GARLIC_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Bank of the Wild River",
+     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
+     "says": "the Magnifying Glass requires the Super Smash (the Garlic, Tower of Revival's red chest) to reveal secret doors"
+    },
+    {
+     "by": "game data",
+     "says": "the Garlic flashes Bank of the Wild River (variant 2); the green chest is the Prince Frog's Gloves' and the blue one the Air Pump's"
+    }
+   ]
+  },
+  "STATUE": {
+   "level": "N4",
+   "needs": {
+    "PRINCE_FROGS_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Tower of Revival",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "the Statue requires the Prince Frog's Glove"
+    },
+    {
+     "by": "game data",
+     "says": "the Prince Frog's Gloves flash Bank of the Wild River (variant 3)"
+    }
+   ]
+  },
+  "ROCKET": {
+   "level": "N4",
+   "needs": {
+    "AIR_PUMP": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Colossal Hole",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "the Air Pump raises the glass containers in The Pool of Rain and Bank of the Wild River, reaching a higher area in the latter"
+    },
+    {
+     "by": "game data",
+     "says": "the Air Pump switches Bank of the Wild River to variant 4"
+    }
+   ]
+  },
+  "FOOT_OF_STONE": {
+   "level": "N5",
+   "needs": {
+    "GRAB_GLOVE_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "available after the Grab Glove, needed to break the Enemy Blocks in front of it"
+    },
+    {
+     "by": "game data",
+     "says": "the Grab Glove flashes The Tidal Coast"
+    }
+   ]
+  },
+  "ELECTRIC_FAN_PROPELLER": {
+   "level": "N5",
+   "needs": {
+    "STATUE": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Statue (makes a wire) switches The Tidal Coast to variant 3, new room headers"
+    },
+    {
+     "by": "Super Mario Wiki: The Tidal Coast",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "the green chest is reached along the grillage path (the wire the Statue makes)"
+    }
+   ]
+  },
+  "GREEN_GEM": {
+   "level": "N5",
+   "needs": {
+    "SAPLING_OF_GROWTH": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "the Green Gem requires the Sapling of Growth (the Octohon breaks the blocks of the maze)"
+    },
+    {
+     "by": "game data",
+     "says": "the Sapling switches The Tidal Coast to variant 4"
+    }
+   ]
+  },
+  "GOLDEN_RIGHT_EYE": {
+   "level": "N6",
+   "needs": {
+    "SCEPTER": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Sea Turtle Rocks",
+     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
+     "says": "requires the Scepter, which clears the water and reveals an entrance"
+    },
+    {
+     "by": "game data",
+     "says": "the Scepter switches Sea Turtle Rocks to variant 2"
+    }
+   ]
+  },
+  "SUN_MEDALLION_TOP": {
+   "level": "N6",
+   "needs": {
+    "SUPER_JUMP_SLAM_OVERALLS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Desert Ruins",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "Sea Turtle Rocks' green chest needs the Super Jump Slam Overalls to break the blocks at the entrance"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Jump Slam Overalls flash Sea Turtle Rocks"
+    }
+   ]
+  },
+  "FULL_MOON_GONG": {
+   "level": "N6",
+   "needs": {
+    "NIGHT_VISION_SCOPE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Sea Turtle Rocks",
+     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
+     "says": "the blue chest requires the Night Vision Scope"
+    },
+    {
+     "by": "game data",
+     "says": "the Night Vision Scope switches Sea Turtle Rocks to variant 4"
+    }
+   ]
+  },
+  "CRAYON_PINK_T": {
+   "level": "W1",
+   "needs": {
+    "HEAD_SMASH_HELMET_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Desert Ruins",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "the pink Crayon (green chest) requires the Head Smash Helmet"
+    },
+    {
+     "by": "game data",
+     "says": "the Head Smash Helmet flashes Desert Ruins"
+    }
+   ]
+  },
+  "SUN_MEDALLION_BOTTOM": {
+   "level": "W1",
+   "needs": {
+    "SUPER_JUMP_SLAM_OVERALLS_T": "heuristic (power-up map flash + lowest chest)"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Super Jump Slam Overalls flash Desert Ruins"
+    },
+    {
+     "by": "heuristic (power-up map flash + lowest chest)",
+     "says": "grey and red are open from the start and the green needs the Head Smash Helmet (Super Mario Wiki), so the blue one is the chest the overalls open"
+    },
+    {
+     "by": "Super Mario Wiki: Desert Ruins",
+     "url": "https://www.mariowiki.com/Desert_Ruins",
+     "says": "the blue chest is under Yellow Belly, beaten with Smash Attacks on its head"
+    }
+   ]
+  },
+  "TUSK_BLUE": {
+   "level": "W2",
+   "needs": {
+    "FOOT_OF_STONE": "game data"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Foot of Stone switches The Volcano's Base to variant 4, a new block map (the landslide)"
+    },
+    {
+     "by": "Super Mario Wiki: The Volcano's Base",
+     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
+     "says": "the blue key is four levels down by swimming, behind blocks broken from below (Swimming Flippers, Head Smash Helmet: both come before the Foot of Stone anyway)"
+    }
+   ]
+  },
+  "BLUE_GEM": {
+   "level": "W2",
+   "needs": {
+    "TRUCK_WHEEL": "guide",
+    "FLUTE": "game data"
+   },
+   "status": "uncertain",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Volcano's Base",
+     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
+     "says": "the carts run once the Truck Wheel is fitted; the ride ends at a platform with a door and a snake pot"
+    },
+    {
+     "by": "game data",
+     "says": "the cart checks TRUCK_WHEEL itself (CartVariableFunc); the Flute switches The Volcano's Base to variant 3, new room headers"
+    }
+   ],
+   "note": "The Truck Wheel is certain. The Flute is inferred: its change of this level has to open something, and nothing there is hinted between the Flute and the Foot of Stone.",
+   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the red key and chest?"
+  },
+  "CROWN": {
+   "level": "W2",
+   "needs": {
+    "TRUCK_WHEEL": "guide",
+    "FLUTE": "game data"
+   },
+   "status": "uncertain",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Volcano's Base",
+     "url": "https://www.mariowiki.com/The_Volcano%27s_Base",
+     "says": "the Crown's key and chest are in the upper part of the mountain, reached with the carts"
+    },
+    {
+     "by": "game data",
+     "says": "as for the Blue Gem"
+    }
+   ],
+   "note": "The Truck Wheel per the wiki; the Flute as for the Blue Gem.",
+   "check": "With the Truck Wheel but before the Flute (and before the Foot of Stone): does the cart reach the green key and chest?"
+  },
+  "SKULL_RING_BLUE": {
+   "level": "W3",
+   "needs": {
+    "MAGIC_SEEDS": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Magic Seeds switch The Pool of Rain to variant 2, a new block map; the Skull Ring Blue is the only chest hinted between them and the Swimming Flippers"
+    }
+   ]
+  },
+  "ORNAMENTAL_FAN": {
+   "level": "W3",
+   "needs": {
+    "SWIMMING_FLIPPERS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Tower of Revival",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "the Ornamental Fan in The Pool of Rain needs the Swimming Flippers"
+    },
+    {
+     "by": "game data",
+     "says": "the Swimming Flippers flash The Pool of Rain"
+    }
+   ]
+  },
+  "CRAYON_YELLOW_T": {
+   "level": "W3",
+   "needs": {
+    "AIR_PUMP": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Colossal Hole",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "the Air Pump raises the glass containers in The Pool of Rain, so Wario can enter the room under them"
+    },
+    {
+     "by": "game data",
+     "says": "the Air Pump switches The Pool of Rain to variant 4"
+    }
+   ]
+  },
+  "BLUE_MUSIC_BOX": {
+   "level": "W4",
+   "needs": {
+    "HEAD_SMASH_HELMET_T": "heuristic (power-up map flash + lowest chest)"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Head Smash Helmet flashes A Town in Chaos"
+    },
+    {
+     "by": "heuristic (power-up map flash + lowest chest)",
+     "says": "the grey chest is taken by then, so the red one is the chest the helmet opens"
+    }
+   ]
+  },
+  "GOLDEN_LEFT_EYE": {
+   "level": "W4",
+   "needs": {
+    "SUPER_GRAB_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: A Town in Chaos",
+     "url": "https://www.mariowiki.com/A_Town_in_Chaos",
+     "says": "requires the Super Grab Gloves (to carry a Brrr Bear) and Vampire Wario"
+    },
+    {
+     "by": "TASVideos submission #6413 (All Chests)",
+     "url": "https://tasvideos.org/6413S",
+     "says": "the door to the green chest is only open at night"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Grab Gloves flash A Town in Chaos"
+    }
+   ],
+   "note": "At night."
+  },
+  "SAPLING_OF_GROWTH": {
+   "level": "W4",
+   "needs": {
+    "ELECTRIC_FAN_PROPELLER": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "the Sapling of Growth needs the Electric Fan Propeller, which makes the town's machines blow"
+    },
+    {
+     "by": "game data",
+     "says": "the propeller switches A Town in Chaos to variant 4"
+    }
+   ]
+  },
+  "CRAYON_RED_T": {
+   "level": "W5",
+   "needs": {
+    "PRINCE_FROGS_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Beneath the Waves",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "the red Crayon requires the Prince Frog's Glove"
+    },
+    {
+     "by": "game data",
+     "says": "the Prince Frog's Gloves flash Beneath the Waves"
+    }
+   ]
+  },
+  "RED_CHEMICAL": {
+   "level": "W5",
+   "needs": {
+    "SAPLING_OF_GROWTH": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Sapling of Growth switches Beneath the Waves to variant 3, new room headers; the Red Chemical can't need the chemicals' own change, so this is the chest it opens"
+    }
+   ]
+  },
+  "CLUBS_CREST": {
+   "level": "W5",
+   "needs": {
+    "RED_CHEMICAL": "game data",
+    "BLUE_CHEMICAL": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the chemicals switch Beneath the Waves to variant 4"
+    },
+    {
+     "by": "Super Mario Wiki: The Steep Canyon",
+     "url": "https://www.mariowiki.com/The_Steep_Canyon",
+     "says": "the chemicals soften the ground under the heavy blocks in The Vast Plain and Beneath the Waves"
+    }
+   ]
+  },
+  "SABER": {
+   "level": "W6",
+   "needs": {
+    "SUPER_JUMP_SLAM_OVERALLS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The West Crater",
+     "url": "https://www.mariowiki.com/The_West_Crater",
+     "says": "the Super Jump Slam Overalls are needed to get the Saber"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Jump Slam Overalls flash The West Crater"
+    }
+   ]
+  },
+  "CASTLE_BRICK": {
+   "level": "W6",
+   "needs": {
+    "FIRE_DRENCHER": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Fire Drencher switches The West Crater to variant 3"
+    },
+    {
+     "by": "Super Mario Wiki: The West Crater",
+     "url": "https://www.mariowiki.com/The_West_Crater",
+     "says": "the Fire Drencher puts out the flames in The West Crater"
+    }
+   ]
+  },
+  "SPADES_CREST": {
+   "level": "W6",
+   "needs": {
+    "RUST_SPRAY": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Castle of Illusions",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "the Rust Spray makes the iron walls in The West Crater, The Steep Canyon and Cave of Flames breakable"
+    },
+    {
+     "by": "game data",
+     "says": "the Rust Spray switches The West Crater to variant 4"
+    }
+   ]
+  },
+  "TRUCK_WHEEL": {
+   "level": "S1",
+   "needs": {
+    "MAGIC_SEEDS": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Grasslands",
+     "url": "https://www.mariowiki.com/The_Grasslands",
+     "says": "the red chest's Truck Wheel requires the Magic Seeds"
+    },
+    {
+     "by": "game data",
+     "says": "the Magic Seeds switch The Grasslands to variant 2, new room headers"
+    }
+   ]
+  },
+  "MAGIC_WAND": {
+   "level": "S1",
+   "needs": {
+    "FLUTE": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Flute switches The Grasslands to variant 3; the red chest is the Magic Seeds' and the blue one the High Jump Boots', so this is the one it opens"
+    },
+    {
+     "by": "Super Mario Wiki: The Grasslands",
+     "url": "https://www.mariowiki.com/The_Grasslands",
+     "says": "the green chest is reached underwater, through a door at the foot of the tree"
+    }
+   ]
+  },
+  "FIGHTER_MANNEQUIN": {
+   "level": "S1",
+   "needs": {
+    "HIGH_JUMP_BOOTS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Grasslands",
+     "url": "https://www.mariowiki.com/The_Grasslands",
+     "says": "the Fighter Mannequin requires the High Jump Boots"
+    },
+    {
+     "by": "game data",
+     "says": "the High Jump Boots flash The Grasslands"
+    }
+   ]
+  },
+  "CRAYON_CYAN_T": {
+   "level": "S2",
+   "needs": {
+    "SWIMMING_FLIPPERS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Wario Wiki (Fandom): The Big Bridge",
+     "url": "https://wario.fandom.com/wiki/The_Big_Bridge",
+     "says": "red chest: come back with the flippers and swim in through a cracked block"
+    },
+    {
+     "by": "game data",
+     "says": "the Swimming Flippers flash The Big Bridge"
+    }
+   ]
+  },
+  "POCKET_PET": {
+   "level": "S2",
+   "needs": {
+    "GRAB_GLOVE_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Wario Wiki (Fandom): The Big Bridge",
+     "url": "https://wario.fandom.com/wiki/The_Big_Bridge",
+     "says": "green chest: throw the barrel at the enemy blocks at the end of the bridge (Grab Glove)"
+    },
+    {
+     "by": "game data",
+     "says": "the Grab Glove flashes The Big Bridge"
+    }
+   ]
+  },
+  "LANTERN": {
+   "level": "S2",
+   "needs": {
+    "SCEPTER": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Cave of Flames",
+     "url": "https://www.mariowiki.com/Cave_of_Flames",
+     "says": "the Scepter purifies the water in The Frigid Sea, Sea Turtle Rocks and The Big Bridge"
+    },
+    {
+     "by": "game data",
+     "says": "the Scepter switches The Big Bridge to variant 4"
+    }
+   ]
+  },
+  "GARLIC_T": {
+   "level": "S3",
+   "needs": {
+    "RIGHT_GLASS_EYE": "guide",
+    "LEFT_GLASS_EYE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Bank of the Wild River",
+     "url": "https://www.mariowiki.com/Bank_of_the_Wild_River",
+     "says": "the Garlic's chest needs the blue snake door open: Right and Left Glass Eye"
+    },
+    {
+     "by": "game data",
+     "says": "the glass eyes switch Tower of Revival to variant 2"
+    }
+   ]
+  },
+  "TREASURE_MAP": {
+   "level": "S3",
+   "needs": {
+    "STATUE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Tower of Revival",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "the Treasure Map's chest depends on the Statue, which makes the grillage to climb higher"
+    },
+    {
+     "by": "game data",
+     "says": "the Statue switches Tower of Revival to variant 3"
+    }
+   ]
+  },
+  "SKY_KEY": {
+   "level": "S3",
+   "needs": {
+    "GOLDEN_LEFT_EYE": "guide",
+    "GOLDEN_RIGHT_EYE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Tower of Revival",
+     "url": "https://www.mariowiki.com/Tower_of_Revival",
+     "says": "the blue chest is behind the golden snake door"
+    },
+    {
+     "by": "game data",
+     "says": "the golden eyes switch Tower of Revival to variant 4"
+    }
+   ]
+  },
+  "TUSK_RED": {
+   "level": "S4",
+   "needs": {
+    "FOOT_OF_STONE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Tidal Coast",
+     "url": "https://www.mariowiki.com/The_Tidal_Coast",
+     "says": "The Steep Canyon's red chest needs the Foot of Stone (a fissure opens)"
+    },
+    {
+     "by": "game data",
+     "says": "the Foot of Stone switches The Steep Canyon to variant 2, a new block map"
+    }
+   ]
+  },
+  "TELEPHONE": {
+   "level": "S4",
+   "needs": {
+    "PRINCE_FROGS_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Steep Canyon",
+     "url": "https://www.mariowiki.com/The_Steep_Canyon",
+     "says": "the Telephone needs the Prince Frog's Glove, to swim against the current in the fissure"
+    },
+    {
+     "by": "game data",
+     "says": "the Prince Frog's Gloves flash The Steep Canyon"
+    }
+   ]
+  },
+  "BLUE_CHEMICAL": {
+   "level": "S4",
+   "needs": {
+    "RUST_SPRAY": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Steep Canyon",
+     "url": "https://www.mariowiki.com/The_Steep_Canyon",
+     "says": "the Blue Chemical needs the Rust Spray, which makes the iron wall breakable"
+    },
+    {
+     "by": "game data",
+     "says": "the Rust Spray switches The Steep Canyon to variant 4"
+    }
+   ]
+  },
+  "MINICAR": {
+   "level": "S5",
+   "needs": {
+    "HIGH_JUMP_BOOTS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Cave of Flames",
+     "url": "https://www.mariowiki.com/Cave_of_Flames",
+     "says": "the Minicar requires the High Jump Boots (bouncing off enemies)"
+    },
+    {
+     "by": "game data",
+     "says": "the High Jump Boots flash Cave of Flames"
+    }
+   ]
+  },
+  "POUCH": {
+   "level": "S5",
+   "needs": {
+    "EXPLOSIVE_PLUNGER_BOX": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Explosive Plunger Box switches Cave of Flames to variant 3; the red chest is the High Jump Boots', so this is the one it opens"
+    },
+    {
+     "by": "Super Mario Wiki: Beneath the Waves",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "the Explosive Plunger Box sets off the bombs in The Stagnant Swamp, Cave of Flames and The Colossal Hole"
+    }
+   ]
+  },
+  "SCISSORS": {
+   "level": "S5",
+   "needs": {
+    "RUST_SPRAY": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Rust Spray switches Cave of Flames to variant 4"
+    },
+    {
+     "by": "Super Mario Wiki: Castle of Illusions",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "the Rust Spray makes iron walls in Cave of Flames breakable"
+    }
+   ]
+  },
+  "JACKHAMMER": {
+   "level": "S6",
+   "needs": {
+    "SCISSORS": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Scissors (cut the balloon loose) switch Above the Clouds to variant 3, new room headers"
+    }
+   ]
+  },
+  "PICK_AXE": {
+   "level": "S6",
+   "needs": {
+    "FULL_MOON_GONG": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "YouTube: Above the Clouds (Night) - Blue Chest",
+     "url": "https://www.youtube.com/watch?v=IFyNdYT_RWQ",
+     "says": "needs the Full Moon Gong, at night"
+    },
+    {
+     "by": "game data",
+     "says": "the Full Moon Gong switches Above the Clouds to variant 4, with its own night block map"
+    }
+   ],
+   "note": "At night."
+  },
+  "GREEN_FLOWER": {
+   "level": "E1",
+   "needs": {
+    "FOOT_OF_STONE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Stagnant Swamp",
+     "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
+     "says": "the Green Flower requires the Foot of Stone, which lowers the swamp's water"
+    },
+    {
+     "by": "game data",
+     "says": "the Foot of Stone switches The Stagnant Swamp to variant 2, a new block map"
+    }
+   ]
+  },
+  "RED_MUSIC_BOX": {
+   "level": "E1",
+   "needs": {
+    "HIGH_JUMP_BOOTS_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Stagnant Swamp",
+     "url": "https://www.mariowiki.com/The_Stagnant_Swamp",
+     "says": "the High Jump Boots are needed to reach the platforms to the key and chest"
+    },
+    {
+     "by": "game data",
+     "says": "the High Jump Boots flash The Stagnant Swamp"
+    }
+   ]
+  },
+  "EYE_OF_THE_STORM": {
+   "level": "E1",
+   "needs": {
+    "EXPLOSIVE_PLUNGER_BOX": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Explosive Plunger Box switches The Stagnant Swamp to variant 4"
+    },
+    {
+     "by": "Super Mario Wiki: Beneath the Waves",
+     "url": "https://www.mariowiki.com/Beneath_the_Waves",
+     "says": "it sets off the bombs in The Stagnant Swamp"
+    }
+   ]
+  },
+  "TEAPOT": {
+   "level": "E2",
+   "needs": {
+    "GRAB_GLOVE_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Frigid Sea",
+     "url": "https://www.mariowiki.com/The_Frigid_Sea",
+     "says": "the Teapot (red chest) needs the Grab Glove"
+    },
+    {
+     "by": "game data",
+     "says": "the Grab Glove flashes The Frigid Sea"
+    }
+   ]
+  },
+  "MAGICAL_FLAME": {
+   "level": "E2",
+   "needs": {
+    "SCEPTER": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Frigid Sea",
+     "url": "https://www.mariowiki.com/The_Frigid_Sea",
+     "says": "the Magical Flame needs the Scepter: clear water shows the door underwater"
+    },
+    {
+     "by": "game data",
+     "says": "the Scepter switches The Frigid Sea to variant 3"
+    }
+   ]
+  },
+  "UFO": {
+   "level": "E2",
+   "needs": {
+    "SUN_MEDALLION_TOP": "guide",
+    "SUN_MEDALLION_BOTTOM": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Frigid Sea",
+     "url": "https://www.mariowiki.com/The_Frigid_Sea",
+     "says": "the UFO needs both Sun Medallion halves: daytime on the east side"
+    },
+    {
+     "by": "game data",
+     "says": "the Sun Medallion switches The Frigid Sea to variant 4; the east side is always night without it (InitEastMapSide)"
+    }
+   ]
+  },
+  "TORCH_T": {
+   "level": "E3",
+   "needs": {
+    "SUN_MEDALLION_TOP": "guide",
+    "SUN_MEDALLION_BOTTOM": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Castle of Illusions",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "the Torch requires both Sun Medallion halves, to be taken by day"
+    },
+    {
+     "by": "game data",
+     "says": "the Sun Medallion switches Castle of Illusions to variant 2"
+    }
+   ]
+  },
+  "GOLD_MAGIC": {
+   "level": "E3",
+   "needs": {
+    "SUPER_GRAB_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Castle of Illusions",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "the Gold Magic requires the Super Grab Gloves"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Grab Gloves flash Castle of Illusions"
+    }
+   ]
+  },
+  "RUST_SPRAY": {
+   "level": "E3",
+   "needs": {
+    "CASTLE_BRICK": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Castle of Illusions",
+     "url": "https://www.mariowiki.com/Castle_of_Illusions",
+     "says": "the Rust Spray requires the Castle Brick, which bridges the gaps"
+    },
+    {
+     "by": "game data",
+     "says": "the Castle Brick switches Castle of Illusions to variant 4"
+    }
+   ]
+  },
+  "AIR_PUMP": {
+   "level": "E4",
+   "needs": {
+    "GARLIC_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Colossal Hole",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "the Air Pump requires the Garlic, to break the solid blocks in front of the red key's room"
+    },
+    {
+     "by": "game data",
+     "says": "the Garlic flashes The Colossal Hole"
+    }
+   ]
+  },
+  "HIGH_JUMP_BOOTS_T": {
+   "level": "E4",
+   "needs": {
+    "SUN_MEDALLION_TOP": "guide",
+    "SUN_MEDALLION_BOTTOM": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Sea Turtle Rocks",
+     "url": "https://www.mariowiki.com/Sea_Turtle_Rocks",
+     "says": "the Sun Medallion is needed for The Colossal Hole's green chest (High Jump Boots)"
+    },
+    {
+     "by": "game data",
+     "says": "the Sun Medallion switches The Colossal Hole to variant 3"
+    }
+   ]
+  },
+  "LOCOMOTIVE": {
+   "level": "E4",
+   "needs": {
+    "EXPLOSIVE_PLUNGER_BOX": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Colossal Hole",
+     "url": "https://www.mariowiki.com/The_Colossal_Hole",
+     "says": "the Locomotive requires blowing up the bomb with the Explosive Plunger Box"
+    },
+    {
+     "by": "game data",
+     "says": "the Explosive Plunger Box switches The Colossal Hole to variant 4"
+    }
+   ]
+  },
+  "CRAYON_BROWN_T": {
+   "level": "E5",
+   "needs": {
+    "WARP_REMOVAL_APPARATUS": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "warioland3.com treasure list",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "removing the warps opens The Warped Void's red and green treasures"
+    },
+    {
+     "by": "game data",
+     "says": "the Warp Removal Apparatus switches The Warped Void to variant 3"
+    }
+   ]
+  },
+  "DEMONS_BLOOD": {
+   "level": "E5",
+   "needs": {
+    "WARP_REMOVAL_APPARATUS": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "warioland3.com treasure list",
+     "url": "https://www.warioland3.com/treasures.html",
+     "says": "removing the warps opens The Warped Void's red and green treasures"
+    },
+    {
+     "by": "game data",
+     "says": "as for the brown Crayon"
+    }
+   ]
+  },
+  "HEART_CREST": {
+   "level": "E5",
+   "needs": {
+    "KEY_CARD_RED": "guide",
+    "KEY_CARD_BLUE": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The Warped Void",
+     "url": "https://www.mariowiki.com/The_Warped_Void",
+     "says": "the Heart Crest needs both Key Cards, to free the Paragoom"
+    },
+    {
+     "by": "game data",
+     "says": "the Key Cards switch The Warped Void to variant 4"
+    }
+   ]
+  },
+  "DIAMONDS_CREST": {
+   "level": "E6",
+   "needs": {
+    "FIRE_DRENCHER": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: The East Crater",
+     "url": "https://www.mariowiki.com/The_East_Crater",
+     "says": "the Diamonds Crest requires the Fire Drencher"
+    },
+    {
+     "by": "game data",
+     "says": "the Fire Drencher switches The East Crater to variant 2"
+    }
+   ]
+  },
+  "NIGHT_VISION_SCOPE": {
+   "level": "E6",
+   "needs": {
+    "JACKHAMMER": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Jackhammer (drills holes) switches The East Crater to variant 3"
+    }
+   ]
+  },
+  "EARTHEN_FIGURE": {
+   "level": "E6",
+   "needs": {
+    "PICK_AXE": "game data"
+   },
+   "status": "data",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Pick Axe (opens the crater hole) switches The East Crater to variant 4"
+    }
+   ]
+  },
+  "WARP_REMOVAL_APPARATUS": {
+   "level": "E7",
+   "needs": {
+    "MYSTERY_HANDLE": "game data"
+   },
+   "status": "uncertain",
+   "sources": [
+    {
+     "by": "game data",
+     "says": "the Mystery Handle raises a pipe and switches Forest of Fear to variant 3; the green chest is hinted right after it"
+    },
+    {
+     "by": "Super Mario Wiki: Forest of Fear",
+     "url": "https://www.mariowiki.com/Forest_of_Fear",
+     "says": "the raised pipe is next to the grey chest"
+    }
+   ],
+   "note": "Inferred from the game data; no guide found that says it.",
+   "check": "Before the Mystery Handle: is there any way to the green key and chest?"
+  },
+  "KEY_CARD_RED": {
+   "level": "E7",
+   "needs": {
+    "MYSTERY_HANDLE": "guide",
+    "SUPER_GRAB_GLOVES_T": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Forest of Fear",
+     "url": "https://www.mariowiki.com/Forest_of_Fear",
+     "says": "the red Key Card requires the Mystery Handle (the raised pipe) and the Super Grab Gloves"
+    },
+    {
+     "by": "game data",
+     "says": "the Super Grab Gloves flash Forest of Fear"
+    }
+   ]
+  },
+  "KEY_CARD_BLUE": {
+   "level": "E7",
+   "needs": {
+    "DEMONS_BLOOD": "guide"
+   },
+   "status": "guide",
+   "sources": [
+    {
+     "by": "Super Mario Wiki: Forest of Fear",
+     "url": "https://www.mariowiki.com/Forest_of_Fear",
+     "says": "the blue Key Card requires the Demon's Blood (zombies in the graveyard)"
+    },
+    {
+     "by": "game data",
+     "says": "the Demon's Blood switches Forest of Fear to variant 4"
+    }
+   ]
+  }
+ }
+}

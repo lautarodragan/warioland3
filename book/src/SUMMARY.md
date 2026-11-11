@@ -18,6 +18,7 @@
 - [Game states and the main loop](game-states.md)
 - [Levels, rooms and doors](levels-and-rooms.md)
 - [The treasure map](treasure-map.md)
+  - [Treasure graph: what to check](treasure-graph-review.md)
 - [Objects](objects.md)
 - [Wario](wario.md)
 - [Camera and scrolling](camera.md)

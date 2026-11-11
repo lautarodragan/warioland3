@@ -6,6 +6,15 @@ change the map when Wario brings them back: a tree is cut, a gate opens, a
 new level appears, or a level he already knows gets a new route. This page
 shows that chain: in which order the treasures come, and what each one opens.
 
+The order here is the hint's, not the minimum. Many treasures can be taken
+long before the hint asks for them: the Magnifying Glass (#58, a map button)
+as soon as Wario has the Garlic (#30), the Truck Wheel (#50) right after the
+Magic Seeds (#11). **[The treasure graph](treasure-graph.html)** shows what
+each treasure really needs: the main line to the Gold Music Box, and the
+branches that open off it at the earliest point they can be taken, with the
+source of every requirement. The cases still to check in the game are on
+[its review list](treasure-graph-review.md).
+
 [![The treasure map: every treasure in the order the Temple hint asks for it, with what it opens](images/treasure-map.svg)](images/treasure-map.svg)
 
 Each row is one map event. The chips are the treasures it needs, in their
@@ -236,7 +245,10 @@ that:
   collected: `InitEastMapSide` sets night unless `EVENT_SUMMON_SUN` is
   done, and `DoDayNightSpell` won't switch it there either.
 - The Day or Night Spell puts the day/night button on the map's top bar
-  (`SetDayNightSpellSelectable`). It's number 63, after the Gold Music Box.
+  (`SetDayNightSpellSelectable`). It's number 63, after the Gold Music Box,
+  but can be taken much earlier: after the Super Jump Slam Overalls (#35),
+  maybe as soon as The Peaceful Village opens; see
+  [the treasure graph](treasure-graph.html#day_or_night_spell).
 
 ## What the data doesn't say
 
@@ -254,9 +266,12 @@ that:
   and knows nothing of enemies Wario has to use, so it reaches the key and
   chest of only a handful of colours, the same with no power-ups as with
   all of them. It can't tell what a chest needs; an emulator run can.
+  [The treasure graph](treasure-graph.html) fills this in from guides,
+  cross-checked with the game data (`tools/treasure_requirements.json`).
 - **Whether other orders work.** The hint order is the route the game
   points at, and the script checks it against the map. Whether a treasure
-  can be taken earlier depends on the same level layout facts as above.
+  can be taken earlier depends on the same level layout facts as above:
+  that's what [the treasure graph](treasure-graph.html) works out.
 - **Event words.** The captions ("cuts down the tree", "rusts the iron
   wall") are the event's constant read in plain words, not game text.
 
