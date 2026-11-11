@@ -1,11 +1,11 @@
-; The debug menu's TREASURE page (START from POWER). A level's code and
+; The debug menu's TREASURE page (SELECT from POWER). A level's code and
 ; name, and its four treasures (grey, red, green, blue), each with its icon,
 ; its colour and OPEN or CLOSED, like the chest. The icons are sprites like
 ; the POWER page's, with the same palettes: in the treasure's colours if
 ; owned, in grey if not.
 ;
 ; LEFT/RIGHT change the level (wrapping), UP/DOWN pick a treasure, A gives
-; or takes it, START goes back to MAIN, B or SELECT closes the menu.
+; or takes it, SELECT goes back to LEVEL, B or START closes the menu.
 ; wDebugMenuTreasureIdx is the pick, level * 4 + colour (the
 ; LevelTreasureIDs layout); the page starts on the current level.
 
@@ -121,20 +121,23 @@ DebugMenu_ToggleTreasure:
 	ret
 
 ; -----------------------------------------------------------------------
-; Load the TREASURE page (DebugMenu_ShowPage, the LCD off)
+; Load the TREASURE page, its map already in BG map 0 (DebugMenu_LoadPage):
+; the code and name in a V-Blank, the statuses and the selected cell in
+; the next one, the icons' tiles in four more
 ; -----------------------------------------------------------------------
 DebugMenu_LoadTreasurePage:
 	call DebugMenu_LoadTreasurePals
-	ld hl, DebugTreasureTilemap
-	ld de, DebugTreasureAttrmap
-	call DebugMenu_LoadMap
 	call DebugMenu_GetLevelName
+	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawLevel
+	call DebugMenu_EndVRAMWrite
+	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawTreasureStatuses
 	ld a, [wDebugMenuTreasureIdx]
 	and %11
 	ld c, DEBUG_POWER_CELL_SELECTED
 	call DebugMenu_DrawTreasureCell
+	call DebugMenu_EndVRAMWrite
 	call DebugMenu_LoadTreasureTiles
 	jp DebugMenu_BuildTreasureOAM
 
@@ -370,9 +373,9 @@ DebugMenu_BuildTreasureOAM:
 UpdateDebugTreasurePage:
 	ld a, [wJoypadPressed]
 	ld b, a
-	and PAD_B | PAD_SELECT
+	and PAD_B | PAD_START
 	jp nz, DebugMenu_Exit
-	bit B_PAD_START, b
+	bit B_PAD_SELECT, b
 	jp nz, DebugMenu_NextPage
 	bit B_PAD_A, b
 	jr nz, .toggle
@@ -418,8 +421,7 @@ UpdateDebugTreasurePage:
 	ld a, b
 	ld c, DEBUG_POWER_CELL_SELECTED
 	call DebugMenu_DrawTreasureCell
-	ei
-	ret
+	jp DebugMenu_EndVRAMWrite
 
 .next_level
 	add NUM_LEVEL_TREASURES
@@ -437,10 +439,10 @@ UpdateDebugTreasurePage:
 	call DebugMenu_GetLevelName
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawLevel
-	ei
+	call DebugMenu_EndVRAMWrite
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawTreasureStatuses
-	ei
+	call DebugMenu_EndVRAMWrite
 	; the icons: the new level's tiles into the other set, then the sprites
 	; switch to it (the V-Blank handler copies them to OAM)
 	ASSERT DEBUG_TREASURE_OBJ_TILE & DEBUG_TREASURE_OBJ_SET == 0
@@ -457,8 +459,5 @@ UpdateDebugTreasurePage:
 	ld c, a
 	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawTreasureStatus
-	ei
+	call DebugMenu_EndVRAMWrite
 	jp DebugMenu_BuildTreasureOAM
-
-DebugTreasureTilemap: INCBIN "data/bgmaps/debug_treasure.tilemap.rle"
-DebugTreasureAttrmap: INCBIN "data/bgmaps/debug_treasure.attrmap.rle"

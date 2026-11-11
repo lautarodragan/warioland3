@@ -1,6 +1,6 @@
-"""The debug menu's POWER page (START from MAIN)."""
+"""The debug menu's POWER page (SELECT from LEVEL)."""
 
-from game import SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE, ST_DEBUG_MENU, ST_LEVEL
+from game import SST_DEBUG_LEVEL_PAGE, SST_DEBUG_POWER_PAGE, ST_DEBUG_MENU, ST_LEVEL
 
 # src/constants/wario_constants.asm
 NO_POWER_UP = 0
@@ -16,7 +16,7 @@ JUMP_VEL_HIGH_JUMP = 3
 
 def open_power_page(game):
     game.open_debug_menu()
-    game.menu_press("start")
+    game.debug_next_page()
     assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_PAGE)
 
 
@@ -72,7 +72,7 @@ def test_debug_power_page(game, golden):
     assert game.state == (ST_DEBUG_MENU, SST_DEBUG_POWER_PAGE)
     golden("debug_power_page_boots", game.screenshot())
 
-    # B closes the menu (SELECT too, see test_debug_menu.py): back in the
+    # B closes the menu (START too, see test_debug_menu.py): back in the
     # level, with its graphics, and Wario has the boots.
     game.close_debug_menu()
     assert game.state[0] == ST_LEVEL
@@ -93,11 +93,11 @@ def test_debug_power_page(game, golden):
 
 def test_debug_set_power(game, golden):
     # The helper the other tests use to set a power-up level through the
-    # menu: from MAIN to POWER, select, A, and back to MAIN.
+    # menu: from LEVEL to POWER, select, A, and back to LEVEL.
     game.new_game_to_overworld()
     game.enter_level()
     game.open_debug_menu()
     for level in (9, 0, 5, 3):
         game.debug_set_power(level)
-        assert game.state == (ST_DEBUG_MENU, SST_DEBUG_MENU_MAIN)
+        assert game.state == (ST_DEBUG_MENU, SST_DEBUG_LEVEL_PAGE)
         assert game.read("wPowerUpLevel") == level

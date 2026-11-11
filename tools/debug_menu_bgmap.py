@@ -2,7 +2,7 @@
 """Generate the debug menu's background maps (32x32, like the other bgmaps),
 one per page, and the page indicator's graphics:
 
-    src/data/bgmaps/debug_menu.tilemap/.attrmap      MAIN
+    src/data/bgmaps/debug_level.tilemap/.attrmap     LEVEL
     src/data/bgmaps/debug_power.tilemap/.attrmap     POWER
     src/data/bgmaps/debug_treasure.tilemap/.attrmap  TREASURE
     src/gfx/debug_menu_pages.png                     the page indicator
@@ -27,7 +27,7 @@ colour on the colour of what's behind it:
      frame around the selected one. The icons themselves are sprites.
 
 Every page has the title band: "DEBUG MENU", and under it the page
-indicator, MAIN POWER TREASURE in a small font (below), the current page in
+indicator, LEVEL POWER TREASURE in a small font (below), the current page in
 the title's yellow and the others dim. All three maps show the same tiles
 there (font tiles DEBUG_MENU_PAGES_TILE...); debug_menu.asm loads the
 current page's version of them, one row of debug_menu_pages.png.
@@ -60,7 +60,7 @@ X_FLIP, Y_FLIP = 1 << 5, 1 << 6
 # Inside the frame: rows 4-16, columns 2-17
 INSIDE_LEFT, INSIDE_RIGHT = 2, 17
 
-# MAIN, shared with debug_menu.asm (DEBUG_MENU_*): the four rows, two map
+# LEVEL, shared with debug_menu.asm (DEBUG_MENU_*): the four rows, two map
 # rows apart, centred in the frame (three blank rows above and below)
 ITEM_ROWS = {"FORM": 7, "GOLF": 9, "OWL": 11, "BARREL": 13}
 CURSOR_COL, LABEL_COL, VALUE_COL = 2, 3, 11
@@ -97,27 +97,26 @@ TREASURE_COLOURS = ["GREY", "RED", "GREEN", "BLUE"]
 
 # The page indicator: font tiles DEBUG_MENU_PAGES_TILE on (over the font's
 # "c", "d"..., unused by the menu), row 2 of the title band
-PAGES = ["MAIN", "POWER", "TREASURE"]
+PAGES = ["LEVEL", "POWER", "TREASURE"]
 PAGES_ROW = 2
 PAGES_TILE = 0x62
 PAGES_TOP = 1  # pixel row of the letters in their tiles
 PAGES_GAP = 11  # pixels between words
 
 # The small font: 5 pixels high, 1-pixel strokes like the menu font, only
-# the letters the page names need. Letters are 3 pixels wide (M, N and W
-# need more, I less) with a pixel between them, so they share tiles.
+# the letters the page names need. Letters are 3 pixels wide (W needs
+# more) with a pixel between them, so they share tiles.
 SMALL_FONT = {
     "A": [".#.", "#.#", "###", "#.#", "#.#"],
     "E": ["###", "#..", "##.", "#..", "###"],
-    "I": ["#", "#", "#", "#", "#"],
-    "M": ["#...#", "##.##", "#.#.#", "#...#", "#...#"],
-    "N": ["#..#", "##.#", "#.##", "#..#", "#..#"],
+    "L": ["#..", "#..", "#..", "#..", "###"],
     "O": [".#.", "#.#", "#.#", "#.#", ".#."],
     "P": ["##.", "#.#", "##.", "#..", "#.."],
     "R": ["##.", "#.#", "##.", "#.#", "#.#"],
     "S": [".##", "#..", ".#.", "..#", "##."],
     "T": ["###", ".#.", ".#.", ".#.", ".#."],
     "U": ["#.#", "#.#", "#.#", "#.#", "###"],
+    "V": ["#.#", "#.#", "#.#", "#.#", ".#."],
     "W": ["#...#", "#...#", "#.#.#", "##.##", "#...#"],
 }
 # colour indices (the PNG's greys: 0 is white, 3 black)
@@ -246,7 +245,7 @@ strips, first, last = pages_strip()
 save_pages_png(strips, first, last)
 print(f"page indicator: {last - first + 1} tiles (DEBUG_MENU_PAGES_TILES)")
 
-# MAIN
+# LEVEL
 new_map()
 frame(first, last)
 for label, row in ITEM_ROWS.items():
@@ -254,7 +253,7 @@ for label, row in ITEM_ROWS.items():
     text(row, LABEL_COL, label, PAL_LABEL)
     blank(row, VALUE_COL, 17, PAL_VALUE)
 put(ITEM_ROWS["FORM"], VALUE_COL - 1, (BLANK, PAL_VALUE))  # its ◀
-save("debug_menu")
+save("debug_level")
 
 # POWER
 new_map()

@@ -3472,7 +3472,7 @@ UpdateState_Sliding:
 	ret z
 ;	fallthrough
 
-SetState_Rolling:
+SetState_Rolling::
 	xor a
 	ld [wSFXLoopCounter], a
 	ld [wJumpVelIndex], a
@@ -3586,7 +3586,7 @@ UpdateState_Rolling:
 	jp nz, DoBumpWithSmallBackOffset
 	jp SetState_RollingAirborne_Jump
 
-SetState_RollingAirborne_Fall:
+SetState_RollingAirborne_Fall::
 	ld a, FALLING_JUMP_VEL_INDEX
 	ld [wJumpVelIndex], a
 ;	fallthrough

@@ -262,10 +262,17 @@ UpdateLevel:
 	and PAD_SELECT
 	jr z, .no_debug_trigger
 
-	; If currently transformed, cancel form instead of opening the menu
+	; If currently transformed, or rolling (the menu's ROLL is the game's
+	; roll, not a transformation), cancel form instead of opening the menu
 	ld a, [wTransformation]
 	and a
+	jr nz, .cancel_form
+	ld a, [wIsRolling]
+	and a
 	jr z, .open_debug_menu
+.cancel_form:
+	xor a
+	ld [wIsRolling], a
 	call ClearTransformationValues
 	call UpdateLevelMusic
 	ld hl, WarioDefaultPal

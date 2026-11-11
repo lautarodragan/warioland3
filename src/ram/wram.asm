@@ -2610,6 +2610,9 @@ wDebugMenuTreasureIdx:: db
 wDebugMenuGfxPending:: db
 ; rLCDC as the level had it (The Temple's battle also shows the window)
 wDebugMenuLevelLCDC:: db
+; and rWY and rWX (the menu's page switches use the window)
+wDebugMenuLevelWY:: db
+wDebugMenuLevelWX:: db
 ; the POWER page's selection, a power-up level (0-9)
 wDebugPowerCursor:: db
 ; the first sprite tile of the TREASURE page's icons, one of its two sets

@@ -35,7 +35,7 @@ from test_owl_free_slot import (
 )
 
 BARREL2 = 0x05
-CURSOR_OWL = 2  # the debug menu's MAIN page
+CURSOR_OWL = 2  # the debug menu's LEVEL page
 CURSOR_BARREL = 3
 BARREL_STATUS_SPAWNED = 1
 BARREL_STATUS_FAILED = 2

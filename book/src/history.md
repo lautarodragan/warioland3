@@ -80,6 +80,21 @@ and its four treasures with their icons, replacing the TREASURE row), with a
 page indicator in a small font under the title. B or SELECT closes the menu
 from any page. See [The debug menu](debug-menu.md).
 
+## Page switches without the white flash
+
+Tried on a Game Boy Color, switching pages flashed white: the switch turned
+the LCD off to load the next page, and a disabled LCD shows white on
+hardware (PyBoy shows nothing). Pages now switch with the LCD on: the page on
+screen is copied to the window, the next one is drawn under it a V-Blank at a
+time, and the window goes off in one V-Blank. See
+[Switching pages](debug-menu.md#switching-pages).
+
+At the same time, SELECT took over cycling the pages from START, B or START
+closes the menu, MAIN was renamed LEVEL, FORM got ROLL (rolling Wario), and
+ELEC (zapped Wario) and CRAZY (dizzy Wario) were hidden from FORM's list,
+entries and code kept, for an option to show or hide forms later. See
+[FORM's list](debug-menu.md#forms-list).
+
 ## GOLF without the room reload
 
 Toggling GOLF reset the game to the title screen in 21 of 25 start rooms, and

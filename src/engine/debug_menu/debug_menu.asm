@@ -1,31 +1,56 @@
 SETCHARMAP temple
 
-; Form table: 6 bytes per entry
-;   [0]     transformation byte
-;   [1-5]   5-char display name
-DebugFormTable:
-	db TRANSFORMATION_NONE,                "NONE "
-	db TRANSFORMATION_HOT_WARIO,           "HOT  "
-	db TRANSFORMATION_FLAT_WARIO,          "FLAT "
-	db TRANSFORMATION_BALL_O_STRING_WARIO, "STRNG"
-	db TRANSFORMATION_FAT_WARIO,           "FAT  "
-	db TRANSFORMATION_ELECTRIC,            "ELEC "
-	db TRANSFORMATION_PUFFY_WARIO,         "PUFFY"
-	db TRANSFORMATION_ZOMBIE_WARIO,        "ZOMBI"
-	db TRANSFORMATION_BOUNCY_WARIO,        "BUNCY"
-	db TRANSFORMATION_CRAZY_WARIO,         "CRAZY"
-	db TRANSFORMATION_VAMPIRE_WARIO,       "VAMPI"
-	db TRANSFORMATION_SNOWMAN_WARIO,       "SNWMN"
-	db TRANSFORMATION_INVISIBLE_WARIO,     "INVIS"
+; FORM's list, in LEFT/RIGHT order: 7 bytes per entry
+;   [0]     transformation byte (wTransformation)
+;   [1]     flags: DEBUG_FORM_HIDDEN to leave it out of LEFT/RIGHT
+;   [2-6]   5-char display name
+; A hidden form keeps its entry and its code in DebugMenu_ApplyForm: the
+; menu still shows it when Wario has it as the menu opens, and LEFT/RIGHT
+; skip it. (A later option could show or hide some of them.)
+DEF DEBUG_FORM_HIDDEN EQU 1 << 0
+DEF DEBUG_FORM_ENTRY_SIZE EQU 7
+DEF DEBUG_FORM_NAME EQU 2 ; the name's offset in an entry
 
-DEF NUM_DEBUG_FORMS  EQU 13
+MACRO debug_form ; transformation, name[, DEBUG_FORM_HIDDEN]
+	ASSERT CHARLEN(\2) == 5, \2
+	db \1
+	IF _NARG > 2
+		db \3
+	ELSE
+		db 0
+	ENDC
+	db \2
+ENDM
+
+DebugFormTable:
+	table_width DEBUG_FORM_ENTRY_SIZE
+	debug_form TRANSFORMATION_NONE,                "NONE "
+	debug_form TRANSFORMATION_HOT_WARIO,           "HOT  "
+	debug_form TRANSFORMATION_FLAT_WARIO,          "FLAT "
+	debug_form TRANSFORMATION_BALL_O_STRING_WARIO, "STRNG"
+	debug_form TRANSFORMATION_FAT_WARIO,           "FAT  "
+	debug_form TRANSFORMATION_ELECTRIC,            "ELEC ", DEBUG_FORM_HIDDEN ; zapped Wario
+	debug_form TRANSFORMATION_PUFFY_WARIO,         "PUFFY"
+	debug_form TRANSFORMATION_ZOMBIE_WARIO,        "ZOMBI"
+	debug_form TRANSFORMATION_BOUNCY_WARIO,        "BUNCY"
+	debug_form TRANSFORMATION_CRAZY_WARIO,         "CRAZY", DEBUG_FORM_HIDDEN ; dizzy Wario
+	debug_form TRANSFORMATION_VAMPIRE_WARIO,       "VAMPI"
+	debug_form TRANSFORMATION_SNOWMAN_WARIO,       "SNWMN"
+	debug_form TRANSFORMATION_INVISIBLE_WARIO,     "INVIS"
+	; Rolling isn't a transformation: wTransformation stays NONE and
+	; wIsRolling says he rolls (see .form_roll)
+	debug_form TRANSFORMATION_NONE,                "ROLL "
+DEF NUM_DEBUG_FORMS EQU 14
+	assert_table_length NUM_DEBUG_FORMS
+DEF DEBUG_FORM_NONE EQU 0
+DEF DEBUG_FORM_ROLL EQU NUM_DEBUG_FORMS - 1
 DEF NUM_DEBUG_POWERS EQU 10
 
-; The menu has three pages, cycled with START: MAIN, POWER and TREASURE.
-; Each is a substate (SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE,
+; The menu has three pages, cycled with SELECT: LEVEL, POWER and TREASURE.
+; Each is a substate (SST_DEBUG_LEVEL_PAGE, SST_DEBUG_POWER_PAGE,
 ; SST_DEBUG_TREASURE_PAGE) with its own map; see tools/debug_menu_bgmap.py.
 
-; MAIN's rows, in wDebugMenuCursor order
+; LEVEL's rows, in wDebugMenuCursor order
 	const_def
 	const DEBUG_MENU_FORM
 	const DEBUG_MENU_GOLF
@@ -34,7 +59,7 @@ DEF NUM_DEBUG_POWERS EQU 10
 DEF DEBUG_MENU_ITEMS EQU const_value
 
 ; where the cursor and the values go (the rest of the screen, labels
-; included, is in debug_menu.tilemap: see tools/debug_menu_bgmap.py)
+; included, is in debug_level.tilemap: see tools/debug_menu_bgmap.py)
 DEF DEBUG_MENU_CURSOR_X EQU 2
 DEF DEBUG_MENU_VALUE_X  EQU 11
 DEF DEBUG_MENU_FORM_Y   EQU 7
@@ -52,7 +77,7 @@ DEF DEBUG_MENU_BLANK EQU $7f ; all colour 3, like the maps' empty cells
 DEF DEBUG_MENU_INSIDE_X     EQU 2
 DEF DEBUG_MENU_INSIDE_WIDTH EQU 16
 
-; The page indicator under the title, MAIN POWER TREASURE in a small font,
+; The page indicator under the title, LEVEL POWER TREASURE in a small font,
 ; is DEBUG_MENU_PAGES_TILES font tiles from DEBUG_MENU_PAGES_TILE (over the
 ; font's "c", "d"..., unused by the menu), in all three maps. Each page
 ; loads its own version of them, the page's name in yellow
@@ -111,8 +136,8 @@ _DebugMenuStateTable::
 	ld a, [wSubState]
 	jumptable
 	dw InitDebugMenu
-	dw UpdateDebugMenu        ; SST_DEBUG_MENU_MAIN
-	dw UpdateDebugPowerPage   ; SST_DEBUG_POWER_PAGE
+	dw UpdateDebugLevelPage    ; SST_DEBUG_LEVEL_PAGE
+	dw UpdateDebugPowerPage    ; SST_DEBUG_POWER_PAGE
 	dw UpdateDebugTreasurePage ; SST_DEBUG_TREASURE_PAGE
 
 ; -----------------------------------------------------------------------
@@ -134,6 +159,11 @@ DebugMenu_DrawString:
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_ApplyForm:
+	; out of a roll (ROLL, or a roll of the game's): the forms below don't
+	; all reset it, and a walking Wario with wIsRolling set still breaks
+	; blocks like a rolling one
+	xor a
+	ld [wIsRolling], a
 	ld a, [wDebugMenuFormIdx]
 	jumptable
 	dw .form_none
@@ -149,6 +179,8 @@ DebugMenu_ApplyForm:
 	dw .form_vampire
 	dw .form_snowman
 	dw .form_invisible
+	dw .form_roll
+	ASSERT DEBUG_FORM_ROLL == NUM_DEBUG_FORMS - 1
 
 ; NONE: restore normal Wario state without playing the in-game recovery SFX
 .form_none:
@@ -470,6 +502,47 @@ DebugMenu_ApplyForm:
 	farcall StartFall
 	ret
 
+; ROLL: not a transformation but the game's roll (WST_ROLLING, what a
+; slide down a slope turns into): wTransformation is NONE and wIsRolling
+; is set. He rolls on until he hits a wall, A hops, and SELECT in the
+; level stops it like a form (UpdateLevel). In the air, the airborne roll,
+; which lands into the roll.
+.form_roll:
+	call ClearTransformationValues
+	call UpdateLevelMusic
+	ld hl, WarioDefaultPal
+	call SetWarioPal
+	xor a
+	ld [wGrabState], a
+	ld [wIsCrouching], a
+	ld [wIsSmashAttacking], a
+	ld [wAttackCounter], a
+	ld [wWalkVelIndex], a
+	ld a, [wJumpVelTable]
+	and a
+	jr nz, .form_roll_airborne
+	; SetState_Rolling doesn't load the graphics: the slide's, which come
+	; before it in the game (SetState_Sliding)
+	ld a, BANK(WarioSlideGfx)
+	ld [wDMASourceBank], a
+	ld a, HIGH(WarioSlideGfx)
+	ld [wDMASourcePtr + 0], a
+	ld a, LOW(WarioSlideGfx)
+	ld [wDMASourcePtr + 1], a
+	call LoadWarioGfx
+	ld a, BANK(WarioOAM_1644a)
+	ld [wWarioOAMBank], a
+	ld a, HIGH(WarioOAM_1644a)
+	ld [wWarioOAMPtr + 0], a
+	ld a, LOW(WarioOAM_1644a)
+	ld [wWarioOAMPtr + 1], a
+	farcall SetState_Rolling
+	ret
+.form_roll_airborne:
+	; loads them itself
+	farcall SetState_RollingAirborne_Fall
+	ret
+
 ; -----------------------------------------------------------------------
 ; OWL and BARREL: spawn an owl or a barrel next to Wario (from the room's
 ; object group if it has one, otherwise from ROM, see
@@ -539,13 +612,65 @@ DebugMenu_ToggleGolf:
 	ret
 
 ; -----------------------------------------------------------------------
-; Draw the cursor and the values of MAIN (LCD must be off or in VBlank);
-; the rest is in debug_menu.tilemap
+; input: a = a FORM index; output: hl = its DebugFormTable entry
+; Clobbers: B, C
+; -----------------------------------------------------------------------
+DebugMenu_GetFormEntry:
+	ld c, a
+	ld b, 0
+	ld h, b
+	ld l, c
+	add hl, hl
+	add hl, bc ; 3 * idx
+	add hl, hl
+	add hl, bc ; 7 * idx
+	ASSERT DEBUG_FORM_ENTRY_SIZE == 7
+	ld bc, DebugFormTable
+	add hl, bc
+	ret
+
+; -----------------------------------------------------------------------
+; The next (b = 1) or previous (b = -1) FORM in the list from
+; wDebugMenuFormIdx, wrapping and skipping the hidden ones, into
+; wDebugMenuFormIdx. NONE is never hidden, so there's always one.
+; Clobbers: A, B, C, H, L
+; -----------------------------------------------------------------------
+DebugMenu_StepForm:
+	ld a, [wDebugMenuFormIdx]
+.next
+	add b
+	cp NUM_DEBUG_FORMS
+	jr c, .got_idx
+	; past either end: 0 if it went up, the last one if it went down
+	bit 7, b
+	ld a, 0
+	jr z, .got_idx
+	ld a, NUM_DEBUG_FORMS - 1
+.got_idx
+	ld [wDebugMenuFormIdx], a
+	push bc
+	call DebugMenu_GetFormEntry
+	pop bc
+	inc hl
+	ASSERT DEBUG_FORM_NAME == 2 ; the flags at 1
+	ld a, [hl]
+	and DEBUG_FORM_HIDDEN
+	ld a, [wDebugMenuFormIdx]
+	jr nz, .next
+	ret
+
+; -----------------------------------------------------------------------
+; Draw the cursor and the values of LEVEL, the rest being in
+; debug_level.tilemap. With the LCD on, in two V-Blanks.
 ; Clobbers: A, B, C, D, E, H, L
 ; -----------------------------------------------------------------------
 DebugMenu_DrawAll:
+	call DebugMenu_StartVRAMWrite
 	call DebugMenu_DrawItems1
-	jp DebugMenu_DrawItems2
+	call DebugMenu_EndVRAMWrite
+	call DebugMenu_StartVRAMWrite
+	call DebugMenu_DrawItems2
+	jp DebugMenu_EndVRAMWrite
 
 ; -----------------------------------------------------------------------
 ; Write the cursor (▼) to hl if item c is selected, a space otherwise.
@@ -589,16 +714,11 @@ DebugMenu_DrawItems1:
 	ld c, DEBUG_MENU_FORM
 	hlbgcoord DEBUG_MENU_CURSOR_X, DEBUG_MENU_FORM_Y
 	call DebugMenu_DrawCursor
-	; de = &DebugFormTable[formIdx].name (entries are 6 bytes, name at +1)
+	; de = the form's name
 	ld a, [wDebugMenuFormIdx]
-	add a ; 2*idx
-	ld c, a
-	add a ; 4*idx
-	add c ; 6*idx
-	ld c, a
-	ld b, 0
-	ld hl, DebugFormTable + 1 ; +1: skip transform byte
-	add hl, bc
+	call DebugMenu_GetFormEntry
+	ld de, DEBUG_FORM_NAME
+	add hl, de
 	ld d, h
 	ld e, l
 	hlbgcoord DEBUG_MENU_VALUE_X, DEBUG_MENU_FORM_Y
@@ -681,29 +801,197 @@ DebugMenu_LoadTiles:
 	ret
 
 ; -----------------------------------------------------------------------
-; START: the next page (MAIN after TREASURE)
+; Pages are switched with the LCD on: turning it off shows a white frame
+; on a Game Boy Color. BG map 1 ($9c00) is the window's, which covers the
+; whole screen while the next page is drawn in BG map 0 under it:
+;
+; 1. The page on screen is copied to BG map 1, the part of it that differs
+;    from page to page (DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM; the
+;    rest, the title band and the frame, is the same on every page and was
+;    put there when the menu opened), in two V-Blanks, one per VRAM bank.
+;    At the end of the second one the window goes on, showing the same
+;    picture.
+; 2. The next page is drawn in BG map 0, under the window: its map (GDMA,
+;    one V-Blank), its values, OB palettes and sprite tiles, each in a
+;    V-Blank of its own (DebugMenu_LoadPage).
+; 3. In one V-Blank, the page indicator's tiles (GDMA), the sprites (OAM
+;    DMA) and the window off: the next page shows all at once.
+;
+; Every write to VRAM, OAM or the palettes is between
+; DebugMenu_StartVRAMWrite (the start of a V-Blank) and
+; DebugMenu_EndVRAMWrite, and fits in that V-Blank: see
+; book/src/debug-menu.md, "Switching pages".
+; -----------------------------------------------------------------------
+
+; the rows the pages don't share
+DEF DEBUG_MENU_SWAP_TOP    EQU 4
+DEF DEBUG_MENU_SWAP_BOTTOM EQU 16
+
+; -----------------------------------------------------------------------
+; SELECT: the next page (LEVEL after TREASURE)
 ; -----------------------------------------------------------------------
 DebugMenu_NextPage:
 	ld a, [wSubState]
 	inc a
 	cp SST_DEBUG_TREASURE_PAGE + 1
-	jr c, DebugMenu_ShowPage
-	ld a, SST_DEBUG_MENU_MAIN
-;	fallthrough
-
-; -----------------------------------------------------------------------
-; Switch to page a (SST_DEBUG_MENU_MAIN, SST_DEBUG_POWER_PAGE or
-; SST_DEBUG_TREASURE_PAGE): its map, values and sprites, and the page
-; indicator's version for it. The LCD is off meanwhile.
-; -----------------------------------------------------------------------
-DebugMenu_ShowPage:
+	jr c, .got_page
+	ld a, SST_DEBUG_LEVEL_PAGE
+.got_page
 	ld [wSubState], a
-	call DisableLCD
-	call ClearVirtualOAM
 
-	; the page indicator: this page's row of DebugMenuPagesGfx
+	; 1. the page on screen, in the window
+	call DebugMenu_StartVRAMWrite
+	xor a ; VRAM0
+	call DebugMenu_CopyToWindowMap
+	call DebugMenu_EndVRAMWrite
+	call DebugMenu_StartVRAMWrite
+	ld a, BANK("VRAM1")
+	call DebugMenu_CopyToWindowMap
+	xor a
+	ldh [rWY], a
+	ld a, WX_OFS
+	ldh [rWX], a
+	ld a, LCDC_DEFAULT | LCDC_WIN_ON | LCDC_WIN_9C00
+	ldh [rLCDC], a
+	call DebugMenu_EndVRAMWrite
+
+	; 2. the next page under it
+	call DebugMenu_LoadPage
+
+	; 3. and on screen
+	call DebugMenu_StartVRAMWrite
+	call DebugMenu_LoadPagesGfx
+	ld a, HIGH(wVirtualOAM)
+	call hTransferVirtualOAM
+	ld a, LCDC_DEFAULT
+	ldh [rLCDC], a
+	jp DebugMenu_EndVRAMWrite
+
+; -----------------------------------------------------------------------
+; Copy BG map 0's rows DEBUG_MENU_SWAP_TOP to DEBUG_MENU_SWAP_BOTTOM, the
+; screen's columns, to BG map 1, in VRAM bank a. In a V-Blank: 13 rows of
+; 20 bytes, each byte 5 M-cycles (10 dots in double speed), about 2900
+; dots of the V-Blank's 4560.
+; Clobbers: A, B, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_CopyToWindowMap:
+	ldh [rVBK], a
+	ld hl, v0BGMap0 + DEBUG_MENU_SWAP_TOP * TILEMAP_WIDTH
+	ld de, v0BGMap1 + DEBUG_MENU_SWAP_TOP * TILEMAP_WIDTH
+	ld b, DEBUG_MENU_SWAP_BOTTOM - DEBUG_MENU_SWAP_TOP + 1
+.row
+	REPT SCREEN_WIDTH
+		ld a, [hli]
+		ld [de], a
+		inc e ; a row doesn't cross a 256-byte page
+	ENDR
+	ld a, l
+	add TILEMAP_WIDTH - SCREEN_WIDTH
+	ld l, a
+	jr nc, .no_carry_hl
+	inc h
+.no_carry_hl
+	ld a, e
+	add TILEMAP_WIDTH - SCREEN_WIDTH
+	ld e, a
+	jr nc, .no_carry_de
+	inc d
+.no_carry_de
+	dec b
+	jr nz, .row
+	xor a ; VRAM0
+	ldh [rVBK], a
+	ret
+
+; -----------------------------------------------------------------------
+; Show the LEVEL page as the menu opens, with the LCD off, and turn it on.
+; BG map 1 gets the same map, for the title band and the frame that page
+; switches keep there (see DebugMenu_NextPage).
+; -----------------------------------------------------------------------
+DebugMenu_ShowFirstPage:
+	ld a, SST_DEBUG_LEVEL_PAGE
+	ld [wSubState], a
+	ld hl, DebugMenuPals
+	ld de, wTempPals1
+	ld b, 8 palettes
+	call CopyHLToDE_Short
+	call ApplyTempPals1ToBGPals
+	ld de, v0BGMap1
+	call DebugMenu_LoadPageMap
+	call DebugMenu_LoadPage
+	call DebugMenu_LoadPagesGfx
+	ld a, HIGH(wVirtualOAM)
+	call hTransferVirtualOAM
+	ld a, LCDC_DEFAULT
+	ldh [rLCDC], a
+	ret
+
+; -----------------------------------------------------------------------
+; Draw page wSubState in BG map 0 (its map, values, OB palettes, sprite
+; tiles) and its sprites in wVirtualOAM, for the caller to transfer. With
+; the LCD on, a V-Blank for each part.
+; -----------------------------------------------------------------------
+DebugMenu_LoadPage:
+	call ClearVirtualOAM
+	call DebugMenu_StartVRAMWrite
+	ld de, v0BGMap0
+	call DebugMenu_LoadPageMap
+	call DebugMenu_EndVRAMWrite
 	ld a, [wSubState]
-	sub SST_DEBUG_MENU_MAIN
+	sub SST_DEBUG_LEVEL_PAGE
+	jumptable
+	dw DebugMenu_DrawAll ; LEVEL: only its values
+	dw DebugMenu_LoadPowerPage
+	dw DebugMenu_LoadTreasurePage
+
+; -----------------------------------------------------------------------
+; Page wSubState's map (the screen's 18 rows, tiles and attributes) to BG
+; map de (v0BGMap0 or v0BGMap1), by GDMA: 2 x 36 blocks of 16 bytes, 32
+; dots each (in either speed), about 2300 dots. The LCD off or in a
+; V-Blank.
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_LoadPageMap:
+	ld a, [wSubState]
+	sub SST_DEBUG_LEVEL_PAGE
+	add a
+	add a ; 4 bytes per page
+	ld c, a
+	ld b, 0
+	ld hl, DebugMenuPageMaps
+	add hl, bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a ; the tilemap
+	push hl
+	ld h, b
+	ld l, c
+	push de
+	ld c, DEBUG_MENU_MAP_SIZE / 16
+	call DebugMenu_GDMA
+	pop de
+	pop hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a ; the attrmap
+	ld a, BANK("VRAM1")
+	ldh [rVBK], a
+	ld c, DEBUG_MENU_MAP_SIZE / 16
+	call DebugMenu_GDMA
+	xor a ; VRAM0
+	ldh [rVBK], a
+	ret
+
+; -----------------------------------------------------------------------
+; Page wSubState's page indicator (its row of DebugMenuPagesGfx) to the
+; indicator's tiles, by GDMA (12 blocks, about 400 dots). The LCD off or
+; in a V-Blank.
+; Clobbers: A, B, C, D, E, H, L
+; -----------------------------------------------------------------------
+DebugMenu_LoadPagesGfx:
+	ld a, [wSubState]
+	sub SST_DEBUG_LEVEL_PAGE
 	ld hl, DebugMenuPagesGfx
 	ld de, DEBUG_MENU_PAGES_TILES tiles
 	jr z, .got_pages_gfx
@@ -713,53 +1001,34 @@ DebugMenu_ShowPage:
 	jr nz, .next_pages_gfx
 .got_pages_gfx
 	ld de, v0Tiles2 tile DEBUG_MENU_PAGES_TILE
-	ld b, DEBUG_MENU_PAGES_TILES tiles
-	call CopyHLToDE
+	ld c, DEBUG_MENU_PAGES_TILES
+;	fallthrough
 
-	call .Load
-	call ApplyTempPals1ToBGPals
-	ld a, HIGH(wVirtualOAM)
-	call hTransferVirtualOAM
-	ld a, LCDC_DEFAULT
-	ldh [rLCDC], a
+; -----------------------------------------------------------------------
+; GDMA c blocks of 16 bytes (1-128) from hl to de, in the current VRAM
+; bank, both 16-byte aligned. The CPU waits until it's done. The LCD off or
+; in a V-Blank.
+; Clobbers: A
+; -----------------------------------------------------------------------
+DebugMenu_GDMA:
+	ld a, h
+	ldh [rVDMA_SRC_HIGH], a
+	ld a, l
+	ldh [rVDMA_SRC_LOW], a
+	ld a, d
+	ldh [rVDMA_DEST_HIGH], a
+	ld a, e
+	ldh [rVDMA_DEST_LOW], a
+	ld a, c
+	dec a
+	ASSERT VDMA_LEN_MODE_GENERAL == 0
+	ldh [rVDMA_LEN], a
 	ret
-
-.Load:
-	ld a, [wSubState]
-	sub SST_DEBUG_MENU_MAIN
-	jumptable
-	dw DebugMenu_LoadMainPage
-	dw DebugMenu_LoadPowerPage
-	dw DebugMenu_LoadTreasurePage
-
-DebugMenu_LoadMainPage:
-	ld hl, DebugMenuTilemap
-	ld de, DebugMenuAttrmap
-	call DebugMenu_LoadMap
-	jp DebugMenu_DrawAll
-
-; Load a page's map (tilemap hl, attrmap de) and the menu's BG palettes
-; into wTempPals1. The LCD must be off.
-DebugMenu_LoadMap:
-	ld bc, v0BGMap0
-	push de
-	call Decompress
-	pop hl
-	ld a, BANK("VRAM1")
-	ldh [rVBK], a
-	ld bc, v1BGMap0
-	call Decompress
-	xor a ; VRAM0
-	ldh [rVBK], a
-	ld hl, DebugMenuPals
-	ld de, wTempPals1
-	ld b, 8 palettes
-	jp CopyHLToDE_Short
 
 ; -----------------------------------------------------------------------
 ; Wait for the start of the next V-Blank with interrupts off, to write
-; VRAM with the LCD on; the caller turns interrupts back on (ei) when done.
-; Returns right away (interrupts off too) if the LCD is off.
+; VRAM with the LCD on; DebugMenu_EndVRAMWrite when done (in the same
+; V-Blank). Returns right away (interrupts off too) if the LCD is off.
 ; Clobbers: A
 ; -----------------------------------------------------------------------
 DebugMenu_StartVRAMWrite:
@@ -775,6 +1044,33 @@ DebugMenu_StartVRAMWrite:
 	ldh a, [rLY]
 	cp LY_VBLANK
 	jr c, .wait_vblank
+.in_vblank ; (for the tests)
+	ret
+
+; -----------------------------------------------------------------------
+; The end of a write that DebugMenu_StartVRAMWrite started: interrupts
+; back on, and with the LCD on, the sound's update for the frame it took
+; (the main loop's HandleSound), so that the music keeps its tempo
+; through writes that take several frames.
+; Preserves all registers.
+; -----------------------------------------------------------------------
+DebugMenu_EndVRAMWrite:
+	ei
+	push af
+	ldh a, [rLCDC]
+	bit B_LCDC_ENABLE, a
+	jr z, .done
+	push bc
+	push de
+	push hl
+	ld a, BANK(DebugMenu_EndVRAMWrite)
+	ldh [hCallFuncBank], a
+	hcall HandleSound
+	pop hl
+	pop de
+	pop bc
+.done
+	pop af
 	ret
 
 ; ◀ and ▶, in the font's style (glyph in colour 0 on colour 3), like its ▼
@@ -797,15 +1093,32 @@ DebugMenuArrowTiles:
 	dw `30033333
 	dw `30333333
 
-DebugMenuTilemap: INCBIN "data/bgmaps/debug_menu.tilemap.rle"
-DebugMenuAttrmap: INCBIN "data/bgmaps/debug_menu.attrmap.rle"
+; The pages' maps, the screen's 18 rows of the 32x32 maps that
+; tools/debug_menu_bgmap.py writes, uncompressed and 16-byte aligned for
+; GDMA (DebugMenu_LoadPageMap)
+DEF DEBUG_MENU_MAP_SIZE EQU SCREEN_HEIGHT * TILEMAP_WIDTH
+	ALIGN 4
+DebugLevelTilemap:    INCBIN "data/bgmaps/debug_level.tilemap", 0, DEBUG_MENU_MAP_SIZE
+DebugLevelAttrmap:    INCBIN "data/bgmaps/debug_level.attrmap", 0, DEBUG_MENU_MAP_SIZE
+DebugPowerTilemap:    INCBIN "data/bgmaps/debug_power.tilemap", 0, DEBUG_MENU_MAP_SIZE
+DebugPowerAttrmap:    INCBIN "data/bgmaps/debug_power.attrmap", 0, DEBUG_MENU_MAP_SIZE
+DebugTreasureTilemap: INCBIN "data/bgmaps/debug_treasure.tilemap", 0, DEBUG_MENU_MAP_SIZE
+DebugTreasureAttrmap: INCBIN "data/bgmaps/debug_treasure.attrmap", 0, DEBUG_MENU_MAP_SIZE
 
 ; The page indicator, one row of DEBUG_MENU_PAGES_TILES tiles per page
 ; (tools/debug_menu_bgmap.py draws it): the page's name in colour 0 (the
-; title's yellow), the others in colour 1 (dim), on colour 3
+; title's yellow), the others in colour 1 (dim), on colour 3. Aligned like
+; the maps, which are a multiple of 16 bytes.
 DebugMenuPagesGfx: INCBIN "gfx/debug_menu_pages.2bpp"
 .end
 	ASSERT DebugMenuPagesGfx.end - DebugMenuPagesGfx == 3 * DEBUG_MENU_PAGES_TILES tiles
+	ASSERT DEBUG_MENU_MAP_SIZE % 16 == 0
+
+; each page's map, in page order
+DebugMenuPageMaps:
+	dw DebugLevelTilemap, DebugLevelAttrmap
+	dw DebugPowerTilemap, DebugPowerAttrmap
+	dw DebugTreasureTilemap, DebugTreasureAttrmap
 
 ; The font draws its glyphs in colour 0 on colour 3: the text palettes are a
 ; text colour on the colour of what's behind it.
@@ -861,6 +1174,11 @@ DebugMenuPals:
 InitDebugMenu:
 	ldh a, [rLCDC]
 	ld [wDebugMenuLevelLCDC], a
+	; page switches move the window (DebugMenu_NextPage)
+	ldh a, [rWY]
+	ld [wDebugMenuLevelWY], a
+	ldh a, [rWX]
+	ld [wDebugMenuLevelWX], a
 	call DisableLCD
 	call SaveBackupVRAM
 
@@ -870,7 +1188,7 @@ InitDebugMenu:
 	ld a, [wAnimatedTilesGfx]
 	ld [wTempAnimatedTilesGroup], a
 
-	; Each page's selection, kept while the menu is open: MAIN's cursor on
+	; Each page's selection, kept while the menu is open: LEVEL's cursor on
 	; FORM, POWER's on the current power-up level, TREASURE's on this
 	; level's grey treasure
 	xor a
@@ -895,32 +1213,31 @@ InitDebugMenu:
 	ld a, DEBUG_TREASURE_OBJ_TILE
 	ld [wDebugTreasureObjTile], a
 
-	; Determine starting form index from current wTransformation
+	; FORM starts on Wario's form: the first entry with his transformation,
+	; hidden or not (NONE if none has it). Not ROLL: SELECT stops a roll
+	; instead of opening the menu (UpdateLevel).
 	ld a, [wTransformation]
-	ld b, a                ; B = current transformation byte
-	xor a
-	ld [wDebugMenuFormIdx], a  ; default: NONE (idx 0)
+	ld b, a
 	ld hl, DebugFormTable
-	ld c, NUM_DEBUG_FORMS
-.find_form:
-	ld a, [hli]            ; load transform byte from table entry [0]
+	ld c, 0
+.find_form
+	ld a, [hl]
 	cp b
-	jr z, .form_found
-	; skip remaining 5 bytes of this entry (5-char name)
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	dec c
-	jr nz, .find_form
-	jr .form_init_done
-.form_found:
-	; index = NUM_DEBUG_FORMS - C
-	ld a, NUM_DEBUG_FORMS
-	sub c
+	jr z, .got_form
+	ld a, l
+	add DEBUG_FORM_ENTRY_SIZE
+	ld l, a
+	jr nc, .no_carry
+	inc h
+.no_carry
+	inc c
+	ld a, c
+	cp NUM_DEBUG_FORMS
+	jr c, .find_form
+	ld c, DEBUG_FORM_NONE
+.got_form
+	ld a, c
 	ld [wDebugMenuFormIdx], a
-.form_init_done:
 
 	call DebugMenu_LoadTiles
 	call VBlank_PauseMenu
@@ -930,25 +1247,24 @@ InitDebugMenu:
 	ld [wSCY], a
 	ld [wSCX], a
 
-	; MAIN, and the LCD on
-	ld a, SST_DEBUG_MENU_MAIN
-	call DebugMenu_ShowPage
+	; LEVEL, and the LCD on
+	call DebugMenu_ShowFirstPage
 
 	; the pause menu's music (DebugMenu_Exit gives the level's back)
 	play_music MUSIC_PAUSE_MENU
 	ret
 
 ; -----------------------------------------------------------------------
-; SST_DEBUG_MENU_MAIN: MAIN's input
+; SST_DEBUG_LEVEL_PAGE: LEVEL's input
 ; -----------------------------------------------------------------------
-UpdateDebugMenu:
+UpdateDebugLevelPage:
 	ld a, [wJoypadPressed]
 	ld b, a                ; save joypad
 
-	; B or SELECT: exit; START: the next page
-	and PAD_B | PAD_SELECT
+	; B or START: exit; SELECT: the next page
+	and PAD_B | PAD_START
 	jp nz, DebugMenu_Exit
-	bit B_PAD_START, b
+	bit B_PAD_SELECT, b
 	jp nz, DebugMenu_NextPage
 
 	; Check for any actionable input
@@ -990,13 +1306,8 @@ UpdateDebugMenu:
 	ld a, [wDebugMenuCursor]
 	cp DEBUG_MENU_FORM
 	jr nz, .not_right
-	ld a, [wDebugMenuFormIdx]
-	inc a
-	cp NUM_DEBUG_FORMS
-	jr c, .form_fwd_ok
-	xor a
-.form_fwd_ok:
-	ld [wDebugMenuFormIdx], a
+	ld b, 1
+	call DebugMenu_StepForm
 	call DebugMenu_ApplyForm
 	ld c, 1
 .not_right:
@@ -1009,15 +1320,8 @@ UpdateDebugMenu:
 	ld a, [wDebugMenuCursor]
 	cp DEBUG_MENU_FORM
 	jr nz, .not_left
-	ld a, [wDebugMenuFormIdx]
-	and a
-	jr z, .form_bwd_wrap
-	dec a
-	jr .form_bwd_ok
-.form_bwd_wrap:
-	ld a, NUM_DEBUG_FORMS - 1
-.form_bwd_ok:
-	ld [wDebugMenuFormIdx], a
+	ld b, -1
+	call DebugMenu_StepForm
 	call DebugMenu_ApplyForm
 	ld c, 1
 	jr .check_redraw
@@ -1055,13 +1359,7 @@ UpdateDebugMenu:
 
 	; Redraw during V-Blank (LCD stays on, no flash), half the rows in each
 	; of two V-Blanks
-	call DebugMenu_StartVRAMWrite
-	call DebugMenu_DrawItems1
-	ei
-	call DebugMenu_StartVRAMWrite
-	call DebugMenu_DrawItems2
-	ei
-	ret
+	jp DebugMenu_DrawAll
 
 ; Load the graphics of the owls and barrels spawned in rooms without them
 ; (wDebugMenuGfxPending), with the LCD off and after VRAM is restored.
@@ -1132,6 +1430,10 @@ DebugMenu_Exit:
 	call ApplyTempPals1ToBGPals
 	call ApplyTempPals2ToOBPals
 	call UpdateLevelMusic
+	ld a, [wDebugMenuLevelWY]
+	ldh [rWY], a
+	ld a, [wDebugMenuLevelWX]
+	ldh [rWX], a
 	ld a, [wDebugMenuLevelLCDC]
 	ldh [rLCDC], a
 
