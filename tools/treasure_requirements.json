@@ -399,10 +399,17 @@
   "DAY_OR_NIGHT_SPELL": {
    "level": "N2",
    "needs": {
-    "SUPER_JUMP_SLAM_OVERALLS_T": "heuristic (power-up map flash + lowest chest)"
+    "LEAD_OVERALLS_T": {
+     "by": "verified in game by Taro",
+     "note": "The red frog-like enemy blocks the way to the blue key and chest; a ground pound makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
+    }
    },
-   "status": "uncertain",
+   "status": "guide",
    "sources": [
+    {
+     "by": "verified in game by Taro",
+     "says": "needs the ground pound (Lead Overalls): it makes the red enemy jump so Wario can get past it"
+    },
     {
      "by": "Guía Nintendo: N2 The Peaceful Village",
      "url": "https://www.guiasnintendo.com/3_GB_GameBoy/waland3/waland3_sp/n2.html",
@@ -425,10 +432,19 @@
     {
      "by": "heuristic (power-up map flash + lowest chest)",
      "says": "the Super Jump Slam Overalls flash the village when the grey and red chests are taken and the Goblet can be taken at night, so the chest they open would be the blue one"
+    },
+    {
+     "by": "J. J. W. Mezun: N2 The Peaceful Village (Day) map",
+     "url": "https://www.warioland3.com",
+     "says": "map of the level with the blue key and chest in the underground pipes"
     }
    ],
-   "note": "No guide names a requirement. The Super Mario Wiki gives the Super Jump Slam Overalls flash to the Goblet (its daytime entrance); if that's the whole story, nothing is left for this chest and it can be taken as soon as the village opens (videos of it are at night). The heuristic says the Super Jump Slam Overalls. Not checked in an emulator.",
-   "check": "Right after the Axe, at night and by day: can Wario get the blue key and chest? If not, try again after the Flute, and after the Super Jump Slam Overalls."
+   "note": "Verified in the game by Taro: the ground pound (Lead Overalls) is needed to make the red enemy jump and get past it. The heuristic (Super Jump Slam Overalls) was wrong here: the village isn't flashed by the Lead Overalls.",
+   "check": "Right after the Axe, at night and by day: can Wario get the blue key and chest? If not, try again after the Flute, and after the Super Jump Slam Overalls.",
+   "verified": {
+    "by": "verified in game by Taro",
+    "note": "The red frog-like enemy blocks the way to the blue key and chest; a ground pound makes it jump so Wario can pass (Taro, in the game; J. J. W. Mezun's N2 map at warioland3.com shows the route)."
+   }
   },
   "CRAYON_BLUE_T": {
    "level": "N3",
